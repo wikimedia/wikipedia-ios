@@ -43,14 +43,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVB-pz-I3S" userLabel="Format Text Style Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="28" y="0.0" width="30" height="44"/>
+                                                                    <rect key="frame" x="30.666666666666664" y="0.0" width="30" height="44"/>
                                                                     <state key="normal" image="text-formatting-style"/>
                                                                     <connections>
                                                                         <action selector="formatTextStyle:" destination="iN0-l3-epB" eventType="touchUpInside" id="1Zw-wT-rnd"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxZ-pF-FjT" userLabel="Separator View">
-                                                                    <rect key="frame" x="58.666666666666671" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="64" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-Wy-agF">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -69,25 +69,21 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" tag="9" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-By-Bqb" userLabel="Citation Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="62.666666666666671" y="0.0" width="14" height="44"/>
+                                                                    <rect key="frame" x="70.666666666666671" y="0.0" width="14" height="44"/>
                                                                     <state key="normal" image="text-formatting-add-citation"/>
                                                                     <connections>
                                                                         <action selector="toggleCitation:" destination="iN0-l3-epB" eventType="touchUpInside" id="RWg-r0-cOq"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usu-sH-MMC" userLabel="Link Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="77.666666666666671" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="88.333333333333329" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-link"/>
                                                                     <connections>
                                                                         <action selector="toggleLink:" destination="iN0-l3-epB" eventType="touchUpInside" id="sdE-HW-jkI"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0O-Fb-X42" userLabel="Add Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="96.333333333333329" y="0.0" width="18" height="44"/>
-                                                                    <state key="normal" image="text-formatting-add"/>
-                                                                </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YgV-15-pdj" userLabel="Separator View">
-                                                                    <rect key="frame" x="115.33333333333334" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="110" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eV-lo-H48">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -106,7 +102,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL" userLabel="Unordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="119" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="116.33333333333334" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-unordered-list"/>
                                                                     <connections>
                                                                         <action selector="toggleUnorderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="vwl-ZD-BZN"/>
@@ -143,14 +139,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRI-FL-20t" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="19.666666666666657" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="27.666666666666657" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-increase-indent"/>
                                                                     <connections>
                                                                         <action selector="increaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="chF-z3-SBA"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WtX-zz-09w" userLabel="Separator View">
-                                                                    <rect key="frame" x="39.333333333333343" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="55" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D7Q-C7-3b0">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -169,80 +165,31 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcH-OJ-MDT" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="43.666666666666657" y="0.0" width="19" height="44"/>
+                                                                    <rect key="frame" x="67.666666666666686" y="0.0" width="19" height="44"/>
                                                                     <state key="normal" image="directionUp"/>
                                                                     <connections>
                                                                         <action selector="moveCursorUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="SvW-C1-J2E"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2W-3b-3SP" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="64.333333333333314" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="96" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="directionDown"/>
                                                                     <connections>
                                                                         <action selector="moveCursorDown:" destination="iN0-l3-epB" eventType="touchUpInside" id="i1T-s3-dx4"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3W-Xz-reX" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="84" y="0.0" width="12" height="44"/>
+                                                                    <rect key="frame" x="123.66666666666669" y="0.0" width="12" height="44"/>
                                                                     <state key="normal" image="directionLeft"/>
                                                                     <connections>
                                                                         <action selector="moveCursorLeft:" destination="iN0-l3-epB" eventType="touchUpInside" id="8ZI-Dx-nTQ"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSf-Yo-A6r" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="97.666666666666686" y="0.0" width="11" height="44"/>
+                                                                    <rect key="frame" x="145" y="0.0" width="11" height="44"/>
                                                                     <state key="normal" image="directionRight"/>
                                                                     <connections>
                                                                         <action selector="moveCursorRight:" destination="iN0-l3-epB" eventType="touchUpInside" id="cxG-ce-e4c"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3j-O5-HIZ" userLabel="Separator View">
-                                                                    <rect key="frame" x="110.33333333333331" y="0.0" width="3" height="44"/>
-                                                                    <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pmA-uF-QYP">
-                                                                            <rect key="frame" x="1" y="10" width="1" height="24"/>
-                                                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="1" id="lZI-LQ-Lx8"/>
-                                                                            </constraints>
-                                                                        </view>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="pmA-uF-QYP" firstAttribute="centerY" secondItem="E3j-O5-HIZ" secondAttribute="centerY" id="QUp-eb-UuC"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="pmA-uF-QYP" secondAttribute="bottom" constant="10" id="TPy-HF-hf0"/>
-                                                                        <constraint firstAttribute="width" constant="3" id="TTg-Sd-dkW"/>
-                                                                        <constraint firstItem="pmA-uF-QYP" firstAttribute="top" secondItem="E3j-O5-HIZ" secondAttribute="top" constant="10" id="geM-xT-Ixk"/>
-                                                                        <constraint firstItem="pmA-uF-QYP" firstAttribute="centerX" secondItem="E3j-O5-HIZ" secondAttribute="centerX" id="nlP-8G-6oz"/>
-                                                                    </constraints>
-                                                                </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shm-Nc-NEF" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="114.66666666666669" y="0.0" width="16" height="44"/>
-                                                                    <state key="normal" image="text-formatting-find-in-page"/>
-                                                                </button>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AT0-4z-mXe" userLabel="Separator View">
-                                                                    <rect key="frame" x="132.33333333333331" y="0.0" width="3" height="44"/>
-                                                                    <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OD4-kS-im6">
-                                                                            <rect key="frame" x="1" y="10" width="1" height="24"/>
-                                                                            <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="1" id="Xeq-Ch-fFY"/>
-                                                                            </constraints>
-                                                                        </view>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="OD4-kS-im6" firstAttribute="top" secondItem="AT0-4z-mXe" secondAttribute="top" constant="10" id="4Rr-Ig-7Iv"/>
-                                                                        <constraint firstItem="OD4-kS-im6" firstAttribute="centerX" secondItem="AT0-4z-mXe" secondAttribute="centerX" id="GUy-Ng-nVB"/>
-                                                                        <constraint firstAttribute="width" constant="3" id="ewF-9H-QiC"/>
-                                                                        <constraint firstItem="OD4-kS-im6" firstAttribute="centerY" secondItem="AT0-4z-mXe" secondAttribute="centerY" id="seT-Ra-DHk"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="OD4-kS-im6" secondAttribute="bottom" constant="10" id="vhG-TA-dpC"/>
-                                                                    </constraints>
-                                                                </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEe-Fs-JAq" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="137" y="0.0" width="19" height="44"/>
-                                                                    <state key="normal" image="dots"/>
-                                                                    <connections>
-                                                                        <action selector="showMore:" destination="iN0-l3-epB" eventType="touchUpInside" id="1aE-ci-HUe"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -378,13 +325,10 @@
                 <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="KqU-4Y-QrM"/>
                 <outletCollection property="separatorViews" destination="0eV-lo-H48" collectionClass="NSMutableArray" id="pjh-oX-xHF"/>
                 <outletCollection property="separatorViews" destination="D7Q-C7-3b0" collectionClass="NSMutableArray" id="xNa-i4-6EH"/>
-                <outletCollection property="separatorViews" destination="pmA-uF-QYP" collectionClass="NSMutableArray" id="PmA-qH-9Pr"/>
-                <outletCollection property="separatorViews" destination="OD4-kS-im6" collectionClass="NSMutableArray" id="GYM-P5-wBH"/>
                 <outletCollection property="buttons" destination="t52-tF-NuA" collectionClass="NSMutableArray" id="i2H-5h-olZ"/>
                 <outletCollection property="buttons" destination="yVB-pz-I3S" collectionClass="NSMutableArray" id="DpK-Sr-Z7h"/>
                 <outletCollection property="buttons" destination="Do1-By-Bqb" collectionClass="NSMutableArray" id="rek-As-gmW"/>
                 <outletCollection property="buttons" destination="usu-sH-MMC" collectionClass="NSMutableArray" id="Kab-0M-G1b"/>
-                <outletCollection property="buttons" destination="k0O-Fb-X42" collectionClass="NSMutableArray" id="Mqp-cy-O3K"/>
                 <outletCollection property="buttons" destination="EPD-zD-NLL" collectionClass="NSMutableArray" id="OHe-tI-UGD"/>
                 <outletCollection property="buttons" destination="pAl-6N-MGN" collectionClass="NSMutableArray" id="SSu-XL-hfo"/>
                 <outletCollection property="buttons" destination="M2s-Up-JEt" collectionClass="NSMutableArray" id="Zaw-eo-fUe"/>
@@ -393,8 +337,6 @@
                 <outletCollection property="buttons" destination="r2W-3b-3SP" collectionClass="NSMutableArray" id="WRY-KI-7ef"/>
                 <outletCollection property="buttons" destination="G3W-Xz-reX" collectionClass="NSMutableArray" id="14d-5p-EGS"/>
                 <outletCollection property="buttons" destination="nSf-Yo-A6r" collectionClass="NSMutableArray" id="9q3-3f-E1a"/>
-                <outletCollection property="buttons" destination="Shm-Nc-NEF" collectionClass="NSMutableArray" id="VJQ-Lx-ih9"/>
-                <outletCollection property="buttons" destination="GEe-Fs-JAq" collectionClass="NSMutableArray" id="DYd-Vg-Ugo"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>
@@ -405,12 +347,9 @@
         <image name="directionLeft" width="12" height="18"/>
         <image name="directionRight" width="11" height="18"/>
         <image name="directionUp" width="19" height="12"/>
-        <image name="dots" width="19" height="4"/>
         <image name="text-formatting" width="27" height="18"/>
-        <image name="text-formatting-add" width="18" height="18"/>
         <image name="text-formatting-add-citation" width="14" height="18"/>
         <image name="text-formatting-decrease-indent" width="18" height="16"/>
-        <image name="text-formatting-find-in-page" width="16" height="20"/>
         <image name="text-formatting-increase-indent" width="18" height="17"/>
         <image name="text-formatting-link" width="18" height="9"/>
         <image name="text-formatting-ordered-list" width="18" height="18"/>
