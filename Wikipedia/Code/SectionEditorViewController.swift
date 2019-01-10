@@ -85,6 +85,7 @@ class SectionEditorViewController: UIViewController {
 
         webView.navigationDelegate = self
         webView.isHidden = true // hidden until wikitext is set
+        webView.scrollView.keyboardDismissMode = .interactive
 
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
         webView.inputViewsSource = inputViewsController
