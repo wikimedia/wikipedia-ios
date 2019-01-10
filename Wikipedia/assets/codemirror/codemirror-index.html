@@ -584,12 +584,12 @@
       const selectionRange = getSelectionRange(editor)
       if (selectionRange.isSingleLine) {
         editor.replaceRange(`${char} `, {line: selectionRange.line, ch: 0})
-      } else {
-        // Ensure start of selection range is at beginning of line.
-        expandSelectionToEntireLines()
-        // Now can add characters - the 'around' option preserves selection.
-        editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
+        return
       }
+      // Ensure start of selection range is at beginning of line.
+      expandSelectionToEntireLines()
+      // Now can add characters - the 'around' option preserves selection.
+      editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
     }
 
     wmf.commands = {
