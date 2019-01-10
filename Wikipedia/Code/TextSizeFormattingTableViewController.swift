@@ -39,11 +39,6 @@ class TextSizeFormattingTableViewController: TextFontFormattingTableViewControll
 
         return cell
     }
-
-    // TODO
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return indexPath
-    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sizes.count

@@ -665,35 +665,41 @@
         console.log('decreaseIndentDepth')
       },
       textSize: (newSize) => {
-        if (newSize === 'small') {
-          if (selectionPayloadForButton('bigTextSize')) {
-            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
-          }
-          if (selectionPayloadForButton('smallTextSize')) {
-            // If after toggle above the selection is still inside a 'small' (ie 'big' was nested in small before it was toggled off) expand the selection to encompass the small
-            expandTagSelection('smallTextSize')
-          }
-          expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
-          return
-        }
-        if (newSize === 'big') {
-          if (selectionPayloadForButton('smallTextSize')) {
-            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')  
-          }
-          if (selectionPayloadForButton('bigTextSize')) {
-            // If after toggle above the selection is still inside a 'big' (ie 'small' was nested in big before it was toggled off) expand the selection to encompass the big
-            expandTagSelection('bigTextSize')
-          }
-          expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
-          return
-        }
-        if (newSize === 'normal') {
-          if (selectionPayloadForButton('smallTextSize')) {
-            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')  
-          }
-          if (selectionPayloadForButton('bigTextSize')) {
-            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
-          }
+        switch (newSize) {
+          case 'small': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'big') {
+                expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+              } else if (selectedButton.info.size === 'small') {
+                // If after toggle above the selection is still inside a 'small' (ie 'big' was nested in small before it was toggled off) expand the selection to encompass the small
+                expandTagSelection('smallTextSize')
+              }
+            }
+            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+          } break
+          case 'big': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'small') {
+                expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+              } else if (selectedButton.info.size === 'big') {
+                // If after toggle above the selection is still inside a 'big' (ie 'small' was nested in big before it was toggled off) expand the selection to encompass the big
+                expandTagSelection('bigTextSize')
+              }
+            }
+            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+          } break
+          case 'normal': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'small') {
+                expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+              } else if (selectedButton.info.size === 'big') {
+                expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+              }
+            }
+          } break
         }
       },
       selectAll: () => editor.execCommand('selectAll'),
