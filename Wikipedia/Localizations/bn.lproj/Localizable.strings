@@ -11,6 +11,7 @@
 // Author: Nemo bis
 // Author: Rasal Lia
 // Author: Sayma Jahan
+// Author: Tahmid02016
 // Author: Tauhid16
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
@@ -88,6 +89,7 @@
 "article-share" = "শেয়ার করুন";
 "article-unable-to-load-section" = "এই অনুচ্ছেদ পূরণ করতে অসমর্থ। যদি এই সমস্যা সমাধান হয়ে থাকে তাহলে নিবন্ধটি দেখার জন্য পুনরায় সতেজ করুন।";
 "back-button-accessibility-label" = "পিছনে";
+"back-button-popover-title" = "পেছনে যেতে আলতো চাপুন";
 "button-done" = "সম্পন্ন";
 "button-next" = "পরবর্তী";
 "button-ok" = "ঠিক আছে";
@@ -100,10 +102,20 @@
 "button-skip" = "এড়ান";
 "cancel" = "বাতিল";
 "cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
+"cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
 "continue-reading-empty-title" = "সম্প্রতি পড়া কোনও নিবন্ধ নেই";
+"description-add-title" = "বিবরণ যোগ করুন";
+"description-edit-learn-more" = "আরও জানুন";
+"description-edit-length-warning" = "$1/$2";
+"description-edit-title" = "বিবরণ সম্পাদনা করুন";
+"description-help-about-wikidata" = "উইকিউপাত্ত সম্পর্কে";
+"description-help-more-info-title" = "আরও তথ্য";
+"description-help-tips-for-example" = "উদাহরণস্বরূপ:";
+"description-published-button-title" = "সম্পন্ন";
+"description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
 "dim-images" = "অনুজ্জ্বল ছবি";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";

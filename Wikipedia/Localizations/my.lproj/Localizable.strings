@@ -119,6 +119,8 @@
 "description-help-tips-example-description-two" = "ဧဝရတ်တောင်ဆောင်းပါး ခေါင်းစဉ်ဖော်ပြချက်";
 "description-help-tips-example-title-two" = "ကမ္ဘာ့အမြင့်ဆုံးတောင်";
 "description-help-tips-for-example" = "နမူနာအားဖြင့်";
+"description-help-title" = "ခေါင်းစဉ်ဖော်ပြချက် အကူအညီ";
+"description-help-wikidata-guide" = "ခေါင်းစဉ်ဖော်ပြချက်ရေးသားခြင်းအတွက် ဝီကီဒေတာအကူအညီ";
 "description-published-button-title" = "ပြီးပါပြီ";
 "description-published-title" = "ဖော်ပြချက် လွှင့်တင်ပြီး!";
 "description-welcome-concise-sub-title" = "စာလုံးရေ နှစ်လုံးမှတစ်ဆယ့်နှစ်လုံးကြား တစ်ကြောင်းတည်းရေးနိုင်လျှင် အကောင်းဆုံးဖြစ်သည်။";
@@ -143,6 +145,7 @@
 "empty-no-saved-pages-message" = "အင်တာနက်မရှိလျင်တောင်မှ နောက်ပိုင်းကြည့်ရှုရန် စာမျက်နှာများကို သိမ်းဆည်းပါ";
 "empty-no-saved-pages-title" = "စာမျက်နှာများကို မသိမ်းရသေးပါ";
 "empty-no-search-results-message" = "မည်သည့်ရလဒ်မျှ မရပါ";
+"error-generic-description" = "မမျော်လင့်သော အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါသည်";
 "error-generic-recovery-suggestion" = "နောက်တခါ ထပ်မံကြိုးစားကြည့်ပါ";
 "error-unknown" = "အကြောင်းရင်းမသိရှိရသော အမှားတစ်ခု ဖြစ်ပေါ်ခဲ့သည်။";
 "explore-another-random" = "အခြားသော ကျပန်းဆောင်းပါး";
@@ -265,6 +268,7 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "အကြောင်းအရာများကို အခြားမှတ်ချက်မရှိပါက $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
 "logged-out-continue-without-logging-in-button-title" = "လော့ဂ်အင်မဝင်ဘဲ ဆက်သုံးမည်";
+"logged-out-title" = "သင် အကောင့်မှ ထွက်သွားပြီးဖြစ်သည်";
 "login-forgot-password" = "စကားဝှက် မေ့နေသလား။";
 "login-join-wikipedia" = "ဝီကီပီဒီးယားသို့ ပူးပေါင်းပါ";
 "login-no-account" = "အကောင့်မရှိဘဲ ဖြစ်နေပါသလား။ $1။";
@@ -406,6 +410,8 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|ယခင်နှစ်|$1 နှစ်အကြာက}}";
 "reverted-edit-back-to-article-button-title" = "ဆောင်းပါးသို့ ပြန်သွားရန်";
 "reverted-edit-notification-read-more-action-title" = "ပိုမို ဖတ်ရန်";
+"reverted-edit-thanks-for-editing-title" = "ဝီကီပီဒီးယား တည်းဖြတ်မှုအတွက် ကျေးဇူးတင်ပါသည်";
+"reverted-edit-view-guidelines-text" = "လမ်းညွန်များကို ကြည့်ရန်";
 "saved-all-articles-title" = "ဆောင်းပါးများ အားလုံး";
 "saved-default-reading-list-tag" = "ဤစာရင်းကို မဖျက်ပစ်နိုင်ပါ";
 "saved-pages-image-download-error" = "ဤသိမ်းထားသောစာမျက်နှာအတွက် ရုပ်ပုံများ ဒေါင်းလုတ်ဆွဲရာတွင် မအောင်မြင်ပါ။";
