@@ -236,11 +236,6 @@
       return tagRanges.filter(isTagRangeComplete)
     }
 
-    const countOcurrences = (str, value) => {
-      const regExp = new RegExp(value, 'gi')
-      return str.match(regExp) ? str.match(regExp).length : 0
-    }
-
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
@@ -544,9 +539,14 @@
        convertSelectedLinesToList(char)
     }
 
-    const leadingListItemCharactersAndWhitespace = (line, char) => {
+    const leadingListItemRepeatingCharactersAndWhitespace = (line, char) => {
       const leadingCharAndWhitespace = line.match(new RegExp(`^\\${char}+\\s*`))
       return leadingCharAndWhitespace ? leadingCharAndWhitespace[0] : ''
+    } 
+
+    const leadingListItemRepeatingCharactersCount = (line, char) => {
+      const chars = line.match(new RegExp(`^\\${char}+`))
+      return chars ? chars[0].length : 0
     } 
 
     const delistifySelectedLines = (char) => {
@@ -562,9 +562,9 @@
       let fromLine = doc.getCursor('from').line
       for (let line = toLine; line >= fromLine; line--) {
         const thisLineText = doc.getLine(line)
-        const leadingCharsWithWhitespace = leadingListItemCharactersAndWhitespace(thisLineText, char)
+        const leadingCharsWithWhitespace = leadingListItemRepeatingCharactersAndWhitespace(thisLineText, char)
         if (leadingCharsWithWhitespace.length > 0) {
-          const depth = countOcurrences(leadingCharsWithWhitespace, `\\${char}`)
+          const depth = leadingListItemRepeatingCharactersCount(leadingCharsWithWhitespace, char)
           const shouldContinue = callback(char, depth, line, leadingCharsWithWhitespace.length)
           if (!shouldContinue) {
             return
