@@ -665,9 +665,9 @@
         console.log('decreaseIndentDepth')
       },
       textSize: (newSize) => {
-        const selectedButton = selectionPayloadForButton('textSize')
         switch (newSize) {
           case 'small':
+          const selectedButton = selectionPayloadForButton('textSize')
             if (selectedButton) {
               if (selectedButton.info.size === 'big') {
                 expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
@@ -679,6 +679,7 @@
             expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
             break
           case 'big':
+          const selectedButton = selectionPayloadForButton('textSize')
             if (selectedButton) {
               if (selectedButton.info.size === 'small') {
                 expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
@@ -690,6 +691,7 @@
             expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
             break
           case 'normal':
+          const selectedButton = selectionPayloadForButton('textSize')
             if (selectedButton) {
               if (selectedButton.info.size === 'small') {
                 expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
