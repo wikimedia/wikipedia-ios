@@ -575,24 +575,8 @@
 
     const convertSelectedLinesToList = (char) => {      
       const selectionRange = getSelectionRange(editor)
-      
       if (selectionRange.isSingleLine) {
-        
-        const leadingBreak = selectionRange.start === 0 ? '' : '\n'
-        
-        if (selectionRange.isSelectionMoreThanOneChar) {
-          editor.replaceSelection(`${leadingBreak}${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}\n`)
-        } else {
-          editor.replaceSelection(`${leadingBreak}${char} \n`)
-        }        
-
-        // Move cursor up as needed
-        let newLineIndexForCursor = selectionRange.line 
-        if (selectionRange.start > 0) {
-          newLineIndexForCursor = newLineIndexForCursor + 1  
-        }
-        editor.setCursor({line: newLineIndexForCursor, char: editor.getLine(newLineIndexForCursor).length})
-        
+        editor.replaceRange(`${char} `, {line: selectionRange.line, ch: 0})
       } else {
         editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`)
       }
