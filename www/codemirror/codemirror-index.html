@@ -329,6 +329,10 @@
      
       const listItemLineCallback = (char, depth, line) => {
         result.push(buttonPayload('li', {depth: depth, ordered: (char === '#')}))
+        if (depth > 1) {
+          result.push(buttonPayload('decreaseIndentDepth'))
+        }        
+        result.push(buttonPayload('increaseIndentDepth'))
         return false // No need to continue (only need to send one 'li' message)
       }
       performCallBackForSelectedListItemLines(doc, '#', listItemLineCallback)
