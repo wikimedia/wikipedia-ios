@@ -22,14 +22,14 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ooB-ON-AdU" userLabel="List Stack View">
                             <rect key="frame" x="0.0" y="0.0" width="41" height="45"/>
                             <subviews>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-cE-h7g" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-cE-h7g" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="11.5" width="18" height="22"/>
                                     <state key="normal" image="text-formatting-unordered-list"/>
                                     <connections>
                                         <action selector="toggleUnorderedListWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="PuW-fz-1zC"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-EO-B4B" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-EO-B4B" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="23" y="11.5" width="18" height="22"/>
                                     <state key="normal" image="text-formatting-ordered-list"/>
                                     <connections>
@@ -48,14 +48,14 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YBs-xI-rce" userLabel="Indentation Stack View">
                             <rect key="frame" x="100.5" y="0.0" width="41" height="45"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDr-K9-rDm" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDr-K9-rDm" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="11.5" width="18" height="22"/>
                                     <state key="normal" image="text-formatting-decrease-indent"/>
                                     <connections>
                                         <action selector="decreaseIndentWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="7KN-b7-8Er"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-nC-Jor" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-nC-Jor" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="23" y="11.5" width="18" height="22"/>
                                     <state key="normal" image="text-formatting-increase-indent"/>
                                     <connections>
