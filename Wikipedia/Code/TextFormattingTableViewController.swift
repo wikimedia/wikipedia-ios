@@ -43,24 +43,25 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     // MARK: - Items
     // Some are lazy, some need to be updated so they can't all be in a lazy array
 
+    let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+    let textSizeFormattingTableViewController = TextSizeFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+
     private var textStyle: Item {
         let showTextStyleFormattingTableViewController = {
-            let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-            textStyleFormattingTableViewController.delegate = self.delegate
-            textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
-            textStyleFormattingTableViewController.apply(theme: self.theme)
-            self.navigationController?.pushViewController(textStyleFormattingTableViewController, animated: true)
+            self.textStyleFormattingTableViewController.delegate = self.delegate
+            self.textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
+            self.textStyleFormattingTableViewController.apply(theme: self.theme)
+            self.navigationController?.pushViewController(self.textStyleFormattingTableViewController, animated: true)
         }
         return Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
     }
 
     private var textSize: Item {
         let showTextSizeFormattingTableViewController = {
-            let textSizeFormattingTableViewController = TextSizeFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-            textSizeFormattingTableViewController.delegate = self.delegate
-            textSizeFormattingTableViewController.selectedTextSizeType = self.selectedTextSizeType
-            textSizeFormattingTableViewController.apply(theme: self.theme)
-            self.navigationController?.pushViewController(textSizeFormattingTableViewController, animated: true)
+            self.textSizeFormattingTableViewController.delegate = self.delegate
+            self.textSizeFormattingTableViewController.selectedTextSizeType = self.selectedTextSizeType
+            self.textSizeFormattingTableViewController.apply(theme: self.theme)
+            self.navigationController?.pushViewController(self.textSizeFormattingTableViewController, animated: true)
         }
         return Item(with: Content(type: .detail, title: "Text size", detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
     }
@@ -151,12 +152,16 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
 
     override func textSelectionDidChange(isRangeSelected: Bool) {
         super.textSelectionDidChange(isRangeSelected: isRangeSelected)
+        textStyleFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
+        textSizeFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
         textFormattingPlainToolbarView?.deselectAllButtons()
         textFormattingGroupedToolbarView?.deselectAllButtons()
     }
 
     override func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
         super.buttonSelectionDidChange(button: button)
+        textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
+        textSizeFormattingTableViewController.buttonSelectionDidChange(button: button)
         textFormattingPlainToolbarView?.selectButton(button)
         textFormattingGroupedToolbarView?.selectButton(button)
     }
