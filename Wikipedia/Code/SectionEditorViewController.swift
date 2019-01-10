@@ -280,8 +280,8 @@ extension SectionEditorViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        webView.scrollView.backgroundColor = theme.colors.baseBackground
-        webView.backgroundColor = theme.colors.baseBackground
+        webView.scrollView.backgroundColor = theme.colors.paperBackground
+        webView.backgroundColor = theme.colors.paperBackground
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }
