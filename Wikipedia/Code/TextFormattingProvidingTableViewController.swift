@@ -146,7 +146,7 @@ extension TextFormattingProvidingTableViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        tableView.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
     }
 }
