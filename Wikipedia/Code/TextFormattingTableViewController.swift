@@ -91,7 +91,6 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     private var items: [Item] {
         var allItems = staticItems
         allItems.insert(textStyle, at: 2)
-        allItems.insert(textSize, at: 3)
         return allItems
     }
 
