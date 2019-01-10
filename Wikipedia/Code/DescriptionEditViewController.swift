@@ -238,7 +238,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.midBackground
         view.tintColor = theme.colors.link
         subTitleLabel.textColor = theme.colors.secondaryText
         cc0ImageView.tintColor = theme.colors.primaryText
