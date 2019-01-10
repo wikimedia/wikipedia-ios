@@ -666,7 +666,7 @@
       },
       textSize: (newSize) => {
         switch (newSize) {
-          case 'small':
+          case 'small': {
           const selectedButton = selectionPayloadForButton('textSize')
             if (selectedButton) {
               if (selectedButton.info.size === 'big') {
@@ -677,8 +677,8 @@
               }
             }
             expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
-            break
-          case 'big':
+          } break
+          case 'big': {
           const selectedButton = selectionPayloadForButton('textSize')
             if (selectedButton) {
               if (selectedButton.info.size === 'small') {
@@ -689,8 +689,8 @@
               }
             }
             expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
-            break
-          case 'normal':
+          } break
+          case 'normal': {
           const selectedButton = selectionPayloadForButton('textSize')
             if (selectedButton) {
               if (selectedButton.info.size === 'small') {
@@ -699,7 +699,7 @@
                 expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
               }
             }
-            break
+          } break
         }
       },
       selectAll: () => editor.execCommand('selectAll'),
