@@ -21,6 +21,7 @@
 
 #import "WMFArticleFetcher.h"
 #import "SavedArticlesFetcher.h"
+#import "WikiTextSectionFetcher.h"
 
 // Model
 #import "MWKLicense.h"
@@ -59,6 +60,7 @@
 #import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
+#import "EditFunnel.h"
 
 // Third Party
 #import "TUSafariActivity.h"

@@ -25,7 +25,7 @@ class PlaceSearchService
 {
     public var dataStore: MWKDataStore!
     private let locationSearchFetcher = WMFLocationSearchFetcher()
-    private let wikidataFetcher = WikidataFetcher()
+    private let wikidataFetcher = WikidataFetcher(session: Session.shared, configuration: Configuration.current)
     
     init(dataStore: MWKDataStore) {
         self.dataStore = dataStore

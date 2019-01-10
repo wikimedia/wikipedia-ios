@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable, WKNavigationDelegate>
 
 @property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (title) {
         NSString *saveTitle = [WMFCommonStrings saveTitleWithLanguage:url.wmf_language];
         NSString *savedTitle = [WMFCommonStrings savedTitleWithLanguage:url.wmf_language];
-        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle)wmf_stringBySanitizingForJavaScript];
+        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle) wmf_stringBySanitizingForJavaScript];
         [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.updateSaveButtonForTitle('%@', '%@', %@, document)", title, saveButtonText, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
@@ -622,7 +622,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         self.wkUserContentControllerTestingConfigurationBlock(userContentController);
     }
 #endif
-    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared] forURLScheme:WMFURLSchemeHandlerScheme];
+    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared]
+                          forURLScheme:WMFURLSchemeHandlerScheme];
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
@@ -649,6 +650,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    self.webView.navigationDelegate = self;
 
     [self addHeaderView];
 
@@ -1132,6 +1134,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidEndScrollingAnimation:)]) {
         [self.delegate webViewController:self scrollViewDidEndScrollingAnimation:scrollView];
     }
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
+    DDLogError(@"webViewContentProcessDidTerminate: %@", webView);
+    [self displayArticle];
 }
 
 #pragma mark -
