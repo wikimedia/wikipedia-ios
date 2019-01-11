@@ -349,13 +349,16 @@
     }
 
     const sendNativeMessages = (doc) => {
+      // This takes a few milliseconds so do it before we begin messaging to native land to minimize
+      // time between message receipt.
+      const buttonsToSelect = selectedButtons(doc)
+
       // sends message to native land that selection has changed,
       // upon receipt native land should de-select and re-enable all buttons
       window.webkit.messageHandlers.selectionChanged.postMessage(getSelectionRange(doc).isSelectionMoreThanOneChar)
 
       // sends message to native land about which buttons should be selected,
       // native land should assume only these buttons should appear selected
-      const buttonsToSelect = selectedButtons(doc)
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(buttonsToSelect)
       
       // sends message to native land about which buttons should be disabled,
