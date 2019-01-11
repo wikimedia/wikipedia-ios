@@ -17,17 +17,33 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
-        case (Message.Name.selectionChanged, let isRangeSelected as Bool):
+
+        case (Message.Name.codeMirrorMessage, let message as [String: Any]):
+            guard
+                let selectionChangedMessage = message[Message.Name.selectionChanged],
+                let isRangeSelected = selectionChangedMessage as? Bool,
+                let highlightTheseButtonsMessage = message[Message.Name.highlightTheseButtons],
+                let buttonsToHighlight = highlightTheseButtonsMessage as? [[String: Any]],
+                let disableTheseButtonsMessage = message[Message.Name.disableTheseButtons],
+                let buttonsToDisable = disableTheseButtonsMessage as? [[String: Any]]
+            else {
+                assertionFailure("Expected messages not extracted: \(message)")
+                return
+            }
+
+            // Process the 'selectionChanged' message first so buttons can be reset before subsequent button messages are processed.
             textSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(self, isRangeSelected: isRangeSelected)
-        case (Message.Name.highlightTheseButtons, let message as [[String: Any]]):
-            for element in message {
+
+            // Process 'highlightTheseButtons' message.
+            for element in buttonsToHighlight {
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
                 buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(self, button: Button(kind: kind))
             }
-        case (Message.Name.disableTheseButtons, let message as [[String: Any]]):
-            for element in message {
+
+            // Process 'disableTheseButtons' message.
+            for element in buttonsToDisable {
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
@@ -247,6 +263,7 @@ extension SectionEditorWebViewMessagingController {
             static let selectionChanged = "selectionChanged"
             static let highlightTheseButtons = "highlightTheseButtons"
             static let disableTheseButtons = "disableTheseButtons"
+            static let codeMirrorMessage = "codeMirrorMessage"
         }
         struct Body {
             struct Key {
