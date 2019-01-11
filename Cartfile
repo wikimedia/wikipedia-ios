@@ -10,4 +10,4 @@ github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" ~> 2.1.4
 
-github "wikimedia/wikipedia-ios-codemirror" "master"
+github "wikimedia/wikipedia-ios-codemirror" "feature/search"
