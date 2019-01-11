@@ -121,6 +121,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case underline
         case strikethrough
         case textSize
+        case find
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -237,6 +238,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func setTextSize(newSize: String) {
         execCommand(for: .textSize, argument: "\"\(newSize)\"")
+    }
+
+    func find(text: String) {
+        execCommand(for: .find, argument: "\"\(text)\"")
     }
 }
 
