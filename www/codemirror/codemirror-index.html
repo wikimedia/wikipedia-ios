@@ -325,23 +325,14 @@
     }
 
     const disabledButtons = (doc, selectedButtons) => {
-      let shouldDisableDecreaseIndent = true
-      let shouldDisableIncreaseIndent = true
-      const listPayload = selectionPayloadForButton('li', selectedButtons)
-      if (listPayload) {
-        const depth = listPayload.info.depth
-        if (depth > 1) { 
-          shouldDisableDecreaseIndent = false
-        }
-        shouldDisableIncreaseIndent = false
-      }
-
       let buttonsToDisable = []
-
-      if (shouldDisableDecreaseIndent) {
+      
+      const listPayload = selectionPayloadForButton('li', selectedButtons)
+      const selectionContainsList = listPayload !== null
+      if (!selectionContainsList || listPayload.info.depth <= 1) {
         buttonsToDisable.push(buttonPayload('decreaseIndentDepth'))
       }
-      if (shouldDisableIncreaseIndent) {
+      if (!selectionContainsList) {
         buttonsToDisable.push(buttonPayload('increaseIndentDepth'))
       }
 
