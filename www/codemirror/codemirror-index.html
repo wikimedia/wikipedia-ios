@@ -324,39 +324,60 @@
      
       const listItemLineCallback = (char, depth, line) => {
         result.push(buttonPayload('li', {depth: depth, ordered: (char === '#')}))
-        if (depth > 1) {
-          result.push(buttonPayload('decreaseIndentDepth'))
-        }        
-        result.push(buttonPayload('increaseIndentDepth'))
         return false // No need to continue (only need to send one 'li' message)
       }
       performCallBackForSelectedListItemLines(doc, '#', listItemLineCallback)
       performCallBackForSelectedListItemLines(doc, '*', listItemLineCallback)
 
-      const historySize = doc.historySize()
-      
-      const changesMade = historySize.undo > 1
-      if (changesMade) {
-        result.push(buttonPayload('undo'))
-      }
-
-      result.push(buttonPayload('changesMade', {changesMade: changesMade}))
-
-      if (historySize.redo > 0) {
-        result.push(buttonPayload('redo'))
-      }
-        
       return result
+    }
+
+    const disabledButtons = (doc, selectedButtons) => {
+      let shouldDisableDecreaseIndent = true
+      let shouldDisableIncreaseIndent = true
+      const listPayload = selectionPayloadForButton('li', selectedButtons)
+      if (listPayload) {
+        const depth = listPayload.info.depth
+        if (depth > 1) { 
+          shouldDisableDecreaseIndent = false
+        }
+        shouldDisableIncreaseIndent = false
+      }
+
+      let buttonsToDisable = []
+
+      if (shouldDisableDecreaseIndent) {
+        buttonsToDisable.push(buttonPayload('decreaseIndentDepth'))
+      }
+      if (shouldDisableIncreaseIndent) {
+        buttonsToDisable.push(buttonPayload('increaseIndentDepth'))
+      }
+
+      const historySize = doc.historySize()
+      if (historySize.undo < 2) {
+        buttonsToDisable.push(buttonPayload('undo'))  
+        buttonsToDisable.push(buttonPayload('progress'))
+      }
+      if (historySize.redo < 1) {
+        buttonsToDisable.push(buttonPayload('redo'))
+      }
+
+      return buttonsToDisable
     }
 
     const sendNativeMessages = (doc) => {
       // sends message to native land that selection has changed,
-      // upon receipt native land should de-select all buttons
+      // upon receipt native land should de-select and re-enable all buttons
       window.webkit.messageHandlers.selectionChanged.postMessage(getSelectionRange(doc).isSelectionMoreThanOneChar)
 
       // sends message to native land about which buttons should be selected,
       // native land should assume only these buttons should appear selected
-      window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
+      const buttonsToSelect = selectedButtons(doc)
+      window.webkit.messageHandlers.highlightTheseButtons.postMessage(buttonsToSelect)
+      
+      // sends message to native land about which buttons should be disabled,
+      // native land should assume only these buttons should be disabled
+      window.webkit.messageHandlers.disableTheseButtons.postMessage(disabledButtons(doc, buttonsToSelect))
     }
         
     const applyTheme = (themeName) => {
@@ -504,8 +525,11 @@
     // determined to be a button. This is the same payload we send to native land to tell it which
     // buttons are selected and any associated relevant properties - in the case of a heading the
     // payload's info.depth tells us how many '=' the currently selected heading has.
-    const selectionPayloadForButton = (buttonType) => {
-      const payloadsForButton = selectedButtons(editor).filter((item) => {return item.button === buttonType})
+    const selectionPayloadForButton = (buttonType, selectedButtonsArray) => {
+      if (selectedButtonsArray === undefined) {
+        selectedButtonsArray = selectedButtons(editor)
+      }
+      const payloadsForButton = selectedButtonsArray.filter((item) => {return item.button === buttonType})
       if (payloadsForButton.length === 0) {
         return null
       }
