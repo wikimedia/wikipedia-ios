@@ -313,14 +313,6 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
         result.push(buttonPayload('signature', {depth: depth}))
       }
-
-      result.push(buttonPayload('debug', {
-         tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
-         tokensIntersectingSelectionTypesArray: typesArray,
-         selectionRange: getSelectionRange(doc),
-         getSelectionText: selection
-       }
-      ))
      
       const listItemLineCallback = (char, depth, line) => {
         result.push(buttonPayload('li', {depth: depth, ordered: (char === '#')}))

@@ -24,24 +24,14 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                let button = Button(kind: kind)
-                // Ignore debug buttons for now
-                guard button.kind != .debug else {
-                    continue
-                }
-                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(self, button: button)
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(self, button: Button(kind: kind))
             }
         case (Message.Name.disableTheseButtons, let message as [[String: Any]]):
             for element in message {
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                let button = Button(kind: kind)
-                // Ignore debug buttons for now
-                guard button.kind != .debug else {
-                    continue
-                }
-                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: button)
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: Button(kind: kind))
             }
         default:
             assertionFailure("Unsupported message: \(message.name), \(message.body)")
@@ -281,7 +271,7 @@ extension SectionEditorWebViewMessagingController {
             case template
             case undo
             case redo
-            case debug
+            case progress
             case comment
             case textSize(type: TextSizeType)
             case superscript
@@ -290,7 +280,6 @@ extension SectionEditorWebViewMessagingController {
             case strikethrough
             case decreaseIndentDepth
             case increaseIndentDepth
-            case progress
 
             var identifier: Int? {
                 switch self {
@@ -318,7 +307,7 @@ extension SectionEditorWebViewMessagingController {
                     return 11
                 case .redo:
                     return 12
-                case .debug:
+                case .progress:
                     return 13
                 case .comment:
                     return 14
@@ -334,8 +323,6 @@ extension SectionEditorWebViewMessagingController {
                     return 21
                 case .increaseIndentDepth:
                     return 22
-                case .progress:
-                    return 23
                 default:
                     return nil
                 }
@@ -368,8 +355,8 @@ extension SectionEditorWebViewMessagingController {
                         self = .undo
                     case "redo":
                         self = .redo
-                    case "debug":
-                        self = .debug
+                    case "progress":
+                        self = .progress
                     case "comment":
                         self = .comment
                     case "superscript":
@@ -384,8 +371,6 @@ extension SectionEditorWebViewMessagingController {
                         self = .decreaseIndentDepth
                     case "increaseIndentDepth":
                         self = .increaseIndentDepth
-                    case "progress":
-                        self = .progress
                     default:
                         return nil
                     }
