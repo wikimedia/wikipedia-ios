@@ -22,7 +22,7 @@ class TextFormattingButton: UIButton, Themeable {
     }
     
     private func updateColors() {
-        self.tintColor = self.isSelected ? theme.colors.secondaryText : theme.colors.primaryText
+        self.tintColor = theme.colors.primaryText
         self.backgroundColor = self.isSelected ? theme.colors.baseBackground : .clear
     }
     

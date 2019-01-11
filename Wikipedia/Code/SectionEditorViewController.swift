@@ -79,6 +79,7 @@ class SectionEditorViewController: UIViewController {
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.disableTheseButtons)
 
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -204,10 +205,13 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
     }
 }
 
-extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonSelectionDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
-        navigationItemController.buttonSelectionDidChange(button: button)
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
         inputViewsController.buttonSelectionDidChange(button: button)
+    }
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+        navigationItemController.disableButton(button: button)
+        inputViewsController.disableButton(button: button)
     }
 }
 
