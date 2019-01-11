@@ -138,6 +138,10 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
             break
         }
     }
+
+    open func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+
+    }
 }
 
 extension TextFormattingProvidingTableViewController: Themeable {
