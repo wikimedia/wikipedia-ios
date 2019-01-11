@@ -186,7 +186,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: true) // TODO
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
