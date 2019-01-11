@@ -1,7 +1,7 @@
 class TextStyleFormattingTableViewController: TextFontFormattingTableViewController {
 
     override var titleLabelText: String? {
-        return "Style"
+        return WMFLocalizedString("edit-style-table-view-title", value: "Style", comment: "Title for the text style menu in the editing interface")
     }
 
     private struct Style {

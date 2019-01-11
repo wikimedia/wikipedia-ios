@@ -138,15 +138,19 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
             break
         }
     }
+
+    open func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+
+    }
 }
 
 extension TextFormattingProvidingTableViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
-        navigationController?.navigationBar.tintColor = theme.colors.chromeText
-        navigationController?.navigationBar.shadowImage = theme.navigationBarShadowImage
-        tableView.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = theme.colors.midBackground
+        titleLabel.textColor = theme.colors.primaryText
     }
 }

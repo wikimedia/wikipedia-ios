@@ -1,7 +1,7 @@
 class TextFormattingTableViewController: TextFormattingProvidingTableViewController {
 
     override var titleLabelText: String? {
-        return "Text formatting"
+        return WMFLocalizedString("edit-text-formatting-table-view-title", value: "Text formatting", comment: "Title for text formatting menu in the editing interface")
     }
 
     private struct Content {
@@ -43,58 +43,54 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     // MARK: - Items
     // Some are lazy, some need to be updated so they can't all be in a lazy array
 
+    let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+    let textSizeFormattingTableViewController = TextSizeFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+
     private var textStyle: Item {
         let showTextStyleFormattingTableViewController = {
-            let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-            textStyleFormattingTableViewController.delegate = self.delegate
-            textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
-            self.navigationController?.pushViewController(textStyleFormattingTableViewController, animated: true)
+            self.textStyleFormattingTableViewController.delegate = self.delegate
+            self.textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
+            self.textStyleFormattingTableViewController.apply(theme: self.theme)
+            self.navigationController?.pushViewController(self.textStyleFormattingTableViewController, animated: true)
         }
         return Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
     }
 
     private var textSize: Item {
         let showTextSizeFormattingTableViewController = {
-            let textSizeFormattingTableViewController = TextSizeFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-            textSizeFormattingTableViewController.delegate = self.delegate
-            textSizeFormattingTableViewController.selectedTextSizeType = self.selectedTextSizeType
-            self.navigationController?.pushViewController(textSizeFormattingTableViewController, animated: true)
+            self.textSizeFormattingTableViewController.delegate = self.delegate
+            self.textSizeFormattingTableViewController.selectedTextSizeType = self.selectedTextSizeType
+            self.textSizeFormattingTableViewController.apply(theme: self.theme)
+            self.navigationController?.pushViewController(self.textSizeFormattingTableViewController, animated: true)
         }
         return Item(with: Content(type: .detail, title: "Text size", detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
     }
 
     private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
     private let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
-    private let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
     
     weak override var delegate: TextFormattingDelegate? {
         didSet {
             textFormattingPlainToolbarView?.delegate = delegate
             textFormattingGroupedToolbarView?.delegate = delegate
-            textFormattingButtonView?.delegate = delegate
         }
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        textFormattingButtonView?.buttonTitle = "Clear formatting"
-        textFormattingButtonView?.buttonTitleColor = theme.colors.error
     }
     
     private lazy var staticItems: [Item] = {
         let plainToolbar = Item(with: Content(type: .customView, customView: textFormattingPlainToolbarView))
 
         let groupedToolbar = Item(with: Content(type: .customView, customView: textFormattingGroupedToolbarView))
-
-        let button = Item(with: Content(type: .customView, customView: textFormattingButtonView))
-
-        return [plainToolbar, groupedToolbar, button]
+        
+        return [plainToolbar, groupedToolbar]
     }()
 
     private var items: [Item] {
         var allItems = staticItems
         allItems.insert(textStyle, at: 2)
-        allItems.insert(textSize, at: 3)
         return allItems
     }
 
@@ -155,14 +151,28 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
 
     override func textSelectionDidChange(isRangeSelected: Bool) {
         super.textSelectionDidChange(isRangeSelected: isRangeSelected)
+        textFormattingPlainToolbarView?.enableAllButtons()
+        textFormattingGroupedToolbarView?.enableAllButtons()
+        textStyleFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
+        textSizeFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
         textFormattingPlainToolbarView?.deselectAllButtons()
         textFormattingGroupedToolbarView?.deselectAllButtons()
     }
 
     override func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
         super.buttonSelectionDidChange(button: button)
+        textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
+        textSizeFormattingTableViewController.buttonSelectionDidChange(button: button)
         textFormattingPlainToolbarView?.selectButton(button)
         textFormattingGroupedToolbarView?.selectButton(button)
+    }
+
+    override func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+        super.disableButton(button: button)
+        textStyleFormattingTableViewController.disableButton(button: button)
+        textSizeFormattingTableViewController.disableButton(button: button)
+        textFormattingPlainToolbarView?.disableButton(button)
+        textFormattingGroupedToolbarView?.disableButton(button)
     }
 
 }

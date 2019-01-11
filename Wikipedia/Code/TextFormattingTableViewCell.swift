@@ -6,6 +6,8 @@ class TextFormattingTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
         addSeparator()
         configureSeparator()
+        backgroundView = UIView()
+        selectedBackgroundView = UIView()
     }
 
     private func addSeparator() {
@@ -46,5 +48,11 @@ class TextFormattingTableViewCell: UITableViewCell {
 extension TextFormattingTableViewCell: Themeable {
     func apply(theme: Theme) {
         topSeparator.backgroundColor = theme.colors.border
+        backgroundView?.backgroundColor = theme.colors.midBackground
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        textLabel?.textColor = theme.colors.primaryText
+        detailTextLabel?.textColor = theme.colors.primaryText
+        textLabel?.backgroundColor = .clear
+        detailTextLabel?.backgroundColor = .clear
     }
 }

@@ -43,7 +43,7 @@ class TextFormattingInputViewController: UIInputViewController {
         }
     }
 
-    private func rootViewController(for type: InputViewType) -> UIViewController {
+    private func rootViewController(for type: InputViewType) -> UIViewController & Themeable {
         var viewController: TextFormattingProvidingTableViewController
 
         switch type {
@@ -52,15 +52,12 @@ class TextFormattingInputViewController: UIInputViewController {
         case .textStyle:
             viewController = textStyleFormattingTableViewController
         }
-        viewController.apply(theme: theme)
         return viewController
     }
 
     private lazy var embeddedNavigationController: UINavigationController = {
         let viewController = rootViewController(for: inputViewType)
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.navigationBar.isTranslucent = false
-
         return navigationController
     }()
 
@@ -96,16 +93,28 @@ class TextFormattingInputViewController: UIInputViewController {
         textFormattingTableViewController.buttonSelectionDidChange(button: button)
         textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
     }
+    
+    func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+        textFormattingTableViewController.disableButton(button: button)
+        textStyleFormattingTableViewController.disableButton(button: button)
+    }
+
 }
 
 extension TextFormattingInputViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
+        textStyleFormattingTableViewController.apply(theme: theme)
+        textFormattingTableViewController.apply(theme: theme)
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.midBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
+        embeddedNavigationController.navigationBar.isTranslucent = false
+        embeddedNavigationController.navigationBar.barTintColor = theme.colors.midBackground
+        embeddedNavigationController.navigationBar.tintColor = theme.colors.primaryText
+        embeddedNavigationController.navigationBar.titleTextAttributes = theme.navigationBarTitleTextAttributes
     }
 }
 

@@ -1,7 +1,7 @@
 class TextSizeFormattingTableViewController: TextFontFormattingTableViewController {
 
     override var titleLabelText: String? {
-        return "Text size"
+        return WMFLocalizedString("edit-text-size-table-view-title", value: "Text size", comment: "Title for text size menu in the editing interface")
     }
 
     private struct Size {
@@ -38,11 +38,6 @@ class TextSizeFormattingTableViewController: TextFontFormattingTableViewControll
         cell.apply(theme: theme)
 
         return cell
-    }
-
-    // TODO
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return indexPath
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
