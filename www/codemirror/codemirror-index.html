@@ -773,6 +773,10 @@
         }
       },
       selectAll: () => editor.execCommand('selectAll'),
+      find: (text) => {
+          editor.state.query = text
+          editor.execCommand('find')
+      },
       highlighting: () => {
         editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
         editor.refresh()
