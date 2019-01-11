@@ -61,9 +61,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
         let ordered = info[Button.Info.ordered] as? Bool
 
-        let changesMade = info[Button.Info.changesMade] as? Bool
-
-        return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered, changesMade: changesMade)
+        return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
     }
 
     // MARK: - Sending messages
@@ -381,12 +379,10 @@ extension SectionEditorWebViewMessagingController {
             static let ordered = "ordered"
             static let depth = "depth"
             static let size = "size"
-            static let changesMade = "changesMade"
 
             let textStyleType: TextStyleType?
             let textSizeType: TextSizeType?
             let ordered: Bool?
-            let changesMade: Bool?
         }
         let kind: Kind
     }
