@@ -2,13 +2,14 @@ protocol SectionEditorInputViewsSource: class {
     var inputViewController: UIInputViewController? { get }
 }
 
-class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeable {
+class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource, Themeable {
     let webView: SectionEditorWebView
     let messagingController: SectionEditorWebViewMessagingController
 
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
+    let findInPageView = WMFFindInPageKeyboardBar.wmf_viewFromClassNib()
 
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController) {
         defer {
@@ -17,6 +18,8 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeabl
 
         self.webView = webView
         self.messagingController = messagingController
+
+        super.init()
 
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
@@ -102,8 +105,29 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapFindInPage() {
-        inputViewType = .textFormatting
-        inputAccessoryViewType = nil
+        showFindInPage()
+    }
+
+    // TODO: 😬
+    private func showFindInPage() {
+        guard let findInPageView = findInPageView else {
+            return
+        }
+        findInPageView.translatesAutoresizingMaskIntoConstraints = false
+        findInPageView.delegate = self
+        webView.addSubview(findInPageView)
+        let leadingConstraint = findInPageView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailingConstraint = findInPageView.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+        let topConstraint = findInPageView.topAnchor.constraint(equalTo: webView.topAnchor)
+        NSLayoutConstraint.activate([
+            leadingConstraint,
+            trailingConstraint,
+            topConstraint
+        ])
+    }
+
+    private func hideFindInPage() {
+        findInPageView?.removeFromSuperview()
     }
 
     func textFormattingProvidingDidTapCursorUp() {
@@ -195,5 +219,27 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapSubscript() {
         messagingController.toggleSubscript()
+    }
+}
+
+extension SectionEditorInputViewsController: WMFFindInPageKeyboardBarDelegate {
+    func keyboardBar(_ keyboardBar: WMFFindInPageKeyboardBar!, searchTermChanged term: String!) {
+        messagingController.find(text: term)
+    }
+
+    func keyboardBarCloseButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        hideFindInPage()
+    }
+
+    func keyboardBarClearButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        //
+    }
+
+    func keyboardBarPreviousButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        //
+    }
+
+    func keyboardBarNextButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        //
     }
 }

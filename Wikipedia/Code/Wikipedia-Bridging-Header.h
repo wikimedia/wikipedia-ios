@@ -53,6 +53,7 @@
 #import "WMFLanguageCell.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFCompassView.h"
+#import "WMFFindInPageKeyboardBar.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"
