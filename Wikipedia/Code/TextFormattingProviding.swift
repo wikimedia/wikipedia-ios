@@ -36,7 +36,7 @@ protocol TextFormattingDelegate: class {
     func textFormattingProvidingDidTapCursorDown()
     func textFormattingProvidingDidTapCursorRight()
     func textFormattingProvidingDidTapCursorLeft()
-    func textFormattingProvidingDidTapMore()
+    func textFormattingProvidingDidTapFindInPage()
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType)
 
     func textFormattingProvidingDidTapTextFormatting()

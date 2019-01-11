@@ -101,7 +101,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
         messagingController.setTextSize(newSize: newSize.rawValue)
     }
 
-    func textFormattingProvidingDidTapMore() {
+    func textFormattingProvidingDidTapFindInPage() {
         inputViewType = .textFormatting
         inputAccessoryViewType = nil
     }
