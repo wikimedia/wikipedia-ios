@@ -1,5 +1,6 @@
-protocol SectionEditorWebViewMessagingControllerButtonSelectionDelegate: class {
+protocol SectionEditorWebViewMessagingControllerButtonMessageDelegate: class {
     func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button)
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button)
 }
 
 protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
@@ -7,7 +8,7 @@ protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
 }
 
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
-    weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonSelectionDelegate?
+    weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
 
     weak var webView: WKWebView!
@@ -29,6 +30,18 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                     continue
                 }
                 buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(self, button: button)
+            }
+        case (Message.Name.disableTheseButtons, let message as [[String: Any]]):
+            for element in message {
+                guard let kind = buttonKind(from: element) else {
+                    continue
+                }
+                let button = Button(kind: kind)
+                // Ignore debug buttons for now
+                guard button.kind != .debug else {
+                    continue
+                }
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: button)
             }
         default:
             assertionFailure("Unsupported message: \(message.name), \(message.body)")
@@ -245,6 +258,7 @@ extension SectionEditorWebViewMessagingController {
         struct Name {
             static let selectionChanged = "selectionChanged"
             static let highlightTheseButtons = "highlightTheseButtons"
+            static let disableTheseButtons = "disableTheseButtons"
         }
         struct Body {
             struct Key {
@@ -274,9 +288,9 @@ extension SectionEditorWebViewMessagingController {
             case `subscript`
             case underline
             case strikethrough
-            case progress(Bool)
             case decreaseIndentDepth
             case increaseIndentDepth
+            case progress
 
             var identifier: Int? {
                 switch self {
@@ -320,6 +334,8 @@ extension SectionEditorWebViewMessagingController {
                     return 21
                 case .increaseIndentDepth:
                     return 22
+                case .progress:
+                    return 23
                 default:
                     return nil
                 }
@@ -332,8 +348,6 @@ extension SectionEditorWebViewMessagingController {
                     self = .heading(type: textStyleType)
                 } else if rawValue == "textSize", let textSizeType = info?.textSizeType {
                     self = .textSize(type: textSizeType)
-                } else if rawValue == "changesMade", let changesMade = info?.changesMade {
-                    self = .progress(changesMade)
                 } else {
                     switch rawValue {
                     case "indent":
@@ -370,6 +384,8 @@ extension SectionEditorWebViewMessagingController {
                         self = .decreaseIndentDepth
                     case "increaseIndentDepth":
                         self = .increaseIndentDepth
+                    case "progress":
+                        self = .progress
                     default:
                         return nil
                     }
