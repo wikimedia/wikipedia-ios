@@ -11,6 +11,14 @@ extension TextFormattingButtonsProviding {
         buttons.lazy.first(where: { $0.tag == button.kind.identifier })?.isSelected = true
     }
 
+    func disableButton(_ button: SectionEditorWebViewMessagingController.Button) {
+        buttons.lazy.first(where: { $0.tag == button.kind.identifier })?.isEnabled = false
+    }
+
+    func enableAllButtons() {
+        buttons.lazy.forEach { $0.isEnabled = true }
+    }
+
     func deselectAllButtons() {
         buttons.lazy.forEach { $0.isSelected = false }
     }

@@ -94,6 +94,11 @@ class TextFormattingInputViewController: UIInputViewController {
         textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
     }
     
+    func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+        textFormattingTableViewController.disableButton(button: button)
+        textStyleFormattingTableViewController.disableButton(button: button)
+    }
+
 }
 
 extension TextFormattingInputViewController: Themeable {
