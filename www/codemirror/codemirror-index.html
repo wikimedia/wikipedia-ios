@@ -314,7 +314,7 @@
         result.push(buttonPayload('signature', {depth: depth}))
       }
       const listItemLineCallback = (item) => {
-        result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered()}))
+        result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
         return false // No need to continue (only need to send one 'li' message)
       }
       performCallBackForSelectedListItemLines(doc, listItemLineCallback)
@@ -555,9 +555,7 @@
         this.leadingCharsAndWhitespace = leadingCharsAndWhitespace
         this.char = char
         this.depth = depth
-      }
-      isOrdered() {
-        return this.char === '#'
+        this.isOrdered = (char === '#')
       }
     }
 
