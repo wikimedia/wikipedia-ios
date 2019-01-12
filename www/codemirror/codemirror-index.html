@@ -581,8 +581,7 @@
         const thisLineText = doc.getLine(line)
         const lineListItem = leadingListItemRepeatingCharactersAndWhitespace(thisLineText)
         if (lineListItem) {
-          const depth = lineListItem.depth
-          const shouldContinue = callback(lineListItem.char, depth, line, lineListItem.leadingCharsAndWhitespace.length)
+          const shouldContinue = callback(lineListItem.char, lineListItem.depth, line, lineListItem.leadingCharsAndWhitespace.length)
           if (!shouldContinue) {
             return
           }
