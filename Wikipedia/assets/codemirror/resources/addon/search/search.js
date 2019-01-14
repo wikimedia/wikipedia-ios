@@ -151,7 +151,8 @@
           findNext(cm, rev);
         }
       } else {
-        if (cm.state.query && !state.query) cm.operation(function() {
+        const query = cm.state.query;
+        if (query && !state.query) cm.operation(function() {
           startSearch(cm, state, query);
           state.posFrom = state.posTo = cm.getCursor();
           findNext(cm, rev);
