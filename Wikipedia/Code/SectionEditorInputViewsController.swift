@@ -55,6 +55,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     private enum InputAccessoryViewType {
         case `default`
         case highlight
+        case findInPage
     }
 
     private var previousInputAccessoryViewType: InputAccessoryViewType?
@@ -77,6 +78,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
             maybeView = defaultEditToolbarView
         case .highlight:
             maybeView = contextualHighlightEditToolbarView
+        case .findInPage:
+            maybeView = findInPageView
         }
 
         guard let inputAccessoryView = maybeView as? UIView else {
