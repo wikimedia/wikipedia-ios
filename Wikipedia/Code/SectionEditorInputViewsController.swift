@@ -20,6 +20,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
+        findInPageView?.delegate = self
 
         inputViewType = nil
         inputAccessoryViewType = .default
