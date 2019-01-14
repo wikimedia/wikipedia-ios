@@ -12,10 +12,6 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let findInPageView = WMFFindInPageKeyboardBar.wmf_viewFromClassNib()
 
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController) {
-        defer {
-            inputAccessoryViewType = .default
-        }
-
         self.webView = webView
         self.messagingController = messagingController
 
