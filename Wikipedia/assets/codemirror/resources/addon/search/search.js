@@ -151,12 +151,10 @@
           findNext(cm, rev);
         }
       } else {
-        dialog(cm, getQueryDialog(cm), "Search for:", q, function(query) {
-          if (query && !state.query) cm.operation(function() {
-            startSearch(cm, state, query);
-            state.posFrom = state.posTo = cm.getCursor();
-            findNext(cm, rev);
-          });
+        if (cm.state.query && !state.query) cm.operation(function() {
+          startSearch(cm, state, query);
+          state.posFrom = state.posTo = cm.getCursor();
+          findNext(cm, rev);
         });
       }
     }
