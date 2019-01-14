@@ -138,12 +138,15 @@
 "description-published-title" = "Descrizione pubblicata!";
 "description-welcome-concise-sub-title" = "Idealmente una riga, da due a dodici parole";
 "description-welcome-start-editing-button" = "Inizia a modificare";
+"edit-style-table-view-title" = "Stile";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";
 "edit-summary-choice-other" = "Altro";
 "edit-summary-field-placeholder-text" = "Altri modi in cui hai migliorato la voce";
 "edit-summary-title" = "Come hai migliorato la voce?";
+"edit-text-formatting-table-view-title" = "Formattazione del testo";
+"edit-text-size-table-view-title" = "Dimensione del testo";
 "empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
 "empty-no-feed-action-message" = "Puoi ancora leggere le pagine salvate";
 "empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";

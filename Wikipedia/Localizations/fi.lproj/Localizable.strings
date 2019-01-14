@@ -161,6 +161,8 @@
 "edit-summary-choice-other" = "Muu";
 "edit-summary-field-placeholder-text" = "Muut tavat, joilla paransit artikkelia";
 "edit-summary-title" = "Kuinka paransit artikkelia?";
+"edit-text-formatting-table-view-title" = "Tekstin muotoilu";
+"edit-text-size-table-view-title" = "Tekstin koko";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
@@ -458,7 +460,7 @@
 "reading-list-login-button-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelisi";
 "reading-list-login-or-create-account-button-title" = "Kirjaudu sisään tai luo tunnus";
 "reading-list-login-or-create-account-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelit";
-"reading-list-login-subtitle" = "Kirjaudu sisään tai luo tunnus salliaksesi tallennettujen artikkelien ja lukulistojen synkronoitua laitteiden poikki ja tallentaa käyttäjäasetuksiisi.";
+"reading-list-login-subtitle" = "Kirjaudu sisään tai luo tunnus salliaksesi tallennettujen artikkelien ja lukulistojen synkronoitua laitteiden välillä ja tallentaa käyttäjäasetuksiisi.";
 "reading-list-login-title" = "Synkronoi tallennetut artikkelisi?";
 "reading-list-name-user-created-annotation" = "_[käyttäjä luotu]";
 "reading-list-new-list-description-placeholder" = "valinnainen lyhyt kuvaus";
@@ -466,7 +468,7 @@
 "reading-list-sync-disabled-panel-message" = "Lukulistojen synkronointi on poistettu käytöstä Wikipedia-tunnuksellesi toisella laitteella. Sen voi kytkeä takaisin päälle asetuksia päivittämällä.";
 "reading-list-sync-disabled-panel-title" = "Sykronointi poistettu käytöstä";
 "reading-list-sync-enable-button-title" = "Ota synkronointi käyttöön";
-"reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tunnukseesi ja synkronoida Wikipedia-sovellusten poikki.";
+"reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tunnuksellesi ja synkronoida Wikipedia-sovellusten välillä.";
 "reading-list-sync-enable-title" = "Ota lukulistan synkronointi käyttöön?";
 "reading-list-sync-enabled-panel-message" = "Lukulistojen synkronointi on käytössä tällä tilillä. Voit pysäyttää synkronoinnin poistamalla sen käytöstä tällä tunnuksella asetuksista.";
 "reading-list-sync-enabled-panel-title" = "Synkronointi on otettu käyttöön tällä tunnuksella";

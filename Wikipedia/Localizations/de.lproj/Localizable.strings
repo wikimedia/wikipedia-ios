@@ -154,12 +154,15 @@
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
 "dim-images" = "Bilder dimmen";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
 "edit-summary-choice-linked-words" = "Links hinzugefügt";
 "edit-summary-choice-other" = "Andere";
 "edit-summary-field-placeholder-text" = "Andere Wege wie du den Artikel verbessert hast";
 "edit-summary-title" = "Wie hast du den Artikel verbessert?";
+"edit-text-formatting-table-view-title" = "Textformatierung";
+"edit-text-size-table-view-title" = "Textgröße";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
