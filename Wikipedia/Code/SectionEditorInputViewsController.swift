@@ -105,29 +105,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapFindInPage() {
-        showFindInPage()
-    }
-
-    // TODO: 😬
-    private func showFindInPage() {
-        guard let findInPageView = findInPageView else {
-            return
-        }
-        findInPageView.translatesAutoresizingMaskIntoConstraints = false
-        findInPageView.delegate = self
-        webView.addSubview(findInPageView)
-        let leadingConstraint = findInPageView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
-        let trailingConstraint = findInPageView.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
-        let topConstraint = findInPageView.topAnchor.constraint(equalTo: webView.topAnchor)
-        NSLayoutConstraint.activate([
-            leadingConstraint,
-            trailingConstraint,
-            topConstraint
-        ])
-    }
-
-    private func hideFindInPage() {
-        findInPageView?.removeFromSuperview()
+        inputAccessoryViewType = .findInPage
     }
 
     func textFormattingProvidingDidTapCursorUp() {
