@@ -347,18 +347,20 @@
     }
 
     const sendNativeMessages = (doc) => {
-      // sends message to native land that selection has changed,
-      // upon receipt native land should de-select and re-enable all buttons
-      window.webkit.messageHandlers.selectionChanged.postMessage(getSelectionRange(doc).isSelectionMoreThanOneChar)
-
-      // sends message to native land about which buttons should be selected,
-      // native land should assume only these buttons should appear selected
       const buttonsToSelect = selectedButtons(doc)
-      window.webkit.messageHandlers.highlightTheseButtons.postMessage(buttonsToSelect)
-      
-      // sends message to native land about which buttons should be disabled,
-      // native land should assume only these buttons should be disabled
-      window.webkit.messageHandlers.disableTheseButtons.postMessage(disabledButtons(doc, buttonsToSelect))
+      const nativeMessages = {
+        // message to native land that selection has changed,
+        // upon receipt native land should de-select and re-enable all buttons.
+        // (`selectionChanged` should be processed before the other messages)
+        selectionChanged: getSelectionRange(doc).isSelectionMoreThanOneChar,
+        // message to native land about which buttons should be selected,
+        // native land should assume only these buttons should appear selected
+        highlightTheseButtons: buttonsToSelect,
+        // message to native land about which buttons should be disabled,
+        // native land should assume only these buttons should be disabled
+        disableTheseButtons: disabledButtons(doc, buttonsToSelect)
+      }
+      window.webkit.messageHandlers.codeMirrorMessage.postMessage(nativeMessages)
     }
         
     const applyTheme = (themeName) => {
