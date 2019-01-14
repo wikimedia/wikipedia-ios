@@ -170,12 +170,15 @@
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
 "dim-images" = "Ztmavení obrázků";
+"edit-style-table-view-title" = "Styl";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava překlepu";
 "edit-summary-choice-linked-words" = "Přidány odkazy";
 "edit-summary-choice-other" = "Ostatní";
 "edit-summary-field-placeholder-text" = "Jiné způsoby, jak jste vylepšili článek";
 "edit-summary-title" = "Jak jste vylepšili článek?";
+"edit-text-formatting-table-view-title" = "Formátování textu";
+"edit-text-size-table-view-title" = "Velikost textu";
 "empty-no-article-message" = "Omlouváme se, nepovedlo se načíst článek.";
 "empty-no-feed-action-message" = "Stále ještě můžete číst uložené stránky";
 "empty-no-feed-message" = "Když jste připojeni k internetu, tak můžete číst doporučené články.";

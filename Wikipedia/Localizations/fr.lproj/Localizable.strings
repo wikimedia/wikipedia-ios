@@ -170,12 +170,15 @@
 "description-welcome-promise-title" = "En commençant, je promet de ne pas détourner cette fonctionalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "dim-images" = "Assombrir les images";
+"edit-style-table-view-title" = "Style";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
 "edit-summary-choice-linked-words" = "Liens ajoutés";
 "edit-summary-choice-other" = "Autre";
 "edit-summary-field-placeholder-text" = "Autres moyens pour améliorer l’article";
 "edit-summary-title" = "Comment avez-vous amélioré cet article ?";
+"edit-text-formatting-table-view-title" = "Formatage du texte";
+"edit-text-size-table-view-title" = "Taille du texte";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
