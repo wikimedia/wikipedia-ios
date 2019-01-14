@@ -135,12 +135,14 @@
 "description-welcome-concise-title" = "Gør det kort";
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "dim-images" = "Mørklæg billeder";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
 "edit-summary-choice-linked-words" = "Tilføjede links";
 "edit-summary-choice-other" = "Andet";
 "edit-summary-field-placeholder-text" = "Andre måder du forbedrede artiklen";
 "edit-summary-title" = "Hvordan har du forbedret artiklen?";
+"edit-text-size-table-view-title" = "Tekst størrelse";
 "empty-no-article-message" = "Beklager, kunne ikke indlæse artiklen";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
