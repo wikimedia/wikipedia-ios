@@ -48,7 +48,7 @@ class TextFormattingTableViewCell: UITableViewCell {
 extension TextFormattingTableViewCell: Themeable {
     func apply(theme: Theme) {
         topSeparator.backgroundColor = theme.colors.border
-        backgroundView?.backgroundColor = theme.colors.paperBackground
+        backgroundView?.backgroundColor = theme.colors.midBackground
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         textLabel?.textColor = theme.colors.primaryText
         detailTextLabel?.textColor = theme.colors.primaryText

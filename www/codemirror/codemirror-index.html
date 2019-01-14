@@ -31,6 +31,7 @@
       const end = toCursor.ch
       const isSingleLine = (fromCursor.line === toCursor.line)
       const line = fromCursor.line
+      // TODO: rename 'isSelectionMoreThanOneChar' - it's actually isSelectionMoreThanZeroChar
       const isSelectionMoreThanOneChar = !isSingleLine || (end - start) > 0
 
       return {
@@ -75,7 +76,6 @@
       const lineTokens = doc.getLineTokens(line, true)
 
       enrichHeadingTokens(lineTokens)      
-      enrichListTokens(lineTokens)
       enrichIndentTokens(lineTokens)
       enrichSignatureTokens(lineTokens)
       
@@ -122,20 +122,6 @@
       return lineTokens.filter((token, thisIndex) => thisIndex >= index)
     }
     
-    const enrichListTokens = (lineTokens) => {
-      const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
-      if (soughtTokenIndex < 0) {
-        return
-      }      
-      const soughtToken = lineTokens[soughtTokenIndex]
-      const supplementToken = (token) => {
-        addTypeToToken(token, `mw-list-depth-${soughtToken.end}`)
-        addTypeToToken(token, soughtToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
-      }
-      lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
-        .forEach(supplementToken)
-    }
-
     const enrichIndentTokens = (lineTokens) => {
       const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-indenting')
       if (soughtTokenIndex < 0) {
@@ -250,9 +236,6 @@
       return tagRanges.filter(isTagRangeComplete)
     }
 
-
-
-
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
@@ -321,11 +304,7 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
         result.push(buttonPayload('heading', {depth: depth}))
       }
-      if (typesArray.includes('mw-list-ordered') || typesArray.includes('mw-list-unordered')) {
-        const depth = numberFromPrefixedKey(typesArray, 'mw-list-depth-')
-        const ordered = typesArray.includes('mw-list-ordered')
-        result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
-      }
+
       if (typesArray.includes('mw-indenting') || typesArray.includes('mw-indenting-contents')) {
         const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
         result.push(buttonPayload('indent', {depth: depth}))
@@ -334,39 +313,54 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
         result.push(buttonPayload('signature', {depth: depth}))
       }
-
-      result.push(buttonPayload('debug', {
-         tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
-         tokensIntersectingSelectionTypesArray: typesArray,
-         selectionRange: getSelectionRange(doc),
-         getSelectionText: selection
-       }
-      ))
-     
-      const historySize = doc.historySize()
-      
-      const changesMade = historySize.undo > 1
-      if (changesMade) {
-        result.push(buttonPayload('undo'))
+      const listItemLineCallback = (item) => {
+        result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
+        return false // No need to continue (only need to send one 'li' message)
       }
+      performCallBackForSelectedListItemLines(doc, listItemLineCallback)
 
-      result.push(buttonPayload('changesMade', {changesMade: changesMade}))
-
-      if (historySize.redo > 0) {
-        result.push(buttonPayload('redo'))
-      }
-        
       return result
     }
 
-    const sendNativeMessages = (doc) => {
-      // sends message to native land that selection has changed,
-      // upon receipt native land should de-select all buttons
-      window.webkit.messageHandlers.selectionChanged.postMessage(getSelectionRange(doc).isSelectionMoreThanOneChar)
+    const disabledButtons = (doc, selectedButtons) => {
+      let buttonsToDisable = []
+      
+      const listPayload = selectionPayloadForButton('li', selectedButtons)
+      const selectionContainsList = listPayload !== null
+      if (!selectionContainsList || listPayload.info.depth <= 1) {
+        buttonsToDisable.push(buttonPayload('decreaseIndentDepth'))
+      }
+      if (!selectionContainsList) {
+        buttonsToDisable.push(buttonPayload('increaseIndentDepth'))
+      }
 
-      // sends message to native land about which buttons should be selected,
-      // native land should assume only these buttons should appear selected
-      window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
+      const historySize = doc.historySize()
+      if (historySize.undo < 2) {
+        buttonsToDisable.push(buttonPayload('undo'))  
+        buttonsToDisable.push(buttonPayload('progress'))
+      }
+      if (historySize.redo < 1) {
+        buttonsToDisable.push(buttonPayload('redo'))
+      }
+
+      return buttonsToDisable
+    }
+
+    const sendNativeMessages = (doc) => {
+      const buttonsToSelect = selectedButtons(doc)
+      const nativeMessages = {
+        // message to native land that selection has changed,
+        // upon receipt native land should de-select and re-enable all buttons.
+        // (`selectionChanged` should be processed before the other messages)
+        selectionChanged: getSelectionRange(doc).isSelectionMoreThanOneChar,
+        // message to native land about which buttons should be selected,
+        // native land should assume only these buttons should appear selected
+        highlightTheseButtons: buttonsToSelect,
+        // message to native land about which buttons should be disabled,
+        // native land should assume only these buttons should be disabled
+        disableTheseButtons: disabledButtons(doc, buttonsToSelect)
+      }
+      window.webkit.messageHandlers.codeMirrorMessage.postMessage(nativeMessages)
     }
         
     const applyTheme = (themeName) => {
@@ -514,8 +508,11 @@
     // determined to be a button. This is the same payload we send to native land to tell it which
     // buttons are selected and any associated relevant properties - in the case of a heading the
     // payload's info.depth tells us how many '=' the currently selected heading has.
-    const selectionPayloadForButton = (buttonType) => {
-      const payloadsForButton = selectedButtons(editor).filter((item) => {return item.button === buttonType})
+    const selectionPayloadForButton = (buttonType, selectedButtonsArray) => {
+      if (selectedButtonsArray === undefined) {
+        selectedButtonsArray = selectedButtons(editor)
+      }
+      const payloadsForButton = selectedButtonsArray.filter((item) => {return item.button === buttonType})
       if (payloadsForButton.length === 0) {
         return null
       }
@@ -539,8 +536,79 @@
       toggleMarkup(button, openingMarkup, closingMarkup)        
     }
 
-    const convertSelectedLinesToList = (char) => {
-      editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}\n${char} `)
+    const toggleListForSelectedLines = (char) => {
+      const listPayload = selectionPayloadForButton('li')
+      const isExistingListSelected = listPayload !== null
+      if (isExistingListSelected) {
+        delistifySelectedLines()
+        if (char === '#' && listPayload.info.ordered) {
+          return
+        }
+        if (char === '*' && !listPayload.info.ordered) {
+          return
+        }
+      }
+      convertSelectedLinesToList(char)
+    }
+
+    class LineListItem {
+      constructor(entireLine, leadingCharsAndWhitespace, char, depth) {
+        this.entireLine = entireLine
+        this.leadingCharsAndWhitespace = leadingCharsAndWhitespace
+        this.char = char
+        this.depth = depth
+        this.isOrdered = (char === '#')
+      }
+    }
+
+    const leadingListItemRepeatingCharactersAndWhitespace = (entireLine) => {
+      const leadingCharsAndWhitespace = entireLine.match(new RegExp(`^(?:(\\*+|#+))\\s*`))
+      if (!leadingCharsAndWhitespace) {
+        return null
+      }
+      return new LineListItem(entireLine, leadingCharsAndWhitespace[0], leadingCharsAndWhitespace[1].charAt(0), leadingCharsAndWhitespace[1].length)
+    } 
+
+    const delistifySelectedLines = () => {
+      const listItemLineCallback = (item, line) => {
+        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: item.leadingCharsAndWhitespace.length})
+        return true
+      }
+      performCallBackForSelectedListItemLines(editor, listItemLineCallback)
+    }
+
+    const performCallBackForSelectedListItemLines = (doc, callback) => {
+      let toLine = doc.getCursor('to').line
+      let fromLine = doc.getCursor('from').line
+      for (let line = toLine; line >= fromLine; line--) {
+        const thisLineText = doc.getLine(line)
+        const lineListItem = leadingListItemRepeatingCharactersAndWhitespace(thisLineText)
+        if (lineListItem) {
+          const shouldContinue = callback(lineListItem, line)
+          if (!shouldContinue) {
+            return
+          }
+        }
+      }
+    }
+
+    const expandSelectionToEntireLines = () => {
+      const newFrom = {line: editor.getCursor('from').line, ch: 0}
+      const currentTo = editor.getCursor('to')
+      const newTo = {line: currentTo.line, ch: editor.getLine(currentTo.line).length}
+      editor.setSelection(newFrom, newTo)
+    }
+
+    const convertSelectedLinesToList = (char) => {      
+      const selectionRange = getSelectionRange(editor)
+      if (selectionRange.isSingleLine) {
+        editor.replaceRange(`${char} `, {line: selectionRange.line, ch: 0})
+        return
+      }
+      // Ensure start of selection range is at beginning of line.
+      expandSelectionToEntireLines()
+      // Now can add characters - the 'around' option preserves selection.
+      editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
     }
 
     wmf.commands = {
@@ -584,10 +652,10 @@
         console.log('signature')
       },
       unorderedList: () => {
-        convertSelectedLinesToList('*')
+        toggleListForSelectedLines('*')
       },
       orderedList: () => {
-        convertSelectedLinesToList('#')
+        toggleListForSelectedLines('#')
       },
       superscript: () => {
         expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
@@ -659,41 +727,58 @@
         toggleMarkup('heading', equals, equals)
       },
       increaseIndentDepth: () => {
-        console.log('increaseIndentDepth')
+        const listItemLineCallback = (item, line) => {
+          editor.replaceRange(item.char, {line: line, ch: 0})
+          return true
+        }
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
       },
       decreaseIndentDepth: () => {
-        console.log('decreaseIndentDepth')
+        const listItemLineCallback = (item, line) => {
+          if (item.depth === 1) {
+            return true
+          }
+          editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: 1})
+          return true
+        }
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
       },
       textSize: (newSize) => {
-        if (newSize === 'small') {
-          if (selectionPayloadForButton('bigTextSize')) {
-            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
-          }
-          if (selectionPayloadForButton('smallTextSize')) {
-            // If after toggle above the selection is still inside a 'small' (ie 'big' was nested in small before it was toggled off) expand the selection to encompass the small
-            expandTagSelection('smallTextSize')
-          }
-          expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
-          return
-        }
-        if (newSize === 'big') {
-          if (selectionPayloadForButton('smallTextSize')) {
-            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')  
-          }
-          if (selectionPayloadForButton('bigTextSize')) {
-            // If after toggle above the selection is still inside a 'big' (ie 'small' was nested in big before it was toggled off) expand the selection to encompass the big
-            expandTagSelection('bigTextSize')
-          }
-          expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
-          return
-        }
-        if (newSize === 'normal') {
-          if (selectionPayloadForButton('smallTextSize')) {
-            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')  
-          }
-          if (selectionPayloadForButton('bigTextSize')) {
-            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
-          }
+        switch (newSize) {
+          case 'small': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'big') {
+                expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+              } else if (selectedButton.info.size === 'small') {
+                // If after toggle above the selection is still inside a 'small' (ie 'big' was nested in small before it was toggled off) expand the selection to encompass the small
+                expandTagSelection('smallTextSize')
+              }
+            }
+            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+          } break
+          case 'big': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'small') {
+                expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+              } else if (selectedButton.info.size === 'big') {
+                // If after toggle above the selection is still inside a 'big' (ie 'small' was nested in big before it was toggled off) expand the selection to encompass the big
+                expandTagSelection('bigTextSize')
+              }
+            }
+            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+          } break
+          case 'normal': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'small') {
+                expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+              } else if (selectedButton.info.size === 'big') {
+                expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+              }
+            }
+          } break
         }
       },
       selectAll: () => editor.execCommand('selectAll'),

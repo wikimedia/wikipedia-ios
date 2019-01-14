@@ -17,13 +17,13 @@ class TextFormattingButton: UIButton, Themeable {
         get {
             // Increase touch targets & make widths more consistent
             let superSize = super.intrinsicContentSize
-            return CGSize(width: max(superSize.width, 35), height: superSize.height)
+            return CGSize(width: max(superSize.width, 36), height: max(superSize.height, 36))
         }
     }
     
     private func updateColors() {
-        self.tintColor = self.isSelected ? theme.colors.primaryText : theme.colors.secondaryText
-        self.backgroundColor = self.isSelected ? theme.colors.midBackground : .clear
+        self.tintColor = theme.colors.primaryText
+        self.backgroundColor = self.isSelected ? theme.colors.baseBackground : .clear
     }
     
     func apply(theme: Theme) {

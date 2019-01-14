@@ -31,9 +31,17 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeabl
         if inputViewType == nil {
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
         }
+        defaultEditToolbarView?.enableAllButtons()
+        contextualHighlightEditToolbarView?.enableAllButtons()
         defaultEditToolbarView?.deselectAllButtons()
         contextualHighlightEditToolbarView?.deselectAllButtons()
         textFormattingInputViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
+    }
+
+    func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+        defaultEditToolbarView?.disableButton(button)
+        contextualHighlightEditToolbarView?.disableButton(button)
+        textFormattingInputViewController.disableButton(button: button)
     }
 
     func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {

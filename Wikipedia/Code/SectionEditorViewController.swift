@@ -77,14 +77,14 @@ class SectionEditorViewController: UIViewController {
         contentController.addUserScript(setupUserScript)
         contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
 
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
         webView.navigationDelegate = self
         webView.isHidden = true // hidden until wikitext is set
+        webView.scrollView.keyboardDismissMode = .interactive
 
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
         webView.inputViewsSource = inputViewsController
@@ -184,7 +184,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: true) // TODO
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -203,10 +203,13 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
     }
 }
 
-extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonSelectionDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
-        navigationItemController.buttonSelectionDidChange(button: button)
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
         inputViewsController.buttonSelectionDidChange(button: button)
+    }
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+        navigationItemController.disableButton(button: button)
+        inputViewsController.disableButton(button: button)
     }
 }
 
@@ -280,8 +283,8 @@ extension SectionEditorViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        webView.scrollView.backgroundColor = theme.colors.baseBackground
-        webView.backgroundColor = theme.colors.baseBackground
+        webView.scrollView.backgroundColor = theme.colors.paperBackground
+        webView.backgroundColor = theme.colors.paperBackground
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }
