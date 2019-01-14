@@ -202,7 +202,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 
 extension SectionEditorInputViewsController: WMFFindInPageKeyboardBarDelegate {
     func keyboardBar(_ keyboardBar: WMFFindInPageKeyboardBar!, searchTermChanged term: String!) {
-        messagingController.find(text: term)
+        messagingController.search(text: term)
     }
 
     func keyboardBarCloseButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
