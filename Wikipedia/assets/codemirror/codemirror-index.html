@@ -313,13 +313,11 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
         result.push(buttonPayload('signature', {depth: depth}))
       }
-     
-      const listItemLineCallback = (char, depth, line) => {
-        result.push(buttonPayload('li', {depth: depth, ordered: (char === '#')}))
+      const listItemLineCallback = (item) => {
+        result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
         return false // No need to continue (only need to send one 'li' message)
       }
-      performCallBackForSelectedListItemLines(doc, '#', listItemLineCallback)
-      performCallBackForSelectedListItemLines(doc, '*', listItemLineCallback)
+      performCallBackForSelectedListItemLines(doc, listItemLineCallback)
 
       return result
     }
@@ -537,42 +535,54 @@
     }
 
     const toggleListForSelectedLines = (char) => {
-       const listPayload = selectionPayloadForButton('li')
-       const isExistingListSelected = listPayload !== null
-       if (isExistingListSelected) {
-         delistifySelectedLines(char)
-         return
-       }
-       convertSelectedLinesToList(char)
+      const listPayload = selectionPayloadForButton('li')
+      const isExistingListSelected = listPayload !== null
+      if (isExistingListSelected) {
+        delistifySelectedLines()
+        if (char === '#' && listPayload.info.ordered) {
+          return
+        }
+        if (char === '*' && !listPayload.info.ordered) {
+          return
+        }
+      }
+      convertSelectedLinesToList(char)
     }
 
-    const leadingListItemRepeatingCharactersAndWhitespace = (line, char) => {
-      const leadingCharAndWhitespace = line.match(new RegExp(`^\\${char}+\\s*`))
-      return leadingCharAndWhitespace ? leadingCharAndWhitespace[0] : ''
+    class LineListItem {
+      constructor(entireLine, leadingCharsAndWhitespace, char, depth) {
+        this.entireLine = entireLine
+        this.leadingCharsAndWhitespace = leadingCharsAndWhitespace
+        this.char = char
+        this.depth = depth
+        this.isOrdered = (char === '#')
+      }
+    }
+
+    const leadingListItemRepeatingCharactersAndWhitespace = (entireLine) => {
+      const leadingCharsAndWhitespace = entireLine.match(new RegExp(`^(?:(\\*+|#+))\\s*`))
+      if (!leadingCharsAndWhitespace) {
+        return null
+      }
+      return new LineListItem(entireLine, leadingCharsAndWhitespace[0], leadingCharsAndWhitespace[1].charAt(0), leadingCharsAndWhitespace[1].length)
     } 
 
-    const leadingListItemRepeatingCharactersCount = (line, char) => {
-      const chars = line.match(new RegExp(`^\\${char}+`))
-      return chars ? chars[0].length : 0
-    } 
-
-    const delistifySelectedLines = (char) => {
-      const listItemLineCallback = (char, depth, line, leadingCharsWithWhitespaceLength) => {
-        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: leadingCharsWithWhitespaceLength})
+    const delistifySelectedLines = () => {
+      const listItemLineCallback = (item, line) => {
+        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: item.leadingCharsAndWhitespace.length})
         return true
       }
-      performCallBackForSelectedListItemLines(editor, char, listItemLineCallback)
+      performCallBackForSelectedListItemLines(editor, listItemLineCallback)
     }
 
-    const performCallBackForSelectedListItemLines = (doc, char, callback) => {
+    const performCallBackForSelectedListItemLines = (doc, callback) => {
       let toLine = doc.getCursor('to').line
       let fromLine = doc.getCursor('from').line
       for (let line = toLine; line >= fromLine; line--) {
         const thisLineText = doc.getLine(line)
-        const leadingCharsWithWhitespace = leadingListItemRepeatingCharactersAndWhitespace(thisLineText, char)
-        if (leadingCharsWithWhitespace.length > 0) {
-          const depth = leadingListItemRepeatingCharactersCount(leadingCharsWithWhitespace, char)
-          const shouldContinue = callback(char, depth, line, leadingCharsWithWhitespace.length)
+        const lineListItem = leadingListItemRepeatingCharactersAndWhitespace(thisLineText)
+        if (lineListItem) {
+          const shouldContinue = callback(lineListItem, line)
           if (!shouldContinue) {
             return
           }
@@ -715,23 +725,21 @@
         toggleMarkup('heading', equals, equals)
       },
       increaseIndentDepth: () => {
-        const listItemLineCallback = (char, depth, line) => {
-          editor.replaceRange(char, {line: line, ch: 0})
+        const listItemLineCallback = (item, line) => {
+          editor.replaceRange(item.char, {line: line, ch: 0})
           return true
         }
-        performCallBackForSelectedListItemLines(editor, '#', listItemLineCallback)
-        performCallBackForSelectedListItemLines(editor, '*', listItemLineCallback)
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
       },
       decreaseIndentDepth: () => {
-        const listItemLineCallback = (char, depth, line) => {
-          if (depth === 1) {
+        const listItemLineCallback = (item, line) => {
+          if (item.depth === 1) {
             return true
           }
           editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: 1})
           return true
         }
-        performCallBackForSelectedListItemLines(editor, '#', listItemLineCallback)
-        performCallBackForSelectedListItemLines(editor, '*', listItemLineCallback)
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
       },
       textSize: (newSize) => {
         switch (newSize) {
