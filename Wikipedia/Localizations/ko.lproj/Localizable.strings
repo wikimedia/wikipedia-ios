@@ -136,6 +136,7 @@
 "description-edit-for-article" = "$1의 제목 설명";
 "description-edit-learn-more" = "더 알아보기";
 "description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "제목 설명을 변경하면 당신은 $1에 동의하며 기여한 내용을 $2 라이선스로 배포하는 데 동의하는 것으로 간주합니다. 이 동의는 철회할 수 없습니다.";
 "description-edit-pencil-introduction" = "설명 편집";
 "description-edit-pencil-title" = "제목 설명 편집";
 "description-edit-placeholder-title" = "설명은 짧을수록 좋습니다";
@@ -145,6 +146,7 @@
 "description-help-about-description" = "제목 설명은 독자들이 한눈에 주제를 파악할 수 있도록 글을 요약합니다.";
 "description-help-about-title" = "정보";
 "description-help-about-wikidata" = "위키데이터 정보";
+"description-help-more-info-description" = "설명은 위키백과와 다른 프로젝트를 지원하는 자유, 협업, 다언어, 2차 데이터베이스를 제공하는 위키미디어 재단의 프로젝트의 하나인 위키데이터에 저장되어 관리됩니다.";
 "description-help-more-info-title" = "자세한 정보";
 "description-help-tips-description" = "설명은 2개에서 12개 사이의 단어 길이의 한 줄에 맞추는 것이 이상적입니다. 처음 오는 단어가 고유 명사가 아니라면 대문자로 쓰지 않습니다.";
 "description-help-tips-example-description-one" = "모나리자에 관한 문서의 제목 설명";
@@ -166,12 +168,15 @@
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
 "dim-images" = "이미지를 어둡게";
+"edit-style-table-view-title" = "스타일";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
 "edit-summary-choice-other" = "기타";
 "edit-summary-field-placeholder-text" = "문서를 개선하는 다른 방법";
 "edit-summary-title" = "어떻게 문서를 개선했습니까?";
+"edit-text-formatting-table-view-title" = "텍스트 서식 지정";
+"edit-text-size-table-view-title" = "텍스트 크기";
 "empty-no-article-message" = "죄송합니다, 문서를 불러올 수 없습니다";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";

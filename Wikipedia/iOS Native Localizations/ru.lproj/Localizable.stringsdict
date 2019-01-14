@@ -72,22 +72,6 @@
 			<string>%1$d исторических событий</string>
 		</dict>
 	</dict>
-	<key>page-read-in-other-languages</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>one</key>
-			<string>Доступно на %1$@ one=другом языке</string>
-			<key>other</key>
-			<string>Доступно на %1$@ других языках</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -263,11 +247,11 @@
 			<key>few</key>
 			<string>%1$d года назад</string>
 			<key>one</key>
-			<string>прошлый год</string>
+			<string>Прошлый год</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>
-			<string>этот год</string>
+			<string>Этот год</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>

@@ -135,12 +135,15 @@
 "description-edit-title" = "Editar descripción";
 "description-edit-warning" = "Prueba mantener las descripciones cortas, así los usuarios pueden entender el tema del artículo en una mirada";
 "dim-images" = "Atenuación de imágenes";
+"edit-style-table-view-title" = "Estilo";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
 "edit-summary-choice-other" = "Otro";
 "edit-summary-field-placeholder-text" = "Otras formas en las que mejoraste el artículo";
 "edit-summary-title" = "¿Cómo has mejorado el artículo?";
+"edit-text-formatting-table-view-title" = "Formato del texto";
+"edit-text-size-table-view-title" = "Tamaño del texto";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
@@ -401,6 +404,9 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
+"reverted-edit-notification-read-more-action-title" = "Leer más";
+"reverted-edit-thanks-for-editing-title" = "¡Gracias por editar Wikipedia!";
+"reverted-edit-title" = "Edición revertida";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf8>
+  <meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+  <script src="resources/lib/codemirror/lib/codemirror.js"></script>
+  <link rel="stylesheet" type="text/css" href="resources/lib/codemirror/lib/codemirror.css">
+  <script src="resources/mode/mediawiki/mediawiki.js"></script>
+  <link rel="stylesheet" type="text/css" href="resources/mode/mediawiki/mediawiki.css">
+  <link rel="stylesheet" type="text/css" href="codemirror-common.css">
+  <link rel="stylesheet" id="codemirror-theme" type="text/css" href="">
+</head>
+
+
+<body>
+  <script>    
+    let editor
+
+    const rangesIntersect = (range1, range2) => {
+      if (range1.start > range2.start + (range2.end - range2.start)) return false
+      if (range2.start > range1.start + (range1.end - range1.start)) return false
+      return true
+    }
+
+    const getSelectionRange = (doc) => {
+      const fromCursor = doc.getCursor('from')
+      const toCursor = doc.getCursor('to')
+
+      const start = fromCursor.ch
+      const end = toCursor.ch
+      const isSingleLine = (fromCursor.line === toCursor.line)
+      const line = fromCursor.line
+      // TODO: rename 'isSelectionMoreThanOneChar' - it's actually isSelectionMoreThanZeroChar
+      const isSelectionMoreThanOneChar = !isSingleLine || (end - start) > 0
+
+      return {
+        start,
+        end,
+        isSingleLine,
+        line,
+        isSelectionMoreThanOneChar
+      }
+    }
+    
+    const tokensIntersectingSelection = (selectionRange, lineTokens) => {
+      return lineTokens
+        .filter(token => {
+          return rangesIntersect(selectionRange, token)
+        })
+    }
+
+    const buttonPayload = (buttonName, buttonInfoDict) => {
+      return {button: buttonName, info: buttonInfoDict}
+    } 
+
+    // returns zero if `string` is not comprised only of `char`.
+    // else returns length of `string`
+    const charCountInString = (string, char) => {
+      const matches = string.match(`^${char}+$`)
+      return (matches === null) ? 0 : string.length
+    }
+
+    const numberFromPrefixedKey = (array, prefix) => {
+      const s = array.find(s => s.startsWith(prefix))
+      if (!s) {
+        return null
+      }
+      return parseInt(s.substring(prefix.length))
+    }
+
+    // The wikitext parser doesn't add a useful classes for some wikitext constructs, so supplement 
+    // these here. Makes it easier to determine when the cursor sits in such wikitext (or it's
+    // selected) with the same mechanism (token 'type' inspection).
+    const enrichedLineTokens = (doc, line) => {
+      const lineTokens = doc.getLineTokens(line, true)
+
+      enrichHeadingTokens(lineTokens)      
+      enrichIndentTokens(lineTokens)
+      enrichSignatureTokens(lineTokens)
+      
+      return lineTokens
+    }
+
+    const tokenIncludesType = (token, type) => {
+      return (token.type === null) ? false : token.type.split(' ').includes(type)
+    }
+
+    const indexOfFirstLineTokenWithType = (lineTokens, type) => {
+      return lineTokens.findIndex(token => {
+        return tokenIncludesType(token, type)
+      })
+    }
+
+    // Adds missing classes to heading contents.
+    const enrichHeadingTokens = (lineTokens) => {
+      const headingTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-section-header')
+      const headingContentsTokenIndex = headingTokenIndex + 1
+      const headingContentsTokenExists = headingContentsTokenIndex <= (lineTokens.length - 1)
+      if (headingTokenIndex < 0 || !headingContentsTokenExists) {
+        return
+      }
+      const headingToken = lineTokens[headingTokenIndex]
+      const headingContentsToken = lineTokens[headingContentsTokenIndex]
+      if (headingToken.end === headingContentsToken.start) {
+        addTypeToToken(headingContentsToken, 'mw-section-header-text')
+        addTypeToToken(headingContentsToken, `mw-section-header-depth-${headingContentsToken.start}`)
+      }
+    }
+
+    const addTypeToToken = (token, type) => {
+      if (token.type === null) {
+        token.type = type
+      } else {
+        let types = token.type.split(' ')
+        types.push(type)
+        token.type = types.join(' ')
+      }
+    }
+
+    const lineTokensFromTokenAtIndex = (lineTokens, index) => {
+      return lineTokens.filter((token, thisIndex) => thisIndex >= index)
+    }
+    
+    const enrichIndentTokens = (lineTokens) => {
+      const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-indenting')
+      if (soughtTokenIndex < 0) {
+        return
+      }      
+      const soughtToken = lineTokens[soughtTokenIndex]
+      const supplementToken = (token, index) => {
+        if (index > 0) {
+          addTypeToToken(token, `mw-indenting-contents`)
+        }
+        addTypeToToken(token, `mw-indenting-depth-${soughtToken.end}`)
+      }
+      lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
+        .forEach(supplementToken)
+    }
+
+    const enrichSignatureTokens = (lineTokens) => {
+      const supplementToken = (token) => {
+        addTypeToToken(token, `mw-signature-depth-${token.end - token.start}`)
+      }
+      lineTokens
+        .filter(token => {
+          return tokenIncludesType(token, 'mw-signature')
+        })
+        .forEach(supplementToken)
+    }
+
+
+    // Individual words within a tag are tokenized separately, this method 
+    // gives us the overall range for the entire tag's contents. Makes it
+    // easier see what tags the current selection intersects and also makes
+    // it easier to expand selection later to encompass entire tag contents.
+    /*
+      - loops through line tokens
+      - each time it encounters a tag it's not already tracking, it records start
+      - until it encounters token w/o that tracked tag, at which point it records end and stops tracking that tag
+      - end result will be array of ranges for all tags encountered (can be more that one for a given tag)
+      - returns array similar to:
+        [
+          sup: {start: 12, end: 25},
+          small: {start: 32, end: 98},
+          large: {start: 12, end: 108},
+          small: {start: 100, end: 102}
+        ]
+      - This is *vastly* simpler to use than large numbers of line tokens.
+      - then we can easily set this all encompassing range in the button payload for tags
+        (will just need to loop through this array with selection range )
+    */
+    const completeTagRangesForLineTokens = (lineTokens) => {
+     
+      let trackedTags = new Set()
+      let tagRanges = []
+      
+      const startAndStopTrackingTagRangesInToken = (token, index, tokens) => {
+        const tags = new Set(token.state.InHtmlTag)
+        
+        // Fix for tags like 'ref', which mediawiki parsing curiously 
+        // doesn't treat like other tags.
+        if (token.state.extName !== false) {
+          tags.add(token.state.extName)
+        }
+        
+        // Fix for nested tags.
+        if (token.state.extState !== false) {
+          token.state.extState.InHtmlTag.forEach(tags.add, tags)
+        }
+
+        const isNotAlreadyTrackingTag = (tag) => {
+          return !trackedTags.has(tag)
+        }
+        
+        // Add tag item to tagRanges (with `start` value and placeholder `end` value) 
+        // when we first encounter one. Also adds tag to trackedTags.
+        const startTrackingTag = (tag) => {
+          trackedTags.add(tag)
+          tagRanges.push({tag: tag, start: token.start + 1, end: -1})
+        }
+        
+        [...tags]
+          .filter(isNotAlreadyTrackingTag)
+          .forEach(startTrackingTag)
+
+        let tagsToStopTracking = new Set()
+        
+        // Update tagRange `end` when we're no longer part of a trackedTag
+        // (also removes tag from trackedTags)
+        const stopTrackingTag = (tag) => {
+          const prevToken = tokens[index - 1]
+          const end = prevToken.end
+          let existingRange = tagRanges.find(tagRange => {
+            return tagRange.tag === tag && tagRange.end === -1
+          })
+          existingRange.end = end
+          tagsToStopTracking.add(tag)
+        }
+        
+        const shouldStopTrackingTag = (tag) => {
+          return !tags.has(tag)
+        }
+        
+        [...trackedTags]
+          .filter(shouldStopTrackingTag)
+          .forEach(stopTrackingTag)
+        
+        tagsToStopTracking.forEach(trackedTags.delete, trackedTags)
+      }
+      
+      lineTokens.forEach(startAndStopTrackingTagRangesInToken)
+      
+      const isTagRangeComplete = (tagRange) => tagRange.end !== -1
+      
+      return tagRanges.filter(isTagRangeComplete)
+    }
+
+    const selectedButtons = (doc) => {  
+      const selection = doc.getSelection()
+      const selectionRange = getSelectionRange(doc)
+      const lineTokens = enrichedLineTokens(doc, selectionRange.line)
+      
+      let result = []
+
+
+      // Determine which html tag buttons are selected.
+      
+      const tagRanges = !selectionRange.isSingleLine ? [] : completeTagRangesForLineTokens(lineTokens)
+      const tagRangesIntersectingSelectionRange = tagRanges.filter(tagRange => rangesIntersect(selectionRange, tagRange))
+      tagRangesIntersectingSelectionRange.forEach(tagRange => {
+        const buttonInfoDict = {start: tagRange.start, end: tagRange.end}
+        if (tagRange.tag === 'u') {
+          result.push(buttonPayload('underline', buttonInfoDict))
+        }
+        if (tagRange.tag === 's') {
+          result.push(buttonPayload('strikethrough', buttonInfoDict))
+        }
+        if (tagRange.tag === 'sup') {
+          result.push(buttonPayload('superscript', buttonInfoDict))
+        }
+        if (tagRange.tag === 'sub') {
+          result.push(buttonPayload('subscript', buttonInfoDict))
+        }
+        if (tagRange.tag === 'small' || tagRange.tag === 'big') {
+          buttonInfoDict.size = tagRange.tag 
+          result.push(buttonPayload('textSize', buttonInfoDict))
+        }
+        if (tagRange.tag === 'ref') {
+          result.push(buttonPayload('reference', buttonInfoDict))
+        }
+      })
+
+      
+      
+      // Determine which wikitext buttons are selected.
+
+      // For now only supports single line selection ranges.
+      const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
+      const typesArray = intersectingTokens.map(token => token.type)
+        .join(' ')
+        .split(' ')
+        .filter(s => {
+          return s.trim().length > 0
+        })
+      
+      
+      if (typesArray.includes('strong')) {
+        result.push(buttonPayload('bold'))
+      }
+      if (typesArray.includes('em')) {
+        result.push(buttonPayload('italic'))
+      }
+      if (typesArray.includes('mw-link-ground')) {
+        result.push(buttonPayload('link'))
+      }
+      if (typesArray.includes('mw-template-ground')) {
+        result.push(buttonPayload('template'))
+      }
+      if (typesArray.includes('mw-comment')) {
+        result.push(buttonPayload('comment'))
+      }
+      if (typesArray.includes('mw-section-header-text')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
+        result.push(buttonPayload('heading', {depth: depth}))
+      }
+
+      if (typesArray.includes('mw-indenting') || typesArray.includes('mw-indenting-contents')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
+        result.push(buttonPayload('indent', {depth: depth}))
+      }
+      if (typesArray.includes('mw-signature')/* || typesArray.includes('mw-signature-contents')*/) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
+        result.push(buttonPayload('signature', {depth: depth}))
+      }
+      const listItemLineCallback = (item) => {
+        result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
+        return false // No need to continue (only need to send one 'li' message)
+      }
+      performCallBackForSelectedListItemLines(doc, listItemLineCallback)
+
+      return result
+    }
+
+    const disabledButtons = (doc, selectedButtons) => {
+      let buttonsToDisable = []
+      
+      const listPayload = selectionPayloadForButton('li', selectedButtons)
+      const selectionContainsList = listPayload !== null
+      if (!selectionContainsList || listPayload.info.depth <= 1) {
+        buttonsToDisable.push(buttonPayload('decreaseIndentDepth'))
+      }
+      if (!selectionContainsList) {
+        buttonsToDisable.push(buttonPayload('increaseIndentDepth'))
+      }
+
+      const historySize = doc.historySize()
+      if (historySize.undo < 2) {
+        buttonsToDisable.push(buttonPayload('undo'))  
+        buttonsToDisable.push(buttonPayload('progress'))
+      }
+      if (historySize.redo < 1) {
+        buttonsToDisable.push(buttonPayload('redo'))
+      }
+
+      return buttonsToDisable
+    }
+
+    const sendNativeMessages = (doc) => {
+      const buttonsToSelect = selectedButtons(doc)
+      const nativeMessages = {
+        // message to native land that selection has changed,
+        // upon receipt native land should de-select and re-enable all buttons.
+        // (`selectionChanged` should be processed before the other messages)
+        selectionChanged: getSelectionRange(doc).isSelectionMoreThanOneChar,
+        // message to native land about which buttons should be selected,
+        // native land should assume only these buttons should appear selected
+        highlightTheseButtons: buttonsToSelect,
+        // message to native land about which buttons should be disabled,
+        // native land should assume only these buttons should be disabled
+        disableTheseButtons: disabledButtons(doc, buttonsToSelect)
+      }
+      window.webkit.messageHandlers.codeMirrorMessage.postMessage(nativeMessages)
+    }
+        
+    const applyTheme = (themeName) => {
+      document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
+    }
+    
+    const setupCodemirrorWithConfig = (config, callback) => {
+      let codeMirrorSettings = {
+        mwConfig: config,
+        lineWrapping: true,
+        lineNumbers: true,
+        mode: "text/mediawiki",
+        matchBrackets: true,
+        extraKeys: {
+          // t.b.d.
+        }, 
+        inputStyle: 'contenteditable',
+        autocorrect: true,
+        autocapitalize: true,
+        spellcheck: false,
+        preventDefaultOnKeyPress: false,
+        viewportMargin: Infinity
+      }
+      editor = CodeMirror(document.body, codeMirrorSettings)
+      if (callback) {
+        callback()
+      }
+      editor.on('cursorActivity', sendNativeMessages)
+    }
+    
+    const setupCodemirror = (language, themeName, callback) => {
+      applyTheme(themeName)
+      let xhr = new XMLHttpRequest()
+      let url = `config/codemirror-config-${language}.json`
+      xhr.open('GET', url, true)
+      xhr.onload = () => {
+        let config = JSON.parse(xhr.responseText)
+        setupCodemirrorWithConfig(config['extCodeMirrorConfig'], callback)
+      };
+      xhr.send()
+    }
+      
+    const wrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
+      var selectedText = editor.getSelection()
+      if (!selectedText || selectedText.length == 0) {
+        selectedText = ' '
+      }
+      editor.replaceSelection(openingMarkup + selectedText + closingMarkup, 'around')
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
+        const openingMarkupLength = openingMarkup.length
+        const closingMarkupLength = closingMarkup.length
+        const selection = selections[0]
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        const from = {line: fromPos.line, ch: fromPos.ch + openingMarkupLength, sticky: fromPos.sticky}
+        const to = {line: toPos.line, ch: toPos.ch - closingMarkupLength, sticky: toPos.sticky}
+        editor.setSelection(from, to)
+      }
+    }
+    
+    const reverseString = (string) => {
+      return string.split('').reverse().join('')
+    }
+    
+    const isSelectionWrappedWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
+      const selections = editor.listSelections()
+      if (selections.length < 1) {
+        return false
+      }
+      const selection = selections[0]
+      const fromPos = selection.from()
+      const toPos = selection.to()
+      if (fromPos.line != toPos.line) {
+        return false
+      }
+      const lineIndex = fromPos.line
+      const line = editor.getLine(lineIndex)
+      const before = line.substring(0, fromPos.ch)
+      const after = line.substring(toPos.ch, line.length)
+      const beforeIndex = reverseString(before).indexOf(reverseString(openingMarkup))
+      const afterIndex = after.indexOf(closingMarkup)
+      return fromPos.ch == toPos.ch ? beforeIndex >= 0 && afterIndex >= 0 : beforeIndex == 0 && afterIndex == 0
+    }
+    
+    const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
+      const selectedText = editor.getSelection()
+      if (selectedText === ' ') { // remove single whitespace that was likely inserted by wrapSelection
+        editor.replaceSelection('', 'start')
+      }
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
+        const selection = selections[0]
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        const lineIndex = fromPos.line
+        const line = editor.getLine(lineIndex)
+        const before = line.substring(0, fromPos.ch)
+        const after = line.substring(fromPos.ch, line.length)
+        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(openingMarkup), ''))
+        const adjustedAfter = after.replace(closingMarkup, '')
+        const adjustedLine = adjustedBefore + adjustedAfter
+        if (line.length != adjustedLine.length) {
+          editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
+          const openingMarkupLength = openingMarkup.length
+          const from = {line: fromPos.line, ch: fromPos.ch - openingMarkupLength, sticky: fromPos.sticky}
+          const to = {line: toPos.line, ch: toPos.ch - openingMarkupLength, sticky: toPos.sticky}
+          editor.setSelection(from, to)
+        }
+      }
+    }
+      
+    const toggleMarkup = (button, openingMarkup, closingMarkup) => {
+      const hasMarkup = isSelectionWrappedWith(openingMarkup, closingMarkup)
+      if (hasMarkup) {
+        unwrapSelectionWith(openingMarkup, closingMarkup)
+      } else {
+        wrapSelectionWith(openingMarkup, closingMarkup)
+      }
+    }
+    
+    const wmf = {}
+    
+    wmf.getWikitext = () => editor.getValue()
+    wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
+    wmf.setup = (language, themeName, callback) => setupCodemirror(language, themeName, callback)
+    wmf.applyTheme = (themeName) => applyTheme(themeName)
+
+    const italicMarkup = "''"
+    const boldMarkup = "'''"
+
+
+    // Method for easier mining of button payload information for current selection. 
+    // For example, if you want to know if the current selection is a heading, and if so how many
+    // '=' does it use, this will return a button payload IF the current selection has been 
+    // determined to be a button. This is the same payload we send to native land to tell it which
+    // buttons are selected and any associated relevant properties - in the case of a heading the
+    // payload's info.depth tells us how many '=' the currently selected heading has.
+    const selectionPayloadForButton = (buttonType, selectedButtonsArray) => {
+      if (selectedButtonsArray === undefined) {
+        selectedButtonsArray = selectedButtons(editor)
+      }
+      const payloadsForButton = selectedButtonsArray.filter((item) => {return item.button === buttonType})
+      if (payloadsForButton.length === 0) {
+        return null
+      }
+      return payloadsForButton[0]
+    }
+
+    const expandTagSelection = (button) => {
+      const selectionRange = getSelectionRange(editor)
+      if (!selectionRange.isSingleLine) {
+        return
+      }
+      const payload = selectionPayloadForButton(button)
+      if (payload === null) {
+        return
+      }
+      editor.setSelection({line: selectionRange.line, ch: payload.info.start}, {line: selectionRange.line, ch: payload.info.end})
+    }
+
+    const expandTagSelectionAndToggleMarkup = (button, openingMarkup, closingMarkup) => {
+      expandTagSelection(button)
+      toggleMarkup(button, openingMarkup, closingMarkup)        
+    }
+
+    const toggleListForSelectedLines = (char) => {
+      const listPayload = selectionPayloadForButton('li')
+      const isExistingListSelected = listPayload !== null
+      if (isExistingListSelected) {
+        delistifySelectedLines()
+        if (char === '#' && listPayload.info.ordered) {
+          return
+        }
+        if (char === '*' && !listPayload.info.ordered) {
+          return
+        }
+      }
+      convertSelectedLinesToList(char)
+    }
+
+    class LineListItem {
+      constructor(entireLine, leadingCharsAndWhitespace, char, depth) {
+        this.entireLine = entireLine
+        this.leadingCharsAndWhitespace = leadingCharsAndWhitespace
+        this.char = char
+        this.depth = depth
+        this.isOrdered = (char === '#')
+      }
+    }
+
+    const leadingListItemRepeatingCharactersAndWhitespace = (entireLine) => {
+      const leadingCharsAndWhitespace = entireLine.match(new RegExp(`^(?:(\\*+|#+))\\s*`))
+      if (!leadingCharsAndWhitespace) {
+        return null
+      }
+      return new LineListItem(entireLine, leadingCharsAndWhitespace[0], leadingCharsAndWhitespace[1].charAt(0), leadingCharsAndWhitespace[1].length)
+    } 
+
+    const delistifySelectedLines = () => {
+      const listItemLineCallback = (item, line) => {
+        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: item.leadingCharsAndWhitespace.length})
+        return true
+      }
+      performCallBackForSelectedListItemLines(editor, listItemLineCallback)
+    }
+
+    const performCallBackForSelectedListItemLines = (doc, callback) => {
+      let toLine = doc.getCursor('to').line
+      let fromLine = doc.getCursor('from').line
+      for (let line = toLine; line >= fromLine; line--) {
+        const thisLineText = doc.getLine(line)
+        const lineListItem = leadingListItemRepeatingCharactersAndWhitespace(thisLineText)
+        if (lineListItem) {
+          const shouldContinue = callback(lineListItem, line)
+          if (!shouldContinue) {
+            return
+          }
+        }
+      }
+    }
+
+    const expandSelectionToEntireLines = () => {
+      const newFrom = {line: editor.getCursor('from').line, ch: 0}
+      const currentTo = editor.getCursor('to')
+      const newTo = {line: currentTo.line, ch: editor.getLine(currentTo.line).length}
+      editor.setSelection(newFrom, newTo)
+    }
+
+    const convertSelectedLinesToList = (char) => {      
+      const selectionRange = getSelectionRange(editor)
+      if (selectionRange.isSingleLine) {
+        editor.replaceRange(`${char} `, {line: selectionRange.line, ch: 0})
+        return
+      }
+      // Ensure start of selection range is at beginning of line.
+      expandSelectionToEntireLines()
+      // Now can add characters - the 'around' option preserves selection.
+      editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
+    }
+
+    wmf.commands = {
+      focus: () => {
+        editor.focus()
+      },
+      undo: () => editor.undo(),
+      redo: () => editor.redo(),
+      cursorUp: () => editor.execCommand('goLineUp'),
+      cursorDown: () => editor.execCommand('goLineDown'),
+      cursorLeft: () => editor.execCommand('goCharLeft'),
+      cursorRight: () => editor.execCommand('goCharRight'),
+      bold: () => {
+        toggleMarkup('bold', boldMarkup)
+      },
+      italic: () => {
+        if (isSelectionWrappedWith(boldMarkup + italicMarkup)) {
+          unwrapSelectionWith(italicMarkup)
+        } else if (isSelectionWrappedWith(boldMarkup)) {
+          wrapSelectionWith(italicMarkup)
+        } else {
+          toggleMarkup('italic', italicMarkup)
+        }
+      },
+      reference: () => {
+        expandTagSelectionAndToggleMarkup('reference', '<ref>', '</ref>')
+      },
+      template: () => {
+        toggleMarkup('template', '{{', '}}')
+      },
+      anchor: () => {
+        toggleMarkup('anchor', '[[', ']]')
+      },
+      comment: () => {
+        toggleMarkup('comment', '<!--', '-->')
+      },
+      indent: () => {
+        console.log('indent')
+      },
+      signature: () => {
+        console.log('signature')
+      },
+      unorderedList: () => {
+        toggleListForSelectedLines('*')
+      },
+      orderedList: () => {
+        toggleListForSelectedLines('#')
+      },
+      superscript: () => {
+        expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
+      },
+      subscript: () => {
+        expandTagSelectionAndToggleMarkup('subscript', '<sub>', '</sub>')
+      },
+      underline: () => {
+        expandTagSelectionAndToggleMarkup('underline', '<u>', '</u>')
+      },
+      strikethrough: () => {
+        expandTagSelectionAndToggleMarkup('strikethrough', '<s>', '</s>')
+      },
+      heading: (depth) => {
+        const selectionRange = getSelectionRange(editor)
+        if (!selectionRange.isSingleLine) {
+          return
+        }
+
+        // Attempt to get details about any currenly selected heading.
+        const headingPayload = selectionPayloadForButton('heading')
+
+        // If cursor is in existing heading we'll have a payload telling us now many '=' it uses.
+        const isExistingHeadingSelected = headingPayload !== null
+        
+        // First toggle off existing selection heading.
+        if (isExistingHeadingSelected) {
+          // Expand selection to encompass current heading (you can't nest headings so this is better).
+          const lineTokens = enrichedLineTokens(editor, selectionRange.line)
+          const headerTextTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-section-header-text')
+          if (headerTextTokenIndex) {
+            const headerTextToken = lineTokens[headerTextTokenIndex]
+            editor.setSelection({line: selectionRange.line, ch: headerTextToken.start}, {line: selectionRange.line, ch: headerTextToken.end})
+          }
+          
+          // Now remove the existing heading equals so the toggle at the end of the method will add the new amount of equals.
+          const currentDepth = headingPayload.info.depth
+          // But don't remove the existing heading equals if new depth is same as old.
+          // This way the toggle at the end of the method will remove all equals when we try to set the same number of equals that are already present.
+          if (currentDepth !== depth) {
+            const currentEquals = '='.repeat(currentDepth)
+            toggleMarkup('heading', currentEquals, currentEquals)
+          }          
+        }
+
+        // If a heading isn't already selected, move the selection to its own line (and re-select it).
+        if (!isExistingHeadingSelected) {
+          const startOfSelectionIsNotStartOfLine = selectionRange.start !== 0
+          const endOfSelectionIsNotEndOfLine = selectionRange.end !== editor.getLine(selectionRange.line).length
+          if (startOfSelectionIsNotStartOfLine || endOfSelectionIsNotEndOfLine) {
+            const leadingBreak = startOfSelectionIsNotStartOfLine ? '\n' : ''
+            const trailingBreak = endOfSelectionIsNotEndOfLine ? '\n' : ''
+          
+            // Add leading or trailing line breaks as needed (heading must be on own line).
+            let from = {line: selectionRange.line, ch: selectionRange.start}
+            let to = {line: selectionRange.line, ch: selectionRange.end}
+            editor.replaceRange(`${leadingBreak}${editor.getSelection()}${trailingBreak}`, from, to)
+            
+            // Re-select selection after addition of leading and/or trailing line breaks.
+            const lineDelta = startOfSelectionIsNotStartOfLine ? 1 : 0
+            from = {line: selectionRange.line + lineDelta, ch: 0}
+            to = {line: selectionRange.line + lineDelta, ch: selectionRange.end - selectionRange.start}
+            editor.setSelection(from, to)
+          }
+        }
+
+        // Now actually toggle heading for selected depth.
+        const equals = '='.repeat(depth)
+        toggleMarkup('heading', equals, equals)
+      },
+      increaseIndentDepth: () => {
+        const listItemLineCallback = (item, line) => {
+          editor.replaceRange(item.char, {line: line, ch: 0})
+          return true
+        }
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
+      },
+      decreaseIndentDepth: () => {
+        const listItemLineCallback = (item, line) => {
+          if (item.depth === 1) {
+            return true
+          }
+          editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: 1})
+          return true
+        }
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
+      },
+      textSize: (newSize) => {
+        switch (newSize) {
+          case 'small': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'big') {
+                expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+              } else if (selectedButton.info.size === 'small') {
+                // If after toggle above the selection is still inside a 'small' (ie 'big' was nested in small before it was toggled off) expand the selection to encompass the small
+                expandTagSelection('smallTextSize')
+              }
+            }
+            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+          } break
+          case 'big': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'small') {
+                expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+              } else if (selectedButton.info.size === 'big') {
+                // If after toggle above the selection is still inside a 'big' (ie 'small' was nested in big before it was toggled off) expand the selection to encompass the big
+                expandTagSelection('bigTextSize')
+              }
+            }
+            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+          } break
+          case 'normal': {
+          const selectedButton = selectionPayloadForButton('textSize')
+            if (selectedButton) {
+              if (selectedButton.info.size === 'small') {
+                expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+              } else if (selectedButton.info.size === 'big') {
+                expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
+              }
+            }
+          } break
+        }
+      },
+      selectAll: () => editor.execCommand('selectAll'),
+      highlighting: () => {
+        editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
+        editor.refresh()
+      }
+    }
+    
+    window.wmf = wmf
+
+  </script>
+</body>
+
+<html>

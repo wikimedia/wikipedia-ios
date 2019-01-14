@@ -15,7 +15,7 @@
 // Author: Urbalazs
 
 "about-content-license" = "Tartalom licence";
-"about-content-license-details" = "Ha nincs másképp jelezve, a tartalom egy $1 alatt érhető el.";
+"about-content-license-details" = "Ha nincs másképp jelezve, a tartalom $1 alatt érhető el.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nevezd meg! – Így add tovább! licenc";
 "about-contributors" = "Közreműködők";
 "about-libraries" = "Felhasznált könyvtárak";
@@ -24,14 +24,14 @@
 "about-libraries-licenses-title" = "Imádjuk a nyílt forráskódú szoftvereket $1";
 "about-product-of" = "Készítette a $1 hozzád hasonló önkéntesek segítségével";
 "about-repositories" = "Tárolók";
-"about-repositories-app-source-license" = "A forráskód a $1 alatt érhető el.";
+"about-repositories-app-source-license" = "A forráskód $1 alatt érhető el.";
 "about-repositories-app-source-license-mit" = "MIT licenc";
 "about-send-feedback" = "Visszajelzés küldése az alkalmazásról";
 "about-testers" = "Tesztelők";
 "about-testers-details" = "Minőségbiztosítási teszteket végzett a $1";
 "about-title" = "Névjegy";
 "about-translators" = "Fordítók";
-"about-translators-details" = "A $1 önkéntesi fordították";
+"about-translators-details" = "A $1 önkéntesei fordították";
 "about-wikimedia-foundation" = "Wikimédia Alapítvány";
 "about-wikipedia" = "Wikipédia";
 "abuse-filter-disallow-heading" = "Nem teheted közzé ezt a szerkesztést. Lépj vissza és változtass rajta.";
@@ -40,7 +40,7 @@
 "abuse-filter-warning-blanking" = "Szócikkek tartalmának törlése vagy spam";
 "abuse-filter-warning-caps" = "CSUPA NAGYBETŰS gépelés";
 "abuse-filter-warning-heading" = "Ez nem tűnik konstruktív szerkesztésnek, biztosan közzé akarod tenni?";
-"abuse-filter-warning-irrelevant" = "Irreleváns külső linkek vagy képek";
+"abuse-filter-warning-irrelevant" = "Nem releváns külső hivatkozások vagy képek";
 "abuse-filter-warning-repeat" = "Isméééétlődő karakterek";
 "abuse-filter-warning-subheading" = "A szerkesztésed egyet vagy többet tartalmazhat a következőkből:";
 "account-creation-captcha-cannot-see-image" = "Nem látod a képet? $1";
@@ -55,7 +55,7 @@
 "account-creation-passwords-mismatched" = "A jelszavak nem egyeznek.";
 "account-creation-saving" = "Mentés…";
 "account-creation-title" = "Új fiók létrehozása";
-"action-add-to" = "Hozzáad...";
+"action-add-to" = "Hozzáadás ide...";
 "action-add-to-reading-list" = "Hozzáadás az olvasólistához";
 "action-add-to-reading-list-short" = "Hozzáadás a listához";
 "action-cancel" = "Mégse";
@@ -74,8 +74,8 @@
 "action-update" = "Frissítés";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "alert-no-internet" = "Nincs internetkapcsolat";
-"announcements-dismiss" = "Kihagy";
-"app-store-short-description" = "Töltsd le a Wikipédia alkalmazást, ezzel felfedezheted a közeli helyeket, elolvashatod a szócikkeket akkor is, ha offline vagy és az olvasási élményt befolyásoló beállításokat módosíthatod.";
+"announcements-dismiss" = "Kihagyás";
+"app-store-short-description" = "Töltsd le a Wikipédia alkalmazást, ezzel felfedezheted a közeli helyeket, elolvashatod a szócikkeket akkor is, ha offline vagy, és testreszabhatod az olvasási élményt befolyásoló beállításokat.";
 "app-store-subtitle" = "A szabad enciklopédia";
 "appearance-settings-adjust-text-sizing" = "A szócikk szövegméretének beállítása";
 "appearance-settings-expand-tables" = "Táblázatok kinyitása";
@@ -86,7 +86,7 @@
 "appearance-settings-theme-options" = "Témabeállítások";
 "article-about-title" = "Erről a szócikkről";
 "article-delete" = "Törlés";
-"article-deleted-accessibility-notification" = "{{PLURAL:$1|Szócikk|Szócikk}} törölve";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|szócikk|szócikk}} törölve";
 "article-languages-filter-placeholder" = "Nyelv keresése";
 "article-languages-label" = "Nyelvválasztás";
 "article-languages-others" = "Más nyelvek";
@@ -97,7 +97,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
 "article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
 "back-button-accessibility-label" = "Vissza";
-"back-button-popover-title" = "A visszalépéshez bökj ide";
+"back-button-popover-title" = "A visszalépéshez koppints ide";
 "button-done" = "Kész";
 "button-next" = "Következő";
 "button-ok" = "OK";

@@ -7,6 +7,7 @@
 // Author: Mhurd
 // Author: Mikulas1
 // Author: Nemo bis
+// Author: Patriccck
 // Author: Rudko
 // Author: TomášPolonec
 
@@ -18,6 +19,9 @@
 "about-libraries-complete-list" = "Úplný zoznam";
 "about-libraries-license" = "Licencia";
 "about-libraries-licenses-title" = "Máme radi open source softvér $1";
+"about-places-maps-license" = "Licencia miest máp";
+"about-places-maps-license-details" = "Miesta používajú mapy poskytované Apple Maps. $1.";
+"about-places-maps-license-details-link-text" = "Pozrite sa tu pre informácie o licencii";
 "about-product-of" = "Vytvorené $1 s pomocou dobrovoľníkov, ako ste vy";
 "about-repositories" = "Repozitáre";
 "about-repositories-app-source-license" = "Zdrojový kód je dostupný v rámci $1.";
@@ -65,15 +69,17 @@
 "action-share" = "Zdieľať";
 "action-sort" = "Zoradiť";
 "action-unsave" = "Zrušiť uloženie";
+"action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
 "alert-no-internet" = "Žiadne pripojenie na internet";
 "announcements-dismiss" = "Zrušiť";
+"app-store-keywords" = "Wikipédia, referencie, wiki, encyklopédia, informácie, vedomosti, výskum, informácie, objaviť, učenie";
+"app-store-short-description" = "Stiahnite si aplikáciu Wikipédie pre objavovanie miest v blízkosti vás, na preberanie článkov do vášho zariadenia a prispôsobenie čítanie článkov.";
 "app-store-subtitle" = "Slobodná encyklopédia";
 "appearance-settings-theme-options" = "Nastavenia témy vzhľadu";
 "article-about-title" = "O tomto článku";
 "article-delete" = "Vymazať";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Článok bol odstránený";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|Článok zmazaný|Články zmazány}}";
 "article-languages-filter-placeholder" = "Nájsť jazyk";
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-others" = "Ostatné jazyky";
@@ -98,15 +104,23 @@
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Zavrieť";
 "compass-direction" = "na $1. hodine";
+"continue-reading-empty-description" = "Prehľadávať ďalšie články na Wikipédii";
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
+"description-add-link-title" = "Pridať popis článku";
+"description-add-title" = "Pridať popis";
 "description-edit-learn-more" = "Ďalšie informácie";
 "description-edit-length-warning" = "$1/$2";
+"description-edit-title" = "Upraviť popis";
+"description-help-about-title" = "O aplikácii";
 "description-help-about-wikidata" = "O Wikiúdajoch";
 "description-help-more-info-title" = "Viac informácií";
 "description-help-tips-example-title-one" = "obraz od Leonarda Da Vinciho";
 "description-help-tips-example-title-two" = "najvyššia hora na Zemi";
 "description-help-tips-for-example" = "Napríklad:";
 "description-published-button-title" = "Hotovo";
+"description-published-title" = "Popis bol uverejnený!";
+"description-welcome-descriptions-title" = "Popis článku";
+"description-welcome-start-editing-button" = "Začať editovať";
 "dim-images" = "Stmavenie obrázkov";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
@@ -126,15 +140,29 @@
 "error-generic-recovery-suggestion" = "Prosím, skúste to znova neskôr";
 "error-unknown" = "Vyskytla sa neznáma chyba";
 "explore-another-random" = "Ďalší náhodný článok";
+"explore-because-you-read" = "Pretože ste čítali";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
+"explore-detail-back-button-title" = "Späť do kanála Objaviť";
 "explore-featured-article-heading" = "Odporúčaný článok";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipédie";
+"explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipédie";
 "explore-feed-customize-accessibility-title" = "Prispôsobiť";
+"explore-feed-language-settings" = "Preskúmať nastavenie jazykov";
 "explore-feed-preferences-card-hidden-title" = "Karta bola skrytá";
+"explore-feed-preferences-customize-explore-feed" = "Prispôsobenie kanála Objaviť";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Prispôsobenie kanála Objaviť";
+"explore-feed-preferences-explore-tab" = "Kanál Objaviť";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Vypnúť";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnúť";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "V $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Všetkých %@ kariet je skrytých";
 "explore-feed-preferences-hide-card-action-title" = "Skryť túto kartu";
 "explore-feed-preferences-in-the-news-description" = "Články o súčasných udalostiach";
 "explore-feed-preferences-on-this-day-description" = "Historické udalosti v tento deň";
 "explore-feed-preferences-places-description" = "Články na Wikipédii vo vašom okolí";
 "explore-feed-preferences-potd-description" = "Denný obrázok z Commons";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Vypnúť kanál Objaviť";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Vypnúť kanál Objaviť";
 "explore-feed-preferences-undo-customization" = "Vrátiť";
 "explore-hide-card-prompt" = "Skryť túto kartu";
 "explore-main-page-description" = "Hlavná stránka projektov Wikimedie";
@@ -144,16 +172,14 @@
 "explore-most-read-more-list-title-for-date" = "Najčítanejšie články z $1";
 "explore-nearby-heading" = "Miesta v okolí";
 "explore-nearby-placeholder-heading" = "Miesta";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédii";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Z Wikipédie";
 "explore-nearby-sub-heading-your-location" = "Vaša poloha";
 "explore-potd-heading" = "Obrázok dňa";
 "explore-potd-sub-heading" = "Z Wikimedia Commons";
 "explore-random-article-heading" = "Náhodný článok";
 "explore-randomizer" = "Randomizér";
 "feed-news-notification-button-text" = "Zapnúť upozornenia";
-// Fuzzy
-"feed-news-notification-text" = "Odteraz môžete dostávať upozornenia ohľadom článkov na Wikipédii, ktoré sú populárne v médiách.";
+"feed-news-notification-text" = "Posielať oznámení, ktoré majú byť oznámené Wikipédiou, keď články sú trendy v aktualitách.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Heslá sa nezhodujú";
 "field-alert-password-invalid" = "Neplatné heslo";
@@ -189,7 +215,9 @@
 "history-clear-confirmation-heading" = "Naozaj chcete vymazať vašu nedávnu históriu prehliadania?";
 "history-clear-delete-all" = "Áno, vymazať všetko";
 "history-title" = "História";
+"home-button-explore-accessibility-label" = "Wikipédie, späť na Objaviť";
 "home-more-like-footer" = "Viac článkov ako $1";
+"home-title" = "Objaviť";
 "icon-shortcut-continue-reading-title" = "Pokračovať v čítaní";
 "icon-shortcut-nearby-title" = "Články v okolí";
 "icon-shortcut-random-title" = "Náhodný článok";
@@ -288,6 +316,7 @@
 "preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
 "rank-accessibility-label" = "Číslo $1";
 "readers-accessibility-label" = "$1 čitateľov";
+"reading-list-add-saved-subtitle" = "Vo vašej aplikácii Wikipédie sú uložené články. Chceli by ste ich ponechať a zlúčiť sa zoznamy na prečítanie, ktoré sú synchronizované do vášho účtu?";
 "reading-list-add-saved-title" = "Boli nájdené uložené články";
 "reading-list-api-error-generic" = "Pri synchronizácii vašich zoznamov na prečítanie nastala neočakávaná chyba.";
 "reading-list-create-new-list-button-title" = "Vytvoriť zoznam na prečítanie";
@@ -299,7 +328,24 @@
 "reading-list-exists-with-same-name" = "Tento názov sa už pre zoznam na prečítanie používa";
 "reading-list-keep-title" = "Chcete ponechať uložené články v zariadení?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Zoradiť články";
+"reading-list-new-list-name-placeholder" = "názov zoznamu na prečítanie";
+"reading-lists-article-added-confirmation" = "Článok pridaný do „$1“";
+"reading-lists-article-api-failure" = "Nemožno synchronizovať článok";
+"reading-lists-article-not-synced" = "Nesynchronizované";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Limit článkov bol prekročený, nemožno synchronizovať";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Limit zoznamov na prečítanie bol prekročený, nemožno synchronizovať";
+"reading-lists-article-queued-to-be-downloaded" = "Článok čaká vo fronte preberanie";
+"reading-lists-article-save-to-disk-failed" = "Úložisko v zariadení je plné, nemožno synchronizovať";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Uvoľnite miesto na vašom zariadení a skúste to znova";
+"reading-lists-articles-not-synced-limit-exceeded" = "Niektoré články neboli synchronizované, limit bol prekročený";
+"reading-lists-conflicting-reading-list-name-updated" = "Váš zoznam „$1“ bol premenovaný na „$2“";
+"reading-lists-count" = "{{PLURAL:$1|$1 zoznam na prečítanie|$1 zoznamy na prečítanie|$1 zoznamov na prečítanie}}";
+"reading-lists-default-list-description" = "Predvolený zoznam pre vaše uložené články";
 "reading-lists-default-list-title" = "Uložené";
+"reading-lists-delete-reading-list-alert-message" = "Táto akcia nemôže byť zrušená. Akékoľvek články uložené len do {{PLURAL:$1|tohto zoznamu|týchto zoznamov}} nebudú uložené.";
+"reading-lists-delete-reading-list-alert-title" = "Odstrániť {{PLURAL:$1|zoznam|zoznamy}}?";
+"reading-lists-large-sync-completed" = "$1 článkov a $2 zoznamov na prečítanie bolo zosynchronizované z vášho účtu";
+"reading-lists-list-not-synced-limit-exceeded" = "Zoznam nebol synchronizovaný, limit bol prekročený";
 "reading-lists-sort-saved-articles" = "Zoradiť uložené články";
 "reading-lists-split-notification" = "Zaviedli sme limit %d článkov na zoznam na prečítanie. Existujúce zoznamy prekračujúce tento limit budú rozdelené na viaceré zoznamy.";
 "reading-lists-sync-error-no-internet-connection" = "Synchronizácia bude pokračovať, keď sa obnoví pripojenie k internetu";
@@ -316,10 +362,17 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|Minulý rok|Pred $1 rokmi}}";
 "request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
 "reverted-edit-back-to-article-button-title" = "Späť na článok";
+"reverted-edit-notification-body" = "Vaša úprava článku $1 bola vrátená redaktorom $2";
 "reverted-edit-notification-read-more-action-title" = "Ďalšie informácie";
+"reverted-edit-possible-reasons" = "- Váš príspevok nezodpovedal niektorému z pokynov. $1\n\n\n- Váš príspevok vyzeral (alebo bol) experiment alebo vandalizmus.";
+"reverted-edit-possible-reasons-subtitle" = "Vieme, že ste sa snažili o to najlepšie, ale jeden z redaktorov vrátil úpravu.\n\nMožné dôvody vrátenie úpravy sú:";
 "reverted-edit-thanks-for-editing-title" = "Ďakujeme za úpravu Wikipédie!";
+"reverted-edit-title" = "Vrátená úprava";
+"reverted-edit-view-guidelines-text" = "Zobraziť pravidlá";
+"saved-all-articles-title" = "Všetky články";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
 "saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";
+"saved-pages-progress-syncing" = "Preberá sa článok...";
 "saved-reading-lists-title" = "Zoznamy na prečítanie";
 "saved-search-default-text" = "Hľadať";
 "saved-title" = "Uložené";
@@ -327,7 +380,7 @@
 "search-clear-title" = "Vymazať";
 "search-did-you-mean" = "Mali ste na mysli \"$1\"?";
 "search-field-placeholder-text" = "Hľadať";
-"search-reading-list-placeholder-text" = "Hľadať";
+"search-reading-list-placeholder-text" = "Hľadať v zoznamoch na prečítanie";
 "search-recent-clear-cancel" = "Zrušiť";
 "search-recent-clear-confirmation-heading" = "Vymazať nedávno hľadané výrazy?";
 "search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
@@ -335,8 +388,7 @@
 "search-recent-title" = "Nedávno hľadané výrazy";
 "search-result-redirected-from" = "Presmerované z: $1";
 "search-title" = "Hľadať";
-// Fuzzy
-"settings-appearance" = "Vzhľad";
+"settings-appearance" = "Nastavenia čítania";
 "settings-clear-cache" = "Vyčistiť údaje vo vyrovnávacej pamäti";
 "settings-clear-cache-are-you-sure-message" = "Vyčistenie údajov vo vyrovnávacej pamäti uvoľní $1 miesta. Vaše uložené stránky sa neodstránia.";
 "settings-clear-cache-are-you-sure-title" = "Naozaj chcete vyčistiť údaje vo vyrovnávacej pamäti?";
@@ -350,15 +402,24 @@
 "settings-notifications-push-notifications" = "Push upozornenia";
 "settings-notifications-system-turn-on" = "Zapnúť upozornenia";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Vymazať";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Zobraziť uložené zoznamy na prečítanie";
+"settings-storage-and-syncing-title" = "Ukladanie a synchronizácia článkov";
 "settings-support" = "Podporte Wikipédiu";
 "settings-title" = "Nastavenia";
+"share-a-fact-made-with" = "Vytvorené s aplikácie Wikipédie";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
+"share-building" = "Vytváranie Zdieľanie faktu...";
 "share-custom-menu-item" = "Zdieľať...";
+"share-default-format" = "„$1” z „$1”: $3";
+"share-email-format" = "„$1”\n\nz „$2”\n\n$3";
 "share-get-directions-in-maps" = "Nájsť trasu";
 "share-menu-item" = "Zdieľať…";
 "share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "prostredníctvom @Wikipedia";
 "share-open-in-maps" = "Otvoriť v aplikácii Mapy";
+"share-social-format" = "„$1“ na Wikipédii: $2";
+"share-social-mention-format" = "„$1“ na @Wikipédi: $2";
+"sort-by-recently-added-action" = "Nedávno pridané";
 "sort-by-title-action" = "Podľa názvu";
 "status-saved-for-later" = "Uložené na neskôr";
 "status-saving-for-later" = "Ukladanie na neskôr...";
@@ -372,14 +433,22 @@
 "theme-default-display-name" = "Predvolená";
 "theme-sepia-display-name" = "Sépia";
 "top-read-header-generic" = "Wikipédia";
+"top-read-header-with-language" = "$1 Wikipédia";
 "top-read-see-more" = "Zobraziť ďalšie najčítanejšie články";
 "two-factor-login-continue" = "Pokračovať prihlásiť";
+"two-factor-login-instructions" = "Prosím zadajte dvoufaktorizačný overovací kód";
 "two-factor-login-title" = "Prihláste sa do svojho účtu";
 "two-factor-login-with-backup-code" = "Použite jeden z vašich záložných kódov";
 "two-factor-login-with-regular-code" = "Použite overovací kód";
 "view-in-browser-footer-link" = "Zobraziť článok v prehliadači";
+"welcome-exploration-explore-feed-description" = "Odporúčané čítanie a denné články z našej komunity";
+"welcome-exploration-explore-feed-title" = "Objaviť";
+"welcome-exploration-on-this-day-description" = "Cestujte späť v čase, aby ste sa dozvedeli, čo sa dialo v histórii";
 "welcome-exploration-on-this-day-title" = "V tento deň";
+"welcome-exploration-places-description" = "Objavte pamiatky v okolí alebo miesta po celom svete";
+"welcome-exploration-places-title" = "Karta Miesta";
 "welcome-explore-continue-button" = "Začíname";
+"welcome-explore-new-ways-title" = "Nové možnosti pre objavovanie";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
 "welcome-intro-free-encyclopedia-description" = "Wikipédiu píšu dobrovoľníci a skladá sa z viac než 40 miliónov článkov v takmer 300 jazykoch.";
 "welcome-intro-free-encyclopedia-more" = "Ďalšie informácie o Wikipédii";
@@ -406,11 +475,14 @@
 "wikitext-preview-link-preview-title" = "Náhľad odkazu";
 "wikitext-upload-captcha-error" = "Problém s overovaním.";
 "wikitext-upload-captcha-needed" = "Je požadované overenie pomocou CAPTCHA.";
-"wikitext-upload-save" = "Ukladám...";
+"wikitext-upload-result-unknown" = "Nie je možné určiť výsledok nahrávania wikitexta.";
+"wikitext-upload-save" = "Uverejňuje sa...";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho prístroja. Ak $1, budete mať viac súkromia.";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Uložením zmien súhlasíte s $1 a s uvoľnením svojho príspevku za podmienok $2 a $3.";
 "wikitext-upload-save-terms-name" = "Podmienky používania";
 "zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
+"zero-charged-verbiage-extended" = "Pri načítaní iných článkov môžu byť účtované poplatky za dáta. Články uložené offline nespotrebúvajú dáta a sú teda zadarmo.";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
 "zero-interstitial-cancel" = "Zostať tu";
 "zero-interstitial-continue" = "Pokračovať";

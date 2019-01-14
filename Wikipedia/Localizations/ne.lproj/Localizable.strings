@@ -5,6 +5,7 @@
 // Author: Nemo bis
 // Author: Nirajan pant
 // Author: Nirjal stha
+// Author: Parbat subedi
 // Author: Suniltheblue
 // Author: जनक राज भट्ट
 // Author: राम प्रसाद जोशी
@@ -53,8 +54,10 @@
 "announcements-dismiss" = "खारेज गर्नुहोस्";
 "article-about-title" = "यस लेखको बारेमा।";
 "article-delete" = "हटाउने";
+"article-languages-filter-placeholder" = "भाषा खोज्नुहोस्";
 "article-languages-label" = "भाषा छान्नुहोस्";
 "article-languages-others" = "अन्य भाषाहरू";
+"article-languages-yours" = "तपाईको भाषा";
 "article-read-more-title" = "थप पढ्ने";
 "article-share" = "आदान-प्रदान गर्नुहोस्";
 "back-button-accessibility-label" = "पछाडि";
@@ -72,6 +75,13 @@
 "cancel" = "रद्द गर्नुहोस्";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
+"description-help-about-title" = "बारेमा";
+"description-help-about-wikidata" = "विकिपिडियाको बारेमा";
+"description-help-more-info-title" = "अधिक जानकारी";
+"description-help-tips-example-title-two" = "पृथ्वीको सबैभन्दा अग्लो हिमाल";
+"description-help-tips-for-example" = "उदाहरणका लागि";
+"description-published-button-title" = "भयो";
+"description-welcome-start-editing-button" = "सम्पादन शुरुवात गर्नुहोस्";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
 "edit-summary-choice-fixed-typos" = "टाइपो ठीक गरियो";
 "edit-summary-choice-linked-words" = "थप गरिएका लिङ्कहरू";
@@ -95,8 +105,7 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "खुला $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "सबै %@ लुकाइएका कार्डहरू";
 "explore-main-page-heading" = "विकिपिडियामा आज";
-// Fuzzy
-"explore-most-read-footer" = "सबै धेरै पढिएका लेखहरू";
+"explore-most-read-footer" = "धेरै पढिएका सबै लेखहरू";
 "explore-most-read-generic-heading" = "धेरै पढिएको";
 "explore-most-read-more-list-title-for-date" = "$1 मा धेरै पढिएको";
 "explore-nearby-heading" = "नजिकैका स्थानहरू";
@@ -143,8 +152,7 @@
 "history-title" = "ईतिहास";
 "home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-location-footer" = "नजिकै थप $1";
-// Fuzzy
-"home-news-footer" = "समचारमा थप";
+"home-news-footer" = "अधिक हालैका घटनाहरू";
 "home-themes-action-title" = "अभिरुचीहरू व्यवस्थापन गर्नुहोस्";
 "home-title" = "अन्वेषण";
 "icon-shortcut-continue-reading-title" = "पढ्ने कार्य जारी राख्नुहोस्";
@@ -156,6 +164,7 @@
 "in-the-news-notification-read-now-action-title" = "अहिले पढ्नुहोस्";
 "in-the-news-notification-save-for-later-action-title" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "in-the-news-notification-share-action-title" = "साझेदारी गर्नुहोस्...";
+"in-the-news-sub-title-from-wikipedia" = "विकिपिडियाबाट";
 "in-the-news-title" = "समाचारमा";
 "info-box-close-text" = "बन्द गर्नुहोस्";
 "info-box-title" = "छरितो तथ्यहरू";
@@ -163,10 +172,15 @@
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
 "license-footer-name" = "CC BY-SA 3.0";
+"logged-out-continue-without-logging-in-button-title" = "प्रवेश नगरीकन सम्पादन शुरु गर्नुहोस्";
+"logged-out-log-back-in-button-title" = "आफ्नो खातामा पुन प्रवेश गर्नुहोस्";
+"login-forgot-password" = "के पासवर्ड भुल्नुभयो?";
 "login-join-wikipedia" = "विकिपिडियामा सहभागीहुनुहोस्।";
+"login-title" = "खातामा प्रवेश गर्नुहोस्";
 "main-menu-about" = "विकिपिडिया अनुप्रयोगको बारेमा";
 "main-menu-account-login" = "लग इन";
 "main-menu-account-logout" = "लग आउट गर्नुहोस्";
+"main-menu-account-logout-are-you-sure" = "के तपाई निर्गमन गर्न चहानुहुन्छ?";
 "main-menu-account-logout-cancel" = "रद्द गर्नुहोस्";
 "main-menu-account-title-logged-in" = "$1 का रूपमा लगइन गरियो";
 "main-menu-debug-tweaks" = "डेभलोपर सेटिङ";
@@ -225,13 +239,15 @@
 "places-search-default-text" = "स्थानहरू खोज्नुहोस्";
 "places-search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
 "places-search-recently-searched-header" = "भर्खरैका खोजहरू";
+"places-search-suggested-searches-header" = "सुझाव खोजीहरू";
 "places-search-top-articles-that-match-scope" = "नजिकै";
 "places-title" = "स्थानहरू";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउन तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
+"places-unknown-distance" = "अज्ञात दूरी";
+"preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
 "preference-title-eventlogging-opt-in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
 "rank-accessibility-label" = "नम्बर $1";
 "readers-accessibility-label" = "$1 को पाठकहरू";
+"reading-list-create-new-list-description" = "विवरण";
 "reading-lists-default-list-title" = "सङ्ग्रह गरिएको";
 "reading-themes-controls-accessibility-black-theme-button" = "कालो विषयवस्तु";
 "reading-themes-controls-accessibility-brightness-slider" = "चमक स्लाइडर";
@@ -240,10 +256,13 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "सेपिया विषयवस्तु";
 "reading-themes-controls-accessibility-text-size-slider" = "पाठ आकार स्लाइडर";
 "reference-title" = "सन्दर्भ $1";
+"reverted-edit-back-to-article-button-title" = "लेखमा फर्कनुहोस्";
+"reverted-edit-thanks-for-editing-title" = "विकिपिडियामा सम्पादन गर्नुभएको धन्यवाद!";
 "saved-all-articles-title" = "सबै लेखहरू";
 "saved-search-default-text" = "खोज";
 "saved-title" = "संग्रह गर्ने";
 "search-button-accessibility-label" = "विकिपिडियामा खोज्नुहोस्";
+"search-clear-title" = "खाली";
 "search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
 "search-field-placeholder-text" = "विकिपिडियामा खोज्नुहोस्";
 "search-recent-clear-cancel" = "रद्द गर्नुहोस्";
@@ -260,6 +279,9 @@
 "settings-title" = "सेटिङ्हरू";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
 "share-custom-menu-item" = "साझेदारी गर्नुहोस्...";
+"share-get-directions-in-maps" = "दिशा पत्ता लगाउनुहोस्";
+"share-open-in-maps" = "नक्सामा खोल्नुहोस्";
+"sort-by-recently-added-action" = "भर्खरै थपिएका";
 "sort-by-title-action" = "शीर्षक";
 "status-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
 "status-saving-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्...";
@@ -276,16 +298,17 @@
 "top-read-header-with-language" = "$1 विकिपिडिया";
 "top-read-see-more" = "अरू धेरै धेरै पढिएकाहरू हेर्नुहोस्";
 "two-factor-login-continue" = "लग इन जारी राख्नुहोस् ।";
+"view-in-browser-footer-link" = "यस पृष्ठ ब्राउजरमा खोल्नुहोस्";
 "welcome-exploration-on-this-day-title" = "आजको दिनमा";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-new-ways-title" = "अन्वेषण गर्ने नयाँ तरिका";
 "welcome-explore-tell-me-more-done-button" = "मैले बुझेँ";
 "welcome-intro-free-encyclopedia-more" = "विकिपिडियाको बारेमा थप जान्नुहोस्";
 "welcome-intro-free-encyclopedia-more-about" = "विकिपिडियाको बारेमा";
+"welcome-intro-free-encyclopedia-title" = "एक स्वतन्त्र विश्वकोष";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";
 "welcome-notifications-tell-me-more-title" = "जानकारीको बारेमा थप";
-// Fuzzy
-"welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। संकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
+"welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। सङकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
 "welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
 "wikitext-download-success" = "सामग्री लोड गरियो ।";
 "wikitext-downloading" = "सामग्री लोड गर्दै...";

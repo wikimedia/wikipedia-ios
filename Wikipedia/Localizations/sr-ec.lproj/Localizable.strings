@@ -159,12 +159,15 @@
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "dim-images" = "Затамни слике";
+"edit-style-table-view-title" = "Стил";
 "edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-summary-choice-other" = "Друго";
 "edit-summary-field-placeholder-text" = "Други начини на које сте побољшали чланак";
 "edit-summary-title" = "На који начин сте побољшали чланак?";
+"edit-text-formatting-table-view-title" = "Обликовање текста";
+"edit-text-size-table-view-title" = "Величина текста";
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
 "empty-no-feed-message" = "Препоручене чланке ћете видети када будете онлајн";

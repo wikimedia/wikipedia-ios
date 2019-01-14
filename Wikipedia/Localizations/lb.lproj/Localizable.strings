@@ -103,6 +103,7 @@
 "description-published-button-title" = "Fäerdeg";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Dobäigesat Linken";
@@ -144,8 +145,7 @@
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
-// Fuzzy
-"explore-most-read-footer" = "Déi am dackste geliesen Artikelen";
+"explore-most-read-footer" = "Déi am dackste geliesten Artikelen";
 "explore-most-read-generic-heading" = "Am dackste gelies";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Op Wikipedia op $1";
@@ -394,8 +394,7 @@
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-trending" = "Aktuell Evenementer";
 "settings-primary-language" = "Primär";
-// Fuzzy
-"settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
+"settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Läschen";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gespäichert Artikele läschen";
