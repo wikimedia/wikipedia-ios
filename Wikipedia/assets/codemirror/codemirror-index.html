@@ -773,15 +773,17 @@
         }
       },
       selectAll: () => editor.execCommand('selectAll'),
-      search: (text) => {
-          editor.state.query = text
-          editor.execCommand('find')
-      },
-      clearSearch: () => editor.execCommand('clearSearch'),
       highlighting: () => {
         editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
         editor.refresh()
-      }
+      },
+      find: (text) => {
+          editor.state.query = text
+          editor.execCommand('find')
+      },
+      findNext: () => editor.execCommand('findNext'),
+      findPrevious: () => editor.execCommand('findPrev'),
+      clearSearch: () => editor.execCommand('clearSearch'),
     }
     
     window.wmf = wmf
