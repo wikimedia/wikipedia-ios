@@ -31,15 +31,14 @@
       const end = toCursor.ch
       const isSingleLine = (fromCursor.line === toCursor.line)
       const line = fromCursor.line
-      // TODO: rename 'isSelectionMoreThanOneChar' - it's actually isSelectionMoreThanZeroChar
-      const isSelectionMoreThanOneChar = !isSingleLine || (end - start) > 0
+      const isRangeSelected = !isSingleLine || (end - start) > 0
 
       return {
         start,
         end,
         isSingleLine,
         line,
-        isSelectionMoreThanOneChar
+        isRangeSelected
       }
     }
     
@@ -352,7 +351,7 @@
         // message to native land that selection has changed,
         // upon receipt native land should de-select and re-enable all buttons.
         // (`selectionChanged` should be processed before the other messages)
-        selectionChanged: getSelectionRange(doc).isSelectionMoreThanOneChar,
+        selectionChanged: getSelectionRange(doc).isRangeSelected,
         // message to native land about which buttons should be selected,
         // native land should assume only these buttons should appear selected
         highlightTheseButtons: buttonsToSelect,
