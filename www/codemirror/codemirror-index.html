@@ -388,7 +388,10 @@
       if (callback) {
         callback()
       }
-      editor.on('cursorActivity', sendNativeMessages)
+      editor.on('cursorActivity', (doc) => {
+        sendNativeMessages(doc)
+        scrollToCenterCursorVerticallyIfNeeded()
+      })
     }
     
     const setupCodemirror = (language, themeName, callback) => {
@@ -611,7 +614,45 @@
       editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
     }
 
+    const verticalOffsetNeededToScrollCursorIntoView = () => {
+      const fromTopOfWebView = cursorOffsetFromTopOfWebView()
+      if (fromTopOfWebView < 0) {
+        return fromTopOfWebView
+      }
+      const fromTopOfKeyboard = cursorOffsetFromTopOfKeyboard()
+      if (fromTopOfKeyboard > 0) {
+        return fromTopOfKeyboard
+      }
+      return 0
+    }
+
+    let keyboardHeight = 0
+    const webViewHeightNotCoveredByKeyboard = () => window.innerHeight - keyboardHeight
+    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords().top - window.pageYOffset
+    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords().bottom - window.pageYOffset - webViewHeightNotCoveredByKeyboard()
+
+    const scrollToCenterCursorVerticallyIfNeeded = () => {
+      const offset = verticalOffsetNeededToScrollCursorIntoView()
+      if (offset === 0) {
+        return
+      }
+      window.scrollBy(0, offset)
+    }
+
+    let resizeTimer
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        scrollToCenterCursorVerticallyIfNeeded()        
+      }, 250)
+    }, true)
+
+
     wmf.commands = {
+      keyboardHeightChanged: (newHeight) => {
+        keyboardHeight = newHeight
+        scrollToCenterCursorVerticallyIfNeeded()
+      },
       focus: () => {
         editor.focus()
       },

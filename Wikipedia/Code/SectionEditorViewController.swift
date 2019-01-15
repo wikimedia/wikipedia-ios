@@ -35,6 +35,8 @@ class SectionEditorViewController: UIViewController {
         return true
     }
 
+    var previousKeyboardHeight:CGFloat = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadWikitext()
@@ -46,6 +48,18 @@ class SectionEditorViewController: UIViewController {
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+    
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardDidChangeFrameNotification, object: nil, queue: nil, using: { [weak self] notification in
+            if let window = self?.view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                let windowFrame = window.convert(endFrame, from: nil)
+                let newKeyboardHeight = windowFrame.size.height
+                guard newKeyboardHeight != self?.previousKeyboardHeight else {
+                    return
+                }
+                self?.previousKeyboardHeight = newKeyboardHeight
+                self?.messagingController.setKeyboardHeight(newHeight: newKeyboardHeight)
+            }
+        })
     }
 
     override func viewDidAppear(_ animated: Bool) {

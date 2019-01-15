@@ -138,6 +138,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case underline
         case strikethrough
         case textSize
+        case keyboardHeightChanged
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -254,6 +255,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func setTextSize(newSize: String) {
         execCommand(for: .textSize, argument: "\"\(newSize)\"")
+    }
+
+    func setKeyboardHeight(newHeight: CGFloat) {
+        execCommand(for: .keyboardHeightChanged, argument: "\(newHeight)")
     }
 }
 
