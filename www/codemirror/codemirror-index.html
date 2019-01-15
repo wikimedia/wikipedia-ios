@@ -634,8 +634,8 @@
 
     let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
     const webViewHeightNotCoveredByKeyboard = () => window.innerHeight - adjustedContentInset.bottom
-    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords().top - window.pageYOffset
-    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords().bottom - window.pageYOffset - webViewHeightNotCoveredByKeyboard()
+    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords(true, 'window').top
+    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords(false, 'window').bottom - webViewHeightNotCoveredByKeyboard()
 
     const scrollCursorIntoViewIfNeeded = () => {
       if (getSelectionRange(editor).isRangeSelected) {
