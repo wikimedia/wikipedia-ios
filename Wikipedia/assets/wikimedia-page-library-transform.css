@@ -620,6 +620,24 @@ div.pagelib_collapse_table_container {
   flex: 1;
 }
 
+#pagelib_edit_section_title_pronunciation {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAdhwAAHYcBj+XxZQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAI4SURBVGiB7Zm/ThRRFIc/SZYYCleRhGBlCEFjoq0J/kEDlRieAAqfwvbUxsYnUKMvIUowsEgwVNhAqEysLIwW0gA7FpMJcDhn7+7s/DPMl2xx795z8/1m9t7JnYWampqa88Yz4GrZEv0QAYfAMjBfsksQMfoi9dkEHhfo1DVCLKjRASKgDbwCBouSCyEcy2la2CEiYJ0KrA/htJTFTeAN8ZXXIbaAZt6SHmIIdeIusGvUtICLuVk6iCESCgBwBfhg1L3MxdJBDIFuAwA0gCVVdwRMZy1qIfjyVoALzjxNYEfVfuswPhOEzvJWgFVg0pnvPvGVP1k/l6nxCYSwvPcc+AM8dOZ9reo/pxXsRi5tgCSEdSduc3p7bQPXqhgg2S4t1tS4RU9yoLdMmXMPmDX6l1R7xpug7AAAC0bfqmrf8IqrEGDK6Puu2qNpJi5iDUTAvjFmSI3560lW4Q5YIbVX2yuuQoAfRt+Iav/0iqsQ4IvRd121Kx3gvdGnn9K7aSYuYhHr7TJBn9qsrbb0AL+BCeP7O6q+DYylCRBCSB/gF/b+D/BW1a9kKa0Reg+wDIw78z3g7Dn5SabGBkJvATwuc/ZAs03OB5qE5/QXYBD4qOqOiO9IYQjpAgwDn4y6F7lYBhBDpBNTwJ5Rs0YJr1UShHCAW8A77BdbX4FLuVsGEPwA69g/teTBNlyMYphkYWss8eTlbqMwuy4Ro0/LbwCPilPqnwg4IN42n5bskor//i+mmpqammP+AebGbBiuYyfiAAAAAElFTkSuQmCC");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .54;
+  margin: auto 0.35em 0.1em 0.35em;
+  display: inline-block;
+  background-size: contain;
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: middle;
+}
+
+html[dir="rtl"] #pagelib_edit_section_title_pronunciation {
+  -webkit-transform: scaleX( -1 );
+  transform: scaleX( -1 );
+}
+
 #mainpage a.pagelib_edit_section_link,
 .no-editing a.pagelib_edit_section_link {
   display: none;
@@ -635,7 +653,9 @@ h2 + .pagelib_edit_section_link_container {
 }
 
 .pagelib_theme_dark .pagelib_edit_section_link_container,
-.pagelib_theme_black .pagelib_edit_section_link_container {
+.pagelib_theme_black .pagelib_edit_section_link_container,
+.pagelib_theme_dark #pagelib_edit_section_title_pronunciation,
+.pagelib_theme_black #pagelib_edit_section_title_pronunciation {
   opacity: .7;
   -webkit-filter: invert(100%);
   filter: invert(100%);
@@ -647,7 +667,8 @@ h2 + .pagelib_edit_section_link_container {
   filter: none;
 }
 
-.pagelib_theme_sepia .pagelib_edit_section_link_container {
+.pagelib_theme_sepia .pagelib_edit_section_link_container,
+.pagelib_theme_sepia #pagelib_edit_section_title_pronunciation {
   opacity: .7;
 }
 
@@ -717,6 +738,51 @@ a.pagelib_edit_section_link {
 .pagelib_platform_ios h5.pagelib_edit_section_title + span.pagelib_edit_section_link_container,
 .pagelib_platform_ios h6.pagelib_edit_section_title + span.pagelib_edit_section_link_container {
     display: none;
+}
+
+/* Wikidata description styling */
+#pagelib_edit_section_title_description {
+    font-size: 14px;
+    line-height: 22px;
+    color: #777D84;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    padding-bottom: 0px;
+}
+
+#pagelib_edit_section_add_title_description {
+    font-size: 14px;
+    font-style: italic;
+    display: inline;
+}
+
+#pagelib_edit_section_add_title_description:before {
+    content: "";
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAMCAYAAAADFL+5AAAAAXNSR0IArs4c6QAAADFJREFUOBFjNE47859hAAHTANoNtnrUAQMdA6P2D3wIMFK7HDg7y4SRFG+NZsMBDwEAJj8Gc0QaQK8AAAAASUVORK5CYII=');
+    background-repeat: no-repeat;
+    width: 1.8em;
+    height: 0.75em;
+    background-size: 1.0em 0.375em;
+    display: inline-block;
+    background-position: left center;
+}
+
+html[dir="rtl"] #pagelib_edit_section_add_title_description:before {
+    -webkit-transform: scaleX( -1 );
+    transform: scaleX(-1);
+}
+
+/* Horizontal divider between title/description and lead section text */
+#pagelib_edit_section_divider {
+    border: 1px solid #ccc;
+    margin: 12px 0px 16px 0px;
+    width: 60px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+    #pagelib_edit_section_divider {
+        border-width: 0.5px;
+    }
 }
 
 .pagelib_footer_container {
