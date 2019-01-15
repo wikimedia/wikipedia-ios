@@ -366,6 +366,8 @@
       document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
     }
     
+    let cursorActivityScrollTimer
+    
     const setupCodemirrorWithConfig = (config, callback) => {
       let codeMirrorSettings = {
         mwConfig: config,
@@ -389,7 +391,12 @@
       }
       editor.on('cursorActivity', (doc) => {
         sendNativeMessages(doc)
-        scrollCursorIntoViewIfNeeded()
+
+        clearTimeout(cursorActivityScrollTimer)
+        cursorActivityScrollTimer = setTimeout(() => {
+          scrollCursorIntoViewIfNeeded()        
+        }, 25)
+
       })
     }
     
@@ -631,6 +638,9 @@
     const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords().bottom - window.pageYOffset - webViewHeightNotCoveredByKeyboard()
 
     const scrollCursorIntoViewIfNeeded = () => {
+      if (getSelectionRange(editor).isRangeSelected) {
+        return
+      }
       const offset = verticalOffsetNeededToScrollCursorIntoView()
       if (offset === 0) {
         return
