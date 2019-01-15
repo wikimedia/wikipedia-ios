@@ -89,7 +89,7 @@
             XCTFail(@"Recieved error");
             [expectation fulfill];
         }
-        success:^(MWKArticle *article) {
+        success:^(MWKArticle *article, NSURL *articleURL) {
             firstFetchResult = article;
             [self.tempDataStore asynchronouslyCacheArticle:article
                                                     toDisk:YES
@@ -107,7 +107,7 @@
                     XCTFail(@"Recieved error");
                     [expectation fulfill];
                 }
-                success:^(MWKArticle *article) {
+                success:^(MWKArticle *article, NSURL *articleURL) {
                     secondFetchResult = article;
 
                     XCTAssert(secondFetchResult != firstFetchResult,
