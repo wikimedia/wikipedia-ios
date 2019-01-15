@@ -390,7 +390,7 @@
       }
       editor.on('cursorActivity', (doc) => {
         sendNativeMessages(doc)
-        scrollToCenterCursorVerticallyIfNeeded()
+        scrollCursorIntoViewIfNeeded()
       })
     }
     
@@ -631,7 +631,7 @@
     const cursorOffsetFromTopOfWebView = () => editor.cursorCoords().top - window.pageYOffset
     const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords().bottom - window.pageYOffset - webViewHeightNotCoveredByKeyboard()
 
-    const scrollToCenterCursorVerticallyIfNeeded = () => {
+    const scrollCursorIntoViewIfNeeded = () => {
       const offset = verticalOffsetNeededToScrollCursorIntoView()
       if (offset === 0) {
         return
@@ -643,7 +643,7 @@
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(() => {
-        scrollToCenterCursorVerticallyIfNeeded()        
+        scrollCursorIntoViewIfNeeded()        
       }, 250)
     }, true)
 
@@ -651,7 +651,7 @@
     wmf.commands = {
       keyboardHeightChanged: (newHeight) => {
         keyboardHeight = newHeight
-        scrollToCenterCursorVerticallyIfNeeded()
+        scrollCursorIntoViewIfNeeded()
       },
       focus: () => {
         editor.focus()
