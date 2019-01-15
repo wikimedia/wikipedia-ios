@@ -160,15 +160,15 @@ class SectionEditorViewController: UIViewController {
     }
 }
 
-private var previousKeyboardHeight: CGFloat = 0
+private var previousAdjustedContentInset = UIEdgeInsets.zero
 extension SectionEditorViewController: UIScrollViewDelegate {
     public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        let newKeyboardHeight = scrollView.adjustedContentInset.bottom
-        guard newKeyboardHeight != previousKeyboardHeight else {
+        let newAdjustedContentInset = scrollView.adjustedContentInset
+        guard newAdjustedContentInset != previousAdjustedContentInset else {
             return
         }
-        previousKeyboardHeight = newKeyboardHeight
-        messagingController.setKeyboardHeight(newHeight: newKeyboardHeight)
+        previousAdjustedContentInset = newAdjustedContentInset
+        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
     }
 }
 

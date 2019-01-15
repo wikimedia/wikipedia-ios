@@ -632,8 +632,8 @@
       return 0
     }
 
-    let keyboardHeight = 0
-    const webViewHeightNotCoveredByKeyboard = () => window.innerHeight - keyboardHeight
+    let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
+    const webViewHeightNotCoveredByKeyboard = () => window.innerHeight - adjustedContentInset.bottom
     const cursorOffsetFromTopOfWebView = () => editor.cursorCoords().top - window.pageYOffset
     const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords().bottom - window.pageYOffset - webViewHeightNotCoveredByKeyboard()
 
@@ -656,11 +656,21 @@
       }, 250)
     }, true)
 
+    let previousAdjustedContentInsetBottom = 0
+    const adjustedContentInsetBottomChanged = () => {
+      if (adjustedContentInset.bottom == previousAdjustedContentInsetBottom) {
+        return false
+      }
+      previousAdjustedContentInsetBottom = adjustedContentInset.bottom
+      return true  
+    }
 
     wmf.commands = {
-      keyboardHeightChanged: (newHeight) => {
-        keyboardHeight = newHeight
-        scrollCursorIntoViewIfNeeded()
+      adjustedContentInsetChanged: (newInset) => {
+        adjustedContentInset = newInset
+        if (adjustedContentInsetBottomChanged()) {
+          scrollCursorIntoViewIfNeeded()
+        }
       },
       focus: () => {
         editor.focus()
