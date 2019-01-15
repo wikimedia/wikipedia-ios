@@ -168,7 +168,7 @@ class SavedViewController: ViewController {
 
         searchBar.delegate = self
         searchBar.returnKeyType = .search
-        searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search", comment:"Placeholder text for the search bar in Saved")
+        searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved")
         
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
