@@ -76,7 +76,7 @@ grunt: npm get-grunt
 
 npm: ##Install Javascript dependencies
 npm:
-	@cd www && npm install && cd ..
+	@cd www && rm -rf 'node_modules' && npm install && cd ..
 
 get-node: ##Install node via Homebrew
 get-node: brew-install
