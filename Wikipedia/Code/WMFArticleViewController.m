@@ -2215,6 +2215,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
+    self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
 }
 
 @end
