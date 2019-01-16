@@ -57,25 +57,9 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: .normal)
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFAppLanguageDidChange, object: nil, queue: nil) { notification in
-            guard let langController = notification.object, let appLanguage = (langController as AnyObject).appLanguage else {
-                assertionFailure("Could not extract app language from WMFAppLanguageDidChangeNotification")
-                return
-            }
-            self.currentlySelectedSearchLanguage = appLanguage
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil, queue: nil) { _ in
-            if let selectedLang = self.currentlySelectedSearchLanguage {
-                // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
-                if(self.languageBarLanguages().index(of: selectedLang) == nil){
-                    // ...so select first lang if the selected lang has been moved down out of the top 3.
-                    self.currentlySelectedSearchLanguage = self.languageBarLanguages().first
-                    // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because
-                    // that would undo the dragging the user just did and would also not work for changes made from settings.
-                }
-            }
-        }
         apply(theme: theme)
         view.wmf_configureSubviewsForDynamicType()
         
@@ -189,6 +173,26 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         
         currentlySelectedSearchLanguage = language
         controller.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func appLanguageDidChange(_ notification: Notification) {
+        guard let langController = notification.object, let appLanguage = (langController as AnyObject).appLanguage else {
+            assertionFailure("Could not extract app language from WMFAppLanguageDidChangeNotification")
+            return
+        }
+        currentlySelectedSearchLanguage = appLanguage
+    }
+    
+    @objc func preferredLanguagesDidChange(_ notification: Notification) {
+        if let selectedLang = currentlySelectedSearchLanguage {
+            // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
+            if(languageBarLanguages().index(of: selectedLang) == nil){
+                // ...so select first lang if the selected lang has been moved down out of the top 3.
+                currentlySelectedSearchLanguage = languageBarLanguages().first
+                // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because
+                // that would undo the dragging the user just did and would also not work for changes made from settings.
+            }
+        }
     }
     
     func apply(theme: Theme) {
