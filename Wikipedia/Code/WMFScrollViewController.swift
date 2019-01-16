@@ -50,6 +50,7 @@ class WMFScrollViewController: UIViewController {
         let intersection = keyboardWindowRect.intersection(window.frame)
         let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: intersection.size.height, right: 0)
         scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
     }
     
     func wmf_beginAdjustingScrollViewInsetsForKeyboard() {
