@@ -14,7 +14,7 @@ class WMFScrollViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    fileprivate var coverView: UIView?
+    private var coverView: UIView?
     func setViewControllerUserInteraction(enabled: Bool) {
         if enabled {
             coverView?.removeFromSuperview()
@@ -31,7 +31,7 @@ class WMFScrollViewController: UIViewController {
     /// Adjusts 'scrollView' contentInset so its contents can be scrolled above the keyboard.
     ///
     /// - Parameter notification: A UIKeyboardWillChangeFrame notification. Works for landscape and portrait.
-    func wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification notification: Notification) {
+    private func wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification notification: Notification) {
         guard
             notification.name == UIWindow.keyboardWillChangeFrameNotification,
             let keyboardScreenRect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
@@ -53,15 +53,15 @@ class WMFScrollViewController: UIViewController {
         scrollView.scrollIndicatorInsets = contentInsets
     }
     
-    func wmf_beginAdjustingScrollViewInsetsForKeyboard() {
+    private func wmf_beginAdjustingScrollViewInsetsForKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
     }
     
-    func wmf_endAdjustingScrollViewInsetsForKeyboard() {
+    private func wmf_endAdjustingScrollViewInsetsForKeyboard() {
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
     }
     
-    @objc func keyboardWillChangeFrame(_ notification: Notification) {
+    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
         wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification: notification)
     }
 }
