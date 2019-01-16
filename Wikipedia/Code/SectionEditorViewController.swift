@@ -130,13 +130,11 @@ class SectionEditorViewController: UIViewController {
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
-        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
+        // Doing so means we *only* have to escape backtick, '{', and '}'. Escaping '{' and '}' is needed for handling ES6 template literals.
+        // Benefit vs. current 'wmf_stringBySanitizingForJavaScript' with apostrophes approach is no need to escape apostrophes, quotes and line breaks.
         // (May consider switching other native-to-JS messaging to do same later.)
-        var escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
-        // Handle ES6 template literals. Fixes crash on `${{Inflation|US|50|1858|r=2}}` string seen on revision 878776294 of: https://en.wikipedia.org/wiki/Political_career_of_John_C._Breckinridge#U.S._vice_president
-        escapedWikitext = escapedWikitext.replacingOccurrences(of: "{", with: "\\{", options: .literal, range: nil)
-        escapedWikitext = escapedWikitext.replacingOccurrences(of: "}", with: "\\}", options: .literal, range: nil)
-        
+        let escapedWikitext = wikitext.replacingOccurrences(of: "([{}\\`])", with: "\\\\$1", options: .regularExpression)
+
         webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
             guard let completionHandler = completionHandler else {
                 return
