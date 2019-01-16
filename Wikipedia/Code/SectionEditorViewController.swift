@@ -50,11 +50,17 @@ class SectionEditorViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
         super.viewWillDisappear(animated)
+    }
+
+    @objc func keyboardDidHide() {
+        inputViewsController.textFormattingProvidingDidDismissKeyboard()
     }
 
     private func configureWebView() {
