@@ -46,6 +46,8 @@ class SectionEditorViewController: UIViewController {
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+    
+        webView.scrollView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -161,6 +163,18 @@ class SectionEditorViewController: UIViewController {
     override func accessibilityPerformEscape() -> Bool {
         navigationController?.popViewController(animated: true)
         return true
+    }
+}
+
+private var previousAdjustedContentInset = UIEdgeInsets.zero
+extension SectionEditorViewController: UIScrollViewDelegate {
+    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        let newAdjustedContentInset = scrollView.adjustedContentInset
+        guard newAdjustedContentInset != previousAdjustedContentInset else {
+            return
+        }
+        previousAdjustedContentInset = newAdjustedContentInset
+        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
     }
 }
 
