@@ -58,7 +58,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
         
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(preferredLanguagesDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)
         
         apply(theme: theme)
         view.wmf_configureSubviewsForDynamicType()
