@@ -166,6 +166,19 @@ class SectionEditorViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         return true
     }
+    
+    // MARK: - Docking `inputAccessoryView` at bottom of screen when keyboard is hidden.
+
+    override var inputAccessoryView: UIView? {
+        // In conjunction with overriding `canBecomeFirstResponder` to be true, this override
+        // allows `inputViewsController.inputAccessoryView` to dock at bottom of screen when
+        // the keyboard is dismissed.
+        return inputViewsController.inputAccessoryView
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 }
 
 private var previousAdjustedContentInset = UIEdgeInsets.zero
