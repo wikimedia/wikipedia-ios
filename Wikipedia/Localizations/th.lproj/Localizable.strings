@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aefgh39622
 // Author: Ans
+// Author: B20180
 // Author: CodeNameBOSS
 // Author: Horus
 // Author: Nemo bis
@@ -151,12 +152,15 @@
 "description-welcome-promise-title" = "ฉันสัญญาว่าจะไม่ใช้คุณลักษณะนี้ในทางที่ผิด";
 "description-welcome-start-editing-button" = "เริ่มแก้ไข";
 "dim-images" = "ลดแสงรูปภาพ";
+"edit-style-table-view-title" = "รูปแบบ";
 "edit-summary-choice-fixed-grammar" = "แก้ไขไวยากรณ์";
 "edit-summary-choice-fixed-typos" = "แก้ไขความผิดพลาดการพิมพ์";
 "edit-summary-choice-linked-words" = "เพิ่มลิงก์";
 "edit-summary-choice-other" = "อื่นๆ";
 "edit-summary-field-placeholder-text" = "วิธีการอื่นที่คุณปรับปรุงบทความนี้";
 "edit-summary-title" = "คุณปรับปรุงบทความนี้อย่างไร";
+"edit-text-formatting-table-view-title" = "การจัดรูปแบบข้อความ";
+"edit-text-size-table-view-title" = "ขนาดตัวอักษร";
 "empty-no-article-message" = "ขออภัย ไม่สามารถโหลดบทความนี้ได้";
 "empty-no-feed-action-message" = "คุณยังสามารถอ่านหน้าที่บันทึกไว้ได้";
 "empty-no-feed-message" = "คุณสามารถดูบทความที่แนะนำของคุณได้เมื่อคุณมีอินเทอร์เน็ต";

@@ -46,15 +46,23 @@ class SectionEditorViewController: UIViewController {
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+    
+        webView.scrollView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
         super.viewWillDisappear(animated)
+    }
+
+    @objc func keyboardDidHide() {
+        inputViewsController.textFormattingProvidingDidDismissKeyboard()
     }
 
     private func configureWebView() {
@@ -77,8 +85,7 @@ class SectionEditorViewController: UIViewController {
         contentController.addUserScript(setupUserScript)
         contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
 
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -123,9 +130,11 @@ class SectionEditorViewController: UIViewController {
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
-        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
+        // Doing so means we *only* have to escape backtick, '{', and '}'. Escaping '{' and '}' is needed for handling ES6 template literals.
+        // Benefit vs. current 'wmf_stringBySanitizingForJavaScript' with apostrophes approach is no need to escape apostrophes, quotes and line breaks.
         // (May consider switching other native-to-JS messaging to do same later.)
-        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
+        let escapedWikitext = wikitext.replacingOccurrences(of: "([{}\\`])", with: "\\\\$1", options: .regularExpression)
+
         webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
             guard let completionHandler = completionHandler else {
                 return
@@ -159,6 +168,18 @@ class SectionEditorViewController: UIViewController {
     }
 }
 
+private var previousAdjustedContentInset = UIEdgeInsets.zero
+extension SectionEditorViewController: UIScrollViewDelegate {
+    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        let newAdjustedContentInset = scrollView.adjustedContentInset
+        guard newAdjustedContentInset != previousAdjustedContentInset else {
+            return
+        }
+        previousAdjustedContentInset = newAdjustedContentInset
+        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
+    }
+}
+
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         if changesMade {
@@ -185,7 +206,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: true) // TODO
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -204,10 +225,13 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
     }
 }
 
-extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonSelectionDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
-        navigationItemController.buttonSelectionDidChange(button: button)
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
         inputViewsController.buttonSelectionDidChange(button: button)
+    }
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+        navigationItemController.disableButton(button: button)
+        inputViewsController.disableButton(button: button)
     }
 }
 

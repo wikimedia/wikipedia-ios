@@ -39,15 +39,14 @@
       const end = toCursor.ch
       const isSingleLine = (fromCursor.line === toCursor.line)
       const line = fromCursor.line
-      // TODO: rename 'isSelectionMoreThanOneChar' - it's actually isSelectionMoreThanZeroChar
-      const isSelectionMoreThanOneChar = !isSingleLine || (end - start) > 0
+      const isRangeSelected = !isSingleLine || (end - start) > 0
 
       return {
         start,
         end,
         isSingleLine,
         line,
-        isSelectionMoreThanOneChar
+        isRangeSelected
       }
     }
     
@@ -321,55 +320,61 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
         result.push(buttonPayload('signature', {depth: depth}))
       }
-
-      result.push(buttonPayload('debug', {
-         tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
-         tokensIntersectingSelectionTypesArray: typesArray,
-         selectionRange: getSelectionRange(doc),
-         getSelectionText: selection
-       }
-      ))
-     
-      const listItemLineCallback = (char, depth, line) => {
-        result.push(buttonPayload('li', {depth: depth, ordered: (char === '#')}))
-        if (depth > 1) {
-          result.push(buttonPayload('decreaseIndentDepth'))
-        }        
-        result.push(buttonPayload('increaseIndentDepth'))
+      const listItemLineCallback = (item) => {
+        result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
         return false // No need to continue (only need to send one 'li' message)
       }
-      performCallBackForSelectedListItemLines(doc, '#', listItemLineCallback)
-      performCallBackForSelectedListItemLines(doc, '*', listItemLineCallback)
+      performCallBackForSelectedListItemLines(doc, listItemLineCallback)
 
-      const historySize = doc.historySize()
-      
-      const changesMade = historySize.undo > 1
-      if (changesMade) {
-        result.push(buttonPayload('undo'))
-      }
-
-      result.push(buttonPayload('changesMade', {changesMade: changesMade}))
-
-      if (historySize.redo > 0) {
-        result.push(buttonPayload('redo'))
-      }
-        
       return result
     }
 
-    const sendNativeMessages = (doc) => {
-      // sends message to native land that selection has changed,
-      // upon receipt native land should de-select all buttons
-      window.webkit.messageHandlers.selectionChanged.postMessage(getSelectionRange(doc).isSelectionMoreThanOneChar)
+    const disabledButtons = (doc, selectedButtons) => {
+      let buttonsToDisable = []
+      
+      const listPayload = selectionPayloadForButton('li', selectedButtons)
+      const selectionContainsList = listPayload !== null
+      if (!selectionContainsList || listPayload.info.depth <= 1) {
+        buttonsToDisable.push(buttonPayload('decreaseIndentDepth'))
+      }
+      if (!selectionContainsList) {
+        buttonsToDisable.push(buttonPayload('increaseIndentDepth'))
+      }
 
-      // sends message to native land about which buttons should be selected,
-      // native land should assume only these buttons should appear selected
-      window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
+      const historySize = doc.historySize()
+      if (historySize.undo < 2) {
+        buttonsToDisable.push(buttonPayload('undo'))  
+        buttonsToDisable.push(buttonPayload('progress'))
+      }
+      if (historySize.redo < 1) {
+        buttonsToDisable.push(buttonPayload('redo'))
+      }
+
+      return buttonsToDisable
+    }
+
+    const sendNativeMessages = (doc) => {
+      const buttonsToSelect = selectedButtons(doc)
+      const nativeMessages = {
+        // message to native land that selection has changed,
+        // upon receipt native land should de-select and re-enable all buttons.
+        // (`selectionChanged` should be processed before the other messages)
+        selectionChanged: getSelectionRange(doc).isRangeSelected,
+        // message to native land about which buttons should be selected,
+        // native land should assume only these buttons should appear selected
+        highlightTheseButtons: buttonsToSelect,
+        // message to native land about which buttons should be disabled,
+        // native land should assume only these buttons should be disabled
+        disableTheseButtons: disabledButtons(doc, buttonsToSelect)
+      }
+      window.webkit.messageHandlers.codeMirrorMessage.postMessage(nativeMessages)
     }
         
     const applyTheme = (themeName) => {
       document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
     }
+    
+    let cursorActivityScrollTimer
     
     const setupCodemirrorWithConfig = (config, callback) => {
       let codeMirrorSettings = {
@@ -392,7 +397,15 @@
       if (callback) {
         callback()
       }
-      editor.on('cursorActivity', sendNativeMessages)
+      editor.on('cursorActivity', (doc) => {
+        sendNativeMessages(doc)
+
+        clearTimeout(cursorActivityScrollTimer)
+        cursorActivityScrollTimer = setTimeout(() => {
+          scrollCursorIntoViewIfNeeded()        
+        }, 25)
+
+      })
     }
     
     const setupCodemirror = (language, themeName, callback) => {
@@ -512,8 +525,11 @@
     // determined to be a button. This is the same payload we send to native land to tell it which
     // buttons are selected and any associated relevant properties - in the case of a heading the
     // payload's info.depth tells us how many '=' the currently selected heading has.
-    const selectionPayloadForButton = (buttonType) => {
-      const payloadsForButton = selectedButtons(editor).filter((item) => {return item.button === buttonType})
+    const selectionPayloadForButton = (buttonType, selectedButtonsArray) => {
+      if (selectedButtonsArray === undefined) {
+        selectedButtonsArray = selectedButtons(editor)
+      }
+      const payloadsForButton = selectedButtonsArray.filter((item) => {return item.button === buttonType})
       if (payloadsForButton.length === 0) {
         return null
       }
@@ -538,42 +554,54 @@
     }
 
     const toggleListForSelectedLines = (char) => {
-       const listPayload = selectionPayloadForButton('li')
-       const isExistingListSelected = listPayload !== null
-       if (isExistingListSelected) {
-         delistifySelectedLines(char)
-         return
-       }
-       convertSelectedLinesToList(char)
+      const listPayload = selectionPayloadForButton('li')
+      const isExistingListSelected = listPayload !== null
+      if (isExistingListSelected) {
+        delistifySelectedLines()
+        if (char === '#' && listPayload.info.ordered) {
+          return
+        }
+        if (char === '*' && !listPayload.info.ordered) {
+          return
+        }
+      }
+      convertSelectedLinesToList(char)
     }
 
-    const leadingListItemRepeatingCharactersAndWhitespace = (line, char) => {
-      const leadingCharAndWhitespace = line.match(new RegExp(`^\\${char}+\\s*`))
-      return leadingCharAndWhitespace ? leadingCharAndWhitespace[0] : ''
+    class LineListItem {
+      constructor(entireLine, leadingCharsAndWhitespace, char, depth) {
+        this.entireLine = entireLine
+        this.leadingCharsAndWhitespace = leadingCharsAndWhitespace
+        this.char = char
+        this.depth = depth
+        this.isOrdered = (char === '#')
+      }
+    }
+
+    const leadingListItemRepeatingCharactersAndWhitespace = (entireLine) => {
+      const leadingCharsAndWhitespace = entireLine.match(new RegExp(`^(?:(\\*+|#+))\\s*`))
+      if (!leadingCharsAndWhitespace) {
+        return null
+      }
+      return new LineListItem(entireLine, leadingCharsAndWhitespace[0], leadingCharsAndWhitespace[1].charAt(0), leadingCharsAndWhitespace[1].length)
     } 
 
-    const leadingListItemRepeatingCharactersCount = (line, char) => {
-      const chars = line.match(new RegExp(`^\\${char}+`))
-      return chars ? chars[0].length : 0
-    } 
-
-    const delistifySelectedLines = (char) => {
-      const listItemLineCallback = (char, depth, line, leadingCharsWithWhitespaceLength) => {
-        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: leadingCharsWithWhitespaceLength})
+    const delistifySelectedLines = () => {
+      const listItemLineCallback = (item, line) => {
+        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: item.leadingCharsAndWhitespace.length})
         return true
       }
-      performCallBackForSelectedListItemLines(editor, char, listItemLineCallback)
+      performCallBackForSelectedListItemLines(editor, listItemLineCallback)
     }
 
-    const performCallBackForSelectedListItemLines = (doc, char, callback) => {
+    const performCallBackForSelectedListItemLines = (doc, callback) => {
       let toLine = doc.getCursor('to').line
       let fromLine = doc.getCursor('from').line
       for (let line = toLine; line >= fromLine; line--) {
         const thisLineText = doc.getLine(line)
-        const leadingCharsWithWhitespace = leadingListItemRepeatingCharactersAndWhitespace(thisLineText, char)
-        if (leadingCharsWithWhitespace.length > 0) {
-          const depth = leadingListItemRepeatingCharactersCount(leadingCharsWithWhitespace, char)
-          const shouldContinue = callback(char, depth, line, leadingCharsWithWhitespace.length)
+        const lineListItem = leadingListItemRepeatingCharactersAndWhitespace(thisLineText)
+        if (lineListItem) {
+          const shouldContinue = callback(lineListItem, line)
           if (!shouldContinue) {
             return
           }
@@ -600,7 +628,58 @@
       editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
     }
 
+    const verticalOffsetNeededToScrollCursorIntoView = () => {
+      const fromTopOfWebView = cursorOffsetFromTopOfWebView()
+      if (fromTopOfWebView < 0) {
+        return fromTopOfWebView
+      }
+      const fromTopOfKeyboard = cursorOffsetFromTopOfKeyboard()
+      if (fromTopOfKeyboard > 0) {
+        return fromTopOfKeyboard
+      }
+      return 0
+    }
+
+    let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
+    const webViewHeightNotCoveredByKeyboard = () => window.innerHeight - adjustedContentInset.bottom
+    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords(true, 'window').top
+    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords(false, 'window').bottom - webViewHeightNotCoveredByKeyboard()
+
+    const scrollCursorIntoViewIfNeeded = () => {
+      if (getSelectionRange(editor).isRangeSelected) {
+        return
+      }
+      const offset = verticalOffsetNeededToScrollCursorIntoView()
+      if (offset === 0) {
+        return
+      }
+      window.scrollBy(0, offset)
+    }
+
+    let resizeTimer
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        scrollCursorIntoViewIfNeeded()        
+      }, 250)
+    }, true)
+
+    let previousAdjustedContentInsetBottom = 0
+    const adjustedContentInsetBottomChanged = () => {
+      if (adjustedContentInset.bottom == previousAdjustedContentInsetBottom) {
+        return false
+      }
+      previousAdjustedContentInsetBottom = adjustedContentInset.bottom
+      return true  
+    }
+
     wmf.commands = {
+      adjustedContentInsetChanged: (newInset) => {
+        adjustedContentInset = newInset
+        if (adjustedContentInsetBottomChanged()) {
+          scrollCursorIntoViewIfNeeded()
+        }
+      },
       focus: () => {
         editor.focus()
       },
@@ -716,23 +795,21 @@
         toggleMarkup('heading', equals, equals)
       },
       increaseIndentDepth: () => {
-        const listItemLineCallback = (char, depth, line) => {
-          editor.replaceRange(char, {line: line, ch: 0})
+        const listItemLineCallback = (item, line) => {
+          editor.replaceRange(item.char, {line: line, ch: 0})
           return true
         }
-        performCallBackForSelectedListItemLines(editor, '#', listItemLineCallback)
-        performCallBackForSelectedListItemLines(editor, '*', listItemLineCallback)
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
       },
       decreaseIndentDepth: () => {
-        const listItemLineCallback = (char, depth, line) => {
-          if (depth === 1) {
+        const listItemLineCallback = (item, line) => {
+          if (item.depth === 1) {
             return true
           }
           editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: 1})
           return true
         }
-        performCallBackForSelectedListItemLines(editor, '#', listItemLineCallback)
-        performCallBackForSelectedListItemLines(editor, '*', listItemLineCallback)
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
       },
       textSize: (newSize) => {
         switch (newSize) {

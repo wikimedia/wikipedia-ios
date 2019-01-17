@@ -181,12 +181,15 @@
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
 "dim-images" = "Делать изображения менее яркими";
+"edit-style-table-view-title" = "Оформление";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
 "edit-summary-choice-linked-words" = "Добавленные ссылки";
 "edit-summary-choice-other" = "Другое";
 "edit-summary-field-placeholder-text" = "Другие способы, которыми вы улучшили страницу";
 "edit-summary-title" = "Как именно вы улучшили страницу?";
+"edit-text-formatting-table-view-title" = "Форматирование текста";
+"edit-text-size-table-view-title" = "Размер шрифта";
 "empty-no-article-message" = "К сожалению, не удалось загрузить статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
@@ -536,7 +539,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=этот год|1=прошлый год|$1 года назад|$1 лет назад}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|$1 года назад|$1 лет назад}}";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "reverted-edit-back-to-article-button-title" = "Назад к статье";
 "reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";
