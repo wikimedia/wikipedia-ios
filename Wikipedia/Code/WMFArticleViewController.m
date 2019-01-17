@@ -1881,7 +1881,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (didChange) {
         __weak typeof(self) weakSelf = self;
         self.articleContentLoadCompletion = ^{
-            [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
+            dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+                [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
+            });
         };
         [self fetchArticle];
     }
