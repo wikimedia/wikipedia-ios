@@ -424,6 +424,7 @@
 "saved-default-reading-list-tag" = "این فهرست را نمی‌توان حذف کرد";
 "saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";
 "saved-reading-lists-title" = "فهرست‌های خواندن";
+// Fuzzy
 "saved-search-default-text" = "جستجو";
 "saved-title" = "ذخیره شد";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "عدم ذخیرهٔ {{PLURAL:$1|این مقاله آن را از فهرست خواندن حذف می‌کند|این مقالات آنها را از فهرست خواندن حذف می‌کند}}";

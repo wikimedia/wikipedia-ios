@@ -543,7 +543,7 @@
 "saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";
 "saved-pages-progress-syncing" = "Téléchargement d'article en cours...";
 "saved-reading-lists-title" = "Listes de lecture";
-"saved-search-default-text" = "Rechercher";
+"saved-search-default-text" = "Rechercher les articles enregistrés";
 "saved-title" = "Enregistré";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ne plus enregistrer {{PLURAL:$1|cet article le supprimera|ces articles les supprimera}} de toutes les listes de lecture associées";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ne plus enregistrer {{PLURAL:$1|l’article|les articles}} ?";

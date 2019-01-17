@@ -384,6 +384,7 @@
 "saved-pages-image-download-error" = "Αποτυχία στην λήψη εικόνων για αυτή την αποθηκευμένη σελίδα.";
 "saved-pages-progress-syncing" = "Η λήψη λήμματος είναι σε εξέλιξη...";
 "saved-reading-lists-title" = "Λίστες ανάγνωσης";
+// Fuzzy
 "saved-search-default-text" = "Αναζήτηση";
 "saved-title" = "Αποθηκεύθηκε";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ξεαποθήκευση {{PLURAL:$1|λήμμα|λημμάτων}};";

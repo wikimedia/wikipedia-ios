@@ -451,6 +451,7 @@
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";
 "saved-pages-progress-syncing" = "Descarga d'artículos en cursu…";
 "saved-reading-lists-title" = "Llistes de llectura";
+// Fuzzy
 "saved-search-default-text" = "Buscar";
 "saved-title" = "Guardada";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Dexar de guardar {{PLURAL:$1|esti artículu desaniciarálu|estos artículos desaniciarálos}} de toles llistes de llectura asociaes";

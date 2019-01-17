@@ -535,6 +535,7 @@
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
 "saved-pages-progress-syncing" = "Pengunduhan artikel sedang berlangsung...";
 "saved-reading-lists-title" = "Daftar bacaan";
+// Fuzzy
 "saved-search-default-text" = "Cari";
 "saved-title" = "Tersimpan";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Membatalkan simpan {{PLURAL:$1|artikel ini akan menghapusnya|artikel ini akan menghapusnya}} dari semua daftar bacaan yang terkait";
