@@ -3,19 +3,24 @@
 @interface WMFThemeableNavigationController ()
 
 @property (nonatomic, strong) WMFTheme *theme;
-
+@property (nonatomic, getter=isEditorStyle) BOOL editorStyle;
 @end
 
 @implementation WMFThemeableNavigationController
 
-- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme {
+- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme isEditorStyle:(BOOL)isEditorStyle {
     self = [super initWithRootViewController:rootViewController];
     if (self) {
+        self.editorStyle = isEditorStyle;
         self.theme = theme;
         [self applyTheme:theme];
         [rootViewController applyTheme:theme];
     }
     return self;
+}
+
+- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme {
+    return [self initWithRootViewController:rootViewController theme:theme isEditorStyle:NO];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -27,7 +32,12 @@
     self.navigationBar.barTintColor = theme.colors.chromeBackground;
     self.navigationBar.translucent = NO;
     self.navigationBar.tintColor = theme.colors.chromeText;
-    [self.navigationBar setBackgroundImage:theme.navigationBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    if (self.isEditorStyle) {
+        [self.navigationBar setBackgroundImage:theme.editorNavigationBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+
+    } else {
+        [self.navigationBar setBackgroundImage:theme.navigationBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    }
     [self.navigationBar setTitleTextAttributes:theme.navigationBarTitleTextAttributes];
 
     self.toolbar.barTintColor = theme.colors.chromeBackground;
