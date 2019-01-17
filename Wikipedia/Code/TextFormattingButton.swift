@@ -22,8 +22,8 @@ class TextFormattingButton: UIButton, Themeable {
     }
     
     private func updateColors() {
-        self.tintColor = theme.colors.primaryText
-        self.backgroundColor = self.isSelected ? theme.colors.baseBackground : .clear
+        self.tintColor = self.isSelected ? theme.colors.inputAccessoryButtonSelectedTint : theme.colors.inputAccessoryButtonTint
+        self.backgroundColor = self.isSelected ? theme.colors.inputAccessoryButtonSelectedBackgroundColor : .clear
     }
     
     func apply(theme: Theme) {
