@@ -73,7 +73,7 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeabl
         }
     }
 
-    private var inputAccessoryView: UIView? {
+    public var inputAccessoryView: UIView? {
         guard let inputAccessoryViewType = inputAccessoryViewType else {
             return nil
         }
