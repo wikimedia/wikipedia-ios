@@ -195,6 +195,10 @@ public class Colors: NSObject {
     @objc public let descriptionBackground: UIColor
     @objc public let descriptionWarning: UIColor
     
+    @objc public var refreshControlTint: UIColor {
+        return secondaryText
+    }
+
     @objc public var inputAccessoryBackground: UIColor {
         return cardBackground
     }

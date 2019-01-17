@@ -309,6 +309,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         }
         navigationBar.apply(theme: theme)
         applyThemeToCloseButton()
+        scrollView?.refreshControl?.tintColor = theme.colors.refreshControlTint
     }
 }
 
