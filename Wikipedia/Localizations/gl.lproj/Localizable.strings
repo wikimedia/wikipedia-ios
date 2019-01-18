@@ -527,6 +527,7 @@
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
 "saved-pages-progress-syncing" = "Descarga de artigo en curso…";
 "saved-reading-lists-title" = "Listas de lectura";
+// Fuzzy
 "saved-search-default-text" = "Procura";
 "saved-title" = "Gardado";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ao non gardar {{PLURAL:$1|este artigo, será eliminado|estes artigos, serán eliminados}} de tódalas listas de lectura asociadas";

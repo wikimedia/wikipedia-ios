@@ -526,6 +526,7 @@
 "saved-pages-image-download-error" = "Malsukcesis elŝuti bildojn por ĉi tiu konservita paĝo.";
 "saved-pages-progress-syncing" = "Artikolo estas elŝutata...";
 "saved-reading-lists-title" = "Legolistoj";
+// Fuzzy
 "saved-search-default-text" = "Serĉi";
 "saved-title" = "Konservita";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Se vi malkonservas {{PLURAL:$1|ĉi tiun artikolon, ĝi estas forigota|ĉi tiujn artikolojn, ili estas forigotaj}} de ĉiuj ligitaj legolistoj";

@@ -535,6 +535,7 @@
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
 "saved-pages-progress-syncing" = "條目下載進行中...";
 "saved-reading-lists-title" = "閱讀清單";
+// Fuzzy
 "saved-search-default-text" = "搜尋";
 "saved-title" = "已儲存";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "取消儲存{{PLURAL:$1|此條目將會把它|這些條目此條目將會把它們}}從所有相關聯的閱讀清單裡移除";

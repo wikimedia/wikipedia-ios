@@ -146,6 +146,7 @@
 "reverted-edit-title" = "Atcelts labojums";
 "reverted-edit-view-guidelines-text" = "Skatīt vadlīnijas";
 "saved-all-articles-title" = "Visi raksti";
+// Fuzzy
 "saved-search-default-text" = "Meklēt";
 "saved-title" = "Saglabāts";
 "search-did-you-mean" = "Vai tu domāji $1?";

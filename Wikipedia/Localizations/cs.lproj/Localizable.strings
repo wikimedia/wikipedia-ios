@@ -543,7 +543,7 @@
 "saved-pages-image-download-error" = "Nepodařilo se stáhnout obrázky pro tuto uloženou stránku.";
 "saved-pages-progress-syncing" = "Stahuje se článek...";
 "saved-reading-lists-title" = "Seznamy k přečtení";
-"saved-search-default-text" = "Hledat";
+"saved-search-default-text" = "Hledat uložené články";
 "saved-title" = "Uložené";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Zruší uložení {{PLURAL:$1|tohoto článku a odstraní jej|těchto článků a odstraní je}} ze všech seznamů k přečtení, kterých se nachází";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Zrušit uložení {{PLURAL:$1|článku|článků}}?";

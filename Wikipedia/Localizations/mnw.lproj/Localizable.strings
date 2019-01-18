@@ -503,6 +503,7 @@
 "saved-pages-image-download-error" = "တံင်လုပ်ကေတ် ဗီုရုပ် သွက် မုက်လိက် မဂိုင်သိပ်ဏအ် ဟွံအံင်ဇၞး";
 "saved-pages-progress-syncing" = "လိက် ပရေင်ဂှ် အဃော မတံင်လုပ်ဒၟံင်...";
 "saved-reading-lists-title" = "စရင် လိက်ဗွဟ်ဂမၠိုင်";
+// Fuzzy
 "saved-search-default-text" = "ဂၠာဲ";
 "saved-title" = "ဂိုင်သိပ်တုဲ";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "မဂိုင်သိပ်ဟွံဂွံ {{PLURAL:$1|လိက်ပရေင်ဏအ် သ္ဒးပတိတ်ထောအ်|လိက်ရေင်တအ်ဏအ် သ္ဒးဒုင်ပတိတ်}} နူ စရင်လိက်ဗွဟ် မဆေင်စပ်တအ်ရောင်";

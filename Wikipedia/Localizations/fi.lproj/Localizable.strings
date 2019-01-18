@@ -522,6 +522,7 @@
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "saved-pages-progress-syncing" = "Artikkelin lataus käynnissä...";
 "saved-reading-lists-title" = "Lukulistat";
+// Fuzzy
 "saved-search-default-text" = "Hae";
 "saved-title" = "Tallennettu";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Tämän artikkelin tallentamattomaksi jättäminen poistaa sen|Näiden artikkelien tallentamattomaksi jättäminen poistaa ne}} kaikista niihin liittyvistä lukulistoista";

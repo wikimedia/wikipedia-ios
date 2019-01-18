@@ -521,6 +521,7 @@
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";
 "saved-pages-progress-syncing" = "Niðurhal greinar í gangi...";
 "saved-reading-lists-title" = "Leslistar";
+// Fuzzy
 "saved-search-default-text" = "Leita";
 "saved-title" = "Vistað";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Afturköllun á vistun {{PLURAL:$1|þessarar greinar mun fjarlægja hana|þessara greina mun fjarlægja þær}} af öllum tengdum leslistum";

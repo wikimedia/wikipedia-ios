@@ -477,6 +477,7 @@
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";
 "saved-pages-progress-syncing" = "Đang tải về bài viết…";
 "saved-reading-lists-title" = "Danh sách đọc";
+// Fuzzy
 "saved-search-default-text" = "Tìm kiếm";
 "saved-title" = "Đã lưu";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Khi xóa {{PLURAL:$1|bài đã lưu, nó|các bài đã lưu, chúng}} sẽ được loại bỏ khỏi các danh sách đọc";
