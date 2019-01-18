@@ -571,6 +571,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self resetFindInPageWithCompletion:nil];
 }
 
+- (void)keyboardBarReturnTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+    [keyboardBar hide];
+}
+
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
     [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionPrevious];
     [self scrollToAndFocusOnSelectedMatch];

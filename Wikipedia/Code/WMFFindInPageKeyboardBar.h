@@ -10,6 +10,7 @@
 - (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
 - (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
+- (void)keyboardBarReturnTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
 
 @end
 

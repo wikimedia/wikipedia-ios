@@ -240,6 +240,10 @@ extension SectionEditorInputViewsController: SectionEditorWebViewMessagingContro
 }
 
 extension SectionEditorInputViewsController: WMFFindInPageKeyboardBarDelegate {
+    func keyboardBarReturnTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        messagingController.findNext() // TODO ?
+    }
+
     func keyboardBar(_ keyboardBar: WMFFindInPageKeyboardBar!, searchTermChanged term: String!) {
         messagingController.find(text: term)
     }
