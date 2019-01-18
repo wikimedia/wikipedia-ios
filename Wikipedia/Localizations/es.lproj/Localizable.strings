@@ -412,6 +412,7 @@
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
 "saved-pages-progress-syncing" = "Descarga de artículos en curso…";
 "saved-reading-lists-title" = "Listas de lectura";
+// Fuzzy
 "saved-search-default-text" = "Buscar";
 "saved-title" = "Guardados";
 "search-button-accessibility-label" = "Buscar en Wikipedia";

@@ -520,6 +520,7 @@
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
 "saved-pages-progress-syncing" = "Преземањето на статијата е во тек...";
 "saved-reading-lists-title" = "Списоци за читање";
+// Fuzzy
 "saved-search-default-text" = "Пребарај";
 "saved-title" = "Зачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Со одзачувувањето, {{PLURAL:$1|статијава ќе биде отстранета|статииве ќе бидат остранети}} од сите поврзани списоци за читање";

@@ -5,6 +5,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFThemeableNavigationController : UINavigationController <WMFThemeable>
 
+- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme isEditorStyle:(BOOL)isEditorStyle;
+
 - (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme;
 
 @end

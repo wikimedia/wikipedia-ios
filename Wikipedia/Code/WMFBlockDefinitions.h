@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class HistoryFetchResults;
 @class CLPlacemark;
 
-typedef void (^WMFArticleHandler)(MWKArticle *article);
+typedef void (^WMFArticleHandler)(MWKArticle *article, NSURL *articleURL); // articleURL is the final URL including any redirects
 typedef void (^WMFProgressHandler)(CGFloat progress);
 typedef void (^WMFErrorHandler)(NSError *error);
 typedef void (^WMFMWKSearchResultHandler)(MWKSearchResult *result);

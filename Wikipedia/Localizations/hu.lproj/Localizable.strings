@@ -389,6 +389,7 @@
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
 "saved-pages-progress-syncing" = "A szócikk letöltése folyamatban...";
 "saved-reading-lists-title" = "Olvasólisták";
+// Fuzzy
 "saved-search-default-text" = "Keresés";
 "saved-title" = "Elmentve";
 "search-button-accessibility-label" = "Keresés a Wikipédiában";

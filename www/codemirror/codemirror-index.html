@@ -31,15 +31,14 @@
       const end = toCursor.ch
       const isSingleLine = (fromCursor.line === toCursor.line)
       const line = fromCursor.line
-      // TODO: rename 'isSelectionMoreThanOneChar' - it's actually isSelectionMoreThanZeroChar
-      const isSelectionMoreThanOneChar = !isSingleLine || (end - start) > 0
+      const isRangeSelected = !isSingleLine || (end - start) > 0
 
       return {
         start,
         end,
         isSingleLine,
         line,
-        isSelectionMoreThanOneChar
+        isRangeSelected
       }
     }
     
@@ -352,7 +351,7 @@
         // message to native land that selection has changed,
         // upon receipt native land should de-select and re-enable all buttons.
         // (`selectionChanged` should be processed before the other messages)
-        selectionChanged: getSelectionRange(doc).isSelectionMoreThanOneChar,
+        selectionChanged: getSelectionRange(doc).isRangeSelected,
         // message to native land about which buttons should be selected,
         // native land should assume only these buttons should appear selected
         highlightTheseButtons: buttonsToSelect,
@@ -367,38 +366,50 @@
       document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
     }
     
-    const setupCodemirrorWithConfig = (config, callback) => {
-      let codeMirrorSettings = {
-        mwConfig: config,
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: "text/mediawiki",
-        matchBrackets: true,
-        extraKeys: {
-          // t.b.d.
-        }, 
-        inputStyle: 'contenteditable',
-        autocorrect: true,
-        autocapitalize: true,
-        spellcheck: false,
-        preventDefaultOnKeyPress: false,
-        viewportMargin: Infinity
-      }
+    let cursorActivityScrollTimer
+    
+    const setupCodemirrorWithSettings = (codeMirrorSettings, callback) => {
       editor = CodeMirror(document.body, codeMirrorSettings)
       if (callback) {
         callback()
       }
-      editor.on('cursorActivity', sendNativeMessages)
+      editor.on('cursorActivity', (doc) => {
+        sendNativeMessages(doc)
+
+        clearTimeout(cursorActivityScrollTimer)
+        cursorActivityScrollTimer = setTimeout(() => {
+          scrollCursorIntoViewIfNeeded()        
+        }, 25)
+
+      })
     }
     
-    const setupCodemirror = (language, themeName, callback) => {
+    const setupCodemirror = (language, direction, themeName, callback) => {
       applyTheme(themeName)
       let xhr = new XMLHttpRequest()
       let url = `config/codemirror-config-${language}.json`
       xhr.open('GET', url, true)
       xhr.onload = () => {
-        let config = JSON.parse(xhr.responseText)
-        setupCodemirrorWithConfig(config['extCodeMirrorConfig'], callback)
+        let object = JSON.parse(xhr.responseText)
+        let mwConfig = object['extCodeMirrorConfig']
+        let codeMirrorSettings = {
+          mwConfig: mwConfig,
+          lineWrapping: true,
+          lineNumbers: true,
+          mode: "text/mediawiki",
+          matchBrackets: true,
+          extraKeys: {
+            // t.b.d.
+          }, 
+          inputStyle: 'contenteditable',
+          direction: direction,
+          autocorrect: true,
+          autocapitalize: true,
+          spellcheck: false,
+          preventDefaultOnKeyPress: false,
+          viewportMargin: Infinity
+        }
+        setupCodemirrorWithSettings(codeMirrorSettings, callback)
       };
       xhr.send()
     }
@@ -495,7 +506,7 @@
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
-    wmf.setup = (language, themeName, callback) => setupCodemirror(language, themeName, callback)
+    wmf.setup = (language, direction, themeName, callback) => setupCodemirror(language, direction, themeName, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
 
     const italicMarkup = "''"
@@ -611,7 +622,58 @@
       editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
     }
 
+    const verticalOffsetNeededToScrollCursorIntoView = () => {
+      const fromTopOfWebView = cursorOffsetFromTopOfWebView()
+      if (fromTopOfWebView < 0) {
+        return fromTopOfWebView
+      }
+      const fromTopOfKeyboard = cursorOffsetFromTopOfKeyboard()
+      if (fromTopOfKeyboard > 0) {
+        return fromTopOfKeyboard
+      }
+      return 0
+    }
+
+    let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
+    const webViewHeightNotCoveredByKeyboard = () => window.innerHeight - adjustedContentInset.bottom
+    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords(true, 'window').top
+    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords(false, 'window').bottom - webViewHeightNotCoveredByKeyboard()
+
+    const scrollCursorIntoViewIfNeeded = () => {
+      if (getSelectionRange(editor).isRangeSelected) {
+        return
+      }
+      const offset = verticalOffsetNeededToScrollCursorIntoView()
+      if (offset === 0) {
+        return
+      }
+      window.scrollBy(0, offset)
+    }
+
+    let resizeTimer
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        scrollCursorIntoViewIfNeeded()        
+      }, 250)
+    }, true)
+
+    let previousAdjustedContentInsetBottom = 0
+    const adjustedContentInsetBottomChanged = () => {
+      if (adjustedContentInset.bottom == previousAdjustedContentInsetBottom) {
+        return false
+      }
+      previousAdjustedContentInsetBottom = adjustedContentInset.bottom
+      return true  
+    }
+
     wmf.commands = {
+      adjustedContentInsetChanged: (newInset) => {
+        adjustedContentInset = newInset
+        if (adjustedContentInsetBottomChanged()) {
+          scrollCursorIntoViewIfNeeded()
+        }
+      },
       focus: () => {
         editor.focus()
       },

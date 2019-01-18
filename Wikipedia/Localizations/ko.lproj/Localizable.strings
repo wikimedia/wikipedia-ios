@@ -1,6 +1,7 @@
 // Messages for Korean (한국어)
 // Exported from translatewiki.net
 // Author: Alex00728
+// Author: Bluemersen
 // Author: CYAN
 // Author: Doyoon1995
 // Author: Ellif
@@ -225,7 +226,7 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "모든 %@ 카드 숨기기";
 "explore-feed-preferences-in-the-news-description" = "요즘 화제에 관한 글";
 "explore-feed-preferences-languages-footer-text" = "자신의 모든 언어의 모든 탐색 피드 카드를 숨기면 탐색 탭이 꺼지게 됩니다.";
-"explore-feed-preferences-on-this-day-description" = "오늘의 역사의 사건";
+"explore-feed-preferences-on-this-day-description" = "오늘의 역사적 사건";
 "explore-feed-preferences-places-description" = "주변 지역의 위키백과 문서";
 "explore-feed-preferences-potd-description" = "공용의 일일 알찬 그림";
 "explore-feed-preferences-randomizer-description" = "읽어볼 임의 문서를 만듭니다";
@@ -338,7 +339,7 @@
 "in-the-news-sub-title-from-wikipedia" = "위키백과에서";
 "in-the-news-title" = "새로 들어온 소식";
 "info-box-close-text" = "닫기";
-"info-box-title" = "빠른 사실";
+"info-box-title" = "간략 정보";
 "languages-settings-title" = "언어";
 "languages-title" = "언어 변경";
 "languages-wikipedia" = "위키백과 언어";
@@ -539,6 +540,7 @@
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-pages-progress-syncing" = "문서 다운로드 진행 중...";
 "saved-reading-lists-title" = "읽기 목록";
+// Fuzzy
 "saved-search-default-text" = "검색";
 "saved-title" = "저장된 문서";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|이 문서의}} 저장을 취소하면 관련된 모든 읽기 목록의 선택 항목을 제거합니다";

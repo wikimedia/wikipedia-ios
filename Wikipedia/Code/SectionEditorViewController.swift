@@ -46,15 +46,23 @@ class SectionEditorViewController: UIViewController {
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+    
+        webView.scrollView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
         super.viewWillDisappear(animated)
+    }
+
+    @objc func keyboardDidHide() {
+        inputViewsController.textFormattingProvidingDidDismissKeyboard()
     }
 
     private func configureWebView() {
@@ -70,7 +78,8 @@ class SectionEditorViewController: UIViewController {
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
-        let setupUserScript = CodemirrorSetupUserScript(language: language, theme: theme) { [weak self] in
+        let languageInfo = MWLanguageInfo(forCode: language)
+        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
@@ -122,9 +131,11 @@ class SectionEditorViewController: UIViewController {
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
-        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
+        // Doing so means we *only* have to escape backtick, '{', and '}'. Escaping '{' and '}' is needed for handling ES6 template literals.
+        // Benefit vs. current 'wmf_stringBySanitizingForJavaScript' with apostrophes approach is no need to escape apostrophes, quotes and line breaks.
         // (May consider switching other native-to-JS messaging to do same later.)
-        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
+        let escapedWikitext = wikitext.replacingOccurrences(of: "([{}\\`])", with: "\\\\$1", options: .regularExpression)
+
         webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
             guard let completionHandler = completionHandler else {
                 return
@@ -155,6 +166,18 @@ class SectionEditorViewController: UIViewController {
     override func accessibilityPerformEscape() -> Bool {
         navigationController?.popViewController(animated: true)
         return true
+    }
+}
+
+private var previousAdjustedContentInset = UIEdgeInsets.zero
+extension SectionEditorViewController: UIScrollViewDelegate {
+    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        let newAdjustedContentInset = scrollView.adjustedContentInset
+        guard newAdjustedContentInset != previousAdjustedContentInset else {
+            return
+        }
+        previousAdjustedContentInset = newAdjustedContentInset
+        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
     }
 }
 

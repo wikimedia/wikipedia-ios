@@ -525,6 +525,7 @@
 "saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
 "saved-pages-progress-syncing" = "条目下载正在进行...";
 "saved-reading-lists-title" = "阅读列表";
+// Fuzzy
 "saved-search-default-text" = "搜索";
 "saved-title" = "已保存";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "取消保存{{PLURAL:$1|此|这些}}条目将从所有相关阅读列表中移除";

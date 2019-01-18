@@ -109,11 +109,11 @@ extension TextFormattingInputViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.midBackground
+        view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
         embeddedNavigationController.navigationBar.isTranslucent = false
-        embeddedNavigationController.navigationBar.barTintColor = theme.colors.midBackground
-        embeddedNavigationController.navigationBar.tintColor = theme.colors.primaryText
+        embeddedNavigationController.navigationBar.barTintColor = theme.colors.inputAccessoryBackground
+        embeddedNavigationController.navigationBar.tintColor = theme.colors.inputAccessoryButtonTint
         embeddedNavigationController.navigationBar.titleTextAttributes = theme.navigationBarTitleTextAttributes
     }
 }

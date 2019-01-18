@@ -554,7 +554,7 @@
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
 "saved-pages-progress-syncing" = "Статья скачивается...";
 "saved-reading-lists-title" = "Списки для чтения";
-"saved-search-default-text" = "Найти";
+"saved-search-default-text" = "Найти сохранённые статьи";
 "saved-title" = "Сохранено";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Несохранила {{PLURAL:$1|эта статья удалит его|эти статьи удаляют их}} из всех связанных списков чтения";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Несохраненная {{PLURAL:$1|статья|статьи|статей}}";
