@@ -229,10 +229,10 @@ const transformAndAppendNonLeadSectionsToMainContentDiv = (sectionsJSON, article
 
 const scrollToSection = hash => {
   if (hash !== '') {
-    setTimeout(() => {
+    window.requestAnimationFrame(() => {
       location.hash = ''
       location.hash = hash
-    }, 50)
+    })
   }
 }
 

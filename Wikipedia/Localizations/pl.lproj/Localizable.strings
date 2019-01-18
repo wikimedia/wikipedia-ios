@@ -321,6 +321,7 @@
 "reverted-edit-notification-read-more-action-title" = "Czytaj więcej";
 "saved-all-articles-title" = "Wszystkie artykuły";
 "saved-pages-progress-syncing" = "Trwa pobieranie artykułu...";
+// Fuzzy
 "saved-search-default-text" = "Szukaj";
 "saved-title" = "Zapisane";
 "search-button-accessibility-label" = "Szukaj w Wikipedii";

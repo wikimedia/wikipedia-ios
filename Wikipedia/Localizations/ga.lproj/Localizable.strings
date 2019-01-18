@@ -6,15 +6,15 @@
 
 "about-content-license" = "Ceadúnas inneachair";
 "about-content-license-details" = "Mura luaitear a mhalairt, tá an t-inneachar ar fáil faoin $1.";
-"about-content-license-details-share-alike-license" = "Ceadúnas Sannta-ComhroinnDoGachDuine Creative Commons";
-"about-contributors" = "Rannpháirtithe";
+"about-content-license-details-share-alike-license" = "Ceadúnas Sannta-ComhroinnteComhionnaine Creative Commons";
+"about-contributors" = "Rannchuiditheoirí";
 "about-libraries" = "Leabharlanna a úsáidtear";
 "about-libraries-complete-list" = "Liosta iomlán";
 "about-libraries-license" = "Ceadúnas";
 "about-libraries-licenses-title" = "Is aoibhinn linn bogearraí foinse oscailte $1";
 "about-places-maps-license" = "Ceadúnas léarscáileanna Áiteanna";
 "about-places-maps-license-details" = "Úsáideann Áiteanna léarscáileanna a chuirtear ar fáil ag Apple Maps. $1";
-"about-product-of" = "Arna dhéanamh ag $1 le cabhair ó rannpháirtithe deonacha cosúil leatsa";
+"about-product-of" = "Arna dhéanamh ag $1 le cabhair ó rannchuiditheoirí deonacha cosúil leatsa";
 "about-repositories" = "Stóir";
 "about-repositories-app-source-license" = "Cód foinseach ar fáil faoin g$1.";
 "about-repositories-app-source-license-mit" = "Ceadúnas MIT";
@@ -128,6 +128,7 @@
 "edit-summary-choice-other" = "Eile";
 "edit-summary-field-placeholder-text" = "Modhanna eile mar a fheabhsaigh tú an t-alt";
 "edit-summary-title" = "Conas mar a fheabhsaigh tú an t-alt?";
+"edit-text-size-table-view-title" = "Clómhéid";
 "empty-no-article-message" = "Tá brón orainn, níorbh fhéidir an t-alt a lódáil";
 "empty-no-feed-message" = "Féadfaidh tú do chuid alt molta a fhéachaint nuair a bheidh idirlíon agat";
 "empty-no-feed-title" = "Níl Nasc Idirlín Ann";
@@ -403,7 +404,7 @@
 "saved-default-reading-list-tag" = "Ní féidir an liosta seo a scriosadh";
 "saved-pages-progress-syncing" = "Alt á íoslódáil...";
 "saved-reading-lists-title" = "Liostaí léitheoireachta";
-"saved-search-default-text" = "Cuardaigh";
+"saved-search-default-text" = "Cuardaigh ailt sábháilte";
 "saved-title" = "Sábháilte";
 "search-button-accessibility-label" = "Cuardaigh Vicipéid";
 "search-clear-title" = "Glan";

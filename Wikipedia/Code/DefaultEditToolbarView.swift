@@ -144,10 +144,3 @@ class DefaultEditToolbarView: EditToolbarView {
         }
     }
 }
-
-extension DefaultEditToolbarView {
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        //
-    }
-}

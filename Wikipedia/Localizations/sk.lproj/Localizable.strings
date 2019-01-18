@@ -374,6 +374,7 @@
 "saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";
 "saved-pages-progress-syncing" = "Preberá sa článok...";
 "saved-reading-lists-title" = "Zoznamy na prečítanie";
+// Fuzzy
 "saved-search-default-text" = "Hľadať";
 "saved-title" = "Uložené";
 "search-button-accessibility-label" = "Hľadať";

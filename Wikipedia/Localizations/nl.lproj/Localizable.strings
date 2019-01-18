@@ -168,12 +168,15 @@
 "description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "dim-images" = "Afbeeldingen dimmen";
+"edit-style-table-view-title" = "Stijl";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-choice-other" = "Overige";
 "edit-summary-field-placeholder-text" = "Andere manieren waarop u de pagina hebt verbeterd";
 "edit-summary-title" = "Hoe hebt u het artikel verbeterd?";
+"edit-text-formatting-table-view-title" = "Tekstopmaak";
+"edit-text-size-table-view-title" = "Tekstgrootte";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
@@ -538,6 +541,7 @@
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-pages-progress-syncing" = "Pagina-download bezig...";
 "saved-reading-lists-title" = "Leeslijsten";
+// Fuzzy
 "saved-search-default-text" = "Zoeken";
 "saved-title" = "Opgeslagen";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Het wissen van {{PLURAL:$1|dit artikel wist dit artikel|deze artikelen wist deze artikelen}} van alle bijbehorende leeslijsten";

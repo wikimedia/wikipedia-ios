@@ -259,6 +259,7 @@
 "reverted-edit-back-to-article-button-title" = "लेखमा फर्कनुहोस्";
 "reverted-edit-thanks-for-editing-title" = "विकिपिडियामा सम्पादन गर्नुभएको धन्यवाद!";
 "saved-all-articles-title" = "सबै लेखहरू";
+// Fuzzy
 "saved-search-default-text" = "खोज";
 "saved-title" = "संग्रह गर्ने";
 "search-button-accessibility-label" = "विकिपिडियामा खोज्नुहोस्";
