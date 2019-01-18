@@ -222,6 +222,20 @@ extension SectionEditorInputViewsController: SectionEditorWebViewMessagingContro
             return
         }
         findInPageView?.update(forCurrentMatch: matchIndex, matchesCount: UInt(matchesCount))
+        webView.getScrollRectForHtmlElement(withId: matchID) { [weak self] (matchRect) in
+            guard
+                let findInPageView = self?.findInPageView,
+                let webView = self?.webView,
+                let findInPageViewY = findInPageView.window?.convert(.zero, from: findInPageView).y
+            else {
+                return
+            }
+            let matchRectY = matchRect.minY
+            let contentInsetTop = webView.scrollView.contentInset.top
+            let newOffsetY = matchRectY + contentInsetTop - (0.5 * findInPageViewY) + (0.5 * matchRect.height) + webView.iOS12yOffsetHack
+            let centeredOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: newOffsetY)
+            webView.scrollView.wmf_safeSetContentOffset(centeredOffset, animated: true)
+        }
     }
 }
 
