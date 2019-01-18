@@ -70,7 +70,10 @@ class SavedArticlesCollectionViewController: ArticlesCollectionViewController {
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
     }
     
-    override func configure(cell: SavedArticlesCollectionViewCell, for article: WMFArticle, at indexPath: IndexPath, layoutOnly: Bool) {
+    override func configure(cell: SavedArticlesCollectionViewCell, for entry: ReadingListEntry, at indexPath: IndexPath, layoutOnly: Bool) {
+        guard let article = article(for: entry) else {
+            return
+        }
         cell.isBatchEditing = editController.isBatchEditing
         cell.delegate = self
         cell.tags = (readingLists: readingLists(for: article), indexPath: indexPath)

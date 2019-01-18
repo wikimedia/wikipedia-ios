@@ -80,10 +80,10 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
         cellLayoutEstimate = nil
     }
     
-    func configure(cell: SavedArticlesCollectionViewCell, for article: WMFArticle, at indexPath: IndexPath, layoutOnly: Bool) {
+    func configure(cell: SavedArticlesCollectionViewCell, for entry: ReadingListEntry, at indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditing = editController.isBatchEditing
         
-        guard let entry = readingList.entry(for: article) else {
+        guard let article = article(for: entry) else {
             return
         }
         
@@ -170,6 +170,10 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
         return article
     }
     
+    func article(for entry: ReadingListEntry) -> WMFArticle? {
+        return entry.articleKey.flatMap(dataStore.fetchArticle(withKey: ))
+    }
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
@@ -205,10 +209,10 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
             return estimate
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell, let article = article(at: indexPath) else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell, let entry = fetchedResultsController?.object(at: indexPath) else {
             return estimate
         }
-        configure(cell: placeholderCell, for: article, at: indexPath, layoutOnly: true)
+        configure(cell: placeholderCell, for: entry, at: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
@@ -250,11 +254,12 @@ extension ArticlesCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         guard let savedArticleCell = cell as? SavedArticlesCollectionViewCell,
-            let article = article(at: indexPath)
-        else {
-            return cell
+            let entry = fetchedResultsController?.object(at: indexPath)
+            else {
+                return cell
         }
-        configure(cell: savedArticleCell, for: article, at: indexPath, layoutOnly: false)
+        
+        configure(cell: savedArticleCell, for: entry, at: indexPath, layoutOnly: false)
         return cell
     }
 }
@@ -425,10 +430,10 @@ extension ArticlesCollectionViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
-                let article = article(at: indexPath) else {
+                let entry = fetchedResultsController?.object(at: indexPath) else {
                 continue
             }
-            configure(cell: cell, for: article, at: indexPath, layoutOnly: false)
+            configure(cell: cell, for: entry, at: indexPath, layoutOnly: false)
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
