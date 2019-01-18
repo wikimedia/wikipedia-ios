@@ -160,8 +160,6 @@
         cursor = getSearchCursor(cm, state.query, rev ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0));
         if (!cursor.find(rev)) return;
       }
-      cm.setSelection(cursor.from(), cursor.to());
-      cm.scrollIntoView({from: cursor.from(), to: cursor.to()}, 20);
       state.posFrom = cursor.from(); state.posTo = cursor.to();
       if (focus) focusOnMatch(state, true)
     });}
