@@ -62,6 +62,7 @@
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
 "dim-images" = "مدھم تصویر";
+"edit-style-table-view-title" = "سٹائل";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";
 "edit-summary-choice-other" = "ٻئے";
 "empty-no-search-results-message" = "کوئی نتیجہ نی لبھا";
@@ -159,6 +160,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "ڳوڑھا تھیم، مرکزی خیال";
 "reference-title" = "حوالہ$1";
 "saved-all-articles-title" = "سارے مضمون";
+// Fuzzy
 "saved-search-default-text" = "ڳولو";
 "saved-title" = "محفوظ";
 "search-clear-title" = "صاف";

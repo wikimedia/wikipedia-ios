@@ -162,12 +162,15 @@
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
 "dim-images" = "Mörklägg bilder";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
 "edit-summary-choice-linked-words" = "Lade till länkar";
 "edit-summary-choice-other" = "Övrigt";
 "edit-summary-field-placeholder-text" = "Andra sätt på vilka du förbättrat artikeln";
 "edit-summary-title" = "Hur förbättrade du artikeln?";
+"edit-text-formatting-table-view-title" = "Textformatering";
+"edit-text-size-table-view-title" = "Textstorlek";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
@@ -532,6 +535,7 @@
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
 "saved-pages-progress-syncing" = "Nedladdning av artikel pågår...";
 "saved-reading-lists-title" = "Läslistor";
+// Fuzzy
 "saved-search-default-text" = "Sök";
 "saved-title" = "Sparade";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "När {{PLURAL:$1|denna artikel tas bort plockas den|dessa artiklar tas bort plockas de}} bort från alla associerade läslistor";

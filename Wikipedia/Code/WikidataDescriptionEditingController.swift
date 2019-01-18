@@ -1,30 +1,19 @@
-public struct WikidataAPI {
-    public static let host = "www.wikidata.org"
-    public static let path = "/w/api.php"
-    public static let scheme = "https"
-    
-    public static let components: URLComponents = {
-        var components = URLComponents()
-        components.host = host
-        components.scheme = scheme
-        components.path = path
-        return components
-    }()
-    
-    public static var urlWithoutAPIPath: URL? {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        return components.url
-    }
-}
-
 struct WikidataAPIResult: Decodable {
     struct Error: Decodable {
         let code, info: String?
     }
     let error: Error?
     let success: Int?
+}
+
+struct MediaWikiSiteInfoResult: Decodable {
+    struct MediaWikiQueryResult: Decodable {
+        struct MediaWikiGeneralResult: Decodable {
+            let lang: String
+        }
+        let general: MediaWikiGeneralResult
+    }
+    let query: MediaWikiQueryResult
 }
 
 extension WikidataAPIResult.Error: LocalizedError {
@@ -46,14 +35,8 @@ enum WikidataPublishingError: LocalizedError {
     case unknown
 }
 
-@objc public final class WikidataDescriptionEditingController: NSObject {
-    private let session: Session
-
+@objc public final class WikidataDescriptionEditingController: Fetcher {
     static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
-
-    @objc public init(with session: Session) {
-        self.session = session
-    }
 
     /// Publish new wikidata description.
     ///
@@ -85,28 +68,31 @@ enum WikidataPublishingError: LocalizedError {
                 }
             }
         }
-        let normalizedLanguage = normalizedLanguages[language] ?? language
-        let queryParameters = ["action": "wbsetdescription",
-                               "format": "json",
-                               "formatversion": "2"]
-        let bodyParameters = ["language": normalizedLanguage,
-                              "uselang": normalizedLanguage,
-                              "id": wikidataID,
-                              "value": newWikidataDescription]
-        var components = WikidataAPI.components
-        components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
-        let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: requestWithCSRFCompletion)
-    }
+        
+        let languageCodeParameters = [
+            "action": "query",
+            "meta": "siteinfo",
+            "format": "json",
+            "formatversion": "2"]
 
-    private let normalizedLanguages: [String: String] = [
-        "zh-yue": "yue",
-        "zh-min-nan": "nan",
-        "zh-classical": "lzh"
-    ]
+        let languageCodeComponents = configuration.mediaWikiAPIURLForWikiLanguage(language, with: languageCodeParameters)
+        session.jsonDecodableTask(with: languageCodeComponents.url) { (siteInfo: MediaWikiSiteInfoResult?, response, authorized, error) in
+            let normalizedLanguage = siteInfo?.query.general.lang ?? "en"
+            let queryParameters = ["action": "wbsetdescription",
+                                   "format": "json",
+                                   "formatversion": "2"]
+            let bodyParameters = ["language": normalizedLanguage,
+                                  "uselang": normalizedLanguage,
+                                  "id": wikidataID,
+                                  "value": newWikidataDescription]
+            let components = self.configuration.wikidataAPIURLComponents(with: queryParameters)
+            self.session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: requestWithCSRFCompletion)
+        }
+    }
 }
 
 public extension MWKArticle {
     @objc var isWikidataDescriptionEditable: Bool {
-        return wikidataId != nil && descriptionSource != .local && url.wmf_language?.lowercased() != "en"
+        return wikidataId != nil && descriptionSource != .local
     }
 }

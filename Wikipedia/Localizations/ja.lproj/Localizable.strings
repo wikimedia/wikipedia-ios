@@ -519,6 +519,7 @@
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
 "saved-pages-progress-syncing" = "記事をダウンロードしています…";
 "saved-reading-lists-title" = "あとで読むリスト";
+// Fuzzy
 "saved-search-default-text" = "検索";
 "saved-title" = "保存済み";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|この記事を削除|これらの記事を削除}}すると、すべての関連するあとで読むリストから消去されます";

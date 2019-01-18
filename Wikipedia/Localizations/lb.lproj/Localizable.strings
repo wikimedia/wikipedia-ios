@@ -103,6 +103,7 @@
 "description-published-button-title" = "Fäerdeg";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Dobäigesat Linken";
@@ -363,6 +364,7 @@
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";
 "saved-pages-progress-syncing" = "Erofluede vum Artikel ass am Gaang …";
 "saved-reading-lists-title" = "Lieslëschten";
+// Fuzzy
 "saved-search-default-text" = "Sichen";
 "saved-title" = "Gespäichert";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel|Artikele}} läschen?";

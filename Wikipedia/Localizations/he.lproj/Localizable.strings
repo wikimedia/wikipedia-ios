@@ -9,6 +9,7 @@
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Or
+// Author: Strayblues
 // Author: YaronSh
 // Author: איתן96
 // Author: נדב ס
@@ -136,12 +137,12 @@
 "description-help-about-description" = "תיאורי הכותרת מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
 "description-help-about-title" = "אודות";
 "description-help-about-wikidata" = "אודות ויקינתונים";
-"description-help-more-info-description" = "התיאורים נשמרים ומתוחזקים בוויקינתונים (Wikidata), מיזם של קרן ויקימדיה שמספק מסד נתונים משני חופשי שיתופי רב־לשוני שתומך בוויקיפדיה ובמיזמים אחרים.";
+"description-help-more-info-description" = "התיאורים נשמרים ומתוחזקים בוויקינתונים (Wikidata), מיזם של קרן ויקימדיה שמספק מסד נתונים משני חופשי, שיתופי ורב־לשוני שתומך בוויקיפדיה ובמיזמים אחרים.";
 "description-help-more-info-title" = "מידע נוסף";
-"description-help-tips-description" = "תיאורים אמורים להיכנס לשורה אחת, ולכלול בין שתיים לשתים־עשרה מילים. אין להשתמש באותיות גדולות בלועזית אלא אם מדובר בשם פרטי.";
+"description-help-tips-description" = "תיאורים אמורים להיכנס לשורה אחת, ולכלול בין שתיים לשתים־עשרה מילים. אין להשתמש באותיות גדולות בלועזית אלא אם מדובר בשם עצם פרטי (שם של אדם, מקום, ישות או ארגון).";
 "description-help-tips-example-description-one" = "תיאור כותרת של ערך על המונה ליזה";
 "description-help-tips-example-description-two" = "תיאור הכותרת של ערך על הר אוורסט";
-"description-help-tips-example-title-one" = "ציון של לאונרדו דה וינצ'י";
+"description-help-tips-example-title-one" = "ציור של לאונרדו דה וינצ'י";
 "description-help-tips-example-title-two" = "ההר הגבוה בכדור הארץ";
 "description-help-tips-for-example" = "למשל:";
 "description-help-tips-title" = "עצות ליצירת תיאורים";
@@ -153,17 +154,20 @@
 "description-published-title" = "התיאור פורסם!";
 "description-welcome-concise-sub-title" = "הכי טוב שורה אחת, בין שתיים לשתים־עשרה מילים";
 "description-welcome-concise-title" = "זה אמור להיות קצר";
-"description-welcome-descriptions-sub-title" = "מסכם את הערך כדי לעזור לקוראים להבין את הנושא במבט אחד";
+"description-welcome-descriptions-sub-title" = "מסכם את הערך כדי לעזור לקוראים להבין את הנושא במבט מהיר";
 "description-welcome-descriptions-title" = "תיאורי כותרת";
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "dim-images" = "עמעום תמונות";
+"edit-style-table-view-title" = "סגנון";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";
 "edit-summary-choice-linked-words" = "הוספתי קישורים";
 "edit-summary-choice-other" = "אחר";
 "edit-summary-field-placeholder-text" = "שיפורים נוספים שעשית בערך";
 "edit-summary-title" = "איך שיפרת את הערך?";
+"edit-text-formatting-table-view-title" = "עיצוב טקסט";
+"edit-text-size-table-view-title" = "גודל טקסט";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
@@ -521,13 +525,14 @@
 "reverted-edit-possible-reasons" = "- התרומה שלך לא מקיימת אחת מההנחיות שלנו. $1.\n\n- העריכה שלך נראית כמו ניסוי או השחתה";
 "reverted-edit-possible-reasons-subtitle" = "אנחנו יודעים שניסית לעשות משהו טוב, אבל לאחד מהסוקרים שלנו היה חשד.\n\nסיבות אפשריות לכך שהעריכה שלך שוחזרה כוללות:";
 "reverted-edit-thanks-for-editing-title" = "תודה שערכת את ויקיפדיה!";
-"reverted-edit-title" = "עריכה שוחזרה";
-"reverted-edit-view-guidelines-text" = "נצגת ההנחיות";
+"reverted-edit-title" = "עריכה ששוחזרה";
+"reverted-edit-view-guidelines-text" = "הצגת ההנחיות";
 "saved-all-articles-title" = "כל הערכים";
 "saved-default-reading-list-tag" = "אין אפשרות למחוק רשימה זו";
 "saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";
 "saved-pages-progress-syncing" = "הורדת הערכים מתבצעת...";
 "saved-reading-lists-title" = "רשימות קריאה";
+// Fuzzy
 "saved-search-default-text" = "חיפוש";
 "saved-title" = "נשמר";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "ביטול השמירה של {{PLURAL:$1|הערך הזה תגרום להסרתו|הערכים האלה תגרום להסרתם}} מכל רשימות הקריאה המשויכות {{PLURAL:$1|אליו|אליהם}}";

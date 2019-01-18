@@ -2067,14 +2067,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (event.subtype != UIEventSubtypeMotionShake) {
         return;
     }
-    UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeMain];
+    UINavigationController *navController = self.navigationController;
     if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
         [UIApplication sharedApplication].idleTimerDisabled = NO;
         return;
     }
 
     [self setSelectedIndex:WMFAppTabTypeMain];
-    UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeMain];
+    UINavigationController *exploreNavController = self.navigationController;
 
     [self dismissPresentedViewControllers];
 

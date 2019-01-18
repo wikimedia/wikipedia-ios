@@ -159,12 +159,15 @@
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "dim-images" = "Затамни слике";
+"edit-style-table-view-title" = "Стил";
 "edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-summary-choice-other" = "Друго";
 "edit-summary-field-placeholder-text" = "Други начини на које сте побољшали чланак";
 "edit-summary-title" = "На који начин сте побољшали чланак?";
+"edit-text-formatting-table-view-title" = "Обликовање текста";
+"edit-text-size-table-view-title" = "Величина текста";
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
 "empty-no-feed-message" = "Препоручене чланке ћете видети када будете онлајн";
@@ -529,6 +532,7 @@
 "saved-pages-image-download-error" = "Преузимање слика за ову сачувану страницу није успело.";
 "saved-pages-progress-syncing" = "Преузимам чланак…";
 "saved-reading-lists-title" = "Листе за читање";
+// Fuzzy
 "saved-search-default-text" = "Претрага";
 "saved-title" = "Сачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Овај чланак ће бити избрисан|Ови чланци ће бити избрисани}} са свих повезаних листа за читање";

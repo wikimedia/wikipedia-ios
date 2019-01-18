@@ -142,12 +142,15 @@
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "dim-images" = "Label for image dimming setting";
+"edit-style-table-view-title" = "Title for the text style menu in the editing interface";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
 "edit-summary-choice-other" = "Button text for quick \"other\" edit summary selection.\n{{Identical|Other}}";
 "edit-summary-field-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
 "edit-summary-title" = "Title for edit summary area of the preview page";
+"edit-text-formatting-table-view-title" = "Title for text formatting menu in the editing interface";
+"edit-text-size-table-view-title" = "Title for text size menu in the editing interface";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
@@ -418,7 +421,7 @@
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
 "reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
-"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list.";
+"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list. The question being asked is: There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
 "reading-list-add-saved-subtitle" = "Subtitle explaining that saved articles can be added to reading lists.";
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
 "reading-list-api-error-entry-limit" = "You have too many entries in this list.";

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="iN0-l3-epB" customClass="TextFormattingGroupedToolbarView" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" tag="18" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="3dV-SU-XLo">
+                    <rect key="frame" x="24" y="0.0" width="327" height="45"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ooB-ON-AdU" userLabel="List Stack View">
+                            <rect key="frame" x="0.0" y="0.0" width="41" height="45"/>
+                            <subviews>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-cE-h7g" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="11.5" width="18" height="22"/>
+                                    <state key="normal" image="text-formatting-unordered-list"/>
+                                    <connections>
+                                        <action selector="toggleUnorderedListWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="PuW-fz-1zC"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-EO-B4B" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="23" y="11.5" width="18" height="22"/>
+                                    <state key="normal" image="text-formatting-ordered-list"/>
+                                    <connections>
+                                        <action selector="toggleOrderedListWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="Nn0-7v-59v"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzi-Bt-bK5" userLabel="Separator">
+                            <rect key="frame" x="70.5" y="0.0" width="1" height="45"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="Ce7-e5-DuF"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YBs-xI-rce" userLabel="Indentation Stack View">
+                            <rect key="frame" x="100.5" y="0.0" width="41" height="45"/>
+                            <subviews>
+                                <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDr-K9-rDm" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="11.5" width="18" height="22"/>
+                                    <state key="normal" image="text-formatting-decrease-indent"/>
+                                    <connections>
+                                        <action selector="decreaseIndentWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="7KN-b7-8Er"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-nC-Jor" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="23" y="11.5" width="18" height="22"/>
+                                    <state key="normal" image="text-formatting-increase-indent"/>
+                                    <connections>
+                                        <action selector="increaseIndentWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="6AR-oL-mwp"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBt-uX-0EY" userLabel="Separator">
+                            <rect key="frame" x="171" y="0.0" width="1" height="45"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="Czb-Hd-I9e"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" tag="17" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ncz-dW-KBH">
+                            <rect key="frame" x="201.5" y="0.0" width="29" height="45"/>
+                            <subviews>
+                                <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2b9-qs-xai" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="11.5" width="12" height="22"/>
+                                    <state key="normal" image="text-formatting-x-up"/>
+                                    <connections>
+                                        <action selector="toggleSuperscriptWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="oil-wu-xyL"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DP4-MR-ibt" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="17" y="11.5" width="12" height="22"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" image="text-formatting-x-down"/>
+                                    <connections>
+                                        <action selector="toggleSubscriptWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="RIn-VI-DPb"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xaa-ak-V1F" userLabel="Separator">
+                            <rect key="frame" x="259.5" y="0.0" width="1" height="45"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="0tP-Om-ymc"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" tag="19" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1hY-AT-OdF" userLabel="Text Decoration Stack View">
+                            <rect key="frame" x="290" y="0.0" width="37" height="45"/>
+                            <subviews>
+                                <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SR0-aa-rb8" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="11.5" width="14" height="22"/>
+                                    <state key="normal" image="text-formatting-underline"/>
+                                    <connections>
+                                        <action selector="toggleUnderlineWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="4H5-XF-ZRY"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzf-Y3-YJe" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="19" y="11.5" width="18" height="22"/>
+                                    <state key="normal" image="text-formatting-strikethrough"/>
+                                    <connections>
+                                        <action selector="toggleStrikethroughWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="PuE-AJ-r01"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="MqF-J8-X5N"/>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="3dV-SU-XLo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AhT-ca-Nvc"/>
+                <constraint firstAttribute="trailingMargin" secondItem="3dV-SU-XLo" secondAttribute="trailing" constant="8" id="JBx-Dm-Ake"/>
+                <constraint firstItem="3dV-SU-XLo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="f5I-Sl-gux"/>
+                <constraint firstAttribute="bottom" secondItem="3dV-SU-XLo" secondAttribute="bottom" id="yDz-rC-ghi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="buttons" destination="sDr-K9-rDm" collectionClass="NSMutableArray" id="QPS-2i-K7L"/>
+                <outletCollection property="buttons" destination="Bq0-nC-Jor" collectionClass="NSMutableArray" id="fex-P8-bCN"/>
+                <outletCollection property="buttons" destination="6mq-cE-h7g" collectionClass="NSMutableArray" id="2YF-3u-ewW"/>
+                <outletCollection property="buttons" destination="rTP-EO-B4B" collectionClass="NSMutableArray" id="0Zg-jG-bQe"/>
+                <outletCollection property="buttons" destination="2b9-qs-xai" collectionClass="NSMutableArray" id="1eF-vL-cYR"/>
+                <outletCollection property="buttons" destination="DP4-MR-ibt" collectionClass="NSMutableArray" id="JEW-zG-D8Z"/>
+                <outletCollection property="buttons" destination="SR0-aa-rb8" collectionClass="NSMutableArray" id="Nsa-1d-f3O"/>
+                <outletCollection property="buttons" destination="Pzf-Y3-YJe" collectionClass="NSMutableArray" id="SJE-mO-v80"/>
+                <outletCollection property="separators" destination="Vzi-Bt-bK5" collectionClass="NSMutableArray" id="isW-Q7-ips"/>
+                <outletCollection property="separators" destination="MBt-uX-0EY" collectionClass="NSMutableArray" id="3el-Gl-jPp"/>
+                <outletCollection property="separators" destination="Xaa-ak-V1F" collectionClass="NSMutableArray" id="xwI-RO-8rQ"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="-156"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="text-formatting-decrease-indent" width="18" height="16"/>
+        <image name="text-formatting-increase-indent" width="18" height="17"/>
+        <image name="text-formatting-ordered-list" width="18" height="18"/>
+        <image name="text-formatting-strikethrough" width="18" height="17"/>
+        <image name="text-formatting-underline" width="14" height="18"/>
+        <image name="text-formatting-unordered-list" width="18" height="17"/>
+        <image name="text-formatting-x-down" width="12" height="12"/>
+        <image name="text-formatting-x-up" width="12" height="12"/>
+    </resources>
+</document>
