@@ -268,8 +268,10 @@ extension SectionEditorInputViewsController: WMFFindInPageKeyboardBarDelegate {
     func keyboardBarCloseButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
         messagingController.clearSearch()
         keyboardBar.reset()
-        self.inputAccessoryViewType = self.previousInputAccessoryViewType
-        self.messagingController.focus()
+        inputAccessoryViewType = previousInputAccessoryViewType
+        if keyboardBar.isVisible() {
+            messagingController.focus()
+        }
     }
 
     func keyboardBarClearButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
