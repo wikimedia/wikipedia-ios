@@ -111,6 +111,14 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     func didTransitionToNewCollection() {
         scrollToFindInPageMatchWithID(findInPageFocusedMatchID)
     }
+
+    func keyboardDidHide() {
+        guard inputViewType != nil else {
+            return
+        }
+        inputViewType = nil
+        inputAccessoryViewType = .default
+    }
 }
 
 // MARK: TextFormattingDelegate
@@ -214,11 +222,6 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapSubscript() {
         messagingController.toggleSubscript()
-    }
-    
-    func textFormattingProvidingDidDismissKeyboard() {
-        inputViewType = nil
-        inputAccessoryViewType = .default
     }
 }
 

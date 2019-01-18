@@ -62,7 +62,7 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc func keyboardDidHide() {
-        inputViewsController.textFormattingProvidingDidDismissKeyboard()
+        inputViewsController.keyboardDidHide()
     }
 
     private func configureWebView() {
