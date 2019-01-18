@@ -865,6 +865,18 @@
       findPrevious: () => editor.execCommand('findPrev'),
       clearSearch: () => editor.execCommand('clearSearch'),
     }
+
+    // TODO: Import js/elementLocation ?
+    wmf.elementLocation = {}
+    wmf.elementLocation.getElementRect = element => {
+      const rect = element.getBoundingClientRect()
+      return {
+        Y: rect.top,
+        X: rect.left,
+        Width: rect.width,
+        Height: rect.height
+      }
+    }
     
     window.wmf = wmf
 
