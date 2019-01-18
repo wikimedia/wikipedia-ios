@@ -78,7 +78,8 @@ class SectionEditorViewController: UIViewController {
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
-        let setupUserScript = CodemirrorSetupUserScript(language: language, theme: theme) { [weak self] in
+        let languageInfo = MWLanguageInfo(forCode: language)
+        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
