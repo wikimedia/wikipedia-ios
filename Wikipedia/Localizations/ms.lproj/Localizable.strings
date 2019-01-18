@@ -518,6 +518,7 @@
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
 "saved-pages-progress-syncing" = "Muat turun rencana sedang berjalan...";
 "saved-reading-lists-title" = "Senarai bacaan";
+// Fuzzy
 "saved-search-default-text" = "Cari";
 "saved-title" = "Disimpan";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Mengosongkan {{PLURAL:$1|rencana ini akan membuangnya|rencana ini akan membuangnya}} daripada semua senarai bacaan yang berkaitan";

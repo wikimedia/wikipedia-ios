@@ -323,6 +323,7 @@
 "reverted-edit-thanks-for-editing-title" = "উইকিপিডিয়ায় সম্পাদনা করার জন্য ধন্যবাদ!";
 "saved-all-articles-title" = "সব নিবন্ধ";
 "saved-pages-image-download-error" = "এই সংরক্ষিত পাতার জন্য চিত্র ডাউনলোড করা ব্যর্থ হয়েছে।";
+// Fuzzy
 "saved-search-default-text" = "অনুসন্ধান";
 "saved-title" = "সংরক্ষিত";
 "search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";

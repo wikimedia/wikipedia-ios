@@ -417,6 +417,7 @@
 "saved-pages-image-download-error" = "ဤသိမ်းထားသောစာမျက်နှာအတွက် ရုပ်ပုံများ ဒေါင်းလုတ်ဆွဲရာတွင် မအောင်မြင်ပါ။";
 "saved-pages-progress-syncing" = "ဆောင်းပါး ဒေါင်းလုတ်ဆွဲခြင်း လုပ်ဆောင်နေသည်...";
 "saved-reading-lists-title" = "စာရင်းများကို ဖတ်နေသည်";
+// Fuzzy
 "saved-search-default-text" = "ရှာဖွေရန်";
 "saved-title" = "သိမ်းဆည်းပြီး";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ဆောင်းပါး {{PLURAL:$1|ခု|ခု}} မသိမ်းတော့ရန်?";

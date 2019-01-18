@@ -532,6 +532,7 @@
 "saved-pages-image-download-error" = "Преузимање слика за ову сачувану страницу није успело.";
 "saved-pages-progress-syncing" = "Преузимам чланак…";
 "saved-reading-lists-title" = "Листе за читање";
+// Fuzzy
 "saved-search-default-text" = "Претрага";
 "saved-title" = "Сачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Овај чланак ће бити избрисан|Ови чланци ће бити избрисани}} са свих повезаних листа за читање";
