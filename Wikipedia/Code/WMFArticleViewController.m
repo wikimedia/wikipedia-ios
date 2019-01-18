@@ -1880,9 +1880,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
+        self.webViewController.webView.hidden = YES;
         __weak typeof(self) weakSelf = self;
         self.articleContentLoadCompletion = ^{
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
+            weakSelf.webViewController.webView.hidden = NO;
         };
         [self fetchArticle];
     }
