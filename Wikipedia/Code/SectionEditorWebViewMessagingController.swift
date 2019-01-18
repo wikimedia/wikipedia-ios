@@ -7,9 +7,14 @@ protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool)
 }
 
+protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, findInPageFocusedMatchIndex: Int, findInPageMatchesCount: Int)
+}
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
+    weak var findInPageDelegate: SectionEditorWebViewMessagingControllerFindInPageDelegate?
 
     weak var webView: WKWebView!
 
@@ -49,6 +54,15 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 }
                 buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: Button(kind: kind))
             }
+        case (Message.Name.codeMirrorSearchMessage, let message as [String: Any]):
+            guard
+                let findInPageMatchesCount = message[Message.Name.findInPageMatchesCount] as? Int,
+                let findInPageFocusedMatchIndex = message[Message.Name.findInPageFocusedMatchIndex] as? Int
+            else {
+                assertionFailure("Expected message with findInPageMatchesCount and findInPageFocusedMatchIndex, received: \(message)")
+                return
+            }
+            findInPageDelegate?.sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(self, findInPageFocusedMatchIndex: findInPageFocusedMatchIndex, findInPageMatchesCount: findInPageMatchesCount)
         default:
             assertionFailure("Unsupported message: \(message.name), \(message.body)")
         }
@@ -276,7 +290,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func findPrevious() {
         execCommand(for: .findPrevious)
     }
-    
+
     func setAdjustedContentInset(newInset: UIEdgeInsets) {
         execCommand(for: .adjustedContentInsetChanged, argument: "{top: \(newInset.top), left: \(newInset.left), bottom: \(newInset.bottom), right: \(newInset.right)}")
     }
@@ -289,6 +303,9 @@ extension SectionEditorWebViewMessagingController {
             static let highlightTheseButtons = "highlightTheseButtons"
             static let disableTheseButtons = "disableTheseButtons"
             static let codeMirrorMessage = "codeMirrorMessage"
+            static let codeMirrorSearchMessage = "codeMirrorSearchMessage"
+            static let findInPageMatchesCount = "findInPageMatchesCount"
+            static let findInPageFocusedMatchIndex = "findInPageFocusedMatchIndex"
         }
         struct Body {
             struct Key {

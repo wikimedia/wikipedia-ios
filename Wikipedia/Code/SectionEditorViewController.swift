@@ -86,6 +86,7 @@ class SectionEditorViewController: UIViewController {
         contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
 
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
