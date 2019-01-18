@@ -107,9 +107,12 @@
     function clearFocusedMatches(cm) {
       const focusClassName = "cm-searching-focus";
       const focusedElements = document.getElementsByClassName(focusClassName);
+      const focusedMatchID = getSearchState(cm).focusedMatchID;
 
       while (focusedElements.length > 0) {
-        focusedElements[0].classList.remove(focusClassName);
+        var element = focusedElements[0];
+        element.classList.remove(focusClassName);
+        if (element.id === focusedMatchID) element.id = "";
       }
     } 
 
@@ -127,22 +130,27 @@
         focusedMatchIndex--;
       }
 
-      focusOnMatchAtIndex(matches, focusedMatchIndex);
+     const focusedMatchID = `cm-searching-focus-id-${focusedMatchIndex}`;
+     focusOnMatchAtIndex(matches, focusedMatchIndex, focusedMatchID);
 
       state.focusedMatchIndex = focusedMatchIndex;
       state.matchesCount = matches.length;
+      state.focusedMatchID = focusedMatchID;
 
       const message = {
         findInPageMatchesCount: state.matchesCount,
-        findInPageFocusedMatchIndex: state.focusedMatchIndex
+        findInPageFocusedMatchIndex: state.focusedMatchIndex,
+        findInPageFocusedMatchID: state.focusedMatchID
       };
 
       window.webkit.messageHandlers.codeMirrorSearchMessage.postMessage(message);
     }
 
-    function focusOnMatchAtIndex(matches, index) {
+    function focusOnMatchAtIndex(matches, index, id) {
       const focusClassName = "cm-searching-focus";
-      matches[index].classList.add(focusClassName)
+      const match = matches[index];
+      match.classList.add(focusClassName);
+      match.id = id;
     } 
   
     function findNext(cm, rev, focus) {cm.operation(function() {
