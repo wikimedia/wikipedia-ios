@@ -22,6 +22,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         contextualHighlightEditToolbarView?.delegate = self
         findInPageView?.delegate = self
 
+        messagingController.findInPageDelegate = self
+
         inputViewType = nil
         inputAccessoryViewType = .default
     }
@@ -211,6 +213,15 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidDismissKeyboard() {
         inputViewType = nil
         inputAccessoryViewType = .default
+    }
+}
+
+extension SectionEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, findInPageFocusedMatchIndex: Int, findInPageMatchesCount: Int) {
+        guard inputAccessoryViewType == .findInPage else {
+            return
+        }
+        findInPageView?.update(forCurrentMatch: findInPageFocusedMatchIndex, matchesCount: UInt(findInPageMatchesCount))
     }
 }
 
