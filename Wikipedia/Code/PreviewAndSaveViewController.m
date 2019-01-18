@@ -188,6 +188,8 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
         self.theme = [WMFTheme standard];
     }
 
+    self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-save-changes-title", nil, nil, @"Save your changes", @"Title for edit preview screens");
+    
     self.previewLicenseView.previewLicenseViewDelegate = self;
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
