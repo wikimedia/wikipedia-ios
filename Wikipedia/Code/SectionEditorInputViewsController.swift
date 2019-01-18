@@ -217,11 +217,11 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 }
 
 extension SectionEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, findInPageFocusedMatchIndex: Int, findInPageMatchesCount: Int) {
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String) {
         guard inputAccessoryViewType == .findInPage else {
             return
         }
-        findInPageView?.update(forCurrentMatch: findInPageFocusedMatchIndex, matchesCount: UInt(findInPageMatchesCount))
+        findInPageView?.update(forCurrentMatch: matchIndex, matchesCount: UInt(matchesCount))
     }
 }
 

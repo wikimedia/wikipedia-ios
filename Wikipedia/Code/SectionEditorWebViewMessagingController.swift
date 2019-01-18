@@ -8,7 +8,7 @@ protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
 }
 
 protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
-    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, findInPageFocusedMatchIndex: Int, findInPageMatchesCount: Int)
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String)
 }
 
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
@@ -56,13 +56,14 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
             }
         case (Message.Name.codeMirrorSearchMessage, let message as [String: Any]):
             guard
-                let findInPageMatchesCount = message[Message.Name.findInPageMatchesCount] as? Int,
-                let findInPageFocusedMatchIndex = message[Message.Name.findInPageFocusedMatchIndex] as? Int
+                let count = message[Message.Name.findInPageMatchesCount] as? Int,
+                let index = message[Message.Name.findInPageFocusedMatchIndex] as? Int,
+                let id = message[Message.Name.findInPageFocusedMatchID] as? String
             else {
-                assertionFailure("Expected message with findInPageMatchesCount and findInPageFocusedMatchIndex, received: \(message)")
+                assertionFailure("Expected message with findInPageMatchesCount, findInPageFocusedMatchIndex and findInPageFocusedMatchID, received: \(message)")
                 return
             }
-            findInPageDelegate?.sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(self, findInPageFocusedMatchIndex: findInPageFocusedMatchIndex, findInPageMatchesCount: findInPageMatchesCount)
+            findInPageDelegate?.sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(self, matchesCount: count, matchIndex: index, matchID: id)
         default:
             assertionFailure("Unsupported message: \(message.name), \(message.body)")
         }
@@ -304,8 +305,10 @@ extension SectionEditorWebViewMessagingController {
             static let disableTheseButtons = "disableTheseButtons"
             static let codeMirrorMessage = "codeMirrorMessage"
             static let codeMirrorSearchMessage = "codeMirrorSearchMessage"
+
             static let findInPageMatchesCount = "findInPageMatchesCount"
             static let findInPageFocusedMatchIndex = "findInPageFocusedMatchIndex"
+            static let findInPageFocusedMatchID = "findInPageFocusedMatchID"
         }
         struct Body {
             struct Key {
