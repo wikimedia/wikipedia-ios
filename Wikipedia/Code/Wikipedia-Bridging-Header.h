@@ -40,6 +40,7 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
 #import "PreviewAndSaveViewController.h"
+#import "EditPreviewViewController.h"
 #import "WMFFirstRandomViewController.h"
 
 // Views
