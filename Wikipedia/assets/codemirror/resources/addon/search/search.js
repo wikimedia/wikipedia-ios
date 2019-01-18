@@ -57,26 +57,6 @@
       return cm.getSearchCursor(query, pos, {caseFold: queryCaseInsensitive(query), multiline: true});
     }
   
-    function persistentDialog(cm, text, deflt, onEnter, onKeyDown) {
-      cm.openDialog(text, onEnter, {
-        value: deflt,
-        selectValueOnOpen: true,
-        closeOnEnter: false,
-        onClose: function() { clearSearch(cm); },
-        onKeyDown: onKeyDown
-      });
-    }
-  
-    function dialog(cm, text, shortText, deflt, f) {
-      if (cm.openDialog) cm.openDialog(text, f, {value: deflt, selectValueOnOpen: true});
-      else f(prompt(shortText, deflt));
-    }
-  
-    function confirmDialog(cm, text, shortText, fs) {
-      if (cm.openConfirm) cm.openConfirm(text, fs);
-      else if (confirm(shortText)) fs[0]();
-    }
-  
     function parseString(string) {
       return string.replace(/\\(.)/g, function(_, ch) {
         if (ch == "n") return "\n"
@@ -110,57 +90,62 @@
       }
     }
   
-    function doSearch(cm, rev, persistent, immediate) {
+    function doSearch(cm, rev) {
       var state = getSearchState(cm);
-      if (state.query) return findNext(cm, rev);
+      if (state.query) return findNext(cm, rev, true);
       var q = cm.getSelection() || state.lastQuery;
       if (q instanceof RegExp && q.source == "x^") q = null
-      if (persistent && cm.openDialog) {
-        var hiding = null
-        var searchNext = function(query, event) {
-          CodeMirror.e_stop(event);
-          if (!query) return;
-          if (query != state.queryText) {
-            startSearch(cm, state, query);
-            state.posFrom = state.posTo = cm.getCursor();
-          }
-          if (hiding) hiding.style.opacity = 1
-          findNext(cm, event.shiftKey, function(_, to) {
-            var dialog
-            if (to.line < 3 && document.querySelector &&
-                (dialog = cm.display.wrapper.querySelector(".CodeMirror-dialog")) &&
-                dialog.getBoundingClientRect().bottom - 4 > cm.cursorCoords(to, "window").top)
-              (hiding = dialog).style.opacity = .4
-          })
-        };
-        persistentDialog(cm, getQueryDialog(cm), q, searchNext, function(event, query) {
-          var keyName = CodeMirror.keyName(event)
-          var extra = cm.getOption('extraKeys'), cmd = (extra && extra[keyName]) || CodeMirror.keyMap[cm.getOption("keyMap")][keyName]
-          if (cmd == "findNext" || cmd == "findPrev" ||
-            cmd == "findPersistentNext" || cmd == "findPersistentPrev") {
-            CodeMirror.e_stop(event);
-            startSearch(cm, getSearchState(cm), query);
-            cm.execCommand(cmd);
-          } else if (cmd == "find" || cmd == "findPersistent") {
-            CodeMirror.e_stop(event);
-            searchNext(query, event);
-          }
-        });
-        if (immediate && q) {
-          startSearch(cm, state, q);
-          findNext(cm, rev);
-        }
-      } else {
-        const query = cm.state.query;
-        if (query && !state.query) cm.operation(function() {
-          startSearch(cm, state, query);
-          state.posFrom = state.posTo = cm.getCursor();
-          findNext(cm, rev);
-        });
-      }
+      const query = cm.state.query;
+      if (query && !state.query) cm.operation(function () {
+        startSearch(cm, state, query);
+        state.posFrom = state.posTo = cm.getCursor();
+        findNext(cm, rev);
+      });
+      focusOnMatch(state)
     }
+
+    function clearFocusedMatches(cm) {
+      const focusClassName = "cm-searching-focus";
+      const focusedElements = document.getElementsByClassName(focusClassName);
+
+      while (focusedElements.length > 0) {
+        focusedElements[0].classList.remove(focusClassName);
+      }
+    } 
+
+    function focusOnMatch(state, next, previous) {
+      const matches = document.getElementsByClassName("cm-searching");
+      var focusedMatchIndex = state.focusedMatchIndex || 0;
+
+      if (next) {
+        if (focusedMatchIndex >= matches.length - 1) {
+          focusedMatchIndex = 0;
+        } else {
+          focusedMatchIndex++;
+        }
+      } else if (previous && focusedMatchIndex > 0) {
+        focusedMatchIndex--;
+      }
+
+      focusOnMatchAtIndex(matches, focusedMatchIndex);
+
+      state.focusedMatchIndex = focusedMatchIndex;
+      state.matchesCount = matches.length;
+
+      const message = {
+        findInPageMatchesCount: state.matchesCount,
+        findInPageFocusedMatchIndex: state.focusedMatchIndex
+      };
+
+      window.webkit.messageHandlers.codeMirrorSearchMessage.postMessage(message);
+    }
+
+    function focusOnMatchAtIndex(matches, index) {
+      const focusClassName = "cm-searching-focus";
+      matches[index].classList.add(focusClassName)
+    } 
   
-    function findNext(cm, rev, callback) {cm.operation(function() {
+    function findNext(cm, rev, focus) {cm.operation(function() {
       var state = getSearchState(cm);
       var cursor = getSearchCursor(cm, state.query, rev ? state.posFrom : state.posTo);
       if (!cursor.find(rev)) {
@@ -170,31 +155,19 @@
       cm.setSelection(cursor.from(), cursor.to());
       cm.scrollIntoView({from: cursor.from(), to: cursor.to()}, 20);
       state.posFrom = cursor.from(); state.posTo = cursor.to();
-      if (callback) callback(cursor.from(), cursor.to())
+      if (focus) focusOnMatch(state, true)
     });}
   
     function clearSearch(cm) {cm.operation(function() {
       var state = getSearchState(cm);
       state.lastQuery = state.query;
       if (!state.query) return;
+      clearFocusedMatches(cm);
+      state.focusedMatchIndex = null
       state.query = state.queryText = null;
       cm.removeOverlay(state.overlay);
       if (state.annotate) { state.annotate.clear(); state.annotate = null; }
     });}
-  
-  
-    function getQueryDialog(cm)  {
-      return '<span class="CodeMirror-search-label">' + cm.phrase("Search:") + '</span> <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">' + cm.phrase("(Use /re/ syntax for regexp search)") + '</span>';
-    }
-    function getReplaceQueryDialog(cm) {
-      return ' <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">' + cm.phrase("(Use /re/ syntax for regexp search)") + '</span>';
-    }
-    function getReplacementQueryDialog(cm) {
-      return '<span class="CodeMirror-search-label">' + cm.phrase("With:") + '</span> <input type="text" style="width: 10em" class="CodeMirror-search-field"/>';
-    }
-    function getDoReplaceConfirm(cm) {
-      return '<span class="CodeMirror-search-label">' + cm.phrase("Replace?") + '</span> <button>' + cm.phrase("Yes") + '</button> <button>' + cm.phrase("No") + '</button> <button>' + cm.phrase("All") + '</button> <button>' + cm.phrase("Stop") + '</button> ';
-    }
   
     function replaceAll(cm, query, text) {
       cm.operation(function() {
@@ -246,10 +219,7 @@
     }
   
     CodeMirror.commands.find = function(cm) {clearSearch(cm); doSearch(cm);};
-    CodeMirror.commands.findPersistent = function(cm) {clearSearch(cm); doSearch(cm, false, true);};
-    CodeMirror.commands.findPersistentNext = function(cm) {doSearch(cm, false, true, true);};
-    CodeMirror.commands.findPersistentPrev = function(cm) {doSearch(cm, true, true, true);};
-    CodeMirror.commands.findNext = doSearch;
+    CodeMirror.commands.findNext = function(cm) {clearFocusedMatches(cm); doSearch(cm);};;
     CodeMirror.commands.findPrev = function(cm) {doSearch(cm, true);};
     CodeMirror.commands.clearSearch = clearSearch;
     CodeMirror.commands.replace = replace;
