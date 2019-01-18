@@ -168,6 +168,13 @@ class SectionEditorViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         return true
     }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { (_) in
+            self.inputViewsController.didTransitionToNewCollection()
+        }
+    }
 }
 
 private var previousAdjustedContentInset = UIEdgeInsets.zero

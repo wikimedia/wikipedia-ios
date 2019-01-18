@@ -105,6 +105,12 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         defaultEditToolbarView?.apply(theme: theme)
         contextualHighlightEditToolbarView?.apply(theme: theme)
     }
+
+    private var findInPageFocusedMatchID: String?
+
+    func didTransitionToNewCollection() {
+        scrollToFindInPageMatchWithID(findInPageFocusedMatchID)
+    }
 }
 
 // MARK: TextFormattingDelegate
@@ -222,6 +228,14 @@ extension SectionEditorInputViewsController: SectionEditorWebViewMessagingContro
             return
         }
         findInPageView?.update(forCurrentMatch: matchIndex, matchesCount: UInt(matchesCount))
+        scrollToFindInPageMatchWithID(matchID)
+        findInPageFocusedMatchID = matchID
+    }
+
+    private func scrollToFindInPageMatchWithID(_ matchID: String?) {
+        guard let matchID = matchID else {
+            return
+        }
         webView.getScrollRectForHtmlElement(withId: matchID) { [weak self] (matchRect) in
             guard
                 let findInPageView = self?.findInPageView,
