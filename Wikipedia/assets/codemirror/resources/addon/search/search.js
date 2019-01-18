@@ -90,9 +90,9 @@
       }
     }
   
-    function doSearch(cm, rev) {
+    function doSearch(cm, rev, focus) {
       var state = getSearchState(cm);
-      if (state.query) return findNext(cm, rev, true);
+      if (state.query) return findNext(cm, rev, focus);
       var q = cm.getSelection() || state.lastQuery;
       if (q instanceof RegExp && q.source == "x^") q = null
       const query = cm.state.query;
@@ -116,25 +116,32 @@
       }
     } 
 
-    function focusOnMatch(state, next, previous) {
+    function focusOnMatch(state, focus) {
       const matches = document.getElementsByClassName("cm-searching");
       var focusedMatchIndex = state.focusedMatchIndex || 0;
+      const matchesCount = matches.length
 
-      if (next) {
-        if (focusedMatchIndex >= matches.length - 1) {
-          focusedMatchIndex = 0;
-        } else {
-          focusedMatchIndex++;
-        }
-      } else if (previous && focusedMatchIndex > 0) {
-        focusedMatchIndex--;
-      }
+     if (focus) {
+         if (focus.next) {
+             if (focusedMatchIndex >= matchesCount - 1) {
+                focusedMatchIndex = 0;
+             } else {
+                focusedMatchIndex++;
+             }
+         } else if (focus.prev) {
+             if (focusedMatchIndex > 0) {
+                focusedMatchIndex--;
+             } else {
+                focusedMatchIndex = matchesCount - 1;
+             }
+         }
+     }
 
      const focusedMatchID = `cm-searching-focus-id-${focusedMatchIndex}`;
      focusOnMatchAtIndex(matches, focusedMatchIndex, focusedMatchID);
 
       state.focusedMatchIndex = focusedMatchIndex;
-      state.matchesCount = matches.length;
+      state.matchesCount = matchesCount;
       state.focusedMatchID = focusedMatchID;
 
       const message = {
@@ -161,7 +168,7 @@
         if (!cursor.find(rev)) return;
       }
       state.posFrom = cursor.from(); state.posTo = cursor.to();
-      if (focus) focusOnMatch(state, true)
+      if (focus) focusOnMatch(state, focus)
     });}
   
     function clearSearch(cm) {cm.operation(function() {
@@ -225,8 +232,8 @@
     }
   
     CodeMirror.commands.find = function(cm) {clearSearch(cm); doSearch(cm);};
-    CodeMirror.commands.findNext = function(cm) {clearFocusedMatches(cm); doSearch(cm);};;
-    CodeMirror.commands.findPrev = function(cm) {doSearch(cm, true);};
+     CodeMirror.commands.findNext = function(cm) {clearFocusedMatches(cm); doSearch(cm, false, {next: true});};;
+     CodeMirror.commands.findPrev = function(cm) {clearFocusedMatches(cm), doSearch(cm, true, {prev: true});};
     CodeMirror.commands.clearSearch = clearSearch;
     CodeMirror.commands.replace = replace;
     CodeMirror.commands.replaceAll = function(cm) {replace(cm, true);};
