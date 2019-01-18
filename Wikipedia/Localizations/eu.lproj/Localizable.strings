@@ -457,6 +457,7 @@
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
 "saved-pages-progress-syncing" = "Artikuluen jaistea abian...";
 "saved-reading-lists-title" = "Irakurketa zerrendak";
+// Fuzzy
 "saved-search-default-text" = "Bilatu";
 "saved-title" = "Gordea";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ezabatzekotan {{PLURAL:$1|artikulu honek ezabatuko du|artikulu hauek ezabatuko dute}} asoziatutako irakurketa zerrenda guztietatik";

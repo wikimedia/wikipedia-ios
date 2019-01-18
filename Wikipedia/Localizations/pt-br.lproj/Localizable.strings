@@ -546,7 +546,7 @@
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
 "saved-pages-progress-syncing" = "Download do artigo em andamento...";
 "saved-reading-lists-title" = "Listas de leitura";
-"saved-search-default-text" = "Pesquisar";
+"saved-search-default-text" = "Pesquisar artigos salvos";
 "saved-title" = "Salvo";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ao não salvar {{PLURAL:$1|este artigo, ele será removido|estes artigos, eles serão removidos}} de todas as listas de leitura associadas";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Não salvar {{PLURAL:$1|o artigo|os artigos}}?";

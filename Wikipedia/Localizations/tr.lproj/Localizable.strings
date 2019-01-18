@@ -543,6 +543,7 @@
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
 "saved-pages-progress-syncing" = "Madde indirme işlemi devam ediyor...";
 "saved-reading-lists-title" = "Okuma listeleri";
+// Fuzzy
 "saved-search-default-text" = "Ara";
 "saved-title" = "Kaydedilenler";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Bu maddeyi|Bu maddeleri}} iptal etmek, ilgili tüm okuma listelerinden kaldırır";
