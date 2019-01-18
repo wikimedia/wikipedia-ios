@@ -217,7 +217,9 @@ extension WKWebView {
                 '\(appSchemeURLString.wmf_stringBySanitizingForJavaScript())'
             )
             footer.add()
-            window.webkit.messageHandlers.articleState.postMessage('articleContentLoaded')
+            window.requestAnimationFrame(() => {
+                window.webkit.messageHandlers.articleState.postMessage('articleContentLoaded')
+            })
         }
         """
         
