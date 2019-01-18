@@ -1294,10 +1294,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [self articleDidLoad];
             [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
         }
-        success:^(MWKArticle *_Nonnull article) {
+        success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
             [self endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+            self.articleURL = articleURL;
             self.article = article;
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
