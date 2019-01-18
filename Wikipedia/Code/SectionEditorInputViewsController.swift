@@ -204,4 +204,9 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapSubscript() {
         messagingController.toggleSubscript()
     }
+    
+    func textFormattingProvidingDidDismissKeyboard() {
+        inputViewType = nil
+        inputAccessoryViewType = .default
+    }
 }

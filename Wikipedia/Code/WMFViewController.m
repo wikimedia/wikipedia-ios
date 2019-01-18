@@ -192,6 +192,7 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
     //[self.toolbar setShadowImage:theme.navigationBarShadowImage forToolbarPosition:UIBarPositionAny];
     [self.secondToolbar setBackgroundImage:theme.clearImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.secondToolbar setShadowImage:theme.clearImage forToolbarPosition:UIBarPositionAny];
+    self.scrollView.refreshControl.tintColor = theme.colors.refreshControlTint;
 }
 
 #pragma mark - WMFNavigationBarHiderDelegate

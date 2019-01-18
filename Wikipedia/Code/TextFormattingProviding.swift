@@ -49,4 +49,6 @@ protocol TextFormattingDelegate: class {
 
     func textFormattingProvidingDidTapTextFormatting()
     func textFormattingProvidingDidTapTextStyleFormatting()
+
+    func textFormattingProvidingDidDismissKeyboard()
 }
