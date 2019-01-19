@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     }
 
     self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-save-changes-title", nil, nil, @"Save your changes", @"Title for edit preview screens");
-    
+
     self.previewLicenseView.previewLicenseViewDelegate = self;
 
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(goBack)];
@@ -588,7 +588,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (self.viewIfLoaded == nil) {
         return;
     }
-    self.scrollView.backgroundColor = theme.colors.baseBackground;
+    self.scrollView.backgroundColor = theme.colors.paperBackground;
     self.captchaScrollView.backgroundColor = theme.colors.baseBackground;
 
     [self.previewLicenseView applyTheme:theme];
