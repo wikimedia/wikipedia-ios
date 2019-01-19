@@ -62,27 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.webView = webview;
     self.backgroundColor = [UIColor whiteColor];
     self.webView.navigationDelegate = self;
-    self.userInteractionEnabled = YES;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews]; // get width from solved constraints
-    [self forceScrollViewContentSizeToReflectActualHTMLHeight];
-}
-
-- (void)forceScrollViewContentSizeToReflectActualHTMLHeight {
-    // Only run this if the width has changed. Otherwise it will recurse endlessly.
-    static CGFloat lastWidth = 0;
-    if (lastWidth == self.webView.scrollView.frame.size.width) {
-        return;
-    }
-    lastWidth = self.webView.scrollView.frame.size.width;
-
-    CGRect f = self.frame;
-    f.size = CGSizeMake(f.size.width, 1);
-    self.frame = f;
-    f.size = [self sizeThatFits:CGSizeZero];
-    self.frame = f;
 }
 
 // Force web view links to open in Safari.
