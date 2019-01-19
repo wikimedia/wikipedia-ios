@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *wikiText;
 @property (strong, nonatomic) EditFunnel *funnel;
 @property (strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;
+@property (strong, nonatomic) WMFTheme *theme;
 
 @property (strong, nonatomic) NSString *summaryText;
 

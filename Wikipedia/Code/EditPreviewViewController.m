@@ -37,7 +37,7 @@
 }
 
 - (void)goForward {
-  [self save];
+    [self.delegate editPreviewViewControllerDidTapNext:self];
 }
 
 - (void)viewDidLoad {
@@ -99,10 +99,6 @@
                                                         withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
                                                  thenNotifyDelegate:self];
     }];
-}
-
-- (void)save {
-    NSLog(@"SAVE");
 }
 
 #pragma mark - WMFThemeable

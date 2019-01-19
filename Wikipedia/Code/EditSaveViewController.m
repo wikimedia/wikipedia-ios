@@ -56,8 +56,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
 @property (strong, nonatomic) WMFAuthTokenFetcher *editTokenFetcher;
 
-@property (strong, nonatomic) WMFTheme *theme;
-
 @end
 
 @implementation EditSaveViewController
