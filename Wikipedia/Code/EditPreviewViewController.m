@@ -46,7 +46,7 @@
         self.theme = [WMFTheme standard];
     }
 
-    self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-save-changes-title", nil, nil, @"Save your changes", @"Title for edit preview screens");
+    self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"navbar-title-mode-edit-wikitext-preview", nil, nil, @"Preview", @"Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}");;
     
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
