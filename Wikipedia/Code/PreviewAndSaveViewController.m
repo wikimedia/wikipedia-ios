@@ -1,21 +1,13 @@
 #import "PreviewAndSaveViewController.h"
-#import "PreviewHtmlFetcher.h"
 #import "WikiTextSectionUploader.h"
 #import <WMF/SessionSingleton.h>
-#import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
 #import "MenuButton.h"
 #import "PreviewLicenseView.h"
-#import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
-#import <WMF/MWLanguageInfo.h>
-#import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
-#import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 
 typedef NS_ENUM(NSInteger, WMFCannedSummaryChoices) {
@@ -33,19 +25,14 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView = @"kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView";
-
-@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
+@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
 
 @property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
-@property (weak, nonatomic) IBOutlet UIView *previewLabelContainer;
 
 @property (strong, nonatomic) IBOutlet UIView *editSummaryContainer;
-@property (strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewHeightConstraint;
 @property (strong, nonatomic) UILabel *aboutLabel;
 @property (strong, nonatomic) MenuButton *cannedSummary01;
 @property (strong, nonatomic) MenuButton *cannedSummary02;
@@ -54,7 +41,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
 @property (nonatomic) CGFloat borderWidth;
 @property (strong, nonatomic) IBOutlet PreviewLicenseView *previewLicenseView;
 @property (strong, nonatomic) UIGestureRecognizer *previewLicenseTapGestureRecognizer;
-@property (strong, nonatomic) IBOutlet PaddedLabel *previewLabel;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *scrollContainer;
 @property (strong, nonatomic) UIBarButtonItem *buttonSave;
@@ -68,7 +54,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
 @property (nonatomic) WMFPreviewAndSaveMode mode;
 
 @property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
-@property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
 @property (strong, nonatomic) WMFAuthTokenFetcher *editTokenFetcher;
 
 @property (strong, nonatomic) WMFTheme *theme;
@@ -76,10 +61,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
 @end
 
 @implementation PreviewAndSaveViewController
-
-- (void)dealloc {
-    [self.previewWebViewContainer.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
-}
 
 - (NSString *)getSummary {
     NSMutableArray *summaryArray = @[].mutableCopy;
@@ -101,23 +82,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
     }
 
     return [summaryArray componentsJoinedByString:@"; "];
-}
-
-- (void)wmf_showAlertForTappedAnchorHref:(NSString *)href {
-    NSString *title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-link-preview-title", nil, nil, @"Link preview", @"Title for link preview popup");
-    NSString *message = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"wikitext-preview-link-preview-description", nil, nil, @"This link leads to '%1$@'", @"Description of the link URL. %1$@ is the URL."), href];
-
-    UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:title
-                                            message:message
-                                     preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, nil, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}")
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:nil]];
-    [self presentViewController:alertController
-                       animated:YES
-                     completion:^{
-                     }];
 }
 
 - (void)setMode:(WMFPreviewAndSaveMode)mode {
@@ -191,7 +155,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
     self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-save-changes-title", nil, nil, @"Save your changes", @"Title for edit preview screens");
     
     self.previewLicenseView.previewLicenseViewDelegate = self;
-    self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(goBack)];
 
@@ -203,12 +166,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
 
     self.summaryText = @"";
 
-    self.previewLabel.font = [UIFont boldSystemFontOfSize:15.0];
-
-    self.previewLabel.text = WMFLocalizedStringWithDefaultValue(@"navbar-title-mode-edit-wikitext-preview", nil, nil, @"Preview", @"Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}");
-
-    [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped:)]];
-
     //self.saveAutomaticallyIfSignedIn = NO;
 
     [self.funnel logPreview];
@@ -219,44 +176,7 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
 
     [self constrainEditSummaryContainerSubviews];
 
-    // Disable the preview web view's scrolling since we're going to size it
-    // such that its internal scroll view isn't ever going to be visble anyway.
-    self.previewWebViewContainer.webView.scrollView.scrollEnabled = NO;
-
-    // Observer the web view's contentSize property to enable the web view to expand to the
-    // height of the html content it is displaying so the web view's scroll view doesn't show
-    // any scroll bars. (Expand the web view to the full height of its content so it scrolls
-    // with this view controller's scroll view rather than its own.) Note that to make this
-    // work, the PreviewWebView object also uses a method called
-    // "forceScrollViewContentSizeToReflectActualHTMLHeight".
-    [self.previewWebViewContainer.webView.scrollView addObserver:self
-                                                      forKeyPath:@"contentSize"
-                                                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
-                                                         context:&kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView];
-    [self preview];
     [self applyTheme:self.theme];
-}
-
-- (void)previewLabelTapped:(UITapGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self.scrollView scrollSubViewToTop:self.previewLabel animated:YES];
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (context == &kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView) {
-        // Size the web view to the height of the html content it is displaying (gets rid of the web view's scroll bars).
-        // Note: the PreviewWebView class has to call "forceScrollViewContentSizeToReflectActualHTMLHeight" in its
-        // overridden "layoutSubviews" method for the contentSize to be reported accurately such that it reflects the
-        // actual height of the web view content here. Without the web view class calling this method in its
-        // layoutSubviews, the contentSize.height wouldn't change if we, say, rotated the device.
-        self.previewWebViewHeightConstraint.constant = self.previewWebViewContainer.webView.scrollView.contentSize.height;
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
 }
 
 - (void)constrainEditSummaryContainerSubviews {
@@ -419,8 +339,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
                                                 action:@selector(licenseLabelTapped:)];
     [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLicenseTapGestureRecognizer];
 
-    self.previewWebViewContainer.webView.scrollView.delegate = self;
-
     [super viewWillAppear:animated];
 }
 
@@ -442,8 +360,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    self.previewWebViewContainer.webView.scrollView.delegate = nil;
-
     [[WMFAlertManager sharedInstance] dismissAlert];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -455,29 +371,11 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
     [super viewWillDisappear:animated];
 }
 
-- (MWLanguageInfo *)wmf_editedSectionLanguageInfo {
-    return [MWLanguageInfo languageInfoForCode:self.section.url.wmf_language];
-}
-
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
                 error:(NSError *)error {
-    if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero theme:self.theme];
-            } break;
-            case FETCH_FINAL_STATUS_FAILED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            } break;
-        }
-    } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
-        //WikiTextSectionUploader* uploader = (WikiTextSectionUploader*)sender;
+    if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
@@ -546,18 +444,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
             } break;
         }
     }
-}
-
-- (void)preview {
-    [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-preview-changes", nil, nil, @"Retrieving preview of your changes...", @"Alert text shown when getting preview of user changes to wikitext") sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-    [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        self.previewHtmlFetcher =
-            [[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
-                                                         articleURL:self.section.url
-                                                        withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
-                                                 thenNotifyDelegate:self];
-    }];
 }
 
 - (void)save {
@@ -704,10 +590,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
     if (self.viewIfLoaded == nil) {
         return;
     }
-
-    self.previewWebViewContainer.webView.opaque = NO;
-    self.previewWebViewContainer.webView.scrollView.backgroundColor = [UIColor clearColor];
-
     self.scrollView.backgroundColor = theme.colors.baseBackground;
     self.captchaScrollView.backgroundColor = theme.colors.baseBackground;
 
@@ -717,13 +599,6 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
     self.editSummaryContainer.backgroundColor = theme.colors.paperBackground;
     self.captchaContainer.backgroundColor = theme.colors.paperBackground;
     self.captchaScrollContainer.backgroundColor = theme.colors.paperBackground;
-    self.previewWebViewContainer.webView.backgroundColor = theme.colors.paperBackground;
-
-    self.previewLabel.backgroundColor = theme.colors.midBackground;
-    self.previewLabel.textColor = theme.colors.secondaryText;
-    self.previewLabelContainer.backgroundColor = theme.colors.midBackground;
-
-    self.previewWebViewContainer.backgroundColor = theme.colors.paperBackground;
 }
 
 @end
