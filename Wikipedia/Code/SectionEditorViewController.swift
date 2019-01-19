@@ -189,15 +189,15 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     assertionFailure(error.localizedDescription)
                     return
                 } else if let wikitext = result as? String {
-                    guard let preview = PreviewAndSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                    guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
-                    preview.section = self.section
-                    preview.wikiText = wikitext
-                    preview.delegate = self
+                    vc.section = self.section
+                    vc.wikiText = wikitext
+                    vc.delegate = self
                     // TODO: Set funnels
                     // TODO: Apply theme
-                    self.navigationController?.pushViewController(preview, animated: true)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         } else {
@@ -243,10 +243,10 @@ extension SectionEditorViewController: WKNavigationDelegate {
     }
 }
 
-// MARK - PreviewAndSaveViewControllerDelegate
+// MARK - EditSaveViewControllerDelegate
 
-extension SectionEditorViewController: PreviewAndSaveViewControllerDelegate {
-    func previewViewControllerDidSave(_ previewViewController: PreviewAndSaveViewController!) {
+extension SectionEditorViewController: EditSaveViewControllerDelegate {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController!) {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: true)
     }
 }

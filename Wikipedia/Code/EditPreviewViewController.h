@@ -5,7 +5,7 @@
 
 @protocol EditPreviewViewControllerDelegate <NSObject>
 
-- (void)previewViewControllerDidSave:(EditPreviewViewController *)previewViewController;
+- (void)editPreviewViewControllerDidSave:(EditPreviewViewController *)editPreviewViewController;
 
 @end
 

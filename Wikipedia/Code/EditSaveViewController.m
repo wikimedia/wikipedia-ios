@@ -1,4 +1,4 @@
-#import "PreviewAndSaveViewController.h"
+#import "EditSaveViewController.h"
 #import "WikiTextSectionUploader.h"
 #import <WMF/SessionSingleton.h>
 #import "PaddedLabel.h"
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
+@interface EditSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
 
 @property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 @end
 
-@implementation PreviewAndSaveViewController
+@implementation EditSaveViewController
 
 - (NSString *)getSummary {
     NSMutableArray *summaryArray = @[].mutableCopy;
@@ -381,7 +381,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
                 dispatchOnMainQueue(^{
-                    [self.delegate previewViewControllerDidSave:self];
+                    [self.delegate editSaveViewControllerDidSave:self];
                 });
             } break;
 

@@ -1,15 +1,15 @@
 @import UIKit;
 @import WMF.Swift;
 
-@class MWKSection, SavedPagesFunnel, EditFunnel, PreviewAndSaveViewController;
+@class MWKSection, SavedPagesFunnel, EditFunnel, EditSaveViewController;
 
-@protocol PreviewAndSaveViewControllerDelegate <NSObject>
+@protocol EditSaveViewControllerDelegate <NSObject>
 
-- (void)previewViewControllerDidSave:(PreviewAndSaveViewController *)previewViewController;
+- (void)editSaveViewControllerDidSave:(EditSaveViewController *)editSaveViewController;
 
 @end
 
-@interface PreviewAndSaveViewController : UIViewController <WMFThemeable>
+@interface EditSaveViewController : UIViewController <WMFThemeable>
 
 @property (strong, nonatomic) MWKSection *section;
 @property (strong, nonatomic) NSString *wikiText;
@@ -18,6 +18,6 @@
 
 @property (strong, nonatomic) NSString *summaryText;
 
-@property (weak, nonatomic) id<PreviewAndSaveViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<EditSaveViewControllerDelegate> delegate;
 
 @end
