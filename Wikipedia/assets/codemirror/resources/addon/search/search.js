@@ -251,7 +251,7 @@
     CodeMirror.commands.find = function(cm) {clearSearch(cm); doSearch(cm);};
     CodeMirror.commands.findNext = function(cm) {clearFocusedMatches(cm); doSearch(cm, false, {next: true});};
     CodeMirror.commands.findPrev = function(cm) {doSearch(cm, true, {prev: true});};
-    CodeMirror.commands.clearSearch = {selectLastFocusedMatch(cm); clearSearch(cm);};
+    CodeMirror.commands.clearSearch = function(cm) {selectLastFocusedMatch(cm); clearSearch(cm);};
     CodeMirror.commands.replace = replace;
     CodeMirror.commands.replaceAll = function(cm) {replace(cm, true);};
   });
