@@ -140,10 +140,10 @@
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
 "description-edit-pencil-introduction" = "Editovat úvod";
-"description-edit-pencil-title" = "Upravit popis článku";
+"description-edit-pencil-title" = "Editovat popis článku";
 "description-edit-placeholder-title" = "Nejlepší jsou krátké popisy";
 "description-edit-publish" = "Zveřejnit popis";
-"description-edit-title" = "Upravit popis";
+"description-edit-title" = "Editovat popis";
 "description-edit-warning" = "Pokuste se zachovat krátké popisy, aby uživatelé na první pohled pochopili téma článku";
 "description-help-about-description" = "Popis shrnuje základní informace o tématu článku, aby čtenáři ihned pochopili, o čem článek pojednává.";
 "description-help-about-title" = "O aplikaci";
@@ -326,7 +326,7 @@
 "home-news-footer" = "Více Aktuálních událostí";
 "home-reading-list-prompt" = "Vámi uložené články mohou být nyní organizovány do seznamů k přečtení a synchronizovány skrze zařízení. Přihlaste se, abyste povolili ukládání seznamů k přečtení do vašich uživatelských nastavení.";
 "home-themes-action-title" = "Spravujte předvolby";
-"home-themes-prompt" = "Upravte předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
+"home-themes-prompt" = "Upravte si předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
 "home-title" = "Objevit";
 "home-title-accessibility-label" = "Wikipedie, přejít na začátek kanálu Objevit";
 "icon-shortcut-continue-reading-title" = "Pokračovat ve čtení";
