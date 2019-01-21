@@ -30,7 +30,11 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 
 
     func textSelectionDidChange(isRangeSelected: Bool) {
-        if inputViewType == nil, inputAccessoryViewType != .findInPage {
+        if inputViewType == nil {
+            if inputAccessoryViewType == .findInPage {
+                messagingController.clearSearch()
+                findInPageView?.reset()
+            }
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
         }
         defaultEditToolbarView?.enableAllButtons()
