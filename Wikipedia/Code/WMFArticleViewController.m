@@ -1294,10 +1294,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [self articleDidLoad];
             [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
         }
-        success:^(MWKArticle *_Nonnull article) {
+        success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
             [self endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+            self.articleURL = articleURL;
             self.article = article;
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
@@ -1879,9 +1880,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
+        self.webViewController.webView.hidden = YES;
         __weak typeof(self) weakSelf = self;
         self.articleContentLoadCompletion = ^{
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
+            weakSelf.webViewController.webView.hidden = NO;
         };
         [self fetchArticle];
     }
