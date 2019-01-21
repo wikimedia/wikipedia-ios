@@ -138,11 +138,12 @@
       }
 
      const focusedMatchID = `cm-searching-focus-id-${focusedMatchIndex}`;
-     focusOnMatchAtIndex(matches, focusedMatchIndex, focusedMatchID);
+     const focusedMatch = focusOnMatchAtIndex(matches, focusedMatchIndex, focusedMatchID);
 
       state.focusedMatchIndex = focusedMatchIndex;
       state.matchesCount = matchesCount;
       state.focusedMatchID = focusedMatchID;
+      state.focusedMatch = focusedMatch;
 
       const message = {
         findInPageMatchesCount: state.matchesCount,
@@ -158,6 +159,22 @@
       const match = matches[index];
       match.classList.add(focusClassName);
       match.id = id;
+      return match
+    }
+
+    function selectLastFocusedMatch(cm) {
+      if (cm.hasFocus()) return;
+      if (cm.getSelection() !== "") return focusWithoutScroll(cm);
+      const scrollTop = document.body.scrollTop;
+      var state = getSearchState(cm);
+      var sel = window.getSelection()
+      if (sel.rangeCount > 0) {
+        sel.removeAllRanges();
+      }
+      const range = document.createRange();
+      range.selectNode(state.focusedMatch)
+      sel.addRange(range);
+      document.body.scrollTop = scrollTop;
     } 
   
     function findNext(cm, rev, focus) {cm.operation(function() {
@@ -232,9 +249,9 @@
     }
   
     CodeMirror.commands.find = function(cm) {clearSearch(cm); doSearch(cm);};
-    CodeMirror.commands.findNext = function(cm) {clearFocusedMatches(cm); doSearch(cm, false, {next: true});};;
+    CodeMirror.commands.findNext = function(cm) {clearFocusedMatches(cm); doSearch(cm, false, {next: true});};
     CodeMirror.commands.findPrev = function(cm) {doSearch(cm, true, {prev: true});};
-    CodeMirror.commands.clearSearch = clearSearch;
+    CodeMirror.commands.clearSearch = {selectLastFocusedMatch(cm); clearSearch(cm);};
     CodeMirror.commands.replace = replace;
     CodeMirror.commands.replaceAll = function(cm) {replace(cm, true);};
   });
