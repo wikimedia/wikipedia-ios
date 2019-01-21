@@ -155,7 +155,6 @@
                                                                     <rect key="frame" x="213" y="9.6666666666666643" width="19" height="25"/>
                                                                     <state key="normal" image="find-in-page"/>
                                                                     <connections>
-                                                                        <action selector="moveCursorRight:" destination="iN0-l3-epB" eventType="touchUpInside" id="loU-5B-bpw"/>
                                                                         <action selector="showFindInPage:" destination="iN0-l3-epB" eventType="touchUpInside" id="88z-Hc-Oud"/>
                                                                     </connections>
                                                                 </button>
