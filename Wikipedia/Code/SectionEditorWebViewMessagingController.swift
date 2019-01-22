@@ -121,7 +121,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
+    func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
         webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
 
