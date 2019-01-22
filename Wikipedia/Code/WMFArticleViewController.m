@@ -1004,6 +1004,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController didMoveToParentViewController:self];
 
     self.pullToRefresh = [[UIRefreshControl alloc] init];
+    self.pullToRefresh.tintColor = self.theme.colors.refreshControlTint;
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
