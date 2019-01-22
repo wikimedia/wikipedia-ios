@@ -5,6 +5,7 @@
 // Author: Alluk.
 // Author: ElmA
 // Author: Jack Phoenix
+// Author: Laurianttila
 // Author: McSalama
 // Author: Nemo bis
 // Author: Nike
@@ -132,13 +133,16 @@
 "description-edit-learn-more" = "Lisätietoja";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Muuttamalla otsikon kuvausta, hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
+"description-edit-pencil-introduction" = "Muokkaa esittelyä";
 "description-edit-pencil-title" = "Muokkaa otsikon kuvausta";
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
 "description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
 "description-edit-warning" = "Yritä pitää kuvaus lyhyenä, jotta käyttäjät ymmärtäisivät artikkelin aiheen yhdellä silmäyksellä";
+"description-help-about-description" = "Lyhyet kuvaukset tiivistävät artikkelin aiheen ja auttavat ymmärtämään sen yhdellä silmäyksellä.";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
+"description-help-more-info-description" = "Kuvaukset tallennetaan Wikidataan. Se on Wikimedia Foundationin ylläpitämä vapaasti muokattava monikielinen tietokanta, joka toimii Wikipedian ja muiden wikiprojektien tukena.";
 "description-help-more-info-title" = "Lisää tietoa";
 "description-help-tips-example-description-one" = "Mona Lisaa käsittelevän artikkelin otsikon kuvaus";
 "description-help-tips-example-title-one" = "Leonardo da Vincin maalaus";
@@ -155,6 +159,7 @@
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "dim-images" = "Dim kuvat";
+"edit-style-table-view-title" = "Tyyli";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
@@ -522,8 +527,7 @@
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "saved-pages-progress-syncing" = "Artikkelin lataus käynnissä...";
 "saved-reading-lists-title" = "Lukulistat";
-// Fuzzy
-"saved-search-default-text" = "Hae";
+"saved-search-default-text" = "Hae tallennetuista artikkeleista";
 "saved-title" = "Tallennettu";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Tämän artikkelin tallentamattomaksi jättäminen poistaa sen|Näiden artikkelien tallentamattomaksi jättäminen poistaa ne}} kaikista niihin liittyvistä lukulistoista";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Poista {{PLURAL:$1|artikkeli|artikkelia}}?";
