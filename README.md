@@ -88,7 +88,7 @@ Certain development and maintenance tasks will require the installation of speci
  
 `brew install carthage`
 
-We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. We check in prebuiult dependencies to simplify the initial build and run experience. After you add, remove, or upgrade a dependency, you should run `scripts/carthage_update` to update the built dependencies.
+We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. We check in prebuilt dependencies to simplify the initial build and run experience. After you add, remove, or upgrade a dependency, you should run `scripts/carthage_update` to update the built dependencies.
 
 ### Clang-Format
  
