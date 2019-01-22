@@ -18,6 +18,9 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
 
+        case (Message.Name.smoothScrollToMessage, let message as CGFloat):
+            let newOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: webView.scrollView.contentOffset.y + message)
+            webView.scrollView.setContentOffset(newOffset, animated: true)
         case (Message.Name.codeMirrorMessage, let message as [String: Any]):
             guard
                 let selectionChangedMessage = message[Message.Name.selectionChanged],
@@ -269,6 +272,7 @@ extension SectionEditorWebViewMessagingController {
             static let highlightTheseButtons = "highlightTheseButtons"
             static let disableTheseButtons = "disableTheseButtons"
             static let codeMirrorMessage = "codeMirrorMessage"
+            static let smoothScrollToMessage = "smoothScrollToMessage"
         }
         struct Body {
             struct Key {

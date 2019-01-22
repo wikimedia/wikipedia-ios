@@ -88,6 +88,8 @@ class SectionEditorViewController: UIViewController {
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
 
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToMessage)
+
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
