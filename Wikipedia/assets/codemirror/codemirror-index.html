@@ -651,7 +651,9 @@
       if (offset === 0) {
         return
       }
-      window.scrollBy(0, offset)
+      // WKWebView doesn't currently support `window.scrollTo` with `behavior: smooth`,
+      // so let native land do the scrolling.
+      window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
     }
 
     let resizeTimer
