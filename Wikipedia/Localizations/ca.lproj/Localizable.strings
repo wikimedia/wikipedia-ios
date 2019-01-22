@@ -535,8 +535,7 @@
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-pages-progress-syncing" = "Descàrrega d'articles en curs...";
 "saved-reading-lists-title" = "Llistes de lectura";
-// Fuzzy
-"saved-search-default-text" = "Cerca";
+"saved-search-default-text" = "Cerca els articles desats";
 "saved-title" = "Desat";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "En deixar de tenir desat {{PLURAL:$1|aquest article se suprimirà|aquests articles se suprimiran}} de totes les llistes de lectura associades";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Voleu deixar de tenir desats {{PLURAL:$1|article|articles}}?";
