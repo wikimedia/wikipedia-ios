@@ -108,6 +108,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         textFormattingInputViewController.apply(theme: theme)
         defaultEditToolbarView?.apply(theme: theme)
         contextualHighlightEditToolbarView?.apply(theme: theme)
+        findInPageView?.apply(theme)
     }
 
     private var findInPageFocusedMatchID: String?

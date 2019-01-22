@@ -25,4 +25,6 @@
 
 - (void)updateForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count;
 
+- (void)applyTheme:(WMFTheme *)theme;
+
 @end
