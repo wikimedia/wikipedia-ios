@@ -134,7 +134,9 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapFindInPage() {
         inputAccessoryViewType = .findInPage
-        findInPageView?.show()
+        UIView.performWithoutAnimation {
+            findInPageView?.show()
+        }
     }
 
     func textFormattingProvidingDidTapCursorUp() {
