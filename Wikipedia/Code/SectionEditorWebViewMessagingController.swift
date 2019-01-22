@@ -277,7 +277,9 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     }
 
     func find(text: String) {
-        execCommand(for: .find, argument: "\"\(text)\"")
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        print(escapedText)
+        execCommand(for: .find, argument: "`\(escapedText)`")
     }
 
     func clearSearch() {
