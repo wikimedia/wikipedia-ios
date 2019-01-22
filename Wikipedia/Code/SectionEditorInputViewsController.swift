@@ -255,10 +255,18 @@ extension SectionEditorInputViewsController: SectionEditorWebViewMessagingContro
             }
             let matchRectY = matchRect.minY
             let contentInsetTop = webView.scrollView.contentInset.top
-            let newOffsetY = matchRectY + contentInsetTop - (0.5 * findInPageViewY) + (0.5 * matchRect.height) + webView.iOS12yOffsetHack
+            let newOffsetY = matchRectY + contentInsetTop - (0.5 * findInPageViewY) + (0.5 * matchRect.height)
             let centeredOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: newOffsetY)
-            webView.scrollView.wmf_safeSetContentOffset(centeredOffset, animated: true)
+            self?.scrollToOffset(centeredOffset, in: webView)
         }
+    }
+
+    private func scrollToOffset(_ newOffset: CGPoint, in webView: WKWebView) {
+        guard !newOffset.x.isNaN && !newOffset.y.isNaN && newOffset.x.isFinite && newOffset.y.isFinite else {
+            return
+        }
+        let safeOffset = CGPoint(x: newOffset.x, y: max(0 - webView.scrollView.contentInset.top, newOffset.y))
+        webView.scrollView.setContentOffset(safeOffset, animated: true)
     }
 }
 
