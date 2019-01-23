@@ -8,13 +8,9 @@ static NSString *const kWikidataDescriptionEdit = @"wikidataDescriptionEdit";
 
 @implementation EditFunnel
 
-- (id)initWithUserId:(int)userId {
+- (id)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppEdit
     self = [super initWithSchema:@"MobileWikiAppEdit" version:18115551];
-    if (self) {
-        self.editSessionToken = [self singleUseUUID];
-    }
-    self.userId = userId;
     return self;
 }
 
