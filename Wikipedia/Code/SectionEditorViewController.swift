@@ -153,9 +153,7 @@ class SectionEditorViewController: UIViewController {
             }
             guard
                 let results = result as? [String: Any],
-                let revision = results["revision"] as? String,
-                let userInfo = results["userInfo"] as? [String: Any],
-                let userID = userInfo["id"] as? NSNumber
+                let revision = results["revision"] as? String
                 else {
                     return
             }
