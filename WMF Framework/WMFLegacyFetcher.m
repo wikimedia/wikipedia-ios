@@ -17,6 +17,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self cancelAllFetches];
+}
+
 - (WMFSession *)session {
     return self.fetcher.session;
 }
