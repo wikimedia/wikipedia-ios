@@ -1,4 +1,6 @@
-#import <WMF/FetcherBase.h>
+#import <WMF/WMFLegacyFetcher.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MWKSection;
 
@@ -8,14 +10,12 @@ typedef NS_ENUM(NSInteger, WikiTextFetcherErrorType) {
     WIKITEXT_FETCHER_ERROR_INCOMPLETE = 2
 };
 
-@class AFHTTPSessionManager;
+extern NSString *const WikiTextSectionFetcherErrorDomain;
 
-@interface WikiTextSectionFetcher : FetcherBase
+@interface WikiTextSectionFetcher : WMFLegacyFetcher
 
-@property (strong, nonatomic, readonly) MWKSection *section;
+- (void)fetchSection:(MWKSection *)section completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))failure;
 
-// Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
-- (instancetype)initAndFetchWikiTextForSection:(MWKSection *)section
-                                   withManager:(AFHTTPSessionManager *)manager
-                            thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate;
 @end
+
+NS_ASSUME_NONNULL_END

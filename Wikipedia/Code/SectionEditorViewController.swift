@@ -10,6 +10,7 @@ class SectionEditorViewController: UIViewController {
     @objc var section: MWKSection?
 
     private var webView: SectionEditorWebView!
+    private let sectionFetcher = WikiTextSectionFetcher()
 
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
@@ -143,10 +144,43 @@ class SectionEditorViewController: UIViewController {
         }
         let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
         WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
-        let manager = QueuesSingleton.sharedInstance()?.sectionWikiTextDownloadManager
-        QueuesSingleton.sharedInstance()?.sectionWikiTextDownloadManager.wmf_cancelAllTasks {
-            let _ = WikiTextSectionFetcher(andFetchWikiTextFor: section, with: manager, thenNotify: self)
+        sectionFetcher.fetch(section) { (result, error) in
+            if let error = error {
+                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
+                return
+            }
+            guard
+                let results = result as? [String: Any],
+                let revision = results["revision"] as? String,
+                let userInfo = results["userInfo"] as? [String: Any],
+                let userID = userInfo["id"] as? NSNumber
+                else {
+                    return
+            }
+            
+            let editFunnel = EditFunnel(userId: userID.int32Value)
+            editFunnel?.logStart()
+            
+            if let protectionStatus = section.article?.protection,
+                let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
+                allowedGroups.count > 0 {
+                let message: String
+                if allowedGroups.contains("autoconfirmed") {
+                    message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
+                } else if allowedGroups.contains("sysop") {
+                    message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
+                } else {
+                    message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
+                }
+                WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+            } else {
+                WMFAlertManager.sharedInstance.dismissAlert()
+            }
+            DispatchQueue.main.async {
+                self.wikitext = revision
+            }
         }
+
     }
 
     // MARK: - Accessibility
@@ -243,54 +277,6 @@ extension SectionEditorViewController: WKNavigationDelegate {
 extension SectionEditorViewController: PreviewAndSaveViewControllerDelegate {
     func previewViewControllerDidSave(_ previewViewController: PreviewAndSaveViewController!) {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: true)
-    }
-}
-
-// MARK: - FetchFinishedDelegate
-
-extension SectionEditorViewController: FetchFinishedDelegate {
-    func fetchFinished(_ sender: Any!, fetchedData: Any!, status: FetchFinalStatus, error: Error!) {
-        guard sender is WikiTextSectionFetcher else {
-            return
-        }
-        switch status {
-        case .FETCH_FINAL_STATUS_SUCCEEDED:
-            let fetcher = sender as! WikiTextSectionFetcher
-            guard
-                let results = fetchedData as? [String: Any],
-                let revision = results["revision"] as? String,
-                let userInfo = results["userInfo"] as? [String: Any],
-                let userID = userInfo["id"] as? NSNumber
-            else {
-                return
-            }
-
-            let editFunnel = EditFunnel(userId: userID.int32Value)
-            editFunnel?.logStart()
-
-            if let protectionStatus = fetcher.section.article?.protection,
-               let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
-                allowedGroups.count > 0 {
-                let message: String
-                if allowedGroups.contains("autoconfirmed") {
-                    message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
-                } else if allowedGroups.contains("sysop") {
-                    message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
-                } else {
-                    message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
-                }
-                WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
-            } else {
-                WMFAlertManager.sharedInstance.dismissAlert()
-            }
-            DispatchQueue.main.async {
-                self.wikitext = revision
-            }
-        case .FETCH_FINAL_STATUS_CANCELLED:
-            fallthrough
-        case .FETCH_FINAL_STATUS_FAILED:
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
-        }
     }
 }
 

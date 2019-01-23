@@ -22,7 +22,6 @@
 }
 
 - (void)reset {
-    self.sectionWikiTextDownloadManager = [AFHTTPSessionManager wmf_createDefaultManager];
     self.sectionWikiTextUploadManager = [AFHTTPSessionManager wmf_createDefaultManager];
     self.sectionPreviewHtmlFetchManager = [AFHTTPSessionManager wmf_createDefaultManager];
     self.languageLinksFetcher = [AFHTTPSessionManager wmf_createDefaultManager];
