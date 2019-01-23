@@ -21,7 +21,7 @@
 - (void)logSaveAttempt;
 - (void)logError:(NSString *)code;
 
-- (void)logWikidataDescriptionEditingStart:(BOOL)isEditingExistingWikidataDescription;
+- (void)logWikidataDescriptionEditingStartedForExistingDescription:(BOOL)isEditingExistingWikidataDescription;
 - (void)logReadyToEditWikidataDescription:(BOOL)isEditingExistingWikidataDescription;
 - (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingWikidataDescription;
 - (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingWikidataDescription;

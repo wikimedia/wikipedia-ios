@@ -87,7 +87,7 @@ static NSString *const kActionKey = @"action";
                 @"errorText": (code ? code : @"")}];
 }
 
-- (void)logWikidataDescriptionEditingStart:(BOOL)isEditingExistingWikidataDescription {
+- (void)logWikidataDescriptionEditingStartedForExistingDescription:(BOOL)isEditingExistingWikidataDescription {
     [self log:@{kActionKey: @"start",
                 kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
 }
