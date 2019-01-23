@@ -2,7 +2,7 @@ import Foundation
 import Mantle
 import WMF
 
-open class PageHistoryFetcher: WMFFetcher {
+open class PageHistoryFetcher: WMFLegacyFetcher {
     @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
         var params: [String: AnyObject] = [
             "action": "query" as AnyObject,

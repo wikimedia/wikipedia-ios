@@ -1,5 +1,5 @@
 @import WMF.WMFBlockDefinitions;
-@import WMF.WMFFetcher;
+@import WMF.WMFLegacyFetcher;
 
 @class MWKArticle;
 @class NSURLSessionDataTask;
@@ -10,7 +10,7 @@
 
 @end
 
-@interface MWKImageInfoFetcher : WMFFetcher
+@interface MWKImageInfoFetcher : WMFLegacyFetcher
 
 /**
  * Fetch the imageinfo for the given image page titles.

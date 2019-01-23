@@ -177,7 +177,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFGradientView.h>
 #import <WMF/WMFFeedContentDisplaying.h>
 #import <WMF/WMFContentGroup+WMFFeedContentDisplaying.h>
-#import <WMF/WMFFetcher.h>
+#import <WMF/WMFLegacyFetcher.h>
 #import <WMF/WMFLegacySerializer.h>
 
 //Deprecated

@@ -2,7 +2,7 @@
 @class MWKDataStore;
 @class MWKArticle;
 @import WMF.WMFBlockDefinitions;
-@import WMF.WMFFetcher;
+@import WMF.WMFLegacyFetcher;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
-@interface WMFArticleFetcher : WMFFetcher
+@interface WMFArticleFetcher : WMFLegacyFetcher
 
 - (BOOL)isFetchingArticleForURL:(NSURL *)articleURL;
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL;

@@ -1,8 +1,8 @@
 @import Foundation;
 @import WMF.WMFBlockDefinitions;
-@import WMF.WMFFetcher;
+@import WMF.WMFLegacyFetcher;
 
-@interface WMFArticleRevisionFetcher : WMFFetcher
+@interface WMFArticleRevisionFetcher : WMFLegacyFetcher
 
 - (NSURLSessionTask *)fetchLatestRevisionsForArticleURL:(NSURL *)articleURL
                                             resultLimit:(NSUInteger)numberOfResults
