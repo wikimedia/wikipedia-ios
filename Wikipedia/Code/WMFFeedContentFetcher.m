@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
 
 @interface WMFFeedContentFetcher ()
-@property (nonatomic, strong) WMFSession *session;
 @property (nonatomic, strong) dispatch_queue_t serialQueue;
 @end
 
@@ -24,14 +23,13 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.session = [WMFSession shared];
         NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.feedcontentfetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.serialQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
 
-+ (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date {
++ (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date configuration:(WMFConfiguration *)configuration {
     NSString *yearString = nil;
     NSString *monthString = nil;
     NSString *dayString = nil;
@@ -46,7 +44,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     } else {
         path = @[@"feed", @"featured"];
     }
-    return [[[WMFConfiguration current] mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:path] URL];
+    return [[configuration mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:path] URL];
 }
 
 + (NSRegularExpression *)cacheControlRegex {
@@ -77,7 +75,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
         return;
     }
 
-    NSURL *feedURL = [[self class] feedContentURLForSiteURL:siteURL onDate:date];
+    NSURL *feedURL = [[self class] feedContentURLForSiteURL:siteURL onDate:date configuration:self.configuration];
     [self.session getJSONDictionaryFromURL:feedURL
                                ignoreCache:NO
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable jsonDictionary, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
@@ -153,7 +151,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
 
     NSString *domainPathComponent = [NSString stringWithFormat:@"%@.%@", language, domain];
     NSArray<NSString *> *path = @[@"metrics", @"pageviews", @"per-article", domainPathComponent, @"all-access", @"user", title, @"daily", startDateString, endDateString];
-    NSURLComponents *components = [WMFConfiguration.current mobileAppsServicesAPIURLComponentsForHost:titleURL.wmf_siteURL.host appendingPathComponents:path];
+    NSURLComponents *components = [self.configuration mobileAppsServicesAPIURLComponentsForHost:titleURL.wmf_siteURL.host appendingPathComponents:path];
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
 
     [self.session getJSONDictionaryFromURL:components.URL

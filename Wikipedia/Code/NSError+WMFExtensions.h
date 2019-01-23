@@ -1,5 +1,7 @@
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString *const WMFErrorDomain;
 
 extern NSString *const WMFRedirectTitleKey;
@@ -28,7 +30,7 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 
 @interface NSError (WMFExtensions)
 
-+ (NSError *)wmf_errorWithType:(WMFErrorType)type userInfo:(NSDictionary *)userInfo;
++ (NSError *)wmf_errorWithType:(WMFErrorType)type userInfo:(nullable NSDictionary *)userInfo;
 
 //reason is specfied as NSLocalizedDescriptionKey
 + (NSError *)wmf_unableToSaveErrorWithReason:(NSString *)reason;
@@ -49,3 +51,5 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 - (BOOL)wmf_isNetworkConnectionError;
 
 @end
+
+NS_ASSUME_NONNULL_END

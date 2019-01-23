@@ -26,7 +26,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
 @synthesize fetchedIndices = _fetchedIndices;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore batchSize:(NSUInteger)batchSize {
-    return [self initWithDataStore:dataStore batchSize:batchSize infoFetcher:[[MWKImageInfoFetcher alloc] initWithDelegate:nil]];
+    return [self initWithDataStore:dataStore batchSize:batchSize infoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
@@ -114,7 +114,6 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     _imageFilePageTitles = nil;
     _indexedImageInfo = nil;
     _fetchedIndices = nil;
-    [self.imageInfoFetcher cancelAllFetches];
 }
 
 - (id<MWKImageInfoRequest> __nullable)fetchBatchContainingIndex:(NSInteger)index {

@@ -1,6 +1,5 @@
 @import Foundation;
 #import <WMF/MWKHistoryEntry.h>
-#import "WMFZeroConfigurationManager.h"
 #import <WMF/WMFDeprecationMacros.h>
 
 @class MWKDataStore;
@@ -11,9 +10,6 @@
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
 + (SessionSingleton *)sharedInstance;
-
-// Persistent settings and credentials
-@property (strong, nonatomic) WMFZeroConfigurationManager *zeroConfigurationManager;
 
 // Data access objects
 @property (strong, nonatomic, readonly) MWKDataStore *dataStore;

@@ -1,10 +1,10 @@
 @import Foundation;
-
+#import <WMF/WMFFetcher.h>
 @class MWKSiteInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKSiteInfoFetcher : NSObject
+@interface MWKSiteInfoFetcher : WMFFetcher
 
 - (void)fetchSiteInfoForSiteURL:(NSURL *)siteURL completion:(void (^)(MWKSiteInfo *data))completion failure:(void (^)(NSError *error))failure;
 

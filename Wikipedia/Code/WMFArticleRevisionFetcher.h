@@ -1,11 +1,8 @@
 @import Foundation;
 @import WMF.WMFBlockDefinitions;
+@import WMF.WMFFetcher;
 
-@interface WMFArticleRevisionFetcher : NSObject
-
-- (instancetype)init;
-
-- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval;
+@interface WMFArticleRevisionFetcher : WMFFetcher
 
 - (NSURLSessionTask *)fetchLatestRevisionsForArticleURL:(NSURL *)articleURL
                                             resultLimit:(NSUInteger)numberOfResults

@@ -8,21 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRandomArticleFetcher ()
-
-@property (nonatomic, strong) WMFSession *session;
-
-@end
-
 @implementation WMFRandomArticleFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.session = [WMFSession shared];
-    }
-    return self;
-}
 
 - (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL completion:(void (^)(NSError *_Nullable error, MWKSearchResult *_Nullable result))completion {
     NSParameterAssert(siteURL);
@@ -34,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     NSDictionary *params = [[self class] params];
-    NSURLComponents *components = [WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params];
+    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params];
 
     [self.session getJSONDictionaryFromURL:components.URL
                                ignoreCache:YES

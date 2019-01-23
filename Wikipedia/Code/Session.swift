@@ -31,6 +31,8 @@ import Foundation
 
     }
     
+    public var xWMFUUID: String? = nil // event logging uuid, set if enabled, nil if disabled
+    
     private static let defaultCookieStorage: HTTPCookieStorage = {
         let storage = HTTPCookieStorage.shared
         storage.cookieAcceptPolicy = .always
@@ -140,6 +142,9 @@ import Foundation
         request.httpMethod = method.stringValue
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
+        if let xWMFUUID = xWMFUUID {
+            request.setValue(xWMFUUID, forHTTPHeaderField: "X-WMF-UUID")
+        }
         if let parameters = bodyParameters {
             if bodyEncoding == .json {
                 do {
@@ -308,19 +313,21 @@ import Foundation
     }
 
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
-    public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
+    @discardableResult public func getJSONDictionary(from url: URL?, ignoreCache: Bool = false, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard let url = url else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
-            return
+            return nil
         }
         guard var request = self.request(with: url, method: .get) else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
-            return
+            return nil
         }
         if ignoreCache {
             request.cachePolicy = .reloadIgnoringLocalCacheData
         }
-        jsonDictionaryTask(with: request, completionHandler: completionHandler).resume()
+        let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        task.resume()
+        return task
     }
     
     @discardableResult public func apiTask(with articleURL: URL, path: [String], completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
@@ -371,15 +378,6 @@ import Foundation
                 asyncMapCompletion(articleURL.wmf_articleDatabaseKey, responseObject)
             })
         }, completion: completion)
-    }
-    
-    @objc public var shouldSendUsageReports: Bool = false {
-        didSet {
-            guard shouldSendUsageReports, let appInstallID = EventLoggingService.shared?.appInstallID else {
-                return
-            }
-            defaultURLSession.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
-        }
     }
     
 }

@@ -68,26 +68,29 @@
     [self.pageHistoryFetcher fetchRevisionInfo:self.article.url
         requestParams:self.historyFetcherParams
         failure:^(NSError *_Nonnull error) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-            DDLogError(@"Failed to fetch items for section %@. %@", self, error);
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-            self.isLoadingData = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) {
+                    return;
+                }
+                DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+                self.isLoadingData = NO;
+            });
         }
         success:^(HistoryFetchResults *_Nonnull historyFetchResults) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-            [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
-            self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
-            self.batchComplete = historyFetchResults.batchComplete;
-            [[WMFAlertManager sharedInstance] dismissAlert];
-            [self.tableView reloadData];
-            self.isLoadingData = NO;
-
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) {
+                    return;
+                }
+                [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
+                self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
+                self.batchComplete = historyFetchResults.batchComplete;
+                [[WMFAlertManager sharedInstance] dismissAlert];
+                [self.tableView reloadData];
+                self.isLoadingData = NO;
+            });
         }];
 }
 

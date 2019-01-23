@@ -3,21 +3,7 @@
 #import <WMF/WMF-Swift.h>
 #import <WMF/WMFLegacySerializer.h>
 
-@interface WMFOnThisDayEventsFetcher ()
-
-@property (nonatomic, strong) WMFSession *session;
-
-@end
-
 @implementation WMFOnThisDayEventsFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.session = [WMFSession shared];
-    }
-    return self;
-}
 
 + (NSSet<NSString *> *)supportedLanguages {
     static dispatch_once_t onceToken;
@@ -40,7 +26,7 @@
     NSString *monthString = [NSString stringWithFormat:@"%lu", (unsigned long)month];
     NSString *dayString = [NSString stringWithFormat:@"%lu", (unsigned long)day];
     NSArray<NSString *> *path = @[@"feed", @"onthisday", @"events", monthString, dayString];
-    NSURLComponents *components = [WMFConfiguration.current mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:path];
+    NSURLComponents *components = [self.configuration mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:path];
     [self.session getJSONDictionaryFromURL:components.URL ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);

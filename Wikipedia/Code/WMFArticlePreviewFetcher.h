@@ -1,9 +1,10 @@
 @import Foundation;
 @class MWKSearchResult;
+#import <WMF/WMFFetcher.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticlePreviewFetcher : NSObject
+@interface WMFArticlePreviewFetcher : WMFFetcher
 
 - (void)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL *> *)articleURLs
                                          siteURL:(NSURL *)siteURL

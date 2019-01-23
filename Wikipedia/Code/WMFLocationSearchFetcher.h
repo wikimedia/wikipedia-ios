@@ -1,4 +1,5 @@
 @import CoreLocation;
+#import <WMF/WMFFetcher.h>
 
 @class WMFLocationSearchResults;
 
@@ -18,7 +19,7 @@ typedef NS_ENUM(NSUInteger, WMFLocationSearchSortStyle) {
     WMFLocationSearchSortStylePageViewsAndLinks
 };
 
-@interface WMFLocationSearchFetcher : NSObject
+@interface WMFLocationSearchFetcher : WMFFetcher
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
                         location:(CLLocation *)location

@@ -2,28 +2,90 @@ import Foundation
 import Mantle
 import WMF
 
-open class PageHistoryFetcher: NSObject {
-    fileprivate let operationManager: AFHTTPSessionManager = {
-        let manager = AFHTTPSessionManager.wmf_createDefault()
-        manager.responseSerializer = PageHistoryResponseSerializer()
-        manager.requestSerializer = PageHistoryRequestSerializer()
-        return manager
-    }()
-
+open class PageHistoryFetcher: WMFFetcher {
     @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
-        operationManager.wmf_apiZeroSafeGET(with: siteURL,
-                                        parameters: requestParams,
-                                        success: { (operation, responseObject) in
-                                            MWNetworkActivityIndicatorManager.shared().pop()
-                                            guard let results = responseObject as? HistoryFetchResults else { return }
-                                            results.tackOn(requestParams.lastRevisionFromPreviousCall)
-                                            success(results)
-        },
-                                        failure: { (operation, error) in
-                                            MWNetworkActivityIndicatorManager.shared().pop()
-                                            failure(error)
+        var params: [String: AnyObject] = [
+            "action": "query" as AnyObject,
+            "prop": "revisions" as AnyObject,
+            "rvprop": "ids|timestamp|user|size|parsedcomment" as AnyObject,
+            "rvlimit": 51 as AnyObject,
+            "rvdir": "older" as AnyObject,
+            "titles": requestParams.title as AnyObject,
+            "continue": requestParams.pagingInfo.continueKey as AnyObject? ?? "" as AnyObject,
+            "format": "json" as AnyObject
+            //,"rvdiffto": -1 //Add this to fake out "error" api response.
+        ]
+        
+        if let rvContinueKey = requestParams.pagingInfo.rvContinueKey {
+            params["rvcontinue"] = rvContinueKey as AnyObject?
+        }
+        
+        let components = configuration.mediaWikiAPIURForHost(siteURL.host, with: params)
+        session.getJSONDictionary(from: components.url) { (result, response, error) in
+            if let error = error {
+                failure(error)
+                return
+            }
+            guard let result = result, let results = self.parseSections(result) else {
+                failure(NSError.wmf_error(with: WMFErrorType.unexpectedResponseType, userInfo: nil))
+                return
+            }
+            results.tackOn(requestParams.lastRevisionFromPreviousCall)
+            success(results)
+        }
+    }
+    
+    private func parseSections(_ responseDict: [String: Any]) -> HistoryFetchResults? {
+        guard let query = responseDict["query"] as? [String: Any], let pages = query["pages"] as? [String: AnyObject] else {
+            assertionFailure("couldn't parse page history response")
+            return nil
+        }
+        
+        var lastRevision: WMFPageHistoryRevision?
+        var revisionsByDay = RevisionsByDay()
+        for (_, value) in pages {
+            let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
+            
+            guard let val = value["revisions"], let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision] else {
+                assertionFailure("couldn't parse page history revisions")
+                return nil
+            }
+            
+            revisionsByDay = parse(revisions: revisions, existingRevisions: revisionsByDay)
+            
+            if let earliestRevision = revisions.last, earliestRevision.parentID == 0 {
+                earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
+                HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
+            } else {
+                lastRevision = revisions.last
+            }
+        }
+        
+        return HistoryFetchResults(pagingInfo: parsePagingInfo(responseDict), revisionsByDay: revisionsByDay, lastRevision: lastRevision)
+    }
+    
+    private func parsePagingInfo(_ responseDict: [String: Any]) -> (continueKey: String?, rvContinueKey: String?, batchComplete: Bool) {
+        var continueKey: String? = nil
+        var rvContinueKey: String? = nil
+        if let continueInfo = responseDict["continue"] as? [String: Any] {
+            continueKey = continueInfo["continue"] as? String
+            rvContinueKey = continueInfo["rvcontinue"] as? String
+        }
+        let batchComplete = responseDict["batchcomplete"] != nil
+        
+        return (continueKey, rvContinueKey, batchComplete)
+    }
+    
+    private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
+    private func parse(revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
+        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
+            var revisionsByDay = revisionsByDay
+            
+            itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
+            HistoryFetchResults.update(revisionsByDay:&revisionsByDay, revision: itemPair.current)
+            
+            return revisionsByDay
         })
-
     }
 }
 
@@ -74,99 +136,6 @@ open class PageHistoryRequestParameters: NSObject {
         self.title = title
         pagingInfo = (nil, nil, false)
         lastRevisionFromPreviousCall = nil
-    }
-}
-
-open class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
-    open override func request(bySerializingRequest request: URLRequest, withParameters parameters: Any?, error: NSErrorPointer) -> URLRequest? {
-        guard let pageHistoryParameters = parameters as? PageHistoryRequestParameters else {
-            assertionFailure("pagehistoryfetcher has incorrect parameter type")
-            return nil
-        }
-        return super.request(bySerializingRequest: request, withParameters: serializedParams(pageHistoryParameters), error: error)
-    }
-    
-    fileprivate func serializedParams(_ requestParameters: PageHistoryRequestParameters) -> [String: AnyObject] {
-        var params: [String: AnyObject] = [
-            "action": "query" as AnyObject,
-            "prop": "revisions" as AnyObject,
-            "rvprop": "ids|timestamp|user|size|parsedcomment" as AnyObject,
-            "rvlimit": 51 as AnyObject,
-            "rvdir": "older" as AnyObject,
-            "titles": requestParameters.title as AnyObject,
-            "continue": requestParameters.pagingInfo.continueKey as AnyObject? ?? "" as AnyObject,
-            "format": "json" as AnyObject
-            //,"rvdiffto": -1 //Add this to fake out "error" api response.
-        ]
-        
-        if let rvContinueKey = requestParameters.pagingInfo.rvContinueKey {
-            params["rvcontinue"] = rvContinueKey as AnyObject?
-        }
-        
-        return params
-    }
-}
-
-open class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
-    open override func responseObject(for response: URLResponse?, data: Data?, error: NSErrorPointer) -> Any? {
-        guard let responseDict = super.responseObject(for: response, data: data, error: error) as? [String: AnyObject] else {
-            assertionFailure("couldn't parse page history response")
-            return nil
-        }
-        return parseSections(responseDict)
-    }
-    
-    fileprivate func parseSections(_ responseDict: [String: AnyObject]) -> HistoryFetchResults? {
-        guard let pages = responseDict["query"]?["pages"] as? [String: AnyObject] else {
-            assertionFailure("couldn't parse page history response")
-            return nil
-        }
-        
-        var lastRevision: WMFPageHistoryRevision?
-        var revisionsByDay = RevisionsByDay()
-        for (_, value) in pages {
-            let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
-            
-            guard let val = value["revisions"], let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision] else {
-                assertionFailure("couldn't parse page history revisions")
-                return nil
-            }
-            
-            revisionsByDay = parse(revisions: revisions, existingRevisions: revisionsByDay)
-            
-            if let earliestRevision = revisions.last, earliestRevision.parentID == 0 {
-                earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
-                HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
-            } else {
-                lastRevision = revisions.last
-            }
-        }
-        
-        return HistoryFetchResults(pagingInfo: parsePagingInfo(responseDict), revisionsByDay: revisionsByDay, lastRevision: lastRevision)
-    }
-    
-    fileprivate func parsePagingInfo(_ responseDict: [String: AnyObject]) -> (continueKey: String?, rvContinueKey: String?, batchComplete: Bool) {
-        var continueKey: String? = nil
-        var rvContinueKey: String? = nil
-        if let continueInfo = responseDict["continue"] as? [String: AnyObject] {
-            continueKey = continueInfo["continue"] as? String
-            rvContinueKey = continueInfo["rvcontinue"] as? String
-        }
-        let batchComplete = responseDict["batchcomplete"] != nil
-        
-        return (continueKey, rvContinueKey, batchComplete)
-    }
-    
-    fileprivate typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
-    fileprivate func parse(revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
-        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
-            var revisionsByDay = revisionsByDay
-            
-            itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
-            HistoryFetchResults.update(revisionsByDay:&revisionsByDay, revision: itemPair.current)
-            
-            return revisionsByDay
-        })
     }
 }
 

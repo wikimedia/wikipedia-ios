@@ -65,25 +65,33 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
                                resultLimit:(NSUInteger)resultLimit
                            completionBlock:(void (^)(WMFRelatedSearchResults *results))completion
                               failureBlock:(void (^)(NSError *error))failure {
-
+    NSString *URLString = URL.absoluteString;
+    if (!URLString) {
+        if (failure) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        }
+        return;
+    }
     WMFRelatedSearchRequestParameters *params = [WMFRelatedSearchRequestParameters new];
     params.articleURL = URL;
     params.numberOfResults = resultLimit;
-
-    [self.operationManager wmf_apiZeroSafeGETWithURL:URL
-        parameters:params
-        success:^(NSURLSessionDataTask *operation, id responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            if (completion) {
-                completion([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
-            }
-        }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            if (failure) {
-                failure(error);
-            }
-        }];
+    
+    [[MWNetworkActivityIndicatorManager sharedManager] push];
+    [self.operationManager GET:URLString
+                    parameters:params
+                      progress:NULL
+                       success:^(NSURLSessionDataTask *operation, id responseObject) {
+                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                           if (completion) {
+                               completion([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
+                           }
+                       }
+                       failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                           if (failure) {
+                               failure(error);
+                           }
+                       }];
 }
 
 @end

@@ -283,7 +283,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self.articleFetcher fetchArticleForURL:articleURL
                 saveToDisk:YES
                 priority:priority
-                progress:NULL
                 failure:^(NSError *_Nonnull error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self didFetchArticle:nil url:articleURL error:error];
