@@ -4,6 +4,7 @@
 static NSString *const kAppInstallIdKey = @"app_install_id";
 static NSString *const kAnonKey = @"anon";
 static NSString *const kTimestampKey = @"client_dt";
+static NSString *const kWikidataDescriptionEdit = @"wikidataDescriptionEdit";
 
 @implementation EditFunnel
 
@@ -83,6 +84,30 @@ static NSString *const kTimestampKey = @"client_dt";
 - (void)logError:(NSString *)code {
     [self log:@{@"action": @"error",
                 @"errorText": (code ? code : @"")}];
+}
+
+-(void)logWikidataDescriptionEditingStart:(BOOL)isEditingExistingWikidataDescription {
+    [self log:@{@"action": @"start",
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+}
+
+-(void)logReadyToEditWikidataDescription:(BOOL)isEditingExistingWikidataDescription {
+    [self log:@{@"action": @"ready",
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+}
+
+-(void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingWikidataDescription {
+    [self log:@{@"action": @"saveAttempt",
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+}
+
+-(void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingWikidataDescription {
+    [self log:@{@"action": @"saved",
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+}
+
+-(NSString *)wikidataDescriptionType:(BOOL)isEditingExistingWikidataDescription {
+    return isEditingExistingWikidataDescription ? @"existing" : @"new";
 }
 
 @end
