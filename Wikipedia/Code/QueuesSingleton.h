@@ -6,7 +6,6 @@
 @property (strong, nonatomic) AFHTTPSessionManager *sectionWikiTextUploadManager;
 @property (strong, nonatomic) AFHTTPSessionManager *sectionPreviewHtmlFetchManager;
 @property (strong, nonatomic) AFHTTPSessionManager *languageLinksFetcher;
-@property (strong, nonatomic) AFHTTPSessionManager *assetsFetchManager;
 
 - (void)reset;
 + (QueuesSingleton *)sharedInstance;

@@ -26,11 +26,6 @@
     self.sectionWikiTextUploadManager = [AFHTTPSessionManager wmf_createDefaultManager];
     self.sectionPreviewHtmlFetchManager = [AFHTTPSessionManager wmf_createDefaultManager];
     self.languageLinksFetcher = [AFHTTPSessionManager wmf_createDefaultManager];
-
-    self.assetsFetchManager = [AFHTTPSessionManager wmf_createDefaultManager];
-
-    self.assetsFetchManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
     self.languageLinksFetcher.responseSerializer = [MWKLanguageLinkResponseSerializer serializer];
 }
 
