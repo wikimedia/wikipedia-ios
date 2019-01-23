@@ -18,6 +18,8 @@ class SectionEditorViewController: UIViewController {
     private var navigationItemController: SectionEditorNavigationItemController!
 
     private var theme = Theme.standard
+
+    @objc var editFunnel: EditFunnel?
     
     private var wikitext: String? {
         didSet {
