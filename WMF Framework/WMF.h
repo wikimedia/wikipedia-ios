@@ -97,7 +97,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageFilter.h>
 #import <WMF/WMFApiJsonResponseSerializer.h>
-#import <WMF/MWKLanguageLinkResponseSerializer.h>
 #import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNetworkUtilities.h>
 

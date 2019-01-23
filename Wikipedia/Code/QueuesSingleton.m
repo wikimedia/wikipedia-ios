@@ -1,6 +1,5 @@
 #import <WMF/QueuesSingleton.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/MWKLanguageLinkResponseSerializer.h>
 
 @implementation QueuesSingleton
 
@@ -24,8 +23,6 @@
 - (void)reset {
     self.sectionWikiTextUploadManager = [AFHTTPSessionManager wmf_createDefaultManager];
     self.sectionPreviewHtmlFetchManager = [AFHTTPSessionManager wmf_createDefaultManager];
-    self.languageLinksFetcher = [AFHTTPSessionManager wmf_createDefaultManager];
-    self.languageLinksFetcher.responseSerializer = [MWKLanguageLinkResponseSerializer serializer];
 }
 
 @end

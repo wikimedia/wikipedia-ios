@@ -29,24 +29,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKLanguageLinkFetcher *)fetcher {
     if (!_fetcher) {
-        _fetcher = [[MWKLanguageLinkFetcher alloc] initWithManager:[[QueuesSingleton sharedInstance] languageLinksFetcher]
-                                                          delegate:nil];
+        _fetcher = [[MWKLanguageLinkFetcher alloc] init];
     }
     return _fetcher;
 }
 
 - (void)fetchLanguagesWithSuccess:(dispatch_block_t)success
                           failure:(void (^__nullable)(NSError *__nonnull))failure {
-    [[QueuesSingleton sharedInstance].languageLinksFetcher wmf_cancelAllTasksWithCompletionHandler:^{
-        [self.fetcher fetchLanguageLinksForArticleURL:self.articleURL
-                                              success:^(NSArray *languageLinks) {
+    [self.fetcher fetchLanguageLinksForArticleURL:self.articleURL
+                                          success:^(NSArray *languageLinks) {
+                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                   self.availableLanguages = languageLinks;
                                                   if (success) {
                                                       success();
                                                   }
-                                              }
-                                              failure:failure];
-    }];
+                                              });
+                                          }
+                                          failure:^(NSError * _Nonnull error) {
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  failure(error);
+                                              });
+                                          }];
 }
 
 - (void)setAvailableLanguages:(NSArray *)availableLanguages {
