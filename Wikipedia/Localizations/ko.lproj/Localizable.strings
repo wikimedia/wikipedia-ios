@@ -540,8 +540,7 @@
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-pages-progress-syncing" = "문서 다운로드 진행 중...";
 "saved-reading-lists-title" = "읽기 목록";
-// Fuzzy
-"saved-search-default-text" = "검색";
+"saved-search-default-text" = "저장된 문서 검색";
 "saved-title" = "저장된 문서";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|이 문서의}} 저장을 취소하면 관련된 모든 읽기 목록의 선택 항목을 제거합니다";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|문서}}의 저장을 취소하시겠습니까?";

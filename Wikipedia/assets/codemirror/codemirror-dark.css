@@ -87,3 +87,9 @@ html, body, .CodeMirror {
 .cm-mw-skipformatting {
   color: #C8CCD1;
 }
+
+.cm-searching {
+  color: #000;
+  background-color: rgba(247, 215, 121, 0.7);
+  border-radius: 2px;
+}

@@ -62,7 +62,7 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc func keyboardDidHide() {
-        inputViewsController.textFormattingProvidingDidDismissKeyboard()
+        inputViewsController.keyboardDidHide()
     }
 
     private func configureWebView() {
@@ -87,6 +87,9 @@ class SectionEditorViewController: UIViewController {
         contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
+
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
 
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -130,22 +133,7 @@ class SectionEditorViewController: UIViewController {
     }
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
-        // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
-        // Doing so means we *only* have to escape backtick, '{', and '}'. Escaping '{' and '}' is needed for handling ES6 template literals.
-        // Benefit vs. current 'wmf_stringBySanitizingForJavaScript' with apostrophes approach is no need to escape apostrophes, quotes and line breaks.
-        // (May consider switching other native-to-JS messaging to do same later.)
-        let escapedWikitext = wikitext.replacingOccurrences(of: "([{}\\`])", with: "\\\\$1", options: .regularExpression)
-
-        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
-            guard let completionHandler = completionHandler else {
-                return
-            }
-            completionHandler(error)
-        }
-    }
-    
-    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
-        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
+        messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
 
     private func loadWikitext() {
@@ -166,6 +154,13 @@ class SectionEditorViewController: UIViewController {
     override func accessibilityPerformEscape() -> Bool {
         navigationController?.popViewController(animated: true)
         return true
+    }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { (_) in
+            self.inputViewsController.didTransitionToNewCollection()
+        }
     }
 }
 
