@@ -19,12 +19,17 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
 
-    @objc var article: MWKArticle? = nil
+    @objc var article: MWKArticle? = nil {
+        didSet {
+            isEditingExistingDescription = article?.entityDescription != nil
+        }
+    }
     private let showWarningIfDescriptionLongerThanCount = 90
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
 
     @objc var editFunnel: EditFunnel?
+    private var isEditingExistingDescription: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
