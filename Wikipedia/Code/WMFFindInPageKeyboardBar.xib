@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,13 +56,13 @@
                             <rect key="frame" x="78" y="9" width="324" height="30"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-3k-0Gf">
-                                    <rect key="frame" x="10" y="4" width="13" height="21"/>
+                                    <rect key="frame" x="10" y="4.5" width="13" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="13" id="3zu-4U-ckL"/>
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SWF-dB-rso">
-                                    <rect key="frame" x="33" y="7" width="253" height="17"/>
+                                    <rect key="frame" x="33" y="6.5" width="253" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                     <connections>
@@ -126,15 +126,16 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="mcZ-4f-6ui" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Hb3-fq-BHR"/>
+                <constraint firstItem="mcZ-4f-6ui" firstAttribute="leading" secondItem="nUH-ZK-lDf" secondAttribute="leading" id="Hb3-fq-BHR"/>
                 <constraint firstAttribute="bottomMargin" secondItem="mcZ-4f-6ui" secondAttribute="bottom" id="HyA-XF-w3w"/>
                 <constraint firstItem="mcZ-4f-6ui" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LYs-3c-DTU"/>
-                <constraint firstAttribute="trailing" secondItem="mcZ-4f-6ui" secondAttribute="trailing" id="eQQ-wV-WiN"/>
+                <constraint firstItem="nUH-ZK-lDf" firstAttribute="trailing" secondItem="mcZ-4f-6ui" secondAttribute="trailing" id="eQQ-wV-WiN"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="nUH-ZK-lDf"/>
             <connections>
                 <outlet property="clearButton" destination="upA-Ii-L3S" id="LdL-j7-z1Q"/>
                 <outlet property="closeButton" destination="cVz-34-psT" id="Le7-ug-id4"/>

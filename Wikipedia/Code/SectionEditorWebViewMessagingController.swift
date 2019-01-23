@@ -7,9 +7,14 @@ protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool)
 }
 
+protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?)
+}
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
+    weak var findInPageDelegate: SectionEditorWebViewMessagingControllerFindInPageDelegate?
 
     weak var webView: WKWebView!
 
@@ -18,6 +23,9 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
 
+        case (Message.Name.smoothScrollToYOffsetMessage, let yOffset as CGFloat):
+            let newOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: webView.scrollView.contentOffset.y + yOffset)
+            webView.scrollView.setContentOffset(newOffset, animated: true)
         case (Message.Name.codeMirrorMessage, let message as [String: Any]):
             guard
                 let selectionChangedMessage = message[Message.Name.selectionChanged],
@@ -49,6 +57,16 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 }
                 buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: Button(kind: kind))
             }
+        case (Message.Name.codeMirrorSearchMessage, let message as [String: Any]):
+            guard
+                let count = message[Message.Name.findInPageMatchesCount] as? Int,
+                let index = message[Message.Name.findInPageFocusedMatchIndex] as? Int
+            else {
+                assertionFailure("Expected message with findInPageMatchesCount and findInPageFocusedMatchIndex, received: \(message)")
+                return
+            }
+            let id = message[Message.Name.findInPageFocusedMatchID] as? String
+            findInPageDelegate?.sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(self, matchesCount: count, matchIndex: index, matchID: id)
         default:
             assertionFailure("Unsupported message: \(message.name), \(message.body)")
         }
@@ -93,11 +111,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
-        // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
-        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
-        // (May consider switching other native-to-JS messaging to do same later.)
-        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
+    func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        let escapedWikitext = wikitext.wmf_stringBySanitizingForBacktickDelimitedJavascript()
         webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
             guard let completionHandler = completionHandler else {
                 return
@@ -106,7 +121,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
+    func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
         webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
 
@@ -138,6 +153,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case underline
         case strikethrough
         case textSize
+        case find
+        case clearSearch
+        case findNext
+        case findPrevious
         case adjustedContentInsetChanged
     }
 
@@ -257,6 +276,23 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .textSize, argument: "\"\(newSize)\"")
     }
 
+    func find(text: String) {
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .find, argument: "`\(escapedText)`")
+    }
+
+    func clearSearch() {
+        execCommand(for: .clearSearch)
+    }
+
+    func findNext() {
+        execCommand(for: .findNext)
+    }
+
+    func findPrevious() {
+        execCommand(for: .findPrevious)
+    }
+
     func setAdjustedContentInset(newInset: UIEdgeInsets) {
         execCommand(for: .adjustedContentInsetChanged, argument: "{top: \(newInset.top), left: \(newInset.left), bottom: \(newInset.bottom), right: \(newInset.right)}")
     }
@@ -269,6 +305,11 @@ extension SectionEditorWebViewMessagingController {
             static let highlightTheseButtons = "highlightTheseButtons"
             static let disableTheseButtons = "disableTheseButtons"
             static let codeMirrorMessage = "codeMirrorMessage"
+            static let codeMirrorSearchMessage = "codeMirrorSearchMessage"
+            static let findInPageMatchesCount = "findInPageMatchesCount"
+            static let findInPageFocusedMatchIndex = "findInPageFocusedMatchIndex"
+            static let findInPageFocusedMatchID = "findInPageFocusedMatchID"
+            static let smoothScrollToYOffsetMessage = "smoothScrollToYOffsetMessage"
         }
         struct Body {
             struct Key {
