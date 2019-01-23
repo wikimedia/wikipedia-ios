@@ -23,6 +23,8 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     private let showWarningIfDescriptionLongerThanCount = 90
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
+
+    @objc var editFunnel: EditFunnel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
