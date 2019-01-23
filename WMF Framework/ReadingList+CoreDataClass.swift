@@ -28,12 +28,6 @@ public class ReadingList: NSManagedObject {
         }
     }
     
-    public func entry(for article: WMFArticle) -> ReadingListEntry? {
-        return entries?.first {
-            $0.isDeletedLocally == false && $0.articleKey == article.key
-        }
-    }
-    
     public func updateArticlesAndEntries() throws {
         previousCountOfEntries = countOfEntries
         

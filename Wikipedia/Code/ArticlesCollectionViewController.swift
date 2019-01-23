@@ -183,6 +183,13 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
         return article(at: indexPath)?.url
     }
     
+    func entry(at indexPath: IndexPath) -> ReadingListEntry? {
+        guard fetchedResultsController?.isValidIndexPath(indexPath) == true else {
+            return nil
+        }
+        return fetchedResultsController?.object(at: indexPath)
+    }
+    
     func readingLists(for article: WMFArticle) -> [ReadingList] {
         guard let moc = article.managedObjectContext else {
             return []
@@ -209,7 +216,7 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
             return estimate
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell, let entry = fetchedResultsController?.object(at: indexPath) else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell, let entry = entry(at: indexPath) else {
             return estimate
         }
         configure(cell: placeholderCell, for: entry, at: indexPath, layoutOnly: true)
@@ -254,7 +261,7 @@ extension ArticlesCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         guard let savedArticleCell = cell as? SavedArticlesCollectionViewCell,
-            let entry = fetchedResultsController?.object(at: indexPath)
+            let entry = entry(at: indexPath)
             else {
                 return cell
         }
@@ -430,7 +437,7 @@ extension ArticlesCollectionViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
-                let entry = fetchedResultsController?.object(at: indexPath) else {
+                let entry = entry(at: indexPath) else {
                 continue
             }
             configure(cell: cell, for: entry, at: indexPath, layoutOnly: false)
