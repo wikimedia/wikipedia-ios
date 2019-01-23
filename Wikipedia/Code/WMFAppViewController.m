@@ -1,5 +1,6 @@
 #import "WMFAppViewController.h"
 @import WMF;
+@import SystemConfiguration;
 #import "Wikipedia-Swift.h"
 
 #define DEBUG_THEMES 1

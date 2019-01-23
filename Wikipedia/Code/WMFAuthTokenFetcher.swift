@@ -29,12 +29,7 @@ public class WMFAuthToken: NSObject {
     }
 }
 
-public class WMFAuthTokenFetcher: NSObject {
-    private let manager = AFHTTPSessionManager.wmf_createDefault()
-    public func isFetching() -> Bool {
-        return manager.operationQueue.operationCount > 0
-    }
-    
+public class WMFAuthTokenFetcher: Fetcher {
     @objc public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
         func stringForToken(_ type: WMFAuthTokenType) -> String {
             switch type {
@@ -47,19 +42,20 @@ public class WMFAuthTokenFetcher: NSObject {
             }
         }
 
-        
-        let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         let parameters = [
             "action": "query",
             "meta": "tokens",
             "type": stringForToken(type),
             "format": "json"
         ]
-        _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
+        
+        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+            if let error = error {
+                failure(error)
+                return
+            }
             guard
-                let response = response as? [String : AnyObject],
-                let query = response["query"] as? [String: Any],
+                let query = result?["query"] as? [String: Any],
                 let tokens = query["tokens"] as? [String: Any],
                 let token = tokens[stringForToken(type) + "token"] as? String
                 else {
@@ -71,8 +67,6 @@ public class WMFAuthTokenFetcher: NSObject {
                 return
             }
             success(WMFAuthToken(token: token, type: type))
-        }, failure: { (_, error) in
-            failure(error)
-        })
+        }
     }
 }

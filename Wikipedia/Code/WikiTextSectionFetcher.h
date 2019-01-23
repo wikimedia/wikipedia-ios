@@ -14,7 +14,7 @@ extern NSString *const WikiTextSectionFetcherErrorDomain;
 
 @interface WikiTextSectionFetcher : WMFLegacyFetcher
 
-- (void)fetchSection:(MWKSection *)section completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))failure;
+- (void)fetchSection:(MWKSection *)section completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 
 @end
 

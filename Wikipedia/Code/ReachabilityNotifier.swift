@@ -1,4 +1,5 @@
 import Foundation
+import SystemConfiguration
 
 @objc(WMFReachabilityNotifier) public class ReachabilityNotifier: NSObject {
     private let host: String

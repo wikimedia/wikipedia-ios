@@ -23,40 +23,23 @@ public struct WMFAuthLoginInfo {
     }
 }
 
-public class WMFAuthLoginInfoFetcher {
-    public init() {
-        
-    }
-    
-    public func isFetching() -> Bool {
-        return manager?.operationQueue.operationCount ?? 0 > 0
-    }
-
-    deinit {
-        manager = nil
-    }
-
-    var manager: AFHTTPSessionManager? {
-        didSet {
-            oldValue?.invalidateSessionCancelingTasks(true)
-        }
-    }
-
+public class WMFAuthLoginInfoFetcher: Fetcher {
     public func fetchLoginInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthLoginInfoBlock, failure: @escaping WMFErrorHandler){
-        manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager?.responseSerializer = WMFApiJsonResponseSerializer.init()
         let parameters = [
             "action": "query",
             "meta": "authmanagerinfo",
             "amirequestsfor": "login",
             "format": "json"
         ]
-        _ = manager?.wmf_apiPOST(with: parameters, success: { (_, response) in
-            
+        
+        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+            if let error = error {
+                failure(error)
+                return
+            }
             guard
-                let response = response as? [String : AnyObject],
-                let query = response["query"] as? [String : AnyObject],
-                let authmanagerinfo = query["authmanagerinfo"] as? [String : AnyObject],
+                let query = result?["query"] as? [String : Any],
+                let authmanagerinfo = query["authmanagerinfo"] as? [String : Any],
                 let requests = authmanagerinfo["requests"] as? [[String : AnyObject]]
                 else {
                     failure(WMFAuthLoginError.cannotExtractInfo)
@@ -68,8 +51,6 @@ public class WMFAuthLoginInfoFetcher {
             }
             
             success(WMFAuthLoginInfo.init(canAuthenticateNow: true, captcha: WMFCaptcha.captcha(from: requests)))
-        }, failure: { (_, error) in
-            failure(error)
-        })
+        }
     }
 }

@@ -1,6 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 @import WMF;
+@import SystemConfiguration;
 
 #import "WMFEmptyView.h"
 

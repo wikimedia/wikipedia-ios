@@ -1,5 +1,4 @@
 #import "WMFArticleRevisionFetcher.h"
-@import WMF.WMFMantleJSONResponseSerializer;
 @import WMF.WMFNetworkUtilities;
 @import WMF.NSURL_WMFLinkParsing;
 #import "WMFRevisionQueryResults.h"

@@ -8,7 +8,6 @@
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
 #import "Wikipedia-Swift.h"
-#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 
 typedef NS_ENUM(NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -25,7 +24,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface EditSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
+@interface EditSaveViewController () <UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
 
 @property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
@@ -62,7 +61,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (NSString *)getSummary {
     NSMutableArray *summaryArray = @[].mutableCopy;
-
+    
     if (self.cannedSummary01.enabled) {
         [summaryArray addObject:self.cannedSummary01.text];
     }
@@ -72,26 +71,26 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (self.cannedSummary03.enabled) {
         [summaryArray addObject:self.cannedSummary03.text];
     }
-
+    
     if (self.cannedSummary04.enabled) {
         if (self.summaryText && (self.summaryText.length > 0)) {
             [summaryArray addObject:self.summaryText];
         }
     }
-
+    
     return [summaryArray componentsJoinedByString:@"; "];
 }
 
 - (void)setMode:(WMFPreviewAndSaveMode)mode {
     _mode = mode;
-
+    
     [self updateNavigationForMode:mode];
 }
 
 - (void)updateNavigationForMode:(WMFPreviewAndSaveMode)mode {
     UIBarButtonItem *backButton = nil;
     UIBarButtonItem *forwardButton = nil;
-
+    
     switch (mode) {
         case PREVIEW_MODE_EDIT_WIKITEXT:
             backButton = self.buttonLeftCaret;
@@ -116,7 +115,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         default:
             break;
     }
-
+    
     self.navigationItem.leftBarButtonItem = backButton;
     self.navigationItem.rightBarButtonItem = forwardButton;
 }
@@ -125,7 +124,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_WARNING) {
         [self.funnel logAbuseFilterWarningBack:self.abuseFilterCode];
     }
-
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -149,77 +148,79 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-
+    self.wikiTextSectionUploader = [[WikiTextSectionUploader alloc] init];
+    self.editTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
+    
     self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-save-changes-title", nil, nil, @"Save your changes", @"Title for edit preview screens");
-
+    
     self.previewLicenseView.previewLicenseViewDelegate = self;
-
+    
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(goBack)];
-
+    
     self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(goBack)];
-
+    
     self.buttonSave = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-publish", nil, nil, @"Publish", @"Button text for publish button used in various places.\n{{Identical|Publish}}") style:UIBarButtonItemStylePlain target:self action:@selector(goForward)];
-
+    
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
-
+    
     self.summaryText = @"";
-
+    
     //self.saveAutomaticallyIfSignedIn = NO;
-
+    
     [self.funnel logPreview];
-
+    
     self.borderWidth = 1.0f / [UIScreen mainScreen].scale;
-
+    
     [self setupEditSummaryContainerSubviews];
-
+    
     [self constrainEditSummaryContainerSubviews];
-
+    
     [self applyTheme:self.theme];
 }
 
 - (void)constrainEditSummaryContainerSubviews {
     NSDictionary *views = @{
-        @"aboutLabel": self.aboutLabel,
-        @"cannedSummary01": self.cannedSummary01,
-        @"cannedSummary02": self.cannedSummary02,
-        @"cannedSummary03": self.cannedSummary03,
-        @"cannedSummary04": self.cannedSummary04
-    };
-
+                            @"aboutLabel": self.aboutLabel,
+                            @"cannedSummary01": self.cannedSummary01,
+                            @"cannedSummary02": self.cannedSummary02,
+                            @"cannedSummary03": self.cannedSummary03,
+                            @"cannedSummary04": self.cannedSummary04
+                            };
+    
     // Tighten up the spacing for 3.5 inch screens.
     CGFloat spaceAboveCC = ([UIScreen mainScreen].bounds.size.height != 480) ? 43 : 4;
-
+    
     NSDictionary *metrics = @{
-        @"buttonHeight": @(48),
-        @"spaceAboveCC": @(spaceAboveCC)
-    };
-
+                              @"buttonHeight": @(48),
+                              @"spaceAboveCC": @(spaceAboveCC)
+                              };
+    
     NSArray *constraints = @[
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(spaceAboveCC)-|"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views]
-    ];
+                             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|"
+                                                                     options:0
+                                                                     metrics:metrics
+                                                                       views:views],
+                             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]"
+                                                                     options:0
+                                                                     metrics:metrics
+                                                                       views:views],
+                             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]"
+                                                                     options:0
+                                                                     metrics:metrics
+                                                                       views:views],
+                             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]"
+                                                                     options:0
+                                                                     metrics:metrics
+                                                                       views:views],
+                             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]"
+                                                                     options:0
+                                                                     metrics:metrics
+                                                                       views:views],
+                             [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(spaceAboveCC)-|"
+                                                                     options:0
+                                                                     metrics:metrics
+                                                                       views:views]
+                             ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 }
 
@@ -229,7 +230,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     UIEdgeInsets padding = UIEdgeInsetsMake(6, 10, 6, 10);
     UIEdgeInsets margin = UIEdgeInsetsMake(8, 0, 8, 0);
     CGFloat fontSize = 14.0;
-
+    
     MenuButton * (^setupButton)(NSString *, NSInteger) = ^MenuButton *(NSString *text, WMFCannedSummaryChoices tag) {
         MenuButton *button = [[MenuButton alloc] initWithText:text
                                                      fontSize:fontSize
@@ -243,12 +244,12 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         [self.editSummaryContainer addSubview:button];
         return button;
     };
-
+    
     self.cannedSummary01 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-fixed-typos", nil, nil, @"Fixed typo", @"Button text for quick 'fixed typos' edit summary selection"), CANNED_SUMMARY_TYPOS);
     self.cannedSummary02 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-fixed-grammar", nil, nil, @"Fixed grammar", @"Button text for quick 'improved grammar' edit summary selection"), CANNED_SUMMARY_GRAMMAR);
     self.cannedSummary03 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-linked-words", nil, nil, @"Added links", @"Button text for quick 'link addition' edit summary selection"), CANNED_SUMMARY_LINKS);
     self.cannedSummary04 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-other", nil, nil, @"Other", @"Button text for quick \"other\" edit summary selection.\n{{Identical|Other}}"), CANNED_SUMMARY_OTHER);
-
+    
     // Setup the canned edit summaries label.
     self.aboutLabel = [[UILabel alloc] init];
     self.aboutLabel.numberOfLines = 0;
@@ -258,14 +259,14 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.aboutLabel.text = WMFLocalizedStringWithDefaultValue(@"edit-summary-title", nil, nil, @"How did you improve the article?", @"Title for edit summary area of the preview page");
     self.aboutLabel.textAlignment = NSTextAlignmentNatural;
-
+    
     [self.editSummaryContainer addSubview:self.aboutLabel];
 }
 
 - (void)buttonTapped:(UIGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         MenuButton *tappedButton = (MenuButton *)recognizer.view;
-
+        
         NSString *summaryKey;
         switch (tappedButton.tag) {
             case CANNED_SUMMARY_TYPOS:
@@ -284,15 +285,15 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                 NSLog(@"unrecognized button");
         }
         [self.funnel logEditSummaryTap:summaryKey];
-
+        
         switch (tappedButton.tag) {
             case CANNED_SUMMARY_OTHER:
                 [self showSummaryOverlay];
                 break;
-
+                
             default:
                 tappedButton.enabled = !tappedButton.enabled;
-
+                
                 break;
         }
     }
@@ -313,30 +314,30 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)viewWillAppear:(BOOL)animated {
     self.captchaScrollView.alpha = 0.0f;
-
+    
     self.captchaViewController = [WMFCaptchaViewController wmf_initialViewControllerFromClassStoryboard];
     self.captchaViewController.captchaDelegate = self;
     [self wmf_addWithChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
-
+    
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
-
+    
     //[self saveAutomaticallyIfNecessary];
-
+    
     // Highlight the "Other" button if the user entered some "other" text.
     self.cannedSummary04.enabled = (self.summaryText.length > 0) ? YES : NO;
-
+    
     if ([[WMFAuthenticationManager sharedInstance] isLoggedIn]) {
         self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = NO;
         self.previewLicenseView.licenseLoginLabel.attributedText = nil;
     } else {
         self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = YES;
     }
-
+    
     self.previewLicenseTapGestureRecognizer =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(licenseLabelTapped:)];
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(licenseLabelTapped:)];
     [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLicenseTapGestureRecognizer];
-
+    
     [super viewWillAppear:animated];
 }
 
@@ -359,89 +360,14 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [[WMFAlertManager sharedInstance] dismissAlert];
-
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"TabularScrollViewItemTapped"
                                                   object:nil];
-
+    
     [self.previewLicenseView.licenseLoginLabel removeGestureRecognizer:self.previewLicenseTapGestureRecognizer];
-
+    
     [super viewWillDisappear:animated];
-}
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError *)error {
-    if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
-
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
-                dispatchOnMainQueue(^{
-                    [self.delegate editSaveViewControllerDidSave:self];
-                });
-            } break;
-
-            case FETCH_FINAL_STATUS_CANCELLED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            } break;
-
-            case FETCH_FINAL_STATUS_FAILED: {
-
-                switch (error.code) {
-                    case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA: {
-                        if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA) {
-                            [self.funnel logCaptchaFailure];
-                        }
-
-                        NSURL *captchaUrl = [[NSURL alloc] initWithString:error.userInfo[@"captchaUrl"]];
-                        NSString *captchaId = error.userInfo[@"captchaId"];
-                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                        self.captchaViewController.captcha = [[WMFCaptcha alloc] initWithCaptchaID:captchaId captchaURL:captchaUrl];
-                        [self revealCaptcha];
-                    } break;
-
-                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
-                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
-                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
-                        //NSString *warningHtml = error.userInfo[@"warning"];
-                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-                        [self wmf_hideKeyboard];
-
-                        if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
-                            self.mode = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;
-                            self.abuseFilterCode = error.userInfo[@"code"];
-                            [self.funnel logAbuseFilterError:self.abuseFilterCode];
-                        } else {
-                            self.mode = PREVIEW_MODE_EDIT_WIKITEXT_WARNING;
-                            self.abuseFilterCode = error.userInfo[@"code"];
-                            [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
-                        }
-
-                        // Hides the license panel. Needed if logged in and a disallow is triggered.
-                        [[WMFAlertManager sharedInstance] dismissAlert];
-
-                        AbuseFilterAlertType alertType =
-                            (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
-                        [self showAbuseFilterAlertOfType:alertType];
-                    } break;
-
-                    case WIKITEXT_UPLOAD_ERROR_SERVER:
-                    case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
-                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-                        [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
-                        break;
-
-                    default:
-                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                        break;
-                }
-            } break;
-        }
-    }
 }
 
 - (void)save {
@@ -449,61 +375,112 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     // is an anonymous token (i think this happens if you try to get an edit token
     // and your login session has expired), need to pop up alert asking user if they
     // want to log in before continuing with their edit
-
+    
     [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save", nil, nil, @"Publishing...", @"Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}") sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
+    
     [self.funnel logSaveAttempt];
     if (self.savedPagesFunnel) {
         [self.savedPagesFunnel logEditAttemptWithArticleURL:self.section.article.url];
     }
-
-    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        // If fromTitle was set, the section was transcluded, so use the title of the page
-        // it was transcluded from.
-        NSURL *editURL = self.section.fromURL ? self.section.fromURL : self.section.article.url;
-
-        // First try to get an edit token for the page's domain before trying to upload the changes.
-        // Only the domain is used to actually fetch the token, the other values are
-        // parked in EditTokenFetcher so the actual uploader can have quick read-only
-        // access to the exact params which kicked off the token request.
-
-        NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:editURL.wmf_language];
-        self.editTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
-        @weakify(self)
-            [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf
-                siteURL:url
-                success:^(WMFAuthToken *result) {
-                    @strongify(self)
-
-                        self.wikiTextSectionUploader =
-                        [[WikiTextSectionUploader alloc] initAndUploadWikiText:self.wikiText
-                                                                 forArticleURL:editURL
-                                                                       section:[NSString stringWithFormat:@"%d", self.section.sectionId]
-                                                                       summary:[self getSummary]
-                                                                     captchaId:self.captchaViewController.captcha.captchaID
-                                                                   captchaWord:self.captchaViewController.solution
-                                                                         token:result.token
-                                                                   withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                            thenNotifyDelegate:self];
-                }
-                failure:^(NSError *error) {
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                }];
-    }];
+    
+    
+    // If fromTitle was set, the section was transcluded, so use the title of the page
+    // it was transcluded from.
+    NSURL *editURL = self.section.fromURL ? self.section.fromURL : self.section.article.url;
+    
+    // First try to get an edit token for the page's domain before trying to upload the changes.
+    // Only the domain is used to actually fetch the token, the other values are
+    // parked in EditTokenFetcher so the actual uploader can have quick read-only
+    // access to the exact params which kicked off the token request.
+    
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:editURL.wmf_language];
+    @weakify(self)
+    [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf
+                                    siteURL:url
+                                    success:^(WMFAuthToken *result) {
+                                        @strongify(self)
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            
+                                            [self.wikiTextSectionUploader uploadWikiText:self.wikiText forArticleURL:editURL section:[NSString stringWithFormat:@"%d", self.section.sectionId] summary:[self getSummary] captchaId:self.captchaViewController.captcha.captchaID captchaWord:self.captchaViewController.solution token:result.token completion:^(NSDictionary * _Nullable result, NSError * _Nullable error) {
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    if (error) {
+                                                        switch (error.code) {
+                                                            case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA: {
+                                                                if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA) {
+                                                                    [self.funnel logCaptchaFailure];
+                                                                }
+                                                                
+                                                                NSURL *captchaUrl = [[NSURL alloc] initWithString:error.userInfo[@"captchaUrl"]];
+                                                                NSString *captchaId = error.userInfo[@"captchaId"];
+                                                                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                                                                self.captchaViewController.captcha = [[WMFCaptcha alloc] initWithCaptchaID:captchaId captchaURL:captchaUrl];
+                                                                [self revealCaptcha];
+                                                            } break;
+                                                                
+                                                            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
+                                                            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
+                                                            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
+                                                                //NSString *warningHtml = error.userInfo[@"warning"];
+                                                                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                                                                
+                                                                [self wmf_hideKeyboard];
+                                                                
+                                                                if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
+                                                                    self.mode = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;
+                                                                    self.abuseFilterCode = error.userInfo[@"code"];
+                                                                    [self.funnel logAbuseFilterError:self.abuseFilterCode];
+                                                                } else {
+                                                                    self.mode = PREVIEW_MODE_EDIT_WIKITEXT_WARNING;
+                                                                    self.abuseFilterCode = error.userInfo[@"code"];
+                                                                    [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
+                                                                }
+                                                                
+                                                                // Hides the license panel. Needed if logged in and a disallow is triggered.
+                                                                [[WMFAlertManager sharedInstance] dismissAlert];
+                                                                
+                                                                AbuseFilterAlertType alertType =
+                                                                (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
+                                                                [self showAbuseFilterAlertOfType:alertType];
+                                                            } break;
+                                                                
+                                                            case WIKITEXT_UPLOAD_ERROR_SERVER:
+                                                            case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+                                                                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                                                                
+                                                                [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
+                                                                break;
+                                                                
+                                                            default:
+                                                                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                                                                break;
+                                                        }
+                                                        return;
+                                                    }
+                                                    [self.funnel logSavedRevision:[result[@"newrevid"] intValue]];
+                                                    [self.delegate editSaveViewControllerDidSave:self];
+                                                });
+                                            }];
+                                        });
+                                    }
+                                    failure:^(NSError *error) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                                        });
+                                    }];
 }
 
 - (void)showAbuseFilterAlertOfType:(AbuseFilterAlertType)alertType {
     AbuseFilterAlert *abuseFilterAlert = [[AbuseFilterAlert alloc] initWithType:alertType];
-
+    
     [self.view addSubview:abuseFilterAlert];
-
+    
     NSDictionary *views = @{@"abuseFilterAlert": abuseFilterAlert};
-
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[abuseFilterAlert]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:views]];
-
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[abuseFilterAlert]|"
                                                                       options:0
                                                                       metrics:nil
@@ -538,25 +515,25 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)revealCaptcha {
     [self.funnel logCaptchaShown];
-
+    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.35];
     [UIView setAnimationTransition:UIViewAnimationTransitionNone
                            forView:self.view
                              cache:NO];
-
+    
     [self.view bringSubviewToFront:self.captchaScrollView];
-
+    
     self.captchaScrollView.alpha = 1.0f;
     self.captchaScrollView.backgroundColor = self.theme.colors.paperBackground;
-
+    
     self.captchaScrollContainer.backgroundColor = [UIColor clearColor];
     self.captchaContainer.backgroundColor = [UIColor clearColor];
-
+    
     [UIView commitAnimations];
-
+    
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA;
-
+    
     [self highlightCaptchaSubmitButton:NO];
 }
 
@@ -590,9 +567,9 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     }
     self.scrollView.backgroundColor = theme.colors.paperBackground;
     self.captchaScrollView.backgroundColor = theme.colors.baseBackground;
-
+    
     [self.previewLicenseView applyTheme:theme];
-
+    
     self.scrollContainer.backgroundColor = theme.colors.paperBackground;
     self.editSummaryContainer.backgroundColor = theme.colors.paperBackground;
     self.captchaContainer.backgroundColor = theme.colors.paperBackground;

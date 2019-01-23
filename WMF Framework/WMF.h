@@ -96,8 +96,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageFilter.h>
-#import <WMF/WMFApiJsonResponseSerializer.h>
-#import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNetworkUtilities.h>
 
 #import <WMF/UIScreen+WMFImageWidth.h>
@@ -141,7 +139,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/WMFRelatedSearchFetcher.h>
 #import <WMF/WMFRelatedSearchResults.h>
-#import <WMF/WMFSearchResponseSerializer.h>
 
 #import <WMF/MWKLocationSearchResult.h>
 #import <WMF/WMFLocationSearchResults.h>
@@ -149,11 +146,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKLocationSearchResult.h>
 
 #import <WMF/EventLoggingFunnel.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/AFHTTPRequestSerializer+WMFRequestHeaders.h>
-#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 #import <WMF/WMFArticlePreviewFetcher.h>
-#import <WMF/WMFBaseRequestSerializer.h>
 #import <WMF/MWKSearchResult.h>
 #import <WMF/NSDictionary+WMFCommonParams.h>
 
@@ -186,9 +179,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKSite.h>
 #import <WMF/MWKTitle.h>
 #import <WMF/SessionSingleton.h>
-#import <WMF/QueuesSingleton.h>
 #import <WMF/MWKSavedPageEntry.h>
 #import <WMF/WMFLegacyContentGroup.h>
 #import <WMF/WMFLegacyImageCache.h>
-#import <WMF/AFNetworking.h>
-#import <WMF/FetcherBase.h>

@@ -1,7 +1,5 @@
 #import <WMF/MWKSiteInfoFetcher.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/WMFNetworkUtilities.h>
-#import <WMF/WMFApiJsonResponseSerializer.h>
 #import <WMF/MWKSiteInfo.h>
 #import <WMF/WMF-Swift.h>
 

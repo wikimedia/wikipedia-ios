@@ -1,5 +1,4 @@
 #import <WMF/WMFFeedContentFetcher.h>
-#import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFFeedDayResponse.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>

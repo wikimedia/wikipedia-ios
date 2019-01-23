@@ -2,7 +2,6 @@
 #import "WMFAsyncTestCase.h"
 #import "MWKLanguageLinkFetcher.h"
 #import "WMFNetworkUtilities.h"
-#import <WMF/AFNetworking.h>
 
 @interface MWKLanguageLinkFetcherTests : WMFAsyncTestCase
 @property (nonatomic, strong) MWKLanguageLinkFetcher *fetcher;
@@ -11,22 +10,8 @@
 @implementation MWKLanguageLinkFetcherTests
 
 - (void)setUp {
-    self.fetcher = [[MWKLanguageLinkFetcher alloc] initWithManager:[[QueuesSingleton sharedInstance] languageLinksFetcher]
-                                                          delegate:nil];
+    self.fetcher = [[MWKLanguageLinkFetcher alloc] init];
     [super setUp];
-}
-
-- (void)testFetchingNilTitle {
-    PushExpectation();
-    [self.fetcher fetchLanguageLinksForArticleURL:nil
-        success:^(NSArray *langLinks) {
-            XCTFail(@"Expected nil title to result in failure.");
-        }
-        failure:^(NSError *error) {
-            XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
-            [self popExpectationAfter:nil];
-        }];
-    WaitForExpectations();
 }
 
 - (void)testFetchingEmptyTitle {

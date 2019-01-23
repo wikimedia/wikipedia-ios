@@ -2,7 +2,7 @@
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
-public class WMFAuthenticationManager: NSObject {
+public class WMFAuthenticationManager: Fetcher {
     public enum AuthenticationResult {
         case success(_: WMFAccountLoginResult)
         case alreadyLoggedIn(_: WMFCurrentlyLoggedInUser)
@@ -28,10 +28,6 @@ public class WMFAuthenticationManager: NSObject {
             }
         }
     }
-    
-    private let session: Session = {
-        return Session.shared
-    }()
     
     /**
      *  The current logged in user. If nil, no user is logged in
@@ -119,24 +115,32 @@ public class WMFAuthenticationManager: NSObject {
      */
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, completion: @escaping AuthenticationResultHandler) {
         guard let siteURL = loginSiteURL else {
-            completion(.failure(AuthenticationError.missingLoginURL))
+            DispatchQueue.main.async {
+                completion(.failure(AuthenticationError.missingLoginURL))
+            }
             return
         }
         self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { (token) in
             self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: token.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
-                let normalizedUserName = result.username
-                self.loggedInUsername = normalizedUserName
-                KeychainCredentialsManager.shared.username = normalizedUserName
-                KeychainCredentialsManager.shared.password = password
-                KeychainCredentialsManager.shared.host = siteURL.host
-                self.session.cloneCentralAuthCookies()
-                SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
-                completion(.success(result))
+                DispatchQueue.main.async {
+                    let normalizedUserName = result.username
+                    self.loggedInUsername = normalizedUserName
+                    KeychainCredentialsManager.shared.username = normalizedUserName
+                    KeychainCredentialsManager.shared.password = password
+                    KeychainCredentialsManager.shared.host = siteURL.host
+                    self.session.cloneCentralAuthCookies()
+                    SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+                    completion(.success(result))
+                }
             }, failure: { (error) in
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             })
         }) { (error) in
-            completion(.failure(error))
+            DispatchQueue.main.async {
+                completion(.failure(error))
+            }
         }
     }
     
@@ -193,8 +197,6 @@ public class WMFAuthenticationManager: NSObject {
         })
     }
     
-    fileprivate var logoutManager:AFHTTPSessionManager?
-    
     fileprivate func resetLocalUserLoginSettings() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
@@ -222,20 +224,23 @@ public class WMFAuthenticationManager: NSObject {
         let postDidLogOutNotification = {
             NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
         }
-        logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
-        _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
-            DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
-            // It's best to call "action=logout" API *before* clearing local login settings...
-            self.resetLocalUserLoginSettings()
-            completion()
-            postDidLogOutNotification()
-        }, failure: { (_, error) in
-            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-            DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
-            self.resetLocalUserLoginSettings()
-            completion()
-            postDidLogOutNotification()
-        })
+        performMediaWikiAPIPOST(for: loginSiteURL, with: ["action": "logout", "format": "json"]) { (result, response, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+                    DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
+                    self.resetLocalUserLoginSettings()
+                    completion()
+                    postDidLogOutNotification()
+                    return
+                }
+                DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
+                // It's best to call "action=logout" API *before* clearing local login settings...
+                self.resetLocalUserLoginSettings()
+                completion()
+                postDidLogOutNotification()
+            }
+        }
     }
 }
 

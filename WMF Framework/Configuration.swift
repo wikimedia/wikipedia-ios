@@ -103,8 +103,11 @@ public class Configuration: NSObject {
     }
     
     @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
-    public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
+    public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
+        guard let queryParameters = queryParameters else {
+            return builder.components()
+        }
         return builder.components(queryParameters: queryParameters)
     }
     

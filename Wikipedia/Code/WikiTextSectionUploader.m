@@ -2,59 +2,54 @@
 #import "NSObject+WMFExtras.h"
 @import WMF;
 
-@interface WikiTextSectionUploader ()
-
-@property (strong, nonatomic) NSString *wikiText;
-@property (strong, nonatomic) NSURL *articleURL;
-@property (strong, nonatomic) NSString *section;
-@property (strong, nonatomic) NSString *summary;
-@property (strong, nonatomic) NSString *captchaId;
-@property (strong, nonatomic) NSString *captchaWord;
-@property (strong, nonatomic) NSString *token;
-
-@end
-
 @implementation WikiTextSectionUploader
 
-- (instancetype)initAndUploadWikiText:(NSString *)wikiText
-                        forArticleURL:(NSURL *)articleURL
-                              section:(NSString *)section
-                              summary:(NSString *)summary
-                            captchaId:(NSString *)captchaId
-                          captchaWord:(NSString *)captchaWord
-                                token:(NSString *)token
-                          withManager:(AFHTTPSessionManager *)manager
-                   thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate {
-    NSParameterAssert(articleURL.wmf_title);
-    self = [super init];
-    if (self) {
-        self.wikiText = wikiText ? wikiText : @"";
-        self.articleURL = articleURL;
-        self.section = section ? section : @"";
-        self.summary = summary ? summary : @"";
-        self.captchaId = captchaId ? captchaId : @"";
-        self.captchaWord = captchaWord ? captchaWord : @"";
-        self.token = token ? token : @"";
-
-        self.fetchFinishedDelegate = delegate;
-        [self uploadWithManager:manager];
+- (void)uploadWikiText:(nullable NSString *)wikiText
+         forArticleURL:(NSURL *)articleURL
+               section:(NSString *)section
+               summary:(nullable NSString *)summary
+             captchaId:(nullable NSString *)captchaId
+           captchaWord:(nullable NSString *)captchaWord
+                 token:(nullable NSString *)token
+            completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
+    
+    wikiText = wikiText ? wikiText : @"";
+    section = section ? section : @"";
+    summary = summary ? summary : @"";
+    token = token ? token : @"";
+    NSString *title = articleURL.wmf_title;
+    if (!title) {
+        completion(nil, [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        return;
     }
-    return self;
-}
-
-- (void)uploadWithManager:(AFHTTPSessionManager *)manager {
-    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.articleURL.wmf_language];
-
-    NSDictionary *params = [self getParams];
+    
+    NSMutableDictionary *params =
+    @{
+      @"action": @"edit",
+      @"token": token,
+      @"text": wikiText,
+      @"summary": summary,
+      @"section": section,
+      @"title": articleURL.wmf_title,
+      @"format": @"json",
+      }
+    .mutableCopy;
+    
+    if (captchaWord && captchaId) {
+        params[@"captchaid"] = captchaId;
+        params[@"captchaword"] = captchaWord;
+    }
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager POST:url.absoluteString
-        parameters:params
-        progress:NULL
-        success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [self performMediaWikiAPIPOSTForURL:articleURL withBodyParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+
+        if (networkError) {
+            completion(nil, networkError);
+            return;
+        }
             //NSLog(@"JSON: %@", responseObject);
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
@@ -88,7 +83,7 @@
                 if (responseObject[@"edit"][@"captcha"]) {
                     NSMutableDictionary *errorDict = [@{} mutableCopy];
 
-                    errorDict[NSLocalizedDescriptionKey] = (self.captchaWord && (self.captchaWord.length > 0)) ? WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-error", nil, nil, @"CAPTCHA verification error.", @"Alert text shown when section wikitext upload captcha fails")
+                    errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ? WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-error", nil, nil, @"CAPTCHA verification error.", @"Alert text shown when section wikitext upload captcha fails")
                                                                                                                : WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-needed", nil, nil, @"Need CAPTCHA verification.", @"Alert text shown when section wikitext upload captcha is required");
 
                     // Make the capcha id and url available from the error.
@@ -131,39 +126,7 @@
                 }
             }
 
-            [self finishWithError:error
-                      fetchedData:resultDict];
-        }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-            [self finishWithError:error
-                      fetchedData:nil];
-        }];
+        completion(resultDict, error);
+    }];
 }
-
-- (NSMutableDictionary *)getParams {
-    NSParameterAssert(self.token);
-    NSAssert(self.token.length > 0, @"Expected token length greater than zero");
-    NSMutableDictionary *params =
-        @{
-            @"action": @"edit",
-            @"token": self.token,
-            @"text": self.wikiText,
-            @"summary": self.summary,
-            @"section": self.section,
-            @"title": self.articleURL.wmf_title,
-            @"format": @"json"
-        }
-            .mutableCopy;
-
-    if (self.captchaWord) {
-        params[@"captchaid"] = self.captchaId;
-        params[@"captchaword"] = self.captchaWord;
-    }
-
-    return params;
-}
-
 @end

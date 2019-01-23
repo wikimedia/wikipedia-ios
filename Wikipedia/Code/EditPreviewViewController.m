@@ -5,7 +5,7 @@
 #import "EditFunnel.h"
 #import "Wikipedia-Swift.h"
 
-@interface EditPreviewViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate>
+@interface EditPreviewViewController () <UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate>
 
 @property (strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
 @property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
@@ -45,7 +45,8 @@
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-
+    self.previewHtmlFetcher  = [[PreviewHtmlFetcher alloc] init];
+    
     self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"navbar-title-mode-edit-wikitext-preview", nil, nil, @"Preview", @"Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}");;
     
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
@@ -69,35 +70,17 @@
     return [MWLanguageInfo languageInfoForCode:self.section.url.wmf_language];
 }
 
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError *)error {
-    if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero theme:self.theme];
-            } break;
-            case FETCH_FINAL_STATUS_FAILED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            } break;
-            case FETCH_FINAL_STATUS_CANCELLED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            } break;
-        }
-    }
-}
-
 - (void)preview {
     [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-preview-changes", nil, nil, @"Retrieving preview of your changes...", @"Alert text shown when getting preview of user changes to wikitext") sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-    [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        self.previewHtmlFetcher =
-            [[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
-                                                         articleURL:self.section.url
-                                                        withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
-                                                 thenNotifyDelegate:self];
+    [self.previewHtmlFetcher fetchHTMLForWikiText:self.wikiText articleURL:self.section.url completion:^(NSString * _Nullable result, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                return;
+            }
+            [[WMFAlertManager sharedInstance] dismissAlert];
+            [self.previewWebViewContainer.webView loadHTML:result baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero theme:self.theme];
+        });
     }];
 }
 

@@ -194,7 +194,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [[UserHistoryFunnel shared] logSnapshot];
                 [eventLoggingService reset];
             }
-            [[QueuesSingleton sharedInstance] reset];
         } break;
         default:
             break;

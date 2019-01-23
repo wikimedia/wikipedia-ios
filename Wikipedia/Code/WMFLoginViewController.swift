@@ -285,9 +285,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
-            self.captchaViewController?.captcha = info.captcha
-            self.updatePasswordFieldReturnKeyType()
-            self.enableProgressiveButtonIfNecessary()
+            DispatchQueue.main.async {
+                self.captchaViewController?.captcha = info.captcha
+                self.updatePasswordFieldReturnKeyType()
+                self.enableProgressiveButtonIfNecessary()
+            }
         }, failure: captchaFailure)
     }
 

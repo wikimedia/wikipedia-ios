@@ -168,7 +168,10 @@ import Foundation
                     var bodyComponents = URLComponents()
                     var queryItems: [URLQueryItem] = []
                     for (name, value) in queryParams {
-                        queryItems.append(URLQueryItem(name: name, value: String(describing: value)))
+                        guard let stringValue = value as? String else {
+                            continue
+                        }
+                        queryItems.append(URLQueryItem(name: name, value: stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.wmf_URLQueryAllowed())))
                     }
                     bodyComponents.queryItems = queryItems
                     if let query = bodyComponents.query {
@@ -334,6 +337,21 @@ import Foundation
         }
         if ignoreCache {
             request.cachePolicy = .reloadIgnoringLocalCacheData
+        }
+        let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        task.resume()
+        return task
+    }
+    
+    @objc(postFormEncodedBodyParametersToURL:bodyParameters:completionHandler:)
+    @discardableResult public func postFormEncodedBodyParametersToURL(to url: URL?, bodyParameters: [String: String]? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+        guard let url = url else {
+            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            return nil
+        }
+        guard let request = self.request(with: url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form) else {
+            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            return nil
         }
         let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
         task.resume()

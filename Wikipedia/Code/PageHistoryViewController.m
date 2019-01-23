@@ -3,7 +3,6 @@
 #import "PaddedLabel.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
-@import WMF.AFHTTPSessionManager_WMFCancelAll;
 #import "WMFPageHistoryRevision.h"
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
