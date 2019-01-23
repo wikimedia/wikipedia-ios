@@ -663,9 +663,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
-    self.zeroStatusLabel.text = @"";
-
     [self displayArticle];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
