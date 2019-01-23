@@ -17,6 +17,10 @@ static NSString *const kActionKey = @"action";
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
+    // session token should be regenerated at every 'start' event
+    if ([eventData[kActionKey] isEqualToString:@"start"]) {
+        self.editSessionToken = [self singleUseUUID];
+    }
     dict[@"session_token"] = self.editSessionToken;
     dict[kAnonKey] = self.isAnon;
     dict[kAppInstallIdKey] = self.appInstallID;
