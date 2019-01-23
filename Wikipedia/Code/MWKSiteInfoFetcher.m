@@ -21,7 +21,7 @@
                              failure(error);
                              return;
                          }
-                         NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
+                         NSDictionary *generalProps = [result valueForKeyPath:@"query.general"];
                          NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
                          MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"] readingListsConfigMaxEntriesPerList:readingListsConfig[@"maxEntriesPerList"] readingListsConfigMaxListsPerUser:readingListsConfig[@"maxListsPerUser"]];
                          completion(info);
