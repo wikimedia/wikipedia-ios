@@ -136,11 +136,20 @@ import Foundation
         queue.addOperation(op)
         return op
     }
+    
+    @objc(requestToGetURL:)
+    public func request(toGET requestURL: URL?) -> URLRequest? {
+        guard let requestURL = requestURL else {
+            return nil
+        }
+        return request(with: requestURL, method: .get)
+    }
 
     public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
         if let xWMFUUID = xWMFUUID {
             request.setValue(xWMFUUID, forHTTPHeaderField: "X-WMF-UUID")

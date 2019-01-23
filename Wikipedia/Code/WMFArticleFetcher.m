@@ -20,7 +20,6 @@
 //Models
 #import <WMF/MWKSectionList.h>
 #import <WMF/MWKSection.h>
-#import "WMFArticleBaseFetcher_Testing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -205,10 +204,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                       }];
     
     return operation;
-}
-
-- (BOOL)isFetching {
-    return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
 #pragma mark - Operation Tracking / Cancelling

@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
 #import <WMF/AFNetworking.h>
-#import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"
+#import "WMFSearchResults.h"
 
 @interface WMFSearchResultsSerializationTests : XCTestCase
 
@@ -10,15 +10,11 @@
 @implementation WMFSearchResultsSerializationTests
 
 - (void)testResultsAndRedirectsAreNonnullForZeroResultResponse {
-    NSData *noResultJSONData =
-        [[self wmf_bundle] wmf_dataFromContentsOfFile:@"NoSearchResultsWithSuggestion"
-                                               ofType:@"json"];
     id noResultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
-    NSError *error;
-    WMFSearchResults *searchResults = [[WMFSearchResults responseSerializer] responseObjectForResponse:nil
-                                                                                                  data:noResultJSONData
-                                                                                                 error:&error];
-    XCTAssertNil(error);
+    NSDictionary *query = noResultJSON[@"query"];
+    NSError *mantleError = nil;
+    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:query error:&mantleError];
+    XCTAssertNil(mantleError);
     XCTAssertEqual(searchResults.results.count, 0);
     XCTAssertEqual(searchResults.redirectMappings.count, 0);
     XCTAssertEqualObjects(searchResults.searchSuggestion, [noResultJSON valueForKeyPath:@"query.searchinfo.suggestion"]);
@@ -26,20 +22,16 @@
 
 - (void)testSerializesPrefixResultsInOrderOfIndex {
     NSString *fixtureName = @"BarackSearch";
-    NSData *resultData = [[self wmf_bundle] wmf_dataFromContentsOfFile:fixtureName ofType:@"json"];
-
     NSDictionary *resultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"query"];
 
     NSArray<NSDictionary *> *resultJSONObjects = [resultJSON[@"pages"] allValues];
 
-    NSError *error;
-    WMFSearchResults *searchResults = [[WMFSearchResults responseSerializer] responseObjectForResponse:nil
-                                                                                                  data:resultData
-                                                                                                 error:&error];
-    XCTAssertNil(error);
+    NSError *mantleError = nil;
+    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:resultJSON error:&mantleError];
+    XCTAssertNil(mantleError);
     XCTAssertEqual(searchResults.results.count, resultJSONObjects.count);
 
-    XCTAssertNotNil(searchResults, @"Failed to serialize search results from 'BarackSearch' fixture; %@", error);
+    XCTAssertNotNil(searchResults, @"Failed to serialize search results from 'BarackSearch' fixture; %@", mantleError);
 
     NSSortDescriptor *indexSortDescriptor =
         [NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH(MWKSearchResult.new, index)
