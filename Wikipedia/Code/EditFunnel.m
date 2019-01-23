@@ -87,24 +87,29 @@ static NSString *const kActionKey = @"action";
                 @"errorText": (code ? code : @"")}];
 }
 
-- (void)logWikidataDescriptionEditingStartedForExistingDescription:(BOOL)isEditingExistingWikidataDescription {
+- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription {
     [self log:@{kActionKey: @"start",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
 }
 
-- (void)logReadyToEditWikidataDescription:(BOOL)isEditingExistingWikidataDescription {
+- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription {
     [self log:@{kActionKey: @"ready",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
 }
 
-- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingWikidataDescription {
+- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription {
     [self log:@{kActionKey: @"saveAttempt",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
 }
 
-- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingWikidataDescription {
+- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription {
     [self log:@{kActionKey: @"saved",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+}
+
+- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription {
+    [self log:@{kActionKey: @"error",
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
 }
 
 - (NSString *)wikidataDescriptionType:(BOOL)isEditingExistingWikidataDescription {

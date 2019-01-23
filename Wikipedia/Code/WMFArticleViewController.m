@@ -1820,7 +1820,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showTitleDescriptionEditor {
     BOOL hasWikidataDescription = self.article.entityDescription != NULL;
-    [self.editFunnel logWikidataDescriptionEditingStartedForExistingDescription:hasWikidataDescription];
+    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription];
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
