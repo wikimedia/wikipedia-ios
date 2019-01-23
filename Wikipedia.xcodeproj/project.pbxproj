@@ -1628,7 +1628,6 @@
 		D82118001EE58C080076C040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117FB1EE58C080076C040 /* MapAnnotation.swift */; };
 		D826C51521766E570012F940 /* Collection+AsyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51421766E570012F940 /* Collection+AsyncMap.swift */; };
 		D826C51721766F1A0012F940 /* BackgroundFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51621766F1A0012F940 /* BackgroundFetcher.swift */; };
-		D826C519217673C50012F940 /* PointerArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C518217673C50012F940 /* PointerArray.swift */; };
 		D826C51B217741C50012F940 /* ReachabilityNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51A217741C50012F940 /* ReachabilityNotifier.swift */; };
 		D82972831E3950100061550A /* ArticlePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972821E3950100061550A /* ArticlePlace.swift */; };
 		D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972861E3A49980061550A /* ArticlePopoverViewController.swift */; };
@@ -4483,7 +4482,6 @@
 		D82117FB1EE58C080076C040 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		D826C51421766E570012F940 /* Collection+AsyncMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMap.swift"; sourceTree = "<group>"; };
 		D826C51621766F1A0012F940 /* BackgroundFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetcher.swift; sourceTree = "<group>"; };
-		D826C518217673C50012F940 /* PointerArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerArray.swift; sourceTree = "<group>"; };
 		D826C51A217741C50012F940 /* ReachabilityNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityNotifier.swift; sourceTree = "<group>"; };
 		D82972821E3950100061550A /* ArticlePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlace.swift; sourceTree = "<group>"; };
 		D82972861E3A49980061550A /* ArticlePopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePopoverViewController.swift; sourceTree = "<group>"; };
@@ -7858,7 +7856,6 @@
 				D84C36511F33866C00895FA1 /* WMF Framework.xcassets */,
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
-				D826C518217673C50012F940 /* PointerArray.swift */,
 				D880652E218C732800BF7B91 /* WorkerController.swift */,
 				D8E892242176124F00587F61 /* PeriodicWorker.swift */,
 				D826C51621766F1A0012F940 /* BackgroundFetcher.swift */,
@@ -11047,7 +11044,6 @@
 				D8619BA51FBB10240045C8BC /* ReadingList+CoreDataProperties.swift in Sources */,
 				D881B10F1E32686100D33F62 /* ArticleLocationController.swift in Sources */,
 				D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */,
-				D826C519217673C50012F940 /* PointerArray.swift in Sources */,
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D8FA18F91E1BDA4C009675C3 /* UIView+WMFDefaultNib.m in Sources */,
 				D84C361D1F32404700895FA1 /* SideScrollingCollectionViewCell.swift in Sources */,

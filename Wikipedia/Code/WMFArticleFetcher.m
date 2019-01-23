@@ -29,7 +29,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @interface WMFArticleFetcher ()
 
-@property (nonatomic, strong) NSMapTable<NSURL *, NSURLSessionTask *> *operationsKeyedByTitle;
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -45,8 +44,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     if (self) {
         
         self.dataStore = dataStore;
-        
-        self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
         NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
@@ -126,15 +123,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                              @"pageprops": @"wikibase_item"
                              //@"pilicense": @"any"
                              };
-    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:articleURL.host withQueryParameters:params];
-    NSURLSessionTask *operation = [self.session getJSONDictionaryFromURL:components.URL ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    
+    NSURLSessionTask *operation = [self performCancelableMediaWikiAPIGETForURL:articleURL cancellationKey:articleURL.wmf_articleDatabaseKey withQueryParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         articleResponse = result[@"mobileview"];
         articleError = error;
         [taskGroup leave];
     }];
     
     operation.priority = priority;
-    [self trackOperation:operation forArticleURL:articleURL];
     
     [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
                                       withBlock:^{
@@ -208,46 +204,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Operation Tracking / Cancelling
 
-- (nullable NSURLSessionTask *)trackedOperationForArticleURL:(NSURL *)articleURL {
-    if ([articleURL.wmf_title length] == 0) {
-        return nil;
-    }
-    
-    __block NSURLSessionTask *op = nil;
-    
-    dispatch_sync(self.operationsQueue, ^{
-        op = [self.operationsKeyedByTitle objectForKey:articleURL];
-    });
-    
-    return op;
-}
-
-- (void)trackOperation:(NSURLSessionTask *)operation forArticleURL:(NSURL *)articleURL {
-    if ([articleURL.wmf_title length] == 0) {
-        return;
-    }
-    
-    dispatch_sync(self.operationsQueue, ^{
-        [self.operationsKeyedByTitle setObject:operation forKey:articleURL];
-    });
-}
-
-- (BOOL)isFetchingArticleForURL:(NSURL *)articleURL {
-    return [self trackedOperationForArticleURL:articleURL] != nil;
-}
-
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL {
-    [[self trackedOperationForArticleURL:articleURL] cancel];
+    [self cancelTaskWithCancellationKey:articleURL.wmf_articleDatabaseKey];
 }
 
-- (void)cancelAllFetches {
-    dispatch_sync(self.operationsQueue, ^{
-        for (NSURLSessionTask *task in [self.operationsKeyedByTitle objectEnumerator]) {
-            [task cancel];
-        }
-        [self.operationsKeyedByTitle removeAllObjects];
-    });
-}
 
 - (nullable MWKArticle *)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response error:(NSError **)error {
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];

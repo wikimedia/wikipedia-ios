@@ -186,9 +186,8 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     if (metadataLanguage) {
         params[@"iiextmetadatalanguage"] = metadataLanguage;
     }
-
-    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params];
-    return (id <MWKImageInfoRequest>)[self.session getJSONDictionaryFromURL:components.URL ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    
+    return [self performMediaWikiAPIGETForURL:siteURL withQueryParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;

@@ -22,7 +22,7 @@ import Foundation
         self.leeway = leeway
     }
     
-    var workers = PointerArray<PeriodicWorker>()
+    var workers = [PeriodicWorker]()
     
     @objc public func add(_ worker: PeriodicWorker) {
         workers.append(worker)
@@ -39,11 +39,14 @@ import Foundation
     @objc public func doPeriodicWork(_ completion: (() -> Void)? = nil) {
         let identifier = UUID().uuidString
         delegate?.workerControllerWillStart(self, workWithIdentifier: identifier)
-        workers.allObjects.asyncForEach({ (worker, completion) in
+        workers.asyncForEach({ (worker, completion) in
             worker.doPeriodicWork(completion)
-        }) { () in
+        }) { [weak self] () in
             completion?()
-            self.delegate?.workerControllerDidEnd(self, workWithIdentifier: identifier)
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.delegate?.workerControllerDidEnd(strongSelf, workWithIdentifier: identifier)
         }
     }
 }

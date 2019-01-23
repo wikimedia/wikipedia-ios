@@ -114,6 +114,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     _imageFilePageTitles = nil;
     _indexedImageInfo = nil;
     _fetchedIndices = nil;
+    [self.imageInfoFetcher cancelAllFetches];
 }
 
 - (id<MWKImageInfoRequest> __nullable)fetchBatchContainingIndex:(NSInteger)index {

@@ -13,9 +13,7 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
 @interface WMFArticleFetcher : WMFLegacyFetcher
 
-- (BOOL)isFetchingArticleForURL:(NSURL *)articleURL;
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL;
-- (void)cancelAllFetches;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
