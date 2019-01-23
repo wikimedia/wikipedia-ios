@@ -47,3 +47,7 @@ body {
   background-image: none;
   background-color: none;
 }
+
+.cm-searching-focus {
+  background-color: #fc3 !important;
+}

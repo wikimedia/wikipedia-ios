@@ -2,25 +2,27 @@ protocol SectionEditorInputViewsSource: class {
     var inputViewController: UIInputViewController? { get }
 }
 
-class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeable {
+class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource, Themeable {
     let webView: SectionEditorWebView
     let messagingController: SectionEditorWebViewMessagingController
 
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
+    let findInPageView = WMFFindInPageKeyboardBar.wmf_viewFromClassNib()
 
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController) {
-        defer {
-            inputAccessoryViewType = .default
-        }
-
         self.webView = webView
         self.messagingController = messagingController
+
+        super.init()
 
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
+        findInPageView?.delegate = self
+
+        messagingController.findInPageDelegate = self
 
         inputViewType = nil
         inputAccessoryViewType = .default
@@ -29,6 +31,10 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeabl
 
     func textSelectionDidChange(isRangeSelected: Bool) {
         if inputViewType == nil {
+            if inputAccessoryViewType == .findInPage {
+                messagingController.clearSearch()
+                findInPageView?.reset()
+            }
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
         }
         defaultEditToolbarView?.enableAllButtons()
@@ -63,6 +69,7 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeabl
     private enum InputAccessoryViewType {
         case `default`
         case highlight
+        case findInPage
     }
 
     private var previousInputAccessoryViewType: InputAccessoryViewType?
@@ -85,6 +92,8 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeabl
             maybeView = defaultEditToolbarView
         case .highlight:
             maybeView = contextualHighlightEditToolbarView
+        case .findInPage:
+            maybeView = findInPageView
         }
 
         guard let inputAccessoryView = maybeView as? UIView else {
@@ -99,6 +108,21 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeabl
         textFormattingInputViewController.apply(theme: theme)
         defaultEditToolbarView?.apply(theme: theme)
         contextualHighlightEditToolbarView?.apply(theme: theme)
+        findInPageView?.apply(theme)
+    }
+
+    private var findInPageFocusedMatchID: String?
+
+    func didTransitionToNewCollection() {
+        scrollToFindInPageMatchWithID(findInPageFocusedMatchID)
+    }
+
+    func keyboardDidHide() {
+        guard inputViewType != nil else {
+            return
+        }
+        inputViewType = nil
+        inputAccessoryViewType = .default
     }
 }
 
@@ -109,9 +133,11 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
         messagingController.setTextSize(newSize: newSize.rawValue)
     }
 
-    func textFormattingProvidingDidTapMore() {
-        inputViewType = .textFormatting
-        inputAccessoryViewType = nil
+    func textFormattingProvidingDidTapFindInPage() {
+        inputAccessoryViewType = .findInPage
+        UIView.performWithoutAnimation {
+            findInPageView?.show()
+        }
     }
 
     func textFormattingProvidingDidTapCursorUp() {
@@ -204,9 +230,75 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapSubscript() {
         messagingController.toggleSubscript()
     }
-    
-    func textFormattingProvidingDidDismissKeyboard() {
-        inputViewType = nil
-        inputAccessoryViewType = .default
+}
+
+extension SectionEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?) {
+        guard inputAccessoryViewType == .findInPage else {
+            return
+        }
+        findInPageView?.update(forCurrentMatch: matchIndex, matchesCount: UInt(matchesCount))
+        scrollToFindInPageMatchWithID(matchID)
+        findInPageFocusedMatchID = matchID
+    }
+
+    private func scrollToFindInPageMatchWithID(_ matchID: String?) {
+        guard let matchID = matchID else {
+            return
+        }
+        webView.getScrollRectForHtmlElement(withId: matchID) { [weak self] (matchRect) in
+            guard
+                let findInPageView = self?.findInPageView,
+                let webView = self?.webView,
+                let findInPageViewY = findInPageView.window?.convert(.zero, from: findInPageView).y
+            else {
+                return
+            }
+            let matchRectY = matchRect.minY
+            let contentInsetTop = webView.scrollView.contentInset.top
+            let newOffsetY = matchRectY + contentInsetTop - (0.5 * findInPageViewY) + (0.5 * matchRect.height)
+            let centeredOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: newOffsetY)
+            self?.scrollToOffset(centeredOffset, in: webView)
+        }
+    }
+
+    private func scrollToOffset(_ newOffset: CGPoint, in webView: WKWebView) {
+        guard !newOffset.x.isNaN && !newOffset.y.isNaN && newOffset.x.isFinite && newOffset.y.isFinite else {
+            return
+        }
+        let safeOffset = CGPoint(x: newOffset.x, y: max(0 - webView.scrollView.contentInset.top, newOffset.y))
+        webView.scrollView.setContentOffset(safeOffset, animated: true)
+    }
+}
+
+extension SectionEditorInputViewsController: WMFFindInPageKeyboardBarDelegate {
+    func keyboardBarReturnTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        messagingController.findNext() // TODO ?
+    }
+
+    func keyboardBar(_ keyboardBar: WMFFindInPageKeyboardBar!, searchTermChanged term: String!) {
+        messagingController.find(text: term)
+    }
+
+    func keyboardBarCloseButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        messagingController.clearSearch()
+        keyboardBar.reset()
+        inputAccessoryViewType = previousInputAccessoryViewType
+        if keyboardBar.isVisible() {
+            messagingController.focus()
+        }
+    }
+
+    func keyboardBarClearButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        messagingController.clearSearch()
+        keyboardBar.reset()
+    }
+
+    func keyboardBarPreviousButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        messagingController.findPrevious()
+    }
+
+    func keyboardBarNextButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
+        messagingController.findNext()
     }
 }

@@ -78,8 +78,8 @@ class DefaultEditToolbarView: EditToolbarView {
         delegate?.textFormattingProvidingDidTapCursorRight()
     }
 
-    @IBAction private func showMore(_ sender: UIButton) {
-        delegate?.textFormattingProvidingDidTapMore()
+    @IBAction private func showFindInPage(_ sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapFindInPage()
     }
 
     private enum ActionsType: CGFloat {
