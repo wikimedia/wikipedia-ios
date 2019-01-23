@@ -151,6 +151,7 @@ import Foundation
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
+        request.setValue(NSLocale.wmf_acceptLanguageHeaderForPreferredLanguages, forHTTPHeaderField: "Accept-Language")
         if let xWMFUUID = xWMFUUID {
             request.setValue(xWMFUUID, forHTTPHeaderField: "X-WMF-UUID")
         }
