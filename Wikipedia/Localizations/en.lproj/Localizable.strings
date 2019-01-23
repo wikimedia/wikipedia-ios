@@ -633,6 +633,7 @@
 "wikitext-preview-changes-none" = "No changes were made to be previewed.";
 "wikitext-preview-link-preview-description" = "This link leads to '$1'";
 "wikitext-preview-link-preview-title" = "Link preview";
+"wikitext-preview-save-changes-title" = "Save your changes";
 "wikitext-upload-captcha-error" = "CAPTCHA verification error.";
 "wikitext-upload-captcha-needed" = "Need CAPTCHA verification.";
 "wikitext-upload-result-unknown" = "Unable to determine wikitext upload result.";
