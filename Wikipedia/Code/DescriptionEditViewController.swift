@@ -70,6 +70,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         descriptionTextView.becomeFirstResponder()
+        editFunnel?.logWikidataDescriptionEditReady(isEditingExistingDescription)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
