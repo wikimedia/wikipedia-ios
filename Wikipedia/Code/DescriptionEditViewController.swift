@@ -174,6 +174,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
+        editFunnel?.logWikidataDescriptionEditSaveAttempt(isEditingExistingDescription)
         save()
     }
 
