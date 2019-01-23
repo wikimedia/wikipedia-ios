@@ -5,6 +5,7 @@ static NSString *const kAppInstallIdKey = @"app_install_id";
 static NSString *const kAnonKey = @"anon";
 static NSString *const kTimestampKey = @"client_dt";
 static NSString *const kWikidataDescriptionEdit = @"wikidataDescriptionEdit";
+static NSString *const kActionKey = @"action";
 
 @implementation EditFunnel
 
@@ -27,79 +28,78 @@ static NSString *const kWikidataDescriptionEdit = @"wikidataDescriptionEdit";
 #pragma mark - EditFunnel methods
 
 - (void)logStart {
-    self.editSessionToken = [self singleUseUUID];
-    [self log:@{@"action": @"start"}];
+    [self log:@{kActionKey: @"start"}];
 }
 
 - (void)logPreview {
-    [self log:@{@"action": @"preview"}];
+    [self log:@{kActionKey: @"preview"}];
 }
 
 - (void)logEditSummaryTap:(NSString *)editSummaryTapped {
-    [self log:@{@"action": @"editSummaryTap",
+    [self log:@{kActionKey: @"editSummaryTap",
                 @"editSummaryTapped": editSummaryTapped ? editSummaryTapped : @""}];
 }
 
 - (void)logSavedRevision:(int)revID {
     NSNumber *revIDNumber = [NSNumber numberWithInt:revID];
-    [self log:@{@"action": @"saved",
+    [self log:@{kActionKey: @"saved",
                 @"revID": (revIDNumber ? revIDNumber : @"")}];
 }
 
 - (void)logCaptchaShown {
-    [self log:@{@"action": @"captchaShown"}];
+    [self log:@{kActionKey: @"captchaShown"}];
 }
 
 - (void)logCaptchaFailure {
-    [self log:@{@"action": @"captchaFailure"}];
+    [self log:@{kActionKey: @"captchaFailure"}];
 }
 
 - (void)logAbuseFilterWarning:(NSString *)name {
-    [self log:@{@"action": @"abuseFilterWarning",
+    [self log:@{kActionKey: @"abuseFilterWarning",
                 @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logAbuseFilterError:(NSString *)name {
-    [self log:@{@"action": @"abuseFilterError",
+    [self log:@{kActionKey: @"abuseFilterError",
                 @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logAbuseFilterWarningIgnore:(NSString *)name {
-    [self log:@{@"action": @"abuseFilterWarningIgnore",
+    [self log:@{kActionKey: @"abuseFilterWarningIgnore",
                 @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logAbuseFilterWarningBack:(NSString *)name {
-    [self log:@{@"action": @"abuseFilterWarningBack",
+    [self log:@{kActionKey: @"abuseFilterWarningBack",
                 @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logSaveAttempt {
-    [self log:@{@"action": @"saveAttempt"}];
+    [self log:@{kActionKey: @"saveAttempt"}];
 }
 
 - (void)logError:(NSString *)code {
-    [self log:@{@"action": @"error",
+    [self log:@{kActionKey: @"error",
                 @"errorText": (code ? code : @"")}];
 }
 
 - (void)logWikidataDescriptionEditingStart:(BOOL)isEditingExistingWikidataDescription {
-    [self log:@{@"action": @"start",
+    [self log:@{kActionKey: @"start",
                 kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
 }
 
 - (void)logReadyToEditWikidataDescription:(BOOL)isEditingExistingWikidataDescription {
-    [self log:@{@"action": @"ready",
+    [self log:@{kActionKey: @"ready",
                 kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
 }
 
 - (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingWikidataDescription {
-    [self log:@{@"action": @"saveAttempt",
+    [self log:@{kActionKey: @"saveAttempt",
                 kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
 }
 
 - (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingWikidataDescription {
-    [self log:@{@"action": @"saved",
+    [self log:@{kActionKey: @"saved",
                 kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingWikidataDescription]}];
 }
 
