@@ -27,6 +27,7 @@ static NSString *const kWikidataDescriptionEdit = @"wikidataDescriptionEdit";
 #pragma mark - EditFunnel methods
 
 - (void)logStart {
+    self.editSessionToken = [self singleUseUUID];
     [self log:@{@"action": @"start"}];
 }
 
