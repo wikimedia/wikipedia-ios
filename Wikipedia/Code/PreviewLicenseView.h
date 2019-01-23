@@ -6,7 +6,6 @@
 @protocol PreviewLicenseViewDelegate;
 @interface PreviewLicenseView : UIView <WMFThemeable>
 
-@property (weak, nonatomic) IBOutlet PaddedLabel *licenseCCLabel;
 @property (weak, nonatomic) IBOutlet PaddedLabel *licenseTitleLabel;
 @property (weak, nonatomic) IBOutlet PaddedLabel *licenseLoginLabel;
 

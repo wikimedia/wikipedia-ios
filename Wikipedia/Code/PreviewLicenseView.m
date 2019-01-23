@@ -1,7 +1,6 @@
 #import "PreviewLicenseView.h"
 #import "PaddedLabel.h"
 #import "NSString+FormattedAttributedString.h"
-#import "WikiGlyph_Chars.h"
 #import "Wikipedia-Swift.h"
 
 @interface PreviewLicenseView ()
@@ -40,8 +39,6 @@
 
     self.licenseLoginLabel.text = [WMFCommonStrings editAttribution];
     [self underlineSignIn:self.licenseLoginLabel];
-
-    self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
 
     self.bottomDividerHeight.constant = self.hideBottomDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
 
@@ -108,15 +105,6 @@
         [label.text attributedStringWithAttributes:baseAttributes
                                substitutionStrings:@[[WMFCommonStrings editSignIn]]
                             substitutionAttributes:@[substitutionAttributes]];
-}
-
-- (NSAttributedString *)getCCIconAttributedString {
-    return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
-                                           attributes:@{
-                                               NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:42.0],
-                                               NSForegroundColorAttributeName: self.theme.colors.link,
-                                               NSBaselineOffsetAttributeName: @1.5
-                                           }];
 }
 
 #pragma mark - WMFThemeable
