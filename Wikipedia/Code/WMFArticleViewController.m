@@ -160,6 +160,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
 @property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
+@property (nonatomic, readwrite) EditFunnel *editFunnel;
 
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
 
@@ -206,6 +207,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
+        self.editFunnel = [[EditFunnel alloc] init];
     }
     return self;
 }
@@ -1808,6 +1810,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
+    sectionEditVC.editFunnel = self.editFunnel;
     [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
 }
 
