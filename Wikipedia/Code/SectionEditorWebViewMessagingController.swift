@@ -8,7 +8,7 @@ protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
 }
 
 protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
-    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String)
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?)
 }
 
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
@@ -60,12 +60,12 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case (Message.Name.codeMirrorSearchMessage, let message as [String: Any]):
             guard
                 let count = message[Message.Name.findInPageMatchesCount] as? Int,
-                let index = message[Message.Name.findInPageFocusedMatchIndex] as? Int,
-                let id = message[Message.Name.findInPageFocusedMatchID] as? String
+                let index = message[Message.Name.findInPageFocusedMatchIndex] as? Int
             else {
-                assertionFailure("Expected message with findInPageMatchesCount, findInPageFocusedMatchIndex and findInPageFocusedMatchID, received: \(message)")
+                assertionFailure("Expected message with findInPageMatchesCount and findInPageFocusedMatchIndex, received: \(message)")
                 return
             }
+            let id = message[Message.Name.findInPageFocusedMatchID] as? String
             findInPageDelegate?.sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(self, matchesCount: count, matchIndex: index, matchID: id)
         default:
             assertionFailure("Unsupported message: \(message.name), \(message.body)")

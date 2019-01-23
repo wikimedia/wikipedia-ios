@@ -233,7 +233,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 }
 
 extension SectionEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String) {
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?) {
         guard inputAccessoryViewType == .findInPage else {
             return
         }
