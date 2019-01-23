@@ -26,8 +26,7 @@
                                  @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
                                  //@"pilicense": @"any"
                                  };
-    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:articleURL.host withQueryParameters:parameters];
-    return [self.session getJSONDictionaryFromURL:components.URL ignoreCache:false completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    return [self performMediaWikiAPIGETForURL:articleURL withQueryParameters:parameters completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;

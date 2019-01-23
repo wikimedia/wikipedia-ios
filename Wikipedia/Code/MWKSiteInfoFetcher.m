@@ -14,17 +14,18 @@
         @"format": @"json",
         @"siprop": @"general"
     };
-    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params];
-    [self.session getJSONDictionaryFromURL:components.URL ignoreCache:false completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            failure(error);
-            return;
-        }
-        NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
-        NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
-        MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"] readingListsConfigMaxEntriesPerList:readingListsConfig[@"maxEntriesPerList"] readingListsConfigMaxListsPerUser:readingListsConfig[@"maxListsPerUser"]];
-        completion(info);
-    }];
+    [self performMediaWikiAPIGETForURL:siteURL
+                   withQueryParameters:params
+                     completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+                         if (error) {
+                             failure(error);
+                             return;
+                         }
+                         NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
+                         NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
+                         MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"] readingListsConfigMaxEntriesPerList:readingListsConfig[@"maxEntriesPerList"] readingListsConfigMaxListsPerUser:readingListsConfig[@"maxListsPerUser"]];
+                         completion(info);
+                     }];
 }
 
 @end

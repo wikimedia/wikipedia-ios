@@ -102,9 +102,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                  @"redirects": @1,
                  };
     }
-    
-    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params];
-    [self.session getJSONDictionaryFromURL:components.URL ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self performMediaWikiAPIGETForURL:siteURL withQueryParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         if (error) {
             failure(error);

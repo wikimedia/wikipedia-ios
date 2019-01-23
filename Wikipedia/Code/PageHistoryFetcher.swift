@@ -19,9 +19,7 @@ open class PageHistoryFetcher: WMFLegacyFetcher {
         if let rvContinueKey = requestParams.pagingInfo.rvContinueKey {
             params["rvcontinue"] = rvContinueKey as AnyObject?
         }
-        
-        let components = configuration.mediaWikiAPIURForHost(siteURL.host, with: params)
-        session.getJSONDictionary(from: components.url) { (result, response, error) in
+        performMediaWikiAPIGET(for: siteURL, withQueryParameters: params) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return
