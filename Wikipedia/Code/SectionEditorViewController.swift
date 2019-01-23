@@ -160,7 +160,7 @@ class SectionEditorViewController: UIViewController {
                     return
             }
             
-            editFunnel?.logStart()
+            self.editFunnel?.logStart()
             
             if let protectionStatus = section.article?.protection,
                 let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
