@@ -3,13 +3,7 @@
 @interface EditFunnel : EventLoggingFunnel
 
 @property NSString *editSessionToken;
-@property int userId;
 
-/**
- * Beware that user IDs are per-wiki (per-language) -- we can't save it just at
- * login time.
- */
-- (id)initWithUserId:(int)userId;
 - (void)logStart;
 - (void)logPreview;
 /**
@@ -26,5 +20,11 @@
 - (void)logAbuseFilterWarningBack:(NSString *)name;
 - (void)logSaveAttempt;
 - (void)logError:(NSString *)code;
+
+- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription;
+- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription;
+- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription;
+- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription;
+- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription;
 
 @end
