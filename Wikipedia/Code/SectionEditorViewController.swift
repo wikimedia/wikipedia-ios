@@ -160,7 +160,6 @@ class SectionEditorViewController: UIViewController {
                     return
             }
             
-            let editFunnel = EditFunnel(userId: userID.int32Value)
             editFunnel?.logStart()
             
             if let protectionStatus = section.article?.protection,
