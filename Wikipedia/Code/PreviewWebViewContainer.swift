@@ -7,7 +7,7 @@ import WMF
 }
 
 @objc protocol WMFPreviewAnchorTapAlertDelegate: class {
-    func wmf_showAlert(forTappedAnchorHref href: String?)
+    func wmf_showAlert(forTappedAnchorHref href: String)
 }
 
 @objcMembers class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHandler {

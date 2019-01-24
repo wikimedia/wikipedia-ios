@@ -23,6 +23,7 @@
 #import "SavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
+#import "PreviewHtmlFetcher.h"
 
 // Model
 #import "MWKLicense.h"
@@ -41,7 +42,6 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
 #import "EditSaveViewController.h"
-#import "EditPreviewViewController.h"
 #import "WMFFirstRandomViewController.h"
 
 // Views

@@ -747,6 +747,11 @@
 		B01E3AFB21F986750015B715 /* PreviewWebViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AF821F986750015B715 /* PreviewWebViewContainer.swift */; };
 		B01E3AFC21F986750015B715 /* PreviewWebViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AF821F986750015B715 /* PreviewWebViewContainer.swift */; };
 		B01E3AFD21F986750015B715 /* PreviewWebViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AF821F986750015B715 /* PreviewWebViewContainer.swift */; };
+		B01E3AFF21F98BFF0015B715 /* EditPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */; };
+		B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */; };
+		B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */; };
+		B01E3B0221F98BFF0015B715 /* EditPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */; };
+		B01E3B0321F98BFF0015B715 /* EditPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */; };
 		B01E54AF206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
 		B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
 		B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
@@ -962,11 +967,6 @@
 		B0BDA58220B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA58120B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift */; };
 		B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
-		B0C64A9121F2801300C4CF3F /* EditPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C64A8F21F2801200C4CF3F /* EditPreviewViewController.m */; };
-		B0C64A9221F2801300C4CF3F /* EditPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C64A8F21F2801200C4CF3F /* EditPreviewViewController.m */; };
-		B0C64A9321F2801300C4CF3F /* EditPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C64A8F21F2801200C4CF3F /* EditPreviewViewController.m */; };
-		B0C64A9421F2801300C4CF3F /* EditPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C64A8F21F2801200C4CF3F /* EditPreviewViewController.m */; };
-		B0C64A9521F2801300C4CF3F /* EditPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C64A8F21F2801200C4CF3F /* EditPreviewViewController.m */; };
 		B0C64A9621F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */; };
 		B0C64A9721F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */; };
 		B0C64A9821F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */; };
@@ -3619,6 +3619,7 @@
 		B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDeleteBackwardReportingTextField.swift; path = Wikipedia/Code/WMFDeleteBackwardReportingTextField.swift; sourceTree = SOURCE_ROOT; };
 		B01CFC601E71069000B3546A /* String?+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String?+WMFExtras.swift"; path = "Wikipedia/Code/String?+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		B01E3AF821F986750015B715 /* PreviewWebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWebViewContainer.swift; sourceTree = "<group>"; };
+		B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreviewViewController.swift; sourceTree = "<group>"; };
 		B01E54AE206479CC00374FEE /* ProgressContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressContainer.swift; sourceTree = "<group>"; };
 		B01EA07D2022856200813726 /* ScrollableEducationPanelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollableEducationPanelView.xib; sourceTree = "<group>"; };
 		B02376B21D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFDynamicHeightPopoverMessage.h"; sourceTree = "<group>"; };
@@ -3745,8 +3746,6 @@
 		B0BDA58120B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+SnapshotUtilities.swift"; sourceTree = "<group>"; };
 		B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMapTests.swift"; sourceTree = "<group>"; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
-		B0C64A8E21F2801200C4CF3F /* EditPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPreviewViewController.h; sourceTree = "<group>"; };
-		B0C64A8F21F2801200C4CF3F /* EditPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPreviewViewController.m; sourceTree = "<group>"; };
 		B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditPreviewViewController.storyboard; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -5369,8 +5368,7 @@
 				B0E806DB1C0CEB930065EBC0 /* EditSaveViewController.h */,
 				B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */,
 				B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */,
-				B0C64A8E21F2801200C4CF3F /* EditPreviewViewController.h */,
-				B0C64A8F21F2801200C4CF3F /* EditPreviewViewController.m */,
+				B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */,
 				B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */,
 			);
 			name = Preview;
@@ -10573,7 +10571,6 @@
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
 				7A6ED51720ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
-				B0C64A9121F2801300C4CF3F /* EditPreviewViewController.m in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				B03F8A89205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D858C7B6210B91CD0039E0C9 /* PassthroughView.swift in Sources */,
@@ -10604,6 +10601,7 @@
 				D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */,
 				7ADF497B21B45CEE009EA338 /* TextFormattingPlainToolbarView.swift in Sources */,
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
+				B01E3AFF21F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D818D38B1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				D8A6BAEF1E4C9C0700A981C8 /* ArticlePlaceView.swift in Sources */,
 				7A196F5A21BF199500D9E4B5 /* SectionEditorWebView.swift in Sources */,
@@ -10921,6 +10919,7 @@
 				D80ED3691EE57F4800CE8C50 /* WMFLanguageCell.m in Sources */,
 				D80ED36A1EE57F4800CE8C50 /* WMFSearchButton.m in Sources */,
 				D8E27BAA1F82B38700F9D2B3 /* RMessage.m in Sources */,
+				B01E3B0321F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D80ED36B1EE57F4800CE8C50 /* WMFArticleFetcher.m in Sources */,
 				7A6ED50B20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				7AF56C3321DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
@@ -10939,7 +10938,6 @@
 				7A2432C21FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D80ED37A1EE57F4800CE8C50 /* WMFHelpViewController.m in Sources */,
 				D80ED37B1EE57F4800CE8C50 /* NSString+FormattedAttributedString.m in Sources */,
-				B0C64A9521F2801300C4CF3F /* EditPreviewViewController.m in Sources */,
 				D818FEBF21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				7AE1D33D1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D80ED37C1EE57F4800CE8C50 /* WMFURLSchemeHandler.m in Sources */,
@@ -11636,7 +11634,6 @@
 				D8A42B531E815A9C00D8E281 /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8A42B541E815A9C00D8E281 /* WMFRandomDiceButton.m in Sources */,
 				D8A42B5A1E815A9C00D8E281 /* TableOfContentsReadMoreItem.swift in Sources */,
-				B0C64A9421F2801300C4CF3F /* EditPreviewViewController.m in Sources */,
 				D8A42B5B1E815A9C00D8E281 /* WMFFirstRandomViewController.m in Sources */,
 				D8A42B5D1E815A9C00D8E281 /* ArticlePopoverViewController.swift in Sources */,
 				D858C7B9210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
@@ -11668,6 +11665,7 @@
 				7ADF497E21B45CEE009EA338 /* TextFormattingPlainToolbarView.swift in Sources */,
 				7A998AC41FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */,
 				D8A42B781E815A9C00D8E281 /* UIApplication+SystemSettings.swift in Sources */,
+				B01E3B0221F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8A42B7B1E815A9C00D8E281 /* WMFArticleRevision.m in Sources */,
 				7A196F5D21BF199500D9E4B5 /* SectionEditorWebView.swift in Sources */,
 				D8A42B7C1E815A9C00D8E281 /* ArticlePlaceView.swift in Sources */,
@@ -11993,6 +11991,7 @@
 				D8CE25CE1E698E2400DAE2E0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8E27BA71F82B38500F9D2B3 /* RMessage.m in Sources */,
+				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */,
 				7A6ED50E20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				7AF56C3021DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
@@ -12011,7 +12010,6 @@
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
 				B031032E1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
-				B0C64A9221F2801300C4CF3F /* EditPreviewViewController.m in Sources */,
 				D818FEBC21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
@@ -12347,6 +12345,7 @@
 				D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8E27BA81F82B38600F9D2B3 /* RMessage.m in Sources */,
 				D8EC3ECE1E9BDA35006712EB /* WMFLanguageCell.m in Sources */,
+				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8EC3ECF1E9BDA35006712EB /* WMFSearchButton.m in Sources */,
 				7AF56C3121DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
@@ -12365,7 +12364,6 @@
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
 				7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
-				B0C64A9321F2801300C4CF3F /* EditPreviewViewController.m in Sources */,
 				D818FEBD21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
 				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,

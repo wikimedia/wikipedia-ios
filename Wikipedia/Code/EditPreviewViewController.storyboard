@@ -12,7 +12,7 @@
         <!--Preview Anchor Tap Alert Delegate-->
         <scene sceneID="TJS-xh-DjB">
             <objects>
-                <viewController restorationIdentifier="EditPreviewViewController" storyboardIdentifier="EditPreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="EditPreviewViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="EditPreviewViewController" storyboardIdentifier="EditPreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="EditPreviewViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mk2-1E-CSA"/>
                         <viewControllerLayoutGuide type="bottom" id="LhU-TB-lQR"/>

@@ -252,7 +252,7 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
 // MARK - EditPreviewViewControllerDelegate
 
 extension SectionEditorViewController: EditPreviewViewControllerDelegate {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController!) {
+    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
         guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return
         }
