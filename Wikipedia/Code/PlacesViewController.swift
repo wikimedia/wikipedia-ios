@@ -697,12 +697,12 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
     func performWikidataQuery(forSearch search: PlaceSearch) {
         let fail = {
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
                 self.currentSearch = newSearch
-            })
+            }
         }
         guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL) else {
             fail()
@@ -713,13 +713,13 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             DDLogError("Error fetching bounding region from Wikidata: \(error)")
             fail()
         }, success: { (region) in
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
                 newSearch.region = region
                 self.currentSearch = newSearch
-            })
+            }
         })
     }
     
@@ -2341,7 +2341,7 @@ extension PlacesViewController {
         if place.articles.count > 1 && place.nextCoordinate == nil {
             placeView?.alpha = 0
             placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.transform = CGAffineTransform.identity
@@ -2349,10 +2349,10 @@ extension PlacesViewController {
                 }, completion: { (done) in
                     self.countOfAnimatingAnnotations -= 1
                 })
-            })
+            }
         } else if let nextCoordinate = place.nextCoordinate {
             placeView?.alpha = 0
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                     place.coordinate = nextCoordinate
@@ -2362,17 +2362,17 @@ extension PlacesViewController {
                 UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
                 }, completion: nil)
-            })
+            }
         } else {
             placeView?.alpha = 0
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
                 }, completion: { (done) in
                     self.countOfAnimatingAnnotations -= 1
                 })
-            })
+            }
         }
         
         return placeView
