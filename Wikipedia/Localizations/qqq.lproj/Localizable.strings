@@ -88,7 +88,6 @@
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.\n{{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
-"button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-ok" = "Button text for ok button used in various places\n{{Identical|OK}}";
 "button-publish" = "Button text for publish button used in various places.\n{{Identical|Publish}}";
@@ -143,12 +142,12 @@
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "dim-images" = "Label for image dimming setting";
 "edit-style-table-view-title" = "Title for the text style menu in the editing interface";
+"edit-summary-add-summary-text" = "Text for add summary label";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
-"edit-summary-choice-other" = "Button text for quick \"other\" edit summary selection.\n{{Identical|Other}}";
-"edit-summary-field-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
-"edit-summary-title" = "Title for edit summary area of the preview page";
+"edit-summary-learn-more-text" = "Text for learn more button";
+"edit-summary-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
 "edit-text-formatting-table-view-title" = "Title for text formatting menu in the editing interface";
 "edit-text-size-table-view-title" = "Title for text size menu in the editing interface";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
