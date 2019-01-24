@@ -10,7 +10,7 @@ extension URLComponents {
         return components
     }
     
-    private func percentEncodedQueryStringFrom(_ queryParameters: [String: Any]) -> String {
+    public static func percentEncodedQueryStringFrom(_ queryParameters: [String: Any]) -> String {
         var query = ""
         for (name, value) in queryParameters {
             guard
@@ -35,7 +35,7 @@ extension URLComponents {
         if let existing = percentEncodedQuery {
             newPEQ = existing + "&"
         }
-        newPEQ = newPEQ + percentEncodedQueryStringFrom(queryParameters)
+        newPEQ = newPEQ + URLComponents.percentEncodedQueryStringFrom(queryParameters)
         percentEncodedQuery = newPEQ
     }
     
@@ -44,7 +44,7 @@ extension URLComponents {
             percentEncodedQuery = nil
             return
         }
-        percentEncodedQuery = percentEncodedQueryStringFrom(queryParameters)
+        percentEncodedQuery = URLComponents.percentEncodedQueryStringFrom(queryParameters)
     }
     
     mutating func replacePercentEncodedPathWithPathComponents(_ pathComponents: [String]?) {
