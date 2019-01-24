@@ -21,8 +21,7 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
         let message = String(format: WMFLocalizedStringWithDefaultValue("wikitext-preview-link-preview-description", nil, nil, "This link leads to '%1$@'", "Description of the link URL. %1$@ is the URL."), href)
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-// TODO: move "button-ok" to common strings
-        alertController.addAction(UIAlertAction(title: WMFLocalizedStringWithDefaultValue("button-ok", nil, nil, "OK", "Button text for ok button used in various places\n{{Identical|OK}}"), style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default, handler: nil))
         present(alertController, animated: true)
     }
 
