@@ -172,7 +172,7 @@ class ReadingListsAPIController: NSObject {
     fileprivate func requestWithCSRF(path: [String], method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
         let components = api.components(byAppending: basePathComponents + path)
-        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, components: components, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query)) { (result, response, _, error) in
+        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, components: components, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query)) { (result, response, error) in
             if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                 DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
             } else {

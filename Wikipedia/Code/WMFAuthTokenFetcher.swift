@@ -30,7 +30,7 @@ public class WMFAuthToken: NSObject {
 }
 
 public class WMFAuthTokenFetcher: Fetcher {
-    @objc public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
+    @objc public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL?, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
         func stringForToken(_ type: WMFAuthTokenType) -> String {
             switch type {
             case .csrf:
