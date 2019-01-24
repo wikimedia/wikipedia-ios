@@ -10,7 +10,7 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
     var wikiText = ""
     var funnel: EditFunnel?
     var savedPagesFunnel: SavedPagesFunnel?
-    var theme: Theme?
+    var theme: Theme = .standard
     weak var delegate: EditPreviewViewControllerDelegate?
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
@@ -35,9 +35,6 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (theme == nil) {
-            theme = .standard
-        }
         
         navigationItem.title = WMFLocalizedStringWithDefaultValue("navbar-title-mode-edit-wikitext-preview", nil, nil, "Preview", "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}")
         
@@ -51,9 +48,7 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
         
         preview()
         
-        if let theme = theme {
-            apply(theme: theme)
-        }
+        apply(theme: theme)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,7 +73,7 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
                     return
                 }
                 WMFAlertManager.sharedInstance.dismissAlert()
-                self.previewWebViewContainer.webView?.loadHTML(previewHTML, baseURL: URL(string: "https://wikipedia.org"), withAssetsFile: "preview.html", scrolledToFragment: nil, padding: UIEdgeInsets.zero, theme: self.theme ?? .standard)
+                self.previewWebViewContainer.webView?.loadHTML(previewHTML, baseURL: URL(string: "https://wikipedia.org"), withAssetsFile: "preview.html", scrolledToFragment: nil, padding: UIEdgeInsets.zero, theme: self.theme)
             }
         }
     }

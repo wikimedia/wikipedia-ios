@@ -19,7 +19,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var wikiText = ""
     var funnel: EditFunnel?
     var savedPagesFunnel: SavedPagesFunnel?
-    var theme: Theme?
+    var theme: Theme = .standard
     weak var delegate: EditSaveViewControllerDelegate?
 
     var captchaViewController: WMFCaptchaViewController?
@@ -95,9 +95,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if theme == nil {
-            theme = .standard
-        }
         
         navigationItem.title = WMFLocalizedStringWithDefaultValue("wikitext-preview-save-changes-title", nil, nil, "Save your changes", "Title for edit preview screens")
         
@@ -118,9 +115,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         borderWidth = 1.0 / UIScreen.main.scale
 
-        if let theme = theme {
-            apply(theme: theme)
-        }
+        apply(theme: theme)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -128,7 +123,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
         captchaViewController?.captchaDelegate = self
-        captchaViewController?.apply(theme: theme ?? .standard)
+        captchaViewController?.apply(theme: theme)
         wmf_add(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         mode = .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW
@@ -157,8 +152,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         if recognizer?.state == .ended {
             // Call if user taps the blue "Log In" text in the CC text.
             //self.saveAutomaticallyIfSignedIn = YES;
-            guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard(), let theme = theme else {
-                assertionFailure("Expected view controller and theme")
+            guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                assertionFailure("Expected view controller")
                 return
             }
             loginVC.funnel = WMFLoginFunnel()
@@ -332,7 +327,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         view.bringSubviewToFront(captchaScrollView)
         
         captchaScrollView.alpha = 1.0
-        captchaScrollView.backgroundColor = theme?.colors.paperBackground
+        captchaScrollView.backgroundColor = theme.colors.paperBackground
         
         captchaScrollContainer.backgroundColor = UIColor.clear
         captchaContainer.backgroundColor = UIColor.clear

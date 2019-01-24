@@ -10,11 +10,10 @@ import WMF
     @IBOutlet private weak var licenseTitleLabel: UILabel!
     private var hideTopDivider = false
     private var hideBottomDivider = false
-    public var theme: Theme?
+    public var theme: Theme = .standard
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        theme = Theme.standard
         hideTopDivider = true
         hideBottomDivider = true
     }
@@ -58,7 +57,7 @@ import WMF
         }
         
         let linkAttributes = [
-            NSAttributedString.Key.foregroundColor: theme?.colors.link
+            NSAttributedString.Key.foregroundColor: theme.colors.link
         ]
         
         label?.attributedText = label?.text?.attributedString(attributes: baseAttributes, substitutionStrings: [
@@ -83,7 +82,7 @@ import WMF
         
         let substitutionAttributes = [
             NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue),
-            NSAttributedString.Key.foregroundColor: theme?.colors.link
+            NSAttributedString.Key.foregroundColor: theme.colors.link
         ]
         
         label?.attributedText = label?.text?.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [substitutionAttributes])

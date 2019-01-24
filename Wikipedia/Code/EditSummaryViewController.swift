@@ -14,11 +14,8 @@ import UIKit
 @objcMembers class EditSummaryViewController: UIViewController, Themeable {
     static let maximumSummaryLength = 255
     
-    public var theme: Theme? {
+    public var theme: Theme = .standard {
         didSet {
-            guard let theme = theme else {
-                return
-            }
             apply(theme: theme)
         }
     }
