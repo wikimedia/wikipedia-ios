@@ -150,7 +150,7 @@ class ReadingListsAPIController: Fetcher {
         }
     }
 
-    fileprivate func get<T>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
+    fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
         let key = UUID().uuidString
         let components = api.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
         guard
