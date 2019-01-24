@@ -17,6 +17,8 @@ class SectionEditorViewController: UIViewController {
     private var navigationItemController: SectionEditorNavigationItemController!
 
     private var theme = Theme.standard
+
+    @objc var editFunnel: EditFunnel?
     
     private var wikitext: String? {
         didSet {
@@ -258,14 +260,11 @@ extension SectionEditorViewController: FetchFinishedDelegate {
             let fetcher = sender as! WikiTextSectionFetcher
             guard
                 let results = fetchedData as? [String: Any],
-                let revision = results["revision"] as? String,
-                let userInfo = results["userInfo"] as? [String: Any],
-                let userID = userInfo["id"] as? NSNumber
+                let revision = results["revision"] as? String
             else {
                 return
             }
 
-            let editFunnel = EditFunnel(userId: userID.int32Value)
             editFunnel?.logStart()
 
             if let protectionStatus = fetcher.section.article?.protection,
