@@ -14,7 +14,7 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 }
 
-class EditSaveViewController: UIViewController, Themeable, FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
+class EditSaveViewController: WMFScrollViewController, Themeable, FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
     var section: MWKSection?
     var wikiText = ""
     var funnel: EditFunnel?
@@ -30,7 +30,7 @@ class EditSaveViewController: UIViewController, Themeable, FetchFinishedDelegate
     var borderWidth: CGFloat = 0.0
     @IBOutlet var previewLicenseView: PreviewLicenseView!
     var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
-    @IBOutlet var scrollView: UIScrollView!
+
     @IBOutlet var scrollContainer: UIView!
     var buttonSave: UIBarButtonItem?
     var buttonNext: UIBarButtonItem?
