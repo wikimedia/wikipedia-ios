@@ -6,7 +6,6 @@
 #import "SessionSingleton.h"
 #import <Nocilla/Nocilla.h>
 #import "Wikipedia-Swift.h"
-#import "WMFArticleBaseFetcher_Testing.h"
 #import "WMFRandomFileUtilities.h"
 #import "WMFAsyncTestCase.h"
 @import WMF;
@@ -84,7 +83,6 @@
     [fetcher fetchArticleForURL:dummyArticleURL
         saveToDisk:YES
         priority:NSURLSessionTaskPriorityHigh
-        progress:NULL
         failure:^(NSError *erorr) {
             XCTFail(@"Recieved error");
             [expectation fulfill];
@@ -102,7 +100,6 @@
             [fetcher fetchArticleForURL:dummyArticleURL
                 saveToDisk:YES
                 priority:NSURLSessionTaskPriorityHigh
-                progress:NULL
                 failure:^(NSError *erorr) {
                     XCTFail(@"Recieved error");
                     [expectation fulfill];
@@ -130,7 +127,8 @@
 }
 
 - (NSDictionary *)requestHeaders {
-    return self.articleFetcher.operationManager.requestSerializer.HTTPRequestHeaders;
+    NSURL *url = [self.articleFetcher.configuration mediaWikiAPIURLComponentsForHost:nil withQueryParameters:nil].URL;
+    return [self.articleFetcher.session requestToGetURL:url].allHTTPHeaderFields;
 }
 
 - (void)testRequestHeadersForWikipediaAppUserAgent {

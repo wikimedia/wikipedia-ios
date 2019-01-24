@@ -6,18 +6,19 @@ protocol SectionEditorViewControllerDelegate: class {
 @objc(WMFSectionEditorViewController)
 class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
-
+    
     @objc var section: MWKSection?
-
+    
     private var webView: SectionEditorWebView!
-
+    private let sectionFetcher = WikiTextSectionFetcher()
+    
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
-
+    
     private var theme = Theme.standard
-
+    
     @objc var editFunnel: EditFunnel?
     
     private var wikitext: String? {
@@ -31,42 +32,42 @@ class SectionEditorViewController: UIViewController {
             setWikitextToWebViewIfReady()
         }
     }
-
+    
     // TODO
     private var changesMade: Bool {
         return true
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadWikitext()
-
+        
         navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
-
+        
         configureWebView()
         apply(theme: theme)
-
+        
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
-    
+        
         webView.scrollView.delegate = self
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
         super.viewWillDisappear(animated)
     }
-
+    
     @objc func keyboardDidHide() {
         inputViewsController.keyboardDidHide()
     }
-
+    
     private func configureWebView() {
         guard let language = section?.article?.url.wmf_language else {
             return
@@ -75,7 +76,7 @@ class SectionEditorViewController: UIViewController {
         let configuration = WKWebViewConfiguration()
         let schemeHandler = WMFURLSchemeHandler.shared()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
-
+        
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
@@ -90,33 +91,33 @@ class SectionEditorViewController: UIViewController {
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
-
+        
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
-
+        
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
-
+        
         webView.navigationDelegate = self
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
-
+        
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
         webView.inputViewsSource = inputViewsController
-
+        
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         
         let url = schemeHandler.appSchemeURL(forRelativeFilePath: "codemirror/codemirror-index.html", fragment: "top")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
         webView.load(request)
-
+        
         messagingController.webView = webView
-
+        
         menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
         webView.menuItemsDataSource = menuItemsController
         webView.menuItemsDelegate = menuItemsController
     }
-
+    
     private func setWikitextToWebViewIfReady() {
         assert(Thread.isMainThread)
         guard isCodemirrorReady, let wikitext = wikitext else {
@@ -137,7 +138,7 @@ class SectionEditorViewController: UIViewController {
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
-
+    
     private func loadWikitext() {
         guard let section = section else {
             assertionFailure("Section should be set by now")
@@ -145,19 +146,50 @@ class SectionEditorViewController: UIViewController {
         }
         let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
         WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
-        let manager = QueuesSingleton.sharedInstance()?.sectionWikiTextDownloadManager
-        QueuesSingleton.sharedInstance()?.sectionWikiTextDownloadManager.wmf_cancelAllTasks {
-            let _ = WikiTextSectionFetcher(andFetchWikiTextFor: section, with: manager, thenNotify: self)
+        sectionFetcher.fetch(section) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
+                    return
+                }
+                guard
+                    let results = result as? [String: Any],
+                    let revision = results["revision"] as? String
+                    else {
+                        return
+                }
+                
+                self.editFunnel?.logStart()
+                
+                if let protectionStatus = section.article?.protection,
+                    let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
+                    allowedGroups.count > 0 {
+                    let message: String
+                    if allowedGroups.contains("autoconfirmed") {
+                        message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
+                    } else if allowedGroups.contains("sysop") {
+                        message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
+                    } else {
+                        message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
+                    }
+                    WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+                } else {
+                    WMFAlertManager.sharedInstance.dismissAlert()
+                }
+                
+                self.wikitext = revision
+            }
         }
+        
     }
-
+    
     // MARK: - Accessibility
-
+    
     override func accessibilityPerformEscape() -> Bool {
         navigationController?.popViewController(animated: true)
         return true
     }
-
+    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { (_) in
@@ -186,15 +218,16 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     assertionFailure(error.localizedDescription)
                     return
                 } else if let wikitext = result as? String {
-                    guard let preview = PreviewAndSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                    guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
-                    preview.section = self.section
-                    preview.wikiText = wikitext
-                    preview.delegate = self
+                    vc.theme = self.theme
+                    vc.section = self.section
+                    vc.wikiText = wikitext
+                    vc.delegate = self
                     // TODO: Set funnels
                     // TODO: Apply theme
-                    self.navigationController?.pushViewController(preview, animated: true)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         } else {
@@ -202,15 +235,15 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
     }
-
+    
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
     }
-
+    
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
         messagingController.undo()
     }
-
+    
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         messagingController.redo()
     }
@@ -240,56 +273,28 @@ extension SectionEditorViewController: WKNavigationDelegate {
     }
 }
 
-// MARK - PreviewAndSaveViewControllerDelegate
+// MARK - EditSaveViewControllerDelegate
 
-extension SectionEditorViewController: PreviewAndSaveViewControllerDelegate {
-    func previewViewControllerDidSave(_ previewViewController: PreviewAndSaveViewController!) {
+extension SectionEditorViewController: EditSaveViewControllerDelegate {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController) {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: true)
     }
 }
 
-// MARK: - FetchFinishedDelegate
+// MARK - EditPreviewViewControllerDelegate
 
-extension SectionEditorViewController: FetchFinishedDelegate {
-    func fetchFinished(_ sender: Any!, fetchedData: Any!, status: FetchFinalStatus, error: Error!) {
-        guard sender is WikiTextSectionFetcher else {
+extension SectionEditorViewController: EditPreviewViewControllerDelegate {
+    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
+        guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return
         }
-        switch status {
-        case .FETCH_FINAL_STATUS_SUCCEEDED:
-            let fetcher = sender as! WikiTextSectionFetcher
-            guard
-                let results = fetchedData as? [String: Any],
-                let revision = results["revision"] as? String
-            else {
-                return
-            }
-
-            editFunnel?.logStart()
-
-            if let protectionStatus = fetcher.section.article?.protection,
-               let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
-                allowedGroups.count > 0 {
-                let message: String
-                if allowedGroups.contains("autoconfirmed") {
-                    message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
-                } else if allowedGroups.contains("sysop") {
-                    message = WMFLocalizedString("page-protected-sysop", value: "This page has been fully protected.", comment: "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.")
-                } else {
-                    message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
-                }
-                WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
-            } else {
-                WMFAlertManager.sharedInstance.dismissAlert()
-            }
-            DispatchQueue.main.async {
-                self.wikitext = revision
-            }
-        case .FETCH_FINAL_STATUS_CANCELLED:
-            fallthrough
-        case .FETCH_FINAL_STATUS_FAILED:
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
-        }
+        vc.section = self.section
+        vc.wikiText = editPreviewViewController.wikiText
+        vc.delegate = self
+        vc.theme = self.theme
+        // TODO: Set funnels
+        // TODO: Apply theme
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

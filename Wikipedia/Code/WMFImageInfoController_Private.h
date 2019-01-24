@@ -1,11 +1,5 @@
 #import "WMFImageInfoController.h"
-
-// Model
-@import WMF;
-
-// Networking
 #import "MWKImageInfoFetcher.h"
-#import "MWKImageInfoResponseSerializer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

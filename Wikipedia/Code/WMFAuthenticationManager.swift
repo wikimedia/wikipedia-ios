@@ -2,7 +2,7 @@
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
-public class WMFAuthenticationManager: NSObject {
+public class WMFAuthenticationManager: Fetcher {
     public enum AuthenticationResult {
         case success(_: WMFAccountLoginResult)
         case alreadyLoggedIn(_: WMFCurrentlyLoggedInUser)
@@ -29,10 +29,6 @@ public class WMFAuthenticationManager: NSObject {
         }
     }
     
-    private let session: Session = {
-        return Session.shared
-    }()
-    
     /**
      *  The current logged in user. If nil, no user is logged in
      */
@@ -58,7 +54,6 @@ public class WMFAuthenticationManager: NSObject {
     }
     
     fileprivate let loginInfoFetcher = WMFAuthLoginInfoFetcher()
-    fileprivate let tokenFetcher = WMFAuthTokenFetcher()
     fileprivate let accountLogin = WMFAccountLogin()
     fileprivate let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
     
@@ -119,11 +114,13 @@ public class WMFAuthenticationManager: NSObject {
      */
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, completion: @escaping AuthenticationResultHandler) {
         guard let siteURL = loginSiteURL else {
-            completion(.failure(AuthenticationError.missingLoginURL))
+            DispatchQueue.main.async {
+                completion(.failure(AuthenticationError.missingLoginURL))
+            }
             return
         }
-        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { (token) in
-            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: token.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
+        accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
+            DispatchQueue.main.async {
                 let normalizedUserName = result.username
                 self.loggedInUsername = normalizedUserName
                 KeychainCredentialsManager.shared.username = normalizedUserName
@@ -132,12 +129,12 @@ public class WMFAuthenticationManager: NSObject {
                 self.session.cloneCentralAuthCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 completion(.success(result))
-            }, failure: { (error) in
+            }
+        }, failure: { (error) in
+            DispatchQueue.main.async {
                 completion(.failure(error))
-            })
-        }) { (error) in
-            completion(.failure(error))
-        }
+            }
+        })
     }
     
     /**
@@ -163,37 +160,41 @@ public class WMFAuthenticationManager: NSObject {
         }
         
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
-            self.loggedInUsername = result.name
-            completion(.alreadyLoggedIn(result))
-        }, failure:{ error in
-            guard !(error is URLError) else {
-                self.loggedInUsername = userName
-                let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
-                completion(.success(loginResult))
-                return
+            DispatchQueue.main.async {
+                self.loggedInUsername = result.name
+                completion(.alreadyLoggedIn(result))
             }
-            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, completion: { (loginResult) in
-                switch loginResult {
-                case .success(let result):
-                    completion(.success(result))
-                case .failure(let error):
-                    guard !(error is URLError) else {
-                        self.loggedInUsername = userName
-                        let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
-                        completion(.success(loginResult))
-                        return
-                    }
-                    self.loggedInUsername = nil
-                    self.logout(initiatedBy: .app)
-                    completion(.failure(error))
-                default:
-                    break
+        }, failure:{ error in
+            DispatchQueue.main.async {
+                guard !(error is URLError) else {
+                    self.loggedInUsername = userName
+                    let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                    completion(.success(loginResult))
+                    return
                 }
-            })
+                self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, completion: { (loginResult) in
+                    DispatchQueue.main.async {
+                        switch loginResult {
+                        case .success(let result):
+                            completion(.success(result))
+                        case .failure(let error):
+                            guard !(error is URLError) else {
+                                self.loggedInUsername = userName
+                                let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                                completion(.success(loginResult))
+                                return
+                            }
+                            self.loggedInUsername = nil
+                            self.logout(initiatedBy: .app)
+                            completion(.failure(error))
+                        default:
+                            break
+                        }
+                    }
+                })
+            }
         })
     }
-    
-    fileprivate var logoutManager:AFHTTPSessionManager?
     
     fileprivate func resetLocalUserLoginSettings() {
         KeychainCredentialsManager.shared.username = nil
@@ -222,20 +223,23 @@ public class WMFAuthenticationManager: NSObject {
         let postDidLogOutNotification = {
             NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
         }
-        logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
-        _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
-            DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
-            // It's best to call "action=logout" API *before* clearing local login settings...
-            self.resetLocalUserLoginSettings()
-            completion()
-            postDidLogOutNotification()
-        }, failure: { (_, error) in
-            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-            DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
-            self.resetLocalUserLoginSettings()
-            completion()
-            postDidLogOutNotification()
-        })
+        performMediaWikiAPIPOST(for: loginSiteURL, with: ["action": "logout", "format": "json"]) { (result, response, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+                    DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
+                    self.resetLocalUserLoginSettings()
+                    completion()
+                    postDidLogOutNotification()
+                    return
+                }
+                DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
+                // It's best to call "action=logout" API *before* clearing local login settings...
+                self.resetLocalUserLoginSettings()
+                completion()
+                postDidLogOutNotification()
+            }
+        }
     }
 }
 

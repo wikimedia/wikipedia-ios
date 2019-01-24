@@ -1,26 +1,8 @@
-bplist00—]LibrariesUsed≠
- %*/5:?D”	UTitle[LicenseText[LicenseNameTMaps_DApple Maps: 
+bplist00—]LibrariesUsed¨
+ %*05:?”	UTitle[LicenseText[LicenseNameTMaps_DApple Maps: 
 
 https://gspe21-ssl.ls.apple.com/html/attribution.html
-P”[LicenseText[LicenseName\AFNetworking_MCopyright (c) 2011-2016 Alamofire Software Foundation (http://alamofire.org/)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.SMIT”[LicenseText[LicenseName_CocoaLumberjack_BSoftware License Agreement (BSD License)
+P”[LicenseText[LicenseName_CocoaLumberjack_BSoftware License Agreement (BSD License)
 
 Copyright (c) 2010-2016, Deusty, LLC
 All rights reserved.
@@ -37,7 +19,7 @@ with or without modification, are permitted provided that the following conditio
   derived from this software without specific prior
   written permission of Deusty, LLC.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.SBSD”[LicenseText[LicenseNameVMantle_	ç**Copyright (c) GitHub, Inc.**
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.SBSD”[LicenseText[LicenseNameVMantle_	ç**Copyright (c) GitHub, Inc.**
 **All rights reserved.**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -58,7 +40,7 @@ Redistribution and use in source and binary forms, with or without modification,
  * Neither the name of the Bitswift, Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-”[LicenseText[LicenseNameUhpple_JCopyright (c) 2009 Topfunky Corporation, http://topfunky.com
+SMIT”[LicenseText[LicenseNameUhpple_JCopyright (c) 2009 Topfunky Corporation, http://topfunky.com
 
 MIT LICENSE
 
@@ -80,7 +62,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-”!"#$[LicenseText[LicenseNameZlibextobjc_3**Copyright (c) 2012 - 2014 Justin Spahr-Summers**
+”[LicenseText[LicenseNameZlibextobjc_3**Copyright (c) 2012 - 2014 Justin Spahr-Summers**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -98,7 +80,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-”&'()[LicenseText[LicenseName_FLAnimatedImage_9The MIT License (MIT)
+”!"#$[LicenseText[LicenseName_FLAnimatedImage_9The MIT License (MIT)
 
 Copyright (c) 2014-2016 Flipboard
 
@@ -119,7 +101,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-”+,-.[LicenseText[LicenseName\GCDWebServer_…Copyright (c) 2012-2014, Pierre-Olivier Latour
+”&'()[LicenseText[LicenseName\GCDWebServer_…Copyright (c) 2012-2014, Pierre-Olivier Latour
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -143,7 +125,7 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-”01234[LicenseText[LicenseName^NYTPhotoViewer_FCopyright (c) 2015-2016 The New York Times Company
+”+,-./[LicenseText[LicenseName^NYTPhotoViewer_FCopyright (c) 2015-2016 The New York Times Company
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this library except in compliance with the License.
@@ -156,7 +138,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-ZApache 2.0”6789[LicenseText[LicenseNameXRMessage_DCopyright (c) 2016 TouchSix, Inc. Adonis Peralta <donileo@gmail.com>
+ZApache 2.0”1234[LicenseText[LicenseNameXRMessage_DCopyright (c) 2016 TouchSix, Inc. Adonis Peralta <donileo@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -174,7 +156,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.”;<=>[LicenseText[LicenseName\SWStepSlider_CCopyright (c) 2016 Sarun Wongpatcharapakorn <artwork.th@gmail.com>
+THE SOFTWARE.”6789[LicenseText[LicenseName\SWStepSlider_CCopyright (c) 2016 Sarun Wongpatcharapakorn <artwork.th@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -193,7 +175,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-”@ABC[LicenseText[LicenseName_TUSafariActivity_;Copyright (c) 2012 ThinkUltimate (http://thinkultimate.com).
+”;<=>[LicenseText[LicenseName_TUSafariActivity_;Copyright (c) 2012 ThinkUltimate (http://thinkultimate.com).
 
 http://github.com/davbeck/TUSafariActivity
 
@@ -216,7 +198,7 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
-”EFGH[LicenseText[LicenseNameVTweaks_ÔBSD License
+”@ABC[LicenseText[LicenseNameVTweaks_ÔBSD License
 
 For Tweaks software
 
@@ -246,11 +228,4 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ' . 4 @ L Q ò ô † ¨ ∏ ≈!-9K
-ë
-ï
-ú
-®
-¥
-ªLS_kqø∆“ﬁÈ '3?Q!é!ï!°!≠!∫'á'é'ö'¶'µ)ˇ*
-***)*2.z.Å.ç.ô.¶2Ì2Ù3 338^8e8q8}8Ñ             I              >w
+    & - 3 ? K P ó ò ü ´ ∑ …&29 Œ’·ÌÛAHT`k¢©µ¡”#/<#	###(#7%Å%å%ì%ü%´%¥)¸****(.o.v.Ç.é.°3‡3Á3Û3ˇ4             D              9˘

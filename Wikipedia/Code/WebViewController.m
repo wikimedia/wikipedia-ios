@@ -663,9 +663,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
-    self.zeroStatusLabel.text = @"";
-
     [self displayArticle];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
@@ -673,12 +670,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewWillAppear:(BOOL)animated {
     self.webView.scrollView.delegate = self;
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateZeroBannerWithNotification:)
-                                                 name:WMFZeroRatingChanged
-                                               object:nil];
-    // should happen in will appear to prevent bar from being incorrect during transitions
-    [self updateZeroBanner];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refererenceLinkTappedWithNotification:)
@@ -699,7 +690,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFArticleUpdatedNotification object:nil];
@@ -719,26 +709,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
-}
-
-#pragma mark - Zero
-
-- (void)updateZeroBannerWithNotification:(NSNotification *)notification {
-    [self updateZeroBanner];
-}
-
-- (void)updateZeroBanner {
-    if ([[SessionSingleton sharedInstance] zeroConfigurationManager].isZeroRated) {
-        [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigurationManager] zeroConfiguration]];
-    } else {
-        self.zeroStatusLabel.text = @"";
-    }
-}
-
-- (void)showBannerForZeroConfiguration:(WMFZeroConfiguration *)zeroConfiguration {
-    self.zeroStatusLabel.text = zeroConfiguration.message;
-    self.zeroStatusLabel.textColor = zeroConfiguration.foreground;
-    self.zeroStatusLabel.backgroundColor = zeroConfiguration.background;
 }
 
 #pragma mark - Header

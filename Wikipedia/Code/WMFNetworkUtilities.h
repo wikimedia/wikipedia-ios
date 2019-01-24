@@ -20,12 +20,4 @@ extern NSString *WMFJoinedPropertyParameters(NSArray *props);
 
 extern NSError *WMFErrorForApiErrorObject(NSDictionary *apiError);
 
-#import <WMF/FetcherBase.h>
-
 extern void wmf_postNetworkRequestBeganNotification(NSURLRequest *request);
-
-@interface NSError (WMFFetchFinalStatus)
-
-- (FetchFinalStatus)wmf_fetchStatus;
-
-@end

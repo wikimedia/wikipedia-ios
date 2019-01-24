@@ -194,12 +194,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [[UserHistoryFunnel shared] logSnapshot];
                 [eventLoggingService reset];
             }
-            [[WMFSession shared] setShouldSendUsageReports:isOn];
-            [[QueuesSingleton sharedInstance] reset];
         } break;
-        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
-            [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
-            break;
         default:
             break;
     }
@@ -480,10 +475,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.sections addObject:[self section_2]];
     [self.sections addObject:[self section_3]];
     [self.sections addObject:[self section_4]];
-    [self.sections addObject:[self section_5]];
-    WMFSettingsTableViewSection *section6 = [self section_6];
-    if (section6) {
-        [self.sections addObject:section6];
+    WMFSettingsTableViewSection *section5 = [self section_5];
+    if (section5) {
+        [self.sections addObject:section5];
     }
 
     [self.tableView reloadData];
@@ -532,16 +526,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (WMFSettingsTableViewSection *)section_4 {
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroWarnWhenLeaving],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroFAQ]
-    ]
-                                                                                  headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-zero", nil, nil, @"Wikipedia Zero", @"Header text for the Wikipedia Zero section of the menu. ([https://foundation.wikimedia.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}")
-                                                                                   footerText:nil];
-    return section;
-}
-
-- (WMFSettingsTableViewSection *)section_5 {
-    WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_RateApp],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendFeedback],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About]
@@ -551,7 +535,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     return section;
 }
 
-- (nullable WMFSettingsTableViewSection *)section_6 {
+- (nullable WMFSettingsTableViewSection *)section_5 {
 #if WMF_TWEAKS_ENABLED
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
@@ -599,7 +583,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
     if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
-        [self loadSections];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadSections];
+        });
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

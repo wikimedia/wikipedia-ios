@@ -1,9 +1,10 @@
 @import Foundation;
 #import <WMF/WMFBlockDefinitions.h>
+#import <WMF/WMFLegacyFetcher.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRandomArticleFetcher : NSObject
+@interface WMFRandomArticleFetcher : WMFLegacyFetcher
 
 - (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL completion:(void (^)(NSError *_Nullable error, MWKSearchResult *_Nullable result))completion;
 

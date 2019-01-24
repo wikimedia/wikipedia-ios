@@ -1,4 +1,5 @@
 @import Foundation;
+#import <WMF/WMFLegacyFetcher.h>
 @class WMFRelatedSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -34,7 +35,7 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
  *  characters parameter.
  */
 
-@interface WMFRelatedSearchFetcher : NSObject
+@interface WMFRelatedSearchFetcher : WMFLegacyFetcher
 
 /**
  *  Query a URL for titles related to the URL's title.
@@ -50,8 +51,6 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
                                resultLimit:(NSUInteger)resultLimit
                            completionBlock:(void (^)(WMFRelatedSearchResults *results))completion
                               failureBlock:(void (^)(NSError *error))failure;
-
-@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

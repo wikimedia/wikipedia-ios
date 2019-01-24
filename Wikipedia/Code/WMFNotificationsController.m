@@ -3,6 +3,7 @@
 #import <WMF/WMF-Swift.h>
 @import ImageIO;
 @import UserNotifications;
+@import CoreServices;
 
 #define WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION DEBUG && 0
 

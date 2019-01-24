@@ -18,23 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetcher Implementation
 
-@interface WMFLocationSearchFetcher ()
-
-@property (nonatomic, strong) WMFSession *session;
-
-@end
-
 NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
 
 @implementation WMFLocationSearchFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.session = [WMFSession shared];
-    }
-    return self;
-}
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
                         location:(CLLocation *)location
@@ -55,7 +41,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
 
     NSDictionary *params = [self params:region searchTerm:searchTerm resultLimit:resultLimit sortStyle:sortStyle];
 
-    NSURL *url = [[WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
+    NSURL *url = [[self.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
 
     assert(url);
 

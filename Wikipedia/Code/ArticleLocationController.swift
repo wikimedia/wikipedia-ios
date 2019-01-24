@@ -49,7 +49,7 @@ import Foundation
             return
         }
     
-        dispatchOnMainQueue { 
+        DispatchQueue.main.async {
             self.migrate(managedObjectContext: managedObjectContext, completion: completion)
         }
     }
