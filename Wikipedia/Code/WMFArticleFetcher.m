@@ -42,28 +42,13 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        
+
         self.dataStore = dataStore;
         NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
-        
-        /*
-         Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
-         when cached article content is up to date.
-         */
-        //        FBTweakBind(self.revisionFetcher,
-        //                    timeoutInterval,
-        //                    @"Networking",
-        //                    @"Article",
-        //                    @"Revision Check Timeout",
-        //                    0.8);
     }
     return self;
-}
-
-- (void)dealloc {
-    [self cancelAllFetches];
 }
 
 #pragma mark - Fetching
@@ -78,10 +63,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         return nil;
     }
-    
+
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     [[MWNetworkActivityIndicatorManager sharedManager] push];
-    
+
     __block id summaryResponse = nil;
     [taskGroup enter];
     [[WMFSession shared] fetchSummaryForArticleURL:articleURL
@@ -90,7 +75,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                      summaryResponse = summary;
                                      [taskGroup leave];
                                  }];
-    
+
     //    __block id mediaResponse = nil;
     //    [taskGroup enter];
     //    [[WMFSession shared] fetchMediaForArticleURL:articleURL
@@ -99,39 +84,42 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     //                                     mediaResponse = media;
     //                                     [taskGroup leave];
     //                                 }];
-    
+
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
     [taskGroup enter];
-    
+
     NSNumber *thumbnailWidth = [[UIScreen mainScreen] wmf_leadImageWidthForScale];
     if (!thumbnailWidth) {
         DDLogError(@"Missing thumbnail width for article request serialization: %@", articleURL);
         thumbnailWidth = @640;
     }
-    
+
     NSDictionary *params = @{
-                             @"format": @"json",
-                             @"action": @"mobileview",
-                             @"sectionprop": WMFJoinedPropertyParameters(@[@"toclevel", @"line", @"anchor", @"level", @"number",
-                                                                           @"fromtitle", @"index"]),
-                             @"noheadings": @"true",
-                             @"sections": @"all",
-                             @"page": title,
-                             @"thumbwidth": thumbnailWidth,
-                             @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby", @"languagecount", @"id", @"protection", @"editable", @"displaytitle", @"thumb", @"description", @"image", @"revision", @"namespace", @"pageprops"]),
-                             @"pageprops": @"wikibase_item"
-                             //@"pilicense": @"any"
-                             };
-    
-    NSURLSessionTask *operation = [self performCancelableMediaWikiAPIGETForURL:articleURL cancellationKey:articleURL.wmf_articleDatabaseKey withQueryParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
-        articleResponse = result[@"mobileview"];
-        articleError = error;
-        [taskGroup leave];
-    }];
-    
+        @"format": @"json",
+        @"action": @"mobileview",
+        @"sectionprop": WMFJoinedPropertyParameters(@[@"toclevel", @"line", @"anchor", @"level", @"number",
+                                                      @"fromtitle", @"index"]),
+        @"noheadings": @"true",
+        @"sections": @"all",
+        @"page": title,
+        @"thumbwidth": thumbnailWidth,
+        @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby", @"languagecount", @"id", @"protection", @"editable", @"displaytitle", @"thumb", @"description", @"image", @"revision", @"namespace", @"pageprops"]),
+        @"pageprops": @"wikibase_item"
+        //@"pilicense": @"any"
+    };
+
+    NSURLSessionTask *operation = [self performCancelableMediaWikiAPIGETForURL:articleURL
+                                                               cancellationKey:articleURL.wmf_articleDatabaseKey
+                                                           withQueryParameters:params
+                                                             completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+                                                                 articleResponse = result[@"mobileview"];
+                                                                 articleError = error;
+                                                                 [taskGroup leave];
+                                                             }];
+
     operation.priority = priority;
-    
+
     [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
                                       withBlock:^{
                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -141,7 +129,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               if (!articleResponse[@"coordinates"] && summaryResponse[@"coordinates"]) {
                                                   mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
                                               }
-                                              
+
                                               NSURL *updatedArticleURL = articleURL;
                                               NSString *redirectedTitleAndFragment = articleResponse[@"redirected"];
                                               NSArray<NSString *> *redirectedTitleAndFragmentComponents = [redirectedTitleAndFragment componentsSeparatedByString:@"#"];
@@ -153,12 +141,12 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   }
                                                   updatedArticleURL = [articleURL wmf_URLWithTitle:redirectedTitle fragment:redirectedFragment query:nil];
                                               }
-                                              
+
                                               articleResponse = mutableArticleResponse;
-                                              
+
                                               NSError *articleSerializationError = nil;
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:updatedArticleURL response:articleResponse error:&articleSerializationError];
-                                              
+
                                               if (articleSerializationError) {
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       failure(articleSerializationError);
@@ -198,7 +186,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               });
                                           }
                                       }];
-    
+
     return operation;
 }
 
@@ -207,7 +195,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL {
     [self cancelTaskWithCancellationKey:articleURL.wmf_articleDatabaseKey];
 }
-
 
 - (nullable MWKArticle *)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response error:(NSError **)error {
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
@@ -233,30 +220,30 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                          priority:(float)priority
                                                           failure:(WMFErrorHandler)failure
                                                           success:(WMFArticleHandler)success {
-    
+
     NSParameterAssert(url.wmf_title);
     if (!url.wmf_title) {
         DDLogError(@"Can't fetch nil title, cancelling implicitly.");
         failure([NSError wmf_cancelledError]);
         return nil;
     }
-    
+
     MWKArticle *cachedArticle;
     BOOL isChinese = [url.wmf_language isEqualToString:@"zh"];
-    
+
     if (!forceDownload || isChinese) {
         cachedArticle = [self.dataStore existingArticleWithURL:url];
     }
-    
+
     BOOL forceDownloadForMismatchedHeader = NO;
-    
+
     if (isChinese) {
         NSString *header = [NSLocale wmf_acceptLanguageHeaderForPreferredLanguages];
         if (![cachedArticle.acceptLanguageRequestHeader isEqualToString:header]) {
             forceDownloadForMismatchedHeader = YES;
         }
     }
-    
+
     failure = ^(NSError *error) {
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
         userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
@@ -264,7 +251,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                     code:error.code
                                 userInfo:userInfo]);
     };
-    
+
     @weakify(self);
     NSURLSessionTask *task;
     if (forceDownload || forceDownloadForMismatchedHeader || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
@@ -294,7 +281,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                            return;
                                                                        } else if ([[results revisions].firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
                                                                            DDLogInfo(@"Returning up-to-date local revision of %@", url);
-                                                                               success(cachedArticle, url);
+                                                                           success(cachedArticle, url);
                                                                            return;
                                                                        } else {
                                                                            [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority failure:failure success:success];
