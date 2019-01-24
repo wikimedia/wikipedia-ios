@@ -37,7 +37,6 @@ enum WikidataPublishingError: LocalizedError {
 
 @objc public final class WikidataDescriptionEditingController: Fetcher {
     static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
-    let tokenFetcher = WMFAuthTokenFetcher()
     /// Publish new wikidata description.
     ///
     /// - Parameters:
@@ -82,18 +81,21 @@ enum WikidataPublishingError: LocalizedError {
                                    "format": "json",
                                    "formatversion": "2"]
             let components = self.configuration.wikidataAPIURLComponents(with: queryParameters)
-            self.tokenFetcher.fetchToken(ofType: .csrf, siteURL: components.url, success: { (token) in
-                let bodyParameters = ["language": normalizedLanguage,
-                                      "uselang": normalizedLanguage,
-                                      "id": wikidataID,
-                                      "value": newWikidataDescription,
-                                      "token": token.token]
-                self.session.jsonDecodableTask(with: components.url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: { (result: WikidataAPIResult?, response, error) in
-                    requestWithCSRFCompletion(result, response, token.isAuthorized, error)
-                })
-            }, failure: { (error) in
-                completion(error)
-            })
+            self.requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
+                switch result {
+                case .failure(let error):
+                    completion(error)
+                case .success(let token):
+                    let bodyParameters = ["language": normalizedLanguage,
+                                          "uselang": normalizedLanguage,
+                                          "id": wikidataID,
+                                          "value": newWikidataDescription,
+                                          "token": token.token]
+                    self.session.jsonDecodableTask(with: components.url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form) { (result: WikidataAPIResult?, response, error) in
+                        requestWithCSRFCompletion(result, response, token.isAuthorized, error)
+                    }
+                }
+            }
         }
     }
 }
