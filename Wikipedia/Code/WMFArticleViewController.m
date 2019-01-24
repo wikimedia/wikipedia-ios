@@ -6,7 +6,6 @@
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "PageHistoryViewController.h"
@@ -81,7 +80,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @end
 
-@interface WMFArticleViewController () <SectionEditorViewControllerDelegate,
+@interface WMFArticleViewController () <WMFSectionEditorViewControllerDelegate,
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
                                         WMFReadingThemesControlsViewControllerDelegate,
@@ -161,6 +160,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
 @property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
+@property (nonatomic, readwrite) EditFunnel *editFunnel;
 
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
 
@@ -207,6 +207,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
+        self.editFunnel = [[EditFunnel alloc] init];
     }
     return self;
 }
@@ -1005,6 +1006,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController didMoveToParentViewController:self];
 
     self.pullToRefresh = [[UIRefreshControl alloc] init];
+    self.pullToRefresh.tintColor = self.theme.colors.refreshControlTint;
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
@@ -1295,10 +1297,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [self articleDidLoad];
             [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
         }
-        success:^(MWKArticle *_Nonnull article) {
+        success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
             [self endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+            self.articleURL = articleURL;
             self.article = article;
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
@@ -1713,8 +1716,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    [viewController applyTheme:self.theme];
-    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
+    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme isEditorStyle:[viewController isKindOfClass:[WMFSectionEditorViewController class]]];
     [self presentViewController:navC animated:YES completion:nil];
 }
 
@@ -1805,9 +1807,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showEditorForSection:(MWKSection *)section {
-    SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+    WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
+    sectionEditVC.editFunnel = self.editFunnel;
     [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
 }
 
@@ -1816,9 +1819,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showTitleDescriptionEditor {
+    BOOL hasWikidataDescription = self.article.entityDescription != NULL;
+    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription];
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
+    editVC.editFunnel = self.editFunnel;
     [editVC applyTheme:self.theme];
 
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
@@ -1875,15 +1881,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
-#pragma mark - SectionEditorViewControllerDelegate
+#pragma mark - WMFSectionEditorViewControllerDelegate
 
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
+- (void)sectionEditorDidFinishEditing:(WMFSectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
+        self.webViewController.webView.hidden = YES;
         __weak typeof(self) weakSelf = self;
         self.articleContentLoadCompletion = ^{
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
+            weakSelf.webViewController.webView.hidden = NO;
         };
         [self fetchArticle];
     }
@@ -2216,6 +2224,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
+    self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
 }
 
 @end

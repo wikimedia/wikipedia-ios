@@ -47,7 +47,6 @@
 "article-languages-others" = "Ander Schprohche";
 "article-languages-yours" = "Ding Schprohche";
 "article-read-more-title" = "Mih lässe";
-"article-unable-to-load-article" = "Mer künne dä Atikel nit lahde.";
 "article-unable-to-load-section" = "Mer kunnte dä Affschnett nit lahde. Versöhg ens, dä jannze Atikel neu ze lahde, öm ze sinn, of dat hellef.";
 "back-button-accessibility-label" = "Retuhr";
 "button-done" = "Jedonn";
@@ -88,15 +87,6 @@
 "history-clear-confirmation-heading" = "Wells De veraftesch all Ding neujere Saache fott schmiiße?";
 "history-clear-delete-all" = "Joh, donn alle fottschmieße";
 "history-title" = "Väsjohne";
-"hockeyapp-alert-always-send" = "Emmer Scheke";
-"hockeyapp-alert-do-not-send" = "Nit scheke";
-"hockeyapp-alert-privacy" = "Jeheimhalldong vun $1";
-// Fuzzy
-"hockeyapp-alert-question" = "Wells De ene Bereesch met Dahte övver dä Affbroch aan de $1 scheke, so dat mer en de Wikkimehdija-Schtefftong do noh lohre kann?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Wells De ene Bereesch met Dahte övver dä Affbroch aan de $1 scheke, so dat mer en de Wikkimehdija-Schtefftong do noh lohre kann? Bes esu johd on donn schriehve, wat doh paßehrd es.";
-"hockeyapp-alert-send-report" = "Bereesch schecke";
-"hockeyapp-alert-title" = "Schahd, di Äpp es beim läzde Mohl kapott jejange";
 "home-more-like-footer" = "Mih ähnlesch wi $1";
 // Fuzzy
 "home-nearby-footer" = "Mih uß Dinger Nöhde";
@@ -120,7 +110,6 @@
 "main-menu-account-logout-are-you-sure" = "Wells De verhaftesch ußlogge?";
 "main-menu-account-logout-cancel" = "Ophüre";
 "main-menu-account-title-logged-in" = "Ennjelogg als $1";
-"main-menu-debug-crash" = "För de Wand loufe lohße";
 "main-menu-debug-tweaks" = "Enschtällonge för Äntwekler";
 "main-menu-heading-debug" = "Noh Fähler Söhke";
 "main-menu-heading-legal" = "Rääschlesche Krohm";

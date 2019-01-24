@@ -152,10 +152,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
     self.updating = YES;
     if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-        self.backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:@"SavedArticlesFetch" expirationHandler:^{
-            [self cancelAllRequests];
-            [self stop];
-        }];
+        self.backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:@"SavedArticlesFetch"
+                                                                                   expirationHandler:^{
+                                                                                       [self cancelAllRequests];
+                                                                                       [self stop];
+                                                                                   }];
     }
     dispatch_block_t endBackgroundTask = ^{
         if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
@@ -165,7 +166,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     };
     NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
-    
+
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
     request.fetchLimit = 1;
@@ -289,7 +290,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                         failure(error);
                     });
                 }
-                success:^(MWKArticle *_Nonnull article) {
+                success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
                     dispatch_async(self.accessQueue, ^{
                         [self downloadImageDataForArticle:article
                             failure:^(NSError *error) {
@@ -495,7 +496,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     } else {
         article.isDownloaded = YES;
     }
-    
+
     NSError *saveError = nil;
     [self.dataStore save:&saveError];
     if (saveError) {

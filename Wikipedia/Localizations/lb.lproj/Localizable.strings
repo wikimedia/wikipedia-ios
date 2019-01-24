@@ -74,7 +74,6 @@
 "article-read-more-title" = "Liest méi";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
-"article-unable-to-load-article" = "Artikel konnt net geluede ginn.";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
 "back-button-accessibility-label" = "Zréck";
 "button-done" = "Fäerdeg";
@@ -104,6 +103,7 @@
 "description-published-button-title" = "Fäerdeg";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Dobäigesat Linken";
@@ -145,8 +145,7 @@
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
-// Fuzzy
-"explore-most-read-footer" = "Déi am dackste geliesen Artikelen";
+"explore-most-read-footer" = "Déi am dackste geliesten Artikelen";
 "explore-most-read-generic-heading" = "Am dackste gelies";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Op Wikipedia op $1";
@@ -198,13 +197,6 @@
 "history-clear-confirmation-heading" = "Sidd Dir sécher datt Dir All Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
 "history-title" = "Versiounen";
-"hockeyapp-alert-always-send" = "Ëmmer schécken";
-"hockeyapp-alert-do-not-send" = "Net schécken";
-"hockeyapp-alert-privacy" = "$1-Dateschutz";
-"hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash u $1 schécken fir datt d'Wikimedia Foundation Äre Crash ënnersiche kann?";
-"hockeyapp-alert-question-with-response-field" = "Wëllt Dir e Rapport vum Crash u(n) $1 schécke fir datt d'Wikimedia Foundation Äre Crash nokucke kann? Beschreift w.e.g. wat geschitt ass wéi de Crash geschitt ass:";
-"hockeyapp-alert-send-report" = "Rapport schécken";
-"hockeyapp-alert-title" = "Leider ass d'App déi leschte Kéier ofgestierzt";
 "home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
@@ -246,7 +238,6 @@
 "main-menu-account-logout-are-you-sure" = "Sidd Dir sécher datt Dir Iech wëllt ausloggen?";
 "main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
-"main-menu-debug-crash" = "Crash";
 "main-menu-debug-tweaks" = "Astellunge fir Entwéckler";
 "main-menu-heading-debug" = "Feeler analyséieren";
 "main-menu-heading-legal" = "Dateschutz a Konditiounen";
@@ -373,7 +364,7 @@
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";
 "saved-pages-progress-syncing" = "Erofluede vum Artikel ass am Gaang …";
 "saved-reading-lists-title" = "Lieslëschten";
-"saved-search-default-text" = "Sichen";
+"saved-search-default-text" = "An de gespäicherten Artikele sichen";
 "saved-title" = "Gespäichert";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel|Artikele}} läschen?";
 "search-button-accessibility-label" = "Op Wikipedia sichen";
@@ -403,8 +394,7 @@
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-trending" = "Aktuell Evenementer";
 "settings-primary-language" = "Primär";
-// Fuzzy
-"settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
+"settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Läschen";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gespäichert Artikele läschen";

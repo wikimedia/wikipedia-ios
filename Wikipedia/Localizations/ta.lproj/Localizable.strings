@@ -64,7 +64,6 @@
 "article-languages-yours" = "தங்களது மொழி";
 "article-read-more-title" = "மேலும் படிக்க";
 "article-share" = "பகிர்க";
-"article-unable-to-load-article" = "கட்டுரையை ஏற்ற இயலவில்லை.";
 "back-button-accessibility-label" = "பின் செல்";
 "button-done" = "முடிந்தது";
 "button-next" = "அடுத்தது";
@@ -82,6 +81,7 @@
 "compass-direction" = "$1 மணிக்கு";
 "continue-reading-empty-description" = "மேலும் கட்டுரைகளைப் படிக்க விக்கிப்பீடியாவை சுற்றிப்பார்";
 "continue-reading-empty-title" = "அண்மையில் படித்த கட்டுரைகள் ஏதுமில்லை";
+"description-help-about-title" = "நிரலைப் பற்றி";
 "dim-images" = "படங்களை மந்தப்படுத்து";
 "edit-summary-choice-fixed-grammar" = "நிலையான இலக்கணம்";
 "edit-summary-choice-fixed-typos" = "தட்டுப்பிழைத்திருத்தம்";
@@ -143,11 +143,6 @@
 "history-clear-cancel" = "ரத்து செய்";
 "history-clear-delete-all" = "அனைத்தையும் நீக்குக";
 "history-title" = "வரலாறு";
-"hockeyapp-alert-always-send" = "எப்பவும் அனுப்பு";
-"hockeyapp-alert-do-not-send" = "அனுப்பாதே";
-"hockeyapp-alert-privacy" = "$1 தனிமை";
-"hockeyapp-alert-send-report" = "அறிக்கையை அனுப்புக";
-"hockeyapp-alert-title" = "மன்னிக்கவும், செயலி போனமுறை நொறுங்கிவிட்டது";
 "home-button-explore-accessibility-label" = "விக்கிப்பீடியா சுற்றிப்பார்க்க திரும்புக";
 "home-button-history-accessibility-label" = "விக்கிப்பீடியா, வரலாற்றுக்கு திரும்புக";
 "home-button-saved-accessibility-label" = "விக்கிப்பீடியா, சேமிக்கபட்டதற்கு திரும்புக";
@@ -182,7 +177,6 @@
 "main-menu-account-logout-are-you-sure" = "நீங்கள் விடுபதிகை செய்ய உறுதியாக உள்ளீர்களா ?";
 "main-menu-account-logout-cancel" = "ரத்து செய்";
 "main-menu-account-title-logged-in" = "$1 என புகுபதிகை செய்யப்பட்டுள்ளது";
-"main-menu-debug-crash" = "இடிபாடு";
 "main-menu-debug-tweaks" = "உருவாக்குநர் அமைவுகள்";
 "main-menu-heading-debug" = "பிழை திருத்தும்";
 "main-menu-heading-legal" = "அகவுரிமை மற்றும் வரையறைகள்";

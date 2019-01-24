@@ -90,7 +90,6 @@
 "article-save-error-not-enough-space" = "ပ္ဍဲ device မ္ဂးဂှ် ဒၞာဲမရုံဂပ် ဟွံမွဲ သွက်ဂွံ ဂိုင်သိပ် လိက်ပရေင် ဏအ်၊၊";
 "article-share" = "ပါ်ပရအ်";
 "article-toolbar-reading-themes-controls-toolbar-item" = "မထိင်ဒဝ် ပရူပရာ သွက်ဂွံဗှ်";
-"article-unable-to-load-article" = "လိက်ပရေင်ဂှ် ထ္ၜးဟွံဂွံ၊၊";
 "article-unable-to-load-section" = "ကဏ္ဍဏအ် ထ္ၜး ဟွံဂွံ၊၊ ကလေင်မ္ၚုဟ်ထောအ် လိက်ပရေင်ဏအ် သွက်ဂွံ ဗှ်ညာတ်၊ ယဝ်ရ အခက်အခုဲနွံဒၟံင်မ္ဂး၊၊";
 "back-button-accessibility-label" = "ကလေင်";
 "back-button-popover-title" = "ကလေင်အာ လပါ်လက္ကရဴ";
@@ -290,13 +289,6 @@
 "history-clear-confirmation-heading" = "မၞး မိက်ဂွံ ပလီုထောအ် item မၞး သီုဖအိုတ် ကွေဟ်ဟ်ရဟာ？";
 "history-clear-delete-all" = "ယွံ၊ ပလီုထောအ် ဖအိုတ်";
 "history-title" = "အရာမဗှ်လဝ်တုဲ";
-"hockeyapp-alert-always-send" = "ပလံင် လၟိုန်";
-"hockeyapp-alert-do-not-send" = "လ္ပ ပလံင်";
-"hockeyapp-alert-privacy" = "$1 privacy";
-"hockeyapp-alert-question" = "မၞးမိက်ဂွံပလံင် လိက်ဒုင်စဳရေင် မလီုလာ် ဇရေင် $1 သွက် Wikimedia Foundation ဂွံကလေင်ကျောဝ် အရာမလီုလာ်ဂှ်ဟာ?";
-"hockeyapp-alert-question-with-response-field" = "မၞးမိက်ဂွံပလံင် လိက်ဒုင်စဳရေင် အရာမလီုလာ် $1 သွက် Wikimedia Foundation ဂွံကလေင်ကျောဝ် အရာမလီုလာ်ဂှ်ဟာ? ပဂုန်တုဲ ချူဗၟံက်ထ္ၜး ဗီုလဵု ပရေင်မလီုလာ်ဂှ် ဂွံကတဵုဒှ်ကၠုင်";
-"hockeyapp-alert-send-report" = "ပလံင် လိက်ဒုင်စဳရေင်";
-"hockeyapp-alert-title" = "သၠးအခေါင် app လီုအာ နူဗတံဏအ်၊၊";
 "home-button-explore-accessibility-label" = "ဝဳကဳပဳဒဳယာ ကလေင် ဂၠာဲသ္ၚေဝ်";
 "home-button-history-accessibility-label" = "ဝဳကဳပဳဒဳယာ ကလေင် စၟတ်သမ္တီ အရာမတုဲကၠုင်";
 "home-button-saved-accessibility-label" = "ဝဳကဳပဳဒဳယာ ကလေင် ဂိုင်သိပ်";
@@ -338,7 +330,6 @@
 "main-menu-account-logout-are-you-sure" = "မၞး မိက်ဂွံ တိတ် ကွေဟ်ဟ်ရဟာ？";
 "main-menu-account-logout-cancel" = "တးပဲါ";
 "main-menu-account-title-logged-in" = "လုပ်လံက်အေန်လဝ် နကဵု $1";
-"main-menu-debug-crash" = "လီုလာ်";
 "main-menu-debug-tweaks" = "ဒၞာဲမဖျေဟ်ဒၞာဲ သွက်ဂွံပခိုဟ်ပတိုန်";
 "main-menu-heading-debug" = "သ္ၚေဝ်ဂၠာဲဟိုတ်ဖဵု";
 "main-menu-heading-legal" = "Privacy and Terms";
@@ -512,6 +503,7 @@
 "saved-pages-image-download-error" = "တံင်လုပ်ကေတ် ဗီုရုပ် သွက် မုက်လိက် မဂိုင်သိပ်ဏအ် ဟွံအံင်ဇၞး";
 "saved-pages-progress-syncing" = "လိက် ပရေင်ဂှ် အဃော မတံင်လုပ်ဒၟံင်...";
 "saved-reading-lists-title" = "စရင် လိက်ဗွဟ်ဂမၠိုင်";
+// Fuzzy
 "saved-search-default-text" = "ဂၠာဲ";
 "saved-title" = "ဂိုင်သိပ်တုဲ";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "မဂိုင်သိပ်ဟွံဂွံ {{PLURAL:$1|လိက်ပရေင်ဏအ် သ္ဒးပတိတ်ထောအ်|လိက်ရေင်တအ်ဏအ် သ္ဒးဒုင်ပတိတ်}} နူ စရင်လိက်ဗွဟ် မဆေင်စပ်တအ်ရောင်";

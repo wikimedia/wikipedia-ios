@@ -116,7 +116,6 @@
 "article-save-error-not-enough-space" = "Não tem espaço suficiente no seu dispositivo para salvar este artigo";
 "article-share" = "Compartilhar";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de leitura de temas";
-"article-unable-to-load-article" = "Não foi possível carregar o artigo.";
 "article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
 "back-button-accessibility-label" = "Voltar";
 "back-button-popover-title" = "Tocar para voltar atrás";
@@ -174,12 +173,15 @@
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
 "dim-images" = "Imagens fracas";
+"edit-style-table-view-title" = "Estilo";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
 "edit-summary-choice-fixed-typos" = "Ortográfia reduzida";
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-choice-other" = "Outros";
 "edit-summary-field-placeholder-text" = "Outras maneiras que você melhorou o artigo";
 "edit-summary-title" = "Como foi que você melhorou o artigo?";
+"edit-text-formatting-table-view-title" = "Formatação de texto";
+"edit-text-size-table-view-title" = "Tamanho do texto";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
@@ -318,13 +320,6 @@
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
 "history-clear-delete-all" = "Sim, apagar tudo";
 "history-title" = "Histórico";
-"hockeyapp-alert-always-send" = "Sempre enviar";
-"hockeyapp-alert-do-not-send" = "Não enviar";
-"hockeyapp-alert-privacy" = "$1 privacidade";
-"hockeyapp-alert-question" = "Gostaria de enviar um relatório da falha para $1 para que a Fundação Wikimedia possa resolver o seu problema?";
-"hockeyapp-alert-question-with-response-field" = "Gostaria de enviar um relatório da falha para $1 para que a Fundação Wikimedia possa resolver o seu problema? Por favor, descreva o que ocorreu quando o erro aconteceu:";
-"hockeyapp-alert-send-report" = "Enviar relatório";
-"hockeyapp-alert-title" = "Desculpe, o aplicativo encerrou inesperadamente da última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, voltar para História";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
@@ -370,7 +365,6 @@
 "main-menu-account-logout-are-you-sure" = "Você tem certeza que quer sair?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Autenticado como $1";
-"main-menu-debug-crash" = "Falha";
 "main-menu-debug-tweaks" = "Configurações de desenvolvedor";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidade e Termos";
@@ -552,7 +546,7 @@
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
 "saved-pages-progress-syncing" = "Download do artigo em andamento...";
 "saved-reading-lists-title" = "Listas de leitura";
-"saved-search-default-text" = "Pesquisar";
+"saved-search-default-text" = "Pesquisar artigos salvos";
 "saved-title" = "Salvo";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ao não salvar {{PLURAL:$1|este artigo, ele será removido|estes artigos, eles serão removidos}} de todas as listas de leitura associadas";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Não salvar {{PLURAL:$1|o artigo|os artigos}}?";

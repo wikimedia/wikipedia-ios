@@ -108,7 +108,6 @@
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
-"article-unable-to-load-article" = "無法載入條目。";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back-button-accessibility-label" = "返回";
 "back-button-popover-title" = "點擊返回";
@@ -310,13 +309,6 @@
 "history-clear-confirmation-heading" = "您確定要刪除所有近期項目嗎？";
 "history-clear-delete-all" = "是的，刪除全部";
 "history-title" = "歷史";
-"hockeyapp-alert-always-send" = "總是傳送";
-"hockeyapp-alert-do-not-send" = "不要傳送";
-"hockeyapp-alert-privacy" = "$1 隱私";
-"hockeyapp-alert-question" = "您想把錯誤報告傳送至 $1，讓維基媒體基金會瞭解您發生的問題嗎？";
-"hockeyapp-alert-question-with-response-field" = "您想把錯誤報告傳送至 $1，讓維基媒體基金會瞭解您發生的問題嗎？ 請描述錯誤時發生什麼事：";
-"hockeyapp-alert-send-report" = "傳送報告";
-"hockeyapp-alert-title" = "抱歉，應用程式上次執行時發生了錯誤";
 "home-button-explore-accessibility-label" = "維基百科，返回探索";
 "home-button-history-accessibility-label" = "維基百科，返回歷史清單";
 "home-button-saved-accessibility-label" = "維基百科，返回已儲存條目";
@@ -362,7 +354,6 @@
 "main-menu-account-logout-are-you-sure" = "您確定要登出嗎？";
 "main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以 $1 的身分登入。";
-"main-menu-debug-crash" = "錯誤";
 "main-menu-debug-tweaks" = "開發人員設定";
 "main-menu-heading-debug" = "除錯";
 "main-menu-heading-legal" = "隱私與條款";
@@ -544,6 +535,7 @@
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
 "saved-pages-progress-syncing" = "條目下載進行中...";
 "saved-reading-lists-title" = "閱讀清單";
+// Fuzzy
 "saved-search-default-text" = "搜尋";
 "saved-title" = "已儲存";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "取消儲存{{PLURAL:$1|此條目將會把它|這些條目此條目將會把它們}}從所有相關聯的閱讀清單裡移除";

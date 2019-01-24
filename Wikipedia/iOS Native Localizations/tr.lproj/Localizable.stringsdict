@@ -218,5 +218,37 @@
 			<string>Bu yıl</string>
 		</dict>
 	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Bu maddeyi iptal etmek, ilgili tüm okuma listelerinden kaldırır</string>
+			<key>other</key>
+			<string>Bu maddeleri iptal etmek, ilgili tüm okuma listelerinden kaldırır</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Maddeyi iptal et?</string>
+			<key>other</key>
+			<string>Maddeleri iptal et?</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

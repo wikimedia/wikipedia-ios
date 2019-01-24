@@ -57,7 +57,6 @@
 "article-languages-others" = "Башҡа телдәр";
 "article-languages-yours" = "Һеҙҙең телдәр";
 "article-read-more-title" = "Тулыраҡ уҡырға";
-"article-unable-to-load-article" = "Был мәҡәләне күсереп булмай.";
 "article-unable-to-load-section" = "Был бүлекте күсереп булмай. Мәҡәләне яңыртып ҡарағыҙ, бәлки проблеманы хәл итер.";
 "back-button-accessibility-label" = "Артҡа";
 "button-done" = "Әҙер";
@@ -97,15 +96,6 @@
 "history-clear-confirmation-heading" = "Һеҙ ысынлап та яңыраҡ булған элементтарҙы юйырға теләйһегеҙме?";
 "history-clear-delete-all" = "Эйе, бөтәһен дә юйырға";
 "history-title" = "Тарих";
-"hockeyapp-alert-always-send" = "Һәр саҡ ебәрергә";
-"hockeyapp-alert-do-not-send" = "Ебәрмәҫкә";
-"hockeyapp-alert-privacy" = "сер һаҡлау сәйәсәте $1";
-// Fuzzy
-"hockeyapp-alert-question" = "Викимедиа фонды һеҙҙең \"түбән төшөү\" осрағын өйрәнә алһын өсөн $1 отчет ебәрергә теләйһегеҙме?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Викимедиа фонды һеҙҙең \"түбән төшөү\" осрағын өйрәнә алһын өсөн отчет ебәрергә теләйһегеҙме? Быға нимә сәбәп булыуын һүрәтләгеҙ:";
-"hockeyapp-alert-send-report" = "Отчет ебәрергә";
-"hockeyapp-alert-title" = "Үкенескә ҡаршы, үткән юлы ҡушымта \"төшкән\"";
 "home-more-like-footer" = "Тағы ла оҡшаш $1";
 // Fuzzy
 "home-nearby-footer" = "Һеҙгә яҡын булған нәмәләр тураһында тағы бер тапҡыр";
@@ -130,7 +120,6 @@
 "main-menu-account-logout-are-you-sure" = "Һеҙ ысынлап та сығырға уйлайһығыҙмы?";
 "main-menu-account-logout-cancel" = "Кире алырға";
 "main-menu-account-title-logged-in" = "$1 булып танылған";
-"main-menu-debug-crash" = "Түбән төшөү";
 "main-menu-debug-tweaks" = "Әҙерләүселәр өсөн көйләүҙәр";
 "main-menu-heading-debug" = "Көйләү";
 "main-menu-heading-legal" = "Конфиденциаллек һәм шарттар";

@@ -88,7 +88,6 @@
 "article-read-more-title" = "और पढ़ें";
 "article-share" = "साझा करें";
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
-"article-unable-to-load-article" = "लेख की लोड करने  में असमर्थ।";
 "article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
 "back-button-accessibility-label" = "पीछे";
 "button-done" = "पूर्ण हुआ";
@@ -182,13 +181,6 @@
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
 "history-clear-delete-all" = "हाँ, सभी मिटायें";
 "history-title" = "इतिहास";
-"hockeyapp-alert-always-send" = "हमेशा भेजें";
-"hockeyapp-alert-do-not-send" = "नहीं भेजें";
-"hockeyapp-alert-privacy" = "$1 की गोपनीयता";
-"hockeyapp-alert-question" = "क्या आप $1 को क्रैश रिपोर्ट भेजना पसंद करेंगे ताकि विकिमीडिया आपके क्रैश को जाँच सके?";
-"hockeyapp-alert-question-with-response-field" = "क्या आप $1 को क्रैश रिपोर्ट भेजना चाहते हैं ताकि विकिमीडिया आपके क्रैश को जाँच सके? कृपया बताएं क्रैश के समय क्या हुआ:";
-"hockeyapp-alert-send-report" = "रिपोर्ट भेजें";
-"hockeyapp-alert-title" = "क्षमा करें, पिछली बार एप क्रैश हो गयी";
 "home-button-explore-accessibility-label" = "विकिपीडिया, खोज पर लौटें";
 "home-button-history-accessibility-label" = "विकिपीडीया, इतिहास पर लौटें";
 "home-button-saved-accessibility-label" = "विकिपीडिया, सहेजे गए पर लौटें";
@@ -228,7 +220,6 @@
 "main-menu-account-logout-are-you-sure" = "क्या आप वास्तव में लॉग आउट करना चाहते हैं?";
 "main-menu-account-logout-cancel" = "रद्द करें";
 "main-menu-account-title-logged-in" = "$1 के रूप में लॉगड इन";
-"main-menu-debug-crash" = "क्रैश";
 "main-menu-debug-tweaks" = "डेवलपर सेटिंग्स";
 "main-menu-heading-debug" = "डीबग";
 "main-menu-heading-legal" = "गोपनीयता और शर्तें";

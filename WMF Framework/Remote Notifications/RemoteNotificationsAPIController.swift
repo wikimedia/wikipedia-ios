@@ -160,7 +160,7 @@ struct RemoteNotificationsAPIController {
         var components = NotificationsAPI.components
         components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
         if method == .get {
-            let _ = session.jsonDecodableTask(components: components, method: .get, completionHandler: completion)
+            let _ = session.jsonDecodableTask(with: components.url, method: .get, completionHandler: completion)
         } else {
             let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: method, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: completion)
         }

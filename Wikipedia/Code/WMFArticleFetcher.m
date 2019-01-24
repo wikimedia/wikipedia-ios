@@ -8,7 +8,6 @@
 //Plan to refactor settings into an another object, then we can remove this.
 #import <WMF/SessionSingleton.h>
 
-//AFNetworking
 #import <WMF/MWNetworkActivityIndicatorManager.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import "WMFArticleRequestSerializer.h"
@@ -164,9 +163,15 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               }
 
                                               NSURL *updatedArticleURL = articleURL;
-                                              NSString *redirectedTitle = articleResponse[@"redirected"];
+                                              NSString *redirectedTitleAndFragment = articleResponse[@"redirected"];
+                                              NSArray<NSString *> *redirectedTitleAndFragmentComponents = [redirectedTitleAndFragment componentsSeparatedByString:@"#"];
+                                              NSString *redirectedTitle = [redirectedTitleAndFragmentComponents firstObject];
                                               if (redirectedTitle) {
-                                                  updatedArticleURL = [articleURL wmf_URLWithTitle:redirectedTitle];
+                                                  NSString *redirectedFragment = nil;
+                                                  if (redirectedTitleAndFragmentComponents.count > 1) {
+                                                      redirectedFragment = redirectedTitleAndFragmentComponents.lastObject;
+                                                  }
+                                                  updatedArticleURL = [articleURL wmf_URLWithTitle:redirectedTitle fragment:redirectedFragment query:nil];
                                               }
 
                                               articleResponse = mutableArticleResponse;
@@ -200,7 +205,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       if (articleCacheError) {
                                                                                           failure(articleCacheError);
                                                                                       } else {
-                                                                                          success(mwkArticle);
+                                                                                          success(mwkArticle, updatedArticleURL);
                                                                                       }
                                                                                   });
                                                                               }];
@@ -348,7 +353,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                        if (progress) {
                                                                            progress(1.0);
                                                                        }
-                                                                       success(cachedArticle);
+                                                                       success(cachedArticle, url);
                                                                        return;
                                                                    } else {
                                                                        [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority progress:progress failure:failure success:success];

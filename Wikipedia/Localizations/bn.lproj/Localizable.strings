@@ -11,6 +11,7 @@
 // Author: Nemo bis
 // Author: Rasal Lia
 // Author: Sayma Jahan
+// Author: Tahmid02016
 // Author: Tauhid16
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
@@ -86,9 +87,9 @@
 "article-languages-yours" = "আপনার ভাষাসমূহ";
 "article-read-more-title" = "আরো পড়ুন";
 "article-share" = "শেয়ার করুন";
-"article-unable-to-load-article" = "নিবন্ধ লোড করতে অসমর্থ।";
 "article-unable-to-load-section" = "এই অনুচ্ছেদ পূরণ করতে অসমর্থ। যদি এই সমস্যা সমাধান হয়ে থাকে তাহলে নিবন্ধটি দেখার জন্য পুনরায় সতেজ করুন।";
 "back-button-accessibility-label" = "পিছনে";
+"back-button-popover-title" = "পেছনে যেতে আলতো চাপুন";
 "button-done" = "সম্পন্ন";
 "button-next" = "পরবর্তী";
 "button-ok" = "ঠিক আছে";
@@ -101,10 +102,20 @@
 "button-skip" = "এড়ান";
 "cancel" = "বাতিল";
 "cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
+"cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
 "continue-reading-empty-title" = "সম্প্রতি পড়া কোনও নিবন্ধ নেই";
+"description-add-title" = "বিবরণ যোগ করুন";
+"description-edit-learn-more" = "আরও জানুন";
+"description-edit-length-warning" = "$1/$2";
+"description-edit-title" = "বিবরণ সম্পাদনা করুন";
+"description-help-about-wikidata" = "উইকিউপাত্ত সম্পর্কে";
+"description-help-more-info-title" = "আরও তথ্য";
+"description-help-tips-for-example" = "উদাহরণস্বরূপ:";
+"description-published-button-title" = "সম্পন্ন";
+"description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
 "dim-images" = "অনুজ্জ্বল ছবি";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
@@ -186,13 +197,6 @@
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "history-title" = "ইতিহাস";
-"hockeyapp-alert-always-send" = "সর্বদা পাঠান";
-"hockeyapp-alert-do-not-send" = "পাঠাবেন না";
-"hockeyapp-alert-privacy" = "$1 গোপনীয়তা";
-"hockeyapp-alert-question" = "আপনি কি $1 কে একটি ক্র্যাশ প্রতিবেদন পাঠাতে চাইবেন, যাতে উইকিমিডিয়া ফাউন্ডেশন আপনার প্রতিবেদনটি পর্যালোচনা করতে পারে?";
-"hockeyapp-alert-question-with-response-field" = "আপনি কি $1 কে একটি ক্র্যাশ প্রতিবেদন পাঠাতে চান, যাতে উইকিমিডিয়া ফাউন্ডেশন আপনার প্রতিবেদনটি পর্যালোচনা করতে পারে? দয়া করে ক্রাশ হওয়ার সময় কি ঘটেছিল ব্যাখ্যা করুন:";
-"hockeyapp-alert-send-report" = "প্রতিবেদন পাঠান";
-"hockeyapp-alert-title" = "দুঃখিত, অ্যাপ্লিকেশন শেষ বার বিধ্বস্ত হয়েছিল";
 "home-button-explore-accessibility-label" = "উইকিপিডিয়া, অন্বেষণে ফেরত যান";
 "home-button-history-accessibility-label" = "উইকিপিডিয়া, ইতিহাসে ফেরত যান";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
@@ -232,7 +236,6 @@
 "main-menu-account-logout-are-you-sure" = "আপনি কি নিশ্চিত যে আপনি প্রস্থান করতে চান?";
 "main-menu-account-logout-cancel" = "বাতিল";
 "main-menu-account-title-logged-in" = "$1 হিসাবে প্রবেশ";
-"main-menu-debug-crash" = "ক্র্যাশ";
 "main-menu-debug-tweaks" = "বিকাশকারীর সেটিংস";
 "main-menu-heading-debug" = "ডিবাগ";
 "main-menu-heading-legal" = "আইনী তথ্য";
@@ -320,6 +323,7 @@
 "reverted-edit-thanks-for-editing-title" = "উইকিপিডিয়ায় সম্পাদনা করার জন্য ধন্যবাদ!";
 "saved-all-articles-title" = "সব নিবন্ধ";
 "saved-pages-image-download-error" = "এই সংরক্ষিত পাতার জন্য চিত্র ডাউনলোড করা ব্যর্থ হয়েছে।";
+// Fuzzy
 "saved-search-default-text" = "অনুসন্ধান";
 "saved-title" = "সংরক্ষিত";
 "search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";

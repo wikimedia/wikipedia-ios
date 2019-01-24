@@ -47,7 +47,6 @@
 "article-languages-others" = "სხვა ენები";
 "article-languages-yours" = "შენი ენები";
 "article-read-more-title" = "წაიკითხეთ მეტი";
-"article-unable-to-load-article" = "ამ სტატიის ჩატვირთვა ვერ ხერხდება.";
 "article-unable-to-load-section" = "სექციის ჩატვირთვა შეუძლებელია. სცადეთ გვერდის გადატვირთვა და ნახეთ გასწორდება თუ არა პრობლემა.";
 "back-button-accessibility-label" = "უკან";
 "button-done" = "გაკეთდა";
@@ -114,15 +113,6 @@
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
 "history-clear-delete-all" = "დიახ, ყველას წაშლა";
 "history-title" = "ისტორია";
-"hockeyapp-alert-always-send" = "ყოველთვის გაგზავნა";
-"hockeyapp-alert-do-not-send" = "არ გააგზავნო";
-"hockeyapp-alert-privacy" = "$1 კონფიდენციალურობა";
-// Fuzzy
-"hockeyapp-alert-question" = "გსურთ $1-სთვის პრობლემის ანგარიშის გაგზავნა, რათა ვიკიმედიამ შეძლოს მისი განხილვა?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "გსურთ $1-სთვის პრობლემის ანგარიშის გაგზავნა, რათა ვიკიმედიამ შეძლოს მისი განხილვა? გთხოვთ აღწერეთ თუ რა მოხდა, როდესაც პრობლემა შეიქმნა:";
-"hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";
-"hockeyapp-alert-title" = "უკაცრავად, უკანასკნელად აპლიკაციამ არ უმუშავა";
 "home-more-like-footer" = "$1-ის მსგავსად";
 // Fuzzy
 "home-nearby-footer" = "თქვენი მდებარეობის გადატანა";
@@ -149,7 +139,6 @@
 "main-menu-account-logout-are-you-sure" = "დარწმუნებული ხართ, რომ გსურთ გასვლა?";
 "main-menu-account-logout-cancel" = "გაუქმება";
 "main-menu-account-title-logged-in" = "შესული ხართ როგორც $1.";
-"main-menu-debug-crash" = "პრობლემა";
 "main-menu-debug-tweaks" = "დეველოპერის პარამეტრები";
 "main-menu-heading-debug" = "დიბაგი";
 "main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";

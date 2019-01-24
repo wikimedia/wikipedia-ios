@@ -65,7 +65,6 @@
 "article-languages-yours" = "U tale";
 "article-read-more-title" = "Lees meer";
 "article-share" = "Deel";
-"article-unable-to-load-article" = "Kan nie artikel laai nie.";
 "article-unable-to-load-section" = "Kon nie hierdie seksie laai nie. Probeer die artikel herlaai om te sien of dit die probleem oplos.";
 "back-button-accessibility-label" = "Terug";
 "button-done" = "Gedoen";
@@ -140,15 +139,6 @@
 "history-clear-confirmation-heading" = "Skrap alle onlangse items?";
 "history-clear-delete-all" = "Ja, skrap alles";
 "history-title" = "Geskiedenis";
-"hockeyapp-alert-always-send" = "Stuur altyd";
-"hockeyapp-alert-do-not-send" = "Moenie stuur";
-"hockeyapp-alert-privacy" = "$1 privaatheid";
-// Fuzzy
-"hockeyapp-alert-question" = "Wil u 'n breekverslag aan $1 stuur sodat Wikimedia die breek kan hersien?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Wil u 'n breekverslag aan $1 stuur sodat Wikimedia die breek kan hersien? Beskryf asseblief wat gebeur het tydens die breek:";
-"hockeyapp-alert-send-report" = "Stuur verslag";
-"hockeyapp-alert-title" = "Jammer, toep het laaskeer gebreek";
 "home-more-like-footer" = "Nog soos $1";
 "home-nearby-footer" = "Meer nabygeleë plekke";
 "home-nearby-location-footer" = "Meer naby aan $1";
@@ -178,7 +168,6 @@
 "main-menu-account-logout-are-you-sure" = "Is u seker u wil uitteken?";
 "main-menu-account-logout-cancel" = "Kanselleer";
 "main-menu-account-title-logged-in" = "Aangeteken as $1";
-"main-menu-debug-crash" = "Breek";
 "main-menu-debug-tweaks" = "Ontwikkelaarinstellings";
 "main-menu-heading-debug" = "Ontfout";
 "main-menu-heading-legal" = "Privaatheid en Voorwaardes";
@@ -235,6 +224,7 @@
 "reference-title" = "Verwysing $1";
 "request-feedback-on-error" = "Die toep het ’n probleem ervaar waarvan ons ontwikkelaars meer wil weet. Tik hier om aan ons ’n e-pos met die foutbesonderhede te stuur.";
 "saved-reading-lists-title" = "Leeslyste";
+// Fuzzy
 "saved-search-default-text" = "Soek";
 "saved-title" = "Gestoor";
 "search-button-accessibility-label" = "Deursoek Wikipedia";

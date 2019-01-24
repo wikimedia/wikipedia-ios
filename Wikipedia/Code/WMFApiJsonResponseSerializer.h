@@ -1,4 +1,4 @@
-#import <AFNetworking/AFURLResponseSerialization.h>
+#import <WMF/AFNetworking.h>
 
 @interface WMFApiJsonResponseSerializer : AFJSONResponseSerializer
 @end

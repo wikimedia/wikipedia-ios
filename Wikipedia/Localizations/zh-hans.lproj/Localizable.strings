@@ -110,7 +110,6 @@
 "article-save-error-not-enough-space" = "您的设备没有足够空间保存此条目";
 "article-share" = "分享";
 "article-toolbar-reading-themes-controls-toolbar-item" = "阅读主题控制";
-"article-unable-to-load-article" = "无法加载条目。";
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "back-button-accessibility-label" = "返回";
 "back-button-popover-title" = "点击返回";
@@ -312,13 +311,6 @@
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目么？";
 "history-clear-delete-all" = "是的，删除全部";
 "history-title" = "历史";
-"hockeyapp-alert-always-send" = "总是发送";
-"hockeyapp-alert-do-not-send" = "不要发送";
-"hockeyapp-alert-privacy" = "$1隐私";
-"hockeyapp-alert-question" = "您想要将崩溃报告发送至$1，这样维基媒体基金会可以复查您的崩溃么？";
-"hockeyapp-alert-question-with-response-field" = "您想要将崩溃报告发送至$1，这样维基媒体基金会可以复查您的崩溃么？请描述崩溃发生时出现了什么现象：";
-"hockeyapp-alert-send-report" = "发送报告";
-"hockeyapp-alert-title" = "抱歉，应用程序上次发生了崩溃";
 "home-button-explore-accessibility-label" = "维基百科，返回到探索";
 "home-button-history-accessibility-label" = "维基百科，返回到历史";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
@@ -360,7 +352,6 @@
 "main-menu-account-logout-are-you-sure" = "您确定要退出么？";
 "main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以$1登录";
-"main-menu-debug-crash" = "崩溃";
 "main-menu-debug-tweaks" = "开发人员设置";
 "main-menu-heading-debug" = "调试";
 "main-menu-heading-legal" = "隐私和条款";
@@ -534,6 +525,7 @@
 "saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
 "saved-pages-progress-syncing" = "条目下载正在进行...";
 "saved-reading-lists-title" = "阅读列表";
+// Fuzzy
 "saved-search-default-text" = "搜索";
 "saved-title" = "已保存";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "取消保存{{PLURAL:$1|此|这些}}条目将从所有相关阅读列表中移除";

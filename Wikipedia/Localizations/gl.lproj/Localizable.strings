@@ -100,7 +100,6 @@
 "article-save-error-not-enough-space" = "Non ten espazo abondo no seu dispositivo para gardar este artigo";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controis dos temas de lectura";
-"article-unable-to-load-article" = "Non se pode cargar o artigo.";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque para volver atrás";
@@ -302,13 +301,6 @@
 "history-clear-confirmation-heading" = "Está seguro de que quere borrar todos os seus elementos recentes?";
 "history-clear-delete-all" = "Si, borrar todo";
 "history-title" = "Historial";
-"hockeyapp-alert-always-send" = "Enviar sempre";
-"hockeyapp-alert-do-not-send" = "Non enviar";
-"hockeyapp-alert-privacy" = "Confidencialidade de $1";
-"hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así a Fundación Wikimedia poida revisar o seu erro?";
-"hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así a Fundación Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";
-"hockeyapp-alert-send-report" = "Enviar informe";
-"hockeyapp-alert-title" = "Sentímolo, a aplicación tivo un erro a última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver a Historico";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Gardado";
@@ -354,7 +346,6 @@
 "main-menu-account-logout-are-you-sure" = "Está seguro de que quere pechar a sesión?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
-"main-menu-debug-crash" = "Lixo";
 "main-menu-debug-tweaks" = "Parámetros de programación";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidade e Condicións";
@@ -517,7 +508,7 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Cursor de tamaño do texto";
-"reference-title" = "Referenza $1";
+"reference-title" = "Referencia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoxe|Onte|Hai $1 días}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Hai $1 hora|Hai $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Xusto agora|Hai $1 minuto|Hai $1 minutos}}";
@@ -536,6 +527,7 @@
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
 "saved-pages-progress-syncing" = "Descarga de artigo en curso…";
 "saved-reading-lists-title" = "Listas de lectura";
+// Fuzzy
 "saved-search-default-text" = "Procura";
 "saved-title" = "Gardado";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ao non gardar {{PLURAL:$1|este artigo, será eliminado|estes artigos, serán eliminados}} de tódalas listas de lectura asociadas";

@@ -47,7 +47,6 @@
 "article-languages-yours" = "Vòstras lengas";
 "article-read-more-title" = "Ne saber mai";
 "article-share" = "Partejar";
-"article-unable-to-load-article" = "Impossible de cargar l'article.";
 "back-button-accessibility-label" = "Retorn";
 "button-done" = "Acabat";
 "button-next" = "Seguent";
@@ -101,10 +100,6 @@
 "history-clear-cancel" = "Anullar";
 "history-clear-delete-all" = "Òc, suprimir tot";
 "history-title" = "Istoric";
-"hockeyapp-alert-always-send" = "Mandar totjorn";
-"hockeyapp-alert-do-not-send" = "Mandar pas";
-"hockeyapp-alert-privacy" = "Confidencialitat de $1";
-"hockeyapp-alert-send-report" = "Mandar un rapòrt";
 "home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
 "home-button-history-accessibility-label" = "Wikipèdia, tornar a Istoric";
 "home-button-saved-accessibility-label" = "Wikipèdia, tornar a Enregistrats";
@@ -134,7 +129,6 @@
 "main-menu-account-logout-are-you-sure" = "Sètz segur que vos volètz desconnectar ?";
 "main-menu-account-logout-cancel" = "Anullar";
 "main-menu-account-title-logged-in" = "Connectat en tant que $1.";
-"main-menu-debug-crash" = "Plantar";
 "main-menu-debug-tweaks" = "Paramètres de desvolopament";
 "main-menu-heading-debug" = "Desbogar";
 "main-menu-heading-legal" = "Confidencialitat e condicions";

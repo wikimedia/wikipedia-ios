@@ -94,7 +94,6 @@
 "article-save-error-not-enough-space" = "Nun hai espaciu bastante nel preséu pa guardar esti artículu";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de llectura de les temes";
-"article-unable-to-load-article" = "Nun pudo cargase l'artículu.";
 "article-unable-to-load-section" = "Nun pudo cargase esta seición. Intenta recargar l'artículu para ver si eso igua'l problema.";
 "back-button-accessibility-label" = "Anterior";
 "back-button-popover-title" = "Toca equí pa volver";
@@ -238,13 +237,6 @@
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
-"hockeyapp-alert-always-send" = "Unviar siempre";
-"hockeyapp-alert-do-not-send" = "Nun unviar";
-"hockeyapp-alert-privacy" = "Intimidá de $1";
-"hockeyapp-alert-question" = "¿Quedríes unviar un informe de fallu a $1 pa que la Fundación Wikimedia pueda revisalu?";
-"hockeyapp-alert-question-with-response-field" = "¿Quedríes unviar un informe de fallu a $1 pa que la Fundación Wikimedia pueda revisalu? Por favor, describe qué pasó cuando asocedió'l fallu:";
-"hockeyapp-alert-send-report" = "Unviar informe";
-"hockeyapp-alert-title" = "Sentímoslo, l'aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Esplorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver a Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardaos";
@@ -286,7 +278,6 @@
 "main-menu-account-logout-are-you-sure" = "¿Seguro que quies zarrar sesión?";
 "main-menu-account-logout-cancel" = "Encaboxar";
 "main-menu-account-title-logged-in" = "Aniciasti sesión como $1";
-"main-menu-debug-crash" = "Colgar";
 "main-menu-debug-tweaks" = "Configuración de desendolcador";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
@@ -460,6 +451,7 @@
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";
 "saved-pages-progress-syncing" = "Descarga d'artículos en cursu…";
 "saved-reading-lists-title" = "Llistes de llectura";
+// Fuzzy
 "saved-search-default-text" = "Buscar";
 "saved-title" = "Guardada";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Dexar de guardar {{PLURAL:$1|esti artículu desaniciarálu|estos artículos desaniciarálos}} de toles llistes de llectura asociaes";

@@ -89,7 +89,6 @@
 "article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali ovaj članak";
 "article-share" = "Deli";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Podešavanja tema za čitanje";
-"article-unable-to-load-article" = "Nije moguće učitati članak.";
 "article-unable-to-load-section" = "Nije moguće učitati ovaj odeljak. Proverite da li će ponovno učitavanje članka rešiti problem.";
 "back-button-accessibility-label" = "Nazad";
 "back-button-popover-title" = "Dodirnite da biste se vratili";
@@ -291,13 +290,6 @@
 "history-clear-confirmation-heading" = "Želite li zaista da izbrišete sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Istorija";
-"hockeyapp-alert-always-send" = "Uvek šalji";
-"hockeyapp-alert-do-not-send" = "Ne šalji";
-"hockeyapp-alert-privacy" = "Politika privatnosti $1-a";
-"hockeyapp-alert-question" = "Želite li da pošaljete izveštaj o otkazivanju $1-u kako bi Zadužbina Vikimedija ispitala vaš slučaj?";
-"hockeyapp-alert-question-with-response-field" = "Želite li da pošaljete izveštaj o otkazivanju $1-u kako bi Zadužbina Vikimedija ispitala vaš slučaj? Opišite šta se desilo kada je došlo do otkazivanja:";
-"hockeyapp-alert-send-report" = "Pošalji izveštaj";
-"hockeyapp-alert-title" = "Aplikacija je otkazala prošli put";
 "home-button-explore-accessibility-label" = "Vikipedija, nazad na „Istraži”";
 "home-button-history-accessibility-label" = "Vikipedija, nazad na istoriju";
 "home-button-saved-accessibility-label" = "Vikipedija, nazad na sačuvane";
@@ -339,7 +331,6 @@
 "main-menu-account-logout-are-you-sure" = "Želite li zaista da se odjavite?";
 "main-menu-account-logout-cancel" = "Otkaži";
 "main-menu-account-title-logged-in" = "Prijavljeni ste kao $1";
-"main-menu-debug-crash" = "Otkazivanje";
 "main-menu-debug-tweaks" = "Podešavanja za programera";
 "main-menu-heading-debug" = "Ispravke";
 "main-menu-heading-legal" = "Privatnost i uslovi";
@@ -521,6 +512,7 @@
 "saved-pages-image-download-error" = "Preuzimanje slika za ovu sačuvanu stranicu nije uspelo.";
 "saved-pages-progress-syncing" = "Preuzimam članak…";
 "saved-reading-lists-title" = "Liste za čitanje";
+// Fuzzy
 "saved-search-default-text" = "Pretraga";
 "saved-title" = "Sačuvano";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Ovaj članak će biti izbrisan|Ovi članci će biti izbrisani}} sa svih povezanih lista za čitanje";

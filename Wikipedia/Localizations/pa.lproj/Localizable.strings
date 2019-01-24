@@ -63,7 +63,6 @@
 "article-languages-others" = "ਹੋਰ ਭਾਸ਼ਾਵਾਂ";
 "article-languages-yours" = "ਤੁਹਾਡੀਆੰ ਭਾਸ਼ਾਵਾੰ:";
 "article-read-more-title" = "ਹੋਰ ਪੜ੍ਹੋ";
-"article-unable-to-load-article" = "ਲੇਖ ਨਹੀਂ ਅਾ ਰਿਹਾ";
 "article-unable-to-load-section" = "ੲਿਹ ਭਾਗ ਨਹੀਂ ਆ ਰਿਹਾ। ਸਮੱਸਿਅਾ ਦੇ ਹੱਲ ਲੲੀ ਲੇਖ ਨੂੰ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
 "back-button-accessibility-label" = "ਪਿੱਛੇ";
 "button-done" = "ਹੋ ਗਿਆ";
@@ -122,11 +121,6 @@
 "history-clear-confirmation-heading" = "ਕੀ ਤੁਸੀੰ ਪੱਕਾ ਆਪਣੀਆੰ ਸਾਰੀਆਂ ਹਾਲੀਆ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਚਾਹੁੰਦੇ ਹੋ?";
 "history-clear-delete-all" = "ਹਾੰਜੀ, ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
 "history-title" = "ਅਤੀਤ";
-"hockeyapp-alert-always-send" = "ਹਮੇਸ਼ਾ ਭੇਜੋ";
-"hockeyapp-alert-do-not-send" = "ਨਾ ਭੇਜੋ";
-"hockeyapp-alert-privacy" = "$1 ਦੀ ਨਿੱਜਤਾ";
-"hockeyapp-alert-send-report" = "ਰਿਪੋਰਟ ਭੇਜੋ";
-"hockeyapp-alert-title" = "ਮੁਅਾਫ਼ ਕਰਨਾ, ਬੀਤੇ ਸਮੇਂ ਅੈਪ ਟੁੱਟ ਗੲੀ";
 "home-more-like-footer" = "$1 ਵਾੰਗੂ ਹੋਰ";
 // Fuzzy
 "home-nearby-footer" = "ਮੇਰੇ ਸਥਾਨ ਦੇ ਨੇੜੇ ਤੋਂ ਹੋਰ";
@@ -156,7 +150,6 @@
 "main-menu-account-logout-are-you-sure" = "ਕੀ ਤੁਸੀੰ ਯਕੀਨੀ ਵਿਦਾਅ ਹੋਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "main-menu-account-logout-cancel" = "ਰੱਦ ਕਰੋ";
 "main-menu-account-title-logged-in" = "$1 ਵਜੋਂ ਦਾਖ਼ਲ";
-"main-menu-debug-crash" = "ਟੁੱਟ ਗਿਅਾ";
 "main-menu-debug-tweaks" = "ਡਿਵੈਲਪਰ ਸੈਟਿੰਗ";
 "main-menu-heading-debug" = "ਡੀਬੱਗ";
 "main-menu-heading-legal" = "ਪਰਦੇਦਾਰੀ ਅਤੇ ਸ਼ਰਤਾਂ";

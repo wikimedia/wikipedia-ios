@@ -1,1 +1,1 @@
-Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.
+Minor bug fix.

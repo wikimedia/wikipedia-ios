@@ -97,7 +97,6 @@
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
-"article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "back-button-accessibility-label" = "Zurück";
 "back-button-popover-title" = "Zum Zurückgehen tippen";
@@ -155,12 +154,15 @@
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
 "dim-images" = "Bilder dimmen";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
 "edit-summary-choice-linked-words" = "Links hinzugefügt";
 "edit-summary-choice-other" = "Andere";
 "edit-summary-field-placeholder-text" = "Andere Wege wie du den Artikel verbessert hast";
 "edit-summary-title" = "Wie hast du den Artikel verbessert?";
+"edit-text-formatting-table-view-title" = "Textformatierung";
+"edit-text-size-table-view-title" = "Textgröße";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
@@ -299,13 +301,6 @@
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
 "history-clear-delete-all" = "Ja, alle löschen";
 "history-title" = "Verlauf";
-"hockeyapp-alert-always-send" = "Immer senden";
-"hockeyapp-alert-do-not-send" = "Nicht senden";
-"hockeyapp-alert-privacy" = "$1-Datenschutz";
-"hockeyapp-alert-question" = "Möchtest du einen Absturzbericht an $1 senden, so dass die Wikimedia Foundation deinen Absturz überprüfen kann?";
-"hockeyapp-alert-question-with-response-field" = "Möchtest du einen Absturzbericht an $1 senden, so dass die Wikimedia Foundation deinen Absturz überprüfen kann? Bitte beschreibe, was passiert ist, als der Absturz aufgetreten ist:";
-"hockeyapp-alert-send-report" = "Bericht senden";
-"hockeyapp-alert-title" = "Leider ist die App beim letzten Mal abgestürzt";
 "home-button-explore-accessibility-label" = "Wikipedia, zurück zu Entdecken";
 "home-button-history-accessibility-label" = "Wikipedia, zurück zu Verlauf";
 "home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
@@ -351,7 +346,6 @@
 "main-menu-account-logout-are-you-sure" = "Bist du sicher, dass du dich abmelden möchtest?";
 "main-menu-account-logout-cancel" = "Abbrechen";
 "main-menu-account-title-logged-in" = "Angemeldet als $1";
-"main-menu-debug-crash" = "Absturz";
 "main-menu-debug-tweaks" = "Entwicklereinstellungen";
 "main-menu-heading-debug" = "Fehlerbehebung";
 "main-menu-heading-legal" = "Datenschutz und Bedingungen";
@@ -533,7 +527,7 @@
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-pages-progress-syncing" = "Herunterladen der Artikel läuft …";
 "saved-reading-lists-title" = "Leselisten";
-"saved-search-default-text" = "Suchen";
+"saved-search-default-text" = "Gespeicherte Artikel durchsuchen";
 "saved-title" = "Gespeichert";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Das Löschen {{PLURAL:$1|dieses Artikels entfernt ihn|dieser Artikel entfernt sie}} aus allen verbundenen Leselisten";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel}} löschen?";

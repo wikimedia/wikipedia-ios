@@ -87,6 +87,10 @@
     return mutableSelf;
 }
 
+- (NSString *)wmf_stringBySanitizingForBacktickDelimitedJavascript {
+   return [self stringByReplacingOccurrencesOfString:@"([{}\\`])" withString:@"\\\\$1" options:NSRegularExpressionSearch range:NSMakeRange(0, self.length)];
+}
+
 - (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:(nullable NSString *)wikipediaLanguage {
     // Capitalize first character of WikiData description.
     if (self.length > 1) {

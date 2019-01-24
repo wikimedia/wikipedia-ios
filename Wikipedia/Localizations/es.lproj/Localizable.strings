@@ -7,6 +7,7 @@
 // Author: Fitoschido
 // Author: Indiralena
 // Author: Irus
+// Author: JO777
 // Author: Javiersanp
 // Author: Josecurioso
 // Author: Juan Cuartas
@@ -99,8 +100,7 @@
 "appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tablas";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Arraste el control deslizante hacia arriba para cambiar el tamaño del texto del artículo. Utilice el tamaño de texto de su sistema para redimensionar otras áreas del texto en la aplicación.";
+"appearance-settings-text-sizing-example-text" = "Arrastra el control deslizante para cambiar el tamaño del texto del artículo. Utiliza el tamaño de texto de tu sistema para redimensionar otras áreas de texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
 "article-about-title" = "Acerca de este artículo";
 "article-delete" = "Borrar";
@@ -113,7 +113,6 @@
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
-"article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
@@ -136,12 +135,15 @@
 "description-edit-title" = "Editar descripción";
 "description-edit-warning" = "Prueba mantener las descripciones cortas, así los usuarios pueden entender el tema del artículo en una mirada";
 "dim-images" = "Atenuación de imágenes";
+"edit-style-table-view-title" = "Estilo";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
 "edit-summary-choice-other" = "Otro";
 "edit-summary-field-placeholder-text" = "Otras formas en las que mejoraste el artículo";
 "edit-summary-title" = "¿Cómo has mejorado el artículo?";
+"edit-text-formatting-table-view-title" = "Formato del texto";
+"edit-text-size-table-view-title" = "Tamaño del texto";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
@@ -176,7 +178,6 @@
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
-// Fuzzy
 "explore-most-read-footer" = "Todos los artículos más leídos";
 "explore-most-read-generic-heading" = "Más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
@@ -230,19 +231,11 @@
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
 "history-title" = "Historial";
-"hockeyapp-alert-always-send" = "Enviar siempre";
-"hockeyapp-alert-do-not-send" = "No enviar";
-"hockeyapp-alert-privacy" = "Privacidad de $1";
-"hockeyapp-alert-question" = "¿Te gustaría enviar un informe a $1 para que la Fundación Wikimedia pueda revisar tu fallo?";
-"hockeyapp-alert-question-with-response-field" = "¿Te gustaría enviar un informe a $1 para que la Fundación Wikimedia pueda revisar tu fallo? Describe lo que pasó en el momento del fallo:";
-"hockeyapp-alert-send-report" = "Enviar informe";
-"hockeyapp-alert-title" = "La aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-more-like-footer" = "Más como $1";
-// Fuzzy
-"home-nearby-footer" = "Más de cercanos a tu ubicación";
+"home-nearby-footer" = "Más lugares cerca de tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más acontecimientos actuales";
 "home-themes-action-title" = "Gestionar las preferencias";
@@ -278,7 +271,6 @@
 "main-menu-account-logout-are-you-sure" = "¿Confirmas que quieres salir de la sesión?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
-"main-menu-debug-crash" = "Fallar";
 "main-menu-debug-tweaks" = "Configuración del desarrollador";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidad y términos";
@@ -412,11 +404,15 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
+"reverted-edit-notification-read-more-action-title" = "Leer más";
+"reverted-edit-thanks-for-editing-title" = "¡Gracias por editar en Wikipedia!";
+"reverted-edit-title" = "Edición revertida";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
 "saved-pages-progress-syncing" = "Descarga de artículos en curso…";
 "saved-reading-lists-title" = "Listas de lectura";
+// Fuzzy
 "saved-search-default-text" = "Buscar";
 "saved-title" = "Guardados";
 "search-button-accessibility-label" = "Buscar en Wikipedia";
@@ -446,8 +442,7 @@
 "settings-notifications-system-turn-on" = "Activar las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-primary-language" = "Primario";
-// Fuzzy
-"settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-primary-language-details" = "El primer idioma de esta lista es usado como el idioma principal de la aplicación.";
 "settings-search-open-app-on-search" = "Abrir aplicación en la pestaña de búsqueda";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos";

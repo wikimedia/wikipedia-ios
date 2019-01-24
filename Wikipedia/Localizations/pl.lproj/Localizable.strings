@@ -5,6 +5,7 @@
 // Author: Anwar2
 // Author: Bsitzmann
 // Author: Chrumps
+// Author: CiaPan
 // Author: DeRudySoulStorm
 // Author: Debeet
 // Author: Devwebtel
@@ -94,7 +95,6 @@
 "article-read-more-title" = "Czytaj więcej";
 "article-save-error-not-enough-space" = "Masz za mało miejsca na urządzeniu, by zapisać ten artykuł";
 "article-share" = "Udostępnij";
-"article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "back-button-accessibility-label" = "Wstecz";
 "button-done" = "Gotowe";
@@ -158,8 +158,7 @@
 "explore-most-read-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-placeholder-heading" = "Miejsca";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Z $1 Wikipedii";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Z Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-potd-heading" = "Grafika dnia";
@@ -202,13 +201,6 @@
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
 "history-clear-delete-all" = "Tak, usuń wszystko";
 "history-title" = "Historia";
-"hockeyapp-alert-always-send" = "Zawsze wysyłaj";
-"hockeyapp-alert-do-not-send" = "Nie wysyłaj";
-"hockeyapp-alert-privacy" = "Polityka prywatności $1";
-"hockeyapp-alert-question" = "Czy chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać Twój błąd?";
-"hockeyapp-alert-question-with-response-field" = "Chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać awarię? Proszę, opisz co się stało, gdy wystąpił błąd:";
-"hockeyapp-alert-send-report" = "Wyślij raport";
-"hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
 "home-nearby-footer" = "Więcej miejsc w pobliżu Twojej lokalizacji";
 "home-news-footer" = "Więcej aktualnych wydarzeń";
 "home-themes-action-title" = "Zarządzaj preferencjami";
@@ -238,7 +230,6 @@
 "main-menu-account-logout-are-you-sure" = "Czy na pewno chcesz się wylogować?";
 "main-menu-account-logout-cancel" = "Anuluj";
 "main-menu-account-title-logged-in" = "Zalogowano jako $1";
-"main-menu-debug-crash" = "Awaria";
 "main-menu-heading-debug" = "Debugowanie";
 "main-menu-heading-legal" = "Prywatność i warunki";
 "main-menu-heading-zero" = "Wikipedia Zero";
@@ -330,6 +321,7 @@
 "reverted-edit-notification-read-more-action-title" = "Czytaj więcej";
 "saved-all-articles-title" = "Wszystkie artykuły";
 "saved-pages-progress-syncing" = "Trwa pobieranie artykułu...";
+// Fuzzy
 "saved-search-default-text" = "Szukaj";
 "saved-title" = "Zapisane";
 "search-button-accessibility-label" = "Szukaj w Wikipedii";

@@ -51,6 +51,7 @@
 "account-creation-title" = "Саҥа ааты бэлиэтээ";
 "action-add-to" = "Манна эп...";
 "action-add-to-reading-list" = "Ааҕар испииһэккэ киллэр";
+"action-add-to-reading-list-short" = "Испииһэккэ киллэр";
 "action-cancel" = "Салҕаама";
 "action-move-to" = "Манна көһөр...";
 "action-move-to-reading-list" = "Ааҕар испииһэккэ көһөр";
@@ -65,10 +66,14 @@
 "action-unsave" = "Оннунан хаалбата";
 "action-unsaved-accessibility-notification" = "Ыстатыйа испииһэктэн сотулунна";
 "action-update" = "Саҥардыы";
+"add-articles-to-reading-list" = "$1 ыстатыйаны ааҕыы испииһэгэр киллэр";
 "alert-no-internet" = "Интэриниэт ситимэ суох";
 "announcements-dismiss" = "Сап";
+"app-store-keywords" = "Бикипиэдьийэ, ыстатыйа, биики, энциклопедия, билии, аах, бил, билис, көр, быһаарыы";
+"app-store-subtitle" = "Аһаҕас энциклопедия";
 "appearance-settings-adjust-text-sizing" = "Ыстатыйа тиэкиһин кээмэйин уларытар";
 "appearance-settings-image-dimming-footer" = "Ойуу курдат көстөрүн хараҥа тиэмэҕэ кыччатар";
+"appearance-settings-set-automatic-table-opening" = "Таабыл нарылааһына";
 "appearance-settings-theme-options" = "Тиэмэ туруоруулара";
 "article-about-title" = "Бу ыстатыйа туһунан";
 "article-delete" = "Сот";
@@ -80,7 +85,6 @@
 "article-languages-yours" = "Эн тылларыҥ";
 "article-read-more-title" = "Бу туһунан сиһилии";
 "article-share" = "Тарҕат";
-"article-unable-to-load-article" = "Ыстатыйаны хачайдаан ылар сатаммата.";
 "article-unable-to-load-section" = "Бу салааны көрдөрөр табыллыбата. Ыстатыйаны саҥаттан арыйан көр, баҕар оччоҕо сатаныа.";
 "back-button-accessibility-label" = "Төнүн";
 "button-done" = "Оҥоһулунна";
@@ -99,6 +103,11 @@
 "compass-direction" = "$1 чааска";
 "continue-reading-empty-description" = "Бикипиэдьийэни чинчийэн өссө элбэх сэргиир ыстатыйаҕын бул";
 "continue-reading-empty-title" = "Соторутааҕыта ааҕыллыбыт суох";
+"description-add-link-title" = "Аатын быһаар";
+"description-add-title" = "Быһааран суруй";
+"description-edit-for-article" = "Аатын быһаарыыта «$1»";
+"description-edit-learn-more" = "Бу туһунан сиһилии";
+"description-edit-length-warning" = "$1 / $2";
 "dim-images" = "Ойууну мынаарыт";
 "edit-summary-choice-fixed-grammar" = "Таба суруйуутун көннөрдүм";
 "edit-summary-choice-fixed-typos" = "Алҕас суруллубут буукубаны көннөрдүм";
@@ -173,13 +182,6 @@
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-delete-all" = "Оннук, барытын сот";
 "history-title" = "Устуоруйата";
-"hockeyapp-alert-always-send" = "Куруук ыытар буол";
-"hockeyapp-alert-do-not-send" = "Ыытыма";
-"hockeyapp-alert-privacy" = "Бүк охсунуу $1";
-"hockeyapp-alert-question" = "Моһуогуруу төрүөтүн Бикимиэдьийэ Пуондата чинчийэрин курдук, отчуоту манна $1 ыытыаххын баҕараҕын дуо?";
-"hockeyapp-alert-question-with-response-field" = "Моһуогуруу төрүөтүн Бикимиэдьийэ Пуондата чинчийэрин курдук, отчуоту манна $1 ыытыаххын баҕараҕын дуо? Моһуокка туох тиэрдибитин сабаҕалыыргын манна суруй дуу:";
-"hockeyapp-alert-send-report" = "Отчуоту ыыт";
-"hockeyapp-alert-title" = "Хомойуох иһин, ааспыкка дьибилгэт моһуогура сылдьыбыт";
 "home-button-explore-accessibility-label" = "Бикипиэдьийэ, Устуоруйатыгар төнүн";
 "home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
 "home-button-saved-accessibility-label" = "Бикипиэдьийэ, бигэргэтиигэ төнүн.";
@@ -215,7 +217,6 @@
 "main-menu-account-logout-are-you-sure" = "Кырдьык тахсаары гынаҕын дуо?";
 "main-menu-account-logout-cancel" = "Салҕаама";
 "main-menu-account-title-logged-in" = "Киирбит аатыҥ $1";
-"main-menu-debug-crash" = "Охтуу";
 "main-menu-debug-tweaks" = "Оҥорооччу туруоруулара";
 "main-menu-heading-debug" = "Нарылааһын";
 "main-menu-heading-legal" = "Бүк охсунуу";

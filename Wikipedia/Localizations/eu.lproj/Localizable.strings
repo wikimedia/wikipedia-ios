@@ -99,7 +99,6 @@
 "article-save-error-not-enough-space" = "Ez duzu espazio nahikorik gailuan artikulu hau gordetzeko";
 "article-share" = "Partekatu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Gaiak Irakurtzen";
-"article-unable-to-load-article" = "Ezin da artikulua kargatu.";
 "article-unable-to-load-section" = "Sekzio hau ezin da kargatu. Saia zaitez artikulua freskatzen ikusteko arazoa konpontzen den.";
 "back-button-accessibility-label" = "Atzera";
 "back-button-popover-title" = "Eman atzera joateko";
@@ -243,13 +242,6 @@
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
 "history-clear-delete-all" = "Bai, dena ezabatu";
 "history-title" = "Historia";
-"hockeyapp-alert-always-send" = "Beti bidali";
-"hockeyapp-alert-do-not-send" = "Ez bidali";
-"hockeyapp-alert-privacy" = "$1 pribatutasuna";
-"hockeyapp-alert-question" = "Kraskadurari buruzko txostena $ 1ra bidali nahiko zenuke, Wikimedia Foundation-ek kraskadura berrikusi ahal izateko?";
-"hockeyapp-alert-question-with-response-field" = "Kraskadurari buruzko txostena $ 1ra bidali nahiko zenuke, Wikimedia Foundation-ek kraskadura berrikusi ahal izateko? Mesedez, deskriba ezazu gertaturikoa karraskadura produzitu denean:";
-"hockeyapp-alert-send-report" = "Bidali txostena";
-"hockeyapp-alert-title" = "Barkatu, aplikazioa eten egin da";
 "home-button-explore-accessibility-label" = "Wikipedia, Arakatzailera itzuli";
 "home-button-history-accessibility-label" = "Wikipedia, Historiara itzuli";
 "home-button-saved-accessibility-label" = "Wikipedia, Biltegira itzuli";
@@ -292,7 +284,6 @@
 "main-menu-account-logout-are-you-sure" = "Atera nahi duzula ziur al zaude?";
 "main-menu-account-logout-cancel" = "Utzi";
 "main-menu-account-title-logged-in" = "Saioa $1 bezala hasia";
-"main-menu-debug-crash" = "Karraskadura";
 "main-menu-debug-tweaks" = "Garatzailearen ezarpenak";
 "main-menu-heading-debug" = "Araztu";
 "main-menu-heading-legal" = "Terminoak eta Pribautasuna";
@@ -466,6 +457,7 @@
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
 "saved-pages-progress-syncing" = "Artikuluen jaistea abian...";
 "saved-reading-lists-title" = "Irakurketa zerrendak";
+// Fuzzy
 "saved-search-default-text" = "Bilatu";
 "saved-title" = "Gordea";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ezabatzekotan {{PLURAL:$1|artikulu honek ezabatuko du|artikulu hauek ezabatuko dute}} asoziatutako irakurketa zerrenda guztietatik";

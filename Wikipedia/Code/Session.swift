@@ -128,18 +128,14 @@ import Foundation
         }
         return hasValid
     }
-    
-    public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Bool?, Error?) -> Void) -> Operation {
+
+    @discardableResult public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Bool?, Error?) -> Void) -> Operation {
         let op = operationType.init(session: self, tokenFetcher: tokenFetcher, components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
         queue.addOperation(op)
         return op
     }
 
-    public func request(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
-        
-        guard let requestURL = components.url else {
-            return nil
-        }
+    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
@@ -165,25 +161,29 @@ import Foundation
                         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
                     }
                 }
-                
             }
-            
         }
         
         return request
     }
     
-    public func jsonDictionaryTask(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Bool?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let request = request(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
+    @discardableResult public func jsonDictionaryTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Bool?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let url = url else {
+            return nil
+        }
+        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
         return jsonDictionaryTask(with: request, completionHandler: { (result, response, error) in
-            completionHandler(result, response as? HTTPURLResponse, authorized, error)
+            completionHandler(result, response, authorized, error)
         })
     }
     
-    public func dataTask(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let request = request(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
+    public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let url = url else {
+            return nil
+        }
+        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
         return defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
@@ -222,8 +222,8 @@ import Foundation
          - response: The URLResponse
          - error: Any network or parsing error
      */
-    public func jsonCodableTask<T, E>(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
-        guard let task = dataTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+    public func jsonCodableTask<T, E>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
+        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, nil, response, error)
@@ -261,8 +261,8 @@ import Foundation
         return task
     }
 
-    public func jsonDecodableTask<T: Decodable>(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,_ authorized: Bool?,  _ error: Error?) -> Swift.Void) {
-        guard let task = dataTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+    public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,_ authorized: Bool?,  _ error: Error?) -> Swift.Void) {
+        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, response, authorized, error)
@@ -287,50 +287,65 @@ import Foundation
         queue.addOperation(op)
     }
     
-    @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+    @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
-                completionHandler(nil, response, error)
+                completionHandler(nil, response as? HTTPURLResponse, error)
                 return
             }
             do {
                 guard data.count > 0, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                    completionHandler(nil, response, nil)
+                    completionHandler(nil, response as? HTTPURLResponse, nil)
                     return
                 }
-                completionHandler(responseObject, response, nil)
+                completionHandler(responseObject, response as? HTTPURLResponse, nil)
             } catch let error {
                 DDLogError("Error parsing JSON: \(error)")
-                completionHandler(nil, response, error)
+                completionHandler(nil, response as? HTTPURLResponse, error)
             }
         })
     }
+
+    @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
+    public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
+        guard let url = url else {
+            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            return
+        }
+        guard var request = self.request(with: url, method: .get) else {
+            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            return
+        }
+        if ignoreCache {
+            request.cachePolicy = .reloadIgnoringLocalCacheData
+        }
+        jsonDictionaryTask(with: request, completionHandler: completionHandler).resume()
+    }
     
-    @discardableResult public func apiTask(with articleURL: URL, path: String, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+    @discardableResult public func apiTask(with articleURL: URL, path: [String], completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
             // don't call the completion as this is just a method to get the task
             return nil
         }
-        let api = configuration.mobileAppsServicesAPIForHost(siteURL.host)
-        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
-        let pathComponents = api.basePathComponents + [path, encodedTitle]
-        let percentEncodedPath = pathComponents.joined(separator: "/") // NSString.path(with: components) removes the leading slash
-        var components = api.hostComponents
-        components.percentEncodedPath = percentEncodedPath
+        let builder = configuration.mobileAppsServicesAPIURLComponentsBuilderForHost(siteURL.host)
+        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_articleTitlePathComponentAllowed) ?? title
+        let components = builder.components(byAppending: path + [encodedTitle])
         guard let summaryURL = components.url else {
             // don't call the completion as this is just a method to get the task
             return nil
         }
         
-        var request = URLRequest(url: summaryURL)
+        guard var request = self.request(with: summaryURL) else {
+            return nil
+        }
         //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
         request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
     @objc(fetchAPIPath:withArticleURL:priority:completionHandler:)
-    public func fetchAPI(path: String, with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+    public func fetchAPI(path: [String], with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
         guard let task = apiTask(with: articleURL, path: path, completionHandler: completionHandler) else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
             return
@@ -342,12 +357,12 @@ import Foundation
     
     @objc(fetchMediaForArticleURL:priority:completionHandler:)
     public func fetchMedia(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
-        return fetchAPI(path: "page/media", with: articleURL, completionHandler: completionHandler)
+        return fetchAPI(path: ["page", "media"], with: articleURL, completionHandler: completionHandler)
     }
     
     @objc(fetchSummaryForArticleURL:priority:completionHandler:)
     public func fetchSummary(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
-        return fetchAPI(path: "page/summary", with: articleURL, completionHandler: completionHandler)
+        return fetchAPI(path: ["page", "summary"], with: articleURL, completionHandler: completionHandler)
     }
     
     public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: [String: Any]]) -> Void) {

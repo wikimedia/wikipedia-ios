@@ -34,7 +34,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
     fileprivate let locationSearchFetcher = WMFLocationSearchFetcher()
     fileprivate let searchFetcher = WMFSearchFetcher()
-    fileprivate let wikidataFetcher = WikidataFetcher()
+    fileprivate let wikidataFetcher = WikidataFetcher(session: Session.shared, configuration: Configuration.current)
     fileprivate let locationManager = WMFLocationManager.fine()
     fileprivate let animationDuration = 0.6
     fileprivate let animationScale = CGFloat(0.6)

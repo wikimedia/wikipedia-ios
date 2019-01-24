@@ -9,7 +9,7 @@
 		<key>mit</key>
 		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/develop/LICENSE.txt</string>
 		<key>tsg</key>
-		<string>http://specialistsguild.org</string>
+		<string>https://tsgteam.org</string>
 		<key>feedback</key>
 		<string>mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:$1</string>
 		<key>twn</key>
@@ -199,7 +199,9 @@ THE SOFTWARE.</string>
 		<string>Prayag Verma</string>
 		<string>Rita Ho</string>
 		<string>Rummana Yasmeen</string>
+		<string>Salman Jamil</string>
 		<string>Sam Symons</string>
+		<string>Scott Petit</string>
 		<string>Sean Villalta</string>
 		<string>Seshadri Mahalingam</string>
 		<string>Sherah Smith</string>
@@ -217,6 +219,7 @@ THE SOFTWARE.</string>
 		<string>Vibha Bamba</string>
 		<string>Victor Peschenkov</string>
 		<string>waffleboot</string>
+		<string>Yongmin Hong</string>
 		<string>Yuvi Panda</string>
 	</array>
 </dict>

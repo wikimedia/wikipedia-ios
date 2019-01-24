@@ -5,6 +5,7 @@
 // Author: Alluk.
 // Author: ElmA
 // Author: Jack Phoenix
+// Author: Laurianttila
 // Author: McSalama
 // Author: Nemo bis
 // Author: Nike
@@ -88,7 +89,7 @@
 "app-store-short-description" = "Lataa Wikipedia-sovellus tutkiaksesi ympärilläsi olevia paikkoja, synkronoidaksesi artikkeleita lukeaksesi niitä offline-tilassa ja mukauttaaksesi lukukokemustasi.";
 "app-store-subtitle" = "Vapaa tietosanakirja";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
-"appearance-settings-expand-tables" = "Laajenna taulukoita";
+"appearance-settings-expand-tables" = "Laajenna taulukot";
 "appearance-settings-expand-tables-footer" = "Aseta kaikki taulukot kaikissa artikkeleissa aukeamaan oletuksena, mukaanlukien Pikafaktoja, Viitteet, Ilmoitukset ja Ulkoiset linkit.";
 "appearance-settings-image-dimming-footer" = "Pienennä kuvien sameutta tummassa teemassa";
 "appearance-settings-reading-themes" = "Lukuteemat";
@@ -106,7 +107,6 @@
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
-"article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back-button-accessibility-label" = "Takaisin";
 "back-button-popover-title" = "Napauta palataksesi";
@@ -127,31 +127,47 @@
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
-"description-add-link-title" = "Lisää otsikkokuvaus";
+"description-add-link-title" = "Lisää otsikon kuvaus";
 "description-add-title" = "Lisää kuvaus";
+"description-edit-for-article" = "Otsikon kuvaus artikkelille $1";
 "description-edit-learn-more" = "Lisätietoja";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-pencil-title" = "Muokkaa otsikkokuvausta";
+"description-edit-license" = "Muuttamalla otsikon kuvausta, hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
+"description-edit-pencil-introduction" = "Muokkaa esittelyä";
+"description-edit-pencil-title" = "Muokkaa otsikon kuvausta";
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
 "description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
+"description-edit-warning" = "Yritä pitää kuvaus lyhyenä, jotta käyttäjät ymmärtäisivät artikkelin aiheen yhdellä silmäyksellä";
+"description-help-about-description" = "Lyhyet kuvaukset tiivistävät artikkelin aiheen ja auttavat ymmärtämään sen yhdellä silmäyksellä.";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
+"description-help-more-info-description" = "Kuvaukset tallennetaan Wikidataan. Se on Wikimedia Foundationin ylläpitämä vapaasti muokattava monikielinen tietokanta, joka toimii Wikipedian ja muiden wikiprojektien tukena.";
+"description-help-more-info-title" = "Lisää tietoa";
+"description-help-tips-example-description-one" = "Mona Lisaa käsittelevän artikkelin otsikon kuvaus";
 "description-help-tips-example-title-one" = "Leonardo da Vincin maalaus";
 "description-help-tips-example-title-two" = "Maapallon korkein vuori";
 "description-help-tips-for-example" = "Esimerkiksi:";
+"description-help-tips-title" = "Vinkkejä kuvauksen luomiseen";
+"description-help-wikidata-guide" = "Wikidata-opas kuvausten kirjoittamiseen";
 "description-published-button-title" = "Valmis";
+"description-published-subtitle" = "Olet juuri tehnyt Wikipediasta paremman kaikille";
 "description-published-title" = "Kuvaus julkaistu!";
+"description-welcome-concise-sub-title" = "Ideaalisesti yksi rivi, kahdesta kahteenkymmeneen sanaan";
 "description-welcome-concise-title" = "Pidä se lyhyenä";
-"description-welcome-descriptions-title" = "Otsikkokuvaukset";
+"description-welcome-descriptions-title" = "Otsikon kuvaukset";
+"description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "dim-images" = "Dim kuvat";
+"edit-style-table-view-title" = "Tyyli";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-choice-other" = "Muu";
 "edit-summary-field-placeholder-text" = "Muut tavat, joilla paransit artikkelia";
 "edit-summary-title" = "Kuinka paransit artikkelia?";
+"edit-text-formatting-table-view-title" = "Tekstin muotoilu";
+"edit-text-size-table-view-title" = "Tekstin koko";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
@@ -165,18 +181,22 @@
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin, jopa yhteydettömässä tilassa";
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
+"error-generic-description" = "Odottamaton virhe tapahtui";
 "error-generic-recovery-suggestion" = "Yritä myöhemmin uudelleen";
 "error-unknown" = "Tapahtui tuntematon virhe";
 "explore-another-random" = "Toinen satunnainen sivu";
 "explore-because-you-read" = "Koska luit";
 "explore-because-you-read-footer" = "Muut liittyvät artikkelit";
 "explore-continue-reading-heading" = "Jatka lukemista";
+"explore-detail-back-button-title" = "Takaisin Tutki-syötteeseen";
 "explore-enable-location-title" = "Tutki artikkeleita lähellä nykyistä sijaintisi";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Wikipediasta";
 "explore-featured-article-sub-heading-from-wikipedia" = "Wikipediasta";
 "explore-feed-customize-accessibility-title" = "Mukauta";
+"explore-feed-language-settings" = "Tutki-syötteen kieliasetukset";
 "explore-feed-preferences-additional-languages-footer-text" = "Lisäkieliä voi lisätä asetusten 'Omat kielet' -sivulta.";
+"explore-feed-preferences-card-hidden-title" = "Kortti piilotettu";
 "explore-feed-preferences-continue-reading-description" = "Pikalinkki takaisin avoimeen artikkeliin";
 "explore-feed-preferences-customize-explore-feed" = "Mukauta Tutki-syötettä";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Mukauta Tutki-syötettä";
@@ -187,6 +207,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Kaikilla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Käytössä";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 kielellä";
+"explore-feed-preferences-feed-cards-hidden-title" = "Kaikki %@ korttia piilotettu";
 "explore-feed-preferences-global-card-footer-text" = "Tämä kortti ei ole kielikohtainen, ja sen poistaminen käytöstä poistaa sen Tutki-syötteestäsi.";
 "explore-feed-preferences-global-cards-description" = "Ei-kielikohtaiset tietyt kortit";
 "explore-feed-preferences-global-cards-subtitle" = "Kielestä riippumaton";
@@ -218,8 +239,11 @@
 "explore-feed-preferences-top-read-description" = "Päivittäin eniten luetut artikkelit";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Poista Tutki-syöte käytöstä";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Poistetaanko Tutki-syöte käytöstä?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Poista Tutki-välilehti käytöstä";
 "explore-feed-preferences-turn-off-explore-tab-message" = "Tutki-välilehti voidaan ottaa uudelleen käyttöön Tutki-syötteen asetuksissa";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Poista Tutki-välilehti käytöstä";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Tutki-välilehden poistaminen käytöstä korvaa sen Asetukset-välilehdellä.";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Ota Tutki-välilehti käyttöön";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ota käyttöön Tutki-välilehti?";
 "explore-feed-preferences-undo-customization" = "Kumoa";
 "explore-hide-card-prompt" = "Piilota tämä kortti";
@@ -279,13 +303,6 @@
 "history-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tuoreet kohteesi?";
 "history-clear-delete-all" = "Kyllä, poista kaikki";
 "history-title" = "Historia";
-"hockeyapp-alert-always-send" = "Lähetä aina";
-"hockeyapp-alert-do-not-send" = "Älä lähetä";
-"hockeyapp-alert-privacy" = "$1 tietosuoja";
-"hockeyapp-alert-question" = "Haluatko lähettää kaatumisilmoituksen $1:lle, jotta Wikimedia Foundation voi korjata ongelman?";
-"hockeyapp-alert-question-with-response-field" = "Haluatko lähettää kaatumisilmoituksen $1:lle, jotta Wikimedia Foundationin kehittäjät voivat korjata ongelman? Kirjoita englanniksi mitä olit tekemässä, kun sovellus kaatui:";
-"hockeyapp-alert-send-report" = "Lähetä raportti";
-"hockeyapp-alert-title" = "Anteeksi, sovellus kaatui viime kerralla";
 "home-button-explore-accessibility-label" = "Wikipedia, palaa Tutki-sivulle";
 "home-button-history-accessibility-label" = "Wikipedia, palaa Historia-sivulle";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
@@ -317,9 +334,12 @@
 "languages-wikipedia" = "Wikipedian kielet";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
+"logged-out-continue-without-logging-in-button-title" = "Jatka kirjautumatta";
+"logged-out-log-back-in-button-title" = "Kirjaudu takaisin tunnuksellesi";
+"logged-out-title" = "Olet kirjautunut ulos";
 "login-forgot-password" = "Unohditko salasanasi?";
 "login-join-wikipedia" = "Liity Wikipediaan.";
-"login-no-account" = "Eikö sinulla ole tunnusta? $1";
+"login-no-account" = "Eikö sinulla vielä ole käyttäjätunnusta? $1";
 "login-title" = "Kirjaudu sisään tunnuksellesi";
 "main-menu-about" = "Tietoja sovelluksesta";
 "main-menu-account-login" = "Kirjaudu sisään";
@@ -327,7 +347,6 @@
 "main-menu-account-logout-are-you-sure" = "Haluatko varmasti kirjautua ulos?";
 "main-menu-account-logout-cancel" = "Peruuta";
 "main-menu-account-title-logged-in" = "Olet kirjautunut käyttäjänä $1";
-"main-menu-debug-crash" = "Virhe";
 "main-menu-debug-tweaks" = "Kehittäjien asetukset";
 "main-menu-heading-debug" = "Vianetsintä";
 "main-menu-heading-legal" = "Tietosuoja ja Ehdot";
@@ -360,6 +379,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediasta";
 "on-this-day-title" = "Tänä päivänä";
 "open-link-cancel" = "Peruuta";
+"original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
 "page-edit-history" = "Täysi muokkaushistoria";
 "page-history-title" = "Artikkelin historia";
 "page-issues" = "Sivun ongelmat";
@@ -415,7 +435,7 @@
 "reading-list-add-generic-hint-title" = "Lisää tämä artikkeli lukulistaan?";
 "reading-list-add-hint-title" = "Lisää “$1” lukulistaan?";
 "reading-list-add-saved-button-title" = "Kyllä, lisää ne lukulistoihini";
-"reading-list-add-saved-subtitle" = "Nämä ovat Wikipedia-sovellukseesi tallennettuja artikkeleita. Haluaisitko pitää ne ja yhdistää tilillesi synkronoituihin lukulistoihin.";
+"reading-list-add-saved-subtitle" = "Nämä ovat Wikipedia-sovellukseesi tallennettuja artikkeleita. Haluaisitko pitää ne ja yhdistää tunnuksellesi synkronoituihin lukulistoihin.";
 "reading-list-add-saved-title" = "Löydetyt tallennetut artikkelit";
 "reading-list-api-error-entry-limit" = "Tätä merkintää ei ole synkronoitu koska olet saavuttanut merkintöjen lukumäärän rajan tässä listassa.";
 "reading-list-api-error-generic" = "Odottamaton virhe tapahtui lukulistaasi synkronoidessa.";
@@ -432,9 +452,9 @@
 "reading-list-exists-with-same-name" = "Lukulistan nimi on jo käytössä";
 "reading-list-generic-error" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä.";
 "reading-list-keep-button-title" = "Kyllä, säilytä artikkelit laitteessa";
-"reading-list-keep-subtitle" = "Nämä ovat artikkeleita, jotka on synkronoitu Wikipedia-tiliisi. Haluaisitko säilyttää ne tässä laitteessa sen jälkeen kun kirjaudut ulos?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Synkronoinnin poistaminen käytöstä poistaa nämä artikkelit tililtäsi. Jos poistat ne laitteeltasi, niitä ei voida palauttaa kytkemällä synkronointia takaisin päälle myöhemmin.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ei, poista artikkelit laitteesta ja Wikipedia-tililtäni";
+"reading-list-keep-subtitle" = "Nämä ovat artikkeleita, jotka on synkronoitu Wikipedia-tunnukseesi. Haluaisitko säilyttää ne tässä laitteessa sen jälkeen kun kirjaudut ulos?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Synkronoinnin poistaminen käytöstä poistaa nämä artikkelit tunnukseltasi. Jos poistat ne laitteeltasi, niitä ei voida palauttaa kytkemällä synkronointia takaisin päälle myöhemmin.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Ei, poista artikkelit laitteesta ja Wikipedia-tunnukseltani";
 "reading-list-keep-title" = "Säilytä tallennetut artikkelit laitteessa?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Lajittele artikkelit";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Lajittelemattomien artikkeleiden maksimimäärä on 5000. Lajittele olemassaolevat artikkelit listoihin jatkaaksesi lajittelemattomien artikkeleiden synkronointia.";
@@ -445,18 +465,18 @@
 "reading-list-login-button-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelisi";
 "reading-list-login-or-create-account-button-title" = "Kirjaudu sisään tai luo tunnus";
 "reading-list-login-or-create-account-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelit";
-"reading-list-login-subtitle" = "Kirjaudu sisään tai luo tunnus salliaksesi tallennettujen artikkelien ja lukulistojen synkronoitua laitteiden poikki ja tallentaa käyttäjäasetuksiisi.";
+"reading-list-login-subtitle" = "Kirjaudu sisään tai luo tunnus salliaksesi tallennettujen artikkelien ja lukulistojen synkronoitua laitteiden välillä ja tallentaa käyttäjäasetuksiisi.";
 "reading-list-login-title" = "Synkronoi tallennetut artikkelisi?";
 "reading-list-name-user-created-annotation" = "_[käyttäjä luotu]";
 "reading-list-new-list-description-placeholder" = "valinnainen lyhyt kuvaus";
 "reading-list-new-list-name-placeholder" = "lukulistan otsikko";
-"reading-list-sync-disabled-panel-message" = "Lukulistojen synkronointi on poistettu käytöstä Wikipedia-tililläsi toiselta laitteella. Sen voi kytkeä takaisin päälle asetuksia päivittämällä.";
+"reading-list-sync-disabled-panel-message" = "Lukulistojen synkronointi on poistettu käytöstä Wikipedia-tunnuksellesi toisella laitteella. Sen voi kytkeä takaisin päälle asetuksia päivittämällä.";
 "reading-list-sync-disabled-panel-title" = "Sykronointi poistettu käytöstä";
 "reading-list-sync-enable-button-title" = "Ota synkronointi käyttöön";
-"reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tiliisi ja synkronoida Wikipedia-sovellusten poikki.";
+"reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tunnuksellesi ja synkronoida Wikipedia-sovellusten välillä.";
 "reading-list-sync-enable-title" = "Ota lukulistan synkronointi käyttöön?";
-"reading-list-sync-enabled-panel-message" = "Lukulistojen synkronointi on käytössä tällä tilillä. Voit pysäyttää synkronoinnin poistamalla sen käytöstä tällä tilillä asetuksista.";
-"reading-list-sync-enabled-panel-title" = "Synkronointi on otettu käyttöön tälle tilille";
+"reading-list-sync-enabled-panel-message" = "Lukulistojen synkronointi on käytössä tällä tilillä. Voit pysäyttää synkronoinnin poistamalla sen käytöstä tällä tunnuksella asetuksista.";
+"reading-list-sync-enabled-panel-title" = "Synkronointi on otettu käyttöön tällä tunnuksella";
 "reading-list-unable-to-add-entry" = "Odottamaton virhe tapahtui lisätessä\nmerkintää lukulistaan. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-create" = "Odottamaton virhe tapahtui lukulistaasi luodessa. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-delete" = "Odottamaton virhe tapahtui poistaessa lukulistaasi. Yritä myöhemmin uudelleen.";
@@ -478,7 +498,7 @@
 "reading-lists-default-list-title" = "Tallennetut";
 "reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
 "reading-lists-delete-reading-list-alert-title" = "Poista {{PLURAL:$1|lista|listaa}}?";
-"reading-lists-large-sync-completed" = "$1 artikkelia ja $2 lukulistaa synkronoitu tililtäsi";
+"reading-lists-large-sync-completed" = "$1 artikkelia ja $2 lukulistaa synkronoitu tunnukseltasi";
 "reading-lists-list-not-synced-limit-exceeded" = "Luettelo ei synkronoitu, raja saavutettu";
 "reading-lists-sort-saved-articles" = "Lajittele tallennetut artikkelit";
 "reading-lists-split-notification" = "On olemassa $1 artikkelin raja lukulistaa kohden. Nykyiset tämän rajan ylittävät listat on jaettu moniin listoihin.";
@@ -496,15 +516,18 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tänä vuonna|Viime vuonna|$1 vuotta sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "reverted-edit-back-to-article-button-title" = "Takaisin artikkeliin";
+"reverted-edit-notification-body" = "$2 palautti artikkeliin $1 tekemäsi muutoksen";
 "reverted-edit-notification-read-more-action-title" = "Lue lisää";
+"reverted-edit-possible-reasons" = "- Muutoksesi ei noudata yhtä suuntaviivoista. $1 \n\n - Muutoksesi näyttää kokeilulta tai vandalismilta";
 "reverted-edit-thanks-for-editing-title" = "Kiitos Wikipedian muokkaamisesta!";
 "reverted-edit-title" = "Kumottu muokkaus";
+"reverted-edit-view-guidelines-text" = "Näytä suuntaviivat";
 "saved-all-articles-title" = "Kaikki artikkelit";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "saved-pages-progress-syncing" = "Artikkelin lataus käynnissä...";
 "saved-reading-lists-title" = "Lukulistat";
-"saved-search-default-text" = "Hae";
+"saved-search-default-text" = "Hae tallennetuista artikkeleista";
 "saved-title" = "Tallennettu";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Tämän artikkelin tallentamattomaksi jättäminen poistaa sen|Näiden artikkelien tallentamattomaksi jättäminen poistaa ne}} kaikista niihin liittyvistä lukulistoista";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Poista {{PLURAL:$1|artikkeli|artikkelia}}?";
@@ -538,9 +561,10 @@
 "settings-notifications-trending" = "Nousussa olevat ajankohtaiset tapahtumat";
 "settings-primary-language" = "Ensisijainen";
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli.";
+"settings-search-footer-text" = "Aseta sovellus avaamaan Haku-välilehti Tutki-välilehden sijaan";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Salli Wikimedian tallentaa tallennetut artikkelisi ja lukulistasi käyttäjäasetuksiisi kun kirjaudut ja synkronoit.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronoi tallennetut artikkelit ja luettelot";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Tallennettujen artikkeleiden tyhjentäminen poistaa ne tililtäsi, jos sinulla on synkronointi käytössä tällä laitteella. Tätä toimintoa ei voi kumota.";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Tallennettujen artikkeleiden tyhjentäminen poistaa ne käyttäjätunnukseltasi, jos sinulla on synkronointi käytössä tällä laitteella. Tätä toimintoa ei voi kumota.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Haluatko poistaa kaikki tallennetut artikkelit?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Poista";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Tallennettujen artikkeliesi poisto poistaa artikkelit käyttäjätunnukseltasi ja tältä laitteelta, vaikka synkronointi olisi kytketty päälle.\n\nTallennettujen artikkeliesi poisto vapauttaa tilaa noin $1.";
@@ -584,7 +608,7 @@
 "top-read-see-more" = "Katso lisää luetuimpia";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
-"two-factor-login-title" = "Kirjaudu sisään tilillesi";
+"two-factor-login-title" = "Kirjaudu sisään tunnuksellesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
 "view-in-browser-footer-link" = "Lue artikkeli selaimessa";

@@ -71,7 +71,6 @@
 "article-languages-yours" = "Ho yezhoù";
 "article-read-more-title" = "Lenn muioc'h";
 "article-share" = "Rannañ";
-"article-unable-to-load-article" = "Ne c'haller ket kargañ ar pennad-mañ.";
 "article-unable-to-load-section" = "Ne c'haller ket kargañ ar rannskrid-se. Klaskit freskaat ar pennad evit gwelet hag-eñ e vo reizhet ar gudenn.";
 "back-button-accessibility-label" = "Distreiñ";
 "button-done" = "Echu";
@@ -162,13 +161,6 @@
 "history-clear-confirmation-heading" = "Ha sur eo ho peus c'hoant da lemel ho holl elfennoù nevez ?";
 "history-clear-delete-all" = "Ya, lemel pep tra";
 "history-title" = "Istor";
-"hockeyapp-alert-always-send" = "Kas atav";
-"hockeyapp-alert-do-not-send" = "Chom hep kas";
-"hockeyapp-alert-privacy" = "Prevezded $1";
-"hockeyapp-alert-question" = "Ha c'hoant hoc'h eus da gas un danevell sac'hañ da $1 evit ma c'hallo Diazezadur Wikimedia studiañ anezhi ?";
-"hockeyapp-alert-question-with-response-field" = "Ha c'hoant hoc'h eus da gas un danevell sac'hañ da $1 evit ma c'hallo Diazezadur Wikipedia studiañ anezhi ? Deskrivit ar pezh zo c'hoarvezet p'eo chomet sac'het an traoù :";
-"hockeyapp-alert-send-report" = "Kas un danevell";
-"hockeyapp-alert-title" = "Ho tigarez, chomet eo sac'het an arload ar wech diwezhañ";
 "home-button-explore-accessibility-label" = "Wikipedia, distreiñ da Ergerzhiñ";
 "home-button-history-accessibility-label" = "Wikipedia, distreiñ da Istor";
 "home-button-saved-accessibility-label" = "Wikipedia, distreiñ da Enrollañ";
@@ -203,7 +195,6 @@
 "main-menu-account-logout-are-you-sure" = "Ha sur oc'h e fell deoc'h digevreañ ?";
 "main-menu-account-logout-cancel" = "Nullañ";
 "main-menu-account-title-logged-in" = "Kevreañ evel $1";
-"main-menu-debug-crash" = "Sac'hañ";
 "main-menu-debug-tweaks" = "Arventennoù an diorroer";
 "main-menu-heading-debug" = "Dizreinañ";
 "main-menu-heading-legal" = "Prevezded ha Termenoù";

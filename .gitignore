@@ -6,7 +6,13 @@
 
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
 /build/
-Carthage
+*.bcsymbolmap
+*.version
+Carthage/Checkouts
+Carthage/Build/watchOS/
+Carthage/Build/Mac/
+Carthage/Build/tvOS/
+
 Carthage Cache
 *.pbxuser
 !default.pbxuser
@@ -39,6 +45,7 @@ fastlane/report.xml
 fastlane/Error*.png
 fastlane/metadata/trade_representative_contact_information
 fastlane/metadata/review_information
+fastlane/Preview.html
 
 *.mobileprovision
 

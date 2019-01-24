@@ -64,6 +64,8 @@
 
 + (instancetype)wmf_yearMonthDayZDateFormatter;
 
-+ (instancetype)wmf_yearMonthDayPathDateFormatter;
++ (instancetype)wmf_yearFormatter; // 1905
++ (instancetype)wmf_monthFormatter; // 05
++ (instancetype)wmf_dayFormatter; // 09
 
 @end

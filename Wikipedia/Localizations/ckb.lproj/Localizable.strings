@@ -80,7 +80,6 @@
 "article-read-more-title" = "زیاتر بخوێنەوە";
 "article-share" = "ھاوبەشکردن";
 "article-toolbar-reading-themes-controls-toolbar-item" = "کۆنترۆڵەکانی بەرگەکانی خوێندنەوە";
-"article-unable-to-load-article" = "نەتواندرا وتارەکە بھێندرێت.";
 "article-unable-to-load-section" = "ناتواندرێت ئەم بەشە بیشان بدرێت. ھەوڵ بدە کە وتارەکە دووبارە بکەیتەوە.";
 "back-button-accessibility-label" = "گەڕانەوە";
 "button-done" = "کرا";
@@ -174,13 +173,6 @@
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
 "history-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "history-title" = "مێژوو";
-"hockeyapp-alert-always-send" = "ھەمیشە بینێرە";
-"hockeyapp-alert-do-not-send" = "مەینێرە";
-"hockeyapp-alert-privacy" = "پەنھانی $1";
-"hockeyapp-alert-question" = "ئایا ئارەزوو دەکەیت بە ناردنی سکاڵای تێکچوونی ئاپەکە بۆ $1 تاکو دامەزراوەی ویکیمیدیا بتوانێت بەسەر کێشەکەدا بچێتەوە؟";
-"hockeyapp-alert-question-with-response-field" = "ئایا ئارەزوو دەکەیت بە ناردنی سکاڵای تێکچوونی ئاپەکە بۆ $1 تاکو دامەزراوەی ویکیمیدیا بتوانێت بەسەر کێشەکەدا بچێتەوە؟ تکایە وەسفی ئەوە بکە کە ڕوویدا لەکاتی تێکچوونی ئاپەکە.";
-"hockeyapp-alert-send-report" = "ناردنی ڕاپۆرت";
-"hockeyapp-alert-title" = "ببوورە، ئاپ لە جاری پێشوو تێکچوو";
 "home-button-explore-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ گەڕان";
 "home-button-history-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ مێژوو";
 "home-button-saved-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ خەزێنەکراوەکان";
@@ -220,7 +212,6 @@
 "main-menu-account-logout-are-you-sure" = "دڵنیای کە دەتەوێت بچیە دەرەوە؟";
 "main-menu-account-logout-cancel" = "ھەڵوەشاندنەوە";
 "main-menu-account-title-logged-in" = "چووە ناوەوە بە ھەژماری $1";
-"main-menu-debug-crash" = "تێکشکان";
 "main-menu-debug-tweaks" = "ڕێکخستنەکانی گەشەپێدەر";
 "main-menu-heading-debug" = "دیبەگ";
 "main-menu-heading-legal" = "تایبەتێتی و مەرجەکان";

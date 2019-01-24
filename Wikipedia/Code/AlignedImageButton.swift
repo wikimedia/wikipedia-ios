@@ -36,7 +36,6 @@ public class AlignedImageButton: UIButton {
         }
     }
     
-    
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         let newLayoutDirection: UIUserInterfaceLayoutDirection = traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight

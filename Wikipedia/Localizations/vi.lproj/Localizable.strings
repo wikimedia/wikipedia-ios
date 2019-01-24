@@ -101,7 +101,6 @@
 "article-save-error-not-enough-space" = "Bạn không có đủ dung lượng trống trên bộ nhớ để lưu bài viết này";
 "article-share" = "Chia sẻ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
-"article-unable-to-load-article" = "Không thể tải bài này.";
 "article-unable-to-load-section" = "Không thể tải lên phần này. Hãy thử tải lại bài để xem lỗi có được khắc phục hay không.";
 "back-button-accessibility-label" = "Quay lại";
 "back-button-popover-title" = "Chạm để quay lại";
@@ -264,13 +263,6 @@
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
 "history-clear-delete-all" = "Có, xóa toàn bộ";
 "history-title" = "Lịch sử";
-"hockeyapp-alert-always-send" = "Luôn gửi";
-"hockeyapp-alert-do-not-send" = "Đừng gửi";
-"hockeyapp-alert-privacy" = "Quyền riêng tư $1";
-"hockeyapp-alert-question" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để Quỹ Wikimedia có thể xem lại sự cố của bạn?";
-"hockeyapp-alert-question-with-response-field" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để Quỹ Wikimedia sửa lỗi này? Vui lòng miêu tả những gì đã xảy ra vào lúc sự cố:";
-"hockeyapp-alert-send-report" = "Gửi báo cáo";
-"hockeyapp-alert-title" = "Rất tiếc, ứng dụng gặp sự cố lần vừa rồi";
 "home-button-explore-accessibility-label" = "Wikipedia, quay về Thám hiểm";
 "home-button-history-accessibility-label" = "Wikipedia, quay về Lịch sử";
 "home-button-saved-accessibility-label" = "Wikipedia, quay về Đã lưu";
@@ -312,7 +304,6 @@
 "main-menu-account-logout-are-you-sure" = "Bạn có chắc chắn muốn đăng xuất?";
 "main-menu-account-logout-cancel" = "Hủy bỏ";
 "main-menu-account-title-logged-in" = "Đã đăng nhập là $1.";
-"main-menu-debug-crash" = "Gây Sự cố";
 "main-menu-debug-tweaks" = "Tùy chọn cho nhà phát triển";
 "main-menu-heading-debug" = "Gỡ lỗi";
 "main-menu-heading-legal" = "Thông tin pháp luật";
@@ -486,6 +477,7 @@
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";
 "saved-pages-progress-syncing" = "Đang tải về bài viết…";
 "saved-reading-lists-title" = "Danh sách đọc";
+// Fuzzy
 "saved-search-default-text" = "Tìm kiếm";
 "saved-title" = "Đã lưu";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Khi xóa {{PLURAL:$1|bài đã lưu, nó|các bài đã lưu, chúng}} sẽ được loại bỏ khỏi các danh sách đọc";

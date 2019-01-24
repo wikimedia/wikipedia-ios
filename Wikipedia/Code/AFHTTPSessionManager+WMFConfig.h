@@ -1,4 +1,4 @@
-@import AFNetworking;
+#import <WMF/AFNetworking.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,8 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
  * - JSON response serializer
  */
 + (instancetype)wmf_createDefaultManager;
-
-+ (instancetype)wmf_createIgnoreCacheManager;
 
 @end
 

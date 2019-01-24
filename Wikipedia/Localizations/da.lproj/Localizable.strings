@@ -94,7 +94,6 @@
 "article-read-more-title" = "Læs mere";
 "article-share" = "Del";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
-"article-unable-to-load-article" = "Kunne ikke indlæse denne artikel.";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbage";
 "back-button-popover-title" = "Tryk for at gå tilbage";
@@ -110,6 +109,7 @@
 "button-skip" = "Udelad";
 "cancel" = "Afbryd";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Luk";
 "compass-direction" = "mod klokken $1";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
@@ -118,6 +118,7 @@
 "description-add-title" = "Tilføj beskrivelse";
 "description-edit-for-article" = "Titelbeskrivelse for $1";
 "description-edit-learn-more" = "Lær mere";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Rediger introduktion";
 "description-edit-pencil-title" = "Rediger titelbeskrivelse";
 "description-edit-placeholder-title" = "Korte beskrivelser er de bedste";
@@ -134,12 +135,14 @@
 "description-welcome-concise-title" = "Gør det kort";
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "dim-images" = "Mørklæg billeder";
+"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
 "edit-summary-choice-linked-words" = "Tilføjede links";
 "edit-summary-choice-other" = "Andet";
 "edit-summary-field-placeholder-text" = "Andre måder du forbedrede artiklen";
 "edit-summary-title" = "Hvordan har du forbedret artiklen?";
+"edit-text-size-table-view-title" = "Tekst størrelse";
 "empty-no-article-message" = "Beklager, kunne ikke indlæse artiklen";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
@@ -162,6 +165,11 @@
 "explore-featured-article-heading" = "Fremhævet artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
+"explore-feed-preferences-card-hidden-title" = "Kort skjult";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Fra";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alle på";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Til";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "På $1";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle %@ kort";
@@ -224,13 +232,6 @@
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
 "history-clear-delete-all" = "Ja, slet alt";
 "history-title" = "Historik";
-"hockeyapp-alert-always-send" = "Send altid";
-"hockeyapp-alert-do-not-send" = "Send ikke";
-"hockeyapp-alert-privacy" = "$1 privatliv";
-"hockeyapp-alert-question" = "Ønsker du at sende en nedbrudsrapport til $1 så Wikimedia Foundation kan undersøge dit nedbrud?";
-"hockeyapp-alert-question-with-response-field" = "Ønsker du at sende en nedbrudsrapport til $1 så Wikimedia Foundation kan undersøge dit nedbrud? Beskriv venligst hvad der skete da nedbruddet indtraf:";
-"hockeyapp-alert-send-report" = "Send rapport";
-"hockeyapp-alert-title" = "Beklager, appen brød ned sidste gang";
 "home-button-explore-accessibility-label" = "Wikipedia, vend tilbage til Udforsk";
 "home-button-history-accessibility-label" = "Wikipedia, vend tilbage til Historik";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
@@ -275,7 +276,6 @@
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du ønsker at logge ud?";
 "main-menu-account-logout-cancel" = "Annuller";
 "main-menu-account-title-logged-in" = "Logget på som: $1";
-"main-menu-debug-crash" = "Crash";
 "main-menu-debug-tweaks" = "Indstillinger for udvikler";
 "main-menu-heading-debug" = "Fejlsøgning";
 "main-menu-heading-legal" = "Privatliv og vilkår";
@@ -356,6 +356,7 @@
 "preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 læsere";
+"reading-list-add-generic-hint-title" = "Tilføj denne artikel til en læseliste?";
 "reading-list-add-hint-title" = "Tilføj »$1« til læselisten?";
 "reading-list-add-saved-button-title" = "Ja, tilføj dem til mine læselister";
 "reading-list-add-saved-subtitle" = "Der er artikler gemt i dit Wikipediaprogram. Ønsker du at bevare dem og sammenføje dem med læselister synkroniseret til din konto?";
@@ -399,6 +400,7 @@
 "reading-lists-article-added-confirmation" = "Artikel tilføjet til »$1«";
 "reading-lists-article-api-failure" = "Artiklen kunne ikke synkroniseres";
 "reading-lists-article-not-synced" = "Ikke synkroniseret";
+"reading-lists-article-queued-to-be-downloaded" = "Artiklen er sat i kør for download";
 "reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
 "reading-lists-default-list-description" = "Standardliste for dine gemte artikler";
 "reading-lists-default-list-title" = "Gemt";
@@ -427,7 +429,7 @@
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
 "saved-reading-lists-title" = "Læselister";
-"saved-search-default-text" = "Søg";
+"saved-search-default-text" = "Søg i gemte artikler";
 "saved-title" = "Gemt";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Fjernelse {{PLURAL:$1|af denne artikel vil fjerne den|af disse artikler vil fjerne dem }} fra alle associerede læselister";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Fjern {{PLURAL:$1|artikel|artikler}}?";
@@ -440,6 +442,7 @@
 "search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";
 "search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "search-recent-clear-delete-all" = "Slet";
+"search-recent-empty" = "Endnu ingen seneste søgninger";
 "search-recent-title" = "Seneste søgte";
 "search-result-redirected-from" = "Omdirigeret fra: $1";
 "search-title" = "Søg";

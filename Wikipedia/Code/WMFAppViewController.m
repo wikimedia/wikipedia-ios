@@ -1388,8 +1388,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
-    NSTimeInterval duration = animated ? 0.3 : 0.0;
+    NSTimeInterval duration = animated ? 0.15 : 0.0;
     [UIView animateWithDuration:duration
+        delay:0
+        options:UIViewAnimationOptionAllowUserInteraction
         animations:^{
             self.splashView.alpha = 0.0;
         }
@@ -1939,7 +1941,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         _settingsNavigationController = navController;
     }
 
-    if (_settingsNavigationController.viewControllers.count == 0) {
+    if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
         _settingsNavigationController.viewControllers = @[self.settingsViewController];
     }
 
@@ -2065,14 +2067,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (event.subtype != UIEventSubtypeMotionShake) {
         return;
     }
-    UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeMain];
+    UINavigationController *navController = self.navigationController;
     if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
         [UIApplication sharedApplication].idleTimerDisabled = NO;
         return;
     }
 
     [self setSelectedIndex:WMFAppTabTypeMain];
-    UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeMain];
+    UINavigationController *exploreNavController = self.navigationController;
 
     [self dismissPresentedViewControllers];
 

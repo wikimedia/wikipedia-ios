@@ -102,7 +102,6 @@
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
-"article-unable-to-load-article" = "Није могуће учитати чланак.";
 "article-unable-to-load-section" = "Није могуће учитати овај одељак. Проверите да ли ће поновно учитавање чланка решити проблем.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Додирните да бисте се вратили";
@@ -160,12 +159,15 @@
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "dim-images" = "Затамни слике";
+"edit-style-table-view-title" = "Стил";
 "edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-summary-choice-other" = "Друго";
 "edit-summary-field-placeholder-text" = "Други начини на које сте побољшали чланак";
 "edit-summary-title" = "На који начин сте побољшали чланак?";
+"edit-text-formatting-table-view-title" = "Обликовање текста";
+"edit-text-size-table-view-title" = "Величина текста";
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
 "empty-no-feed-message" = "Препоручене чланке ћете видети када будете онлајн";
@@ -304,13 +306,6 @@
 "history-clear-confirmation-heading" = "Желите ли заиста да избришете све недавне ставке?";
 "history-clear-delete-all" = "Да, избриши све";
 "history-title" = "Историја";
-"hockeyapp-alert-always-send" = "Увек шаљи";
-"hockeyapp-alert-do-not-send" = "Не шаљи";
-"hockeyapp-alert-privacy" = "Политика приватности $1-а";
-"hockeyapp-alert-question" = "Желите ли да пошаљете извештај о отказивању $1-у како би Задужбина Викимедија испитала ваш случај?";
-"hockeyapp-alert-question-with-response-field" = "Желите ли да пошаљете извештај о отказивању $1-у како би Задужбина Викимедија испитала ваш случај? Опишите шта се десило када је дошло до отказивања:";
-"hockeyapp-alert-send-report" = "Пошаљи извештај";
-"hockeyapp-alert-title" = "Апликација је отказала прошли пут";
 "home-button-explore-accessibility-label" = "Википедија, назад на „Истражи”";
 "home-button-history-accessibility-label" = "Википедија, назад на историју";
 "home-button-saved-accessibility-label" = "Википедија, назад на сачуване";
@@ -356,7 +351,6 @@
 "main-menu-account-logout-are-you-sure" = "Желите ли заиста да се одјавите?";
 "main-menu-account-logout-cancel" = "Откажи";
 "main-menu-account-title-logged-in" = "Пријављени сте као $1";
-"main-menu-debug-crash" = "Отказивање";
 "main-menu-debug-tweaks" = "Подешавања за програмера";
 "main-menu-heading-debug" = "Исправке";
 "main-menu-heading-legal" = "Приватност и услови";
@@ -538,7 +532,7 @@
 "saved-pages-image-download-error" = "Преузимање слика за ову сачувану страницу није успело.";
 "saved-pages-progress-syncing" = "Преузимам чланак…";
 "saved-reading-lists-title" = "Листе за читање";
-"saved-search-default-text" = "Претрага";
+"saved-search-default-text" = "Претражите сачуване чланке";
 "saved-title" = "Сачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Овај чланак ће бити избрисан|Ови чланци ће бити избрисани}} са свих повезаних листа за читање";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Уклонити {{PLURAL:$1|чланак|чланке}} из сачуваних?";
@@ -655,7 +649,7 @@
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-preview-changes" = "Преузимање прегледа ваших промена…";
 "wikitext-preview-changes-none" = "Нема промена за преглед.";
-"wikitext-preview-link-preview-description" = "Овај линк води до „$1”";
+"wikitext-preview-link-preview-description" = "Ова веза води ка „$1”";
 "wikitext-preview-link-preview-title" = "Преглед линка";
 "wikitext-upload-captcha-error" = "Грешка при CAPTCHA верификацији.";
 "wikitext-upload-captcha-needed" = "Потребна је CAPTCHA верификација.";

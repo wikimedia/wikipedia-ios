@@ -45,6 +45,7 @@
 "account-creation-title" = "បង្កើតគណនីថ្មី";
 "action-add-to" = "បន្ថែមទៅ…";
 "action-add-to-reading-list" = "បន្ថែមទៅក្នុងបញ្ជីអំណាន";
+"action-add-to-reading-list-short" = "បន្ថែមទៅក្នុង​បញ្ជី​";
 "action-cancel" = "បោះបង់";
 "action-move-to" = "ប្ដូរទៅតាំងទៅ…";
 "action-move-to-reading-list" = "ប្ដូរទៅតាំងទៅបញ្ជីអំណាន";
@@ -55,6 +56,7 @@
 "action-saved-accessibility" = "រក្សាទុករួច។ បើកសុពលភាពដើម្បីឈប់រក្សាទុកវិញ។";
 "action-saved-accessibility-notification" = "អត្ថបទរក្សាទុកសម្រាប់លើកក្រោយ";
 "action-share" = "ចែកចាយ";
+"action-sort" = "តម្រៀប";
 "action-unsave" = "ឈប់រក្សាទុក";
 "action-unsaved-accessibility-notification" = "អត្ថបទឈប់រក្សាទុករួច";
 "action-update" = "បន្ទាន់សម័យ";
@@ -62,6 +64,7 @@
 "add-articles-to-reading-list" = "បន្ថែម $1 ទៅបញ្ជីអំណាន";
 "alert-no-internet" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "announcements-dismiss" = "លាក់";
+"app-store-subtitle" = "សព្វវចនាធិប្បាយសេរី";
 "appearance-settings-adjust-text-sizing" = "កែតម្រូវទំហំតួអក្សរអត្ថបទ";
 "appearance-settings-expand-tables" = "ពន្លាតតារាង";
 "appearance-settings-expand-tables-footer" = "កំណត់តារាងទាំងអស់អោយបើកតាមលំនាំដើម​ រួមទាំងព័ត៌មានសង្ខេប ឯកសារយោង កំណត់សម្គាល់ និងតំណភ្ជាប់ខាងក្រៅ។";
@@ -82,9 +85,9 @@
 "article-read-more-title" = "អានបន្ថែម";
 "article-share" = "ចែកចាយ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "ការកំណត់រចនាបថអំណាន";
-"article-unable-to-load-article" = "មិនអាចផ្ទុកអត្ថបទនេះបានទេ។";
 "article-unable-to-load-section" = "មិនអាចផ្ទុកផ្នែកអត្ថបទនេះទេ។ សូមសាកល្បងផ្ទុកអត្ថបទម្ដងទៀតក្រែងលោបញ្ហាដោះស្រាយហើយ។";
 "back-button-accessibility-label" = "ត្រឡប់ក្រោយ";
+"back-button-popover-title" = "ចុចដើម្បីត្រឡប់ក្រោយ";
 "button-done" = "រួចរាល់";
 "button-next" = "បន្ទាប់";
 "button-ok" = "យល់ព្រម";
@@ -97,10 +100,16 @@
 "button-skip" = "រំលង";
 "cancel" = "បោះបង់";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "បិទ";
 "compass-direction" = "ចង្អុលទីតាំងម៉ោង$1";
 "continue-reading-empty-description" = "រុករកអត្ថបទសម្រាប់អានបន្ថែមតទៀតក្នុងវិគីភីឌា";
 "continue-reading-empty-title" = "គ្មានអត្ថបទទើបអានថ្មីៗទេ";
+"description-add-link-title" = "បន្ថែមចំណារពន្យល់អំពីចំណងជើង";
+"description-add-title" = "បន្ថែមចំណារពន្យល់";
+"description-edit-for-article" = "ចំណារពន្យល់អំពីចំណងជើង $1";
+"description-edit-learn-more" = "ស្វែងយល់បន្ថែម";
+"description-edit-length-warning" = "$1 / $2";
 "dim-images" = "រូបភាពស្រអាប់";
 "edit-summary-choice-fixed-grammar" = "បានកែតម្រូវវេយ្យាករណ៍";
 "edit-summary-choice-fixed-typos" = "បានកែតម្រូវកំហុសអក្ខរាវិរុទ្ធ";
@@ -122,7 +131,10 @@
 "explore-because-you-read" = "ព្រោះអ្នកបានអាន";
 "explore-continue-reading-heading" = "អានបន្ត";
 "explore-enable-location-title" = "រុករកអត្ថបទក្បែរទីតាំងរបស់អ្នក";
-"explore-featured-article-heading" = "អត្ថបទលេចធ្លោ";
+"explore-featured-article-heading" = "អត្ថបទឆ្នើម";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "ពីវិគីភីឌា$1";
+"explore-featured-article-sub-heading-from-wikipedia" = "ពីវិគីភីឌា";
+"explore-feed-customize-accessibility-title" = "កែ​តាម​បំណង";
 "explore-main-page-description" = "ទំព័រដើមរបស់គម្រោងវិគីមេឌា";
 "explore-main-page-heading" = "ថ្ងៃនេះនៅលើវិគីភីឌា";
 "explore-most-read-generic-heading" = "អត្ថបទអានច្រើនជាងគេ";
@@ -174,13 +186,6 @@
 "history-clear-confirmation-heading" = "តើអ្នកពិតជាងចង់លុបចោលរបស់ថ្មីៗទាំងអស់ឬ?";
 "history-clear-delete-all" = "លុបចោលទាំងអស់";
 "history-title" = "ប្រវត្តិ";
-"hockeyapp-alert-always-send" = "ផ្ញើជានិច្ច";
-"hockeyapp-alert-do-not-send" = "កុំផ្ញើ";
-"hockeyapp-alert-privacy" = "គោលការណ៍ភាពឯកជនរបស់$1";
-"hockeyapp-alert-question" = "តើអ្នកពិតជាចង់ផ្ញើរបាយការណ៍គាំងទៅ$1 ដើម្បីអោយមូលនិធីវិគីមេឌាពិនិត្យទេ?";
-"hockeyapp-alert-question-with-response-field" = "តើអ្នកពិតជាចង់ផ្ញើរបាយការណ៍គាំងទៅ$1 ដើម្បីអោយមូលនិធីវិគីមេឌាពិនិត្យទេ? សូមរៀបរាប់ពីអ្វីដែលកើតឡើងពេលគាំង៖";
-"hockeyapp-alert-send-report" = "ផ្ញើរបាយការណ៍";
-"hockeyapp-alert-title" = "សូមអភ័យទោសដែលកម្មវីធីបានគាំងពេលមុន";
 "home-button-explore-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ រុករក";
 "home-button-history-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ ប្រវត្តិ";
 "home-button-saved-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ អត្ថបទរក្សាទុក";
@@ -219,7 +224,6 @@
 "main-menu-account-logout-are-you-sure" = "តើអ្នកពិតជាងចង់កត់ឈ្មោះចេញមែនទេ?";
 "main-menu-account-logout-cancel" = "បោះបង់";
 "main-menu-account-title-logged-in" = "កត់ឈ្មោះចូលជា $1";
-"main-menu-debug-crash" = "គាំង";
 "main-menu-heading-legal" = "ភាពឯកជននិងលក្ខខណ្ឌប្រើប្រាស់";
 "main-menu-heading-zero" = "វិគីភីឌាសូន្យ";
 "main-menu-nearby" = "ជិតខាង";

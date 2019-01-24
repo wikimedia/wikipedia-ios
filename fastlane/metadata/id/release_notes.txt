@@ -1,1 +1,1 @@
-Sepenuhnya dapat disesuaikan dan lebih mudah membaca umpan Jelajahi. Lokalisasi, peningkatan kinerja, dan perbaikan kesalahan.
+Minor bug fix.

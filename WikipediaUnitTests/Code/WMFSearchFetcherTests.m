@@ -1,5 +1,5 @@
 #import <XCTest/XCTest.h>
-#import <AFNetworking/AFHTTPSessionManager.h>
+#import <WMF/AFNetworking.h>
 #import "WMFSearchFetcher_Testing.h"
 #import "WMFSearchResults_Internal.h"
 #import "MWKSearchResult.h"

@@ -89,7 +89,6 @@
 "article-languages-yours" = "Οι γλώσσες σας";
 "article-read-more-title" = "Διαβάστε περισσότερα";
 "article-share" = "Κοινοποίηση";
-"article-unable-to-load-article" = "Δεν είναι δυνατή η φόρτωση αυτού του άρθρου.";
 "back-button-accessibility-label" = "Πίσω";
 "button-done" = "Έγινε";
 "button-next" = "Επόμενο";
@@ -218,10 +217,6 @@
 "history-clear-cancel" = "Ακύρωση";
 "history-clear-delete-all" = "Ναι, διαγραφή όλων";
 "history-title" = "Ιστορικό";
-"hockeyapp-alert-always-send" = "Αποστολή πάντα";
-"hockeyapp-alert-do-not-send" = "Μην αποστείλεις";
-"hockeyapp-alert-privacy" = "Ιδιωτικότητα $1";
-"hockeyapp-alert-send-report" = "Στείλτε αναφορά";
 "home-button-explore-accessibility-label" = "Βικιπαίδεια, επιστροφή στην εξερεύνηση";
 "home-button-history-accessibility-label" = "Βικιπαίδεια, επιστροφή στο Ιστορικό";
 "home-button-saved-accessibility-label" = "Βικιπαίδεια, επιστροφή στα αποθηκευμένα";
@@ -261,7 +256,6 @@
 "main-menu-account-logout-are-you-sure" = "Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε;";
 "main-menu-account-logout-cancel" = "Ακύρωση";
 "main-menu-account-title-logged-in" = "Συνδεδεμένος ως: $1";
-"main-menu-debug-crash" = "Κάδος";
 "main-menu-debug-tweaks" = "Ρυθμίσεις προγραμματιστή";
 "main-menu-heading-debug" = "Αποσφαλμάτωση";
 "main-menu-heading-legal" = "Ιδιωτικότητα και Όροι";
@@ -390,6 +384,7 @@
 "saved-pages-image-download-error" = "Αποτυχία στην λήψη εικόνων για αυτή την αποθηκευμένη σελίδα.";
 "saved-pages-progress-syncing" = "Η λήψη λήμματος είναι σε εξέλιξη...";
 "saved-reading-lists-title" = "Λίστες ανάγνωσης";
+// Fuzzy
 "saved-search-default-text" = "Αναζήτηση";
 "saved-title" = "Αποθηκεύθηκε";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ξεαποθήκευση {{PLURAL:$1|λήμμα|λημμάτων}};";

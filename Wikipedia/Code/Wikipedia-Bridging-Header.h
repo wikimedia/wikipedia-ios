@@ -13,7 +13,7 @@
 #import "WMFSearchResults.h"
 #import "MWKSearchRedirectMapping.h"
 #import "WMFSearchFetcher.h"
-#import "WMFProxyServer.h"
+#import "WMFURLSchemeHandler.h"
 
 #import "WMFArticleTextActivitySource.h"
 
@@ -21,6 +21,7 @@
 
 #import "WMFArticleFetcher.h"
 #import "SavedArticlesFetcher.h"
+#import "WikiTextSectionFetcher.h"
 
 // Model
 #import "MWKLicense.h"
@@ -52,6 +53,9 @@
 #import "WMFLanguageCell.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFCompassView.h"
+#import "WMFFindInPageKeyboardBar.h"
+#import "WKWebView+ElementLocation.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"
@@ -59,6 +63,7 @@
 #import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
+#import "EditFunnel.h"
 
 // Third Party
 #import "TUSafariActivity.h"

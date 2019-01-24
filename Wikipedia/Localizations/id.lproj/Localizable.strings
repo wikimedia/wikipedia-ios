@@ -8,6 +8,7 @@
 // Author: Bramadiarya
 // Author: C5st4wr6ch
 // Author: Fate Kage
+// Author: Gombang
 // Author: Hendra ibaraki1
 // Author: Hidayatsrf
 // Author: Iwan Novirion
@@ -107,7 +108,6 @@
 "article-save-error-not-enough-space" = "Anda tidak memiliki cukup ruang di perangkat Anda untuk menyimpan artikel ini";
 "article-share" = "Bagikan";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Tema Bacaan";
-"article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "back-button-accessibility-label" = "Kembali";
 "back-button-popover-title" = "Ketuk untuk kembali";
@@ -171,6 +171,7 @@
 "edit-summary-choice-other" = "Lainnya";
 "edit-summary-field-placeholder-text" = "Cara lain Anda menyempurnakan artikel";
 "edit-summary-title" = "Bagaimana Anda menyempurnakan artikel ini?";
+"edit-text-size-table-view-title" = "Ukuran teks";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
@@ -309,13 +310,6 @@
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
 "history-clear-delete-all" = "Ya, hapus semua";
 "history-title" = "Riwayat";
-"hockeyapp-alert-always-send" = "Selalu kirim";
-"hockeyapp-alert-do-not-send" = "Jangan kirim";
-"hockeyapp-alert-privacy" = "Privasi $1";
-"hockeyapp-alert-question" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia Foundation dapat meninjau kesalahan Anda?";
-"hockeyapp-alert-question-with-response-field" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia Foundation dapat meninjau kesalahan Anda? Silakan jelaskan apa yang terjadi ketika kesalahan terjadi:";
-"hockeyapp-alert-send-report" = "Kirim laporan";
-"hockeyapp-alert-title" = "Maaf, aplikasi berhenti dengan sendirinya terakhir kali";
 "home-button-explore-accessibility-label" = "Wikipedia, kembali ke halaman Jelajah";
 "home-button-history-accessibility-label" = "Wikipedia, kembali ke Riwayat";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
@@ -347,6 +341,9 @@
 "languages-wikipedia" = "Bahasa Wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Konten tersedia di bawah $1 kecuali dinyatakan lain.";
+"logged-out-continue-without-logging-in-button-title" = "Lanjutkan tanpa masuk log";
+"logged-out-log-back-in-button-title" = "Masuk log kembali ke akun Anda";
+"logged-out-title" = "Anda sudah keluar log";
 "login-forgot-password" = "Lupa kata sandi Anda?";
 "login-join-wikipedia" = "Bergabunglah dengan Wikipedia";
 "login-no-account" = "Belum mempunyai akun? $1";
@@ -357,7 +354,6 @@
 "main-menu-account-logout-are-you-sure" = "Apakah Anda yakin ingin keluar?";
 "main-menu-account-logout-cancel" = "Batal";
 "main-menu-account-title-logged-in" = "Telah masuk log sebagai $1";
-"main-menu-debug-crash" = "Hancur";
 "main-menu-debug-tweaks" = "Pengaturan pengembang";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privasi dan Ketentuan";
@@ -539,6 +535,7 @@
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
 "saved-pages-progress-syncing" = "Pengunduhan artikel sedang berlangsung...";
 "saved-reading-lists-title" = "Daftar bacaan";
+// Fuzzy
 "saved-search-default-text" = "Cari";
 "saved-title" = "Tersimpan";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Membatalkan simpan {{PLURAL:$1|artikel ini akan menghapusnya|artikel ini akan menghapusnya}} dari semua daftar bacaan yang terkait";

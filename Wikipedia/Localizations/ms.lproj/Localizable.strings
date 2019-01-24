@@ -95,7 +95,6 @@
 "article-save-error-not-enough-space" = "Anda tidak mempunyai ruang yang cukup pada peranti anda untuk menyimpan rencana ini";
 "article-share" = "Kongsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kawalan Tema Bacaan";
-"article-unable-to-load-article" = "Rencana tidak dapat dimuatkan.";
 "article-unable-to-load-section" = "Bahagian ini tidak dapat dimuatkan. Cuba muatkan semula (refresh) rencana ini untuk betulkan masalah ini.";
 "back-button-accessibility-label" = "Kembali";
 "back-button-popover-title" = "Ketik untuk kembali";
@@ -297,13 +296,6 @@
 "history-clear-confirmation-heading" = "Adakah anda benar-benar ingin memadamkan semua butir terbaru anda?";
 "history-clear-delete-all" = "Ya, padamkan semua";
 "history-title" = "Sejarah";
-"hockeyapp-alert-always-send" = "Sentiasa hantar";
-"hockeyapp-alert-do-not-send" = "Jangan hantar";
-"hockeyapp-alert-privacy" = "Privasi $1";
-"hockeyapp-alert-question" = "Adakah anda ingin menghantar laporan keruntuhan kepada $1 supaya Wikimedia Foundation boleh mengkaji keruntuhan ini?";
-"hockeyapp-alert-question-with-response-field" = "Adakah anda ingin menghantar laporan keruntuhan kepada $1 supaya Wikimedia Foundation boleh mengkaji keruntuhan ini? Sila terangkan apa yang terjadi ketika keruntuhan aplikasi:";
-"hockeyapp-alert-send-report" = "Hantar laporan";
-"hockeyapp-alert-title" = "Maaf sebab aplikasi runtuh dulu";
 "home-button-explore-accessibility-label" = "Wikipedia, kembali ke laman Jelajah";
 "home-button-history-accessibility-label" = "Wikipedia, kembali ke Sejarah";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
@@ -345,7 +337,6 @@
 "main-menu-account-logout-are-you-sure" = "Adakah anda benar-benar ingin keluar?";
 "main-menu-account-logout-cancel" = "Batalkan";
 "main-menu-account-title-logged-in" = "Anda telah log masuk sebagai $1";
-"main-menu-debug-crash" = "Tutup Terus";
 "main-menu-debug-tweaks" = "Tetapan pemaju";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privasi dan Syarat-syarat";
@@ -527,6 +518,7 @@
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
 "saved-pages-progress-syncing" = "Muat turun rencana sedang berjalan...";
 "saved-reading-lists-title" = "Senarai bacaan";
+// Fuzzy
 "saved-search-default-text" = "Cari";
 "saved-title" = "Disimpan";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Mengosongkan {{PLURAL:$1|rencana ini akan membuangnya|rencana ini akan membuangnya}} daripada semua senarai bacaan yang berkaitan";

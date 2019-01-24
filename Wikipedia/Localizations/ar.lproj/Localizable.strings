@@ -111,7 +111,6 @@
 "article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
-"article-unable-to-load-article" = "غير قادر على تحميل هذه المقالة.";
 "article-unable-to-load-section" = "تعذر تحميل هذه الفقرة. حاول تحديث عرض المقالة كي ترى إن أدى ذلك إلى التغلب على هذه المشكلة.";
 "back-button-accessibility-label" = "ارجع";
 "back-button-popover-title" = "اضغط للعودة";
@@ -169,12 +168,15 @@
 "description-welcome-promise-title" = "بالبدء، أنا أعد بعدم إساءة استخدام هذه الخاصية";
 "description-welcome-start-editing-button" = "البدء بالتعديل";
 "dim-images" = "صور باهتة";
+"edit-style-table-view-title" = "نمط";
 "edit-summary-choice-fixed-grammar" = "تم إصلاح النحو";
 "edit-summary-choice-fixed-typos" = "تم تصحيح خطأ مطبعي";
 "edit-summary-choice-linked-words" = "إضافة وصلات";
 "edit-summary-choice-other" = "غير ذلك";
 "edit-summary-field-placeholder-text" = "طرق أخرى لتطوير المادة";
 "edit-summary-title" = "كيف حسّنت المقالة؟";
+"edit-text-formatting-table-view-title" = "تنسيق النص";
+"edit-text-size-table-view-title" = "حجم الخط";
 "empty-no-article-message" = "عذرا , غير قادر على تحميل الموضوع";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-feed-message" = "يمكنك مشاهدة مواضيعك المفضلة عندما تتصل بالانترنت";
@@ -313,13 +315,6 @@
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-delete-all" = "نعم، احذف الكل";
 "history-title" = "التاريخ";
-"hockeyapp-alert-always-send" = "أرسل دائما";
-"hockeyapp-alert-do-not-send" = "لا ترسل";
-"hockeyapp-alert-privacy" = "$1 الخصوصية";
-"hockeyapp-alert-question" = "هل تود أن ترسل تقرير بالعطب إلى $1 حتى يمكن لمؤسسة ويكيميديا أن تراجع سبب العطب؟";
-"hockeyapp-alert-question-with-response-field" = "هل ترغب في إرسال تقرير عطب إلى $1 حتى يمكن لمؤسسة ويكيميديا مراجعة سبب العطب؟ يرجى وصف ما حدث حينما حدث هذا العطب.";
-"hockeyapp-alert-send-report" = "أرسل التقرير";
-"hockeyapp-alert-title" = "عذرا، تعطل التطبيق في آخر مرة";
 "home-button-explore-accessibility-label" = "ويكيبيديا، ارجع إلى استكشف";
 "home-button-history-accessibility-label" = "ويكيبيديا، ارجع إلى التاريخ";
 "home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
@@ -365,7 +360,6 @@
 "main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
 "main-menu-account-logout-cancel" = "ألغ";
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
-"main-menu-debug-crash" = "تحطم";
 "main-menu-debug-tweaks" = "إعدادات المطور";
 "main-menu-heading-debug" = "تصحيح";
 "main-menu-heading-legal" = "الشروط والخصوصية";
@@ -547,7 +541,7 @@
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
 "saved-pages-progress-syncing" = "تنزيل المقالة قيد التقدم...";
 "saved-reading-lists-title" = "قوائم القراءة";
-"saved-search-default-text" = "بحث";
+"saved-search-default-text" = "البحث في المقالات المحفوظة";
 "saved-title" = "المحفوظة";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "عدم حفظ هذه {{PLURAL:$1|المقالة|المقالات}} سيزيلها من جميع قوائم القراءة المرتبطة";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "إلغاء حفظ {{PLURAL:$1|مقالة|مقالات}}؟";

@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable, WKNavigationDelegate>
 
 @property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (title) {
         NSString *saveTitle = [WMFCommonStrings saveTitleWithLanguage:url.wmf_language];
         NSString *savedTitle = [WMFCommonStrings savedTitleWithLanguage:url.wmf_language];
-        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle)wmf_stringBySanitizingForJavaScript];
+        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle) wmf_stringBySanitizingForJavaScript];
         [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.updateSaveButtonForTitle('%@', '%@', %@, document)", title, saveButtonText, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
@@ -275,7 +275,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
                                        NSURL *selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
 
-                                       selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
+                                       selectedImageURL = [selectedImageURL wmf_originalURLFromAppSchemeURL];
 
                                        [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
                                    }];
@@ -534,7 +534,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  } else if (newOffsetY > (self.delegate.navigationBar.frame.size.height - self.delegate.navigationBar.safeAreaInsets.top)) {
                                                      [self.delegate.navigationBar setNavigationBarPercentHidden:1 underBarViewPercentHidden:1 extendedViewPercentHidden:1 topSpacingPercentHidden:1 shadowAlpha:1 animated:YES additionalAnimations:NULL];
                                                  }
-                                                 newOffsetY += [self iOS12yOffsetHack];
+                                                 newOffsetY += [self.webView iOS12yOffsetHack];
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
                                                  [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
                                                                                           animated:YES
@@ -569,6 +569,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     // Stop scrolling to let the keyboard open
     [self killScroll];
     [self resetFindInPageWithCompletion:nil];
+}
+
+- (void)keyboardBarReturnTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+    [keyboardBar hide];
 }
 
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
@@ -622,7 +626,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         self.wkUserContentControllerTestingConfigurationBlock(userContentController);
     }
 #endif
-
+    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared]
+                          forURLScheme:WMFURLSchemeHandlerScheme];
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
@@ -649,6 +654,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    self.webView.navigationDelegate = self;
 
     [self addHeaderView];
 
@@ -791,7 +797,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
+                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                                                   animated:animated
                                                                                                 completion:^(BOOL finished){
                                                                                                 }];
@@ -874,8 +880,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
-    WMFProxyServer *proxy = [WMFProxyServer sharedProxyServer];
-    [proxy cacheSectionDataForArticle:self.article];
+    WMFURLSchemeHandler *handler = [WMFURLSchemeHandler shared];
+    [handler cacheSectionDataForArticle:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
@@ -947,7 +953,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     UIView *firstPanel = [controller firstPanelView];
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
 
-        windowCoordsRefGroupRect = CGRectOffset(windowCoordsRefGroupRect, 0, [self iOS12yOffsetHack]);
+        windowCoordsRefGroupRect = CGRectOffset(windowCoordsRefGroupRect, 0, [self.webView iOS12yOffsetHack]);
 
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
         CGRect refGroupRectInWindowCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:nil];
@@ -985,17 +991,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return rect;
     }
     return CGRectNull;
-}
-
-- (CGFloat)iOS12yOffsetHack {
-    if (@available(iOS 12, *)) {
-        CGFloat topContentInset = self.webView.scrollView.contentInset.top;
-        CGFloat yContentOffset = self.webView.scrollView.contentOffset.y;
-        if (topContentInset + yContentOffset != 0) {
-            return 0 - topContentInset - MIN(0, yContentOffset);
-        }
-    }
-    return 0;
 }
 
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
@@ -1132,6 +1127,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidEndScrollingAnimation:)]) {
         [self.delegate webViewController:self scrollViewDidEndScrollingAnimation:scrollView];
     }
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
+    DDLogError(@"webViewContentProcessDidTerminate: %@", webView);
+    [self displayArticle];
 }
 
 #pragma mark -

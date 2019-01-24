@@ -9,7 +9,7 @@ extension WKWebView {
     @objc func loadHTMLFromAssetsFile(_ fileName: String?, scrolledToFragment fragment: String?) {
         guard
             let fileName = fileName,
-            let requestURL = WMFProxyServer.shared().proxyURL(forRelativeFilePath: fileName, fragment: fragment ?? "top")
+            let requestURL = WMFURLSchemeHandler.shared().appSchemeURL(forRelativeFilePath: fileName, fragment: fragment ?? "top")
         else {
             DDLogError("attempted to load nil fileName or requestURL");
             return
@@ -28,10 +28,6 @@ extension WKWebView {
             return
         }
         
-        let proxyServer = WMFProxyServer.shared()
-        if proxyServer.isRunning == false {
-            proxyServer.start()
-        }
 
         let localFilePath = (WikipediaAppUtils.assetsPath() as NSString).appendingPathComponent(fileName)
         guard let fileContents = try? String(contentsOfFile: localFilePath, encoding: String.Encoding.utf8) else {
@@ -48,7 +44,7 @@ extension WKWebView {
         
         var siteCSSLink = ""
         if let host = baseURL.wmf_site?.host,
-            let cssURLString = Configuration.current.mobileAppsServicesAPIURLForHost(host, appending: ["data", "css", "mobile", "site"])?.absoluteString {
+            let cssURLString = Configuration.current.mobileAppsServicesAPIURLComponentsForHost(host, appending: ["data", "css", "mobile", "site"]).url?.absoluteString {
             siteCSSLink = """
             <link href="\(cssURLString)" rel="stylesheet" type="text/css"></link>
             """
@@ -58,8 +54,10 @@ extension WKWebView {
         let templateAndContent = String(format: fileContents, siteCSSLink, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
         
         let requestPath = "\(articleDatabaseKey.hash)-\(fileName)"
-        proxyServer.setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath)
-        
+        guard let requestURL = WMFURLSchemeHandler.shared().appSchemeURL(forRelativeFilePath: requestPath, fragment: fragment ?? "top") else {
+            return
+        }
+        WMFURLSchemeHandler.shared().setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath, request: requestURL)
         loadHTMLFromAssetsFile(requestPath, scrolledToFragment: fragment)
     }
     

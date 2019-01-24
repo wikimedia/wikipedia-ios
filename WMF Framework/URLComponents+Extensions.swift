@@ -46,4 +46,18 @@ extension URLComponents {
         }
         percentEncodedQuery = percentEncodedQueryStringFrom(queryParameters)
     }
+    
+    mutating func replacePercentEncodedPathWithPathComponents(_ pathComponents: [String]?) {
+        guard let pathComponents = pathComponents else {
+            percentEncodedPath = "/"
+            return
+        }
+        let fullComponents = [""] + pathComponents
+        #if DEBUG
+        for component in fullComponents {
+            assert(!component.contains("/"))
+        }
+        #endif
+        percentEncodedPath = fullComponents.joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
+    }
 }
