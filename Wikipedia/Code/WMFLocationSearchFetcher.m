@@ -94,6 +94,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
 
 - (NSDictionary *)params:(CLCircularRegion *)region searchTerm:(nullable NSString *)searchTerm resultLimit:(NSUInteger)resultLimit sortStyle:(WMFLocationSearchSortStyle)sortStyle {
     NSDictionary *defaultParams = @{@"action": @"query",
+                                    @"prop": @"coordinates|pageimages|description|pageprops",
                                     @"coprop": @"type|dim",
                                     @"colimit": @(resultLimit),
                                     @"gsrlimit": @(resultLimit),
