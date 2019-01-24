@@ -206,6 +206,11 @@
 		7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5D21F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5D31F6C4B9C00E8F42B /* WMFChange.h in Headers */ = {isa = PBXBuildFile; fileRef = D8FEECCB1DE3729400B883F0 /* WMFChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A2BB1D421F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
+		7A2BB1D521F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
+		7A2BB1D621F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
+		7A2BB1D721F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
+		7A2BB1D821F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
 		7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */; };
 		7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */; };
 		7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */; };
@@ -3459,6 +3464,7 @@
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
+		7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+iOS12OffsetHack.swift"; sourceTree = "<group>"; };
 		7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EraseSavedArticlesView.xib; sourceTree = "<group>"; };
 		7A2FE55B20517BAE00F92F8F /* EraseSavedArticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseSavedArticlesView.swift; sourceTree = "<group>"; };
 		7A3159CE206458B000143119 /* ReadingListAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListAlertType.swift; sourceTree = "<group>"; };
@@ -6870,6 +6876,7 @@
 			children = (
 				B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */,
 				B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */,
+				7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */,
 				B0370E151FA404B0002CCC82 /* WKWebView+LoadAssetsHtml.swift */,
 				B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */,
 				B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */,
@@ -10398,6 +10405,7 @@
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
 				B0421AA2206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
+				7A2BB1D421F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				7A6ED52120ADBF950001849F /* LoginFunnel.swift in Sources */,
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,
@@ -10951,6 +10959,7 @@
 				D80ED3801EE57F4800CE8C50 /* WMFForgotPasswordViewController.swift in Sources */,
 				7AF56C3921DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				830D71D31F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
+				7A2BB1D821F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				D80ED3811EE57F4800CE8C50 /* WMFImageGalleryViewController.m in Sources */,
 				B0845E1520618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0CD9DF21F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
@@ -11460,6 +11469,7 @@
 				D8A42A9C1E815A9C00D8E281 /* PageHistoryViewController.m in Sources */,
 				D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0421AA5206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
+				7A2BB1D721F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
 				B0016CC621362DB300FA1096 /* SetupGradientView.swift in Sources */,
@@ -12021,6 +12031,7 @@
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
 				7AF56C3621DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				D8CE25E61E698E2400DAE2E0 /* WMFURLSchemeHandler.m in Sources */,
+				7A2BB1D521F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				D8CE25EA1E698E2400DAE2E0 /* WMFForgotPasswordViewController.swift in Sources */,
 				830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
@@ -12374,6 +12385,7 @@
 				830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				7AF56C3721DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
+				7A2BB1D621F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				D8EC3EE51E9BDA35006712EB /* WMFURLSchemeHandler.m in Sources */,
 				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
