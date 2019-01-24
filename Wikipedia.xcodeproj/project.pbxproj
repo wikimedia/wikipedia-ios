@@ -1033,6 +1033,11 @@
 		B0D3E713214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
 		B0D3E714214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
 		B0D3E715214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
+		B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
+		B0D4917021F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
+		B0D4917121F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
+		B0D4917221F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
+		B0D4917321F999A3002BBDD3 /* EditSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */; };
 		B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */; };
 		B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */; };
 		B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
@@ -1122,7 +1127,6 @@
 		B0E806D81C0CEB850065EBC0 /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D41C0CEB850065EBC0 /* AbuseFilterAlert.m */; };
 		B0E806D91C0CEB850065EBC0 /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D61C0CEB850065EBC0 /* BulletedLabel.m */; };
 		B0E806DA1C0CEB850065EBC0 /* BulletedLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806D71C0CEB850065EBC0 /* BulletedLabel.xib */; };
-		B0E806E21C0CEB930065EBC0 /* EditSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */; };
 		B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807101C0CEBF00065EBC0 /* WebViewController.m */; };
 		B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8071E1C0CEC8A0065EBC0 /* main.m */; };
@@ -1440,7 +1444,6 @@
 		D80ED3121EE57F4800CE8C50 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		D80ED3131EE57F4800CE8C50 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D80ED3161EE57F4800CE8C50 /* WMFImageTextActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */; };
-		D80ED3191EE57F4800CE8C50 /* EditSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */; };
 		D80ED31A1EE57F4800CE8C50 /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */; };
 		D80ED31E1EE57F4800CE8C50 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */; };
 		D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
@@ -2110,7 +2113,6 @@
 		D8A42AF11E815A9C00D8E281 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		D8A42AF21E815A9C00D8E281 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8A42AF51E815A9C00D8E281 /* WMFImageTextActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */; };
-		D8A42AF81E815A9C00D8E281 /* EditSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */; };
 		D8A42AF91E815A9C00D8E281 /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */; };
 		D8A42AFC1E815A9C00D8E281 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */; };
 		D8A42AFD1E815A9C00D8E281 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
@@ -2411,7 +2413,6 @@
 		D8CE25771E698E2400DAE2E0 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		D8CE25781E698E2400DAE2E0 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8CE257B1E698E2400DAE2E0 /* WMFImageTextActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */; };
-		D8CE257E1E698E2400DAE2E0 /* EditSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */; };
 		D8CE257F1E698E2400DAE2E0 /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */; };
 		D8CE25821E698E2400DAE2E0 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */; };
 		D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
@@ -2731,7 +2732,6 @@
 		D8EC3E701E9BDA35006712EB /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		D8EC3E711E9BDA35006712EB /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8EC3E741E9BDA35006712EB /* WMFImageTextActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */; };
-		D8EC3E791E9BDA35006712EB /* EditSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */; };
 		D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */; };
 		D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */; };
 		D8EC3E7E1E9BDA35006712EB /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */; };
@@ -3760,6 +3760,7 @@
 		B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDynamicTypeExtentions.swift; path = Wikipedia/Code/WMFDynamicTypeExtentions.swift; sourceTree = SOURCE_ROOT; };
 		B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionEditViewController.swift; sourceTree = "<group>"; };
 		B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DescriptionEditViewController.storyboard; sourceTree = "<group>"; };
+		B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSaveViewController.swift; sourceTree = "<group>"; };
 		B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeFileLocationTests.m; sourceTree = "<group>"; };
 		B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProxyParsingTests.m; sourceTree = "<group>"; };
 		B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
@@ -4020,8 +4021,6 @@
 		B0E806D51C0CEB850065EBC0 /* BulletedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BulletedLabel.h; path = Wikipedia/Code/BulletedLabel.h; sourceTree = SOURCE_ROOT; };
 		B0E806D61C0CEB850065EBC0 /* BulletedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BulletedLabel.m; path = Wikipedia/Code/BulletedLabel.m; sourceTree = SOURCE_ROOT; };
 		B0E806D71C0CEB850065EBC0 /* BulletedLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BulletedLabel.xib; path = Wikipedia/Code/BulletedLabel.xib; sourceTree = SOURCE_ROOT; };
-		B0E806DB1C0CEB930065EBC0 /* EditSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditSaveViewController.h; path = Wikipedia/Code/EditSaveViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditSaveViewController.m; path = Wikipedia/Code/EditSaveViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreviewLicenseView.xib; path = Wikipedia/Code/PreviewLicenseView.xib; sourceTree = SOURCE_ROOT; };
 		B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = Wikipedia/Code/WMFSharing.h; sourceTree = SOURCE_ROOT; };
 		B0E8070E1C0CEBF00065EBC0 /* WebViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController_Private.h; path = Wikipedia/Code/WebViewController_Private.h; sourceTree = SOURCE_ROOT; };
@@ -5365,8 +5364,7 @@
 			children = (
 				042244FA197F5E09005DD0BF /* AbuseFilterAlerts */,
 				BC45D5A51C330734007C72F3 /* Views */,
-				B0E806DB1C0CEB930065EBC0 /* EditSaveViewController.h */,
-				B0E806DC1C0CEB930065EBC0 /* EditSaveViewController.m */,
+				B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */,
 				B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */,
 				B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */,
 				B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */,
@@ -10493,7 +10491,6 @@
 				0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0370E161FA404B0002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
-				B0E806E21C0CEB930065EBC0 /* EditSaveViewController.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
 				B0BCF0B9202537D800986F72 /* Panels.swift in Sources */,
 				D8E27BA61F82B38500F9D2B3 /* RMessage.m in Sources */,
@@ -10577,6 +10574,7 @@
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
+				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
@@ -10821,7 +10819,6 @@
 				D80ED3131EE57F4800CE8C50 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				830D71C71F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				D80ED3161EE57F4800CE8C50 /* WMFImageTextActivitySource.swift in Sources */,
-				D80ED3191EE57F4800CE8C50 /* EditSaveViewController.m in Sources */,
 				B0524B2D214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				D80ED31A1EE57F4800CE8C50 /* ToCInteractionFunnel.m in Sources */,
 				D80ED31E1EE57F4800CE8C50 /* WMFCompassView.m in Sources */,
@@ -10853,6 +10850,7 @@
 				D80ED3351EE57F4800CE8C50 /* MenuButton.m in Sources */,
 				7A4B33402136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */,
+				B0D4917321F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D80ED33A1EE57F4800CE8C50 /* UILabel+WMFStyling.m in Sources */,
 				D8C4D3DC1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B03F8A8D205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
@@ -11552,7 +11550,6 @@
 				D8A42AF21E815A9C00D8E281 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				BA6972591F2BA2D700E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8A42AF51E815A9C00D8E281 /* WMFImageTextActivitySource.swift in Sources */,
-				D8A42AF81E815A9C00D8E281 /* EditSaveViewController.m in Sources */,
 				83EE476D20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				D8A42AF91E815A9C00D8E281 /* ToCInteractionFunnel.m in Sources */,
 				D8A42AFC1E815A9C00D8E281 /* WMFCompassView.m in Sources */,
@@ -11641,6 +11638,7 @@
 				B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8A42B601E815A9C00D8E281 /* WMFHelpViewController.m in Sources */,
 				7A28126620D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
+				B0D4917221F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D8A42B611E815A9C00D8E281 /* NSString+FormattedAttributedString.m in Sources */,
 				83FBE9781F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D8A42B621E815A9C00D8E281 /* WMFURLSchemeHandler.m in Sources */,
@@ -11891,7 +11889,6 @@
 				7A196F5B21BF199500D9E4B5 /* SectionEditorWebView.swift in Sources */,
 				D8CE257B1E698E2400DAE2E0 /* WMFImageTextActivitySource.swift in Sources */,
 				830D71C41F703C980080078B /* ArticleURLListViewController.swift in Sources */,
-				D8CE257E1E698E2400DAE2E0 /* EditSaveViewController.m in Sources */,
 				D8CE257F1E698E2400DAE2E0 /* ToCInteractionFunnel.m in Sources */,
 				D8703DC01EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				B0524B2A214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
@@ -11925,6 +11922,7 @@
 				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
 				D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */,
 				7A4B333D2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
+				B0D4917021F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D8C4D3D91FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B03F8A8A205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8CE259C1E698E2400DAE2E0 /* WMFTableOfContentsHeader.swift in Sources */,
@@ -12251,7 +12249,6 @@
 				B0524B2B214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				B0CD9DE71F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				B0B4236A1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
-				D8EC3E791E9BDA35006712EB /* EditSaveViewController.m in Sources */,
 				8304D7C21F60131900A0CDD6 /* WMFWebView.m in Sources */,
 				D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */,
 				7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
@@ -12279,6 +12276,7 @@
 				D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */,
 				7A4B333E2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
+				B0D4917121F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				83023C0820E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				B03F8A8B205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */,

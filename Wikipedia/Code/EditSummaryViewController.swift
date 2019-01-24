@@ -2,7 +2,7 @@
 import UIKit
 
 @objc protocol EditSummaryViewDelegate: AnyObject {
-    func summaryChanged(newSummary: String?)
+    func summaryChanged(newSummary: String)
     func learnMoreButtonTapped(sender: UIButton)
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType)
 }
@@ -70,7 +70,7 @@ import UIKit
     }
 
     private func notifyDelegateOfSummaryChange() {
-        delegate?.summaryChanged(newSummary: summaryTextField.text)
+        delegate?.summaryChanged(newSummary: summaryTextField.text ?? "")
     }
 
     @IBAction private func cannedSummaryButtonTapped(sender: UIButton) {

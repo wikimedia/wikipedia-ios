@@ -12,7 +12,7 @@
         <!--Edit Save View Controller-->
         <scene sceneID="TJS-xh-DjB">
             <objects>
-                <viewController restorationIdentifier="EditSaveViewController" storyboardIdentifier="EditSaveViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="EditSaveViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="EditSaveViewController" storyboardIdentifier="EditSaveViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="EditSaveViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mk2-1E-CSA"/>
                         <viewControllerLayoutGuide type="bottom" id="LhU-TB-lQR"/>

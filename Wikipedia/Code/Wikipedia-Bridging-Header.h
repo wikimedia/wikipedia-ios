@@ -25,6 +25,8 @@
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "PreviewHtmlFetcher.h"
 
+#import "WikiTextSectionUploader.h"
+
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"
@@ -41,7 +43,6 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
-#import "EditSaveViewController.h"
 #import "WMFFirstRandomViewController.h"
 
 // Views
@@ -58,6 +59,7 @@
 #import "WMFFindInPageKeyboardBar.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
+#import "AbuseFilterAlert.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"

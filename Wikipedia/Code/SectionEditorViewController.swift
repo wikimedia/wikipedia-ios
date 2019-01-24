@@ -244,7 +244,7 @@ extension SectionEditorViewController: WKNavigationDelegate {
 // MARK - EditSaveViewControllerDelegate
 
 extension SectionEditorViewController: EditSaveViewControllerDelegate {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController!) {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController) {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: true)
     }
 }
