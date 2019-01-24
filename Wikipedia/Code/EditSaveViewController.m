@@ -1,21 +1,12 @@
 #import "EditSaveViewController.h"
 #import "WikiTextSectionUploader.h"
 #import <WMF/SessionSingleton.h>
-#import "PaddedLabel.h"
-#import "MenuButton.h"
-#import "PreviewLicenseView.h"
 #import "AbuseFilterAlert.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
 #import "Wikipedia-Swift.h"
 #import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
-
-typedef NS_ENUM(NSInteger, WMFCannedSummaryChoices) {
-    CANNED_SUMMARY_TYPOS,
-    CANNED_SUMMARY_GRAMMAR,
-    CANNED_SUMMARY_LINKS,
-    CANNED_SUMMARY_OTHER
-};
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT,
@@ -25,19 +16,16 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface EditSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
+@interface EditSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate>
 
 @property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
+
+@property (strong, nonatomic) IBOutlet UIView *editSummaryVCContainer;
+
 @property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
 
-@property (strong, nonatomic) IBOutlet UIView *editSummaryContainer;
-@property (strong, nonatomic) UILabel *aboutLabel;
-@property (strong, nonatomic) MenuButton *cannedSummary01;
-@property (strong, nonatomic) MenuButton *cannedSummary02;
-@property (strong, nonatomic) MenuButton *cannedSummary03;
-@property (strong, nonatomic) MenuButton *cannedSummary04;
 @property (nonatomic) CGFloat borderWidth;
 @property (strong, nonatomic) IBOutlet PreviewLicenseView *previewLicenseView;
 @property (strong, nonatomic) UIGestureRecognizer *previewLicenseTapGestureRecognizer;
@@ -48,6 +36,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) UIBarButtonItem *buttonX;
 @property (strong, nonatomic) UIBarButtonItem *buttonLeftCaret;
 @property (strong, nonatomic) NSString *abuseFilterCode;
+
+@property (strong, nonatomic) NSString *summaryText;
+
+@property (strong, nonatomic) IBOutlet EditSummaryViewController *editSummaryViewController;
 
 //@property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
 
@@ -61,25 +53,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @implementation EditSaveViewController
 
 - (NSString *)getSummary {
-    NSMutableArray *summaryArray = @[].mutableCopy;
-
-    if (self.cannedSummary01.enabled) {
-        [summaryArray addObject:self.cannedSummary01.text];
-    }
-    if (self.cannedSummary02.enabled) {
-        [summaryArray addObject:self.cannedSummary02.text];
-    }
-    if (self.cannedSummary03.enabled) {
-        [summaryArray addObject:self.cannedSummary03.text];
-    }
-
-    if (self.cannedSummary04.enabled) {
-        if (self.summaryText && (self.summaryText.length > 0)) {
-            [summaryArray addObject:self.summaryText];
-        }
-    }
-
-    return [summaryArray componentsJoinedByString:@"; "];
+    return self.summaryText;
 }
 
 - (void)setMode:(WMFPreviewAndSaveMode)mode {
@@ -170,145 +144,9 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     self.borderWidth = 1.0f / [UIScreen mainScreen].scale;
 
-    [self setupEditSummaryContainerSubviews];
-
-    [self constrainEditSummaryContainerSubviews];
-
+    self.editSummaryViewController.delegate = self;
+    
     [self applyTheme:self.theme];
-}
-
-- (void)constrainEditSummaryContainerSubviews {
-    NSDictionary *views = @{
-        @"aboutLabel": self.aboutLabel,
-        @"cannedSummary01": self.cannedSummary01,
-        @"cannedSummary02": self.cannedSummary02,
-        @"cannedSummary03": self.cannedSummary03,
-        @"cannedSummary04": self.cannedSummary04
-    };
-
-    // Tighten up the spacing for 3.5 inch screens.
-    CGFloat spaceAboveCC = ([UIScreen mainScreen].bounds.size.height != 480) ? 43 : 4;
-
-    NSDictionary *metrics = @{
-        @"buttonHeight": @(48),
-        @"spaceAboveCC": @(spaceAboveCC)
-    };
-
-    NSArray *constraints = @[
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(spaceAboveCC)-|"
-                                                options:0
-                                                metrics:metrics
-                                                  views:views]
-    ];
-    [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
-}
-
-- (void)setupEditSummaryContainerSubviews {
-    // Setup the canned edit summary buttons.
-    UIColor *color = self.theme.colors.link;
-    UIEdgeInsets padding = UIEdgeInsetsMake(6, 10, 6, 10);
-    UIEdgeInsets margin = UIEdgeInsetsMake(8, 0, 8, 0);
-    CGFloat fontSize = 14.0;
-
-    MenuButton * (^setupButton)(NSString *, NSInteger) = ^MenuButton *(NSString *text, WMFCannedSummaryChoices tag) {
-        MenuButton *button = [[MenuButton alloc] initWithText:text
-                                                     fontSize:fontSize
-                                                         bold:NO
-                                                        color:color
-                                                      padding:padding
-                                                       margin:margin];
-        button.enabled = NO;
-        button.tag = tag;
-        [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped:)]];
-        [self.editSummaryContainer addSubview:button];
-        return button;
-    };
-
-    self.cannedSummary01 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-fixed-typos", nil, nil, @"Fixed typo", @"Button text for quick 'fixed typos' edit summary selection"), CANNED_SUMMARY_TYPOS);
-    self.cannedSummary02 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-fixed-grammar", nil, nil, @"Fixed grammar", @"Button text for quick 'improved grammar' edit summary selection"), CANNED_SUMMARY_GRAMMAR);
-    self.cannedSummary03 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-linked-words", nil, nil, @"Added links", @"Button text for quick 'link addition' edit summary selection"), CANNED_SUMMARY_LINKS);
-    self.cannedSummary04 = setupButton(WMFLocalizedStringWithDefaultValue(@"edit-summary-choice-other", nil, nil, @"Other", @"Button text for quick \"other\" edit summary selection.\n{{Identical|Other}}"), CANNED_SUMMARY_OTHER);
-
-    // Setup the canned edit summaries label.
-    self.aboutLabel = [[UILabel alloc] init];
-    self.aboutLabel.numberOfLines = 0;
-    self.aboutLabel.font = [UIFont boldSystemFontOfSize:24.0];
-    self.aboutLabel.textColor = self.theme.colors.secondaryText;
-    self.aboutLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.aboutLabel.text = WMFLocalizedStringWithDefaultValue(@"edit-summary-title", nil, nil, @"How did you improve the article?", @"Title for edit summary area of the preview page");
-    self.aboutLabel.textAlignment = NSTextAlignmentNatural;
-
-    [self.editSummaryContainer addSubview:self.aboutLabel];
-}
-
-- (void)buttonTapped:(UIGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        MenuButton *tappedButton = (MenuButton *)recognizer.view;
-
-        NSString *summaryKey;
-        switch (tappedButton.tag) {
-            case CANNED_SUMMARY_TYPOS:
-                summaryKey = @"typo";
-                break;
-            case CANNED_SUMMARY_GRAMMAR:
-                summaryKey = @"grammar";
-                break;
-            case CANNED_SUMMARY_LINKS:
-                summaryKey = @"links";
-                break;
-            case CANNED_SUMMARY_OTHER:
-                summaryKey = @"other";
-                break;
-            default:
-                NSLog(@"unrecognized button");
-        }
-        [self.funnel logEditSummaryTap:summaryKey];
-
-        switch (tappedButton.tag) {
-            case CANNED_SUMMARY_OTHER:
-                [self showSummaryOverlay];
-                break;
-
-            default:
-                tappedButton.enabled = !tappedButton.enabled;
-
-                break;
-        }
-    }
-}
-
-- (void)showSummaryOverlay {
-    EditSummaryViewController *summaryVC = [EditSummaryViewController wmf_initialViewControllerFromClassStoryboard];
-    // Set the overlay's text field to self.summaryText so it can display
-    // any existing value (in case user taps "Other" again)
-    summaryVC.summaryText = self.summaryText;
-    __weak typeof(self) weakSelf = self;
-    summaryVC.didSaveSummary = ^void(NSString *savedSummary) {
-        weakSelf.summaryText = savedSummary;
-    };
-    [summaryVC applyTheme:self.theme];
-    [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:summaryVC theme:self.theme] animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -320,10 +158,16 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
 
+
+    EditSummaryViewController *vc = [[EditSummaryViewController alloc] initWithNibName:[EditSummaryViewController wmf_classStoryboardName] bundle:nil];
+    vc.delegate = self;
+    [self wmf_addWithChildController:vc andConstrainToEdgesOfContainerView:self.editSummaryVCContainer];
+    vc.theme = self.theme;
+    //[self wmf_addChildControllerFromNibFor:[EditSummaryViewController class] andConstrainToEdgesOfContainerView:self.editSummaryVCContainer];
+
+
     //[self saveAutomaticallyIfNecessary];
 
-    // Highlight the "Other" button if the user entered some "other" text.
-    self.cannedSummary04.enabled = (self.summaryText.length > 0) ? YES : NO;
 
     if ([[WMFAuthenticationManager sharedInstance] isLoggedIn]) {
         self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = NO;
@@ -594,9 +438,34 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     [self.previewLicenseView applyTheme:theme];
 
     self.scrollContainer.backgroundColor = theme.colors.paperBackground;
-    self.editSummaryContainer.backgroundColor = theme.colors.paperBackground;
     self.captchaContainer.backgroundColor = theme.colors.paperBackground;
     self.captchaScrollContainer.backgroundColor = theme.colors.paperBackground;
+}
+
+- (void)learnMoreButtonTappedWithSender:(UIButton * _Nonnull)sender {
+    [self wmf_openExternalUrl:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Help:Edit_summary"]];
+}
+
+- (void)summaryChangedWithNewSummary:(NSString * _Nullable)newSummary {
+    self.summaryText = newSummary;
+}
+
+- (void)cannedButtonTappedWithType:(enum EditSummaryViewCannedButtonType)type {
+    NSString *eventLoggingKey;
+    switch (type) {
+        case EditSummaryViewCannedButtonTypeTypo:
+            eventLoggingKey = @"typo";
+            break;
+        case EditSummaryViewCannedButtonTypeGrammar:
+            eventLoggingKey = @"grammar";
+            break;
+        case EditSummaryViewCannedButtonTypeLink:
+            eventLoggingKey = @"links";
+            break;
+        default:
+            break;
+    }
+    [self.funnel logEditSummaryTap:eventLoggingKey];
 }
 
 @end

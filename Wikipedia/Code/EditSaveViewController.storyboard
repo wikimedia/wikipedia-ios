@@ -25,33 +25,33 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fI-DJ-2eF" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-wB-7Lg" userLabel="Edit Summary Container">
-                                                <rect key="frame" x="20" y="0.0" width="335" height="100"/>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="100" placeholder="YES" id="drp-75-j03"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-2n-Y9V" userLabel="License summary" customClass="PreviewLicenseView">
-                                                <rect key="frame" x="0.0" y="100" width="375" height="60"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" placeholder="YES" id="tgg-Lg-aM2"/>
-                                                </constraints>
-                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bAX-n7-9aq">
+                                                <rect key="frame" x="20" y="20" width="335" height="140"/>
+                                                <subviews>
+                                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cs-Ud-1l5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" placeholder="YES" id="eGV-3m-gnQ"/>
+                                                        </constraints>
+                                                    </containerView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-2n-Y9V" userLabel="License summary" customClass="PreviewLicenseView" customModule="Wikipedia" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="80" width="335" height="60"/>
+                                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" placeholder="YES" id="tgg-Lg-aM2"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="3pQ-2n-Y9V" firstAttribute="top" secondItem="S0n-wB-7Lg" secondAttribute="bottom" id="1A0-nE-3kR"/>
-                                            <constraint firstItem="3pQ-2n-Y9V" firstAttribute="leading" secondItem="7fI-DJ-2eF" secondAttribute="leading" id="1G2-QH-Psb"/>
-                                            <constraint firstItem="S0n-wB-7Lg" firstAttribute="leading" secondItem="7fI-DJ-2eF" secondAttribute="leading" constant="20" symbolic="YES" id="AVD-ca-64l"/>
-                                            <constraint firstItem="S0n-wB-7Lg" firstAttribute="top" secondItem="7fI-DJ-2eF" secondAttribute="top" id="G41-He-tMb"/>
-                                            <constraint firstAttribute="trailing" secondItem="3pQ-2n-Y9V" secondAttribute="trailing" id="RFi-Ag-sac"/>
-                                            <constraint firstAttribute="centerX" secondItem="S0n-wB-7Lg" secondAttribute="centerX" id="dho-VN-yJh"/>
-                                            <constraint firstAttribute="trailing" secondItem="S0n-wB-7Lg" secondAttribute="trailing" constant="20" symbolic="YES" id="eVP-iE-Rxl"/>
-                                            <constraint firstAttribute="bottom" secondItem="3pQ-2n-Y9V" secondAttribute="bottom" constant="50" id="rk8-99-DBG"/>
+                                            <constraint firstAttribute="trailing" secondItem="bAX-n7-9aq" secondAttribute="trailing" constant="20" symbolic="YES" id="3Z6-n5-Tbu"/>
+                                            <constraint firstItem="bAX-n7-9aq" firstAttribute="top" secondItem="7fI-DJ-2eF" secondAttribute="top" constant="20" symbolic="YES" id="6IW-6Q-KGj"/>
+                                            <constraint firstItem="bAX-n7-9aq" firstAttribute="leading" secondItem="7fI-DJ-2eF" secondAttribute="leading" constant="20" symbolic="YES" id="A6D-n8-3ez"/>
+                                            <constraint firstAttribute="bottom" secondItem="bAX-n7-9aq" secondAttribute="bottom" constant="20" symbolic="YES" id="LWH-Zx-FZM"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -112,8 +112,8 @@
                         <outlet property="captchaContainer" destination="bEh-0m-jAS" id="XJu-Rn-30B"/>
                         <outlet property="captchaScrollContainer" destination="Vcy-cO-aq9" id="IDo-A8-Qm1"/>
                         <outlet property="captchaScrollView" destination="w3I-Dk-osW" id="l8P-Gg-hc7"/>
-                        <outlet property="editSummaryContainer" destination="S0n-wB-7Lg" id="Av3-yX-D59"/>
-                        <outlet property="previewLicenseView" destination="3pQ-2n-Y9V" id="AY6-fH-AiY"/>
+                        <outlet property="editSummaryVCContainer" destination="3cs-Ud-1l5" id="P8A-dG-3X8"/>
+                        <outlet property="previewLicenseView" destination="3pQ-2n-Y9V" id="J0Z-xT-IdW"/>
                         <outlet property="scrollContainer" destination="7fI-DJ-2eF" id="EqT-xw-cDe"/>
                         <outlet property="scrollView" destination="Mag-UH-fwc" id="Ais-Zf-7ZY"/>
                     </connections>

@@ -17,8 +17,6 @@
 @property (strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;
 @property (strong, nonatomic) WMFTheme *theme;
 
-@property (strong, nonatomic) NSString *summaryText;
-
 @property (weak, nonatomic) id<EditSaveViewControllerDelegate> delegate;
 
 @end
