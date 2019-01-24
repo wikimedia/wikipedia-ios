@@ -6,12 +6,12 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController)
 }
 
-enum WMFPreviewAndSaveMode : Int {
-    case PREVIEW_MODE_EDIT_WIKITEXT
-    case PREVIEW_MODE_EDIT_WIKITEXT_WARNING
-    case PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW
-    case PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW
-    case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
+private enum NavigationMode : Int {
+    case wikitext
+    case abuseFilterWarning
+    case abuseFilterDisallow
+    case preview
+    case captcha
 }
 
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
@@ -39,31 +39,31 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var abuseFilterCode = ""
     var summaryText = ""
 
-    var mode: WMFPreviewAndSaveMode = .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW {
+    private var mode: NavigationMode = .preview {
         didSet {
             updateNavigation(for: mode)
         }
     }
     let wikiTextSectionUploader = WikiTextSectionUploader()
     
-    func updateNavigation(for mode: WMFPreviewAndSaveMode) {
+    private func updateNavigation(for mode: NavigationMode) {
         var backButton: UIBarButtonItem? = nil
         var forwardButton: UIBarButtonItem? = nil
         
         switch mode {
-        case .PREVIEW_MODE_EDIT_WIKITEXT:
+        case .wikitext:
             backButton = buttonLeftCaret
             forwardButton = buttonNext
-        case .PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+        case .abuseFilterWarning:
             backButton = buttonLeftCaret
             forwardButton = buttonSave
-        case .PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW:
+        case .abuseFilterDisallow:
             backButton = buttonLeftCaret
             forwardButton = nil
-        case .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW:
+        case .preview:
             backButton = buttonLeftCaret
             forwardButton = buttonSave
-        case .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+        case .captcha:
             backButton = buttonX
             forwardButton = buttonSave
         }
@@ -72,7 +72,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     @objc func goBack() {
-        if mode == .PREVIEW_MODE_EDIT_WIKITEXT_WARNING {
+        if mode == .abuseFilterWarning {
             funnel?.logAbuseFilterWarningBack(abuseFilterCode)
         }
         
@@ -81,10 +81,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     @objc func goForward() {
         switch mode {
-        case .PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+        case .abuseFilterWarning:
             save()
             funnel?.logAbuseFilterWarningIgnore(abuseFilterCode)
-        case .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+        case .captcha:
             save()
         default:
             save()
@@ -104,7 +104,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         buttonSave = UIBarButtonItem(title: WMFLocalizedStringWithDefaultValue("button-publish", nil, nil, "Publish", "Button text for publish button used in various places.\n{{Identical|Publish}}"), style: .plain, target: self, action: #selector(self.goForward))
         
-        mode = .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW
+        mode = .preview
         summaryText = ""
         
         //self.saveAutomaticallyIfSignedIn = NO;
@@ -124,7 +124,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         captchaViewController?.apply(theme: theme)
         wmf_add(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
-        mode = .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW
+        mode = .preview
         
         let vc = EditSummaryViewController(nibName: EditSummaryViewController.wmf_classStoryboardName(), bundle: nil)
         vc.delegate = self
@@ -232,7 +232,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         switch errorType {
         case .WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
-            if mode == .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA {
+            if mode == .captcha {
                 funnel?.logCaptchaFailure()
             }
             
@@ -249,11 +249,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             wmf_hideKeyboard()
             
             if (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) {
-                mode = .PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW
+                mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterError(abuseFilterCode)
             } else {
-                mode = .PREVIEW_MODE_EDIT_WIKITEXT_WARNING
+                mode = .abuseFilterWarning
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterWarning(abuseFilterCode)
             }
@@ -332,7 +332,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         UIView.commitAnimations()
         
-        mode = .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
+        mode = .captcha
         
         highlightCaptchaSubmitButton(false)
     }
