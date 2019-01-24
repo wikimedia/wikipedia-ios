@@ -149,7 +149,7 @@
 #pragma mark - Save
 
 - (void)saveWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    dispatchOnMainQueue(^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (self.dirty) {
             [self performSaveWithCompletion:^{
                 self.dirty = NO;

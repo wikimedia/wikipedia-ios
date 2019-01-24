@@ -22,7 +22,6 @@ typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_PrivacyPolicy,
     WMFSettingsMenuItemType_Terms,
     WMFSettingsMenuItemType_SendUsageReports,
-    WMFSettingsMenuItemType_ZeroWarnWhenLeaving,
     WMFSettingsMenuItemType_ZeroFAQ,
     WMFSettingsMenuItemType_RateApp,
     WMFSettingsMenuItemType_SendFeedback,

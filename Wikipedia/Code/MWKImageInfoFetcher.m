@@ -1,50 +1,25 @@
 #import "MWKImageInfoFetcher.h"
-@import WMF.WMFNetworkUtilities;
-@import WMF.AFHTTPSessionManager_WMFConfig;
-@import WMF.MWKArticle;
-@import WMF.AFHTTPSessionManager_WMFCancelAll;
-@import WMF.UIScreen_WMFImageWidth;
-@import WMF.EXTScope;
-@import WMF.NSURL_WMFLinkParsing;
-@import WMF.Swift;
-#import "MWKImageInfoResponseSerializer.h"
+@import WMF;
 
-@interface MWKImageInfoFetcher ()
+/// Required extmetadata keys, don't forget to add new ones to +requiredExtMetadataKeys!
+static NSString *const ExtMetadataImageDescriptionKey = @"ImageDescription";
+static NSString *const ExtMetadataArtistKey = @"Artist";
+static NSString *const ExtMetadataLicenseUrlKey = @"LicenseUrl";
+static NSString *const ExtMetadataLicenseShortNameKey = @"LicenseShortName";
+static NSString *const ExtMetadataLicenseKey = @"License";
 
-@property (nonatomic, strong, readonly) AFHTTPSessionManager *manager;
-
-// Designated initializer, can be used to inject a mock request manager while testing.
-- (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate
-                  requestManager:(AFHTTPSessionManager *)requestManager;
-
-@end
+static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, NSString *heightKey) {
+    NSNumber *width = json[widthKey];
+    NSNumber *height = json[heightKey];
+    if (width && height) {
+        // both NSNumber & NSString respond to `floatValue`
+        return CGSizeMake([width floatValue], [height floatValue]);
+    } else {
+        return CGSizeZero;
+    }
+}
 
 @implementation MWKImageInfoFetcher
-
-- (instancetype)init {
-    return [self initWithDelegate:nil];
-}
-
-- (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
-    manager.responseSerializer = [MWKImageInfoResponseSerializer serializer];
-    return [self initWithDelegate:delegate requestManager:manager];
-}
-
-- (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate
-                  requestManager:(AFHTTPSessionManager *)requestManager {
-    NSParameterAssert(requestManager);
-    self = [super init];
-    if (self) {
-        self.fetchFinishedDelegate = delegate;
-        _manager = requestManager;
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [_manager invalidateSessionCancelingTasks:YES];
-}
 
 - (void)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
@@ -63,7 +38,7 @@
     [self fetchInfoForTitles:pageTitles
                  fromSiteURL:siteURL
               thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]]
-             extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
+             extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys]
             metadataLanguage:metadataLanguage
                 useGenerator:YES
                      success:success
@@ -77,11 +52,107 @@
     return [self fetchInfoForTitles:imageTitles
                         fromSiteURL:siteURL
                      thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]]
-                    extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
+                    extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys]
                    metadataLanguage:siteURL.wmf_language
                        useGenerator:NO
                             success:success
                             failure:failure];
+}
+
++ (NSArray *)galleryExtMetadataKeys {
+    return @[ExtMetadataLicenseKey,
+             ExtMetadataLicenseUrlKey,
+             ExtMetadataLicenseShortNameKey,
+             ExtMetadataImageDescriptionKey,
+             ExtMetadataArtistKey];
+}
+
+- (id)responseObjectForJSON:(NSDictionary *)json error:(NSError *__autoreleasing *)error {
+    if (!json) {
+        if (error) {
+            *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil];
+        }
+        return nil;
+    }
+    NSDictionary *indexedImages = json[@"query"][@"pages"];
+    NSMutableArray *itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
+
+    NSArray<NSString *> *preferredLangCodes = [[[MWKLanguageLinkController sharedInstance] preferredLanguages] wmf_map:^NSString *(MWKLanguageLink *language) {
+        return [language languageCode];
+    }];
+
+    [indexedImages enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *image, BOOL *stop) {
+        NSDictionary *imageInfo = [image[@"imageinfo"] firstObject];
+        NSDictionary *extMetadata = imageInfo[@"extmetadata"];
+        // !!!: workaround for a nasty bug in JSON serialization in the back-end
+        if (![extMetadata isKindOfClass:[NSDictionary class]]) {
+            extMetadata = nil;
+        }
+        MWKLicense *license =
+            [[MWKLicense alloc] initWithCode:extMetadata[ExtMetadataLicenseKey][@"value"]
+                            shortDescription:extMetadata[ExtMetadataLicenseShortNameKey][@"value"]
+                                         URL:[NSURL wmf_optionalURLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
+
+        NSString *description = nil;
+        BOOL descriptionIsRTL = NO;
+        NSString *descriptionLangCode = nil;
+
+        id imageDescriptionValue = extMetadata[ExtMetadataImageDescriptionKey][@"value"];
+        if ([imageDescriptionValue isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *availableDescriptionsByLangCode = imageDescriptionValue;
+            descriptionLangCode = [self descriptionLangCodeToUseFromAvailableDescriptionsByLangCode:availableDescriptionsByLangCode forPreferredLangCodes:preferredLangCodes];
+            if (descriptionLangCode) {
+                description = availableDescriptionsByLangCode[descriptionLangCode];
+                descriptionIsRTL = [[MWLanguageInfo rtlLanguages] containsObject:descriptionLangCode];
+            }
+        } else if ([imageDescriptionValue isKindOfClass:[NSString class]]) {
+            description = imageDescriptionValue;
+        }
+
+        NSString *artist = nil;
+        id artistValue = extMetadata[ExtMetadataArtistKey][@"value"];
+        if ([artistValue isKindOfClass:[NSDictionary class]]) {
+            artist = artistValue[descriptionLangCode];
+        } else if ([artistValue isKindOfClass:[NSString class]]) {
+            artist = artistValue;
+        }
+
+        MWKImageInfo *item =
+            [[MWKImageInfo alloc]
+                initWithCanonicalPageTitle:image[@"title"]
+                          canonicalFileURL:[NSURL wmf_optionalURLWithString:imageInfo[@"url"]]
+                          imageDescription:[[description wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
+                     imageDescriptionIsRTL:descriptionIsRTL
+                                   license:license
+                               filePageURL:[NSURL wmf_optionalURLWithString:imageInfo[@"descriptionurl"]]
+                             imageThumbURL:[NSURL wmf_optionalURLWithString:imageInfo[@"thumburl"]]
+                                     owner:[[artist wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
+                                 imageSize:MWKImageInfoSizeFromJSON(imageInfo, @"width", @"height")
+                                 thumbSize:MWKImageInfoSizeFromJSON(imageInfo, @"thumbwidth", @"thumbheight")];
+        [itemListBuilder addObject:item];
+    }];
+    return itemListBuilder;
+}
+
+- (NSString *)descriptionLangCodeToUseFromAvailableDescriptionsByLangCode:(NSDictionary *)availableDescriptionsByLangCode forPreferredLangCodes:(NSArray<NSString *> *)preferredLangCodes {
+    // use first of user's preferred lang codes for which we have a translation
+    for (NSString *langCode in preferredLangCodes) {
+        if ([availableDescriptionsByLangCode objectForKey:langCode]) {
+            return langCode;
+        }
+    }
+    // else use "en" description if available
+    if ([availableDescriptionsByLangCode objectForKey:@"en"]) {
+        return @"en";
+    }
+    // else use first description lang code
+    for (NSString *langCode in availableDescriptionsByLangCode.allKeys) {
+        if (![langCode hasPrefix:@"_"]) { // there's a weird "_type" key in the results for some reason
+            return langCode;
+        }
+    }
+    // else no luck
+    return nil;
 }
 
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray *)titles
@@ -97,16 +168,16 @@
     NSParameterAssert(siteURL);
 
     NSMutableDictionary *params =
-        [@{ @"format": @"json",
-            @"action": @"query",
-            @"titles": WMFJoinedPropertyParameters(titles),
-            // suppress continue warning
-            @"rawcontinue": @"",
-            @"prop": @"imageinfo",
-            @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-            @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
-            @"iiextmetadatamultilang": @1,
-            @"iiurlwidth": thumbnailWidth } mutableCopy];
+        [@{@"format": @"json",
+           @"action": @"query",
+           @"titles": WMFJoinedPropertyParameters(titles),
+           // suppress continue warning
+           @"rawcontinue": @"",
+           @"prop": @"imageinfo",
+           @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
+           @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
+           @"iiextmetadatamultilang": @1,
+           @"iiurlwidth": thumbnailWidth} mutableCopy];
 
     if (useGenerator) {
         params[@"generator"] = @"images";
@@ -116,31 +187,21 @@
         params[@"iiextmetadatalanguage"] = metadataLanguage;
     }
 
-    @weakify(self);
-
-    NSURLSessionDataTask *request =
-    [self.manager
-     wmf_apiZeroSafePOSTWithURL:siteURL parameters:params success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
-         @strongify(self);
-         [self finishWithError:nil fetchedData:galleryItems];
-         if (success) {
-             success(galleryItems);
-         }
-     }
-     failure:^(NSURLSessionDataTask *operation, NSError *error) {
-         @strongify(self);
-         [self finishWithError:error fetchedData:nil];
-         if (failure) {
-             failure(error);
-         }
-     }];
-    
-    NSParameterAssert(request);
-    return (id<MWKImageInfoRequest>)request;
-}
-
-- (void)cancelAllFetches {
-    [self.manager wmf_cancelAllTasks];
+    return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURL:siteURL
+                                                   withQueryParameters:params
+                                                     completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+                                                         if (error) {
+                                                             failure(error);
+                                                             return;
+                                                         }
+                                                         NSError *serializerError = nil;
+                                                         NSArray *galleryItems = [self responseObjectForJSON:result error:&serializerError];
+                                                         if (serializerError) {
+                                                             failure(serializerError);
+                                                             return;
+                                                         }
+                                                         success(galleryItems);
+                                                     }];
 }
 
 @end

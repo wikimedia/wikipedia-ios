@@ -14,7 +14,7 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
     weak var delegate: EditPreviewViewControllerDelegate?
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
-    private var previewHtmlFetcher: PreviewHtmlFetcher?
+    private let fetcher: PreviewHtmlFetcher = PreviewHtmlFetcher()
     
     func wmf_showAlert(forTappedAnchorHref href: String) {
         let title = WMFLocalizedStringWithDefaultValue("wikitext-preview-link-preview-title", nil, nil, "Link preview", "Title for link preview popup")
@@ -72,9 +72,16 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
     func preview() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-preview-changes", nil, nil, "Retrieving preview of your changes...", "Alert text shown when getting preview of user changes to wikitext"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        QueuesSingleton.sharedInstance().sectionPreviewHtmlFetchManager.wmf_cancelAllTasks(completionHandler: {
-            self.previewHtmlFetcher = PreviewHtmlFetcher.init(andFetchHtmlForWikiText: self.wikiText, articleURL: self.section?.url, with: QueuesSingleton.sharedInstance().sectionPreviewHtmlFetchManager, thenNotify: self)
-        })
+        fetcher.fetchHTML(forWikiText: self.wikiText, articleURL: self.section?.url) { (previewHTML, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    return
+                }
+                WMFAlertManager.sharedInstance.dismissAlert()
+                self.previewWebViewContainer.webView?.loadHTML(previewHTML, baseURL: URL(string: "https://wikipedia.org"), withAssetsFile: "preview.html", scrolledToFragment: nil, padding: UIEdgeInsets.zero, theme: self.theme ?? .standard)
+            }
+        }
     }
     
     func apply(theme: Theme) {
@@ -86,23 +93,5 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
         previewWebViewContainer.webView?.scrollView.backgroundColor = .clear
         previewWebViewContainer.webView?.backgroundColor = theme.colors.paperBackground
         previewWebViewContainer.backgroundColor = theme.colors.paperBackground
-    }
-}
-
-extension EditPreviewViewController: FetchFinishedDelegate {
-    func fetchFinished(_ sender: Any!, fetchedData: Any!, status: FetchFinalStatus, error: Error!) {
-        if (sender is PreviewHtmlFetcher) {
-            switch status {
-            case .FETCH_FINAL_STATUS_SUCCEEDED:
-                WMFAlertManager.sharedInstance.dismissAlert()
-                previewWebViewContainer.webView?.loadHTML(fetchedData as? String, baseURL: URL(string: "https://wikipedia.org"), withAssetsFile: "preview.html", scrolledToFragment: nil, padding: UIEdgeInsets.zero, theme: theme ?? .standard)
-            case .FETCH_FINAL_STATUS_FAILED:
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            case .FETCH_FINAL_STATUS_CANCELLED:
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            default:
-                break
-            }
-        }
     }
 }

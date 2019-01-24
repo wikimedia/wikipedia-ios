@@ -1,83 +1,57 @@
 #import "MWKLanguageLinkFetcher.h"
-@import WMF.AFNetworking;
 @import WMF.MWNetworkActivityIndicatorManager;
 @import WMF.WMFNetworkUtilities;
-@import WMF.MWKLanguageLinkResponseSerializer;
-@import WMF.SessionSingleton;
 @import WMF.NSURL_WMFLinkParsing;
-
-@interface MWKLanguageLinkFetcher ()
-
-@property (strong, nonatomic) AFHTTPSessionManager *manager;
-
-@end
+@import WMF.Swift;
+@import WMF.MWKLanguageLink;
+@import WMF.WMFComparison;
 
 @implementation MWKLanguageLinkFetcher
 
-- (instancetype)initAndFetchLanguageLinksForArticleURL:(NSURL *)url
-                                           withManager:(AFHTTPSessionManager *)manager
-                                    thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate {
-    self = [self initWithManager:manager delegate:delegate];
-    [self fetchLanguageLinksForArticleURL:url success:nil failure:nil];
-    return self;
-}
-
-- (instancetype)initWithManager:(AFHTTPSessionManager *)manager delegate:(id<FetchFinishedDelegate>)delegate {
-    NSParameterAssert(manager);
-    self = [super init];
-    if (self) {
-        self.manager = manager;
-        self.fetchFinishedDelegate = delegate;
-    }
-    return self;
-}
-
-- (void)finishWithError:(NSError *)error fetchedData:(id)fetchedData block:(void (^)(id))block {
-    [super finishWithError:error fetchedData:fetchedData];
-    if (block) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(error ?: fetchedData);
-        });
-    }
-}
-
-- (void)fetchLanguageLinksForArticleURL:(NSURL *)url
+- (void)fetchLanguageLinksForArticleURL:(NSURL *)articleURL
                                 success:(void (^)(NSArray *))success
                                 failure:(void (^)(NSError *))failure {
-    if (!url.wmf_title.length) {
+    NSString *title = articleURL.wmf_title;
+    if (!title.length) {
         NSError *error = [NSError errorWithDomain:WMFNetworkingErrorDomain
                                              code:WMFNetworkingError_InvalidParameters
                                          userInfo:nil];
-        [self finishWithError:error fetchedData:nil block:failure];
+        failure(error);
         return;
     }
-    NSURL *apiURL = [[SessionSingleton sharedInstance] urlForLanguage:url.wmf_language];
     NSDictionary *params = @{
-        @"action": @"query",
-        @"prop": @"langlinks",
-        @"titles": url.wmf_title,
-        @"lllimit": @"500",
-        @"llprop": WMFJoinedPropertyParameters(@[@"langname", @"autonym"]),
-        @"llinlanguagecode": [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
-        @"redirects": @"",
-        @"format": @"json"
-    };
+                             @"action": @"query",
+                             @"prop": @"langlinks",
+                             @"titles": title,
+                             @"lllimit": @"500",
+                             @"llprop": WMFJoinedPropertyParameters(@[@"langname", @"autonym"]),
+                             @"llinlanguagecode": [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
+                             @"redirects": @"",
+                             @"format": @"json"
+                             };
     [[MWNetworkActivityIndicatorManager sharedManager] push];
-    [self.manager GET:apiURL.absoluteString
-        parameters:params
-        progress:NULL
-        success:^(NSURLSessionDataTask *operation, NSDictionary *indexedLanguageLinks) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            NSAssert(indexedLanguageLinks.count < 2,
-                     @"Expected language links to return one or no objects for the title we fetched, but got: %@",
-                     indexedLanguageLinks);
-            NSArray *languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
-            [self finishWithError:nil fetchedData:languageLinksForTitle block:success];
+    [self performMediaWikiAPIGETForURL:articleURL withQueryParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        if (error) {
+            failure(error);
         }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            [self finishWithError:error fetchedData:nil block:failure];
+        NSDictionary *pagesByID = result[@"query"][@"pages"];
+        NSDictionary *indexedLanguageLinks = [[pagesByID wmf_map:^id(id key, NSDictionary *result) {
+            return [result[@"langlinks"] wmf_map:^MWKLanguageLink *(NSDictionary *jsonLink) {
+                return [[MWKLanguageLink alloc] initWithLanguageCode:jsonLink[@"lang"]
+                                                       pageTitleText:jsonLink[@"*"]
+                                                                name:jsonLink[@"autonym"]
+                                                       localizedName:jsonLink[@"langname"]];
+            }];
+        }] wmf_reject:^BOOL(id key, id obj) {
+            return WMF_IS_EQUAL(obj, [NSNull null]);
         }];
+        NSAssert(indexedLanguageLinks.count < 2,
+                 @"Expected language links to return one or no objects for the title we fetched, but got: %@",
+                 indexedLanguageLinks);
+        NSArray *languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
+        success(languageLinksForTitle);
+    }];
 }
 
 @end

@@ -3,21 +3,7 @@
 #import <WMF/WMF-Swift.h>
 #import <WMF/WMFLegacySerializer.h>
 
-@interface WMFAnnouncementsFetcher ()
-
-@property (nonatomic, strong) WMFSession *session;
-
-@end
-
 @implementation WMFAnnouncementsFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.session = [WMFSession shared];
-    }
-    return self;
-}
 
 - (void)fetchAnnouncementsForURL:(NSURL *)siteURL force:(BOOL)force failure:(WMFErrorHandler)failure success:(void (^)(NSArray<WMFAnnouncement *> *announcements))success {
     NSParameterAssert(siteURL);
@@ -28,7 +14,7 @@
         return;
     }
 
-    NSURL *url = [[WMFConfiguration.current mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
+    NSURL *url = [[self.configuration mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
     
     [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {

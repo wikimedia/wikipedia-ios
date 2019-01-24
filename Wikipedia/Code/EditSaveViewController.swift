@@ -14,7 +14,7 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 }
 
-class EditSaveViewController: WMFScrollViewController, Themeable, FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
+class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
     var section: MWKSection?
     var wikiText = ""
     var funnel: EditFunnel?
@@ -44,12 +44,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, FetchFinishedD
             updateNavigation(for: mode)
         }
     }
-    var wikiTextSectionUploader: WikiTextSectionUploader?
-    var editTokenFetcher: WMFAuthTokenFetcher?
-
-    func getSummary() -> String? {
-        return summaryText
-    }
+    let wikiTextSectionUploader = WikiTextSectionUploader()
     
     func updateNavigation(for mode: WMFPreviewAndSaveMode) {
         var backButton: UIBarButtonItem? = nil
@@ -187,109 +182,102 @@ class EditSaveViewController: WMFScrollViewController, Themeable, FetchFinishedD
         super.viewWillDisappear(animated)
     }
 
-    func fetchFinished(_ sender: Any!, fetchedData: Any!, status: FetchFinalStatus, error: Error!) {
-        if (sender is WikiTextSectionUploader) {
-            switch status {
-            case .FETCH_FINAL_STATUS_SUCCEEDED:
-                let notifyDelegate = {
-                    dispatchOnMainQueue({
-                        self.delegate?.editSaveViewControllerDidSave(self)
-                    })
-                }
-                guard let fetchedData = fetchedData as? [String: Any], let newRevID = fetchedData["newrevid"] as? Int32 else {
-                    assertionFailure("Could not extract rev id as Int")
-                    notifyDelegate()
-                    return
-                }
-                funnel?.logSavedRevision(newRevID)
-                notifyDelegate()
-            case .FETCH_FINAL_STATUS_CANCELLED:
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            case .FETCH_FINAL_STATUS_FAILED:
-                
-                let nsError = error as NSError
-                let errorType = WikiTextSectionUploaderErrors.init(rawValue: nsError.code) ?? .WIKITEXT_UPLOAD_ERROR_UNKNOWN
-                
-                switch errorType {
-                case .WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
-                    if mode == .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA {
-                        funnel?.logCaptchaFailure()
-                    }
-                    
-                    let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "")
-                    let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
-                    WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                    captchaViewController?.captcha = WMFCaptcha(captchaID: captchaId, captchaURL: captchaUrl!)
-                    revealCaptcha()
-
-                case .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
-                    //NSString *warningHtml = error.userInfo[@"warning"];
-                    WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                    
-                    wmf_hideKeyboard()
-                    
-                    if (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) {
-                        mode = .PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW
-                        abuseFilterCode = nsError.userInfo["code"] as! String
-                        funnel?.logAbuseFilterError(abuseFilterCode)
-                    } else {
-                        mode = .PREVIEW_MODE_EDIT_WIKITEXT_WARNING
-                        abuseFilterCode = nsError.userInfo["code"] as! String
-                        funnel?.logAbuseFilterWarning(abuseFilterCode)
-                    }
-                    
-                    // Hides the license panel. Needed if logged in and a disallow is triggered.
-                    WMFAlertManager.sharedInstance.dismissAlert()
-                    
-                    let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? .ABUSE_FILTER_DISALLOW : .ABUSE_FILTER_WARNING
-                    showAbuseFilterAlertOf(alertType)
-
-                case .WIKITEXT_UPLOAD_ERROR_SERVER, .WIKITEXT_UPLOAD_ERROR_UNKNOWN:
-                    WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                    funnel?.logError(error.localizedDescription) // @fixme is this right msg?
-                default:
-                    WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                }
-            }
-        }
-    }
-
     func save() {
         
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-upload-save", nil, nil, "Publishing...", "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         funnel?.logSaveAttempt()
+        
         if (savedPagesFunnel != nil) {
             savedPagesFunnel?.logEditAttempt(withArticleURL: section?.article?.url)
         }
-
         
-        QueuesSingleton.sharedInstance().sectionWikiTextUploadManager.wmf_cancelAllTasks(completionHandler: {
-            
-            guard let section = self.section else {
-                assertionFailure("Could not get section to be edited")
-                return
+        guard let section = self.section else {
+            assertionFailure("Could not get section to be edited")
+            return
+        }
+        
+        guard let editURL: URL = (section.fromURL != nil) ? section.fromURL : section.article?.url else {
+            assertionFailure("Could not get url of section to be edited")
+            return
+        }
+        
+        wikiTextSectionUploader.uploadWikiText(self.wikiText, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.summaryText, captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, completion: { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.handleEditFailure(with: error)
+                    return
+                }
+                if let result = result {
+                    self.handleEditSuccess(with: result)
+                } else {
+                    self.handleEditFailure(with: NSError.wmf_error(with: WMFErrorType.unexpectedResponseType, userInfo: nil))
+                }
             }
-            guard let editURL: URL = (section.fromURL != nil) ? section.fromURL : section.article?.url else {
-                assertionFailure("Could not get url of section to be edited")
-                return
-            }
-            guard let url: URL = SessionSingleton.sharedInstance().url(forLanguage: editURL.wmf_language) else {
-                assertionFailure("Could not get siteURL")
-                return
-            }
-            self.editTokenFetcher = WMFAuthTokenFetcher()
-            //weakify(self)
-            self.editTokenFetcher?.fetchToken(ofType: WMFAuthTokenType.csrf, siteURL: url, success: { result in
-                //strongify(self)
-                
-                self.wikiTextSectionUploader = WikiTextSectionUploader.init(andUploadWikiText: self.wikiText, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.getSummary(), captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, token: result.token, with: QueuesSingleton.sharedInstance().sectionWikiTextUploadManager, thenNotify: self)
-                
-                
-            }, failure: { error in
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            })
         })
+
+    }
+    
+    func handleEditSuccess(with result: [AnyHashable: Any]) {
+        let notifyDelegate = {
+            DispatchQueue.main.async {
+                self.delegate?.editSaveViewControllerDidSave(self)
+            }
+        }
+        guard let fetchedData = result as? [String: Any], let newRevID = fetchedData["newrevid"] as? Int32 else {
+            assertionFailure("Could not extract rev id as Int")
+            notifyDelegate()
+            return
+        }
+        funnel?.logSavedRevision(newRevID)
+        notifyDelegate()
+    }
+    
+    func handleEditFailure(with error: Error) {
+        let nsError = error as NSError
+        let errorType = WikiTextSectionUploaderErrors.init(rawValue: nsError.code) ?? .WIKITEXT_UPLOAD_ERROR_UNKNOWN
+        
+        switch errorType {
+        case .WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
+            if mode == .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA {
+                funnel?.logCaptchaFailure()
+            }
+            
+            let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "")
+            let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            captchaViewController?.captcha = WMFCaptcha(captchaID: captchaId, captchaURL: captchaUrl!)
+            revealCaptcha()
+            
+        case .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
+            //NSString *warningHtml = error.userInfo[@"warning"];
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            
+            wmf_hideKeyboard()
+            
+            if (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) {
+                mode = .PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW
+                abuseFilterCode = nsError.userInfo["code"] as! String
+                funnel?.logAbuseFilterError(abuseFilterCode)
+            } else {
+                mode = .PREVIEW_MODE_EDIT_WIKITEXT_WARNING
+                abuseFilterCode = nsError.userInfo["code"] as! String
+                funnel?.logAbuseFilterWarning(abuseFilterCode)
+            }
+            
+            // Hides the license panel. Needed if logged in and a disallow is triggered.
+            WMFAlertManager.sharedInstance.dismissAlert()
+            
+            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? .ABUSE_FILTER_DISALLOW : .ABUSE_FILTER_WARNING
+            showAbuseFilterAlertOf(alertType)
+            
+        case .WIKITEXT_UPLOAD_ERROR_SERVER, .WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            funnel?.logError("other")
+        default:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            funnel?.logError("other")
+        }
     }
     
     func showAbuseFilterAlertOf(_ alertType: AbuseFilterAlertType) {

@@ -7,7 +7,7 @@ NSString *const WMFErrorMissingTitle = @"missingtitle";
 
 @implementation NSError (WMFExtensions)
 
-+ (NSError *)wmf_errorWithType:(WMFErrorType)type userInfo:(NSDictionary *)userInfo {
++ (NSError *)wmf_errorWithType:(WMFErrorType)type userInfo:(nullable NSDictionary *)userInfo {
     return [NSError errorWithDomain:WMFErrorDomain code:type userInfo:userInfo];
 }
 

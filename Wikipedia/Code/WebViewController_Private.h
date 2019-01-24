@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewLeadingConstraint;
 
-@property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
-
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;

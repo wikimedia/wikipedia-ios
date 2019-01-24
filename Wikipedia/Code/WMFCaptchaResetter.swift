@@ -21,23 +21,19 @@ public struct WMFCaptchaResetterResult {
     }
 }
 
-public class WMFCaptchaResetter {
-    private let manager = AFHTTPSessionManager.wmf_createDefault()
-    public func isFetching() -> Bool {
-        return manager.operationQueue.operationCount > 0
-    }
-    
+public class WMFCaptchaResetter: Fetcher {
     public func resetCaptcha(siteURL: URL, success: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler){
-        let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         let parameters = [
             "action": "fancycaptchareload",
             "format": "json"
-        ];
-        _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
+        ]
+        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+            if let error = error {
+                failure(error)
+                return
+            }
             guard
-                let response = response as? [String : AnyObject],
-                let fancycaptchareload = response["fancycaptchareload"] as? [String: Any],
+                let fancycaptchareload = result?["fancycaptchareload"] as? [String: Any],
                 let index = fancycaptchareload["index"] as? String
                 else {
                     failure(WMFCaptchaResetterError.cannotExtractCaptchaIndex)
@@ -48,8 +44,6 @@ public class WMFCaptchaResetter {
                 return
             }
             success(WMFCaptchaResetterResult.init(index: index))
-        }, failure: { (_, error) in
-            failure(error)
-        })
+        }
     }
 }

@@ -136,16 +136,6 @@
                                            disclosureText:nil
                                                isSwitchOn:[WMFEventLoggingService sharedInstance].isEnabled];
         }
-        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"zero-warn-when-leaving", nil, nil, @"Warn if leaving Zero", @"Main menu option to be warned if leaving Wikipedia Zero")
-                                                 iconName:@"settings-zero"
-                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                           disclosureText:nil
-                                               isSwitchOn:[SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving];
-        }
         case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

@@ -13,16 +13,6 @@ static inline dispatch_time_t dispatchTimeFromNowWithDelta(NSTimeInterval second
     return dispatch_time(DISPATCH_TIME_NOW, (int64_t)nanosecondsWithSeconds(seconds));
 }
 
-#pragma mark - Dispatch Async
-
-static inline void dispatchOnMainQueue(dispatch_block_t block) {
-    dispatch_async(dispatch_get_main_queue(), block);
-}
-
-static inline void dispatchOnBackgroundQueue(dispatch_block_t block) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), block);
-}
-
 #pragma mark - Dispatch After
 
 static inline void dispatchAfterDelayInSeconds(NSTimeInterval delay, dispatch_queue_t queue, dispatch_block_t block) {

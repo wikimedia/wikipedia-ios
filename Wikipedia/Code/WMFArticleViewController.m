@@ -1,6 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 @import WMF;
+@import SystemConfiguration;
 
 #import "WMFEmptyView.h"
 
@@ -42,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+
+static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progress = @"kvo_WMFArticleViewController_articleFetcherPromise_progress";
 
 @interface MWKArticle (WMFSharingActivityViewController)
 
@@ -167,6 +170,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @end
 
 @implementation WMFArticleViewController
+@synthesize articleFetcherPromise = _articleFetcherPromise;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -654,7 +658,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationBar setProgressHidden:YES animated:animated];
 }
 
-- (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
+- (void)updateProgress:(double)progress animated:(BOOL)animated {
     if (progress < self.navigationBar.progress) {
         return;
     }
@@ -677,7 +681,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
  *  Some of the progress is in loading the HTML into the webview
  *  This leaves 20% of progress for that work.
  */
-- (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
+- (double)totalProgressWithArticleFetcherProgress:(double)progress {
     return 0.1 + (0.7 * progress);
 }
 
@@ -1231,6 +1235,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)setArticleFetcherPromise:(nullable NSURLSessionTask *)articleFetcherPromise {
+    if (_articleFetcherPromise) {
+        [_articleFetcherPromise removeObserver:self forKeyPath:@"fractionCompleted"];
+    }
+    _articleFetcherPromise = articleFetcherPromise;
+    if (_articleFetcherPromise) {
+        [_articleFetcherPromise addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:&kvo_WMFArticleViewController_articleFetcherPromise_progress];
+    }
+}
+
+- (nullable NSURLSessionTask *)articleFetcherPromise {
+    return _articleFetcherPromise;
+}
+
 - (void)fetchArticleForce:(BOOL)force {
     // ** Always call articleDidLoad after the article loads or fails & before returning from this method **
     WMFAssertMainThread(@"Not on main thread!");
@@ -1249,9 +1267,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         forceDownload:force
         saveToDisk:NO
         priority:NSURLSessionTaskPriorityHigh
-        progress:^(CGFloat progress) {
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
-        }
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
@@ -2225,6 +2240,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
     self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context {
+    if (context == &kvo_WMFArticleViewController_articleFetcherPromise_progress) {
+        double progress = self.articleFetcherPromise.progress.fractionCompleted;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+        });
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end

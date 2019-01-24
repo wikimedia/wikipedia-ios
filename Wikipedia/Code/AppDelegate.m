@@ -29,8 +29,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[NSUserDefaults wmf] registerDefaults:@{
         @"CurrentArticleDomain": defaultLanguage,
         @"Domain": defaultLanguage,
-        WMFZeroWarnWhenLeaving: @YES,
-        WMFZeroOnDialogShownOnce: @NO,
         @"LastHousekeepingDate": [NSDate date],
         @"AccessSavedPagesMessageShown": @NO
     }];

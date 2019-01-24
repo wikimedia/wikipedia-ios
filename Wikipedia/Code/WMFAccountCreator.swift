@@ -33,26 +33,19 @@ public struct WMFAccountCreatorResult {
     }
 }
 
-public class WMFAccountCreator {
-    private let manager = AFHTTPSessionManager.wmf_createDefault()
-    public func isFetching() -> Bool {
-        return manager.operationQueue.operationCount > 0
-    }
-    
-    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, token: String, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
-        let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
-        
-        var parameters = [
+public class WMFAccountCreator: Fetcher {
+    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
+        var parameters: [String: String] = [
             "action": "createaccount",
             "username": username,
             "password": password,
             "retype": retypePassword,
             "createreturnurl": "https://www.wikipedia.org",
-            "email": email,
-            "createtoken": token,
             "format": "json"
         ]
+        if let email = email {
+            parameters["email"] = email
+        }
         if let captchaID = captchaID {
             parameters["captchaId"] = captchaID
         }
@@ -60,11 +53,13 @@ public class WMFAccountCreator {
             parameters["captchaWord"] = captchaWord
         }
         
-        _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
-         
+        performTokenizedMediaWikiAPIPOST(tokenType: .createAccount, to: siteURL, with: parameters) { (result, response, error) in
+            if let error = error {
+                failure(error)
+                return
+            }
             guard
-                let response = response as? [String : AnyObject],
-                let createaccount = response["createaccount"] as? [String : AnyObject],
+                let createaccount = result?["createaccount"] as? [String : AnyObject],
                 let status = createaccount["status"] as? String
                 else {
                     failure(WMFAccountCreatorError.cannotExtractStatus)
@@ -88,8 +83,6 @@ public class WMFAccountCreator {
             }
             let normalizedUsername = createaccount["username"] as? String ?? username
             success(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message))
-        }, failure: { (_, error) in
-            failure(error)
-        })
+        }
     }
 }

@@ -1,4 +1,5 @@
-#import <WMF/FetcherBase.h>
+@import Foundation;
+@import WMF.WMFLegacyFetcher;
 
 typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {
     WIKITEXT_UPLOAD_ERROR_UNKNOWN = 0,
@@ -9,30 +10,18 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {
     WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER = 5
 };
 
-@class AFHTTPSessionManager;
+NS_ASSUME_NONNULL_BEGIN
 
-@interface WikiTextSectionUploader : FetcherBase
-
-@property (strong, nonatomic, readonly) NSString *wikiText;
-@property (strong, nonatomic, readonly) NSURL *articleURL;
-@property (strong, nonatomic, readonly) NSString *section;
-@property (strong, nonatomic, readonly) NSString *summary;
-@property (strong, nonatomic, readonly) NSString *captchaId;
-@property (strong, nonatomic, readonly) NSString *captchaWord;
-@property (strong, nonatomic, readonly) NSString *token;
-
-// Kick-off method. Results are reported to "delegate" via the
-// FetchFinishedDelegate protocol method.
-
+@interface WikiTextSectionUploader : WMFLegacyFetcher
 // Note: "section" parameter needs to be a string because the
 // api returns transcluded section indexes with a "T-" prefix
-- (instancetype)initAndUploadWikiText:(NSString *)wikiText
-                        forArticleURL:(NSURL *)articleURL
-                              section:(NSString *)section
-                              summary:(NSString *)summary
-                            captchaId:(NSString *)captchaId
-                          captchaWord:(NSString *)captchaWord
-                                token:(NSString *)token
-                          withManager:(AFHTTPSessionManager *)manager
-                   thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate;
+- (void)uploadWikiText:(nullable NSString *)wikiText
+         forArticleURL:(NSURL *)articleURL
+               section:(NSString *)section
+               summary:(nullable NSString *)summary
+             captchaId:(nullable NSString *)captchaId
+           captchaWord:(nullable NSString *)captchaWord
+            completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
+
+NS_ASSUME_NONNULL_END

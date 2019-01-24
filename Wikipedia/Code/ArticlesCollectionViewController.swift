@@ -447,7 +447,9 @@ extension ArticlesCollectionViewController: CollectionViewUpdaterDelegate {
         delegate?.articlesCollectionViewController(self, didUpdate: collectionView)
     }
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T: NSFetchRequestResult {}
+    func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) {
+        
+    }
 }
 
 // MARK: - AddArticlesToReadingListViewControllerDelegate

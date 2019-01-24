@@ -253,6 +253,7 @@
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
+"fetcher-error-unexpected-response" = "The app received an unexpected response from the server. Please try again later.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passwords do not match";
 "field-alert-password-invalid" = "Invalid password";
@@ -336,7 +337,6 @@
 "main-menu-debug-tweaks" = "Developer settings";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privacy and Terms";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Nearby";
 "main-menu-privacy-policy" = "Privacy policy";
 "main-menu-rate-app" = "Rate the app";
@@ -642,14 +642,3 @@
 "wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "By publishing changes, you agree to the $1 and agree to release your contribution under the $2 and $3 license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
-"zero-charged-verbiage" = "Wikipedia Zero is off";
-"zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";
-"zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
-"zero-interstitial-cancel" = "Stay here";
-"zero-interstitial-continue" = "Leave";
-"zero-interstitial-leave-app" = "Data charges may apply. Continue to external site?";
-"zero-interstitial-title" = "Leaving Wikipedia Zero";
-"zero-learn-more" = "Data charges are waived for this Wikipedia app.";
-"zero-learn-more-learn-more" = "Read more";
-"zero-learn-more-no-thanks" = "Dismiss";
-"zero-warn-when-leaving" = "Warn if leaving Zero";

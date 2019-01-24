@@ -97,6 +97,7 @@ import UIKit
         fixedTypoButton.backgroundColor = theme.colors.border
         fixedGrammarButton.backgroundColor = theme.colors.border
         addedLinksButton.backgroundColor = theme.colors.border
+        summaryTextField.textColor = theme.colors.primaryText
     }
 }
 

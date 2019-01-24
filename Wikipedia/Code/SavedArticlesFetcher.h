@@ -1,4 +1,4 @@
-@import WMF.FetcherBase;
+@import WMF.WMFLegacyFetcher;
 
 @class MWKDataStore;
 
@@ -17,7 +17,7 @@ extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
 @end
 
-@interface SavedArticlesFetcher : FetcherBase <NSProgressReporting>
+@interface SavedArticlesFetcher : WMFLegacyFetcher <NSProgressReporting>
 
 @property (nonatomic, strong) NSProgress *progress;
 
