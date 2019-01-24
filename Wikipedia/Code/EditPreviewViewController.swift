@@ -83,7 +83,6 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
         if viewIfLoaded == nil {
             return
         }
-        previewWebViewContainer.webView?.backgroundColor = theme.colors.paperBackground
-        previewWebViewContainer.backgroundColor = theme.colors.paperBackground
+        previewWebViewContainer.apply(theme: theme)
     }
 }

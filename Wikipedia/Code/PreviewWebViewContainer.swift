@@ -10,9 +10,10 @@ import WMF
     func wmf_showAlert(forTappedAnchorHref href: String)
 }
 
-class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHandler {
+class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHandler, Themeable {
     weak var externalLinksOpenerDelegate: WMFOpenExternalLinkDelegate?
     var webView: WKWebView?
+    var theme: Theme = .standard
     @IBOutlet weak var previewSectionLanguageInfoDelegate: WMFPreviewSectionLanguageInfoDelegate!
     @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!
 
@@ -77,5 +78,11 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
             decisionHandler(WKNavigationActionPolicy.cancel)
         }
         decisionHandler(WKNavigationActionPolicy.allow)
+    }
+
+    func apply(theme: Theme) {
+        self.theme = theme
+        webView?.backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
     }
 }
