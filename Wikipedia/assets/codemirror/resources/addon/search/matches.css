@@ -1,0 +1,11 @@
+.cm-searching {
+  background-color: #ffa;
+  background-color: rgba(255, 255, 0, 0.4);
+  background-color: #fc3;
+  background-color: rgba(255, 255, 0, 0.3);
+}
+
+.cm-searching-focus {
+  background-color: #fc3;
+  background-color: rgba(255, 204, 51, 1);
+}

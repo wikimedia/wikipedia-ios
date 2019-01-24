@@ -531,6 +531,7 @@
 "saved-pages-image-download-error" = "Falha ao descarregar as imagens desta página guardada.";
 "saved-pages-progress-syncing" = "Transferência do artigo em progresso...";
 "saved-reading-lists-title" = "Listas de leitura";
+// Fuzzy
 "saved-search-default-text" = "Procurar";
 "saved-title" = "Guardados";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ao não guardar {{PLURAL:$1|este artigo, ele será removido|estes artigos, eles serão removidos}} de todas as listas de leitura associadas";

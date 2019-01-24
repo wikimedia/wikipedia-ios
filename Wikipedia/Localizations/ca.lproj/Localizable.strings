@@ -162,12 +162,15 @@
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
 "dim-images" = "Atenuació d'imatges";
+"edit-style-table-view-title" = "Estil";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
 "edit-summary-choice-other" = "Altres";
 "edit-summary-field-placeholder-text" = "Altres formes com heu millorat l'article";
 "edit-summary-title" = "Com heu millorat l'article?";
+"edit-text-formatting-table-view-title" = "Formatatge del text";
+"edit-text-size-table-view-title" = "Mida del text";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
@@ -532,7 +535,7 @@
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-pages-progress-syncing" = "Descàrrega d'articles en curs...";
 "saved-reading-lists-title" = "Llistes de lectura";
-"saved-search-default-text" = "Cerca";
+"saved-search-default-text" = "Cerca els articles desats";
 "saved-title" = "Desat";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "En deixar de tenir desat {{PLURAL:$1|aquest article se suprimirà|aquests articles se suprimiran}} de totes les llistes de lectura associades";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Voleu deixar de tenir desats {{PLURAL:$1|article|articles}}?";

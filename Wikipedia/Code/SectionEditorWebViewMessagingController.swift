@@ -1,14 +1,20 @@
-protocol SectionEditorWebViewMessagingControllerButtonSelectionDelegate: class {
-    func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button)
+protocol SectionEditorWebViewMessagingControllerButtonMessageDelegate: class {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button)
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button)
 }
 
 protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool)
 }
 
+protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
+    func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?)
+}
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
-    weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonSelectionDelegate?
+    weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
+    weak var findInPageDelegate: SectionEditorWebViewMessagingControllerFindInPageDelegate?
 
     weak var webView: WKWebView!
 
@@ -16,20 +22,51 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
-        case (Message.Name.selectionChanged, let isRangeSelected as Bool):
+
+        case (Message.Name.smoothScrollToYOffsetMessage, let yOffset as CGFloat):
+            let newOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: webView.scrollView.contentOffset.y + yOffset)
+            webView.scrollView.setContentOffset(newOffset, animated: true)
+        case (Message.Name.codeMirrorMessage, let message as [String: Any]):
+            guard
+                let selectionChangedMessage = message[Message.Name.selectionChanged],
+                let isRangeSelected = selectionChangedMessage as? Bool,
+                let highlightTheseButtonsMessage = message[Message.Name.highlightTheseButtons],
+                let buttonsToHighlight = highlightTheseButtonsMessage as? [[String: Any]],
+                let disableTheseButtonsMessage = message[Message.Name.disableTheseButtons],
+                let buttonsToDisable = disableTheseButtonsMessage as? [[String: Any]]
+            else {
+                assertionFailure("Expected messages not extracted: \(message)")
+                return
+            }
+
+            // Process the 'selectionChanged' message first so buttons can be reset before subsequent button messages are processed.
             textSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(self, isRangeSelected: isRangeSelected)
-        case (Message.Name.highlightTheseButtons, let message as [[String: Any]]):
-            for element in message {
+
+            // Process 'highlightTheseButtons' message.
+            for element in buttonsToHighlight {
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                let button = Button(kind: kind)
-                // Ignore debug buttons for now
-                guard button.kind != .debug else {
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(self, button: Button(kind: kind))
+            }
+
+            // Process 'disableTheseButtons' message.
+            for element in buttonsToDisable {
+                guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(self, button: button)
+                buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(self, button: Button(kind: kind))
             }
+        case (Message.Name.codeMirrorSearchMessage, let message as [String: Any]):
+            guard
+                let count = message[Message.Name.findInPageMatchesCount] as? Int,
+                let index = message[Message.Name.findInPageFocusedMatchIndex] as? Int
+            else {
+                assertionFailure("Expected message with findInPageMatchesCount and findInPageFocusedMatchIndex, received: \(message)")
+                return
+            }
+            let id = message[Message.Name.findInPageFocusedMatchID] as? String
+            findInPageDelegate?.sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(self, matchesCount: count, matchIndex: index, matchID: id)
         default:
             assertionFailure("Unsupported message: \(message.name), \(message.body)")
         }
@@ -58,9 +95,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
         let ordered = info[Button.Info.ordered] as? Bool
 
-        let changesMade = info[Button.Info.changesMade] as? Bool
-
-        return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered, changesMade: changesMade)
+        return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
     }
 
     // MARK: - Sending messages
@@ -76,11 +111,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
-        // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
-        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
-        // (May consider switching other native-to-JS messaging to do same later.)
-        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
+    func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        let escapedWikitext = wikitext.wmf_stringBySanitizingForBacktickDelimitedJavascript()
         webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
             guard let completionHandler = completionHandler else {
                 return
@@ -89,7 +121,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
+    func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
         webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
 
@@ -121,6 +153,11 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case underline
         case strikethrough
         case textSize
+        case find
+        case clearSearch
+        case findNext
+        case findPrevious
+        case adjustedContentInsetChanged
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -238,6 +275,27 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func setTextSize(newSize: String) {
         execCommand(for: .textSize, argument: "\"\(newSize)\"")
     }
+
+    func find(text: String) {
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .find, argument: "`\(escapedText)`")
+    }
+
+    func clearSearch() {
+        execCommand(for: .clearSearch)
+    }
+
+    func findNext() {
+        execCommand(for: .findNext)
+    }
+
+    func findPrevious() {
+        execCommand(for: .findPrevious)
+    }
+
+    func setAdjustedContentInset(newInset: UIEdgeInsets) {
+        execCommand(for: .adjustedContentInsetChanged, argument: "{top: \(newInset.top), left: \(newInset.left), bottom: \(newInset.bottom), right: \(newInset.right)}")
+    }
 }
 
 extension SectionEditorWebViewMessagingController {
@@ -245,6 +303,13 @@ extension SectionEditorWebViewMessagingController {
         struct Name {
             static let selectionChanged = "selectionChanged"
             static let highlightTheseButtons = "highlightTheseButtons"
+            static let disableTheseButtons = "disableTheseButtons"
+            static let codeMirrorMessage = "codeMirrorMessage"
+            static let codeMirrorSearchMessage = "codeMirrorSearchMessage"
+            static let findInPageMatchesCount = "findInPageMatchesCount"
+            static let findInPageFocusedMatchIndex = "findInPageFocusedMatchIndex"
+            static let findInPageFocusedMatchID = "findInPageFocusedMatchID"
+            static let smoothScrollToYOffsetMessage = "smoothScrollToYOffsetMessage"
         }
         struct Body {
             struct Key {
@@ -267,14 +332,15 @@ extension SectionEditorWebViewMessagingController {
             case template
             case undo
             case redo
-            case debug
+            case progress
             case comment
             case textSize(type: TextSizeType)
             case superscript
             case `subscript`
             case underline
             case strikethrough
-            case progress(Bool)
+            case decreaseIndentDepth
+            case increaseIndentDepth
 
             var identifier: Int? {
                 switch self {
@@ -302,7 +368,7 @@ extension SectionEditorWebViewMessagingController {
                     return 11
                 case .redo:
                     return 12
-                case .debug:
+                case .progress:
                     return 13
                 case .comment:
                     return 14
@@ -314,6 +380,10 @@ extension SectionEditorWebViewMessagingController {
                     return 19
                 case .strikethrough:
                     return 20
+                case .decreaseIndentDepth:
+                    return 21
+                case .increaseIndentDepth:
+                    return 22
                 default:
                     return nil
                 }
@@ -326,8 +396,6 @@ extension SectionEditorWebViewMessagingController {
                     self = .heading(type: textStyleType)
                 } else if rawValue == "textSize", let textSizeType = info?.textSizeType {
                     self = .textSize(type: textSizeType)
-                } else if rawValue == "changesMade", let changesMade = info?.changesMade {
-                    self = .progress(changesMade)
                 } else {
                     switch rawValue {
                     case "indent":
@@ -348,8 +416,8 @@ extension SectionEditorWebViewMessagingController {
                         self = .undo
                     case "redo":
                         self = .redo
-                    case "debug":
-                        self = .debug
+                    case "progress":
+                        self = .progress
                     case "comment":
                         self = .comment
                     case "superscript":
@@ -360,6 +428,10 @@ extension SectionEditorWebViewMessagingController {
                         self = .underline
                     case "strikethrough":
                         self = .strikethrough
+                    case "decreaseIndentDepth":
+                        self = .decreaseIndentDepth
+                    case "increaseIndentDepth":
+                        self = .increaseIndentDepth
                     default:
                         return nil
                     }
@@ -370,12 +442,10 @@ extension SectionEditorWebViewMessagingController {
             static let ordered = "ordered"
             static let depth = "depth"
             static let size = "size"
-            static let changesMade = "changesMade"
 
             let textStyleType: TextStyleType?
             let textSizeType: TextSizeType?
             let ordered: Bool?
-            let changesMade: Bool?
         }
         let kind: Kind
     }

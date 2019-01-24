@@ -224,6 +224,7 @@
 "reference-title" = "Verwysing $1";
 "request-feedback-on-error" = "Die toep het ’n probleem ervaar waarvan ons ontwikkelaars meer wil weet. Tik hier om aan ons ’n e-pos met die foutbesonderhede te stuur.";
 "saved-reading-lists-title" = "Leeslyste";
+// Fuzzy
 "saved-search-default-text" = "Soek";
 "saved-title" = "Gestoor";
 "search-button-accessibility-label" = "Deursoek Wikipedia";

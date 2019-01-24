@@ -55,10 +55,9 @@ class TextFormattingInputViewController: UIInputViewController {
         return viewController
     }
 
-    private lazy var embeddedNavigationController: WMFThemeableNavigationController = {
+    private lazy var embeddedNavigationController: UINavigationController = {
         let viewController = rootViewController(for: inputViewType)
-        let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
-        navigationController.navigationBar.isTranslucent = false
+        let navigationController = UINavigationController(rootViewController: viewController)
         return navigationController
     }()
 
@@ -94,6 +93,12 @@ class TextFormattingInputViewController: UIInputViewController {
         textFormattingTableViewController.buttonSelectionDidChange(button: button)
         textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
     }
+    
+    func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+        textFormattingTableViewController.disableButton(button: button)
+        textStyleFormattingTableViewController.disableButton(button: button)
+    }
+
 }
 
 extension TextFormattingInputViewController: Themeable {
@@ -104,8 +109,12 @@ extension TextFormattingInputViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
+        embeddedNavigationController.navigationBar.isTranslucent = false
+        embeddedNavigationController.navigationBar.barTintColor = theme.colors.inputAccessoryBackground
+        embeddedNavigationController.navigationBar.tintColor = theme.colors.inputAccessoryButtonTint
+        embeddedNavigationController.navigationBar.titleTextAttributes = theme.navigationBarTitleTextAttributes
     }
 }
 

@@ -173,12 +173,15 @@
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
 "dim-images" = "Imagens fracas";
+"edit-style-table-view-title" = "Estilo";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
 "edit-summary-choice-fixed-typos" = "Ortográfia reduzida";
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-choice-other" = "Outros";
 "edit-summary-field-placeholder-text" = "Outras maneiras que você melhorou o artigo";
 "edit-summary-title" = "Como foi que você melhorou o artigo?";
+"edit-text-formatting-table-view-title" = "Formatação de texto";
+"edit-text-size-table-view-title" = "Tamanho do texto";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
@@ -543,7 +546,7 @@
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
 "saved-pages-progress-syncing" = "Download do artigo em andamento...";
 "saved-reading-lists-title" = "Listas de leitura";
-"saved-search-default-text" = "Pesquisar";
+"saved-search-default-text" = "Pesquisar artigos salvos";
 "saved-title" = "Salvo";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ao não salvar {{PLURAL:$1|este artigo, ele será removido|estes artigos, eles serão removidos}} de todas as listas de leitura associadas";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Não salvar {{PLURAL:$1|o artigo|os artigos}}?";

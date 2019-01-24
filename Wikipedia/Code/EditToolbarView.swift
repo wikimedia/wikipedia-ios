@@ -4,17 +4,6 @@ class EditToolbarView: UIView, TextFormattingButtonsProviding {
     @IBOutlet var separatorViews: [UIView] = []
     @IBOutlet var buttons: [TextFormattingButton] = []
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        addTopShadow()
-    }
-
-    private func addTopShadow() {
-        layer.shadowOffset = CGSize(width: 0, height: -2)
-        layer.shadowRadius = 10
-        layer.shadowOpacity = 1.0
-    }
-
     override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: bounds.height + 1)
     }
@@ -22,9 +11,8 @@ class EditToolbarView: UIView, TextFormattingButtonsProviding {
 
 extension EditToolbarView: Themeable {
     func apply(theme: Theme) {
-        backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.inputAccessoryBackground
         tintColor = theme.colors.link
-        layer.shadowColor = theme.colors.shadow.cgColor
         separatorViews.forEach { $0.backgroundColor = theme.colors.border }
         for button in buttons {
             button.apply(theme: theme)

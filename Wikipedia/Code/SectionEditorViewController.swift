@@ -17,6 +17,8 @@ class SectionEditorViewController: UIViewController {
     private var navigationItemController: SectionEditorNavigationItemController!
 
     private var theme = Theme.standard
+
+    @objc var editFunnel: EditFunnel?
     
     private var wikitext: String? {
         didSet {
@@ -46,15 +48,23 @@ class SectionEditorViewController: UIViewController {
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+    
+        webView.scrollView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
         super.viewWillDisappear(animated)
+    }
+
+    @objc func keyboardDidHide() {
+        inputViewsController.keyboardDidHide()
     }
 
     private func configureWebView() {
@@ -70,21 +80,25 @@ class SectionEditorViewController: UIViewController {
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
-        let setupUserScript = CodemirrorSetupUserScript(language: language, theme: theme) { [weak self] in
+        let languageInfo = MWLanguageInfo(forCode: language)
+        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
         contentController.addUserScript(setupUserScript)
         contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
+
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
 
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
         webView.navigationDelegate = self
         webView.isHidden = true // hidden until wikitext is set
+        webView.scrollView.keyboardDismissMode = .interactive
 
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
         webView.inputViewsSource = inputViewsController
@@ -121,20 +135,7 @@ class SectionEditorViewController: UIViewController {
     }
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
-        // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
-        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
-        // (May consider switching other native-to-JS messaging to do same later.)
-        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
-        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
-            guard let completionHandler = completionHandler else {
-                return
-            }
-            completionHandler(error)
-        }
-    }
-    
-    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
-        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
+        messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
 
     private func loadWikitext() {
@@ -155,6 +156,25 @@ class SectionEditorViewController: UIViewController {
     override func accessibilityPerformEscape() -> Bool {
         navigationController?.popViewController(animated: true)
         return true
+    }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { (_) in
+            self.inputViewsController.didTransitionToNewCollection()
+        }
+    }
+}
+
+private var previousAdjustedContentInset = UIEdgeInsets.zero
+extension SectionEditorViewController: UIScrollViewDelegate {
+    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        let newAdjustedContentInset = scrollView.adjustedContentInset
+        guard newAdjustedContentInset != previousAdjustedContentInset else {
+            return
+        }
+        previousAdjustedContentInset = newAdjustedContentInset
+        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
     }
 }
 
@@ -184,7 +204,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: true) // TODO
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
     }
 
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -203,10 +223,13 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
     }
 }
 
-extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonSelectionDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
-        navigationItemController.buttonSelectionDidChange(button: button)
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
         inputViewsController.buttonSelectionDidChange(button: button)
+    }
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+        navigationItemController.disableButton(button: button)
+        inputViewsController.disableButton(button: button)
     }
 }
 
@@ -237,14 +260,11 @@ extension SectionEditorViewController: FetchFinishedDelegate {
             let fetcher = sender as! WikiTextSectionFetcher
             guard
                 let results = fetchedData as? [String: Any],
-                let revision = results["revision"] as? String,
-                let userInfo = results["userInfo"] as? [String: Any],
-                let userID = userInfo["id"] as? NSNumber
+                let revision = results["revision"] as? String
             else {
                 return
             }
 
-            let editFunnel = EditFunnel(userId: userID.int32Value)
             editFunnel?.logStart()
 
             if let protectionStatus = fetcher.section.article?.protection,
@@ -280,8 +300,8 @@ extension SectionEditorViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        webView.scrollView.backgroundColor = theme.colors.baseBackground
-        webView.backgroundColor = theme.colors.baseBackground
+        webView.scrollView.backgroundColor = theme.colors.paperBackground
+        webView.backgroundColor = theme.colors.paperBackground
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }

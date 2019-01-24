@@ -170,12 +170,15 @@
 "description-welcome-promise-title" = "En commençant, je promet de ne pas détourner cette fonctionalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "dim-images" = "Assombrir les images";
+"edit-style-table-view-title" = "Style";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
 "edit-summary-choice-linked-words" = "Liens ajoutés";
 "edit-summary-choice-other" = "Autre";
 "edit-summary-field-placeholder-text" = "Autres moyens pour améliorer l’article";
 "edit-summary-title" = "Comment avez-vous amélioré cet article ?";
+"edit-text-formatting-table-view-title" = "Formatage du texte";
+"edit-text-size-table-view-title" = "Taille du texte";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
@@ -540,7 +543,7 @@
 "saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";
 "saved-pages-progress-syncing" = "Téléchargement d'article en cours...";
 "saved-reading-lists-title" = "Listes de lecture";
-"saved-search-default-text" = "Rechercher";
+"saved-search-default-text" = "Rechercher les articles enregistrés";
 "saved-title" = "Enregistré";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ne plus enregistrer {{PLURAL:$1|cet article le supprimera|ces articles les supprimera}} de toutes les listes de lecture associées";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ne plus enregistrer {{PLURAL:$1|l’article|les articles}} ?";

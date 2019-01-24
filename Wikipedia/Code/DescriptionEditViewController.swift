@@ -19,10 +19,17 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
 
-    @objc var article: MWKArticle? = nil
+    @objc var article: MWKArticle? = nil {
+        didSet {
+            isEditingExistingDescription = article?.entityDescription != nil
+        }
+    }
     private let showWarningIfDescriptionLongerThanCount = 90
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
+
+    @objc var editFunnel: EditFunnel?
+    private var isEditingExistingDescription: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +70,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         descriptionTextView.becomeFirstResponder()
+        editFunnel?.logWikidataDescriptionEditReady(isEditingExistingDescription)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -166,6 +174,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
+        editFunnel?.logWikidataDescriptionEditSaveAttempt(isEditingExistingDescription)
         save()
     }
 
@@ -207,12 +216,14 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             DispatchQueue.main.async {
                 self.enableProgressiveButton(true)
                 guard let error = error else {
+                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
                     }
                     return
                 }
+                self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }
         }
@@ -238,7 +249,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.midBackground
         view.tintColor = theme.colors.link
         subTitleLabel.textColor = theme.colors.secondaryText
         cc0ImageView.tintColor = theme.colors.primaryText

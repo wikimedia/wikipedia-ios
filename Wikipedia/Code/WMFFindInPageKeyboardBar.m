@@ -69,7 +69,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self hide];
+    [self.delegate keyboardBarReturnTapped:self];
     return YES;
 }
 

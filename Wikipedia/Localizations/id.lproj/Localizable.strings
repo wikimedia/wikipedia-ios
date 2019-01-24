@@ -8,6 +8,7 @@
 // Author: Bramadiarya
 // Author: C5st4wr6ch
 // Author: Fate Kage
+// Author: Gombang
 // Author: Hendra ibaraki1
 // Author: Hidayatsrf
 // Author: Iwan Novirion
@@ -170,6 +171,7 @@
 "edit-summary-choice-other" = "Lainnya";
 "edit-summary-field-placeholder-text" = "Cara lain Anda menyempurnakan artikel";
 "edit-summary-title" = "Bagaimana Anda menyempurnakan artikel ini?";
+"edit-text-size-table-view-title" = "Ukuran teks";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
@@ -339,6 +341,9 @@
 "languages-wikipedia" = "Bahasa Wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Konten tersedia di bawah $1 kecuali dinyatakan lain.";
+"logged-out-continue-without-logging-in-button-title" = "Lanjutkan tanpa masuk log";
+"logged-out-log-back-in-button-title" = "Masuk log kembali ke akun Anda";
+"logged-out-title" = "Anda sudah keluar log";
 "login-forgot-password" = "Lupa kata sandi Anda?";
 "login-join-wikipedia" = "Bergabunglah dengan Wikipedia";
 "login-no-account" = "Belum mempunyai akun? $1";
@@ -530,6 +535,7 @@
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
 "saved-pages-progress-syncing" = "Pengunduhan artikel sedang berlangsung...";
 "saved-reading-lists-title" = "Daftar bacaan";
+// Fuzzy
 "saved-search-default-text" = "Cari";
 "saved-title" = "Tersimpan";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Membatalkan simpan {{PLURAL:$1|artikel ini akan menghapusnya|artikel ini akan menghapusnya}} dari semua daftar bacaan yang terkait";

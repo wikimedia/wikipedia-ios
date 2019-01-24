@@ -140,10 +140,10 @@
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
 "description-edit-pencil-introduction" = "Editovat úvod";
-"description-edit-pencil-title" = "Upravit popis článku";
+"description-edit-pencil-title" = "Editovat popis článku";
 "description-edit-placeholder-title" = "Nejlepší jsou krátké popisy";
 "description-edit-publish" = "Zveřejnit popis";
-"description-edit-title" = "Upravit popis";
+"description-edit-title" = "Editovat popis";
 "description-edit-warning" = "Pokuste se zachovat krátké popisy, aby uživatelé na první pohled pochopili téma článku";
 "description-help-about-description" = "Popis shrnuje základní informace o tématu článku, aby čtenáři ihned pochopili, o čem článek pojednává.";
 "description-help-about-title" = "O aplikaci";
@@ -170,12 +170,15 @@
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
 "dim-images" = "Ztmavení obrázků";
+"edit-style-table-view-title" = "Styl";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava překlepu";
 "edit-summary-choice-linked-words" = "Přidány odkazy";
 "edit-summary-choice-other" = "Ostatní";
 "edit-summary-field-placeholder-text" = "Jiné způsoby, jak jste vylepšili článek";
 "edit-summary-title" = "Jak jste vylepšili článek?";
+"edit-text-formatting-table-view-title" = "Formátování textu";
+"edit-text-size-table-view-title" = "Velikost textu";
 "empty-no-article-message" = "Omlouváme se, nepovedlo se načíst článek.";
 "empty-no-feed-action-message" = "Stále ještě můžete číst uložené stránky";
 "empty-no-feed-message" = "Když jste připojeni k internetu, tak můžete číst doporučené články.";
@@ -323,7 +326,7 @@
 "home-news-footer" = "Více Aktuálních událostí";
 "home-reading-list-prompt" = "Vámi uložené články mohou být nyní organizovány do seznamů k přečtení a synchronizovány skrze zařízení. Přihlaste se, abyste povolili ukládání seznamů k přečtení do vašich uživatelských nastavení.";
 "home-themes-action-title" = "Spravujte předvolby";
-"home-themes-prompt" = "Upravte předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
+"home-themes-prompt" = "Upravte si předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
 "home-title" = "Objevit";
 "home-title-accessibility-label" = "Wikipedie, přejít na začátek kanálu Objevit";
 "icon-shortcut-continue-reading-title" = "Pokračovat ve čtení";
@@ -540,7 +543,7 @@
 "saved-pages-image-download-error" = "Nepodařilo se stáhnout obrázky pro tuto uloženou stránku.";
 "saved-pages-progress-syncing" = "Stahuje se článek...";
 "saved-reading-lists-title" = "Seznamy k přečtení";
-"saved-search-default-text" = "Hledat";
+"saved-search-default-text" = "Hledat uložené články";
 "saved-title" = "Uložené";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Zruší uložení {{PLURAL:$1|tohoto článku a odstraní jej|těchto článků a odstraní je}} ze všech seznamů k přečtení, kterých se nachází";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Zrušit uložení {{PLURAL:$1|článku|článků}}?";

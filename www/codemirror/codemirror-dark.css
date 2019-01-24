@@ -54,7 +54,7 @@ html, body, .CodeMirror {
 .cm-mw-table-bracket,
 .cm-mw-table-delimiter,
 .cm-mw-table-definition { 
-  color: #E6175D; 
+  color: #F06695; 
   font-weight: normal; 
 }
 
@@ -86,4 +86,10 @@ html, body, .CodeMirror {
 .cm-mw-comment,
 .cm-mw-skipformatting {
   color: #C8CCD1;
+}
+
+.cm-searching {
+  color: #000;
+  background-color: rgba(247, 215, 121, 0.7);
+  border-radius: 2px;
 }
