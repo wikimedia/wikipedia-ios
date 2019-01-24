@@ -22,11 +22,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var theme: Theme = .standard
     weak var delegate: EditSaveViewControllerDelegate?
 
-    private var captchaViewController: WMFCaptchaViewController?
+    private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     @IBOutlet private var captchaContainer: UIView!
     @IBOutlet private var editSummaryVCContainer: UIView!
-    @IBOutlet private var captchaScrollView: UIScrollView!
-    @IBOutlet private var captchaScrollContainer: UIView!
     private var borderWidth: CGFloat = 0.0
     @IBOutlet private var previewLicenseView: PreviewLicenseView!
     private var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
@@ -117,9 +115,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        captchaScrollView.alpha = 0.0
-        
-        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
         captchaViewController?.captchaDelegate = self
         captchaViewController?.apply(theme: theme)
         wmf_add(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
@@ -240,8 +235,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             captchaViewController?.captcha = WMFCaptcha(captchaID: captchaId, captchaURL: captchaUrl!)
-            revealCaptcha()
-            
+            funnel?.logCaptchaShown()
+            mode = .captcha
+            highlightCaptchaSubmitButton(false)
+            dispatchOnMainQueueAfterDelayInSeconds(0.3) {
+                self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+            }
+
         case .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
             //NSString *warningHtml = error.userInfo[@"warning"];
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -314,28 +314,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
         highlightCaptchaSubmitButton(((solutionText?.count ?? 0) == 0) ? false : true)
     }
-
-    private func revealCaptcha() {
-        funnel?.logCaptchaShown()
-        
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(0.35)
-        UIView.setAnimationTransition(.none, for: view, cache: false)
-        
-        view.bringSubviewToFront(captchaScrollView)
-        
-        captchaScrollView.alpha = 1.0
-        captchaScrollView.backgroundColor = theme.colors.paperBackground
-        
-        captchaScrollContainer.backgroundColor = UIColor.clear
-        captchaContainer.backgroundColor = UIColor.clear
-        
-        UIView.commitAnimations()
-        
-        mode = .captcha
-        
-        highlightCaptchaSubmitButton(false)
-    }
     
     func previewLicenseViewTermsLicenseLabelWasTapped(_ previewLicenseview: PreviewLicenseView?) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
@@ -359,13 +337,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         scrollView.backgroundColor = theme.colors.paperBackground
-        captchaScrollView.backgroundColor = theme.colors.baseBackground
-        
         previewLicenseView.apply(theme: theme)
-        
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
-        captchaScrollContainer.backgroundColor = theme.colors.paperBackground
     }
     
     func learnMoreButtonTapped(sender: UIButton) {
