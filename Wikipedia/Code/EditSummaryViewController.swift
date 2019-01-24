@@ -1,17 +1,17 @@
 
 import UIKit
 
-@objc protocol EditSummaryViewDelegate: AnyObject {
+protocol EditSummaryViewDelegate: AnyObject {
     func summaryChanged(newSummary: String)
     func learnMoreButtonTapped(sender: UIButton)
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType)
 }
 
-@objc enum EditSummaryViewCannedButtonType: Int {
+enum EditSummaryViewCannedButtonType: Int {
     case typo, grammar, link
 }
 
-@objcMembers class EditSummaryViewController: UIViewController, Themeable {
+class EditSummaryViewController: UIViewController, Themeable {
     static let maximumSummaryLength = 255
     
     public var theme: Theme = .standard {
@@ -62,7 +62,7 @@ import UIKit
         delegate?.learnMoreButtonTapped(sender: sender)
     }
 
-    public func textFieldDidChange(textField: UITextField){
+    @objc public func textFieldDidChange(textField: UITextField){
         notifyDelegateOfSummaryChange()
     }
 

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import WMF
 
-@objcMembers class PreviewLicenseView: UIView, Themeable {
+class PreviewLicenseView: UIView, Themeable {
     @IBOutlet weak var licenseLoginLabel: UILabel!
     public weak var previewLicenseViewDelegate: PreviewLicenseViewDelegate?
     @IBOutlet private weak var topDividerHeight: NSLayoutConstraint!
@@ -94,6 +94,6 @@ import WMF
     }
 }
 
-@objc protocol PreviewLicenseViewDelegate: NSObjectProtocol {
+protocol PreviewLicenseViewDelegate: NSObjectProtocol {
     func previewLicenseViewTermsLicenseLabelWasTapped(_ previewLicenseview: PreviewLicenseView?)
 }

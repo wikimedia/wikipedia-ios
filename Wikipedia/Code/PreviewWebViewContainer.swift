@@ -10,7 +10,7 @@ import WMF
     func wmf_showAlert(forTappedAnchorHref href: String)
 }
 
-@objcMembers class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHandler {
+class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHandler {
     weak var externalLinksOpenerDelegate: WMFOpenExternalLinkDelegate?
     var webView: WKWebView?
     @IBOutlet weak var previewSectionLanguageInfoDelegate: WMFPreviewSectionLanguageInfoDelegate!

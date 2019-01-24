@@ -6,7 +6,7 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController)
 }
 
-@objc enum WMFPreviewAndSaveMode : Int {
+enum WMFPreviewAndSaveMode : Int {
     case PREVIEW_MODE_EDIT_WIKITEXT
     case PREVIEW_MODE_EDIT_WIKITEXT_WARNING
     case PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW
@@ -66,8 +66,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         case .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
             backButton = buttonX
             forwardButton = buttonSave
-        default:
-            break
         }
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = forwardButton
