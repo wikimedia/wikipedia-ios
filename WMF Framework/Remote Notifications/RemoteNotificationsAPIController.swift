@@ -1,10 +1,4 @@
-struct RemoteNotificationsAPIController {
-    private let session: Session
-
-    init(with session: Session) {
-        self.session = session
-    }
-    
+class RemoteNotificationsAPIController: Fetcher {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {
@@ -162,7 +156,7 @@ struct RemoteNotificationsAPIController {
         if method == .get {
             let _ = session.jsonDecodableTask(with: components.url, method: .get, completionHandler: completion)
         } else {
-            let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: method, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: completion)
+            let _ = requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: method, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: completion)
         }
     }
 

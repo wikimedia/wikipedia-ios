@@ -23,6 +23,16 @@ public enum TokenType: Int {
             return "csrf"
         }
     }
+    var parameterName: String {
+        switch self {
+        case .login:
+            return "logintoken"
+        case .createAccount:
+            return "createtoken"
+        default:
+            return "token"
+        }
+    }
 }
 
 @objc(WMFToken)
@@ -46,9 +56,6 @@ public enum FetcherResult<Success, Error> {
 open class Fetcher: NSObject {
     @objc public let configuration: Configuration
     @objc public let session: Session
-    
-    var mobileAppsServicesBasePathComponents: [String] = []
-    var mobileAppsServicesComponentsBuilder: [String] = []
 
     public typealias CancellationKey = String
     
@@ -103,6 +110,30 @@ open class Fetcher: NSObject {
                 completionHandler(token, nil)
             }
         }
+    }
+    
+    @objc(performTokenizedMediaWikiAPIPOSTWithTokenType:toURL:withBodyParameters:cancellationKey:completionHandler:)
+    @discardableResult public func performTokenizedMediaWikiAPIPOST(tokenType: TokenType = .csrf, to URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> CancellationKey? {
+        let key = cancellationKey ?? UUID().uuidString
+        let task = requestMediaWikiAPIAuthToken(for: URL, type: tokenType, cancellationKey: key) { (result) in
+            switch result {
+            case .failure(let error):
+                completionHandler(nil, nil, error)
+                self.untrack(taskFor: key)
+            case .success(let token):
+                var mutableBodyParameters = bodyParameters ?? [:]
+                mutableBodyParameters[tokenType.parameterName] = token.token
+                self.performMediaWikiAPIPOST(for: URL, with: mutableBodyParameters, cancellationKey: key, completionHandler: completionHandler)
+            }
+        }
+        track(task: task, for: key)
+        return key
+    }
+    
+    @discardableResult public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
+        let op = operationType.init(session: session, fetcher: self, components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
+        session.queue.addOperation(op)
+        return op
     }
     
     @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:completionHandler:)

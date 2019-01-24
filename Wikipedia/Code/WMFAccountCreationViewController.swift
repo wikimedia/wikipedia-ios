@@ -23,7 +23,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate weak var scrollContainer: UIView!
     
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
-    let tokenFetcher = WMFAuthTokenFetcher()
     let accountCreator = WMFAccountCreator()
     
     fileprivate var theme = Theme.standard
@@ -318,17 +317,12 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-            tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!, success: { token in
-                DispatchQueue.main.async {
-                    self.accountCreator.createAccount(username: self.usernameField.text!, password: self.passwordField.text!, retypePassword: self.passwordRepeatField.text!, email: self.emailField.text!, captchaID:self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, token: token.token, siteURL: siteURL!, success: {_ in
-                        DispatchQueue.main.async {
-                            self.login()
-                        }
-                    }, failure: creationFailure)
-                }
-            }, failure: creationFailure)
+        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
+            DispatchQueue.main.async {
+                self.login()
+            }
+        }, failure: creationFailure)
     }
     
     func apply(theme: Theme) {

@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
                summary:(nullable NSString *)summary
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
-                 token:(nullable NSString *)token
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
 

@@ -34,14 +34,13 @@ public struct WMFAccountCreatorResult {
 }
 
 public class WMFAccountCreator: Fetcher {
-    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, token: String, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
+    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
         var parameters: [String: String] = [
             "action": "createaccount",
             "username": username,
             "password": password,
             "retype": retypePassword,
             "createreturnurl": "https://www.wikipedia.org",
-            "createtoken": token,
             "format": "json"
         ]
         if let email = email {
@@ -54,7 +53,7 @@ public class WMFAccountCreator: Fetcher {
             parameters["captchaWord"] = captchaWord
         }
         
-        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+        performTokenizedMediaWikiAPIPOST(tokenType: .createAccount, to: siteURL, with: parameters) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return

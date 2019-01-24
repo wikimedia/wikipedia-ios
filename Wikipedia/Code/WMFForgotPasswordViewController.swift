@@ -14,7 +14,6 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
 
     fileprivate var theme = Theme.standard
     
-    let tokenFetcher = WMFAuthTokenFetcher()
     let passwordResetter = WMFPasswordResetter()
 
     override func viewDidLoad() {
@@ -99,16 +98,13 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         }
         
-        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { tokenBlock in
-            self.passwordResetter.resetPassword(
-                siteURL: siteURL,
-                token: tokenBlock.token,
-                userName: userName,
-                email: email,
-                success: { result in
-                    self.dismiss(animated: true, completion:nil)
-                    WMFAlertManager.sharedInstance.showSuccessAlert(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            }, failure:failure)
+        passwordResetter.resetPassword(
+            siteURL: siteURL,
+            userName: userName,
+            email: email,
+            success: { result in
+                self.dismiss(animated: true, completion:nil)
+                WMFAlertManager.sharedInstance.showSuccessAlert(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         }, failure:failure)
     }
     

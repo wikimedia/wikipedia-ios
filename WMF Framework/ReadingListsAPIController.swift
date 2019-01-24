@@ -116,8 +116,7 @@ extension APIReadingListEntry {
     }
 }
 
-class ReadingListsAPIController: NSObject {
-    public let session = Session.shared // eventually doesn't have to be the singleton
+class ReadingListsAPIController: Fetcher {
     private let api = Configuration.current.mobileAppsServicesAPIURLComponentsBuilderForHost("en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
     
@@ -172,7 +171,7 @@ class ReadingListsAPIController: NSObject {
     fileprivate func requestWithCSRF(path: [String], method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
         let components = api.components(byAppending: basePathComponents + path)
-        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, components: components, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query)) { (result, response, error) in
+        let op = requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, components: components, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query)) { (result, response, error) in
             if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                 DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
             } else {

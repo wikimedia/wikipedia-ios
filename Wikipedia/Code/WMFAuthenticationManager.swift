@@ -54,7 +54,6 @@ public class WMFAuthenticationManager: Fetcher {
     }
     
     fileprivate let loginInfoFetcher = WMFAuthLoginInfoFetcher()
-    fileprivate let tokenFetcher = WMFAuthTokenFetcher()
     fileprivate let accountLogin = WMFAccountLogin()
     fileprivate let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
     
@@ -120,28 +119,22 @@ public class WMFAuthenticationManager: Fetcher {
             }
             return
         }
-        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { (token) in
-            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: token.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
-                DispatchQueue.main.async {
-                    let normalizedUserName = result.username
-                    self.loggedInUsername = normalizedUserName
-                    KeychainCredentialsManager.shared.username = normalizedUserName
-                    KeychainCredentialsManager.shared.password = password
-                    KeychainCredentialsManager.shared.host = siteURL.host
-                    self.session.cloneCentralAuthCookies()
-                    SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
-                    completion(.success(result))
-                }
-            }, failure: { (error) in
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
-            })
-        }) { (error) in
+        accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
+            DispatchQueue.main.async {
+                let normalizedUserName = result.username
+                self.loggedInUsername = normalizedUserName
+                KeychainCredentialsManager.shared.username = normalizedUserName
+                KeychainCredentialsManager.shared.password = password
+                KeychainCredentialsManager.shared.host = siteURL.host
+                self.session.cloneCentralAuthCookies()
+                SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+                completion(.success(result))
+            }
+        }, failure: { (error) in
             DispatchQueue.main.async {
                 completion(.failure(error))
             }
-        }
+        })
     }
     
     /**

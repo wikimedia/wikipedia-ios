@@ -87,11 +87,7 @@ import Foundation
         return URLSession(configuration: config)
     }()
     
-    private lazy var tokenFetcher: WMFAuthTokenFetcher = {
-        return WMFAuthTokenFetcher()
-    }()
-    
-    private lazy var queue: OperationQueue = {
+    internal lazy var queue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 16
         return queue
@@ -129,12 +125,6 @@ import Foundation
             self._isAuthenticated = hasValid
         }
         return hasValid
-    }
-
-    @discardableResult public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
-        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
-        queue.addOperation(op)
-        return op
     }
     
     @objc(requestToGetURL:)

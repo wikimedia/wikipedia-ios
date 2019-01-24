@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) WMFSession *session;
 @property (nonatomic, readonly) WMFConfiguration *configuration;
 
+- (NSString *)performMediaWikiAPIPOSTWithCSRFTokenForURL:(NSURL *)URL withBodyParameters:(NSDictionary<NSString *, NSString *> *)bodyParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionHandler;
 - (NSURLSessionTask *)performMediaWikiAPIGETForURL:(NSURL *)URL withQueryParameters:(NSDictionary<NSString *, id> *)queryParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
 - (NSURLSessionTask *)performCancelableMediaWikiAPIGETForURL:(NSURL *)URL cancellationKey:(NSString *)cancellationKey withQueryParameters:(NSDictionary<NSString *, id> *)queryParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
 - (NSURLSessionTask *)performMediaWikiAPIPOSTForURL:(NSURL *)URL withBodyParameters:(NSDictionary<NSString *, id> *)bodyParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionHandler;

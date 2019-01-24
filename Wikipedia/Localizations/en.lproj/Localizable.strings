@@ -255,6 +255,7 @@
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
+"fetcher-error-unexpected-response" = "The app received an unexpected response from the server. Please try again later.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passwords do not match";
 "field-alert-password-invalid" = "Invalid password";

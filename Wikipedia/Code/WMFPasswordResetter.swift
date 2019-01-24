@@ -22,10 +22,9 @@ public struct WMFPasswordResetterResult {
 }
 
 public class WMFPasswordResetter: Fetcher {
-    public func resetPassword(siteURL: URL, token: String, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
+    public func resetPassword(siteURL: URL, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
         var parameters = [
             "action": "resetpassword",
-            "token": token,
             "format": "json"
         ];
         
@@ -36,8 +35,7 @@ public class WMFPasswordResetter: Fetcher {
                 parameters["email"] = email
             }
         }
-        
-        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+        performTokenizedMediaWikiAPIPOST(to: siteURL, with: parameters) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return

@@ -45,7 +45,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     let wikiTextSectionUploader = WikiTextSectionUploader()
-    let editTokenFetcher = WMFAuthTokenFetcher()
     
     func updateNavigation(for mode: WMFPreviewAndSaveMode) {
         var backButton: UIBarButtonItem? = nil
@@ -203,27 +202,20 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        editTokenFetcher.fetchToken(ofType: WMFAuthTokenType.csrf, siteURL: editURL, success: { (result) in
+        wikiTextSectionUploader.uploadWikiText(self.wikiText, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.summaryText, captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, completion: { (result, error) in
             DispatchQueue.main.async {
-                self.wikiTextSectionUploader.uploadWikiText(self.wikiText, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.summaryText, captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, token: result.token, completion: { (result, error) in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            self.handleEditFailure(with: error)
-                            return
-                        }
-                        if let result = result {
-                            self.handleEditSuccess(with: result)
-                        } else {
-                            self.handleEditFailure(with: NSError.wmf_error(with: WMFErrorType.unexpectedResponseType, userInfo: nil))
-                        }
-                    }
-                })
+                if let error = error {
+                    self.handleEditFailure(with: error)
+                    return
+                }
+                if let result = result {
+                    self.handleEditSuccess(with: result)
+                } else {
+                    self.handleEditFailure(with: NSError.wmf_error(with: WMFErrorType.unexpectedResponseType, userInfo: nil))
+                }
             }
-        }) { (error) in
-            DispatchQueue.main.async {
-                self.handleEditFailure(with: error)
-            }
-        }
+        })
+
     }
     
     func handleEditSuccess(with result: [AnyHashable: Any]) {

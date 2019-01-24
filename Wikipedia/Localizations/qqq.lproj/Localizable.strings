@@ -255,6 +255,7 @@
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
+"fetcher-error-unexpected-response" = "Error shown to the user for unexpected server responses.";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";
 "field-alert-password-confirm-mismatch" = "Alert shown if password confirmation did not match password";
 "field-alert-password-invalid" = "Alert shown if password is not correct";

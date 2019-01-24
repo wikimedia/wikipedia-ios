@@ -10,13 +10,11 @@
                summary:(nullable NSString *)summary
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
-                 token:(nullable NSString *)token
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
     wikiText = wikiText ? wikiText : @"";
     section = section ? section : @"";
     summary = summary ? summary : @"";
-    token = token ? token : @"";
     NSString *title = articleURL.wmf_title;
     if (!title) {
         completion(nil, [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
@@ -26,7 +24,6 @@
     NSMutableDictionary *params =
     @{
       @"action": @"edit",
-      @"token": token,
       @"text": wikiText,
       @"summary": summary,
       @"section": section,
@@ -41,8 +38,8 @@
     }
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
-
-    [self performMediaWikiAPIPOSTForURL:articleURL withBodyParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
+    
+    [self performMediaWikiAPIPOSTWithCSRFTokenForURL:articleURL withBodyParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         if (networkError) {
