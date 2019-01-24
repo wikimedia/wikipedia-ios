@@ -167,33 +167,39 @@ public class WMFAuthenticationManager: Fetcher {
         }
         
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
-            self.loggedInUsername = result.name
-            completion(.alreadyLoggedIn(result))
-        }, failure:{ error in
-            guard !(error is URLError) else {
-                self.loggedInUsername = userName
-                let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
-                completion(.success(loginResult))
-                return
+            DispatchQueue.main.async {
+                self.loggedInUsername = result.name
+                completion(.alreadyLoggedIn(result))
             }
-            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, completion: { (loginResult) in
-                switch loginResult {
-                case .success(let result):
-                    completion(.success(result))
-                case .failure(let error):
-                    guard !(error is URLError) else {
-                        self.loggedInUsername = userName
-                        let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
-                        completion(.success(loginResult))
-                        return
-                    }
-                    self.loggedInUsername = nil
-                    self.logout(initiatedBy: .app)
-                    completion(.failure(error))
-                default:
-                    break
+        }, failure:{ error in
+            DispatchQueue.main.async {
+                guard !(error is URLError) else {
+                    self.loggedInUsername = userName
+                    let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                    completion(.success(loginResult))
+                    return
                 }
-            })
+                self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, completion: { (loginResult) in
+                    DispatchQueue.main.async {
+                        switch loginResult {
+                        case .success(let result):
+                            completion(.success(result))
+                        case .failure(let error):
+                            guard !(error is URLError) else {
+                                self.loggedInUsername = userName
+                                let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                                completion(.success(loginResult))
+                                return
+                            }
+                            self.loggedInUsername = nil
+                            self.logout(initiatedBy: .app)
+                            completion(.failure(error))
+                        default:
+                            break
+                        }
+                    }
+                })
+            }
         })
     }
     
