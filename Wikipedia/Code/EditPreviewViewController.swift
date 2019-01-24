@@ -8,7 +8,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
     var section: MWKSection?
     var wikiText = ""
-    var funnel: EditFunnel?
+    private var funnel: EditFunnel?
     var savedPagesFunnel: SavedPagesFunnel?
     var theme: Theme?
     weak var delegate: EditPreviewViewControllerDelegate?
