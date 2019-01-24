@@ -32,14 +32,14 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
         var earlyJavascriptTransforms: String? = nil
         if let code = langInfo?.code, let dir = langInfo?.dir {
             earlyJavascriptTransforms = """
-            document.onclick = function() {\
-            event.preventDefault();\
-            if (event.target.tagName == 'A'){\
-            var href = event.target.getAttribute( 'href' );\
-            window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href });\
-            }\
-            };\
-            window.wmf.utilities.setLanguage('\(code)', '\(dir)', '\(uidir)');
+            addEventListener('click', () => {
+                event.preventDefault()
+                if (event.target.tagName == 'A'){
+                    const href = event.target.getAttribute( 'href' )
+                    window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href })
+                }
+            })
+            window.wmf.utilities.setLanguage('\(code)', '\(dir)', '\(uidir)')
             """
         }
 
