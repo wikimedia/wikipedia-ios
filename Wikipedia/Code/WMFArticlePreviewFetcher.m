@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
                              }
 
                              NSError *jsonError = nil;
-                             NSArray<MWKSearchResult *> *unsortedPreviews = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result error:&jsonError];
+                             NSArray<MWKSearchResult *> *unsortedPreviews = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromAllValuesOfDictionaryForKeyPath:@"query.pages" inJSONDictionary:result error:&jsonError];
                              if (jsonError) {
                                  failure(jsonError);
                                  return;
