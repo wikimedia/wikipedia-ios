@@ -17,8 +17,8 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
     var section: MWKSection?
     var wikiText = ""
-    private var funnel: EditFunnel?
-    private var savedPagesFunnel: SavedPagesFunnel?
+    var funnel: EditFunnel?
+    var savedPagesFunnel: SavedPagesFunnel?
     var theme: Theme?
     weak var delegate: EditSaveViewControllerDelegate?
 
