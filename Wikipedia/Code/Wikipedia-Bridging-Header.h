@@ -22,6 +22,7 @@
 #import "WMFArticleFetcher.h"
 #import "SavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
+#import "WMFOpenExternalLinkDelegateProtocol.h"
 
 // Model
 #import "MWKLicense.h"
