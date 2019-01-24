@@ -7,7 +7,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 
 class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
     var section: MWKSection?
-    var wikiText = ""
+    var wikitext = ""
     var funnel: EditFunnel?
     var savedPagesFunnel: SavedPagesFunnel?
     var theme: Theme = .standard
@@ -66,7 +66,7 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
     func preview() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-preview-changes", nil, nil, "Retrieving preview of your changes...", "Alert text shown when getting preview of user changes to wikitext"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        fetcher.fetchHTML(forWikiText: self.wikiText, articleURL: self.section?.url) { (previewHTML, error) in
+        fetcher.fetchHTML(forWikiText: self.wikitext, articleURL: self.section?.url) { (previewHTML, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)

@@ -16,7 +16,7 @@ private enum NavigationMode : Int {
 
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
     var section: MWKSection?
-    var wikiText = ""
+    var wikitext = ""
     var funnel: EditFunnel?
     var savedPagesFunnel: SavedPagesFunnel?
     var theme: Theme = .standard
@@ -195,7 +195,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        wikiTextSectionUploader.uploadWikiText(self.wikiText, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.summaryText, captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(self.wikitext, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.summaryText, captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)

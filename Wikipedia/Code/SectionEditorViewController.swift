@@ -223,7 +223,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     }
                     vc.theme = self.theme
                     vc.section = self.section
-                    vc.wikiText = wikitext
+                    vc.wikitext = wikitext
                     vc.delegate = self
                     // TODO: Set funnels
                     // TODO: Apply theme
@@ -289,7 +289,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
             return
         }
         vc.section = self.section
-        vc.wikiText = editPreviewViewController.wikiText
+        vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
         // TODO: Set funnels
