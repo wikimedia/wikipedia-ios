@@ -375,7 +375,7 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDelegate {
-
+    
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate
