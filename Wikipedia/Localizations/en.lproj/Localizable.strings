@@ -88,7 +88,6 @@
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "back-button-accessibility-label" = "Back";
 "back-button-popover-title" = "Tap to go back";
-"button-done" = "Done";
 "button-next" = "Next";
 "button-ok" = "OK";
 "button-publish" = "Publish";
@@ -143,11 +142,13 @@
 "description-welcome-start-editing-button" = "Start editing";
 "dim-images" = "Dim images";
 "edit-style-table-view-title" = "Style";
+"edit-summary-add-summary-text" = "Add an edit summary";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
 "edit-summary-choice-other" = "Other";
-"edit-summary-field-placeholder-text" = "Other ways you improved the article";
+"edit-summary-learn-more-text" = "Learn more";
+"edit-summary-placeholder-text" = "How did you improve the article?";
 "edit-summary-title" = "How did you improve the article?";
 "edit-text-formatting-table-view-title" = "Text formatting";
 "edit-text-size-table-view-title" = "Text size";

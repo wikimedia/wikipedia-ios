@@ -5,10 +5,19 @@
 
 @implementation PreviewHtmlFetcher
 
-- (void)fetchHTMLForWikiText:(NSString *)wikiText articleURL:(NSURL *)articleURL completion:(void (^)(NSString * _Nullable result, NSError * _Nullable error))completion {
+- (void)fetchHTMLForWikiText:(nullable NSString *)wikiText articleURL:(nullable NSURL *)articleURL completion:(void (^)(NSString * _Nullable result, NSError * _Nullable error))completion {
 
-    NSDictionary *params = [self getParamsForArticleURL:articleURL wikiText:wikiText];
-
+    NSDictionary *params = @{
+                             @"action": @"parse",
+                             @"sectionpreview": @"true",
+                             @"pst": @"true",
+                             @"mobileformat": @"true",
+                             @"title": (articleURL.wmf_title ? articleURL.wmf_title : @""),
+                             @"prop": @"text",
+                             @"text": (wikiText ? wikiText : @""),
+                             @"format": @"json"
+                             };
+    
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
     [self performMediaWikiAPIPOSTForURL:articleURL withBodyParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
@@ -38,20 +47,6 @@
         }
         completion(output, error);
     }];
-}
-
-- (NSDictionary *)getParamsForArticleURL:(NSURL *)articleURL wikiText:(NSString *)wikiText {
-    return @{
-        @"action": @"parse",
-        @"sectionpreview": @"true",
-        @"pst": @"true",
-        @"mobileformat": @"true",
-        @"title": (articleURL.wmf_title ? articleURL.wmf_title : @""),
-        @"prop": @"text",
-        @"text": (wikiText ? wikiText : @""),
-        @"format": @"json"
-    }
-        .mutableCopy;
 }
 
 - (NSString *)getSanitizedResponse:(NSDictionary *)rawResponse {

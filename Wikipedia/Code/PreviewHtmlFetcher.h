@@ -1,7 +1,11 @@
 @import WMF.WMFLegacyFetcher;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PreviewHtmlFetcher : WMFLegacyFetcher
 
-- (void)fetchHTMLForWikiText:(NSString *)wikiText articleURL:(NSURL *)articleURL completion:(void (^)(NSString * _Nullable result, NSError * _Nullable error))completion;
+- (void)fetchHTMLForWikiText:(nullable NSString *)wikiText articleURL:(nullable NSURL *)articleURL completion:(void (^)(NSString * _Nullable result, NSError * _Nullable error))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

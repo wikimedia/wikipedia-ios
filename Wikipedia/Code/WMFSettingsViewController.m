@@ -583,7 +583,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
     if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
-        [self loadSections];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadSections];
+        });
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

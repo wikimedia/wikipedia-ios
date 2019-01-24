@@ -275,7 +275,7 @@ extension SectionEditorViewController: WKNavigationDelegate {
 // MARK - EditSaveViewControllerDelegate
 
 extension SectionEditorViewController: EditSaveViewControllerDelegate {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController!) {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController) {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: true)
     }
 }
@@ -283,7 +283,7 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
 // MARK - EditPreviewViewControllerDelegate
 
 extension SectionEditorViewController: EditPreviewViewControllerDelegate {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController!) {
+    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
         guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return
         }

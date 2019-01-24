@@ -12,7 +12,7 @@
         <!--Preview Anchor Tap Alert Delegate-->
         <scene sceneID="TJS-xh-DjB">
             <objects>
-                <viewController restorationIdentifier="EditPreviewViewController" storyboardIdentifier="EditPreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="EditPreviewViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="EditPreviewViewController" storyboardIdentifier="EditPreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="EditPreviewViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mk2-1E-CSA"/>
                         <viewControllerLayoutGuide type="bottom" id="LhU-TB-lQR"/>
@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebViewContainer">
+                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebViewContainer" customModule="Wikipedia" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -40,7 +40,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <outlet property="previewWebViewContainer" destination="EhD-15-Yw7" id="aJa-95-1bI"/>
+                        <outlet property="previewWebViewContainer" destination="EhD-15-Yw7" id="rER-42-dLb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lKe-tq-9vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
