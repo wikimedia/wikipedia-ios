@@ -2006,40 +2006,42 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
-            guard text == self.searchBar.text else {
-                return
+            DispatchQueue.main.async {
+                guard text == self.searchBar.text else {
+                    return
+                }
+                self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
+                self.isWaitingForSearchSuggestionUpdate = false
             }
-            self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
-            self.isWaitingForSearchSuggestionUpdate = false
         }) { (searchResult) in
-            guard text == self.searchBar.text else {
-                return
-            }
-            
-            if let suggestion = searchResult.searchSuggestion {
-                DDLogDebug("got suggestion! \(suggestion)")
-            }
-            
-            let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
-            self.isWaitingForSearchSuggestionUpdate = false
-            guard completions.count < 10 else {
-                return
-            }
-            
-            let center = self.mapView.userLocation.coordinate
-            let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
-            self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
+            DispatchQueue.main.async {
                 guard text == self.searchBar.text else {
                     return
                 }
-                var combinedResults: [MWKSearchResult] = searchResult.results ?? []
-                let newResults = locationSearchResults.results as [MWKSearchResult]
-                combinedResults.append(contentsOf: newResults)
-                let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
-            }) { (error) in
-                guard text == self.searchBar.text else {
+                
+                if let suggestion = searchResult.searchSuggestion {
+                    DDLogDebug("got suggestion! \(suggestion)")
+                }
+                
+                let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
+                self.isWaitingForSearchSuggestionUpdate = false
+                guard completions.count < 10 else {
                     return
                 }
+                
+                let center = self.mapView.userLocation.coordinate
+                let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
+                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
+                    DispatchQueue.main.async {
+                        guard text == self.searchBar.text else {
+                            return
+                        }
+                        var combinedResults: [MWKSearchResult] = searchResult.results ?? []
+                        let newResults = locationSearchResults.results as [MWKSearchResult]
+                        combinedResults.append(contentsOf: newResults)
+                        let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
+                    }
+                }) { (error) in }
             }
         }
     }
