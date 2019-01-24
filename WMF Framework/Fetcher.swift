@@ -1,56 +1,13 @@
 import UIKit
 
-public enum FetcherError: LocalizedError {
-    case unexpectedResponse
-    public var errorDescription: String? {
-        switch self {
-        case .unexpectedResponse:
-            return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
-        }
-    }
-}
+// Base class for combining a Session and Configuration to make network requests
+// Session handles constructing and making requests, Configuration handles url structure for the current target
 
-@objc(WMFTokenType)
-public enum TokenType: Int {
-    case csrf, login, createAccount
-    var stringValue: String {
-        switch self {
-        case .login:
-            return "login"
-        case .createAccount:
-            return "createaccount"
-        case .csrf:
-            return "csrf"
-        }
-    }
-    var parameterName: String {
-        switch self {
-        case .login:
-            return "logintoken"
-        case .createAccount:
-            return "createtoken"
-        default:
-            return "token"
-        }
-    }
-}
-
-@objc(WMFToken)
-public class Token: NSObject {
-    @objc public var token: String
-    @objc public var type: TokenType
-    public var isAuthorized: Bool
-    @objc init(token: String, type: TokenType) {
-        self.token = token
-        self.type = type
-        self.isAuthorized = token != "+\\"
-    }
-}
-
-public enum FetcherResult<Success, Error> {
-    case success(Success)
-    case failure(Error)
-}
+// TODO: Standardize on returning CancellationKey or URLSessionTask
+// TODO: Centralize cancellation and remove other cancellation implementations (ReadingListsAPI)
+// TODO: Remove CSRFTokenOperation and create other new methods here for token generation and use
+// TODO: Think about utilizing a request buildler instead of so many separate functions
+// TODO: Utilize Result type where possible (Swift only)
 
 @objc(WMFFetcher)
 open class Fetcher: NSObject {
@@ -194,4 +151,56 @@ open class Fetcher: NSObject {
         tasks.removeAll(keepingCapacity: true)
         semaphore.signal()
     }
+}
+
+public enum FetcherError: LocalizedError {
+    case unexpectedResponse
+    public var errorDescription: String? {
+        switch self {
+        case .unexpectedResponse:
+            return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
+        }
+    }
+}
+
+@objc(WMFTokenType)
+public enum TokenType: Int {
+    case csrf, login, createAccount
+    var stringValue: String {
+        switch self {
+        case .login:
+            return "login"
+        case .createAccount:
+            return "createaccount"
+        case .csrf:
+            return "csrf"
+        }
+    }
+    var parameterName: String {
+        switch self {
+        case .login:
+            return "logintoken"
+        case .createAccount:
+            return "createtoken"
+        default:
+            return "token"
+        }
+    }
+}
+
+@objc(WMFToken)
+public class Token: NSObject {
+    @objc public var token: String
+    @objc public var type: TokenType
+    public var isAuthorized: Bool
+    @objc init(token: String, type: TokenType) {
+        self.token = token
+        self.type = type
+        self.isAuthorized = token != "+\\"
+    }
+}
+
+public enum FetcherResult<Success, Error> {
+    case success(Success)
+    case failure(Error)
 }
