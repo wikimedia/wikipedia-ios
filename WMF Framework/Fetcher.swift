@@ -18,7 +18,7 @@ public enum TokenType: Int {
         case .login:
             return "login"
         case .createAccount:
-            return "createAccount"
+            return "createaccount"
         case .csrf:
             return "csrf"
         }

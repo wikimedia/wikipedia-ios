@@ -71,7 +71,7 @@ public class WMFAccountLogin: Fetcher {
             parameters["captchaWord"] = captchaWord
         }
 
-        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return
