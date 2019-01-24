@@ -22,29 +22,29 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var theme: Theme = .standard
     weak var delegate: EditSaveViewControllerDelegate?
 
-    var captchaViewController: WMFCaptchaViewController?
-    @IBOutlet var captchaContainer: UIView!
-    @IBOutlet var editSummaryVCContainer: UIView!
-    @IBOutlet var captchaScrollView: UIScrollView!
-    @IBOutlet var captchaScrollContainer: UIView!
-    var borderWidth: CGFloat = 0.0
-    @IBOutlet var previewLicenseView: PreviewLicenseView!
-    var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
+    private var captchaViewController: WMFCaptchaViewController?
+    @IBOutlet private var captchaContainer: UIView!
+    @IBOutlet private var editSummaryVCContainer: UIView!
+    @IBOutlet private var captchaScrollView: UIScrollView!
+    @IBOutlet private var captchaScrollContainer: UIView!
+    private var borderWidth: CGFloat = 0.0
+    @IBOutlet private var previewLicenseView: PreviewLicenseView!
+    private var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
 
-    @IBOutlet var scrollContainer: UIView!
-    var buttonSave: UIBarButtonItem?
-    var buttonNext: UIBarButtonItem?
-    var buttonX: UIBarButtonItem?
-    var buttonLeftCaret: UIBarButtonItem?
-    var abuseFilterCode = ""
-    var summaryText = ""
+    @IBOutlet private var scrollContainer: UIView!
+    private var buttonSave: UIBarButtonItem?
+    private var buttonNext: UIBarButtonItem?
+    private var buttonX: UIBarButtonItem?
+    private var buttonLeftCaret: UIBarButtonItem?
+    private var abuseFilterCode = ""
+    private var summaryText = ""
 
     private var mode: NavigationMode = .preview {
         didSet {
             updateNavigation(for: mode)
         }
     }
-    let wikiTextSectionUploader = WikiTextSectionUploader()
+    private let wikiTextSectionUploader = WikiTextSectionUploader()
     
     private func updateNavigation(for mode: NavigationMode) {
         var backButton: UIBarButtonItem? = nil
@@ -71,7 +71,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         navigationItem.rightBarButtonItem = forwardButton
     }
 
-    @objc func goBack() {
+    @objc private func goBack() {
         if mode == .abuseFilterWarning {
             funnel?.logAbuseFilterWarningBack(abuseFilterCode)
         }
@@ -79,7 +79,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func goForward() {
+    @objc private func goForward() {
         switch mode {
         case .abuseFilterWarning:
             save()
@@ -146,7 +146,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         super.viewWillAppear(animated)
     }
     
-    @objc func licenseLabelTapped(_ recognizer: UIGestureRecognizer?) {
+    @objc private func licenseLabelTapped(_ recognizer: UIGestureRecognizer?) {
         if recognizer?.state == .ended {
             // Call if user taps the blue "Log In" text in the CC text.
             //self.saveAutomaticallyIfSignedIn = YES;
@@ -161,7 +161,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     
-    func highlightCaptchaSubmitButton(_ highlight: Bool) {
+    private func highlightCaptchaSubmitButton(_ highlight: Bool) {
         buttonSave?.isEnabled = highlight
     }
 
@@ -175,7 +175,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         super.viewWillDisappear(animated)
     }
 
-    func save() {
+    private func save() {
         
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-upload-save", nil, nil, "Publishing...", "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
@@ -211,7 +211,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     }
     
-    func handleEditSuccess(with result: [AnyHashable: Any]) {
+    private func handleEditSuccess(with result: [AnyHashable: Any]) {
         let notifyDelegate = {
             DispatchQueue.main.async {
                 self.delegate?.editSaveViewControllerDidSave(self)
@@ -226,7 +226,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         notifyDelegate()
     }
     
-    func handleEditFailure(with error: Error) {
+    private func handleEditFailure(with error: Error) {
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrors.init(rawValue: nsError.code) ?? .WIKITEXT_UPLOAD_ERROR_UNKNOWN
         
@@ -273,7 +273,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     
-    func showAbuseFilterAlertOf(_ alertType: AbuseFilterAlertType) {
+    private func showAbuseFilterAlertOf(_ alertType: AbuseFilterAlertType) {
         let abuseFilterAlert = AbuseFilterAlert(type: alertType)
         
         view.addSubview(abuseFilterAlert)
@@ -287,7 +287,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[abuseFilterAlert]|", options: [], metrics: nil, views: views))
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let solution = captchaViewController?.solution {
             if solution.count > 0 {
                 save()
@@ -315,7 +315,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         highlightCaptchaSubmitButton(((solutionText?.count ?? 0) == 0) ? false : true)
     }
 
-    func revealCaptcha() {
+    private func revealCaptcha() {
         funnel?.logCaptchaShown()
         
         UIView.beginAnimations(nil, context: nil)

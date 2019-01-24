@@ -24,7 +24,7 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
         previewAnchorTapAlertDelegate.wmf_showAlert(forTappedAnchorHref: href)
     }
     
-    func configuration() -> WKWebViewConfiguration {
+    private func configuration() -> WKWebViewConfiguration {
         let userContentController = WKUserContentController()
         
         let langInfo: MWLanguageInfo? = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo()

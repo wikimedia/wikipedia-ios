@@ -63,7 +63,7 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
         return MWLanguageInfo(forCode: lang)
     }
 
-    func preview() {
+    private func preview() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-preview-changes", nil, nil, "Retrieving preview of your changes...", "Alert text shown when getting preview of user changes to wikitext"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         fetcher.fetchHTML(forWikiText: self.wikitext, articleURL: self.section?.url) { (previewHTML, error) in

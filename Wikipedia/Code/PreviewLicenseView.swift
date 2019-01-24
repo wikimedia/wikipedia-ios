@@ -67,7 +67,7 @@ class PreviewLicenseView: UIView, Themeable {
         ], substitutionAttributes: [linkAttributes, linkAttributes, linkAttributes])
     }
 
-    @IBAction func termsLicenseLabelTapped(_ recognizer: UITapGestureRecognizer?) {
+    @IBAction private func termsLicenseLabelTapped(_ recognizer: UITapGestureRecognizer?) {
         previewLicenseViewDelegate?.previewLicenseViewTermsLicenseLabelWasTapped(self)
     }
     

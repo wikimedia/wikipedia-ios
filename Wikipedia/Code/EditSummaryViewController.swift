@@ -7,7 +7,7 @@ protocol EditSummaryViewDelegate: AnyObject {
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType)
 }
 
-enum EditSummaryViewCannedButtonType: Int {
+public enum EditSummaryViewCannedButtonType: Int {
     case typo, grammar, link
 }
 
