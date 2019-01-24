@@ -58,6 +58,8 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
         super.awakeFromNib()
         let webview = WKWebView(frame: CGRect.zero, configuration: configuration())
         webview.translatesAutoresizingMaskIntoConstraints = false
+        webview.isOpaque = false
+        webview.scrollView.backgroundColor = .clear
         wmf_addSubviewWithConstraintsToEdges(webview)
         webView = webview
         backgroundColor = UIColor.white

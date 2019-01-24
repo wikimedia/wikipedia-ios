@@ -83,8 +83,6 @@ class EditPreviewViewController: UIViewController, Themeable, UITextFieldDelegat
         if viewIfLoaded == nil {
             return
         }
-        previewWebViewContainer.webView?.isOpaque = false
-        previewWebViewContainer.webView?.scrollView.backgroundColor = .clear
         previewWebViewContainer.webView?.backgroundColor = theme.colors.paperBackground
         previewWebViewContainer.backgroundColor = theme.colors.paperBackground
     }
