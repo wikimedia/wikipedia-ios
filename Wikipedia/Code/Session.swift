@@ -145,33 +145,26 @@ import Foundation
         if let xWMFUUID = xWMFUUID {
             request.setValue(xWMFUUID, forHTTPHeaderField: "X-WMF-UUID")
         }
-        if let parameters = bodyParameters {
-            if bodyEncoding == .json {
-                do {
-                    request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-                    request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                } catch let error {
-                    DDLogError("error serializing JSON: \(error)")
-                }
-            } else {
-                if let queryParams = parameters as? [String: Any] {
-                    var bodyComponents = URLComponents()
-                    var queryItems: [URLQueryItem] = []
-                    for (name, value) in queryParams {
-                        guard let stringValue = value as? String else {
-                            continue
-                        }
-                        queryItems.append(URLQueryItem(name: name, value: stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.wmf_URLQueryAllowed())))
-                    }
-                    bodyComponents.queryItems = queryItems
-                    if let query = bodyComponents.query {
-                        request.httpBody = query.data(using: String.Encoding.utf8)
-                        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                    }
-                }
-            }
+        guard let bodyParameters = bodyParameters else {
+            return request
         }
         
+        switch bodyEncoding {
+        case .json:
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: bodyParameters, options: [])
+                request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            } catch let error {
+                DDLogError("error serializing JSON: \(error)")
+            }
+        case .form:
+            guard let bodyParametersDictionary = bodyParameters as? [String: Any] else {
+                break
+            }
+            let queryString = URLComponents.percentEncodedQueryStringFrom(bodyParametersDictionary)
+            request.httpBody = queryString.data(using: String.Encoding.utf8)
+            request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        }
         return request
     }
     
