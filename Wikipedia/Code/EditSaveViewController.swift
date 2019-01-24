@@ -385,8 +385,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             eventLoggingKey = "grammar"
         case .link:
             eventLoggingKey = "links"
-        default:
-            break
         }
         funnel?.logEditSummaryTap(eventLoggingKey)
     }
