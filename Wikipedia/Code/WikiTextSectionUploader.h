@@ -1,13 +1,13 @@
 @import Foundation;
 @import WMF.WMFLegacyFetcher;
 
-typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {
-    WikiTextSectionUploaderErrorsUnknown = 0,
-    WikiTextSectionUploaderErrorsServer = 1,
-    WikiTextSectionUploaderErrorsNeedsCaptcha = 2,
-    WikiTextSectionUploaderErrorsAbuseFilterDisallowed = 3,
-    WikiTextSectionUploaderErrorsAbuseFilterWarning = 4,
-    WikiTextSectionUploaderErrorsAbuseFilterOther = 5
+typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrorType) {
+    WikiTextSectionUploaderErrorTypeUnknown = 0,
+    WikiTextSectionUploaderErrorTypeServer = 1,
+    WikiTextSectionUploaderErrorTypeNeedsCaptcha = 2,
+    WikiTextSectionUploaderErrorTypeAbuseFilterDisallowed = 3,
+    WikiTextSectionUploaderErrorTypeAbuseFilterWarning = 4,
+    WikiTextSectionUploaderErrorTypeAbuseFilterOther = 5
 };
 
 NS_ASSUME_NONNULL_BEGIN
