@@ -175,8 +175,9 @@
 }
 
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
+    assert(false);
     if (errorHandler) {
-        errorHandler([NSError wmf_unableToSaveErrorWithReason:@"Save is unimplemented for this list"]);
+        errorHandler([NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:nil]);
     }
 }
 

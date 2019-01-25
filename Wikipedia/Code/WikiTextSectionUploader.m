@@ -17,7 +17,7 @@
     summary = summary ? summary : @"";
     NSString *title = articleURL.wmf_title;
     if (!title) {
-        completion(nil, [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        completion(nil, [WMFFetcher invalidParametersError]);
         return;
     }
     

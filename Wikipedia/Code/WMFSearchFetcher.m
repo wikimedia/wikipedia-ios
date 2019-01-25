@@ -31,7 +31,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     }
 
     if (!siteURL) {
-        failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        failure([WMFFetcher invalidParametersError]);
         return;
     }
 
@@ -111,7 +111,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         
         NSDictionary *query = [result objectForKey:@"query"];
         if (!query) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+            failure([WMFFetcher unexpectedResponseError]);
             return;
         }
         

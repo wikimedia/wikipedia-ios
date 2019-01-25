@@ -25,7 +25,7 @@ open class PageHistoryFetcher: WMFLegacyFetcher {
                 return
             }
             guard let result = result, let results = self.parseSections(result) else {
-                failure(NSError.wmf_error(with: WMFErrorType.unexpectedResponseType, userInfo: nil))
+                failure(RequestError.unexpectedResponse)
                 return
             }
             results.tackOn(requestParams.lastRevisionFromPreviousCall)

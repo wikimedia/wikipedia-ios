@@ -211,7 +211,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 if let result = result {
                     self.handleEditSuccess(with: result)
                 } else {
-                    self.handleEditFailure(with: NSError.wmf_error(with: WMFErrorType.unexpectedResponseType, userInfo: nil))
+                    self.handleEditFailure(with: RequestError.unexpectedResponse)
                 }
             }
         })
