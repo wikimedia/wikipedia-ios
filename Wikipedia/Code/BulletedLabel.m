@@ -18,7 +18,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.bulletType = BULLET_TYPE_NONE;
+        self.bulletType = BulletTypeNone;
         self.bulletColor = [UIColor blackColor];
     }
     return self;
@@ -27,7 +27,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.bulletType = BULLET_TYPE_NONE;
+        self.bulletType = BulletTypeNone;
         self.bulletColor = [UIColor blackColor];
     }
     return self;
@@ -47,7 +47,7 @@
 
 - (NSString *)getBulletString {
     switch (self.bulletType) {
-        case BULLET_TYPE_ROUND:
+        case BulletTypeRound:
             return BULLET_ROUND;
             break;
         default:

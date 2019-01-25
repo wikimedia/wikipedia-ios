@@ -205,7 +205,7 @@ typedef NS_ENUM(NSInteger, AbuseFilterViewType) {
                 viewData[@"rightPadding"] = @20;
                 viewData[@"lineSpacing"] = @6;
                 viewData[@"kearning"] = @0;
-                viewData[@"bulletType"] = (self.alertType == AbuseFilterAlertTypeWarning) ? @(BULLET_TYPE_ROUND) : @(BULLET_TYPE_NONE);
+                viewData[@"bulletType"] = (self.alertType == AbuseFilterAlertTypeWarning) ? @(BulletTypeRound) : @(BulletTypeNone);
                 viewData[@"font"] = [UIFont systemFontOfSize:16.0];
                 break;
             default:

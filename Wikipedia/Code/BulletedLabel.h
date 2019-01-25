@@ -1,8 +1,8 @@
 @import UIKit;
 
 typedef NS_ENUM(NSInteger, BulletType) {
-    BULLET_TYPE_NONE,
-    BULLET_TYPE_ROUND
+    BulletTypeNone,
+    BulletTypeRound
 };
 
 @class PaddedLabel;
