@@ -32,20 +32,20 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
     }
     
     private func configuration() -> WKWebViewConfiguration {
-        let userContentController = WKUserContentController()
+        let controller = WKUserContentController()
         var earlyJSTransforms = ""
         if let langInfo = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo() {
             earlyJSTransforms = earlyJSTransformsString(for: langInfo, isRTL: UIApplication.shared.wmf_isRTL)
         }
-        userContentController.addUserScript(WKUserScript(source: earlyJSTransforms, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        userContentController.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        userContentController.add(WeakScriptMessageDelegate(delegate: self), name: "anchorClicked")
+        controller.addUserScript(WKUserScript(source: earlyJSTransforms, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        controller.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        controller.add(WeakScriptMessageDelegate(delegate: self), name: "anchorClicked")
 
-        let configuration = WKWebViewConfiguration()
-        configuration.userContentController = userContentController
-        configuration.applicationNameForUserAgent = "WikipediaApp"
-        configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
-        return configuration
+        let config = WKWebViewConfiguration()
+        config.userContentController = controller
+        config.applicationNameForUserAgent = "WikipediaApp"
+        config.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
+        return config
     }
 
     private func earlyJSTransformsString(for langInfo: MWLanguageInfo, isRTL: Bool) -> String {
