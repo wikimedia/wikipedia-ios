@@ -62,7 +62,6 @@
 #import "WMFFindInPageKeyboardBar.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "AbuseFilterAlert.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"
