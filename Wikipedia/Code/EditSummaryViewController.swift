@@ -57,6 +57,8 @@ class EditSummaryViewController: UIViewController, Themeable {
         fixedTypoButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-summary-choice-fixed-typos", nil, nil, "Fixed typo", "Button text for quick 'fixed typos' edit summary selection"), for: .normal)
         fixedGrammarButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-summary-choice-fixed-grammar", nil, nil, "Fixed grammar", "Button text for quick 'improved grammar' edit summary selection"), for: .normal)
         addedLinksButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-summary-choice-linked-words", nil, nil, "Added links", "Button text for quick 'link addition' edit summary selection"), for: .normal)
+        
+        apply(theme: theme)
     }
     
     override func viewDidAppear(_ animated: Bool) {
