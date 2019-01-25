@@ -30,23 +30,6 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
         return href
     }
     
-    private func configuration() -> WKWebViewConfiguration {
-        let controller = WKUserContentController()
-        var earlyJSTransforms = ""
-        if let langInfo = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo() {
-            earlyJSTransforms = earlyJSTransformsString(for: langInfo, isRTL: UIApplication.shared.wmf_isRTL)
-        }
-        controller.addUserScript(WKUserScript(source: earlyJSTransforms, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        controller.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        controller.add(WeakScriptMessageDelegate(delegate: self), name: "anchorClicked")
-
-        let config = WKWebViewConfiguration()
-        config.userContentController = controller
-        config.applicationNameForUserAgent = "WikipediaApp"
-        config.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
-        return config
-    }
-
     private func earlyJSTransformsString(for langInfo: MWLanguageInfo, isRTL: Bool) -> String {
         return """
             addEventListener('click', () => {
@@ -61,7 +44,21 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
     }
 
     lazy var webView: WKWebView = {
-        let newWebView = WKWebView(frame: CGRect.zero, configuration: configuration())
+        let controller = WKUserContentController()
+        var earlyJSTransforms = ""
+        if let langInfo = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo() {
+            earlyJSTransforms = earlyJSTransformsString(for: langInfo, isRTL: UIApplication.shared.wmf_isRTL)
+        }
+        controller.addUserScript(WKUserScript(source: earlyJSTransforms, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        controller.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        controller.add(WeakScriptMessageDelegate(delegate: self), name: "anchorClicked")
+        
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController = controller
+        configuration.applicationNameForUserAgent = "WikipediaApp"
+        configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
+
+        let newWebView = WKWebView(frame: CGRect.zero, configuration: configuration)
         newWebView.isOpaque = false
         newWebView.scrollView.backgroundColor = .clear
         wmf_addSubviewWithConstraintsToEdges(newWebView)
