@@ -11,11 +11,6 @@
  */
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, LanguageLinksFetchErrorType) {
-    LANGUAGE_LINKS_FETCH_ERROR_UNKNOWN = 0,
-    LANGUAGE_LINKS_FETCH_ERROR_API = 1
-};
-
 @interface MWKLanguageLinkFetcher : WMFLegacyFetcher
 
 - (void)fetchLanguageLinksForArticleURL:(NSURL *)url success:(void (^)(NSArray *langLinks))success failure:(void (^)(NSError *error))error;

@@ -10,70 +10,50 @@ import WMF
     func wmf_showAlert(forTappedAnchorHref href: String)
 }
 
-@objcMembers class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHandler {
+class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
     weak var externalLinksOpenerDelegate: WMFOpenExternalLinkDelegate?
-    var webView: WKWebView?
+    var theme: Theme = .standard
     @IBOutlet weak var previewSectionLanguageInfoDelegate: WMFPreviewSectionLanguageInfoDelegate!
     @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!
-
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard message.name == "anchorClicked", let messageDict = message.body as? [String: Any], let href = messageDict["href"] as? String else {
-            return
-        }
-        previewAnchorTapAlertDelegate.wmf_showAlert(forTappedAnchorHref: href)
-    }
     
-    func configuration() -> WKWebViewConfiguration {
-        let userContentController = WKUserContentController()
-        
-        let langInfo: MWLanguageInfo? = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo()
-        let uidir = UIApplication.shared.wmf_isRTL ? "rtl" : "ltr"
-        
-        var earlyJavascriptTransforms: String? = nil
-        if let code = langInfo?.code, let dir = langInfo?.dir {
-            earlyJavascriptTransforms = """
-            document.onclick = function() {\
-            event.preventDefault();\
-            if (event.target.tagName == 'A'){\
-            var href = event.target.getAttribute( 'href' );\
-            window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href });\
-            }\
-            };\
-            window.wmf.utilities.setLanguage('\(code)', '\(dir)', '\(uidir)');
-            """
+    private func earlyJSTransformsString(for langInfo: MWLanguageInfo, isRTL: Bool) -> String {
+        return "window.wmf.utilities.setLanguage('\(langInfo.code)', '\(langInfo.dir)', '\(isRTL ? "rtl" : "ltr")')"
+    }
+
+    lazy var webView: WKWebView = {
+        let controller = WKUserContentController()
+        var earlyJSTransforms = ""
+        if let langInfo = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo() {
+            earlyJSTransforms = earlyJSTransformsString(for: langInfo, isRTL: UIApplication.shared.wmf_isRTL)
         }
-
-        userContentController.addUserScript(WKUserScript(source: earlyJavascriptTransforms ?? "", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        userContentController.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        userContentController.add(WeakScriptMessageDelegate(delegate: self), name: "anchorClicked")
-
+        controller.addUserScript(WKUserScript(source: earlyJSTransforms, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        controller.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        
         let configuration = WKWebViewConfiguration()
-        configuration.userContentController = userContentController
+        configuration.userContentController = controller
         configuration.applicationNameForUserAgent = "WikipediaApp"
         configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
-        return configuration
-    }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let webview = WKWebView(frame: CGRect.zero, configuration: configuration())
-        webview.translatesAutoresizingMaskIntoConstraints = false
-        wmf_addSubviewWithConstraintsToEdges(webview)
-        webView = webview
-        backgroundColor = UIColor.white
-        webView?.navigationDelegate = self
-    }
+        let newWebView = WKWebView(frame: CGRect.zero, configuration: configuration)
+        newWebView.isOpaque = false
+        newWebView.scrollView.backgroundColor = .clear
+        wmf_addSubviewWithConstraintsToEdges(newWebView)
+        newWebView.navigationDelegate = self
+        return newWebView
+    }()
 
-    // Force web view links to open in Safari.
-    // From: http://stackoverflow.com/a/2532884
-    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let request: URLRequest = navigationAction.request
-        let requestURL: URL? = request.url
-        if ((requestURL?.scheme == "http") || (requestURL?.scheme == "https") || (requestURL?.scheme == "mailto")) && (navigationAction.navigationType == .linkActivated) {
-            externalLinksOpenerDelegate?.wmf_openExternalUrl(requestURL)
-            decisionHandler(WKNavigationActionPolicy.cancel)
+        guard let path = navigationAction.request.url?.path, navigationAction.navigationType == .linkActivated else {
+            decisionHandler(WKNavigationActionPolicy.allow)
+            return
         }
-        decisionHandler(WKNavigationActionPolicy.allow)
+        previewAnchorTapAlertDelegate.wmf_showAlert(forTappedAnchorHref: path)
+        decisionHandler(WKNavigationActionPolicy.cancel)
+    }
+
+    func apply(theme: Theme) {
+        self.theme = theme
+        webView.backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
     }
 }

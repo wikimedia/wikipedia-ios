@@ -27,6 +27,9 @@
 
 #import "WikiTextSectionUploader.h"
 
+#import "WikiGlyph_Chars.h"
+#import "WikiGlyphLabel.h"
+
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"
@@ -59,7 +62,6 @@
 #import "WMFFindInPageKeyboardBar.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "AbuseFilterAlert.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"

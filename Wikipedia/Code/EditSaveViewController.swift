@@ -6,87 +6,83 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController)
 }
 
-@objc enum WMFPreviewAndSaveMode : Int {
-    case PREVIEW_MODE_EDIT_WIKITEXT
-    case PREVIEW_MODE_EDIT_WIKITEXT_WARNING
-    case PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW
-    case PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW
-    case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
+private enum NavigationMode : Int {
+    case wikitext
+    case abuseFilterWarning
+    case abuseFilterDisallow
+    case preview
+    case captcha
 }
 
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
     var section: MWKSection?
-    var wikiText = ""
+    var wikitext = ""
     var funnel: EditFunnel?
     var savedPagesFunnel: SavedPagesFunnel?
-    var theme: Theme?
+    var theme: Theme = .standard
     weak var delegate: EditSaveViewControllerDelegate?
 
-    var captchaViewController: WMFCaptchaViewController?
-    @IBOutlet var captchaContainer: UIView!
-    @IBOutlet var editSummaryVCContainer: UIView!
-    @IBOutlet var captchaScrollView: UIScrollView!
-    @IBOutlet var captchaScrollContainer: UIView!
-    var borderWidth: CGFloat = 0.0
-    @IBOutlet var previewLicenseView: PreviewLicenseView!
-    var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
+    private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
+    @IBOutlet private var captchaContainer: UIView!
+    @IBOutlet private var editSummaryVCContainer: UIView!
+    private var borderWidth: CGFloat = 0.0
+    @IBOutlet private var previewLicenseView: PreviewLicenseView!
+    private var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
 
-    @IBOutlet var scrollContainer: UIView!
-    var buttonSave: UIBarButtonItem?
-    var buttonNext: UIBarButtonItem?
-    var buttonX: UIBarButtonItem?
-    var buttonLeftCaret: UIBarButtonItem?
-    var abuseFilterCode = ""
-    var summaryText = ""
+    @IBOutlet private var scrollContainer: UIView!
+    private var buttonSave: UIBarButtonItem?
+    private var buttonNext: UIBarButtonItem?
+    private var buttonX: UIBarButtonItem?
+    private var buttonLeftCaret: UIBarButtonItem?
+    private var abuseFilterCode = ""
+    private var summaryText = ""
 
-    var mode: WMFPreviewAndSaveMode = .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW {
+    private var mode: NavigationMode = .preview {
         didSet {
             updateNavigation(for: mode)
         }
     }
-    let wikiTextSectionUploader = WikiTextSectionUploader()
+    private let wikiTextSectionUploader = WikiTextSectionUploader()
     
-    func updateNavigation(for mode: WMFPreviewAndSaveMode) {
-        var backButton: UIBarButtonItem? = nil
-        var forwardButton: UIBarButtonItem? = nil
+    private func updateNavigation(for mode: NavigationMode) {
+        var backButton: UIBarButtonItem?
+        var forwardButton: UIBarButtonItem?
         
         switch mode {
-        case .PREVIEW_MODE_EDIT_WIKITEXT:
+        case .wikitext:
             backButton = buttonLeftCaret
             forwardButton = buttonNext
-        case .PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+        case .abuseFilterWarning:
             backButton = buttonLeftCaret
             forwardButton = buttonSave
-        case .PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW:
+        case .abuseFilterDisallow:
             backButton = buttonLeftCaret
             forwardButton = nil
-        case .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW:
+        case .preview:
             backButton = buttonLeftCaret
             forwardButton = buttonSave
-        case .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+        case .captcha:
             backButton = buttonX
             forwardButton = buttonSave
-        default:
-            break
         }
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = forwardButton
     }
 
-    @objc func goBack() {
-        if mode == .PREVIEW_MODE_EDIT_WIKITEXT_WARNING {
+    @objc private func goBack() {
+        if mode == .abuseFilterWarning {
             funnel?.logAbuseFilterWarningBack(abuseFilterCode)
         }
         
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func goForward() {
+    @objc private func goForward() {
         switch mode {
-        case .PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+        case .abuseFilterWarning:
             save()
             funnel?.logAbuseFilterWarningIgnore(abuseFilterCode)
-        case .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+        case .captcha:
             save()
         default:
             save()
@@ -95,9 +91,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if theme == nil {
-            theme = .standard
-        }
         
         navigationItem.title = WMFLocalizedStringWithDefaultValue("wikitext-preview-save-changes-title", nil, nil, "Save your changes", "Title for edit preview screens")
         
@@ -109,8 +102,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         buttonSave = UIBarButtonItem(title: WMFLocalizedStringWithDefaultValue("button-publish", nil, nil, "Publish", "Button text for publish button used in various places.\n{{Identical|Publish}}"), style: .plain, target: self, action: #selector(self.goForward))
         
-        mode = .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW
-        summaryText = ""
+        mode = .preview
         
         //self.saveAutomaticallyIfSignedIn = NO;
         
@@ -118,25 +110,20 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         borderWidth = 1.0 / UIScreen.main.scale
 
-        if let theme = theme {
-            apply(theme: theme)
-        }
+        apply(theme: theme)
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        captchaScrollView.alpha = 0.0
-        
-        captchaViewController = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
         captchaViewController?.captchaDelegate = self
-        captchaViewController?.apply(theme: theme ?? .standard)
+        captchaViewController?.apply(theme: theme)
         wmf_add(childController: captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
-        mode = .PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW
+        mode = .preview
         
         let vc = EditSummaryViewController(nibName: EditSummaryViewController.wmf_classStoryboardName(), bundle: nil)
         vc.delegate = self
+        vc.apply(theme: theme)
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
-        vc.theme = theme
         //[self wmf_addChildControllerFromNibFor:[EditSummaryViewController class] andConstrainToEdgesOfContainerView:self.editSummaryVCContainer];
         //[self saveAutomaticallyIfNecessary];
         
@@ -153,12 +140,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         super.viewWillAppear(animated)
     }
     
-    @objc func licenseLabelTapped(_ recognizer: UIGestureRecognizer?) {
+    @objc private func licenseLabelTapped(_ recognizer: UIGestureRecognizer?) {
         if recognizer?.state == .ended {
             // Call if user taps the blue "Log In" text in the CC text.
             //self.saveAutomaticallyIfSignedIn = YES;
-            guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard(), let theme = theme else {
-                assertionFailure("Expected view controller and theme")
+            guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                assertionFailure("Expected view controller")
                 return
             }
             loginVC.funnel = WMFLoginFunnel()
@@ -168,22 +155,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     
-    func highlightCaptchaSubmitButton(_ highlight: Bool) {
+    private func highlightCaptchaSubmitButton(_ highlight: Bool) {
         buttonSave?.isEnabled = highlight
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
-        
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("TabularScrollViewItemTapped"), object: nil)
-        
         previewLicenseView.licenseLoginLabel.removeGestureRecognizer(previewLicenseTapGestureRecognizer!)
         
         super.viewWillDisappear(animated)
     }
 
-    func save() {
-        
+    private func save() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-upload-save", nil, nil, "Publishing...", "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         funnel?.logSaveAttempt()
@@ -202,7 +185,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        wikiTextSectionUploader.uploadWikiText(self.wikiText, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.summaryText, captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(self.wikitext, forArticleURL: editURL, section: "\(section.sectionId)", summary: self.summaryText, captchaId: self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)
@@ -218,7 +201,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     }
     
-    func handleEditSuccess(with result: [AnyHashable: Any]) {
+    private func handleEditSuccess(with result: [AnyHashable: Any]) {
         let notifyDelegate = {
             DispatchQueue.main.async {
                 self.delegate?.editSaveViewControllerDidSave(self)
@@ -233,13 +216,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         notifyDelegate()
     }
     
-    func handleEditFailure(with error: Error) {
+    private func handleEditFailure(with error: Error) {
         let nsError = error as NSError
-        let errorType = WikiTextSectionUploaderErrors.init(rawValue: nsError.code) ?? .WIKITEXT_UPLOAD_ERROR_UNKNOWN
+        let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
         
         switch errorType {
-        case .WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
-            if mode == .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA {
+        case .needsCaptcha:
+            if mode == .captcha {
                 funnel?.logCaptchaFailure()
             }
             
@@ -247,20 +230,25 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             captchaViewController?.captcha = WMFCaptcha(captchaID: captchaId, captchaURL: captchaUrl!)
-            revealCaptcha()
-            
-        case .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
+            funnel?.logCaptchaShown()
+            mode = .captcha
+            highlightCaptchaSubmitButton(false)
+            dispatchOnMainQueueAfterDelayInSeconds(0.3) {
+                self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+            }
+
+        case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             //NSString *warningHtml = error.userInfo[@"warning"];
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             
             wmf_hideKeyboard()
             
-            if (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) {
-                mode = .PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW
+            if (errorType == .abuseFilterDisallowed) {
+                mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterError(abuseFilterCode)
             } else {
-                mode = .PREVIEW_MODE_EDIT_WIKITEXT_WARNING
+                mode = .abuseFilterWarning
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterWarning(abuseFilterCode)
             }
@@ -268,10 +256,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             // Hides the license panel. Needed if logged in and a disallow is triggered.
             WMFAlertManager.sharedInstance.dismissAlert()
             
-            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? .ABUSE_FILTER_DISALLOW : .ABUSE_FILTER_WARNING
-            showAbuseFilterAlertOf(alertType)
+            let alertType: AbuseFilterAlertType = (errorType == .abuseFilterDisallowed) ? .disallow : .warning
+            showAbuseFilterAlert(for: alertType)
             
-        case .WIKITEXT_UPLOAD_ERROR_SERVER, .WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+        case .server, .unknown:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             funnel?.logError("other")
         default:
@@ -280,21 +268,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     
-    func showAbuseFilterAlertOf(_ alertType: AbuseFilterAlertType) {
-        let abuseFilterAlert = AbuseFilterAlert(type: alertType)
-        
-        view.addSubview(abuseFilterAlert)
-        
-        let views = [
-            "abuseFilterAlert": abuseFilterAlert
-        ]
-        
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[abuseFilterAlert]|", options: [], metrics: nil, views: views))
-        
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[abuseFilterAlert]|", options: [], metrics: nil, views: views))
+    private func showAbuseFilterAlert(for type: AbuseFilterAlertType) {
+        if let abuseFilterAlertView = AbuseFilterAlertView.wmf_viewFromClassNib() {
+            abuseFilterAlertView.type = type
+            abuseFilterAlertView.apply(theme: theme)
+            view.wmf_addSubviewWithConstraintsToEdges(abuseFilterAlertView)
+        }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let solution = captchaViewController?.solution {
             if solution.count > 0 {
                 save()
@@ -321,28 +303,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
         highlightCaptchaSubmitButton(((solutionText?.count ?? 0) == 0) ? false : true)
     }
-
-    func revealCaptcha() {
-        funnel?.logCaptchaShown()
-        
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(0.35)
-        UIView.setAnimationTransition(.none, for: view, cache: false)
-        
-        view.bringSubviewToFront(captchaScrollView)
-        
-        captchaScrollView.alpha = 1.0
-        captchaScrollView.backgroundColor = theme?.colors.paperBackground
-        
-        captchaScrollContainer.backgroundColor = UIColor.clear
-        captchaContainer.backgroundColor = UIColor.clear
-        
-        UIView.commitAnimations()
-        
-        mode = .PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
-        
-        highlightCaptchaSubmitButton(false)
-    }
     
     func previewLicenseViewTermsLicenseLabelWasTapped(_ previewLicenseview: PreviewLicenseView?) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
@@ -362,17 +322,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     func apply(theme: Theme) {
         self.theme = theme
-        if viewIfLoaded == nil {
+        guard viewIfLoaded != nil else {
             return
         }
+        view.backgroundColor = theme.colors.paperBackground
         scrollView.backgroundColor = theme.colors.paperBackground
-        captchaScrollView.backgroundColor = theme.colors.baseBackground
-        
         previewLicenseView.apply(theme: theme)
-        
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
-        captchaScrollContainer.backgroundColor = theme.colors.paperBackground
     }
     
     func learnMoreButtonTapped(sender: UIButton) {
@@ -384,17 +341,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType) {
-        var eventLoggingKey = ""
-        switch type {
-        case .typo:
-            eventLoggingKey = "typo"
-        case .grammar:
-            eventLoggingKey = "grammar"
-        case .link:
-            eventLoggingKey = "links"
-        default:
-            break
-        }
-        funnel?.logEditSummaryTap(eventLoggingKey)
+        funnel?.logEditSummaryTap(type.eventLoggingKey)
     }
 }
