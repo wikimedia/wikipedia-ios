@@ -37,7 +37,6 @@ class EditSummaryViewController: UIViewController, Themeable {
     @IBOutlet private weak var addSummaryLabel: UILabel!
     @IBOutlet private weak var learnMoreButton: UIButton!
     @IBOutlet private weak var summaryTextField: ThemeableTextField!
-    @IBOutlet private weak var dividerView: UIView!
 
     @IBOutlet private weak var fixedTypoButton: UIButton!
     @IBOutlet private weak var fixedGrammarButton: UIButton!
@@ -93,12 +92,9 @@ class EditSummaryViewController: UIViewController, Themeable {
 
     public func apply(theme: Theme) {
         view.backgroundColor = theme.colors.paperBackground
-        dividerView.backgroundColor = theme.colors.border
         addSummaryLabel.textColor = theme.colors.secondaryText
         learnMoreButton.titleLabel?.textColor = theme.colors.link
-        summaryTextField.textColor = theme.colors.primaryText
-        summaryTextField.keyboardAppearance = theme.keyboardAppearance        
-        summaryTextField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText])
+        summaryTextField.apply(theme: theme)
         cannedEditSummaryButtons.forEach {
             $0.titleLabel?.textColor = theme.colors.link
             $0.backgroundColor = theme.colors.border

@@ -14,7 +14,6 @@
             <connections>
                 <outlet property="addSummaryLabel" destination="zty-gx-vvg" id="1d2-0C-lOJ"/>
                 <outlet property="addedLinksButton" destination="XFh-HH-sUX" id="47D-UM-Q6q"/>
-                <outlet property="dividerView" destination="zI4-Ob-rJB" id="Iwy-oS-dif"/>
                 <outlet property="fixedGrammarButton" destination="WbA-2G-gXe" id="I20-AY-f9b"/>
                 <outlet property="fixedTypoButton" destination="mqy-lh-5zo" id="ElI-7T-dib"/>
                 <outlet property="learnMoreButton" destination="zHK-us-xbV" id="uR5-Cg-E3z"/>
@@ -54,7 +53,7 @@
                                 </button>
                             </subviews>
                         </stackView>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fTI-kM-ZnK">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fTI-kM-ZnK" customClass="WMFThemeableTextField">
                             <rect key="frame" x="0.0" y="53" width="379" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -64,18 +63,18 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zI4-Ob-rJB">
-                            <rect key="frame" x="0.0" y="88" width="379" height="1"/>
-                            <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LJc-5L-7Pr">
+                            <rect key="frame" x="0.0" y="88" width="379" height="2"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="X51-qq-gJf"/>
+                                <constraint firstAttribute="height" constant="2" id="4nR-rW-dTw"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="GGG-ld-IlC">
-                            <rect key="frame" x="0.0" y="94" width="379" height="67"/>
+                            <rect key="frame" x="0.0" y="95" width="379" height="66"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqy-lh-5zo">
-                                    <rect key="frame" x="0.0" y="0.0" width="117" height="67"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="117" height="66"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                     <inset key="titleEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
@@ -91,7 +90,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-2G-gXe">
-                                    <rect key="frame" x="122" y="0.0" width="116.5" height="67"/>
+                                    <rect key="frame" x="122" y="0.0" width="116.5" height="66"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                     <inset key="titleEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
@@ -107,7 +106,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-HH-sUX">
-                                    <rect key="frame" x="243.5" y="0.0" width="135.5" height="67"/>
+                                    <rect key="frame" x="243.5" y="0.0" width="135.5" height="66"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                     <inset key="titleEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
