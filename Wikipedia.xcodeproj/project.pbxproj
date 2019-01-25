@@ -5018,15 +5018,6 @@
 			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
-		042244FA197F5E09005DD0BF /* AbuseFilterAlerts */ = {
-			isa = PBXGroup;
-			children = (
-				B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */,
-				B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */,
-			);
-			name = AbuseFilterAlerts;
-			sourceTree = "<group>";
-		};
 		04292FFB185FC026002A13FC /* Style Defines */ = {
 			isa = PBXGroup;
 			children = (
@@ -5197,12 +5188,9 @@
 		04DD89AE18BFE63A00DD5DAD /* Preview */ = {
 			isa = PBXGroup;
 			children = (
-				042244FA197F5E09005DD0BF /* AbuseFilterAlerts */,
-				BC45D5A51C330734007C72F3 /* Views */,
-				B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */,
-				B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */,
 				B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */,
 				B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */,
+				B01E3AF821F986750015B715 /* PreviewWebViewContainer.swift */,
 			);
 			name = Preview;
 			sourceTree = "<group>";
@@ -6335,6 +6323,21 @@
 			name = Popover;
 			sourceTree = "<group>";
 		};
+		B0C17B9E21FB0F6F009ED5C3 /* Save */ = {
+			isa = PBXGroup;
+			children = (
+				B0D4916E21F999A3002BBDD3 /* EditSaveViewController.swift */,
+				B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */,
+				B0F4761921F921D300C4E254 /* EditSummaryViewController.swift */,
+				B0F4761A21F921D300C4E254 /* EditSummaryViewController.xib */,
+				B04F18C721F947350052D88A /* PreviewLicenseView.swift */,
+				B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */,
+				B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */,
+				B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */,
+			);
+			name = Save;
+			sourceTree = "<group>";
+		};
 		B0C6BE4D1E45255D0033BD6E /* Change Password */ = {
 			isa = PBXGroup;
 			children = (
@@ -6856,6 +6859,7 @@
 				7A7857E3219F196C00ED1579 /* Tools */,
 				044BD6B218849AD000FFE4BE /* SectionEditor */,
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
+				B0C17B9E21FB0F6F009ED5C3 /* Save */,
 			);
 			name = Editing;
 			sourceTree = "<group>";
@@ -6870,18 +6874,6 @@
 				B0E803471C0CD7AA0065EBC0 /* WMFSearchResults.m */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		BC45D5A51C330734007C72F3 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B04F18C721F947350052D88A /* PreviewLicenseView.swift */,
-				B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */,
-				B01E3AF821F986750015B715 /* PreviewWebViewContainer.swift */,
-				B0F4761921F921D300C4E254 /* EditSummaryViewController.swift */,
-				B0F4761A21F921D300C4E254 /* EditSummaryViewController.xib */,
-			);
-			name = Views;
 			sourceTree = "<group>";
 		};
 		BC45D5A71C33090A007C72F3 /* Views */ = {
