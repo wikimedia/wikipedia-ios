@@ -261,7 +261,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             WMFAlertManager.sharedInstance.dismissAlert()
             
             let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? .ABUSE_FILTER_DISALLOW : .ABUSE_FILTER_WARNING
-            showAbuseFilterAlertOf(alertType)
+            showAbuseFilterAlert(for: alertType)
             
         case .WIKITEXT_UPLOAD_ERROR_SERVER, .WIKITEXT_UPLOAD_ERROR_UNKNOWN:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -272,8 +272,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     
-    private func showAbuseFilterAlertOf(_ alertType: AbuseFilterAlertType) {
-        let abuseFilterAlert = AbuseFilterAlert(type: alertType)
+    private func showAbuseFilterAlert(for type: AbuseFilterAlertType) {
+        let abuseFilterAlert = AbuseFilterAlert(type: type)
         
         view.addSubview(abuseFilterAlert)
         
