@@ -161,9 +161,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
-        
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("TabularScrollViewItemTapped"), object: nil)
-        
         previewLicenseView.licenseLoginLabel.removeGestureRecognizer(previewLicenseTapGestureRecognizer!)
         
         super.viewWillDisappear(animated)
