@@ -222,7 +222,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func handleEditFailure(with error: Error) {
         let nsError = error as NSError
-        let errorType:WikiTextSectionUploaderErrorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
+        let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
         
         switch errorType {
         case .needsCaptcha:
@@ -247,7 +247,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             
             wmf_hideKeyboard()
             
-            if (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == .abuseFilterDisallowed) {
+            if (errorType == .abuseFilterDisallowed) {
                 mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterError(abuseFilterCode)
@@ -260,7 +260,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             // Hides the license panel. Needed if logged in and a disallow is triggered.
             WMFAlertManager.sharedInstance.dismissAlert()
             
-            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == .abuseFilterDisallowed) ? .disallow : .warning
+            let alertType: AbuseFilterAlertType = (errorType == .abuseFilterDisallowed) ? .disallow : .warning
             showAbuseFilterAlert(for: alertType)
             
         case .server, .unknown:
