@@ -18,10 +18,17 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
     @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard message.name == "anchorClicked", let messageDict = message.body as? [String: Any], let href = messageDict["href"] as? String else {
+        guard let href = href(from: message) else {
             return
         }
         previewAnchorTapAlertDelegate.wmf_showAlert(forTappedAnchorHref: href)
+    }
+    
+    private func href(from message: WKScriptMessage) -> String? {
+        guard message.name == "anchorClicked", let messageDict = message.body as? [String: Any], let href = messageDict["href"] as? String else {
+            return nil
+        }
+        return href
     }
     
     private func configuration() -> WKWebViewConfiguration {
