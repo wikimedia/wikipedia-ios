@@ -6,11 +6,11 @@
 @import WMF.Swift;
 @import WMF.WMFLocalization;
 
-typedef NS_ENUM(NSInteger, ViewType) {
-    VIEW_TYPE_ICON,
-    VIEW_TYPE_HEADING,
-    VIEW_TYPE_SUBHEADING,
-    VIEW_TYPE_ITEM
+typedef NS_ENUM(NSInteger, AbuseFilterViewType) {
+    AbuseFilterViewTypeIcon,
+    AbuseFilterViewTypeHeading,
+    AbuseFilterViewTypeSubheading,
+    AbuseFilterViewTypeItem
 };
 
 @interface AbuseFilterAlert ()
@@ -78,7 +78,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
 - (void)setupSubViewData {
     [self.subViewData addObject:
                           @{
-                              @"type": @(VIEW_TYPE_ICON),
+                              @"type": @(AbuseFilterViewTypeIcon),
                               @"string": ((self.alertType == AbuseFilterAlertTypeDisallow) ? WIKIGLYPH_X : WIKIGLYPH_FLAG),
                               @"backgroundColor": ((self.alertType == AbuseFilterAlertTypeDisallow) ? [UIColor wmf_red] : [UIColor wmf_orange]),
                               @"fontColor": [UIColor whiteColor],
@@ -94,42 +94,42 @@ typedef NS_ENUM(NSInteger, ViewType) {
             [self.subViewData addObjectsFromArray:
                                   @[
                                       @{
-                                          @"type": @(VIEW_TYPE_HEADING),
+                                          @"type": @(AbuseFilterViewTypeHeading),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-heading", nil, nil, @"This looks like an unconstructive edit, are you sure you want to publish it?", @"Header text for unconstructive edit warning"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": [UIColor darkGrayColor]
                                       }
                                           .mutableCopy,
                                       @{
-                                          @"type": @(VIEW_TYPE_SUBHEADING),
+                                          @"type": @(AbuseFilterViewTypeSubheading),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-subheading", nil, nil, @"Your edit may contain one or more of the following:", @"Subheading text for potentially unconstructive edit warning"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": grayColor
                                       }
                                           .mutableCopy,
                                       @{
-                                          @"type": @(VIEW_TYPE_ITEM),
+                                          @"type": @(AbuseFilterViewTypeItem),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-caps", nil, nil, @"Typing in ALL CAPS", @"Label text for typing in all capitals"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": grayColor
                                       }
                                           .mutableCopy,
                                       @{
-                                          @"type": @(VIEW_TYPE_ITEM),
+                                          @"type": @(AbuseFilterViewTypeItem),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-blanking", nil, nil, @"Blanking articles or spamming", @"Label text for blanking articles or spamming"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": grayColor
                                       }
                                           .mutableCopy,
                                       @{
-                                          @"type": @(VIEW_TYPE_ITEM),
+                                          @"type": @(AbuseFilterViewTypeItem),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-irrelevant", nil, nil, @"Irrelevant external links or images", @"Label text for irrelevant external links and images"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": grayColor
                                       }
                                           .mutableCopy,
                                       @{
-                                          @"type": @(VIEW_TYPE_ITEM),
+                                          @"type": @(AbuseFilterViewTypeItem),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-repeat", nil, nil, @"Repeeeeating characters", @"Label text for repeating characters"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": grayColor
@@ -143,21 +143,21 @@ typedef NS_ENUM(NSInteger, ViewType) {
             [self.subViewData addObjectsFromArray:
                                   @[
                                       @{
-                                          @"type": @(VIEW_TYPE_HEADING),
+                                          @"type": @(AbuseFilterViewTypeHeading),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-disallow-heading", nil, nil, @"You cannot publish this edit. Please go back and change it.", @"Header text for disallowed edit warning."),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": [UIColor darkGrayColor]
                                       }
                                           .mutableCopy,
                                       @{
-                                          @"type": @(VIEW_TYPE_ITEM),
+                                          @"type": @(AbuseFilterViewTypeItem),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-disallow-unconstructive", nil, nil, @"An automated filter has identified this edit as potentially unconstructive or a vandalism attempt.", @"Label text for unconstructive edit description"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": grayColor
                                       }
                                           .mutableCopy,
                                       @{
-                                          @"type": @(VIEW_TYPE_ITEM),
+                                          @"type": @(AbuseFilterViewTypeItem),
                                           @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-disallow-notable", nil, nil, @"Wikipedia is an encyclopedia and only neutral, notable content belongs here.", @"Label text for notable content description"),
                                           @"backgroundColor": [UIColor whiteColor],
                                           @"fontColor": grayColor
@@ -173,14 +173,14 @@ typedef NS_ENUM(NSInteger, ViewType) {
     for (NSMutableDictionary *viewData in self.subViewData) {
         NSNumber *type = viewData[@"type"];
         switch (type.integerValue) {
-            case VIEW_TYPE_ICON:
+            case AbuseFilterViewTypeIcon:
                 viewData[@"topPadding"] = @0;
                 viewData[@"bottomPadding"] = @0;
                 viewData[@"leftPadding"] = @0;
                 viewData[@"rightPadding"] = @0;
                 viewData[@"fontSize"] = @((self.alertType == AbuseFilterAlertTypeDisallow) ? 74.0 : 70.0);
                 break;
-            case VIEW_TYPE_HEADING:
+            case AbuseFilterViewTypeHeading:
                 viewData[@"topPadding"] = @35;
                 viewData[@"bottomPadding"] = @15;
                 viewData[@"leftPadding"] = @20;
@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"kearning"] = @0.4;
                 viewData[@"font"] = [UIFont boldSystemFontOfSize:23.0];
                 break;
-            case VIEW_TYPE_SUBHEADING:
+            case AbuseFilterViewTypeSubheading:
                 viewData[@"topPadding"] = @0;
                 viewData[@"bottomPadding"] = @8;
                 viewData[@"leftPadding"] = @20;
@@ -198,7 +198,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"kearning"] = @0;
                 viewData[@"font"] = [UIFont systemFontOfSize:16.0];
                 break;
-            case VIEW_TYPE_ITEM:
+            case AbuseFilterViewTypeItem:
                 viewData[@"topPadding"] = @0;
                 viewData[@"bottomPadding"] = (self.alertType == AbuseFilterAlertTypeWarning) ? @8 : @15;
                 viewData[@"leftPadding"] = (self.alertType == AbuseFilterAlertTypeWarning) ? @30 : @20;
@@ -220,7 +220,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
     for (NSDictionary *viewData in self.subViewData) {
         NSNumber *type = viewData[@"type"];
         switch (type.integerValue) {
-            case VIEW_TYPE_ICON: {
+            case AbuseFilterViewTypeIcon: {
                 UIView *view = [[UIView alloc] init];
                 view.backgroundColor = [UIColor whiteColor];
 
