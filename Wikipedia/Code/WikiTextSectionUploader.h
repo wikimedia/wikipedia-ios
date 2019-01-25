@@ -2,12 +2,12 @@
 @import WMF.WMFLegacyFetcher;
 
 typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {
-    WIKITEXT_UPLOAD_ERROR_UNKNOWN = 0,
-    WIKITEXT_UPLOAD_ERROR_SERVER = 1,
-    WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA = 2,
-    WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED = 3,
-    WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING = 4,
-    WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER = 5
+    WikiTextSectionUploaderErrorsUnknown = 0,
+    WikiTextSectionUploaderErrorsServer = 1,
+    WikiTextSectionUploaderErrorsNeedsCaptcha = 2,
+    WikiTextSectionUploaderErrorsAbuseFilterDisallowed = 3,
+    WikiTextSectionUploaderErrorsAbuseFilterWarning = 4,
+    WikiTextSectionUploaderErrorsAbuseFilterOther = 5
 };
 
 NS_ASSUME_NONNULL_BEGIN

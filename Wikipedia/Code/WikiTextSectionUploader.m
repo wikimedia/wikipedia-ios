@@ -61,7 +61,7 @@
                 NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
                 errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
                 error = [NSError errorWithDomain:@"WikiText Uploader"
-                                            code:WIKITEXT_UPLOAD_ERROR_SERVER
+                                            code:WikiTextSectionUploaderErrorsServer
                                         userInfo:errorDict];
             }
 
@@ -73,7 +73,7 @@
                 errorDict[NSLocalizedDescriptionKey] = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-result-unknown", nil, nil, @"Unable to determine wikitext upload result.", @"Alert text shown when the result of saving section wikitext changes is unknown");
 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
-                error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_UNKNOWN userInfo:errorDict];
+                error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WikiTextSectionUploaderErrorsUnknown userInfo:errorDict];
             }
 
             if (!error && result && [result isEqualToString:@"Failure"]) {
@@ -88,23 +88,23 @@
                     errorDict[@"captchaUrl"] = responseObject[@"edit"][@"captcha"][@"url"];
 
                     // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
-                    error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA userInfo:errorDict];
+                    error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WikiTextSectionUploaderErrorsNeedsCaptcha userInfo:errorDict];
                 } else if (responseObject[@"edit"][@"code"]) {
                     NSString *abuseFilterCode = responseObject[@"edit"][@"code"];
-                    WikiTextSectionUploaderErrors errorType = WIKITEXT_UPLOAD_ERROR_UNKNOWN;
+                    WikiTextSectionUploaderErrors errorType = WikiTextSectionUploaderErrorsUnknown;
 
                     if ([abuseFilterCode hasPrefix:@"abusefilter-warning"]) {
-                        errorType = WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING;
+                        errorType = WikiTextSectionUploaderErrorsAbuseFilterWarning;
                     } else if ([abuseFilterCode hasPrefix:@"abusefilter-disallowed"]) {
-                        errorType = WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED;
+                        errorType = WikiTextSectionUploaderErrorsAbuseFilterDisallowed;
                     } else if ([abuseFilterCode hasPrefix:@"abusefilter"]) {
-                        errorType = WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER;
+                        errorType = WikiTextSectionUploaderErrorsAbuseFilterOther;
                     }
 
                     switch (errorType) {
-                        case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
-                        case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
-                        case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
+                        case WikiTextSectionUploaderErrorsAbuseFilterWarning:
+                        case WikiTextSectionUploaderErrorsAbuseFilterDisallowed:
+                        case WikiTextSectionUploaderErrorsAbuseFilterOther: {
                             NSMutableDictionary *errorDict = [@{} mutableCopy];
 
                             errorDict[NSLocalizedDescriptionKey] = responseObject[@"edit"][@"info"];

@@ -222,10 +222,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func handleEditFailure(with error: Error) {
         let nsError = error as NSError
-        let errorType = WikiTextSectionUploaderErrors.init(rawValue: nsError.code) ?? .WIKITEXT_UPLOAD_ERROR_UNKNOWN
+        let errorType:WikiTextSectionUploaderErrors = WikiTextSectionUploaderErrors.init(rawValue: nsError.code) ?? .unknown
         
         switch errorType {
-        case .WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
+        case .needsCaptcha:
             if mode == .captcha {
                 funnel?.logCaptchaFailure()
             }
@@ -241,13 +241,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }
 
-        case .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING, .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
+        case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             //NSString *warningHtml = error.userInfo[@"warning"];
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             
             wmf_hideKeyboard()
             
-            if (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) {
+            if (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == WikiTextSectionUploaderErrors.abuseFilterDisallowed) {
                 mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterError(abuseFilterCode)
@@ -260,10 +260,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             // Hides the license panel. Needed if logged in and a disallow is triggered.
             WMFAlertManager.sharedInstance.dismissAlert()
             
-            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == .WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? .ABUSE_FILTER_DISALLOW : .ABUSE_FILTER_WARNING
+            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrors.init(rawValue: nsError.code) == WikiTextSectionUploaderErrors.abuseFilterDisallowed) ? .ABUSE_FILTER_DISALLOW : .ABUSE_FILTER_WARNING
             showAbuseFilterAlert(for: alertType)
             
-        case .WIKITEXT_UPLOAD_ERROR_SERVER, .WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+        case .server, .unknown:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             funnel?.logError("other")
         default:
