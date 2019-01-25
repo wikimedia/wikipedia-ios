@@ -245,12 +245,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 
     failure = ^(NSError *error) {
-        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
-        userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
-        userInfo[NSLocalizedDescriptionKey] = error.localizedDescription;
-        failure([NSError errorWithDomain:error.domain
-                                    code:error.code
-                                userInfo:userInfo]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
+            userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
+            userInfo[NSLocalizedDescriptionKey] = error.localizedDescription;
+            failure([NSError errorWithDomain:error.domain
+                                        code:error.code
+                                    userInfo:userInfo]);
+        });
     };
 
     @weakify(self);
