@@ -59,7 +59,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                              }
 
                              if (response.statusCode == 304) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil];
+                                 NSError *error = [WMFFetcher noNewDataError];
                                  failure(error);
                                  return;
                              }
@@ -72,7 +72,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                              }
 
                              if (![pages isKindOfClass:[NSDictionary class]]) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+                                 NSError *error = [WMFFetcher unexpectedResponseError];
                                  failure(error);
                                  return;
                              }

@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                              @strongify(self);
                              if (!self) {
-                                 failure([NSError wmf_cancelledError]);
+                                 failure([WMFFetcher cancelledError]);
                                  return;
                              }
                              if (error) {

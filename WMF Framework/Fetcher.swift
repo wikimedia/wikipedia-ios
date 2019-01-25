@@ -45,11 +45,11 @@ open class Fetcher: NSObject {
                 let tokens = query["tokens"] as? [String: Any],
                 let token = tokens[type.stringValue + "token"] as? String
                 else {
-                    completionHandler(FetcherResult.failure(FetcherError.unexpectedResponse))
+                    completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
                     return
             }
             guard token.count > 0 else {
-                completionHandler(FetcherResult.failure(FetcherError.unexpectedResponse))
+                completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
                 return
             }
             completionHandler(FetcherResult.success(Token(token: token, type: type)))
@@ -153,13 +153,19 @@ open class Fetcher: NSObject {
     }
 }
 
-public enum FetcherError: LocalizedError {
-    case unexpectedResponse
-    public var errorDescription: String? {
-        switch self {
-        case .unexpectedResponse:
-            return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
-        }
+// These are for bridging to Obj-C only
+@objc public extension Fetcher {
+    @objc public class var unexpectedResponseError: NSError {
+        return RequestError.unexpectedResponse as NSError
+    }
+    @objc public class var invalidParametersError: NSError {
+        return RequestError.invalidParameters as NSError
+    }
+    @objc public class var noNewDataError: NSError {
+        return RequestError.noNewData as NSError
+    }
+    @objc public class var cancelledError: NSError {
+        return NSError(domain: NSCocoaErrorDomain, code: NSUserCancelledError, userInfo: [NSLocalizedDescriptionKey: RequestError.unexpectedResponse.localizedDescription])
     }
 }
 

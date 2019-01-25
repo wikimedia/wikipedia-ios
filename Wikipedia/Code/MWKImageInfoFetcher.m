@@ -70,7 +70,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
 - (id)responseObjectForJSON:(NSDictionary *)json error:(NSError *__autoreleasing *)error {
     if (!json) {
         if (error) {
-            *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil];
+            *error = [WMFFetcher invalidParametersError];
         }
         return nil;
     }

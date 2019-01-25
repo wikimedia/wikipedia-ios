@@ -11,7 +11,7 @@ NSString *const WikiTextSectionFetcherErrorDomain = @"org.wikimedia.fetcher.wiki
     NSURL *sourceURL = section.sourceURL;
     NSString *title = sourceURL.wmf_title;
     if (!sourceURL || !title) {
-        completion(nil, [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        completion(nil, [WMFFetcher invalidParametersError]);
         return;
     }
     NSDictionary *params = @{

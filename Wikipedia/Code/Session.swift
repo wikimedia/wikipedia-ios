@@ -309,11 +309,11 @@ import Foundation
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
     @discardableResult public func getJSONDictionary(from url: URL?, ignoreCache: Bool = false, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard let url = url else {
-            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
         guard var request = self.request(with: url, method: .get) else {
-            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
         if ignoreCache {
@@ -327,11 +327,11 @@ import Foundation
     @objc(postFormEncodedBodyParametersToURL:bodyParameters:completionHandler:)
     @discardableResult public func postFormEncodedBodyParametersToURL(to url: URL?, bodyParameters: [String: String]? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard let url = url else {
-            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
         guard let request = self.request(with: url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form) else {
-            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
         let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
@@ -363,7 +363,7 @@ import Foundation
     @objc(fetchAPIPath:withArticleURL:priority:completionHandler:)
     public func fetchAPI(path: [String], with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
         guard let task = apiTask(with: articleURL, path: path, completionHandler: completionHandler) else {
-            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            completionHandler(nil, nil, RequestError.invalidParameters)
             return
         }
         task.priority = priority
@@ -389,4 +389,19 @@ import Foundation
         }, completion: completion)
     }
     
+}
+
+public enum RequestError: LocalizedError {
+    case unknown
+    case invalidParameters
+    case unexpectedResponse
+    case noNewData
+    public var errorDescription: String? {
+        switch self {
+        case .unexpectedResponse:
+            return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
+        default:
+            return WMFLocalizedString("fetcher-error-generic", value: "Something went wrong. Please try again later.", comment: "Error shown to the user for generic errors with no clear recovery steps for the user.")
+        }
+    }
 }

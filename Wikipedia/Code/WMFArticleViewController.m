@@ -1284,7 +1284,7 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
                                                dismissPreviousAlerts:NO
                                                          tapCallBack:NULL];
                 }
-            } else if ([error wmf_isWMFErrorMissingTitle]) {
+            } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
                 NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
                 if (specialPageActivity) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];

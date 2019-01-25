@@ -2,15 +2,11 @@ import Foundation
 import WMF
 import MapKit
 
-enum WikidataFetcherError: Error {
-    case genericError
-}
-
 class WikidataFetcher: Fetcher {
     func wikidata(forArticleURL articleURL: URL, failure: @escaping (Error) -> Void, success: @escaping ([String: Any]) -> Void) {
         guard let title = articleURL.wmf_title,
             let language = articleURL.wmf_language else {
-                failure(WikidataFetcherError.genericError)
+                failure(RequestError.invalidParameters)
                 return
         }
         
@@ -18,7 +14,7 @@ class WikidataFetcher: Fetcher {
         let components = configuration.wikidataAPIURLComponents(with: queryParameters)
         session.getJSONDictionary(from: components.url, ignoreCache: false) { (jsonObject, response, error) in
             guard let jsonObject = jsonObject else {
-                failure(WikidataFetcherError.genericError)
+                failure(RequestError.unexpectedResponse)
                 return
             }
             success(jsonObject)
@@ -30,7 +26,7 @@ class WikidataFetcher: Fetcher {
             guard let entities = jsonObject["entities"] as? [String: Any],
                 let entity = entities.values.first as? [String: Any],
                 let claims = entity["claims"] as? [String: Any] else {
-                failure(WikidataFetcherError.genericError)
+                failure(RequestError.unexpectedResponse)
                 return
             }
             
@@ -60,7 +56,7 @@ class WikidataFetcher: Fetcher {
             })
             
             guard coordinates.count > 3 else {
-                failure(WikidataFetcherError.genericError)
+                failure(RequestError.unexpectedResponse)
                 return
             }
 

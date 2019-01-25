@@ -17,8 +17,7 @@
 - (void)fetchOnThisDayEventsForURL:(NSURL *)siteURL month:(NSUInteger)month day:(NSUInteger)day failure:(WMFErrorHandler)failure success:(void (^)(NSArray<WMFFeedOnThisDayEvent *> *announcements))success {
     NSParameterAssert(siteURL);
     if (siteURL == nil || siteURL.wmf_language == nil || ![[WMFOnThisDayEventsFetcher supportedLanguages] containsObject:siteURL.wmf_language] || month < 1 || day < 1) {
-        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:nil];
+        NSError *error = [WMFFetcher invalidParametersError];
         failure(error);
         return;
     }
@@ -34,7 +33,7 @@
         }
         
         if (response.statusCode == 304) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil]);
+            failure([WMFFetcher noNewDataError]);
             return;
         }
         

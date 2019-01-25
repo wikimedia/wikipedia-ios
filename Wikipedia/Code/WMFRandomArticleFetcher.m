@@ -13,8 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL completion:(void (^)(NSError *_Nullable error, MWKSearchResult *_Nullable result))completion {
     NSParameterAssert(siteURL);
     if (siteURL == nil) {
-        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:nil];
+        NSError *error = [WMFFetcher invalidParametersError];
         completion(error, nil);
         return;
     }
@@ -27,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         
         if (response.statusCode == 304) {
-            NSError *error = [NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil];
+            NSError *error = [WMFFetcher noNewDataError];
             completion(error, nil);
             return;
         }
