@@ -26,25 +26,11 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
     
     private func configuration() -> WKWebViewConfiguration {
         let userContentController = WKUserContentController()
-        
-        let langInfo: MWLanguageInfo? = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo()
-        let uidir = UIApplication.shared.wmf_isRTL ? "rtl" : "ltr"
-        
-        var earlyJavascriptTransforms: String? = nil
-        if let code = langInfo?.code, let dir = langInfo?.dir {
-            earlyJavascriptTransforms = """
-            addEventListener('click', () => {
-                event.preventDefault()
-                if (event.target.tagName == 'A'){
-                    const href = event.target.getAttribute( 'href' )
-                    window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href })
-                }
-            })
-            window.wmf.utilities.setLanguage('\(code)', '\(dir)', '\(uidir)')
-            """
+        var earlyJSTransforms = ""
+        if let langInfo = previewSectionLanguageInfoDelegate.wmf_editedSectionLanguageInfo() {
+            earlyJSTransforms = earlyJSTransformsString(for: langInfo, isRTL: UIApplication.shared.wmf_isRTL)
         }
-
-        userContentController.addUserScript(WKUserScript(source: earlyJavascriptTransforms ?? "", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        userContentController.addUserScript(WKUserScript(source: earlyJSTransforms, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         userContentController.addUserScript(WKUserScript(source: "window.wmf.themes.classifyElements(document)", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         userContentController.add(WeakScriptMessageDelegate(delegate: self), name: "anchorClicked")
 
@@ -53,6 +39,19 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
         configuration.applicationNameForUserAgent = "WikipediaApp"
         configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
         return configuration
+    }
+
+    private func earlyJSTransformsString(for langInfo: MWLanguageInfo, isRTL: Bool) -> String {
+        return """
+            addEventListener('click', () => {
+                event.preventDefault()
+                if (event.target.tagName == 'A'){
+                    const href = event.target.getAttribute( 'href' )
+                    window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href })
+                }
+            })
+            window.wmf.utilities.setLanguage('\(langInfo.code)', '\(langInfo.dir)', '\(isRTL ? "rtl" : "ltr")')
+            """
     }
 
     override func awakeFromNib() {
