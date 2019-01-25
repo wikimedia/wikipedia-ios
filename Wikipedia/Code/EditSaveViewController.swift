@@ -272,7 +272,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func showAbuseFilterAlert(for type: AbuseFilterAlertType) {
-        view.wmf_addSubviewWithConstraintsToEdges(AbuseFilterAlert(type: type))
+        if let abuseFilterAlertView = AbuseFilterAlertView.wmf_viewFromClassNib() {
+            abuseFilterAlertView.type = type
+            abuseFilterAlertView.apply(theme: theme)
+            view.wmf_addSubviewWithConstraintsToEdges(abuseFilterAlertView)
+        }
     }
     
     private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
