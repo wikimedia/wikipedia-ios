@@ -72,8 +72,7 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
     // Force web view links to open in Safari.
     // From: http://stackoverflow.com/a/2532884
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let request: URLRequest = navigationAction.request
-        let requestURL: URL? = request.url
+        let requestURL = navigationAction.request.url
         if ((requestURL?.scheme == "http") || (requestURL?.scheme == "https") || (requestURL?.scheme == "mailto")) && (navigationAction.navigationType == .linkActivated) {
             externalLinksOpenerDelegate?.wmf_openExternalUrl(requestURL)
             decisionHandler(WKNavigationActionPolicy.cancel)

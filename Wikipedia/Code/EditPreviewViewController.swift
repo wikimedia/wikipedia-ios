@@ -14,7 +14,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
     weak var delegate: EditPreviewViewControllerDelegate?
     
     @IBOutlet private var previewWebViewContainer: PreviewWebViewContainer!
-    private let fetcher: PreviewHtmlFetcher = PreviewHtmlFetcher()
+    private let fetcher = PreviewHtmlFetcher()
     
     func wmf_showAlert(forTappedAnchorHref href: String) {
         let title = WMFLocalizedStringWithDefaultValue("wikitext-preview-link-preview-title", nil, nil, "Link preview", "Title for link preview popup")

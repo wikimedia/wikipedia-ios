@@ -45,8 +45,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private let wikiTextSectionUploader = WikiTextSectionUploader()
     
     private func updateNavigation(for mode: NavigationMode) {
-        var backButton: UIBarButtonItem? = nil
-        var forwardButton: UIBarButtonItem? = nil
+        var backButton: UIBarButtonItem?
+        var forwardButton: UIBarButtonItem?
         
         switch mode {
         case .wikitext:
@@ -171,7 +171,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func save() {
-        
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-upload-save", nil, nil, "Publishing...", "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         funnel?.logSaveAttempt()
