@@ -26,7 +26,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     NSString *URLString = URL.absoluteString;
     if (!URLString) {
         if (failure) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+            failure([WMFFetcher invalidParametersError]);
         }
         return;
     }

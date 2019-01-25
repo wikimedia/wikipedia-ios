@@ -18,7 +18,7 @@
     static NSCharacterSet *wmf_URLQueryAllowedCharacterSet;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet *queryAllowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
-        [queryAllowedCharacterSet removeCharactersInString:@"+"];
+        [queryAllowedCharacterSet removeCharactersInString:@"+&"];
         wmf_URLQueryAllowedCharacterSet = [queryAllowedCharacterSet copy];
     });
     return wmf_URLQueryAllowedCharacterSet;

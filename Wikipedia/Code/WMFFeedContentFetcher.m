@@ -65,8 +65,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     NSParameterAssert(siteURL);
     NSParameterAssert(date);
     dispatch_block_t genericFailure = ^{
-        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:nil];
+        NSError *error = [WMFFetcher invalidParametersError];
         failure(error);
     };
     if (siteURL == nil || date == nil) {
@@ -84,7 +83,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                              }
 
                              if (!force && response.statusCode == 304) {
-                                 failure([NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil]);
+                                 failure([WMFFetcher noNewDataError]);
                                  return;
                              }
 
@@ -97,8 +96,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                              }
 
                              if (![responseObject isKindOfClass:[WMFFeedDayResponse class]]) {
-                                 failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                                           userInfo:nil]);
+                                 failure([WMFFetcher unexpectedResponseError]);
 
                              } else {
                                  NSDictionary *headers = [response allHeaderFields];
@@ -131,8 +129,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     NSParameterAssert(startDate);
     NSParameterAssert(endDate);
     if (startDate == nil || endDate == nil || title == nil || language == nil || domain == nil) {
-        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:nil];
+        NSError *error = [WMFFetcher invalidParametersError];
         failure(error);
         return;
     }
@@ -142,8 +139,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
 
     if (startDateString == nil || endDateString == nil) {
         DDLogError(@"Failed to format pageviews date URL component for dates: %@ %@", startDate, endDate);
-        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:@{WMFFailingRequestParametersUserInfoKey: @{@"start": startDate, @"end": endDate}}];
+        NSError *error = [WMFFetcher invalidParametersError];
         failure(error);
         return;
     }
@@ -163,8 +159,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                              dispatch_async(self.serialQueue, ^{
                                  NSArray *items = responseObject[@"items"];
                                  if (![items isKindOfClass:[NSArray class]]) {
-                                     failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                                               userInfo:nil]);
+                                     failure([WMFFetcher unexpectedResponseError]);
                                      return;
                                  }
 

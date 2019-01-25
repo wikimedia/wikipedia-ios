@@ -60,7 +60,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                           success:(WMFArticleHandler)success {
     NSString *title = articleURL.wmf_titleWithUnderscores;
     if (!title) {
-        failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
+        failure([WMFFetcher invalidParametersError]);
         return nil;
     }
 
@@ -179,7 +179,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                               }];
                                           } else {
                                               if (!articleError) {
-                                                  articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];
+                                                  articleError = WMFFetcher.unexpectedResponseError;
                                               }
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   failure(articleError);
@@ -208,7 +208,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
         if (error) {
-            *error = [NSError wmf_serializeArticleErrorWithReason:[e reason]];
+            *error = [WMFFetcher unexpectedResponseError];
         }
         return nil;
     }
@@ -224,7 +224,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     NSParameterAssert(url.wmf_title);
     if (!url.wmf_title) {
         DDLogError(@"Can't fetch nil title, cancelling implicitly.");
-        failure([NSError wmf_cancelledError]);
+        failure([WMFFetcher invalidParametersError]);
         return nil;
     }
 
@@ -247,6 +247,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     failure = ^(NSError *error) {
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
         userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
+        userInfo[NSLocalizedDescriptionKey] = error.localizedDescription;
         failure([NSError errorWithDomain:error.domain
                                     code:error.code
                                 userInfo:userInfo]);
@@ -277,7 +278,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                    dispatch_async(dispatch_get_main_queue(), ^{
                                                                        @strongify(self);
                                                                        if (!self) {
-                                                                           failure([NSError wmf_cancelledError]);
+                                                                           failure([WMFFetcher cancelledError]);
                                                                            return;
                                                                        } else if ([[results revisions].firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
                                                                            DDLogInfo(@"Returning up-to-date local revision of %@", url);

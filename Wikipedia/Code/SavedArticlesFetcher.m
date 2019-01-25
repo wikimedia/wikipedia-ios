@@ -251,12 +251,12 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     WMFAssertMainThread(@"must be called on the main thread");
     if (!articleURL.wmf_title) {
         DDLogError(@"Attempted to save articleURL without title: %@", articleURL);
-        failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        failure([WMFFetcher invalidParametersError]);
         return;
     }
 
     if (self.fetchOperationsByArticleTitle[articleURL]) { // Protect against duplicate fetches & infinite fetch loops
-        failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
+        failure([WMFFetcher invalidParametersError]);
         return;
     }
 
@@ -374,7 +374,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         success:^(NSArray *info) {
             @strongify(self);
             if (!self) {
-                failure([NSError wmf_cancelledError]);
+                failure([WMFFetcher cancelledError]);
                 return;
             }
             if (info.count == 0) {
@@ -422,7 +422,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                                   withBlock:^{
                                       @strongify(self);
                                       if (!self) {
-                                          failure([NSError wmf_cancelledError]);
+                                          failure([WMFFetcher cancelledError]);
                                           return;
                                       }
                                       [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];

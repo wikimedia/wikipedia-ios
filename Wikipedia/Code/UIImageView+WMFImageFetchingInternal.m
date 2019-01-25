@@ -106,7 +106,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     NSURL *imageURL = [self wmf_imageURLToFetch];
     if (!imageURL) {
-        failure([NSError wmf_cancelledError]);
+        failure([WMFFetcher cancelledError]);
         return;
     }
 
@@ -135,7 +135,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                                                               self.wmf_imageURLToCancel = nil;
                                                                               self.wmf_imageTokenToCancel = nil;
                                                                               if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                                                                  failure([NSError wmf_cancelledError]);
+                                                                                  failure([WMFFetcher cancelledError]);
                                                                               } else {
                                                                                   [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
                                                                               }
@@ -175,7 +175,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                            success:^(NSValue *bounds) {
                                dispatch_async(dispatch_get_main_queue(), ^{
                                    if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                       failure([NSError wmf_cancelledError]);
+                                       failure([WMFFetcher cancelledError]);
                                    } else {
                                        [self wmf_setImage:image animatedImage:animatedImage detectFaces:detectFaces faceBoundsValue:bounds animated:animated failure:failure success:success];
                                    }

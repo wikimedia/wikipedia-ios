@@ -1,6 +1,6 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 @import WMF;
-@import SafariServices.SFSafariViewController;
+@import SafariServices;
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 
@@ -18,19 +18,19 @@
 
 - (void)wmf_openExternalUrlModallyIfNeeded:(NSURL *)url forceSafari:(BOOL)forceSafari {
     url = url.wmf_URLByMakingiOSCompatibilityAdjustments;
-    
-    if (forceSafari || [url.scheme.lowercaseString isEqualToString:@"mailto"]) {
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
-    } else {
-        if (self.presentedViewController) {
-            [self dismissViewControllerAnimated:YES
-                                     completion:^{
-                                         [self wmf_presentExternalUrlWithinApp:url];
-                                     }];
-            return;
-        }
-        [self wmf_presentExternalUrlWithinApp:url];
-    }
+
+    //    if (forceSafari || [url.scheme.lowercaseString isEqualToString:@"mailto"]) {
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
+    //    } else {
+    //        if (self.presentedViewController) {
+    //            [self dismissViewControllerAnimated:YES
+    //                                     completion:^{
+    //                                         [self wmf_presentExternalUrlWithinApp:url];
+    //                                     }];
+    //            return;
+    //        }
+    //        [self wmf_presentExternalUrlWithinApp:url];
+    //    }
 }
 
 - (void)wmf_presentExternalUrlWithinApp:(NSURL *)url {
@@ -45,7 +45,8 @@
 }
 
 - (void)wmf_presentExternalUrlAsSFSafari:(NSURL *)url {
-    [self presentViewController:[[SFSafariViewController alloc] initWithURL:url] animated:YES completion:nil];
+    SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:url];
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
 @end

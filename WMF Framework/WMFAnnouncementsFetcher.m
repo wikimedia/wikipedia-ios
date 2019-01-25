@@ -8,8 +8,7 @@
 - (void)fetchAnnouncementsForURL:(NSURL *)siteURL force:(BOOL)force failure:(WMFErrorHandler)failure success:(void (^)(NSArray<WMFAnnouncement *> *announcements))success {
     NSParameterAssert(siteURL);
     if (siteURL == nil) {
-        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:nil];
+        NSError *error = [WMFFetcher invalidParametersError];
         failure(error);
         return;
     }
@@ -23,7 +22,7 @@
         }
         
         if (response.statusCode == 304) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil]);
+            failure([WMFFetcher noNewDataError]);
             return;
         }
         
