@@ -91,7 +91,6 @@
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
-		3F82AD8D20690C8C00156E29 /* EditSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -1080,7 +1079,6 @@
 		B0E804121C0CDE480065EBC0 /* EditSaveViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */; };
 		B0E804161C0CDE480065EBC0 /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804071C0CDE480065EBC0 /* WebViewController.storyboard */; };
 		B0E804181C0CDE480065EBC0 /* WMFSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */; };
-		B0E804411C0CDF850065EBC0 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042A1C0CDF850065EBC0 /* MenuButton.m */; };
 		B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042C1C0CDF850065EBC0 /* MenuLabel.m */; };
 		B0E804431C0CDF850065EBC0 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042E1C0CDF850065EBC0 /* PaddedLabel.m */; };
 		B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804301C0CDF850065EBC0 /* TabularScrollView.m */; };
@@ -1449,7 +1447,6 @@
 		D80ED32F1EE57F4800CE8C50 /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		D80ED3311EE57F4800CE8C50 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		D80ED3321EE57F4800CE8C50 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
-		D80ED3351EE57F4800CE8C50 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042A1C0CDF850065EBC0 /* MenuButton.m */; };
 		D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift */; };
 		D80ED33A1EE57F4800CE8C50 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		D80ED33B1EE57F4800CE8C50 /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
@@ -2076,7 +2073,6 @@
 		D8A42B0D1E815A9C00D8E281 /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		D8A42B101E815A9C00D8E281 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
-		D8A42B131E815A9C00D8E281 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042A1C0CDF850065EBC0 /* MenuButton.m */; };
 		D8A42B161E815A9C00D8E281 /* WMFTableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift */; };
 		D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
@@ -2367,7 +2363,6 @@
 		D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
-		D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042A1C0CDF850065EBC0 /* MenuButton.m */; };
 		D8CE259C1E698E2400DAE2E0 /* WMFTableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift */; };
 		D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
@@ -2679,7 +2674,6 @@
 		D8EC3E8E1E9BDA35006712EB /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
-		D8EC3E941E9BDA35006712EB /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042A1C0CDF850065EBC0 /* MenuButton.m */; };
 		D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift */; };
 		D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
@@ -3362,7 +3356,6 @@
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
-		3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSummaryViewController.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
@@ -3761,8 +3754,6 @@
 		B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFSettingsViewController.storyboard; path = Wikipedia/Code/WMFSettingsViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E804261C0CDF510065EBC0 /* WMFGeometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = WMFGeometry.c; path = Wikipedia/Code/WMFGeometry.c; sourceTree = SOURCE_ROOT; };
 		B0E804271C0CDF510065EBC0 /* WMFGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFGeometry.h; path = Wikipedia/Code/WMFGeometry.h; sourceTree = SOURCE_ROOT; };
-		B0E804291C0CDF850065EBC0 /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuButton.h; path = Wikipedia/Code/MenuButton.h; sourceTree = SOURCE_ROOT; };
-		B0E8042A1C0CDF850065EBC0 /* MenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuButton.m; path = Wikipedia/Code/MenuButton.m; sourceTree = SOURCE_ROOT; };
 		B0E8042B1C0CDF850065EBC0 /* MenuLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuLabel.h; path = Wikipedia/Code/MenuLabel.h; sourceTree = SOURCE_ROOT; };
 		B0E8042C1C0CDF850065EBC0 /* MenuLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuLabel.m; path = Wikipedia/Code/MenuLabel.m; sourceTree = SOURCE_ROOT; };
 		B0E8042D1C0CDF850065EBC0 /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaddedLabel.h; path = Wikipedia/Code/PaddedLabel.h; sourceTree = SOURCE_ROOT; };
@@ -6640,8 +6631,6 @@
 		BC45D56A1C32E7C5007C72F3 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				B0E804291C0CDF850065EBC0 /* MenuButton.h */,
-				B0E8042A1C0CDF850065EBC0 /* MenuButton.m */,
 				B0E8042B1C0CDF850065EBC0 /* MenuLabel.h */,
 				B0E8042C1C0CDF850065EBC0 /* MenuLabel.m */,
 				B0E8042D1C0CDF850065EBC0 /* PaddedLabel.h */,
@@ -10291,7 +10280,6 @@
 				BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
-				B0E804411C0CDF850065EBC0 /* MenuButton.m in Sources */,
 				D84692E01D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift in Sources */,
 				B0E8054B1C0CE0DC0065EBC0 /* UILabel+WMFStyling.m in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
@@ -10620,7 +10608,6 @@
 				83AE1C841F34BB5B004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				832289DF1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D80ED3321EE57F4800CE8C50 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
-				D80ED3351EE57F4800CE8C50 /* MenuButton.m in Sources */,
 				7A4B33402136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */,
 				B0D4917321F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
@@ -11320,7 +11307,6 @@
 				D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				D8A42B101E815A9C00D8E281 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7ADF498A21B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
-				D8A42B131E815A9C00D8E281 /* MenuButton.m in Sources */,
 				D8A42B161E815A9C00D8E281 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
@@ -11662,7 +11648,6 @@
 				832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
-				D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */,
 				7A4B333D2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				B0D4917021F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D8C4D3D91FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
@@ -11838,7 +11823,6 @@
 				B0F4761D21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				7A48EA1021B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
 				7A82896A21B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
-				7A998ABD1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
 				D87676A121E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
@@ -12010,7 +11994,6 @@
 				D8EC3E8E1E9BDA35006712EB /* WMFSettingsMenuItem.m in Sources */,
 				D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
-				D8EC3E941E9BDA35006712EB /* MenuButton.m in Sources */,
 				D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */,
 				7A4B333E2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
