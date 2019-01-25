@@ -351,15 +351,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType) {
-        var eventLoggingKey = ""
-        switch type {
-        case .typo:
-            eventLoggingKey = "typo"
-        case .grammar:
-            eventLoggingKey = "grammar"
-        case .link:
-            eventLoggingKey = "links"
-        }
-        funnel?.logEditSummaryTap(eventLoggingKey)
+        funnel?.logEditSummaryTap(type.eventLoggingKey)
     }
 }

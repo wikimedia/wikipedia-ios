@@ -7,8 +7,20 @@ protocol EditSummaryViewDelegate: AnyObject {
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType)
 }
 
+// Int because we use `tag` from storyboard buttons.
 public enum EditSummaryViewCannedButtonType: Int {
     case typo, grammar, link
+    
+    var eventLoggingKey: String {
+        switch self {
+        case .typo:
+            return "typo"
+        case .grammar:
+            return "grammar"
+        case .link:
+            return "links"
+        }
+    }
 }
 
 class EditSummaryViewController: UIViewController, Themeable {
