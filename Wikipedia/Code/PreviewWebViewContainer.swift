@@ -12,7 +12,6 @@ import WMF
 
 class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHandler, Themeable {
     weak var externalLinksOpenerDelegate: WMFOpenExternalLinkDelegate?
-    var webView: WKWebView?
     var theme: Theme = .standard
     @IBOutlet weak var previewSectionLanguageInfoDelegate: WMFPreviewSectionLanguageInfoDelegate!
     @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!
@@ -61,21 +60,17 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
             """
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let webview = WKWebView(frame: CGRect.zero, configuration: configuration())
-        webview.translatesAutoresizingMaskIntoConstraints = false
-        webview.isOpaque = false
-        webview.scrollView.backgroundColor = .clear
-        wmf_addSubviewWithConstraintsToEdges(webview)
-        webView = webview
-        backgroundColor = UIColor.white
-        webView?.navigationDelegate = self
-    }
+    lazy var webView: WKWebView = {
+        let newWebView = WKWebView(frame: CGRect.zero, configuration: configuration())
+        newWebView.isOpaque = false
+        newWebView.scrollView.backgroundColor = .clear
+        wmf_addSubviewWithConstraintsToEdges(newWebView)
+        newWebView.navigationDelegate = self
+        return newWebView
+    }()
 
     // Force web view links to open in Safari.
     // From: http://stackoverflow.com/a/2532884
-    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let request: URLRequest = navigationAction.request
         let requestURL: URL? = request.url
@@ -88,7 +83,7 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, WKScriptMessageHand
 
     func apply(theme: Theme) {
         self.theme = theme
-        webView?.backgroundColor = theme.colors.paperBackground
+        webView.backgroundColor = theme.colors.paperBackground
         backgroundColor = theme.colors.paperBackground
     }
 }

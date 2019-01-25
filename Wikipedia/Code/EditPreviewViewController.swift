@@ -73,7 +73,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
                     return
                 }
                 WMFAlertManager.sharedInstance.dismissAlert()
-                self.previewWebViewContainer.webView?.loadHTML(previewHTML, baseURL: URL(string: "https://wikipedia.org"), withAssetsFile: "preview.html", scrolledToFragment: nil, padding: UIEdgeInsets.zero, theme: self.theme)
+                self.previewWebViewContainer.webView.loadHTML(previewHTML, baseURL: URL(string: "https://wikipedia.org"), withAssetsFile: "preview.html", scrolledToFragment: nil, padding: UIEdgeInsets.zero, theme: self.theme)
             }
         }
     }
