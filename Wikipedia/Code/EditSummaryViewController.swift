@@ -26,11 +26,7 @@ public enum EditSummaryViewCannedButtonType: Int {
 class EditSummaryViewController: UIViewController, Themeable {
     static let maximumSummaryLength = 255
     
-    public var theme: Theme = .standard {
-        didSet {
-            apply(theme: theme)
-        }
-    }
+    public var theme: Theme = .standard
 
     public weak var delegate: EditSummaryViewDelegate?
     

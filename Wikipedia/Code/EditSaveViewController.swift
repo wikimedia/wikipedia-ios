@@ -122,8 +122,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         let vc = EditSummaryViewController(nibName: EditSummaryViewController.wmf_classStoryboardName(), bundle: nil)
         vc.delegate = self
+        vc.apply(theme: theme)
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
-        vc.theme = theme
         //[self wmf_addChildControllerFromNibFor:[EditSummaryViewController class] andConstrainToEdgesOfContainerView:self.editSummaryVCContainer];
         //[self saveAutomaticallyIfNecessary];
         
