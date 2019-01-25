@@ -27,7 +27,7 @@
 
 - (void)setup {
     self.minSubviewHeight = 55.0f;
-    self.orientation = TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL;
+    self.orientation = TabularScrollViewOrientationHorizontal;
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.clipsToBounds = YES;
 
@@ -149,10 +149,10 @@
     }
 
     switch (self.orientation) {
-        case TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL:
+        case TabularScrollViewOrientationHorizontal:
             [self constrainContainerViewSubviewsHorizontally];
             break;
-        case TABULAR_SCROLLVIEW_LAYOUT_VERTICAL:
+        case TabularScrollViewOrientationVertical:
             [self constrainContainerViewSubviewsVertically];
             break;
         default:
