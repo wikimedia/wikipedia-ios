@@ -247,7 +247,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             
             wmf_hideKeyboard()
             
-            if (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == WikiTextSectionUploaderErrorType.abuseFilterDisallowed) {
+            if (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == .abuseFilterDisallowed) {
                 mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterError(abuseFilterCode)
@@ -260,7 +260,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             // Hides the license panel. Needed if logged in and a disallow is triggered.
             WMFAlertManager.sharedInstance.dismissAlert()
             
-            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == WikiTextSectionUploaderErrorType.abuseFilterDisallowed) ? .disallow : .warning
+            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == .abuseFilterDisallowed) ? .disallow : .warning
             showAbuseFilterAlert(for: alertType)
             
         case .server, .unknown:
