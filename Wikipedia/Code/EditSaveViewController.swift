@@ -103,7 +103,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         buttonSave = UIBarButtonItem(title: WMFLocalizedStringWithDefaultValue("button-publish", nil, nil, "Publish", "Button text for publish button used in various places.\n{{Identical|Publish}}"), style: .plain, target: self, action: #selector(self.goForward))
         
         mode = .preview
-        summaryText = ""
         
         //self.saveAutomaticallyIfSignedIn = NO;
         
