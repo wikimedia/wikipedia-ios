@@ -322,9 +322,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     func apply(theme: Theme) {
         self.theme = theme
-        if viewIfLoaded == nil {
+        guard viewIfLoaded == nil else {
             return
         }
+        view.backgroundColor = theme.colors.paperBackground
         scrollView.backgroundColor = theme.colors.paperBackground
         previewLicenseView.apply(theme: theme)
         scrollContainer.backgroundColor = theme.colors.paperBackground

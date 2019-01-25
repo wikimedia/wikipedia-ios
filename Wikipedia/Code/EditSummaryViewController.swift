@@ -87,6 +87,10 @@ class EditSummaryViewController: UIViewController, Themeable {
     }
 
     public func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.paperBackground
         addSummaryLabel.textColor = theme.colors.secondaryText
         learnMoreButton.titleLabel?.textColor = theme.colors.link
