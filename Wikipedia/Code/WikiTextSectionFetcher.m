@@ -47,7 +47,7 @@ NSString *const WikiTextSectionFetcherErrorDomain = @"org.wikimedia.fetcher.wiki
         if (responseObject[@"error"]) {
             NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
             errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-            error = [NSError errorWithDomain:WikiTextSectionFetcherErrorDomain code:WIKITEXT_FETCHER_ERROR_API userInfo:errorDict];
+            error = [NSError errorWithDomain:WikiTextSectionFetcherErrorDomain code:WikiTextFetcherErrorTypeAPI userInfo:errorDict];
             completion(nil, error);
             return;
         }
@@ -59,7 +59,7 @@ NSString *const WikiTextSectionFetcherErrorDomain = @"org.wikimedia.fetcher.wiki
         if (![output objectForKey:@"revision"] || ![output objectForKey:@"userInfo"]) {
             NSMutableDictionary *errorDict = @{}.mutableCopy;
             errorDict[NSLocalizedDescriptionKey] = WMFLocalizedStringWithDefaultValue(@"wikitext-download-failed", nil, nil, @"Unable to obtain latest revision.", @"Alert text shown when unable to obtain latest revision of the section being edited");
-            error = [NSError errorWithDomain:WikiTextSectionFetcherErrorDomain code:WIKITEXT_FETCHER_ERROR_INCOMPLETE userInfo:errorDict];
+            error = [NSError errorWithDomain:WikiTextSectionFetcherErrorDomain code:WikiTextFetcherErrorTypeIncomplete userInfo:errorDict];
             completion(nil, error);
             return;
         }
