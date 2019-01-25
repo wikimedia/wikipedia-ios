@@ -32,19 +32,10 @@ class PreviewLicenseView: UIView, Themeable {
     }
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
-        let isPlaceholder: Bool = subviews.count == 0 // From: https://blog.compeople.eu/apps/?p=142
-        if !isPlaceholder {
+        if subviews.count != 0 { // From: https://blog.compeople.eu/apps/?p=142
             return self
         }
-        
-        let previewLicenseViewNib = UINib(nibName: "PreviewLicenseView", bundle: nil)
-        
-        let previewLicenseView = previewLicenseViewNib.instantiate(withOwner: nil, options: nil).first as? PreviewLicenseView
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        previewLicenseView?.translatesAutoresizingMaskIntoConstraints = false
-        
-        return previewLicenseView
+        return PreviewLicenseView.wmf_viewFromClassNib()
     }
 
     private func styleLinks(_ label: UILabel?) {
