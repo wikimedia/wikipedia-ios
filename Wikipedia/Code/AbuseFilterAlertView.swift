@@ -1,4 +1,9 @@
 
+enum AbuseFilterAlertType {
+    case warning
+    case disallow
+}
+
 class AbuseFilterAlertView: UIView, Themeable {
 
     @IBOutlet private var iconLabel: WikiGlyphLabel!
