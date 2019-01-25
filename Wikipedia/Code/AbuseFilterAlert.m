@@ -79,17 +79,17 @@ typedef NS_ENUM(NSInteger, ViewType) {
     [self.subViewData addObject:
                           @{
                               @"type": @(VIEW_TYPE_ICON),
-                              @"string": ((self.alertType == ABUSE_FILTER_DISALLOW) ? WIKIGLYPH_X : WIKIGLYPH_FLAG),
-                              @"backgroundColor": ((self.alertType == ABUSE_FILTER_DISALLOW) ? [UIColor wmf_red] : [UIColor wmf_orange]),
+                              @"string": ((self.alertType == AbuseFilterAlertTypeDisallow) ? WIKIGLYPH_X : WIKIGLYPH_FLAG),
+                              @"backgroundColor": ((self.alertType == AbuseFilterAlertTypeDisallow) ? [UIColor wmf_red] : [UIColor wmf_orange]),
                               @"fontColor": [UIColor whiteColor],
-                              @"baselineOffset": @((self.alertType == ABUSE_FILTER_DISALLOW) ? 8.4 : 5.5)
+                              @"baselineOffset": @((self.alertType == AbuseFilterAlertTypeDisallow) ? 8.4 : 5.5)
                           }
                               .mutableCopy];
 
     UIColor *grayColor = [UIColor wmf_lightGray];
 
     switch (self.alertType) {
-        case ABUSE_FILTER_WARNING:
+        case AbuseFilterAlertTypeWarning:
 
             [self.subViewData addObjectsFromArray:
                                   @[
@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                                   ]];
 
             break;
-        case ABUSE_FILTER_DISALLOW:
+        case AbuseFilterAlertTypeDisallow:
 
             [self.subViewData addObjectsFromArray:
                                   @[
@@ -178,7 +178,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"bottomPadding"] = @0;
                 viewData[@"leftPadding"] = @0;
                 viewData[@"rightPadding"] = @0;
-                viewData[@"fontSize"] = @((self.alertType == ABUSE_FILTER_DISALLOW) ? 74.0 : 70.0);
+                viewData[@"fontSize"] = @((self.alertType == AbuseFilterAlertTypeDisallow) ? 74.0 : 70.0);
                 break;
             case VIEW_TYPE_HEADING:
                 viewData[@"topPadding"] = @35;
@@ -200,12 +200,12 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 break;
             case VIEW_TYPE_ITEM:
                 viewData[@"topPadding"] = @0;
-                viewData[@"bottomPadding"] = (self.alertType == ABUSE_FILTER_WARNING) ? @8 : @15;
-                viewData[@"leftPadding"] = (self.alertType == ABUSE_FILTER_WARNING) ? @30 : @20;
+                viewData[@"bottomPadding"] = (self.alertType == AbuseFilterAlertTypeWarning) ? @8 : @15;
+                viewData[@"leftPadding"] = (self.alertType == AbuseFilterAlertTypeWarning) ? @30 : @20;
                 viewData[@"rightPadding"] = @20;
                 viewData[@"lineSpacing"] = @6;
                 viewData[@"kearning"] = @0;
-                viewData[@"bulletType"] = (self.alertType == ABUSE_FILTER_WARNING) ? @(BULLET_TYPE_ROUND) : @(BULLET_TYPE_NONE);
+                viewData[@"bulletType"] = (self.alertType == AbuseFilterAlertTypeWarning) ? @(BULLET_TYPE_ROUND) : @(BULLET_TYPE_NONE);
                 viewData[@"font"] = [UIFont systemFontOfSize:16.0];
                 break;
             default:

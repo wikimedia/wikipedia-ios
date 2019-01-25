@@ -260,7 +260,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             // Hides the license panel. Needed if logged in and a disallow is triggered.
             WMFAlertManager.sharedInstance.dismissAlert()
             
-            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == WikiTextSectionUploaderErrorType.abuseFilterDisallowed) ? .ABUSE_FILTER_DISALLOW : .ABUSE_FILTER_WARNING
+            let alertType: AbuseFilterAlertType = (WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) == WikiTextSectionUploaderErrorType.abuseFilterDisallowed) ? .disallow : .warning
             showAbuseFilterAlert(for: alertType)
             
         case .server, .unknown:
