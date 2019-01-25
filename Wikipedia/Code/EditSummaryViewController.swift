@@ -97,6 +97,7 @@ class EditSummaryViewController: UIViewController, Themeable {
         addSummaryLabel.textColor = theme.colors.secondaryText
         learnMoreButton.titleLabel?.textColor = theme.colors.link
         summaryTextField.textColor = theme.colors.primaryText
+        summaryTextField.keyboardAppearance = theme.keyboardAppearance        
         summaryTextField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText])
         cannedEditSummaryButtons.forEach {
             $0.titleLabel?.textColor = theme.colors.link
