@@ -118,6 +118,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         watchlistOptionView.label.text = WMFLocalizedStringWithDefaultValue("edit-watch-this-page-text", nil, nil, "Watch this page", "Text for watch this page label")
         watchlistOptionView.button.setTitle(WMFLocalizedStringWithDefaultValue("edit-watch-list-learn-more-text", nil, nil, "Learn more about watch lists", "Text for watch lists learn more button"), for: .normal)
 
+        minorEditOptionView.button.addTarget(self, action: #selector(minorEditButtonTapped(sender:)), for: .touchUpInside)
+        watchlistOptionView.button.addTarget(self, action: #selector(watchlistButtonTapped(sender:)), for: .touchUpInside)
+        
         apply(theme: theme)
     }
 
@@ -345,7 +348,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     func learnMoreButtonTapped(sender: UIButton) {
         wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Edit_summary"))
     }
-    
+
+    @objc func minorEditButtonTapped(sender: UIButton) {
+        wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Minor_edit"))
+    }
+
+    @objc func watchlistButtonTapped(sender: UIButton) {
+        wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Watchlist"))
+    }
+
     func summaryChanged(newSummary: String) {
         summaryText = newSummary
     }
