@@ -141,6 +141,8 @@
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
 "dim-images" = "Dim images";
+"edit-minor-learn-more-text" = "Learn more about minor edits";
+"edit-minor-text" = "This is a minor edit";
 "edit-style-table-view-title" = "Style";
 "edit-summary-add-summary-text" = "Add an edit summary";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
@@ -150,6 +152,8 @@
 "edit-summary-placeholder-text" = "How did you improve the article?";
 "edit-text-formatting-table-view-title" = "Text formatting";
 "edit-text-size-table-view-title" = "Text size";
+"edit-watch-list-learn-more-text" = "Learn more about watch lists";
+"edit-watch-this-page-text" = "Watch this page";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";

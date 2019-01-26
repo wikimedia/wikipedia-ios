@@ -27,6 +27,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     @IBOutlet private var editSummaryVCContainer: UIView!
     private var borderWidth: CGFloat = 0.0
     @IBOutlet private var previewLicenseView: PreviewLicenseView!
+    @IBOutlet private var minorEditOptionView: EditOptionView!
+    @IBOutlet private var watchlistOptionView: EditOptionView!
     private var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
 
     @IBOutlet private var scrollContainer: UIView!
@@ -109,6 +111,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         funnel?.logPreview()
         
         borderWidth = 1.0 / UIScreen.main.scale
+
+        minorEditOptionView.label.text = WMFLocalizedStringWithDefaultValue("edit-minor-text", nil, nil, "This is a minor edit", "Text for minor edit label")
+        minorEditOptionView.button.setTitle(WMFLocalizedStringWithDefaultValue("edit-minor-learn-more-text", nil, nil, "Learn more about minor edits", "Text for minor edits learn more button"), for: .normal)
+
+        watchlistOptionView.label.text = WMFLocalizedStringWithDefaultValue("edit-watch-this-page-text", nil, nil, "Watch this page", "Text for watch this page label")
+        watchlistOptionView.button.setTitle(WMFLocalizedStringWithDefaultValue("edit-watch-list-learn-more-text", nil, nil, "Learn more about watch lists", "Text for watch lists learn more button"), for: .normal)
 
         apply(theme: theme)
     }
@@ -328,6 +336,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         view.backgroundColor = theme.colors.paperBackground
         scrollView.backgroundColor = theme.colors.paperBackground
         previewLicenseView.apply(theme: theme)
+        minorEditOptionView.apply(theme: theme)
+        watchlistOptionView.apply(theme: theme)
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
     }
