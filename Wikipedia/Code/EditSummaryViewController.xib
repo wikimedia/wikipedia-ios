@@ -60,7 +60,7 @@
                                 <constraint firstAttribute="height" constant="30" id="F5s-Eu-1Te"/>
                             </constraints>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LJc-5L-7Pr">
@@ -74,9 +74,9 @@
                             <rect key="frame" x="0.0" y="95" width="379" height="66"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqy-lh-5zo">
-                                    <rect key="frame" x="0.0" y="0.0" width="117" height="66"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="116" height="66"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                     <inset key="titleEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                     <state key="normal" title="Button"/>
                                     <userDefinedRuntimeAttributes>
@@ -90,9 +90,9 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-2G-gXe">
-                                    <rect key="frame" x="122" y="0.0" width="116.5" height="66"/>
+                                    <rect key="frame" x="121" y="0.0" width="116.5" height="66"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                     <inset key="titleEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                     <state key="normal" title="Button"/>
                                     <userDefinedRuntimeAttributes>
@@ -106,9 +106,9 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-HH-sUX">
-                                    <rect key="frame" x="243.5" y="0.0" width="135.5" height="66"/>
+                                    <rect key="frame" x="242.5" y="0.0" width="136.5" height="66"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                     <inset key="titleEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                     <state key="normal" title="Button"/>
                                     <userDefinedRuntimeAttributes>
