@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import WMF
 
-class PreviewLicenseView: ViewFromClassNib, Themeable {
+class PreviewLicenseView: ClassNibView, Themeable {
     @IBOutlet weak var licenseLoginLabel: UILabel!
     public weak var previewLicenseViewDelegate: PreviewLicenseViewDelegate?
     @IBOutlet private weak var topDividerHeight: NSLayoutConstraint!

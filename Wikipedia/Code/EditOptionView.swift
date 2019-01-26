@@ -1,5 +1,5 @@
 
-class EditOptionView: ViewFromClassNib, Themeable  {
+class EditOptionView: ClassNibView, Themeable  {
     @IBOutlet public var label: UILabel!
     @IBOutlet public var button: AutoLayoutSafeMultiLineButton!
     @IBOutlet public var toggle: UISwitch!
