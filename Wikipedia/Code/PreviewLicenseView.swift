@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import WMF
 
-class PreviewLicenseView: UIView, Themeable {
+class PreviewLicenseView: ViewFromClassNib, Themeable {
     @IBOutlet weak var licenseLoginLabel: UILabel!
     public weak var previewLicenseViewDelegate: PreviewLicenseViewDelegate?
     @IBOutlet private weak var topDividerHeight: NSLayoutConstraint!
@@ -18,7 +18,8 @@ class PreviewLicenseView: UIView, Themeable {
         hideBottomDivider = true
     }
     
-    override func didMoveToSuperview() {
+    override func awakeFromNib() {
+        super.awakeFromNib()
         licenseTitleLabel.font = UIFont.systemFont(ofSize: 11.0)
         licenseLoginLabel.font = UIFont.systemFont(ofSize: 11.0)
         
@@ -31,13 +32,6 @@ class PreviewLicenseView: UIView, Themeable {
         topDividerHeight.constant = hideTopDivider ? 0.0 : 1.0 / UIScreen.main.scale
     }
     
-    override func awakeAfter(using aDecoder: NSCoder) -> Any? {
-        if subviews.count != 0 { // From: https://blog.compeople.eu/apps/?p=142
-            return self
-        }
-        return PreviewLicenseView.wmf_viewFromClassNib()
-    }
-
     private func styleLinks(_ label: UILabel?) {
         var baseAttributes: [NSAttributedString.Key : AnyObject]? = nil
         if let textColor = label?.textColor, let font = label?.font {
