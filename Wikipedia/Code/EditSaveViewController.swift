@@ -121,7 +121,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         minorEditOptionView.button.addTarget(self, action: #selector(minorEditButtonTapped(sender:)), for: .touchUpInside)
         watchlistOptionView.button.addTarget(self, action: #selector(watchlistButtonTapped(sender:)), for: .touchUpInside)
         
-        // TODO: show this once we figure out how to handle watchlists
+        // TODO: show this once we figure out how to handle watchlists (T214749)
         watchlistOptionView.isHidden = true
         
         apply(theme: theme)
