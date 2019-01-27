@@ -34,8 +34,8 @@ class PreviewLicenseView: EmbeddableView, Themeable {
         var baseAttributes: [NSAttributedString.Key : AnyObject]? = nil
         if let textColor = label?.textColor, let font = label?.font {
             baseAttributes = [
-                NSAttributedString.Key.foregroundColor: textColor,
-                NSAttributedString.Key.font: font
+                .foregroundColor: textColor,
+                .font: font
             ]
         }
         
@@ -58,14 +58,14 @@ class PreviewLicenseView: EmbeddableView, Themeable {
         var baseAttributes: [NSAttributedString.Key : AnyObject]? = nil
         if let textColor = label?.textColor, let font = label?.font {
             baseAttributes = [
-                NSAttributedString.Key.foregroundColor: textColor,
-                NSAttributedString.Key.font: font
+                .foregroundColor: textColor,
+                .font: font
             ]
         }
         
-        let substitutionAttributes = [
-            NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue),
-            NSAttributedString.Key.foregroundColor: theme.colors.link
+        let substitutionAttributes: [NSAttributedString.Key : AnyObject] = [
+            .underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue),
+            .foregroundColor: theme.colors.link
         ]
         
         label?.attributedText = label?.text?.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [substitutionAttributes])
