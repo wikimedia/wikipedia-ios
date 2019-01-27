@@ -107,8 +107,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         mode = .preview
         
-        //self.saveAutomaticallyIfSignedIn = NO;
-        
         funnel?.logPreview()
         
         borderWidth = 1.0 / UIScreen.main.scale
@@ -155,8 +153,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     @objc private func licenseLabelTapped(_ recognizer: UIGestureRecognizer?) {
         if recognizer?.state == .ended {
-            // Call if user taps the blue "Log In" text in the CC text.
-            //self.saveAutomaticallyIfSignedIn = YES;
             guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
                 assertionFailure("Expected view controller")
                 return
