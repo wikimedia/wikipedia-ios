@@ -376,7 +376,7 @@ extension UIViewController {
         let doneTapHandler: ScrollableEducationPanelButtonTapHandler = { sender in
             self.dismiss(animated: true, completion: nil)
         }
-        let panelVC = EditPublishedPanelViewController(showCloseButton: true, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        let panelVC = EditPublishedPanelViewController(showCloseButton: false, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true, completion: {
             UserDefaults.wmf.wmf_setDidShowFirstEditPublishedPanel(true)
         })
