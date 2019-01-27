@@ -143,6 +143,9 @@
 "dim-images" = "Dim images";
 "edit-minor-learn-more-text" = "Learn more about minor edits";
 "edit-minor-text" = "This is a minor edit";
+"edit-published" = "Edit published";
+"edit-published-button-title" = "Done";
+"edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-style-table-view-title" = "Style";
 "edit-summary-add-summary-text" = "Add an edit summary";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";

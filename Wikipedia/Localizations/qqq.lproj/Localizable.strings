@@ -143,6 +143,9 @@
 "dim-images" = "Label for image dimming setting";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
 "edit-minor-text" = "Text for minor edit label";
+"edit-published" = "Title edit published panel letting user know their edit was saved.";
+"edit-published-button-title" = "Title for edit published panel done button.";
+"edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-style-table-view-title" = "Title for the text style menu in the editing interface";
 "edit-summary-add-summary-text" = "Text for add summary label";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
