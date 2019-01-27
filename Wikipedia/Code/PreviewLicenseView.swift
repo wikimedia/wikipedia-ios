@@ -19,10 +19,7 @@ class PreviewLicenseView: EmbeddableView, Themeable {
     }
     
     override func awakeFromNib() {
-        super.awakeFromNib()
-        licenseTitleLabel.font = UIFont.systemFont(ofSize: 11.0)
-        licenseLoginLabel.font = UIFont.systemFont(ofSize: 11.0)
-        
+        super.awakeFromNib()        
         licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue("wikitext-upload-save-terms-cc-by-sa-and-gfdl", nil, nil, "By publishing changes, you agree to the %1$@, and you irrevocably agree to release your contribution under the %2$@ License and the %3$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2")
         
         styleLinks(licenseTitleLabel)

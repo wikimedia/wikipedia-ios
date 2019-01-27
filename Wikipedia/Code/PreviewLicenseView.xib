@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" restorationIdentifier="PreviewLicenseView" id="iN0-l3-epB" customClass="PreviewLicenseView" customModule="Wikipedia" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="321" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="321" height="59"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3k-Zd-eNH" userLabel="Top Divider">
@@ -22,11 +22,11 @@
                         <constraint firstAttribute="height" constant="1" id="YNa-Wg-n0q"/>
                     </constraints>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="249" translatesAutoresizingMaskIntoConstraints="NO" id="XIS-io-93O">
-                    <rect key="frame" x="0.0" y="1" width="321" height="74.5"/>
+                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="249" translatesAutoresizingMaskIntoConstraints="NO" id="XIS-io-93O">
+                    <rect key="frame" x="0.0" y="1" width="321" height="33.5"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <gestureRecognizers/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <connections>
@@ -34,16 +34,16 @@
                     </connections>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9A-zm-Vsv" userLabel="Bottom Divider">
-                    <rect key="frame" x="0.0" y="99" width="321" height="1"/>
+                    <rect key="frame" x="0.0" y="58" width="321" height="1"/>
                     <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="SHs-c6-uUD"/>
                     </constraints>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="249" translatesAutoresizingMaskIntoConstraints="NO" id="ibd-0f-Qty">
-                    <rect key="frame" x="0.0" y="85.5" width="301" height="13.5"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="249" translatesAutoresizingMaskIntoConstraints="NO" id="ibd-0f-Qty">
+                    <rect key="frame" x="0.0" y="44.5" width="301" height="13.5"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                     <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -72,6 +72,7 @@
                 <outlet property="licenseTitleLabel" destination="XIS-io-93O" id="8pI-JQ-bd3"/>
                 <outlet property="topDividerHeight" destination="YNa-Wg-n0q" id="wFO-b7-dWh"/>
             </connections>
+            <point key="canvasLocation" x="133.59999999999999" y="136.28185907046478"/>
         </view>
         <tapGestureRecognizer id="pCB-8t-zNh">
             <connections>
