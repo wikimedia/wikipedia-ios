@@ -98,9 +98,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         previewLicenseView.previewLicenseViewDelegate = self
         
-        buttonX = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(self.goBack))
+        buttonX = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(self.goBack))
         
-        buttonLeftCaret = UIBarButtonItem.wmf_buttonType(WMFButtonType.caretLeft, target: self, action: #selector(self.goBack))
+        buttonLeftCaret = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
         
         buttonSave = UIBarButtonItem(title: WMFLocalizedStringWithDefaultValue("button-publish", nil, nil, "Publish", "Button text for publish button used in various places.\n{{Identical|Publish}}"), style: .done, target: self, action: #selector(self.goForward))
         buttonSave?.tintColor = theme.colors.link
@@ -139,8 +139,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         vc.delegate = self
         vc.apply(theme: theme)
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
-        //[self wmf_addChildControllerFromNibFor:[EditSummaryViewController class] andConstrainToEdgesOfContainerView:self.editSummaryVCContainer];
-        //[self saveAutomaticallyIfNecessary];
         
         if WMFAuthenticationManager.sharedInstance.isLoggedIn {
             previewLicenseView.licenseLoginLabel.isUserInteractionEnabled = false
