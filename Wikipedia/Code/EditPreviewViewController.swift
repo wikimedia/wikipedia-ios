@@ -67,7 +67,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
     private func preview() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-preview-changes", nil, nil, "Retrieving preview of your changes...", "Alert text shown when getting preview of user changes to wikitext"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        fetcher.fetchHTML(forWikiText: self.wikitext, articleURL: self.section?.url) { (previewHTML, error) in
+        fetcher.fetchHTML(forWikiText: wikitext, articleURL: section?.url) { (previewHTML, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
