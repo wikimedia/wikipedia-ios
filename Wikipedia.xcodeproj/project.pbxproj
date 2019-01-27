@@ -923,11 +923,11 @@
 		B08624351F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */; };
 		B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */; };
 		B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */; };
-		B0888C9221FC0CB9006FB6C8 /* ClassNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* ClassNibView.swift */; };
-		B0888C9321FC0CB9006FB6C8 /* ClassNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* ClassNibView.swift */; };
-		B0888C9421FC0CB9006FB6C8 /* ClassNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* ClassNibView.swift */; };
-		B0888C9521FC0CB9006FB6C8 /* ClassNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* ClassNibView.swift */; };
-		B0888C9621FC0CB9006FB6C8 /* ClassNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* ClassNibView.swift */; };
+		B0888C9221FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */; };
+		B0888C9321FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */; };
+		B0888C9421FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */; };
+		B0888C9521FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */; };
+		B0888C9621FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */; };
 		B0888C9821FC15AD006FB6C8 /* EditOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0888C9721FC15AC006FB6C8 /* EditOptionView.xib */; };
 		B0888C9921FC15AD006FB6C8 /* EditOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0888C9721FC15AC006FB6C8 /* EditOptionView.xib */; };
 		B0888C9A21FC15AD006FB6C8 /* EditOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0888C9721FC15AC006FB6C8 /* EditOptionView.xib */; };
@@ -3624,7 +3624,7 @@
 		B0866F431CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionFooter.h; sourceTree = "<group>"; };
 		B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionFooter.m; sourceTree = "<group>"; };
 		B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionFooter.xib; sourceTree = "<group>"; };
-		B0888C9121FC0CB9006FB6C8 /* ClassNibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassNibView.swift; sourceTree = "<group>"; };
+		B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddableView.swift; sourceTree = "<group>"; };
 		B0888C9721FC15AC006FB6C8 /* EditOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditOptionView.xib; sourceTree = "<group>"; };
 		B08E7E991C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFEmptyView.h"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.h"; sourceTree = SOURCE_ROOT; };
 		B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFEmptyView.m"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.m"; sourceTree = SOURCE_ROOT; };
@@ -6348,7 +6348,7 @@
 				B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */,
 				B0F4761921F921D300C4E254 /* EditSummaryViewController.swift */,
 				B0F4761A21F921D300C4E254 /* EditSummaryViewController.xib */,
-				B0888C9121FC0CB9006FB6C8 /* ClassNibView.swift */,
+				B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */,
 				B0207FCB21FBBED9006D6510 /* EditOptionView.swift */,
 				B0888C9721FC15AC006FB6C8 /* EditOptionView.xib */,
 				B04F18C721F947350052D88A /* PreviewLicenseView.swift */,
@@ -10370,7 +10370,7 @@
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
 				B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
-				B0888C9221FC0CB9006FB6C8 /* ClassNibView.swift in Sources */,
+				B0888C9221FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */,
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
@@ -10504,7 +10504,7 @@
 				D80ED2D81EE57F4800CE8C50 /* WMFScrollViewController.swift in Sources */,
 				7A7AC84A21B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
 				D80ED2D91EE57F4800CE8C50 /* NSNumber+MWKTitleNamespace.m in Sources */,
-				B0888C9621FC0CB9006FB6C8 /* ClassNibView.swift in Sources */,
+				B0888C9621FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */,
 				7ADEAB071FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				7AFEB3F91FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				83E52BC31F682E3E0045E776 /* LicenseView.swift in Sources */,
@@ -11397,7 +11397,7 @@
 				D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */,
 				8367A28220D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
-				B0888C9521FC0CB9006FB6C8 /* ClassNibView.swift in Sources */,
+				B0888C9521FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */,
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
@@ -11539,7 +11539,7 @@
 				D8CE25411E698E2400DAE2E0 /* WMFScrollViewController.swift in Sources */,
 				7A7AC84721B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
 				D8CE25421E698E2400DAE2E0 /* NSNumber+MWKTitleNamespace.m in Sources */,
-				B0888C9321FC0CB9006FB6C8 /* ClassNibView.swift in Sources */,
+				B0888C9321FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */,
 				7AFEB3F61FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				7ADEAB041FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				D8CE25471E698E2400DAE2E0 /* PageHistorySection.swift in Sources */,
@@ -11885,7 +11885,7 @@
 				8382F8CF20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				7A7AC84821B6B89B003B849B /* SectionEditorViewController.swift in Sources */,
 				D8EC3E371E9BDA35006712EB /* MWKImageInfoFetcher.m in Sources */,
-				B0888C9421FC0CB9006FB6C8 /* ClassNibView.swift in Sources */,
+				B0888C9421FC0CB9006FB6C8 /* EmbeddableView.swift in Sources */,
 				D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				D8EC3E391E9BDA35006712EB /* NSNumber+MWKTitleNamespace.m in Sources */,
