@@ -233,12 +233,12 @@
                         <outlet property="minorEditToggle" destination="Wq7-Dh-cIU" id="AdV-xV-hWl"/>
                         <outlet property="scrollContainer" destination="7fI-DJ-2eF" id="EqT-xw-cDe"/>
                         <outlet property="scrollView" destination="Mag-UH-fwc" id="Ais-Zf-7ZY"/>
-                        <outletCollection property="dividerHeightConstraits" destination="62E-DT-zBt" collectionClass="NSMutableArray" id="ts3-2Z-DMy"/>
-                        <outletCollection property="dividerViews" destination="6Td-fr-eA2" collectionClass="NSMutableArray" id="hAC-3K-OTb"/>
-                        <outletCollection property="dividerViews" destination="4lL-3a-u6s" collectionClass="NSMutableArray" id="1da-p8-BpE"/>
-                        <outletCollection property="dividerHeightConstraits" destination="IzE-m5-Ivu" collectionClass="NSMutableArray" id="uJi-xP-7rQ"/>
-                        <outletCollection property="dividerHeightConstraits" destination="QMi-Xs-agp" collectionClass="NSMutableArray" id="9S3-m6-QCv"/>
-                        <outletCollection property="dividerViews" destination="yKe-aH-xxx" collectionClass="NSMutableArray" id="wCA-i7-Kjs"/>
+                        <outletCollection property="dividerHeightConstraits" destination="62E-DT-zBt" collectionClass="NSMutableArray" id="xby-Q0-UGd"/>
+                        <outletCollection property="dividerHeightConstraits" destination="QMi-Xs-agp" collectionClass="NSMutableArray" id="tPK-zF-iWs"/>
+                        <outletCollection property="dividerHeightConstraits" destination="IzE-m5-Ivu" collectionClass="NSMutableArray" id="ysr-l5-32n"/>
+                        <outletCollection property="dividerViews" destination="6Td-fr-eA2" collectionClass="NSMutableArray" id="INK-2C-bcY"/>
+                        <outletCollection property="dividerViews" destination="yKe-aH-xxx" collectionClass="NSMutableArray" id="kqT-hD-bP9"/>
+                        <outletCollection property="dividerViews" destination="4lL-3a-u6s" collectionClass="NSMutableArray" id="paH-Ge-UGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lKe-tq-9vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
