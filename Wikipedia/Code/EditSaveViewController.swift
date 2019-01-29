@@ -128,7 +128,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         
         // TODO: show this once we figure out how to handle watchlists (T214749)
-        addToWatchlistStackView.isHidden = false
+        addToWatchlistStackView.isHidden = true
         
         apply(theme: theme)
     }
