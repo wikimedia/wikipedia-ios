@@ -22,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fI-DJ-2eF" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="353"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="523"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bAX-n7-9aq">
-                                                <rect key="frame" x="20" y="0.0" width="335" height="333"/>
+                                                <rect key="frame" x="20" y="0.0" width="335" height="503"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="H2h-I4-15C">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="163"/>
@@ -60,13 +60,134 @@
                                                             <constraint firstAttribute="height" constant="50" placeholder="YES" id="eGV-3m-gnQ"/>
                                                         </constraints>
                                                     </containerView>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-2n-Y9V" userLabel="License summary" customClass="PreviewLicenseView" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="273" width="335" height="60"/>
-                                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" placeholder="YES" id="tgg-Lg-aM2"/>
-                                                        </constraints>
-                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="h78-uR-o9i">
+                                                        <rect key="frame" x="0.0" y="273" width="335" height="132"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3B6-yA-KKL" userLabel="Minor Edit Stack View">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="58"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4lL-3a-u6s" userLabel="Divider view">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="1"/>
+                                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="1" id="IzE-m5-Ivu"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="YgV-Kg-IXp">
+                                                                        <rect key="frame" x="0.0" y="9" width="335" height="49"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-2d-NGU">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="286" height="49"/>
+                                                                                <subviews>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rf9-ar-bHj">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="18"/>
+                                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                                        <nil key="textColor"/>
+                                                                                        <nil key="highlightedColor"/>
+                                                                                    </label>
+                                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Pxq-wG-5IZ" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                                        <rect key="frame" x="0.0" y="23" width="286" height="26"/>
+                                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                                                        <state key="normal" title="Button"/>
+                                                                                        <connections>
+                                                                                            <action selector="minorEditButtonTappedWithSender:" destination="YCc-it-nqb" eventType="touchUpInside" id="dP5-9E-tFd"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </stackView>
+                                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-Dh-cIU">
+                                                                                <rect key="frame" x="286" y="0.0" width="51" height="49"/>
+                                                                            </switch>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Y6O-Zr-ZAJ">
+                                                                <rect key="frame" x="0.0" y="74" width="335" height="58"/>
+                                                                <subviews>
+                                                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKe-aH-xxx" userLabel="Divider view">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="1"/>
+                                                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="1" id="QMi-Xs-agp"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="l63-r5-hhG">
+                                                                        <rect key="frame" x="0.0" y="9" width="335" height="49"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0k3-qz-JG7">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="286" height="49"/>
+                                                                                <subviews>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTw-He-TRu">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="18"/>
+                                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                                        <nil key="textColor"/>
+                                                                                        <nil key="highlightedColor"/>
+                                                                                    </label>
+                                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SDy-gO-kQw" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                                        <rect key="frame" x="0.0" y="23" width="286" height="26"/>
+                                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                                                        <state key="normal" title="Button"/>
+                                                                                        <connections>
+                                                                                            <action selector="watchlistButtonTappedWithSender:" destination="YCc-it-nqb" eventType="touchUpInside" id="dvq-V7-Ge3"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </stackView>
+                                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FAR-zq-Bq9">
+                                                                                <rect key="frame" x="286" y="0.0" width="51" height="49"/>
+                                                                            </switch>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZbI-A8-0p9">
+                                                        <rect key="frame" x="0.0" y="435" width="335" height="68"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Td-fr-eA2" userLabel="Divider view">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="1"/>
+                                                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="62E-DT-zBt"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgO-JK-gnL">
+                                                                <rect key="frame" x="0.0" y="21" width="335" height="13.5"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <gestureRecognizers/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="lMd-5N-ucz" appends="YES" id="YwG-Jk-f01"/>
+                                                                </connections>
+                                                            </label>
+                                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocD-KD-f6u">
+                                                                <rect key="frame" x="0.0" y="54.5" width="335" height="13.5"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <gestureRecognizers/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="ett-vg-bCK" appends="YES" id="7Zh-Y1-17c"/>
+                                                                </connections>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -99,14 +220,38 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="addToWatchlistButton" destination="SDy-gO-kQw" id="5Hx-2l-dap"/>
+                        <outlet property="addToWatchlistLabel" destination="zTw-He-TRu" id="LAM-ZQ-Fvz"/>
+                        <outlet property="addToWatchlistStackView" destination="Y6O-Zr-ZAJ" id="39Z-tI-vaC"/>
+                        <outlet property="addToWatchlistToggle" destination="FAR-zq-Bq9" id="GP4-UY-MCP"/>
                         <outlet property="captchaContainer" destination="bEh-0m-jAS" id="XJu-Rn-30B"/>
                         <outlet property="editSummaryVCContainer" destination="3cs-Ud-1l5" id="P8A-dG-3X8"/>
-                        <outlet property="previewLicenseView" destination="3pQ-2n-Y9V" id="J0Z-xT-IdW"/>
+                        <outlet property="licenseLoginLabel" destination="ocD-KD-f6u" id="CT4-DO-tps"/>
+                        <outlet property="licenseTitleLabel" destination="sgO-JK-gnL" id="97S-9p-sL6"/>
+                        <outlet property="minorEditButton" destination="Pxq-wG-5IZ" id="9cN-m2-oA8"/>
+                        <outlet property="minorEditLabel" destination="rf9-ar-bHj" id="Zf5-sk-JLN"/>
+                        <outlet property="minorEditToggle" destination="Wq7-Dh-cIU" id="AdV-xV-hWl"/>
                         <outlet property="scrollContainer" destination="7fI-DJ-2eF" id="EqT-xw-cDe"/>
                         <outlet property="scrollView" destination="Mag-UH-fwc" id="Ais-Zf-7ZY"/>
+                        <outletCollection property="dividerHeightConstraits" destination="62E-DT-zBt" collectionClass="NSMutableArray" id="xby-Q0-UGd"/>
+                        <outletCollection property="dividerHeightConstraits" destination="QMi-Xs-agp" collectionClass="NSMutableArray" id="tPK-zF-iWs"/>
+                        <outletCollection property="dividerHeightConstraits" destination="IzE-m5-Ivu" collectionClass="NSMutableArray" id="ysr-l5-32n"/>
+                        <outletCollection property="dividerViews" destination="6Td-fr-eA2" collectionClass="NSMutableArray" id="INK-2C-bcY"/>
+                        <outletCollection property="dividerViews" destination="yKe-aH-xxx" collectionClass="NSMutableArray" id="kqT-hD-bP9"/>
+                        <outletCollection property="dividerViews" destination="4lL-3a-u6s" collectionClass="NSMutableArray" id="paH-Ge-UGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lKe-tq-9vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="lMd-5N-ucz">
+                    <connections>
+                        <action selector="licenseTitleLabelTapped:" destination="YCc-it-nqb" id="Mn9-HM-b95"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ett-vg-bCK">
+                    <connections>
+                        <action selector="licenseLoginLabelTapped:" destination="YCc-it-nqb" id="Z62-sU-qH2"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="404.48000000000002" y="-7461.5465880253296"/>
         </scene>

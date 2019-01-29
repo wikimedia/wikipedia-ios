@@ -40,9 +40,10 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
         
         previewWebViewContainer.externalLinksOpenerDelegate = self
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.caretLeft, target: self, action: #selector(self.goBack))
+        navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .plain, target: self, action: #selector(self.goForward))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         
         funnel?.logPreview()
         
@@ -66,7 +67,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
     private func preview() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-preview-changes", nil, nil, "Retrieving preview of your changes...", "Alert text shown when getting preview of user changes to wikitext"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        fetcher.fetchHTML(forWikiText: self.wikitext, articleURL: self.section?.url) { (previewHTML, error) in
+        fetcher.fetchHTML(forWikiText: wikitext, articleURL: section?.url) { (previewHTML, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)

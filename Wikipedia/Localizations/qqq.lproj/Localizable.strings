@@ -141,6 +141,11 @@
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "dim-images" = "Label for image dimming setting";
+"edit-minor-learn-more-text" = "Text for minor edits learn more button";
+"edit-minor-text" = "Text for minor edit label";
+"edit-published" = "Title edit published panel letting user know their edit was saved.";
+"edit-published-button-title" = "Title for edit published panel done button.";
+"edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-style-table-view-title" = "Title for the text style menu in the editing interface";
 "edit-summary-add-summary-text" = "Text for add summary label";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
@@ -150,6 +155,8 @@
 "edit-summary-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
 "edit-text-formatting-table-view-title" = "Title for text formatting menu in the editing interface";
 "edit-text-size-table-view-title" = "Title for text size menu in the editing interface";
+"edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
+"edit-watch-this-page-text" = "Text for watch this page label";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";

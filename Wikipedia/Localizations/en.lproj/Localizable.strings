@@ -141,6 +141,11 @@
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
 "dim-images" = "Dim images";
+"edit-minor-learn-more-text" = "Learn more about minor edits";
+"edit-minor-text" = "This is a minor edit";
+"edit-published" = "Edit published";
+"edit-published-button-title" = "Done";
+"edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-style-table-view-title" = "Style";
 "edit-summary-add-summary-text" = "Add an edit summary";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
@@ -150,6 +155,8 @@
 "edit-summary-placeholder-text" = "How did you improve the article?";
 "edit-text-formatting-table-view-title" = "Text formatting";
 "edit-text-size-table-view-title" = "Text size";
+"edit-watch-list-learn-more-text" = "Learn more about watch lists";
+"edit-watch-this-page-text" = "Watch this page";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
@@ -641,5 +648,5 @@
 "wikitext-upload-save" = "Publishing...";
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
 "wikitext-upload-save-sign-in" = "Log in";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "By publishing changes, you agree to the $1 and agree to release your contribution under the $2 and $3 license.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "By publishing changes, you agree to the $1, and you irrevocably agree to release your contribution under the $2 License and the $3. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
