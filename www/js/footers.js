@@ -22,9 +22,7 @@ class Footer {
       window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
     }
   }
-  addDynamicBottomPadding() {
-    window.addEventListener('resize', function(){requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
-  }
+  
   addMenu() {
     requirements.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
     this.menuItems.forEach(item => {
@@ -69,7 +67,6 @@ class Footer {
       const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
       const titlesShownHandler = titles => {
         window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
-        requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
       }
       requirements.footerReadMore.add(this.articleTitle, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
     }
@@ -81,7 +78,6 @@ class Footer {
   }
   add() {
     this.addContainer()
-    this.addDynamicBottomPadding()
     this.addMenu()
     this.addReadMore()
     this.addLegal()
