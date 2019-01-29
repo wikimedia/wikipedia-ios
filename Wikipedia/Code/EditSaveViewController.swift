@@ -14,7 +14,7 @@ private enum NavigationMode : Int {
     case captcha
 }
 
-class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
+class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
     var section: MWKSection?
     var wikitext = ""
     var funnel: EditFunnel?
@@ -26,10 +26,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     @IBOutlet private var captchaContainer: UIView!
     @IBOutlet private var editSummaryVCContainer: UIView!
     private var borderWidth: CGFloat = 0.0
-    @IBOutlet private var previewLicenseView: PreviewLicenseView!
     @IBOutlet private var minorEditOptionView: EditOptionView!
     @IBOutlet private var watchlistOptionView: EditOptionView!
-    private var previewLicenseTapGestureRecognizer: UIGestureRecognizer?
+    @IBOutlet private var licenseTitleLabel: UILabel!
+    @IBOutlet private var licenseLoginLabel: UILabel!
+    @IBOutlet private var dividerHeightConstraits: [NSLayoutConstraint]!
+    @IBOutlet private var dividerViews: [UIView]!
 
     @IBOutlet private var scrollContainer: UIView!
     private var buttonSave: UIBarButtonItem?
@@ -96,8 +98,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         navigationItem.title = WMFLocalizedStringWithDefaultValue("wikitext-preview-save-changes-title", nil, nil, "Save your changes", "Title for edit preview screens")
         
-        previewLicenseView.previewLicenseViewDelegate = self
-        
         buttonX = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(self.goBack))
         
         buttonLeftCaret = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
@@ -120,12 +120,37 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         minorEditOptionView.button.addTarget(self, action: #selector(minorEditButtonTapped(sender:)), for: .touchUpInside)
         watchlistOptionView.button.addTarget(self, action: #selector(watchlistButtonTapped(sender:)), for: .touchUpInside)
         
+        licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue("wikitext-upload-save-terms-cc-by-sa-and-gfdl", nil, nil, "By publishing changes, you agree to the %1$@, and you irrevocably agree to release your contribution under the %2$@ License and the %3$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2")
+        licenseLoginLabel.text = CommonStrings.editAttribution
+        for dividerHeightContraint in dividerHeightConstraits {
+            dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
+        }
+        
         // TODO: show this once we figure out how to handle watchlists (T214749)
         watchlistOptionView.isHidden = true
         
         apply(theme: theme)
     }
 
+    private func styleLicenseTitleLabelLinks() {
+        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText]
+        let linkAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
+        licenseTitleLabel.attributedText = licenseTitleLabel.text?.attributedString(attributes: baseAttributes, substitutionStrings: [
+            Licenses.localizedSaveTermsTitle,
+            Licenses.localizedCCBYSA3Title,
+            Licenses.localizedGFDLTitle
+            ], substitutionAttributes: [linkAttributes, linkAttributes, linkAttributes])
+    }
+    
+    private func styleLoginLabelLinks() {
+        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText]
+        let substitutionAttributes: [NSAttributedString.Key : AnyObject] = [
+            .underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue),
+            .foregroundColor: theme.colors.link
+        ]
+        licenseLoginLabel.attributedText = licenseLoginLabel.text?.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [substitutionAttributes])
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         captchaViewController?.captchaDelegate = self
         captchaViewController?.apply(theme: theme)
@@ -139,19 +164,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
         
         if WMFAuthenticationManager.sharedInstance.isLoggedIn {
-            previewLicenseView.licenseLoginLabel.isUserInteractionEnabled = false
-            previewLicenseView.licenseLoginLabel.attributedText = nil
-        } else {
-            previewLicenseView.licenseLoginLabel.isUserInteractionEnabled = true
+            licenseLoginLabel.attributedText = nil
         }
-        
-        previewLicenseTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.licenseLabelTapped(_:)))
-        previewLicenseView.licenseLoginLabel.addGestureRecognizer(previewLicenseTapGestureRecognizer!)
         
         super.viewWillAppear(animated)
     }
     
-    @objc private func licenseLabelTapped(_ recognizer: UIGestureRecognizer?) {
+    @IBAction public func licenseLoginLabelTapped(_ recognizer: UIGestureRecognizer?) {
         if recognizer?.state == .ended {
             guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
                 assertionFailure("Expected view controller")
@@ -170,8 +189,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
-        previewLicenseView.licenseLoginLabel.removeGestureRecognizer(previewLicenseTapGestureRecognizer!)
-        
         super.viewWillDisappear(animated)
     }
 
@@ -317,7 +334,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         highlightCaptchaSubmitButton(((solutionText?.count ?? 0) == 0) ? false : true)
     }
     
-    func previewLicenseViewTermsLicenseLabelWasTapped(_ previewLicenseview: PreviewLicenseView?) {
+    @IBAction public func licenseTitleLabelTapped(_ recognizer: UIGestureRecognizer?) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: Licenses.localizedSaveTermsTitle, style: .default, handler: { action in
             self.wmf_openExternalUrl(Licenses.saveTermsURL)
@@ -340,11 +357,17 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         view.backgroundColor = theme.colors.paperBackground
         scrollView.backgroundColor = theme.colors.paperBackground
-        previewLicenseView.apply(theme: theme)
         minorEditOptionView.apply(theme: theme)
         watchlistOptionView.apply(theme: theme)
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
+        licenseTitleLabel.backgroundColor = theme.colors.paperBackground
+        licenseLoginLabel.backgroundColor = theme.colors.paperBackground
+        styleLicenseTitleLabelLinks()
+        styleLoginLabelLinks()
+        for dividerView in dividerViews {
+            dividerView.backgroundColor = theme.colors.tertiaryText
+        }
     }
     
     func learnMoreButtonTapped(sender: UIButton) {

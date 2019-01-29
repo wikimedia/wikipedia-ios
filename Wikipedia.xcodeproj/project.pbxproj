@@ -830,11 +830,6 @@
 		B04C809B1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */; };
 		B04C809C1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */; };
 		B04C809D1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */; };
-		B04F18C821F947350052D88A /* PreviewLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04F18C721F947350052D88A /* PreviewLicenseView.swift */; };
-		B04F18C921F947350052D88A /* PreviewLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04F18C721F947350052D88A /* PreviewLicenseView.swift */; };
-		B04F18CA21F947350052D88A /* PreviewLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04F18C721F947350052D88A /* PreviewLicenseView.swift */; };
-		B04F18CB21F947350052D88A /* PreviewLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04F18C721F947350052D88A /* PreviewLicenseView.swift */; };
-		B04F18CC21F947350052D88A /* PreviewLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04F18C721F947350052D88A /* PreviewLicenseView.swift */; };
 		B0524AF12144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0524AEF2144D7BE00D8FD8D /* DescriptionHelpViewController.swift */; };
 		B0524AF22144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0524AEF2144D7BE00D8FD8D /* DescriptionHelpViewController.swift */; };
 		B0524AF32144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0524AEF2144D7BE00D8FD8D /* DescriptionHelpViewController.swift */; };
@@ -1144,7 +1139,6 @@
 		B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */; };
 		B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
-		B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807101C0CEBF00065EBC0 /* WebViewController.m */; };
 		B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8071E1C0CEC8A0065EBC0 /* main.m */; };
 		B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807351C0CED810065EBC0 /* WMFLogFormatter.m */; };
@@ -1599,7 +1593,6 @@
 		D80ED40B1EE57F4800CE8C50 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		D80ED40C1EE57F4800CE8C50 /* EditSaveViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */; };
 		D80ED40D1EE57F4800CE8C50 /* NotificationBackgroundWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B531DF22E1700B95311 /* NotificationBackgroundWarning.png */; };
-		D80ED40E1EE57F4800CE8C50 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D80ED40F1EE57F4800CE8C50 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D80ED4121EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		D80ED4161EE57F4800CE8C50 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -2211,7 +2204,6 @@
 		D8A42BFD1E815A9C00D8E281 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		D8A42BFE1E815A9C00D8E281 /* EditSaveViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */; };
 		D8A42BFF1E815A9C00D8E281 /* NotificationBackgroundWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B531DF22E1700B95311 /* NotificationBackgroundWarning.png */; };
-		D8A42C001E815A9C00D8E281 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -2494,7 +2486,6 @@
 		D8CE26841E698E2400DAE2E0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		D8CE26851E698E2400DAE2E0 /* EditSaveViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */; };
 		D8CE26861E698E2400DAE2E0 /* NotificationBackgroundWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B531DF22E1700B95311 /* NotificationBackgroundWarning.png */; };
-		D8CE26871E698E2400DAE2E0 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -2804,7 +2795,6 @@
 		D8EC3F841E9BDA35006712EB /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		D8EC3F851E9BDA35006712EB /* EditSaveViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804031C0CDE480065EBC0 /* EditSaveViewController.storyboard */; };
 		D8EC3F861E9BDA35006712EB /* NotificationBackgroundWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B531DF22E1700B95311 /* NotificationBackgroundWarning.png */; };
-		D8EC3F871E9BDA35006712EB /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -3583,7 +3573,6 @@
 		B04AE84B21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKWebViewWithSettableInputViews.swift; sourceTree = "<group>"; };
 		B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array<UITextField>+WMFAllFieldsFilled.swift"; path = "Wikipedia/Code/Array<UITextField>+WMFAllFieldsFilled.swift"; sourceTree = SOURCE_ROOT; };
 		B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WKWebView+WMFWebViewControllerJavascript.swift"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.swift"; sourceTree = SOURCE_ROOT; };
-		B04F18C721F947350052D88A /* PreviewLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewLicenseView.swift; sourceTree = "<group>"; };
 		B0501BBC2110ED8800020BFA /* FeedFunnel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFunnel.swift; sourceTree = "<group>"; };
 		B05033A91D1F2CCA002E7D4F /* WMFImageTagParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTagParser.h; path = Wikipedia/Code/WMFImageTagParser.h; sourceTree = SOURCE_ROOT; };
 		B05033AA1D1F2CCA002E7D4F /* WMFImageTagParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTagParser.m; path = Wikipedia/Code/WMFImageTagParser.m; sourceTree = SOURCE_ROOT; };
@@ -3905,7 +3894,6 @@
 		B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PageHistoryResultPrototypeView.xib; path = Wikipedia/Code/PageHistoryResultPrototypeView.xib; sourceTree = SOURCE_ROOT; };
 		B0E806CD1C0CEB6E0065EBC0 /* PageHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageHistoryViewController.h; path = Wikipedia/Code/PageHistoryViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageHistoryViewController.m; path = Wikipedia/Code/PageHistoryViewController.m; sourceTree = SOURCE_ROOT; };
-		B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreviewLicenseView.xib; path = Wikipedia/Code/PreviewLicenseView.xib; sourceTree = SOURCE_ROOT; };
 		B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = Wikipedia/Code/WMFSharing.h; sourceTree = SOURCE_ROOT; };
 		B0E8070E1C0CEBF00065EBC0 /* WebViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController_Private.h; path = Wikipedia/Code/WebViewController_Private.h; sourceTree = SOURCE_ROOT; };
 		B0E8070F1C0CEBF00065EBC0 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Wikipedia/Code/WebViewController.h; sourceTree = SOURCE_ROOT; };
@@ -6351,8 +6339,6 @@
 				B0888C9121FC0CB9006FB6C8 /* EmbeddableView.swift */,
 				B0207FCB21FBBED9006D6510 /* EditOptionView.swift */,
 				B0888C9721FC15AC006FB6C8 /* EditOptionView.xib */,
-				B04F18C721F947350052D88A /* PreviewLicenseView.swift */,
-				B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */,
 				B0C17B9821FAB060009ED5C3 /* AbuseFilterAlertView.swift */,
 				B0C17B9221FAB048009ED5C3 /* AbuseFilterAlertView.xib */,
 			);
@@ -9194,7 +9180,6 @@
 				B0E804121C0CDE480065EBC0 /* EditSaveViewController.storyboard in Resources */,
 				D8D92B641DF22E1700B95311 /* NotificationBackgroundWarning.png in Resources */,
 				D82E958A1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */,
 				7A6F55FF21AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
@@ -9299,7 +9284,6 @@
 				D80ED40B1EE57F4800CE8C50 /* Launch Screen.storyboard in Resources */,
 				D80ED40C1EE57F4800CE8C50 /* EditSaveViewController.storyboard in Resources */,
 				D80ED40D1EE57F4800CE8C50 /* NotificationBackgroundWarning.png in Resources */,
-				D80ED40E1EE57F4800CE8C50 /* PreviewLicenseView.xib in Resources */,
 				7AF4B71F215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D80ED43B1EE57FCA00CE8C50 /* Wikipedia OSM-Info.plist in Resources */,
 				D80ED40F1EE57F4800CE8C50 /* NotificationBackgroundError@2x.png in Resources */,
@@ -9437,7 +9421,6 @@
 				D8A42BFE1E815A9C00D8E281 /* EditSaveViewController.storyboard in Resources */,
 				D8A42BFF1E815A9C00D8E281 /* NotificationBackgroundWarning.png in Resources */,
 				D82E958D1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				D8A42C001E815A9C00D8E281 /* PreviewLicenseView.xib in Resources */,
 				7A6F560221AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5592051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
@@ -9537,7 +9520,6 @@
 				D8CE26851E698E2400DAE2E0 /* EditSaveViewController.storyboard in Resources */,
 				D8CE26861E698E2400DAE2E0 /* NotificationBackgroundWarning.png in Resources */,
 				D82E958B1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				D8CE26871E698E2400DAE2E0 /* PreviewLicenseView.xib in Resources */,
 				7A6F560021AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
@@ -9637,7 +9619,6 @@
 				D8EC3F851E9BDA35006712EB /* EditSaveViewController.storyboard in Resources */,
 				D8EC3F861E9BDA35006712EB /* NotificationBackgroundWarning.png in Resources */,
 				D82E958C1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				D8EC3F871E9BDA35006712EB /* PreviewLicenseView.xib in Resources */,
 				7A6F560121AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
@@ -10174,7 +10155,6 @@
 				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
 				B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */,
 				B0B423681EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
-				B04F18C821F947350052D88A /* PreviewLicenseView.swift in Sources */,
 				BCD3200D1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8B3D7661EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
@@ -10580,7 +10560,6 @@
 				D80ED32D1EE57F4800CE8C50 /* WMFTableOfContentsCell.swift in Sources */,
 				D80ED32F1EE57F4800CE8C50 /* WMFSettingsMenuItem.m in Sources */,
 				D80ED3311EE57F4800CE8C50 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
-				B04F18CC21F947350052D88A /* PreviewLicenseView.swift in Sources */,
 				B0432348210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				83987AD420E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				83AE1C841F34BB5B004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
@@ -11201,7 +11180,6 @@
 				D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */,
 				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
 				7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */,
-				B04F18CB21F947350052D88A /* PreviewLicenseView.swift in Sources */,
 				D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */,
 				D8A42ABB1E815A9C00D8E281 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				B0524B68214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
@@ -11615,7 +11593,6 @@
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* WMFTableOfContentsCell.swift in Sources */,
 				D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */,
-				B04F18C921F947350052D88A /* PreviewLicenseView.swift in Sources */,
 				B0432345210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				83987AD120E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
@@ -11961,7 +11938,6 @@
 				D8EC3E8B1E9BDA35006712EB /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8EC3E8C1E9BDA35006712EB /* WMFTableOfContentsCell.swift in Sources */,
 				832289DD1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
-				B04F18CA21F947350052D88A /* PreviewLicenseView.swift in Sources */,
 				83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				D8EC3E8E1E9BDA35006712EB /* WMFSettingsMenuItem.m in Sources */,
 				D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
