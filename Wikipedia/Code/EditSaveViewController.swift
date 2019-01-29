@@ -25,14 +25,20 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     @IBOutlet private var captchaContainer: UIView!
     @IBOutlet private var editSummaryVCContainer: UIView!
-    private var borderWidth: CGFloat = 0.0
-    @IBOutlet private var minorEditOptionView: EditOptionView!
-    @IBOutlet private var watchlistOptionView: EditOptionView!
     @IBOutlet private var licenseTitleLabel: UILabel!
     @IBOutlet private var licenseLoginLabel: UILabel!
     @IBOutlet private var dividerHeightConstraits: [NSLayoutConstraint]!
     @IBOutlet private var dividerViews: [UIView]!
 
+    @IBOutlet public var minorEditLabel: UILabel!
+    @IBOutlet public var minorEditButton: AutoLayoutSafeMultiLineButton!
+    @IBOutlet public var minorEditToggle: UISwitch!
+    @IBOutlet public var addToWatchlistLabel: UILabel!
+    @IBOutlet public var addToWatchlistButton: AutoLayoutSafeMultiLineButton!
+    @IBOutlet public var addToWatchlistToggle: UISwitch!
+
+    @IBOutlet public var addToWatchlistStackView: UIStackView!
+    
     @IBOutlet private var scrollContainer: UIView!
     private var buttonSave: UIBarButtonItem?
     private var buttonNext: UIBarButtonItem?
@@ -109,16 +115,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         funnel?.logPreview()
         
-        borderWidth = 1.0 / UIScreen.main.scale
+        minorEditLabel.text = WMFLocalizedStringWithDefaultValue("edit-minor-text", nil, nil, "This is a minor edit", "Text for minor edit label")
+        minorEditButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-minor-learn-more-text", nil, nil, "Learn more about minor edits", "Text for minor edits learn more button"), for: .normal)
 
-        minorEditOptionView.label.text = WMFLocalizedStringWithDefaultValue("edit-minor-text", nil, nil, "This is a minor edit", "Text for minor edit label")
-        minorEditOptionView.button.setTitle(WMFLocalizedStringWithDefaultValue("edit-minor-learn-more-text", nil, nil, "Learn more about minor edits", "Text for minor edits learn more button"), for: .normal)
-
-        watchlistOptionView.label.text = WMFLocalizedStringWithDefaultValue("edit-watch-this-page-text", nil, nil, "Watch this page", "Text for watch this page label")
-        watchlistOptionView.button.setTitle(WMFLocalizedStringWithDefaultValue("edit-watch-list-learn-more-text", nil, nil, "Learn more about watch lists", "Text for watch lists learn more button"), for: .normal)
-
-        minorEditOptionView.button.addTarget(self, action: #selector(minorEditButtonTapped(sender:)), for: .touchUpInside)
-        watchlistOptionView.button.addTarget(self, action: #selector(watchlistButtonTapped(sender:)), for: .touchUpInside)
+        addToWatchlistLabel.text = WMFLocalizedStringWithDefaultValue("edit-watch-this-page-text", nil, nil, "Watch this page", "Text for watch this page label")
+        addToWatchlistButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-watch-list-learn-more-text", nil, nil, "Learn more about watch lists", "Text for watch lists learn more button"), for: .normal)
         
         licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue("wikitext-upload-save-terms-cc-by-sa-and-gfdl", nil, nil, "By publishing changes, you agree to the %1$@, and you irrevocably agree to release your contribution under the %2$@ License and the %3$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2")
         licenseLoginLabel.text = CommonStrings.editAttribution
@@ -127,7 +128,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         
         // TODO: show this once we figure out how to handle watchlists (T214749)
-        watchlistOptionView.isHidden = true
+        addToWatchlistStackView.isHidden = false
         
         apply(theme: theme)
     }
@@ -211,7 +212,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: "\(section.sectionId)", summary: summaryText, isMinorEdit: minorEditOptionView.toggle.isOn, addToWatchlist: watchlistOptionView.toggle.isOn, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: "\(section.sectionId)", summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)
@@ -357,8 +358,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         view.backgroundColor = theme.colors.paperBackground
         scrollView.backgroundColor = theme.colors.paperBackground
-        minorEditOptionView.apply(theme: theme)
-        watchlistOptionView.apply(theme: theme)
+
+        minorEditLabel.textColor = theme.colors.primaryText
+        minorEditButton.titleLabel?.textColor = theme.colors.link
+        addToWatchlistLabel.textColor = theme.colors.primaryText
+        addToWatchlistButton.titleLabel?.textColor = theme.colors.link
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
         licenseTitleLabel.backgroundColor = theme.colors.paperBackground
@@ -374,11 +378,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Edit_summary"))
     }
 
-    @objc func minorEditButtonTapped(sender: UIButton) {
+    @IBAction public func minorEditButtonTapped(sender: UIButton) {
         wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Minor_edit"))
     }
 
-    @objc func watchlistButtonTapped(sender: UIButton) {
+    @IBAction public func watchlistButtonTapped(sender: UIButton) {
         wmf_openExternalUrl(URL(string: "https://en.wikipedia.org/wiki/Help:Watchlist"))
     }
 
