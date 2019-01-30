@@ -35,7 +35,6 @@
 "article-read-more-title" = "ನನಲಾ ಓದುಲೇ";
 "article-share" = "ಪಟ್ಟ್‍ಲೆ";
 "back-button-accessibility-label" = "ಪಿರ";
-"button-done" = "ಆಂಡ್";
 "button-next" = "ನನತಾ";
 "button-ok" = "ಸರಿ";
 "button-publish" = "ಪ್ರಕಟ ಮಾನ್ಪುಲೆ";
@@ -49,8 +48,6 @@
 "compass-direction" = "$1 ಗಂಟೆಗ್";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";
 "edit-summary-choice-linked-words" = "ಕೊಂಡಿ ಸೇರ್ಸಾನ್ಡ್";
-"edit-summary-choice-other" = "ಬೇತೆ";
-"edit-summary-title" = "ವಾ ನಮೂಡೆಡ್ ಈ ಲೇಖನೊನ್ ಎಡ್ಡೆ ಮಾಲ್ತಾರ್?";
 "empty-no-article-message" = "ಮಾಪು ಮಾನ್ಪುಲೇ, ಲೇಕನೋ ದಿಂಜೊಂತ್ತಿಜ್ಜಿ";
 "empty-no-feed-action-message" = "ಇರ್ ಒರಿಪಾಯಿನ ಪುಟೋನ್ ಓದೋಲಿ";
 "empty-no-feed-title" = "ಇಂಟೆರ್ನೇಟ್ ತಿಕೊಂತಿಜ್ಜಿ";
@@ -116,7 +113,6 @@
 "main-menu-account-login" = "ಲಾಗಿನ್ ಆಲೆ";
 "main-menu-account-logout" = "ಲಾಗ್ ಔಟ್";
 "main-menu-account-logout-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
-"main-menu-heading-zero" = "ವಿಕಿಪೀಡಿಯಾ ಜಿರೋ";
 "main-menu-nearby" = "ಒಂಜೆ ನಮೂನೆತಾ";
 "main-menu-privacy-policy" = "ಕಾಸಗಿ ಕಾರ್ಯೊನೀತಿ";
 "main-menu-rate-app" = "Rate the app";
@@ -186,9 +182,3 @@
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
-"zero-charged-verbiage" = "ವಿಕಿಪೀಡಿಯ ಝೀರೋ ಬಂದ್ ಅಂಡ್";
-"zero-interstitial-cancel" = "ಮುಲ್ಪ ಉಂತುಲೆ";
-"zero-interstitial-continue" = "ಬುಡ್ಲೆ";
-"zero-interstitial-title" = "ವಿಕಿಪೀಡಿಯಟ್ ಜೀರೋನ್ ಬುಡ್ಲೆ";
-"zero-learn-more-learn-more" = "ನನಲಾ ಓದುಲೇ";
-"zero-learn-more-no-thanks" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";

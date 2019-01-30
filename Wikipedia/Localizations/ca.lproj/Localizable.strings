@@ -89,7 +89,7 @@
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
 "appearance-settings-expand-tables" = "Expandeix les taules";
 "appearance-settings-expand-tables-footer" = "Estableix que totes les taules en tots els articles es despleguin per defecte, incloent les infotaules, referències, notes i enllaços externs.";
-"appearance-settings-image-dimming-footer" = "Redueix l'opacitat de les imatges en el tema fosc";
+"appearance-settings-image-dimming-footer" = "Redueix l'opacitat de les imatges en els temes fosc i negre";
 "appearance-settings-reading-themes" = "Temes de lectura";
 "appearance-settings-set-automatic-table-opening" = "Preferències de les taules";
 "appearance-settings-text-sizing-example-text" = "Arrossegueu el lliscador per canviar la mida del text de l'article. Feu servir la mida del text del sistema per a canviar la mida d'altres àrees de text de l'aplicació.";
@@ -108,7 +108,6 @@
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back-button-accessibility-label" = "Enrere";
 "back-button-popover-title" = "Feu un toc per anar enrere";
-"button-done" = "Fet";
 "button-next" = "Següent";
 "button-ok" = "D’acord";
 "button-publish" = "Desa";
@@ -163,12 +162,12 @@
 "description-welcome-start-editing-button" = "Comença a editar-hi";
 "dim-images" = "Atenuació d'imatges";
 "edit-style-table-view-title" = "Estil";
+"edit-summary-add-summary-text" = "Afegeix un resum d'edició";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
-"edit-summary-choice-other" = "Altres";
-"edit-summary-field-placeholder-text" = "Altres formes com heu millorat l'article";
-"edit-summary-title" = "Com heu millorat l'article?";
+"edit-summary-learn-more-text" = "Més informació";
+"edit-summary-placeholder-text" = "Com heu millorat l'article?";
 "edit-text-formatting-table-view-title" = "Formatatge del text";
 "edit-text-size-table-view-title" = "Mida del text";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
@@ -216,7 +215,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "No específic de la llengua";
 "explore-feed-preferences-global-cards-title" = "Targetes globals";
 "explore-feed-preferences-hide-card-action-title" = "Amaga la targeta";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Amaga totes les %@ targetes";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Amaga totes les targetes «%@»";
 "explore-feed-preferences-in-the-news-description" = "Articles d'esdeveniments actuals";
 "explore-feed-preferences-languages-footer-text" = "Amagar totes les targetes de canal d'exploració en totes les vostres llengües desactivarà la pestanya d'exploració.";
 "explore-feed-preferences-on-this-day-description" = "Esdeveniments del dia d'avui al llarg de la història";
@@ -274,6 +273,8 @@
 "explore-randomizer" = "Article a l’atzar";
 "feed-news-notification-button-text" = "Activa les notificacions";
 "feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
+"fetcher-error-generic" = "Quelcom ha fallat. Torneu-ho a provar més tard.";
+"fetcher-error-unexpected-response" = "L'aplicació ha rebut una resposta no esperada del servidor. Torneu-ho a provar més tard.";
 "field-alert-captcha-invalid" = "CAPTCHA incorrecte";
 "field-alert-password-confirm-mismatch" = "Les contrasenyes no coincideixen";
 "field-alert-password-invalid" = "Paraula de pas incorrecta";
@@ -357,7 +358,6 @@
 "main-menu-debug-tweaks" = "Paràmetres de desenvolupament";
 "main-menu-heading-debug" = "Depuració";
 "main-menu-heading-legal" = "Privadesa i condicions";
-"main-menu-heading-zero" = "Viquipèdia Zero";
 "main-menu-nearby" = "A prop";
 "main-menu-privacy-policy" = "Política de privadesa";
 "main-menu-rate-app" = "Puntua l'aplicació";
@@ -654,22 +654,13 @@
 "wikitext-preview-changes-none" = "No s'ha fet cap canvi per previsualitzar.";
 "wikitext-preview-link-preview-description" = "L'enllaç porta a «$1»";
 "wikitext-preview-link-preview-title" = "Previsualització de l'enllaç";
+"wikitext-preview-save-changes-title" = "Desa els canvis";
 "wikitext-upload-captcha-error" = "Error de verificació de CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Cal verificació de CAPTCHA.";
 "wikitext-upload-result-unknown" = "No s'ha pogut determinar el resultat de la càrrega del viquitext.";
 "wikitext-upload-save" = "S'està desant...";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "En publicar els canvis esteu d'acord amb els $1 i a alliberar la vostra contribució sota els termes de la llicència $2 i $3.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";
-"zero-charged-verbiage" = "Viquipèdia Zero desactivat";
-"zero-charged-verbiage-extended" = "Carregar articles addicionals pot implicar costos per transmissió de dades. Els articles emmagatzemats sense connexió no impliquen transmissió de dades i són gratuïts.";
-"zero-free-verbiage" = "Accés lliure a la Viquipèdia des del vostre operador mòbil (sense càrrecs per transmissió de dades)";
-"zero-interstitial-cancel" = "Roman aquí";
-"zero-interstitial-continue" = "Sortir";
-"zero-interstitial-leave-app" = "Us poden cobrar per l'ús de dades. Segur que voleu anar al lloc extern?";
-"zero-interstitial-title" = "Sortida de Viquipèdia Zero";
-"zero-learn-more" = "S'aplicaran costos de dades per a aquesta aplicació de la Viquipèdia.";
-"zero-learn-more-learn-more" = "Més informació";
-"zero-learn-more-no-thanks" = "Descarta";
-"zero-warn-when-leaving" = "Avisa'm si se surt de Viquipèdia Zero";

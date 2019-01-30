@@ -7,6 +7,7 @@
 // Author: NehalDaveND
 // Author: Nemo bis
 // Author: Nitin1485
+// Author: Prong$31
 // Author: Rajatkatiyar10
 // Author: Rishi.Singh
 // Author: Sachinkatiyar
@@ -72,6 +73,7 @@
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
 "announcements-dismiss" = "रद्द करें";
 "appearance-settings-adjust-text-sizing" = "लेख में शब्दों का आकार व्यवस्थित करें";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "डार्क थीम पर चित्रों की अपारदर्शिता कम करें";
 "appearance-settings-reading-themes" = "विषय पढ़ रहा";
 // Fuzzy
@@ -90,7 +92,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
 "article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
 "back-button-accessibility-label" = "पीछे";
-"button-done" = "पूर्ण हुआ";
 "button-next" = "अगला";
 "button-ok" = "ठीक है";
 "button-publish" = "प्रकाशित करें";
@@ -107,12 +108,12 @@
 "continue-reading-empty-description" = "विकिपीडिया को और लेख पढ़ने के लिए खोजें";
 "continue-reading-empty-title" = "कोई हाल के पढ़े लेख नहीं";
 "dim-images" = "मंद छवियाँ";
+"edit-summary-add-summary-text" = "सम्पादन सारांश";
 "edit-summary-choice-fixed-grammar" = "व्याकरण सुधार";
 "edit-summary-choice-fixed-typos" = "टाइपो सुधारा गया";
 "edit-summary-choice-linked-words" = "कड़ियाँ लगाई";
-"edit-summary-choice-other" = "अन्य";
-"edit-summary-field-placeholder-text" = "दूसरे तरीके जिनसे अपने लेख को सुधारा";
-"edit-summary-title" = "आपने लेख को कैसे सुधारा?";
+"edit-summary-learn-more-text" = "अधिक जानें";
+"edit-text-size-table-view-title" = "अक्षर आकार";
 "empty-no-article-message" = "क्षमा करें, लेख को लोड नहीं किया जा सका";
 "empty-no-feed-action-message" = "आप फिर भी सहेजे गए पेज पढ़ सकते हैं";
 "empty-no-feed-message" = "जब आपके पास इंटरनेट होगा तब आप सुझाये गए लेख देख सकते हैं";
@@ -223,7 +224,6 @@
 "main-menu-debug-tweaks" = "डेवलपर सेटिंग्स";
 "main-menu-heading-debug" = "डीबग";
 "main-menu-heading-legal" = "गोपनीयता और शर्तें";
-"main-menu-heading-zero" = "विकिपीडिया शून्य";
 "main-menu-nearby" = "पास में";
 "main-menu-privacy-policy" = "गोपनीयता नीति";
 "main-menu-rate-app" = "एप को रेट करें";
@@ -428,16 +428,6 @@
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-sign-in" = "प्रवेश";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "परिवर्तन प्रकाशित करके, आप $1 से सहमत होते हैं और $2 और $3 लाइसेंस के तहत अपना योगदान जारी करने के लिए सहमत होते हैं।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
-"zero-charged-verbiage" = "विकिपीडिया ज़ीरो बंद है";
-"zero-charged-verbiage-extended" = "दूसरे लेखों को लोड करने पर डेटा चार्ज लग सकता है। ऑफलाइन सहेजे गए पेज मुफ़्त हैं और डेटा का प्रयोग नहीं करते।";
-"zero-free-verbiage" = "अपने मोबाइल ऑपरेटर से विकिपीडिया का  मुफ़्त प्रयोग (डाटा शुल्क माफ)";
-"zero-interstitial-cancel" = "यहीं रुकें";
-"zero-interstitial-continue" = "छोड़ें";
-"zero-interstitial-leave-app" = "डेटा चार्ज लग सकते हैं। बाहरी साईट पर आगे बढ़ें?";
-"zero-interstitial-title" = "विकिपीडिया जीरो को छोड़ा जा रहा है";
-"zero-learn-more" = "इस विकिपीडिया एप के लिए डाटा-चार्ज माफ़ किये गए हैं।";
-"zero-learn-more-learn-more" = "अधिक जानें";
-"zero-learn-more-no-thanks" = "ख़ारिज करें";
-"zero-warn-when-leaving" = "चेतावनी दें अगर ज़ीरो को छोड़ा जा रहा है";

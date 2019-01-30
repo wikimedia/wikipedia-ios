@@ -3,6 +3,7 @@
 // Author: Agusbou2015
 // Author: Astroemi
 // Author: Dgstranz
+// Author: Dschultz
 // Author: Elisardojm
 // Author: Fitoschido
 // Author: Indiralena
@@ -97,6 +98,7 @@
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
 "appearance-settings-expand-tables" = "Ampliar tablas";
 "appearance-settings-expand-tables-footer" = "Definir que se desplieguen todas las tablas de los artículos de manera predeterminada, incluidas las fichas, las referencias, las notas y los enlaces externos.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tablas";
@@ -116,7 +118,6 @@
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
-"button-done" = "Hecho";
 "button-next" = "Siguiente";
 "button-ok" = "Aceptar";
 "button-publish" = "Publicar";
@@ -139,9 +140,6 @@
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
-"edit-summary-choice-other" = "Otro";
-"edit-summary-field-placeholder-text" = "Otras formas en las que mejoraste el artículo";
-"edit-summary-title" = "¿Cómo has mejorado el artículo?";
 "edit-text-formatting-table-view-title" = "Formato del texto";
 "edit-text-size-table-view-title" = "Tamaño del texto";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
@@ -274,7 +272,6 @@
 "main-menu-debug-tweaks" = "Configuración del desarrollador";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidad y términos";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Cercanos";
 "main-menu-privacy-policy" = "Normativa de privacidad";
 "main-menu-rate-app" = "Califica la aplicación";
@@ -521,16 +518,5 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 "wikitext-upload-save-sign-in" = "Acceder";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Al publicar cambios, aceptas los $1 y a liberar tu contribución bajo los términos de la licencia $2 y $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Por cambios editoriales,  apalabras el $<span class=\"notranslate\">1</span>, y tú irrevocably apalabrar liberar vuestra contribución bajo el $<span class=\"notranslate\">2</span> Licencia y el $3.  Estás de acuerdo que un hiperenlace o URL es atribución suficiente bajo el Creativo Commons licencia.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
-"zero-charged-verbiage" = "Wikipedia Zero está desactivado";
-"zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";
-"zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
-"zero-interstitial-cancel" = "Permanecer aquí";
-"zero-interstitial-continue" = "Continuar";
-"zero-interstitial-leave-app" = "Pueden aplicarse cargos por datos. ¿Continuar a sitio externo?";
-"zero-interstitial-title" = "Salir de Wikipedia Zero";
-"zero-learn-more" = "Esta aplicación de Wikipedia está exenta de cargos por uso de datos.";
-"zero-learn-more-learn-more" = "Más información";
-"zero-learn-more-no-thanks" = "Descartar";
-"zero-warn-when-leaving" = "Avisar al salir de Zero";

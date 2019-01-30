@@ -86,6 +86,7 @@
 "appearance-settings-adjust-text-sizing" = "Прилагоди величину текста";
 "appearance-settings-expand-tables" = "Прошири табеле";
 "appearance-settings-expand-tables-footer" = "Раширите све табеле у свим чланцима по подразумеваном, укључујући кратке чињенице, референце, белешке и спољашње линкове.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Смањите непровидност слика у тамној теми";
 "appearance-settings-reading-themes" = "Теме за читање";
 "appearance-settings-set-automatic-table-opening" = "Подешавања табела";
@@ -105,7 +106,6 @@
 "article-unable-to-load-section" = "Није могуће учитати овај одељак. Проверите да ли ће поновно учитавање чланка решити проблем.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Додирните да бисте се вратили";
-"button-done" = "Готово";
 "button-next" = "Следеће";
 "button-ok" = "У реду";
 "button-publish" = "Објави";
@@ -163,9 +163,6 @@
 "edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
-"edit-summary-choice-other" = "Друго";
-"edit-summary-field-placeholder-text" = "Други начини на које сте побољшали чланак";
-"edit-summary-title" = "На који начин сте побољшали чланак?";
 "edit-text-formatting-table-view-title" = "Обликовање текста";
 "edit-text-size-table-view-title" = "Величина текста";
 "empty-no-article-message" = "Није могуће учитати чланак";
@@ -213,6 +210,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Невезано за језик";
 "explore-feed-preferences-global-cards-title" = "Глобалне картице";
 "explore-feed-preferences-hide-card-action-title" = "Сакриј ову картицу";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Сакриј све %@ картице";
 "explore-feed-preferences-in-the-news-description" = "Чланци о тренутним догађајима";
 "explore-feed-preferences-languages-footer-text" = "Скривањем свих картица на свим вашим језицима, искључићете фид „Истражи”.";
@@ -354,7 +352,6 @@
 "main-menu-debug-tweaks" = "Подешавања за програмера";
 "main-menu-heading-debug" = "Исправке";
 "main-menu-heading-legal" = "Приватност и услови";
-"main-menu-heading-zero" = "Википедија нула";
 "main-menu-nearby" = "У близини";
 "main-menu-privacy-policy" = "Политика приватности";
 "main-menu-rate-app" = "Оцени апликацију";
@@ -657,16 +654,6 @@
 "wikitext-upload-save" = "Објављујем…";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-sign-in" = "Пријава";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Чувањем промена, слажете се са $1 и прихватате објављивање свог доприноса под лиценцама $2 и $3.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
-"zero-charged-verbiage" = "Википедија нула је искључена";
-"zero-charged-verbiage-extended" = "Учитавањем других чланака можете сносити трошкове. Сачувани чланци за читање офлајн не користе податке и бесплатни су.";
-"zero-free-verbiage" = "Бесплатан приступ Википедији преко вашег мобилног оператера (пренос података се не наплаћује)";
-"zero-interstitial-cancel" = "Остани";
-"zero-interstitial-continue" = "Напусти";
-"zero-interstitial-leave-app" = "Пренос података може бити наплаћен. Наставити на спољашњи сајт?";
-"zero-interstitial-title" = "Напуштање Википедије нула";
-"zero-learn-more" = "Пренос података за апликацију Википедија се не наплаћује.";
-"zero-learn-more-learn-more" = "Прочитајте више";
-"zero-learn-more-no-thanks" = "Одбаци";
-"zero-warn-when-leaving" = "Упозори ме при напуштању Википедије нула";

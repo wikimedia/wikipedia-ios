@@ -74,6 +74,7 @@
 "appearance-settings-adjust-text-sizing" = "ပညဳ ဇမၞော် မအက္ခရ် လိက်ပရေင်";
 "appearance-settings-expand-tables" = "ဇၞော်ပတိုန် သ္ၚိအင်";
 "appearance-settings-expand-tables-footer" = "လိက်ပရေင် သီုဖအိုတ်ကီု သီုကဵု သ္ၚိအင်ဂှ် ပံက် နကဵု default, သီုကဵု Quick facts, References, Notes သီုကဵု External links.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "ဖျအ်ဖျေဟ် လျးလက္ကရဴ ဗီုရုပ် ပ္ဍဲဒၞာဲလမ္စံက်";
 "appearance-settings-reading-themes" = "ဒၞာဲ ဗွဟ်";
 "appearance-settings-set-automatic-table-opening" = "သ္ၚိအင် ဒၞာဲမဖျေဟ်ဒၞာဲ";
@@ -93,7 +94,6 @@
 "article-unable-to-load-section" = "ကဏ္ဍဏအ် ထ္ၜး ဟွံဂွံ၊၊ ကလေင်မ္ၚုဟ်ထောအ် လိက်ပရေင်ဏအ် သွက်ဂွံ ဗှ်ညာတ်၊ ယဝ်ရ အခက်အခုဲနွံဒၟံင်မ္ဂး၊၊";
 "back-button-accessibility-label" = "ကလေင်";
 "back-button-popover-title" = "ကလေင်အာ လပါ်လက္ကရဴ";
-"button-done" = "တုဲဒှ်";
 "button-next" = "ဂတ";
 "button-ok" = "OK";
 "button-publish" = "တြးပတိတ်";
@@ -150,9 +150,6 @@
 "edit-summary-choice-fixed-grammar" = "ပလေဝ်ပလေတ် သဒ္ဒါ";
 "edit-summary-choice-fixed-typos" = "ပလေဝ်ပလေတ် ဗီုပြင်";
 "edit-summary-choice-linked-words" = "စုတ် လေန်";
-"edit-summary-choice-other" = "တၞဟ်";
-"edit-summary-field-placeholder-text" = "မၞး ပခိုဟ်ပတိုန် လိက်ပရေင် နကဵုနဲတၞဟ်";
-"edit-summary-title" = "ဗီုလဵု မၞး ဂွံပခိုဟ်ပတိုန် လိက်ပရေင်ရော？";
 "empty-no-article-message" = "သၠးအခေါင်၊ မၞးဗဵု လိက်ပရေင်ဂှ် ဟွံဂွံ";
 "empty-no-feed-action-message" = "မၞး ဆက်ဗှ် မုက်လိက် မဂိုင်လဝ်တုဲ ဂွံ";
 "empty-no-feed-message" = "လိက်ပရေင် မၞးမကဵုလဝ် ကသပ်တအ်ဂှ် မၞးမဂွံဆဵုကေတ်မာန် ကာလမၞးအေန်တာနေတ် နွံတှ်ေ၊၊";
@@ -196,6 +193,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "အရေဝ်ဘာသာလဵု ဟွံဆက်စပ်";
 "explore-feed-preferences-global-cards-title" = "ကာတ် အလုံလိုက်";
 "explore-feed-preferences-hide-card-action-title" = "ဗဒန် ကာတ် ဏအ်";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ပၞုက်ဗဒန်  %@ ကာတ် သီုဖအိုတ်";
 "explore-feed-preferences-in-the-news-description" = "လိက်ပရေင် ပရူ အရာမဒှ်ဒၟံင် လၟုဟ်";
 "explore-feed-preferences-languages-footer-text" = "မၞး ပၞုက်ဗဒန်ထောအ် ပ္ဍဲဒၞာဲ ဘာသာမၞးမ္ဂး ဍေဟ်ကၟာတ်အာ ပ္ဍဲဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊၊";
@@ -333,7 +331,6 @@
 "main-menu-debug-tweaks" = "ဒၞာဲမဖျေဟ်ဒၞာဲ သွက်ဂွံပခိုဟ်ပတိုန်";
 "main-menu-heading-debug" = "သ္ၚေဝ်ဂၠာဲဟိုတ်ဖဵု";
 "main-menu-heading-legal" = "Privacy and Terms";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "ဗဒဲါဒၞာဲဏအ်";
 "main-menu-privacy-policy" = "ပဝ်လသဳ မဆေင်ကဵု အခေါင်အရာပူဂဵု";
 "main-menu-rate-app" = "ကဵုစၟတ် ကု app";
@@ -629,16 +626,6 @@
 "wikitext-upload-save" = "ပတိတ်တြးဒၟံင်...";
 "wikitext-upload-save-anonymously-warning" = "ပလေဝ်ဒါန်ဂှ် တြးပတိတ် ပ္ဍဲ IP address device မၞး. ယဝ်ရ မၞး $1 မ္ဂး မၞး သကလိဂွံ အခေါင်ပုဂ္ဂလိ ဂၠိုင်ရ၊၊";
 "wikitext-upload-save-sign-in" = "လုပ်လံက်အေန်";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "နကဵု မတြးပတိတ်ဂှ် မၞးတုပ်စိုတ် သွက် $1 ကေုာံ တုပ်စိုတ် သွက်ဂွံ ဗလးပတိတ် လိက်မၞး နကဵုသၟဝ် လာင်ဇြေန် $2 ကေုာံ $3၊၊";
 "wikitext-upload-save-terms-name" = "Terms of Use";
-"zero-charged-verbiage" = "Wikipedia Zero ဂှ် ကၟာတ်";
-"zero-charged-verbiage-extended" = "မပံက် လိက်ပရေင်တၞဟ်မ္ဂး အရာမၞုံဒၟံင် လၟုဟ်ဂှ် ပြံင်လှာဲအာမာန်ရ၊၊ ဂိုင်သိပ် လိက်ပရေင် ပ္ဍဲဒၞာဲဂိုင်ဒိပ်မ္ဂး ဟွံစကာ ဒါတာအေန်တာနေတ် တုဲ ဒှ် သက္ကုၚုဟ်ရ၊၊";
-"zero-free-verbiage" = "Free Wikipedia လုပ်စိုပ် နူစက်ဖုန်မၞး (data charges waived)";
-"zero-interstitial-cancel" = "ဆက်မံင် ဒၞာဲဏအ်";
-"zero-interstitial-continue" = "တိတ်";
-"zero-interstitial-leave-app" = "တင်ဂၞင် ပြံင်လှာဲမ္ဂး ဒးဗမံက်ထ္ၜး၊၊ ဆက်စကာ နကဵုမုက်လိက်မ္ၚးဟာ？";
-"zero-interstitial-title" = "တိတ် နူ Wikipedia Zero";
-"zero-learn-more" = "Data charges are waived for this Wikipedia app.";
-"zero-learn-more-learn-more" = "ဆက် ဗှ်";
-"zero-learn-more-no-thanks" = "ပလီု";
-"zero-warn-when-leaving" = "ကဵုသတိ ယဝ်ရ တိတ်နူ Zero";

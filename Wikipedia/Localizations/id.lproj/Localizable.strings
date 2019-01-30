@@ -92,6 +92,7 @@
 "appearance-settings-adjust-text-sizing" = "Sesuaikan ukuran teks artikel";
 "appearance-settings-expand-tables" = "Perluas tabel";
 "appearance-settings-expand-tables-footer" = "Tetapkan semua tabel di semua artikel agar dibuka secara default, termasuk Fakta singkat, Referensi, Catatan dan Pranala luar.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Turunkan kegelapan gambar pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
 "appearance-settings-set-automatic-table-opening" = "Pengaturan Tabel";
@@ -111,7 +112,6 @@
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "back-button-accessibility-label" = "Kembali";
 "back-button-popover-title" = "Ketuk untuk kembali";
-"button-done" = "Selesai";
 "button-next" = "Lanjut";
 "button-ok" = "Oke";
 "button-publish" = "Terbitkan";
@@ -168,9 +168,6 @@
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-typos" = "Perbaikan kesalahan ketik";
 "edit-summary-choice-linked-words" = "Penambahan pranala";
-"edit-summary-choice-other" = "Lainnya";
-"edit-summary-field-placeholder-text" = "Cara lain Anda menyempurnakan artikel";
-"edit-summary-title" = "Bagaimana Anda menyempurnakan artikel ini?";
 "edit-text-size-table-view-title" = "Ukuran teks";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
@@ -217,6 +214,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
 "explore-feed-preferences-global-cards-title" = "Kartu global";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kartu ini";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua %@ kartu";
 "explore-feed-preferences-in-the-news-description" = "Artikel mengenai peristiwa saat ini";
 "explore-feed-preferences-languages-footer-text" = "Menyembunyikan semua kartu umpan Jelajahi dalam semua bahasa Anda akan mematikan tab Jelajahi.";
@@ -357,7 +355,6 @@
 "main-menu-debug-tweaks" = "Pengaturan pengembang";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privasi dan Ketentuan";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Sekitar";
 "main-menu-privacy-policy" = "Kebijakan privasi";
 "main-menu-rate-app" = "Beri nilai aplikasi";
@@ -661,16 +658,6 @@
 "wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";
-"zero-charged-verbiage" = "Wikipedia Zero dimatikan";
-"zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";
-"zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
-"zero-interstitial-cancel" = "Tetap di sini";
-"zero-interstitial-continue" = "Tinggalkan";
-"zero-interstitial-leave-app" = "Biaya data mungkin berlaku. Lanjutkan ke situs eksternal?";
-"zero-interstitial-title" = "Meninggalkan Wikipedia Zero";
-"zero-learn-more" = "Biaya data dibebaskan untuk aplikasi Wikipedia ini.";
-"zero-learn-more-learn-more" = "Baca lebih lanjut";
-"zero-learn-more-no-thanks" = "Tutup";
-"zero-warn-when-leaving" = "Peringatkan jika meninggalkan Zero";
