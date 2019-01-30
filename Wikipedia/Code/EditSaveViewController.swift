@@ -134,7 +134,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func styleLicenseTitleLabelLinks() {
-        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText]
+        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         let linkAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
         licenseTitleLabel.attributedText = licenseTitleLabel.text?.attributedString(attributes: baseAttributes, substitutionStrings: [
             Licenses.localizedSaveTermsTitle,
@@ -144,7 +144,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func styleLoginLabelLinks() {
-        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText]
+        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         let substitutionAttributes: [NSAttributedString.Key : AnyObject] = [
             .underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue),
             .foregroundColor: theme.colors.link
