@@ -88,6 +88,8 @@ class DefaultEditToolbarView: EditToolbarView {
     }
 
     @IBAction private func revealMoreActions(_ sender: UIButton) {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
         let offsetX = scrollView.contentOffset.x
         let actionsType = ActionsType.next(rawValue: offsetX)
         revealMoreActions(ofType: actionsType, with: sender, animated: true)
