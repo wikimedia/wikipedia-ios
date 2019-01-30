@@ -60,12 +60,7 @@ class EditSummaryViewController: UIViewController, Themeable {
         
         apply(theme: theme)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        summaryTextField.becomeFirstResponder()
-    }
-    
+        
     @IBAction private func learnMoreButtonTapped(sender: UIButton) {
         delegate?.learnMoreButtonTapped(sender: sender)
     }
