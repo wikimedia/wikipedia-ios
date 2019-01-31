@@ -51,3 +51,7 @@ body {
 .cm-searching-focus {
   background-color: #fc3 !important;
 }
+
+.cm-mw-skipformatting {
+    background-color: unset !important;
+}
