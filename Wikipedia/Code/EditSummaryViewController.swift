@@ -109,3 +109,10 @@ extension EditSummaryViewController: UITextFieldDelegate {
         return newLength <= EditSummaryViewController.maximumSummaryLength
     }
 }
+
+public class SummaryButtonScrollView: UIScrollView {
+    override public var intrinsicContentSize: CGSize {
+        subviews.first?.layoutIfNeeded()
+        return subviews.first?.frame.size ?? .zero
+    }
+}
