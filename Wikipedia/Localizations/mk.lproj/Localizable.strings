@@ -4,6 +4,7 @@
 // Author: Bsitzmann
 // Author: Macofe
 // Author: Nemo bis
+// Author: Vlad5250
 // Author: Монтехристо
 
 "about-content-license" = "Лиценца на содржината";
@@ -355,7 +356,7 @@
 "main-menu-heading-legal" = "Лични податоци и услови";
 "main-menu-nearby" = "Во близина";
 "main-menu-privacy-policy" = "Заштита на личните податоци";
-"main-menu-rate-app" = "Оценете го прилогов";
+"main-menu-rate-app" = "Оценете го прилогот";
 "main-menu-terms-of-use" = "Услови на употреба";
 "main-menu-title" = "Повеќе";
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";

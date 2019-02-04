@@ -217,8 +217,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "言語に関係ないもの";
 "explore-feed-preferences-global-cards-title" = "グローバルカード";
 "explore-feed-preferences-hide-card-action-title" = "カードを隠す";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "%@のカードをすべて非表示";
+"explore-feed-preferences-hide-feed-cards-action-title" = "「%@」のカードをすべて非表示";
 "explore-feed-preferences-in-the-news-description" = "最近の出来事の記事";
 "explore-feed-preferences-on-this-day-description" = "今日は何の日";
 "explore-feed-preferences-places-description" = "付近のスポット";
@@ -516,8 +515,7 @@
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
 "saved-pages-progress-syncing" = "記事をダウンロードしています…";
 "saved-reading-lists-title" = "あとで読むリスト";
-// Fuzzy
-"saved-search-default-text" = "検索";
+"saved-search-default-text" = "保存した記事の検索";
 "saved-title" = "保存済み";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|この記事を削除|これらの記事を削除}}すると、すべての関連するあとで読むリストから消去されます";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|記事|記事}}を削除しますか？";

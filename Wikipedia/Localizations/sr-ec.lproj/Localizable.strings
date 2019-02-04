@@ -159,12 +159,19 @@
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "dim-images" = "Затамни слике";
+"edit-minor-learn-more-text" = "Сазнајте више о мањим изменама";
+"edit-minor-text" = "Ова измена је мања";
+"edit-published" = "Измена је објављена";
+"edit-published-button-title" = "Готово";
+"edit-published-subtitle" = "Управо сте учинили Википедију бољом за свакога";
 "edit-style-table-view-title" = "Стил";
 "edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-text-formatting-table-view-title" = "Обликовање текста";
 "edit-text-size-table-view-title" = "Величина текста";
+"edit-watch-list-learn-more-text" = "Сазнајте више о листама за надгледање";
+"edit-watch-this-page-text" = "Надгледај ову страницу";
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
 "empty-no-feed-message" = "Препоручене чланке ћете видети када будете онлајн";
@@ -654,6 +661,5 @@
 "wikitext-upload-save" = "Објављујем…";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-sign-in" = "Пријава";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Чувањем промена, слажете се са $1 и прихватате објављивање свог доприноса под лиценцама $2 и $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Објављивањем промена, прихватате $1 и неопозиво се слажете да објавите допринос под лиценцама $2 и $3. Слажете се да су хипервеза или URL адреса довољнo приписивање под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";

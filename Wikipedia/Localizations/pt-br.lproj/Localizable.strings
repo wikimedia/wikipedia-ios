@@ -172,6 +172,11 @@
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
 "dim-images" = "Imagens fracas";
+"edit-minor-learn-more-text" = "Saiba mais sobre edições menores";
+"edit-minor-text" = "Esta é uma edição menor";
+"edit-published" = "Editar publicado";
+"edit-published-button-title" = "Feito";
+"edit-published-subtitle" = "Você acabou de tornar a Wikipédia melhor para todos";
 "edit-style-table-view-title" = "Estilo";
 "edit-summary-add-summary-text" = "Adicionar um resumo de edição";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
@@ -181,6 +186,8 @@
 "edit-summary-placeholder-text" = "Como foi que você melhorou o artigo?";
 "edit-text-formatting-table-view-title" = "Formatação de texto";
 "edit-text-size-table-view-title" = "Tamanho do texto";
+"edit-watch-list-learn-more-text" = "Saiba mais sobre listas de vigiados";
+"edit-watch-this-page-text" = "Vigiar esta página";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
@@ -672,6 +679,5 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ao publicar mudanças, você concorda com o $1 e concorda em divulgar sua contribuição sob a licença $2 e $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ao publicar mudanças, você concorda com o $1 e concorda irrevogavelmente em liberar sua contribuição sob a licença de $2 e $3. Você concorda que um hiperlink ou URL é uma atribuição suficiente sob a licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termo de uso";

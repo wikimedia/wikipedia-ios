@@ -138,6 +138,7 @@
 "edit-minor-learn-more-text" = "Lær mere om mindre ændringer";
 "edit-minor-text" = "Dette er en mindre ændring";
 "edit-published-button-title" = "Udført";
+"edit-published-subtitle" = "Du har lige gjort Wikipedia bedre for alle";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -145,6 +146,7 @@
 "edit-summary-learn-more-text" = "Lær mere";
 "edit-summary-placeholder-text" = "Hvordan har du forbedret artiklen?";
 "edit-text-size-table-view-title" = "Tekst størrelse";
+"edit-watch-list-learn-more-text" = "Lær mere om overvågningslister";
 "edit-watch-this-page-text" = "Overvåg denne side";
 "empty-no-article-message" = "Beklager, kunne ikke indlæse artiklen";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";

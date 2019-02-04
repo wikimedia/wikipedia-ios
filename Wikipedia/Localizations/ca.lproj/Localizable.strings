@@ -161,6 +161,11 @@
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
 "dim-images" = "Atenuació d'imatges";
+"edit-minor-learn-more-text" = "Més informació sobre les modificacions menors";
+"edit-minor-text" = "Aquesta és una modificació menor";
+"edit-published" = "S'ha publicat la modificació";
+"edit-published-button-title" = "Fet";
+"edit-published-subtitle" = "Heu millorat la Viquipèdia per a tothom";
 "edit-style-table-view-title" = "Estil";
 "edit-summary-add-summary-text" = "Afegeix un resum d'edició";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
@@ -170,6 +175,8 @@
 "edit-summary-placeholder-text" = "Com heu millorat l'article?";
 "edit-text-formatting-table-view-title" = "Formatatge del text";
 "edit-text-size-table-view-title" = "Mida del text";
+"edit-watch-list-learn-more-text" = "Més informació sobre les llistes de seguiment";
+"edit-watch-this-page-text" = "Vigila aquesta pàgina";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
@@ -661,6 +668,5 @@
 "wikitext-upload-save" = "S'està desant...";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "En publicar els canvis esteu d'acord amb els $1 i a alliberar la vostra contribució sota els termes de la llicència $2 i $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "En publicar els canvis esteu d'acord amb els $1 i a alliberar la vostra contribució sota els termes de la llicència $2 i $3. Esteu d'acord que un hiperenllaç o un URL és una atribució suficient per a la llicència Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";

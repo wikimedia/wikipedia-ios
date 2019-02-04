@@ -54,10 +54,12 @@
 "edit-minor-text" = "Šis ir maznozīmīgs labojums";
 "edit-published" = "Labojums publicēts";
 "edit-published-button-title" = "Gatavs";
+"edit-published-subtitle" = "Tu tikko padarīji Vikipēdiju labāku visiem";
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-linked-words" = "Pievienotas saites";
 "edit-summary-learn-more-text" = "Uzzināt vairāk";
+"edit-watch-this-page-text" = "Uzraudzīt šo lapu";
 "empty-no-feed-title" = "Nav interneta savienojuma";
 "empty-no-search-results-message" = "Nav atrasts neviens rezultāts";
 "explore-another-random" = "Vēl viens nejaušs raksts";

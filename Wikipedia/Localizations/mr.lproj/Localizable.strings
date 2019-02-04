@@ -112,7 +112,7 @@
 "license-footer-text" = "तसे नोंदविलेले नसेल तर, यातील आशय हा $1 अंतर्गत उपलब्ध आहे";
 "main-menu-about" = "अॅप विषयी";
 "main-menu-account-login" = "सनोंद-प्रवेश करा";
-"main-menu-account-logout" = "सनोंद-निर्गम";
+"main-menu-account-logout" = "बाहेर पडा";
 "main-menu-account-logout-are-you-sure" = "आपण निश्चित करता काय कि आपणास निर्गमित व्हायचे आहे?";
 "main-menu-account-logout-cancel" = "रद्द करा";
 "main-menu-account-title-logged-in" = "सनोंद प्रवेशित $1 म्हणून";

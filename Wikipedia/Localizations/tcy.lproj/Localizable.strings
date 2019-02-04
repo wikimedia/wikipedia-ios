@@ -46,8 +46,15 @@
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
+"edit-minor-learn-more-text" = "ಎಲ್ಯ ಸಂಪಾದಲೆನ ಬಗ್ಗೆ ಎಚ್ಚ ಕಲ್ಪುಲೆ.";
+"edit-minor-text" = "ಉಂದು ಎಲ್ಯ ಬದಲಾವಣೆ";
+"edit-published" = "ಸಂಪಾದ ಪ್ರಕಟಿಂಡ್";
+"edit-published-button-title" = "ಆಂಡ್.";
+"edit-published-subtitle" = "ಈರ್ ಇತ್ತೆ ವಿಕಿಪೀಡಿಯೊನು  ಮಾತೆರೆಗಾದ್ ಸುಧಾರಿಸಾಯೆರ್.";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";
 "edit-summary-choice-linked-words" = "ಕೊಂಡಿ ಸೇರ್ಸಾನ್ಡ್";
+"edit-watch-list-learn-more-text" = "ವೀಕ್ಷಣ ಪಟ್ಟಿಲೆನ ಬಗ್ಗೆ ಎಚ್ಚ ಕಲ್ಪುಲೆ.";
+"edit-watch-this-page-text" = "ಈ ಪುಟೊನು ತೂಲೆ.";
 "empty-no-article-message" = "ಮಾಪು ಮಾನ್ಪುಲೇ, ಲೇಕನೋ ದಿಂಜೊಂತ್ತಿಜ್ಜಿ";
 "empty-no-feed-action-message" = "ಇರ್ ಒರಿಪಾಯಿನ ಪುಟೋನ್ ಓದೋಲಿ";
 "empty-no-feed-title" = "ಇಂಟೆರ್ನೇಟ್ ತಿಕೊಂತಿಜ್ಜಿ";
@@ -181,4 +188,5 @@
 "wikitext-downloading" = "ಮಾಹಿತಿ ದಿಂಜೋತುಂಡು...";
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "ಬದಲಾವಣೆಲೆನ್ ಪ್ರಕಟಿಸಾನಗ,ಈರ್ $1 ಒಪ್ಪುವರ್ ಬೊಕ ಈರ್ ಇರೆನ $2 ತ ಬೊಕ $3 ಪರವಾನೆದ ಅಡಿತ ಕಾಣಿಕೆನ್ ಪಿರತಿರ್ಗಾವಂದೆ ಬುಡುಕೊರ್ಪರ್. ಈರ್ ಕ್ರಿಯೇಟಿವ್ ಕಾಮನ್ಸ್ ಪರವಾನೆದ ಅಡಿಟ್ ಒಂಜಿ ಅತಿಶಯಕೊಂಡಿ ಇಜಿಂಡ ಯು.ಆರ್.ಎಲ್.ದ ಗುಣವಿಶೇಷ ಯಾವು ಇಂದ್ ಒಪ್ಪುವರ್.";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";

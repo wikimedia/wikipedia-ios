@@ -168,6 +168,11 @@
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
 "dim-images" = "이미지를 어둡게";
+"edit-minor-learn-more-text" = "사소한 편집에 대해 더 알아보기";
+"edit-minor-text" = "사소한 편집입니다";
+"edit-published" = "편집이 게시됐습니다";
+"edit-published-button-title" = "완료";
+"edit-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
 "edit-style-table-view-title" = "스타일";
 "edit-summary-add-summary-text" = "편집 요약을 추가합니다";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
@@ -177,6 +182,8 @@
 "edit-summary-placeholder-text" = "어떻게 문서를 개선했습니까?";
 "edit-text-formatting-table-view-title" = "텍스트 서식 지정";
 "edit-text-size-table-view-title" = "텍스트 크기";
+"edit-watch-list-learn-more-text" = "주시문서 목록에 대해 더 알아보기";
+"edit-watch-this-page-text" = "이 문서 주시하기";
 "empty-no-article-message" = "죄송합니다, 문서를 불러올 수 없습니다";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
