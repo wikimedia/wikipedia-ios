@@ -1,5 +1,6 @@
 #import "WMFAppViewController.h"
 @import WMF;
+@import SystemConfiguration;
 #import "Wikipedia-Swift.h"
 
 #define DEBUG_THEMES 1
@@ -138,11 +139,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.theme = [[NSUserDefaults wmf] wmf_appTheme];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(isZeroRatedChanged:)
-                                                 name:WMFZeroRatingChanged
-                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(navigateToActivityNotification:)
@@ -1598,60 +1594,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return ![gestureRecognizer isMemberOfClass:[UIScreenEdgePanGestureRecognizer class]];
-}
-
-#pragma mark - Wikipedia Zero
-
-- (void)isZeroRatedChanged:(NSNotification *)note {
-    WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
-    if (zeroConfigurationManager.isZeroRated) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
-        });
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showZeroOffAlert];
-        });
-    }
-}
-
-- (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults wmf] setBool:YES forKey:WMFZeroOnDialogShownOnce];
-}
-
-- (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults wmf] boolForKey:WMFZeroOnDialogShownOnce];
-}
-
-- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {
-    if ([self zeroOnDialogShownOnce]) {
-        return;
-    }
-
-    [self setZeroOnDialogShownOnce];
-
-    NSString *title = zeroConfiguration.message ? zeroConfiguration.message : WMFLocalizedStringWithDefaultValue(@"zero-free-verbiage", nil, nil, @"Free Wikipedia access from your mobile operator (data charges waived)", @"Alert text for Wikipedia Zero free data access enabled");
-
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:WMFLocalizedStringWithDefaultValue(@"zero-learn-more", nil, nil, @"Data charges are waived for this Wikipedia app.", @"Alert text for learning more about Wikipedia Zero") preferredStyle:UIAlertControllerStyleAlert];
-
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-no-thanks", nil, nil, @"Dismiss", @"Button text for declining to learn more about Wikipedia Zero.\n{{Identical|Dismiss}}") style:UIAlertActionStyleCancel handler:NULL]];
-
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-learn-more", nil, nil, @"Read more", @"Button text for learn more about Wikipedia Zero.\n{{Identical|Read more}}")
-                                               style:UIAlertActionStyleDestructive
-                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ"] options:@{} completionHandler:NULL];
-                                             }]];
-
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
-}
-
-- (void)showZeroOffAlert {
-
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-charged-verbiage", nil, nil, @"Wikipedia Zero is off", @"Alert text for Wikipedia Zero free data access disabled") message:WMFLocalizedStringWithDefaultValue(@"zero-charged-verbiage-extended", nil, nil, @"Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.", @"Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.") preferredStyle:UIAlertControllerStyleAlert];
-
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-no-thanks", nil, nil, @"Dismiss", @"Button text for declining to learn more about Wikipedia Zero.\n{{Identical|Dismiss}}") style:UIAlertActionStyleCancel handler:NULL]];
-
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
 }
 
 #pragma mark - UNUserNotificationCenterDelegate

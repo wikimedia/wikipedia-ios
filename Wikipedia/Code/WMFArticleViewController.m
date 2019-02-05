@@ -1,6 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 @import WMF;
+@import SystemConfiguration;
 
 #import "WMFEmptyView.h"
 
@@ -42,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+
+static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progress = @"kvo_WMFArticleViewController_articleFetcherPromise_progress";
 
 @interface MWKArticle (WMFSharingActivityViewController)
 
@@ -160,12 +163,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
 @property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
+@property (nonatomic, readwrite) EditFunnel *editFunnel;
 
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
 
 @end
 
 @implementation WMFArticleViewController
+@synthesize articleFetcherPromise = _articleFetcherPromise;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -206,6 +211,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
+        self.editFunnel = [[EditFunnel alloc] init];
     }
     return self;
 }
@@ -652,7 +658,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationBar setProgressHidden:YES animated:animated];
 }
 
-- (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
+- (void)updateProgress:(double)progress animated:(BOOL)animated {
     if (progress < self.navigationBar.progress) {
         return;
     }
@@ -675,7 +681,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
  *  Some of the progress is in loading the HTML into the webview
  *  This leaves 20% of progress for that work.
  */
-- (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
+- (double)totalProgressWithArticleFetcherProgress:(double)progress {
     return 0.1 + (0.7 * progress);
 }
 
@@ -1004,6 +1010,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController didMoveToParentViewController:self];
 
     self.pullToRefresh = [[UIRefreshControl alloc] init];
+    self.pullToRefresh.tintColor = self.theme.colors.refreshControlTint;
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
@@ -1228,6 +1235,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)setArticleFetcherPromise:(nullable NSURLSessionTask *)articleFetcherPromise {
+    if (_articleFetcherPromise) {
+        [_articleFetcherPromise removeObserver:self forKeyPath:@"fractionCompleted"];
+    }
+    _articleFetcherPromise = articleFetcherPromise;
+    if (_articleFetcherPromise) {
+        [_articleFetcherPromise addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:&kvo_WMFArticleViewController_articleFetcherPromise_progress];
+    }
+}
+
+- (nullable NSURLSessionTask *)articleFetcherPromise {
+    return _articleFetcherPromise;
+}
+
 - (void)fetchArticleForce:(BOOL)force {
     // ** Always call articleDidLoad after the article loads or fails & before returning from this method **
     WMFAssertMainThread(@"Not on main thread!");
@@ -1246,9 +1267,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         forceDownload:force
         saveToDisk:NO
         priority:NSURLSessionTaskPriorityHigh
-        progress:^(CGFloat progress) {
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
-        }
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
@@ -1266,7 +1284,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                dismissPreviousAlerts:NO
                                                          tapCallBack:NULL];
                 }
-            } else if ([error wmf_isWMFErrorMissingTitle]) {
+            } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
                 NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
                 if (specialPageActivity) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
@@ -1807,6 +1825,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
+    sectionEditVC.editFunnel = self.editFunnel;
     [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
 }
 
@@ -1815,9 +1834,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showTitleDescriptionEditor {
+    BOOL hasWikidataDescription = self.article.entityDescription != NULL;
+    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription];
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
+    editVC.editFunnel = self.editFunnel;
     [editVC applyTheme:self.theme];
 
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
@@ -1870,7 +1892,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showProtectedDialog {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") message:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, nil, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}") style:UIAlertActionStyleCancel handler:NULL]];
+    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStrings okTitle] style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
@@ -1885,6 +1907,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.articleContentLoadCompletion = ^{
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
             weakSelf.webViewController.webView.hidden = NO;
+            [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];
         };
         [self fetchArticle];
     }
@@ -2218,6 +2241,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
     self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context {
+    if (context == &kvo_WMFArticleViewController_articleFetcherPromise_progress) {
+        double progress = self.articleFetcherPromise.progress.fractionCompleted;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+        });
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end

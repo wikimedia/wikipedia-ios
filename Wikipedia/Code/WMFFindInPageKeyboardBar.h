@@ -10,6 +10,7 @@
 - (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
 - (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
+- (void)keyboardBarReturnTapped:(WMFFindInPageKeyboardBar *)keyboardBar;
 
 @end
 
@@ -23,5 +24,7 @@
 - (void)reset;
 
 - (void)updateForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count;
+
+- (void)applyTheme:(WMFTheme *)theme;
 
 @end

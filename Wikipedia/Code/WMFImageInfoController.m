@@ -26,7 +26,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
 @synthesize fetchedIndices = _fetchedIndices;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore batchSize:(NSUInteger)batchSize {
-    return [self initWithDataStore:dataStore batchSize:batchSize infoFetcher:[[MWKImageInfoFetcher alloc] initWithDelegate:nil]];
+    return [self initWithDataStore:dataStore batchSize:batchSize infoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore

@@ -534,7 +534,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  } else if (newOffsetY > (self.delegate.navigationBar.frame.size.height - self.delegate.navigationBar.safeAreaInsets.top)) {
                                                      [self.delegate.navigationBar setNavigationBarPercentHidden:1 underBarViewPercentHidden:1 extendedViewPercentHidden:1 topSpacingPercentHidden:1 shadowAlpha:1 animated:YES additionalAnimations:NULL];
                                                  }
-                                                 newOffsetY += [self iOS12yOffsetHack];
+                                                 newOffsetY += [self.webView iOS12yOffsetHack];
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
                                                  [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
                                                                                           animated:YES
@@ -569,6 +569,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     // Stop scrolling to let the keyboard open
     [self killScroll];
     [self resetFindInPageWithCompletion:nil];
+}
+
+- (void)keyboardBarReturnTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+    [keyboardBar hide];
 }
 
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
@@ -659,9 +663,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
-    self.zeroStatusLabel.text = @"";
-
     [self displayArticle];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
@@ -669,12 +670,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewWillAppear:(BOOL)animated {
     self.webView.scrollView.delegate = self;
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateZeroBannerWithNotification:)
-                                                 name:WMFZeroRatingChanged
-                                               object:nil];
-    // should happen in will appear to prevent bar from being incorrect during transitions
-    [self updateZeroBanner];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refererenceLinkTappedWithNotification:)
@@ -695,7 +690,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFArticleUpdatedNotification object:nil];
@@ -715,26 +709,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
-}
-
-#pragma mark - Zero
-
-- (void)updateZeroBannerWithNotification:(NSNotification *)notification {
-    [self updateZeroBanner];
-}
-
-- (void)updateZeroBanner {
-    if ([[SessionSingleton sharedInstance] zeroConfigurationManager].isZeroRated) {
-        [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigurationManager] zeroConfiguration]];
-    } else {
-        self.zeroStatusLabel.text = @"";
-    }
-}
-
-- (void)showBannerForZeroConfiguration:(WMFZeroConfiguration *)zeroConfiguration {
-    self.zeroStatusLabel.text = zeroConfiguration.message;
-    self.zeroStatusLabel.textColor = zeroConfiguration.foreground;
-    self.zeroStatusLabel.backgroundColor = zeroConfiguration.background;
 }
 
 #pragma mark - Header
@@ -793,7 +767,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
+                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                                                   animated:animated
                                                                                                 completion:^(BOOL finished){
                                                                                                 }];
@@ -949,7 +923,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     UIView *firstPanel = [controller firstPanelView];
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
 
-        windowCoordsRefGroupRect = CGRectOffset(windowCoordsRefGroupRect, 0, [self iOS12yOffsetHack]);
+        windowCoordsRefGroupRect = CGRectOffset(windowCoordsRefGroupRect, 0, [self.webView iOS12yOffsetHack]);
 
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
         CGRect refGroupRectInWindowCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:nil];
@@ -987,17 +961,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return rect;
     }
     return CGRectNull;
-}
-
-- (CGFloat)iOS12yOffsetHack {
-    if (@available(iOS 12, *)) {
-        CGFloat topContentInset = self.webView.scrollView.contentInset.top;
-        CGFloat yContentOffset = self.webView.scrollView.contentOffset.y;
-        if (topContentInset + yContentOffset != 0) {
-            return 0 - topContentInset - MIN(0, yContentOffset);
-        }
-    }
-    return 0;
 }
 
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {

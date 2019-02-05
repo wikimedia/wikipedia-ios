@@ -38,7 +38,7 @@
     self.scheduledForTomorrow = dateComponents.hour > WMFFeedNotificationMaxHour;
 
     [[LSNocilla sharedInstance] start];
-    self.feedURL = [WMFFeedContentFetcher feedContentURLForSiteURL:siteURL onDate:self.date];
+    self.feedURL = [WMFFeedContentFetcher feedContentURLForSiteURL:siteURL onDate:self.date configuration:[WMFConfiguration current]];
     NSData *feedJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MCSFeedTopReadNewsItem" ofType:@"json"];
     stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{@"Content-Type": @"application/json"}).withBody(feedJSONData);
 

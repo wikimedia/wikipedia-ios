@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="YCc-it-nqb">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Preview Anchor Tap Alert Delegate-->
+        <scene sceneID="TJS-xh-DjB">
+            <objects>
+                <viewController restorationIdentifier="EditPreviewViewController" storyboardIdentifier="EditPreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="EditPreviewViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mk2-1E-CSA"/>
+                        <viewControllerLayoutGuide type="bottom" id="LhU-TB-lQR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tP4-ul-Au7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebViewContainer" customModule="Wikipedia" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="previewAnchorTapAlertDelegate" destination="YCc-it-nqb" id="Pz9-ql-on3"/>
+                                    <outlet property="previewSectionLanguageInfoDelegate" destination="YCc-it-nqb" id="AYv-U5-tc7"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EhD-15-Yw7" secondAttribute="trailing" id="NnQ-m1-6v1"/>
+                            <constraint firstItem="EhD-15-Yw7" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="UB6-9j-5r9"/>
+                            <constraint firstItem="EhD-15-Yw7" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="qD7-xj-diz"/>
+                            <constraint firstAttribute="bottom" secondItem="EhD-15-Yw7" secondAttribute="bottom" id="z6l-Se-Fr3"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="previewWebViewContainer" destination="EhD-15-Yw7" id="rER-42-dLb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lKe-tq-9vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="252.80000000000001" y="-8294.7526236881567"/>
+        </scene>
+    </scenes>
+</document>

@@ -11,7 +11,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
 @objc(WMFSavedViewController)
 class SavedViewController: ViewController {
 
-    private var savedArticlesViewController: SavedArticlesViewController!
+    private var savedArticlesViewController: SavedArticlesCollectionViewController!
     
     private lazy var readingListsViewController: ReadingListsViewController? = {
         guard let dataStore = dataStore else {
@@ -49,7 +49,7 @@ class SavedViewController: ViewController {
                 return
             }
             title = CommonStrings.savedTabTitle
-            savedArticlesViewController = SavedArticlesViewController(with: newValue)
+            savedArticlesViewController = SavedArticlesCollectionViewController(with: newValue)
         }
     }
     
@@ -305,3 +305,5 @@ extension SavedViewController: UISearchBarDelegate {
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
     }
 }
+
+

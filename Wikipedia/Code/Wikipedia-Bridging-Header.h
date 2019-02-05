@@ -22,6 +22,13 @@
 #import "WMFArticleFetcher.h"
 #import "SavedArticlesFetcher.h"
 #import "WikiTextSectionFetcher.h"
+#import "WMFOpenExternalLinkDelegateProtocol.h"
+#import "PreviewHtmlFetcher.h"
+
+#import "WikiTextSectionUploader.h"
+
+#import "WikiGlyph_Chars.h"
+#import "WikiGlyphLabel.h"
 
 // Model
 #import "MWKLicense.h"
@@ -39,7 +46,6 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
-#import "PreviewAndSaveViewController.h"
 #import "WMFFirstRandomViewController.h"
 
 // Views
@@ -53,6 +59,9 @@
 #import "WMFLanguageCell.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFCompassView.h"
+#import "WMFFindInPageKeyboardBar.h"
+#import "WKWebView+ElementLocation.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"

@@ -6,7 +6,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWKImage;
 @class MWKImageInfo;
 @class MWKImageInfoFetcher;
-@class AFHTTPSessionManager;
 @protocol MWKImageInfoRequest;
 
 @class WMFImageInfoController;

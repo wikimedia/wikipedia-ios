@@ -37,11 +37,3 @@ void wmf_postNetworkRequestBeganNotification(NSURLRequest *request) {
                                                         object:nil
                                                       userInfo:userInfo];
 }
-
-@implementation NSError (WMFFetchFinalStatus)
-
-- (FetchFinalStatus)wmf_fetchStatus {
-    return ([self.domain isEqual:NSURLErrorDomain] && self.code == NSURLErrorCancelled) ? FETCH_FINAL_STATUS_CANCELLED : FETCH_FINAL_STATUS_FAILED;
-}
-
-@end

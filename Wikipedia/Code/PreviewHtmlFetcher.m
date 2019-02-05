@@ -1,87 +1,52 @@
 #import "PreviewHtmlFetcher.h"
-@import WMF.AFNetworking;
 #import "NSObject+WMFExtras.h"
-@import WMF.SessionSingleton;
 @import WMF.MWNetworkActivityIndicatorManager;
 @import WMF.NSURL_WMFLinkParsing;
 
 @implementation PreviewHtmlFetcher
 
-- (instancetype)initAndFetchHtmlForWikiText:(NSString *)wikiText
-                                 articleURL:(NSURL *)articleURL
-                                withManager:(AFHTTPSessionManager *)manager
-                         thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate {
-    self = [super init];
-    if (self) {
-        self.fetchFinishedDelegate = delegate;
-        [self fetchPreviewForWikiText:wikiText articleURL:articleURL withManager:manager];
-    }
-    return self;
-}
+- (void)fetchHTMLForWikiText:(nullable NSString *)wikiText articleURL:(nullable NSURL *)articleURL completion:(void (^)(NSString * _Nullable result, NSError * _Nullable error))completion {
 
-- (void)fetchPreviewForWikiText:(NSString *)wikiText
-                     articleURL:(NSURL *)articleURL
-                    withManager:(AFHTTPSessionManager *)manager {
-    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:articleURL.wmf_language];
-
-    NSDictionary *params = [self getParamsForArticleURL:articleURL wikiText:wikiText];
-
+    NSDictionary *params = @{
+                             @"action": @"parse",
+                             @"sectionpreview": @"true",
+                             @"pst": @"true",
+                             @"mobileformat": @"true",
+                             @"title": (articleURL.wmf_title ? articleURL.wmf_title : @""),
+                             @"prop": @"text",
+                             @"text": (wikiText ? wikiText : @""),
+                             @"format": @"json"
+                             };
+    
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    // Note: "Preview should probably stay as a post, since the wikitext chunk may be
-    // pretty long and there may or may not be a limit on URL length some" - Brion
-    [manager POST:url.absoluteString
-        parameters:params
-        progress:NULL
-        success:^(NSURLSessionDataTask *operation, id responseObject) {
-            //NSLog(@"JSON: %@", responseObject);
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-            // Fake out an error if non-dictionary response received.
-            if (![responseObject isDict]) {
-                responseObject = @{ @"error": @{@"info": @"Preview not found."} };
-            }
-
-            //NSLog(@"PREVIEW HTML DATA RETRIEVED = %@", responseObject);
-
-            // Handle case where response is received, but API reports error.
-            NSError *error = nil;
-            if (responseObject[@"error"]) {
-                NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
-                errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-                error = [NSError errorWithDomain:@"Preview HTML Fetcher" code:001 userInfo:errorDict];
-            }
-
-            NSString *output = @"";
-            if (!error) {
-                output = [self getSanitizedResponse:responseObject];
-            }
-
-            [self finishWithError:error
-                      fetchedData:output];
+    [self performMediaWikiAPIPOSTForURL:articleURL withBodyParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        if (networkError) {
+            completion(nil, networkError);
+            return;
         }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            //NSLog(@"PREVIEW HTML FAIL = %@", error);
-
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-            [self finishWithError:error
-                      fetchedData:nil];
-        }];
-}
-
-- (NSDictionary *)getParamsForArticleURL:(NSURL *)articleURL wikiText:(NSString *)wikiText {
-    return @{
-        @"action": @"parse",
-        @"sectionpreview": @"true",
-        @"pst": @"true",
-        @"mobileformat": @"true",
-        @"title": (articleURL.wmf_title ? articleURL.wmf_title : @""),
-        @"prop": @"text",
-        @"text": (wikiText ? wikiText : @""),
-        @"format": @"json"
-    }
-        .mutableCopy;
+        // Fake out an error if non-dictionary response received.
+        if (![responseObject isDict]) {
+            responseObject = @{ @"error": @{@"info": @"Preview not found."} };
+        }
+        
+        //NSLog(@"PREVIEW HTML DATA RETRIEVED = %@", responseObject);
+        
+        // Handle case where response is received, but API reports error.
+        NSError *error = nil;
+        if (responseObject[@"error"]) {
+            NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+            errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+            error = [NSError errorWithDomain:@"Preview HTML Fetcher" code:001 userInfo:errorDict];
+        }
+        
+        NSString *output = @"";
+        if (!error) {
+            output = [self getSanitizedResponse:responseObject];
+        }
+        completion(output, error);
+    }];
 }
 
 - (NSString *)getSanitizedResponse:(NSDictionary *)rawResponse {
@@ -105,12 +70,5 @@
 
     return (result ? result : @"");
 }
-
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING PAGE HISTORY FETCHER!");
-   }
- */
 
 @end

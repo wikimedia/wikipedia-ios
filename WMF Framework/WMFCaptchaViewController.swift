@@ -179,21 +179,22 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
-            guard let previousCaptcha = self.captcha else {
-                assertionFailure("If resetting a captcha, expect to have a previous one here")
-                return
+            DispatchQueue.main.async {
+                guard let previousCaptcha = self.captcha else {
+                    assertionFailure("If resetting a captcha, expect to have a previous one here")
+                    return
+                }
+                
+                let previousCaptchaURL = previousCaptcha.captchaURL
+                let previousCaptchaNSURL = previousCaptchaURL as NSURL
+                
+                let newCaptchaID = result.index
+                
+                // Resetter only fetches captchaID, so use previous captchaURL changing its wpCaptchaId.
+                let newCaptchaURL = previousCaptchaNSURL.wmf_url(withValue: newCaptchaID, forQueryKey:"wpCaptchaId")
+                let newCaptcha = WMFCaptcha.init(captchaID: newCaptchaID, captchaURL: newCaptchaURL)
+                self.captcha = newCaptcha
             }
-            
-            let previousCaptchaURL = previousCaptcha.captchaURL
-            let previousCaptchaNSURL = previousCaptchaURL as NSURL
-            
-            let newCaptchaID = result.index
-            
-            // Resetter only fetches captchaID, so use previous captchaURL changing its wpCaptchaId.
-            let newCaptchaURL = previousCaptchaNSURL.wmf_url(withValue: newCaptchaID, forQueryKey:"wpCaptchaId")
-            let newCaptcha = WMFCaptcha.init(captchaID: newCaptchaID, captchaURL: newCaptchaURL)
-            self.captcha = newCaptcha
-            
         }, failure:failure)
     }
     

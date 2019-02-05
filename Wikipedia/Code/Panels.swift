@@ -131,6 +131,16 @@ class DescriptionPublishedPanelViewController: ScrollableEducationPanelViewContr
     }
 }
 
+class EditPublishedPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "description-published")
+        heading = WMFLocalizedString("edit-published", value: "Edit published", comment: "Title edit published panel letting user know their edit was saved.")
+        subheading = WMFLocalizedString("edit-published-subtitle", value: "You just made Wikipedia better for everyone", comment: "Subtitle for letting users know their edit improved Wikipedia.")
+        primaryButtonTitle = WMFLocalizedString("edit-published-button-title", value: "Done", comment: "Title for edit published panel done button.")
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
@@ -356,5 +366,19 @@ extension UIViewController {
         }
         let panelVC = DescriptionPublishedPanelViewController(showCloseButton: true, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true, completion: nil)
+    }
+
+    @objc func wmf_showEditPublishedPanelViewController(theme: Theme) {
+        guard !UserDefaults.wmf.wmf_didShowFirstEditPublishedPanel() else {
+            return
+        }
+
+        let doneTapHandler: ScrollableEducationPanelButtonTapHandler = { sender in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let panelVC = EditPublishedPanelViewController(showCloseButton: false, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        present(panelVC, animated: true, completion: {
+            UserDefaults.wmf.wmf_setDidShowFirstEditPublishedPanel(true)
+        })
     }
 }

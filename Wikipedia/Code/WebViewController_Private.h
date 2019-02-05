@@ -1,6 +1,5 @@
 #import "WebViewController.h"
 #import "WKWebView+ElementLocation.h"
-#import "PaddedLabel.h"
 #import "EditFunnel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
@@ -25,8 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewLeadingConstraint;
-
-@property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 

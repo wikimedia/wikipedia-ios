@@ -1,11 +1,11 @@
-@import WMF.FetcherBase;
-@class AFHTTPSessionManager;
+@import WMF.WMFLegacyFetcher;
 
-@interface PreviewHtmlFetcher : FetcherBase
+NS_ASSUME_NONNULL_BEGIN
 
-// Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
-- (instancetype)initAndFetchHtmlForWikiText:(NSString *)wikiText
-                                 articleURL:(NSURL *)articleURL
-                                withManager:(AFHTTPSessionManager *)manager
-                         thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate;
+@interface PreviewHtmlFetcher : WMFLegacyFetcher
+
+- (void)fetchHTMLForWikiText:(nullable NSString *)wikiText articleURL:(nullable NSURL *)articleURL completion:(void (^)(NSString * _Nullable result, NSError * _Nullable error))completion;
+
 @end
+
+NS_ASSUME_NONNULL_END

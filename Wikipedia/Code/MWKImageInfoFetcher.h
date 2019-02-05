@@ -1,9 +1,8 @@
-@import WMF.FetcherBase;
 @import WMF.WMFBlockDefinitions;
+@import WMF.WMFLegacyFetcher;
 
 @class MWKArticle;
 @class NSURLSessionDataTask;
-@class AFHTTPSessionManager;
 
 @protocol MWKImageInfoRequest <NSObject>
 
@@ -11,9 +10,7 @@
 
 @end
 
-@interface MWKImageInfoFetcher : FetcherBase
-
-- (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate;
+@interface MWKImageInfoFetcher : WMFLegacyFetcher
 
 /**
  * Fetch the imageinfo for the given image page titles.
@@ -48,6 +45,5 @@
                                  failure:(WMFErrorHandler)failure
                                  success:(WMFSuccessIdHandler)success;
 
-- (void)cancelAllFetches;
 
 @end

@@ -114,6 +114,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         didSet {
             if isRefreshControlEnabled {
                 let refreshControl = UIRefreshControl()
+                refreshControl.tintColor = theme.colors.refreshControlTint
                 refreshControl.layer.zPosition = -100
                 refreshControl.addTarget(self, action: #selector(refreshControlActivated), for: .valueChanged)
                 collectionView.refreshControl = refreshControl
@@ -374,7 +375,7 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDelegate {
-
+    
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate

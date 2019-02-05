@@ -18,23 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetcher Implementation
 
-@interface WMFLocationSearchFetcher ()
-
-@property (nonatomic, strong) WMFSession *session;
-
-@end
-
 NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
 
 @implementation WMFLocationSearchFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.session = [WMFSession shared];
-    }
-    return self;
-}
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
                         location:(CLLocation *)location
@@ -55,7 +41,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
 
     NSDictionary *params = [self params:region searchTerm:searchTerm resultLimit:resultLimit sortStyle:sortStyle];
 
-    NSURL *url = [[WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
+    NSURL *url = [[self.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
 
     assert(url);
 
@@ -73,7 +59,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                              }
 
                              if (response.statusCode == 304) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil];
+                                 NSError *error = [WMFFetcher noNewDataError];
                                  failure(error);
                                  return;
                              }
@@ -86,7 +72,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                              }
 
                              if (![pages isKindOfClass:[NSDictionary class]]) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+                                 NSError *error = [WMFFetcher unexpectedResponseError];
                                  failure(error);
                                  return;
                              }
@@ -106,19 +92,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                          }];
 }
 
-- (NSDictionary *)params:(CLCircularRegion *)region searchTerm:(nullable NSString *)searchTerm resultLimit:(NSUInteger)resultLimit sortStyle:(WMFLocationSearchSortStyle)sortStyle {
-    NSDictionary *defaultParams = @{@"action": @"query",
-                                    @"coprop": @"type|dim",
-                                    @"colimit": @(resultLimit),
-                                    @"gsrlimit": @(resultLimit),
-                                    @"format": @"json",
-                                    @"ppprop": @"displaytitle|disambiguation",
-                                    @"pilimit": @(resultLimit),
-                                    @"pilimit": @(resultLimit),
-                                    @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale]};
-
-    NSMutableDictionary<NSString *, NSObject *> *params = [NSMutableDictionary dictionaryWithDictionary:defaultParams];
-
+- (NSDictionary *)params:(CLCircularRegion *)region searchTerm:(nullable NSString *)searchTerm resultLimit:(NSUInteger)numberOfResults sortStyle:(WMFLocationSearchSortStyle)sortStyle {
     if (region.radius >= 10000 || searchTerm || sortStyle != WMFLocationSearchSortStyleNone) {
         NSMutableArray<NSString *> *gsrSearchArray = [NSMutableArray arrayWithCapacity:2];
         if (searchTerm) {
@@ -128,46 +102,60 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
         NSString *nearcoord = [NSString stringWithFormat:@"nearcoord:%.0fm,%.3f,%.3f", radius, region.center.latitude, region.center.longitude];
         [gsrSearchArray addObject:nearcoord];
         NSString *gsrsearch = [gsrSearchArray componentsJoinedByString:@" "];
-
-        NSDictionary *additionalParams = @{@"generator": @"search",
-                                           @"gsrsearch": gsrsearch,
-                                           @"piprop": @"thumbnail"};
-
-        [params addEntriesFromDictionary:additionalParams];
-
+        NSMutableDictionary<NSString *, NSObject *> *serializedParams = [NSMutableDictionary dictionaryWithDictionary:@{
+            @"action": @"query",
+            @"prop": @"coordinates|pageimages|description|pageprops",
+            @"coprop": @"type|dim",
+            @"colimit": @(numberOfResults),
+            @"generator": @"search",
+            @"gsrsearch": gsrsearch,
+            @"gsrlimit": @(numberOfResults),
+            @"piprop": @"thumbnail",
+            //@"pilicense": @"any",
+            @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
+            @"pilimit": @(numberOfResults),
+            @"ppprop": @"displaytitle|disambiguation",
+            @"format": @"json",
+        }];
         switch (sortStyle) {
             case WMFLocationSearchSortStyleLinks:
-                params[@"cirrusIncLinkssW"] = @(1000);
+                serializedParams[@"cirrusIncLinkssW"] = @(1000);
                 break;
             case WMFLocationSearchSortStylePageViews:
-                params[@"cirrusPageViewsW"] = @(1000);
+                serializedParams[@"cirrusPageViewsW"] = @(1000);
                 break;
             case WMFLocationSearchSortStylePageViewsAndLinks:
-                params[@"cirrusPageViewsW"] = @(1000);
-                params[@"cirrusIncLinkssW"] = @(1000);
+                serializedParams[@"cirrusPageViewsW"] = @(1000);
+                serializedParams[@"cirrusIncLinkssW"] = @(1000);
                 break;
             default:
                 break;
         }
+        return serializedParams;
     } else {
         NSString *coords =
             [NSString stringWithFormat:@"%f|%f", region.center.latitude, region.center.longitude];
-        NSDictionary *additionalParams = @{ //@"pilicense": @"any",
+        return @{
+            @"action": @"query",
+            @"prop": @"coordinates|pageimages|description|pageprops|extracts",
+            @"coprop": @"type|dim",
+            @"colimit": @(numberOfResults),
+            @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
+            @"pilimit": @(numberOfResults),
+            //@"pilicense": @"any",
+            @"ppprop": @"displaytitle|disambiguation",
             @"generator": @"geosearch",
             @"ggscoord": coords,
             @"codistancefrompoint": coords,
             @"ggsradius": @(region.radius),
-            @"ggslimit": @(resultLimit),
+            @"ggslimit": @(numberOfResults),
             @"exintro": @YES,
-            @"exlimit": @(resultLimit),
+            @"exlimit": @(numberOfResults),
             @"explaintext": @"",
-            @"exchars": @(WMFNumberOfExtractCharacters)
+            @"exchars": @(WMFNumberOfExtractCharacters),
+            @"format": @"json"
         };
-
-        [params addEntriesFromDictionary:additionalParams];
     }
-
-    return params;
 }
 
 @end

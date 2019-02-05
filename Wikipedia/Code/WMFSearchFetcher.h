@@ -1,13 +1,13 @@
 @import Foundation;
 @import WMF.WMFBlockDefinitions;
-
+@import WMF.WMFLegacyFetcher;
 @class WMFSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSUInteger const WMFMaxSearchResultLimit;
 
-@interface WMFSearchFetcher : NSObject
+@interface WMFSearchFetcher : WMFLegacyFetcher
 
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
                            siteURL:(NSURL *)siteURL

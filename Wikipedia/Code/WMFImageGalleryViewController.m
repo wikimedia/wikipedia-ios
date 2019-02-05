@@ -6,6 +6,7 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
+@import CoreServices;
 
 NS_ASSUME_NONNULL_BEGIN
 
