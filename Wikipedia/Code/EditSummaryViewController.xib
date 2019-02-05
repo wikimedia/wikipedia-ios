@@ -148,6 +148,11 @@
                                 <constraint firstItem="SlK-YP-NSk" firstAttribute="leading" secondItem="wrs-Gz-05R" secondAttribute="leading" id="pcT-pM-O8j"/>
                                 <constraint firstAttribute="height" constant="45" placeholder="YES" id="s2t-1f-jkP"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="cannedEditSummaryButtons" destination="mqy-lh-5zo" collectionClass="NSMutableArray" id="1Of-Gs-khy"/>
+                                <outletCollection property="cannedEditSummaryButtons" destination="WbA-2G-gXe" collectionClass="NSMutableArray" id="5no-GZ-DPu"/>
+                                <outletCollection property="cannedEditSummaryButtons" destination="XFh-HH-sUX" collectionClass="NSMutableArray" id="AyT-me-cjH"/>
+                            </connections>
                         </scrollView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

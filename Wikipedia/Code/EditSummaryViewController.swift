@@ -111,8 +111,12 @@ extension EditSummaryViewController: UITextFieldDelegate {
 }
 
 public class SummaryButtonScrollView: UIScrollView {
+    @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
+    private func sizeEncompassingTallestButton() -> CGSize {
+        let heightOfTallestButton = cannedEditSummaryButtons.map{ $0.intrinsicContentSize.height }.max()
+        return CGSize(width: UIView.noIntrinsicMetric, height: heightOfTallestButton ?? UIView.noIntrinsicMetric)
+    }
     override public var intrinsicContentSize: CGSize {
-        subviews.first?.layoutIfNeeded()
-        return subviews.first?.frame.size ?? .zero
+        return sizeEncompassingTallestButton()
     }
 }
