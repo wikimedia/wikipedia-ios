@@ -261,11 +261,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             funnel?.logCaptchaShown()
             mode = .captcha
             highlightCaptchaSubmitButton(false)
-            DispatchQueue.main.async {
-                self.adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView()
+            dispatchOnMainQueueAfterDelayInSeconds(0.1) { // Prevents weird animation.
                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }
-
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             //NSString *warningHtml = error.userInfo[@"warning"];
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -395,25 +393,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType) {
         funnel?.logEditSummaryTap(type.eventLoggingKey)
     }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass {
-            DispatchQueue.main.async {
-                self.adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView()
-            }
-        }
-    }
     
     // Keep bottom divider and license/login labels at bottom of screen while remaining scrollable.
     // (Having these bits scrollable is important for landscape, being covered by keyboard, captcha appearance, small screen devices, etc.)
     private func adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView() {
-        spacerAboveBottomDividerHeightConstrait.constant = scrollView.heightNeededToIncreaseScrollViewContentViewHeightToScrollViewHeight()
+        spacerAboveBottomDividerHeightConstrait.constant = 0
+        scrollContainer.setNeedsLayout()
+        scrollContainer.layoutIfNeeded()
+        spacerAboveBottomDividerHeightConstrait.constant = scrollView.frame.size.height - scrollContainer.frame.size.height
     }
-}
 
-private extension UIScrollView {
-    func heightNeededToIncreaseScrollViewContentViewHeightToScrollViewHeight() -> CGFloat {
-        return max(0, frame.size.height - contentSize.height)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView()
     }
 }
