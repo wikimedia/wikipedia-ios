@@ -95,7 +95,10 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }
-        
+
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
         activeKey = key
         activeSender = sender
         
