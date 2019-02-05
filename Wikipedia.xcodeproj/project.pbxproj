@@ -278,6 +278,11 @@
 		7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
 		7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
 		7A60E9DA215D511900F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
+		7A610CB7220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
+		7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
+		7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
+		7A610CBA220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
+		7A610CBB220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
 		7A630F71217A400200FC93FC /* Array+Chunked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */; };
 		7A65A5DC20ACFD98001170B8 /* WMFContentGroup+EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */; };
 		7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */; };
@@ -3380,6 +3385,7 @@
 		7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperation.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
 		7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreAboutRevertedEditViewController.swift; sourceTree = "<group>"; };
+		7A610CB6220A30C900C266AE /* HintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintViewController.swift; sourceTree = "<group>"; };
 		7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Chunked.swift"; path = "../Wikipedia/Code/Array+Chunked.swift"; sourceTree = "<group>"; };
 		7A6F55FE21AF508B0076D184 /* TextFormatting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TextFormatting.storyboard; sourceTree = "<group>"; };
 		7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingInputViewController.swift; sourceTree = "<group>"; };
@@ -7524,6 +7530,7 @@
 				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
 				7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */,
+				7A610CB6220A30C900C266AE /* HintViewController.swift */,
 				7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */,
 				7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */,
 				7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */,
@@ -10048,6 +10055,7 @@
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
 				B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */,
+				7A610CB7220A30C900C266AE /* HintViewController.swift in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				7A23CECF211A24FC00441A79 /* FeedFunnel.swift in Sources */,
@@ -10400,6 +10408,7 @@
 				7AE99B3221CC53AB0092BE7F /* TextFontFormattingTableViewController.swift in Sources */,
 				D80ED2961EE57F4800CE8C50 /* PlaceSearchService.swift in Sources */,
 				D80ED2971EE57F4800CE8C50 /* NotificationSettingsViewController.swift in Sources */,
+				7A610CBB220A30C900C266AE /* HintViewController.swift in Sources */,
 				D80ED2981EE57F4800CE8C50 /* PlaceSearchSuggestionController.swift in Sources */,
 				D80ED29B1EE57F4800CE8C50 /* WMFPageHistoryRevision.m in Sources */,
 				D80ED29C1EE57F4800CE8C50 /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
@@ -11069,6 +11078,7 @@
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
 				83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */,
+				7A610CBA220A30C900C266AE /* HintViewController.swift in Sources */,
 				D8A42A741E815A9C00D8E281 /* WebViewController+WMFReferencePopover.m in Sources */,
 				7A23CED3211A24FF00441A79 /* FeedFunnel.swift in Sources */,
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
@@ -11429,6 +11439,7 @@
 				7AE99B2F21CC53AB0092BE7F /* TextFontFormattingTableViewController.swift in Sources */,
 				D8CE25051E698E2400DAE2E0 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
+				7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */,
 				D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */,
@@ -11772,6 +11783,7 @@
 				7A20AE0A2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7AE99B3021CC53AB0092BE7F /* TextFontFormattingTableViewController.swift in Sources */,
 				D8EC3DF81E9BDA35006712EB /* PreviewHtmlFetcher.m in Sources */,
+				7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */,
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHouseKeeper.swift in Sources */,
