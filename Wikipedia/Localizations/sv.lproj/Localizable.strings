@@ -89,7 +89,7 @@
 "appearance-settings-adjust-text-sizing" = "Justera artikelns textstorlek";
 "appearance-settings-expand-tables" = "Expandera tabeller";
 "appearance-settings-expand-tables-footer" = "Ändra alla tabeller på alla artiklar att vara öppna som standard, inklusive snabbfakta, referenser, anteckningar och externa länkar.";
-"appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i mörkt tema";
+"appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i det mörka och svarta temat";
 "appearance-settings-reading-themes" = "Lästeman";
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
 "appearance-settings-text-sizing-example-text" = "Dra i reglaget för att ändra artikelns textstorlek. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
@@ -108,7 +108,6 @@
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "back-button-accessibility-label" = "Tillbaka";
 "back-button-popover-title" = "Tryck för att gå tillbaka";
-"button-done" = "Färdig";
 "button-next" = "Nästa";
 "button-ok" = "OK";
 "button-publish" = "Publicera";
@@ -163,12 +162,12 @@
 "description-welcome-start-editing-button" = "Börja redigera";
 "dim-images" = "Mörklägg bilder";
 "edit-style-table-view-title" = "Stil";
+"edit-summary-add-summary-text" = "Lägg till en redigeringssammanfattning";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
 "edit-summary-choice-linked-words" = "Lade till länkar";
-"edit-summary-choice-other" = "Övrigt";
-"edit-summary-field-placeholder-text" = "Andra sätt på vilka du förbättrat artikeln";
-"edit-summary-title" = "Hur förbättrade du artikeln?";
+"edit-summary-learn-more-text" = "Läs mer";
+"edit-summary-placeholder-text" = "Hur förbättrade du artikeln?";
 "edit-text-formatting-table-view-title" = "Textformatering";
 "edit-text-size-table-view-title" = "Textstorlek";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
@@ -216,7 +215,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Icke-språkspecifika";
 "explore-feed-preferences-global-cards-title" = "Globala kort";
 "explore-feed-preferences-hide-card-action-title" = "Dölj detta kort";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla kort av typen %@";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla kort av typen “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artiklar om nuvarande händelser";
 "explore-feed-preferences-languages-footer-text" = "När alla kort i utforskarflödet på alla dina språk döljs kommer utforskarfliken inaktiveras.";
 "explore-feed-preferences-on-this-day-description" = "Händelser i historien på denna dag";
@@ -274,6 +273,8 @@
 "explore-randomizer" = "Randomiserare";
 "feed-news-notification-button-text" = "Aktivera notiser";
 "feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära aktuella händelser.";
+"fetcher-error-generic" = "Någonting gick fel. Försök igen senare.";
+"fetcher-error-unexpected-response" = "Appen fick ett oväntat svar från servern. Försök igen senare.";
 "field-alert-captcha-invalid" = "Ogiltig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lösenorden stämmer inte överens";
 "field-alert-password-invalid" = "Ogiltigt lösenord";
@@ -357,7 +358,6 @@
 "main-menu-debug-tweaks" = "Utvecklarinställningar";
 "main-menu-heading-debug" = "Felsökning";
 "main-menu-heading-legal" = "Integritet och villkor";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "I närheten";
 "main-menu-privacy-policy" = "Integritetspolicy";
 "main-menu-rate-app" = "Betygsätt appen";
@@ -535,8 +535,7 @@
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
 "saved-pages-progress-syncing" = "Nedladdning av artikel pågår...";
 "saved-reading-lists-title" = "Läslistor";
-// Fuzzy
-"saved-search-default-text" = "Sök";
+"saved-search-default-text" = "Sök i sparade artiklar";
 "saved-title" = "Sparade";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "När {{PLURAL:$1|denna artikel tas bort plockas den|dessa artiklar tas bort plockas de}} bort från alla associerade läslistor";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ta bort {{PLURAL:$1|artikeln|artiklarna}}?";
@@ -655,22 +654,13 @@
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";
 "wikitext-preview-link-preview-description" = "Denna länk leder till \"$1\"";
 "wikitext-preview-link-preview-title" = "Länkförhandsvisning";
+"wikitext-preview-save-changes-title" = "Spara dina ändringar";
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
 "wikitext-upload-result-unknown" = "Kunde inte att avgöra wikitextens uppladdningsresultat.";
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "Logga in";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Genom att publicera ändringar samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
-"zero-charged-verbiage" = "Wikipedia Zero är avstängt";
-"zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";
-"zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (utan dataavgifter)";
-"zero-interstitial-cancel" = "Stanna här";
-"zero-interstitial-continue" = "Lämna";
-"zero-interstitial-leave-app" = "Avgifter för datatrafik kan tillkomma. Fortsätt till en extern webbplats?";
-"zero-interstitial-title" = "Du lämnar nu Wikipedia Zero";
-"zero-learn-more" = "Dataavgifter tas inte ut för denna Wikipedia-app.";
-"zero-learn-more-learn-more" = "Läs mer";
-"zero-learn-more-no-thanks" = "Stäng";
-"zero-warn-when-leaving" = "Varna om jag lämnar Zero";

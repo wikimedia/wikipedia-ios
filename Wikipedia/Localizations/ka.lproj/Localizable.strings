@@ -49,7 +49,6 @@
 "article-read-more-title" = "წაიკითხეთ მეტი";
 "article-unable-to-load-section" = "სექციის ჩატვირთვა შეუძლებელია. სცადეთ გვერდის გადატვირთვა და ნახეთ გასწორდება თუ არა პრობლემა.";
 "back-button-accessibility-label" = "უკან";
-"button-done" = "გაკეთდა";
 "button-next" = "შემდეგი";
 "button-ok" = "კარგი";
 "button-publish" = "გამოქვეყნება";
@@ -64,9 +63,6 @@
 "edit-summary-choice-fixed-grammar" = "გრამატიკის შესწორება";
 "edit-summary-choice-fixed-typos" = "ტიპოგრაფიული შესწორება";
 "edit-summary-choice-linked-words" = "დამატებული ბმულები";
-"edit-summary-choice-other" = "სხვა";
-"edit-summary-field-placeholder-text" = "როგორ გაუუმჯობესეთ";
-"edit-summary-title" = "რითი გააუმჯობესეთ სტატია?";
 "empty-no-article-message" = "უკაცრავად, სტატიის ჩატვირთვა ვერ მოხერხდა";
 "empty-no-feed-action-message" = "შეგიძლიათ იხილოთ შენახული გვერდები";
 "empty-no-feed-message" = "თქვენ შეძლებთ რეკომენდებული სტატიების ნახვას, როდესაც გექნებათ ინტერნეტი";
@@ -142,7 +138,6 @@
 "main-menu-debug-tweaks" = "დეველოპერის პარამეტრები";
 "main-menu-heading-debug" = "დიბაგი";
 "main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";
-"main-menu-heading-zero" = "ვიკიპედია ზერო";
 "main-menu-nearby" = "სიახლოვეს";
 "main-menu-privacy-policy" = "კონფიდენციალურობის პოლიტიკა";
 "main-menu-rate-app" = "შეაფასეთ აპლიკაცია";
@@ -230,11 +225,3 @@
 "wikitext-upload-save-anonymously-warning" = "რედაქტორებს მიენიჭებათ თქვენი მოწყობილობის IP მისამართი. თუ თქვენ $1, იქნებით ინფორმაციულად უფრო დაცული.";
 "wikitext-upload-save-sign-in" = "შესვლა";
 "wikitext-upload-save-terms-name" = "გამოყენების პირობები";
-"zero-charged-verbiage" = "ვიკიპედია ზერო გამორთულია";
-"zero-free-verbiage" = "ვიკიპედიაზე უფასო წვდომა თქვენი მობილური ოპერატორიდან.";
-"zero-interstitial-cancel" = "დარჩი აქ";
-"zero-interstitial-continue" = "დატოვება";
-"zero-interstitial-title" = "ვიკიპედია ზეროდან გამოსვლა";
-"zero-learn-more-learn-more" = "წაიკითხე მეტი";
-"zero-learn-more-no-thanks" = "დამალვა";
-"zero-warn-when-leaving" = "გამაფრთხილე ზეროს დატოვებისას";

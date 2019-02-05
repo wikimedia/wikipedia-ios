@@ -89,7 +89,6 @@
 "article-share" = "Zdieľať";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
 "back-button-accessibility-label" = "Späť";
-"button-done" = "Hotovo";
 "button-next" = "Ďalej";
 "button-ok" = "OK";
 "button-publish" = "Uverejniť";
@@ -125,9 +124,6 @@
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
-"edit-summary-choice-other" = "Iné";
-"edit-summary-field-placeholder-text" = "Ako inak ste vylepšili článok?";
-"edit-summary-title" = "Ako ste vylepšili článok?";
 "empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
@@ -248,7 +244,6 @@
 "main-menu-debug-tweaks" = "Nastavenia pre vývojárov";
 "main-menu-heading-debug" = "Ladiť";
 "main-menu-heading-legal" = "Ochrana osobných údajov a podmienky používania";
-"main-menu-heading-zero" = "Wikipédia Zero";
 "main-menu-nearby" = "V okolí";
 "main-menu-privacy-policy" = "Ochrana osobných údajov";
 "main-menu-rate-app" = "Ohodnoťte aplikáciu";
@@ -480,16 +475,6 @@
 "wikitext-upload-save" = "Uverejňuje sa...";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho prístroja. Ak $1, budete mať viac súkromia.";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Uložením zmien súhlasíte s $1 a s uvoľnením svojho príspevku za podmienok $2 a $3.";
 "wikitext-upload-save-terms-name" = "Podmienky používania";
-"zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
-"zero-charged-verbiage-extended" = "Pri načítaní iných článkov môžu byť účtované poplatky za dáta. Články uložené offline nespotrebúvajú dáta a sú teda zadarmo.";
-"zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
-"zero-interstitial-cancel" = "Zostať tu";
-"zero-interstitial-continue" = "Pokračovať";
-"zero-interstitial-leave-app" = "Môžu sa objaviť poplatky za prenos dát. Pokračovať na externú stránku?";
-"zero-interstitial-title" = "Opúšťate Wikipédiu Zero";
-"zero-learn-more" = "Táto aplikácia je oslobodená od poplatkov za prenos dát.";
-"zero-learn-more-learn-more" = "Ďalšie informácie";
-"zero-learn-more-no-thanks" = "Nie, ďakujem";
-"zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Zero";
