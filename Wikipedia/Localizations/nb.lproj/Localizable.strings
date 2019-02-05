@@ -69,6 +69,7 @@
 "appearance-settings-adjust-text-sizing" = "Tilpass tekststørrelsen i artikler";
 "appearance-settings-expand-tables" = "Utvid tabeller";
 "appearance-settings-expand-tables-footer" = "Setter alle tabeller i alle artikler til å være åpne som standard, inkludert raske fakta, referanser, merknader og eksterne lenker.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Senk gjennomsiktigheten til bilder i den mørke drakten";
 "appearance-settings-reading-themes" = "Lesedrakter";
 "appearance-settings-set-automatic-table-opening" = "Tabellinnstillinger";
@@ -88,7 +89,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring av lesedrakter";
 "article-unable-to-load-section" = "Kunne ikke laste dette avsnittet. Prøv å oppdatere artikkelen for å se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbake";
-"button-done" = "Ferdig";
 "button-next" = "Neste";
 "button-ok" = "OK";
 "button-publish" = "Publiser";
@@ -108,9 +108,6 @@
 "edit-summary-choice-fixed-grammar" = "Korrigerte grammatikk";
 "edit-summary-choice-fixed-typos" = "Fikset typo";
 "edit-summary-choice-linked-words" = "La til lenker";
-"edit-summary-choice-other" = "Annet";
-"edit-summary-field-placeholder-text" = "Andre måter du kan forbedre denne artikkelen på";
-"edit-summary-title" = "Hvordan forbedret du artikkelen?";
 "empty-no-article-message" = "Artikkelen kunne ikke lastes";
 "empty-no-feed-action-message" = "Du kan fremdeles lese lagrede sider";
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
@@ -226,7 +223,6 @@
 "main-menu-debug-tweaks" = "Utviklers innstillinger";
 "main-menu-heading-debug" = "Feilsøking";
 "main-menu-heading-legal" = "Personvern og vilkår";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "I nærheten";
 "main-menu-privacy-policy" = "Personvernpolitikk";
 "main-menu-rate-app" = "Vurder appen";
@@ -419,16 +415,6 @@
 "wikitext-upload-save" = "Publiserer...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
 "wikitext-upload-save-sign-in" = "Logg inn";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ved å publisere endringer samtykker du til $1 og til å ugjenkallelig slippe bidraget ditt under lisensene $2 og $3.";
 "wikitext-upload-save-terms-name" = "bruksvilkårene";
-"zero-charged-verbiage" = "Wikipedia Zero er skrudd av";
-"zero-charged-verbiage-extended" = "Innlasting av artikler kan føre til at datakostnader påløper. Visning av lagrede artikler fører imidlertid ikke til databruk og er gratis.";
-"zero-free-verbiage" = "Gratis Wikipedia-tilgang fra mobiloperatøren din (datakostnader dekkes)";
-"zero-interstitial-cancel" = "Forbli her";
-"zero-interstitial-continue" = "Forlat appen";
-"zero-interstitial-leave-app" = "Datakostnader kan påløpe. Fortsette til eksternt nettsted?";
-"zero-interstitial-title" = "Du forlater nå Wikipedia Zero";
-"zero-learn-more" = "Datakostnader påløper ikke for denne Wikipedia-appen.";
-"zero-learn-more-learn-more" = "Lær mer";
-"zero-learn-more-no-thanks" = "Lukk";
-"zero-warn-when-leaving" = "Advar meg hvis jeg forlater Zero";

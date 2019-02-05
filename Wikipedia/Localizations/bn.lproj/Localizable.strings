@@ -75,6 +75,7 @@
 "app-store-subtitle" = "একটি মুক্ত বিশ্বকোষ";
 "appearance-settings-adjust-text-sizing" = "নিবন্ধের পাঠ্যের আকার সমন্বয় করুন";
 "appearance-settings-expand-tables" = "টেবিল সম্প্রসারণ করুন";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
 "appearance-settings-theme-options" = "থিমের বিকল্প";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
@@ -90,7 +91,6 @@
 "article-unable-to-load-section" = "এই অনুচ্ছেদ পূরণ করতে অসমর্থ। যদি এই সমস্যা সমাধান হয়ে থাকে তাহলে নিবন্ধটি দেখার জন্য পুনরায় সতেজ করুন।";
 "back-button-accessibility-label" = "পিছনে";
 "back-button-popover-title" = "পেছনে যেতে আলতো চাপুন";
-"button-done" = "সম্পন্ন";
 "button-next" = "পরবর্তী";
 "button-ok" = "ঠিক আছে";
 "button-publish" = "প্রকাশ করুন";
@@ -117,12 +117,11 @@
 "description-published-button-title" = "সম্পন্ন";
 "description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
 "dim-images" = "অনুজ্জ্বল ছবি";
+"edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
+"edit-published-button-title" = "সম্পন্ন";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
 "edit-summary-choice-linked-words" = "লিংক সংযোজন";
-"edit-summary-choice-other" = "অন্যান্য";
-"edit-summary-field-placeholder-text" = "অন্যান্য যে পদ্ধতিতে আপনি নিবন্ধটির মান উন্নয়ন করেছেন";
-"edit-summary-title" = "কীভাবে আপনি পাতাটি উন্নত করেছেন?";
 "empty-no-article-message" = "দুঃখিত, নিবন্ধ লোড করা যায়নি";
 "empty-no-feed-action-message" = "আপনি এখনো সংরক্ষিত পাতা পাঠ করতে পারেন।";
 "empty-no-feed-message" = "আপনার সুপারিশকৃত নিবন্ধগুলি দেখতে পারবেন যখন, আপনার ইন্টারনেট সংযোগ থাকবে";
@@ -239,7 +238,6 @@
 "main-menu-debug-tweaks" = "বিকাশকারীর সেটিংস";
 "main-menu-heading-debug" = "ডিবাগ";
 "main-menu-heading-legal" = "আইনী তথ্য";
-"main-menu-heading-zero" = "উইকিপিডিয়া জিরো";
 "main-menu-nearby" = "কাছাকাছি";
 "main-menu-privacy-policy" = "গোপনীয়তার নীতি";
 "main-menu-rate-app" = "অ্যাপটি মূল্যায়ন করুন";
@@ -406,14 +404,3 @@
 // Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 ও $3 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
-"zero-charged-verbiage" = "উইকিপিডিয়া জিরো নিষ্ক্রিয়";
-"zero-charged-verbiage-extended" = "অন্যান্য নিবন্ধ লোড করলে ডেটা চার্জ বহন করতে হতে পারে। সংরক্ষিত নিবন্ধ সংরক্ষণ করলে অফলাইনে তা ডেটা ব্যবহার করে না এবং তা বিনামূল্যে।";
-"zero-free-verbiage" = "মোবাইল অপারেটরদের সৌজন্যে বিনামূল্যে উইকিপিডয়া (ডাটা চার্জ প্রযোজ্য নয়)";
-"zero-interstitial-cancel" = "এখানে থাকুন";
-"zero-interstitial-continue" = "ছেড়ে চলুন";
-"zero-interstitial-leave-app" = "ডাটা চার্জ প্রযোজ্য হতে পারে। অন্য ওয়েবসাইটিতে যেতে চান?";
-"zero-interstitial-title" = "উইকিপিডিয়া জিরো প্রস্থান হচ্ছে";
-"zero-learn-more" = "এই উইকিপিডিয়া অ্যাপের জন্য ডাটা চার্জ প্রযোজ্য নয়।";
-"zero-learn-more-learn-more" = "আরও পড়ুন";
-"zero-learn-more-no-thanks" = "খারিজ";
-"zero-warn-when-leaving" = "উইকিপিডিয়া জিরো প্রস্থানের সময় সতর্ক করো";

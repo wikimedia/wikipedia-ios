@@ -65,7 +65,6 @@
 "article-read-more-title" = "மேலும் படிக்க";
 "article-share" = "பகிர்க";
 "back-button-accessibility-label" = "பின் செல்";
-"button-done" = "முடிந்தது";
 "button-next" = "அடுத்தது";
 "button-ok" = "சரி";
 "button-publish" = "பதிப்பிடு";
@@ -86,9 +85,6 @@
 "edit-summary-choice-fixed-grammar" = "நிலையான இலக்கணம்";
 "edit-summary-choice-fixed-typos" = "தட்டுப்பிழைத்திருத்தம்";
 "edit-summary-choice-linked-words" = "இணைக்கப்பட்ட சுட்டிகள்";
-"edit-summary-choice-other" = "பிற";
-"edit-summary-field-placeholder-text" = "நீங்கள் இக்கட்டுரையை மற்ற வழிகளில் மேம்படுத்தியது";
-"edit-summary-title" = "இந்த பக்கத்தை எப்பது மேம்படுத்துனீர்கள்?";
 "empty-no-article-message" = "மன்னிக்கவும், கட்டுரையை ஏற்றமுடியவில்லை";
 "empty-no-feed-action-message" = "நீங்கள் சேமிக்கப்பட்ட பக்கங்களை தொடர்ந்து படிக்கலாம்";
 "empty-no-feed-title" = "இணைய இணைப்பு இல்லை";
@@ -180,7 +176,6 @@
 "main-menu-debug-tweaks" = "உருவாக்குநர் அமைவுகள்";
 "main-menu-heading-debug" = "பிழை திருத்தும்";
 "main-menu-heading-legal" = "அகவுரிமை மற்றும் வரையறைகள்";
-"main-menu-heading-zero" = "விக்கிப்பீடியா சுழி";
 "main-menu-nearby" = "அருகிலுள்ள";
 "main-menu-privacy-policy" = "தனியுரிமைக் கொள்கை";
 "main-menu-rate-app" = "செயலியில் தரத்தை நிர்ணயி";
@@ -299,10 +294,3 @@
 "wikitext-upload-save" = "பதிப்பிடப்படுகின்றது...";
 "wikitext-upload-save-sign-in" = "உள்நுழை";
 "wikitext-upload-save-terms-name" = "பயன்பாட்டு விதிமுறைகள்";
-"zero-interstitial-cancel" = "இங்கேயே இருக்கவும்";
-"zero-interstitial-continue" = "விட்டுவிடவும்";
-"zero-interstitial-title" = "விக்கிப்பீடியா சுழியிலிருந்து வெளியேறுகிறது";
-"zero-learn-more" = "இந்த விக்கிப்பீடீயா நிரலுக்கு தரல் கட்டணங்கள் விடுக்கப்பட்டன.";
-"zero-learn-more-learn-more" = "மேலும் படிக்கவும்";
-"zero-learn-more-no-thanks" = "அகற்று";
-"zero-warn-when-leaving" = "சுழியை விட்டு வெளியேறினால் எச்சரிக்கவும்";

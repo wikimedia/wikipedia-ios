@@ -80,7 +80,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Cakrik Wacan";
 "article-unable-to-load-section" = "Ora bisa ngamot pérangan iki. Jajal mot manèh kacané saperlu niliki yèn masalahé wis didandani apa durung.";
 "back-button-accessibility-label" = "Bali";
-"button-done" = "Rampung";
 "button-next" = "Sabanjuré";
 "button-ok" = "Oké";
 "button-publish" = "Babar";
@@ -105,9 +104,6 @@
 "edit-summary-choice-fixed-grammar" = "Ndandani paramasastra";
 "edit-summary-choice-fixed-typos" = "Ndandani salah tik";
 "edit-summary-choice-linked-words" = "Nambahi pranala";
-"edit-summary-choice-other" = "Liyané";
-"edit-summary-field-placeholder-text" = "Cara liyané panjenengan bisa ndandani kacané";
-"edit-summary-title" = "Piyé olèhé panjenengan ndandani artikel?";
 "empty-no-article-message" = "Nyuwun pangapura, ora bisa ngamot artikel";
 "empty-no-feed-action-message" = "Panjenengan isih bisa maca kaca kang kasimpen";
 "empty-no-feed-message" = "Kowé bisa ndeleng artikel kang kaprayogakaké yèn wis nyambung Internèt";
@@ -132,6 +128,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Ora mirunggan marang basa tinamtu";
 "explore-feed-preferences-global-cards-title" = "Kertu sajagat";
 "explore-feed-preferences-hide-card-action-title" = "Dhelikaké kertu iki";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Dhelikaké kabèh kertu %@";
 "explore-feed-preferences-in-the-news-description" = "Artikel bab kadadéan dinané iki";
 "explore-feed-preferences-languages-footer-text" = "Ndhelikaké kabèh kertu pakan Dlajah ing kabèh basa bakal matèni tab Dlajah.";
@@ -230,7 +227,6 @@
 "main-menu-debug-tweaks" = "Setèlan pangembang";
 "main-menu-heading-debug" = "Dhebug";
 "main-menu-heading-legal" = "Priangga lan Paugeran";
-"main-menu-heading-zero" = "Wikipédia Zéro";
 "main-menu-nearby" = "Cedhak kéné";
 "main-menu-privacy-policy" = "Pranatan bab priangga";
 "main-menu-rate-app" = "Biji aplikasiné";
@@ -406,16 +402,6 @@
 "wikitext-upload-save" = "Mbabar...";
 "wikitext-upload-save-anonymously-warning" = "Besutan bakal diatribusèkaké marang alamat IP pirantiné panjenengan. Yèn panjenengan $1, panjenengan bakal duwé privasi luwih.";
 "wikitext-upload-save-sign-in" = "Mlebu log";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
 "wikitext-upload-save-terms-name" = "Pranatan Pangguna";
-"zero-charged-verbiage" = "Wikipedia Zero mati";
-"zero-charged-verbiage-extended" = "Ngamot artikel liyané bokmanawa kena béya dhata. Artikel kasimpen sing ana ing njaban jaringan ora nganggo dhata lan gratis.";
-"zero-free-verbiage" = "Aksès Wikipédia bebas saka operator sèlulèré panjenengan (ora kena béya dhata)";
-"zero-interstitial-cancel" = "Panggah ing kéné";
-"zero-interstitial-continue" = "Lunga";
-"zero-interstitial-leave-app" = "Bokmanawa kena béya dhata. Bacutaké nyang situs njaba?";
-"zero-interstitial-title" = "Metu saka Wikipédia Zéro";
-"zero-learn-more" = "Béya dhata ora dicakaké marang aplikasi Wikipédia iki.";
-"zero-learn-more-learn-more" = "Waca candhaké";
-"zero-learn-more-no-thanks" = "Tutup";
-"zero-warn-when-leaving" = "Élikaké yèn metu saka Zéro";

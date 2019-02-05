@@ -97,7 +97,6 @@
 "article-share" = "Udostępnij";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "back-button-accessibility-label" = "Wstecz";
-"button-done" = "Gotowe";
 "button-next" = "Następny";
 "button-ok" = "OK";
 "button-publish" = "Opublikuj";
@@ -121,9 +120,6 @@
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
-"edit-summary-choice-other" = "Inny";
-"edit-summary-field-placeholder-text" = "Inne sposoby, którymi można poprawić stronę";
-"edit-summary-title" = "Jak poprawiłeś stronę?";
 "empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
 "empty-no-feed-action-message" = "Nadal możesz czytać zapisane strony";
 "empty-no-feed-title" = "Brak połączenia z internetem";
@@ -146,6 +142,7 @@
 "explore-feed-preferences-global-cards-description" = "Karty niezwiązane z językiem";
 "explore-feed-preferences-global-cards-title" = "Karty globalne";
 "explore-feed-preferences-hide-card-action-title" = "Ukryj tę kartę";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
 "explore-feed-preferences-in-the-news-description" = "Artykuły o bieżących wydarzeniach";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
@@ -232,7 +229,6 @@
 "main-menu-account-title-logged-in" = "Zalogowano jako $1";
 "main-menu-heading-debug" = "Debugowanie";
 "main-menu-heading-legal" = "Prywatność i warunki";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "W pobliżu";
 "main-menu-privacy-policy" = "Polityka prywatności";
 "main-menu-rate-app" = "Oceń aplikację";
@@ -395,13 +391,3 @@
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
-"zero-charged-verbiage" = "Wikipedia Zero jest wyłączona.";
-"zero-free-verbiage" = "Bezpłatny dostęp do Wikipedii u twojego operatora telefonii komórkowej (uchylona opłata za ruch)";
-"zero-interstitial-cancel" = "Pozostań";
-"zero-interstitial-continue" = "Wyjdź";
-"zero-interstitial-leave-app" = "Przejście do witryny zewnętrznej może się wiązać z opłatami za transmisję danych. Kontynuować?";
-"zero-interstitial-title" = "Opuszczasz Wikipedię Zero";
-"zero-learn-more" = "Opłata za transmisję danych nie będą pobierane podczas korzystania z tej aplikacji Wikipedii.";
-"zero-learn-more-learn-more" = "Czytaj więcej";
-"zero-learn-more-no-thanks" = "Odrzuć";
-"zero-warn-when-leaving" = "Ostrzegaj przed opuszczeniem Zero";
