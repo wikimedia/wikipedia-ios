@@ -89,7 +89,6 @@
 "article-share" = "Поділитися";
 "article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
 "back-button-accessibility-label" = "Назад";
-"button-done" = "Готово";
 "button-next" = "Далі";
 "button-ok" = "Гаразд";
 "button-publish" = "Зберегти";
@@ -107,9 +106,6 @@
 "edit-summary-choice-fixed-grammar" = "Виправлений правопис";
 "edit-summary-choice-fixed-typos" = "Виправлена помилка";
 "edit-summary-choice-linked-words" = "Додані посилання";
-"edit-summary-choice-other" = "Інше";
-"edit-summary-field-placeholder-text" = "Інші аспекти, в яких Ви поліпшили статтю";
-"edit-summary-title" = "Як ви вдосконалили статтю?";
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
 "empty-no-feed-action-message" = "Ви все ще можете читати збережені сторінки";
 "empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
@@ -227,7 +223,6 @@
 "main-menu-debug-tweaks" = "Налаштування для розробників";
 "main-menu-heading-debug" = "Налагодження";
 "main-menu-heading-legal" = "Приватність та умови";
-"main-menu-heading-zero" = "Вікіпедія Zero";
 "main-menu-nearby" = "Неподалік";
 "main-menu-privacy-policy" = "Політика конфіденційності";
 "main-menu-rate-app" = "Оцінити програму";
@@ -360,14 +355,3 @@
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі Вашого пристрою. Якщо Ви $1, це буде більш конфіденційно.";
 "wikitext-upload-save-sign-in" = "Увійти";
 "wikitext-upload-save-terms-name" = "Умови використання";
-"zero-charged-verbiage" = "Вікіпедія Zero вимкнена";
-"zero-charged-verbiage-extended" = "Під час завантаження інших статей може стягуватися плата за передачу даних. Збережені статті, що накопичуються автономно, не вимагають передачі даних і є безкоштовними.";
-"zero-free-verbiage" = "Безкоштовний доступ до Вікіпедії у вашого мобільного оператора (оплата за трафік не стягується)";
-"zero-interstitial-cancel" = "Залишитися";
-"zero-interstitial-continue" = "Перейти";
-"zero-interstitial-leave-app" = "Можливе стягнення за передачу даних. Продовжити перехід на зовнішній сайт?";
-"zero-interstitial-title" = "Покидаємо Вікіпедія Zero";
-"zero-learn-more" = "Плату за передачу даних скасовано для цього додатка Вікіпедії.";
-"zero-learn-more-learn-more" = "Читати більше";
-"zero-learn-more-no-thanks" = "Відхилити";
-"zero-warn-when-leaving" = "Попереджати, якщо залишаєте Zero";

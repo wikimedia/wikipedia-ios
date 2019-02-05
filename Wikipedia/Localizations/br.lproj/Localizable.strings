@@ -60,6 +60,7 @@
 "alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
 "announcements-dismiss" = "Disteurel";
 "appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Digreskiñ divoullder skeudennoù an tem teñval";
 "appearance-settings-reading-themes" = "Temoù lenn";
 "appearance-settings-theme-options" = "Dibaboù an temoù";
@@ -73,7 +74,6 @@
 "article-share" = "Rannañ";
 "article-unable-to-load-section" = "Ne c'haller ket kargañ ar rannskrid-se. Klaskit freskaat ar pennad evit gwelet hag-eñ e vo reizhet ar gudenn.";
 "back-button-accessibility-label" = "Distreiñ";
-"button-done" = "Echu";
 "button-next" = "War-lerc'h";
 "button-ok" = "Mat eo";
 "button-publish" = "Embann";
@@ -90,9 +90,6 @@
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
 "edit-summary-choice-fixed-typos" = "Vi-koukoug reizhet";
 "edit-summary-choice-linked-words" = "Liammoù ouzhpennet";
-"edit-summary-choice-other" = "All";
-"edit-summary-field-placeholder-text" = "Doareoù all evit gwellaat ar pennad";
-"edit-summary-title" = "Penaos eo bet gwellaet ar pennad-mañ ganeoc'h ?";
 "empty-no-article-message" = "Ho tigarez, n'eus ket bet gallet kargañ ar pennad";
 "empty-no-feed-action-message" = "Gallout a reot lenn ar pajennoù enrollet";
 "empty-no-feed-message" = "Gallout a reot gwelet ho pennadoù erbedet p'ho pez ar Genrouedad.";
@@ -198,7 +195,6 @@
 "main-menu-debug-tweaks" = "Arventennoù an diorroer";
 "main-menu-heading-debug" = "Dizreinañ";
 "main-menu-heading-legal" = "Prevezded ha Termenoù";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Tostik";
 "main-menu-privacy-policy" = "Reolennoù prevezded";
 "main-menu-rate-app" = "Notañ an arload";
@@ -340,14 +336,3 @@
 "wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
 "wikitext-upload-save-sign-in" = "Kevreañ";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";
-"zero-charged-verbiage" = "Wikipedia Zero n'a ket en-dro";
-"zero-charged-verbiage-extended" = "Kargañ pennadoù all a c'hallfe kreskiñ ar mizoù. Ne vez ket bevezet roadennoù gant ar pennadoù enrollet ezlinenn ha digoust int.";
-"zero-free-verbiage" = "Moned frank da Wikipedia eus hoc'h oberataer hezoug (mizoù roadennoù null)";
-"zero-interstitial-cancel" = "Chom amañ";
-"zero-interstitial-continue" = "Mont kuit";
-"zero-interstitial-leave-app" = "Gallout a ra bezañ mizoù da baeañ evit ar roadennoù. Mont d'al lec'hienn diavaez ?";
-"zero-interstitial-title" = "O kuitaat Wikipedia Zero";
-"zero-learn-more" = "N'eus ket mizoù da baeañ evit ar roadennoù an arolad Wikipedia-mañ.";
-"zero-learn-more-learn-more" = "Gouzout hiroc'h";
-"zero-learn-more-no-thanks" = "Disteurel";
-"zero-warn-when-leaving" = "Roit da c'houzout ma kuitait Zero";

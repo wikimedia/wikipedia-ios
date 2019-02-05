@@ -79,6 +79,7 @@
 "appearance-settings-adjust-text-sizing" = "ปรับขนาดข้อความบทความ";
 "appearance-settings-expand-tables" = "ขยายตาราง";
 "appearance-settings-expand-tables-footer" = "ตั้งค่าให้เปิดตารางทั้งหมดในบทความทั้งหมดตามค่าเริ่มต้น รวมถึงข้อมูลเบื้องต้น อ้างอิง หมายเหตุ และแหล่งข้อมูลอื่น";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "ลดความทึบแสงของภาพเมื่อใช้ธีมมืด";
 "appearance-settings-reading-themes" = "ธีมการอ่าน";
 "appearance-settings-set-automatic-table-opening" = "การตั้งค่าตาราง";
@@ -98,7 +99,6 @@
 "article-unable-to-load-section" = "ไม่สามารถโหลดส่วนนี้ได้ ลองรีเฟรชบทความเพื่อดูว่าปัญหาถูกแก้ไขหรือยัง";
 "back-button-accessibility-label" = "ย้อนกลับ";
 "back-button-popover-title" = "แตะเพื่อย้อนกลับ";
-"button-done" = "เสร็จสิ้น";
 "button-next" = "ถัดไป";
 "button-ok" = "ตกลง";
 "button-publish" = "เผยแพร่";
@@ -156,9 +156,6 @@
 "edit-summary-choice-fixed-grammar" = "แก้ไขไวยากรณ์";
 "edit-summary-choice-fixed-typos" = "แก้ไขความผิดพลาดการพิมพ์";
 "edit-summary-choice-linked-words" = "เพิ่มลิงก์";
-"edit-summary-choice-other" = "อื่นๆ";
-"edit-summary-field-placeholder-text" = "วิธีการอื่นที่คุณปรับปรุงบทความนี้";
-"edit-summary-title" = "คุณปรับปรุงบทความนี้อย่างไร";
 "edit-text-formatting-table-view-title" = "การจัดรูปแบบข้อความ";
 "edit-text-size-table-view-title" = "ขนาดตัวอักษร";
 "empty-no-article-message" = "ขออภัย ไม่สามารถโหลดบทความนี้ได้";
@@ -201,6 +198,7 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "เปิด $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "ซ่อนทั้งหมด %@ การ์ดอยู่";
 "explore-feed-preferences-hide-card-action-title" = "ซ่อนการ์ดนี้";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ซ่อน %@ การ์ดทั้งหมด";
 "explore-feed-preferences-in-the-news-description" = "บทความเกี่ยวกับเหตุการณ์ปัจจุบัน";
 "explore-feed-preferences-languages-footer-text" = "การซ่อนการ์ดในฟีดสำรวจในภาษาทั้งหมดของคุณจะปิดแท็บสำรวจ";
@@ -271,7 +269,6 @@
 "main-menu-debug-tweaks" = "การตั้งค่านักพัฒนา";
 "main-menu-heading-debug" = "ดีบั๊ก";
 "main-menu-heading-legal" = "ความเป็นส่วนตัวและข้อกำหนด";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "ใกล้เคียง";
 "main-menu-privacy-policy" = "นโยบายความเป็นส่วนตัว";
 "main-menu-rate-app" = "ให้คะแนนแอปนี้";
@@ -386,12 +383,3 @@
 "wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นหากคุณ $1";
 "wikitext-upload-save-sign-in" = "เข้าสู่ระบบ";
 "wikitext-upload-save-terms-name" = "ข้อกำหนดการใช้งาน";
-"zero-charged-verbiage" = "Wikipedia Zero ปิดใช้งานอยู่";
-"zero-interstitial-cancel" = "อยู่ต่อ";
-"zero-interstitial-continue" = "ออก";
-"zero-interstitial-leave-app" = "อาจมีการคิดค่าบริการเพิ่ม ต้องการออกไปยังไซต์ภายนอกหรือไม่?";
-"zero-interstitial-title" = "ออกจาก Wikipedia Zero";
-"zero-learn-more" = "การคิดค่าบริการข้อมูลเพิ่มจะถูกยกเว้นสำหรับแอปวิกิพีเดียนี้";
-"zero-learn-more-learn-more" = "อ่านเพิ่มเติม";
-"zero-learn-more-no-thanks" = "ปิด";
-"zero-warn-when-leaving" = "เตือนหากกำลังออกจาก Wikipedia Zero";
