@@ -72,6 +72,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     private lazy var separatorButton: BarButtonItem = {
         let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.chromeText)
         button.isEnabled = false
+        button.isAccessibilityElement = false
         return button
     }()
 
