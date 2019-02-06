@@ -2,11 +2,19 @@
 enum AbuseFilterAlertType {
     case warning
     case disallow
+    func image() -> UIImage? {
+        switch self {
+        case .warning:
+            return #imageLiteral(resourceName: "abuse-filter-flag")
+        case .disallow:
+            return #imageLiteral(resourceName: "abuse-filter-alert")
+        }
+    }
 }
 
 class AbuseFilterAlertView: UIView, Themeable {
 
-    @IBOutlet private var iconLabel: WikiGlyphLabel!
+    @IBOutlet private var iconImageView: UIImageView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
     @IBOutlet private var detailsLabel1: UILabel!
@@ -19,7 +27,7 @@ class AbuseFilterAlertView: UIView, Themeable {
 
     public var type: AbuseFilterAlertType = .disallow {
         didSet {
-            iconLabel.configureAsIcon(for: type)
+            iconImageView.image = type.image()
             configureLabels(for: type)
         }
     }
@@ -55,18 +63,5 @@ class AbuseFilterAlertView: UIView, Themeable {
         detailsLabel3.textColor = theme.colors.secondaryText
         detailsLabel4.textColor = theme.colors.secondaryText
         detailsLabel5.textColor = theme.colors.secondaryText
-    }
-}
-
-private extension WikiGlyphLabel {
-    func configureAsIcon(for type: AbuseFilterAlertType) {
-        let string = (type == .disallow) ? WIKIGLYPH_X : WIKIGLYPH_FLAG
-        let bgColor:UIColor = (type == .disallow) ? .wmf_red : .wmf_orange
-        let fontSize: CGFloat = (type == .disallow) ? 74.0 : 70.0
-        let baselineOffset: CGFloat = (type == .disallow) ? 8.4 : 5.5
-        setWikiText(string, color: .white, size: fontSize, baselineOffset: baselineOffset)
-        layer.cornerRadius = frame.size.width / 2.0
-        layer.masksToBounds = true
-        backgroundColor = bgColor
     }
 }

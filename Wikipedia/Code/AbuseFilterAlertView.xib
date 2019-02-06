@@ -35,22 +35,19 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tht-cC-3A4">
                                             <rect key="frame" x="0.0" y="79" width="335" height="78"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3l-nw-qr5" customClass="WikiGlyphLabel">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ser-G2-vA8">
                                                     <rect key="frame" x="128.5" y="0.0" width="78" height="78"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="78" id="GPR-Ic-TmK"/>
-                                                        <constraint firstAttribute="height" constant="78" id="wuA-Wz-NIw"/>
+                                                        <constraint firstAttribute="width" constant="78" placeholder="YES" id="Wh3-5U-Y0T"/>
+                                                        <constraint firstAttribute="height" constant="78" placeholder="YES" id="s43-Yj-mdP"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="P3l-nw-qr5" secondAttribute="bottom" id="Yy2-w2-5l4"/>
-                                                <constraint firstItem="P3l-nw-qr5" firstAttribute="centerX" secondItem="Tht-cC-3A4" secondAttribute="centerX" id="c2c-af-pdi"/>
-                                                <constraint firstItem="P3l-nw-qr5" firstAttribute="top" secondItem="Tht-cC-3A4" secondAttribute="top" id="ri2-yL-rkk"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ser-G2-vA8" secondAttribute="bottom" id="SLS-Dm-xJz"/>
+                                                <constraint firstItem="Ser-G2-vA8" firstAttribute="centerX" secondItem="Tht-cC-3A4" secondAttribute="centerX" id="etp-kt-LPi"/>
+                                                <constraint firstItem="Ser-G2-vA8" firstAttribute="top" secondItem="Tht-cC-3A4" secondAttribute="top" id="uDD-lh-s12"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGP-Ui-HID">
@@ -138,7 +135,7 @@
                 <outlet property="detailsLabel3" destination="pzc-Km-XKn" id="hEO-pE-APy"/>
                 <outlet property="detailsLabel4" destination="6d2-Fy-nPh" id="Psc-Oa-MUF"/>
                 <outlet property="detailsLabel5" destination="BCr-jg-Xbw" id="h9U-dI-Wij"/>
-                <outlet property="iconLabel" destination="P3l-nw-qr5" id="8ok-4V-oar"/>
+                <outlet property="iconImageView" destination="Ser-G2-vA8" id="xVy-Jw-ihp"/>
                 <outlet property="subtitleLabel" destination="9kt-OA-3aw" id="aIe-ln-5cR"/>
                 <outlet property="titleLabel" destination="eGP-Ui-HID" id="wnQ-7W-sYY"/>
             </connections>
