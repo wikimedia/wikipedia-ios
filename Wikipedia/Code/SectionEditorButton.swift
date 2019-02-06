@@ -67,7 +67,7 @@ struct SectionEditorButton {
             case .decreaseIndentDepth:
                 return WMFLocalizedString("editor-decrease-indent-depth-title", value: "Decrease indent depth", comment: "Title for decrease indent depth button")
             case .increaseIndentDepth:
-                return WMFLocalizedString("editor-increase-indent-depth-title", value: "Increcrease indent depth", comment: "Title for increase indent depth button")
+                return WMFLocalizedString("editor-increase-indent-depth-title", value: "Increase indent depth", comment: "Title for increase indent depth button")
             case .directionUp:
                 return WMFLocalizedString("editor-direction-up-title", value: "Move cursor up", comment: "Title for move cursor up button")
             case .directionDown:
