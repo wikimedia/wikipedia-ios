@@ -130,7 +130,6 @@
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle semiboldFootnote] compatibleWithTraitCollection:self.traitCollection];
     label.textColor = self.theme.colors.secondaryText;
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = self.theme.colors.baseBackground;
     label.textAlignment = NSTextAlignmentNatural;
     label.text = self.pageHistoryDataArray[section].sectionTitle;
