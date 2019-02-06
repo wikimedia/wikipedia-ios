@@ -145,7 +145,7 @@
 "field-token-title" = "Kod gwiriekaat";
 "field-username-placeholder" = "Bizskrivañ an anv implijer";
 "field-username-title" = "Anv implijer";
-"find-in-page-button-label" = "Kavout ar bajenn";
+"action-find-in-page" = "Kavout ar bajenn";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Adderaouekaat";
 "forgot-password-email-sent" = "Kaset ez eus bet ur postel gant displegadurioù adderaouekaat";

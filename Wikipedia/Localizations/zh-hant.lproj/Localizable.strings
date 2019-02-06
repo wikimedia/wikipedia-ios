@@ -260,7 +260,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "開啟探索";
 "explore-feed-preferences-turn-on-explore-tab-message" = "這會以探索分頁來取代設定分頁，您可以從探索分頁的頂端使用輕觸齒輪圖示方式來取用設定";
 "explore-feed-preferences-turn-on-explore-tab-title" = "開啟探索分頁？";
-"explore-feed-preferences-undo-customization" = "還原";
+"action-undo" = "還原";
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
@@ -307,7 +307,7 @@
 "field-token-title" = "驗證代碼";
 "field-username-placeholder" = "輸入使用者名稱";
 "field-username-title" = "使用者名稱";
-"find-in-page-button-label" = "在頁面裡找尋";
+"action-find-in-page" = "在頁面裡找尋";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電子郵件已寄出";

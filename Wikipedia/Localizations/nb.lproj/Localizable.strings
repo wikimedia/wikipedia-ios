@@ -168,7 +168,7 @@
 "field-token-title" = "Bekreftelseskode";
 "field-username-placeholder" = "fyll inn brukernavn";
 "field-username-title" = "Brukernavn";
-"find-in-page-button-label" = "Finn på siden";
+"action-find-in-page" = "Finn på siden";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Tilbakestill";
 "forgot-password-email-sent" = "Epost med instruksjoner for å tilbakestille passordet har blitt sendt deg";

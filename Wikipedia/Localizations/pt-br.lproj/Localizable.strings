@@ -268,7 +268,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir a aba Configurações pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar a aba Explorar?";
-"explore-feed-preferences-undo-customization" = "Desfazer";
+"action-undo" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -315,7 +315,7 @@
 "field-token-title" = "Código de verificação";
 "field-username-placeholder" = "insira nome de usuário";
 "field-username-title" = "Nome de usuário";
-"find-in-page-button-label" = "Localizar na página";
+"action-find-in-page" = "Localizar na página";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviado um e-mail com instruções de redefinição de senha";
