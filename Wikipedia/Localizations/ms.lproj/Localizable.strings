@@ -79,6 +79,7 @@
 "appearance-settings-adjust-text-sizing" = "Laraskan saiz teks rencana";
 "appearance-settings-expand-tables" = "Kembangkan jadual";
 "appearance-settings-expand-tables-footer" = "Tetapkan semua jadual dalam semua rencana untuk dibuka secara lalai, termasuk Fakta pantas, Rujukan, Nota dan Pautan luar.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Kurangkan kelegapan imej pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
 "appearance-settings-set-automatic-table-opening" = "Tetapan Jadual";
@@ -98,7 +99,6 @@
 "article-unable-to-load-section" = "Bahagian ini tidak dapat dimuatkan. Cuba muatkan semula (refresh) rencana ini untuk betulkan masalah ini.";
 "back-button-accessibility-label" = "Kembali";
 "back-button-popover-title" = "Ketik untuk kembali";
-"button-done" = "Siap";
 "button-next" = "Seterusnya";
 "button-ok" = "OK";
 "button-publish" = "Terbitkan";
@@ -155,9 +155,6 @@
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
 "edit-summary-choice-linked-words" = "Menambahkan pautan";
-"edit-summary-choice-other" = "Lain-lain";
-"edit-summary-field-placeholder-text" = "Cara-cara lain anda menambah baik rencana";
-"edit-summary-title" = "Bagaimana anda perbaiki rencana ini?";
 "empty-no-article-message" = "Maaf, rencana tidak boleh dimuat";
 "empty-no-feed-action-message" = "Anda masih boleh membaca laman tersimpan";
 "empty-no-feed-message" = "Anda boleh lihat rencana cadangan anda apabila anda mempunyai internet";
@@ -203,6 +200,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
 "explore-feed-preferences-global-cards-title" = "Kad global";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kad ini";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua %@ kad";
 "explore-feed-preferences-in-the-news-description" = "Rencana mengenai peristiwa semasa";
 "explore-feed-preferences-languages-footer-text" = "Menyembunyikan semua Mencari kad suapan dalam semua bahasa anda akan mematikan tab Jelajah.";
@@ -238,7 +236,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Hidupkan Jelajah";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ini akan menggantikan tab Tetapan dengan tab Jelajahi, anda boleh mengakses Tetapan dari bahagian atas tab Jelajahi dengan mengetuk ikon gear";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Hidupkan tab Jelajah?";
-"explore-feed-preferences-undo-customization" = "Nyahbuat";
+"action-undo" = "Nyahbuat";
 "explore-hide-card-prompt" = "Sembunyikan kad ini";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -283,7 +281,7 @@
 "field-token-title" = "Token";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
-"find-in-page-button-label" = "Cari dalam laman";
+"action-find-in-page" = "Cari dalam laman";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Set semula";
 "forgot-password-email-sent" = "E-mel dengan arahan set semula kata laluan telah dihantar";
@@ -340,7 +338,6 @@
 "main-menu-debug-tweaks" = "Tetapan pemaju";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privasi dan Syarat-syarat";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Berdekatan";
 "main-menu-privacy-policy" = "Dasar privasi";
 "main-menu-rate-app" = "Beri nilai aplikasi";
@@ -644,16 +641,6 @@
 "wikitext-upload-save" = "Sedang menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Dengan menyiarkan perubahan, anda bersetuju dengan $1 dan bersetuju untuk melepaskan sumbangan anda di bawah lesen $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
-"zero-charged-verbiage" = "Wikipedia Zero off";
-"zero-charged-verbiage-extended" = "Tindakan memuatkan rencana lain mungkin dikenakan caj data. Rencana-rencana yang tersimpan secara 'offline' tidak menelan data, dan oleh itu percuma.";
-"zero-free-verbiage" = "Akses Wikipedia percuma dari operator mudah alih anda (pengecualian caj data)";
-"zero-interstitial-cancel" = "Tidak";
-"zero-interstitial-continue" = "Ya";
-"zero-interstitial-leave-app" = "Caj data mungkin dikenakan. Terus ke laman web luaran?";
-"zero-interstitial-title" = "Keluar dari Wikipedia Zero";
-"zero-learn-more" = "Caj data akan dikecualikan bagi aplikasi Wikipedia ini.";
-"zero-learn-more-learn-more" = "Baca lagi";
-"zero-learn-more-no-thanks" = "Singkir";
-"zero-warn-when-leaving" = "Pesan apabila keluar dari Zero";

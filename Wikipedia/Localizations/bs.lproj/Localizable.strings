@@ -65,7 +65,6 @@
 "article-share" = "Podijeli";
 "article-unable-to-load-section" = "Ne mogu učitati ovaj odlomak. Vidite hoće li se problem riješiti ako osvježite stranicu.";
 "back-button-accessibility-label" = "Nazad";
-"button-done" = "Gotovo";
 "button-next" = "Sljedeće";
 "button-ok" = "U redu";
 "button-publish" = "Objavi";
@@ -85,9 +84,6 @@
 "edit-summary-choice-fixed-grammar" = "Popravljena gramatička greška";
 "edit-summary-choice-fixed-typos" = "Popravljen tipfeler";
 "edit-summary-choice-linked-words" = "Dodani linkovi";
-"edit-summary-choice-other" = "Drugo";
-"edit-summary-field-placeholder-text" = "Drugi načini na koje ste poboljšali članak";
-"edit-summary-title" = "Kako ste poboljšali članak?";
 "empty-no-article-message" = "Nažalost, ne mogu učitati članak";
 "empty-no-feed-action-message" = "I dalje možete čitati sačuvane stranice";
 "empty-no-feed-message" = "Preporučene članke možete vidjeti kad se povežete na internet";
@@ -142,7 +138,7 @@
 "field-token-title" = "Kod za potvrdu";
 "field-username-placeholder" = "upišite korisničko ime";
 "field-username-title" = "Korisničko ime";
-"find-in-page-button-label" = "Pronađi na stranici";
+"action-find-in-page" = "Pronađi na stranici";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Postavi novu";
 "forgot-password-email-sent" = "Na e-poštu su poslana uputstva za ponovno postavljanje lozinke";
@@ -194,7 +190,6 @@
 "main-menu-debug-tweaks" = "Postavke za programere";
 "main-menu-heading-debug" = "Ispravke";
 "main-menu-heading-legal" = "Privatnost i uslovi";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "U blizini";
 "main-menu-privacy-policy" = "Politika privatnosti";
 "main-menu-rate-app" = "Ocijenite aplikaciju";
@@ -363,14 +358,3 @@
 // Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";
-"zero-charged-verbiage" = "Wikipedia Zero je isključena";
-"zero-charged-verbiage-extended" = "Učitavanje drugih članaka moglo bi sa sobom povući troškove za podatkovni promet. Sačuvani članci na uređaju ne koriste podatkovni promet i besplatni su.";
-"zero-free-verbiage" = "Besplatan pristup Wikipediji preko Vašeg mobilnog operatera (internetski saobraćaj se ne naplaćuje)";
-"zero-interstitial-cancel" = "Ostani ovdje";
-"zero-interstitial-continue" = "Napusti";
-"zero-interstitial-leave-app" = "Moguće je da će se naplatiti troškovi mobilnih podataka. Da nastavim na vanjski sajt?";
-"zero-interstitial-title" = "Napuštate Wikipediju Zero";
-"zero-learn-more" = "Za ovu Wikipedijinu aplikaciju ne naplaćuje se internetski saobraćaj.";
-"zero-learn-more-learn-more" = "Detaljnije";
-"zero-learn-more-no-thanks" = "Odbaci";
-"zero-warn-when-leaving" = "Upozori me ako napuštam Zero";

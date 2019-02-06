@@ -78,6 +78,7 @@
 "appearance-settings-adjust-text-sizing" = "مضمون جي متن جي ماپ ترتيبيو";
 "appearance-settings-expand-tables" = "جدول کوليو";
 "appearance-settings-expand-tables-footer" = "مضمون ۾ خانا، بشمول ترت معلومات، حوالا، حاشيا، ۽ خارجي ڳنڍڻا هميشه کليل هجن.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "عڪسن جي غيرشفافيت گھري نظاري تي گھٽايو";
 "appearance-settings-reading-themes" = "پڙھڻ جا نظارا";
 "appearance-settings-set-automatic-table-opening" = "جدول جون ترتيبون";
@@ -97,7 +98,6 @@
 "article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
 "back-button-accessibility-label" = "واپس";
 "back-button-popover-title" = "واپس وڃڻ لاءِ ڇھو";
-"button-done" = "ٿي ويو";
 "button-next" = "اڳيون";
 "button-ok" = "ٺيڪ";
 "button-publish" = "ڇاپيو";
@@ -154,9 +154,6 @@
 "edit-summary-choice-fixed-grammar" = "گرامر ٺيڪ ڪيو";
 "edit-summary-choice-fixed-typos" = "هجي جون چڪون درست ڪيون ويون";
 "edit-summary-choice-linked-words" = "ڳنڍڻا وڌا";
-"edit-summary-choice-other" = "ٻيو";
-"edit-summary-field-placeholder-text" = "ٻيا طريقا جن سان توهان مضمون کي بهتر بڻايو";
-"edit-summary-title" = "توهان مضمون ڪيئن بهتر بڻايو؟";
 "empty-no-article-message" = "معاف ڪجو، مضمون اتاري نہ سگهياسين.";
 "empty-no-feed-action-message" = "توھان اڃان بہ سانڍيل صفحا پڙھي سگھو ٿا";
 "empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
@@ -205,7 +202,7 @@
 "explore-feed-preferences-show-news-title" = "خبرن ۾ وارو ڪارڊ ڏيکاريو";
 "explore-feed-preferences-show-on-this-day-title" = "اڄ جو ڏينهن وارو ڪارڊ ڏيکاريو";
 "explore-feed-preferences-show-picture-of-the-day-title" = "چونڊ تصوير وارو ڪارڊ ڏيکاريو";
-"explore-feed-preferences-undo-customization" = "اڻڪريو";
+"action-undo" = "اڻڪريو";
 "explore-hide-card-prompt" = "هي ڪارڊ لڪايو";
 "explore-main-page-description" = "وڪيميڊيا رٿائن جو مک صفحو";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
@@ -249,7 +246,7 @@
 "field-token-title" = "تصديقي ڪوڊ";
 "field-username-placeholder" = "واهپنانءُ داخل ڪيو";
 "field-username-title" = "واھپنانءُ";
-"find-in-page-button-label" = "صفحي ۾ لھو";
+"action-find-in-page" = "صفحي ۾ لھو";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "وري ترتيب ڪريو";
 "forgot-password-email-sent" = "ڳجھولفظ وري ترتيب ڪرڻ جي ھدايتن سان ھڪ برقٽپال موڪليو ويو";
@@ -304,7 +301,6 @@
 "main-menu-debug-tweaks" = "ترقي ڏيندڙ جون ترتيبون";
 "main-menu-heading-debug" = "ڊي بگ";
 "main-menu-heading-legal" = "ذاتيات ۽ شرط";
-"main-menu-heading-zero" = "وڪيپيڊيا زيرو";
 "main-menu-nearby" = "ويجھا";
 "main-menu-privacy-policy" = "ذاتيات پاليسي";
 "main-menu-rate-app" = "ايپ کي ريٽ ڪريو";
@@ -534,14 +530,3 @@
 "wikitext-upload-save-anonymously-warning" = "ترميمون توھان جي ڊوائيس جي آءِپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1 توھان کي وڌيڪ نويڪلائي آھي.";
 "wikitext-upload-save-sign-in" = "داخل ٿيو";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
-"zero-charged-verbiage" = "وڪيپيڊيا زيرو بند آهي";
-"zero-charged-verbiage-extended" = "ٻيا مضمون لوڊ ڪرڻ سان ڊيٽا رقمون لاڳو ٿي سگهن ٿيون. سانڍيل يا آف لائيل جمع ڪيل ڊيٽا استعمال نٿا ڪن ۽ مفت آهن.";
-"zero-free-verbiage" = "توهانجي موبائل آپريٽر پاران وڪيپيڊيا تي مفت رسائي (ڊيٽا رقمن تان هٿ کنيل آهي)";
-"zero-interstitial-cancel" = "هتي ترسو";
-"zero-interstitial-continue" = "ڇڏيو";
-"zero-interstitial-leave-app" = "ڊيٽا رقمون لاڳو ٿي سگهن ٿيون. ٻاهرين سائيٽ ڏي جاري رکون؟";
-"zero-interstitial-title" = "وڪيپيڊيا زيرو ڇڏيندي";
-"zero-learn-more" = "هن وڪيپيڊيا ايپ لاءِ ڊيٽا رقمن تان هٿ کنيل آهي.";
-"zero-learn-more-learn-more" = "وڌيڪ پڙهو";
-"zero-learn-more-no-thanks" = "برخاست ڪريو";
-"zero-warn-when-leaving" = "جيڪڏهن وڪيپيڊيا زيرو ڇڏي وڃي رهي هجي تہ خبردار ڪريو";

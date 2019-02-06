@@ -593,7 +593,7 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(findInPageButtonPressed)];
-        _findInPageToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, nil, @"Find in page", @"Accessibility label for the Find in Page button");
+        _findInPageToolbarItem.accessibilityLabel = WMFCommonStrings.findInPage;
     }
     return _findInPageToolbarItem;
 }
@@ -1907,6 +1907,7 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
         self.articleContentLoadCompletion = ^{
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
             weakSelf.webViewController.webView.hidden = NO;
+            [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];
         };
         [self fetchArticle];
     }

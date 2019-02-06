@@ -87,7 +87,6 @@
 "article-unable-to-load-section" = "ဤအပိုင်းအား မရယူနိုင်ပါ။ ဆောင်းပါးအား ပြန်လည်ရှင်းသန့်ခြင်းဖြင့် ဤပြဿနာအား ပြင်ဆင်ရန် ကြိုးပမ်းကြည့်ပါ။";
 "back-button-accessibility-label" = "နောက်သို့";
 "back-button-popover-title" = "နောက်သို့ပြန်သွားရန်";
-"button-done" = "ပြီးပြီ";
 "button-next" = "ရှေ့";
 "button-ok" = "အိုကေ";
 "button-publish" = "လွှင့်တင်ရန်";
@@ -131,9 +130,6 @@
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
 "edit-summary-choice-fixed-typos" = "စာလုံးပေါင်း ပြင်ခဲ့သည်";
 "edit-summary-choice-linked-words" = "လင့်ခ်များပေါင်းထည့်ခဲ့သည်";
-"edit-summary-choice-other" = "အခြား";
-"edit-summary-field-placeholder-text" = "စာမျက်နှာအား တိုးတက်ကောင်းမွန်စေခဲ့သည့် အခြားနည်းလမ်းများ";
-"edit-summary-title" = "စာမျက်နှာကို တိုးတက်ကောင်းမွန်အောင် သင်မည်သို့ လုပ်ခဲ့သနည်း?";
 "empty-no-article-message" = "စိတ်မကောင်းပါ၊ ဆောင်းပါးကို ဝန်မဆွဲတင်နိုင်ပါ";
 "empty-no-feed-action-message" = "သိမ်းထားသော စာမျက်နှာများကို ဖတ်နိုင်ပါသေးသည်";
 "empty-no-feed-message" = "အင်တာနက်ရရှိချိန်တွင် သင့်ကိုအကြံပြုထောက်ခံထားသော ဆောင်းပါးများကို မြင်တွေ့နိုင်သည်";
@@ -168,6 +164,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "ဘာသာစကား မသတ်မှတ်ထားပါ";
 "explore-feed-preferences-global-cards-title" = "ကလိုဘယ် ကဒ်များ";
 "explore-feed-preferences-hide-card-action-title" = "ဤကဒ်ကို ဝှက်";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ကဒ်အားလုံး %@ ဝှက်";
 "explore-feed-preferences-in-the-news-description" = "လက်ရှိအဖြစ်အပျက်များအကြောင်း ဆောင်းပါးများ";
 "explore-feed-preferences-on-this-day-description" = "သမိုင်း၌ ဤနေ့တွင် ဖြစ်ပွားခဲ့သော ဖြစ်ရပ်များ";
@@ -184,7 +181,7 @@
 "explore-feed-preferences-show-randomizer-title" = "ကျပန်းကဒ်ကို ပြသရန်";
 "explore-feed-preferences-show-related-pages-title" = "သင်ဖတ်ရှုသောကြောင့်ကဒ်ကို ပြသရန်";
 "explore-feed-preferences-top-read-description" = "နေ့စဉ်ဖတ်ရှုမှုအများဆုံး ဆောင်းပါးများ";
-"explore-feed-preferences-undo-customization" = "နောက်ပြန် ပြန်ပြင်ရန်";
+"action-undo" = "နောက်ပြန် ပြန်ပြင်ရန်";
 "explore-hide-card-prompt" = "ဤကဒ်ကို ဝှက်";
 "explore-main-page-description" = "ဝီကီမီဒီယာပရောဂျက်များ၏ ပင်မစာမျက်နှာ";
 "explore-main-page-heading" = "ယနေ့အတွက် ဝီကီပီးဒီးယား";
@@ -227,7 +224,7 @@
 "field-token-title" = "အတည်ပြုကုဒ်";
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
-"find-in-page-button-label" = "စာမျက်နှာတွင် ရှာဖွေရန်";
+"action-find-in-page" = "စာမျက်နှာတွင် ရှာဖွေရန်";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ပြန်စရန်";
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
@@ -281,7 +278,6 @@
 "main-menu-account-title-logged-in" = "$1 အဖြစ် လော့ဂ်အင်ဝင်ခဲ့သည်";
 "main-menu-debug-tweaks" = "ဆော့ဝဲလ်တီထွင်သူ အပြင်အဆင်များ";
 "main-menu-heading-legal" = "တရားဝင် အချက်အလက်များ";
-"main-menu-heading-zero" = "ဝီကီပီးဒီးယားသုည";
 "main-menu-nearby" = "အနီးအနား";
 "main-menu-privacy-policy" = "ကိုယ်ရေးကိုယ်တာ မူဝါဒ";
 "main-menu-terms-of-use" = "အသုံးပြုခြင်းဆိုင်ရာ သတ်မှတ်ချက်များ";
@@ -518,16 +514,6 @@
 "wikitext-upload-save" = "လွှင့်တင်နေသည်...";
 "wikitext-upload-save-anonymously-warning" = "တည်းဖြတ်မှုကို သင့်စက်၏ အိုင်ပီလိပ်စာအနေဖြင့် မှတ်သားမည်။ အကယ်၍ သင် $1 လျှင် သင့်အတွက် လုံခြုံမှု ပိုရနိုင်သည်။";
 "wikitext-upload-save-sign-in" = "အကောင့်ဝင်ရန်";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "ပြောင်းလဲမှုများကို လွှင့်တင်ရာ၌ သင်သည် $1 ကိုသဘောတူညီပြီး သင်၏ပံ့ပိုးမှုများကို $2 နှင့် $3 လိုင်စင်အောက်တွင် ထုတ်ပြန်မည်ဖြစ်ကြောင်း သဘောတူသည်။";
 "wikitext-upload-save-terms-name" = "အသုံးပြုခြင်းဆိုင်ရာ သတ်မှတ်ချက်များ";
-"zero-charged-verbiage" = "ဝီကီပီးဒီးယားသုညကို ပိတ်ထားသည်";
-"zero-charged-verbiage-extended" = "အခြားဆောင်းပါးများ ရယူရာတွင် ဒေတာအသုံးပြုခ ကျသင့်နိုင်သည်။ သိမ်းဆည်းထားသော ဆောင်းပါးသည် ဒေတာမသုံးသလို အခမဲ့လည်း ဖြစ်သည်။";
-"zero-free-verbiage" = "သင့် မိုဘိုင်းလ်အော်ပရေတာမှ အခမဲ့ဝီကီပီးဒီးယား ဝင်ရောက်ခွင့် (ဒေတာအသုံးပြုခ လျှော့ထားသည်)";
-"zero-interstitial-cancel" = "ဆက်နေမြဲ";
-"zero-interstitial-continue" = "ထွက်ခွာရန်";
-"zero-interstitial-leave-app" = "ဒေတာအသုံးစရိတ် ပေးရပါမည်။ ပြင်ပဆိုဒ်သို့ သွားလိုပါသလား?";
-"zero-interstitial-title" = "ဝီကီးပီးဒီးယားသုညမှ ထွက်ခွာနေသည်";
-"zero-learn-more" = "ဤဝီကီပီးဒီးယား app အတွက် ဒေတာအသုံးပြုခ လျှော့ထားသည်။";
-"zero-learn-more-learn-more" = "ဆက်ဖတ်ပါ";
-"zero-learn-more-no-thanks" = "ဖြုတ်ရန်";
-"zero-warn-when-leaving" = "သုညမှ ထွက်ခွာလျှင် သတိပေးပါ";

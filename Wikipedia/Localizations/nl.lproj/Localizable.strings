@@ -1,5 +1,6 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
+// Author: Elroy
 // Author: FabianRM
 // Author: Festina90
 // Author: Hex
@@ -95,7 +96,7 @@
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
 "appearance-settings-expand-tables" = "Tabellen uitklappen";
 "appearance-settings-expand-tables-footer" = "Alle tabellen in alle artikelen standaard openen, inclusief snelle feiten, referenties, notities en externe links.";
-"appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeeldingen in het donkere thema";
+"appearance-settings-image-dimming-footer" = "Verlaag de ondoorzichtigheid van afbeeldingen in de donkere en zwarte thema's";
 "appearance-settings-reading-themes" = "Leesthema's";
 "appearance-settings-set-automatic-table-opening" = "Tabelinstellingen";
 "appearance-settings-text-sizing-example-text" = "Versleep de schuifregelaar om de tekstgrootte van het artikel te wijzigen. Gebruik de tekstgrootte van uw systeem om het formaat van andere tekstgebieden in de app te wijzigen.";
@@ -114,7 +115,6 @@
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
-"button-done" = "Afgerond";
 "button-next" = "Volgende";
 "button-ok" = "OK";
 "button-publish" = "Publiceren";
@@ -168,15 +168,22 @@
 "description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "dim-images" = "Afbeeldingen dimmen";
+"edit-minor-learn-more-text" = "Meer informatie over kleine bewerkingen";
+"edit-minor-text" = "Dit is een kleine bewerking";
+"edit-published" = "Bewerking gepubliceerd";
+"edit-published-button-title" = "Afgerond";
+"edit-published-subtitle" = "U hebt Wikipedia zojuist voor iedereen beter gemaakt";
 "edit-style-table-view-title" = "Stijl";
+"edit-summary-add-summary-text" = "Voeg een bewerkingssamenvatting toe";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
-"edit-summary-choice-other" = "Overige";
-"edit-summary-field-placeholder-text" = "Andere manieren waarop u de pagina hebt verbeterd";
-"edit-summary-title" = "Hoe hebt u het artikel verbeterd?";
+"edit-summary-learn-more-text" = "Meer informatie";
+"edit-summary-placeholder-text" = "Hoe hebt u de pagina verbeterd?";
 "edit-text-formatting-table-view-title" = "Tekstopmaak";
 "edit-text-size-table-view-title" = "Tekstgrootte";
+"edit-watch-list-learn-more-text" = "Meer over kijklijsten";
+"edit-watch-this-page-text" = "Deze pagina volgen";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
@@ -222,7 +229,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Niet-taalspecifiek";
 "explore-feed-preferences-global-cards-title" = "Globale kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Deze kaart verbergen";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Alle %@-kaarten verbergen";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Alle kaarten van %@ verbergen";
 "explore-feed-preferences-in-the-news-description" = "Pagina's over huidige gebeurtenissen";
 "explore-feed-preferences-languages-footer-text" = "Het verbergen van alle kaarten op het verkennen-tabblad in alle talen zal het tabblad uitschakelen.";
 "explore-feed-preferences-on-this-day-description" = "Gebeurtenissen in de geschiedenis op deze dag";
@@ -257,7 +264,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Verkennen inschakelen";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Dit zal het tabblad Instellingen vervangen door het tabblad Ontdekken, u kunt Instellingen openen vanaf de bovenkant van het tabblad Ontdekken door op het tandwielpictogram te klikken";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Het tabblad verkennen inschakelen?";
-"explore-feed-preferences-undo-customization" = "Ongedaan maken";
+"action-undo" = "Ongedaan maken";
 "explore-hide-card-prompt" = "Deze kaart verbergen";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
@@ -280,6 +287,8 @@
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
 "feed-news-notification-text" = "Schakel meldingen in om geïnformeerd te worden door Wikipedia wanneer artikelen trending zijn in het nieuws.";
+"fetcher-error-generic" = "Er is iets misgegaan. Probeer het later opnieuw.";
+"fetcher-error-unexpected-response" = "De toepassing heeft een onverwacht antwoord van de server ontvangen. Probeer het later opnieuw.";
 "field-alert-captcha-invalid" = "Ongeldige CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Wachtwoorden komen niet overeen";
 "field-alert-password-invalid" = "Ongeldig wachtwoord";
@@ -302,7 +311,7 @@
 "field-token-title" = "Verificatiecode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"find-in-page-button-label" = "Op pagina zoeken";
+"action-find-in-page" = "Op pagina zoeken";
 "find-in-page-number-matches" = "$1 van $2";
 "forgot-password-button-title" = "Opnieuw instellen";
 "forgot-password-email-sent" = "Een email met de instructies om uw wachtwoord opnieuw in te stellen is gestuurd";
@@ -363,7 +372,6 @@
 "main-menu-debug-tweaks" = "Ontwikkelaarsvoorkeuren";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privacy en voorwaarden";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "In de buurt";
 "main-menu-privacy-policy" = "Privacybeleid";
 "main-menu-rate-app" = "App beoordelen";
@@ -541,8 +549,7 @@
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-pages-progress-syncing" = "Pagina-download bezig...";
 "saved-reading-lists-title" = "Leeslijsten";
-// Fuzzy
-"saved-search-default-text" = "Zoeken";
+"saved-search-default-text" = "Opgeslagen artikelen doorzoeken";
 "saved-title" = "Opgeslagen";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Het wissen van {{PLURAL:$1|dit artikel wist dit artikel|deze artikelen wist deze artikelen}} van alle bijbehorende leeslijsten";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Wis opgeslagen {{PLURAL:$1|artikel|artikelen}}?";
@@ -661,22 +668,12 @@
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
 "wikitext-preview-link-preview-description" = "Deze link leidt naar '$1'";
 "wikitext-preview-link-preview-title" = "Linkvoorvertoning";
+"wikitext-preview-save-changes-title" = "Wijzigingen opslaan";
 "wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Door het publiceren van wijzigingen, gaat u akkoord met de $1 en gaat u akoord gaat met het vrijgeven van uw bijdragen onder de licentie $2 en $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Door het publiceren van wijzigingen, gaat u akkoord met de $1 en gaat u akoord gaat met het onherroepelijk vrijgeven van uw bijdragen onder de licentie $2 en de $3. U gaat er mee akkoord dat een koppeling of URL voldoende naamsvermelding is voor de Creative Commons licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
-"zero-charged-verbiage" = "Wikipedia Zero staat uit";
-"zero-charged-verbiage-extended" = "Het laden van andere pagina's kan kosten met zich meebrengen. Opgeslagen pagina's gebruiken geen dataverkeer en zijn dus gratis.";
-"zero-free-verbiage" = "Gratis toegang tot Wikipedia van uw mobiele provider (geen kosten voor gegevens)";
-"zero-interstitial-cancel" = "Hier blijven";
-"zero-interstitial-continue" = "Sluiten";
-"zero-interstitial-leave-app" = "Er kunnen extra kosten worden verrekend. Doorgaan naar de externe website?";
-"zero-interstitial-title" = "U verlaat Wikipedia Zero";
-"zero-learn-more" = "Er worden geen datakosten in rekening gebracht voor het gebruik van deze Wikipedia-app.";
-"zero-learn-more-learn-more" = "Meer lezen";
-"zero-learn-more-no-thanks" = "Sluiten";
-"zero-warn-when-leaving" = "Waarschuwen bij verlaten Zero";

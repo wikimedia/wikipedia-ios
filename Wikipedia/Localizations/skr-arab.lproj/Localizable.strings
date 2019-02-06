@@ -40,7 +40,6 @@
 "article-read-more-title" = "ٻیا پڑھو";
 "article-share" = "شیئر";
 "back-button-accessibility-label" = "پچھوں";
-"button-done" = "مکمل";
 "button-next" = "اڳوں تے ونڄو";
 "button-ok" = "ٹھیک ہے";
 "button-publish" = "چھاپو";
@@ -64,7 +63,7 @@
 "dim-images" = "مدھم تصویر";
 "edit-style-table-view-title" = "سٹائل";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";
-"edit-summary-choice-other" = "ٻئے";
+"edit-summary-learn-more-text" = "ٻیا سِکھو";
 "empty-no-search-results-message" = "کوئی نتیجہ نی لبھا";
 "error-generic-recovery-suggestion" = "ولدا بعد وچ کوشش کرو۔ تھورا ہوسی۔";
 "explore-continue-reading-heading" = "پڑھݨ جاری رکھو";
@@ -73,7 +72,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 تے";
-"explore-feed-preferences-undo-customization" = "واپس";
+"action-undo" = "واپس";
 "explore-hide-card-prompt" = "ایں کارڈ کوں لکاؤ";
 "explore-most-read-sub-heading-on-wikipedia" = "وکیپیڈیا تے";
 "explore-nearby-placeholder-heading" = "جاہیں";
@@ -97,7 +96,7 @@
 "field-token-title" = "تصدیقی کوڈ";
 "field-username-placeholder" = "ورتݨ آلا ناں درج کرو";
 "field-username-title" = "ورتݨ آلا ناں";
-"find-in-page-button-label" = "ورقے وچ ڳولو";
+"action-find-in-page" = "ورقے وچ ڳولو";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ولدا ٹھیک کرو";
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";
@@ -127,7 +126,6 @@
 "main-menu-account-logout-cancel" = "منسوخ";
 "main-menu-heading-debug" = "ڈی بگ";
 "main-menu-heading-legal" = "رازداری تے شرائط";
-"main-menu-heading-zero" = "وکیپیڈیا زیرو";
 "main-menu-nearby" = "نیڑے";
 "main-menu-privacy-policy" = "پرائیویسی پالیسی";
 "main-menu-title" = "ٻئے";
@@ -199,6 +197,3 @@
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
-"zero-interstitial-cancel" = "اتھ کھڑو ونڄو";
-"zero-interstitial-continue" = "چھوڑو";
-"zero-learn-more-learn-more" = "ٻیا پڑھو";

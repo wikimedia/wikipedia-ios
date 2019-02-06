@@ -52,7 +52,6 @@
 "article-read-more-title" = "अधिक वाचन";
 "article-unable-to-load-section" = "हा भाग दाखवता आला नाही. या लेखास ताजे करण्याने अडचण दुर होते का बघा.";
 "back-button-accessibility-label" = "परत जा";
-"button-done" = "झाले";
 "button-next" = "पुढील";
 "button-ok" = "ठिक आहे";
 "button-publish" = "प्रकाशित करा";
@@ -65,9 +64,6 @@
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठिकठाक केले";
 "edit-summary-choice-fixed-typos" = "टंकनदोष सुधरविला";
 "edit-summary-choice-linked-words" = "दुवे जोडले";
-"edit-summary-choice-other" = "इतर";
-"edit-summary-field-placeholder-text" = "या पानातील मजकूर सुधारण्याचे उपलब्ध पर्याय";
-"edit-summary-title" = "तूम्ही या पानात काय वाढवले?";
 "empty-no-article-message" = "माफ करा, लेख दाखवू शकलो नाही";
 "empty-no-feed-action-message" = "आपण अजूनही जतन केलेली पाने वाचू शकता";
 "empty-no-feed-message" = "आपल्यापाशी आंतरजाल असल्यावर आपण आपले शिफारस केलेले लेख बघु शकता";
@@ -88,7 +84,7 @@
 "explore-nearby-sub-heading-your-location" = "आपले ठिकाण";
 "explore-potd-heading" = "आजचे चित्र";
 "explore-random-article-heading" = "अविशिष्ट लेख";
-"find-in-page-button-label" = "पानामध्ये शोधा";
+"action-find-in-page" = "पानामध्ये शोधा";
 "history-clear-all" = "स्वछ करा";
 "history-clear-cancel" = "रद्द करा";
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
@@ -116,14 +112,13 @@
 "license-footer-text" = "तसे नोंदविलेले नसेल तर, यातील आशय हा $1 अंतर्गत उपलब्ध आहे";
 "main-menu-about" = "अॅप विषयी";
 "main-menu-account-login" = "सनोंद-प्रवेश करा";
-"main-menu-account-logout" = "सनोंद-निर्गम";
+"main-menu-account-logout" = "बाहेर पडा";
 "main-menu-account-logout-are-you-sure" = "आपण निश्चित करता काय कि आपणास निर्गमित व्हायचे आहे?";
 "main-menu-account-logout-cancel" = "रद्द करा";
 "main-menu-account-title-logged-in" = "सनोंद प्रवेशित $1 म्हणून";
 "main-menu-debug-tweaks" = "विकसकाच्या स्थापण्या";
 "main-menu-heading-debug" = "गणकदोष काढा";
 "main-menu-heading-legal" = "गुप्तता व अटी";
-"main-menu-heading-zero" = "विकिपीडीया झीरो";
 "main-menu-nearby" = "जवळपास";
 "main-menu-privacy-policy" = "गुप्तता नीती";
 "main-menu-rate-app" = "या अॲपचे दरनिर्धारण करा";
@@ -213,14 +208,3 @@
 "wikitext-upload-save-anonymously-warning" = "आपल्या उपकरणाच्या अंकपत्त्यास ही संपादने संलग्न होतील. जर आपण $1 केले तर आपणास अधिक एकांत मिळू शकतो.";
 "wikitext-upload-save-sign-in" = "सनोंद-प्रवेश";
 "wikitext-upload-save-terms-name" = "वापराच्या अटी";
-"zero-charged-verbiage" = "विकिपीडिया झिरो बंद आहे";
-"zero-charged-verbiage-extended" = "इतर लेखांचे प्रभारण केल्याने आपणास डाटा चार्जेस लागू शकतात.विनाजाल जतन केलेले लेख डाटा वापरत नाहीत व मुक्त आहेत.";
-"zero-free-verbiage" = "आपल्या भ्रमणध्वनी चालकाद्वारे मुक्त विकिपीडिया पोहोच (डाटा चार्जेस लगणार नाहीत)";
-"zero-interstitial-cancel" = "इथेच रहा";
-"zero-interstitial-continue" = "सोडा";
-"zero-interstitial-leave-app" = "डाटा चार्जेस लागू शकतील.बाह्य संकेतस्थळास सुरू ठेउ?";
-"zero-interstitial-title" = "विकिपीडिया झिरो त्यागत आहे";
-"zero-learn-more" = "या विकिपीडिया अॲपसाठी डाटा चार्जेस लागणार नाहीत.";
-"zero-learn-more-learn-more" = "अधिक वाचन";
-"zero-learn-more-no-thanks" = "रद्द करा";
-"zero-warn-when-leaving" = "जर झिरो त्यागत असाल तर इशारा द्या";

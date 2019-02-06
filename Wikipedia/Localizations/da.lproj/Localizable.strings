@@ -78,6 +78,7 @@
 "appearance-settings-adjust-text-sizing" = "Juster størrelse for artikelteksten";
 "appearance-settings-expand-tables" = "Udvid tabeller";
 "appearance-settings-expand-tables-footer" = "Angiv at alle tabeller i alle artikler skal være åbne som standard, inklusive hurtige fakta, referencer, noter og eksterne henvisninger.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Sænk gennemsigtighed for billeder på det mørke tema";
 "appearance-settings-reading-themes" = "Læsetemaer";
 "appearance-settings-set-automatic-table-opening" = "Tabelindstillinger";
@@ -97,7 +98,6 @@
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbage";
 "back-button-popover-title" = "Tryk for at gå tilbage";
-"button-done" = "Færdig";
 "button-next" = "Næste";
 "button-ok" = "OK";
 "button-publish" = "Udgiv";
@@ -135,14 +135,19 @@
 "description-welcome-concise-title" = "Gør det kort";
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "dim-images" = "Mørklæg billeder";
+"edit-minor-learn-more-text" = "Lær mere om mindre ændringer";
+"edit-minor-text" = "Dette er en mindre ændring";
+"edit-published-button-title" = "Udført";
+"edit-published-subtitle" = "Du har lige gjort Wikipedia bedre for alle";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
 "edit-summary-choice-linked-words" = "Tilføjede links";
-"edit-summary-choice-other" = "Andet";
-"edit-summary-field-placeholder-text" = "Andre måder du forbedrede artiklen";
-"edit-summary-title" = "Hvordan har du forbedret artiklen?";
+"edit-summary-learn-more-text" = "Lær mere";
+"edit-summary-placeholder-text" = "Hvordan har du forbedret artiklen?";
 "edit-text-size-table-view-title" = "Tekst størrelse";
+"edit-watch-list-learn-more-text" = "Lær mere om overvågningslister";
+"edit-watch-this-page-text" = "Overvåg denne side";
 "empty-no-article-message" = "Beklager, kunne ikke indlæse artiklen";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
@@ -172,9 +177,9 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På $1";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle %@ kort";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle “%@” kort";
 "explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle begivenheder";
-"explore-feed-preferences-undo-customization" = "Fortryd";
+"action-undo" = "Fortryd";
 "explore-hide-card-prompt" = "Skjul dette kort";
 "explore-main-page-description" = "Hovedside for Wikimedia-projekt";
 "explore-main-page-heading" = "I dag på Wikipedia";
@@ -219,7 +224,7 @@
 "field-token-title" = "Bekræftelseskode";
 "field-username-placeholder" = "indtast brugernavn";
 "field-username-title" = "Brugernavn";
-"find-in-page-button-label" = "Søg på siden";
+"action-find-in-page" = "Søg på siden";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Nulstil";
 "forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";
@@ -279,7 +284,6 @@
 "main-menu-debug-tweaks" = "Indstillinger for udvikler";
 "main-menu-heading-debug" = "Fejlsøgning";
 "main-menu-heading-legal" = "Privatliv og vilkår";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "I nærheden";
 "main-menu-privacy-policy" = "Behandling af personlige oplysninger";
 "main-menu-rate-app" = "Bedøm appen";
@@ -550,22 +554,13 @@
 "wikitext-preview-changes-none" = "Ingen ændringer blev foretaget som kan forhåndsvises.";
 "wikitext-preview-link-preview-description" = "Dette link leder til '$1'";
 "wikitext-preview-link-preview-title" = "Linkforhåndsvisning";
+"wikitext-preview-save-changes-title" = "Gem dine ændringer";
 "wikitext-upload-captcha-error" = "CAPTCHA kontrolfejl.";
 "wikitext-upload-captcha-needed" = "Brug for CAPTCHA bekræftelse.";
 "wikitext-upload-result-unknown" = "Ude af stand til at afgøre resultatet af wikitext upload.";
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
 "wikitext-upload-save-sign-in" = "Log på";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
-"zero-charged-verbiage" = "Wikipedia Zero er slået fra";
-"zero-charged-verbiage-extended" = "At hente andre artikler kan medføre datagebyrer. Gemte artikler, der er gemt offline, bruger ikke data, og de er gratis.";
-"zero-free-verbiage" = "Gratis Wikipedia adgang fra din mobiloperatør (data gebyrer frafaldes)";
-"zero-interstitial-cancel" = "Bliv her";
-"zero-interstitial-continue" = "Forlad";
-"zero-interstitial-leave-app" = "Datagebyrer opkræves muligvis. Vil du fortsætte til den eksterne side?";
-"zero-interstitial-title" = "Forlader Wikipedia Zero";
-"zero-learn-more" = "Datagebyrer er frafaldet for denne Wikipedia app.";
-"zero-learn-more-learn-more" = "Læs mere";
-"zero-learn-more-no-thanks" = "Luk";
-"zero-warn-when-leaving" = "Advar hvis Zero forlades";

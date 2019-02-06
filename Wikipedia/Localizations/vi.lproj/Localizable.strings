@@ -85,6 +85,7 @@
 "appearance-settings-adjust-text-sizing" = "Điều chỉnh kích thước văn bản trong bài";
 "appearance-settings-expand-tables" = "Mở rộng các bảng";
 "appearance-settings-expand-tables-footer" = "Mở rộng tất cả các bảng trong các bài viết theo mặc định, bao gồm Thông tin nhanh, Tham khảo, Chú thích, và Liên kết ngoài.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Giảm độ mờ hình ảnh trên giao diện tối";
 "appearance-settings-reading-themes" = "Giao diện đọc";
 "appearance-settings-set-automatic-table-opening" = "Cài đặt Bảng";
@@ -104,7 +105,6 @@
 "article-unable-to-load-section" = "Không thể tải lên phần này. Hãy thử tải lại bài để xem lỗi có được khắc phục hay không.";
 "back-button-accessibility-label" = "Quay lại";
 "back-button-popover-title" = "Chạm để quay lại";
-"button-done" = "Xong";
 "button-next" = "Tiếp";
 "button-ok" = "OK";
 "button-publish" = "Đăng";
@@ -124,9 +124,6 @@
 "edit-summary-choice-fixed-grammar" = "Sửa ngữ pháp";
 "edit-summary-choice-fixed-typos" = "Sửa chính tả";
 "edit-summary-choice-linked-words" = "Đặt liên kết";
-"edit-summary-choice-other" = "Khác";
-"edit-summary-field-placeholder-text" = "Bạn đã cải thiện trang này như thế nào?";
-"edit-summary-title" = "Bạn đã cải thiện bài này như thế nào?";
 "empty-no-article-message" = "Rất tiếc, không thể tải bài";
 "empty-no-feed-action-message" = "Bạn vẫn có thể đọc các trang đã lưu";
 "empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";
@@ -170,6 +167,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Không thuộc ngôn ngữ";
 "explore-feed-preferences-global-cards-title" = "Phiếu toàn cục";
 "explore-feed-preferences-hide-card-action-title" = "Ẩn phiếu này";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ẩn tất cả %@ phiếu";
 "explore-feed-preferences-in-the-news-description" = "Bài về thời sự";
 "explore-feed-preferences-languages-footer-text" = "Việc tắt tất cả các phiếu nguồn cấp Thám hiểm trong các ngôn ngữ của bạn sẽ tắt hẳn thẻ Thám hiểm.";
@@ -205,7 +203,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Bật Thám hiểm";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Thẻ Cài đặt sẽ được thay thế bằng thẻ Thám hiểm. Bạn có thể truy cập Cài đặt bằng cách chạm vào hình bánh răng ở đầu thẻ Thám hiểm.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Bật thẻ Thám hiểm?";
-"explore-feed-preferences-undo-customization" = "Hoàn tác";
+"action-undo" = "Hoàn tác";
 "explore-hide-card-prompt" = "Ẩn phiếu này";
 "explore-main-page-description" = "trang đầu của dự án Wikimania";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
@@ -250,7 +248,7 @@
 "field-token-title" = "Mã xác nhận";
 "field-username-placeholder" = "nhập tên người dùng";
 "field-username-title" = "Tên người dùng";
-"find-in-page-button-label" = "Tìm trong trang";
+"action-find-in-page" = "Tìm trong trang";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Mặc định lại";
 "forgot-password-email-sent" = "Đã gửi thư điện tử có hướng dẫn đặt lại mật khẩu";
@@ -307,7 +305,6 @@
 "main-menu-debug-tweaks" = "Tùy chọn cho nhà phát triển";
 "main-menu-heading-debug" = "Gỡ lỗi";
 "main-menu-heading-legal" = "Thông tin pháp luật";
-"main-menu-heading-zero" = "Wikipedia Miễn phí";
 "main-menu-nearby" = "Lân cận";
 "main-menu-privacy-policy" = "Quy định về quyền riêng tư";
 "main-menu-rate-app" = "Đánh giá ứng dụng";
@@ -603,16 +600,6 @@
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Với việc đăng các thay đổi, bạn chấp nhận các $1 và đồng ý phát hành đóng góp của bạn theo các giấy phép $2 và $3.";
 "wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";
-"zero-charged-verbiage" = "Wikipedia Miễn phí đang tắt";
-"zero-charged-verbiage-extended" = "Nếu tải các bài khác, bạn có thể phải trả phí dữ liệu. Các bài được lưu ngoại tuyến không tốn dữ liệu và được xem miễn phí.";
-"zero-free-verbiage" = "Truy cập Wikipedia miễn phí qua nhà điều hành điện thoại di động (miễn phí dữ liệu)";
-"zero-interstitial-cancel" = "Ở lại đây";
-"zero-interstitial-continue" = "Tiếp tục đi";
-"zero-interstitial-leave-app" = "Có thể phải trả phí dữ liệu. Tiếp tục đi vào trang ngoài?";
-"zero-interstitial-title" = "Sắp ra khỏi Wikipedia Miễn phí";
-"zero-learn-more" = "Không phải trả các chi phí dữ liệu khi sử dụng ứng dụng Wikipedia này.";
-"zero-learn-more-learn-more" = "Đọc thêm";
-"zero-learn-more-no-thanks" = "Bỏ qua";
-"zero-warn-when-leaving" = "Cảnh báo khi ra khỏi Miễn phí";

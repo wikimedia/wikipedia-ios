@@ -72,6 +72,7 @@
 "app-store-keywords" = "Бикипиэдьийэ, ыстатыйа, биики, энциклопедия, билии, аах, бил, билис, көр, быһаарыы";
 "app-store-subtitle" = "Аһаҕас энциклопедия";
 "appearance-settings-adjust-text-sizing" = "Ыстатыйа тиэкиһин кээмэйин уларытар";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Ойуу курдат көстөрүн хараҥа тиэмэҕэ кыччатар";
 "appearance-settings-set-automatic-table-opening" = "Таабыл нарылааһына";
 "appearance-settings-theme-options" = "Тиэмэ туруоруулара";
@@ -87,7 +88,6 @@
 "article-share" = "Тарҕат";
 "article-unable-to-load-section" = "Бу салааны көрдөрөр табыллыбата. Ыстатыйаны саҥаттан арыйан көр, баҕар оччоҕо сатаныа.";
 "back-button-accessibility-label" = "Төнүн";
-"button-done" = "Оҥоһулунна";
 "button-next" = "Аныгыскы";
 "button-ok" = "Сөп";
 "button-publish" = "Бэчээттииргэ";
@@ -112,9 +112,6 @@
 "edit-summary-choice-fixed-grammar" = "Таба суруйуутун көннөрдүм";
 "edit-summary-choice-fixed-typos" = "Алҕас суруллубут буукубаны көннөрдүм";
 "edit-summary-choice-linked-words" = "Эбиллибит сигэлэр";
-"edit-summary-choice-other" = "Атыны гынным";
-"edit-summary-field-placeholder-text" = "Ыстатыйаны тупсарыыҥ атын көрүҥэ";
-"edit-summary-title" = "Тугун тупсардыҥ?";
 "empty-no-article-message" = "Баалаама, ыстатыйа кыайан хачайдаммата";
 "empty-no-feed-action-message" = "Урут хаалларыллыбыт ыстатыйалары көрө түһүөххүн сөп";
 "empty-no-feed-message" = "Сүбэлиир ыстатыйаларбытын ситим баар буоллаҕына көрүөххүн сөп";
@@ -170,7 +167,7 @@
 "field-token-title" = "Куоду бигэргэт";
 "field-username-placeholder" = "ааккын суруй";
 "field-username-title" = "Бэлиэ-аат";
-"find-in-page-button-label" = "Бу сирэйтэн бул";
+"action-find-in-page" = "Бу сирэйтэн бул";
 "find-in-page-number-matches" = "$1 манна $2";
 "forgot-password-button-title" = "Саҥаттан";
 "forgot-password-email-sent" = "Аһарыгы уларытар туһунан сурук ыытылынна";
@@ -220,7 +217,6 @@
 "main-menu-debug-tweaks" = "Оҥорооччу туруоруулара";
 "main-menu-heading-debug" = "Нарылааһын";
 "main-menu-heading-legal" = "Бүк охсунуу";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Чугастааҕы";
 "main-menu-privacy-policy" = "Кистээһин сиэрэ";
 "main-menu-rate-app" = "Дьибилгэти сыаналаа";
@@ -358,14 +354,3 @@
 "wikitext-upload-save-anonymously-warning" = "Көннөрүүҥ IP-аадырыскынан бэлиэтэниэ. Өскөтө $1 буоллаххына, айпигын кистиир кыахтаныаҥ.";
 "wikitext-upload-save-sign-in" = "Киир";
 "wikitext-upload-save-terms-name" = "Туһаныы сиэрэ";
-"zero-charged-verbiage" = "Wikipedia Zero арахсыбыт";
-"zero-charged-verbiage-extended" = "Ыстатыйаны хачайдаан ыларга төлөбүр ылыахтарын сөп. Эрдэ хараллыбыт ыстатыйалары хачайдыыр ирдэммэт, онон босхо.";
-"zero-free-verbiage" = "Бикипиэдьийэҕэ босхо киириини мобил оператор хааччыйыыта (трафик төлөммөт)";
-"zero-interstitial-cancel" = "Хаал";
-"zero-interstitial-continue" = "Көс";
-"zero-interstitial-leave-app" = "Тас ситим-сиргэ бараҕын дуо? Оччоҕо харчы төлөтүөхтэрин сөп.";
-"zero-interstitial-title" = "Wikipedia Zero-ттан тахсыы";
-"zero-learn-more" = "Бикипиэдьийэ дьибилгэтин туһанан хачайдыырга төлөбүр ирдэммэт.";
-"zero-learn-more-learn-more" = "Эбии бу туһунан";
-"zero-learn-more-no-thanks" = "Сап";
-"zero-warn-when-leaving" = "Wikipedia Zero-ттан тахсаары гыннахпына сэрэтээр";

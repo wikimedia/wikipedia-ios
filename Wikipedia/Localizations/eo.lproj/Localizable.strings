@@ -83,6 +83,7 @@
 "appearance-settings-adjust-text-sizing" = "Ĝustigi artikolan tekstograndon";
 "appearance-settings-expand-tables" = "Etendi tabelojn";
 "appearance-settings-expand-tables-footer" = "Agordi ĉiujn tabelojn en ĉiuj artikoloj ke ili estu defaŭlte malfermitaj, inkluzive de Rapidaj faktoj, Referencoj, Notoj kaj Eksteraj ligiloj.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Malpliigi la opakecon de bildoj sur malluma etoso";
 "appearance-settings-reading-themes" = "Lego-etosoj";
 "appearance-settings-set-automatic-table-opening" = "Tabelaj agordoj";
@@ -102,7 +103,6 @@
 "article-unable-to-load-section" = "Ne eblas ŝargi tiun ĉi sekcion. Provu aktualigi la artikolon, tio eble riparos la problemon.";
 "back-button-accessibility-label" = "Reen";
 "back-button-popover-title" = "Tuŝetu por reiri";
-"button-done" = "Farite";
 "button-next" = "Sekva";
 "button-ok" = "Bone";
 "button-publish" = "Publikigi";
@@ -159,9 +159,6 @@
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
-"edit-summary-choice-other" = "Alia";
-"edit-summary-field-placeholder-text" = "Aliaj manieroj en kiuj vi plibonigis la artikolon";
-"edit-summary-title" = "Kiel vi plibonigis la artikolon?";
 "empty-no-article-message" = "Pardonon, ne povis ŝargi la artikolon";
 "empty-no-feed-action-message" = "Vi daŭre povas legi konservitajn paĝojn";
 "empty-no-feed-message" = "Vi povas vidi viajn rekomenditajn artikolojn kiam vi havas retaliron";
@@ -207,6 +204,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Ne lingvospecifa";
 "explore-feed-preferences-global-cards-title" = "Tutmondaj kartoj";
 "explore-feed-preferences-hide-card-action-title" = "Kaŝi ĉi tiun karton";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Kaŝi ĉiuj %@ kartoj";
 "explore-feed-preferences-in-the-news-description" = "Artikoloj pri nunaj eventoj";
 "explore-feed-preferences-languages-footer-text" = "Se vi kaŝas ĉiujn kartojn sur la Esplorfluo en via lingvo, la Esplortaba folio estos malŝaltita.";
@@ -242,7 +240,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ŝalti Esploradon";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ĉi tio anstataŭos la taban folion Agordoj per la Esplorflua taba folio. Vi povas aliri la agordojn supre de la Esplorflua taba folio, tuŝetante la dentoradan bildsimbolon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ĉu ŝalti la Esplorfluan taban folion?";
-"explore-feed-preferences-undo-customization" = "Malfari";
+"action-undo" = "Malfari";
 "explore-hide-card-prompt" = "Kaŝi ĉi tiun karton";
 "explore-main-page-description" = "Ĉefa paĝo de vikimediaj projektoj";
 "explore-main-page-heading" = "Hodiaŭ sur Vikipedio";
@@ -287,7 +285,7 @@
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
 "field-username-title" = "Salutnomo";
-"find-in-page-button-label" = "Trovi en la paĝo";
+"action-find-in-page" = "Trovi en la paĝo";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restarigi";
 "forgot-password-email-sent" = "Retmesaĝo kun instrukcioj pri la restarigo de pasvorto estas sendita";
@@ -348,7 +346,6 @@
 "main-menu-debug-tweaks" = "Programistaj agordoj";
 "main-menu-heading-debug" = "Sencimigi";
 "main-menu-heading-legal" = "Privateco kaj uzkondiĉoj";
-"main-menu-heading-zero" = "Vikipedio Zero";
 "main-menu-nearby" = "Ĉirkaŭe";
 "main-menu-privacy-policy" = "Politiko pri privateco";
 "main-menu-rate-app" = "Taksi la aplikaĵon";
@@ -652,16 +649,6 @@
 "wikitext-upload-save" = "Publikigas...";
 "wikitext-upload-save-anonymously-warning" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1, vi havos pli da privateco.";
 "wikitext-upload-save-sign-in" = "Ensaluti";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Konservante ŝanĝojn, vi konsentas kun la $1 kaj konsentas publikigi viajn kontribuojn laŭ la permesilo $2 kaj $3.";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";
-"zero-charged-verbiage" = "Vikipedio Zero estas malŝaltita";
-"zero-charged-verbiage-extended" = "Se vi ŝargas kromajn artikolojn, tio povas kaŭzi elspezojn por datumoj. Artikoloj kiujn vi konservis eksterrete ne uzas datumojn kaj estas senpagaj.";
-"zero-free-verbiage" = "Senpaga aliro al Vikipedio de via provizanto de sendrata retkonekto (sen bezono pagi datum-ŝutadon)";
-"zero-interstitial-cancel" = "Resti ĉi tie";
-"zero-interstitial-continue" = "Foriri";
-"zero-interstitial-leave-app" = "Eble vi elspezos por datumoj. Ĉu vi volas daŭrigi al ekstera retejo?";
-"zero-interstitial-title" = "Forlasante Vikipedio Zero";
-"zero-learn-more" = "Oni rezignis pri elspezoj por datumoj por ĉi tiu vikipedia aplikaĵo.";
-"zero-learn-more-learn-more" = "Legi plu";
-"zero-learn-more-no-thanks" = "Rezigni";
-"zero-warn-when-leaving" = "Averti dum forlasado de Zero";

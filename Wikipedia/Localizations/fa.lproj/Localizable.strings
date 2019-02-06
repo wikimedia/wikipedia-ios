@@ -3,6 +3,7 @@
 // Author: Alifakoor
 // Author: Alirezaaa
 // Author: Alp Er Tunqa
+// Author: Amirsara
 // Author: Arash.pt
 // Author: Arian Ar
 // Author: BaziOnline
@@ -94,7 +95,7 @@
 "appearance-settings-adjust-text-sizing" = "تنظیم اندازه متن مقاله";
 "appearance-settings-expand-tables" = "گسترش جدول";
 "appearance-settings-expand-tables-footer" = "تنظیم همهٔ زبانه‌ها در همهٔ مقالات که به صورت پیش‌فرض باز باشند، همراه با منابع، پانویس‌ها و پیوند به بیرون‌ها";
-"appearance-settings-image-dimming-footer" = "کم کردن شفافیت تصاویر در پوستهٔ تاریک";
+"appearance-settings-image-dimming-footer" = "کم کردن شفافیت تصاویر در پوستهٔ تیره و سیاه";
 "appearance-settings-reading-themes" = "پوستهٔ خواندن";
 "appearance-settings-set-automatic-table-opening" = "تنظیمات جدول";
 "appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازه متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون برنامه باید در تنظیمات سیستم‌تان تغییر ایجاد کنید.";
@@ -113,7 +114,6 @@
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "back-button-accessibility-label" = "بازگشت";
 "back-button-popover-title" = "برای بازگشت کلیک کنید";
-"button-done" = "انجام شد";
 "button-next" = "بعدی";
 "button-ok" = "تأیید";
 "button-publish" = "انتشار";
@@ -146,12 +146,11 @@
 "description-welcome-descriptions-title" = "توضیحات عنوان";
 "description-welcome-start-editing-button" = "ویرایش را آغاز کنید";
 "dim-images" = "تغییر نور تصاویر";
+"edit-minor-text" = "این ویرایش، جزئی است";
+"edit-style-table-view-title" = "سبک";
 "edit-summary-choice-fixed-grammar" = "دستور زبان  اصلاح شد";
 "edit-summary-choice-fixed-typos" = "اشتباهات اصلاح شد";
 "edit-summary-choice-linked-words" = "پیوندهای اضافه شده";
-"edit-summary-choice-other" = "سایر";
-"edit-summary-field-placeholder-text" = "راه‌های دیگر برای بهبود دادن مقاله";
-"edit-summary-title" = "چگونه مقاله را بهبود دادید؟";
 "empty-no-article-message" = "متاسفانه امکان بارگیری مقاله نیست";
 "empty-no-feed-action-message" = "فعلاً می توانید صفحه‌های ذخیره شده را مطالعه کنید";
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
@@ -183,7 +182,7 @@
 "explore-feed-preferences-hide-card-action-title" = "مخفی کردن این کارت";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "خاموش کردن جستجو";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "روشن کردن جستجو";
-"explore-feed-preferences-undo-customization" = "واگردانی";
+"action-undo" = "واگردانی";
 "explore-hide-card-prompt" = "مخفی کردن این کارت";
 "explore-main-page-description" = "صفحهٔ اصلی در پروژه‌های ویکی‌مدیا";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
@@ -225,7 +224,7 @@
 "field-token-title" = "کد تائید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
-"find-in-page-button-label" = "در صفحه پیدا کنید";
+"action-find-in-page" = "در صفحه پیدا کنید";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور فرستاده شد";
@@ -282,7 +281,6 @@
 "main-menu-debug-tweaks" = "تنظیمات توسعه دهنده";
 "main-menu-heading-debug" = "اشکال‌زدائی";
 "main-menu-heading-legal" = "سیاست‌ها و محرمانگی";
-"main-menu-heading-zero" = "ویکی‌پدیای صفر";
 "main-menu-nearby" = "در نزدیکی";
 "main-menu-privacy-policy" = "سیاست محرمانگی";
 "main-menu-rate-app" = "به برنامه امتیاز دهید";
@@ -424,8 +422,7 @@
 "saved-default-reading-list-tag" = "این فهرست را نمی‌توان حذف کرد";
 "saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";
 "saved-reading-lists-title" = "فهرست‌های خواندن";
-// Fuzzy
-"saved-search-default-text" = "جستجو";
+"saved-search-default-text" = "جستجو مقالات ذخیره شده";
 "saved-title" = "ذخیره شد";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "عدم ذخیرهٔ {{PLURAL:$1|این مقاله آن را از فهرست خواندن حذف می‌کند|این مقالات آنها را از فهرست خواندن حذف می‌کند}}";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "عدم ذخیرهٔ {{PLURAL:$1|مقاله|مقالات}}؟";
@@ -536,16 +533,6 @@
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
 "wikitext-upload-save-sign-in" = "ورود";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
-"zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
-"zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و رایگان هستند.";
-"zero-free-verbiage" = "دسترسی رایگان به ویکی‌پدیا  توسط اپراتور تلفن همراه تامین شده‌است (هزینهٔ دیتا گرفته نمی‌شود)";
-"zero-interstitial-cancel" = "ماندن در اینجا";
-"zero-interstitial-continue" = "ترک کردن";
-"zero-interstitial-leave-app" = "هزینهٔ استاندارد دیتا دریافت می‌گردد. آیا شما قصد دارید وارد سایت دیگری به غیر از ویکی‌پدیا شوید؟";
-"zero-interstitial-title" = "ترک ویکی‌پدیا صفر";
-"zero-learn-more" = "هزینه‌های داده برای این برنامه ویکی گرفته نمی‌شود.";
-"zero-learn-more-learn-more" = "بیشتر بخوانید";
-"zero-learn-more-no-thanks" = "پنهان‌سازی";
-"zero-warn-when-leaving" = "هشدار برای خروج از صفر";

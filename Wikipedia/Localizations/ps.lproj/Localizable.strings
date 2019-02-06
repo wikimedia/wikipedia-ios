@@ -57,7 +57,7 @@
 "explore-random-article-heading" = "ناټاکلې ليکنه";
 "field-password-title" = "پټنوم";
 "field-username-title" = "کارن-نوم";
-"find-in-page-button-label" = "په مخ کې موندل";
+"action-find-in-page" = "په مخ کې موندل";
 "history-clear-all" = "سپينول";
 "history-clear-cancel" = "ناگارل";
 "history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";

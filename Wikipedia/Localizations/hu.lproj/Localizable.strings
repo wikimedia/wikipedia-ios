@@ -80,6 +80,7 @@
 "appearance-settings-adjust-text-sizing" = "A szócikk szövegméretének beállítása";
 "appearance-settings-expand-tables" = "Táblázatok kinyitása";
 "appearance-settings-expand-tables-footer" = "Az összes táblázat kinyitása alapértelmezetten a cikkekben, beleértve a Gyors adatok, Forráshivatkozások, Jegyzetek és Külső hivatkozások dobozokat is.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "A képek átlátszatlanságának csökkentése sötét téma esetén";
 "appearance-settings-reading-themes" = "Olvasási témák";
 "appearance-settings-set-automatic-table-opening" = "Táblázatbeállítások";
@@ -98,7 +99,6 @@
 "article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
 "back-button-accessibility-label" = "Vissza";
 "back-button-popover-title" = "A visszalépéshez koppints ide";
-"button-done" = "Kész";
 "button-next" = "Következő";
 "button-ok" = "OK";
 "button-publish" = "Közzététel";
@@ -140,9 +140,6 @@
 "edit-summary-choice-fixed-grammar" = "Nyelvtani javítás";
 "edit-summary-choice-fixed-typos" = "Elírás javítása";
 "edit-summary-choice-linked-words" = "Hivatkozások hozzáadása";
-"edit-summary-choice-other" = "Egyéb";
-"edit-summary-field-placeholder-text" = "Más módok, ahogy javítottad a szócikket";
-"edit-summary-title" = "Hogy javítottad a szócikket?";
 "empty-no-article-message" = "Sajnáljuk, nem sikerült betölteni a cikket";
 "empty-no-feed-action-message" = "Továbbra is olvashatsz elmentett lapokat";
 "empty-no-feed-message" = "A neked ajánlott szócikkeket akkor láthatod, ha kapcsolódsz az internethez";
@@ -167,7 +164,7 @@
 "explore-feed-preferences-in-the-news-description" = "Szócikkek aktuális eseményekről";
 "explore-feed-preferences-places-description" = "Wikipédia szócikkek a közeledben";
 "explore-feed-preferences-potd-description" = "A nap kiemelt képe a Wikimédia Commonsról";
-"explore-feed-preferences-undo-customization" = "Visszavonás";
+"action-undo" = "Visszavonás";
 "explore-hide-card-prompt" = "Kártya elrejtése";
 "explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
@@ -209,7 +206,7 @@
 "field-token-title" = "Ellenőrző kód";
 "field-username-placeholder" = "add meg a szerkesztőnevedet";
 "field-username-title" = "Szerkesztőnév";
-"find-in-page-button-label" = "Keresés a lapon";
+"action-find-in-page" = "Keresés a lapon";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Visszaállítás";
 "forgot-password-email-sent" = "Elküldtük az e-mailt a jelszó-visszaállítási utasításokkal";
@@ -267,7 +264,6 @@
 "main-menu-debug-tweaks" = "Fejlesztői beállítások";
 "main-menu-heading-debug" = "Hibakeresés";
 "main-menu-heading-legal" = "Jogi információk";
-"main-menu-heading-zero" = "Wikipédia Zéró";
 "main-menu-nearby" = "Közelben";
 "main-menu-privacy-policy" = "Adatvédelmi irányelvek";
 "main-menu-rate-app" = "App értékelése";
@@ -488,14 +484,3 @@
 "wikitext-upload-save-anonymously-warning" = "A szerkesztéseid az eszközöd IP-címéhez lesznek társítva. A $1 nagyobb adatvédelmet biztosít.";
 "wikitext-upload-save-sign-in" = "Bejelentkezés";
 "wikitext-upload-save-terms-name" = "Felhasználási feltételek";
-"zero-charged-verbiage" = "A Wikipédia Zéró ki van kapcsolva";
-"zero-charged-verbiage-extended" = "Más szócikkek betöltése adatforgalmi díjakkal járhat. Az elmentett szócikkek kapcsolat nélkül is elérhetőek, így ingyen megtekinthetőek.";
-"zero-free-verbiage" = "Ingyenes Wikipédia-hozzáférés a mobilszolgáltatódtól (adatforgalmi díjak elengedve)";
-"zero-interstitial-cancel" = "Itt marad";
-"zero-interstitial-continue" = "Elhagy";
-"zero-interstitial-leave-app" = "Adatköltségek merülhetnek fel. Továbblépsz a külső oldalra?";
-"zero-interstitial-title" = "Wikipédia Zéró elhagyása";
-"zero-learn-more" = "Az adatköltségeket a szolgáltatód elengedi ennél a Wikipédia appnál.";
-"zero-learn-more-learn-more" = "További információ";
-"zero-learn-more-no-thanks" = "Elrejt";
-"zero-warn-when-leaving" = "Figyelmeztetés, ha elhagyom a Zérót";

@@ -67,7 +67,6 @@
 "article-share" = "Deel";
 "article-unable-to-load-section" = "Kon nie hierdie seksie laai nie. Probeer die artikel herlaai om te sien of dit die probleem oplos.";
 "back-button-accessibility-label" = "Terug";
-"button-done" = "Gedoen";
 "button-next" = "Volgende";
 "button-ok" = "Goed";
 "button-publish" = "Publiseer";
@@ -84,9 +83,6 @@
 "edit-summary-choice-fixed-grammar" = "Grammatika gekorrigeer";
 "edit-summary-choice-fixed-typos" = "Spelfout gekorrigeer";
 "edit-summary-choice-linked-words" = "Skakels bygevoeg";
-"edit-summary-choice-other" = "Ander";
-"edit-summary-field-placeholder-text" = "Ander maniere waarop u die blad verbeter het";
-"edit-summary-title" = "Hoe het u die bladsy verbeter?";
 "empty-no-search-results-message" = "Geen resultate gevind nie";
 "explore-featured-article-heading" = "Voorbladartikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Uit Wikipedia in $1";
@@ -126,7 +122,7 @@
 "field-token-title" = "Bevestigingskode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"find-in-page-button-label" = "Soek in blad";
+"action-find-in-page" = "Soek in blad";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Herstel";
 "forgot-password-email-sent" = "'n E-pos is gestuur met instruksies om die wagwoord te herstel";
@@ -171,7 +167,6 @@
 "main-menu-debug-tweaks" = "Ontwikkelaarinstellings";
 "main-menu-heading-debug" = "Ontfout";
 "main-menu-heading-legal" = "Privaatheid en Voorwaardes";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Naby";
 "main-menu-privacy-policy" = "Privaatheidsbeleid";
 "main-menu-rate-app" = "Gradeer toep";
@@ -292,14 +287,3 @@
 "wikitext-upload-save-anonymously-warning" = "Wysigings sal toegeskryf word aan die IP-adres van u toestel. Indien u $1 sal u meer privaatheid geniet.";
 "wikitext-upload-save-sign-in" = "Meld aan";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaardes";
-"zero-charged-verbiage" = "Wikipedia Zero is af";
-"zero-charged-verbiage-extended" = "Laai van ander artikels mag datakostes veroorsaak. Gestoorde artikels is aflyn, gebruik geen data en is dus kosteloos.";
-"zero-free-verbiage" = "Gratis Wikipedia toegang van jou diensverskaffer (datakostes kwytgeskeld)";
-"zero-interstitial-cancel" = "Bly Hier";
-"zero-interstitial-continue" = "Verlaat";
-"zero-interstitial-leave-app" = "Datakostes mag gehef word. Gaan na eksterne webadres?";
-"zero-interstitial-title" = "U verlaat Wikipedia Zero";
-"zero-learn-more" = "Datakostes is kwytgeskeld vir hierdie Wikipedia toep.";
-"zero-learn-more-learn-more" = "Lees meer";
-"zero-learn-more-no-thanks" = "Sluit";
-"zero-warn-when-leaving" = "Waarsku indien Zero verlaat word";

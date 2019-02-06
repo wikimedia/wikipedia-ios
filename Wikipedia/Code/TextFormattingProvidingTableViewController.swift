@@ -128,7 +128,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         selectedTextSizeType = .normal
     }
 
-    open func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+    open func buttonSelectionDidChange(button: SectionEditorButton) {
         switch button.kind {
         case .heading(let type):
             selectedTextStyleType = type
@@ -139,7 +139,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         }
     }
 
-    open func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+    open func disableButton(button: SectionEditorButton) {
 
     }
 }

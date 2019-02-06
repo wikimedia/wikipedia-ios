@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
          forArticleURL:(NSURL *)articleURL
                section:(NSString *)section
                summary:(nullable NSString *)summary
+           isMinorEdit:(BOOL)isMinorEdit
+        addToWatchlist:(BOOL)addToWatchlist
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;

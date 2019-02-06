@@ -88,6 +88,7 @@
 "appearance-settings-adjust-text-sizing" = "Ajustar tamanho de texto dos artigos";
 "appearance-settings-expand-tables" = "Expandir tabelas";
 "appearance-settings-expand-tables-footer" = "Definir que todas as tabelas em todos os artigos serão apresentadas abertas por padrão, incluindo 'Factos rápidos', 'Referências', 'Notas' e 'Hiperligações externas'.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Diminuir a opacidade das imagens num tema escuro";
 "appearance-settings-reading-themes" = "Temas de leitura";
 "appearance-settings-set-automatic-table-opening" = "Configurações de tabelas";
@@ -107,7 +108,6 @@
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
 "back-button-accessibility-label" = "Retroceder";
 "back-button-popover-title" = "Tocar para voltar atrás";
-"button-done" = "Concluído";
 "button-next" = "Seguinte";
 "button-ok" = "OK";
 "button-publish" = "Publicar";
@@ -164,9 +164,6 @@
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
 "edit-summary-choice-linked-words" = "Hiperligações adicionadas";
-"edit-summary-choice-other" = "Outro";
-"edit-summary-field-placeholder-text" = "Outras melhorias do artigo";
-"edit-summary-title" = "De que forma contribuiu para melhorar o artigo?";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Pode sempre ler as páginas guardadas";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados quando tiver acesso à Internet";
@@ -212,6 +209,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Independente da língua";
 "explore-feed-preferences-global-cards-title" = "Cartões globais";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar este cartão";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todos os cartões %@";
 "explore-feed-preferences-in-the-news-description" = "Artigos sobre atualidades";
 "explore-feed-preferences-languages-footer-text" = "Ocultar todos os cartões do feed Explorar em todas as línguas desativa o separador Explorar.";
@@ -247,7 +245,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
-"explore-feed-preferences-undo-customization" = "Desfazer";
+"action-undo" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -292,7 +290,7 @@
 "field-token-title" = "Código de verificação:";
 "field-username-placeholder" = "introduza o nome de utilizador";
 "field-username-title" = "Nome de utilizador";
-"find-in-page-button-label" = "Localizar na página";
+"action-find-in-page" = "Localizar na página";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviada uma mensagem eletrónica com instruções de redefinição da palavra-passe";
@@ -353,7 +351,6 @@
 "main-menu-debug-tweaks" = "Definições de programação";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidade e Condições";
-"main-menu-heading-zero" = "Wikipédia Zero";
 "main-menu-nearby" = "Nas redondezas";
 "main-menu-privacy-policy" = "Política de privacidade";
 "main-menu-rate-app" = "Avaliar aplicação";
@@ -657,16 +654,6 @@
 "wikitext-upload-save" = "A publicar...";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ao publicar as alterações, concorda com $1 e em publicar o seu contributo ao abrigo das licenças $2 e $3.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";
-"zero-charged-verbiage" = "A Wikipédia Zero está desativada";
-"zero-charged-verbiage-extended" = "Carregar outros artigos pode resultar em encargos de transferência de dados. Os artigos guardados, armazenados no dispositivo, não geram tráfego de dados e o acesso é gratuito.";
-"zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem cobrar dados)";
-"zero-interstitial-cancel" = "Permanecer aqui";
-"zero-interstitial-continue" = "Sair";
-"zero-interstitial-leave-app" = "Poderá incorrer em encargos de transferência de dados. Continuar para o sítio externo?";
-"zero-interstitial-title" = "A deixar a Wikipédia Zero";
-"zero-learn-more" = "Não incorre em encargos de transferência de dados para esta aplicação Wikipédia.";
-"zero-learn-more-learn-more" = "Ler mais";
-"zero-learn-more-no-thanks" = "Ignorar";
-"zero-warn-when-leaving" = "Avisar-me se deixar a Wikipédia Zero";

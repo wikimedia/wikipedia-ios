@@ -48,7 +48,6 @@
 "article-read-more-title" = "Ne saber mai";
 "article-share" = "Partejar";
 "back-button-accessibility-label" = "Retorn";
-"button-done" = "Acabat";
 "button-next" = "Seguent";
 "button-ok" = "D’acòrdi";
 "button-publish" = "Publicar";
@@ -64,7 +63,6 @@
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
 "edit-summary-choice-fixed-typos" = "Correccion de fautas";
 "edit-summary-choice-linked-words" = "Ligams aponduts";
-"edit-summary-choice-other" = "Autre";
 "empty-no-feed-title" = "Pas de connexion a Internet";
 // Fuzzy
 "empty-no-reading-lists-message" = "Clicatz sul « + » blau per crear de listas de lecturas a prepaus de luòcs a visitar, de subjèctes favorits e de nombrosas autras tematicas";
@@ -91,7 +89,7 @@
 "field-password-title" = "Senhal";
 "field-token-title" = "Còdi de verificacion";
 "field-username-title" = "Nom d'utilizaire";
-"find-in-page-button-label" = "Trobar dins la pagina";
+"action-find-in-page" = "Trobar dins la pagina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reïnicializar";
 "forgot-password-title" = "Reïnicializar lo senhal";
@@ -132,7 +130,6 @@
 "main-menu-debug-tweaks" = "Paramètres de desvolopament";
 "main-menu-heading-debug" = "Desbogar";
 "main-menu-heading-legal" = "Confidencialitat e condicions";
-"main-menu-heading-zero" = "Wikipèdia Zèro";
 "main-menu-nearby" = "A proximitat";
 "main-menu-privacy-policy" = "Politica de confidencialitat";
 "main-menu-rate-app" = "Notar l’aplicacion";
@@ -223,10 +220,3 @@
 "wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";
-"zero-charged-verbiage" = "Wikipèdia Zèro es desactivada";
-"zero-interstitial-cancel" = "Demorar aicí";
-"zero-interstitial-continue" = "Quitar";
-"zero-interstitial-title" = "Sortida de Wikipèdia Zèro";
-"zero-learn-more-learn-more" = "Legir la seguida";
-"zero-learn-more-no-thanks" = "Regetar";
-"zero-warn-when-leaving" = "Avertir en quitant Zèro";

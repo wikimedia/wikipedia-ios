@@ -78,6 +78,7 @@
 "appearance-settings-adjust-text-sizing" = "Breyta stærð leturs í grein";
 "appearance-settings-expand-tables" = "Þenja út töflur";
 "appearance-settings-expand-tables-footer" = "Láta allar töflur í öllum greinum vera sjálfgefið opnar, þar með taldar 'Staðreyndir strax', 'Tilvísanir', 'Minnispunktar' og 'Ytri tenglar'.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Minnka ógegnsæi mynda í dökku þema";
 "appearance-settings-reading-themes" = "Lestrarþemu";
 "appearance-settings-set-automatic-table-opening" = "Töflustillingar";
@@ -97,7 +98,6 @@
 "article-unable-to-load-section" = "Gat ekki hlaðið þessum hluta inn. Reyndu að endurhlaða inn greininni til að sjá hvort það lagi vandamálið.";
 "back-button-accessibility-label" = "Til baka";
 "back-button-popover-title" = "Banka til að fara til baka";
-"button-done" = "Búið";
 "button-next" = "Áfram";
 "button-ok" = "Í lagi";
 "button-publish" = "Gefa út";
@@ -154,9 +154,6 @@
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
 "edit-summary-choice-fixed-typos" = "Lagaði innsláttarvillu";
 "edit-summary-choice-linked-words" = "Viðbættir tenglar";
-"edit-summary-choice-other" = "Annað";
-"edit-summary-field-placeholder-text" = "Aðrar leiðir sem þú notaðir til að bæta greinina";
-"edit-summary-title" = "Hvernig bættir þú greinina?";
 "empty-no-article-message" = "Því miður, gat ekki hlaðið greininni inn";
 "empty-no-feed-action-message" = "Þú getur lesið vistaðar síður á meðan";
 "empty-no-feed-message" = "Þú getur séð þær greinar sem mælt er með fyrir þig þegar þú ert með virka nettengingu";
@@ -202,6 +199,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Tilheyrir ekki ákveðnu tungumáli";
 "explore-feed-preferences-global-cards-title" = "Víðvær spjöld";
 "explore-feed-preferences-hide-card-action-title" = "Fela þetta spjald";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Fela öll %@ spjöld";
 "explore-feed-preferences-in-the-news-description" = "Greinar um mál í gangi";
 "explore-feed-preferences-languages-footer-text" = "Ef öll 'Uppgötva'-spjöldin eru falin í öllum tungumálunum þínum verður slökkt á 'Uppgötva'-flipanum.";
@@ -237,7 +235,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Kveikja á 'Uppgötva'";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Þetta mun skipta stillingaflipanum út fyrir 'Uppgötva'-flipann, þú getur alltaf farið í stillingarnar með því að smella á gírhjólstáknið efst á 'Uppgötva'-flipanum";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Kveikja á 'Uppgötva'-flipanum?";
-"explore-feed-preferences-undo-customization" = "Afturkalla";
+"action-undo" = "Afturkalla";
 "explore-hide-card-prompt" = "Fela þetta spjald";
 "explore-main-page-description" = "Aðalsíða Wikimedia-verkefna";
 "explore-main-page-heading" = "Í dag á Wikipedia";
@@ -282,7 +280,7 @@
 "field-token-title" = "Staðfestingarkóði";
 "field-username-placeholder" = "settu inn notandanafn";
 "field-username-title" = "Notandanafn";
-"find-in-page-button-label" = "Finna á síðu";
+"action-find-in-page" = "Finna á síðu";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Endurstilla";
 "forgot-password-email-sent" = "Tölvupóstur var sendur með leiðbeiningum varðandi endurstillingu lykilorðs";
@@ -343,7 +341,6 @@
 "main-menu-debug-tweaks" = "Stillingar fyrir forritara";
 "main-menu-heading-debug" = "Aflúsa";
 "main-menu-heading-legal" = "Gagnaleynd og skilmálar";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Í nágrenni";
 "main-menu-privacy-policy" = "Persónuvernd";
 "main-menu-rate-app" = "Meta appið";
@@ -647,16 +644,6 @@
 "wikitext-upload-save" = "Gef út...";
 "wikitext-upload-save-anonymously-warning" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi þitt er best að $1.";
 "wikitext-upload-save-sign-in" = "Innskrá";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Með því að birta breytingar, samþykkir þú $1 og að framlag þitt verði gefið út með $2 og $3 notkunarleyfum.";
 "wikitext-upload-save-terms-name" = "Notkunarskilmálar";
-"zero-charged-verbiage" = "Slökkt er á Wikipedia Zero";
-"zero-charged-verbiage-extended" = "Að hlaða aðrar greinar gæti stofnað til gagnakostnaðs. Vistaðar greinar, sem eru aðgengilegar án nettengingar, nota ekki gagnamagn og eru þá ókeypis.";
-"zero-free-verbiage" = "Ókeyps aðgangur að Wikipedia á vegum símafyrirtækis þíns (enginn gagnakostnaður)";
-"zero-interstitial-cancel" = "Verða hér";
-"zero-interstitial-continue" = "Fara burt";
-"zero-interstitial-leave-app" = "Kostnaður vegna niðurhals gagna getur kannski komið til. Halda áfram á ytri vef?";
-"zero-interstitial-title" = "Fer burt af Wikipedia Zero";
-"zero-learn-more" = "Gagnakostnaður á ekki við fyrir þetta Wikipedia-app.";
-"zero-learn-more-learn-more" = "Lesa meira";
-"zero-learn-more-no-thanks" = "Loka";
-"zero-warn-when-leaving" = "Áminna mig ef ég fer burt af Wikipedia Zero";

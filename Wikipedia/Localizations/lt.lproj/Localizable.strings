@@ -53,7 +53,6 @@
 "article-languages-yours" = "Jūsų kalbos";
 "article-read-more-title" = "Skaityti daugiau";
 "back-button-accessibility-label" = "Atgal";
-"button-done" = "Atlikta";
 "button-next" = "Kitas";
 "button-ok" = "Gerai";
 "button-publish" = "Publikuoti";
@@ -69,8 +68,6 @@
 "edit-summary-choice-fixed-grammar" = "Pataisyta gramatika";
 "edit-summary-choice-fixed-typos" = "Pataisyta rašyba";
 "edit-summary-choice-linked-words" = "Pridėtos nuorodos";
-"edit-summary-choice-other" = "Kita";
-"edit-summary-title" = "Kaip pagerinote straipsnį?";
 "empty-no-feed-action-message" = "Jūs dar galite skaityti išsaugotus puslapius";
 "empty-no-feed-title" = "Nėra interneto ryšio";
 "empty-no-history-title" = "Nėra rodytinos istorijos";
@@ -116,7 +113,7 @@
 "field-token-title" = "Patvirtinimo kodas";
 "field-username-placeholder" = "įveskite naudotojo vardą";
 "field-username-title" = "Naudotojo vardas";
-"find-in-page-button-label" = "Rasti puslapyje";
+"action-find-in-page" = "Rasti puslapyje";
 "forgot-password-username-or-email-title" = "Arba";
 "history-clear-all" = "Išvalyti";
 "history-clear-cancel" = "Atšaukti";
@@ -154,7 +151,6 @@
 "main-menu-debug-tweaks" = "Kūrėjo nustatymai";
 "main-menu-heading-debug" = "Derinti";
 "main-menu-heading-legal" = "Privatumas ir sąlygos";
-"main-menu-heading-zero" = "Vikipedija Zero";
 "main-menu-nearby" = "Netoliese";
 "main-menu-privacy-policy" = "Privatumo politika";
 "main-menu-rate-app" = "Įvertinti programėlę";
@@ -276,10 +272,3 @@
 "wikitext-upload-save" = "Publikuojama...";
 "wikitext-upload-save-sign-in" = "Prisijungti";
 "wikitext-upload-save-terms-name" = "Naudojimo sąlygos";
-"zero-charged-verbiage" = "Vikipedija Zero išjungtas";
-"zero-interstitial-cancel" = "Likti čia";
-"zero-interstitial-continue" = "Išeiti";
-"zero-interstitial-title" = "Paliekama „Vikipedija Zero“";
-"zero-learn-more-learn-more" = "Skaityti daugiau";
-"zero-learn-more-no-thanks" = "Atmesti";
-"zero-warn-when-leaving" = "Perspėti, jeigu paliekamas „Zero“";

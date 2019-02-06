@@ -78,6 +78,7 @@
 "appearance-settings-adjust-text-sizing" = "Axustar el tamañu del testu del artículu";
 "appearance-settings-expand-tables" = "Ampliar tables";
 "appearance-settings-expand-tables-footer" = "Definir que toles tables de tolos artículos tean abiertes de manera predeterminada, incluyendo les Fiches, Referencies, Notes y Enllaces esternos.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Amenorgar la opacidá de les imaxes na tema escura.";
 "appearance-settings-reading-themes" = "Lleyendo temes";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tables";
@@ -97,7 +98,6 @@
 "article-unable-to-load-section" = "Nun pudo cargase esta seición. Intenta recargar l'artículu para ver si eso igua'l problema.";
 "back-button-accessibility-label" = "Anterior";
 "back-button-popover-title" = "Toca equí pa volver";
-"button-done" = "Fecho";
 "button-next" = "Siguiente";
 "button-ok" = "Aceutar";
 "button-publish" = "Espublizar";
@@ -117,9 +117,6 @@
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";
 "edit-summary-choice-linked-words" = "Enllaces amestaos";
-"edit-summary-choice-other" = "Otros";
-"edit-summary-field-placeholder-text" = "Otres formes nes qu'ameyorasti l'artículu";
-"edit-summary-title" = "¿Cómo ameyorasti l'artículu?";
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
 "empty-no-feed-action-message" = "Inda puedes lleer páxines guardaes";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
@@ -163,6 +160,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Independiente de la llingua";
 "explore-feed-preferences-global-cards-title" = "Tarxetes globales";
 "explore-feed-preferences-hide-card-action-title" = "Tapecer esta tarxeta";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Tapecer toles tarxetes %@";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobro actividaes de recién";
 "explore-feed-preferences-languages-footer-text" = "Tapecer toles tarxetes de la canal d'esploración en tolos idiomes desactivará la llingüeta Esplorar.";
@@ -179,7 +177,7 @@
 "explore-feed-preferences-show-on-this-day-footer-text" = "Desactivar la tarxeta d'Un día como güei desactivará la tarxeta en tolos idiomes disponibles.";
 "explore-feed-preferences-show-on-this-day-title" = "Amosar la tarxeta Un día como güei";
 "explore-feed-preferences-show-picture-of-the-day-title" = "Amosar la tarxeta d'Imaxe del día";
-"explore-feed-preferences-undo-customization" = "Desfacer";
+"action-undo" = "Desfacer";
 "explore-hide-card-prompt" = "Tapecer esta tarxeta";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
@@ -224,7 +222,7 @@
 "field-token-title" = "Códigu de comprobación";
 "field-username-placeholder" = "escribe'l nome d'usuariu";
 "field-username-title" = "Nome d'usuariu";
-"find-in-page-button-label" = "Alcontrar na páxina";
+"action-find-in-page" = "Alcontrar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reaniciar";
 "forgot-password-email-sent" = "Unvióse un corréu electrónicu con instrucciones pa reaniciar la contraseña";
@@ -281,7 +279,6 @@
 "main-menu-debug-tweaks" = "Configuración de desendolcador";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Cercanu";
 "main-menu-privacy-policy" = "Política d'intimidá";
 "main-menu-rate-app" = "Calificar l'app";
@@ -574,16 +571,6 @@
 "wikitext-upload-save" = "Espublizando...";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
 "wikitext-upload-save-sign-in" = "Aniciar sesión";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Al publicar cambeos, aceptes los $1 y lliberar la to contribución baxo les llicencies $2 y $3.";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";
-"zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
-"zero-charged-verbiage-extended" = "Cargar otros artículos puede implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneren tráficu y son de baldre.";
-"zero-free-verbiage" = "Accesu llibre a Wikipedia dende l'operador de móviles (facturación de baldre por datos)";
-"zero-interstitial-cancel" = "Quedar equí";
-"zero-interstitial-continue" = "Colar";
-"zero-interstitial-leave-app" = "Pueden aplicase cargos pol tráficu de datos. ¿Siguir al sitiu esternu?";
-"zero-interstitial-title" = "Saliendo de Wikipedia Zero";
-"zero-learn-more" = "Esta app de Wikipedia ta llibre de cargos por tráficu de datos.";
-"zero-learn-more-learn-more" = "Lleer más";
-"zero-learn-more-no-thanks" = "Descartar";
-"zero-warn-when-leaving" = "Avisar si s'abandones Zero";

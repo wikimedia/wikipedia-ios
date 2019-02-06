@@ -51,8 +51,8 @@
 "account-creation-have-account" = "پہلے سے کھاتہ موجود ہے؟ $1";
 "account-creation-log-in" = "داخل ہوں";
 "account-creation-logging-in" = "داخل ہو رہے ہیں...";
-"account-creation-missing-fields" = "کھاتہ بنانے کے لیے صارف کا نام، کلمہ شناخت اور کلمہ شناخت کی تصدیق فراہم کریں۔";
-"account-creation-passwords-mismatched" = "کلمہ شناخت نہیں ملتے۔";
+"account-creation-missing-fields" = "کھاتہ بنانے کے لیے صارف کا نام، پاسورڈ اور پاسورڈ کی تصدیق فراہم کریں۔";
+"account-creation-passwords-mismatched" = "پاسورڈ غلط ہے۔";
 "account-creation-saving" = "محفوظ ہورہا ہے...";
 "account-creation-title" = "نیا کھاتہ بنائیں";
 "action-add-to" = "جمح کریں۔۔۔۔";
@@ -91,7 +91,6 @@
 "article-share" = "دوسروں کو بھیجیں";
 "article-unable-to-load-section" = "اس قطعے کو لوڈ نہیں کیا جا سکا۔ مضمون تازہ لوڈ کرکے دیکھیے کہ کیا اس مسئلے کا حل ممکن ہوچکا ہے۔";
 "back-button-accessibility-label" = "واپس";
-"button-done" = "مکمل";
 "button-next" = "اگلا";
 "button-ok" = "ٹھیک ہے";
 "button-publish" = "شائع کریں";
@@ -124,9 +123,6 @@
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
 "edit-summary-choice-linked-words" = "روابط شامل کیے";
-"edit-summary-choice-other" = "دیگر";
-"edit-summary-field-placeholder-text" = "دوسرے طریقے جن سے آپ نے اس مضمون کو بہتر کیا";
-"edit-summary-title" = "اس مضمون میں آپ نے کیا درستی کی؟";
 "empty-no-article-message" = "معاف کیجیے، مضمون کو لوڈ نہیں کیا جاسکا";
 "empty-no-feed-action-message" = "آپ اب بھی اپنے محفوظ کردہ صفحات پڑھ سکتے ہیں";
 "empty-no-feed-message" = "آپ اپنے سفارش کردہ مضامین کو اس وقت دیکھ سکتے ہیں جب آپ کے پاس انٹرنیٹ ہو۔";
@@ -150,7 +146,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 زبانیں";
 "explore-feed-preferences-feed-cards-hidden-title" = "تمام %@ کارڈ پوشیدہ";
-"explore-feed-preferences-undo-customization" = "واپس";
+"action-undo" = "واپس";
 "explore-hide-card-prompt" = "یہ کارڈ پوشیدہ کریں";
 "explore-main-page-description" = "ویکیمیڈیا منصوبوں کا صفحہ اول";
 "explore-main-page-heading" = "ویکیپیڈیا پر آج";
@@ -194,7 +190,7 @@
 "field-token-title" = "توثیقی کوڈ";
 "field-username-placeholder" = "صارف نام درج کریں";
 "field-username-title" = "صارف نام";
-"find-in-page-button-label" = "صفحہ میں تلاش کریں";
+"action-find-in-page" = "صفحہ میں تلاش کریں";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
@@ -242,7 +238,6 @@
 "main-menu-debug-tweaks" = "ڈیولپر کی ترجیحات";
 "main-menu-heading-debug" = "ڈی بگ";
 "main-menu-heading-legal" = "رازداری اور شرائط";
-"main-menu-heading-zero" = "ویکیپیڈیا زیرو";
 "main-menu-nearby" = "قریبی";
 "main-menu-privacy-policy" = "اصول برائے اخفائے راز";
 "main-menu-rate-app" = "ایپ کو گردانیے";
@@ -380,14 +375,3 @@
 "wikitext-upload-save-anonymously-warning" = "ترامیم کا انتساب آپ کے آلے کے دستور شبکی پتے کو جائے گا۔ اگر آپ $1 آپ کے پاس زیادہ نجی حیثیت رہے گی۔";
 "wikitext-upload-save-sign-in" = "داخل ہوں";
 "wikitext-upload-save-terms-name" = "استعمال کے شرائط";
-"zero-charged-verbiage" = "ویکیپیڈیا زیرو ختم ہو چکا ہے۔";
-"zero-charged-verbiage-extended" = "دیگر مضامین کو لوڈ کرنے سے ڈاٹا شرحوں کو نافذ کیا جاسکتا ہے۔ محفوظ مضامین کو جنہیں آفلائن رکھا گیا ہے ڈاٹا کے استعمال کی ضرورت نہیں پڑتی اور یہ مفت ہیں۔";
-"zero-free-verbiage" = "آپ کے موبائل آپریٹر کی جانب سے مفت ویکیپیڈیا (ڈاٹا شرحیں معاف)";
-"zero-interstitial-cancel" = "ہاں";
-"zero-interstitial-continue" = "نہیں";
-"zero-interstitial-leave-app" = "اس بیرونی ربط پر جانے کے لیے آپ سے موبائل کمپنی قیمت وصول کرے گی، کیا اسے جاری رکھیں؟";
-"zero-interstitial-title" = "ویکیپیڈیا زیرو کو ختم کریں";
-"zero-learn-more" = "اس ویکیپیڈیا ایب کی شرحیں ہٹا دی گئی ہیں۔";
-"zero-learn-more-learn-more" = "مزید پڑھیں";
-"zero-learn-more-no-thanks" = "ہٹائیں";
-"zero-warn-when-leaving" = "ویکیپیڈیا زیرو چھوڑنے کی صورت میں آگاہ کریں";

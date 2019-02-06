@@ -58,6 +58,7 @@
 "alert-no-internet" = "Taya sambungan internét";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Luyukeun ukuran téks artikel";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Turunkeun poékna gambar dina téma poék";
 "appearance-settings-reading-themes" = "Téma bacaan";
 // Fuzzy
@@ -76,7 +77,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Téma Bacaan";
 "article-unable-to-load-section" = "Teu bisa muat ieu bagéan. Coba segerkeun deui artikel pikein nempoan mun éta tarékah bisa menerkeun masalah.";
 "back-button-accessibility-label" = "Balik deui";
-"button-done" = "Anggeus";
 "button-next" = "Saterusna";
 "button-ok" = "Heug";
 "button-publish" = "Pedalkeun";
@@ -96,9 +96,6 @@
 "edit-summary-choice-fixed-grammar" = "Pameneran tata basa";
 "edit-summary-choice-fixed-typos" = "Pameneran kasalahan ngetik";
 "edit-summary-choice-linked-words" = "Panambahan tutumbu";
-"edit-summary-choice-other" = "Lianna";
-"edit-summary-field-placeholder-text" = "Cara séjén dina ngaropéa ieu kaca";
-"edit-summary-title" = "Kumaha cara anjeun dina nyampurnakeun ieu kaca?";
 "empty-no-article-message" = "Hampura, teu bisa muat artikel";
 "empty-no-feed-action-message" = "Anjeun masih bisa kénéh maca kaca kasimpen.";
 "empty-no-feed-message" = "Anjeun bisa nempo artikel nu disarankeun pikeun anjeun nalika anjeun miboga sambungan intenet";
@@ -154,7 +151,7 @@
 "field-token-title" = "Kodeu vérifikasi";
 "field-username-placeholder" = "asupkeun sandiasma";
 "field-username-title" = "Sandiasma";
-"find-in-page-button-label" = "Panggihan dina kaca";
+"action-find-in-page" = "Panggihan dina kaca";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rését";
 "forgot-password-email-sent" = "Hiji surélék kalawan instruksi panyetélan ulang kecap sandi geus dikirim";
@@ -209,7 +206,6 @@
 "main-menu-debug-tweaks" = "Pangaturan pangembang";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privasi jeung Katangtuan";
-"main-menu-heading-zero" = "Wikipédia Zéro";
 "main-menu-nearby" = "Sabudeureun";
 "main-menu-privacy-policy" = "Kawijakan privasi";
 "main-menu-rate-app" = "Béré peunteun aplikasi";
@@ -397,16 +393,6 @@
 "wikitext-upload-save" = "Midangkeun...";
 "wikitext-upload-save-anonymously-warning" = "Éditan bakal ditepungkeun kana alamat IP parangkat. Mun anjeun $1 anjeun bakal mibanda privasi leuwih.";
 "wikitext-upload-save-sign-in" = "Asup log";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ku medalkeun parobahan, anjeun sapuk kana $1 sarta sapuk pikeun mikeun kontribusi anjeun dina lisénsi $2 jeung $3.";
 "wikitext-upload-save-terms-name" = "Katangtuan Pamakéan";
-"zero-charged-verbiage" = "Wikipédia Zéro dipaéhan";
-"zero-charged-verbiage-extended" = "Pamuatan artikel lian meureun baé dikeunakeun biaya data. Artikel nu disimpen sacara oflén teu maké data sarta haratis.";
-"zero-free-verbiage" = "Aksés Wikipédia haratis ti operator sélulér (biaya data dibébaskan)";
-"zero-interstitial-cancel" = "Mugen didieu";
-"zero-interstitial-continue" = "Tinggalkeun";
-"zero-interstitial-leave-app" = "Biaya data meureun lumaku. Teruskeun waé ieu téh ka situs \néksternal?";
-"zero-interstitial-title" = "Ninggalkeun Wikipédia Zéro";
-"zero-learn-more" = "Biaya data dibébaskeun pikeun ieu aplikasi Wikipédia.";
-"zero-learn-more-learn-more" = "Baca leuwih jero";
-"zero-learn-more-no-thanks" = "Tutup";
-"zero-warn-when-leaving" = "Carék mun ninggalkeun Zéro";
