@@ -35,21 +35,21 @@ class AbuseFilterAlertView: UIView, Themeable {
     private func configureLabels(for type: AbuseFilterAlertType) {
         switch type {
         case .disallow:
-            titleLabel.text = WMFLocalizedStringWithDefaultValue("abuse-filter-disallow-heading", nil, nil, "You cannot publish this edit", "Header text for disallowed edit warning.")
+            titleLabel.text = WMFLocalizedString("abuse-filter-disallow-heading", value: "You cannot publish this edit", comment: "Header text for disallowed edit warning.")
             subtitleLabel.text = nil
-            detailsLabel1.text = WMFLocalizedStringWithDefaultValue("abuse-filter-disallow-unconstructive", nil, nil, "An automated filter has identified this edit as potentially unconstructive or as a vandalism attempt. Please go back and change your edit.", "Label text for unconstructive edit description")
+            detailsLabel1.text = WMFLocalizedString("abuse-filter-disallow-unconstructive", value: "An automated filter has identified this edit as potentially unconstructive or as a vandalism attempt. Please go back and change your edit.", comment: "Label text for unconstructive edit description")
             detailsLabel2.text = nil
             detailsLabel3.text = nil
             detailsLabel4.text = nil
             detailsLabel5.text = nil
         case .warning:
-            titleLabel.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-heading", nil, nil, "This looks like an unconstructive edit, are you sure you want to publish it?", "Header text for unconstructive edit warning")
-            subtitleLabel.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-subheading", nil, nil, "Your edit may contain:", "Subheading text for potentially unconstructive edit warning")
-            detailsLabel1.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-caps", nil, nil, "All caps text", "Label text for typing in all capitals")
-            detailsLabel2.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-blanking", nil, nil, "Deleting sections or full articles", "Label text for blanking sections or articles")
-            detailsLabel3.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-spam", nil, nil, "Adding spam to articles", "Label text for adding spam to articles")
-            detailsLabel4.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-irrelevant", nil, nil, "Irrelevant external links or images", "Label text for irrelevant external links and images")
-            detailsLabel5.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-repeat", nil, nil, "Repeating characters", "Label text for repeating characters")
+            titleLabel.text = WMFLocalizedString("abuse-filter-warning-heading", value: "This looks like an unconstructive edit, are you sure you want to publish it?", comment: "Header text for unconstructive edit warning")
+            subtitleLabel.text = WMFLocalizedString("abuse-filter-warning-subheading", value: "Your edit may contain:", comment: "Subheading text for potentially unconstructive edit warning")
+            detailsLabel1.text = WMFLocalizedString("abuse-filter-warning-caps", value: "All caps text", comment: "Label text for typing in all capitals")
+            detailsLabel2.text = WMFLocalizedString("abuse-filter-warning-blanking", value: "Deleting sections or full articles", comment: "Label text for blanking sections or articles")
+            detailsLabel3.text = WMFLocalizedString("abuse-filter-warning-spam", value: "Adding spam to articles", comment: "Label text for adding spam to articles")
+            detailsLabel4.text = WMFLocalizedString("abuse-filter-warning-irrelevant", value: "Irrelevant external links or images", comment: "Label text for irrelevant external links and images")
+            detailsLabel5.text = WMFLocalizedString("abuse-filter-warning-repeat", value: "Repeating characters", comment: "Label text for repeating characters")
         }
     }
     
