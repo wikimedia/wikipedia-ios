@@ -50,7 +50,7 @@
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
-"action-redo" = "Title text and accesibility label for redo action on buttons or info sheets.";
+"action-redo" = "Title text and accessibility label for redo action on buttons or info sheets.";
 "action-remove" = "Title of the action that removes the selection from the current context.";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
@@ -58,7 +58,7 @@
 "action-saved-accessibility-notification" = "Notification spoken after user saves an article for later.";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
 "action-sort" = "Title of the sort action.";
-"action-undo" = "Title text and accesibility label for undo action on buttons or info sheets.";
+"action-undo" = "Title text and accessibility label for undo action on buttons or info sheets.";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "action-update" = "Title of the update action.";
