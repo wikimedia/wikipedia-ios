@@ -22,13 +22,13 @@
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
 "about-wikipedia" = "Wikipedia\n{{Identical|Wikipedia}}";
 "abuse-filter-disallow-heading" = "Header text for disallowed edit warning.";
-"abuse-filter-disallow-notable" = "Label text for notable content description";
 "abuse-filter-disallow-unconstructive" = "Label text for unconstructive edit description";
-"abuse-filter-warning-blanking" = "Label text for blanking articles or spamming";
+"abuse-filter-warning-blanking" = "Label text for blanking sections or articles";
 "abuse-filter-warning-caps" = "Label text for typing in all capitals";
 "abuse-filter-warning-heading" = "Header text for unconstructive edit warning";
 "abuse-filter-warning-irrelevant" = "Label text for irrelevant external links and images";
 "abuse-filter-warning-repeat" = "Label text for repeating characters";
+"abuse-filter-warning-spam" = "Label text for adding spam to articles";
 "abuse-filter-warning-subheading" = "Subheading text for potentially unconstructive edit warning";
 "account-creation-captcha-cannot-see-image" = "Text asking the user if they cannot see the captcha image. $1 is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";

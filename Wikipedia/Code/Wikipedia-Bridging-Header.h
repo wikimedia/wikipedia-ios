@@ -27,9 +27,6 @@
 
 #import "WikiTextSectionUploader.h"
 
-#import "WikiGlyph_Chars.h"
-#import "WikiGlyphLabel.h"
-
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"
