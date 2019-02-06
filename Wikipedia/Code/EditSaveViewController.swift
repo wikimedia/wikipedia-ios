@@ -114,8 +114,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         mode = .preview
         
-        funnel?.logPreview()
-        
         minorEditLabel.text = WMFLocalizedStringWithDefaultValue("edit-minor-text", nil, nil, "This is a minor edit", "Text for minor edit label")
         minorEditButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-minor-learn-more-text", nil, nil, "Learn more about minor edits", "Text for minor edits learn more button"), for: .normal)
 
