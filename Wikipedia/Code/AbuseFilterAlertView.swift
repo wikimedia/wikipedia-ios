@@ -45,7 +45,7 @@ class AbuseFilterAlertView: UIView, Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         backgroundColor = theme.colors.paperBackground
-        titleLabel.textColor = theme.colors.primaryText
+        titleLabel.textColor = (type == .disallow) ? theme.colors.error : theme.colors.warning
         subtitle1Label.textColor = theme.colors.secondaryText
         subtitle2Label.textColor = theme.colors.secondaryText
         subtitle3Label.textColor = theme.colors.secondaryText
