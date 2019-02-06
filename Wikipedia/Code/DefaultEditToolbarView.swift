@@ -10,7 +10,7 @@ class DefaultEditToolbarView: EditToolbarView {
         chevronButton.imageView?.contentMode = .scaleAspectFit
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
-        chevronButton.accessibilityLabel = WMFLocalizedString("action-more", value: "More", comment: "Button title and accessibility label to show more items.")
+        chevronButton.isAccessibilityElement = false
     }
 
     // MARK: Button actions

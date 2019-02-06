@@ -7,6 +7,11 @@ class EditToolbarView: UIView, TextFormattingButtonsProviding {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: bounds.height + 1)
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        accessibilityElements = buttons
+    }
 }
 
 extension EditToolbarView: Themeable {
