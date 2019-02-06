@@ -264,22 +264,20 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             //NSString *warningHtml = error.userInfo[@"warning"];
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            
+
             wmf_hideKeyboard()
             
             if (errorType == .abuseFilterDisallowed) {
+                WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterError(abuseFilterCode)
             } else {
+                WMFAlertManager.sharedInstance.showWarningAlert(nsError.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 mode = .abuseFilterWarning
                 abuseFilterCode = nsError.userInfo["code"] as! String
                 funnel?.logAbuseFilterWarning(abuseFilterCode)
             }
-            
-            // Hides the license panel. Needed if logged in and a disallow is triggered.
-            WMFAlertManager.sharedInstance.dismissAlert()
             
             let alertType: AbuseFilterAlertType = (errorType == .abuseFilterDisallowed) ? .disallow : .warning
             showAbuseFilterAlert(for: alertType)
