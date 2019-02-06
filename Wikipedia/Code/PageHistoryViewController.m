@@ -1,6 +1,5 @@
 #import "PageHistoryViewController.h"
 #import "PageHistoryResultCell.h"
-#import "PaddedLabel.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
 #import "WMFPageHistoryRevision.h"
@@ -127,24 +126,16 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = self.theme.colors.baseBackground;
     view.autoresizesSubviews = YES;
-    PaddedLabel *label = [[PaddedLabel alloc] init];
 
-    CGFloat leadingIndent = 10.0;
-    label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
-
-
+    UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle semiboldFootnote] compatibleWithTraitCollection:self.traitCollection];
     label.textColor = self.theme.colors.secondaryText;
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = self.theme.colors.baseBackground;
-
     label.textAlignment = NSTextAlignmentNatural;
-
     label.text = self.pageHistoryDataArray[section].sectionTitle;
-
     [label wmf_configureSubviewsForDynamicType];
 
-    [view addSubview:label];
+    [view wmf_addSubview:label withConstraintsToEdgesWithInsets:UIEdgeInsetsMake(0, 10, 0, 10) priority:UILayoutPriorityRequired];
 
     return view;
 }
