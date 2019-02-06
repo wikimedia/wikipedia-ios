@@ -5,7 +5,8 @@ class EditToolbarView: UIView, TextFormattingButtonsProviding {
     @IBOutlet var buttons: [TextFormattingButton] = []
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: bounds.width, height: bounds.height + 1)
+        let height = buttons.map { $0.intrinsicContentSize.height }.max() ?? UIView.noIntrinsicMetric
+        return CGSize(width: UIView.noIntrinsicMetric, height: height)
     }
 }
 
