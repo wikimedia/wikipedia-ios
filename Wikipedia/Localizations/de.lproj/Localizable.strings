@@ -296,7 +296,7 @@
 "field-token-title" = "Verifizierungscode";
 "field-username-placeholder" = "Benutzernamen eingeben";
 "field-username-title" = "Benutzername";
-"find-in-page-button-label" = "In Seite finden";
+"action-find-in-page" = "In Seite finden";
 "find-in-page-number-matches" = "$1 von $2";
 "forgot-password-button-title" = "Zurücksetzen";
 "forgot-password-email-sent" = "Es wurde eine E-Mail mit Anweisungen zur Zurücksetzung des Passworts an dich versandt.";

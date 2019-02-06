@@ -307,7 +307,7 @@
 "field-token-title" = "驗證代碼";
 "field-username-placeholder" = "輸入使用者名稱";
 "field-username-title" = "使用者名稱";
-"find-in-page-button-label" = "在頁面裡找尋";
+"action-find-in-page" = "在頁面裡找尋";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電子郵件已寄出";

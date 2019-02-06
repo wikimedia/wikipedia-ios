@@ -298,7 +298,7 @@
 "field-token-title" = "Кôд за верификацију";
 "field-username-placeholder" = "унесите корисничко име";
 "field-username-title" = "Корисничко име";
-"find-in-page-button-label" = "Пронађи на страници";
+"action-find-in-page" = "Пронађи на страници";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Ресетуј";
 "forgot-password-email-sent" = "Имејл са упутством за ресетовање лозинке је послат";

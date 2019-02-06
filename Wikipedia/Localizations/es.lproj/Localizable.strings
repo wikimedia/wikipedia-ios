@@ -259,7 +259,7 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "escribe el nombre de usuario";
 "field-username-title" = "Nombre de usuario";
-"find-in-page-button-label" = "Buscar en la página";
+"action-find-in-page" = "Buscar en la página";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Se envió un correo electrónico con instrucciones para restablecer tu contraseña";

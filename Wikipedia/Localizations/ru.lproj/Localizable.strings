@@ -323,7 +323,7 @@
 "field-token-title" = "Код подтверждения";
 "field-username-placeholder" = "введите имя пользователя";
 "field-username-title" = "Имя участника";
-"find-in-page-button-label" = "Найти на странице";
+"action-find-in-page" = "Найти на странице";
 "find-in-page-number-matches" = "$1 из $2";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";

@@ -315,7 +315,7 @@
 "field-token-title" = "Código de verificação";
 "field-username-placeholder" = "insira nome de usuário";
 "field-username-title" = "Nome de usuário";
-"find-in-page-button-label" = "Localizar na página";
+"action-find-in-page" = "Localizar na página";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviado um e-mail com instruções de redefinição de senha";

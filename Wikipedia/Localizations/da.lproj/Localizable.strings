@@ -224,7 +224,7 @@
 "field-token-title" = "Bekræftelseskode";
 "field-username-placeholder" = "indtast brugernavn";
 "field-username-title" = "Brugernavn";
-"find-in-page-button-label" = "Søg på siden";
+"action-find-in-page" = "Søg på siden";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Nulstil";
 "forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";

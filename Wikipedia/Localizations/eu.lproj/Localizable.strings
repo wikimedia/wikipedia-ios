@@ -227,7 +227,7 @@
 "field-token-title" = "Berrespen kodea";
 "field-username-placeholder" = "Erabiltzaile izena sartu";
 "field-username-title" = "Erabiltzaile izena";
-"find-in-page-button-label" = "Aurkitu orrialdean";
+"action-find-in-page" = "Aurkitu orrialdean";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Berrezarri";
 "forgot-password-email-sent" = "Emaila bidali da, pasahitza berrezartzeko jarraibideekin";

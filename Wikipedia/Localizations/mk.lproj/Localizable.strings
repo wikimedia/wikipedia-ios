@@ -293,7 +293,7 @@
 "field-token-title" = "Потврден код";
 "field-username-placeholder" = "внесете корисничко име:";
 "field-username-title" = "Корисничко име";
-"find-in-page-button-label" = "Најди на страницата";
+"action-find-in-page" = "Најди на страницата";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Задај нова лозинка";
 "forgot-password-email-sent" = "На е-пошта ви се испратени напатствија за задавање на нова лозинка";

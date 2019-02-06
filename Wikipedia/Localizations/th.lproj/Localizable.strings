@@ -247,7 +247,7 @@
 "field-token-title" = "รหัสการยืนยัน";
 "field-username-placeholder" = "ป้อนชื่อผู้ใช้";
 "field-username-title" = "ชื่อผู้ใช้";
-"find-in-page-button-label" = "ค้นหาในหน้า";
+"action-find-in-page" = "ค้นหาในหน้า";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "รีเซ็ต";
 "history-clear-all" = "ล้าง";

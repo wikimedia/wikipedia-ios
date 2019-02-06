@@ -114,7 +114,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         progressButton.isEnabled = true
     }
 
-    func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+    func disableButton(button: SectionEditorButton) {
         switch button.kind {
         case .undo:
             undoButton.isEnabled = false

@@ -289,7 +289,7 @@
 "field-token-title" = "検証コード";
 "field-username-placeholder" = "ユーザー名を入力";
 "field-username-title" = "ユーザー名";
-"find-in-page-button-label" = "ページ内検索";
+"action-find-in-page" = "ページ内検索";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "リセット";
 "forgot-password-email-sent" = "パスワードリセットの指示が記載されたメールが送信されました";

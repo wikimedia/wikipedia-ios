@@ -186,7 +186,7 @@
 "field-token-title" = "Kod weryfikacyjny";
 "field-username-placeholder" = "wprowadź nazwę użytkownika";
 "field-username-title" = "Nazwa użytkownika";
-"find-in-page-button-label" = "Znajdź na stronie";
+"action-find-in-page" = "Znajdź na stronie";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";

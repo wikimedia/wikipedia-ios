@@ -221,7 +221,7 @@
 "field-token-title" = "Cód fíoraithe";
 "field-username-placeholder" = "iontráil ainm úsáideora";
 "field-username-title" = "Ainm úsáideora";
-"find-in-page-button-label" = "Aimsigh sa leathanach";
+"action-find-in-page" = "Aimsigh sa leathanach";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Athshocraigh";
 "forgot-password-email-sent" = "Seoladh ríomhphost le treoracha athshocraithe pasfhocail";
