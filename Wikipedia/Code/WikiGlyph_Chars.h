@@ -1,2 +1,0 @@
-#define WIKIGLYPH_CC @"\ue969"
-#define WIKIGLYPH_PUBLIC_DOMAIN @"\ue96c"
