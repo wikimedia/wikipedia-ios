@@ -52,7 +52,6 @@
 "article-read-more-title" = "Citiți mai multe";
 "article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
 "back-button-accessibility-label" = "Înapoi";
-"button-done" = "Realizat";
 "button-next" = "Înainte";
 "button-ok" = "OK";
 "button-report-a-bug" = "Raportare eroare";
@@ -64,9 +63,6 @@
 "edit-summary-choice-fixed-grammar" = "Ajustări gramaticale";
 "edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
 "edit-summary-choice-linked-words" = "Adăugat legături";
-"edit-summary-choice-other" = "Altele";
-"edit-summary-field-placeholder-text" = "Alte modalități prin care ați îmbunătățit articolul";
-"edit-summary-title" = "Cum ați îmbunătățit articolul?";
 "empty-no-article-message" = "Ne pare rău, articolul nu poate fi încărcat";
 "empty-no-feed-action-message" = "Puteți încă lectura paginile salvate";
 "empty-no-feed-message" = "Puteți vedea articolele recomandate atunci când aveți acces la internet";
@@ -118,7 +114,6 @@
 "main-menu-debug-tweaks" = "Setări pentru dezvoltatori";
 "main-menu-heading-debug" = "Depanare";
 "main-menu-heading-legal" = "Confidențialitate și Termeni";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "În apropiere";
 "main-menu-privacy-policy" = "Politica de confidențialitate";
 "main-menu-rate-app" = "Evaluează aplicația";
@@ -197,14 +192,3 @@
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-sign-in" = "Autentificare";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
-"zero-charged-verbiage" = "Wikipedia Zero este dezactivată";
-"zero-charged-verbiage-extended" = "Încărcarea altor articole poate însemna taxarea traficului de date. Articolele salvate și stocate off-line nu folosesc traficul de date și sunt gratuite.";
-"zero-free-verbiage" = "Acces gratuit la Wikipedia de la operatorul dumneavoastră de telefonie mobilă (traficul de date nu va fi taxat)";
-"zero-interstitial-cancel" = "Rămâi aici";
-"zero-interstitial-continue" = "Abandonează";
-"zero-interstitial-leave-app" = "Se pot aplica tarife de date. Continuați către site-ul extern?";
-"zero-interstitial-title" = "Părăsire Wikipedia Zero";
-"zero-learn-more" = "Tarifele de date nu se percep pentru această aplicație Wikipedia.";
-"zero-learn-more-learn-more" = "Citiți mai multe";
-"zero-learn-more-no-thanks" = "Renunță";
-"zero-warn-when-leaving" = "Avertizează-mă dacă părăsesc Zero";

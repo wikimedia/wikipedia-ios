@@ -90,7 +90,6 @@
 "article-read-more-title" = "Διαβάστε περισσότερα";
 "article-share" = "Κοινοποίηση";
 "back-button-accessibility-label" = "Πίσω";
-"button-done" = "Έγινε";
 "button-next" = "Επόμενο";
 "button-ok" = "Εντάξει";
 "button-publish" = "Δημοσίευση";
@@ -110,9 +109,6 @@
 "edit-summary-choice-fixed-grammar" = "Διόρθωση γραμματικής";
 "edit-summary-choice-fixed-typos" = "Διόρθωση ορθογραφίας";
 "edit-summary-choice-linked-words" = "Σύνδεσμοι που προστέθηκαν";
-"edit-summary-choice-other" = "Άλλα";
-"edit-summary-field-placeholder-text" = "Άλλοι τρόποι που βελτιώσατε τη σελίδα";
-"edit-summary-title" = "Πώς βελτιώσατε το άρθρο;";
 "empty-no-article-message" = "Λυπούμαστε, το άρθρο δεν μπόρεσε να φορτωθεί";
 "empty-no-feed-action-message" = "Μπορείτε να διαβάσετε ακόμα αποθηκευμένες σελίδες";
 "empty-no-feed-message" = "Μπορείτε να δείτε τα προτεινόμενα λήμματά σας όταν έχετε σύνδεση στο διαδίκτυο";
@@ -259,7 +255,6 @@
 "main-menu-debug-tweaks" = "Ρυθμίσεις προγραμματιστή";
 "main-menu-heading-debug" = "Αποσφαλμάτωση";
 "main-menu-heading-legal" = "Ιδιωτικότητα και Όροι";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Κοντινά";
 "main-menu-privacy-policy" = "Πολιτική ιδιωτικού απορρήτου";
 "main-menu-rate-app" = "Αξιολόγηση της εφαρμογής";
@@ -483,11 +478,3 @@
 "wikitext-upload-save-anonymously-warning" = "Οι επεξεργασίες θα αποδοθούν στην διεύθυνση IP της συσκευής σας. Αν $1, θα έχετε περισσότερη ιδιωτικότητα.";
 "wikitext-upload-save-sign-in" = "Είσοδος";
 "wikitext-upload-save-terms-name" = "Όροι χρήσης";
-"zero-charged-verbiage" = "Το Wikipedia Zero είναι απενεργοποιημένο";
-"zero-interstitial-cancel" = "Παραμονή εδώ";
-"zero-interstitial-continue" = "Συνέχεια";
-"zero-interstitial-leave-app" = "Ενδέχεται να ισχύουν χρεώσεις δεδομένων. Να συνεχίσετε στον εξωτερικό ιστότοπο;";
-"zero-interstitial-title" = "Αφήνετε το Wikipedia Zero";
-"zero-learn-more-learn-more" = "Διαβάστε περισσότερα";
-"zero-learn-more-no-thanks" = "Απόρριψη";
-"zero-warn-when-leaving" = "Να προειδοποιηθώ αν φεύγω από το Zero";

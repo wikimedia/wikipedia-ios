@@ -82,6 +82,7 @@
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
 "appearance-settings-expand-tables" = "Taulak zabaldu";
 "appearance-settings-expand-tables-footer" = "Ezarri artikulu guztietako taula guztiak lehenespenez irekitzeko, Quick facts, References, Notes eta Kanpoko estekak barne.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Gai ilunetako argazkien opakotasuna gutxiagotu";
 "appearance-settings-reading-themes" = "Irakurketa gaiak";
 "appearance-settings-set-automatic-table-opening" = "Taula Ezarpenak";
@@ -102,7 +103,6 @@
 "article-unable-to-load-section" = "Sekzio hau ezin da kargatu. Saia zaitez artikulua freskatzen ikusteko arazoa konpontzen den.";
 "back-button-accessibility-label" = "Atzera";
 "back-button-popover-title" = "Eman atzera joateko";
-"button-done" = "Egina";
 "button-next" = "Hurrengoa";
 "button-ok" = "OK";
 "button-publish" = "Argitaratu";
@@ -122,9 +122,6 @@
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
 "edit-summary-choice-fixed-typos" = "Tipografia konpondu";
 "edit-summary-choice-linked-words" = "Loturak gehitu";
-"edit-summary-choice-other" = "Beste";
-"edit-summary-field-placeholder-text" = "Artikulua hobetzeko beste bide batzuk";
-"edit-summary-title" = "Nola hobetu duzu artikulua?";
 "empty-no-article-message" = "Barkatu, ezin da artikulua kargatu";
 "empty-no-feed-action-message" = "Oraindik gordetako orrialdeak irakurri ditzakezu";
 "empty-no-feed-message" = "Interneta duzunean ikusi ahal izango dituzu iradokitutako artikuluak";
@@ -167,6 +164,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Hizkuntza zehaztasun gabea";
 "explore-feed-preferences-global-cards-title" = "Txartel globalak";
 "explore-feed-preferences-hide-card-action-title" = "Txartel hau ezkutatu";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "%@ txartel guztiak ezkutatu";
 "explore-feed-preferences-in-the-news-description" = "Eguneko ekitaldiei buruzko artikuluak";
 "explore-feed-preferences-on-this-day-description" = "Gaurko eguneko historian zehar gertaturiko ekitaldiak";
@@ -287,7 +285,6 @@
 "main-menu-debug-tweaks" = "Garatzailearen ezarpenak";
 "main-menu-heading-debug" = "Araztu";
 "main-menu-heading-legal" = "Terminoak eta Pribautasuna";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Gertukoak";
 "main-menu-privacy-policy" = "Pribatutasun politika";
 "main-menu-rate-app" = "Baloratu aplikazioa";
@@ -582,16 +579,6 @@
 "wikitext-upload-save" = "Argitaratzen...";
 "wikitext-upload-save-anonymously-warning" = "Aldaketak zure gailuko IP helbideari egotziko zaizkio. Zuk $1 egiten baduzu, pribautasun gehiago edukiko duzu.";
 "wikitext-upload-save-sign-in" = "Hasi saioa";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Aldaketak argitaratzean, $1-arekin bat egiten duzu eta $2-$3-ko lizentzia ekarpena egitea onartzen duzu.";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
-"zero-charged-verbiage" = "Wikipedia Zero itzalita dago";
-"zero-charged-verbiage-extended" = "Beste artikulu batzuk kargatzeak datu kostuak ekar ditzake. Konexiorik gabe gordeta dauden artikuluak irakur ditzakezu daturik erabili gabe.";
-"zero-free-verbiage" = "Zure gailu operadoretik Free Wikipediarako sarrera (datu kostuak kenduta daude)";
-"zero-interstitial-cancel" = "Gelditu hemen";
-"zero-interstitial-continue" = "Irten";
-"zero-interstitial-leave-app" = "Datuengatik kobratzea posible da. Kanpoko gune batera jarraitu nahi duzu?";
-"zero-interstitial-title" = "Wikipedia Zerotik irteten";
-"zero-learn-more" = "Datuengatik kobratzen da Wikipedia aplikazio honetan.";
-"zero-learn-more-learn-more" = "Irakurri gehiago";
-"zero-learn-more-no-thanks" = "Utzi";
-"zero-warn-when-leaving" = "Abisatu Zero uzterakoan";

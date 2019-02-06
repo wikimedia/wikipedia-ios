@@ -1,7 +1,6 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "Wikipedia-Swift.h"
 #import "UILabel+WMFStyling.h"
-#import "MWKLicense+ToGlyph.h"
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()

@@ -103,6 +103,7 @@
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整";
 "appearance-settings-expand-tables" = "表を展開する";
 "appearance-settings-expand-tables-footer" = "基本データ、参照、メモ、外部リンクを含め、すべての記事のすべての表をデフォルトで開くように設定します。";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "ダークモード/黒モードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "閲覧時のテーマ";
 "appearance-settings-set-automatic-table-opening" = "表の書式設定";
@@ -122,7 +123,6 @@
 "article-unable-to-load-section" = "この節を読み込むことができません。記事を更新してみて、問題が解決するかどうか確かめてみてください。";
 "back-button-accessibility-label" = "戻る";
 "back-button-popover-title" = "ここをタップすると戻ります";
-"button-done" = "完了";
 "button-next" = "次へ";
 "button-ok" = "OK";
 "button-publish" = "投稿";
@@ -179,9 +179,6 @@
 "edit-summary-choice-fixed-grammar" = "文法を修正";
 "edit-summary-choice-fixed-typos" = "誤字訂正";
 "edit-summary-choice-linked-words" = "リンクを追加";
-"edit-summary-choice-other" = "その他";
-"edit-summary-field-placeholder-text" = "この記事へのその他の改善";
-"edit-summary-title" = "どのようにこの記事を改善しましたか?";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
 "empty-no-feed-action-message" = "保存したページはそうでなくても読むことができます";
 "empty-no-feed-message" = "おすすめの記事は、インターネットに接続されているときに見ることができます";
@@ -220,7 +217,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "言語に関係ないもの";
 "explore-feed-preferences-global-cards-title" = "グローバルカード";
 "explore-feed-preferences-hide-card-action-title" = "カードを隠す";
-"explore-feed-preferences-hide-feed-cards-action-title" = "%@のカードをすべて非表示";
+"explore-feed-preferences-hide-feed-cards-action-title" = "「%@」のカードをすべて非表示";
 "explore-feed-preferences-in-the-news-description" = "最近の出来事の記事";
 "explore-feed-preferences-on-this-day-description" = "今日は何の日";
 "explore-feed-preferences-places-description" = "付近のスポット";
@@ -349,7 +346,6 @@
 "main-menu-debug-tweaks" = "開発者向けの設定";
 "main-menu-heading-debug" = "デバッグ";
 "main-menu-heading-legal" = "プライバシーと利用規約";
-"main-menu-heading-zero" = "ウィキペディアゼロ";
 "main-menu-nearby" = "付近";
 "main-menu-privacy-policy" = "プライバシー・ポリシー";
 "main-menu-rate-app" = "このアプリを評価";
@@ -519,8 +515,7 @@
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
 "saved-pages-progress-syncing" = "記事をダウンロードしています…";
 "saved-reading-lists-title" = "あとで読むリスト";
-// Fuzzy
-"saved-search-default-text" = "検索";
+"saved-search-default-text" = "保存した記事の検索";
 "saved-title" = "保存済み";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|この記事を削除|これらの記事を削除}}すると、すべての関連するあとで読むリストから消去されます";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|記事|記事}}を削除しますか？";
@@ -644,16 +639,6 @@
 "wikitext-upload-save" = "公開中...";
 "wikitext-upload-save-anonymously-warning" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-sign-in" = "ログイン";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "変更内容を保存すると、あなたは $1 に同意し、自分の投稿内容を $2 {{PLURAL:$3|ライセンス}}のもとで公開することに同意したと見なされます。";
 "wikitext-upload-save-terms-name" = "利用規約";
-"zero-charged-verbiage" = "ウィキペディアゼロはオフです";
-"zero-charged-verbiage-extended" = "その他の記事を読み込むとデータ料金が発生する場合があります。保存済みの記事はオフラインで保管されており、データ通信を使用しないため無料です。";
-"zero-free-verbiage" = "ご利用の携帯電話会社からウィキペディアへのアクセスは無料です (通信料金は免除されます)";
-"zero-interstitial-cancel" = "留まる";
-"zero-interstitial-continue" = "接続する";
-"zero-interstitial-leave-app" = "データ料金がかかるかもしれません。外部サイトへ接続しますか?";
-"zero-interstitial-title" = "ウィキペディアゼロを離れる";
-"zero-learn-more" = "このウィキペディアアプリでは、データ料金が免除されます。";
-"zero-learn-more-learn-more" = "さらに読む";
-"zero-learn-more-no-thanks" = "非表示";
-"zero-warn-when-leaving" = "ゼロを離れる場合には警告";

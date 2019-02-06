@@ -63,7 +63,6 @@
 "article-share" = "आदान-प्रदान गर्नुहोस्";
 "back-button-accessibility-label" = "पछाडि";
 "back-button-popover-title" = "पछाडि जानको लागि ट्याप गर्नुहोस्";
-"button-done" = "भयो";
 "button-next" = "अर्को";
 "button-ok" = "ठीक छ";
 "button-publish" = "प्रकाशन गर्नुहोस्";
@@ -84,11 +83,11 @@
 "description-published-button-title" = "भयो";
 "description-welcome-start-editing-button" = "सम्पादन शुरुवात गर्नुहोस्";
 "edit-style-table-view-title" = "शैली";
+"edit-summary-add-summary-text" = "सम्पादन साशंस थप्नुहोस्";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
 "edit-summary-choice-fixed-typos" = "विवरण ठीक गरियो";
 "edit-summary-choice-linked-words" = "थप गरिएका लिङ्कहरू";
-"edit-summary-choice-other" = "अन्य";
-"edit-summary-field-placeholder-text" = "तपाईंले लेखमा सुधार गर्नुभएका अन्य तरिकाहरू";
+"edit-summary-learn-more-text" = "अधिक जानकारी";
 "edit-text-size-table-view-title" = "पाठको आकार";
 "empty-no-article-message" = "माफ गर्नुहोस् लेख खोल्न सकिएन";
 "empty-no-feed-action-message" = "तपाईँले सङ्ग्रह गरिसकिएका पृष्ठहरू पढ्न सक्नुहुने छ";
@@ -189,7 +188,6 @@
 "main-menu-debug-tweaks" = "डेभलोपर सेटिङ";
 "main-menu-heading-debug" = "डिबग";
 "main-menu-heading-legal" = "गोपनीयता र शर्तहरू";
-"main-menu-heading-zero" = "विकिपिडिया शून्य";
 "main-menu-nearby" = "नजिकै";
 "main-menu-privacy-policy" = "गोप्नियता नीति";
 "main-menu-rate-app" = "एपलाई रेट गर्नुहोस्";
@@ -316,15 +314,8 @@
 "wikitext-download-success" = "सामग्री लोड गरियो ।";
 "wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
+"wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";
 "wikitext-upload-save-sign-in" = "लग इन";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
-"zero-charged-verbiage" = "विकिपिडिया शून्य बन्द भयो";
-"zero-interstitial-cancel" = "यहाँ बस्नुहोस्";
-"zero-interstitial-continue" = "छोड्ने";
-"zero-interstitial-leave-app" = "डेटा शुल्क लागु हुन्छ। बाहिरी साइटमा जाने हो?";
-"zero-interstitial-title" = "विकिपिडिया शून्य छोड्नुहोस्";
-"zero-learn-more-learn-more" = "थप पढ्ने";
-"zero-learn-more-no-thanks" = "खारेज गर्नुहोस्";
-"zero-warn-when-leaving" = "जेरो छोड्न लाग्दा चेतावनी दिनुहोस्";
