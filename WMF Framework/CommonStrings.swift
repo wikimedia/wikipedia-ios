@@ -94,8 +94,9 @@ public class CommonStrings: NSObject {
     @objc public static let skipTitle = WMFLocalizedStringWithDefaultValue("button-skip", nil, nil, "Skip", "Button text for skip button used in various places.")
     @objc public static let okTitle = WMFLocalizedStringWithDefaultValue("button-ok", nil, nil, "OK", "Button text for ok button used in various places\n{{Identical|OK}}")
     
-     @objc public static let undo = WMFLocalizedStringWithDefaultValue("action-undo", nil, nil, "Undo", "Title text and accesibility label for undo action on buttons or info sheets.")
-     @objc public static let redo = WMFLocalizedStringWithDefaultValue("action-redo", nil, nil, "Redo", "Title text and accesibility label for redo action on buttons or info sheets.")
+    @objc public static let undo = WMFLocalizedStringWithDefaultValue("action-undo", nil, nil, "Undo", "Title text and accesibility label for undo action on buttons or info sheets.")
+    @objc public static let redo = WMFLocalizedStringWithDefaultValue("action-redo", nil, nil, "Redo", "Title text and accesibility label for redo action on buttons or info sheets.")
+    @objc public static let findInPage = WMFLocalizedStringWithDefaultValue("action-find-in-page", nil, nil, "Find in page", "Title text and accesibility label for find in page action on buttons or info sheets.")
 
     @objc public static let gotItButtonTitle = WMFLocalizedString("welcome-explore-tell-me-more-done-button", value: "Got it", comment:"Text for button dismissing detailed explanation of new features")
     

@@ -96,7 +96,7 @@
 "field-token-title" = "تصدیقی کوڈ";
 "field-username-placeholder" = "ورتݨ آلا ناں درج کرو";
 "field-username-title" = "ورتݨ آلا ناں";
-"find-in-page-button-label" = "ورقے وچ ڳولو";
+"action-find-in-page" = "ورقے وچ ڳولو";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ولدا ٹھیک کرو";
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";

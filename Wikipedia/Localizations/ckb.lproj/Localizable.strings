@@ -157,7 +157,7 @@
 "field-token-title" = "کۆدی دووپاتکردنەوە";
 "field-username-placeholder" = "ناوی بەکارهێنەر بنووسە";
 "field-username-title" = "ناوی بەکارھێنەر";
-"find-in-page-button-label" = "دۆزینەوە لەنێو پەڕە";
+"action-find-in-page" = "دۆزینەوە لەنێو پەڕە";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دووبارە ڕێکخستنەوە";
 "forgot-password-email-sent" = "پۆستێکی ئەلیکترۆنی کە فێرکاری ڕێکخستنەوەی تێپەڕوشە لەخۆ دەگرێت نێردرا";

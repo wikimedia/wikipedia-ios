@@ -297,7 +297,7 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "insira o nome de usuario";
 "field-username-title" = "Nome de usuario";
-"find-in-page-button-label" = "Atopar na páxina";
+"action-find-in-page" = "Atopar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Enviouse un correo electrónico coas instrucións para restablecer o contrasinal";

@@ -304,7 +304,7 @@
 "field-token-title" = "Codi de verificació";
 "field-username-placeholder" = "introduïu un nom d'usuari";
 "field-username-title" = "Nom d'usuari";
-"find-in-page-button-label" = "Busca una pàgina";
+"action-find-in-page" = "Busca una pàgina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restableix";
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";

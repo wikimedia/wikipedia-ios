@@ -257,10 +257,10 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton) {
         inputViewsController.buttonSelectionDidChange(button: button)
     }
-    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton) {
         navigationItemController.disableButton(button: button)
         inputViewsController.disableButton(button: button)
     }

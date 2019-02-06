@@ -309,7 +309,7 @@
 "field-token-title" = "인증 코드";
 "field-username-placeholder" = "사용자 이름 입력";
 "field-username-title" = "사용자 이름";
-"find-in-page-button-label" = "문서에서 찾기";
+"action-find-in-page" = "문서에서 찾기";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "재설정";
 "forgot-password-email-sent" = "비밀번호 재설정 안내 이메일을 보냈습니다";

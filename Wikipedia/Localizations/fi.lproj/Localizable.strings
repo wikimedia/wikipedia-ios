@@ -292,7 +292,7 @@
 "field-token-title" = "Vahvistuskoodi";
 "field-username-placeholder" = "anna käyttäjänimi";
 "field-username-title" = "Käyttäjänimi";
-"find-in-page-button-label" = "Etsi sivulta";
+"action-find-in-page" = "Etsi sivulta";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";

@@ -8,6 +8,11 @@ class EditToolbarView: UIView, TextFormattingButtonsProviding {
         let height = buttons.map { $0.intrinsicContentSize.height }.max() ?? UIView.noIntrinsicMetric
         return CGSize(width: UIView.noIntrinsicMetric, height: height)
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        accessibilityElements = buttons
+    }
 }
 
 extension EditToolbarView: Themeable {

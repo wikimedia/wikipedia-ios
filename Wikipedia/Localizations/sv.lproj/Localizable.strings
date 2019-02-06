@@ -297,7 +297,7 @@
 "field-token-title" = "Verifieringskod";
 "field-username-placeholder" = "ange användarnamn";
 "field-username-title" = "Användarnamn";
-"find-in-page-button-label" = "Sök på sidan";
+"action-find-in-page" = "Sök på sidan";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Återställ";
 "forgot-password-email-sent" = "Ett e-postmeddelande med instruktioner om lösenordsåterställning skickades";

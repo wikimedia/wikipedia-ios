@@ -310,7 +310,7 @@
 "field-token-title" = "رمز التحقق";
 "field-username-placeholder" = "أدخل اسم المستخدم";
 "field-username-title" = "اسم المستخدم";
-"find-in-page-button-label" = "البحث في الصفحة";
+"action-find-in-page" = "البحث في الصفحة";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "أعد الضبط";
 "forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";

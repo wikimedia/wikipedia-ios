@@ -302,7 +302,7 @@
 "field-token-title" = "Doğrulama kodu";
 "field-username-placeholder" = "kullanıcı adı girin";
 "field-username-title" = "Kullanıcı adı";
-"find-in-page-button-label" = "Sayfada bul";
+"action-find-in-page" = "Sayfada bul";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";

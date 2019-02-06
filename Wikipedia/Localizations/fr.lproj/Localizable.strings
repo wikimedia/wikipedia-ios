@@ -312,7 +312,7 @@
 "field-token-title" = "Code de vérification";
 "field-username-placeholder" = "saisir le nom d’utilisateur";
 "field-username-title" = "Nom d’utilisateur";
-"find-in-page-button-label" = "Trouver dans la page";
+"action-find-in-page" = "Trouver dans la page";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Réinitialiser";
 "forgot-password-email-sent" = "Un courriel avec les instructions de réinitialisation du mot de passe a été envoyé";

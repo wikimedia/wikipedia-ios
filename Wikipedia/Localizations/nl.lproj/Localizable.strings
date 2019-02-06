@@ -311,7 +311,7 @@
 "field-token-title" = "Verificatiecode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"find-in-page-button-label" = "Op pagina zoeken";
+"action-find-in-page" = "Op pagina zoeken";
 "find-in-page-number-matches" = "$1 van $2";
 "forgot-password-button-title" = "Opnieuw instellen";
 "forgot-password-email-sent" = "Een email met de instructies om uw wachtwoord opnieuw in te stellen is gestuurd";

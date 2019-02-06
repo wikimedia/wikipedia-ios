@@ -190,7 +190,7 @@
 "field-token-title" = "توثیقی کوڈ";
 "field-username-placeholder" = "صارف نام درج کریں";
 "field-username-title" = "صارف نام";
-"find-in-page-button-label" = "صفحہ میں تلاش کریں";
+"action-find-in-page" = "صفحہ میں تلاش کریں";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
