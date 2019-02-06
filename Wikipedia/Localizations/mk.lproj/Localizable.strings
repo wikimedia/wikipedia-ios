@@ -246,7 +246,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Вклучи го „Истражи“";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ова ќе го замени јазичето „Нагодувања“ со јазичето „Истражи“. Можете да дојдете до нагодувањата над јазичето „Истражи“ стискајќи на иконката со запченик";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Да го всклучам јазичето „Истражи“?";
-"explore-feed-preferences-undo-customization" = "Врати";
+"action-undo" = "Врати";
 "explore-hide-card-prompt" = "Скриј ја картичкава";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";

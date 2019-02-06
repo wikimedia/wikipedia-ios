@@ -244,7 +244,7 @@
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "オフにする";
 "explore-feed-preferences-turn-off-explore-tab-title" = "「探してみよう」タブをオフにしますか？";
 "explore-feed-preferences-turn-off-feed-disclosure" = "「探してみよう」タブをオフにすると、設定タブに入れ替わります。";
-"explore-feed-preferences-undo-customization" = "取り消す";
+"action-undo" = "取り消す";
 "explore-hide-card-prompt" = "カードを隠す";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
 "explore-main-page-heading" = "今日についての記事";

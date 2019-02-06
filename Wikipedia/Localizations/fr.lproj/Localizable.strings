@@ -265,7 +265,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activer Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ceci remplacera l'onglet Paramètres par l'onglet Explore; vous pouvez accéder aux paramètres en haut de l'onglet Explore, en cliquant sur l'icône du volant.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Activer l'onglet Explore ?";
-"explore-feed-preferences-undo-customization" = "Annuler";
+"action-undo" = "Annuler";
 "explore-hide-card-prompt" = "Masquer cette carte";
 "explore-main-page-description" = "Page principale des projets Wikimedia";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";

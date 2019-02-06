@@ -247,7 +247,7 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "Tutki-välilehden poistaminen käytöstä korvaa sen Asetukset-välilehdellä.";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ota Tutki-välilehti käyttöön";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ota käyttöön Tutki-välilehti?";
-"explore-feed-preferences-undo-customization" = "Kumoa";
+"action-undo" = "Kumoa";
 "explore-hide-card-prompt" = "Piilota tämä kortti";
 "explore-main-page-description" = "Wikimedia projektin etusivu";
 "explore-main-page-heading" = "Tänään Wikipediassa";

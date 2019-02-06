@@ -49,6 +49,7 @@
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
 "action-read" = "Read";
+"action-redo" = "Redo";
 "action-remove" = "Remove";
 "action-save" = "Save";
 "action-saved" = "Saved";
@@ -56,6 +57,7 @@
 "action-saved-accessibility-notification" = "Article saved for later";
 "action-share" = "Share";
 "action-sort" = "Sort";
+"action-undo" = "Undo";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
@@ -237,7 +239,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Turn on Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Turn on the Explore tab?";
-"explore-feed-preferences-undo-customization" = "Undo";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";

@@ -230,7 +230,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Uključi „Istraži”";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Kartica „Podešavanja” će biti zamenjena karticom „Istraži”. Podešavanja se nalaze na vrhu kartice „Istraži” pritiskom na ikonu zupčanika.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Uključiti karticu „Istraži”?";
-"explore-feed-preferences-undo-customization" = "Opozovi";
+"action-undo" = "Opozovi";
 "explore-hide-card-prompt" = "Sakrij ovu karticu";
 "explore-main-page-description" = "Glavna stranica Vikimedijinih projekata";
 "explore-main-page-heading" = "Danas na Vikipediji";

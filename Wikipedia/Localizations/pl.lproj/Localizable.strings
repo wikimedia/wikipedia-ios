@@ -146,7 +146,7 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
 "explore-feed-preferences-in-the-news-description" = "Artykuły o bieżących wydarzeniach";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
-"explore-feed-preferences-undo-customization" = "Cofnij";
+"action-undo" = "Cofnij";
 "explore-hide-card-prompt" = "Ukryj tę kartę";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-footer" = "Wszystkie najczęściej czytane artykuły";

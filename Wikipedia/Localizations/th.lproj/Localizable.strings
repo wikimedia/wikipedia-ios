@@ -202,7 +202,7 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "ซ่อน %@ การ์ดทั้งหมด";
 "explore-feed-preferences-in-the-news-description" = "บทความเกี่ยวกับเหตุการณ์ปัจจุบัน";
 "explore-feed-preferences-languages-footer-text" = "การซ่อนการ์ดในฟีดสำรวจในภาษาทั้งหมดของคุณจะปิดแท็บสำรวจ";
-"explore-feed-preferences-undo-customization" = "เลิกทำ";
+"action-undo" = "เลิกทำ";
 "explore-hide-card-prompt" = "ซ่อนการ์ดนี้";
 "explore-main-page-description" = "หน้าหลักของโครงการวิกิมีเดีย";
 "explore-main-page-heading" = "วันนี้บนวิกิพีเดีย";

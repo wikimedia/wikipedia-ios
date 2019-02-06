@@ -257,7 +257,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activa l'exploració";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Això reemplaçara la pestanya de configuració amb la pestanya d'exploració. Podeu accedir a la configuració des de dalt de la pestanya d'exploració fent un toc a la icona d'engranatge.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Voleu activar la pestanya d'exploració?";
-"explore-feed-preferences-undo-customization" = "Desfés";
+"action-undo" = "Desfés";
 "explore-hide-card-prompt" = "Amaga la targeta";
 "explore-main-page-description" = "Pàgina principal dels projectes Wikimedia";
 "explore-main-page-heading" = "Avui a la Viquipèdia";

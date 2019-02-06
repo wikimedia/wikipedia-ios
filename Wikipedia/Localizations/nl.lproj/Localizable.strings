@@ -264,7 +264,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Verkennen inschakelen";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Dit zal het tabblad Instellingen vervangen door het tabblad Ontdekken, u kunt Instellingen openen vanaf de bovenkant van het tabblad Ontdekken door op het tandwielpictogram te klikken";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Het tabblad verkennen inschakelen?";
-"explore-feed-preferences-undo-customization" = "Ongedaan maken";
+"action-undo" = "Ongedaan maken";
 "explore-hide-card-prompt" = "Deze kaart verbergen";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";

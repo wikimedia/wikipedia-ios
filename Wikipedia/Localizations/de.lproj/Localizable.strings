@@ -249,7 +249,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Entdecken anschalten";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Dies ersetzt den Einstellungen-Reiter durch den Entdecken-Reiter. Du kannst auf die Einstellungen vom Entdecken-Reiter zugreifen, indem du oben auf das Zahnradsymbol tippst.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Den Entdecken-Reiter anschalten?";
-"explore-feed-preferences-undo-customization" = "Rückgängig";
+"action-undo" = "Rückgängig";
 "explore-hide-card-prompt" = "Diese Karte ausblenden";
 "explore-main-page-description" = "Hauptseite der Wikimedia-Projekte";
 "explore-main-page-heading" = "Heute auf Wikipedia";

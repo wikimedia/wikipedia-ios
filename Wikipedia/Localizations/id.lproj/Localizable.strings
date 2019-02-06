@@ -250,7 +250,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Hidupkan Jelajahi";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ini akan mengganti tab Pengaturan dengan tab Jelajahi, Anda dapat mengakses Pengaturan dari bagian atas tab Jelajahi dengan mengetuk ikon roda gigi";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Hidupkan tab Jelajahi?";
-"explore-feed-preferences-undo-customization" = "Urungkan";
+"action-undo" = "Urungkan";
 "explore-hide-card-prompt" = "Sembunyikan kartu ini";
 "explore-main-page-description" = "Halaman utama proyek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";

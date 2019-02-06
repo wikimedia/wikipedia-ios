@@ -33,7 +33,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             self.tintColorKeyPath = tintColorKeyPath
         }
 
-        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
+        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>, accessibilityLabel: String? = nil) {
             let button = UIButton(type: .system)
             button.setImage(image, for: .normal)
             if let target = target, let action = action {
@@ -41,6 +41,7 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             }
             self.init(customView: button)
             self.tintColorKeyPath = tintColorKeyPath
+            self.accessibilityLabel = accessibilityLabel
         }
 
         func apply(theme: Theme) {
@@ -61,11 +62,11 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     }()
 
     private lazy var redoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint)
+        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.redo)
     }()
 
     private lazy var undoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint)
+        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.undo)
     }()
 
     private lazy var separatorButton: BarButtonItem = {

@@ -265,7 +265,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Zapnout kanál Objevit";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Tímto nahradíte Nastavení za kanál Objevit. Klepnutím na ikonu ozubeného kola můžete přistupovat k nastavení v horní části kanálu Objevit";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Zapnout kanál Objevit?";
-"explore-feed-preferences-undo-customization" = "Zpět";
+"action-undo" = "Zpět";
 "explore-hide-card-prompt" = "Skrýt tuto kartu";
 "explore-main-page-description" = "Hlavní strana Wikimedia projektů";
 "explore-main-page-heading" = "Dnes na Wikipedii";

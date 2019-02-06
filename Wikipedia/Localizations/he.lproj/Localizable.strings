@@ -254,7 +254,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "הפעלת הלשונית \"לחקור\"";
 "explore-feed-preferences-turn-on-explore-tab-message" = "זה יגרום להחלפת לשונית ההגדרות בלשונית לחקור. ניתן יהיה לגשת להגדרות מהחלק העליון של הלשונית לחקור, באמצעות לחיצה על כפתור גלגל השיניים";
 "explore-feed-preferences-turn-on-explore-tab-title" = "להפעיל את הלשונית \"לחקור\"?";
-"explore-feed-preferences-undo-customization" = "ביטול";
+"action-undo" = "ביטול";
 "explore-hide-card-prompt" = "הסתרת כרטיס זה";
 "explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
