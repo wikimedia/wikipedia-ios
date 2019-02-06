@@ -8,12 +8,13 @@ class AbuseFilterAlertView: UIView, Themeable {
 
     @IBOutlet private var iconLabel: WikiGlyphLabel!
     @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var subtitle1Label: UILabel!
-    @IBOutlet private var subtitle2Label: UILabel!
-    @IBOutlet private var subtitle3Label: UILabel!
-    @IBOutlet private var subtitle4Label: UILabel!
-    @IBOutlet private var subtitle5Label: UILabel!
-    
+    @IBOutlet private var subtitleLabel: UILabel!
+    @IBOutlet private var detailsLabel1: UILabel!
+    @IBOutlet private var detailsLabel2: UILabel!
+    @IBOutlet private var detailsLabel3: UILabel!
+    @IBOutlet private var detailsLabel4: UILabel!
+    @IBOutlet private var detailsLabel5: UILabel!
+
     public var theme: Theme = .standard
 
     public var type: AbuseFilterAlertType = .disallow {
@@ -26,19 +27,21 @@ class AbuseFilterAlertView: UIView, Themeable {
     private func configureLabels(for type: AbuseFilterAlertType) {
         switch type {
         case .disallow:
-            titleLabel.text = WMFLocalizedStringWithDefaultValue("abuse-filter-disallow-heading", nil, nil, "You cannot publish this edit. Please go back and change it.", "Header text for disallowed edit warning.")
-            subtitle1Label.text = WMFLocalizedStringWithDefaultValue("abuse-filter-disallow-unconstructive", nil, nil, "An automated filter has identified this edit as potentially unconstructive or a vandalism attempt.", "Label text for unconstructive edit description")
-            subtitle2Label.text = WMFLocalizedStringWithDefaultValue("abuse-filter-disallow-notable", nil, nil, "Wikipedia is an encyclopedia and only neutral, notable content belongs here.", "Label text for notable content description")
-            subtitle3Label.text = nil
-            subtitle4Label.text = nil
-            subtitle5Label.text = nil
+            titleLabel.text = WMFLocalizedStringWithDefaultValue("abuse-filter-disallow-heading", nil, nil, "You cannot publish this edit", "Header text for disallowed edit warning.")
+            subtitleLabel.text = nil
+            detailsLabel1.text = WMFLocalizedStringWithDefaultValue("abuse-filter-disallow-unconstructive", nil, nil, "An automated filter has identified this edit as potentially unconstructive or as a vandalism attempt. Please go back and change your edit.", "Label text for unconstructive edit description")
+            detailsLabel2.text = nil
+            detailsLabel3.text = nil
+            detailsLabel4.text = nil
+            detailsLabel5.text = nil
         case .warning:
             titleLabel.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-heading", nil, nil, "This looks like an unconstructive edit, are you sure you want to publish it?", "Header text for unconstructive edit warning")
-            subtitle1Label.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-subheading", nil, nil, "Your edit may contain one or more of the following:", "Subheading text for potentially unconstructive edit warning")
-            subtitle2Label.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-caps", nil, nil, "Typing in ALL CAPS", "Label text for typing in all capitals")
-            subtitle3Label.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-blanking", nil, nil, "Blanking articles or spamming", "Label text for blanking articles or spamming")
-            subtitle4Label.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-irrelevant", nil, nil, "Irrelevant external links or images", "Label text for irrelevant external links and images")
-            subtitle5Label.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-repeat", nil, nil, "Repeeeeating characters", "Label text for repeating characters")
+            subtitleLabel.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-subheading", nil, nil, "Your edit may contain:", "Subheading text for potentially unconstructive edit warning")
+            detailsLabel1.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-caps", nil, nil, "All caps text", "Label text for typing in all capitals")
+            detailsLabel2.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-blanking", nil, nil, "Deleting sections or full articles", "Label text for blanking sections or articles")
+            detailsLabel3.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-spam", nil, nil, "Adding spam to articles", "Label text for adding spam to articles")
+            detailsLabel4.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-irrelevant", nil, nil, "Irrelevant external links or images", "Label text for irrelevant external links and images")
+            detailsLabel5.text = WMFLocalizedStringWithDefaultValue("abuse-filter-warning-repeat", nil, nil, "Repeating characters", "Label text for repeating characters")
         }
     }
     
@@ -46,11 +49,12 @@ class AbuseFilterAlertView: UIView, Themeable {
         self.theme = theme
         backgroundColor = theme.colors.paperBackground
         titleLabel.textColor = (type == .disallow) ? theme.colors.error : theme.colors.warning
-        subtitle1Label.textColor = theme.colors.secondaryText
-        subtitle2Label.textColor = theme.colors.secondaryText
-        subtitle3Label.textColor = theme.colors.secondaryText
-        subtitle4Label.textColor = theme.colors.secondaryText
-        subtitle5Label.textColor = theme.colors.secondaryText
+        subtitleLabel.textColor = theme.colors.secondaryText
+        detailsLabel1.textColor = theme.colors.secondaryText
+        detailsLabel2.textColor = theme.colors.secondaryText
+        detailsLabel3.textColor = theme.colors.secondaryText
+        detailsLabel4.textColor = theme.colors.secondaryText
+        detailsLabel5.textColor = theme.colors.secondaryText
     }
 }
 
