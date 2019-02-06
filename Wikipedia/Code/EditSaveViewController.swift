@@ -29,6 +29,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     @IBOutlet private var licenseLoginLabel: UILabel!
     @IBOutlet private var dividerHeightConstraits: [NSLayoutConstraint]!
     @IBOutlet private var dividerViews: [UIView]!
+    @IBOutlet private var spacerAboveBottomDividerHeightConstrait: NSLayoutConstraint!
 
     @IBOutlet public var minorEditLabel: UILabel!
     @IBOutlet public var minorEditButton: AutoLayoutSafeMultiLineButton!
@@ -102,7 +103,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = WMFLocalizedStringWithDefaultValue("wikitext-preview-save-changes-title", nil, nil, "Save your changes", "Title for edit preview screens")
+        navigationItem.title = WMFLocalizedStringWithDefaultValue("wikitext-preview-save-changes-title", nil, nil, "Save changes", "Title for edit preview screens")
         
         buttonX = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(self.goBack))
         
@@ -132,7 +133,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func styleLicenseTitleLabelLinks() {
-        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText]
+        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         let linkAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
         licenseTitleLabel.attributedText = licenseTitleLabel.text?.attributedString(attributes: baseAttributes, substitutionStrings: [
             Licenses.localizedSaveTermsTitle,
@@ -142,7 +143,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func styleLoginLabelLinks() {
-        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText]
+        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         let substitutionAttributes: [NSAttributedString.Key : AnyObject] = [
             .underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue),
             .foregroundColor: theme.colors.link
@@ -258,10 +259,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             funnel?.logCaptchaShown()
             mode = .captcha
             highlightCaptchaSubmitButton(false)
-            dispatchOnMainQueueAfterDelayInSeconds(0.3) {
+            dispatchOnMainQueueAfterDelayInSeconds(0.1) { // Prevents weird animation.
                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }
-
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             //NSString *warningHtml = error.userInfo[@"warning"];
 
@@ -388,5 +388,19 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType) {
         funnel?.logEditSummaryTap(type.eventLoggingKey)
+    }
+    
+    // Keep bottom divider and license/login labels at bottom of screen while remaining scrollable.
+    // (Having these bits scrollable is important for landscape, being covered by keyboard, captcha appearance, small screen devices, etc.)
+    private func adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView() {
+        spacerAboveBottomDividerHeightConstrait.constant = 0
+        scrollContainer.setNeedsLayout()
+        scrollContainer.layoutIfNeeded()
+        spacerAboveBottomDividerHeightConstrait.constant = scrollView.frame.size.height - scrollContainer.frame.size.height
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView()
     }
 }
