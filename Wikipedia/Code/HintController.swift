@@ -1,3 +1,8 @@
+@objc(WMFHintPresenting)
+protocol HintPresenting {
+    var scrollViewWillBeginDraggingCompletion: (() -> Void)? { get set }
+}
+
 class HintController: NSObject {
     @objc weak var presenter: UIViewController?
     
@@ -102,6 +107,8 @@ class HintController: NSObject {
             return
         }
 
+        makePresenterReportScrollIfNeeded()
+
         if !hintHidden {
             // add hint before animation starts
             addHint()
@@ -133,6 +140,18 @@ class HintController: NSObject {
     private func updateRandom(_ hintHidden: Bool) {
         if let vc = presenter as? WMFRandomArticleViewController {
             vc.setAdditionalSecondToolbarSpacing(hintHidden ? 0 : containerView.frame.height, animated: true)
+        }
+    }
+
+    private func makePresenterReportScrollIfNeeded() {
+        guard let hintPresenting = presenter as? HintPresenting else {
+            return
+        }
+        hintPresenting.scrollViewWillBeginDraggingCompletion = {
+            guard !self.isHintHidden else {
+                return
+            }
+            self.hintVisibilityTime = 0
         }
     }
 }

@@ -98,7 +98,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         WMFImageScaleTransitionProviding,
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
-                                        DescriptionEditViewControllerDelegate>
+                                        DescriptionEditViewControllerDelegate,
+                                        WMFHintPresenting>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -171,6 +172,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 @implementation WMFArticleViewController
 @synthesize articleFetcherPromise = _articleFetcherPromise;
+@synthesize scrollViewWillBeginDraggingCompletion;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -1656,6 +1658,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+    if (self.scrollViewWillBeginDraggingCompletion) {
+        self.scrollViewWillBeginDraggingCompletion();
+    }
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {

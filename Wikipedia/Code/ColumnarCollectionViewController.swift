@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate {
+class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
     
     enum HeaderStyle {
         case sections
@@ -97,11 +97,16 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
             self.layout.invalidateLayout(with: invalidationContext)
         })
     }
+
+    // MARK: HintPresenting
+
+    var scrollViewWillBeginDraggingCompletion: (() -> Void)?
     
     // MARK: - UIScrollViewDelegate
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
+        scrollViewWillBeginDraggingCompletion?()
     }
     
     // MARK: - Refresh Control
