@@ -79,7 +79,7 @@
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN">
                             <rect key="frame" x="0.0" y="0.0" width="548" height="0.0"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BjB-ib-pB7">
+                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BjB-ib-pB7">
                                     <rect key="frame" x="0.0" y="0.0" width="548" height="0.0"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edl-W7-cDN" userLabel="Spacer">
@@ -105,7 +105,6 @@
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Confirmation default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CN-TE-qsp">
                                             <rect key="frame" x="65" y="0.0" width="431" height="0.0"/>
-                                            <viewLayoutGuide key="safeArea" id="8sy-qs-43Q"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
