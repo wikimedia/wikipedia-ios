@@ -935,7 +935,6 @@ extension ExploreViewController {
     }
 
     override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-//        readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
         if didSave {
             ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
         } else {

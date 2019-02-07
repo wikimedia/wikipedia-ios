@@ -217,7 +217,6 @@ extension ArticleLocationCollectionViewController {
             super.saveArticlePreviewActionSelected(withArticleController: articleController, didSave: didSave, articleURL: articleURL)
             return
         }
-//        readingListHintController?.didSave(articleURL: articleURL, theme: theme)
         if didSave {
             ReadingListsFunnel.shared.logSaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
         } else {
