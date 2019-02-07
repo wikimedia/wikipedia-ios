@@ -1660,6 +1660,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
     if (self.scrollViewWillBeginDraggingCompletion) {
         self.scrollViewWillBeginDraggingCompletion();
+        self.scrollViewWillBeginDraggingCompletion = nil;
     }
 }
 
