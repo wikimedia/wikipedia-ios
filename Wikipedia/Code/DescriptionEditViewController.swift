@@ -70,7 +70,6 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         descriptionTextView.becomeFirstResponder()
-        editFunnel?.logWikidataDescriptionEditReady(isEditingExistingDescription)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -174,7 +173,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        editFunnel?.logWikidataDescriptionEditSaveAttempt(isEditingExistingDescription)
+        editFunnel?.logWikidataDescriptionEditSaveAttempt(isEditingExistingDescription, language: article?.url.wmf_language)
         save()
     }
 
@@ -216,14 +215,14 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             DispatchQueue.main.async {
                 self.enableProgressiveButton(true)
                 guard let error = error else {
-                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription)
+                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription, language: language, revID: self.article?.revisionId)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
                     }
                     return
                 }
-                self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription)
+                self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription, language: language, errorText: error.localizedDescription)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }
         }

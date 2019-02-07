@@ -21,10 +21,10 @@
 - (void)logSaveAttempt;
 - (void)logError:(NSString *)code;
 
-- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription;
-- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription;
-- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription;
-- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription;
-- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription;
+- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription language:(NSString *)language;
+- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription language:(NSString *)language;
+- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription language:(NSString *)language;
+- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription language:(NSString *)language revID:(NSNumber *)revID;
+- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription language:(NSString *)language errorText:(NSString *)errorText;
 
 @end
