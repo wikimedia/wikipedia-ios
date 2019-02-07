@@ -1,10 +1,5 @@
 import UIKit
 
-@objc(WMFReadingListHintPresenter)
-public protocol ReadingListHintPresenter: class {
-//    @objc var readingListHintController: ReadingListHintController? { get }
-}
-
 @objc(WMFReadingListHintController)
 class ReadingListHintController: HintController {
 
@@ -40,11 +35,4 @@ class ReadingListHintController: HintController {
         readingListHintViewController.article = article
         setHintHidden(!didSave)
     }
-    
-//    @objc func scrollViewWillBeginDragging() {
-////        guard !isHintHidden else {
-////            return
-////        }
-////        hintVisibilityTime = 0
-//    }
 }
