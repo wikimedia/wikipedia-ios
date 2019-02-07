@@ -117,7 +117,12 @@ class HintController: NSObject {
             return
         }
 
-        makePresenterReportScrollIfNeeded(presenter)
+        presenter.willDragCompletion = {
+            guard !self.isHintHidden else {
+                return
+            }
+            self.hintVisibilityTime = 0
+        }
 
         if !hintHidden {
             // add hint before animation starts
@@ -149,15 +154,6 @@ class HintController: NSObject {
     private func updateRandom(_ hintHidden: Bool) {
         if let vc = presenter as? WMFRandomArticleViewController {
             vc.setAdditionalSecondToolbarSpacing(hintHidden ? 0 : containerView.frame.height, animated: true)
-        }
-    }
-
-    private func makePresenterReportScrollIfNeeded(_ presenter: HintPresentingViewController) {
-        presenter.willDragCompletion = {
-            guard !self.isHintHidden else {
-                return
-            }
-            self.hintVisibilityTime = 0
         }
     }
 }
