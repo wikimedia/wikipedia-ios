@@ -2278,7 +2278,6 @@ extension PlacesViewController {
         deselectAllAnnotations()
         isMovingToRegion = true
         willDragCompletion?()
-        willDragCompletion = nil
     }
     
     func regionDidChange() {

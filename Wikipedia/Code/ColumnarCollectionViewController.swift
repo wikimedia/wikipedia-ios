@@ -107,7 +107,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         willDragCompletion?()
-        willDragCompletion = nil
     }
     
     // MARK: - Refresh Control

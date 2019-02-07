@@ -122,6 +122,7 @@ class HintController: NSObject {
                 return
             }
             self.hintVisibilityTime = 0
+            presenter.willDragCompletion = nil
         }
 
         if !hidden {
