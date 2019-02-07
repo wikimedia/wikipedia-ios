@@ -1841,7 +1841,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)showTitleDescriptionEditor {
     BOOL hasWikidataDescription = self.article.entityDescription != NULL;
-    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription];
+    NSString *articleLanguage = self.article.url.wmf_language;
+    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription language:articleLanguage];
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
@@ -1863,6 +1864,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     void (^showIntro)(void) = ^{
         @strongify(self);
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+        welcomeVC.completionBlock = ^{
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+        };
         [welcomeVC applyTheme:self.theme];
         [navVC presentViewController:welcomeVC
                             animated:YES
@@ -1872,8 +1876,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                               navVC.view.alpha = 1;
                           }];
     };
-
-    [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
+    [self presentViewController:navVC animated:!needsIntro completion:^{
+        if (needsIntro) {
+            showIntro();
+        } else {
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+        }
+    }];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
