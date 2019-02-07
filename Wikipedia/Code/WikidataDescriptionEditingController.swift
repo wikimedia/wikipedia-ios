@@ -16,12 +16,6 @@ struct MediaWikiSiteInfoResult: Decodable {
     let query: MediaWikiQueryResult
 }
 
-extension WikidataAPIResult.Error: LocalizedError {
-    var errorDescription: String? {
-        return info
-    }
-}
-
 extension WikidataAPIResult {
     var succeeded: Bool {
         return success == 1
