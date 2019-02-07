@@ -1,8 +1,6 @@
 import UIKit
 
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
-    var readingListHintController: ReadingListHintController?
-    
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController {
     var articleURLs: [URL] {
         didSet {
             collectionView.reloadData()
@@ -30,7 +28,6 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
-        readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -220,7 +217,7 @@ extension ArticleLocationCollectionViewController {
             super.saveArticlePreviewActionSelected(withArticleController: articleController, didSave: didSave, articleURL: articleURL)
             return
         }
-        readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
+//        readingListHintController?.didSave(articleURL: articleURL, theme: theme)
         if didSave {
             ReadingListsFunnel.shared.logSaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
         } else {

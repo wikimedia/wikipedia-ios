@@ -251,10 +251,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return sbc
     }()
     
-    lazy var readingListHintController: ReadingListHintController = {
-        return ReadingListHintController(dataStore: dataStore, presenter: self)
-    }()
-    
     var numberOfSectionsInExploreFeed: Int {
         guard let sections = fetchedResultsController?.sections else {
             return 0
@@ -730,14 +726,13 @@ extension ExploreViewController {
 
 extension ExploreViewController: SaveButtonsControllerDelegate {
     func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle, userInfo: Any?) {
-        let notifyReadingListHintControllerAndLogEvent = {
-            self.readingListHintController.didSave(didSave, article: article, theme: self.theme)
+        let logSavedEvent = {
             self.logArticleSavedStateChange(didSave, saveButton: saveButton, article: article, userInfo: userInfo)
         }
         if isPresentingAddArticlesToReadingListVC() {
-            addArticlesToReadingListVCDidDisappear = notifyReadingListHintControllerAndLogEvent
+            addArticlesToReadingListVCDidDisappear = logSavedEvent
         } else {
-            notifyReadingListHintControllerAndLogEvent()
+            logSavedEvent()
         }
     }
     
@@ -767,7 +762,7 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
 }
 
 extension ExploreViewController: AddArticlesToReadingListDelegate {
-    func addArticlesToReadingListWillBeClosed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+    func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
     }
 
     func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
@@ -940,7 +935,7 @@ extension ExploreViewController {
     }
 
     override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
+//        readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
         if didSave {
             ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
         } else {

@@ -2,7 +2,6 @@ import UIKit
 
 protocol ExploreCardViewControllerDelegate {
     var saveButtonsController: SaveButtonsController { get }
-    var readingListHintController: ReadingListHintController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
@@ -527,7 +526,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
-                    delegate?.readingListHintController.didSave(true, article: article, theme: theme)
+//                    delegate?.readingListHintController.didSave(true, article: article, theme: theme)
                     ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
@@ -537,7 +536,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
-                    delegate?.readingListHintController.didSave(false, article: article, theme: theme)
+//                    delegate?.readingListHintController.didSave(false, article: article, theme: theme)
                     ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
@@ -615,7 +614,7 @@ extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
     }
     
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        delegate?.readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
+//        delegate?.readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
