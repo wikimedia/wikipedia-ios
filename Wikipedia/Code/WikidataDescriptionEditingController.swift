@@ -1,8 +1,8 @@
-struct WikidataAPIResult: Decodable {
-    struct Error: Decodable {
-        let code, info: String?
+public struct WikidataAPIResult: Decodable {
+    public struct APIError: Error, Decodable {
+        public let code, info: String?
     }
-    let error: Error?
+    let error: APIError?
     let success: Int?
 }
 
