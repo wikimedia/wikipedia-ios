@@ -49,7 +49,8 @@ class HintViewController: UIViewController {
         super.viewDidLoad()
         configureSubviews()
         apply(theme: theme)
-        // TODO: Flip image for RTL
+        let isRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
+        confirmationAccessoryButton.imageView?.transform = isRTL ? CGAffineTransform(scaleX: -1, y: 1) : CGAffineTransform.identity
     }
 
     override func viewWillDisappear(_ animated: Bool) {
