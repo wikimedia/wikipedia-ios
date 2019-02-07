@@ -409,7 +409,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo {
     //Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
-    [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
+    });
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
