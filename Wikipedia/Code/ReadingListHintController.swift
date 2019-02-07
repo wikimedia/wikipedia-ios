@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFReadingListHintController)
 class ReadingListHintController: HintController {
 
-    private let readingListHintViewController = ReadingListHintViewController(nibName: "HintViewController", bundle: Bundle.main)
+    private let readingListHintViewController = ReadingListHintViewController()
     private let dataStore: MWKDataStore
     private var containerView = UIView()
         

@@ -41,6 +41,10 @@ class HintViewController: UIViewController {
         }
     }
 
+    override var nibName: String? {
+        return "HintViewController"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubviews()
