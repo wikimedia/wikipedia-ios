@@ -223,7 +223,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
                     return
                 }
                 let apiErrorCode = (error as? WikidataAPIResult.APIError)?.code
-                let errorText = apiErrorCode ?? (error as NSError).domain
+                let errorText = apiErrorCode ?? "\((error as NSError).domain)-\((error as NSError).code)"
                 self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription, language: language, errorText: errorText)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }
