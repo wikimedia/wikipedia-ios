@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
+class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
 
     fileprivate var mapView: MapView!
 
@@ -1633,6 +1633,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         super.scrollViewInsetsDidChange()
         emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
     }
+
+    // MARK: HintPresenting
+
+    var willDragCompletion: (() -> Void)?
     
     func dismissCurrentArticlePopover() {
         guard let popover = selectedArticlePopover else {
@@ -2269,6 +2273,8 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
+        willDragCompletion?()
+        willDragCompletion = nil
     }
     
     func regionDidChange() {

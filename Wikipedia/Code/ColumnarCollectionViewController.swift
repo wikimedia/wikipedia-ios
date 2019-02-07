@@ -100,14 +100,14 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
 
     // MARK: HintPresenting
 
-    var scrollViewWillBeginDraggingCompletion: (() -> Void)?
+    var willDragCompletion: (() -> Void)?
     
     // MARK: - UIScrollViewDelegate
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
-        scrollViewWillBeginDraggingCompletion?()
-        scrollViewWillBeginDraggingCompletion = nil
+        willDragCompletion?()
+        willDragCompletion = nil
     }
     
     // MARK: - Refresh Control
