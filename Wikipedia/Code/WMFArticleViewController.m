@@ -172,7 +172,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 @implementation WMFArticleViewController
 @synthesize articleFetcherPromise = _articleFetcherPromise;
-@synthesize willDragCompletion;
+@synthesize hintController;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -1658,8 +1658,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
-    if (self.willDragCompletion) {
-        self.willDragCompletion();
+    if (self.hintController) {
+        [self.hintController dismissHintDueToUserInteraction];
     }
 }
 

@@ -1636,11 +1636,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
     // MARK: HintPresenting
 
-    var willDragCompletion: (() -> Void)? {
-        didSet {
-            listViewController.willDragCompletion = willDragCompletion
-        }
-    }
+    var hintController: HintController?
     
     func dismissCurrentArticlePopover() {
         guard let popover = selectedArticlePopover else {
@@ -2277,7 +2273,7 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
-        willDragCompletion?()
+        hintController?.dismissHintDueToUserInteraction()
     }
     
     func regionDidChange() {

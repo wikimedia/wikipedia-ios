@@ -1,6 +1,6 @@
 @objc(WMFHintPresenting)
 protocol HintPresenting: AnyObject {
-    var willDragCompletion: (() -> Void)? { get set }
+    var hintController: HintController? { get set }
 }
 
 class HintController: NSObject {
@@ -117,13 +117,7 @@ class HintController: NSObject {
             return
         }
 
-        presenter.willDragCompletion = {
-            guard !self.isHintHidden else {
-                return
-            }
-            self.hintVisibilityTime = 0
-            presenter.willDragCompletion = nil
-        }
+        presenter.hintController = self
 
         if !hidden {
             // add hint before animation starts
@@ -150,6 +144,13 @@ class HintController: NSObject {
                 self.dismissHint()
             }
         })
+    }
+
+    @objc func dismissHintDueToUserInteraction() {
+        guard !self.isHintHidden else {
+            return
+        }
+        self.hintVisibilityTime = 0
     }
 
     private func adjustSpacingIfPresenterHasSecondToolbar(hintHidden: Bool) {
