@@ -215,7 +215,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             DispatchQueue.main.async {
                 self.enableProgressiveButton(true)
                 guard let error = error else {
-                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription, language: language)
+                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription, language: language, revID: self.article?.revisionId)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)

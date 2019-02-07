@@ -24,7 +24,7 @@
 - (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription language:(NSString *)language;
 - (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription language:(NSString *)language;
 - (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription language:(NSString *)language;
-- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription language:(NSString *)language;
+- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription language:(NSString *)language revID:(NSNumber *)revID;
 - (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription language:(NSString *)language;
 
 @end

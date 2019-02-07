@@ -6,6 +6,7 @@ static NSString *const kAnonKey = @"anon";
 static NSString *const kTimestampKey = @"client_dt";
 static NSString *const kWikidataDescriptionEdit = @"wikidataDescriptionEdit";
 static NSString *const kActionKey = @"action";
+static NSString *const kRevisionIDKey = @"revID";
 
 @implementation EditFunnel
 
@@ -47,7 +48,7 @@ static NSString *const kActionKey = @"action";
 - (void)logSavedRevision:(int)revID {
     NSNumber *revIDNumber = [NSNumber numberWithInt:revID];
     [self log:@{kActionKey: @"saved",
-                @"revID": (revIDNumber ? revIDNumber : @"")}];
+                kRevisionIDKey: (revIDNumber ? revIDNumber : @"")}];
 }
 
 - (void)logCaptchaShown {
@@ -102,9 +103,10 @@ static NSString *const kActionKey = @"action";
                 kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription language:(NSString *)language {
+- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription language:(NSString *)language revID:(NSNumber *)revID {
     [self log:@{kActionKey: @"saved",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription],
+                kRevisionIDKey: revID ?: @""} language:language];
 }
 
 - (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription language:(NSString *)language {
