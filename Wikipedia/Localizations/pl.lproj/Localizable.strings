@@ -146,7 +146,7 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
 "explore-feed-preferences-in-the-news-description" = "Artykuły o bieżących wydarzeniach";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
-"explore-feed-preferences-undo-customization" = "Cofnij";
+"action-undo" = "Cofnij";
 "explore-hide-card-prompt" = "Ukryj tę kartę";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-footer" = "Wszystkie najczęściej czytane artykuły";
@@ -186,7 +186,7 @@
 "field-token-title" = "Kod weryfikacyjny";
 "field-username-placeholder" = "wprowadź nazwę użytkownika";
 "field-username-title" = "Nazwa użytkownika";
-"find-in-page-button-label" = "Znajdź na stronie";
+"action-find-in-page" = "Znajdź na stronie";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";

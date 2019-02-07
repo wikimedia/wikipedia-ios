@@ -262,7 +262,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "탐색 켜기";
 "explore-feed-preferences-turn-on-explore-tab-message" = "이것은 설정 탭을 탐색 탭으로 바꾸지만 톱니바퀴 아이콘을 탭함으로써 탐색 탭의 최상위에서 설정에 접근할 수 있습니다";
 "explore-feed-preferences-turn-on-explore-tab-title" = "탐색 탭을 켜시겠습니까?";
-"explore-feed-preferences-undo-customization" = "실행 취소";
+"action-undo" = "실행 취소";
 "explore-hide-card-prompt" = "이 카드 숨기기";
 "explore-main-page-description" = "위키미디어 프로젝트의 대문";
 "explore-main-page-heading" = "오늘의 위키백과";
@@ -309,7 +309,7 @@
 "field-token-title" = "인증 코드";
 "field-username-placeholder" = "사용자 이름 입력";
 "field-username-title" = "사용자 이름";
-"find-in-page-button-label" = "문서에서 찾기";
+"action-find-in-page" = "문서에서 찾기";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "재설정";
 "forgot-password-email-sent" = "비밀번호 재설정 안내 이메일을 보냈습니다";

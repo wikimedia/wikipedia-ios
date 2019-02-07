@@ -183,7 +183,7 @@
 "field-token-title" = "যাচাইকরণ কোড";
 "field-username-placeholder" = "ব্যবহারকারী নাম লিখুন";
 "field-username-title" = "ব্যবহারকারী নাম";
-"find-in-page-button-label" = "পাতায় খুঁজুন";
+"action-find-in-page" = "পাতায় খুঁজুন";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "পুন:স্থাপন";
 "forgot-password-email-sent" = "পাসওয়ার্ড পুনঃনির্ধারণ করার নির্দেশাবলী সহ একটি ইমেল প্রেরণ করা হয়েছে";

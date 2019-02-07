@@ -250,7 +250,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Aktivera utforska";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Detta kommer att ersätta inställningsfliken med utforskarfliken, du kan komma åt inställningarna längst upp i utforskarfliken genom att trycka på kugghjulsikonen";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Aktivera utforskarfliken?";
-"explore-feed-preferences-undo-customization" = "Ångra";
+"action-undo" = "Ångra";
 "explore-hide-card-prompt" = "Dölj detta kort";
 "explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
 "explore-main-page-heading" = "Idag på Wikipedia";
@@ -297,7 +297,7 @@
 "field-token-title" = "Verifieringskod";
 "field-username-placeholder" = "ange användarnamn";
 "field-username-title" = "Användarnamn";
-"find-in-page-button-label" = "Sök på sidan";
+"action-find-in-page" = "Sök på sidan";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Återställ";
 "forgot-password-email-sent" = "Ett e-postmeddelande med instruktioner om lösenordsåterställning skickades";

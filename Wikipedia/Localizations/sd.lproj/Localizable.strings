@@ -202,7 +202,7 @@
 "explore-feed-preferences-show-news-title" = "خبرن ۾ وارو ڪارڊ ڏيکاريو";
 "explore-feed-preferences-show-on-this-day-title" = "اڄ جو ڏينهن وارو ڪارڊ ڏيکاريو";
 "explore-feed-preferences-show-picture-of-the-day-title" = "چونڊ تصوير وارو ڪارڊ ڏيکاريو";
-"explore-feed-preferences-undo-customization" = "اڻڪريو";
+"action-undo" = "اڻڪريو";
 "explore-hide-card-prompt" = "هي ڪارڊ لڪايو";
 "explore-main-page-description" = "وڪيميڊيا رٿائن جو مک صفحو";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
@@ -246,7 +246,7 @@
 "field-token-title" = "تصديقي ڪوڊ";
 "field-username-placeholder" = "واهپنانءُ داخل ڪيو";
 "field-username-title" = "واھپنانءُ";
-"find-in-page-button-label" = "صفحي ۾ لھو";
+"action-find-in-page" = "صفحي ۾ لھو";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "وري ترتيب ڪريو";
 "forgot-password-email-sent" = "ڳجھولفظ وري ترتيب ڪرڻ جي ھدايتن سان ھڪ برقٽپال موڪليو ويو";

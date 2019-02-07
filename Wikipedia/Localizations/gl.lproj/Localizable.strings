@@ -252,7 +252,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto substituirá a pestana de configuración coa pestana Explorar, pode acceder á configuración dende a parte superior da pestana Explorar premendo na icona da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Activar a pestana Explorar?";
-"explore-feed-preferences-undo-customization" = "Desfacer";
+"action-undo" = "Desfacer";
 "explore-hide-card-prompt" = "Agochar esta tarxeta";
 "explore-main-page-description" = "Páxina principal dos proxectos Wikimedia";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
@@ -297,7 +297,7 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "insira o nome de usuario";
 "field-username-title" = "Nome de usuario";
-"find-in-page-button-label" = "Atopar na páxina";
+"action-find-in-page" = "Atopar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Enviouse un correo electrónico coas instrucións para restablecer o contrasinal";
