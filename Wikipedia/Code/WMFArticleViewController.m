@@ -1432,7 +1432,6 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
         [self.savedPagesFunnel logDeleteWithArticleURL:self.articleURL];
         [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle:self.articleURL];
     }
-    //[self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)handleSaveButtonLongPressGestureRecognizer:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
@@ -1708,7 +1707,6 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 }
 
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
-//    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
         [[ReadingListsFunnel shared] logArticleSaveInReadMore:articleURL];
     } else {
@@ -2153,7 +2151,6 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 }
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
-//    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
         [[ReadingListsFunnel shared] logSaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     } else {
