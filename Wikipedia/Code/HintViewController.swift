@@ -1,39 +1,33 @@
 import UIKit
 
-protocol HintViewControllerDataSource: AnyObject {
-    var defaultViewImage: UIImage { get }
-    var defaultViewTitle: String { get }
-    var confirmationViewImage: UIImage { get }
-    var confirmationViewTitle: String { get }
-    var confirmationViewAccessoryImage: UIImage { get }
-}
-
 protocol HintViewControllerDelegate: AnyObject {
-    func hintViewControllerDidTapDefaultView()
-    func hintViewControllerDidTapConfirmationView()
+    func hintViewControllerWillDisappear(_ hintViewController: HintViewController)
+    func hintViewControllerHeightDidChange(_ hintViewController: HintViewController)
+    func hintViewControllerViewTypeDidChange(_ hintViewController: HintViewController, newViewType: HintViewController.ViewType)
+    func hintViewControllerDidPeformConfirmationAction(_ hintViewController: HintViewController)
+    func hintViewControllerDidFailToCompleteDefaultAction(_ hintViewController: HintViewController)
 }
 
 class HintViewController: UIViewController {
-    weak var dataSource: HintViewControllerDataSource?
+    @IBOutlet weak var defaultView: UIView!
+    @IBOutlet weak var defaultLabel: UILabel!
+    @IBOutlet weak var defaultImageView: UIImageView!
+
+    @IBOutlet weak var confirmationView: UIView!
+    @IBOutlet weak var confirmationLabel: UILabel!
+    @IBOutlet weak var confirmationImageView: UIImageView!
+    @IBOutlet weak var confirmationAccessoryButton: UIButton!
+
     weak var delegate: HintViewControllerDelegate?
 
-    @IBOutlet private weak var defaultView: UIView!
-    @IBOutlet private weak var defaultLabel: UILabel!
-    @IBOutlet private weak var defaultImageView: UIImageView!
+    var theme = Theme.standard
 
-    @IBOutlet private weak var confirmationView: UIView!
-    @IBOutlet private weak var confirmationLabel: UILabel!
-    @IBOutlet private weak var confirmationImageView: UIImageView!
-    @IBOutlet private weak var confirmationAccessoryImageView: UIImageView!
-
-    private var theme = Theme.standard
-
-    private enum ViewType {
+    enum ViewType {
         case `default`
         case confirmation
     }
 
-    private var viewType: ViewType = .default {
+    var viewType: ViewType = .default {
         didSet {
             switch viewType {
             case .default:
@@ -43,34 +37,48 @@ class HintViewController: UIViewController {
                 confirmationView.isHidden = false
                 defaultView.isHidden = true
             }
+            delegate?.hintViewControllerViewTypeDidChange(self, newViewType: viewType)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
+        configureSubviews()
+        apply(theme: theme)
+        // TODO: Flip image for RTL
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.hintViewControllerWillDisappear(self)
+    }
+
+    private var previousHeight: CGFloat = 0.0
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if previousHeight != view.frame.size.height {
+            delegate?.hintViewControllerHeightDidChange(self)
+        }
+        previousHeight = view.frame.size.height
+    }
+
+    open func configureSubviews() {
+
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         defaultLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
         confirmationLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
     }
+}
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+extension HintViewController {
+    @IBAction open func performDefaultAction(sender: Any) {
+
     }
 
-    @objc func themeChanged(notification: Notification) {
-        guard let info = notification.userInfo else {
-            assertionFailure("Expected userInfo")
-            return
-        }
-        let key = ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey
-        guard let theme = info[key] as? Theme else {
-            assertionFailure("Expected theme")
-            return
-        }
-        apply(theme: theme)
+    @IBAction open func performConfirmationAction(sender: Any) {
+
     }
 }
 
@@ -83,6 +91,6 @@ extension HintViewController: Themeable {
         view.backgroundColor = theme.colors.hintBackground
         defaultLabel?.textColor = theme.colors.link
         confirmationLabel?.textColor = theme.colors.link
-        confirmationAccessoryImageView.tintColor = theme.colors.link
+        confirmationAccessoryButton.tintColor = theme.colors.link
     }
 }
