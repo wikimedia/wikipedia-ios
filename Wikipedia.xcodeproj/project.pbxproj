@@ -5986,6 +5986,18 @@
 			name = "Explore Feed";
 			sourceTree = "<group>";
 		};
+		7A1469BB220BBD5D000A20F1 /* Hint */ = {
+			isa = PBXGroup;
+			children = (
+				7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */,
+				7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */,
+				7A610CB6220A30C900C266AE /* HintViewController.swift */,
+				7AFA21BA20110D7900E957E7 /* HintViewController.xib */,
+				7A610CBC220A582A00C266AE /* HintController.swift */,
+			);
+			name = Hint;
+			sourceTree = "<group>";
+		};
 		7A255D3D215162AF0081A068 /* Remote Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -6810,6 +6822,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				7A1469BB220BBD5D000A20F1 /* Hint */,
 				7A60E9D5215D4FD900F2D325 /* Remote Notifications */,
 				D87233FC1E1FF05800751E83 /* Places */,
 				0EFB48071B3BAFE900381F99 /* Article */,
@@ -7535,11 +7548,6 @@
 				7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */,
 				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
-				7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */,
-				7A610CB6220A30C900C266AE /* HintViewController.swift */,
-				7AFA21BA20110D7900E957E7 /* HintViewController.xib */,
-				7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */,
-				7A610CBC220A582A00C266AE /* HintController.swift */,
 				7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */,
 				7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */,
 				7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */,
