@@ -1835,7 +1835,8 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 
 - (void)showTitleDescriptionEditor {
     BOOL hasWikidataDescription = self.article.entityDescription != NULL;
-    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription];
+    NSString *articleLanguage = self.article.url.wmf_language;
+    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription language:articleLanguage];
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
@@ -1858,7 +1859,7 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
         @strongify(self);
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
         welcomeVC.completionBlock = ^{
-            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription];
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
         };
         [welcomeVC applyTheme:self.theme];
         [navVC presentViewController:welcomeVC
@@ -1873,7 +1874,7 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
         if (needsIntro) {
             showIntro();
         } else {
-            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription];
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
         }
     }];
 }

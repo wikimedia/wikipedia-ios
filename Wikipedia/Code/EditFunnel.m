@@ -87,29 +87,29 @@ static NSString *const kActionKey = @"action";
                 @"errorText": (code ? code : @"")}];
 }
 
-- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"start",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"ready",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"saveAttempt",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"saved",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"error",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
 - (NSString *)wikidataDescriptionType:(BOOL)isEditingExistingWikidataDescription {
