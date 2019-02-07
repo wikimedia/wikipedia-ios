@@ -608,7 +608,7 @@ extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
     }
     
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-//        delegate?.readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
+
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
