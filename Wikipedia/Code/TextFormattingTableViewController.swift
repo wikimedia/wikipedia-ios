@@ -159,7 +159,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         textFormattingGroupedToolbarView?.deselectAllButtons()
     }
 
-    override func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+    override func buttonSelectionDidChange(button: SectionEditorButton) {
         super.buttonSelectionDidChange(button: button)
         textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
         textSizeFormattingTableViewController.buttonSelectionDidChange(button: button)
@@ -167,7 +167,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         textFormattingGroupedToolbarView?.selectButton(button)
     }
 
-    override func disableButton(button: SectionEditorWebViewMessagingController.Button) {
+    override func disableButton(button: SectionEditorButton) {
         super.disableButton(button: button)
         textStyleFormattingTableViewController.disableButton(button: button)
         textSizeFormattingTableViewController.disableButton(button: button)

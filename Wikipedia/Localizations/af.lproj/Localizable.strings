@@ -122,7 +122,7 @@
 "field-token-title" = "Bevestigingskode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"find-in-page-button-label" = "Soek in blad";
+"action-find-in-page" = "Soek in blad";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Herstel";
 "forgot-password-email-sent" = "'n E-pos is gestuur met instruksies om die wagwoord te herstel";

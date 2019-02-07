@@ -146,7 +146,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 زبانیں";
 "explore-feed-preferences-feed-cards-hidden-title" = "تمام %@ کارڈ پوشیدہ";
-"explore-feed-preferences-undo-customization" = "واپس";
+"action-undo" = "واپس";
 "explore-hide-card-prompt" = "یہ کارڈ پوشیدہ کریں";
 "explore-main-page-description" = "ویکیمیڈیا منصوبوں کا صفحہ اول";
 "explore-main-page-heading" = "ویکیپیڈیا پر آج";
@@ -190,7 +190,7 @@
 "field-token-title" = "توثیقی کوڈ";
 "field-username-placeholder" = "صارف نام درج کریں";
 "field-username-title" = "صارف نام";
-"find-in-page-button-label" = "صفحہ میں تلاش کریں";
+"action-find-in-page" = "صفحہ میں تلاش کریں";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";

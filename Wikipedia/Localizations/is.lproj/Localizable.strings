@@ -235,7 +235,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Kveikja á 'Uppgötva'";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Þetta mun skipta stillingaflipanum út fyrir 'Uppgötva'-flipann, þú getur alltaf farið í stillingarnar með því að smella á gírhjólstáknið efst á 'Uppgötva'-flipanum";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Kveikja á 'Uppgötva'-flipanum?";
-"explore-feed-preferences-undo-customization" = "Afturkalla";
+"action-undo" = "Afturkalla";
 "explore-hide-card-prompt" = "Fela þetta spjald";
 "explore-main-page-description" = "Aðalsíða Wikimedia-verkefna";
 "explore-main-page-heading" = "Í dag á Wikipedia";
@@ -280,7 +280,7 @@
 "field-token-title" = "Staðfestingarkóði";
 "field-username-placeholder" = "settu inn notandanafn";
 "field-username-title" = "Notandanafn";
-"find-in-page-button-label" = "Finna á síðu";
+"action-find-in-page" = "Finna á síðu";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Endurstilla";
 "forgot-password-email-sent" = "Tölvupóstur var sendur með leiðbeiningum varðandi endurstillingu lykilorðs";

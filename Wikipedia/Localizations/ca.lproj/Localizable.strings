@@ -257,7 +257,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activa l'exploració";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Això reemplaçara la pestanya de configuració amb la pestanya d'exploració. Podeu accedir a la configuració des de dalt de la pestanya d'exploració fent un toc a la icona d'engranatge.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Voleu activar la pestanya d'exploració?";
-"explore-feed-preferences-undo-customization" = "Desfés";
+"action-undo" = "Desfés";
 "explore-hide-card-prompt" = "Amaga la targeta";
 "explore-main-page-description" = "Pàgina principal dels projectes Wikimedia";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
@@ -304,7 +304,7 @@
 "field-token-title" = "Codi de verificació";
 "field-username-placeholder" = "introduïu un nom d'usuari";
 "field-username-title" = "Nom d'usuari";
-"find-in-page-button-label" = "Busca una pàgina";
+"action-find-in-page" = "Busca una pàgina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restableix";
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";

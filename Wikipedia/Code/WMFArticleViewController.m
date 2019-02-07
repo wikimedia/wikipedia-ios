@@ -594,7 +594,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(findInPageButtonPressed)];
-        _findInPageToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, nil, @"Find in page", @"Accessibility label for the Find in Page button");
+        _findInPageToolbarItem.accessibilityLabel = WMFCommonStrings.findInPage;
     }
     return _findInPageToolbarItem;
 }

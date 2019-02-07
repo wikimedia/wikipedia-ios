@@ -1,9 +1,15 @@
 class TextFormattingButton: UIButton, Themeable {
     var theme: Theme = Theme.standard
+    var kind: SectionEditorButton.Kind?
     
     override var isSelected: Bool {
         didSet{
             updateColors()
+            if isSelected {
+                accessibilityLabel = kind?.selectedAccessibilityLabel
+            } else {
+                accessibilityLabel = kind?.accessibilityLabel
+            }
         }
     }
     
@@ -11,6 +17,8 @@ class TextFormattingButton: UIButton, Themeable {
         super.awakeFromNib()
         layer.cornerRadius = 4
         clipsToBounds = true
+        kind = SectionEditorButton.Kind(identifier: tag)
+        accessibilityLabel = kind?.accessibilityLabel
     }
 
     override open var intrinsicContentSize: CGSize {

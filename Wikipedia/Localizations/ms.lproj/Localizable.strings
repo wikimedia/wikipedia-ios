@@ -236,7 +236,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Hidupkan Jelajah";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ini akan menggantikan tab Tetapan dengan tab Jelajahi, anda boleh mengakses Tetapan dari bahagian atas tab Jelajahi dengan mengetuk ikon gear";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Hidupkan tab Jelajah?";
-"explore-feed-preferences-undo-customization" = "Nyahbuat";
+"action-undo" = "Nyahbuat";
 "explore-hide-card-prompt" = "Sembunyikan kad ini";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -281,7 +281,7 @@
 "field-token-title" = "Token";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
-"find-in-page-button-label" = "Cari dalam laman";
+"action-find-in-page" = "Cari dalam laman";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Set semula";
 "forgot-password-email-sent" = "E-mel dengan arahan set semula kata laluan telah dihantar";

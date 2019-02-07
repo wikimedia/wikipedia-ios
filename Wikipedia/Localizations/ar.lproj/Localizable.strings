@@ -263,7 +263,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "تشغيل الاستكشاف";
 "explore-feed-preferences-turn-on-explore-tab-message" = "سيستبدل هذا علامة التبويب الإعدادات ب علامة التبويب استكشاف، ويمكنك الوصول إلى الإعدادات من أعلى علامة التبويب استكشاف بالنقر على رمز الترس";
 "explore-feed-preferences-turn-on-explore-tab-title" = "هل تريد تشغيل علامة التبويب استكشاف؟";
-"explore-feed-preferences-undo-customization" = "تراجع";
+"action-undo" = "تراجع";
 "explore-hide-card-prompt" = "أخف هذه البطاقة";
 "explore-main-page-description" = "صفحة رئيسية من مشاريع ويكيميديا";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";
@@ -310,7 +310,7 @@
 "field-token-title" = "رمز التحقق";
 "field-username-placeholder" = "أدخل اسم المستخدم";
 "field-username-title" = "اسم المستخدم";
-"find-in-page-button-label" = "البحث في الصفحة";
+"action-find-in-page" = "البحث في الصفحة";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "أعد الضبط";
 "forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";

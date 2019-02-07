@@ -182,7 +182,7 @@
 "explore-feed-preferences-hide-card-action-title" = "مخفی کردن این کارت";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "خاموش کردن جستجو";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "روشن کردن جستجو";
-"explore-feed-preferences-undo-customization" = "واگردانی";
+"action-undo" = "واگردانی";
 "explore-hide-card-prompt" = "مخفی کردن این کارت";
 "explore-main-page-description" = "صفحهٔ اصلی در پروژه‌های ویکی‌مدیا";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
@@ -224,7 +224,7 @@
 "field-token-title" = "کد تائید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
-"find-in-page-button-label" = "در صفحه پیدا کنید";
+"action-find-in-page" = "در صفحه پیدا کنید";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور فرستاده شد";

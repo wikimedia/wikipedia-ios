@@ -215,7 +215,7 @@
 "explore-feed-preferences-turn-off-explore-tab-title" = "¿Quieres desactivar la pestaña Explorar?";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-title" = "¿Quieres activar la pestaña Explorar?";
-"explore-feed-preferences-undo-customization" = "Deshacer";
+"action-undo" = "Deshacer";
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
@@ -259,7 +259,7 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "escribe el nombre de usuario";
 "field-username-title" = "Nombre de usuario";
-"find-in-page-button-label" = "Buscar en la página";
+"action-find-in-page" = "Buscar en la página";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Se envió un correo electrónico con instrucciones para restablecer tu contraseña";

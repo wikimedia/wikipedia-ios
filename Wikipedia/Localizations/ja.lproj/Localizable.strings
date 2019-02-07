@@ -244,7 +244,7 @@
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "オフにする";
 "explore-feed-preferences-turn-off-explore-tab-title" = "「探してみよう」タブをオフにしますか？";
 "explore-feed-preferences-turn-off-feed-disclosure" = "「探してみよう」タブをオフにすると、設定タブに入れ替わります。";
-"explore-feed-preferences-undo-customization" = "取り消す";
+"action-undo" = "取り消す";
 "explore-hide-card-prompt" = "カードを隠す";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
 "explore-main-page-heading" = "今日についての記事";
@@ -289,7 +289,7 @@
 "field-token-title" = "検証コード";
 "field-username-placeholder" = "ユーザー名を入力";
 "field-username-title" = "ユーザー名";
-"find-in-page-button-label" = "ページ内検索";
+"action-find-in-page" = "ページ内検索";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "リセット";
 "forgot-password-email-sent" = "パスワードリセットの指示が記載されたメールが送信されました";

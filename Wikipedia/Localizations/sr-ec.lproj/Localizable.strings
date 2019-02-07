@@ -253,7 +253,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Укључи „Истражи”";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Картица „Подешавања” ће бити замењена картицом „Истражи”. Подешавања се налазе на врху картице „Истражи” притиском на икону зупчаника.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Укључити картицу „Истражи”?";
-"explore-feed-preferences-undo-customization" = "Опозови";
+"action-undo" = "Опозови";
 "explore-hide-card-prompt" = "Сакриј ову картицу";
 "explore-main-page-description" = "Главна страница Викимедијиних пројеката";
 "explore-main-page-heading" = "Данас на Википедији";
@@ -298,7 +298,7 @@
 "field-token-title" = "Кôд за верификацију";
 "field-username-placeholder" = "унесите корисничко име";
 "field-username-title" = "Корисничко име";
-"find-in-page-button-label" = "Пронађи на страници";
+"action-find-in-page" = "Пронађи на страници";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Ресетуј";
 "forgot-password-email-sent" = "Имејл са упутством за ресетовање лозинке је послат";

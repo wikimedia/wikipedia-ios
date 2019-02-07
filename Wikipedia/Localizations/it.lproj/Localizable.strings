@@ -173,7 +173,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-feed-customize-accessibility-title" = "Personalizza";
-"explore-feed-preferences-undo-customization" = "Annulla";
+"action-undo" = "Annulla";
 "explore-main-page-description" = "Pagina principale dei progetti Wikimedia";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 "explore-most-read-footer" = "Tutte le voci più lette";
@@ -215,7 +215,7 @@
 "field-token-title" = "Codice di verifica";
 "field-username-placeholder" = "inserisci il nome utente";
 "field-username-title" = "Nome utente";
-"find-in-page-button-label" = "Trova nella pagina";
+"action-find-in-page" = "Trova nella pagina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reimposta";
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";

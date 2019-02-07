@@ -159,7 +159,7 @@
 "explore-feed-preferences-potd-description" = "Denný obrázok z Commons";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Vypnúť kanál Objaviť";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Vypnúť kanál Objaviť";
-"explore-feed-preferences-undo-customization" = "Vrátiť";
+"action-undo" = "Vrátiť";
 "explore-hide-card-prompt" = "Skryť túto kartu";
 "explore-main-page-description" = "Hlavná stránka projektov Wikimedie";
 "explore-main-page-heading" = "Dnes na Wikipédii";
@@ -198,7 +198,7 @@
 "field-token-title" = "Overovací kód";
 "field-username-placeholder" = "zadajte užívateľské meno";
 "field-username-title" = "Používateľské meno";
-"find-in-page-button-label" = "Nájsť na stránke";
+"action-find-in-page" = "Nájsť na stránke";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Obnoviť";
 "forgot-password-email-sent" = "Poslali sme vám e-mail s inštrukciami na obnovu hesla";
