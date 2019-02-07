@@ -1,0 +1,172 @@
+class HintController: NSObject {
+    @objc weak var presenter: UIViewController?
+    
+    private let hintViewController: HintViewController
+
+    private var containerView = UIView()
+    private var containerViewConstraint: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)
+
+    private var task: DispatchWorkItem?
+
+    var theme = Theme.standard {
+        didSet {
+            guard !isHintHidden else {
+                return
+            }
+            hintViewController.apply(theme: theme)
+        }
+    }
+
+    init(hintViewController: HintViewController) {
+        self.hintViewController = hintViewController
+        super.init()
+        hintViewController.delegate = self
+    }
+
+    var isHintHidden: Bool {
+        return containerView.superview == nil
+    }
+
+    private var hintVisibilityTime: TimeInterval = 13 {
+        didSet {
+            guard hintVisibilityTime != oldValue else {
+                return
+            }
+            dismissHint()
+        }
+    }
+
+    func dismissHint() {
+        self.task?.cancel()
+        let task = DispatchWorkItem { [weak self] in
+            self?.setHintHidden(true)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + hintVisibilityTime , execute: task)
+        self.task = task
+    }
+
+    private func addHint() {
+        guard isHintHidden else {
+            return
+        }
+
+        hintViewController.apply(theme: theme)
+
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+
+        var additionalBottomSpacing: CGFloat = 0
+
+        if let wmfVCPresenter = presenter as? WMFViewController { // not ideal, violates encapsulation
+            wmfVCPresenter.view.insertSubview(containerView, belowSubview: wmfVCPresenter.toolbar)
+            additionalBottomSpacing = wmfVCPresenter.toolbar.frame.size.height
+        } else {
+            presenter?.view.addSubview(containerView)
+        }
+
+        if let presenter = presenter {
+            let safeBottomAnchor = presenter.view.safeAreaLayoutGuide.bottomAnchor
+
+            // `containerBottomConstraint` is activated when the hint is visible
+            containerViewConstraint.bottom = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: 0 - additionalBottomSpacing)
+
+            // `containerTopConstraint` is activated when the hint is hidden
+            containerViewConstraint.top = containerView.topAnchor.constraint(equalTo: safeBottomAnchor)
+
+            let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor)
+            let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
+
+            NSLayoutConstraint.activate([containerViewConstraint.top!, leadingConstraint, trailingConstraint])
+
+            if presenter.isKind(of: SearchResultsViewController.self){
+                presenter.wmf_hideKeyboard()
+            }
+        } else {
+            assertionFailure("Expected presenter")
+        }
+
+        hintViewController.view.setContentHuggingPriority(.required, for: .vertical)
+        hintViewController.view.setContentCompressionResistancePriority(.required, for: .vertical)
+        containerView.setContentHuggingPriority(.required, for: .vertical)
+        containerView.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        presenter?.wmf_add(childController: hintViewController, andConstrainToEdgesOfContainerView: containerView)
+    }
+
+    private func removeHint() {
+        task?.cancel()
+        hintViewController.willMove(toParent: nil)
+        hintViewController.view.removeFromSuperview()
+        hintViewController.removeFromParent()
+        containerView.removeFromSuperview()
+        resetHint()
+    }
+
+    func resetHint() {
+        hintVisibilityTime = 13
+        hintViewController.viewType = .default
+    }
+
+    func setHintHidden(_ hintHidden: Bool) {
+        guard isHintHidden != hintHidden else {
+            return
+        }
+
+        if !hintHidden {
+            // add hint before animation starts
+            addHint()
+            containerView.superview?.layoutIfNeeded()
+        }
+
+        updateRandom(hintHidden)
+
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
+            if hintHidden {
+                self.containerViewConstraint.bottom?.isActive = false
+                self.containerViewConstraint.top?.isActive = true
+            } else {
+                self.containerViewConstraint.top?.isActive = false
+                self.containerViewConstraint.bottom?.isActive = true
+            }
+            self.containerView.superview?.layoutIfNeeded()
+        }, completion: { (_) in
+            // remove hint after animation is completed
+            if hintHidden {
+                self.updateRandom(hintHidden)
+                self.removeHint()
+            } else {
+                self.dismissHint()
+            }
+        })
+    }
+
+    private func updateRandom(_ hintHidden: Bool) {
+        if let vc = presenter as? WMFRandomArticleViewController {
+            vc.setAdditionalSecondToolbarSpacing(hintHidden ? 0 : containerView.frame.height, animated: true)
+        }
+    }
+}
+
+extension HintController: HintViewControllerDelegate {
+    func hintViewControllerWillDisappear(_ hintViewController: HintViewController) {
+        setHintHidden(true)
+    }
+
+    func hintViewControllerHeightDidChange(_ hintViewController: HintViewController) {
+        updateRandom(isHintHidden)
+    }
+
+    func hintViewControllerViewTypeDidChange(_ hintViewController: HintViewController, newViewType: HintViewController.ViewType) {
+        guard newViewType == .confirmation else {
+            return
+        }
+        setHintHidden(false)
+    }
+
+    func hintViewControllerDidPeformConfirmationAction(_ hintViewController: HintViewController) {
+        setHintHidden(true)
+    }
+
+    func hintViewControllerDidFailToCompleteDefaultAction(_ hintViewController: HintViewController) {
+        setHintHidden(true)
+    }
+}
