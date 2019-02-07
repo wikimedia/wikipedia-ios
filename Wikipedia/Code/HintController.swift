@@ -129,7 +129,7 @@ class HintController: NSObject {
             addHint(to: presenter)
         }
 
-        updateRandom(hintHidden)
+        self.adjustSpacingIfPresenterHasSecondToolbar()
 
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
             if hintHidden {
@@ -143,7 +143,7 @@ class HintController: NSObject {
         }, completion: { (_) in
             // remove hint after animation is completed
             if hintHidden {
-                self.updateRandom(hintHidden)
+                self.adjustSpacingIfPresenterHasSecondToolbar()
                 self.removeHint()
             } else {
                 self.dismissHint()
@@ -151,10 +151,15 @@ class HintController: NSObject {
         })
     }
 
-    private func updateRandom(_ hintHidden: Bool) {
-        if let vc = presenter as? WMFRandomArticleViewController {
-            vc.setAdditionalSecondToolbarSpacing(hintHidden ? 0 : containerView.frame.height, animated: true)
+    private func adjustSpacingIfPresenterHasSecondToolbar() {
+        guard
+            let viewController = presenter as? WMFViewController,
+            !viewController.isSecondToolbarHidden
+        else {
+            return
         }
+        let spacing = isHintHidden ? 0 : containerView.frame.height
+        viewController.setAdditionalSecondToolbarSpacing(spacing, animated: true)
     }
 }
 
@@ -164,7 +169,7 @@ extension HintController: HintViewControllerDelegate {
     }
 
     func hintViewControllerHeightDidChange(_ hintViewController: HintViewController) {
-        updateRandom(isHintHidden)
+        adjustSpacingIfPresenterHasSecondToolbar()
     }
 
     func hintViewControllerViewTypeDidChange(_ hintViewController: HintViewController, newViewType: HintViewController.ViewType) {
