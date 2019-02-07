@@ -46,6 +46,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progress = @"kvo_WMFArticleViewController_articleFetcherPromise_progress";
 
+NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
+
 @interface MWKArticle (WMFSharingActivityViewController)
 
 - (nullable UIActivityViewController *)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
@@ -163,6 +165,7 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 @property (nonatomic, readwrite) EditFunnel *editFunnel;
 
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
+@property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
 @end
 
@@ -798,6 +801,11 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+
+    if (self.viewDidAppearCompletion) {
+        self.viewDidAppearCompletion();
+        self.viewDidAppearCompletion = nil;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -1901,6 +1909,9 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
             weakSelf.webViewController.webView.hidden = NO;
             [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];
+        };
+        self.viewDidAppearCompletion = ^{
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFEditPublishedNotification object:nil];
         };
         [self fetchArticle];
     }
