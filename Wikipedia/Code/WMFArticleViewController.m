@@ -1857,6 +1857,9 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
     void (^showIntro)(void) = ^{
         @strongify(self);
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+        welcomeVC.completionBlock = ^{
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription];
+        };
         [welcomeVC applyTheme:self.theme];
         [navVC presentViewController:welcomeVC
                             animated:YES
@@ -1866,8 +1869,13 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
                               navVC.view.alpha = 1;
                           }];
     };
-
-    [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
+    [self presentViewController:navVC animated:!needsIntro completion:^{
+        if (needsIntro) {
+            showIntro();
+        } else {
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription];
+        }
+    }];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
