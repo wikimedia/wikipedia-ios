@@ -89,7 +89,4 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
         delegate?.hintViewControllerDidFailToCompleteDefaultAction(self)
     }
-
-    func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
-    }
 }
