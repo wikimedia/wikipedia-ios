@@ -109,9 +109,10 @@ static NSString *const kRevisionIDKey = @"revID";
                 kRevisionIDKey: revID ?: @""} language:language];
 }
 
-- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription language:(NSString *)language {
+- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription language:(NSString *)language errorText:(NSString *)errorText {
     [self log:@{kActionKey: @"error",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription],
+                @"errorText": errorText} language:language];
 }
 
 - (NSString *)wikidataDescriptionType:(BOOL)isEditingExistingWikidataDescription {

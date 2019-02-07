@@ -222,7 +222,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
                     }
                     return
                 }
-                self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription, language: language)
+                self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription, language: language, errorText: error.localizedDescription)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }
         }
