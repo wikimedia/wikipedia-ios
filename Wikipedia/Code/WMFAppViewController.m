@@ -119,6 +119,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) RemoteNotificationsModelChangeResponseCoordinator *remoteNotificationsModelChangeResponseCoordinator;
 
+@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+
 @end
 
 @implementation WMFAppViewController
@@ -209,7 +211,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleWasUpdated:)
+                                                 name:WMFArticleUpdatedNotification
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -456,6 +464,26 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
     ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator = (ExploreFeedPreferencesUpdateCoordinator *)note.object;
     [exploreFeedPreferencesUpdateCoordinator coordinateUpdateFrom:self];
+}
+
+- (void)articleWasUpdated:(NSNotification *)note {
+    WMFArticle *article = (WMFArticle *)note.object;
+    if (![article isKindOfClass:[WMFArticle class]]) {
+        return;
+    }
+    if (article.changedValues[@"savedDate"] == NULL) {
+        return;
+    }
+    self.readingListHintController.presenter = [self visibleViewController];
+    [self.readingListHintController toggleHintForArticle:article theme:self.theme];
+}
+
+- (UIViewController *)visibleViewController {
+    UIViewController *visibleViewController = self.navigationController.visibleViewController;
+    if (visibleViewController == self) {
+        return self.selectedViewController;
+    }
+    return visibleViewController;
 }
 
 #pragma mark - Explore feed preferences
