@@ -43,14 +43,20 @@
 "about-translators-details" = "Käännöstyön tehneet vapaaehtoiset sivustolla $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Et voi julkaista tätä muokkausta. Palaa takaisin ja muuta sitä.";
 "abuse-filter-disallow-notable" = "Wikipedia on tietosanakirja ja vain neutraali, merkittävä sisältö kuuluu tänne.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Automaattinen suodatin on tunnistanut tämän muokkauksen mahdollisesti haitalliseksi tai vandalismin yritykseksi.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Artikkelien tyhjentämistä tai roskaamista";
+// Fuzzy
 "abuse-filter-warning-caps" = "Kirjoittamista ISOILLA KIRJAIMILLA";
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti julkaista sen?";
 "abuse-filter-warning-irrelevant" = "Aiheeseen liittymättömiä ulkoisia linkkejä tai kuvia";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Toiiiiiiiiiiistuvia merkkejä";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Muokkauksesi saattaa sisältää yhden tai useampia seuraavista:";
 "account-creation-captcha-cannot-see-image" = "Etkö näe kuvaa? $1";
 "account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa...";
@@ -247,7 +253,6 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "Tutki-välilehden poistaminen käytöstä korvaa sen Asetukset-välilehdellä.";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ota Tutki-välilehti käyttöön";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ota käyttöön Tutki-välilehti?";
-"explore-feed-preferences-undo-customization" = "Kumoa";
 "explore-hide-card-prompt" = "Piilota tämä kortti";
 "explore-main-page-description" = "Wikimedia projektin etusivu";
 "explore-main-page-heading" = "Tänään Wikipediassa";
@@ -292,7 +297,6 @@
 "field-token-title" = "Vahvistuskoodi";
 "field-username-placeholder" = "anna käyttäjänimi";
 "field-username-title" = "Käyttäjänimi";
-"find-in-page-button-label" = "Etsi sivulta";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
@@ -645,6 +649,7 @@
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
 "wikitext-preview-link-preview-description" = "Tämä linkki vie osoitteeseen '$1'";
 "wikitext-preview-link-preview-title" = "Linkin esikatselu";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Tallenna muutokset";
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";

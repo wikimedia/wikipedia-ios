@@ -30,14 +30,20 @@
 "about-translators-details" = "Traducida por voluntarios en $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Nun puedes espublizar esta edición. Por favor vuelve atrás y cámbiala.";
 "abuse-filter-disallow-notable" = "Wikipedia ye una enciclopedia y sólo cabe equí el conteníu neutral y notable.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Dexar en blanco los artículos o facer spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Escribir TOO EN MAYÚSCULES";
 "abuse-filter-warning-heading" = "Esto nun paez una edición constructiva. ¿Tas seguro de que quies espublizala?";
 "abuse-filter-warning-irrelevant" = "Enllaces o imaxes esternos irrelevantes";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Caráuteres repeeeetíos";
+// Fuzzy
 "abuse-filter-warning-subheading" = "La to edición puede contener unu o más de los siguientes:";
 "account-creation-captcha-cannot-see-image" = "¿Nun puedes ver la imaxe? $1";
 "account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu...";
@@ -177,7 +183,6 @@
 "explore-feed-preferences-show-on-this-day-footer-text" = "Desactivar la tarxeta d'Un día como güei desactivará la tarxeta en tolos idiomes disponibles.";
 "explore-feed-preferences-show-on-this-day-title" = "Amosar la tarxeta Un día como güei";
 "explore-feed-preferences-show-picture-of-the-day-title" = "Amosar la tarxeta d'Imaxe del día";
-"explore-feed-preferences-undo-customization" = "Desfacer";
 "explore-hide-card-prompt" = "Tapecer esta tarxeta";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
@@ -222,7 +227,6 @@
 "field-token-title" = "Códigu de comprobación";
 "field-username-placeholder" = "escribe'l nome d'usuariu";
 "field-username-title" = "Nome d'usuariu";
-"find-in-page-button-label" = "Alcontrar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reaniciar";
 "forgot-password-email-sent" = "Unvióse un corréu electrónicu con instrucciones pa reaniciar la contraseña";

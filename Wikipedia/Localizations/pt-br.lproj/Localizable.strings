@@ -52,14 +52,20 @@
 "about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
 "about-wikimedia-foundation" = "Fundação Wikimedia";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Não pode publicar esta edição. Por favor, volte atrás e altere-a.";
 "abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia e somente conteúdo neutro e notório pertence a este projeto.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente não construtiva ou como uma tentativa de vandalismo.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Branqueamento de artigos ou ''spam''";
+// Fuzzy
 "abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
 "abuse-filter-warning-heading" = "Esta edição parece não ser construtiva. Você tem certeza de que gostaria de publica-la?";
 "abuse-filter-warning-irrelevant" = "Ligações ou imagens externas irrelevantes";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Repeeeetição de caracteres";
+// Fuzzy
 "abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
 "account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
 "account-creation-captcha-obtaining" = "Obtendo um novo CAPTCHA...";
@@ -268,7 +274,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir a aba Configurações pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar a aba Explorar?";
-"explore-feed-preferences-undo-customization" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -315,7 +320,6 @@
 "field-token-title" = "Código de verificação";
 "field-username-placeholder" = "insira nome de usuário";
 "field-username-title" = "Nome de usuário";
-"find-in-page-button-label" = "Localizar na página";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviado um e-mail com instruções de redefinição de senha";
@@ -672,6 +676,7 @@
 "wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";
 "wikitext-preview-link-preview-description" = "Este link leva a '$1'";
 "wikitext-preview-link-preview-title" = "Visualização do link";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Salvar as suas alterações";
 "wikitext-upload-captcha-error" = "Erro de verificação do CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";

@@ -48,14 +48,20 @@
 "about-translators-details" = "由$1的志愿者翻译";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "about-wikipedia" = "维基百科";
+// Fuzzy
 "abuse-filter-disallow-heading" = "您不能发布该编辑。请返回更改。";
 "abuse-filter-disallow-notable" = "维基百科是一部百科全书，这里只接受中立、有关注度的内容。";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "自动过滤器已认定此编辑可能不具建设性或存在破坏企图。";
+// Fuzzy
 "abuse-filter-warning-blanking" = "清空条目或破坏";
+// Fuzzy
 "abuse-filter-warning-caps" = "输入全部大写字母";
 "abuse-filter-warning-heading" = "这看起来是没有建设性的编辑，您确定要发布它？";
 "abuse-filter-warning-irrelevant" = "无关外部链接或图片";
+// Fuzzy
 "abuse-filter-warning-repeat" = "重复字符";
+// Fuzzy
 "abuse-filter-warning-subheading" = "您的编辑可能包含以下情况之一：";
 "account-creation-captcha-cannot-see-image" = "看不到图片么？$1";
 "account-creation-captcha-obtaining" = "获得新验证码...";
@@ -257,7 +263,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "打开探索";
 "explore-feed-preferences-turn-on-explore-tab-message" = "这将替换设置标签为探索标签，您可以在探索标签上方通过点按齿轮图标访问设置";
 "explore-feed-preferences-turn-on-explore-tab-title" = "打开探索标签么？";
-"explore-feed-preferences-undo-customization" = "撤销";
 "explore-hide-card-prompt" = "隐藏此卡片";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
@@ -304,7 +309,6 @@
 "field-token-title" = "验证码";
 "field-username-placeholder" = "输入用户名";
 "field-username-title" = "用户名";
-"find-in-page-button-label" = "在页面中查找";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重置";
 "forgot-password-email-sent" = "已发送一封带有密码重置说明的电子邮件";
@@ -661,6 +665,7 @@
 "wikitext-preview-changes-none" = "没有可供预览的更改";
 "wikitext-preview-link-preview-description" = "此链接引导至“$1”";
 "wikitext-preview-link-preview-title" = "链接预览";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "保存所有更改";
 "wikitext-upload-captcha-error" = "验证码验证错误。";
 "wikitext-upload-captcha-needed" = "需要验证码确认。";

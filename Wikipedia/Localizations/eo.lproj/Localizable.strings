@@ -35,14 +35,20 @@
 "about-translators-details" = "Tradukita de volontuloj ĉe $1";
 "about-wikimedia-foundation" = "Fondaĵo Vikimedio";
 "about-wikipedia" = "Vikipedio";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Vi ne povas publikigi ĉi tiun modifon. Bonvolu iri reen kaj ŝanĝi ĝin.";
 "abuse-filter-disallow-notable" = "Vikipedio estas encyclopedio kaj nur neŭtrala, rimarkinda enhavo aperu ĉi tie.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Aŭtomatigita filtrilo identigis ĉi tiun redakton kiel potenciale malhelpan aŭ provon je vandalismo.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Malplenigi artikolon aŭ spamado";
+// Fuzzy
 "abuse-filter-warning-caps" = "Skribi ĈION MAJUSKLE";
 "abuse-filter-warning-heading" = "Tio ĉi eble estas malhelpa redakto. Ĉu vi certas, ke vi volas publikigi ĝin?";
 "abuse-filter-warning-irrelevant" = "Senrilata ekstera ligilo aŭ bildo";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Ripetaaaado de signoj";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Via redakto povas enhavi unu aŭ pli de la jeno:";
 "account-creation-captcha-cannot-see-image" = "Ĉu vi ne povas vidi la bildon? $1";
 "account-creation-captcha-obtaining" = "Akiras novan CAPTCHA...";
@@ -240,7 +246,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ŝalti Esploradon";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ĉi tio anstataŭos la taban folion Agordoj per la Esplorflua taba folio. Vi povas aliri la agordojn supre de la Esplorflua taba folio, tuŝetante la dentoradan bildsimbolon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ĉu ŝalti la Esplorfluan taban folion?";
-"explore-feed-preferences-undo-customization" = "Malfari";
 "explore-hide-card-prompt" = "Kaŝi ĉi tiun karton";
 "explore-main-page-description" = "Ĉefa paĝo de vikimediaj projektoj";
 "explore-main-page-heading" = "Hodiaŭ sur Vikipedio";
@@ -285,7 +290,6 @@
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
 "field-username-title" = "Salutnomo";
-"find-in-page-button-label" = "Trovi en la paĝo";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restarigi";
 "forgot-password-email-sent" = "Retmesaĝo kun instrukcioj pri la restarigo de pasvorto estas sendita";

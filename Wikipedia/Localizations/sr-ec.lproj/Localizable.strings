@@ -38,14 +38,20 @@
 "about-translators-details" = "Превели добровољци сајта $1";
 "about-wikimedia-foundation" = "Задужбина Викимедија";
 "about-wikipedia" = "Википедија";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Не можете да објавите ову измену. Вратите се и промените је.";
 "abuse-filter-disallow-notable" = "Википедија је енциклопедија и овде припада само неутралан и значајан садржај.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је означио ову измену као потенцијално неконструктивну или као покушај вандализма.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Пражњење чланака или спамовање";
+// Fuzzy
 "abuse-filter-warning-caps" = "Писање великим словима";
 "abuse-filter-warning-heading" = "Ово личи на неконструктивну измену. Желите ли заиста да је објавите?";
 "abuse-filter-warning-irrelevant" = "Ирелевантни спољашњи линкови или слике";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Знакови који се понављају";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Ваша измена може садржати нешто од следећег:";
 "account-creation-captcha-cannot-see-image" = "Не видите слику? $1";
 "account-creation-captcha-obtaining" = "Преузимам нову CAPTCHA слику…";
@@ -253,7 +259,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Укључи „Истражи”";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Картица „Подешавања” ће бити замењена картицом „Истражи”. Подешавања се налазе на врху картице „Истражи” притиском на икону зупчаника.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Укључити картицу „Истражи”?";
-"explore-feed-preferences-undo-customization" = "Опозови";
 "explore-hide-card-prompt" = "Сакриј ову картицу";
 "explore-main-page-description" = "Главна страница Викимедијиних пројеката";
 "explore-main-page-heading" = "Данас на Википедији";
@@ -298,7 +303,6 @@
 "field-token-title" = "Кôд за верификацију";
 "field-username-placeholder" = "унесите корисничко име";
 "field-username-title" = "Корисничко име";
-"find-in-page-button-label" = "Пронађи на страници";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Ресетуј";
 "forgot-password-email-sent" = "Имејл са упутством за ресетовање лозинке је послат";

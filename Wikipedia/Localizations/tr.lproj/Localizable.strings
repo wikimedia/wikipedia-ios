@@ -52,14 +52,20 @@
 "about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
 "about-wikimedia-foundation" = "Wikimedia Vakfı";
 "about-wikipedia" = "Vikipedi";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Bu düzenlemeyi yayınlayamazsınız.  Lütfen geri dönüp değiştirin.";
 "abuse-filter-disallow-notable" = "Vikipedi bir ansiklopedidir ve sadece tarafsız, kayda değer içerik burada yer alabilir.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "İçerik boşaltma veya spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "TÜMÜ BÜYÜK HARFLE yazım";
 "abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; yayınlamak istediğinize emin misiniz?";
 "abuse-filter-warning-irrelevant" = "Konu dışı dış bağlantılar veya resimler";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Tekraaaarlayan karakterler";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Değişikliğiniz şunlardan bir veya daha fazlasını içeriyor olabilir:";
 "account-creation-captcha-cannot-see-image" = "Resmi göremiyor musunuz? $1";
 "account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";
@@ -257,7 +263,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Arama sekmesini aç";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Bu, Keşfet sekmesiyle Ayarlar sekmesinin yerini alacak, dişli simgesine dokunarak Keşfet sekmesinin üst kısmındaki Ayarlar'a erişebilirsiniz.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Keşfet sekmesi açılsın mı?";
-"explore-feed-preferences-undo-customization" = "Geri al";
 "explore-hide-card-prompt" = "Bu kartı gizle";
 "explore-main-page-description" = "Wikimedia projeleri ana sayfası";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
@@ -302,7 +307,6 @@
 "field-token-title" = "Doğrulama kodu";
 "field-username-placeholder" = "kullanıcı adı girin";
 "field-username-title" = "Kullanıcı adı";
-"find-in-page-button-label" = "Sayfada bul";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";

@@ -41,14 +41,20 @@
 "about-translators-details" = "$1 पर स्वयंसेवकों द्वारा अनुवादित";
 "about-wikimedia-foundation" = "विकिमीडिया संस्था";
 "about-wikipedia" = "विकिपीडिया";
+// Fuzzy
 "abuse-filter-disallow-heading" = "आप इस संपादन को प्रकाशित नहीं कर सकते। कृपया वापस जाएँ और इसे बदलें।";
 "abuse-filter-disallow-notable" = "विकिपीडिया एक ज्ञानकोश है और केवल तटस्थ और नोट करने योग्य जानकारी का ही यहाँ से सम्बन्ध है।";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "एक स्वचलित फ़िल्टर ने इस संपादन को संभावित अरचनात्मक या बर्बरता के प्रयास के रूप में चिह्नित किया है।";
+// Fuzzy
 "abuse-filter-warning-blanking" = "लेख खाली करना या स्पैमिंग";
+// Fuzzy
 "abuse-filter-warning-caps" = "सब कैप्स में लिखना";
 "abuse-filter-warning-heading" = "यह एक अरचनात्मक संपादन लगता है, क्या आप इसे प्रकाशित करने को लेकर निश्चित हैं?";
 "abuse-filter-warning-irrelevant" = "अनुपयुक्त बाहरी लिंक या चित्र";
+// Fuzzy
 "abuse-filter-warning-repeat" = "अक्षरों का दोहराव";
+// Fuzzy
 "abuse-filter-warning-subheading" = "आपके संपादन में निम्न में से एक या अधिक हैं:";
 "account-creation-captcha-cannot-see-image" = "$1 चित्र को नहीं देख सकते?";
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
@@ -169,7 +175,6 @@
 "field-token-title" = "सत्यापन कोड";
 "field-username-placeholder" = "सदस्य नाम डालें";
 "field-username-title" = "सदस्यनाम";
-"find-in-page-button-label" = "पेज में ढूंढें";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "रिसेट";
 "forgot-password-email-sent" = "पासवर्ड रिसेट निर्देशों के साथ एक ईमेल भेज दिया गया है";

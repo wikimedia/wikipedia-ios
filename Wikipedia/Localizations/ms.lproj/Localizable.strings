@@ -31,14 +31,20 @@
 "about-translators-details" = "Aplikasi ini diterjemahkan oleh para penterjemah sukarela di $1";
 "about-wikimedia-foundation" = "Yayasan Wikimedia";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Suntingan ini tidak boleh diterbitkan. Sila kembali dan suntingnya semula.";
 "abuse-filter-disallow-notable" = "Wikipedia ialah sebuah ensiklopedia. Oleh itu, hanya kandungan yang berkecuali dan berkelayakan dibenarkan di sini.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Penapis automatik telah mengenal pasti suntingan ini sebagai mungkin tidak membina ataupun cubaan laku musnah.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Mengosongkan rencana atau melakukan ''spam''";
+// Fuzzy
 "abuse-filter-warning-caps" = "Menaip dengan SERBA HURUF BESAR";
 "abuse-filter-warning-heading" = "Suntingan ini kelihatan tidak membina. Adakah anda betul-betul mahu menerbitkannya?";
 "abuse-filter-warning-irrelevant" = "Pautan-pautan luar atau gambar-gambar yang tidak relevan";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Aksara beruuuulang";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Suntingan anda mungkin mengandungi antara yang berikut:";
 "account-creation-captcha-cannot-see-image" = "Tidak boleh melihat imej? $1";
 "account-creation-captcha-obtaining" = "Mendapatkan CAPTCHA baru...";
@@ -236,7 +242,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Hidupkan Jelajah";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ini akan menggantikan tab Tetapan dengan tab Jelajahi, anda boleh mengakses Tetapan dari bahagian atas tab Jelajahi dengan mengetuk ikon gear";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Hidupkan tab Jelajah?";
-"explore-feed-preferences-undo-customization" = "Nyahbuat";
 "explore-hide-card-prompt" = "Sembunyikan kad ini";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -281,7 +286,6 @@
 "field-token-title" = "Token";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
-"find-in-page-button-label" = "Cari dalam laman";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Set semula";
 "forgot-password-email-sent" = "E-mel dengan arahan set semula kata laluan telah dihantar";

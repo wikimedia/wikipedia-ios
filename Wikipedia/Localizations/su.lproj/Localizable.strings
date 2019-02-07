@@ -26,14 +26,20 @@
 "about-translators-details" = "Ditarjamahkeun ku rélawan di $1";
 "about-wikimedia-foundation" = "Yayasan Wikimédia";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Anjeun teu bisa medalkeun ieu éditan. Pék balik deui tuluy robah.";
 "abuse-filter-disallow-notable" = "Wikipédia mah hiji énsiklopédi sarta nétral deuih, kontén penting kawenku di dieu.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Panyaring otomatis geus ngidéntifikasi ieu éditan minangka poténsial teu konstruktif, atawa tarékah vandalismeu.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Ngosongkeun artikel atawa spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Ngetik ku HURUP KAPITAL KABÉH";
 "abuse-filter-warning-heading" = "Kawasna mah ieu éditan téh teu konstruktif, anjeun yakin rék medalkeunna?";
 "abuse-filter-warning-irrelevant" = "Tutumbu luar atawa gambar teu luyu";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Karakter puuuulang anting";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Éditan anjeun bisa waé ngandung hiji atawa leuwih hal ieu:";
 "account-creation-captcha-cannot-see-image" = "Teu bisa nempo gambar? $1";
 "account-creation-captcha-obtaining" = "Nyokot CAPTCHA anyar...";
@@ -151,7 +157,6 @@
 "field-token-title" = "Kodeu vérifikasi";
 "field-username-placeholder" = "asupkeun sandiasma";
 "field-username-title" = "Sandiasma";
-"find-in-page-button-label" = "Panggihan dina kaca";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rését";
 "forgot-password-email-sent" = "Hiji surélék kalawan instruksi panyetélan ulang kecap sandi geus dikirim";

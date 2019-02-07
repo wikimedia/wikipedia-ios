@@ -28,13 +28,18 @@
 "about-translators-details" = "$1 ရှိ စေတနာ့ဝန်ထမ်းများမှ ဘာသာပြန်ခဲ့သည်";
 "about-wikimedia-foundation" = "ဝီကီမီဒီယာ ဖောင်ဒေးရှင်း";
 "about-wikipedia" = "ဝီကီပီးဒီးယား";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ဤတည်းဖြတ်မှုအား မလွှင့်တင်နိုင်ပါ။ နောက်ပြန်သွား၍ ပြောင်းလဲပါရန်။";
 "abuse-filter-disallow-notable" = "ဝီကီပီးဒီးယားသည် စွယ်စုံကျမ်းတစ်ခုဖြစ်ပြီး ဘက်မလိုက်သော၊ အရေးပါထင်ရှားသော အကြောင်းအရာများသာ ဤနေရာနှင့်သက်ဆိုင်သည်။";
+// Fuzzy
 "abuse-filter-warning-blanking" = "ဆောင်းပါးများကို ဗလာလုပ်ခြင်း သို့မဟုတ် လိုက်ဖွခြင်း";
+// Fuzzy
 "abuse-filter-warning-caps" = "စာလုံးကြီးများဖြင့် ရိုက်ထည့်";
 "abuse-filter-warning-heading" = "ဤတည်းဖြတ်မှုသည် အပြုသဘောမဆောင်သည့် တည်းဖြတ်မှု ဖြစ်နိုင်သည်။ ဤသည်ကို သိမ်းဆည်းရန်မှာ သေချာပါသလား?";
 "abuse-filter-warning-irrelevant" = "သင့်လျော်မှုမရှိသော ပြင်ပလင့်ခ်များ သို့မဟုတ် ပုံများ";
+// Fuzzy
 "abuse-filter-warning-repeat" = "ထပ်ခါတလဲလဲ အက္ခရာများ";
+// Fuzzy
 "abuse-filter-warning-subheading" = "သင်၏တည်းဖြတ်မှုတွင် အောက်ပါထဲမှတစ်ခု သို့မဟုတ် တစ်ခုထက်ပိုသောအရာများ ပါဝင်နိုင်သည်:";
 "account-creation-captcha-cannot-see-image" = "ပုံကို မမြင်ရပါသလား $1";
 "account-creation-captcha-obtaining" = "CAPTCHA အသစ် ရယူနေသည်...";
@@ -181,7 +186,6 @@
 "explore-feed-preferences-show-randomizer-title" = "ကျပန်းကဒ်ကို ပြသရန်";
 "explore-feed-preferences-show-related-pages-title" = "သင်ဖတ်ရှုသောကြောင့်ကဒ်ကို ပြသရန်";
 "explore-feed-preferences-top-read-description" = "နေ့စဉ်ဖတ်ရှုမှုအများဆုံး ဆောင်းပါးများ";
-"explore-feed-preferences-undo-customization" = "နောက်ပြန် ပြန်ပြင်ရန်";
 "explore-hide-card-prompt" = "ဤကဒ်ကို ဝှက်";
 "explore-main-page-description" = "ဝီကီမီဒီယာပရောဂျက်များ၏ ပင်မစာမျက်နှာ";
 "explore-main-page-heading" = "ယနေ့အတွက် ဝီကီပီးဒီးယား";
@@ -224,7 +228,6 @@
 "field-token-title" = "အတည်ပြုကုဒ်";
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
-"find-in-page-button-label" = "စာမျက်နှာတွင် ရှာဖွေရန်";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ပြန်စရန်";
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";

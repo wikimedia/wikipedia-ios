@@ -33,12 +33,17 @@
 "about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
 "about-wikimedia-foundation" = "Ίδρυμα Wikimedia";
 "about-wikipedia" = "Βικιπαίδεια";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Δεν μπορείτε να αποθηκεύσετε αυτή την επεξεργασία. Παρακαλούμε πηγαίνετε πίσω και αλλάξτε την.";
 "abuse-filter-disallow-notable" = "Η Βικιπαίδεια είναι μια εγκυκλοπαίδεια και μόνο ουδέτερη, το αξιοσημείωτο περιεχόμενο ανήκει εδώ.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Ένα αυτόματο φίλτρο έχει αναγνωρίσει αυτή την επεξεργασία ως πιθανώς μη εποικοδομητική ή προσπάθεια βανδαλισμού.";
+// Fuzzy
 "abuse-filter-warning-caps" = "Πληκτρολογώντας με κεφαλαία γράμματα";
 "abuse-filter-warning-heading" = "Αυτή μπορεί να είναι μια μη εποικοδομητική επεξεργασία, είσαι σίγουρος ότι θέλεις να την δημοσιεύσεις;";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Επαναλααααμβανόμενοι χαρακτήρες";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Η επεξεργασία σας μπορεί να περιέχει ένα ή περισσότερα από τα παρακάτω:";
 "account-creation-captcha-cannot-see-image" = "Δεν μπορείτε να δείτε την εικόνα; $1";
 "account-creation-captcha-request-account" = "Αίτημα λογαριασμού.";
@@ -157,7 +162,6 @@
 "explore-feed-preferences-top-read-description" = "Καθημερινά πιο αναγνωσμένα λήμματα";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Απενεργοποίηση ροής Εξερεύνησης";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Απενεργοποίηση ροής Εξερεύνησης;";
-"explore-feed-preferences-undo-customization" = "Αναίρεση";
 "explore-hide-card-prompt" = "Απόκρυψη αυτής της κάρτας";
 "explore-main-page-description" = "Κύρια σελίδα εγχειρημάτων του Wikimedia";
 "explore-main-page-heading" = "Σήμερα στη Βικιπαίδεια";
@@ -201,7 +205,6 @@
 "field-token-title" = "Κωδικός επαλήθευσης:";
 "field-username-placeholder" = "Εισαγωγή ονόματος χρήστη";
 "field-username-title" = "Όνομα χρήστη";
-"find-in-page-button-label" = "Βρείτε στην σελίδα";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Επαναφορά";
 "forgot-password-email-sent" = "Εστάλη ένα email με οδηγίες επαναφοράς κωδικού.";

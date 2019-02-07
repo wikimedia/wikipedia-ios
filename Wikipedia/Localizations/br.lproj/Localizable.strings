@@ -30,14 +30,20 @@
 "about-translators-details" = "Troet eo bet an arload-mañ gant troerien a-youl vat e $1";
 "about-wikimedia-foundation" = "Diazezadur Wikimedia";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "N'hallit ket enrollañ ar c'hemm-mañ. Distroit ha kemmit anezhañ.";
 "abuse-filter-disallow-notable" = "Un holloueziadur eo Wikipedia. N'eus nemet traoù neptu pe traoù a dalvouegezh a c'haller lakaat e-barzh.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Ur sil emgefreek en deus anavezet ar c'hemm-mañ evel unan na zegaso ket kalz a dra, pe evel unan a glask degas drast.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Pennadoù goullo pe posteloù strobus";
+// Fuzzy
 "abuse-filter-warning-caps" = "Testenn e PENNLIZHERENNOÙ";
 "abuse-filter-warning-heading" = "Evit doare n'eo ket gwall dalvoudus ar c'hemmoù-se. Ha sur oc'h e fell deoc'h enrollañ anezho ?";
 "abuse-filter-warning-irrelevant" = "Liammoù pe skeudennoù diavaez diazaz";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Arouezennoù adskriiiiivet";
+// Fuzzy
 "abuse-filter-warning-subheading" = "E-barzh hoc'h aozadenn e c'hall bezañ unan eus an elfennoù-mañ :";
 "account-creation-captcha-cannot-see-image" = "Dibosupl gwelet ar skeudenn ? $1";
 "account-creation-captcha-obtaining" = "Kaout ur C'HAPTCHA nevez...";
@@ -145,7 +151,6 @@
 "field-token-title" = "Kod gwiriekaat";
 "field-username-placeholder" = "Bizskrivañ an anv implijer";
 "field-username-title" = "Anv implijer";
-"find-in-page-button-label" = "Kavout ar bajenn";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Adderaouekaat";
 "forgot-password-email-sent" = "Kaset ez eus bet ur postel gant displegadurioù adderaouekaat";

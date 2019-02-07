@@ -40,14 +40,20 @@
 "about-translators-details" = "Traduzida por voluntários em $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Não pode publicar esta edição. Volte atrás e altere-a, por favor.";
 "abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia e só admite conteúdo neutro e importante.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como pouco construtiva ou uma tentativa de vandalismo.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Esvaziamento de artigos ou ''spam''";
+// Fuzzy
 "abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
 "abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza de que pretende publicá-la?";
 "abuse-filter-warning-irrelevant" = "Hiperligações ou imagens externas irrelevantes";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Repeeeetição de caracteres";
+// Fuzzy
 "abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
 "account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
 "account-creation-captcha-obtaining" = "A obter novo código CAPTCHA...";
@@ -245,7 +251,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
-"explore-feed-preferences-undo-customization" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -290,7 +295,6 @@
 "field-token-title" = "Código de verificação:";
 "field-username-placeholder" = "introduza o nome de utilizador";
 "field-username-title" = "Nome de utilizador";
-"find-in-page-button-label" = "Localizar na página";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviada uma mensagem eletrónica com instruções de redefinição da palavra-passe";

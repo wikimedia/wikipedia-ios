@@ -30,14 +30,20 @@
 "about-translators-details" = "$1 تي رضاڪارن طرفان ترجمو ڪيل";
 "about-wikimedia-foundation" = "وڪيميڊيا تنظيم";
 "about-wikipedia" = "وڪيپيڊيا";
+// Fuzzy
 "abuse-filter-disallow-heading" = "توهان هي ترميم ڇاپي نٿا سگھو. براءِ مهرباني واپس وڃو ۽ انکي تبديل ڪريو.";
 "abuse-filter-disallow-notable" = "وڪيپيڊيا کليل ڄاڻ چيڪلو آهي ۽ صرف اڻڌريو، مشهور مواد هتي شامل ڪجي.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "ھڪ خودڪاربڻايل ڇاڻيءَ ھن ترميم کي ممڪنہ طور تي غيرتعميري يا ھڪ وحشياڻي ڪوشش طور سڃاتو آھي.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "مضمون خالي ڪندي يا بگاڙيندي";
+// Fuzzy
 "abuse-filter-warning-caps" = "وڏن اکرن ۾ لکندي";
 "abuse-filter-warning-heading" = "هي هڪ غير تخليقي ترميم لڳي ٿي، ڇا توهان انکي ڇاپڻ چاهيو ٿا؟";
 "abuse-filter-warning-irrelevant" = "غيرمتعلق خارجي ڳنڍڻا يا عڪس";
+// Fuzzy
 "abuse-filter-warning-repeat" = "دهرائجندڙ لفظ";
+// Fuzzy
 "abuse-filter-warning-subheading" = "توهان جي ترميم ۾ هيٺين مان هڪ يا ٻه شيون ٿي سگھن ٿيون:";
 "account-creation-captcha-cannot-see-image" = "عڪس نٿا ڏسي سگھو؟ $1";
 "account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي...";
@@ -202,7 +208,6 @@
 "explore-feed-preferences-show-news-title" = "خبرن ۾ وارو ڪارڊ ڏيکاريو";
 "explore-feed-preferences-show-on-this-day-title" = "اڄ جو ڏينهن وارو ڪارڊ ڏيکاريو";
 "explore-feed-preferences-show-picture-of-the-day-title" = "چونڊ تصوير وارو ڪارڊ ڏيکاريو";
-"explore-feed-preferences-undo-customization" = "اڻڪريو";
 "explore-hide-card-prompt" = "هي ڪارڊ لڪايو";
 "explore-main-page-description" = "وڪيميڊيا رٿائن جو مک صفحو";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
@@ -246,7 +251,6 @@
 "field-token-title" = "تصديقي ڪوڊ";
 "field-username-placeholder" = "واهپنانءُ داخل ڪيو";
 "field-username-title" = "واھپنانءُ";
-"find-in-page-button-label" = "صفحي ۾ لھو";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "وري ترتيب ڪريو";
 "forgot-password-email-sent" = "ڳجھولفظ وري ترتيب ڪرڻ جي ھدايتن سان ھڪ برقٽپال موڪليو ويو";

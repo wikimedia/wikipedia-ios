@@ -49,14 +49,20 @@
 "about-translators-details" = "Přeloženo více než 10 dobrovolníky na $1";
 "about-wikimedia-foundation" = "nadace Wikimedia";
 "about-wikipedia" = "Wikipedie";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Tuto editaci nemůžete zveřejnit. Prosím, vraťte se zpět a upravte ji.";
 "abuse-filter-disallow-notable" = "Wikipedie je encyklopedie a její součástí je pouze neutrální a hodnotný obsah.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Automatický filtr označil tuto editaci jako potenciálně nesprávnou nebo jako pokus o vandalismus.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Mazání článku nebo spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Píšete VELKÝMI PÍSMENY";
 "abuse-filter-warning-heading" = "Může se jednat o nesprávnou editaci. Jste si jisti, že ji chcete zveřejnit?";
 "abuse-filter-warning-irrelevant" = "Nerelevantní externí odkazy nebo obrázky";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Opakujíííící se znaky";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Vaše editace může obsahovat jednu z následujících chyb:";
 "account-creation-captcha-cannot-see-image" = "Nemůžete přečíst obrázek? $1";
 "account-creation-captcha-obtaining" = "Příprava nového obrázku CAPTCHA…";
@@ -265,7 +271,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Zapnout kanál Objevit";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Tímto nahradíte Nastavení za kanál Objevit. Klepnutím na ikonu ozubeného kola můžete přistupovat k nastavení v horní části kanálu Objevit";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Zapnout kanál Objevit?";
-"explore-feed-preferences-undo-customization" = "Zpět";
 "explore-hide-card-prompt" = "Skrýt tuto kartu";
 "explore-main-page-description" = "Hlavní strana Wikimedia projektů";
 "explore-main-page-heading" = "Dnes na Wikipedii";
@@ -312,7 +317,6 @@
 "field-token-title" = "Ověřovací kód";
 "field-username-placeholder" = "zadejte uživatelské jméno";
 "field-username-title" = "Uživatelské jméno";
-"find-in-page-button-label" = "Najít na stránce";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Vynulovat";
 "forgot-password-email-sent" = "Email s instrukcemi pro obnovení hesla byl odeslán";
@@ -669,6 +673,7 @@
 "wikitext-preview-changes-none" = "Nebyly provedeny žádné změny, jejichž náhled by mohl být zobrazen.";
 "wikitext-preview-link-preview-description" = "Tento odkaz vede na „$1“";
 "wikitext-preview-link-preview-title" = "Náhled odkazu";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Uložit vaše změny";
 "wikitext-upload-captcha-error" = "Chyba v ověření CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Je potřeba ověření pomocí CAPTCHA.";

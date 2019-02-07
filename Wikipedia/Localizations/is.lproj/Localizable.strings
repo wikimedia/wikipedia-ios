@@ -30,14 +30,20 @@
 "about-translators-details" = "Þýtt af sjálfboðaaðilum á $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Þú getur ekki gefið út þessa breytingu. Farðu til baka og breyttu henni.";
 "abuse-filter-disallow-notable" = "Wikipedia er alfræðirit og í því tilheyrir aðeins hlutlaust og markvert efni.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Sjálfvirk sía hefur greint þessa breytingu sem eyðileggjandi eða sem tilraun á skemmdarverki.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Tæming greina eða þvaður";
+// Fuzzy
 "abuse-filter-warning-caps" = "Textinn er í STÓRUM BÓKSTÖFUM";
 "abuse-filter-warning-heading" = "Þetta lítur ekki út fyrir að vera uppbyggileg breyting, ert þú viss um að þú viljir birta hana?";
 "abuse-filter-warning-irrelevant" = "Óviðeigandi ytri tenglar eða myndir";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Enduuuurteknir bókstafir";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Breyting þín gæti innihaldið eitt eða fleira af eftirfarandi:";
 "account-creation-captcha-cannot-see-image" = "Geturðu ekki séð myndina? $1";
 "account-creation-captcha-obtaining" = "Sæki nýja CAPTCHA-mynd...";
@@ -78,8 +84,7 @@
 "appearance-settings-adjust-text-sizing" = "Breyta stærð leturs í grein";
 "appearance-settings-expand-tables" = "Þenja út töflur";
 "appearance-settings-expand-tables-footer" = "Láta allar töflur í öllum greinum vera sjálfgefið opnar, þar með taldar 'Staðreyndir strax', 'Tilvísanir', 'Minnispunktar' og 'Ytri tenglar'.";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "Minnka ógegnsæi mynda í dökku þema";
+"appearance-settings-image-dimming-footer" = "Minnka ógegnsæi mynda í dökkum og svörtum þemum";
 "appearance-settings-reading-themes" = "Lestrarþemu";
 "appearance-settings-set-automatic-table-opening" = "Töflustillingar";
 "appearance-settings-text-sizing-example-text" = "Dragðu til sleðann hér fyrir ofan til að breyta stærð textans í greininni. Notaðu stærðarbreytingar í stillingum kerfisins til að breyta stærð texta í öðrum hlutum forritsins.";
@@ -151,9 +156,22 @@
 "description-welcome-promise-title" = "Ef ég byrja, lofa ég að misnota ekki þennan eiginleika";
 "description-welcome-start-editing-button" = "Byrja að breyta";
 "dim-images" = "Dekkja myndir";
+"edit-minor-learn-more-text" = "Fræðast meira um minniháttar breytingar";
+"edit-minor-text" = "Þetta er minniháttar breyting";
+"edit-published" = "Breyta útgefnu";
+"edit-published-button-title" = "Lokið";
+"edit-published-subtitle" = "Þú varst að gera Wikipedia betri fyrir alla";
+"edit-style-table-view-title" = "Stíll";
+"edit-summary-add-summary-text" = "Bættu við breytingayfirliti";
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
 "edit-summary-choice-fixed-typos" = "Lagaði innsláttarvillu";
 "edit-summary-choice-linked-words" = "Viðbættir tenglar";
+"edit-summary-learn-more-text" = "Kanna nánar";
+"edit-summary-placeholder-text" = "Hvernig bættir þú greinina?";
+"edit-text-formatting-table-view-title" = "Sníðing texta";
+"edit-text-size-table-view-title" = "Stærð texta";
+"edit-watch-list-learn-more-text" = "Fræðast meira um vöktunarlista";
+"edit-watch-this-page-text" = "Vakta þessa síðu";
 "empty-no-article-message" = "Því miður, gat ekki hlaðið greininni inn";
 "empty-no-feed-action-message" = "Þú getur lesið vistaðar síður á meðan";
 "empty-no-feed-message" = "Þú getur séð þær greinar sem mælt er með fyrir þig þegar þú ert með virka nettengingu";
@@ -199,8 +217,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Tilheyrir ekki ákveðnu tungumáli";
 "explore-feed-preferences-global-cards-title" = "Víðvær spjöld";
 "explore-feed-preferences-hide-card-action-title" = "Fela þetta spjald";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Fela öll %@ spjöld";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Fela öll \"%@\" spjöld";
 "explore-feed-preferences-in-the-news-description" = "Greinar um mál í gangi";
 "explore-feed-preferences-languages-footer-text" = "Ef öll 'Uppgötva'-spjöldin eru falin í öllum tungumálunum þínum verður slökkt á 'Uppgötva'-flipanum.";
 "explore-feed-preferences-on-this-day-description" = "Sögulegir atburðir á þessum degi";
@@ -235,7 +252,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Kveikja á 'Uppgötva'";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Þetta mun skipta stillingaflipanum út fyrir 'Uppgötva'-flipann, þú getur alltaf farið í stillingarnar með því að smella á gírhjólstáknið efst á 'Uppgötva'-flipanum";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Kveikja á 'Uppgötva'-flipanum?";
-"explore-feed-preferences-undo-customization" = "Afturkalla";
 "explore-hide-card-prompt" = "Fela þetta spjald";
 "explore-main-page-description" = "Aðalsíða Wikimedia-verkefna";
 "explore-main-page-heading" = "Í dag á Wikipedia";
@@ -258,6 +274,8 @@
 "explore-randomizer" = "Slembið";
 "feed-news-notification-button-text" = "Kveikja á tilkynningum";
 "feed-news-notification-text" = "Virkja kerfistilkynningar til að fá ábendingar frá Wikipedia þegar greinar eru til umfjöllunar í fréttamiðlum.";
+"fetcher-error-generic" = "Eitthvað fór úrskeiðis. Prófaðu aftur síðar.";
+"fetcher-error-unexpected-response" = "Forritið fékk óvænt svar frá þjóninum. Prófaðu aftur síðar.";
 "field-alert-captcha-invalid" = "Ógilt CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lykilorðin stemma ekki";
 "field-alert-password-invalid" = "Ógilt lykilorð";
@@ -280,7 +298,6 @@
 "field-token-title" = "Staðfestingarkóði";
 "field-username-placeholder" = "settu inn notandanafn";
 "field-username-title" = "Notandanafn";
-"find-in-page-button-label" = "Finna á síðu";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Endurstilla";
 "forgot-password-email-sent" = "Tölvupóstur var sendur með leiðbeiningum varðandi endurstillingu lykilorðs";
@@ -518,8 +535,7 @@
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";
 "saved-pages-progress-syncing" = "Niðurhal greinar í gangi...";
 "saved-reading-lists-title" = "Leslistar";
-// Fuzzy
-"saved-search-default-text" = "Leita";
+"saved-search-default-text" = "Leita í vistuðum greinum";
 "saved-title" = "Vistað";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Afturköllun á vistun {{PLURAL:$1|þessarar greinar mun fjarlægja hana|þessara greina mun fjarlægja þær}} af öllum tengdum leslistum";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Afturkalla vistun á {{PLURAL:$|$ grein|$1 greinar}}?";
@@ -638,12 +654,13 @@
 "wikitext-preview-changes-none" = "Engar breytingar voru gerðar sem geta verið forskoðaðar.";
 "wikitext-preview-link-preview-description" = "Tengillinn leiðir á '$1'";
 "wikitext-preview-link-preview-title" = "Forskoðun tengils";
+// Fuzzy
+"wikitext-preview-save-changes-title" = "Vista breytingar þínar";
 "wikitext-upload-captcha-error" = "Villa með CAPTCHA-staðfestingu.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-staðfesting krefst.";
 "wikitext-upload-result-unknown" = "Tókst ekki að greina niðurstöðu á innsendingu wikitexta.";
 "wikitext-upload-save" = "Gef út...";
 "wikitext-upload-save-anonymously-warning" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi þitt er best að $1.";
 "wikitext-upload-save-sign-in" = "Innskrá";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Með því að birta breytingar, samþykkir þú $1 og að framlag þitt verði gefið út með $2 og $3 notkunarleyfum.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Með því að birta breytingar, samþykkir þú $1 og þú samþykkir óafturkræft að framlag þitt verði gefið út með $2 og $3 notkunarleyfum. Þú fellst líka á að veftengill sé næg tilvísun í höfundarréttindi undir Creative Commons notkunarleyfi.";
 "wikitext-upload-save-terms-name" = "Notkunarskilmálar";

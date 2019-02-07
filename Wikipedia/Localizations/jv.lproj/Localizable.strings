@@ -25,14 +25,20 @@
 "about-translators-details" = "Dipertal déning sukarilawan ing $1";
 "about-wikimedia-foundation" = "Yeyasan Wikimedia";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Panjenengan ora bisa mbabar besutan iki. Mangga balika lan dandanana.";
 "abuse-filter-disallow-notable" = "Wikipédia iku bauwarna lan mligi macak kontèn kang nétral tur wigati.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Saringan otomatis ngonangi yèn besutan iki bokmanawa ora mbangun utawa pamrihé arep ngrusak.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Ngothongaké artikel utawa nyampah";
+// Fuzzy
 "abuse-filter-warning-caps" = "Ngetik HURUF GEDHÉ KABÈH";
 "abuse-filter-warning-heading" = "Iki prasasat besutan kang ora mbangun. Panjenengan yakin arep mbabar iki?";
 "abuse-filter-warning-irrelevant" = "Pranala njaba utawa gambar kang ora magepokan";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Karakter kang mbooolan-mbaaalèni";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Besutané panjenengan bokmanawa ngemu siji utawa luwih bab ing ngisor iki:";
 "account-creation-captcha-cannot-see-image" = "Ora bisa ndeleng gambar? $1";
 "account-creation-captcha-obtaining" = "Njupuk CAPTCHA anyar...";
@@ -174,7 +180,6 @@
 "field-token-title" = "Kodhe vèrifikasi";
 "field-username-placeholder" = "lebokaké jeneng panganggo";
 "field-username-title" = "Jeneng panganggo";
-"find-in-page-button-label" = "Golèk ing kaca";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rèsèt";
 "forgot-password-email-sent" = "Layang-èl sing isiné panuntun setèl-ulang tembung wadi wis dikirim";

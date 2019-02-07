@@ -83,7 +83,6 @@
 "field-token-title" = "Verifikācijas kods";
 "field-username-placeholder" = "ievadi lietotājvārdu";
 "field-username-title" = "Lietotājvārds";
-"find-in-page-button-label" = "Atrast lapā";
 "forgot-password-button-title" = "Atiestatīt";
 "forgot-password-title" = "Atiestatīt paroli";
 "forgot-password-username-or-email-title" = "Vai";
@@ -193,6 +192,7 @@
 "wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-downloading" = "Ielādē saturu...";
 "wikitext-preview-link-preview-title" = "Saites pirmskats";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Saglabāt veiktās izmaiņas";
 "wikitext-upload-captcha-error" = "CAPTCHA verifikācijas kļūda.";
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";

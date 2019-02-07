@@ -11,6 +11,7 @@
 // Author: Nemo bis
 // Author: Sator
 // Author: Subi
+// Author: Xabier Armendaritz
 
 "about-content-license" = "Lizentziaren edukia";
 "about-content-license-details" = "Beste era batera zehazten ez bada, edukia $1(r)en pean eskuragarri egongo da.";
@@ -33,14 +34,20 @@
 "about-translators-details" = "$1(e)n boluntarioek itzulita";
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu. Mesedez itzul zaitez eta alda ezazu.";
 "abuse-filter-disallow-notable" = "Wikipedia entziklopedia neutrala da, hortaz, bakarrik eduki egokia izan daiteke haren parte.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek potentzialki mingarria edo bandalismoa izan daitezkeen aldaketak identifikatu ditu.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Artikulu hutsak edo spamming estekak";
+// Fuzzy
 "abuse-filter-warning-caps" = "CAPS guztiak idazten";
 "abuse-filter-warning-heading" = "Hau editatze ezezaguna izan daiteke. Ziur al zaude argitaratu nahi duzula?";
 "abuse-filter-warning-irrelevant" = "Garrantzirik gabeko kanpo-loturak edo argazkiak";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Errepikatutako karaktereak";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Zure aldaketak hurrengotariko baten bat eduki dezake:";
 "account-creation-captcha-cannot-see-image" = "Ezin duzu argazkia ikusi? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA berria lortzen...";
@@ -184,7 +191,6 @@
 "explore-feed-preferences-turn-off-explore-tab-title" = "Itxi nahi duzu Arakatzaile leihoa?";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Arakatzailea Piztu";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Piztu nahi duzu Arakatzaile leihoa?";
-"explore-feed-preferences-undo-customization" = "Desegin";
 "explore-hide-card-prompt" = "Txartel hau ezkutatu";
 "explore-main-page-description" = "Wikimedia proiektuen orrialde nagusia";
 "explore-main-page-heading" = "Gaur Wikipedian";
@@ -227,7 +233,6 @@
 "field-token-title" = "Berrespen kodea";
 "field-username-placeholder" = "Erabiltzaile izena sartu";
 "field-username-title" = "Erabiltzaile izena";
-"find-in-page-button-label" = "Aurkitu orrialdean";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Berrezarri";
 "forgot-password-email-sent" = "Emaila bidali da, pasahitza berrezartzeko jarraibideekin";
@@ -319,7 +324,7 @@
 "page-issues" = "Orriaren arazoak";
 "page-last-edited" = "Orain dela $1 egun aldatu da";
 "page-location" = "Ikusi mapan";
-"page-protected-autoconfirmed" = "Orri hau  erdi babestua dago.";
+"page-protected-autoconfirmed" = "Orri hau erdi babestua dago.";
 "page-protected-can-not-edit" = "Ez duzu orrialde hau aldatzeko baimenik";
 "page-protected-can-not-edit-title" = "Orrialde hau babestuta dago";
 "page-protected-other" = "Orrialde hau ondoren mailetan babestu da: $1";

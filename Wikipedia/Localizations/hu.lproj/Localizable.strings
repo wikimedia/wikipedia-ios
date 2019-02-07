@@ -34,14 +34,20 @@
 "about-translators-details" = "A $1 önkéntesei fordították";
 "about-wikimedia-foundation" = "Wikimédia Alapítvány";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Nem teheted közzé ezt a szerkesztést. Lépj vissza és változtass rajta.";
 "abuse-filter-disallow-notable" = "A Wikipédia egy enciklopédia és csak semleges, nevezetes tartalom tartozik ide.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Egy automatikus szűrő potenciálisan nem konstruktívként vagy vandalizmuskísérletként azonosította ezt a szerkesztést.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Szócikkek tartalmának törlése vagy spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "CSUPA NAGYBETŰS gépelés";
 "abuse-filter-warning-heading" = "Ez nem tűnik konstruktív szerkesztésnek, biztosan közzé akarod tenni?";
 "abuse-filter-warning-irrelevant" = "Nem releváns külső hivatkozások vagy képek";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Isméééétlődő karakterek";
+// Fuzzy
 "abuse-filter-warning-subheading" = "A szerkesztésed egyet vagy többet tartalmazhat a következőkből:";
 "account-creation-captcha-cannot-see-image" = "Nem látod a képet? $1";
 "account-creation-captcha-obtaining" = "Új CAPTCHA kérése folyamatban…";
@@ -164,7 +170,6 @@
 "explore-feed-preferences-in-the-news-description" = "Szócikkek aktuális eseményekről";
 "explore-feed-preferences-places-description" = "Wikipédia szócikkek a közeledben";
 "explore-feed-preferences-potd-description" = "A nap kiemelt képe a Wikimédia Commonsról";
-"explore-feed-preferences-undo-customization" = "Visszavonás";
 "explore-hide-card-prompt" = "Kártya elrejtése";
 "explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
@@ -206,7 +211,6 @@
 "field-token-title" = "Ellenőrző kód";
 "field-username-placeholder" = "add meg a szerkesztőnevedet";
 "field-username-title" = "Szerkesztőnév";
-"find-in-page-button-label" = "Keresés a lapon";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Visszaállítás";
 "forgot-password-email-sent" = "Elküldtük az e-mailt a jelszó-visszaállítási utasításokkal";

@@ -30,14 +30,20 @@
 "about-translators-details" = "$1 ਦੇ ਵਲੰਟੀਅਰਾੰ ਦੁਆਰਾ ਅਨੁਵਾਦ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ਤੁਸੀਂ ਇਹ ਸੋਧ ਸਾਂਭ ਨਹੀਂ ਸਕਦੇ। ਕਿਰਪਾ ਕਰਕੇ ਪਿੱਛੇ ਜਾ ਕੇ ਇਸਨੂੰ ਬਦਲੋ ਜੀ।";
 "abuse-filter-disallow-notable" = "ਵਿਕੀਪੀਡੀਆ ਇੱਕ ਗਿਆਨਕੋਸ਼ ਹੈ ਅਤੇ ਸਿਰਫ਼ ਨਿਰਪੱਖ ਅਤੇ ਉੱਘੀ ਸਮੱਗਰੀ ਹੀ ਇਹਦਾ ਹਿੱਸਾ ਹੋ ਸਕਦੀ ਹੈ।";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "ਇੱਕ ਆਪੇ ਚੱਲਦੀ ਛਾਨਣੀ ਨੇ ਇਸ ਸੋਧ ਨੂੰ ਬੇਉਸਾਰੂ ਜਾਂ ਉਜਾੜੇ ਦੀ ਕੋਸ਼ਿਸ਼ ਵਜੋਂ ਪਛਾਣਿਆ ਹੈ।";
+// Fuzzy
 "abuse-filter-warning-blanking" = "ਖ਼ਾਲੀ ਕੀਤੇ ਲੇਖ ਜਾਂ ਊਲ-ਜਲੂਲ";
+// Fuzzy
 "abuse-filter-warning-caps" = "ਸਾਰੇ ਵੱਡੇ ਅੱਖਰਾਂ 'ਚ ਲਿਖ ਰਿਹਾ ਹੈ";
 "abuse-filter-warning-heading" = "ਇਹ ਇੱਕ ਬੇਉਸਾਰੂ ਸੋਧ ਜਾਪਦੀ ਹੈ, ਕੀ ਤੁਸੀਂ ਸੱਚੀਂ ਇਸਨੂੰ ਸਾਂਭਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "abuse-filter-warning-irrelevant" = "ਬੇਤੁਕੇ ਬਾਹਰੀ ਜੋੜ ਜਾਂ ਤਸਵੀਰਾਂ";
+// Fuzzy
 "abuse-filter-warning-repeat" = "ਦੁਹਰਾਏਏਏ ਚਿੰਨ";
+// Fuzzy
 "abuse-filter-warning-subheading" = "ਤੁਹਾਡੀ ਸੋਧ ਵਿੱਚ ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਇੱਕ ਜਾਂ ਇੱਕ ਤੋਂ ਵੱਧ ਹੋ ਸਕਦੇ ਹਨ:";
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-captcha-request-account" = "ਅਕਾਊਂਟ ਬੇਨਤੀ";
