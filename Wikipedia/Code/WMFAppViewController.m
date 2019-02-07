@@ -490,7 +490,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return;
     }
     self.editHintController.presenter = [self visibleViewController];
-    [self.editHintController toggle];
+    [self.editHintController toggleWithTheme:self.theme];
 }
 
 - (UIViewController *)visibleViewController {
@@ -1800,6 +1800,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
+
+    [self.readingListHintController applyTheme:self.theme];
+    [self.editHintController applyTheme:self.theme];
 
     [self setNeedsStatusBarAppearanceUpdate];
 }

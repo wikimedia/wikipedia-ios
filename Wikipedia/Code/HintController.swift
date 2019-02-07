@@ -8,14 +8,7 @@ class HintController: NSObject {
 
     private var task: DispatchWorkItem?
 
-    var theme = Theme.standard {
-        didSet {
-            guard !isHintHidden else {
-                return
-            }
-            hintViewController.apply(theme: theme)
-        }
-    }
+    var theme = Theme.standard
 
     init(hintViewController: HintViewController) {
         self.hintViewController = hintViewController
@@ -49,8 +42,6 @@ class HintController: NSObject {
         guard isHintHidden else {
             return
         }
-
-        hintViewController.apply(theme: theme)
 
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -168,5 +159,11 @@ extension HintController: HintViewControllerDelegate {
 
     func hintViewControllerDidFailToCompleteDefaultAction(_ hintViewController: HintViewController) {
         setHintHidden(true)
+    }
+}
+
+extension HintController: Themeable {
+    func apply(theme: Theme) {
+        hintViewController.apply(theme: theme)
     }
 }

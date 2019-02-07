@@ -23,7 +23,7 @@ class ReadingListHintController: HintController {
             return
         }
 
-        self.theme = theme
+        apply(theme: theme)
 
         guard !didSaveOtherArticle else {
             resetHint()
