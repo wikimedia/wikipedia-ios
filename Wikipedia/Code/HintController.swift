@@ -103,7 +103,10 @@ class HintController: NSObject {
     }
 
     func setHintHidden(_ hintHidden: Bool) {
-        guard isHintHidden != hintHidden else {
+        guard
+            isHintHidden != hintHidden,
+            presenter?.presentedViewController == nil
+        else {
             return
         }
 
