@@ -5,8 +5,8 @@ class EditHintController: HintController {
         super.init(hintViewController: editHintViewController)
     }
 
-    @objc func toggle(theme: Theme) {
-        apply(theme: theme)
+    override func toggle(presenter: HintPresentingViewController, context: HintController.Context?, theme: Theme) {
+        super.toggle(presenter: presenter, context: context, theme: theme)
         setHintHidden(false)
     }
 }

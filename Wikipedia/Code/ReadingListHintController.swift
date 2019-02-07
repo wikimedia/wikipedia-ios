@@ -13,7 +13,11 @@ class ReadingListHintController: HintController {
         super.init(hintViewController: readingListHintViewController)
     }
 
-    @objc func toggleHintForArticle(_ article: WMFArticle, theme: Theme) {
+    override func toggle(presenter: HintPresentingViewController, context: HintController.Context?, theme: Theme) {
+        super.toggle(presenter: presenter, context: context, theme: theme)
+        guard let article = context?[ReadingListHintController.ContextArticleKey] as? WMFArticle else {
+            return
+        }
         let didSave = article.savedDate != nil
 
         let didSaveOtherArticle = didSave && !isHintHidden && article != readingListHintViewController.article
@@ -22,8 +26,6 @@ class ReadingListHintController: HintController {
         guard !didUnsaveOtherArticle else {
             return
         }
-
-        apply(theme: theme)
 
         guard !didSaveOtherArticle else {
             resetHint()
@@ -35,4 +37,8 @@ class ReadingListHintController: HintController {
         readingListHintViewController.article = article
         setHintHidden(!didSave)
     }
+}
+
+extension ReadingListHintController {
+    @objc public static let ContextArticleKey = "ContextArticleKey"
 }
