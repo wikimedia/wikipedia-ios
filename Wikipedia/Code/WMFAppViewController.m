@@ -120,6 +120,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) RemoteNotificationsModelChangeResponseCoordinator *remoteNotificationsModelChangeResponseCoordinator;
 
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong) WMFEditHintController *editHintController;
 
 @end
 
@@ -216,8 +217,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:WMFArticleUpdatedNotification
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editPublished:)
+                                                 name:WMFEditPublishedNotification
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
     self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    self.editHintController = [[WMFEditHintController alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -476,6 +483,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
     self.readingListHintController.presenter = [self visibleViewController];
     [self.readingListHintController toggleHintForArticle:article theme:self.theme];
+}
+
+- (void)editPublished:(NSNotification *)note {
+    if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
+        return;
+    }
+    self.editHintController.presenter = [self visibleViewController];
+    [self.editHintController toggle];
 }
 
 - (UIViewController *)visibleViewController {
