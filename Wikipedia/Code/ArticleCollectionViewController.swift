@@ -239,20 +239,14 @@ extension ArticleCollectionViewController: ActionDelegate {
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
-                if let article = article(at: indexPath) {
-//                    readingListHintController?.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
-                }
+                ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
-                if let article = article(at: indexPath) {
-//                    readingListHintController?.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
-                }
+                ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 return true
             }
         case .share:
