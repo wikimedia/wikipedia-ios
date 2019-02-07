@@ -1,10 +1,10 @@
 @objc(WMFHintPresenting)
-protocol HintPresenting {
+protocol HintPresenting: AnyObject {
     var scrollViewWillBeginDraggingCompletion: (() -> Void)? { get set }
 }
 
 class HintController: NSObject {
-    @objc weak var presenter: UIViewController?
+    @objc weak var presenter: (UIViewController & HintPresenting)?
     
     private let hintViewController: HintViewController
 
@@ -147,10 +147,7 @@ class HintController: NSObject {
     }
 
     private func makePresenterReportScrollIfNeeded() {
-        guard let hintPresenting = presenter as? HintPresenting else {
-            return
-        }
-        hintPresenting.scrollViewWillBeginDraggingCompletion = {
+        presenter?.scrollViewWillBeginDraggingCompletion = {
             guard !self.isHintHidden else {
                 return
             }
