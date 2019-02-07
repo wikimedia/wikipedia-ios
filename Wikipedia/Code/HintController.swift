@@ -4,9 +4,10 @@ protocol HintPresenting: AnyObject {
 }
 
 class HintController: NSObject {
-    typealias HintPresentingViewController = UIViewController & HintPresenting
+    typealias Context = [String: Any]
 
-    @objc weak var presenter: HintPresentingViewController?
+    typealias HintPresentingViewController = UIViewController & HintPresenting
+    private weak var presenter: HintPresentingViewController?
     
     private let hintViewController: HintViewController
 
@@ -45,7 +46,11 @@ class HintController: NSObject {
         self.task = task
     }
 
-    private func addHint() {
+    @objc func toggle(presenter: HintPresentingViewController, context: Context?, theme: Theme) {
+        self.presenter = presenter
+        apply(theme: theme)
+    }
+
     private func addHint(to presenter: HintPresentingViewController) {
         guard isHintHidden else {
             return
