@@ -4,7 +4,9 @@ protocol HintPresenting: AnyObject {
 }
 
 class HintController: NSObject {
-    @objc weak var presenter: (UIViewController & HintPresenting)?
+    typealias HintPresentingViewController = UIViewController & HintPresenting
+
+    @objc weak var presenter: HintPresentingViewController?
     
     private let hintViewController: HintViewController
 
@@ -44,6 +46,7 @@ class HintController: NSObject {
     }
 
     private func addHint() {
+    private func addHint(to presenter: HintPresentingViewController) {
         guard isHintHidden else {
             return
         }
@@ -56,28 +59,24 @@ class HintController: NSObject {
             wmfVCPresenter.view.insertSubview(containerView, belowSubview: wmfVCPresenter.toolbar)
             additionalBottomSpacing = wmfVCPresenter.toolbar.frame.size.height
         } else {
-            presenter?.view.addSubview(containerView)
+            presenter.view.addSubview(containerView)
         }
 
-        if let presenter = presenter {
-            let safeBottomAnchor = presenter.view.safeAreaLayoutGuide.bottomAnchor
+        let safeBottomAnchor = presenter.view.safeAreaLayoutGuide.bottomAnchor
 
-            // `containerBottomConstraint` is activated when the hint is visible
-            containerViewConstraint.bottom = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: 0 - additionalBottomSpacing)
+        // `containerBottomConstraint` is activated when the hint is visible
+        containerViewConstraint.bottom = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: 0 - additionalBottomSpacing)
 
-            // `containerTopConstraint` is activated when the hint is hidden
-            containerViewConstraint.top = containerView.topAnchor.constraint(equalTo: safeBottomAnchor)
+        // `containerTopConstraint` is activated when the hint is hidden
+        containerViewConstraint.top = containerView.topAnchor.constraint(equalTo: safeBottomAnchor)
 
-            let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor)
-            let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
+        let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor)
+        let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
 
-            NSLayoutConstraint.activate([containerViewConstraint.top!, leadingConstraint, trailingConstraint])
+        NSLayoutConstraint.activate([containerViewConstraint.top!, leadingConstraint, trailingConstraint])
 
-            if presenter.isKind(of: SearchResultsViewController.self){
-                presenter.wmf_hideKeyboard()
-            }
-        } else {
-            assertionFailure("Expected presenter")
+        if presenter.isKind(of: SearchResultsViewController.self){
+            presenter.wmf_hideKeyboard()
         }
 
         hintViewController.view.setContentHuggingPriority(.required, for: .vertical)
@@ -85,7 +84,9 @@ class HintController: NSObject {
         containerView.setContentHuggingPriority(.required, for: .vertical)
         containerView.setContentCompressionResistancePriority(.required, for: .vertical)
 
-        presenter?.wmf_add(childController: hintViewController, andConstrainToEdgesOfContainerView: containerView)
+        presenter.wmf_add(childController: hintViewController, andConstrainToEdgesOfContainerView: containerView)
+
+        containerView.superview?.layoutIfNeeded()
     }
 
     private func removeHint() {
@@ -105,17 +106,17 @@ class HintController: NSObject {
     func setHintHidden(_ hintHidden: Bool) {
         guard
             isHintHidden != hintHidden,
-            presenter?.presentedViewController == nil
+            let presenter = presenter,
+            presenter.presentedViewController == nil
         else {
             return
         }
 
-        makePresenterReportScrollIfNeeded()
+        makePresenterReportScrollIfNeeded(presenter)
 
         if !hintHidden {
             // add hint before animation starts
-            addHint()
-            containerView.superview?.layoutIfNeeded()
+            addHint(to: presenter)
         }
 
         updateRandom(hintHidden)
@@ -146,8 +147,8 @@ class HintController: NSObject {
         }
     }
 
-    private func makePresenterReportScrollIfNeeded() {
-        presenter?.scrollViewWillBeginDraggingCompletion = {
+    private func makePresenterReportScrollIfNeeded(_ presenter: HintPresentingViewController) {
+        presenter.scrollViewWillBeginDraggingCompletion = {
             guard !self.isHintHidden else {
                 return
             }
