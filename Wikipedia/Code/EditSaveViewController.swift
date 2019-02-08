@@ -396,7 +396,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         spacerAboveBottomDividerHeightConstrait.constant = 0
         scrollContainer.setNeedsLayout()
         scrollContainer.layoutIfNeeded()
-        spacerAboveBottomDividerHeightConstrait.constant = scrollView.frame.size.height - scrollContainer.frame.size.height
+        spacerAboveBottomDividerHeightConstrait.constant = max(0, scrollView.frame.size.height - scrollContainer.frame.size.height)
     }
 
     override func viewDidLayoutSubviews() {
