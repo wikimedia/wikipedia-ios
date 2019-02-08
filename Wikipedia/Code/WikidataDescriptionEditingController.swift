@@ -1,8 +1,8 @@
-struct WikidataAPIResult: Decodable {
-    struct Error: Decodable {
-        let code, info: String?
+public struct WikidataAPIResult: Decodable {
+    public struct APIError: Error, Decodable {
+        public let code, info: String?
     }
-    let error: Error?
+    let error: APIError?
     let success: Int?
 }
 
@@ -14,12 +14,6 @@ struct MediaWikiSiteInfoResult: Decodable {
         let general: MediaWikiGeneralResult
     }
     let query: MediaWikiQueryResult
-}
-
-extension WikidataAPIResult.Error: LocalizedError {
-    var errorDescription: String? {
-        return info
-    }
 }
 
 extension WikidataAPIResult {
