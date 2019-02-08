@@ -44,10 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)articleURLJSONTransformer {
     return [MTLValueTransformer
-        transformerUsingForwardBlock:^NSURL *(NSString *value,
+        transformerUsingForwardBlock:^NSURL *(NSString *urlString,
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
-            return [NSURL URLWithString:value];
+            NSString *normalizedURLString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            NSURL *url = [NSURL URLWithString:normalizedURLString];
+            return url;
         }
         reverseBlock:^NSString *(NSURL *articleURL,
                                  BOOL *success,
