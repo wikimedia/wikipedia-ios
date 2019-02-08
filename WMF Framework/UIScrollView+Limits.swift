@@ -26,9 +26,7 @@ extension UIScrollView {
     }
 
     @objc public func wmf_setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true) -> Bool {
-        guard updatedContentInset != contentInset || updatedScrollIndicatorInsets != scrollIndicatorInsets else {
-            return false
-        }
+
         let wasAtTop = wmf_isAtTop
         let wasAtBottom = wmf_isAtBottom
         scrollIndicatorInsets = updatedScrollIndicatorInsets
