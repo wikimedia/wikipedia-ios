@@ -47,8 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
         transformerUsingForwardBlock:^NSURL *(NSString *urlString,
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
-            NSString *normalizedURLString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
             NSURL *url = [NSURL URLWithString:normalizedURLString];
+            assert(url);
             return url;
         }
         reverseBlock:^NSString *(NSURL *articleURL,
