@@ -11,7 +11,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             navigationItem.titleView = UIView()
         }
         navigationBar.isTitleShrinkingEnabled = true
-        navigationBar.isShadowHidingEnabled = true
+        navigationBar.isShadowHidingEnabled = false
         navigationBar.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         view.bringSubviewToFront(resultsViewController.view)
