@@ -201,6 +201,7 @@
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-history-message" = "Keep track of what you've been reading here";
 "empty-no-history-title" = "No history to show";
+"empty-no-internet-title" = "No internet connection";
 "empty-no-reading-lists-message" = "Create lists for places to travel to, favorite topics and much more";
 "empty-no-reading-lists-title" = "Organize saved articles with reading lists";
 "empty-no-saved-pages-in-reading-list-message" = "Save pages to this list to see them appear here";
