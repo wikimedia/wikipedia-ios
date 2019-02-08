@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"lang", @"normalizedtitle"] };
+              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @"content_urls.desktop.page"};
 }
 
 + (NSValueTransformer *)thumbnailURLJSONTransformer {
@@ -44,13 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)articleURLJSONTransformer {
     return [MTLValueTransformer
-        transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
+        transformerUsingForwardBlock:^NSURL *(NSString *value,
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
-            NSString *lang = value[@"lang"];
-            NSString *normalizedTitle = value[@"normalizedtitle"];
-            NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
-            return [siteURL wmf_URLWithTitle:normalizedTitle];
+            return [NSURL URLWithString:value];
         }
         reverseBlock:^NSDictionary *(NSURL *articleURL,
                                      BOOL *success,
