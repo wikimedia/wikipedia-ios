@@ -18,6 +18,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     func reload() {
         collectionView.reloadData()
+        updateEmptyState()
     }
     
     var searchSiteURL: URL? = nil

@@ -149,6 +149,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     var emptyViewType: WMFEmptyViewType = .none
     
     final var isEmpty = true
+    final var showingEmptyViewType: WMFEmptyViewType?
     final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
@@ -160,7 +161,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
             }
         }
         
-        guard isCurrentlyEmpty != isEmpty else {
+        guard isCurrentlyEmpty != isEmpty || showingEmptyViewType != emptyViewType else {
             return
         }
         
@@ -180,8 +181,10 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     open func isEmptyDidChange() {
         if isEmpty {
             wmf_showEmptyView(of: emptyViewType, action: emptyViewAction, theme: theme, frame: emptyViewFrame)
+            showingEmptyViewType = emptyViewType
         } else {
             wmf_hideEmptyView()
+            showingEmptyViewType = nil
         }
     }
     
