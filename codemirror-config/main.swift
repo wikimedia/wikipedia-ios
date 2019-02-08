@@ -8,6 +8,7 @@ guard count > 1 else {
 
 struct LanguageJSON: Codable {
     let code: String
+    let normalized_code: String?
     let canonical_name: String
     let name: String
 }
@@ -48,7 +49,8 @@ func getCodeMirrorConfigJSON(for wikiLanguage: String, completion: @escaping (St
 let group = DispatchGroup()
 for language in languages {
     group.enter()
-    getCodeMirrorConfigJSON(for: language.code) { (response) in
+    let code = language.normalized_code ?? language.code
+    getCodeMirrorConfigJSON(for: code) { (response) in
         defer {
             group.leave()
         }
