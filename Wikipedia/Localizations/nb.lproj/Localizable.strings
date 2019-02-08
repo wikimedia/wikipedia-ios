@@ -35,14 +35,20 @@
 "about-translators-details" = "Oversatt av frivillige på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Du kan ikke publisere denne endringen. Gå tilbake og endre den.";
 "abuse-filter-disallow-notable" = "Wikipedia er en encyklopedi og kun nøytralt og relevant innhold hører hjemme her.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Redigeringen har blitt automatisk identifisert som potensielt destruktiv eller et forsøk på vandalisme.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Tømming av artikkelen eller spamming";
+// Fuzzy
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOKSTAVER";
 "abuse-filter-warning-heading" = "Dette ser ut som en mindre konstruktiv redigering. Er du sikker på at du vil publisere den?";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne lenker eller bilder";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Gjentaaaaagende tegn";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Den kan inneholde en eller flere av følgende ting:";
 "account-creation-captcha-cannot-see-image" = "Ser du ikke bildet? $1";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA…";

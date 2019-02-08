@@ -31,6 +31,7 @@
 "about-translators-details" = "$1 का स्वयंसेवकहरूद्वारा अनुवाद गरिएको";
 "about-wikimedia-foundation" = "विकिमिडिया फाउन्डेसन";
 "about-wikipedia" = "विकिपिडिया";
+// Fuzzy
 "abuse-filter-disallow-heading" = "यस सम्पादनलाई प्रकाशन गर्न सक्नुहुन्न। कृपया पछाडि जानुहोस् र यसलाई परिवर्तन गर्नुहोस्।";
 "account-creation-captcha-request-account" = "खाता अनुरोध गर्नुहोस् ।";
 "account-creation-create-account" = "खाता खोल्नुहोस्";
@@ -261,7 +262,7 @@
 "reverted-edit-thanks-for-editing-title" = "विकिपिडियामा सम्पादन गर्नुभएको धन्यवाद!";
 "saved-all-articles-title" = "सबै लेखहरू";
 "saved-search-default-text" = "खोजिएका पृष्ठहरू सुरक्षित";
-"saved-title" = "संग्रह गर्ने";
+"saved-title" = "सङ्ग्रह गर्ने";
 "search-button-accessibility-label" = "विकिपिडियामा खोज्नुहोस्";
 "search-clear-title" = "खाली";
 "search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
@@ -314,6 +315,7 @@
 "wikitext-download-success" = "सामग्री लोड गरियो ।";
 "wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";

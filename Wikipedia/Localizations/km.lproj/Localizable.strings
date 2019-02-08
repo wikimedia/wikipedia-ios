@@ -22,14 +22,20 @@
 "about-translators-details" = "ត្រូវបានបកប្រែដោយអ្នកស្ម័គ្រចិត្តនៅ $1";
 "about-wikimedia-foundation" = "មូលនិធិវិគីមេឌា";
 "about-wikipedia" = "វិគីភីឌា";
+// Fuzzy
 "abuse-filter-disallow-heading" = "អ្នកមិនអាចបោះផ្សាយការកែប្រែនេះបានទេ។ សូមត្រឡប់ក្រោយរួចកែតម្រួវវា។";
 "abuse-filter-disallow-notable" = "វិគីភីឌាជាសព្វវចនាធិប្បាយមួយដែលមានតែអត្ថបទដែលមានអព្យាក្រិតនិងគួរកត់សម្គាល់។";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "តម្រងស្វ័យប្រវត្តិបានសម្គាល់កំណែប្រែនេះថាជាទង្វើគ្មានការស្ថាបនាឬមានបំណងបំផ្លិចបំផ្លាញ។";
+// Fuzzy
 "abuse-filter-warning-blanking" = "ការលុបខ្លឹមសារអត្ថបទឬដាក់ស្ប៉ាម";
+// Fuzzy
 "abuse-filter-warning-caps" = "វាយបញ្ចូលជាអក្សរធំ";
 "abuse-filter-warning-heading" = "នេះប្រហែលជាការកែប្រែដែលគ្មានលក្ខណៈស្ថាបនាទេ។ តើអ្នកពិតជាចង់បោះផ្សាយវាមែនទេ?";
 "abuse-filter-warning-irrelevant" = "តំណភ្ជាប់ខាងក្រៅឬរូបភាពដែលមិនទាក់ទិន";
+// Fuzzy
 "abuse-filter-warning-repeat" = "អក្សរស្ទួន";
+// Fuzzy
 "abuse-filter-warning-subheading" = "ការកែប្រែរបស់អ្នកអាចមានបញ្ហាណាមួយឬលើសពីមួយដូចខាងក្រោម៖";
 "account-creation-captcha-cannot-see-image" = "មើលរូបភាពមិនឃើញមែនទេ? $1";
 "account-creation-captcha-obtaining" = "កំពុងយក CAPTCHA ថ្មី...";

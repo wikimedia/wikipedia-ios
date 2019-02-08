@@ -30,13 +30,18 @@
 // Fuzzy
 "abuse-filter-disallow-heading" = "Nu puteți salva această modificare. Mergeți înapoi și schimbați-o.";
 "abuse-filter-disallow-notable" = "Wikipedia este o enciclopedie și acceptă doar conținut neutru și notabil.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Un filtru automat a identificat această modificare ca potențial neconstructivă sau ca fiind o tentativă de vandalism.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Golirea conținutului sau introducerea de spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Scrierea INTEGRALĂ CU MAJUSCULE";
 // Fuzzy
 "abuse-filter-warning-heading" = "Aceasta pare o modificare neconstructivă. Sigur doriți s-o salvați?";
 "abuse-filter-warning-irrelevant" = "Legături externe sau imagini irelevante";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Caractere repeeeetate";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Modificarea dumnevoastră poate conține una din următoarele probleme:";
 "account-creation-captcha-obtaining" = "Se obține un nou CAPTCHA...";
 "account-creation-logging-in" = "Autentificare în curs...";

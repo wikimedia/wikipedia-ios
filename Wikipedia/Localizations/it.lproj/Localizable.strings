@@ -15,6 +15,7 @@
 // Author: JackLantern
 // Author: Lorelai87
 // Author: Macofe
+// Author: Manfredi26
 // Author: Martinligabue
 // Author: Nastoshka
 // Author: Nemo bis
@@ -49,14 +50,20 @@
 "about-translators-details" = "Tradotto dai volontari di $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Non puoi salvare questa modifica. Per favore torna indietro e modificala.";
 "abuse-filter-disallow-notable" = "Wikipedia è un'enciclopedia e devono esserci solo contenuti neutrali e degni di nota.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Un filtro automatico ha identificato questa modifica come potenzialmente inconcludente o un tentativo di vandalismo.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Articolo vuoto o di spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Scritte tutte in MAIUSCOLO";
 "abuse-filter-warning-heading" = "Questa potrebbe essere una modifica inutile, sei sicuro di volerla salvare?";
 "abuse-filter-warning-irrelevant" = "Collegamenti esterni o immagini non pertinenti";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Caratteri ripeeeeeeetuti";
+// Fuzzy
 "abuse-filter-warning-subheading" = "La tua modifica potrebbe contenere uno o più dei seguenti elementi:";
 "account-creation-captcha-cannot-see-image" = "Non riesci a vedere l'immagine? $1";
 "account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA...";
@@ -137,7 +144,7 @@
 "description-published-title" = "Descrizione pubblicata!";
 "description-welcome-concise-sub-title" = "Idealmente una riga, da due a dodici parole";
 "description-welcome-start-editing-button" = "Inizia a modificare";
-"edit-minor-learn-more-text" = "Ulteriori informazioni sulle modifiche minori";
+"edit-minor-learn-more-text" = "Per saperne di più sulle modifiche minori";
 "edit-minor-text" = "Questa è una modifica minore";
 "edit-published" = "Modifica pubblicata";
 "edit-published-button-title" = "Fatto";
@@ -453,6 +460,7 @@
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
 "wikitext-preview-link-preview-description" = "Questo collegamento porta a '$1'";
 "wikitext-preview-link-preview-title" = "Anteprima collegamento";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Salva le modifiche";
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";

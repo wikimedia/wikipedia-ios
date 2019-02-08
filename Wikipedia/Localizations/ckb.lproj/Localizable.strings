@@ -29,14 +29,20 @@
 "about-translators-details" = "وەرگێڕدراوە لەلایەن خۆ بەخشان لە $1";
 "about-wikimedia-foundation" = "دامەزراوەی ویکیمیدیا";
 "about-wikipedia" = "ویکیپیدیا";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ناتوانی ئەم گۆڕانکارییە پاشەکەوت بکەی. تکایە بگەڕێوە و بی گۆڕە.";
 "abuse-filter-disallow-notable" = "ویکیپیدیا ئینسایکڵۆپیدیایەکە و تەنھا ناوەڕۆکی بێ لایەن و بایەخدار لێرە جێگەی دەبێتەوە.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "فیلتەرێکی خۆگەڕ ئەم دەستکارییەی بە بێ بایەخ یان ھەوڵدان بۆ خراپکاری دیاری کردووە.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "واڵاکردنەوە یان تێکدانی وتارەکان";
+// Fuzzy
 "abuse-filter-warning-caps" = "نووسین بە پیتی لاتینی";
 "abuse-filter-warning-heading" = "ئەمە بە دەستکارییەکی بێ بایەخ دەچێت. دڵنیای کە دەتەوێت پاشەکەوتی بکەی؟";
 "abuse-filter-warning-irrelevant" = "وێنە و بەستەری دەرەکی ناپەیوەندیدار";
+// Fuzzy
 "abuse-filter-warning-repeat" = "دووبارەکردنەوەی یەک پیت";
+// Fuzzy
 "abuse-filter-warning-subheading" = "دەستکارییەکەت لەوانەیە یەکێک یان زیاتر لەم خاڵانەی لەخۆ گرتبێت:";
 "account-creation-captcha-cannot-see-image" = "ناتوانیت وێنەکە ببینیت؟ $1";
 "account-creation-captcha-obtaining" = "کاپچایەکی تر ئامادە دەکرێت...";

@@ -48,14 +48,20 @@
 "about-translators-details" = "Deze app is vertaald door de vrijwillige vertalers van $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "U kunt deze bewerking niet publiceren. Ga terug en pas deze aan.";
 "abuse-filter-disallow-notable" = "Wikipedia is een encylopedie en alleen neutrale relevante inhoud is hier toegestaan.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Pagina's leegmaken of spam plaatsen";
+// Fuzzy
 "abuse-filter-warning-caps" = "Tekst in HOOFDLETTERS";
 "abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt publiceren?";
 "abuse-filter-warning-irrelevant" = "Irrelevante externe koppelingen of afbeeldingen";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Herhaaaalende tekens";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "account-creation-captcha-cannot-see-image" = "Kunt u de afbeelding niet zien? $1";
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
@@ -668,6 +674,7 @@
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
 "wikitext-preview-link-preview-description" = "Deze link leidt naar '$1'";
 "wikitext-preview-link-preview-title" = "Linkvoorvertoning";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Wijzigingen opslaan";
 "wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";

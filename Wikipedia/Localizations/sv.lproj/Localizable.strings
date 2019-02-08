@@ -41,14 +41,20 @@
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Du kan inte publicera denna redigering. Gå tillbaka och ändra den.";
 "abuse-filter-disallow-notable" = "Wikipedia är ett uppslagsverk och bara neutralt anmärkningsvärt innehåll hör hemma här.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Ett automatiskt filter har identifierat denna redigering som potentiellt icke-konstruktivt eller ett försök till vandalism.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Tömmande av artiklar eller spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
 "abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill publicera den?";
 "abuse-filter-warning-irrelevant" = "Irrelevanta externa länkar eller bilder";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Upprepade tecken";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Din redigering kan innehålla ett eller flera av följande:";
 "account-creation-captcha-cannot-see-image" = "Kan du inte se bilden? $1";
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA...";
@@ -161,6 +167,11 @@
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
 "dim-images" = "Mörklägg bilder";
+"edit-minor-learn-more-text" = "Läs mer om mindre redigeringar";
+"edit-minor-text" = "Detta är en mindre redigering";
+"edit-published" = "Redigeringen publicerades";
+"edit-published-button-title" = "Klar";
+"edit-published-subtitle" = "Du gjorde precis Wikipedia bättre för alla";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-add-summary-text" = "Lägg till en redigeringssammanfattning";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
@@ -170,6 +181,8 @@
 "edit-summary-placeholder-text" = "Hur förbättrade du artikeln?";
 "edit-text-formatting-table-view-title" = "Textformatering";
 "edit-text-size-table-view-title" = "Textstorlek";
+"edit-watch-list-learn-more-text" = "Läs mer om bevakningslistor";
+"edit-watch-this-page-text" = "Bevaka denna sida";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
@@ -654,6 +667,7 @@
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";
 "wikitext-preview-link-preview-description" = "Denna länk leder till \"$1\"";
 "wikitext-preview-link-preview-title" = "Länkförhandsvisning";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Spara dina ändringar";
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
@@ -661,6 +675,5 @@
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "Logga in";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Genom att publicera ändringar samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Genom att publicera ändringar samtycker du till $1 och oåterkalleligen går med på att släppa ditt bidrag under licenserna $2 och $3. Du går med på att en hyperlänk eller webbadress är tillräckligt tillskrivande under licensen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
