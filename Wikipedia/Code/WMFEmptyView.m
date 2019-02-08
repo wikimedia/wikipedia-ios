@@ -89,6 +89,18 @@
     return view;
 }
 
++ (instancetype)noInternetConnectionEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"no-internet-blank"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-internet-title", nil, nil, @"No internet connection", @"Title of a blank screen shown when a user has no internet connection");
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
 + (instancetype)noSavedPagesInReadingListEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
