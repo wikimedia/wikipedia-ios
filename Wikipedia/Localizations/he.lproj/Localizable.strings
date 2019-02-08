@@ -38,14 +38,20 @@
 "about-translators-details" = "היישום הזה תורגם על־ידי מתרגמים מתנדבים באתר $1";
 "about-wikimedia-foundation" = "קרן ויקימדיה";
 "about-wikipedia" = "ויקיפדיה";
+// Fuzzy
 "abuse-filter-disallow-heading" = "לא ניתן לפרסם את העריכה הזו. נא לחזור לדף הקודם ולשנות אותה.";
 "abuse-filter-disallow-notable" = "ויקיפדיה היא אנציקלופדיה ורק תוכן מאוזן ובעל־חשיבות שייך אליה.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "מסנן אוטומטי זיהה את העריכה הזאת בתור בלתי־מועילה או בתור ניסיון השחתה.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "ריקון ערכים או פרסום זבל";
+// Fuzzy
 "abuse-filter-warning-caps" = "הקלדה באותיות גדולות";
 "abuse-filter-warning-heading" = "עריכה זו זוהתה כעריכה בלתי מועילה. האם ברצונך לפרסם אותה?";
 "abuse-filter-warning-irrelevant" = "קישורים חיצוניים או צילומים בלתי־רלוונטיים";
+// Fuzzy
 "abuse-filter-warning-repeat" = "אותיות חוזזזזזרות";
+// Fuzzy
 "abuse-filter-warning-subheading" = "העריכה שלך עשויה להכיל אחד מהדברים הבאים:";
 "account-creation-captcha-cannot-see-image" = "אינך יכול לראות את התמונה? $1";
 "account-creation-captcha-obtaining" = "הצגת תמונת אימות חדשה...";
@@ -658,6 +664,7 @@
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";
 "wikitext-preview-link-preview-description" = "הקישור הזה מוביל לכתובת '$1'";
 "wikitext-preview-link-preview-title" = "תצוגה מקדימה של קישור";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "שמירת השינויים שלך";
 "wikitext-upload-captcha-error" = "שגיאת אימות.";
 "wikitext-upload-captcha-needed" = "נדרש אימות תמונה.";
@@ -665,6 +672,5 @@
 "wikitext-upload-save" = "מפרסם...";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "פרסום השינויים מהווה את הסכמתך ל$1 ולפרסום התרומה שלך לפי תנאי רישיונות $2 ו־$3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "פרסום השינויים מהווה את הסכמתך ל$1, ואת הסכמתך הבלתי־חוזרת לשחרר את התרומה שלך לפי תנאי רישיון $2 ו$3. זוהי גם הסכמתך לכך שהיפר־קישור או כתובת URL מהווה ייחוס מספיק לפי תנאי רישיון קריאייטיב קומונז.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";

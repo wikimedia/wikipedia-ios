@@ -11,7 +11,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             navigationItem.titleView = UIView()
         }
         navigationBar.isTitleShrinkingEnabled = true
-        navigationBar.isShadowHidingEnabled = true
+        navigationBar.isShadowHidingEnabled = false
         navigationBar.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         view.bringSubviewToFront(resultsViewController.view)
@@ -123,8 +123,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 guard searchTerm == self.searchBar.text else {
                     return
                 }
-                self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                self.resultsViewController.results = []
                 self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
             }
         }
@@ -132,15 +132,13 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         let sucess = { (results: WMFSearchResults, type: WMFSearchType) in
             DispatchQueue.main.async {
                 commonCompletion()
-                self.fakeProgressController.finish()
-                guard
-                    let resultsArray = results.results,
-                    resultsArray.count > 0
-                else {
-                    self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
+                guard searchTerm == self.searchBar.text else {
                     return
                 }
-                self.resultsViewController.wmf_hideEmptyView()
+                NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+                let resultsArray = results.results ?? []
+                self.resultsViewController.emptyViewType = .noSearchResults
+                self.fakeProgressController.finish()
                 self.resultsViewController.resultsInfo = results
                 self.resultsViewController.searchSiteURL = siteURL
                 self.resultsViewController.results = resultsArray
@@ -155,23 +153,15 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { (error) in
             failure(error, .prefix)
         }) { (results) in
-            DispatchQueue.main.async {
-                guard searchTerm == self.searchBar.text else {
-                    commonCompletion()
-                    return
-                }
-                NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
-                sucess(results, .prefix)
-                guard let resultsArray = results.results, resultsArray.count < 12 else {
-                    return
-                }
-                self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { (error) in
-                    failure(error, .full)
-                }) { (results) in
-                    sucess(results, .full)
-                }
+            sucess(results, .prefix)
+            guard let resultsArray = results.results, resultsArray.count < 12 else {
+                return
             }
-            
+            self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { (error) in
+                failure(error, .full)
+            }) { (results) in
+                sucess(results, .full)
+            }
         }
     }
     
@@ -219,8 +209,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     
     func didCancelSearch() {
+        resultsViewController.emptyViewType = .none
         resultsViewController.results = []
-        resultsViewController.wmf_hideEmptyView()
         searchBar.text = nil
         fakeProgressController.stop()
     }

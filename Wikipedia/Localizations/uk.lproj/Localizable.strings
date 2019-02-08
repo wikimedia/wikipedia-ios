@@ -37,14 +37,20 @@
 "about-translators-details" = "Перекладено волонтерами на $1";
 "about-wikimedia-foundation" = "Фонд Вікімедіа";
 "about-wikipedia" = "Вікіпедія";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ви не можете зберегти це редагування. Будь ласка, поверніться назад і змініть його.";
 "abuse-filter-disallow-notable" = "Вікіпедія - це енциклопедія і тут допустимий лише нейтральний або значущий вміст.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Автоматизований фільтр визначила цю зміну як потенційно руйнівну або як спробу вандалізму.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Очищення вмісту статті або спам";
+// Fuzzy
 "abuse-filter-warning-caps" = "Набір ВЕЛИКИМ ЛІТЕРАМИ";
 "abuse-filter-warning-heading" = "Це редагування схоже на неконструктивне. Ви справді бажаєте його зберегти?";
 "abuse-filter-warning-irrelevant" = "Нерелевантні зовнішні посилання або зображення";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Повторююююювані символи";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Ваші зміни можуть містити одну із наступних дій:";
 "account-creation-captcha-cannot-see-image" = "Не бачите зображення? $1";
 "account-creation-captcha-obtaining" = "Отримання нового зображення…";

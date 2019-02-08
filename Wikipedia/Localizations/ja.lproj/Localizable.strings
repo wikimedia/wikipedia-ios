@@ -56,14 +56,20 @@
 "about-translators-details" = "このアプリは$1においてボランティアにより翻訳されました";
 "about-wikimedia-foundation" = "ウィキメディア財団";
 "about-wikipedia" = "ウィキペディアについて";
+// Fuzzy
 "abuse-filter-disallow-heading" = "この編集は公開できません。戻って修正してください。";
 "abuse-filter-disallow-notable" = "ウィキペディアは百科事典であり、中立的で特筆性のあるコンテンツのみを収録します。";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "自動フィルターがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。";
+// Fuzzy
 "abuse-filter-warning-blanking" = "記事の白紙化やスパム行為";
+// Fuzzy
 "abuse-filter-warning-caps" = "すべて大文字での入力";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも公開しますか？";
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
+// Fuzzy
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
+// Fuzzy
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
 "account-creation-captcha-cannot-see-image" = "画像が表示できませんか？ $1";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";

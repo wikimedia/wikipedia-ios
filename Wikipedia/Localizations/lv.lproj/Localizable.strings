@@ -193,6 +193,7 @@
 "wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-downloading" = "Ielādē saturu...";
 "wikitext-preview-link-preview-title" = "Saites pirmskats";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Saglabāt veiktās izmaiņas";
 "wikitext-upload-captcha-error" = "CAPTCHA verifikācijas kļūda.";
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";

@@ -47,14 +47,20 @@
 "about-translators-details" = "ترجمه متطوعون في $1";
 "about-wikimedia-foundation" = "مؤسسة ويكيميديا";
 "about-wikipedia" = "ويكيبيديا";
+// Fuzzy
 "abuse-filter-disallow-heading" = "لا يمكن نشر هذا التعديل، يرجى الرجوع وتغييره";
 "abuse-filter-disallow-notable" = "ويكيبيديا موسوعة وما يجب إضافته هنا هو محتوى محايد وذي أهمية.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "لقد حدد أحد المرشحات الآلية أن هذا التعديل قد يكون غير مجدي أو محاولة تخريب.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "مسح محتوى المقالات أو محتوى غير مرغوب فيه";
+// Fuzzy
 "abuse-filter-warning-caps" = "الكتابة باستخدام أحرف كبيرة";
 "abuse-filter-warning-heading" = "يبدو أن هذا التعديل غير مثمر، هل أنت متأكد من أنك ترغب في نشره؟";
 "abuse-filter-warning-irrelevant" = "روابط أو صور خارجية لا صلة لها بالموضوع";
+// Fuzzy
 "abuse-filter-warning-repeat" = "أحرف متكررررررة بلا داعي";
+// Fuzzy
 "abuse-filter-warning-subheading" = "قد يحتوي تعديلك على واحد مما يلي أو أكثر:";
 "account-creation-captcha-cannot-see-image" = "لا ترى الصورة؟ $1";
 "account-creation-captcha-obtaining" = "جار الحصول على كابتشا جديدة...";
@@ -667,6 +673,7 @@
 "wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";
 "wikitext-preview-link-preview-description" = "هذه الوصلة تصل إلى '$1'";
 "wikitext-preview-link-preview-title" = "معاينة الوصلة";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "حفظ تغييراتك";
 "wikitext-upload-captcha-error" = "خطأ في التحقق من كابتشا.";
 "wikitext-upload-captcha-needed" = "مطلوب التحقق من كابتشا.";

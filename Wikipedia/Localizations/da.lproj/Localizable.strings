@@ -33,14 +33,20 @@
 "about-translators-details" = "Oversat af frivillige på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Du kan ikke udgive denne redigering. Gå venligst tilbage og ændr den.";
 "abuse-filter-disallow-notable" = "Wikipedia er en encyklopædi. Kun neutralt og relevant indhold hører til her.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Et automatisk filter har identificeret denne redigering som potentielt ukonstruktiv eller forsøg på hærværk.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Tømning af artikler eller spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOGSTAVER";
 "abuse-filter-warning-heading" = "Dette ligner en redigering som ikke er konstruktiv. Er du sikker på at du ønsker at udgive den?";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne links eller billeder";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Gentaaaaagende tegn";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Din redigering kan indeholde en eller flere af følgende:";
 "account-creation-captcha-cannot-see-image" = "Kan du ikke se billedet? $1";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
@@ -554,6 +560,7 @@
 "wikitext-preview-changes-none" = "Ingen ændringer blev foretaget som kan forhåndsvises.";
 "wikitext-preview-link-preview-description" = "Dette link leder til '$1'";
 "wikitext-preview-link-preview-title" = "Linkforhåndsvisning";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "Gem dine ændringer";
 "wikitext-upload-captcha-error" = "CAPTCHA kontrolfejl.";
 "wikitext-upload-captcha-needed" = "Brug for CAPTCHA bekræftelse.";

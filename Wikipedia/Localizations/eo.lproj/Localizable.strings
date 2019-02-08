@@ -35,14 +35,20 @@
 "about-translators-details" = "Tradukita de volontuloj ĉe $1";
 "about-wikimedia-foundation" = "Fondaĵo Vikimedio";
 "about-wikipedia" = "Vikipedio";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Vi ne povas publikigi ĉi tiun modifon. Bonvolu iri reen kaj ŝanĝi ĝin.";
 "abuse-filter-disallow-notable" = "Vikipedio estas encyclopedio kaj nur neŭtrala, rimarkinda enhavo aperu ĉi tie.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Aŭtomatigita filtrilo identigis ĉi tiun redakton kiel potenciale malhelpan aŭ provon je vandalismo.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Malplenigi artikolon aŭ spamado";
+// Fuzzy
 "abuse-filter-warning-caps" = "Skribi ĈION MAJUSKLE";
 "abuse-filter-warning-heading" = "Tio ĉi eble estas malhelpa redakto. Ĉu vi certas, ke vi volas publikigi ĝin?";
 "abuse-filter-warning-irrelevant" = "Senrilata ekstera ligilo aŭ bildo";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Ripetaaaado de signoj";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Via redakto povas enhavi unu aŭ pli de la jeno:";
 "account-creation-captcha-cannot-see-image" = "Ĉu vi ne povas vidi la bildon? $1";
 "account-creation-captcha-obtaining" = "Akiras novan CAPTCHA...";

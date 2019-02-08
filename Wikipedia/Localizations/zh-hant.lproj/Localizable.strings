@@ -44,14 +44,20 @@
 "about-translators-details" = "由 $1 的志工翻譯";
 "about-wikimedia-foundation" = "維基媒體基金會";
 "about-wikipedia" = "維基百科";
+// Fuzzy
 "abuse-filter-disallow-heading" = "您不能發佈此編輯。請返回並修正。";
 "abuse-filter-disallow-notable" = "維基百科是個百科全書，僅接受中立的、俱關注度的內容。";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "自動過濾器已確定此編輯可能不具建設性或企圖破壞。";
+// Fuzzy
 "abuse-filter-warning-blanking" = "空白的條目或含有垃圾訊息";
+// Fuzzy
 "abuse-filter-warning-caps" = "全部輸入大寫字母";
 "abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要發佈它？";
 "abuse-filter-warning-irrelevant" = "不相關的外部連結或圖片";
+// Fuzzy
 "abuse-filter-warning-repeat" = "重複字元";
+// Fuzzy
 "abuse-filter-warning-subheading" = "您的編輯可能包含下列情況之一：";
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
@@ -664,6 +670,7 @@
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";
 "wikitext-preview-link-preview-description" = "此連結引至「$1」";
 "wikitext-preview-link-preview-title" = "連結預覽";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "儲存您的變更";
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";

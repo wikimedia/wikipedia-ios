@@ -50,14 +50,20 @@
 "about-translators-details" = "این برنامه توسط مترجمان داوطلب در $1 ترجمه شده‌است";
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "about-wikipedia" = "ویکی‌پدیا";
+// Fuzzy
 "abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را منتشر کنید. لطفاً بازگردید و آن را تغییر دهید.";
 "abuse-filter-disallow-notable" = "ویکی‌پدیا یک دانشنامه است و فقط محتوای بی طرف و سرشناس به اینجا تعلق دارند.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار این ویرایش را به طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "خالی‌کردن مقاله‌ها یا هرز نگاره";
+// Fuzzy
 "abuse-filter-warning-caps" = "نوشتن همه با حروف بزرگ";
 "abuse-filter-warning-heading" = "به نظر می‌آید این ویرایش غیرسازنده باشد، آیا مطمئنید می‌خواهید منتشرش کنید؟";
 "abuse-filter-warning-irrelevant" = "پیوندهای بیرونی یا تصاویر نامرتبط";
+// Fuzzy
 "abuse-filter-warning-repeat" = "تکرار نویسه‌ها";
+// Fuzzy
 "abuse-filter-warning-subheading" = "ویرایش‌تان ممکن است شامل یک یا چند مورد از موارد زیر باشد:";
 "account-creation-captcha-cannot-see-image" = "نمی‌توانید تصویر را ببینید؟ $1";
 "account-creation-captcha-obtaining" = "اخذ کپچا تازه...";

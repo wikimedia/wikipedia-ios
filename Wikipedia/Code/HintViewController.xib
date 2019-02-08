@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListHintViewController" customModule="Wikipedia" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HintViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="confirmationChevron" destination="wCS-DM-ckl" id="hit-xc-Gyl"/>
-                <outlet property="confirmationContainerView" destination="9Mi-lB-pMN" id="QWO-OY-pDu"/>
-                <outlet property="confirmationImageView" destination="Q55-Ot-WJE" id="gaq-NA-3pq"/>
-                <outlet property="confirmationLabel" destination="9CN-TE-qsp" id="jgp-S9-0aO"/>
-                <outlet property="confirmationStackView" destination="BjB-ib-pB7" id="5TN-DB-seg"/>
-                <outlet property="hintLabel" destination="ni7-Ic-c9C" id="78y-zo-fKF"/>
-                <outlet property="hintView" destination="f2T-xz-pPZ" id="X0h-wu-gdZ"/>
-                <outlet property="outerStackView" destination="eG8-5x-OUi" id="nNo-SZ-k1q"/>
+                <outlet property="confirmationAccessoryButton" destination="oWu-37-1jX" id="A9o-0S-fFB"/>
+                <outlet property="confirmationImageView" destination="Q55-Ot-WJE" id="XEO-zI-kvP"/>
+                <outlet property="confirmationLabel" destination="9CN-TE-qsp" id="htd-df-COw"/>
+                <outlet property="confirmationView" destination="9Mi-lB-pMN" id="pYp-bx-GIC"/>
+                <outlet property="defaultImageView" destination="ZRK-Wk-NPA" id="ICT-JE-Bs1"/>
+                <outlet property="defaultLabel" destination="ni7-Ic-c9C" id="NJd-5c-uYd"/>
+                <outlet property="defaultView" destination="f2T-xz-pPZ" id="RKc-ut-O00"/>
                 <outlet property="view" destination="A0g-px-xTY" id="cfU-LL-9YD"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tapGestureRecognizer id="3D2-Ih-XyP">
             <connections>
-                <action selector="addArticleToReadingList:" destination="-1" id="Dx4-pO-wKa"/>
+                <action selector="performDefaultActionWithSender:" destination="-1" id="xbQ-Vi-x6i"/>
             </connections>
         </tapGestureRecognizer>
         <tapGestureRecognizer id="fxf-y7-eKu">
             <connections>
-                <action selector="openReadingList" destination="-1" id="USn-ka-kqU"/>
+                <action selector="performConfirmationActionWithSender:" destination="-1" id="igX-Yn-5hQ"/>
             </connections>
         </tapGestureRecognizer>
         <view contentMode="scaleToFill" id="A0g-px-xTY">
@@ -41,11 +40,11 @@
                 <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eG8-5x-OUi">
                     <rect key="frame" x="0.0" y="12" width="548" height="88"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2T-xz-pPZ" userLabel="Hint View">
-                            <rect key="frame" x="0.0" y="0.0" width="548" height="48"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2T-xz-pPZ" userLabel="Default View">
+                            <rect key="frame" x="0.0" y="0.0" width="548" height="88"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-to-list" translatesAutoresizingMaskIntoConstraints="NO" id="ZRK-Wk-NPA">
-                                    <rect key="frame" x="12" y="11" width="26" height="26"/>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZRK-Wk-NPA">
+                                    <rect key="frame" x="12" y="31" width="26" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" priority="999" constant="26" id="XBd-aa-skT"/>
                                         <constraint firstAttribute="width" priority="999" constant="26" id="zx2-am-b8e"/>
@@ -53,7 +52,7 @@
                                     <viewLayoutGuide key="safeArea" id="SKG-dM-SlL"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Hint default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni7-Ic-c9C">
-                                    <rect key="frame" x="50" y="14" width="486" height="20.5"/>
+                                    <rect key="frame" x="50" y="34" width="486" height="20.5"/>
                                     <viewLayoutGuide key="safeArea" id="rVu-1p-TMz"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -77,50 +76,51 @@
                                 <outletCollection property="gestureRecognizers" destination="3D2-Ih-XyP" appends="YES" id="5R9-gq-LMx"/>
                             </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN">
-                            <rect key="frame" x="0.0" y="48" width="548" height="40"/>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN">
+                            <rect key="frame" x="0.0" y="0.0" width="548" height="0.0"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BjB-ib-pB7">
-                                    <rect key="frame" x="0.0" y="0.0" width="548" height="40"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BjB-ib-pB7">
+                                    <rect key="frame" x="0.0" y="0.0" width="548" height="0.0"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqF-Ty-pGy" userLabel="Spacer">
-                                            <rect key="frame" x="0.0" y="0.0" width="1" height="40"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edl-W7-cDN" userLabel="Spacer">
+                                            <rect key="frame" x="0.0" y="0.0" width="1" height="0.0"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="1" id="bR6-tK-FOy"/>
+                                                <constraint firstAttribute="width" constant="1" id="vSU-Vv-oAN"/>
                                             </constraints>
-                                            <viewLayoutGuide key="safeArea" id="rba-w9-5eo"/>
+                                            <viewLayoutGuide key="safeArea" id="dOm-9U-l1F"/>
                                         </view>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q55-Ot-WJE">
-                                            <rect key="frame" x="13" y="0.0" width="40" height="40"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q55-Ot-WJE">
+                                            <rect key="frame" x="13" y="0.0" width="40" height="0.0"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="999" constant="40" id="8fF-21-JIz"/>
                                                 <constraint firstAttribute="width" priority="999" constant="40" id="sKL-mj-ebh"/>
                                             </constraints>
                                             <viewLayoutGuide key="safeArea" id="c3R-HI-4dV"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="3"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Confimation default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CN-TE-qsp">
-                                            <rect key="frame" x="65" y="0.0" width="431" height="40"/>
-                                            <viewLayoutGuide key="safeArea" id="8sy-qs-43Q"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Confirmation default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CN-TE-qsp">
+                                            <rect key="frame" x="65" y="0.0" width="431" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCS-DM-ckl" userLabel="Chevron Button">
-                                            <rect key="frame" x="508" y="0.0" width="40" height="40"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWu-37-1jX">
+                                            <rect key="frame" x="508" y="0.0" width="40" height="0.0"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="C1K-zv-Bq4"/>
+                                                <constraint firstAttribute="width" constant="40" id="fgU-ew-H6P"/>
                                             </constraints>
-                                            <viewLayoutGuide key="safeArea" id="Aon-vd-IWO"/>
-                                            <state key="normal" image="chevron-right"/>
                                             <connections>
-                                                <action selector="openReadingList" destination="-1" eventType="touchUpInside" id="k5I-NY-Sad"/>
+                                                <action selector="performConfirmationActionWithSender:" destination="-1" eventType="touchUpInside" id="GOe-K1-hIV"/>
                                             </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="BjB-ib-pB7" secondAttribute="trailing" id="2Q8-nj-9g4"/>
@@ -138,7 +138,6 @@
                     <viewLayoutGuide key="safeArea" id="dc6-zn-PPy"/>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="eG8-5x-OUi" firstAttribute="top" secondItem="A0g-px-xTY" secondAttribute="top" priority="999" constant="12" id="XRR-mo-SlV"/>
                 <constraint firstItem="RCC-Bl-xSh" firstAttribute="leading" secondItem="eG8-5x-OUi" secondAttribute="leading" id="bne-AT-n4n"/>
@@ -150,8 +149,4 @@
             <point key="canvasLocation" x="138" y="293"/>
         </view>
     </objects>
-    <resources>
-        <image name="add-to-list" width="26" height="26"/>
-        <image name="chevron-right" width="12" height="21"/>
-    </resources>
 </document>

@@ -1,11 +1,10 @@
 import WMF;
 
-class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
+class OnThisDayViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
-    var readingListHintController: ReadingListHintController?
-    
+
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
@@ -56,7 +55,6 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         layoutManager.register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
         layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
-        readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
