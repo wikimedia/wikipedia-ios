@@ -49,14 +49,20 @@
 "about-translators-details" = "Przetłumaczono przez wolontariusza na $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Nie możesz opublikować tej edycji. Wróć i popraw ją.";
 "abuse-filter-disallow-notable" = "Wikipedia to encyklopedia, a tu dopuszczalne są tylko neutralne i znaczące treści.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Blankowanie lub spamowanie artykułów";
+// Fuzzy
 "abuse-filter-warning-caps" = "Pisanie WIELKIMI LITERAMI";
 "abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, na pewno chcesz ją opublikować?";
 "abuse-filter-warning-irrelevant" = "Nieodpowiednie linki zewnętrzne lub obrazy";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Powtaaaarzanie znaków";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Twoja edycja może zawierać jedną lub wiele z następujących czynności:";
 "account-creation-captcha-cannot-see-image" = "Nie widać obrazka? $1";
 "account-creation-captcha-obtaining" = "Uzyskiwanie nowego CAPTCHA...";

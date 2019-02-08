@@ -34,14 +34,20 @@
 "about-translators-details" = "$1 پر رضاکاروں نے ترجمہ کیا ہے";
 "about-wikimedia-foundation" = "ویکیمیڈیا فاؤنڈیشن";
 "about-wikipedia" = "ویکیپیڈیا";
+// Fuzzy
 "abuse-filter-disallow-heading" = "آپ اس ترمیم کو محفوظ نہیں کر سکتے۔ پیچھے جاکر اسے بدلیے۔";
 "abuse-filter-disallow-notable" = "ویکیپیڈیاایک دائرۃالمعارف ہے اور صرف غیرجانبدار، معروف مواد یہاں سے تعلق رکھتا ہے۔";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "ایک خودکار فلٹر نے اس ترمیم کی امکانی طور پر غیرتعمیری یا تخریب کاری کی کوشش کے طور پر شناخت کی ہے۔";
+// Fuzzy
 "abuse-filter-warning-blanking" = "مضامین کو خالی کرنا یا ان میں تشہیری مواد بھرنا";
+// Fuzzy
 "abuse-filter-warning-caps" = "پوری ٹائپنگ کیاپس میں کی گئی";
 "abuse-filter-warning-heading" = "یہ ایک غیر تعمیری ترمیم ہو سکتی ہے۔ کیا آپ اسے یقینی طور پر محفوظ کرنا چاہتے ہیں؟";
 "abuse-filter-warning-irrelevant" = "غیر متعلقہ خارجی روابط یا تصاویر";
+// Fuzzy
 "abuse-filter-warning-repeat" = "مکرر حروف یا رموز";
+// Fuzzy
 "abuse-filter-warning-subheading" = "آپ کی ترمیم مندرجہ میں سے ایک یا اس سے زیادہ کی متحمل ہو سکتی ہے:";
 "account-creation-captcha-cannot-see-image" = "تصویر نہیں دیکھ سکے؟ $1";
 "account-creation-captcha-obtaining" = "نئی کیپچا حاصل کی جارہی ہے۔";

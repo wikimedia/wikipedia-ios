@@ -33,12 +33,17 @@
 "about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
 "about-wikimedia-foundation" = "Ίδρυμα Wikimedia";
 "about-wikipedia" = "Βικιπαίδεια";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Δεν μπορείτε να αποθηκεύσετε αυτή την επεξεργασία. Παρακαλούμε πηγαίνετε πίσω και αλλάξτε την.";
 "abuse-filter-disallow-notable" = "Η Βικιπαίδεια είναι μια εγκυκλοπαίδεια και μόνο ουδέτερη, το αξιοσημείωτο περιεχόμενο ανήκει εδώ.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Ένα αυτόματο φίλτρο έχει αναγνωρίσει αυτή την επεξεργασία ως πιθανώς μη εποικοδομητική ή προσπάθεια βανδαλισμού.";
+// Fuzzy
 "abuse-filter-warning-caps" = "Πληκτρολογώντας με κεφαλαία γράμματα";
 "abuse-filter-warning-heading" = "Αυτή μπορεί να είναι μια μη εποικοδομητική επεξεργασία, είσαι σίγουρος ότι θέλεις να την δημοσιεύσεις;";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Επαναλααααμβανόμενοι χαρακτήρες";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Η επεξεργασία σας μπορεί να περιέχει ένα ή περισσότερα από τα παρακάτω:";
 "account-creation-captcha-cannot-see-image" = "Δεν μπορείτε να δείτε την εικόνα; $1";
 "account-creation-captcha-request-account" = "Αίτημα λογαριασμού.";

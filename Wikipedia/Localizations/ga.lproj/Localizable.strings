@@ -26,8 +26,11 @@
 "about-translators-details" = "Arna aistriú ag oibrithe deonacha de chuid $1";
 "about-wikimedia-foundation" = "Fondúireacht Wikimedia";
 "about-wikipedia" = "Vicipéid";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Ailt a fholmhú nó turscar a sheoladh";
+// Fuzzy
 "abuse-filter-warning-caps" = "Scríobh i gCEANNLITREACHA";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Carachtair a ath-chlóóóóscriobh";
 "account-creation-captcha-cannot-see-image" = "Nach bhfuil tú in ann an íomhá a fhéachaint? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA nua a fháil...";

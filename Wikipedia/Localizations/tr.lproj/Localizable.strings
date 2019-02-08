@@ -52,14 +52,20 @@
 "about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
 "about-wikimedia-foundation" = "Wikimedia Vakfı";
 "about-wikipedia" = "Vikipedi";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Bu düzenlemeyi yayınlayamazsınız.  Lütfen geri dönüp değiştirin.";
 "abuse-filter-disallow-notable" = "Vikipedi bir ansiklopedidir ve sadece tarafsız, kayda değer içerik burada yer alabilir.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "İçerik boşaltma veya spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "TÜMÜ BÜYÜK HARFLE yazım";
 "abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; yayınlamak istediğinize emin misiniz?";
 "abuse-filter-warning-irrelevant" = "Konu dışı dış bağlantılar veya resimler";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Tekraaaarlayan karakterler";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Değişikliğiniz şunlardan bir veya daha fazlasını içeriyor olabilir:";
 "account-creation-captcha-cannot-see-image" = "Resmi göremiyor musunuz? $1";
 "account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";

@@ -28,14 +28,20 @@
 "about-translators-details" = "Бу дьибилгэт $1 дьон босхо тылбаастаабыта";
 "about-wikimedia-foundation" = "Викимедиа пуондата";
 "about-wikipedia" = "Бикипиэдьийэ";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Көннөрүүнү бигэргэтэр кыаҕыҥ суох эбит. Бука диэн төннүн уонна уларыт.";
 "abuse-filter-disallow-notable" = "Бикипиэдьийэ энциклопедия буоларын быһыытынан, манна ким да диэки буолбакка уонна суолталааҕы эрэ суруллар.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Сиидэ бу көннөрүүгүн хоромньу аҕалыан сөп эбэтэр бандааллааһыҥҥа маарынныыр курдук билиннэ.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Кураанах ыстатыйа биитэр спаам";
+// Fuzzy
 "abuse-filter-warning-caps" = "УЛАХАН БУУКУБАНАН суруллубут";
 "abuse-filter-warning-heading" = "Бу көннөрүү бөрүкүтэ суох көннөрүүгэ маарынныыр. Чахчы бэчээттиигин дуо?";
 "abuse-filter-warning-irrelevant" = "Сөп түбэспэт тас сигэлэр биитэр ойуулар бааллар";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Хатыланааааар буукубалар бааллар";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Көннөрүүҥ мантан бииригэр эбэтэр хаһыгар да сөп түбэһиэн сөп:";
 "account-creation-captcha-cannot-see-image" = " $ 1 ойууну кыайан көрбөккүн дуо?";
 "account-creation-captcha-obtaining" = "Саҥа капчаны ылыы...";
