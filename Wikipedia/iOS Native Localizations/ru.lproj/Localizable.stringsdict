@@ -81,11 +81,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>Доступно на другом языке</string>
 			<key>other</key>
-			<string>Доступно на %1$@ других языках</string>
+			<string>Доступно на %1$d других языках</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
