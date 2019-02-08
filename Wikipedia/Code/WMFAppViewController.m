@@ -119,6 +119,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) RemoteNotificationsModelChangeResponseCoordinator *remoteNotificationsModelChangeResponseCoordinator;
 
+@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong) WMFEditHintController *editHintController;
+
 @end
 
 @implementation WMFAppViewController
@@ -209,7 +212,19 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleWasUpdated:)
+                                                 name:WMFArticleUpdatedNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editPublished:)
+                                                 name:WMFEditPublishedNotification
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    self.editHintController = [[WMFEditHintController alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -473,6 +488,54 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             update();
         }
     });
+}
+
+#pragma mark - Hint
+
+- (void)articleWasUpdated:(NSNotification *)note {
+    WMFArticle *article = (WMFArticle *)note.object;
+    if (![article isKindOfClass:[WMFArticle class]]) {
+        return;
+    }
+    if (article.changedValues[@"savedDate"] == NULL) {
+        return;
+    }
+    UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
+    if (!visibleHintPresentingViewController) {
+        return;
+    }
+    [self toggleHint:self.readingListHintController context:@{WMFReadingListHintController.ContextArticleKey: article}];
+}
+
+- (void)editPublished:(NSNotification *)note {
+    if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
+        return;
+    }
+    [self toggleHint:self.editHintController context:nil];
+}
+
+- (void)toggleHint:(HintController *)hintController context:(nullable NSDictionary<NSString *, id> *)context {
+    UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
+    if (!visibleHintPresentingViewController) {
+        return;
+    }
+    [hintController toggleWithPresenter:visibleHintPresentingViewController context:context theme:self.theme];
+}
+
+- (UIViewController *)visibleViewController {
+    UIViewController *visibleViewController = self.navigationController.visibleViewController;
+    if (visibleViewController == self) {
+        return self.selectedViewController;
+    }
+    return visibleViewController;
+}
+
+- (UIViewController<WMFHintPresenting> *)visibleHintPresentingViewController {
+    UIViewController *visibleViewController = [self visibleViewController];
+    if (![visibleViewController conformsToProtocol:@protocol(WMFHintPresenting)]) {
+        return nil;
+    }
+    return (UIViewController <WMFHintPresenting> *)visibleViewController;
 }
 
 #pragma mark - Background Fetch
@@ -1757,6 +1820,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
+
+    [self.readingListHintController applyTheme:self.theme];
+    [self.editHintController applyTheme:self.theme];
 
     [self setNeedsStatusBarAppearanceUpdate];
 }

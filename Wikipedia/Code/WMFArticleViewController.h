@@ -9,6 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const WMFEditPublishedNotification;
+
 @protocol WMFArticleViewControllerDelegate <NSObject>
 
 - (void)articleController:(WMFArticleViewController *)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated;
