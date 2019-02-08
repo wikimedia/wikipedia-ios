@@ -141,6 +141,16 @@ class EditPublishedPanelViewController: ScrollableEducationPanelViewController {
     }
 }
 
+class NoInternetConnectionPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "no-internet-article")
+        heading = WMFLocalizedString("no-internet-connection", value: "No internet connection", comment: "String used in various places to indicate no internet connection")
+        subheading = WMFLocalizedString("no-internet-connection-article-reload", value: "A newer version of this article might be available, but cannot be loaded without a connection to the internet", comment: "Subtitle for letting users know article cannot be reloaded without internet connection.")
+        primaryButtonTitle = WMFLocalizedString("no-internet-connection-article-reload-button", value: "Return to last saved version", comment: "Title for button to return to last saved version of article.")
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
@@ -380,5 +390,10 @@ extension UIViewController {
         present(panelVC, animated: true, completion: {
             UserDefaults.wmf.wmf_setDidShowFirstEditPublishedPanel(true)
         })
+    }
+
+    @objc func wmf_showNoInternetConnectionPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
+        let panelVC = NoInternetConnectionPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        present(panelVC, animated: true, completion: completion)
     }
 }
