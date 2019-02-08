@@ -185,6 +185,7 @@
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle “%@” kort";
 "explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle begivenheder";
+"action-undo" = "Fortryd";
 "explore-hide-card-prompt" = "Skjul dette kort";
 "explore-main-page-description" = "Hovedside for Wikimedia-projekt";
 "explore-main-page-heading" = "I dag på Wikipedia";
@@ -229,6 +230,7 @@
 "field-token-title" = "Bekræftelseskode";
 "field-username-placeholder" = "indtast brugernavn";
 "field-username-title" = "Brugernavn";
+"action-find-in-page" = "Søg på siden";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Nulstil";
 "forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";

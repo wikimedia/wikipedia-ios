@@ -144,6 +144,7 @@
 "field-token-title" = "Kod za potvrdu";
 "field-username-placeholder" = "upišite korisničko ime";
 "field-username-title" = "Korisničko ime";
+"action-find-in-page" = "Pronađi na stranici";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Postavi novu";
 "forgot-password-email-sent" = "Na e-poštu su poslana uputstva za ponovno postavljanje lozinke";

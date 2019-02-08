@@ -175,6 +175,7 @@
 "field-token-title" = "सत्यापन कोड";
 "field-username-placeholder" = "सदस्य नाम डालें";
 "field-username-title" = "सदस्यनाम";
+"action-find-in-page" = "पेज में ढूंढें";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "रिसेट";
 "forgot-password-email-sent" = "पासवर्ड रिसेट निर्देशों के साथ एक ईमेल भेज दिया गया है";

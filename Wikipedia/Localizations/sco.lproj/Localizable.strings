@@ -121,7 +121,7 @@
 "explore-most-read-more-list-title-for-date" = "Tap on $1";
 "explore-potd-heading" = "Pictur o the day";
 "explore-random-article-heading" = "Allevolie airticle";
-"find-in-page-button-label" = "Find in page";
+"action-find-in-page" = "Find in page";
 "history-clear-confirmation-heading" = "Are ye shuir ye want tae delete aw yer recent eetems?";
 "history-clear-delete-all" = "Aye, delete aw";
 "hockeyapp-alert-send-report" = "Send report";

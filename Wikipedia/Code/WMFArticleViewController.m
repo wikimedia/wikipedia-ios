@@ -46,6 +46,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progress = @"kvo_WMFArticleViewController_articleFetcherPromise_progress";
 
+NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
+
 @interface MWKArticle (WMFSharingActivityViewController)
 
 - (nullable UIActivityViewController *)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
@@ -91,13 +93,13 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
                                         ReadingListsAlertControllerDelegate,
-                                        WMFReadingListHintPresenter,
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
                                         WMFImageScaleTransitionProviding,
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
-                                        DescriptionEditViewControllerDelegate>
+                                        DescriptionEditViewControllerDelegate,
+                                        WMFHintPresenting>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -159,18 +161,18 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 
 @property (nonatomic, getter=isWaitingUntilViewDidAppearToShowToolbar) BOOL waitingUntilViewDidAppearToShowToolbar;
 
-@property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
-
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
 @property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
 @property (nonatomic, readwrite) EditFunnel *editFunnel;
 
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
+@property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
 @end
 
 @implementation WMFArticleViewController
 @synthesize articleFetcherPromise = _articleFetcherPromise;
+@synthesize hintController;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -192,7 +194,6 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
         components.query = nil;
         self.articleURL = components.URL;
         self.dataStore = dataStore;
-        self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
 
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
@@ -593,7 +594,7 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(findInPageButtonPressed)];
-        _findInPageToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, nil, @"Find in page", @"Accessibility label for the Find in Page button");
+        _findInPageToolbarItem.accessibilityLabel = WMFCommonStrings.findInPage;
     }
     return _findInPageToolbarItem;
 }
@@ -802,6 +803,11 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+
+    if (self.viewDidAppearCompletion) {
+        self.viewDidAppearCompletion();
+        self.viewDidAppearCompletion = nil;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -1436,7 +1442,6 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
         [self.savedPagesFunnel logDeleteWithArticleURL:self.articleURL];
         [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle:self.articleURL];
     }
-    [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)handleSaveButtonLongPressGestureRecognizer:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
@@ -1653,7 +1658,9 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
-    [self.readingListHintController scrollViewWillBeginDragging];
+    if (self.hintController) {
+        [self.hintController dismissHintDueToUserInteraction];
+    }
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -1713,7 +1720,6 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 }
 
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
-    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
         [[ReadingListsFunnel shared] logArticleSaveInReadMore:articleURL];
     } else {
@@ -1835,7 +1841,8 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 
 - (void)showTitleDescriptionEditor {
     BOOL hasWikidataDescription = self.article.entityDescription != NULL;
-    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription];
+    NSString *articleLanguage = self.article.url.wmf_language;
+    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription language:articleLanguage];
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
@@ -1857,6 +1864,9 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
     void (^showIntro)(void) = ^{
         @strongify(self);
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+        welcomeVC.completionBlock = ^{
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+        };
         [welcomeVC applyTheme:self.theme];
         [navVC presentViewController:welcomeVC
                             animated:YES
@@ -1866,8 +1876,13 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
                               navVC.view.alpha = 1;
                           }];
     };
-
-    [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
+    [self presentViewController:navVC animated:!needsIntro completion:^{
+        if (needsIntro) {
+            showIntro();
+        } else {
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+        }
+    }];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
@@ -1908,6 +1923,9 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
             weakSelf.webViewController.webView.hidden = NO;
             [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];
+        };
+        self.viewDidAppearCompletion = ^{
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFEditPublishedNotification object:nil];
         };
         [self fetchArticle];
     }
@@ -2158,7 +2176,6 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
 }
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
-    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
         [[ReadingListsFunnel shared] logSaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     } else {

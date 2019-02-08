@@ -173,6 +173,7 @@
 "field-token-title" = "Куоду бигэргэт";
 "field-username-placeholder" = "ааккын суруй";
 "field-username-title" = "Бэлиэ-аат";
+"action-find-in-page" = "Бу сирэйтэн бул";
 "find-in-page-number-matches" = "$1 манна $2";
 "forgot-password-button-title" = "Саҥаттан";
 "forgot-password-email-sent" = "Аһарыгы уларытар туһунан сурук ыытылынна";

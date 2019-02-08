@@ -83,6 +83,7 @@
 "field-token-title" = "Verifikācijas kods";
 "field-username-placeholder" = "ievadi lietotājvārdu";
 "field-username-title" = "Lietotājvārds";
+"action-find-in-page" = "Atrast lapā";
 "forgot-password-button-title" = "Atiestatīt";
 "forgot-password-title" = "Atiestatīt paroli";
 "forgot-password-username-or-email-title" = "Vai";

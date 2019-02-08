@@ -235,6 +235,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "ပံက် ဒၞာဲမဂၠာဲသ္ၚေဝ် Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "တေပ် ဒၞာဲမဖျေဟ်ဒၞာဲ လုပ်ကေတ်ထောအ် ဒၞာဲ တေပ် ဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊ မိက်ဂွံကလေင် ဖျေဟ်ဒၞာဲတၟိမ္ဂး လုပ်ပ္ဍဲဒၞာဲ မဖျေဟ်ဒၞာဲ နကဵု မဍဵု ပ္ဍဲရုပ်အာင်ကန် ၚေက်က";
 "explore-feed-preferences-turn-on-explore-tab-title" = "ပံက် တေပ် Explore?";
+"action-undo" = "ဟွံပ";
 "explore-hide-card-prompt" = "ဗဒန် ကာတ် ဏအ်";
 "explore-main-page-description" = "မုက်လိက်တမ် ပရဝ်ဂျေတ် ဝဳကဳပဳဒဳယာ";
 "explore-main-page-heading" = "တ္ၚဲဏအ် ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
@@ -279,6 +280,7 @@
 "field-token-title" = "စဳစောတ် ကုဒ်";
 "field-username-placeholder" = "စုတ် ယၟုမသုင်စောဲ";
 "field-username-title" = "ယၟုမသုင်စောဲ";
+"action-find-in-page" = "ဂၠာဲ ပ္ဍဲ မုက်လိက်";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ကလေင်တၟိ";
 "forgot-password-email-sent" = "အဳမေလ် နကဵု မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိဂှ် ပလံင်ဏာရ";

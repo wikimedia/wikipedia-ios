@@ -170,6 +170,7 @@
 "explore-feed-preferences-in-the-news-description" = "Szócikkek aktuális eseményekről";
 "explore-feed-preferences-places-description" = "Wikipédia szócikkek a közeledben";
 "explore-feed-preferences-potd-description" = "A nap kiemelt képe a Wikimédia Commonsról";
+"action-undo" = "Visszavonás";
 "explore-hide-card-prompt" = "Kártya elrejtése";
 "explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
@@ -211,6 +212,7 @@
 "field-token-title" = "Ellenőrző kód";
 "field-username-placeholder" = "add meg a szerkesztőnevedet";
 "field-username-title" = "Szerkesztőnév";
+"action-find-in-page" = "Keresés a lapon";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Visszaállítás";
 "forgot-password-email-sent" = "Elküldtük az e-mailt a jelszó-visszaállítási utasításokkal";

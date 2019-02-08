@@ -181,6 +181,7 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "Má chastar an táb Taiscéal as, cuirfear táb Socruithe in ionad an táib Taiscéal.";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Cas air Taiscéal";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Cas air táb Taiscéal?";
+"action-undo" = "Cealaigh";
 "explore-hide-card-prompt" = "Folaigh an cárta seo";
 "explore-main-page-heading" = "Inniu ar Vicipéid";
 "explore-most-read-footer" = "Na hailt uile is mó léamh";
@@ -223,6 +224,7 @@
 "field-token-title" = "Cód fíoraithe";
 "field-username-placeholder" = "iontráil ainm úsáideora";
 "field-username-title" = "Ainm úsáideora";
+"action-find-in-page" = "Aimsigh sa leathanach";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Athshocraigh";
 "forgot-password-email-sent" = "Seoladh ríomhphost le treoracha athshocraithe pasfhocail";

@@ -246,6 +246,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ŝalti Esploradon";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ĉi tio anstataŭos la taban folion Agordoj per la Esplorflua taba folio. Vi povas aliri la agordojn supre de la Esplorflua taba folio, tuŝetante la dentoradan bildsimbolon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ĉu ŝalti la Esplorfluan taban folion?";
+"action-undo" = "Malfari";
 "explore-hide-card-prompt" = "Kaŝi ĉi tiun karton";
 "explore-main-page-description" = "Ĉefa paĝo de vikimediaj projektoj";
 "explore-main-page-heading" = "Hodiaŭ sur Vikipedio";
@@ -290,6 +291,7 @@
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
 "field-username-title" = "Salutnomo";
+"action-find-in-page" = "Trovi en la paĝo";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restarigi";
 "forgot-password-email-sent" = "Retmesaĝo kun instrukcioj pri la restarigo de pasvorto estas sendita";

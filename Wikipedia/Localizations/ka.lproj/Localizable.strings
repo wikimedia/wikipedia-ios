@@ -109,6 +109,7 @@
 "field-token-title" = "დადასტურების კოდი";
 "field-username-placeholder" = "შეიყვანეთ მომხმარებლის სახელი";
 "field-username-title" = "მომხმარებლის სახელი";
+"action-find-in-page" = "გვერდში ძიება";
 "history-clear-all" = "გასუფთავება";
 "history-clear-cancel" = "გაუქმება";
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";

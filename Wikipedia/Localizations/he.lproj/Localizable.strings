@@ -260,6 +260,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "הפעלת הלשונית \"לחקור\"";
 "explore-feed-preferences-turn-on-explore-tab-message" = "זה יגרום להחלפת לשונית ההגדרות בלשונית לחקור. ניתן יהיה לגשת להגדרות מהחלק העליון של הלשונית לחקור, באמצעות לחיצה על כפתור גלגל השיניים";
 "explore-feed-preferences-turn-on-explore-tab-title" = "להפעיל את הלשונית \"לחקור\"?";
+"action-undo" = "ביטול";
 "explore-hide-card-prompt" = "הסתרת כרטיס זה";
 "explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
@@ -306,6 +307,7 @@
 "field-token-title" = "קוד אימות";
 "field-username-placeholder" = "נא להזין שם משתמש";
 "field-username-title" = "שם משתמש";
+"action-find-in-page" = "למצוא בדף";
 "find-in-page-number-matches" = "$1 מתוך $2";
 "forgot-password-button-title" = "אתחול";
 "forgot-password-email-sent" = "נשלח מכתב עם הוראות אתחול ססמה";

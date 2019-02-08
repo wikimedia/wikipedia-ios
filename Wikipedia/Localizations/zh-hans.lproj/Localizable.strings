@@ -263,6 +263,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "打开探索";
 "explore-feed-preferences-turn-on-explore-tab-message" = "这将替换设置标签为探索标签，您可以在探索标签上方通过点按齿轮图标访问设置";
 "explore-feed-preferences-turn-on-explore-tab-title" = "打开探索标签么？";
+"action-undo" = "撤销";
 "explore-hide-card-prompt" = "隐藏此卡片";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
@@ -309,6 +310,7 @@
 "field-token-title" = "验证码";
 "field-username-placeholder" = "输入用户名";
 "field-username-title" = "用户名";
+"action-find-in-page" = "在页面中查找";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重置";
 "forgot-password-email-sent" = "已发送一封带有密码重置说明的电子邮件";

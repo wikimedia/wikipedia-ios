@@ -254,7 +254,7 @@ class WikipediaUITests: XCTestCase {
 
         
         // Article find in page
-        app.wmf_tapFirstButton(withTranslationIn: ["find-in-page-button-label"])
+        app.wmf_tapFirstButton(withTranslationIn: ["action-find-in-page"])
         wmf_snapshot("ArticleFindInPage1")
         if let textField = app.textFields.element(boundBy: 0).wmf_waitUntilExists(){
             if textField.wmf_tap() {

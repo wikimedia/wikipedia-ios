@@ -252,6 +252,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Вклучи го „Истражи“";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ова ќе го замени јазичето „Нагодувања“ со јазичето „Истражи“. Можете да дојдете до нагодувањата над јазичето „Истражи“ стискајќи на иконката со запченик";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Да го всклучам јазичето „Истражи“?";
+"action-undo" = "Врати";
 "explore-hide-card-prompt" = "Скриј ја картичкава";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -298,6 +299,7 @@
 "field-token-title" = "Потврден код";
 "field-username-placeholder" = "внесете корисничко име:";
 "field-username-title" = "Корисничко име";
+"action-find-in-page" = "Најди на страницата";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Задај нова лозинка";
 "forgot-password-email-sent" = "На е-пошта ви се испратени напатствија за задавање на нова лозинка";

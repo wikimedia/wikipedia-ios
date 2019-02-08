@@ -76,13 +76,13 @@ class SectionEditorViewController: UIViewController {
         let configuration = WKWebViewConfiguration()
         let schemeHandler = WMFURLSchemeHandler.shared()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
-        
+        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
-        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme) { [weak self] in
+        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
@@ -257,10 +257,10 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonMessageDelegate {
-    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+    func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton) {
         inputViewsController.buttonSelectionDidChange(button: button)
     }
-    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+    func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton) {
         navigationItemController.disableButton(button: button)
         inputViewsController.disableButton(button: button)
     }

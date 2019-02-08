@@ -191,6 +191,7 @@
 "explore-feed-preferences-turn-off-explore-tab-title" = "Itxi nahi duzu Arakatzaile leihoa?";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Arakatzailea Piztu";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Piztu nahi duzu Arakatzaile leihoa?";
+"action-undo" = "Desegin";
 "explore-hide-card-prompt" = "Txartel hau ezkutatu";
 "explore-main-page-description" = "Wikimedia proiektuen orrialde nagusia";
 "explore-main-page-heading" = "Gaur Wikipedian";
@@ -233,6 +234,7 @@
 "field-token-title" = "Berrespen kodea";
 "field-username-placeholder" = "Erabiltzaile izena sartu";
 "field-username-title" = "Erabiltzaile izena";
+"action-find-in-page" = "Aurkitu orrialdean";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Berrezarri";
 "forgot-password-email-sent" = "Emaila bidali da, pasahitza berrezartzeko jarraibideekin";

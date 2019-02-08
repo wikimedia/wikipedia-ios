@@ -209,6 +209,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Bật Thám hiểm";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Thẻ Cài đặt sẽ được thay thế bằng thẻ Thám hiểm. Bạn có thể truy cập Cài đặt bằng cách chạm vào hình bánh răng ở đầu thẻ Thám hiểm.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Bật thẻ Thám hiểm?";
+"action-undo" = "Hoàn tác";
 "explore-hide-card-prompt" = "Ẩn phiếu này";
 "explore-main-page-description" = "trang đầu của dự án Wikimania";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
@@ -253,6 +254,7 @@
 "field-token-title" = "Mã xác nhận";
 "field-username-placeholder" = "nhập tên người dùng";
 "field-username-title" = "Tên người dùng";
+"action-find-in-page" = "Tìm trong trang";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Mặc định lại";
 "forgot-password-email-sent" = "Đã gửi thư điện tử có hướng dẫn đặt lại mật khẩu";

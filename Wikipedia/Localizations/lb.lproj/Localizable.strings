@@ -152,6 +152,7 @@
 "explore-feed-preferences-global-cards-title" = "Global Kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Dës Kaart verstoppen";
 "explore-feed-preferences-places-description" = "Wikipedia-Artikel an Ärer Géigend";
+"action-undo" = "Réckgängeg maachen";
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
@@ -195,6 +196,7 @@
 "field-token-title" = "Verificatiouns-Code";
 "field-username-placeholder" = "Benotzernumm aginn";
 "field-username-title" = "Benotzernumm";
+"action-find-in-page" = "Op der Säit sichen";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Zrécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";

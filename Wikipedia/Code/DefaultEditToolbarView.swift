@@ -10,22 +10,7 @@ class DefaultEditToolbarView: EditToolbarView {
         chevronButton.imageView?.contentMode = .scaleAspectFit
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
-    }
-    
-    private func button(withTitle title: String, action: Selector) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.addTarget(self, action: action, for: .touchUpInside)
-        return button
-    }
-
-    private func button(withImage image: UIImage, action: Selector) -> UIButton {
-        let button = UIButton(type: .custom)
-        button.setImage(image, for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        button.addTarget(self, action: action, for: .touchUpInside)
-        return button
+        chevronButton.isAccessibilityElement = false
     }
 
     // MARK: Button actions
@@ -104,6 +89,8 @@ class DefaultEditToolbarView: EditToolbarView {
     }
 
     @IBAction private func revealMoreActions(_ sender: UIButton) {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
         let offsetX = scrollView.contentOffset.x
         let actionsType = ActionsType.next(rawValue: offsetX)
         revealMoreActions(ofType: actionsType, with: sender, animated: true)
