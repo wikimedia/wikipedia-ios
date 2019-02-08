@@ -123,8 +123,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 guard searchTerm == self.searchBar.text else {
                     return
                 }
-                self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                
+                let emptyViewType: WMFEmptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+
+                self.resultsViewController.wmf_showEmptyView(of: emptyViewType, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
+
                 self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
             }
         }
