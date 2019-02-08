@@ -12,20 +12,20 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize displayTitle = _displayTitle;
 
 + (NSUInteger)modelVersion {
-    return 3;
+    return 4;
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitle): @"normalizedtitle",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitleHTML): @[@"displaytitle", @"normalizedtitle"],
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, thumbnailURL): @"thumbnail.source",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageURLString): @"originalimage.source",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageWidth): @"originalimage.width",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageHeight): @"originalimage.height",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @"content_urls.desktop.page"};
+    return @{WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitle): @"normalizedtitle",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitleHTML): @[@"displaytitle", @"normalizedtitle"],
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, thumbnailURL): @"thumbnail.source",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageURLString): @"originalimage.source",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageWidth): @"originalimage.width",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageHeight): @"originalimage.height",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @"content_urls.desktop.page"};
 }
 
 + (NSValueTransformer *)thumbnailURLJSONTransformer {
@@ -49,39 +49,29 @@ NS_ASSUME_NONNULL_BEGIN
                                               NSError *__autoreleasing *error) {
             return [NSURL URLWithString:value];
         }
-        reverseBlock:^NSDictionary *(NSURL *articleURL,
-                                     BOOL *success,
-                                     NSError *__autoreleasing *error) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"lang": @"",
-                                                                                        @"normalizedtitle": @""}];
-            NSString *lang = articleURL.wmf_language;
-            if (lang) {
-                dict[@"lang"] = lang;
-            }
-            NSString *normalizedTitle = articleURL.wmf_title;
-            if (normalizedTitle) {
-                dict[@"normalizedtitle"] = normalizedTitle;
-            }
-            return dict;
+        reverseBlock:^NSString *(NSURL *articleURL,
+                                 BOOL *success,
+                                 NSError *__autoreleasing *error) {
+            return articleURL.absoluteString;
         }];
 }
 
 + (NSValueTransformer *)displayTitleHTMLJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
-                                                  BOOL *success,
-                                                  NSError *__autoreleasing *error) {
-                return value[@"displaytitle"] ?: value[@"normalizedtitle"];
+        transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
+                                              BOOL *success,
+                                              NSError *__autoreleasing *error) {
+            return value[@"displaytitle"] ?: value[@"normalizedtitle"];
+        }
+        reverseBlock:^NSDictionary *(NSString *displayTitleHTML,
+                                     BOOL *success,
+                                     NSError *__autoreleasing *error) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"displaytitle": @""}];
+            if (displayTitleHTML) {
+                dict[@"displaytitle"] = displayTitleHTML;
             }
-            reverseBlock:^NSDictionary *(NSString *displayTitleHTML,
-                                         BOOL *success,
-                                         NSError *__autoreleasing *error) {
-                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"displaytitle": @""}];
-                if (displayTitleHTML) {
-                    dict[@"displaytitle"] = displayTitleHTML;
-                }
-                return dict;
-            }];
+            return dict;
+        }];
 }
 
 - (NSString *)displayTitleHTML {
@@ -106,10 +96,10 @@ NS_ASSUME_NONNULL_BEGIN
     static NSDictionary *nonNullKeys = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        nonNullKeys = @{ @"articleURL": @YES,
-                         @"language": @YES,
-                         @"displayTitle": @YES,
-                         @"displayTitleHTML": @YES };
+        nonNullKeys = @{@"articleURL": @YES,
+                        @"language": @YES,
+                        @"displayTitle": @YES,
+                        @"displayTitleHTML": @YES};
     });
 
     if (nonNullKeys[inKey]) {
