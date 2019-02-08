@@ -63,7 +63,6 @@
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
-"alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -198,10 +197,8 @@
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
-"empty-no-feed-title" = "No Internet Connection";
 "empty-no-history-message" = "Keep track of what you've been reading here";
 "empty-no-history-title" = "No history to show";
-"empty-no-internet-title" = "No internet connection";
 "empty-no-reading-lists-message" = "Create lists for places to travel to, favorite topics and much more";
 "empty-no-reading-lists-title" = "Organize saved articles with reading lists";
 "empty-no-saved-pages-in-reading-list-message" = "Save pages to this list to see them appear here";

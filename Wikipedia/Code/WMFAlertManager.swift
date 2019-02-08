@@ -5,7 +5,7 @@ extension NSError {
     
     public func alertMessage() -> String {
         if(self.wmf_isNetworkConnectionError()){
-            return WMFLocalizedString("alert-no-internet", value:"There's no internet connection", comment:"Message shown in an alert banner when there is no connection to the internet.")
+            return CommonStrings.noInternetConnection
         }else{
             return self.localizedDescription
         }

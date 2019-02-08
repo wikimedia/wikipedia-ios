@@ -145,7 +145,7 @@ class NoInternetConnectionPanelViewController: ScrollableEducationPanelViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage(named: "no-internet-article")
-        heading = WMFLocalizedString("no-internet-connection", value: "No internet connection", comment: "String used in various places to indicate no internet connection")
+        heading = CommonStrings.noInternetConnection
         subheading = WMFLocalizedString("no-internet-connection-article-reload", value: "A newer version of this article might be available, but cannot be loaded without a connection to the internet", comment: "Subtitle for letting users know article cannot be reloaded without internet connection.")
         primaryButtonTitle = WMFLocalizedString("no-internet-connection-article-reload-button", value: "Return to last saved version", comment: "Title for button to return to last saved version of article.")
     }
