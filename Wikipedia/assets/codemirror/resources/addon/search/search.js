@@ -137,19 +137,13 @@
         }
       }
 
-      const focusedMatchID = `cm-searching-focus-id-${focusedMatchIndex}`;
-      const focusedMatch = focusOnMatchAtIndex(matches, focusedMatchIndex, focusedMatchID);
+     const focusedMatchID = `cm-searching-focus-id-${focusedMatchIndex}`;
+     const focusedMatch = focusOnMatchAtIndex(matches, focusedMatchIndex, focusedMatchID);
 
+      state.focusedMatchIndex = focusedMatchIndex;
       state.matchesCount = matchesCount;
+      state.focusedMatchID = focusedMatchID;
       state.focusedMatch = focusedMatch;
-
-      if (state.focusedMatch) {
-        state.focusedMatchIndex = focusedMatchIndex;
-        state.focusedMatchID = focusedMatchID;
-      } else {
-        state.focusedMatchIndex = -1;
-        state.focusedMatchID = null;
-      }
 
       const message = {
         findInPageMatchesCount: state.matchesCount,
@@ -161,10 +155,8 @@
     }
 
     function focusOnMatchAtIndex(matches, index, id) {
-      if (matches.length == 0) return null;
       const focusClassName = "cm-searching-focus";
       const match = matches[index];
-      if (!match) return null;
       match.classList.add(focusClassName);
       match.id = id;
       return match
