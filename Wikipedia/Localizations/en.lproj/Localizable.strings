@@ -414,7 +414,7 @@
 "page-edit-history" = "Full edit history";
 "page-history-title" = "Article history";
 "page-issues" = "Page issues";
-"page-last-edited" = "Edited $1 days ago";
+"page-last-edited" = "{{PLURAL:$1|0=Edited today|Edited yesterday|Edited $1 days ago}}";
 "page-location" = "View on a map";
 "page-protected-autoconfirmed" = "This page has been semi-protected.";
 "page-protected-can-not-edit" = "You do not have the rights to edit this page";
