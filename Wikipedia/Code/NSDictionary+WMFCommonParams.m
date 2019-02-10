@@ -25,7 +25,7 @@
                                          //@"any", @"pilicense",
                                          imageWidth, @"pithumbsize",
                                          // revision
-                                         @(1), @"rrvlimit",
+                                         //@(1), @"rrvlimit",
                                          @"ids", @"rvprop",
                                          nil];
 
