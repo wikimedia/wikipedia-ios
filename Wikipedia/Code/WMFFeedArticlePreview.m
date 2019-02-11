@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
-             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @"content_urls.desktop.page"};
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"content_urls.desktop.page", @"lang", @"normalizedtitle"]};
 }
 
 + (NSValueTransformer *)thumbnailURLJSONTransformer {
@@ -44,17 +44,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)articleURLJSONTransformer {
     return [MTLValueTransformer
-        transformerUsingForwardBlock:^NSURL *(NSString *urlString,
+        transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
-            NSURL *url = [NSURL URLWithString:normalizedURLString];
+            NSString *urlString = value[@"content_urls.desktop.page"];
+            NSURL *url = [NSURL URLWithString:urlString];
+            if (!url) {
+                NSString *lang = value[@"lang"];
+                NSString *normalizedTitle = value[@"normalizedtitle"];
+                NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
+                url = [siteURL wmf_URLWithTitle:normalizedTitle];
+            }
             assert(url);
             return url;
         }
-        reverseBlock:^NSString *(NSURL *articleURL,
-                                 BOOL *success,
-                                 NSError *__autoreleasing *error) {
-            return articleURL.absoluteString;
+        reverseBlock:^NSDictionary *(NSURL *articleURL,
+                                     BOOL *success,
+                                     NSError *__autoreleasing *error) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"content_urls.desktop.page": @"",
+                                                                                        @"lang": @"",
+                                                                                        @"normalizedtitle": @""}];
+            NSString *urlString = articleURL.absoluteString;
+            if (urlString) {
+                dict[@"content_urls.desktop.page"] = urlString;
+            }
+            NSString *lang = articleURL.wmf_language;
+            if (lang) {
+                dict[@"lang"] = lang;
+            }
+            NSString *normalizedTitle = articleURL.wmf_title;
+            if (normalizedTitle) {
+                dict[@"normalizedtitle"] = normalizedTitle;
+            }
+            return dict;
         }];
 }
 
