@@ -1303,11 +1303,20 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                          tapCallBack:NULL];
                 }
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
-                [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                          sticky:NO
-                                           dismissPreviousAlerts:NO
-                                                     tapCallBack:NULL];
+                if (force && [error wmf_isNetworkConnectionError]) {
+                    [self wmf_showNoInternetConnectionPanelViewControllerWithTheme:self.theme
+                                                           primaryButtonTapHandler:^(id sender) {
+                                                               [self dismissPresentedViewController];
+                                                           }
+                                                                        completion:^(){
+                                                                        }];
+                } else {
+                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                              sticky:NO
+                                               dismissPreviousAlerts:NO
+                                                         tapCallBack:NULL];
+                }
 
                 if ([error wmf_isNetworkConnectionError]) {
                     [self.reachabilityNotifier start];
