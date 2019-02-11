@@ -7,5 +7,5 @@ rbenv install -s
 
 eval "$(rbenv init -)"
 
-gem install bundler
+gem install bundler -v 1.17.1
 bundle install
