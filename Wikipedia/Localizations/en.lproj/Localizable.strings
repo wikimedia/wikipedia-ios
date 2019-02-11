@@ -414,14 +414,14 @@
 "page-edit-history" = "Full edit history";
 "page-history-title" = "Article history";
 "page-issues" = "Page issues";
-"page-last-edited" = "Edited $1 days ago";
+"page-last-edited" = "{{PLURAL:$1|0=Edited today|Edited yesterday|Edited $1 days ago}}";
 "page-location" = "View on a map";
 "page-protected-autoconfirmed" = "This page has been semi-protected.";
 "page-protected-can-not-edit" = "You do not have the rights to edit this page";
 "page-protected-can-not-edit-title" = "This page is protected";
 "page-protected-other" = "This page has been protected to the following levels: $1";
 "page-protected-sysop" = "This page has been fully protected.";
-"page-read-in-other-languages" = "Available in $1 other languages";
+"page-read-in-other-languages" = "Available in {{PLURAL:$1|$1 other language|$1 other languages}}";
 "page-similar-titles" = "Similar pages";
 "page-talk-page" = "View talk page";
 "pictured" = "pictured";
