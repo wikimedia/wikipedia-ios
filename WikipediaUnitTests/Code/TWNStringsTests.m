@@ -193,6 +193,7 @@
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
             NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            NSLog(@"\n\n%@\n\n", stringsDict);
             NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
@@ -347,6 +348,19 @@
             if (!didFindEnMatchStringAtLeastOnceInQQQMatchString) {
                 // No need keep testing if a string already failed our assertion once.
                 break;
+            }
+        }
+    }
+}
+
+// Translators have been know to add "{{plural..." syntax to strings which don't yet have "{{plural..." in EN, which means the string won't be correctly resolved.
+- (void)testIncomingTranslationStringForBracketSubstitutionsNotPresentInEN {
+    NSDictionary *enPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        if (![lprojFileName isEqualToString:@"qqq.lproj"] && ![lprojFileName isEqualToString:@"en.lproj"]) {
+            NSDictionary *translationPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            for (NSString *key in translationPluralizableStringsDict) {
+                XCTAssertNotNil([enPluralizableStringsDict objectForKey:key], @"\"%@\" plural translation received for \"%@\" string which doesn't yet have EN plural syntax", lprojFileName, key);
             }
         }
     }
