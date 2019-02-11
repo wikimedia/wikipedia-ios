@@ -193,7 +193,6 @@
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
             NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
-            NSLog(@"\n\n%@\n\n", stringsDict);
             NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
