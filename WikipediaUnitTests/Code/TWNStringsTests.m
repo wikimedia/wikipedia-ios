@@ -354,11 +354,15 @@
 
 // Translators have been know to add "{{plural..." syntax to strings which don't yet have "{{plural..." in EN, which means the string won't be correctly resolved.
 - (void)testIncomingTranslationStringForBracketSubstitutionsNotPresentInEN {
+    NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
     NSDictionary *enPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"] && ![lprojFileName isEqualToString:@"en.lproj"]) {
             NSDictionary *translationPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in translationPluralizableStringsDict) {
+                if (![enStrings objectForKey:key]) { // Don't care if this string is no longer used (orphaned translation strings can hang around for a while in languages which don't get regular translation updates)
+                    continue;
+                }
                 XCTAssertNotNil([enPluralizableStringsDict objectForKey:key], @"\"%@\" plural translation received for \"%@\" string which doesn't yet have EN plural syntax", lprojFileName, key);
             }
         }
