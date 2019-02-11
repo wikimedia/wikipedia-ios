@@ -6,24 +6,24 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 6s', os: '12.0'},
+  {device: 'iPhone X', os: '12.1'},
   {device: 'iPad Air 2', os: '11.4'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone 6s', os: '12.0', scheme: "WikipediaRTL"}
+  {device: 'iPhone X', os: '12.1', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
-  {device: 'iPhone 6s', os: '12.0', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone X', os: '12.1', scheme: "Beta Cluster Tests"}
 ]
 
 def get_devices_by_scheme_from_options(options)
-  configs = options[:configurations] || [{device: 'iPhone 6s', os: '11.4'}]
+  configs = options[:configurations] || [{device: 'iPhone X', os: '11.4'}]
   devices_by_scheme = {}
   configs.each do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    device = options[:device] || 'iPhone 6s'
+    device = options[:device] || 'iPhone X'
     os = options[:os]         || '11.4'
     sim = "#{device} (#{os})"
     devices = devices_by_scheme[scheme] || []
