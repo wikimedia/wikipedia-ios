@@ -1420,6 +1420,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 #pragma mark - Save
 
 - (void)toggleSave:(id)sender event:(UIEvent *)event {
+    UIImpactFeedbackGenerator *feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+    [feedbackGenerator impactOccurred];
     [self dismissReadingThemesPopoverIfActive];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && articleToUnsave.userCreatedReadingListsCount > 0) {
