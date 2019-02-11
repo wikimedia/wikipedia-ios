@@ -364,7 +364,7 @@
                 if (isStringOrphaned) { // Don't care if this string is no longer used (deleted strings can hang around in languages which don't get regular translation updates)
                     continue;
                 }
-                XCTAssertNotNil([enPluralizableStringsDict objectForKey:key], @"\"%@\" plural translation received for \"%@\" string which doesn't yet have EN plural syntax", lprojFileName, key);
+                XCTAssertNotNil([enPluralizableStringsDict objectForKey:key], @"\n\n\"%@\" translation containing plurals syntax received for \"%@\" string. The original EN string...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/en&action=edit\n...doesn't have (or possibly need) plural syntax - either plural syntax will need to be added to the EN string or...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/%@&action=edit\n...will need to be updated to remove plural syntax\n\n", lprojFileName, key, key, key, [lprojFileName stringByReplacingOccurrencesOfString:@".lproj" withString:@""]);
             }
         }
     }
