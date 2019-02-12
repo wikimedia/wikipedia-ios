@@ -110,7 +110,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MjG-se-XpY" userLabel="Ordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="27.666666666666686" y="11" width="18" height="22"/>
+                                                                    <rect key="frame" x="29" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-ordered-list"/>
                                                                     <connections>
                                                                         <action selector="increaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="iOK-bK-63R"/>
@@ -118,59 +118,55 @@
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="bkM-bA-d3o" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="55.333333333333314" y="12" width="1" height="20"/>
+                                                                    <rect key="frame" x="57.666666666666686" y="12" width="1" height="20"/>
                                                                     <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
                                                                 <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-Up-JEt" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="66" y="11" width="18" height="22"/>
+                                                                    <rect key="frame" x="69.666666666666686" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-decrease-indent"/>
                                                                     <connections>
                                                                         <action selector="decreaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="bGk-wN-Y56"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRI-FL-20t" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="93.666666666666686" y="11" width="18" height="22"/>
+                                                                    <rect key="frame" x="98.666666666666686" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-increase-indent"/>
                                                                     <connections>
                                                                         <action selector="increaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="chF-z3-SBA"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="zrK-Kd-SnN" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="121.66666666666669" y="12" width="1" height="20"/>
+                                                                    <rect key="frame" x="127.33333333333331" y="12" width="1" height="20"/>
                                                                     <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
                                                                 <button opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcH-OJ-MDT" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="132.33333333333331" y="11" width="19" height="22"/>
+                                                                    <rect key="frame" x="139.33333333333331" y="11" width="19" height="22"/>
                                                                     <state key="normal" image="directionUp"/>
                                                                     <connections>
                                                                         <action selector="moveCursorUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="SvW-C1-J2E"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2W-3b-3SP" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="161" y="11" width="18" height="22"/>
+                                                                    <rect key="frame" x="169.33333333333331" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="directionDown"/>
                                                                     <connections>
                                                                         <action selector="moveCursorDown:" destination="iN0-l3-epB" eventType="touchUpInside" id="i1T-s3-dx4"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3W-Xz-reX" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="188.66666666666669" y="11" width="12" height="22"/>
+                                                                    <rect key="frame" x="198" y="11" width="12" height="22"/>
                                                                     <state key="normal" image="directionLeft"/>
                                                                     <connections>
                                                                         <action selector="moveCursorLeft:" destination="iN0-l3-epB" eventType="touchUpInside" id="8ZI-Dx-nTQ"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="26" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSf-Yo-A6r" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="210.33333333333331" y="11" width="11" height="22"/>
+                                                                    <rect key="frame" x="221" y="11" width="11" height="22"/>
                                                                     <state key="normal" image="directionRight"/>
                                                                     <connections>
                                                                         <action selector="moveCursorRight:" destination="iN0-l3-epB" eventType="touchUpInside" id="cxG-ce-e4c"/>
                                                                     </connections>
                                                                 </button>
-                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZTq-qb-tu7" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="231" y="12" width="1" height="20"/>
-                                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </view>
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
@@ -315,7 +311,6 @@
                 <outletCollection property="separatorViews" destination="zrK-Kd-SnN" collectionClass="NSMutableArray" id="kXp-md-qml"/>
                 <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="y4R-qf-c2o"/>
                 <outletCollection property="separatorViews" destination="sz5-NF-B4w" collectionClass="NSMutableArray" id="yOe-nM-pQb"/>
-                <outletCollection property="separatorViews" destination="ZTq-qb-tu7" collectionClass="NSMutableArray" id="aue-EZ-Cpj"/>
                 <outletCollection property="buttons" destination="IXZ-uI-C7O" collectionClass="NSMutableArray" id="HBK-bY-oJC"/>
                 <outletCollection property="buttons" destination="8GD-c3-cxB" collectionClass="NSMutableArray" id="Pot-iQ-Ucb"/>
                 <outletCollection property="buttons" destination="ycB-mS-qZ3" collectionClass="NSMutableArray" id="b2f-0B-g8H"/>
