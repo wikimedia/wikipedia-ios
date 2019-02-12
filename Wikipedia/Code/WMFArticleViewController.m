@@ -22,7 +22,6 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -1285,18 +1284,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                 self.article = cachedFallback;
                 if (![error wmf_isNetworkConnectionError]) {
                     // don't show offline banner for cached articles
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                              sticky:NO
-                                               dismissPreviousAlerts:NO
-                                                         tapCallBack:NULL];
-                }
-            } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
-                NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
-                if (specialPageActivity) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
-                    [self.navigationController popViewControllerAnimated:NO];
-                    return;
-                } else {
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
                                                dismissPreviousAlerts:NO
