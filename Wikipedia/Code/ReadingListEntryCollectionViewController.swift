@@ -47,10 +47,15 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         self.readingList = readingList
         self.dataStore = dataStore
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -228,6 +233,31 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    // MARK: - Article changes
+    
+    @objc func articleDidChange(_ note: Notification) {
+        guard
+            let article = note.object as? WMFArticle,
+            article.hasChangedValuesForCurrentEventThatAffectSavedArticlesFetch,
+            let articleKey = article.key
+            else {
+                return
+        }
+        
+        let visibleIndexPathsWithChanges = collectionView.indexPathsForVisibleItems.filter { (indexPath) -> Bool in
+            guard let entry = entry(at: indexPath) else {
+                return false
+            }
+            return entry.articleKey == articleKey
+        }
+        
+        guard visibleIndexPathsWithChanges.count > 0 else {
+            return
+        }
+        
+        collectionView.reloadItems(at: visibleIndexPathsWithChanges)
     }
     
     // MARK: - EventLoggingEventValuesProviding
