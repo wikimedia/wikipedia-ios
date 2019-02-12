@@ -8,7 +8,15 @@
         if (_sortedNonDefaultReadingLists != nil) {
             return _sortedNonDefaultReadingLists;
         }
-        _sortedNonDefaultReadingLists = [[self.readingLists filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isDefault == NO"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"canonicalName" ascending:true]]];
+        _sortedNonDefaultReadingLists = [[self.readingLists filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isDefault == NO"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"canonicalName" ascending:YES comparator:^NSComparisonResult(NSString *a, NSString *b) {
+            if (a == nil) {
+                return NSOrderedAscending;
+            }
+            if (b == nil) {
+                return NSOrderedDescending;
+            }
+            return [a localizedStandardCompare:b];
+        }]]];
         return _sortedNonDefaultReadingLists ?: @[];
     }
 }
