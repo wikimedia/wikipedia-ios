@@ -47,7 +47,6 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         self.readingList = readingList
         self.dataStore = dataStore
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,6 +63,8 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         setupEditController()
         isRefreshControlEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
