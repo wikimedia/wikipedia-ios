@@ -1,8 +1,8 @@
 import UIKit
 
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
-    func articlesCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
-    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
+    func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
+    func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
 }
 
 class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ArticleURLProvider, ActionDelegate, EventLoggingEventValuesProviding {
@@ -47,7 +47,6 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         self.readingList = readingList
         self.dataStore = dataStore
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,6 +63,8 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         setupEditController()
         isRefreshControlEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,14 +88,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     func configure(cell: SavedArticlesCollectionViewCell, for entry: ReadingListEntry, at indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditing = editController.isBatchEditing
-        
         guard let article = article(for: entry) else {
             return
         }
-        
-        cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+        cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: readingList.isDefault)
+        if readingList.isDefault {
+            cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
+        }
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
@@ -123,7 +124,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        delegate?.articlesCollectionViewControllerDidChangeEmptyState(self)
+        delegate?.readingListEntryCollectionViewControllerDidChangeEmptyState(self)
         super.isEmptyDidChange()
     }
     
@@ -137,8 +138,8 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     lazy var sortActions: [SortActionType: SortAction] = {
         let moc = dataStore.viewContext
-        let updateSortOrder: (Int) -> Void = { (rawValue: Int) in
-            self.readingList.sortOrder = NSNumber(value: rawValue)
+        let updateSortOrder: (Int) -> Void = { [weak self] (rawValue: Int) in
+            self?.readingList.sortOrder = NSNumber(value: rawValue)
             if moc.hasChanges {
                 do {
                     try moc.save()
@@ -148,9 +149,9 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             }
         }
         
-        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { [weak self] (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
             updateSortOrder(rawValue)
-            self.reset()
+            self?.reset()
         }
         
         let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: handler)
@@ -457,7 +458,7 @@ extension ReadingListEntryCollectionViewController: CollectionViewUpdaterDelegat
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
-        delegate?.articlesCollectionViewController(self, didUpdate: collectionView)
+        delegate?.readingListEntryCollectionViewController(self, didUpdate: collectionView)
     }
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) {
