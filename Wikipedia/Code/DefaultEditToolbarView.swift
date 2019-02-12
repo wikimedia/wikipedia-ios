@@ -63,6 +63,10 @@ class DefaultEditToolbarView: EditToolbarView {
         delegate?.textFormattingProvidingDidTapCursorRight()
     }
 
+    @IBAction private func toggleTemplate(_ sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapTemplate()
+    }
+
     @IBAction private func showFindInPage(_ sender: UIButton) {
         delegate?.textFormattingProvidingDidTapFindInPage()
     }
