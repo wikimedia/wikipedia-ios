@@ -138,8 +138,8 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     lazy var sortActions: [SortActionType: SortAction] = {
         let moc = dataStore.viewContext
-        let updateSortOrder: (Int) -> Void = { (rawValue: Int) in
-            self.readingList.sortOrder = NSNumber(value: rawValue)
+        let updateSortOrder: (Int) -> Void = { [weak self] (rawValue: Int) in
+            self?.readingList.sortOrder = NSNumber(value: rawValue)
             if moc.hasChanges {
                 do {
                     try moc.save()
@@ -149,9 +149,9 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             }
         }
         
-        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { [weak self] (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
             updateSortOrder(rawValue)
-            self.reset()
+            self?.reset()
         }
         
         let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: handler)
