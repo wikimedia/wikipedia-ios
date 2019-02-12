@@ -320,6 +320,7 @@
                 <outletCollection property="buttons" destination="8GD-c3-cxB" collectionClass="NSMutableArray" id="Pot-iQ-Ucb"/>
                 <outletCollection property="buttons" destination="ycB-mS-qZ3" collectionClass="NSMutableArray" id="b2f-0B-g8H"/>
                 <outletCollection property="buttons" destination="MjG-se-XpY" collectionClass="NSMutableArray" id="euE-8S-y9R"/>
+                <outletCollection property="separatorViews" destination="bkM-bA-d3o" collectionClass="NSMutableArray" id="Grh-Yo-vCr"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>
