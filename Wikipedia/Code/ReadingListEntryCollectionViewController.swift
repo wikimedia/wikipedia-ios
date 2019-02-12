@@ -240,7 +240,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     @objc func articleDidChange(_ note: Notification) {
         guard
             let article = note.object as? WMFArticle,
-            article.hasChangedValuesForCurrentEventThatAffectSavedArticlesFetch,
+            article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
             let articleKey = article.key
             else {
                 return
