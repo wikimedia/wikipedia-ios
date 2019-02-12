@@ -195,18 +195,6 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         return fetchedResultsController?.object(at: indexPath)
     }
     
-    func readingLists(for article: WMFArticle) -> [ReadingList] {
-        return article.readingLists?.filter { !$0.isDefault }.sorted(by: { (a, b) -> Bool in
-            guard let aName = a.canonicalName else {
-                return true
-            }
-            guard let bName = b.canonicalName else {
-                return false
-            }
-            return aName.localizedCaseInsensitiveCompare(bName) == .orderedAscending
-        }) ?? []
-    }
-    
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
