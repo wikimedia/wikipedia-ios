@@ -88,14 +88,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     func configure(cell: SavedArticlesCollectionViewCell, for entry: ReadingListEntry, at indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditing = editController.isBatchEditing
-        
         guard let article = article(for: entry) else {
             return
         }
-        
-        cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+        cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: readingList.isDefault)
+        if readingList.isDefault {
+            cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
+        }
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
