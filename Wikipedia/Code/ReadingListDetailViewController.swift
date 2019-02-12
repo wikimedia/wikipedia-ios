@@ -8,7 +8,7 @@ class ReadingListDetailViewController: ViewController {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
-    let articlesCollectionViewController: ArticlesCollectionViewController
+    let articlesCollectionViewController: ReadingListEntryCollectionViewController
     
     var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
@@ -20,7 +20,7 @@ class ReadingListDetailViewController: ViewController {
         self.dataStore = dataStore
         self.displayType = displayType
         readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
-        articlesCollectionViewController = ArticlesCollectionViewController(for: readingList, with: dataStore)
+        articlesCollectionViewController = ReadingListEntryCollectionViewController(for: readingList, with: dataStore)
         articlesCollectionViewController.emptyViewType = .noSavedPagesInReadingList
         super.init()
         searchBarExtendedViewController = SearchBarExtendedViewController()
@@ -274,15 +274,15 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
 }
 
-// MARK: - ArticlesCollectionViewControllerDelegate
+// MARK: - ReadingListEntryCollectionViewControllerDelegate
 
-extension ReadingListDetailViewController: ArticlesCollectionViewControllerDelegate {
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, didUpdate collectionView: UICollectionView) {
+extension ReadingListDetailViewController: ReadingListEntryCollectionViewControllerDelegate {
+    func articlesCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView) {
         readingListDetailUnderBarViewController.reconfigureAlert(for: readingList)
         readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
     }
     
-    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ArticlesCollectionViewController) {
+    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController) {
         let isReadingListEmpty = readingList.countOfEntries == 0
         let isEmptyStateMatchingReadingListEmptyState = viewController.isEmpty == isReadingListEmpty
         if !isEmptyStateMatchingReadingListEmptyState {

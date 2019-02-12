@@ -1,6 +1,6 @@
 import UIKit
 
-class SavedArticlesCollectionViewController: ArticlesCollectionViewController {
+class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewController {
     
     //This is not a convenience initalizer because this allows us to not inherit
     //the super class initializer, so clients can't pass any arbitrary reading list to this
