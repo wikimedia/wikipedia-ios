@@ -95,7 +95,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         guard let text = captchaViewController?.solution else {
             return false
         }
-        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count > 0)
+        return !(text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)).isEmpty
     }
     
     fileprivate func requiredInputFields() -> [UITextField] {

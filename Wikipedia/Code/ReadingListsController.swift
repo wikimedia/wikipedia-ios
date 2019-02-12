@@ -258,7 +258,7 @@ public typealias ReadingListsController = WMFReadingListsController
     /// - Parameters:
     ///   - readingListEntriess: the reading lists to delete
     internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
-        guard readingListEntries.count > 0 else {
+        guard !readingListEntries.isEmpty else {
             return
         }
         var lists: Set<ReadingList> = []
@@ -290,7 +290,7 @@ public typealias ReadingListsController = WMFReadingListsController
     }
     
     internal func add(articles: [WMFArticle], to readingList: ReadingList, in moc: NSManagedObjectContext) throws {
-        guard articles.count > 0 else {
+        guard !articles.isEmpty else {
             return
         }
 
@@ -699,9 +699,9 @@ extension WMFArticle {
     
     func readingListsDidChange() {
         let readingLists = self.readingLists ?? []
-        if readingLists.count == 0 && savedDate != nil {
+        if readingLists.isEmpty && savedDate != nil {
             savedDate = nil
-        } else if readingLists.count > 0 && savedDate == nil {
+        } else if !readingLists.isEmpty && savedDate == nil {
             savedDate = Date()
         }
     }
@@ -710,7 +710,7 @@ extension WMFArticle {
         guard let readingLists = self.readingLists else {
             return false
         }
-        return readingLists.filter { $0.isDefault }.count > 0
+        return !readingLists.filter { $0.isDefault }.isEmpty
     }
     
     @objc public var isOnlyInDefaultList: Bool {

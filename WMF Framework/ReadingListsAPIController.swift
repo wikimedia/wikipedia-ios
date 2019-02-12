@@ -248,7 +248,7 @@ class ReadingListsAPIController: Fetcher {
         - error: Any error preventing list creation
     */
     func createLists(_ lists: [(name: String, description: String?)], completion: @escaping (_ listIDs: [(Int64?, Error?)]?,_ error: Error?) -> Swift.Void ) {
-        guard lists.count > 0 else {
+        guard !lists.isEmpty else {
             completion([], nil)
             return
         }
@@ -348,7 +348,7 @@ class ReadingListsAPIController: Fetcher {
         - error: Any error preventing entry creation
      */
     func addEntriesToList(withListID listID: Int64, entries: [(project: String, title: String)], completion: @escaping (_ entryIDs: [(Int64?, Error?)]?,_ error: Error?) -> Swift.Void ) {
-        guard entries.count > 0 else {
+        guard !entries.isEmpty else {
             completion([], nil)
             return
         }

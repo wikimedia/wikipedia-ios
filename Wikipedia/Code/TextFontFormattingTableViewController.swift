@@ -6,7 +6,7 @@ class TextFontFormattingTableViewController: TextFormattingProvidingTableViewCon
             return false
         }
         let viewControllers = navigationController.viewControllers
-        guard viewControllers.count > 0, let first = viewControllers.first else {
+        guard !viewControllers.isEmpty, let first = viewControllers.first else {
             return false
         }
         return viewControllers.count == 1 && first is TextFontFormattingTableViewController

@@ -444,7 +444,7 @@ func importLocalizationsFromTWN(_ path: String) {
             }
             let stringsFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings"
             if locale != "en" { // only write the english plurals, skip the main file
-                if strings.count > 0 {
+                if !strings.isEmpty {
                     try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
                 } else {
                     do {
@@ -486,7 +486,7 @@ func importLocalizationsFromTWN(_ path: String) {
             
             let stringsDictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
             
-            if stringsDict.count > 0 {
+            if !stringsDict.isEmpty {
                 stringsDict.write(toFile: stringsDictFilePath, atomically: true)
             } else {
                 pathsForEnglishPlurals.append(stringsDictFilePath)

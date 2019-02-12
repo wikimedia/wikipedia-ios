@@ -57,7 +57,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     }
     
     var shouldUseFirstSuggestionAsDefault: Bool {
-        return searches[PlaceSearchSuggestionController.suggestionSection].count == 0 && searches[PlaceSearchSuggestionController.completionSection].count > 0
+        return searches[PlaceSearchSuggestionController.suggestionSection].isEmpty && !searches[PlaceSearchSuggestionController.completionSection].isEmpty
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,7 +112,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard searches[section].count > 0, section < 2, let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier) as? WMFTableHeaderFooterLabelView else {
+        guard !searches[section].isEmpty, section < 2, let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier) as? WMFTableHeaderFooterLabelView else {
             return nil
         }
     

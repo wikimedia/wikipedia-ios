@@ -556,7 +556,7 @@ extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
 // MARK: - Event logging
 extension SearchViewController {
     private var source: String {
-        guard let navigationController = navigationController, navigationController.viewControllers.count > 0 else {
+        guard let navigationController = navigationController, !navigationController.viewControllers.isEmpty else {
             return "unknown"
         }
         let viewControllers = navigationController.viewControllers

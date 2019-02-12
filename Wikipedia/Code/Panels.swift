@@ -167,7 +167,7 @@ extension UIViewController {
         guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
             return false
         }
-        return fetchedObjects.count > 0
+        return !fetchedObjects.isEmpty
     }
         
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {

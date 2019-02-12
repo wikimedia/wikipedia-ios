@@ -126,7 +126,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         let collectionViewSpacing: CGFloat = 10
         var height = prototypeCell.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
 
-        if articles.count == 0 {
+        if articles.isEmpty {
             height = 0
         }
 
