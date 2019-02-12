@@ -1,8 +1,8 @@
 import UIKit
 
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
-    func articlesCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
-    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
+    func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
+    func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
 }
 
 class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ArticleURLProvider, ActionDelegate, EventLoggingEventValuesProviding {
@@ -123,7 +123,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        delegate?.articlesCollectionViewControllerDidChangeEmptyState(self)
+        delegate?.readingListEntryCollectionViewControllerDidChangeEmptyState(self)
         super.isEmptyDidChange()
     }
     
@@ -457,7 +457,7 @@ extension ReadingListEntryCollectionViewController: CollectionViewUpdaterDelegat
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
-        delegate?.articlesCollectionViewController(self, didUpdate: collectionView)
+        delegate?.readingListEntryCollectionViewController(self, didUpdate: collectionView)
     }
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) {
