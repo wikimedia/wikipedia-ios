@@ -1,8 +1,11 @@
 #import <CoreData/CoreData.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class ReadingList;
 
 @interface WMFArticle : NSManagedObject
+
+@property (atomic, readonly) NSArray<ReadingList *> *sortedNonDefaultReadingLists;
 
 @end
 
