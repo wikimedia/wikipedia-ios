@@ -205,7 +205,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 }
 
 + (NSArray<NSDictionary *> *)savedEntryDataFromListWithUnknownSchema:(NSDictionary *)data {
-    return [data[MWKSavedPageExportedEntriesKey] wmf_reverseArray];
+    return data[MWKSavedPageExportedEntriesKey];
 }
 
 @end
