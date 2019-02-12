@@ -265,6 +265,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 - (NSURL *)wmf_articleDatabaseKeyURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    components.path = [components.path stringByRemovingPercentEncoding];
     components.fragment = nil;
     components.query = nil;
     components.scheme = @"https";
