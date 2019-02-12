@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize displayTitle = _displayTitle;
 
 + (NSUInteger)modelVersion {
-    return 3;
+    return 4;
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"lang", @"normalizedtitle"] };
+              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"content_urls.desktop.page", @"lang", @"normalizedtitle"]} };
 }
 
 + (NSValueTransformer *)thumbnailURLJSONTransformer {
@@ -47,16 +47,27 @@ NS_ASSUME_NONNULL_BEGIN
         transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
-            NSString *lang = value[@"lang"];
-            NSString *normalizedTitle = value[@"normalizedtitle"];
-            NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
-            return [siteURL wmf_URLWithTitle:normalizedTitle];
+            NSString *urlString = value[@"content_urls.desktop.page"];
+            NSURL *url = [NSURL URLWithString:urlString];
+            if (!url) {
+                NSString *lang = value[@"lang"];
+                NSString *normalizedTitle = value[@"normalizedtitle"];
+                NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
+                url = [siteURL wmf_URLWithTitle:normalizedTitle];
+            }
+            assert(url);
+            return url;
         }
         reverseBlock:^NSDictionary *(NSURL *articleURL,
                                      BOOL *success,
                                      NSError *__autoreleasing *error) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"lang": @"",
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"content_urls.desktop.page": @"",
+                                                                                        @"lang": @"",
                                                                                         @"normalizedtitle": @""}];
+            NSString *urlString = articleURL.absoluteString;
+            if (urlString) {
+                dict[@"content_urls.desktop.page"] = urlString;
+            }
             NSString *lang = articleURL.wmf_language;
             if (lang) {
                 dict[@"lang"] = lang;
