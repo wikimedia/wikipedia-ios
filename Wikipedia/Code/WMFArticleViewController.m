@@ -1756,8 +1756,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showTalkPage {
-    SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleTalkPageURL];
-    [self.navigationController presentViewController:safariController animated:YES completion:nil];
+    [self wmf_openExternalUrl:self.articleTalkPageURL];
 }
 
 - (NSURL *)articleTalkPageURL {
