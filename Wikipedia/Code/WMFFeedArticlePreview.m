@@ -16,17 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitle): @"normalizedtitle",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitleHTML): @[@"displaytitle", @"normalizedtitle"],
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, thumbnailURL): @"thumbnail.source",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageURLString): @"originalimage.source",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageWidth): @"originalimage.width",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageHeight): @"originalimage.height",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
-              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"content_urls.desktop.page", @"lang", @"normalizedtitle"]} };
-}
+    return @{WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitle): @"normalizedtitle",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitleHTML): @[@"displaytitle", @"normalizedtitle"],
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, thumbnailURL): @"thumbnail.source",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageURLString): @"originalimage.source",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageWidth): @"originalimage.width",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageHeight): @"originalimage.height",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"content_urls.desktop.page", @"lang", @"normalizedtitle"]};
+};
 
 + (NSValueTransformer *)thumbnailURLJSONTransformer {
     return [MTLValueTransformer
@@ -82,20 +82,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)displayTitleHTMLJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
-                                                  BOOL *success,
-                                                  NSError *__autoreleasing *error) {
-                return value[@"displaytitle"] ?: value[@"normalizedtitle"];
+        transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
+                                              BOOL *success,
+                                              NSError *__autoreleasing *error) {
+            return value[@"displaytitle"] ?: value[@"normalizedtitle"];
+        }
+        reverseBlock:^NSDictionary *(NSString *displayTitleHTML,
+                                     BOOL *success,
+                                     NSError *__autoreleasing *error) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"displaytitle": @""}];
+            if (displayTitleHTML) {
+                dict[@"displaytitle"] = displayTitleHTML;
             }
-            reverseBlock:^NSDictionary *(NSString *displayTitleHTML,
-                                         BOOL *success,
-                                         NSError *__autoreleasing *error) {
-                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"displaytitle": @""}];
-                if (displayTitleHTML) {
-                    dict[@"displaytitle"] = displayTitleHTML;
-                }
-                return dict;
-            }];
+            return dict;
+        }];
 }
 
 - (NSString *)displayTitleHTML {
@@ -120,10 +120,10 @@ NS_ASSUME_NONNULL_BEGIN
     static NSDictionary *nonNullKeys = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        nonNullKeys = @{ @"articleURL": @YES,
-                         @"language": @YES,
-                         @"displayTitle": @YES,
-                         @"displayTitleHTML": @YES };
+        nonNullKeys = @{@"articleURL": @YES,
+                        @"language": @YES,
+                        @"displayTitle": @YES,
+                        @"displayTitleHTML": @YES};
     });
 
     if (nonNullKeys[inKey]) {
