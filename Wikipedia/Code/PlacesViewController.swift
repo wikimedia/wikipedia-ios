@@ -630,7 +630,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                             self.mapRegion = self.currentSearchRegion
                         }
                     }
-                    if articlesToShow.count == 0 {
+                    if articlesToShow.isEmpty {
                         self.wmf_showAlertWithMessage(WMFLocalizedString("places-no-saved-articles-have-location", value:"None of your saved articles have location information", comment:"Indicates to the user that none of their saved articles have location information"))
                     }
                 } catch let error {
@@ -649,7 +649,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         let nserror = error as NSError
                         if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
                             let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
-                            if (!completions.isEmpty) {
+                            if !completions.isEmpty {
                                 self.showDidYouMeanButton(search: completions[0])
                             }
                         }
@@ -1893,7 +1893,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
             let searchText = searchBar.text ?? ""
-            if !searchText.wmf_hasNonWhitespaceText && recentSearches.count == 0 {
+            if !searchText.wmf_hasNonWhitespaceText && recentSearches.isEmpty {
                 setupEmptySearchOverlayView()
                 emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
                 searchSuggestionView.superview?.addSubview(emptySearchOverlayView)

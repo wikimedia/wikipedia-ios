@@ -1,6 +1,6 @@
 import UIKit
 
-class SavedArticlesCollectionViewController: ArticlesCollectionViewController {
+class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewController {
     
     //This is not a convenience initalizer because this allows us to not inherit
     //the super class initializer, so clients can't pass any arbitrary reading list to this
@@ -76,7 +76,7 @@ class SavedArticlesCollectionViewController: ArticlesCollectionViewController {
         }
         cell.isBatchEditing = editController.isBatchEditing
         cell.delegate = self
-        cell.tags = (readingLists: readingLists(for: article), indexPath: indexPath)
+        cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
@@ -91,7 +91,7 @@ extension SavedArticlesCollectionViewController: SavedArticlesCollectionViewCell
         guard let article = article(at: tag.indexPath) else {
             return
         }
-        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: readingLists(for: article)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
+        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: article.sortedNonDefaultReadingLists) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
         wmf_push(viewController, animated: true)
     }

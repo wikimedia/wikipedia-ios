@@ -57,7 +57,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     }
     
     var shouldUseFirstSuggestionAsDefault: Bool {
-        return searches[PlaceSearchSuggestionController.suggestionSection].count == 0 && !searches[PlaceSearchSuggestionController.completionSection].isEmpty
+        return searches[PlaceSearchSuggestionController.suggestionSection].isEmpty && !searches[PlaceSearchSuggestionController.completionSection].isEmpty
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
