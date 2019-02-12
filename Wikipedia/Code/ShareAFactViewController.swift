@@ -71,7 +71,7 @@ class ShareAFactViewController: UIViewController {
         
         let codes: [String] = imageLicense?.code?.lowercased().components(separatedBy: "-") ?? []
 
-        if codes.count == 0 {
+        if codes.isEmpty {
             imageLicenseView.licenseCodes = ["generic"]
             if let shortDescription = imageLicense?.shortDescription {
                 let label = UILabel()

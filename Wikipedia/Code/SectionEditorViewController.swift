@@ -163,7 +163,7 @@ class SectionEditorViewController: UIViewController {
                 
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
-                    allowedGroups.count > 0 {
+                    !allowedGroups.isEmpty {
                     let message: String
                     if allowedGroups.contains("autoconfirmed") {
                         message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")

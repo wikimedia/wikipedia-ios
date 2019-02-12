@@ -165,7 +165,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.exploreFeedTitle
-        assert(preferredLanguages.count > 0)
+        assert(!preferredLanguages.isEmpty)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }
 

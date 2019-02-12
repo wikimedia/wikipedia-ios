@@ -173,7 +173,7 @@ class CollectionAsyncMapTests: XCTestCase {
         }
         let expectation = XCTestExpectation(description: "wait for completion")
         identifiers.asyncCompactMap(randomDelayBlock) { (processedIdentifiers) in
-            XCTAssert(processedIdentifiers.filter { $0.hasPrefix("A") }.count == 0)
+            XCTAssert(processedIdentifiers.filter { $0.hasPrefix("A") }.isEmpty)
             expectation.fulfill()
         }
         wait(for:[expectation], timeout: 5, enforceOrder: true)

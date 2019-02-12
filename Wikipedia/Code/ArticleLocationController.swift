@@ -9,7 +9,7 @@ import Foundation
             keyValueRequest.predicate = NSPredicate(format: "key == %@", migrationKey)
             
             let keyValueResult = try managedObjectContext.fetch(keyValueRequest)
-            return keyValueResult.count == 0 || (keyValueResult[0].value == nil)
+            return keyValueResult.isEmpty || (keyValueResult[0].value == nil)
         } catch {
             return true
         }
@@ -24,7 +24,7 @@ import Foundation
             
             let results = try managedObjectContext.fetch(request)
             
-            if results.count == 0, let entity = NSEntityDescription.entity(forEntityName: "WMFKeyValue", in: managedObjectContext) {
+            if results.isEmpty, let entity = NSEntityDescription.entity(forEntityName: "WMFKeyValue", in: managedObjectContext) {
                 let kv = WMFKeyValue(entity: entity, insertInto: managedObjectContext)
                 kv.key = migrationKey
                 kv.value = NSNumber(value: true)

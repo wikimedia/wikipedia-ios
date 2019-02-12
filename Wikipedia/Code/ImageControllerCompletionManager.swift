@@ -18,7 +18,7 @@ internal class ImageControllerCompletionManager<T> {
     func add(_ completion: T, priority: Float, forGroup group: String, identifier: String, token: String, isFirstCompletion:@escaping (Bool) -> Void) {
         queue.async {
             var completionsForKey = self.completions[identifier] ?? [:]
-            let isFirst = completionsForKey.count == 0
+            let isFirst = completionsForKey.isEmpty
             if !isFirst {
                 self.tasks[group]?[identifier]?.priority = priority
             }
@@ -51,7 +51,7 @@ internal class ImageControllerCompletionManager<T> {
                 return
             }
             completions.removeValue(forKey: token)
-            if completions.count == 0 {
+            if completions.isEmpty {
                 self.completions.removeValue(forKey: identifier)
                 task.cancel()
                 tasks.removeValue(forKey: identifier)
