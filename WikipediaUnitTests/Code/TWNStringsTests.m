@@ -354,16 +354,11 @@
 
 // Translators have been know to add "{{plural..." syntax to strings which don't yet have "{{plural..." in EN, which means the string won't be correctly resolved.
 - (void)testIncomingTranslationStringForBracketSubstitutionsNotPresentInEN {
-    NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
     NSDictionary *enPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"] && ![lprojFileName isEqualToString:@"en.lproj"]) {
             NSDictionary *translationPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in translationPluralizableStringsDict) {
-                BOOL isStringOrphaned = ![enStrings objectForKey:key];
-                if (isStringOrphaned) { // Don't care if this string is no longer used (deleted strings can hang around in languages which don't get regular translation updates)
-                    continue;
-                }
                 XCTAssertNotNil([enPluralizableStringsDict objectForKey:key], @"\n\n\"%@\" translation containing plurals syntax received for \"%@\" string. The original EN string...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/en&action=edit\n...doesn't have (or possibly need) plural syntax - either plural syntax will need to be added to the EN string or the translation...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/%@&action=edit\n...will need to be updated to remove plural syntax\n\n", lprojFileName, key, key, key, [lprojFileName stringByReplacingOccurrencesOfString:@".lproj" withString:@""]);
             }
         }
