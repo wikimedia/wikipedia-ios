@@ -478,7 +478,7 @@
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
 "reading-list-entry-limit-exceeded-message" = "Please decrease your number of articles in this list to $1 to resume syncing of all articles in this list.";
-"reading-list-entry-limit-exceeded-title" = "You have exceeded the limit of $1 articles per account.";
+"reading-list-entry-limit-exceeded-title" = "You have exceeded the limit of {{PLURAL:$1|$1 article|$1 articles}} per account.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Article|Articles}} cannot be added to this list. You have reached the limit of $2 articles per reading list for $3";
 "reading-list-exists-with-same-name" = "Reading list name already in use";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
@@ -491,7 +491,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limit hit for unsorted articles";
 "reading-list-list-limit-exceeded-message" = "This reading list and the articles saved to it will not be synced, please decrease your number of lists to $1 to resume syncing of this list.";
-"reading-list-list-limit-exceeded-title" = "You have exceeded the limit of $1 reading lists per account.";
+"reading-list-list-limit-exceeded-title" = "You have exceeded the limit of {{PLURAL:$1|$1 reading list|$1 reading lists}} per account.";
 "reading-list-list-limit-reached" = "You have reached the limit of $1 reading lists per account";
 "reading-list-login-button-title" = "Log in to sync your saved articles";
 "reading-list-login-or-create-account-button-title" = "Log in or create account";
