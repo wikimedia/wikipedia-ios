@@ -334,7 +334,7 @@ static NSLock *mLock, *nLock;
 - (void)presentMessageView
 {
   [mLock lock];
-  if (self.messages.count == 0) {
+  if (self.messages.isEmpty) {
     [mLock unlock];
     return;
   }
@@ -406,7 +406,7 @@ static NSLock *mLock, *nLock;
 + (void)interfaceDidRotate
 {
   [mLock lock];
-  if ([RMessage sharedMessage].messages.count == 0) {
+  if ([RMessage sharedMessage].messages.isEmpty) {
     [mLock unlock];
     return;
   }
