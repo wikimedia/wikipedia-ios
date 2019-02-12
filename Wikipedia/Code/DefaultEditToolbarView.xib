@@ -313,7 +313,6 @@
                 <outletCollection property="buttons" destination="nSf-Yo-A6r" collectionClass="NSMutableArray" id="9q3-3f-E1a"/>
                 <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="KqU-4Y-QrM"/>
                 <outletCollection property="separatorViews" destination="zrK-Kd-SnN" collectionClass="NSMutableArray" id="kXp-md-qml"/>
-                <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="y4R-qf-c2o"/>
                 <outletCollection property="separatorViews" destination="sz5-NF-B4w" collectionClass="NSMutableArray" id="yOe-nM-pQb"/>
                 <outletCollection property="separatorViews" destination="ZTq-qb-tu7" collectionClass="NSMutableArray" id="aue-EZ-Cpj"/>
                 <outletCollection property="buttons" destination="IXZ-uI-C7O" collectionClass="NSMutableArray" id="HBK-bY-oJC"/>
