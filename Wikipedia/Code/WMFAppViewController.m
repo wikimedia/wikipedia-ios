@@ -535,7 +535,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (![visibleViewController conformsToProtocol:@protocol(WMFHintPresenting)]) {
         return nil;
     }
-    return (UIViewController <WMFHintPresenting> *)visibleViewController;
+    return (UIViewController<WMFHintPresenting> *)visibleViewController;
 }
 
 #pragma mark - Background Fetch
@@ -1201,28 +1201,34 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 done();
                 return NO;
             }
-            [[WMFSession shared] fetchSummaryForArticleURL:URL priority:NSURLSessionTaskPriorityHigh completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    dispatch_block_t bail = ^{
-                        [self wmf_openExternalUrl:URL];
-                    };
-                    NSDictionary *namespaceDictionary = result[@"namespace"];
-                    if (![namespaceDictionary isKindOfClass:[NSDictionary class]]) {
-                        bail();
-                        return;
-                    }
-                    NSNumber *namespaceId = namespaceDictionary[@"id"];
-                    if (![namespaceId isKindOfClass:[NSNumber class]]) {
-                        bail();
-                        return;
-                    }
-                    if ([namespaceId integerValue] != 0) {
-                        bail();
-                        return;
-                    }
-                    [self showArticleForURL:URL animated:animated completion:done];
-                });
-            }];
+            [[WMFSession shared] fetchSummaryForArticleURL:URL
+                                                  priority:NSURLSessionTaskPriorityHigh
+                                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 dispatch_block_t bail = ^{
+                                                     [self wmf_openExternalUrl:URL];
+                                                 };
+                                                 if (error) {
+                                                     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+                                                     return;
+                                                 }
+                                                 NSDictionary *namespaceDictionary = result[@"namespace"];
+                                                 if (![namespaceDictionary isKindOfClass:[NSDictionary class]]) {
+                                                     bail();
+                                                     return;
+                                                 }
+                                                 NSNumber *namespaceId = namespaceDictionary[@"id"];
+                                                 if (![namespaceId isKindOfClass:[NSNumber class]]) {
+                                                     bail();
+                                                     return;
+                                                 }
+                                                 if ([namespaceId integerValue] != 0) {
+                                                     bail();
+                                                     return;
+                                                 }
+                                                 [self showArticleForURL:URL animated:animated completion:done];
+                                             });
+                                         }];
             return YES;
         } break;
         case WMFUserActivityTypeSettings:
