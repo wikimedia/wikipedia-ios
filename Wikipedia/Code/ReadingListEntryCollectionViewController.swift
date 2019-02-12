@@ -196,20 +196,15 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     }
     
     func readingLists(for article: WMFArticle) -> [ReadingList] {
-        guard let moc = article.managedObjectContext else {
-            return []
-        }
-        
-        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        request.predicate = NSPredicate(format: "ANY articles == %@ && isDefault == NO", article)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)]
-        
-        do {
-            return try moc.fetch(request)
-        } catch {
-            DDLogError("Error fetching lists: \(error)")
-            return []
-        }
+        return article.readingLists?.filter { !$0.isDefault }.sorted(by: { (a, b) -> Bool in
+            guard let aName = a.canonicalName else {
+                return true
+            }
+            guard let bName = b.canonicalName else {
+                return false
+            }
+            return aName.localizedCaseInsensitiveCompare(bName) == .orderedAscending
+        }) ?? []
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
