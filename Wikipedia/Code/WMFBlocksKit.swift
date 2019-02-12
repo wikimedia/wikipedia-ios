@@ -102,7 +102,7 @@ extension NSSet {
 
 extension NSDictionary {
     @objc public func wmf_map(_ transform: @escaping (Any, Any) -> Any?) -> NSDictionary {
-        guard count > 0 else {
+        guard !isEmpty else {
             return self
         }
         let result = NSMutableDictionary(capacity: count)
@@ -113,7 +113,7 @@ extension NSDictionary {
     }
     
     @objc public func wmf_select(_ transform: @escaping (Any, Any) -> Bool) -> NSDictionary {
-        guard count > 0 else {
+        guard !isEmpty else {
             return self
         }
         let result = NSMutableDictionary(capacity: count)

@@ -48,7 +48,7 @@ open class Fetcher: NSObject {
                     completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
                     return
             }
-            guard token.count > 0 else {
+            guard !token.isEmpty0 else {
                 completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
                 return
             }

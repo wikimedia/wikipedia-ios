@@ -211,7 +211,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
 
         activeIndexPath = indexPath
         
-        guard let cell = activeCell, cell.actions.count > 0 else {
+        guard let cell = activeCell, !cell.actions.isEmpty else {
             activeIndexPath = nil
             return shouldBegin
         }

@@ -256,7 +256,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     private func configureOnThisDayCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let index = indexPath.row
-        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 0, events.indices.contains(index) else {
+        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], !events.isEmpty, events.indices.contains(index) else {
             return
         }
         let event = events[index]
@@ -286,7 +286,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)?.first {
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
-        if imageInfo.imageDescription.count > 0 {
+        if !imageInfo.imageDescription.isEmpty {
             cell.captionIsRTL = imageInfo.imageDescriptionIsRTL
             cell.caption = imageInfo.imageDescription.wmf_stringByRemovingHTML()
         } else {

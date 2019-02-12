@@ -624,7 +624,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 do {
                     let articlesToShow = try moc.fetch(request)
                     self.articleKeyToSelect = articlesToShow.first?.key
-                    if articlesToShow.count > 0 {
+                    if !articlesToShow.isEmpty {
                         if (self.currentSearch?.region == nil) {
                             self.currentSearchRegion = self.region(thatFits: articlesToShow)
                             self.mapRegion = self.currentSearchRegion
@@ -649,7 +649,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         let nserror = error as NSError
                         if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
                             let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
-                            if (completions.count > 0) {
+                            if (!completions.isEmpty) {
                                 self.showDidYouMeanButton(search: completions[0])
                             }
                         }
@@ -1850,7 +1850,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch], isSearchDone: Bool) {
-        guard currentSearchString != "" || completions.count > 0 else {
+        guard currentSearchString != "" || !completions.isEmpty else {
             
             // Search is empty, run a default search
             
@@ -1972,9 +1972,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
-        if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
+        if !searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
-        } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
+        } else if !searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection][0]
         }
     }
@@ -2087,7 +2087,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             return
         }
         
-        guard searchText.trimmingCharacters(in: .whitespaces).count > 0 else {
+        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
         
