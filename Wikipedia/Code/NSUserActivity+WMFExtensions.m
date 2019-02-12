@@ -231,9 +231,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeSettings;
         }
     } else if ([self wmf_contentURL]) {
-        if ([self.activityType isEqualToString:@"org.wikimedia.wikipedia.specialpage"]) {
-            return WMFUserActivityTypeSpecialPage;
-        }
         return WMFUserActivityTypeContent;
     } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;

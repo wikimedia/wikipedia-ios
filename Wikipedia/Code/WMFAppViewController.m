@@ -1088,7 +1088,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
-        case WMFUserActivityTypeSpecialPage:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
@@ -1202,8 +1201,28 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 done();
                 return NO;
             }
-            [self showArticleForURL:URL animated:animated completion:done];
-            // don't call done block before this return, wait for completion ^
+            [[WMFSession shared] fetchSummaryForArticleURL:URL priority:NSURLSessionTaskPriorityHigh completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    dispatch_block_t bail = ^{
+                        [self wmf_openExternalUrl:URL];
+                    };
+                    NSDictionary *namespaceDictionary = result[@"namespace"];
+                    if (![namespaceDictionary isKindOfClass:[NSDictionary class]]) {
+                        bail();
+                        return;
+                    }
+                    NSNumber *namespaceId = namespaceDictionary[@"id"];
+                    if (![namespaceId isKindOfClass:[NSNumber class]]) {
+                        bail();
+                        return;
+                    }
+                    if ([namespaceId integerValue] != 0) {
+                        bail();
+                        return;
+                    }
+                    [self showArticleForURL:URL animated:animated completion:done];
+                });
+            }];
             return YES;
         } break;
         case WMFUserActivityTypeSettings:
@@ -1220,9 +1239,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         } break;
         case WMFUserActivityTypeGenericLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
-            break;
-        case WMFUserActivityTypeSpecialPage:
-            [self wmf_openExternalUrl:[activity wmf_contentURL]];
             break;
         default:
             done();
