@@ -162,7 +162,6 @@ class ReadingListsAPIController: Fetcher {
             }
             self.removePendingTask(for: key)
         }) else {
-            completionHandler(nil, nil, APIReadingListError.generic)
             return
         }
         addPendingTask(task, for: key)

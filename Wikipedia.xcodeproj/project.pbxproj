@@ -1922,7 +1922,6 @@
 		D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
 		D8703DC31EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
 		D8703DCF1EE8B27A001A4BAB /* mapstyle.json in Resources */ = {isa = PBXBuildFile; fileRef = D8703DCE1EE8B27A001A4BAB /* mapstyle.json */; };
-		D8704C68203E399800C889C7 /* URLSessionTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8704C67203E399800C889C7 /* URLSessionTaskOperation.swift */; };
 		D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D87234041E1FF18100751E83 /* Places.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Places.storyboard */; };
 		D8726D431EBA052900A107D0 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8726D421EBA052900A107D0 /* Localization.swift */; };
@@ -4528,7 +4527,6 @@
 		D87021701EBA6400000D02D6 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = scripts/localization.swift; sourceTree = SOURCE_ROOT; };
 		D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewingViewController.swift; sourceTree = "<group>"; };
 		D8703DCE1EE8B27A001A4BAB /* mapstyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mapstyle.json; sourceTree = "<group>"; };
-		D8704C67203E399800C889C7 /* URLSessionTaskOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTaskOperation.swift; sourceTree = "<group>"; };
 		D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
 		D8726D421EBA052900A107D0 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = Localization/Localization.swift; sourceTree = "<group>"; };
@@ -7655,7 +7653,6 @@
 				D837B5A51F06AA8C00DCB9CD /* Theme.swift */,
 				D82C3A98213451100073EEAC /* DeviceInfo.swift */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
-				D8704C67203E399800C889C7 /* URLSessionTaskOperation.swift */,
 				D8CAD1E2203EEFDD006467E2 /* CSRFTokenOperation.swift */,
 				D82E954B1F15397D007BD960 /* ThemeableTextField.swift */,
 				D801C93A1EB9404A001FA294 /* WMFLocalization.h */,
@@ -10792,7 +10789,6 @@
 				D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */,
 				8359BAC721E4C9C1009B5E6C /* Fetcher.swift in Sources */,
 				0E728D211DAEE2B50074EB4B /* WMFFeedImage.m in Sources */,
-				D8704C68203E399800C889C7 /* URLSessionTaskOperation.swift in Sources */,
 				D8FA18D31E1BD891009675C3 /* WMFTaskGroup.m in Sources */,
 				D801C93D1EB9404A001FA294 /* WMFLocalization.m in Sources */,
 				0E728D301DAEE8FF0074EB4B /* WMFNearbyContentSource.m in Sources */,
