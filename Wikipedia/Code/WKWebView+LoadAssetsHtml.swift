@@ -44,7 +44,7 @@ extension WKWebView {
         
         var siteCSSLink = ""
         if let host = baseURL.wmf_site?.host,
-            let cssURLString = Configuration.current.mobileAppsServicesAPIURLComponentsForHost(host, appending: ["data", "css", "mobile", "site"]).url?.absoluteString {
+            let cssURLString = Configuration.current.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: ["data", "css", "mobile", "site"]).url?.absoluteString {
             siteCSSLink = """
             <link href="\(cssURLString)" rel="stylesheet" type="text/css"></link>
             """
