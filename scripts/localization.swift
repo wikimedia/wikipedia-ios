@@ -451,7 +451,7 @@ func importLocalizationsFromTWN(_ path: String) {
                 }
             }
             if locale != "en" { // only write the english plurals, skip the main file
-                if strings.count > 0 {
+                if !strings.isEmpty {
                     try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
                 } else {
                     try? fm.removeItem(atPath: stringsFilePath)

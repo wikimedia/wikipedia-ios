@@ -100,7 +100,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             return true
         }
         let newText = textView.text.replacingCharacters(in: range, with: text)
-        isPlaceholderLabelHidden = newText.count > 0
+        isPlaceholderLabelHidden = !newText.isEmpty
         return true
     }
     
@@ -202,7 +202,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
 
         guard
             let descriptionToSave = descriptionTextView.normalizedWhitespaceText(),
-            descriptionToSave.count > 0
+            !descriptionToSave.isEmpty
             else {
                 descriptionTextView.text = nil
                 // manually call `textViewDidChange` since it's not called when UITextView text is changed programmatically
@@ -239,7 +239,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        let hasText = descriptionTextView.text.count > 0
+        let hasText = !descriptionTextView.text.isEmpty
         enableProgressiveButton(hasText)
         updateWarningLabelsForDescriptionCount()
         isPlaceholderLabelHidden = hasText

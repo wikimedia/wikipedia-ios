@@ -326,7 +326,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             if let content = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] {
                 if let previousGroupURL = self.groupURL,
                     let topReadURL = topRead.url,
-                    self.results.count > 0,
+                    !self.results.isEmpty,
                     previousGroupURL == topReadURL {
                     return .noData
                 }

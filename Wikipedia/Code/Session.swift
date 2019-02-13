@@ -98,7 +98,7 @@ import Foundation
             return false
         }
         let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain)
-        guard cookies.count > 0 else {
+        guard !cookies.isEmpty else {
             return false
         }
         let now = Date()
@@ -294,7 +294,7 @@ import Foundation
                 return
             }
             do {
-                guard data.count > 0, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                guard !data.isEmpty, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
                     completionHandler(nil, response as? HTTPURLResponse, nil)
                     return
                 }

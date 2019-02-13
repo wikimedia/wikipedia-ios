@@ -108,7 +108,7 @@ import Foundation
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
         var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE")
-        if referencedArticleKeys.count > 0 {
+        if !referencedArticleKeys.isEmpty {
             let referencedKeysPredicate = NSPredicate(format: "!(key IN %@)", referencedArticleKeys)
             articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
         }

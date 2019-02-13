@@ -29,12 +29,12 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         request.relationshipKeyPathsForPrefetching = ["previewArticles"]
         let isDefaultListEnabled = readingListsController.isDefaultListEnabled
         
-        if let readingLists = readingLists, readingLists.count > 0 {
+        if let readingLists = readingLists, !readingLists.isEmpty {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
             let commonReadingLists = articles.reduce(articles.first?.readingLists ?? []) { $0.intersection($1.readingLists ?? []) }
             var subpredicates: [NSPredicate] = []
-            if commonReadingLists.count > 0 {
+            if !commonReadingLists.isEmpty {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
             if !isDefaultListEnabled {

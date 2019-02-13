@@ -297,7 +297,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let solution = captchaViewController?.solution {
-            if solution.count > 0 {
+            if !solution.isEmpty {
                 save()
             }
         }
