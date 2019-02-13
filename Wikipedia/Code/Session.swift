@@ -221,7 +221,7 @@ import Foundation
          - response: The URLResponse
          - error: Any network or parsing error
      */
-    public func jsonCodableTask<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+    @discardableResult public func jsonCodableTask<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
@@ -253,6 +253,7 @@ import Foundation
                 handleErrorResponse()
             }
         }) else {
+            completionHandler(nil, nil, nil, RequestError.invalidParameters)
             return nil
         }
         task.resume()
