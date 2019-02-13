@@ -225,8 +225,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.section = self.section
                     vc.wikitext = wikitext
                     vc.delegate = self
-                    // TODO: Set funnels
-                    // TODO: Apply theme
+                    vc.funnel = self.editFunnel
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
@@ -292,8 +291,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
-        // TODO: Set funnels
-        // TODO: Apply theme
+        vc.funnel = self.editFunnel
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
