@@ -132,21 +132,35 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        return String.localizedStringWithFormat(WMFLocalizedString("wikitext-upload-save-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting."),
-                                                "<a href=\"\(Licenses.saveTermsURL?.absoluteString ?? "")\">",
-                                                "</a>",
-                                                "<a href=\"\(Licenses.CCBYSA3URL?.absoluteString ?? "")\">",
-                                                "</a>" ,
-                                                "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
-                                                "</a>"
-            ).byAttributingHTML(with: .caption2, matching: traitCollection)
+        let localizedString = WMFLocalizedString("wikitext-upload-save-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
+        
+        let substitutedString = String.localizedStringWithFormat(
+            localizedString,
+            "<a href=\"\(Licenses.saveTermsURL?.absoluteString ?? "")\">",
+            "</a>",
+            "<a href=\"\(Licenses.CCBYSA3URL?.absoluteString ?? "")\">",
+            "</a>" ,
+            "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
+            "</a>"
+        )
+        
+        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        
+        return attributedString
     }
 
     private var licenseLoginTextViewAttributedString: NSAttributedString {
-        return String.localizedStringWithFormat(WMFLocalizedString("wikitext-upload-save-anonymously-or-login", value: "Edits will be attributed to the IP address of your device. If you %1$@Log in%2$@ you will have more privacy.", comment: "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting."),
-                                                "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
-                                                "</a>"
-            ).byAttributingHTML(with: .caption2, matching: traitCollection)
+        let localizedString = WMFLocalizedString("wikitext-upload-save-anonymously-or-login", value: "Edits will be attributed to the IP address of your device. If you %1$@Log in%2$@ you will have more privacy.", comment: "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting.")
+        
+        let substitutedString = String.localizedStringWithFormat(
+            localizedString,
+            "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
+            "</a>"
+        )
+        
+        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        
+        return attributedString
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
