@@ -48,6 +48,7 @@
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                                                 NSString *html = json[@"parse"][@"text"][@"*"];
+                                                XCTAssertNotNil(html, @"Incomplete response from beta cluser");
                                                 [html wmf_enumerateHTMLImageTagContentsWithHandler:^(NSString *_Nonnull imageTagContents, NSRange range) {
                                                     WMFImageTag *tag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents baseURL:baseURL];
 
@@ -93,7 +94,7 @@
                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                                         NSArray *sectionsFromBetaCluster = json[@"mobileview"][@"sections"];
-
+                                        XCTAssertNotNil(sectionsFromBetaCluster, @"Incomplete response from beta cluser");
                                         for (NSInteger i = 0; i < sectionsFromBetaCluster.count; i++) {
                                             NSDictionary *sectionFromBetaCluster = sectionsFromBetaCluster[i];
                                             NSString *sectionTextFromBetaCluster = sectionFromBetaCluster[@"text"];
