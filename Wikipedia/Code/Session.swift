@@ -87,7 +87,7 @@ import Foundation
         return URLSession(configuration: config)
     }()
     
-    internal lazy var queue: OperationQueue = {
+    internal let queue: OperationQueue = { // DEPRECATED: requestWithCSRF could be updated to not use an operation for cancellation and instread use the use the cancellation mechanism defined in the fetcher
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 16
         return queue
@@ -221,7 +221,7 @@ import Foundation
          - response: The URLResponse
          - error: Any network or parsing error
      */
-    public func jsonCodableTask<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+    @discardableResult public func jsonCodableTask<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
@@ -253,10 +253,10 @@ import Foundation
                 handleErrorResponse()
             }
         }) else {
+            completionHandler(nil, nil, nil, RequestError.invalidParameters)
             return nil
         }
-        let op = URLSessionTaskOperation(task: task)
-        queue.addOperation(op)
+        task.resume()
         return task
     }
 
@@ -280,10 +280,10 @@ import Foundation
                 completionHandler(nil, response, resultParsingError)
             }
         }) else {
+            completionHandler(nil, nil, RequestError.invalidParameters)
             return
         }
-        let op = URLSessionTaskOperation(task: task)
-        queue.addOperation(op)
+        task.resume()
     }
     
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
@@ -367,8 +367,7 @@ import Foundation
             return
         }
         task.priority = priority
-        let operation = URLSessionTaskOperation(task: task)
-        queue.addOperation(operation)
+        task.resume()
     }
     
     @objc(fetchMediaForArticleURL:priority:completionHandler:)
