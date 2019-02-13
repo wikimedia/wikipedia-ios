@@ -119,73 +119,56 @@ extension APIReadingListEntry {
 class ReadingListsAPIController: Fetcher {
     private let api = Configuration.current.mobileAppsServicesAPIURLComponentsBuilderForHost("en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
-    
-    private var pendingTasks: [String: Any] = [:]
-    private let pendingTaskQueue = DispatchQueue(label: "org.wikimedia.readinglist.pendingtasks", qos: DispatchQoS.default, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
-    
     public var lastRequestType: APIReadingListRequestType?
-    
-    func addPendingTask(_ task: Any, for key: String) {
-        pendingTaskQueue.async {
-             self.pendingTasks[key] = task
-        }
-    }
-    
-    func removePendingTask(for key: String) {
-        pendingTaskQueue.async {
-             self.pendingTasks.removeValue(forKey: key)
-        }
-    }
-    
-    func cancelPendingTasks() {
-        pendingTaskQueue.async {
-            for (_, task) in self.pendingTasks {
-                if let task = task as? URLSessionTask {
-                    task.cancel()
-                } else if let task = task as? Operation {
-                    task.cancel()
-                }
-            }
-            self.pendingTasks.removeAll()
-        }
-    }
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
         let key = UUID().uuidString
         let components = api.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
         guard
-            let task = session.jsonCodableTask(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+            let task = session.jsonDecodableTaskWithDecodableError(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
                 completionHandler(result, response, error)
             }
-            self.removePendingTask(for: key)
+            self.untrack(taskFor: key)
         }) else {
             return
         }
-        addPendingTask(task, for: key)
+        track(task: task, for: key)
     }
     
     fileprivate func requestWithCSRF(path: [String], method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        let key = UUID().uuidString
         let components = api.components(byAppending: basePathComponents + path)
-        let op = requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, components: components, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query)) { (result, response, error) in
-            if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
-                DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
-            } else {
-                #if DEBUG
-                if let error = error {
-                    DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
-                } else {
-                    DDLogDebug("RLAPI: \(method.stringValue) \(path)")
-                }
-                #endif
+        requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
+            switch result {
+            case .failure(let error):
+                completion(nil, nil, error)
+            case .success(let token):
+                let tokenQueryParameters = ["csrf_token": token]
+                var componentsWithToken = components
+                componentsWithToken.appendQueryParametersToPercentEncodedQuery(tokenQueryParameters)
+                let identifier =  UUID().uuidString
+                let task = self.session.jsonDictionaryTask(with: componentsWithToken.url, method: method, completionHandler: { (result, response, error) in
+                    defer {
+                        self.untrack(taskFor: identifier)
+                    }
+                    if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
+                        DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
+                    } else {
+                        #if DEBUG
+                        if let error = error {
+                            DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
+                        } else {
+                            DDLogDebug("RLAPI: \(method.stringValue) \(path)")
+                        }
+                        #endif
+                    }
+                    completion(result, response, error)
+                })
+                self.track(task: task, for: identifier)
             }
-            completion(result, response, error)
-            self.removePendingTask(for: key)
         }
-        addPendingTask(op, for: key)
     }
     
     fileprivate func post(path: [String], bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
