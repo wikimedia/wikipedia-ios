@@ -121,9 +121,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         addToWatchlistLabel.text = WMFLocalizedStringWithDefaultValue("edit-watch-this-page-text", nil, nil, "Watch this page", "Text for watch this page label")
         addToWatchlistButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-watch-list-learn-more-text", nil, nil, "Learn more about watch lists", "Text for watch lists learn more button"), for: .normal)
         
-        licenseTitleTextView.attributedText = licenseTitleTextViewAttributedString
-        licenseLoginTextView.attributedText = licenseLoginTextViewAttributedString
-
         for dividerHeightContraint in dividerHeightConstraits {
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
         }
@@ -141,6 +138,17 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var licenseLoginTextViewAttributedString: NSAttributedString {
         let hrefPlaceholder = "#LOGIN_HREF" // Ensure 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
         return String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("wikitext-upload-save-anonymously-or-login", nil, nil, "Edits will be attributed to the IP address of your device. If you <a href=\"%1$@\">Log in</a> you will have more privacy.", "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - app-specific link."), hrefPlaceholder).byAttributingHTML(with: .caption2, matching: traitCollection)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateTextViews()
+    }
+    
+    private func updateTextViews() {
+        licenseTitleTextView.attributedText = licenseTitleTextViewAttributedString
+        licenseLoginTextView.attributedText = licenseLoginTextViewAttributedString
+        applyThemeToTextViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -338,14 +346,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
         
+        applyThemeToTextViews()
+        
+        for dividerView in dividerViews {
+            dividerView.backgroundColor = theme.colors.tertiaryText
+        }
+    }
+    
+    private func applyThemeToTextViews() {
         for textView in textViews {
             textView.backgroundColor = theme.colors.paperBackground
             textView.textColor = theme.colors.secondaryText
             textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
-        }
-        
-        for dividerView in dividerViews {
-            dividerView.backgroundColor = theme.colors.tertiaryText
         }
     }
     
