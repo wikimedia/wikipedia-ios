@@ -146,7 +146,11 @@
                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                                         NSArray *sectionsFromBetaCluster = json[@"mobileview"][@"sections"];
-
+                                        if (sectionsFromBetaCluster.count == 0) {
+                                            XCTFail(@"Incomplete response from beta cluser");
+                                            [expectation fulfill];
+                                            return;
+                                        }
                                         NSDictionary *firstSectionFromBetaCluster = sectionsFromBetaCluster[0];
                                         NSString *firstSectionTextFromBetaCluster = firstSectionFromBetaCluster[@"text"];
                                         XCTAssertTrue([firstSectionTextFromBetaCluster hasPrefix:@"<p>hello there"], @"\n\nSome parser HTML may have leaked into mobileview output. This test which just failed is an early warning sign that something has been staged to the beta cluster which may cause a parser div to leak into mobileview output if it is deployed to production. Don't ignore this failure!\n\n");
