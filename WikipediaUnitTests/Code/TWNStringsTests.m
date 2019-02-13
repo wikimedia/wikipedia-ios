@@ -185,8 +185,33 @@
     return htmlTagRegex;
 }
 
-- (void)testIncomingTranslationStringForHTML {
-    [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.htmlTagRegex];
+- (void)testIncomingTranslationStringForSameNumberOfHTMLElements {
+    NSArray *lprojFiles = TWNStringsTests.twnLprojFiles;
+    NSString *directory = TWNStringsTests.bundleRoot;
+    NSRegularExpression *regex = TWNStringsTests.htmlTagRegex;
+    NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
+
+    XCTAssertNotNil(regex);
+    for (NSString *lprojFileName in lprojFiles) {
+        if (![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:lprojFileName] || [lprojFileName isEqualToString:@"en.lproj"]) {
+            continue;
+        }
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[directory stringByAppendingPathComponent:lprojFileName]];
+        for (NSString *key in stringsDict) {
+            NSString *localizedString = stringsDict[key];
+            NSString *enString = enStrings[key];
+
+            // For testing
+            //if([enString containsString:@"Made with the Wikipedia app"]) {
+            //    localizedString = [localizedString stringByAppendingString:@" <b>bla</b>"];
+            //}
+
+            NSUInteger numberOfHTMLMatchesInLocalizedString = [regex numberOfMatchesInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)];
+            NSUInteger numberOfHTMLMatchesInEnString = [regex numberOfMatchesInString:enString options:0 range:NSMakeRange(0, enString.length)];
+
+            XCTAssertEqual(numberOfHTMLMatchesInLocalizedString, numberOfHTMLMatchesInEnString, @"'%@' and 'en.lproj' strings for '%@' have different number of html elements.\nEN string:\n\t\"%@\"\nTranslation string:\n\t\"%@\"\nIf the EN string has no html, ensure the code that uses '%@' can handle html or remove the html from its source for this translation:\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/%@&action=edit\n\n", lprojFileName, key, enString, localizedString, key, key, [lprojFileName stringByReplacingOccurrencesOfString:@".lproj" withString:@""]);
+        }
+    }
 }
 
 - (void)testIncomingTranslationStringForBracketSubstitutions {
