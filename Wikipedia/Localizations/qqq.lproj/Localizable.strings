@@ -100,7 +100,6 @@
 "button-saved-remove" = "Remove from saved button text used in various places.";
 "button-skip" = "Button text for skip button used in various places.";
 "cancel" = "Cancel";
-"cc-by-sa-3.0" = "Name of the CC BY-SA 3.0 license - https://creativecommons.org/licenses/by-sa/3.0";
 "cc-zero" = "Name of the CC Zero license - https://creativecommons.org/publicdomain/zero/1.0";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog.\n{{Identical|Close}}";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
@@ -325,7 +324,6 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}";
-"gfdl" = "Name of the GFDL license - https://www.gnu.org/licenses/fdl.html";
 "history-clear-all" = "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}";
 "history-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";

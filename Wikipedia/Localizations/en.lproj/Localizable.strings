@@ -100,7 +100,6 @@
 "button-saved-remove" = "Remove from saved";
 "button-skip" = "Skip";
 "cancel" = "Cancel";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
@@ -325,7 +324,6 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
-"gfdl" = "GFDL";
 "history-clear-all" = "Clear";
 "history-clear-cancel" = "Cancel";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
