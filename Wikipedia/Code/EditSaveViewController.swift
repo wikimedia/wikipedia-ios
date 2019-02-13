@@ -132,12 +132,21 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        return WMFLocalizedString("wikitext-upload-save-terms-and-licenses", value: "By publishing changes, you agree to the <a href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Terms_of_Use\">Terms of Use</a>, and you irrevocably agree to release your contribution under the <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a> License and the <a href=\"https://www.gnu.org/licenses/fdl.html\">GFDL</a>. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses.").byAttributingHTML(with: .caption2, matching: traitCollection)
+        return String.localizedStringWithFormat(WMFLocalizedString("wikitext-upload-save-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific formatting, %2$@ - app-specific formatting, %3$@ - app-specific formatting, %4$@ - app-specific formatting, %5$@ - app-specific formatting,  %6$@ - app-specific formatting."),
+                                                "<a href=\"\(Licenses.saveTermsURL?.absoluteString ?? "")\">",
+                                                "</a>",
+                                                "<a href=\"\(Licenses.CCBYSA3URL?.absoluteString ?? "")\">",
+                                                "</a>" ,
+                                                "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
+                                                "</a>"
+            ).byAttributingHTML(with: .caption2, matching: traitCollection)
     }
 
     private var licenseLoginTextViewAttributedString: NSAttributedString {
-        let hrefPlaceholder = "#LOGIN_HREF" // Ensure 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
-        return String.localizedStringWithFormat(WMFLocalizedString("wikitext-upload-save-anonymously-or-login", value: "Edits will be attributed to the IP address of your device. If you <a href=\"%1$@\">Log in</a> you will have more privacy.", comment: "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - app-specific link."), hrefPlaceholder).byAttributingHTML(with: .caption2, matching: traitCollection)
+        return String.localizedStringWithFormat(WMFLocalizedString("wikitext-upload-save-anonymously-or-login", value: "Edits will be attributed to the IP address of your device. If you %1$@Log in%2$@ you will have more privacy.", comment: "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - app-specific formatting, %2$@ - app-specific formatting."),
+                                                "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
+                                                "</a>"
+            ).byAttributingHTML(with: .caption2, matching: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
