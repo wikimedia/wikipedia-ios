@@ -154,7 +154,7 @@ class ReadingListsAPIController: Fetcher {
         let key = UUID().uuidString
         let components = api.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
         guard
-            let task = session.jsonCodableTask(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+            let task = session.jsonDecodableTaskWithDecodableError(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
