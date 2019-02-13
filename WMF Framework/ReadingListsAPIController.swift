@@ -119,10 +119,6 @@ extension APIReadingListEntry {
 class ReadingListsAPIController: Fetcher {
     private let api = Configuration.current.mobileAppsServicesAPIURLComponentsBuilderForHost("en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
-    
-    private var pendingTasks: [String: Any] = [:]
-    private let pendingTaskQueue = DispatchQueue(label: "org.wikimedia.readinglist.pendingtasks", qos: DispatchQoS.default, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
-    
     public var lastRequestType: APIReadingListRequestType?
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
