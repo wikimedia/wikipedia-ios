@@ -32,8 +32,8 @@
         [self expectationWithDescription:@"Fetch img tag html for a piece of image wikitext. Thus way we can be notified when image tag formatting changes in any way so we can ensure image widening/caching/proxying still work with whatever changes are made."];
 
     NSString *imgWikitext = @"[[File:Example.jpg|20px|link=MediaWiki]]";
-    NSURL *baseURL = [NSURL URLWithString:@"http://en.wikipedia.beta.wmflabs.org/"];
-    NSString *urlString = [NSString stringWithFormat:@"http://en.wikipedia.beta.wmflabs.org/w/api.php"
+    NSURL *baseURL = [NSURL URLWithString:@"https://en.wikipedia.beta.wmflabs.org/"];
+    NSString *urlString = [NSString stringWithFormat:@"https://en.wikipedia.beta.wmflabs.org/w/api.php"
                                                       "?action=parse"
                                                       "&format=json"
                                                       "&text=%@"
@@ -59,10 +59,8 @@
 
                                                     // alt has never been parsed - should it be?
                                                     //XCTAssertEqualObjects(tag.alt, @"Example.jpg");
-
                                                 }];
                                                 [expectation fulfill];
-
                                             }];
     [dataTask resume];
 
@@ -108,7 +106,6 @@
                                         }
 
                                         [expectation fulfill];
-
                                     }];
     [dataTask resume];
 
@@ -154,7 +151,6 @@
                                         XCTAssertTrue([firstSectionTextFromBetaCluster hasPrefix:@"<p>hello there"], @"\n\nSome parser HTML may have leaked into mobileview output. This test which just failed is an early warning sign that something has been staged to the beta cluster which may cause a parser div to leak into mobileview output if it is deployed to production. Don't ignore this failure!\n\n");
 
                                         [expectation fulfill];
-
                                     }];
     [dataTask resume];
 
