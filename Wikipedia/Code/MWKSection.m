@@ -25,6 +25,7 @@ NSString *const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 @property (readwrite, weak, nonatomic, nullable) MWKSection *parent;
 @property (readwrite, strong, nonatomic, nullable) NSMutableArray *mutableChildren;
+@property (readwrite, copy, nonatomic, nullable) NSString *articleLanguage;
 
 @end
 
@@ -52,6 +53,8 @@ NSString *const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
         self.text = [self optionalString:@"text" dict:dict];
 
         self.mutableChildren = [NSMutableArray new];
+
+        self.articleLanguage = article.url.wmf_language;
     }
     return self;
 }
