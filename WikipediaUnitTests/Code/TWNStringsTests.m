@@ -109,13 +109,22 @@
     XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
 }
 
-+ (NSRegularExpression *)reverseTWNTokenRegex {
++ (NSRegularExpression *)reverseiOSTokenRegex {
     static dispatch_once_t onceToken;
     static NSRegularExpression *reverseTWNTokenRegex;
     dispatch_once(&onceToken, ^{
         reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[^%%])(:?[0-9]+)(?:[$])(:?[^@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
     });
     return reverseTWNTokenRegex;
+}
+
++ (NSRegularExpression *)reverseTWNTokenRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *iosTokenRegex;
+    dispatch_once(&onceToken, ^{
+        iosTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[0-9])(?:[$])(:?[^0-9])" options:0 error:nil];
+    });
+    return iosTokenRegex;
 }
 
 + (NSRegularExpression *)twnTokenRegex {
@@ -169,7 +178,7 @@
 }
 
 - (void)testiOSTranslationStringForReversedSubstitutionShortcuts {
-    [self assertLprojFiles:TWNStringsTests.iOSLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.reverseTWNTokenRegex];
+    [self assertLprojFiles:TWNStringsTests.iOSLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.reverseiOSTokenRegex];
 }
 
 - (void)testIncomingTranslationStringForPercentTokens {
