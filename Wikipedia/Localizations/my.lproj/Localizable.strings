@@ -30,7 +30,6 @@
 "about-wikipedia" = "ဝီကီပီးဒီးယား";
 // Fuzzy
 "abuse-filter-disallow-heading" = "ဤတည်းဖြတ်မှုအား မလွှင့်တင်နိုင်ပါ။ နောက်ပြန်သွား၍ ပြောင်းလဲပါရန်။";
-"abuse-filter-disallow-notable" = "ဝီကီပီးဒီးယားသည် စွယ်စုံကျမ်းတစ်ခုဖြစ်ပြီး ဘက်မလိုက်သော၊ အရေးပါထင်ရှားသော အကြောင်းအရာများသာ ဤနေရာနှင့်သက်ဆိုင်သည်။";
 // Fuzzy
 "abuse-filter-warning-blanking" = "ဆောင်းပါးများကို ဗလာလုပ်ခြင်း သို့မဟုတ် လိုက်ဖွခြင်း";
 // Fuzzy
@@ -57,6 +56,8 @@
 "action-add-to-reading-list" = "စာဖတ်စာရင်းသို့ ပေါင်းထည့်ရန်";
 "action-add-to-reading-list-short" = "စာရင်းသို့ ပေါင်းထည့်ရန်";
 "action-cancel" = "မလုပ်တော့ပါ";
+// Fuzzy
+"action-find-in-page" = "စာမျက်နှာတွင် ရှာဖွေရန်";
 "action-move-to" = "ရွှေ့ပြောင်းရန်...";
 "action-move-to-reading-list" = "စာဖတ်စာရင်းသို့ ရွေ့ပြောင်းရန်";
 "action-read" = "ဖတ်ရန်";
@@ -67,11 +68,12 @@
 "action-saved-accessibility-notification" = "နောင်အတွက် ဆောင်းပါးသိမ်းဆည်း";
 "action-share" = "မျှဝေ";
 "action-sort" = "စီစဉ်ရန်";
+// Fuzzy
+"action-undo" = "နောက်ပြန် ပြန်ပြင်ရန်";
 "action-unsave" = "မသိမ်းရသေးပါ";
 "action-unsaved-accessibility-notification" = "ဆောင်းပါး မသိမ်းရသေးပါ";
 "action-update" = "မွမ်းမံ";
 "add-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါး {{PLURAL:$1|$၁ ခု|$1 ခု}} ပေါင်းထည့်ရန်";
-"alert-no-internet" = "အင်တာနက် ဆက်သွယ်မှု မရှိပါ";
 "announcements-dismiss" = "ဖြုတ်ရန်";
 "app-store-keywords" = "ဝီကီပီးဒီးယား၊ ကိုးကား၊ ဝီကီ၊ စွယ်စုံကျမ်း၊ အချက်အလက်၊ ဗဟုသုတ၊ သုတေသန၊ သတင်းအချက်အလက်၊ စူးစမ်း၊ သင်ယူ";
 "app-store-short-description" = "သင့်အနီးအနားရှိ နေရာများကိုစူးစမ်းရန် ဝီကီပီးဒီးယား app ကို ဒေါင်းလုတ်ယူပါ၊ အင်တာနက်မရှိချိန်ဖတ်ရန် ဆောင်းပါးများကို syn လုပ်ပါ၊ သင်၏စာဖတ်အတွေ့အကြုံကို စိတ်ကြိုက်ပြင်ဆင်ပါ။";
@@ -138,7 +140,6 @@
 "empty-no-article-message" = "စိတ်မကောင်းပါ၊ ဆောင်းပါးကို ဝန်မဆွဲတင်နိုင်ပါ";
 "empty-no-feed-action-message" = "သိမ်းထားသော စာမျက်နှာများကို ဖတ်နိုင်ပါသေးသည်";
 "empty-no-feed-message" = "အင်တာနက်ရရှိချိန်တွင် သင့်ကိုအကြံပြုထောက်ခံထားသော ဆောင်းပါးများကို မြင်တွေ့နိုင်သည်";
-"empty-no-feed-title" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
 "empty-no-history-message" = "ဤနေရာတွင် သင်ဖတ်ရှုသောအရာကို ခြေရာခံမည်";
 "empty-no-history-title" = "ပြသရန် ရာဇဝင် မရှိပါ";
 "empty-no-reading-lists-title" = "စာဖတ်စာရင်းများဖြင့် သိမ်းထားသောဆောင်းပါးများကို ဖွဲ့စည်းရန်";
@@ -186,7 +187,6 @@
 "explore-feed-preferences-show-randomizer-title" = "ကျပန်းကဒ်ကို ပြသရန်";
 "explore-feed-preferences-show-related-pages-title" = "သင်ဖတ်ရှုသောကြောင့်ကဒ်ကို ပြသရန်";
 "explore-feed-preferences-top-read-description" = "နေ့စဉ်ဖတ်ရှုမှုအများဆုံး ဆောင်းပါးများ";
-"action-undo" = "နောက်ပြန် ပြန်ပြင်ရန်";
 "explore-hide-card-prompt" = "ဤကဒ်ကို ဝှက်";
 "explore-main-page-description" = "ဝီကီမီဒီယာပရောဂျက်များ၏ ပင်မစာမျက်နှာ";
 "explore-main-page-heading" = "ယနေ့အတွက် ဝီကီပီးဒီးယား";
@@ -229,7 +229,6 @@
 "field-token-title" = "အတည်ပြုကုဒ်";
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
-"action-find-in-page" = "စာမျက်နှာတွင် ရှာဖွေရန်";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ပြန်စရန်";
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
@@ -311,6 +310,7 @@
 "page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
 "page-history-title" = "ဆောင်းပါး ရာဇဝင်";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
+// Fuzzy
 "page-last-edited" = "$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
@@ -318,6 +318,7 @@
 "page-protected-can-not-edit-title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
 "page-protected-other" = "ဤစာမျက်နှာအား အောက်ပါအဆင့်များသို့ ကာကွယ်ထားသည်: $1";
 "page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
+// Fuzzy
 "page-read-in-other-languages" = "အခြားဘာသာစကား $1 ခုဖြင့် ရရှိနိုင်သည်";
 "page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
 "page-talk-page" = "ဆွေးနွေးချက်စာမျက်နှာကို ကြည့်ရန်";

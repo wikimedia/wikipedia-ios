@@ -37,7 +37,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Du kan ikke publisere denne endringen. Gå tilbake og endre den.";
-"abuse-filter-disallow-notable" = "Wikipedia er en encyklopedi og kun nøytralt og relevant innhold hører hjemme her.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Redigeringen har blitt automatisk identifisert som potensielt destruktiv eller et forsøk på vandalisme.";
 // Fuzzy
@@ -62,6 +61,8 @@
 "account-creation-passwords-mismatched" = "Passordfeltene stemmer ikke overens.";
 "account-creation-saving" = "Lagrer…";
 "account-creation-title" = "Opprett ny konto";
+// Fuzzy
+"action-find-in-page" = "Finn på siden";
 "action-read" = "Les";
 "action-save" = "Lagre";
 "action-saved" = "Lagret";
@@ -70,7 +71,6 @@
 "action-share" = "Del";
 "action-unsave" = "Fjern lagring";
 "action-unsaved-accessibility-notification" = "Artikkelen er ikke lenger lagret";
-"alert-no-internet" = "Ingen internettforbindelse";
 "announcements-dismiss" = "Lukk";
 "appearance-settings-adjust-text-sizing" = "Tilpass tekststørrelsen i artikler";
 "appearance-settings-expand-tables" = "Utvid tabeller";
@@ -117,7 +117,6 @@
 "empty-no-article-message" = "Artikkelen kunne ikke lastes";
 "empty-no-feed-action-message" = "Du kan fremdeles lese lagrede sider";
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
-"empty-no-feed-title" = "Ingen internettforbindelse";
 "empty-no-history-message" = "Her kan du holde styr på hva du har lest";
 "empty-no-history-title" = "Ingen historikk å vise";
 "empty-no-reading-lists-message" = "Opprett lister for steder du vil reise til, favorittemner og mye mer";
@@ -174,7 +173,6 @@
 "field-token-title" = "Bekreftelseskode";
 "field-username-placeholder" = "fyll inn brukernavn";
 "field-username-title" = "Brukernavn";
-"action-find-in-page" = "Finn på siden";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Tilbakestill";
 "forgot-password-email-sent" = "Epost med instruksjoner for å tilbakestille passordet har blitt sendt deg";
@@ -258,6 +256,7 @@
 "page-edit-history" = "Fullstendig redigeringshistorikk";
 "page-history-title" = "Artikkelhistorikk";
 "page-issues" = "Merknader for siden";
+// Fuzzy
 "page-last-edited" = "Redigert for $1 dager siden";
 "page-location" = "Vis på kart";
 "page-protected-autoconfirmed" = "Denne siden er delvis beskyttet.";
@@ -265,6 +264,7 @@
 "page-protected-can-not-edit-title" = "Denne siden er beskyttet";
 "page-protected-other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
 "page-protected-sysop" = "Denne siden er beskyttet.";
+// Fuzzy
 "page-read-in-other-languages" = "Tilgjengelig på $1 annet språk";
 "page-similar-titles" = "Lignende sider";
 "page-talk-page" = "Vis diskusjonsside";

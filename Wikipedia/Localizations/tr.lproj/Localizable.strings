@@ -15,6 +15,7 @@
 // Author: Mavrikant2
 // Author: McAang
 // Author: Meelo
+// Author: Mirzali
 // Author: MrSchipunov
 // Author: Nemo bis
 // Author: Rapsar
@@ -52,21 +53,15 @@
 "about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
 "about-wikimedia-foundation" = "Wikimedia Vakfı";
 "about-wikipedia" = "Vikipedi";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Bu düzenlemeyi yayınlayamazsınız.  Lütfen geri dönüp değiştirin.";
-"abuse-filter-disallow-notable" = "Vikipedi bir ansiklopedidir ve sadece tarafsız, kayda değer içerik burada yer alabilir.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "İçerik boşaltma veya spam";
-// Fuzzy
-"abuse-filter-warning-caps" = "TÜMÜ BÜYÜK HARFLE yazım";
+"abuse-filter-disallow-heading" = "Bu düzenlemeyi yayınlayamazsınız";
+"abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi. Lütfen geri dönün ve düzenlemenizi değiştirin.";
+"abuse-filter-warning-blanking" = "Bölümler veya makaleler silindi";
+"abuse-filter-warning-caps" = "Tümü büyük harfle yazım";
 "abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; yayınlamak istediğinize emin misiniz?";
 "abuse-filter-warning-irrelevant" = "Konu dışı dış bağlantılar veya resimler";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Tekraaaarlayan karakterler";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Değişikliğiniz şunlardan bir veya daha fazlasını içeriyor olabilir:";
+"abuse-filter-warning-repeat" = "Tekrarlayan karakterler";
+"abuse-filter-warning-spam" = "Makalelere spam eklendi";
+"abuse-filter-warning-subheading" = "Değişikliğiniz şunları içeriyor olabilir:";
 "account-creation-captcha-cannot-see-image" = "Resmi göremiyor musunuz? $1";
 "account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";
 "account-creation-captcha-request-account" = "Hesap iste.";
@@ -83,9 +78,12 @@
 "action-add-to-reading-list" = "Okuma listesine ekle";
 "action-add-to-reading-list-short" = "Listeye ekle";
 "action-cancel" = "Çıkış";
+// Fuzzy
+"action-find-in-page" = "Sayfada bul";
 "action-move-to" = "Taşı...";
 "action-move-to-reading-list" = "Okuma listesine taşı";
 "action-read" = "Oku";
+"action-redo" = "Yinele";
 "action-remove" = "Kaldır";
 "action-save" = "Kaydet";
 "action-saved" = "Kaydedildi";
@@ -93,11 +91,12 @@
 "action-saved-accessibility-notification" = "Madde, sonrası için kaydedildi";
 "action-share" = "Paylaş";
 "action-sort" = "Sınıflandır";
+// Fuzzy
+"action-undo" = "Geri al";
 "action-unsave" = "Kaydedilenlerden çıkar";
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
 "action-update" = "Güncelle";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
-"alert-no-internet" = "İnternet bağlantısı yok";
 "announcements-dismiss" = "Reddet";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
@@ -179,13 +178,18 @@
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
 "dim-images" = "Resimleri karart";
+"edit-bold-accessibility-label" = "Kalın formatı ekle";
+"edit-bold-remove-accessibility-label" = "Kalın formatı kaldır";
+"edit-direction-left-accessibility-label" = "İmleci sola taşı";
+"edit-reference-accessibility-label" = "Referans sözdizimi ekle";
+"edit-strikethrough-accessibility-label" = "Üstü çizili ekle";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
+"edit-underline-accessibility-label" = "Alt çizgi ekle";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
-"empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
 "empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
 "empty-no-reading-lists-message" = "Seyahat edilecek yerler, favori konular ve daha pek çok şey için okuma listeleri oluşturun";
@@ -263,7 +267,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Arama sekmesini aç";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Bu, Keşfet sekmesiyle Ayarlar sekmesinin yerini alacak, dişli simgesine dokunarak Keşfet sekmesinin üst kısmındaki Ayarlar'a erişebilirsiniz.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Keşfet sekmesi açılsın mı?";
-"action-undo" = "Geri al";
 "explore-hide-card-prompt" = "Bu kartı gizle";
 "explore-main-page-description" = "Wikimedia projeleri ana sayfası";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
@@ -308,7 +311,6 @@
 "field-token-title" = "Doğrulama kodu";
 "field-username-placeholder" = "kullanıcı adı girin";
 "field-username-title" = "Kullanıcı adı";
-"action-find-in-page" = "Sayfada bul";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
@@ -401,6 +403,7 @@
 "page-edit-history" = "Bütün düzenleme geçmişi";
 "page-history-title" = "Madde geçmişi";
 "page-issues" = "Sayfa sorunları";
+// Fuzzy
 "page-last-edited" = "$1 gün önce düzenlendi";
 "page-location" = "Haritada görüntüle";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
@@ -408,6 +411,7 @@
 "page-protected-can-not-edit-title" = "Bu sayfa korumalı";
 "page-protected-other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
+// Fuzzy
 "page-read-in-other-languages" = "$1 farklı dilde mevcut";
 "page-similar-titles" = "Benzer sayfalar";
 "page-talk-page" = "Tartışma sayfasını görüntüle";
@@ -666,6 +670,7 @@
 "wikitext-preview-changes-none" = "Ön izlemesi yapılacak bir değişiklik yok.";
 "wikitext-preview-link-preview-description" = "Bu bağlantı '$1' sayfasına gider";
 "wikitext-preview-link-preview-title" = "Bağlantı önizlemesi";
+"wikitext-preview-save-changes-title" = "Değişiklikleri kaydet";
 "wikitext-upload-captcha-error" = "CAPTCHA doğrulama hatası.";
 "wikitext-upload-captcha-needed" = "CAPTCHA doğrulaması gerekli.";
 "wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";

@@ -24,7 +24,6 @@
 "about-wikipedia" = "វិគីភីឌា";
 // Fuzzy
 "abuse-filter-disallow-heading" = "អ្នកមិនអាចបោះផ្សាយការកែប្រែនេះបានទេ។ សូមត្រឡប់ក្រោយរួចកែតម្រួវវា។";
-"abuse-filter-disallow-notable" = "វិគីភីឌាជាសព្វវចនាធិប្បាយមួយដែលមានតែអត្ថបទដែលមានអព្យាក្រិតនិងគួរកត់សម្គាល់។";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "តម្រងស្វ័យប្រវត្តិបានសម្គាល់កំណែប្រែនេះថាជាទង្វើគ្មានការស្ថាបនាឬមានបំណងបំផ្លិចបំផ្លាញ។";
 // Fuzzy
@@ -53,6 +52,8 @@
 "action-add-to-reading-list" = "បន្ថែមទៅក្នុងបញ្ជីអំណាន";
 "action-add-to-reading-list-short" = "បន្ថែមទៅក្នុង​បញ្ជី​";
 "action-cancel" = "បោះបង់";
+// Fuzzy
+"action-find-in-page" = "ស្វែងរកក្នុងទំព័រ";
 "action-move-to" = "ប្ដូរទៅតាំងទៅ…";
 "action-move-to-reading-list" = "ប្ដូរទៅតាំងទៅបញ្ជីអំណាន";
 "action-read" = "អាន";
@@ -68,7 +69,6 @@
 "action-update" = "បន្ទាន់សម័យ";
 // Fuzzy
 "add-articles-to-reading-list" = "បន្ថែម $1 ទៅបញ្ជីអំណាន";
-"alert-no-internet" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "announcements-dismiss" = "លាក់";
 "app-store-subtitle" = "សព្វវចនាធិប្បាយសេរី";
 "appearance-settings-adjust-text-sizing" = "កែតម្រូវទំហំតួអក្សរអត្ថបទ";
@@ -123,7 +123,6 @@
 "empty-no-article-message" = "សូមអភ័យទោស។ អត្ថបទផ្ទុកមិនបានទេ។";
 "empty-no-feed-action-message" = "អ្នកនៅតែអាចអានទំព័រដែលបានរក្សាទុក";
 "empty-no-feed-message" = "អ្នកអាចមើលឃើញអត្ថបទស្នើអោយអាយពេលដែលអ្នកមានអ៊ីនធើណិត។";
-"empty-no-feed-title" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "empty-no-history-message" = "តាមដានអ្វីដែលអ្នកបានអាននិងកំពុងអាននៅទីនេះ";
 "empty-no-history-title" = "គ្មានប្រវត្តិសម្រាប់បង្ហាញ";
 "empty-no-saved-pages-message" = "រក្សាទុកទំព័រសម្រាប់អានលើកក្រោយ ទោះគ្មានអ៊ីនធើណិត";
@@ -176,7 +175,6 @@
 "field-token-title" = "កូដបញ្ចាក់ទទួលស្គាល់";
 "field-username-placeholder" = "វាយបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់";
 "field-username-title" = "ឈ្មោះអ្នកប្រើប្រាស់";
-"action-find-in-page" = "ស្វែងរកក្នុងទំព័រ";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "កំណត់ឡើងវិញ";
 "forgot-password-email-sent" = "អ៊ីមែលសេចក្ដីណែនាំពីរបៀបកំណត់ពាក្យសម្ងាត់ឡើងវិញត្រូវបានផ្ញើរួចហើយ";
@@ -256,6 +254,7 @@
 "page-edit-history" = "ប្រវត្តិការកែប្រែទាំងអស់";
 "page-history-title" = "ប្រវត្តិអត្ថបទ";
 "page-issues" = "បញ្ហាក្នុងទំព័រ";
+// Fuzzy
 "page-last-edited" = "បានកែប្រែ $1 ថ្ងៃមុន";
 "page-location" = "មើលនៅលើផែនទី";
 "page-protected-autoconfirmed" = "ទំព័រនេះត្រូវបានការពារពាក់កណ្ដាល។";
@@ -263,6 +262,7 @@
 "page-protected-can-not-edit-title" = "ទំព័រនេះត្រូវបានការពាររួចហើយ";
 "page-protected-other" = "ទំព័រនេះត្រូវបានការពារត្រឹមកម្រិតដូចតទៅ៖ $1";
 "page-protected-sysop" = "ទំព័រនេះត្រូវបានការពារពេញលេញ។";
+// Fuzzy
 "page-read-in-other-languages" = "អាចប្រើបានជា$1ភាសាផ្សេងទៀត";
 "page-similar-titles" = "ទំព័រស្រដៀង";
 "page-talk-page" = "មើលទំព័រពិភាក្សា";

@@ -36,7 +36,6 @@
 "about-wikipedia" = "Wikipédia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Nem teheted közzé ezt a szerkesztést. Lépj vissza és változtass rajta.";
-"abuse-filter-disallow-notable" = "A Wikipédia egy enciklopédia és csak semleges, nevezetes tartalom tartozik ide.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Egy automatikus szűrő potenciálisan nem konstruktívként vagy vandalizmuskísérletként azonosította ezt a szerkesztést.";
 // Fuzzy
@@ -65,6 +64,8 @@
 "action-add-to-reading-list" = "Hozzáadás az olvasólistához";
 "action-add-to-reading-list-short" = "Hozzáadás a listához";
 "action-cancel" = "Mégse";
+// Fuzzy
+"action-find-in-page" = "Keresés a lapon";
 "action-move-to" = "Áthelyezés ide...";
 "action-move-to-reading-list" = "Mentés olvasólistára";
 "action-read" = "Olvasás";
@@ -75,11 +76,12 @@
 "action-saved-accessibility-notification" = "Szócikk elmentve későbbre";
 "action-share" = "Megosztás";
 "action-sort" = "Rendezés";
+// Fuzzy
+"action-undo" = "Visszavonás";
 "action-unsave" = "Mentés eldobása";
 "action-unsaved-accessibility-notification" = "Szócikk eltávolítva";
 "action-update" = "Frissítés";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 szócikk|$1 szócikk}} hozzáadása az olvasólistához";
-"alert-no-internet" = "Nincs internetkapcsolat";
 "announcements-dismiss" = "Kihagyás";
 "app-store-short-description" = "Töltsd le a Wikipédia alkalmazást, ezzel felfedezheted a közeli helyeket, elolvashatod a szócikkeket akkor is, ha offline vagy, és testreszabhatod az olvasási élményt befolyásoló beállításokat.";
 "app-store-subtitle" = "A szabad enciklopédia";
@@ -149,7 +151,6 @@
 "empty-no-article-message" = "Sajnáljuk, nem sikerült betölteni a cikket";
 "empty-no-feed-action-message" = "Továbbra is olvashatsz elmentett lapokat";
 "empty-no-feed-message" = "A neked ajánlott szócikkeket akkor láthatod, ha kapcsolódsz az internethez";
-"empty-no-feed-title" = "Nincs internetkapcsolat";
 "empty-no-history-message" = "Kövesd nyomon, hogy mit olvastál itt";
 "empty-no-history-title" = "Nincsenek megjeleníthető előzmények";
 "empty-no-saved-pages-in-reading-list-title" = "Még egyetlen oldal sem lett elmentve a listába";
@@ -170,7 +171,6 @@
 "explore-feed-preferences-in-the-news-description" = "Szócikkek aktuális eseményekről";
 "explore-feed-preferences-places-description" = "Wikipédia szócikkek a közeledben";
 "explore-feed-preferences-potd-description" = "A nap kiemelt képe a Wikimédia Commonsról";
-"action-undo" = "Visszavonás";
 "explore-hide-card-prompt" = "Kártya elrejtése";
 "explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
@@ -212,7 +212,6 @@
 "field-token-title" = "Ellenőrző kód";
 "field-username-placeholder" = "add meg a szerkesztőnevedet";
 "field-username-title" = "Szerkesztőnév";
-"action-find-in-page" = "Keresés a lapon";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Visszaállítás";
 "forgot-password-email-sent" = "Elküldtük az e-mailt a jelszó-visszaállítási utasításokkal";
@@ -299,6 +298,7 @@
 "page-edit-history" = "Teljes laptörténet";
 "page-history-title" = "Cikktörténet";
 "page-issues" = "A lap problémái";
+// Fuzzy
 "page-last-edited" = "Szerkesztve $1 napja";
 "page-location" = "Megtekintés térképen";
 "page-protected-autoconfirmed" = "Ez a lap félig védett.";
@@ -306,6 +306,7 @@
 "page-protected-can-not-edit-title" = "Ez a lap védett";
 "page-protected-other" = "Ez a lap az alábbi szinten védett: $1";
 "page-protected-sysop" = "Ez a lap teljesen védett.";
+// Fuzzy
 "page-read-in-other-languages" = "Elérhető $1 másik nyelven";
 "page-similar-titles" = "Hasonló lapok";
 "page-talk-page" = "Vitalap megtekintése";

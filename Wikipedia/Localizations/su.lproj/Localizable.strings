@@ -28,7 +28,6 @@
 "about-wikipedia" = "Wikipédia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Anjeun teu bisa medalkeun ieu éditan. Pék balik deui tuluy robah.";
-"abuse-filter-disallow-notable" = "Wikipédia mah hiji énsiklopédi sarta nétral deuih, kontén penting kawenku di dieu.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Panyaring otomatis geus ngidéntifikasi ieu éditan minangka poténsial teu konstruktif, atawa tarékah vandalismeu.";
 // Fuzzy
@@ -53,6 +52,8 @@
 "account-creation-passwords-mismatched" = "Eusian kecap sandi teu akur.";
 "account-creation-saving" = "Keur nyimpen...";
 "account-creation-title" = "Jieun akun anyar";
+// Fuzzy
+"action-find-in-page" = "Panggihan dina kaca";
 "action-read" = "Baca";
 "action-save" = "Simpen";
 "action-saved" = "Kasimpen";
@@ -61,7 +62,6 @@
 "action-share" = "Bagikeun";
 "action-unsave" = "Ulah nyimpen";
 "action-unsaved-accessibility-notification" = "Artikel bolay kasimpen";
-"alert-no-internet" = "Taya sambungan internét";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Luyukeun ukuran téks artikel";
 // Fuzzy
@@ -105,7 +105,6 @@
 "empty-no-article-message" = "Hampura, teu bisa muat artikel";
 "empty-no-feed-action-message" = "Anjeun masih bisa kénéh maca kaca kasimpen.";
 "empty-no-feed-message" = "Anjeun bisa nempo artikel nu disarankeun pikeun anjeun nalika anjeun miboga sambungan intenet";
-"empty-no-feed-title" = "Taya sambungan internét";
 "empty-no-history-message" = "Lacak naon nu geus ku anjeun baca di dieu.";
 "empty-no-history-title" = "Taya jujutan nu bijil";
 "empty-no-saved-pages-message" = "Simpen kaca ajang bacaeun engké, nalika keur oflén.";
@@ -157,7 +156,6 @@
 "field-token-title" = "Kodeu vérifikasi";
 "field-username-placeholder" = "asupkeun sandiasma";
 "field-username-title" = "Sandiasma";
-"action-find-in-page" = "Panggihan dina kaca";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rését";
 "forgot-password-email-sent" = "Hiji surélék kalawan instruksi panyetélan ulang kecap sandi geus dikirim";
@@ -238,6 +236,7 @@
 "page-edit-history" = "Sakumna jujutan édit";
 "page-history-title" = "Jujutan artikel";
 "page-issues" = "Masalah kaca";
+// Fuzzy
 "page-last-edited" = "Diédit $1 poé katukang";
 "page-location" = "Tempo dina péta";
 "page-protected-autoconfirmed" = "Ieu kaca geus rada-dilindungan";
@@ -245,6 +244,7 @@
 "page-protected-can-not-edit-title" = "Ieu kaca dilindungan";
 "page-protected-other" = "Ieu kaca geus dilinsungan pikeun lévél di handap: $1";
 "page-protected-sysop" = "Ieu kaca geus dilindungan sagemblengna";
+// Fuzzy
 "page-read-in-other-languages" = "Nyangkaruk dina $1 basa séjén";
 "page-similar-titles" = "Kaca nu sarua";
 "page-talk-page" = "Tempo kaca obrolan";

@@ -31,21 +31,17 @@
 "about-translators-details" = "แปลโดยอาสาสมัครที่ $1";
 "about-wikimedia-foundation" = "มูลนิธิวิกิมีเดีย";
 "about-wikipedia" = "วิกิพีเดีย";
-// Fuzzy
-"abuse-filter-disallow-heading" = "คุณไม่สามารถเผยแพร่การแก้ไขนี้ได้ โปรดกลับไปเปลี่ยนใหม่อีกครั้ง";
-"abuse-filter-disallow-notable" = "วิกิพีเดียเป็นสารานุกรมที่มีเฉพาะเนื้อหาที่โดดเด่นและเป็นกลางเท่านั้น";
+"abuse-filter-disallow-heading" = "คุณไม่สามารถเผยแพร่การแก้ไขนี้";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "ตัวกรองอัตโนมัติได้ระบุว่าการแก้ไขนี้อาจเป็นการแก้ไขที่ไม่สร้างสรรค์หรือเป็นการพยายามก่อกวน";
 // Fuzzy
 "abuse-filter-warning-blanking" = "บทความว่างเปล่าหรือสแปม";
-// Fuzzy
-"abuse-filter-warning-caps" = "พิมพ์ด้วยตัวพิมพ์ใหญ่ทั้งหมด";
+"abuse-filter-warning-caps" = "ข้อความตัวพิมพ์ใหญ่ทั้งหมด";
 "abuse-filter-warning-heading" = "การแก้ไขนี้ดูเหมือนว่าเป็นการแก้ไขที่ไม่สร้างสรรค์ คุณแน่ใจหรือว่าคุณต้องการเผยแพร่การแก้ไขนี้?";
 "abuse-filter-warning-irrelevant" = "แหล่งข้อมูลอื่นหรือรูปภาพไม่สัมพันธ์กัน";
 // Fuzzy
 "abuse-filter-warning-repeat" = "การพิมพ์ตัวอักษรซ้ำ";
-// Fuzzy
-"abuse-filter-warning-subheading" = "การแก้ไขของคุณอาจมีคำเตือนอย่างน้อยหนึ่งรายการ:";
+"abuse-filter-warning-subheading" = "การแก้ไขของคุณอาจประกอบด้วย:";
 "account-creation-captcha-cannot-see-image" = "มองไม่เห็นรูปภาพงั้นหรือ? $1";
 "account-creation-captcha-obtaining" = "กำลังดึง CAPTCHA ใหม่...";
 "account-creation-captcha-request-account" = "ขอบัญชี";
@@ -62,6 +58,8 @@
 "action-add-to-reading-list" = "เพิ่มลงในรายการอ่าน";
 "action-add-to-reading-list-short" = "เพิ่มลงในรายการ";
 "action-cancel" = "ยกเลิก";
+// Fuzzy
+"action-find-in-page" = "ค้นหาในหน้า";
 "action-move-to" = "ย้ายลงใน…";
 "action-move-to-reading-list" = "ย้ายลงในรายการอ่าน";
 "action-read" = "อ่าน";
@@ -72,11 +70,12 @@
 "action-saved-accessibility-notification" = "บันทึกบทความไว้อ่านภายหลังแล้ว";
 "action-share" = "แบ่งปัน";
 "action-sort" = "เรียงลำดับ";
+// Fuzzy
+"action-undo" = "เลิกทำ";
 "action-unsave" = "เลิกบันทึก";
 "action-unsaved-accessibility-notification" = "เลิกบันทึกบทความแล้ว";
 "action-update" = "อัปเดต";
 "add-articles-to-reading-list" = "เพิ่ม {{PLURAL:$1|$1 บทความ}}ลงในรายการอ่าน";
-"alert-no-internet" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 "announcements-dismiss" = "รับทราบ";
 "app-store-keywords" = "วิกิพีเดีย, อ้างอิง, วิกิ, สารานุกรม, ข้อมูล, ความรู้, วิจัย, สำรวจ, เรียนรู้";
 "app-store-release-notes" = "ฟีดสำรวจที่ปรับแต่งได้เต็มที่และอ่านง่ายขึ้น แก้ไขบั๊ก ปรับปรุงประสิทธิภาพ และการแปลเป็นภาษาท้องถิ่น";
@@ -167,7 +166,6 @@
 "empty-no-article-message" = "ขออภัย ไม่สามารถโหลดบทความนี้ได้";
 "empty-no-feed-action-message" = "คุณยังสามารถอ่านหน้าที่บันทึกไว้ได้";
 "empty-no-feed-message" = "คุณสามารถดูบทความที่แนะนำของคุณได้เมื่อคุณมีอินเทอร์เน็ต";
-"empty-no-feed-title" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 "empty-no-history-message" = "ติดตามสิ่งที่คุณได้อ่านที่นี่";
 "empty-no-history-title" = "ไม่มีประวัติที่จะแสดง";
 "empty-no-reading-lists-message" = "สร้างรายการสำหรับสถานที่ที่อยากไป หัวข้อโปรด และอื่นๆ";
@@ -208,7 +206,6 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "ซ่อน %@ การ์ดทั้งหมด";
 "explore-feed-preferences-in-the-news-description" = "บทความเกี่ยวกับเหตุการณ์ปัจจุบัน";
 "explore-feed-preferences-languages-footer-text" = "การซ่อนการ์ดในฟีดสำรวจในภาษาทั้งหมดของคุณจะปิดแท็บสำรวจ";
-"action-undo" = "เลิกทำ";
 "explore-hide-card-prompt" = "ซ่อนการ์ดนี้";
 "explore-main-page-description" = "หน้าหลักของโครงการวิกิมีเดีย";
 "explore-main-page-heading" = "วันนี้บนวิกิพีเดีย";
@@ -253,7 +250,6 @@
 "field-token-title" = "รหัสการยืนยัน";
 "field-username-placeholder" = "ป้อนชื่อผู้ใช้";
 "field-username-title" = "ชื่อผู้ใช้";
-"action-find-in-page" = "ค้นหาในหน้า";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "รีเซ็ต";
 "history-clear-all" = "ล้าง";

@@ -27,7 +27,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Ur tezmireḍ ara ad tessuffɣeḍ taẓrigt-agi. Ma ulac aqilif, uɣal ar deffirsakin beddel-it.";
-"abuse-filter-disallow-notable" = "Wikipedia d tasanayt, agbur-is d arawsan, s wazal-is.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Imzizdig awurman yufa-d d akken asnifel-agi mačči d ayen yelhan neɣ ahat d aɛraḍ n uhuddu.";
 // Fuzzy
@@ -52,6 +51,8 @@
 "account-creation-passwords-mismatched" = "Urtan n wawal uffir ur mṣadan ara.";
 "account-creation-saving" = "Asekles...";
 "account-creation-title" = "Rnu amiḍan";
+// Fuzzy
+"action-find-in-page" = "Af-d deg usebter";
 "action-read" = "Ɣeṛ";
 "action-save" = "Sekles";
 "action-saved" = "Yettwasekles";
@@ -60,7 +61,6 @@
 "action-share" = "Bḍu";
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
-"alert-no-internet" = "Ulac tuqqna Internet";
 "announcements-dismiss" = "Zgel";
 "appearance-settings-adjust-text-sizing" = "Seggem teɣzi n uḍris n umagrad";
 // Fuzzy
@@ -104,7 +104,6 @@
 "empty-no-article-message" = "Suref-aɣ, ur tezmireḍ ara ad tessaliḍ amagrad";
 "empty-no-feed-action-message" = "Tzemreḍ ad teɣreḍ isebtar yettwaskelsen";
 "empty-no-feed-message" = "Tzemreḍ ad twaliḍ imagraden yettuweṣṣan ticki ɣur-k internet";
-"empty-no-feed-title" = "Ulac tuqqna Internet";
 "empty-no-history-message" = "Ḍfeṛ ayen ɣef wayen telliḍ teqqareḍ dagi.";
 "empty-no-history-title" = "Ulac amazray ara twaliḍ";
 "empty-no-saved-pages-message" = "Sekles isebtar ara twaliḍ ticki, ɣas ukac tuqqna";
@@ -154,7 +153,6 @@
 "field-token-title" = "Tangalt n usenqed";
 "field-username-placeholder" = "Sekcem isem n useqdac";
 "field-username-title" = "Isem n useqdac";
-"action-find-in-page" = "Af-d deg usebter";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Ales awennez";
 "forgot-password-email-sent" = "Imayl s tinadin n uwennez n wawal uffir yettwazen";
@@ -235,6 +233,7 @@
 "page-edit-history" = "Amazray ummid n usnifel";
 "page-history-title" = "amazray n umagrad";
 "page-issues" = "Uguren n usebter";
+// Fuzzy
 "page-last-edited" = "Yettwaẓreg $1 n wussan aya";
 "page-location" = "Wali ɣef tkarḍa";
 "page-protected-autoconfirmed" = "Asebter-agi yettumesten s uzgen.";
@@ -242,6 +241,7 @@
 "page-protected-can-not-edit-title" = "Asebter-agi yettummesten";
 "page-protected-other" = "Asebter-agi yettummesten i yiswiren-agi: $1";
 "page-protected-sysop" = "Asebter-agi yettummesten meṛṛa.";
+// Fuzzy
 "page-read-in-other-languages" = "Yella deg $1 n tutlayin-nniḍen";
 "page-similar-titles" = "Isebtar icuban";
 "page-talk-page" = "Wali asebter n usqerdec";
