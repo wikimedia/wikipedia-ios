@@ -75,11 +75,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>Modificata ieri</string>
 			<key>other</key>
-			<string>Modificata %1$@ giorni fa</string>
+			<string>Modificata %1$d giorni fa</string>
 			<key>zero</key>
 			<string>Modificata oggi</string>
 		</dict>
@@ -93,11 +93,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>Disponibile in un'altra lingua</string>
 			<key>other</key>
-			<string>Disponibile in altre %1$@ lingue</string>
+			<string>Disponibile in altre %1$d lingue</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

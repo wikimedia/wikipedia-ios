@@ -44,9 +44,9 @@ public class WMFAuthenticationManager: Fetcher {
     @objc public var hasKeychainCredentials: Bool {
         guard
             let userName = KeychainCredentialsManager.shared.username,
-            userName.count > 0,
+            !userName.isEmpty,
             let password = KeychainCredentialsManager.shared.password,
-            password.count > 0
+            !password.isEmpty
             else {
                 return false
         }

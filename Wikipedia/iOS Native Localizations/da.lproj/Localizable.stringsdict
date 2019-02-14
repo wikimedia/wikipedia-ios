@@ -59,11 +59,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>Redigeret i går</string>
 			<key>other</key>
-			<string>Redigeret for %1$@ dage siden</string>
+			<string>Redigeret for %1$d dage siden</string>
 			<key>zero</key>
 			<string>Redigeret i dag</string>
 		</dict>
@@ -77,11 +77,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
-			<string>Tilgængelig på %1$@ andet sprog</string>
+			<string>Tilgængelig på %1$d andet sprog</string>
 			<key>other</key>
-			<string>Tilgængelig på %1$@ andre sprog</string>
+			<string>Tilgængelig på %1$d andre sprog</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

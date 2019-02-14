@@ -63,7 +63,6 @@
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
-"alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -198,7 +197,6 @@
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
-"empty-no-feed-title" = "No Internet Connection";
 "empty-no-history-message" = "Keep track of what you've been reading here";
 "empty-no-history-title" = "No history to show";
 "empty-no-reading-lists-message" = "Create lists for places to travel to, favorite topics and much more";
@@ -399,6 +397,9 @@
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
+"no-internet-connection" = "No internet connection";
+"no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
+"no-internet-connection-article-reload-button" = "Return to last saved version";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -413,14 +414,14 @@
 "page-edit-history" = "Full edit history";
 "page-history-title" = "Article history";
 "page-issues" = "Page issues";
-"page-last-edited" = "Edited $1 days ago";
+"page-last-edited" = "{{PLURAL:$1|0=Edited today|Edited yesterday|Edited $1 days ago}}";
 "page-location" = "View on a map";
 "page-protected-autoconfirmed" = "This page has been semi-protected.";
 "page-protected-can-not-edit" = "You do not have the rights to edit this page";
 "page-protected-can-not-edit-title" = "This page is protected";
 "page-protected-other" = "This page has been protected to the following levels: $1";
 "page-protected-sysop" = "This page has been fully protected.";
-"page-read-in-other-languages" = "Available in $1 other languages";
+"page-read-in-other-languages" = "Available in {{PLURAL:$1|$1 other language|$1 other languages}}";
 "page-similar-titles" = "Similar pages";
 "page-talk-page" = "View talk page";
 "pictured" = "pictured";

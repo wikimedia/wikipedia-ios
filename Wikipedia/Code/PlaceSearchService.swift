@@ -134,7 +134,7 @@ class PlaceSearchService
                 savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
                 savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)]
                 let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
-                guard savedPagesWithoutLocation.count > 0 else {
+                guard !savedPagesWithoutLocation.isEmpty else {
                     done()
                     return
                 }

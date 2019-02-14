@@ -18,6 +18,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     func reload() {
         collectionView.reloadData()
+        updateEmptyState()
     }
     
     var searchSiteURL: URL? = nil
@@ -26,7 +27,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
             return false
         }
-        return results.count > 0 && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
+        return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
     }
     
     override var eventLoggingCategory: EventLoggingCategory {

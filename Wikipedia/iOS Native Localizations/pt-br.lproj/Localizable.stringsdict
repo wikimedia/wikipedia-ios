@@ -75,11 +75,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>Editado ontem</string>
 			<key>other</key>
-			<string>Editado %1$@ dia atrás</string>
+			<string>Editado %1$d dia atrás</string>
 			<key>zero</key>
 			<string>Editado hoje</string>
 		</dict>

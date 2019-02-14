@@ -837,7 +837,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return contentGroup.previewArticleKeys.contains(articleKey)
         }
         
-        guard visibleIndexPathsWithChanges.count > 0 else {
+        guard !visibleIndexPathsWithChanges.isEmpty else {
             return
         }
         

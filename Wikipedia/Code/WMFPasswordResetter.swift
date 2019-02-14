@@ -28,10 +28,10 @@ public class WMFPasswordResetter: Fetcher {
             "format": "json"
         ];
         
-        if let userName = userName, userName.count > 0 {
+        if let userName = userName, !userName.isEmpty {
             parameters["user"] = userName
         }else {
-            if let email = email, email.count > 0 {
+            if let email = email, !email.isEmpty {
                 parameters["email"] = email
             }
         }

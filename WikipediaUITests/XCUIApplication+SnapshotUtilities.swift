@@ -140,7 +140,7 @@ extension XCUIElement {
                 }
             }
             wmf_scrollDown()
-        } while (Date().timeIntervalSince(start) < seconds) && (keys.count > 0)
+        } while (Date().timeIntervalSince(start) < seconds) && (!keys.isEmpty)
     }
 }
 

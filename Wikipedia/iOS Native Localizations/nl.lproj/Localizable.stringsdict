@@ -75,11 +75,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>Gisteren bewerkt</string>
 			<key>other</key>
-			<string>%1$@ dagen geleden bewerkt</string>
+			<string>%1$d dagen geleden bewerkt</string>
 			<key>zero</key>
 			<string>Vandaag bewerkt</string>
 		</dict>
@@ -93,11 +93,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
-			<string>Beschikbaar in %1$@ andere taal</string>
+			<string>Beschikbaar in %1$d andere taal</string>
 			<key>other</key>
-			<string>Beschikbaar in %1$@ andere talen</string>
+			<string>Beschikbaar in %1$d andere talen</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

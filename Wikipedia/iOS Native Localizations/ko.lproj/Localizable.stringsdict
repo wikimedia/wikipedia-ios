@@ -67,11 +67,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>어제 마지막으로 편집</string>
 			<key>other</key>
-			<string>%1$@일 전에 마지막으로 편집</string>
+			<string>%1$d일 전에 마지막으로 편집</string>
 			<key>zero</key>
 			<string>오늘 마지막으로 편집</string>
 		</dict>
@@ -85,9 +85,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>other</key>
-			<string>%1$@개의 다른 언어로 읽어보기</string>
+			<string>%1$d개의 다른 언어로 읽어보기</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

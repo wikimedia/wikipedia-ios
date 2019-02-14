@@ -39,7 +39,7 @@ public class WMFCaptchaResetter: Fetcher {
                     failure(WMFCaptchaResetterError.cannotExtractCaptchaIndex)
                     return
             }
-            guard index.count > 0 else {
+            guard !index.isEmpty else {
                 failure(WMFCaptchaResetterError.zeroLengthIndex)
                 return
             }

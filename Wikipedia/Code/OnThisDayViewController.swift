@@ -28,7 +28,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
             // Work-around for: https://phabricator.wikimedia.org/T169277
             // Presently the event looks to its first article preview when you ask it for the language, so if the event has no previews, no lang!
             let firstEventWithArticlePreviews = events.first(where: {
-                guard let previews = $0.articlePreviews, previews.count > 0 else {
+                guard let previews = $0.articlePreviews, !previews.isEmpty else {
                     return false
                 }
                 return true
