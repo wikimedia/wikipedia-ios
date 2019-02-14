@@ -518,11 +518,24 @@
       if (selectedButtonsArray === undefined) {
         selectedButtonsArray = selectedButtons(editor)
       }
-      const payloadsForButton = selectedButtonsArray.filter((item) => {return item.button === buttonType})
-      if (payloadsForButton.length === 0) {
+      const payloadsForButton = selectedButtonsArray.filter((item) => { return item.button === buttonType })
+      const payloadsLength = payloadsForButton.length
+      if (payloadsLength === 0) {
         return null
       }
-      return payloadsForButton[0]
+      var first = payloadsForButton[0]
+      if (payloadsLength === 1) {
+        return first
+      } else {
+        const lastIndex = payloadsForButton.length - 1
+        const last = payloadsForButton[lastIndex]
+        if (first.info && last.info.end) {
+          first.info.end = last.info.end
+          return first
+        } else {
+          return payloadsForButton[0]
+        }
+      }
     }
 
     const expandTagSelection = (button) => {
