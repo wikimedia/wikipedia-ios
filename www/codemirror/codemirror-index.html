@@ -280,42 +280,41 @@
 
       // For now only supports single line selection ranges.
       const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
-      const typesArray = intersectingTokens.map(token => token.type)
-        .join(' ')
-        .split(' ')
-        .filter(s => {
-          return s.trim().length > 0
-        })
-      
-      
-      if (typesArray.includes('strong')) {
-        result.push(buttonPayload('bold'))
-      }
-      if (typesArray.includes('em')) {
-        result.push(buttonPayload('italic'))
-      }
-      if (typesArray.includes('mw-link-ground')) {
-        result.push(buttonPayload('link'))
-      }
-      if (typesArray.includes('mw-template-ground')) {
-        result.push(buttonPayload('template'))
-      }
-      if (typesArray.includes('mw-comment')) {
-        result.push(buttonPayload('comment'))
-      }
-      if (typesArray.includes('mw-section-header-text')) {
-        const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
-        result.push(buttonPayload('heading', {depth: depth}))
-      }
+      const tokenReducer = (token) => token.type !== null && rangesIntersect(selectionRange, {start: token.start, end: token.end})
+      const tokenRangesIntersectingSelectionRange = intersectingTokens.filter(token => tokenReducer(token))
+      tokenRangesIntersectingSelectionRange.forEach(token => {
+        const type = token.type
+        const buttonInfoDict = { start: token.start, end: token.end }
+        if (type.includes('strong')) {
+          result.push(buttonPayload('bold', buttonInfoDict))
+        }
+        if (type.includes('em')) {
+          result.push(buttonPayload('italic', buttonInfoDict))
+        }
+        if (type.includes('mw-link-ground')) {
+          result.push(buttonPayload('link', buttonInfoDict))
+        }
+        if (type.includes('mw-template-ground')) {
+          result.push(buttonPayload('template', buttonInfoDict))
+        }
+        if (type.includes('mw-comment')) {
+          result.push(buttonPayload('comment', buttonInfoDict))
+        }
+        if (type.includes('mw-section-header-text')) {
+          const depth = numberFromPrefixedKey(type, 'mw-section-header-depth-')
+          result.push(buttonPayload('heading', { depth: depth }))
+        }
 
-      if (typesArray.includes('mw-indenting') || typesArray.includes('mw-indenting-contents')) {
-        const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
-        result.push(buttonPayload('indent', {depth: depth}))
-      }
-      if (typesArray.includes('mw-signature')/* || typesArray.includes('mw-signature-contents')*/) {
-        const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
-        result.push(buttonPayload('signature', {depth: depth}))
-      }
+        if (type.includes('mw-indenting') || type.includes('mw-indenting-contents')) {
+          const depth = numberFromPrefixedKey(type, 'mw-indenting-depth-')
+          result.push(buttonPayload('indent', { depth: depth }))
+        }
+        if (type.includes('mw-signature')/* || type.includes('mw-signature-contents')*/) {
+          const depth = numberFromPrefixedKey(type, 'mw-signature-depth-')
+          result.push(buttonPayload('signature', { depth: depth }))
+        }
+      })
+
       const listItemLineCallback = (item) => {
         result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
         return false // No need to continue (only need to send one 'li' message)
