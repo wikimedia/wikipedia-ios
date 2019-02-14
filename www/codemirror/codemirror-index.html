@@ -754,13 +754,13 @@
         expandTagSelectionIfNoSelectionAndToggleMarkup('reference', '<ref>', '</ref>')
       },
       template: () => {
-        expandTagSelectionIfNoSelectionAndToggleMarkup('template', '{{', '}}')
+        toggleMarkup('template', '{{', '}}')
       },
       anchor: () => {
-        expandTagSelectionIfNoSelectionAndToggleMarkup('anchor', '[[', ']]')
+        toggleMarkup('anchor', '[[', ']]')
       },
       comment: () => {
-        expandTagSelectionIfNoSelectionAndToggleMarkup('comment', '<!--', '-->')
+        toggleMarkup('comment', '<!--', '-->')
       },
       indent: () => {
         console.log('indent')
