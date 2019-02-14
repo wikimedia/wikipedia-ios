@@ -25,8 +25,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     @IBOutlet private var captchaContainer: UIView!
     @IBOutlet private var editSummaryVCContainer: UIView!
-    @IBOutlet private var licenseTitleLabel: UILabel!
-    @IBOutlet private var licenseLoginLabel: UILabel!
+    @IBOutlet private var licenseTitleTextView: UITextView!
+    @IBOutlet private var licenseLoginTextView: UITextView!
+    @IBOutlet private var textViews: [UITextView]!
     @IBOutlet private var dividerHeightConstraits: [NSLayoutConstraint]!
     @IBOutlet private var dividerViews: [UIView]!
     @IBOutlet private var spacerAboveBottomDividerHeightConstrait: NSLayoutConstraint!
@@ -103,25 +104,23 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = WMFLocalizedStringWithDefaultValue("wikitext-preview-save-changes-title", nil, nil, "Save changes", "Title for edit preview screens")
+        navigationItem.title = WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens")
         
         buttonX = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(self.goBack))
         
         buttonLeftCaret = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
         
-        buttonSave = UIBarButtonItem(title: WMFLocalizedStringWithDefaultValue("button-publish", nil, nil, "Publish", "Button text for publish button used in various places.\n{{Identical|Publish}}"), style: .done, target: self, action: #selector(self.goForward))
+        buttonSave = UIBarButtonItem(title: WMFLocalizedString("button-publish", value: "Publish", comment: "Button text for publish button used in various places.\n{{Identical|Publish}}"), style: .done, target: self, action: #selector(self.goForward))
         buttonSave?.tintColor = theme.colors.link
 
         mode = .preview
         
-        minorEditLabel.text = WMFLocalizedStringWithDefaultValue("edit-minor-text", nil, nil, "This is a minor edit", "Text for minor edit label")
-        minorEditButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-minor-learn-more-text", nil, nil, "Learn more about minor edits", "Text for minor edits learn more button"), for: .normal)
+        minorEditLabel.text = WMFLocalizedString("edit-minor-text", value: "This is a minor edit", comment: "Text for minor edit label")
+        minorEditButton.setTitle(WMFLocalizedString("edit-minor-learn-more-text", value: "Learn more about minor edits", comment: "Text for minor edits learn more button"), for: .normal)
 
-        addToWatchlistLabel.text = WMFLocalizedStringWithDefaultValue("edit-watch-this-page-text", nil, nil, "Watch this page", "Text for watch this page label")
-        addToWatchlistButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-watch-list-learn-more-text", nil, nil, "Learn more about watch lists", "Text for watch lists learn more button"), for: .normal)
+        addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", value: "Watch this page", comment: "Text for watch this page label")
+        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about watch lists", comment: "Text for watch lists learn more button"), for: .normal)
         
-        licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue("wikitext-upload-save-terms-cc-by-sa-and-gfdl", nil, nil, "By publishing changes, you agree to the %1$@, and you irrevocably agree to release your contribution under the %2$@ License and the %3$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2")
-        licenseLoginLabel.text = CommonStrings.editAttribution
         for dividerHeightContraint in dividerHeightConstraits {
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
         }
@@ -132,23 +131,47 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         apply(theme: theme)
     }
 
-    private func styleLicenseTitleLabelLinks() {
-        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-        let linkAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
-        licenseTitleLabel.attributedText = licenseTitleLabel.text?.attributedString(attributes: baseAttributes, substitutionStrings: [
-            Licenses.localizedSaveTermsTitle,
-            Licenses.localizedCCBYSA3Title,
-            Licenses.localizedGFDLTitle
-            ], substitutionAttributes: [linkAttributes, linkAttributes, linkAttributes])
+    private var licenseTitleTextViewAttributedString: NSAttributedString {
+        let localizedString = WMFLocalizedString("wikitext-upload-save-terms-and-licenses", value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
+        
+        let substitutedString = String.localizedStringWithFormat(
+            localizedString,
+            "<a href=\"\(Licenses.saveTermsURL?.absoluteString ?? "")\">",
+            "</a>",
+            "<a href=\"\(Licenses.CCBYSA3URL?.absoluteString ?? "")\">",
+            "</a>" ,
+            "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
+            "</a>"
+        )
+        
+        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        
+        return attributedString
+    }
+
+    private var licenseLoginTextViewAttributedString: NSAttributedString {
+        let localizedString = WMFLocalizedString("wikitext-upload-save-anonymously-or-login", value: "Edits will be attributed to the IP address of your device. If you %1$@Log in%2$@ you will have more privacy.", comment: "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting.")
+        
+        let substitutedString = String.localizedStringWithFormat(
+            localizedString,
+            "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
+            "</a>"
+        )
+        
+        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        
+        return attributedString
     }
     
-    private func styleLoginLabelLinks() {
-        let baseAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-        let substitutionAttributes: [NSAttributedString.Key : AnyObject] = [
-            .underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue),
-            .foregroundColor: theme.colors.link
-        ]
-        licenseLoginLabel.attributedText = licenseLoginLabel.text?.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [substitutionAttributes])
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateTextViews()
+    }
+    
+    private func updateTextViews() {
+        licenseTitleTextView.attributedText = licenseTitleTextViewAttributedString
+        licenseLoginTextView.attributedText = licenseLoginTextViewAttributedString
+        applyThemeToTextViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,7 +187,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
         
         if WMFAuthenticationManager.sharedInstance.isLoggedIn {
-            licenseLoginLabel.attributedText = nil
+            licenseLoginTextView.isHidden = true
         }
         
         super.viewWillAppear(animated)
@@ -193,7 +216,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func save() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-upload-save", nil, nil, "Publishing...", "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         funnel?.logSaveAttempt()
         
@@ -331,22 +354,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         highlightCaptchaSubmitButton(((solutionText?.count ?? 0) == 0) ? false : true)
     }
     
-    @IBAction public func licenseTitleLabelTapped(_ recognizer: UIGestureRecognizer?) {
-        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: Licenses.localizedSaveTermsTitle, style: .default, handler: { action in
-            self.wmf_openExternalUrl(Licenses.saveTermsURL)
-        }))
-        sheet.addAction(UIAlertAction(title: Licenses.localizedCCBYSA3Title, style: .default, handler: { action in
-            self.wmf_openExternalUrl(Licenses.CCBYSA3URL)
-        }))
-        sheet.addAction(UIAlertAction(title: Licenses.localizedGFDLTitle, style: .default, handler: { action in
-            self.wmf_openExternalUrl(Licenses.GFDLURL)
-        }))
-        sheet.addAction(UIAlertAction(title: WMFLocalizedStringWithDefaultValue("open-link-cancel", nil, nil, "Cancel", "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-        present(sheet, animated: true)
-    
-    }
-    
     func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {
@@ -361,12 +368,19 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         addToWatchlistButton.titleLabel?.textColor = theme.colors.link
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
-        licenseTitleLabel.backgroundColor = theme.colors.paperBackground
-        licenseLoginLabel.backgroundColor = theme.colors.paperBackground
-        styleLicenseTitleLabelLinks()
-        styleLoginLabelLinks()
+        
+        applyThemeToTextViews()
+        
         for dividerView in dividerViews {
             dividerView.backgroundColor = theme.colors.tertiaryText
+        }
+    }
+    
+    private func applyThemeToTextViews() {
+        for textView in textViews {
+            textView.backgroundColor = theme.colors.paperBackground
+            textView.textColor = theme.colors.secondaryText
+            textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
         }
     }
     

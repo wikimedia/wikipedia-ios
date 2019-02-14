@@ -109,11 +109,20 @@
     XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
 }
 
++ (NSRegularExpression *)reverseiOSTokenRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *reverseiOSTokenRegex;
+    dispatch_once(&onceToken, ^{
+        reverseiOSTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[^%%])(:?[0-9]+)(?:[$])(:?[^@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
+    });
+    return reverseiOSTokenRegex;
+}
+
 + (NSRegularExpression *)reverseTWNTokenRegex {
     static dispatch_once_t onceToken;
     static NSRegularExpression *reverseTWNTokenRegex;
     dispatch_once(&onceToken, ^{
-        reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[^%%])(:?[0-9]+)(?:[$])(:?[^@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
+        reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[0-9])(?:[$])(:?[^0-9])" options:0 error:nil];
     });
     return reverseTWNTokenRegex;
 }
@@ -169,7 +178,7 @@
 }
 
 - (void)testiOSTranslationStringForReversedSubstitutionShortcuts {
-    [self assertLprojFiles:TWNStringsTests.iOSLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.reverseTWNTokenRegex];
+    [self assertLprojFiles:TWNStringsTests.iOSLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.reverseiOSTokenRegex];
 }
 
 - (void)testIncomingTranslationStringForPercentTokens {
@@ -347,6 +356,19 @@
             if (!didFindEnMatchStringAtLeastOnceInQQQMatchString) {
                 // No need keep testing if a string already failed our assertion once.
                 break;
+            }
+        }
+    }
+}
+
+// Translators have been know to add "{{plural..." syntax to strings which don't yet have "{{plural..." in EN, which means the string won't be correctly resolved.
+- (void)testIncomingTranslationStringForBracketSubstitutionsNotPresentInEN {
+    NSDictionary *enPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        if (![lprojFileName isEqualToString:@"qqq.lproj"] && ![lprojFileName isEqualToString:@"en.lproj"]) {
+            NSDictionary *translationPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            for (NSString *key in translationPluralizableStringsDict) {
+                XCTAssertNotNil([enPluralizableStringsDict objectForKey:key], @"\n\n\"%@\" translation containing plurals syntax received for \"%@\" string. The original EN string...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/en&action=edit\n...doesn't have (or possibly need) plural syntax - either plural syntax will need to be added to the EN string or the translation...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/%@&action=edit\n...will need to be updated to remove plural syntax.\n(Note: after loading the link above you can tap the \"Ask question\" button to pre-fill a Phabricator ticket for asking `i18n` folks for assistance for this string)\n\n", lprojFileName, key, key, key, [lprojFileName stringByReplacingOccurrencesOfString:@".lproj" withString:@""]);
             }
         }
     }
