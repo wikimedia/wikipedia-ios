@@ -309,10 +309,3 @@ extension SectionEditorViewController: Themeable {
         navigationItemController.apply(theme: theme)
     }
 }
-
-// MARK: - Old localized strings
-
-extension SectionEditorViewController {
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, nil, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved")
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, nil, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited")
-}

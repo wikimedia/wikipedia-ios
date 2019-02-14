@@ -39,7 +39,7 @@ class EditSummaryViewController: UIViewController, Themeable {
     @IBOutlet private weak var addedLinksButton: UIButton!
     @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
 
-    private let placeholderText = WMFLocalizedStringWithDefaultValue("edit-summary-placeholder-text", nil, nil, "How did you improve the article?", "Placeholder text which appears initially in the free-form edit summary text box")
+    private let placeholderText = WMFLocalizedString("edit-summary-placeholder-text", value: "How did you improve the article?", comment: "Placeholder text which appears initially in the free-form edit summary text box")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,14 +49,14 @@ class EditSummaryViewController: UIViewController, Themeable {
             $0.setContentCompressionResistancePriority(.required, for: .horizontal)
         }
 
-        addSummaryLabel.text = WMFLocalizedStringWithDefaultValue("edit-summary-add-summary-text", nil, nil, "Add an edit summary", "Text for add summary label")
-        learnMoreButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-summary-learn-more-text", nil, nil, "Learn more", "Text for learn more button"), for: .normal)
+        addSummaryLabel.text = WMFLocalizedString("edit-summary-add-summary-text", value: "Add an edit summary", comment: "Text for add summary label")
+        learnMoreButton.setTitle(WMFLocalizedString("edit-summary-learn-more-text", value: "Learn more", comment: "Text for learn more button"), for: .normal)
         summaryTextField.placeholder = placeholderText
         summaryTextField.delegate = self
         summaryTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)
-        fixedTypoButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-summary-choice-fixed-typos", nil, nil, "Fixed typo", "Button text for quick 'fixed typos' edit summary selection"), for: .normal)
-        fixedGrammarButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-summary-choice-fixed-grammar", nil, nil, "Fixed grammar", "Button text for quick 'improved grammar' edit summary selection"), for: .normal)
-        addedLinksButton.setTitle(WMFLocalizedStringWithDefaultValue("edit-summary-choice-linked-words", nil, nil, "Added links", "Button text for quick 'link addition' edit summary selection"), for: .normal)
+        fixedTypoButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-typos", value: "Fixed typo", comment: "Button text for quick 'fixed typos' edit summary selection"), for: .normal)
+        fixedGrammarButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-grammar", value: "Fixed grammar", comment: "Button text for quick 'improved grammar' edit summary selection"), for: .normal)
+        addedLinksButton.setTitle(WMFLocalizedString("edit-summary-choice-linked-words", value: "Added links", comment: "Button text for quick 'link addition' edit summary selection"), for: .normal)
         
         apply(theme: theme)
     }
