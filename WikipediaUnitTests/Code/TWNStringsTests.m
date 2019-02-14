@@ -111,20 +111,20 @@
 
 + (NSRegularExpression *)reverseiOSTokenRegex {
     static dispatch_once_t onceToken;
-    static NSRegularExpression *reverseTWNTokenRegex;
+    static NSRegularExpression *reverseiOSTokenRegex;
     dispatch_once(&onceToken, ^{
-        reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[^%%])(:?[0-9]+)(?:[$])(:?[^@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
+        reverseiOSTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[^%%])(:?[0-9]+)(?:[$])(:?[^@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
     });
-    return reverseTWNTokenRegex;
+    return reverseiOSTokenRegex;
 }
 
 + (NSRegularExpression *)reverseTWNTokenRegex {
     static dispatch_once_t onceToken;
-    static NSRegularExpression *iosTokenRegex;
+    static NSRegularExpression *reverseTWNTokenRegex;
     dispatch_once(&onceToken, ^{
-        iosTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[0-9])(?:[$])(:?[^0-9])" options:0 error:nil];
+        reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[0-9])(?:[$])(:?[^0-9])" options:0 error:nil];
     });
-    return iosTokenRegex;
+    return reverseTWNTokenRegex;
 }
 
 + (NSRegularExpression *)twnTokenRegex {
