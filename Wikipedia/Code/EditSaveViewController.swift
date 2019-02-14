@@ -142,7 +142,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>" ,
             "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
             "</a>"
-        ).stringByTrimmingWhitespaceInsideHTMLAnchors()
+        ).stringTrimmingWhitespaceInsideAnchor()
         
         let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
         
@@ -156,7 +156,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             localizedString,
             "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
             "</a>"
-        ).stringByTrimmingWhitespaceInsideHTMLAnchors()
+        ).stringTrimmingWhitespaceInsideAnchor()
         
         let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
         
@@ -420,7 +420,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 }
 
 private extension String {
-    func stringByTrimmingWhitespaceInsideHTMLAnchors() -> String {
+    func stringTrimmingWhitespaceInsideAnchor() -> String {
         return replacingOccurrences(of: ">\\s*(.*?)\\s*</a>", with: ">$1</a>", options: [.regularExpression])
     }
 }
