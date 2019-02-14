@@ -1,0 +1,10 @@
+#!/bin/bash
+
+brew update && brew install nodenv
+brew upgrade nodenv
+
+cd www
+nodenv install -s
+nodenv init
+npm install -g grunt
+nodenv init

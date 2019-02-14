@@ -96,13 +96,13 @@ We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manage
 
 As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use a pre-commit hook to format code. The pre commit hook is `scripts/clang_format_diff` and is installed by `scripts/setup`.
 
-### NPM
- 
-`brew install npm`
- 
-[npm](https://www.npmjs.com/) is a package manager for [nodejs](https://nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
+### `www` Folder
+
+Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
 
 ### Fastlane
+
+`scripts/setup_fastlane` should install the required dependencies for using fastlane with this project
 
 [fastlane](https://fastlane.tools) automates common development tasks - for example bumping version numbers, running tests on multiple configurations, or submitting to the App Store. You can list the available lanes (our project-specific scripts) using `bundle exec fastlane lanes`. You can list available actions (all actions available to be scripted via lanes) using `bundle exec fastlane actions`. The fastlane configuration and scripts are in the `fastlane` folder.
 
