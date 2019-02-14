@@ -568,7 +568,8 @@
       const hasReverseMarkup = closingMarkup ? isSelectionWrappedWith(closingMarkup, openingMarkup) : false
 
       var shouldReverseMarkup = false
-      const payload = selectionPayloadForButton(button)
+      const normalizedButton = button === 'anchor' ? 'link' : button
+      const payload = selectionPayloadForButton(normalizedButton)
       if (payload) {
         const selectionInfo = payload.info
         const selectionRange = getSelectionRange(editor)
