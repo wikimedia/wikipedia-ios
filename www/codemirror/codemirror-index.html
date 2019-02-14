@@ -294,7 +294,7 @@
       if (typesArray.includes('em')) {
         result.push(buttonPayload('italic'))
       }
-      if (typesArray.includes('mw-link-ground')) {
+      if (typesArray.includes('mw-link-ground') || typesArray.includes('mw-template-link-ground')) {
         result.push(buttonPayload('link'))
       }
       if (typesArray.includes('mw-template-ground')) {
