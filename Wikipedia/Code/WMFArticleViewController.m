@@ -1219,9 +1219,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             navigationTitle = nil;
         }
         self.navigationItem.title = navigationTitle;
-        dispatch_block_t completion = self.articleLoadCompletion;
+        void (^completion)(WMFArticleViewController *_Nullable) = self.articleLoadCompletion;
         if (completion) {
-            completion();
+            completion(self);
             self.articleLoadCompletion = nil;
         }
         if (self.articleURL && self.isAddingArticleToHistoryListEnabled) {
@@ -2071,7 +2071,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
-        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
@@ -2182,16 +2182,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 #pragma mark - Article Navigation
 
-- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController animated:(BOOL)animated {
-    [self wmf_pushArticleViewController:articleViewController animated:YES];
-}
 
 - (void)pushArticleViewControllerWithURL:(NSURL *)url animated:(BOOL)animated {
-    WMFArticleViewController *articleViewController =
-        [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                   dataStore:self.dataStore
-                                                       theme:self.theme];
-    [self pushArticleViewController:articleViewController animated:animated];
+    [self wmf_checkAndPushPotentialArticleWithURL:url usingSession:[WMFSession shared] alertManager:[WMFAlertManager sharedInstance] dataStore:self.dataStore theme:self.theme restoreScrollPosition:NO animated:animated completion:NULL];
 }
 
 #pragma mark - One-time toolbar item popover tips

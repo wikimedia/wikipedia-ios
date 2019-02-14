@@ -46,7 +46,7 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
-@property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
+@property (nonatomic, strong, nullable) void (^articleLoadCompletion)(WMFArticleViewController *_Nullable);
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
 

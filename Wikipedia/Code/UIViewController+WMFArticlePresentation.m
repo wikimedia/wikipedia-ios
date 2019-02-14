@@ -7,25 +7,58 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFArticlePresentation)
 
-- (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
-    return [self wmf_pushArticleWithURL:url
-                              dataStore:dataStore
-                                  theme:theme
-                  restoreScrollPosition:restoreScrollPosition
-                               animated:animated
-                  articleLoadCompletion:^{
-                  }];
+- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
+    [self wmf_pushArticleWithURL:url
+                       dataStore:dataStore
+                           theme:theme
+           restoreScrollPosition:restoreScrollPosition
+                        animated:animated
+                      completion:NULL];
 }
 
-- (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated articleLoadCompletion:(dispatch_block_t)articleLoadCompletion {
+
+- (void)wmf_checkAndPushPotentialArticleWithURL:(NSURL *)maybeArticleURL usingSession:(WMFSession *)session alertManager:(WMFAlertManager *)alertManager dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated completion:(nullable void (^)(WMFArticleViewController *_Nullable))completion {
+    [session fetchSummaryForArticleURL:maybeArticleURL
+                              priority:NSURLSessionTaskPriorityHigh
+                     completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             dispatch_block_t bail = ^{
+                                 [self wmf_openExternalUrl:maybeArticleURL];
+                                 if (completion) {
+                                     completion(nil);
+                                 }
+                             };
+                             if (error) {
+                                 [alertManager showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+                                 return;
+                             }
+                             NSDictionary *namespaceDictionary = result[@"namespace"];
+                             if (![namespaceDictionary isKindOfClass:[NSDictionary class]]) {
+                                 bail();
+                                 return;
+                             }
+                             NSNumber *namespaceId = namespaceDictionary[@"id"];
+                             if (![namespaceId isKindOfClass:[NSNumber class]]) {
+                                 bail();
+                                 return;
+                             }
+                             if ([namespaceId integerValue] != 0) {
+                                 bail();
+                                 return;
+                             }
+                             [self wmf_pushArticleWithURL:maybeArticleURL dataStore:dataStore theme:theme restoreScrollPosition:restoreScrollPosition animated:animated completion:completion];
+                         });
+                     }];
+}
+
+- (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated completion:(nullable void (^)(WMFArticleViewController *_Nullable))completion {
     if (!restoreScrollPosition) {
         url = [url wmf_URLWithFragment:nil];
     }
-
+    
     WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
-    vc.articleLoadCompletion = articleLoadCompletion;
+    vc.articleLoadCompletion = completion;
     [self wmf_pushArticleViewController:vc animated:animated];
-    return vc;
 }
 
 - (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme animated:(BOOL)animated {

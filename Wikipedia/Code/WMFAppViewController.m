@@ -1201,34 +1201,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 done();
                 return NO;
             }
-            [[WMFSession shared] fetchSummaryForArticleURL:URL
-                                                  priority:NSURLSessionTaskPriorityHigh
-                                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 dispatch_block_t bail = ^{
-                                                     [self wmf_openExternalUrl:URL];
-                                                 };
-                                                 if (error) {
-                                                     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-                                                     return;
-                                                 }
-                                                 NSDictionary *namespaceDictionary = result[@"namespace"];
-                                                 if (![namespaceDictionary isKindOfClass:[NSDictionary class]]) {
-                                                     bail();
-                                                     return;
-                                                 }
-                                                 NSNumber *namespaceId = namespaceDictionary[@"id"];
-                                                 if (![namespaceId isKindOfClass:[NSNumber class]]) {
-                                                     bail();
-                                                     return;
-                                                 }
-                                                 if ([namespaceId integerValue] != 0) {
-                                                     bail();
-                                                     return;
-                                                 }
-                                                 [self showArticleForURL:URL animated:animated completion:done];
-                                             });
-                                         }];
+            [self showArticleForURL:URL animated:animated completion:^(WMFArticleViewController * _Nullable articleVC) {
+                done();
+            }];
             return YES;
         } break;
         case WMFUserActivityTypeSettings:
@@ -1257,27 +1232,26 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Utilities
 
-- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
-    return [self showArticleForURL:articleURL
+- (void)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
+    [self showArticleForURL:articleURL
                           animated:animated
-                        completion:^{
-                        }];
+                        completion:NULL];
 }
 
-- (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+- (void)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nullable void (^)(WMFArticleViewController *_Nullable))completion {
     if (!articleURL.wmf_title) {
-        completion();
-        return nil;
+        completion(nil);
+        return;
     }
     WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
     NSString *visibleKey = visibleArticleViewController.articleURL.wmf_articleDatabaseKey;
     NSString *articleKey = articleURL.wmf_articleDatabaseKey;
     if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
-        completion();
-        return visibleArticleViewController;
+        completion(visibleArticleViewController);
+        return;
     }
     [self dismissPresentedViewControllers];
-    return [self wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore theme:self.theme restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
+    [self wmf_checkAndPushPotentialArticleWithURL:articleURL usingSession:[WMFSession shared] alertManager:[WMFAlertManager sharedInstance] dataStore:self.dataStore theme:self.theme restoreScrollPosition:NO animated:animated completion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1704,8 +1678,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
         NSURL *articleURL = [NSURL URLWithString:articleURLString];
         if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
-            WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
-            [articleVC shareArticleWhenReady];
+            [self showArticleForURL:articleURL animated:NO completion:^(WMFArticleViewController *_Nullable articleVC){
+                [articleVC shareArticleWhenReady];
+            }];
         } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
             [self showInTheNewsForNotificationInfo:info];
         } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
