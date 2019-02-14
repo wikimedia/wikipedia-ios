@@ -4,22 +4,22 @@
 
 @property NSString *editSessionToken;
 
-- (void)logStart;
-- (void)logPreview;
+- (void)logStart:(NSString *)language;
+- (void)logPreview:(NSString *)language;
 /**
  * Parameter should be one of the string keys defined at
  * https://meta.wikimedia.org/wiki/Schema_talk:MobileWikiAppEdit#Schema_missing_enum_for_editSummaryTapped
  */
-- (void)logEditSummaryTap:(NSString *)editSummaryTapped;
-- (void)logSavedRevision:(int)revID;
-- (void)logCaptchaShown;
-- (void)logCaptchaFailure;
-- (void)logAbuseFilterWarning:(NSString *)name;
-- (void)logAbuseFilterError:(NSString *)name;
-- (void)logAbuseFilterWarningIgnore:(NSString *)name;
-- (void)logAbuseFilterWarningBack:(NSString *)name;
-- (void)logSaveAttempt;
-- (void)logError:(NSString *)code;
+- (void)logEditSummaryTap:(NSString *)editSummaryTapped language:(NSString *)language;
+- (void)logSavedRevision:(int)revID language:(NSString *)language;
+- (void)logCaptchaShown:(NSString *)language;
+- (void)logCaptchaFailure:(NSString *)language;
+- (void)logAbuseFilterWarning:(NSString *)name language:(NSString *)language;
+- (void)logAbuseFilterError:(NSString *)name language:(NSString *)language;
+- (void)logAbuseFilterWarningIgnore:(NSString *)name language:(NSString *)language;
+- (void)logAbuseFilterWarningBack:(NSString *)name language:(NSString *)language;
+- (void)logSaveAttempt:(NSString *)language;
+- (void)logError:(NSString *)code language:(NSString *)language;
 
 - (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription language:(NSString *)language;
 - (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription language:(NSString *)language;
