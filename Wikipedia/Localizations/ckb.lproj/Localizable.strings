@@ -31,7 +31,6 @@
 "about-wikipedia" = "ویکیپیدیا";
 // Fuzzy
 "abuse-filter-disallow-heading" = "ناتوانی ئەم گۆڕانکارییە پاشەکەوت بکەی. تکایە بگەڕێوە و بی گۆڕە.";
-"abuse-filter-disallow-notable" = "ویکیپیدیا ئینسایکڵۆپیدیایەکە و تەنھا ناوەڕۆکی بێ لایەن و بایەخدار لێرە جێگەی دەبێتەوە.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "فیلتەرێکی خۆگەڕ ئەم دەستکارییەی بە بێ بایەخ یان ھەوڵدان بۆ خراپکاری دیاری کردووە.";
 // Fuzzy
@@ -56,6 +55,8 @@
 "account-creation-passwords-mismatched" = "تێپەڕوشەکە ھەڵەیە";
 "account-creation-saving" = "پاشەکەوتکردن...";
 "account-creation-title" = "ھەژمارێکی نوێ دروست بکە";
+// Fuzzy
+"action-find-in-page" = "دۆزینەوە لەنێو پەڕە";
 "action-read" = "خوێندنەوە";
 "action-save" = "پاشەکەوتکردن";
 "action-saved" = "پاشەکەوت کرا";
@@ -64,7 +65,6 @@
 "action-share" = "هاوبەشی کردن";
 "action-unsave" = "سڕینەوە";
 "action-unsaved-accessibility-notification" = "وتارەکە سڕدرایەوە";
-"alert-no-internet" = "ھێڵی ئینتەرنێت بەردەست نییە";
 "announcements-dismiss" = "لێگەڕان";
 "appearance-settings-adjust-text-sizing" = "ڕێکخستنی قەبارەی دەقی وتار";
 "appearance-settings-expand-tables" = "فراوانکردنی خشتەکان";
@@ -111,7 +111,6 @@
 "empty-no-article-message" = "ببورە، نەتوانرا وتارەکە بیشان بدرێت";
 "empty-no-feed-action-message" = "دەتوانیت وتارە خەزێنە کراوەکانت بخوێنیتەوە";
 "empty-no-feed-message" = "دەتوانیت وتارە پێشنیازکراوەکانت ببینیت کاتێک کە ئینتەرنێتت کار پێ کرد";
-"empty-no-feed-title" = "ئینتەرنێت نییە";
 "empty-no-history-message" = "ئەو شتانەی کە خوێندوتنەوە لێرەن";
 "empty-no-history-title" = "ھیچ مێژوویەک نییە بۆ بینین";
 "empty-no-saved-pages-message" = "پەڕەکان خەزێنە بکە بۆ بینینیان لە دواتردا، بە ئۆفڵاینیش بەردەستن";
@@ -163,7 +162,6 @@
 "field-token-title" = "کۆدی دووپاتکردنەوە";
 "field-username-placeholder" = "ناوی بەکارهێنەر بنووسە";
 "field-username-title" = "ناوی بەکارھێنەر";
-"action-find-in-page" = "دۆزینەوە لەنێو پەڕە";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دووبارە ڕێکخستنەوە";
 "forgot-password-email-sent" = "پۆستێکی ئەلیکترۆنی کە فێرکاری ڕێکخستنەوەی تێپەڕوشە لەخۆ دەگرێت نێردرا";
@@ -246,6 +244,7 @@
 "page-edit-history" = "مێژووی دەستکاری تەواو";
 "page-history-title" = "مێژووی وتار";
 "page-issues" = "گرفتەکانی پەڕە";
+// Fuzzy
 "page-last-edited" = "$1 لەمەوپێش دەستکاری کراوە";
 "page-location" = "بینین لەسەر نەخشە";
 "page-protected-autoconfirmed" = "ئەم پەڕەیە نیمچە-پارێزراوە.";
@@ -253,6 +252,7 @@
 "page-protected-can-not-edit-title" = "ئەم پەڕەیە پارێزراوە";
 "page-protected-other" = "ئەم پەڕەیە پارێزراوە بۆ ئەم ئاستانە: $1";
 "page-protected-sysop" = "ئەم پەڕەیە بە تەواوی پارێزراوە.";
+// Fuzzy
 "page-read-in-other-languages" = "بە $1 زمان بەردەستە";
 "page-similar-titles" = "پەڕە لێکچووەکان";
 "page-talk-page" = "پیشاندانی پەڕەی وتووێژ";

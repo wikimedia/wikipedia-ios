@@ -48,6 +48,8 @@
 "action-add-to-reading-list" = "Cuir ar liosta léitheoireachta";
 "action-add-to-reading-list-short" = "Cuir ar liosta";
 "action-cancel" = "Cealaigh";
+// Fuzzy
+"action-find-in-page" = "Aimsigh sa leathanach";
 "action-move-to" = "Bog chuig...";
 "action-move-to-reading-list" = "Bog chuig liosta léitheoireachta";
 "action-read" = "Léigh";
@@ -57,10 +59,11 @@
 "action-saved-accessibility" = "Sábháilte. Gníomhachtaigh le díshábháil.";
 "action-share" = "Comhroinn";
 "action-sort" = "Sórtáil";
+// Fuzzy
+"action-undo" = "Cealaigh";
 "action-unsave" = "Díshábháil";
 "action-unsaved-accessibility-notification" = "Díshábháladh an t-alt";
 "action-update" = "Nuashonraigh";
-"alert-no-internet" = "Níl aon nasc idirlín ann";
 "announcements-dismiss" = "Ruaig";
 "app-store-keywords" = "Vicipéid, tagairt, vicí, ciclipéid, eolas, sonraí, taighde, taiscéal, foghlaim";
 "app-store-short-description" = "Íoslódáil an aip Vicipéide le háiteanna in aice leat a thaiscéaladh, ailt a shioncrónú le léamh as líne, agus d'eispéireas léitheoireachta a chur in oiriúint.";
@@ -130,7 +133,6 @@
 "edit-text-size-table-view-title" = "Clómhéid";
 "empty-no-article-message" = "Tá brón orainn, níorbh fhéidir an t-alt a lódáil";
 "empty-no-feed-message" = "Féadfaidh tú do chuid alt molta a fhéachaint nuair a bheidh idirlíon agat";
-"empty-no-feed-title" = "Níl Nasc Idirlín Ann";
 "empty-no-history-message" = "Coinnigh súil anseo ar na hailt atá léite agat";
 "empty-no-saved-pages-message" = "Sábháil leathanaigh le féachaint orthu níos déanaí, fiú amháin as líne";
 "empty-no-saved-pages-title" = "Níor sábháladh aon leathanach fós";
@@ -181,7 +183,6 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "Má chastar an táb Taiscéal as, cuirfear táb Socruithe in ionad an táib Taiscéal.";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Cas air Taiscéal";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Cas air táb Taiscéal?";
-"action-undo" = "Cealaigh";
 "explore-hide-card-prompt" = "Folaigh an cárta seo";
 "explore-main-page-heading" = "Inniu ar Vicipéid";
 "explore-most-read-footer" = "Na hailt uile is mó léamh";
@@ -224,7 +225,6 @@
 "field-token-title" = "Cód fíoraithe";
 "field-username-placeholder" = "iontráil ainm úsáideora";
 "field-username-title" = "Ainm úsáideora";
-"action-find-in-page" = "Aimsigh sa leathanach";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Athshocraigh";
 "forgot-password-email-sent" = "Seoladh ríomhphost le treoracha athshocraithe pasfhocail";
@@ -309,11 +309,13 @@
 "page-edit-history" = "Stair iomlán eagarthóireachta";
 "page-history-title" = "Stair an ailt";
 "page-issues" = "Ceisteanna le reitiu";
+// Fuzzy
 "page-last-edited" = "Curtha in eagar $1 lá ó shin";
 "page-location" = "Féach ar léarscáil";
 "page-protected-autoconfirmed" = "Tá an leathanach seo leath-chosanta.";
 "page-protected-can-not-edit-title" = "Tá an leathanach seo cosanta.";
 "page-protected-sysop" = "Tá an leathanach seo cosanta go hiomlán.";
+// Fuzzy
 "page-read-in-other-languages" = "Ar fáil i $1 teanga eile";
 "page-similar-titles" = "Leathanaigh den chineál céanna";
 "page-talk-page" = "Féach ar leathanach plé";

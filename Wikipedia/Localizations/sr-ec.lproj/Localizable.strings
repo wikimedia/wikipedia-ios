@@ -40,7 +40,6 @@
 "about-wikipedia" = "Википедија";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Не можете да објавите ову измену. Вратите се и промените је.";
-"abuse-filter-disallow-notable" = "Википедија је енциклопедија и овде припада само неутралан и значајан садржај.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је означио ову измену као потенцијално неконструктивну или као покушај вандализма.";
 // Fuzzy
@@ -69,6 +68,8 @@
 "action-add-to-reading-list" = "Додај на листу за читање";
 "action-add-to-reading-list-short" = "Додај на листу";
 "action-cancel" = "Откажи";
+// Fuzzy
+"action-find-in-page" = "Пронађи на страници";
 "action-move-to" = "Премести у…";
 "action-move-to-reading-list" = "Премести на листу за читање";
 "action-read" = "Прочитај";
@@ -79,11 +80,12 @@
 "action-saved-accessibility-notification" = "Чланак је сачуван за касније";
 "action-share" = "Дели";
 "action-sort" = "Сортирај";
+// Fuzzy
+"action-undo" = "Опозови";
 "action-unsave" = "Уклони";
 "action-unsaved-accessibility-notification" = "Чланак је уклоњен из сачуваних";
 "action-update" = "Ажурирај";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
-"alert-no-internet" = "Нема везе са интернетом";
 "announcements-dismiss" = "Одбаци";
 "app-store-keywords" = "Википедија, референце, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-release-notes" = "Потпуно прилагодљив и читљивији фид „Истражи“. Побољшања локализације, перформанси и исправке грешака.";
@@ -181,7 +183,6 @@
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
 "empty-no-feed-message" = "Препоручене чланке ћете видети када будете онлајн";
-"empty-no-feed-title" = "Нема везе са интернетом";
 "empty-no-history-message" = "Овде пратите све што сте читали";
 "empty-no-history-title" = "Нема историје";
 "empty-no-reading-lists-message" = "Правите листе о местима која желите да посетите, омиљеним темама и друго";
@@ -259,7 +260,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Укључи „Истражи”";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Картица „Подешавања” ће бити замењена картицом „Истражи”. Подешавања се налазе на врху картице „Истражи” притиском на икону зупчаника.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Укључити картицу „Истражи”?";
-"action-undo" = "Опозови";
 "explore-hide-card-prompt" = "Сакриј ову картицу";
 "explore-main-page-description" = "Главна страница Викимедијиних пројеката";
 "explore-main-page-heading" = "Данас на Википедији";
@@ -304,7 +304,6 @@
 "field-token-title" = "Кôд за верификацију";
 "field-username-placeholder" = "унесите корисничко име";
 "field-username-title" = "Корисничко име";
-"action-find-in-page" = "Пронађи на страници";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Ресетуј";
 "forgot-password-email-sent" = "Имејл са упутством за ресетовање лозинке је послат";
@@ -397,6 +396,7 @@
 "page-edit-history" = "Целокупна историја измена";
 "page-history-title" = "Историја чланка";
 "page-issues" = "Проблеми са страницом";
+// Fuzzy
 "page-last-edited" = "Измењено пре $1 дана";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
@@ -404,6 +404,7 @@
 "page-protected-can-not-edit-title" = "Ова страница је заштићена";
 "page-protected-other" = "Ова страница је заштићена на следећим нивоима: $1";
 "page-protected-sysop" = "Ова страница је потпуно заштићена.";
+// Fuzzy
 "page-read-in-other-languages" = "Доступно на још $1 језика";
 "page-similar-titles" = "Сличне странице";
 "page-talk-page" = "Прикажи страницу за разговор";

@@ -39,7 +39,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Bạn không thể đăng sửa đổi này. Vui lòng quay lại và thay đổi nó.";
-"abuse-filter-disallow-notable" = "Wikipedia là một bách khoa toàn thư; chỉ có nội dung trung lập và đủ nổi bật được trình bày tại đây.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Một bộ lọc tự động đã xác định rằng sửa đổi này có thể không có tính xây dựng hoặc là một âm mưu phá hoại.";
 // Fuzzy
@@ -68,6 +67,8 @@
 "action-add-to-reading-list" = "Thêm vào danh sách đọc";
 "action-add-to-reading-list-short" = "Thêm vào danh sách";
 "action-cancel" = "Hủy bỏ";
+// Fuzzy
+"action-find-in-page" = "Tìm trong trang";
 "action-move-to" = "Chuyển tới…";
 "action-move-to-reading-list" = "Di chuyển tới danh sách đọc";
 "action-read" = "Đọc";
@@ -78,11 +79,12 @@
 "action-saved-accessibility-notification" = "Đã lưu bài để đọc sau";
 "action-share" = "Chia sẻ";
 "action-sort" = "Sắp xếp";
+// Fuzzy
+"action-undo" = "Hoàn tác";
 "action-unsave" = "Bỏ lưu";
 "action-unsaved-accessibility-notification" = "Bài viết đã bị xóa khỏi thiết bị.";
 "action-update" = "Cập nhật";
 "add-articles-to-reading-list" = "Thêm $1 bài viết vào danh sách đọc";
-"alert-no-internet" = "Không có kết nối Internet";
 "announcements-dismiss" = "Thôi";
 "app-store-keywords" = "Wikipedia, tham khảo, wiki, bách khoa toàn thư, bktt, bách khoa thư, từ điển bách khoa, tđbk, thông tin, kiến thức, tri thức, nghiên cứu, tham hiểm, học hành, tìm hiểu";
 "app-store-release-notes" = "Nguồn cấp Thám hiểm có thể tùy biến hoàn toàn và đọc dễ dàng hơn. Địa phương hóa, tối ưu hóa, và sửa lỗi.";
@@ -133,7 +135,6 @@
 "empty-no-article-message" = "Rất tiếc, không thể tải bài";
 "empty-no-feed-action-message" = "Bạn vẫn có thể đọc các trang đã lưu";
 "empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";
-"empty-no-feed-title" = "Không có kết nối Internet";
 "empty-no-history-message" = "Ghi lại danh sách các trang bạn đã đọc ở đây";
 "empty-no-history-title" = "Không có gì để hiển thị";
 "empty-no-reading-lists-message" = "Tạo danh sách đọc về những điểm du lịch thú vị, những chủ để bạn yêu thích và nhiều hơn nữa";
@@ -209,7 +210,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Bật Thám hiểm";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Thẻ Cài đặt sẽ được thay thế bằng thẻ Thám hiểm. Bạn có thể truy cập Cài đặt bằng cách chạm vào hình bánh răng ở đầu thẻ Thám hiểm.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Bật thẻ Thám hiểm?";
-"action-undo" = "Hoàn tác";
 "explore-hide-card-prompt" = "Ẩn phiếu này";
 "explore-main-page-description" = "trang đầu của dự án Wikimania";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
@@ -254,7 +254,6 @@
 "field-token-title" = "Mã xác nhận";
 "field-username-placeholder" = "nhập tên người dùng";
 "field-username-title" = "Tên người dùng";
-"action-find-in-page" = "Tìm trong trang";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Mặc định lại";
 "forgot-password-email-sent" = "Đã gửi thư điện tử có hướng dẫn đặt lại mật khẩu";
@@ -343,6 +342,7 @@
 "page-edit-history" = "Toàn bộ lịch sử sửa đổi";
 "page-history-title" = "Lịch sử trang";
 "page-issues" = "Vấn đề trang";
+// Fuzzy
 "page-last-edited" = "Sửa đổi lần cuối $1 ngày trước";
 "page-location" = "Xem trên bản đồ";
 "page-protected-autoconfirmed" = "Trang này đã bị bán khóa.";
@@ -350,6 +350,7 @@
 "page-protected-can-not-edit-title" = "Trang này bị khóa";
 "page-protected-other" = "Trang này đã bị khóa ở các mức độ sau: $1";
 "page-protected-sysop" = "Trang này đã bị khóa hẳn.";
+// Fuzzy
 "page-read-in-other-languages" = "Có sẵn trong $1 ngôn ngữ khác";
 "page-similar-titles" = "Trang tương tự";
 "page-talk-page" = "Xem trang thảo luận";

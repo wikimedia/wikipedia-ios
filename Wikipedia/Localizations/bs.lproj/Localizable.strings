@@ -28,7 +28,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Ne možete objaviti ovu izmjenu. Vratite se i promijenite je.";
-"abuse-filter-disallow-notable" = "Wikipedia je enciklopedija, što znači da ovdje pripada samo neutralan i značajan sadržaj.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Automatizirani filter utvrdio je da je ova izmjena potencijalno nekonstruktivna ili da predstavlja pokušaj vandalizma.";
 // Fuzzy
@@ -53,13 +52,14 @@
 "account-creation-passwords-mismatched" = "Lozinke se ne poklapaju.";
 "account-creation-saving" = "Čuvam...";
 "account-creation-title" = "Napravi novi račun";
+// Fuzzy
+"action-find-in-page" = "Pronađi na stranici";
 "action-read" = "Čitaj";
 "action-save" = "Sačuvaj";
 "action-saved" = "Sačuvano";
 "action-saved-accessibility" = "Sačuvano. Aktivirajte da biste obrisali.";
 "action-share" = "Podijeli";
 "action-unsave" = "Obriši";
-"alert-no-internet" = "Niste povezani na internet";
 "announcements-dismiss" = "Odbaci";
 "article-about-title" = "O ovom članku";
 "article-delete" = "Obriši";
@@ -93,7 +93,6 @@
 "empty-no-article-message" = "Nažalost, ne mogu učitati članak";
 "empty-no-feed-action-message" = "I dalje možete čitati sačuvane stranice";
 "empty-no-feed-message" = "Preporučene članke možete vidjeti kad se povežete na internet";
-"empty-no-feed-title" = "Niste povezani na internet";
 "empty-no-history-message" = "Ovdje pratite sve što ste čitali";
 "empty-no-history-title" = "Nema historije";
 "empty-no-saved-pages-message" = "Sačuvajte stranice da biste ih kasnije čitali, čak i kad niste na mreži";
@@ -144,7 +143,6 @@
 "field-token-title" = "Kod za potvrdu";
 "field-username-placeholder" = "upišite korisničko ime";
 "field-username-title" = "Korisničko ime";
-"action-find-in-page" = "Pronađi na stranici";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Postavi novu";
 "forgot-password-email-sent" = "Na e-poštu su poslana uputstva za ponovno postavljanje lozinke";
@@ -222,6 +220,7 @@
 "page-edit-history" = "Cjelokupna historija izmjena";
 "page-history-title" = "Historija članka";
 "page-issues" = "Problemi sa sadržajem";
+// Fuzzy
 "page-last-edited" = "Izmijenjeno prije $1 dana";
 "page-location" = "Pogledaj na karti";
 "page-protected-autoconfirmed" = "Ova stranica je poluzaštićena.";
@@ -229,6 +228,7 @@
 "page-protected-can-not-edit-title" = "Ova stranica je zaštićena";
 "page-protected-other" = "Ova stranica je zaštićena na sljedećim nivoima: $1";
 "page-protected-sysop" = "Ova stranica je potpuno zaštićena.";
+// Fuzzy
 "page-read-in-other-languages" = "Dostupno na još $1 jezika";
 "page-similar-titles" = "Slične stranice";
 "pictured" = "na slici";

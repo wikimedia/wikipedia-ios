@@ -36,7 +36,6 @@
 "about-wikipedia" = "ویکیپیڈیا";
 // Fuzzy
 "abuse-filter-disallow-heading" = "آپ اس ترمیم کو محفوظ نہیں کر سکتے۔ پیچھے جاکر اسے بدلیے۔";
-"abuse-filter-disallow-notable" = "ویکیپیڈیاایک دائرۃالمعارف ہے اور صرف غیرجانبدار، معروف مواد یہاں سے تعلق رکھتا ہے۔";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "ایک خودکار فلٹر نے اس ترمیم کی امکانی طور پر غیرتعمیری یا تخریب کاری کی کوشش کے طور پر شناخت کی ہے۔";
 // Fuzzy
@@ -64,6 +63,8 @@
 "action-add-to" = "جمح کریں۔۔۔۔";
 "action-add-to-reading-list" = "فہرست مطالعہ میں شامل کریں";
 "action-cancel" = "منسوخ";
+// Fuzzy
+"action-find-in-page" = "صفحہ میں تلاش کریں";
 "action-move-to" = "موو کریں۔۔۔";
 "action-move-to-reading-list" = "فہرست مطالعہ میں منتقل کریں";
 "action-read" = "مطالعہ";
@@ -73,11 +74,12 @@
 "action-saved-accessibility-notification" = "بعد کے لیے مضمون محفوظ ہو گیا";
 "action-share" = "دوسروں کو بھیجیں";
 "action-sort" = "مرتب کریں";
+// Fuzzy
+"action-undo" = "واپس";
 "action-unsave" = "غیر محفوظ";
 "action-unsaved-accessibility-notification" = "مضمون غیر محفوظ کر دیا گیا";
 "action-update" = "تجدید";
 "add-articles-to-reading-list" = "فہرست مطالعہ میں {{PLURAL:$1|$1 مضمون|$1 مضامین}} کو شامل کریں";
-"alert-no-internet" = "کوئی انٹرنیٹ کنیکشن نہیں ہے";
 "announcements-dismiss" = "بند کریں";
 "app-store-keywords" = "ویکیپیڈیا، حوالہ، ویکی، دائرۃ المعارف، خبر، علم، تحقیق، معلومات، تلاش، مطالعہ";
 "app-store-subtitle" = "آزاد دائرۃ المعارف";
@@ -132,7 +134,6 @@
 "empty-no-article-message" = "معاف کیجیے، مضمون کو لوڈ نہیں کیا جاسکا";
 "empty-no-feed-action-message" = "آپ اب بھی اپنے محفوظ کردہ صفحات پڑھ سکتے ہیں";
 "empty-no-feed-message" = "آپ اپنے سفارش کردہ مضامین کو اس وقت دیکھ سکتے ہیں جب آپ کے پاس انٹرنیٹ ہو۔";
-"empty-no-feed-title" = "کوئی انٹرنیٹ کنیکشن نہیں ہے";
 "empty-no-history-message" = "آپ یہاں کیا پڑھ رہے تھے، اسے ذہن میں رکھیے";
 "empty-no-history-title" = "دکھانے کے لیے کوئی تاریخچہ نہیں ہے";
 "empty-no-saved-pages-message" = "صفحات کو محفوظ کریں تاکہ انہیں بعد میں دیکھا جاسکے، آفلائن بھی";
@@ -152,7 +153,6 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 زبانیں";
 "explore-feed-preferences-feed-cards-hidden-title" = "تمام %@ کارڈ پوشیدہ";
-"action-undo" = "واپس";
 "explore-hide-card-prompt" = "یہ کارڈ پوشیدہ کریں";
 "explore-main-page-description" = "ویکیمیڈیا منصوبوں کا صفحہ اول";
 "explore-main-page-heading" = "ویکیپیڈیا پر آج";
@@ -196,7 +196,6 @@
 "field-token-title" = "توثیقی کوڈ";
 "field-username-placeholder" = "صارف نام درج کریں";
 "field-username-title" = "صارف نام";
-"action-find-in-page" = "صفحہ میں تلاش کریں";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
@@ -274,12 +273,14 @@
 "page-edit-history" = "مکمل ترمیمی تاریخچہ";
 "page-history-title" = "مضمون کا تاریخچہ";
 "page-issues" = "تبصرہ تحریر";
+// Fuzzy
 "page-last-edited" = "$1 دن پہلے ترمیم کیا گیا.";
 "page-protected-autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
 "page-protected-can-not-edit" = "آپ کے پاس اس صفحہ کو ترمیم کرنے کے حقوق نہیں ہیں";
 "page-protected-can-not-edit-title" = "یہ محفوظ کردہ صفحہ ہے";
 "page-protected-other" = "یہ صفحہ مندرجہ سطح تک محفوظ کیا گیا ہے:$1";
 "page-protected-sysop" = "یہ صفحہ مکمل طور پر محفوظ رہا ہے۔";
+// Fuzzy
 "page-read-in-other-languages" = "$1 دیگر زبانوں ميں دستیاب";
 "page-similar-titles" = "یکساں صفحات";
 "page-talk-page" = "تبادلۂ خیال صفحہ دیکھیں";

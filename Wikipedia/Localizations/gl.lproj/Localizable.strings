@@ -38,7 +38,6 @@
 "about-wikipedia" = "Galipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Non pode publicar esta edición. Por favor, vaia á páxina anterior e modifíquea.";
-"abuse-filter-disallow-notable" = "Wikipedia é unha enciclopedia e só o contido neutral e notable pertence aquí.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Un filtro automático identificou esta edición como potencialmente non construtiva ou un intento de vandalismo.";
 // Fuzzy
@@ -67,6 +66,8 @@
 "action-add-to-reading-list" = "Engadir á lista de lectura";
 "action-add-to-reading-list-short" = "Engadir á lista";
 "action-cancel" = "Cancelar";
+// Fuzzy
+"action-find-in-page" = "Atopar na páxina";
 "action-move-to" = "Mover a...";
 "action-move-to-reading-list" = "Mover á lista de lectura";
 "action-read" = "Ler";
@@ -77,11 +78,12 @@
 "action-saved-accessibility-notification" = "Artigo gardado para despois";
 "action-share" = "Compartir";
 "action-sort" = "Ordenar";
+// Fuzzy
+"action-undo" = "Desfacer";
 "action-unsave" = "Non gardar";
 "action-unsaved-accessibility-notification" = "Artigo sen gardar";
 "action-update" = "Actualizar";
 "add-articles-to-reading-list" = "Engadir {{PLURAL:$1|$1 artigo|$1 artigos}} á lista de lectura";
-"alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, Galipedia, referencia, wiki, enciclopedia, info, coñecemento, investigación, información, explorar, aprender";
 "app-store-release-notes" = "Canle de exploración completamente configurable e doada de ler. Localización, melloras de rendemento e corrección de erros.";
@@ -181,7 +183,6 @@
 "empty-no-article-message" = "Sentímolo, non foi posible cargar o artigo";
 "empty-no-feed-action-message" = "Aínda pode ler as páxinas gardadas";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
-"empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-history-message" = "Manter un rexistro do que fun lendo aquí";
 "empty-no-history-title" = "Non hai ningún historial para amosar";
 "empty-no-reading-lists-message" = "Crear listas de lugares a visitar, os seus temas favoritos e moito máis";
@@ -258,7 +259,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto substituirá a pestana de configuración coa pestana Explorar, pode acceder á configuración dende a parte superior da pestana Explorar premendo na icona da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Activar a pestana Explorar?";
-"action-undo" = "Desfacer";
 "explore-hide-card-prompt" = "Agochar esta tarxeta";
 "explore-main-page-description" = "Páxina principal dos proxectos Wikimedia";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
@@ -303,7 +303,6 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "insira o nome de usuario";
 "field-username-title" = "Nome de usuario";
-"action-find-in-page" = "Atopar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Enviouse un correo electrónico coas instrucións para restablecer o contrasinal";
@@ -396,6 +395,7 @@
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial do artigo";
 "page-issues" = "Problemas na páxina";
+// Fuzzy
 "page-last-edited" = "Editado hai $1 días";
 "page-location" = "Ver nun mapa";
 "page-protected-autoconfirmed" = "Esta páxina está semiprotexida.";
@@ -403,6 +403,7 @@
 "page-protected-can-not-edit-title" = "Esta páxina está protexida";
 "page-protected-other" = "Esta páxina está protexida para os seguintes niveis: $1";
 "page-protected-sysop" = "Esta páxina está totalmente protexida.";
+// Fuzzy
 "page-read-in-other-languages" = "Dispoñible en outras $1 linguas";
 "page-similar-titles" = "Páxinas similares";
 "page-talk-page" = "Ver a páxina de conversa";

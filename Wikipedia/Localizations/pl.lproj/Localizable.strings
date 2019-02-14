@@ -51,7 +51,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Nie możesz opublikować tej edycji. Wróć i popraw ją.";
-"abuse-filter-disallow-notable" = "Wikipedia to encyklopedia, a tu dopuszczalne są tylko neutralne i znaczące treści.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";
 // Fuzzy
@@ -79,6 +78,8 @@
 "action-add-to" = "Dodaj do...";
 "action-add-to-reading-list-short" = "Dodaj do listy";
 "action-cancel" = "Anuluj";
+// Fuzzy
+"action-find-in-page" = "Znajdź na stronie";
 "action-move-to" = "Przenieś do...";
 "action-read" = "Czytaj";
 "action-remove" = "Usuń";
@@ -86,9 +87,10 @@
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
 "action-sort" = "Sortuj";
+// Fuzzy
+"action-undo" = "Cofnij";
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
-"alert-no-internet" = "Nie ma połączenia internetowego";
 "announcements-dismiss" = "Odrzuć";
 "app-store-subtitle" = "Wolna encyklopedia";
 "article-about-title" = "O tym artykule";
@@ -128,7 +130,6 @@
 "edit-summary-choice-linked-words" = "Dodane linki";
 "empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
 "empty-no-feed-action-message" = "Nadal możesz czytać zapisane strony";
-"empty-no-feed-title" = "Brak połączenia z internetem";
 "empty-no-history-title" = "Nie ma historii do pokazania";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
 "empty-no-search-results-message" = "Nie znaleziono";
@@ -152,7 +153,6 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
 "explore-feed-preferences-in-the-news-description" = "Artykuły o bieżących wydarzeniach";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
-"action-undo" = "Cofnij";
 "explore-hide-card-prompt" = "Ukryj tę kartę";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-footer" = "Wszystkie najczęściej czytane artykuły";
@@ -192,7 +192,6 @@
 "field-token-title" = "Kod weryfikacyjny";
 "field-username-placeholder" = "wprowadź nazwę użytkownika";
 "field-username-title" = "Nazwa użytkownika";
-"action-find-in-page" = "Znajdź na stronie";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
@@ -269,6 +268,7 @@
 "page-protected-can-not-edit-title" = "Ta strona jest zabezpieczona";
 "page-protected-other" = "Ta strona została zabezpieczona do następujących poziomów: $1";
 "page-protected-sysop" = "Ta strona jest całkowicie zabezpieczona.";
+// Fuzzy
 "page-read-in-other-languages" = "Dostępne w $1 innych językach";
 "page-similar-titles" = "Podobne strony";
 "page-talk-page" = "Zobacz stronę dyskusji";

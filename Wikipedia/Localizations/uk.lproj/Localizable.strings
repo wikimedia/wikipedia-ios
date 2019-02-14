@@ -39,7 +39,6 @@
 "about-wikipedia" = "Вікіпедія";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Ви не можете зберегти це редагування. Будь ласка, поверніться назад і змініть його.";
-"abuse-filter-disallow-notable" = "Вікіпедія - це енциклопедія і тут допустимий лише нейтральний або значущий вміст.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Автоматизований фільтр визначила цю зміну як потенційно руйнівну або як спробу вандалізму.";
 // Fuzzy
@@ -68,6 +67,8 @@
 "action-add-to-reading-list" = "Додати у список читання";
 "action-add-to-reading-list-short" = "Додати у список";
 "action-cancel" = "Скасувати";
+// Fuzzy
+"action-find-in-page" = "Знайти на сторінці";
 "action-move-to" = "Перенести до...";
 "action-move-to-reading-list" = "Перенести у список читання";
 "action-read" = "Читати";
@@ -82,7 +83,6 @@
 "action-unsaved-accessibility-notification" = "Стаття видалена із збережених";
 "action-update" = "Оновити";
 "add-articles-to-reading-list" = "Додати {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} у список читання";
-"alert-no-internet" = "Не має з'єднання із інтернетом";
 "announcements-dismiss" = "Відхилити";
 "app-store-keywords" = "Вікіпедія, стаття, вікі, wiki, енциклопедія, інформація, знання, дослідження, інформація, читання, навчання";
 "article-about-title" = "Про цю статтю";
@@ -115,7 +115,6 @@
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
 "empty-no-feed-action-message" = "Ви все ще можете читати збережені сторінки";
 "empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
-"empty-no-feed-title" = "Не має з'єднання з інтернетом";
 "empty-no-history-message" = "Стежте за тим, що ви вже прочитали";
 "empty-no-history-title" = "Немає історії для відображення";
 "empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду їх пізніше, навіть в автономному режимі";
@@ -176,7 +175,6 @@
 "field-token-title" = "Код верифікації";
 "field-username-placeholder" = "введіть ім'я користувача";
 "field-username-title" = "Ім'я користувача";
-"action-find-in-page" = "Знайти на сторінці";
 "forgot-password-button-title" = "Скинути";
 "forgot-password-email-sent" = "Електронний лист з інструкціями щодо скидання пароля надіслано";
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
@@ -252,6 +250,7 @@
 "page-edit-history" = "Повна історія редагування";
 "page-history-title" = "Історія статті";
 "page-issues" = "Проблеми сторінки";
+// Fuzzy
 "page-last-edited" = "Відредаговано $1 днів тому";
 "page-location" = "Переглянути на карті";
 "page-protected-autoconfirmed" = "Сторінка є частково захищена.";
@@ -259,6 +258,7 @@
 "page-protected-can-not-edit-title" = "Сторінку захищено";
 "page-protected-other" = "Цю сторінку захищено на таких рівнях: $1";
 "page-protected-sysop" = "Сторінка є повністю захищена.";
+// Fuzzy
 "page-read-in-other-languages" = "Доступно на $1 мовах";
 "page-similar-titles" = "Подібні сторінки";
 "places-accessibility-group" = "$1 статей";

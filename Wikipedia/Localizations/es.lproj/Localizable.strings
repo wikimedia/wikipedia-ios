@@ -54,21 +54,16 @@
 "about-translators-details" = "Traducido por voluntarios en $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "No puedes publicar esta edición. Vuelve y cámbiala.";
-"abuse-filter-disallow-notable" = "Wikipedia es una enciclopedia y solo el contenido neutral y notable pertenece aquí.";
+"abuse-filter-disallow-heading" = "No puedes publicar esta edición";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Un filtro automático ha identificado esta edición como potencialmente no constructiva o un intento de vandalismo.";
 // Fuzzy
 "abuse-filter-warning-blanking" = "Supresión de los artículos o spam";
-// Fuzzy
-"abuse-filter-warning-caps" = "Escribir TODO EN MAYÚSCULAS";
+"abuse-filter-warning-caps" = "Texto solo en mayúsculas";
 "abuse-filter-warning-heading" = "Esto parece una edición no constructiva. ¿Estás seguro de que quieres publicarla?";
 "abuse-filter-warning-irrelevant" = "Enlaces o imágenes externas irrelevantes";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Caracteres repetiiiiiidos";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Tu edición puede contener uno o más de los siguientes:";
+"abuse-filter-warning-repeat" = "Caracteres repetidos";
+"abuse-filter-warning-subheading" = "Tu edición puede contener:";
 "account-creation-captcha-cannot-see-image" = "¿No puedes ver la imagen? $1";
 "account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA...";
 "account-creation-captcha-request-account" = "Solicitar cuenta.";
@@ -85,9 +80,12 @@
 "action-add-to-reading-list" = "Añadir a una lista de lectura";
 "action-add-to-reading-list-short" = "Añadir a la lista";
 "action-cancel" = "Cancelar";
+// Fuzzy
+"action-find-in-page" = "Buscar en la página";
 "action-move-to" = "Mover a…";
 "action-move-to-reading-list" = "Mover a una lista de lectura";
 "action-read" = "Leer";
+"action-redo" = "Rehacer";
 "action-remove" = "Quitar";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
@@ -95,11 +93,12 @@
 "action-saved-accessibility-notification" = "Artículo guardado para después";
 "action-share" = "Compartir";
 "action-sort" = "Ordenar";
+// Fuzzy
+"action-undo" = "Deshacer";
 "action-unsave" = "No guardar";
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
-"alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "app-store-short-description" = "Descarga la aplicación de Wikipedia para explorar sitios cercanos a ti, sincronizar artículos para leerlos sin conexión y personalizar tu experiencia de lectura.";
 "app-store-subtitle" = "La enciclopedia libre";
@@ -189,7 +188,6 @@
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
-"empty-no-feed-title" = "No hay conexión a Internet";
 "empty-no-history-message" = "Mantener un registro de lo que has leido aquí";
 "empty-no-history-title" = "No hay ningún historial que mostrar";
 "empty-no-reading-lists-message" = "Crear listas de lugares a los que viajar, tus temas favoritos y mucho más";
@@ -216,12 +214,12 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarjeta";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todas las tarjetas de «%@»";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobre acontecimientos recientes";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Desactivar Explorar";
 "explore-feed-preferences-turn-off-explore-tab-title" = "¿Quieres desactivar la pestaña Explorar?";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-title" = "¿Quieres activar la pestaña Explorar?";
-"action-undo" = "Deshacer";
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
@@ -265,7 +263,6 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "escribe el nombre de usuario";
 "field-username-title" = "Nombre de usuario";
-"action-find-in-page" = "Buscar en la página";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Se envió un correo electrónico con instrucciones para restablecer tu contraseña";
@@ -350,6 +347,7 @@
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial de página";
 "page-issues" = "Problemas de la página";
+// Fuzzy
 "page-last-edited" = "Editado hace $1 días";
 "page-location" = "Ver en mapa";
 "page-protected-autoconfirmed" = "Esta página está semiprotegida.";
@@ -357,6 +355,7 @@
 "page-protected-can-not-edit-title" = "Esta página está protegida";
 "page-protected-other" = "Esta página ha sido protegida a los siguientes niveles: $1";
 "page-protected-sysop" = "Esta página está totalmente protegida.";
+// Fuzzy
 "page-read-in-other-languages" = "Disponible en $1 idiomas más";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discusión";
@@ -566,8 +565,7 @@
 "wikitext-preview-changes-none" = "No se realizaron cambios que revisar.";
 "wikitext-preview-link-preview-description" = "Este enlace lleva a «$1»";
 "wikitext-preview-link-preview-title" = "Previsualización de enlace";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "Guardar tus cambios";
+"wikitext-preview-save-changes-title" = "Guardar cambios";
 "wikitext-upload-captcha-error" = "Error de verificación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
 "wikitext-upload-result-unknown" = "No es posible determinar el resultado de la subida del wikitexto.";
