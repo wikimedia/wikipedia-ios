@@ -82,7 +82,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     @objc private func goBack() {
         if mode == .abuseFilterWarning {
-            funnel?.logAbuseFilterWarningBack(abuseFilterCode)
+            funnel?.logAbuseFilterWarningBack(abuseFilterCode, language: section?.articleLanguage)
         }
         
         navigationController?.popViewController(animated: true)
@@ -92,7 +92,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         switch mode {
         case .abuseFilterWarning:
             save()
-            funnel?.logAbuseFilterWarningIgnore(abuseFilterCode)
+            funnel?.logAbuseFilterWarningIgnore(abuseFilterCode, language: section?.articleLanguage)
         case .captcha:
             save()
         default:
@@ -195,7 +195,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func save() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedStringWithDefaultValue("wikitext-upload-save", nil, nil, "Publishing...", "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
-        funnel?.logSaveAttempt()
+        funnel?.logSaveAttempt(section?.articleLanguage)
         
         if (savedPagesFunnel != nil) {
             savedPagesFunnel?.logEditAttempt(withArticleURL: section?.article?.url)
@@ -238,7 +238,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             notifyDelegate()
             return
         }
-        funnel?.logSavedRevision(newRevID)
+        funnel?.logSavedRevision(newRevID, language: section?.articleLanguage)
         notifyDelegate()
     }
     
@@ -249,14 +249,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         switch errorType {
         case .needsCaptcha:
             if mode == .captcha {
-                funnel?.logCaptchaFailure()
+                funnel?.logCaptchaFailure(section?.articleLanguage)
             }
             
             let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "")
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             captchaViewController?.captcha = WMFCaptcha(captchaID: captchaId, captchaURL: captchaUrl!)
-            funnel?.logCaptchaShown()
+            funnel?.logCaptchaShown(section?.articleLanguage)
             mode = .captcha
             highlightCaptchaSubmitButton(false)
             dispatchOnMainQueueAfterDelayInSeconds(0.1) { // Prevents weird animation.
@@ -271,12 +271,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String
-                funnel?.logAbuseFilterError(abuseFilterCode)
+                funnel?.logAbuseFilterError(abuseFilterCode, language: section?.articleLanguage)
             } else {
                 WMFAlertManager.sharedInstance.showWarningAlert(nsError.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 mode = .abuseFilterWarning
                 abuseFilterCode = nsError.userInfo["code"] as! String
-                funnel?.logAbuseFilterWarning(abuseFilterCode)
+                funnel?.logAbuseFilterWarning(abuseFilterCode, language: section?.articleLanguage)
             }
             
             let alertType: AbuseFilterAlertType = (errorType == .abuseFilterDisallowed) ? .disallow : .warning
@@ -284,10 +284,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             
         case .server, .unknown:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            funnel?.logError("other")
+            funnel?.logError("other", language: section?.articleLanguage)
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            funnel?.logError("other")
+            funnel?.logError("other", language: section?.articleLanguage)
         }
     }
     
@@ -387,7 +387,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     func cannedButtonTapped(type: EditSummaryViewCannedButtonType) {
-        funnel?.logEditSummaryTap(type.eventLoggingKey)
+        funnel?.logEditSummaryTap(type.eventLoggingKey, language: section?.articleLanguage)
     }
     
     // Keep bottom divider and license/login labels at bottom of screen while remaining scrollable.

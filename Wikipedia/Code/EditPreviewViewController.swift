@@ -45,7 +45,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         
-        funnel?.logPreview()
+        funnel?.logPreview(section?.articleLanguage)
         
         preview()
         
