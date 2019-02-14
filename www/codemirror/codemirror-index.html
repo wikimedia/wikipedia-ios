@@ -497,15 +497,6 @@
         }
       }
     }
-      
-    const toggleMarkup = (button, openingMarkup, closingMarkup) => {
-      const hasMarkup = isSelectionWrappedWith(openingMarkup, closingMarkup)
-      if (hasMarkup) {
-        unwrapSelectionWith(openingMarkup, closingMarkup)
-      } else {
-        wrapSelectionWith(openingMarkup, closingMarkup)
-      }
-    }
     
     const wmf = {}
     
@@ -550,6 +541,50 @@
     const expandTagSelectionAndToggleMarkup = (button, openingMarkup, closingMarkup) => {
       expandTagSelection(button)
       toggleMarkup(button, openingMarkup, closingMarkup)        
+    }
+
+    const expandTagSelectionIfNoSelectionAndToggleMarkup = (button, openingMarkup, closingMarkup) => {
+      const selectionRange = getSelectionRange(editor)
+      if (!selectionRange.isRangeSelected) {
+          expandTagSelection(button)
+      }
+      toggleMarkup(button, openingMarkup, closingMarkup)
+    }
+
+    const toggleMarkup = (button, openingMarkup, closingMarkup) => {
+      const hasMarkup = isSelectionWrappedWith(openingMarkup, closingMarkup)
+      const hasReverseMarkup = closingMarkup ? isSelectionWrappedWith(closingMarkup, openingMarkup) : false
+
+      var shouldReverseMarkup = false
+      const payload = selectionPayloadForButton(button)
+      if (payload) {
+        const selectionInfo = payload.info
+        const selectionRange = getSelectionRange(editor)
+        if (selectionInfo && selectionRange) {
+          shouldReverseMarkup = (selectionInfo.start !== selectionRange.start) && (selectionInfo.end !== selectionRange.end)
+        }
+      }
+
+      if (hasMarkup) {
+        if (shouldReverseMarkup) {
+          unwrapSelectionWith(closingMarkup, openingMarkup)
+        } else {
+          unwrapSelectionWith(openingMarkup, closingMarkup)
+        }
+      } else {
+        if (shouldReverseMarkup) {
+          wrapSelectionWith(closingMarkup, openingMarkup)
+        } else {
+          wrapSelectionWith(openingMarkup, closingMarkup)
+        }
+        return
+      }
+
+      if (hasReverseMarkup) {
+        unwrapSelectionWith(closingMarkup, openingMarkup)
+      } else {
+        wrapSelectionWith(closingMarkup, openingMarkup)
+      }
     }
 
     const toggleListForSelectedLines = (char) => {
@@ -703,16 +738,16 @@
         }
       },
       reference: () => {
-        expandTagSelectionAndToggleMarkup('reference', '<ref>', '</ref>')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('reference', '<ref>', '</ref>')
       },
       template: () => {
-        toggleMarkup('template', '{{', '}}')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('template', '{{', '}}')
       },
       anchor: () => {
-        toggleMarkup('anchor', '[[', ']]')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('anchor', '[[', ']]')
       },
       comment: () => {
-        toggleMarkup('comment', '<!--', '-->')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('comment', '<!--', '-->')
       },
       indent: () => {
         console.log('indent')
@@ -727,16 +762,16 @@
         toggleListForSelectedLines('#')
       },
       superscript: () => {
-        expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
       },
       subscript: () => {
-        expandTagSelectionAndToggleMarkup('subscript', '<sub>', '</sub>')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('subscript', '<sub>', '</sub>')
       },
       underline: () => {
-        expandTagSelectionAndToggleMarkup('underline', '<u>', '</u>')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('underline', '<u>', '</u>')
       },
       strikethrough: () => {
-        expandTagSelectionAndToggleMarkup('strikethrough', '<s>', '</s>')
+        expandTagSelectionIfNoSelectionAndToggleMarkup('strikethrough', '<s>', '</s>')
       },
       heading: (depth) => {
         const selectionRange = getSelectionRange(editor)
