@@ -574,7 +574,25 @@
         const selectionInfo = payload.info
         const selectionRange = getSelectionRange(editor)
         if (selectionInfo && selectionRange) {
-          shouldReverseMarkup = (selectionInfo.start !== selectionRange.start) && (selectionInfo.end !== selectionRange.end)
+          const isNextToLeadingMarkup = selectionInfo.start === selectionRange.start
+          const isNextToTrailingMarkup = selectionInfo.end === selectionRange.end
+          const isTextBetweenMarkupSelected = isNextToLeadingMarkup && isNextToTrailingMarkup
+
+          if (closingMarkup === undefined) {
+            shouldReverseMarkup = false
+          } else if (!selectionRange.isRangeSelected) {
+            shouldReverseMarkup = false
+          } else if (isTextBetweenMarkupSelected) {
+            shouldReverseMarkup = false
+          } else if (isNextToLeadingMarkup) {
+            console.log('l')
+            shouldReverseMarkup = true
+          } else if (isNextToTrailingMarkup) {
+            console.log('t')
+            shouldReverseMarkup = true
+          } else {
+            shouldReverseMarkup = true
+          }
         }
       }
 
