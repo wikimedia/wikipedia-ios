@@ -87,12 +87,6 @@ open class Fetcher: NSObject {
         return key
     }
     
-    @discardableResult public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
-        let op = operationType.init(session: session, fetcher: self, components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
-        session.queue.addOperation(op)
-        return op
-    }
-    
     @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:completionHandler:)
     @discardableResult public func performMediaWikiAPIPOST(for URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         let components = configuration.mediaWikiAPIURForHost(URL?.host)

@@ -522,7 +522,7 @@ public typealias ReadingListsController = WMFReadingListsController
     
     private func cancelSync(_ completion: @escaping () -> Void) {
         operationQueue.cancelAllOperations()
-        apiController.cancelPendingTasks()
+        apiController.cancelAllTasks()
         operationQueue.addOperation {
             DispatchQueue.main.async(execute: completion)
         }

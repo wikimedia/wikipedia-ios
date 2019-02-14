@@ -46,7 +46,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             }
                         }
                     }  else if let readingListError = error as? ReadingListsOperationError, readingListError == .cancelled {
-                        self.apiController.cancelPendingTasks()
+                        self.apiController.cancelAllTasks()
                         self.finish()
                     } else {
                         self.finish(with: error)
