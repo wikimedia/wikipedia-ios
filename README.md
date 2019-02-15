@@ -18,8 +18,8 @@ After running `scripts/setup`, you should be able to open `Wikipedia.xcodeprojec
 If you'd rather install the development prerequisites yourself without our script:
 
 * [Xcode](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
-* [Carthage](https://github.com/Carthage/Carthage) We check in prebuilt dependencies to simplify the initial build and run experience but you'll still need Carthage installed to allow Xcode to properly copy the frameworks into the built app. After you add, remove, or upgrade a dependency, you should run `scripts/carthage_update` to update the built dependencies.
-* [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html)
+* [Carthage](https://github.com/Carthage/Carthage) - We check in prebuilt dependencies to simplify the initial build and run experience but you'll still need Carthage installed to allow Xcode to properly copy the frameworks into the built app. After you add, remove, or upgrade a dependency, you should run `scripts/carthage_update` to update the built dependencies.
+* [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) - We use this for linting
 
 ## Contributing
 Covered in the [contributing document](CONTRIBUTING.md).
