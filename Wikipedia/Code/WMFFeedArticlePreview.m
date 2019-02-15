@@ -59,14 +59,16 @@ NS_ASSUME_NONNULL_BEGIN
             NSURL *url = [NSURL URLWithString:urlString];
             if (!url) { // url can fail due to unescaped characters - should be fixed when https://gerrit.wikimedia.org/r/#/c/mediawiki/services/mobileapps/+/489329/ is deployed
                 __block NSString *lang = nil;
-                NSRegularExpression *regex = [WMFFeedArticlePreview wikiLanguageFromURLStringRegex];
-                [regex enumerateMatchesInString:urlString
-                                        options:0
-                                          range:NSMakeRange(0, urlString.length)
-                                     usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                         lang = [regex replacementStringForResult:result inString:urlString offset:0 template:@"$1"];
-                                         *stop = YES;
-                                     }];
+                if (urlString) {
+                    NSRegularExpression *regex = [WMFFeedArticlePreview wikiLanguageFromURLStringRegex];
+                    [regex enumerateMatchesInString:urlString
+                                            options:0
+                                              range:NSMakeRange(0, urlString.length)
+                                         usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                             lang = [regex replacementStringForResult:result inString:urlString offset:0 template:@"$1"];
+                                             *stop = YES;
+                                         }];
+                }
                 if (lang == nil) { // lang is problematic because it's yue when it shuold be zh-yue, lzh instead of zh-classical, etc.
                     lang = value[@"lang"];
                 }
