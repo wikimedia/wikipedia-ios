@@ -445,19 +445,19 @@
       return string.split('').reverse().join('')
     }
     
-    const isSelectionWrappedWith = (openingMarkup, closingMarkup) => {
+    const selectionWrapInfo = (openingMarkup, closingMarkup) => {
       if (closingMarkup === undefined) {
         closingMarkup = openingMarkup
       }
       const selections = editor.listSelections()
       if (selections.length < 1) {
-        return false
+        return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
       }
       const selection = selections[0]
       const fromPos = selection.from()
       const toPos = selection.to()
       if (fromPos.line != toPos.line) {
-        return false
+        return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
       }
       const lineIndex = fromPos.line
       const line = editor.getLine(lineIndex)
@@ -465,7 +465,12 @@
       const after = line.substring(toPos.ch, line.length)
       const beforeIndex = reverseString(before).indexOf(reverseString(openingMarkup))
       const afterIndex = after.indexOf(closingMarkup)
-      return fromPos.ch == toPos.ch ? beforeIndex >= 0 && afterIndex >= 0 : beforeIndex == 0 && afterIndex == 0
+      return {selectionLength: toPos.ch - fromPos.ch, beforeIndex: beforeIndex, afterIndex: afterIndex}
+    }
+    
+    const isSelectionWrappedWith = (openingMarkup, closingMarkup) => {
+      const info = selectionWrapInfo(openingMarkup, closingMarkup)
+      return info.selectionLength == 0 ? info.beforeIndex >= 0 && info.afterIndex >= 0 : info.beforeIndex == 0 && info.afterIndex == 0
     }
     
     const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
@@ -499,8 +504,18 @@
     }
       
     const toggleMarkup = (button, openingMarkup, closingMarkup) => {
-      const hasMarkup = isSelectionWrappedWith(openingMarkup, closingMarkup)
-      if (hasMarkup) {
+      const info = selectionWrapInfo(openingMarkup, closingMarkup)
+      if (info.beforeIndex >= 0 && info.afterIndex >= 0) {
+        if (info.selectionLength == 0) {
+          unwrapSelectionWith(openingMarkup, closingMarkup)
+        } else if (isSelectionWrappedWith(closingMarkup, openingMarkup)) {
+          unwrapSelectionWith(closingMarkup, openingMarkup)
+        } else if (info.beforeIndex == 0 && info.afterIndex == 0) {
+          unwrapSelectionWith(openingMarkup, closingMarkup)
+        } else {
+          wrapSelectionWith(closingMarkup, openingMarkup)
+        }
+      } else if (info.beforeIndex == 0 && info.afterIndex == 0)  {
         unwrapSelectionWith(openingMarkup, closingMarkup)
       } else {
         wrapSelectionWith(openingMarkup, closingMarkup)
@@ -703,7 +718,7 @@
         }
       },
       reference: () => {
-        expandTagSelectionAndToggleMarkup('reference', '<ref>', '</ref>')
+        toggleMarkup('reference', '<ref>', '</ref>')
       },
       template: () => {
         toggleMarkup('template', '{{', '}}')
@@ -727,16 +742,16 @@
         toggleListForSelectedLines('#')
       },
       superscript: () => {
-        expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
+        toggleMarkup('superscript', '<sup>', '</sup>')
       },
       subscript: () => {
-        expandTagSelectionAndToggleMarkup('subscript', '<sub>', '</sub>')
+        toggleMarkup('subscript', '<sub>', '</sub>')
       },
       underline: () => {
-        expandTagSelectionAndToggleMarkup('underline', '<u>', '</u>')
+        toggleMarkup('underline', '<u>', '</u>')
       },
       strikethrough: () => {
-        expandTagSelectionAndToggleMarkup('strikethrough', '<s>', '</s>')
+        toggleMarkup('strikethrough', '<s>', '</s>')
       },
       heading: (depth) => {
         const selectionRange = getSelectionRange(editor)
