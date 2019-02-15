@@ -24,6 +24,8 @@
     const rangesIntersect = (range1, range2) => {
       if (range1.start > range2.start + (range2.end - range2.start)) return false
       if (range2.start > range1.start + (range1.end - range1.start)) return false
+      const isSelected = ((Math.abs(range1.start - range1.end) > 0) && (Math.abs(range2.start - range2.end) > 0))
+      if ((range1.start === range2.end) || (range1.end === range2.start) && isSelected) return false
       return true
     }
 
