@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
                                              *stop = YES;
                                          }];
                 }
-                if (lang == nil) { // lang is problematic because it's yue when it shuold be zh-yue, lzh instead of zh-classical, etc.
+                if (lang == nil) { // lang is problematic to use for URLs because it's yue when it shuold be zh-yue, lzh instead of zh-classical, etc.
                     lang = value[@"lang"];
                 }
                 NSString *normalizedTitle = value[@"normalizedtitle"];
