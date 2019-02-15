@@ -24,6 +24,8 @@
     const rangesIntersect = (range1, range2) => {
       if (range1.start > range2.start + (range2.end - range2.start)) return false
       if (range2.start > range1.start + (range1.end - range1.start)) return false
+      const isSelected = ((Math.abs(range1.start - range1.end) > 0) && (Math.abs(range2.start - range2.end) > 0))
+      if ((range1.start === range2.end) || (range1.end === range2.start) && isSelected) return false
       return true
     }
 
@@ -504,14 +506,24 @@
     }
       
     const toggleMarkup = (button, openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
       const info = selectionWrapInfo(openingMarkup, closingMarkup)
+      const reversedInfo = selectionWrapInfo(closingMarkup, openingMarkup)
       if (info.beforeIndex >= 0 && info.afterIndex >= 0) {
-        if (info.selectionLength == 0) {
-          unwrapSelectionWith(openingMarkup, closingMarkup)
-        } else if (isSelectionWrappedWith(closingMarkup, openingMarkup)) {
+        if (reversedInfo.beforeIndex == 0 && reversedInfo.afterIndex == 0) {
           unwrapSelectionWith(closingMarkup, openingMarkup)
+        } else if (reversedInfo.beforeIndex >= 0 && reversedInfo.afterIndex >= 0 && reversedInfo.beforeIndex < info.beforeIndex && reversedInfo.afterIndex < info.afterIndex) { 
+          wrapSelectionWith(openingMarkup, closingMarkup)
+        } else if (info.selectionLength == 0) {
+          unwrapSelectionWith(openingMarkup, closingMarkup)
         } else if (info.beforeIndex == 0 && info.afterIndex == 0) {
           unwrapSelectionWith(openingMarkup, closingMarkup)
+        } else if (info.beforeIndex == 0 && info.afterIndex > 0) { // slide opening markup to the right
+          console.log('slide opening markup to the right')
+        } else if (info.beforeIndex >= 0 && info.afterIndex == 0) { // slide closing markup to the left
+          console.log('slide closing markup to the left')
         } else {
           wrapSelectionWith(closingMarkup, openingMarkup)
         }
