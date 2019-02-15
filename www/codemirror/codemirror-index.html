@@ -588,11 +588,9 @@
           } else if (isTextBetweenMarkupSelected) {
             shouldReverseMarkup = false
           } else if (isNextToLeadingMarkup) {
-            console.log('l')
-            shouldReverseMarkup = true
+            shouldReverseMarkup = false
           } else if (isNextToTrailingMarkup) {
-            console.log('t')
-            shouldReverseMarkup = true
+            shouldReverseMarkup = false
           } else {
             shouldReverseMarkup = true
           }
