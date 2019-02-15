@@ -23,6 +23,8 @@ extern NSString *const MWKSectionShareSnippetXPath;
 @property (readonly, assign, nonatomic) int sectionId;              // required; -> id
 @property (readonly, assign, nonatomic) BOOL references;            // optional; marked by presence of key with empty string in JSON
 
+@property (readonly, copy, nonatomic, nullable) NSString *articleLanguage;
+
 /**
  * Lazily-initialized HTML content of this section.
  *
