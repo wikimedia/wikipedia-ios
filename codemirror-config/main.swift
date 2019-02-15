@@ -48,18 +48,20 @@ func getCodeMirrorConfigJSON(for wikiLanguage: String, completion: @escaping (St
 
 let group = DispatchGroup()
 for language in languages {
-    group.enter()
-    let code = language.normalized_code ?? language.code
-    getCodeMirrorConfigJSON(for: code) { (response) in
-        defer {
-            group.leave()
+    let codes = [language.normalized_code, language.code].compactMap({ $0 })
+    for code in codes {
+        group.enter()
+        getCodeMirrorConfigJSON(for: code) { (response) in
+            defer {
+                group.leave()
+            }
+            guard let response = response else {
+                return
+            }
+            let outputComponents = pathComponents + ["Wikipedia", "assets", "codemirror", "config", "codemirror-config-\(language.code).json"]
+            let outputPath = outputComponents.joined(separator: "/")
+            try! response.write(to: URL(fileURLWithPath: outputPath), atomically: true, encoding: .utf8)
         }
-        guard let response = response else {
-            return
-        }
-        let outputComponents = pathComponents + ["Wikipedia", "assets", "codemirror", "config", "codemirror-config-\(language.code).json"]
-        let outputPath = outputComponents.joined(separator: "/")
-        try! response.write(to: URL(fileURLWithPath: outputPath), atomically: true, encoding: .utf8)
     }
 }
 
