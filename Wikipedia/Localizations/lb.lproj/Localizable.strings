@@ -24,9 +24,7 @@
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Dir däerft dës Ännerung net verëffentlechen. Gitt w.e.g. zréck an ännert se.";
-"abuse-filter-disallow-notable" = "Wikipedia ass eng Enzyklopedie an nëmmen neutralen, relevanten Inhalt gehéiert heihin.";
+"abuse-filter-disallow-heading" = "Dir däerft dës Ännerung net verëffentlechen";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "En automatiséierte Filter huet dës Ännerung als méiglecherweis net konstruktiv respektiv als Vandalismus-Versuch indentifizéiert.";
 // Fuzzy
@@ -55,6 +53,8 @@
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
 "action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
 "action-cancel" = "Ofbriechen";
+// Fuzzy
+"action-find-in-page" = "Op der Säit sichen";
 "action-move-to" = "Réckelen op...";
 "action-read" = "Liesen";
 "action-remove" = "Ewechhuelen";
@@ -63,11 +63,12 @@
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
 "action-share" = "Deelen";
 "action-sort" = "Zortéieren";
+// Fuzzy
+"action-undo" = "Réckgängeg maachen";
 "action-unsave" = "Läschen";
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "action-update" = "Aktualiséieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
-"alert-no-internet" = "Dir hutt keng Internetverbindung";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "article-about-title" = "Iwwer dësen Artikel";
@@ -110,6 +111,7 @@
 "dim-images" = "Biller dimmen";
 "edit-minor-learn-more-text" = "Méi iwwer kleng Ännerunge gewuer ginn";
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
+"edit-published" = "Ännerung verëffentlecht";
 "edit-published-button-title" = "Fäerdeg";
 "edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaacht";
 "edit-style-table-view-title" = "Stil";
@@ -124,7 +126,6 @@
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
-"empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-history-message" = "Behaalt eng Trace vun deem wat Dir hei gelies hutt";
 "empty-no-history-title" = "Keen Historique vu Versioune weisen";
 "empty-no-saved-pages-in-reading-list-message" = "Späichert Säiten an dëser Lëscht fir se hei ze gesinn";
@@ -152,7 +153,6 @@
 "explore-feed-preferences-global-cards-title" = "Global Kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Dës Kaart verstoppen";
 "explore-feed-preferences-places-description" = "Wikipedia-Artikel an Ärer Géigend";
-"action-undo" = "Réckgängeg maachen";
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
@@ -196,7 +196,6 @@
 "field-token-title" = "Verificatiouns-Code";
 "field-username-placeholder" = "Benotzernumm aginn";
 "field-username-title" = "Benotzernumm";
-"action-find-in-page" = "Op der Säit sichen";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Zrécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
@@ -269,6 +268,8 @@
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
 "no-email-account-alert" = "Configuréiert w.e.g. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
+"no-internet-connection" = "Keng Internet Verbindung";
+"no-internet-connection-article-reload-button" = "Zréck op déi lescht gespäichert Versioun";
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 D";
@@ -281,6 +282,7 @@
 "page-edit-history" = "All Versioune vun der Säit";
 "page-history-title" = "Versioune vum Artikel";
 "page-issues" = "Problemer mat der Säit";
+// Fuzzy
 "page-last-edited" = "Viru(n) $1 Deeg geännert";
 "page-location" = "Op enger Kaart weisen";
 "page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
@@ -288,6 +290,7 @@
 "page-protected-can-not-edit-title" = "Dës Säit ass gespaart";
 "page-protected-other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
 "page-protected-sysop" = "Dës Säit ass komplett gespaart.";
+// Fuzzy
 "page-read-in-other-languages" = "Disponibel a(n) $1 anere Sproochen";
 "page-similar-titles" = "Ähnlech Säiten";
 "page-talk-page" = "Diskussiounssäit weisen";
@@ -472,8 +475,7 @@
 "wikitext-preview-changes-none" = "Et goufe keng Ännerunge gemaach fir ze weisen.";
 "wikitext-preview-link-preview-description" = "Dëse Link féiert op '$1'";
 "wikitext-preview-link-preview-title" = "Preview vum Link";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "Späichert Är Ännerungen";
+"wikitext-preview-save-changes-title" = "Ännerunge späicheren";
 "wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
 "wikitext-upload-save" = "Verëffentlechen...";

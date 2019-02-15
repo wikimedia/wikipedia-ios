@@ -1,4 +1,0 @@
-#!/bin/bash
-
-brew update && brew install npm
-brew upgrade npm

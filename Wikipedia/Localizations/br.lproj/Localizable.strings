@@ -32,7 +32,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "N'hallit ket enrollañ ar c'hemm-mañ. Distroit ha kemmit anezhañ.";
-"abuse-filter-disallow-notable" = "Un holloueziadur eo Wikipedia. N'eus nemet traoù neptu pe traoù a dalvouegezh a c'haller lakaat e-barzh.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Ur sil emgefreek en deus anavezet ar c'hemm-mañ evel unan na zegaso ket kalz a dra, pe evel unan a glask degas drast.";
 // Fuzzy
@@ -57,13 +56,14 @@
 "account-creation-passwords-mismatched" = "Maeziennoù ar gerioù-tremen ne glotont ket an eil gant egile";
 "account-creation-saving" = "Oc'h enrollañ...";
 "account-creation-title" = "Krouiñ ur gont nevez";
+// Fuzzy
+"action-find-in-page" = "Kavout ar bajenn";
 "action-read" = "Lenn";
 "action-save" = "Enrollañ";
 "action-saved" = "Enrollet";
 "action-saved-accessibility" = "Enrollet. Gwerededkaat evit lemel an enrolladenn.";
 "action-share" = "Rannañ";
 "action-unsave" = "Hep enrollañ";
-"alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
 "announcements-dismiss" = "Disteurel";
 "appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
 // Fuzzy
@@ -99,7 +99,6 @@
 "empty-no-article-message" = "Ho tigarez, n'eus ket bet gallet kargañ ar pennad";
 "empty-no-feed-action-message" = "Gallout a reot lenn ar pajennoù enrollet";
 "empty-no-feed-message" = "Gallout a reot gwelet ho pennadoù erbedet p'ho pez ar Genrouedad.";
-"empty-no-feed-title" = "Kevreadur ebet ouzh ar Genrouedad";
 "empty-no-history-message" = "Mirout ur roud eus ar pezh ho peus lennet amañ";
 "empty-no-history-title" = "Istor ebet da ziskwel";
 "empty-no-saved-pages-message" = "Enrollit ar pajennoù-se evit o lenn diwezhatoc'h, ha pa vefe ezlinenn";
@@ -151,7 +150,6 @@
 "field-token-title" = "Kod gwiriekaat";
 "field-username-placeholder" = "Bizskrivañ an anv implijer";
 "field-username-title" = "Anv implijer";
-"action-find-in-page" = "Kavout ar bajenn";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Adderaouekaat";
 "forgot-password-email-sent" = "Kaset ez eus bet ur postel gant displegadurioù adderaouekaat";
@@ -224,6 +222,7 @@
 "page-edit-history" = "Istor klok ar c'hemmoù";
 "page-history-title" = "Istor ar pennad";
 "page-issues" = "Kudennoù war ar bajenn";
+// Fuzzy
 "page-last-edited" = "Kemmet $1 deiz zo";
 "page-location" = "Diskwel war ur gartenn";
 "page-protected-autoconfirmed" = "Damwarezet eo bet ar bajenn-mañ.";
@@ -231,6 +230,7 @@
 "page-protected-can-not-edit-title" = "Gwarezet eo ar bajenn-mañ";
 "page-protected-other" = "Gwarezet eo bet ar bajenn-mañ gant al liveoù-mañ : $1";
 "page-protected-sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
+// Fuzzy
 "page-read-in-other-languages" = "A c'haller kaout e $1 yezh all";
 "page-similar-titles" = "Pajennoù damheñvel";
 "places-accessibility-clear-saved-searches" = "Riñsañ an enklaskoù enrollet";

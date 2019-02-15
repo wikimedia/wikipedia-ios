@@ -58,7 +58,6 @@
 "about-wikipedia" = "ウィキペディアについて";
 // Fuzzy
 "abuse-filter-disallow-heading" = "この編集は公開できません。戻って修正してください。";
-"abuse-filter-disallow-notable" = "ウィキペディアは百科事典であり、中立的で特筆性のあるコンテンツのみを収録します。";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "自動フィルターがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。";
 // Fuzzy
@@ -87,6 +86,8 @@
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
 "action-cancel" = "キャンセル";
+// Fuzzy
+"action-find-in-page" = "ページ内検索";
 "action-move-to" = "次へ移動…";
 "action-move-to-reading-list" = "あとで読むリストに保存";
 "action-read" = "読む";
@@ -97,11 +98,12 @@
 "action-saved-accessibility-notification" = "後で保存された記事";
 "action-share" = "共有";
 "action-sort" = "並べ替え";
+// Fuzzy
+"action-undo" = "取り消す";
 "action-unsave" = "リストから削除";
 "action-unsaved-accessibility-notification" = "記事をリストから削除しました";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "$1記事をあとで読むリストに追加";
-"alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア, 参考資料, ウィキ, 百科事典, 情報, 知識, リサーチ, 情報, 発見, 学習";
 "app-store-short-description" = "ウィキペディアアプリをダウンロードして、お近くのスポットを探したり、オフラインで読む記事を同期したり、記事の読み方をカスタマイズしたりしてみましょう。";
@@ -188,7 +190,6 @@
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
 "empty-no-feed-action-message" = "保存したページはそうでなくても読むことができます";
 "empty-no-feed-message" = "おすすめの記事は、インターネットに接続されているときに見ることができます";
-"empty-no-feed-title" = "インターネットに接続されていません";
 "empty-no-history-message" = "ここには、あなたが閲読した記事の履歴が表示されます";
 "empty-no-history-title" = "表示する履歴がありません";
 "empty-no-reading-lists-message" = "あとで読むリストを作成し、旅行に行きたいところ、好きな話題、何でも保存しましょう";
@@ -250,7 +251,6 @@
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "オフにする";
 "explore-feed-preferences-turn-off-explore-tab-title" = "「探してみよう」タブをオフにしますか？";
 "explore-feed-preferences-turn-off-feed-disclosure" = "「探してみよう」タブをオフにすると、設定タブに入れ替わります。";
-"action-undo" = "取り消す";
 "explore-hide-card-prompt" = "カードを隠す";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
 "explore-main-page-heading" = "今日についての記事";
@@ -295,7 +295,6 @@
 "field-token-title" = "検証コード";
 "field-username-placeholder" = "ユーザー名を入力";
 "field-username-title" = "ユーザー名";
-"action-find-in-page" = "ページ内検索";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "リセット";
 "forgot-password-email-sent" = "パスワードリセットの指示が記載されたメールが送信されました";
@@ -384,6 +383,7 @@
 "page-edit-history" = "すべての編集履歴";
 "page-history-title" = "記事の履歴";
 "page-issues" = "ページの問題点";
+// Fuzzy
 "page-last-edited" = "最終編集日: $1日前";
 "page-location" = "地図で見る";
 "page-protected-autoconfirmed" = "このページは半保護されています。";
@@ -391,6 +391,7 @@
 "page-protected-can-not-edit-title" = "このページは保護されています";
 "page-protected-other" = "このページは、次のレベルに保護されています:$1";
 "page-protected-sysop" = "このページは全保護されています。";
+// Fuzzy
 "page-read-in-other-languages" = "他に$1つの言語で利用可能";
 "page-similar-titles" = "類似したページ";
 "page-talk-page" = "トークページを見る";

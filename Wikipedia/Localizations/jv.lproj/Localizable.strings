@@ -27,7 +27,6 @@
 "about-wikipedia" = "Wikipédia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Panjenengan ora bisa mbabar besutan iki. Mangga balika lan dandanana.";
-"abuse-filter-disallow-notable" = "Wikipédia iku bauwarna lan mligi macak kontèn kang nétral tur wigati.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Saringan otomatis ngonangi yèn besutan iki bokmanawa ora mbangun utawa pamrihé arep ngrusak.";
 // Fuzzy
@@ -56,6 +55,8 @@
 "action-add-to-reading-list" = "Tambahaké ing pratélan wacan";
 "action-add-to-reading-list-short" = "Tambahaké ing pratélan";
 "action-cancel" = "Wurung";
+// Fuzzy
+"action-find-in-page" = "Golèk ing kaca";
 "action-move-to" = "Lih menyang...";
 "action-move-to-reading-list" = "Lih menyang pratélan wacan";
 "action-read" = "Waca";
@@ -69,7 +70,6 @@
 "action-unsave" = "Wurung nyimpen";
 "action-unsaved-accessibility-notification" = "Artikel wurung disimpen";
 "action-update" = "Anyari";
-"alert-no-internet" = "Ora ana gayutan Internèt";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Larasaké ukurané tulisan ing artikel";
 "appearance-settings-reading-themes" = "Cakrik wacan";
@@ -113,7 +113,6 @@
 "empty-no-article-message" = "Nyuwun pangapura, ora bisa ngamot artikel";
 "empty-no-feed-action-message" = "Panjenengan isih bisa maca kaca kang kasimpen";
 "empty-no-feed-message" = "Kowé bisa ndeleng artikel kang kaprayogakaké yèn wis nyambung Internèt";
-"empty-no-feed-title" = "Ora Ana Gayutan Internet";
 "empty-no-history-message" = "Ngetutaké apa kang wis panjenengan waca ing kéné";
 "empty-no-history-title" = "Ora ana sajarah kang bisa tinuduhaké";
 "empty-no-saved-pages-message" = "Simpen kaca kanggo ndeleng mengko, malah offline";
@@ -180,7 +179,6 @@
 "field-token-title" = "Kodhe vèrifikasi";
 "field-username-placeholder" = "lebokaké jeneng panganggo";
 "field-username-title" = "Jeneng panganggo";
-"action-find-in-page" = "Golèk ing kaca";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rèsèt";
 "forgot-password-email-sent" = "Layang-èl sing isiné panuntun setèl-ulang tembung wadi wis dikirim";
@@ -259,6 +257,7 @@
 "page-edit-history" = "Sajarah besutan wutuh";
 "page-history-title" = "Sajarah artikel";
 "page-issues" = "Masalah kaca";
+// Fuzzy
 "page-last-edited" = "Dibesut $1 dina kapungkur";
 "page-location" = "Deleng ing petha";
 "page-protected-autoconfirmed" = "Kaca iki wis semu direksa.";
@@ -266,6 +265,7 @@
 "page-protected-can-not-edit-title" = "Kaca iki direksa";
 "page-protected-other" = "Kaca iki wis direksa tumeka tataran iki: $1";
 "page-protected-sysop" = "Kaca iki wis kareksa wutuh.";
+// Fuzzy
 "page-read-in-other-languages" = "Ana ing $1 basa liyané";
 "page-similar-titles" = "Kaca sairib";
 "page-talk-page" = "Deleng kaca parembugan";

@@ -25,6 +25,7 @@
 // Author: Peter Fernando
 // Author: Raphaelras
 // Author: Rodrigo codignoli
+// Author: Tks4Fish
 // Author: Tooguether
 // Author: Walesson
 // Author: Webysther
@@ -52,21 +53,15 @@
 "about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
 "about-wikimedia-foundation" = "Fundação Wikimedia";
 "about-wikipedia" = "Wikipédia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Não pode publicar esta edição. Por favor, volte atrás e altere-a.";
-"abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia e somente conteúdo neutro e notório pertence a este projeto.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente não construtiva ou como uma tentativa de vandalismo.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Branqueamento de artigos ou ''spam''";
-// Fuzzy
-"abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
+"abuse-filter-disallow-heading" = "Você não pode publicar esta edição";
+"abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente não construtiva ou como uma tentativa de vandalismo.Por favor, volte e mude sua edição.";
+"abuse-filter-warning-blanking" = "Excluindo seções ou artigos completos";
+"abuse-filter-warning-caps" = "Todo o texto em maiúsculas";
 "abuse-filter-warning-heading" = "Esta edição parece não ser construtiva. Você tem certeza de que gostaria de publica-la?";
 "abuse-filter-warning-irrelevant" = "Ligações ou imagens externas irrelevantes";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Repeeeetição de caracteres";
-// Fuzzy
-"abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
+"abuse-filter-warning-repeat" = "Caracteres repetidas";
+"abuse-filter-warning-spam" = "Adicionando spam a artigos";
+"abuse-filter-warning-subheading" = "Sua edição pode conter:";
 "account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
 "account-creation-captcha-obtaining" = "Obtendo um novo CAPTCHA...";
 "account-creation-captcha-request-account" = "Solicitar uma conta.";
@@ -83,9 +78,11 @@
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
+"action-find-in-page" = "Encontrar na página";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover à lista de leitura";
 "action-read" = "Ler";
+"action-redo" = "Refazer";
 "action-remove" = "Remover";
 "action-save" = "Salvar";
 "action-saved" = "Salvo";
@@ -93,11 +90,11 @@
 "action-saved-accessibility-notification" = "Artigo salvo para posterior";
 "action-share" = "Compartilhar";
 "action-sort" = "Ordenar";
+"action-undo" = "Desfazer";
 "action-unsave" = "Não salvo";
 "action-unsaved-accessibility-notification" = "Artigo não salvo";
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
-"alert-no-internet" = "Não há conexão com a internet";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
@@ -178,26 +175,60 @@
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
 "dim-images" = "Imagens fracas";
+"edit-bold-accessibility-label" = "Adicionar formatação em negrito";
+"edit-bold-remove-accessibility-label" = "Remover formatação em negrito";
+"edit-comment-accessibility-label" = "Adicionar sintaxe de comentário";
+"edit-comment-remove-accessibility-label" = "Remover sintaxe de comentário";
+"edit-decrease-indent-depth-accessibility-label" = "Diminuir a profundidade do recuo";
+"edit-direction-down-accessibility-label" = "Mover o cursor para baixo";
+"edit-direction-left-accessibility-label" = "Mover o cursor para a esquerda";
+"edit-direction-right-accessibility-label" = "Mover o cursor para a direita";
+"edit-direction-up-accessibility-label" = "Mover o cursor para cima";
+"edit-increase-indent-depth-accessibility-label" = "Aumentar a profundidade do recuo";
+"edit-indent-accessibility-label" = "Linha atual de recuo";
+"edit-italic-accessibility-label" = "Adicionar formatação em itálico";
+"edit-italic-remove-accessibility-label" = "Remover formatação em itálico";
+"edit-link-accessibility-label" = "Acrescentar sintaxe para link";
+"edit-link-remove-accessibility-label" = "Remover a sintaxe do link";
 "edit-minor-learn-more-text" = "Saiba mais sobre edições menores";
 "edit-minor-text" = "Esta é uma edição menor";
+"edit-ordered-list-accessibility-label" = "Tornar a lista ordenada da linha atual";
+"edit-ordered-list-remove-accessibility-label" = "Remover lista ordenada da linha atual";
 "edit-published" = "Editar publicado";
 "edit-published-button-title" = "Feito";
 "edit-published-subtitle" = "Você acabou de tornar a Wikipédia melhor para todos";
+"edit-reference-accessibility-label" = "Adicionar sintaxe de referência";
+"edit-reference-remove-accessibility-label" = "Remover a sintaxe de referência";
+"edit-signature-accessibility-label" = "Adicionar sintaxe de assinatura";
+"edit-signature-remove-accessibility-label" = "Remover a sintaxe da assinatura";
+"edit-strikethrough-accessibility-label" = "Adicionar tachado";
+"edit-strikethrough-remove-accessibility-label" = "Remover tachado";
 "edit-style-table-view-title" = "Estilo";
+"edit-subscript-accessibility-label" = "Adicionar formatação de subscrito";
+"edit-subscript-remove-accessibility-label" = "Remover a formatação de subscrito";
 "edit-summary-add-summary-text" = "Adicionar um resumo de edição";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
 "edit-summary-choice-fixed-typos" = "Ortográfia reduzida";
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-learn-more-text" = "Saiba mais";
 "edit-summary-placeholder-text" = "Como foi que você melhorou o artigo?";
+"edit-superscript-accessibility-label" = "Adicionar formatação sobrescrita";
+"edit-superscript-remove-accessibility-label" = "Remover formatação sobrescrita";
+"edit-template-accessibility-label" = "Adicionar sintaxe da predefinição";
+"edit-template-remove-accessibility-label" = "Remover a sintaxe da predefinição";
+"edit-text-formatting-accessibility-label" = "Mostrar menu de formatação de texto";
 "edit-text-formatting-table-view-title" = "Formatação de texto";
 "edit-text-size-table-view-title" = "Tamanho do texto";
+"edit-text-style-accessibility-label" = "Mostrar menu de estilo de texto";
+"edit-underline-accessibility-label" = "Adicionar sublinhado";
+"edit-underline-remove-accessibility-label" = "Remover sublinhado";
+"edit-unordered-list-accessibility-label" = "Tornar a linha atual lista não ordenada";
+"edit-unordered-list-remove-accessibility-label" = "Remover lista não ordenada da linha atual";
 "edit-watch-list-learn-more-text" = "Saiba mais sobre listas de vigiados";
 "edit-watch-this-page-text" = "Vigiar esta página";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
-"empty-no-feed-title" = "Sem conexão com a internet";
 "empty-no-history-message" = "Manter um registro do que você esteve lendo aqui";
 "empty-no-history-title" = "Sem histórico para exibir";
 "empty-no-reading-lists-message" = "Criar listas de lugares para viajar, tópicos favoritos e muito mais";
@@ -274,7 +305,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir a aba Configurações pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar a aba Explorar?";
-"action-undo" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -321,7 +351,6 @@
 "field-token-title" = "Código de verificação";
 "field-username-placeholder" = "insira nome de usuário";
 "field-username-title" = "Nome de usuário";
-"action-find-in-page" = "Localizar na página";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviado um e-mail com instruções de redefinição de senha";
@@ -400,6 +429,9 @@
 "new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
 "new-password-title" = "Defina sua senha";
 "no-email-account-alert" = "Por favor configure uma conta de email em seu dispositivo e tente novamente.";
+"no-internet-connection" = "Sem conexão com a internet";
+"no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
+"no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -414,14 +446,14 @@
 "page-edit-history" = "Histórico de edição completo";
 "page-history-title" = "Histórico de artigos";
 "page-issues" = "Problemas da página";
-"page-last-edited" = "Editado $1 dias atrás";
+"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|Editado ontem|Editado $1 dia atrás}}";
 "page-location" = "Ver no mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Você não tem permissão para editar esta página";
 "page-protected-can-not-edit-title" = "Esta página está protegida";
 "page-protected-other" = "Esta página está protegida para os seguintes níveis: $1";
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
-"page-read-in-other-languages" = "Disponível em $1 outros idiomas";
+"page-read-in-other-languages" = "Disponível em {PLURAL:$1|$1 outro idioma|$1 outros idiomas}}";
 "page-similar-titles" = "Páginas similares";
 "page-talk-page" = "Ver página de discussão";
 "pictured" = "Retratado";
@@ -678,8 +710,7 @@
 "wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";
 "wikitext-preview-link-preview-description" = "Este link leva a '$1'";
 "wikitext-preview-link-preview-title" = "Visualização do link";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "Salvar as suas alterações";
+"wikitext-preview-save-changes-title" = "Salvar alterações";
 "wikitext-upload-captcha-error" = "Erro de verificação do CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do wikitexto.";

@@ -30,7 +30,6 @@
 "about-wikipedia" = "Бикипиэдьийэ";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Көннөрүүнү бигэргэтэр кыаҕыҥ суох эбит. Бука диэн төннүн уонна уларыт.";
-"abuse-filter-disallow-notable" = "Бикипиэдьийэ энциклопедия буоларын быһыытынан, манна ким да диэки буолбакка уонна суолталааҕы эрэ суруллар.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Сиидэ бу көннөрүүгүн хоромньу аҕалыан сөп эбэтэр бандааллааһыҥҥа маарынныыр курдук билиннэ.";
 // Fuzzy
@@ -59,6 +58,8 @@
 "action-add-to-reading-list" = "Ааҕар испииһэккэ киллэр";
 "action-add-to-reading-list-short" = "Испииһэккэ киллэр";
 "action-cancel" = "Салҕаама";
+// Fuzzy
+"action-find-in-page" = "Бу сирэйтэн бул";
 "action-move-to" = "Манна көһөр...";
 "action-move-to-reading-list" = "Ааҕар испииһэккэ көһөр";
 "action-read" = "Ааҕыы";
@@ -73,7 +74,6 @@
 "action-unsaved-accessibility-notification" = "Ыстатыйа испииһэктэн сотулунна";
 "action-update" = "Саҥардыы";
 "add-articles-to-reading-list" = "$1 ыстатыйаны ааҕыы испииһэгэр киллэр";
-"alert-no-internet" = "Интэриниэт ситимэ суох";
 "announcements-dismiss" = "Сап";
 "app-store-keywords" = "Бикипиэдьийэ, ыстатыйа, биики, энциклопедия, билии, аах, бил, билис, көр, быһаарыы";
 "app-store-subtitle" = "Аһаҕас энциклопедия";
@@ -121,7 +121,6 @@
 "empty-no-article-message" = "Баалаама, ыстатыйа кыайан хачайдаммата";
 "empty-no-feed-action-message" = "Урут хаалларыллыбыт ыстатыйалары көрө түһүөххүн сөп";
 "empty-no-feed-message" = "Сүбэлиир ыстатыйаларбытын ситим баар буоллаҕына көрүөххүн сөп";
-"empty-no-feed-title" = "Интэриниэти кытта ситим суох";
 "empty-no-history-message" = "Манна аахпыккын кэтээ";
 "empty-no-history-title" = "Устуоруйата суох эбит";
 "empty-no-saved-pages-message" = "Билигин хааллардаххына, кэлин ситимэ да суох ааҕыаххын сөп";
@@ -173,7 +172,6 @@
 "field-token-title" = "Куоду бигэргэт";
 "field-username-placeholder" = "ааккын суруй";
 "field-username-title" = "Бэлиэ-аат";
-"action-find-in-page" = "Бу сирэйтэн бул";
 "find-in-page-number-matches" = "$1 манна $2";
 "forgot-password-button-title" = "Саҥаттан";
 "forgot-password-email-sent" = "Аһарыгы уларытар туһунан сурук ыытылынна";
@@ -245,6 +243,7 @@
 "page-edit-history" = "Уларытыы толору устуоруйата";
 "page-history-title" = "Сирэй устуоруйата";
 "page-issues" = "Сирэйгэ ыйытыылар";
+// Fuzzy
 "page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
 "page-location" = "Каартаҕа көр";
 "page-protected-autoconfirmed" = "Бу сирэй ситэтэ суохтук хатанна.";
@@ -252,6 +251,7 @@
 "page-protected-can-not-edit-title" = "Бу сирэй хатанан турар";
 "page-protected-other" = "Бу сирэй маннык таһымнарга хатанна: $1";
 "page-protected-sysop" = "Бу сирэй толору хатанна.";
+// Fuzzy
 "page-read-in-other-languages" = "Атын $1 тылынан ааҕыахха сөп";
 "page-similar-titles" = "Майгынныыр сирэйдэр";
 "pictured" = "ойууланна";

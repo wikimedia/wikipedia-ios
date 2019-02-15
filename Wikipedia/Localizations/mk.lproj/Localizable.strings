@@ -30,21 +30,15 @@
 "about-translators-details" = "Прилогов го преведоа доброволни преведувачи на $1";
 "about-wikimedia-foundation" = "Фондацијата Викимедија";
 "about-wikipedia" = "Википедија";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Не можете да го објавите уредувањево. Вратете се и изменето го.";
-"abuse-filter-disallow-notable" = "Википедија е енциклопедија, што значи дека тука припаѓаат само неутрални и значајни содржини.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Автоматски филтер утврди дека ова урадување е потенцијално неконструктивно или претставува обид за вандализам.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Празнење на статии или спамирање";
-// Fuzzy
-"abuse-filter-warning-caps" = "ГОЛЕМИ БУКВИ";
+"abuse-filter-disallow-heading" = "Не можете да го објавите уредувањево.";
+"abuse-filter-disallow-unconstructive" = "Автоматски филтер утврди дека ова урадување е потенцијално неконструктивно или претставува обид за вандализам. Навратете се и изменете го уредувањето.";
+"abuse-filter-warning-blanking" = "Бришење на делови или цели статии";
+"abuse-filter-warning-caps" = "Големи букви";
 "abuse-filter-warning-heading" = "Ова личи на неконструктивно уредување. Дали сигурно сакате да го објавите?";
 "abuse-filter-warning-irrelevant" = "Нерелевантни надворешни врски или слики";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Повтоооорени знаци";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Вашето уредување може да содржи едно или повеќе од следниве:";
+"abuse-filter-warning-repeat" = "Повторени знаци";
+"abuse-filter-warning-spam" = "Ставање спам во статии";
+"abuse-filter-warning-subheading" = "Вашето уредување може да содржи:";
 "account-creation-captcha-cannot-see-image" = "Не ја гледате сликата? $1";
 "account-creation-captcha-obtaining" = "Правам нова сликичка...";
 "account-creation-captcha-request-account" = "Побарајте сметка.";
@@ -61,9 +55,11 @@
 "action-add-to-reading-list" = "Додај во список за читање";
 "action-add-to-reading-list-short" = "Додај во список";
 "action-cancel" = "Откажи";
+"action-find-in-page" = "Најди на страницата";
 "action-move-to" = "Премести во...";
 "action-move-to-reading-list" = "Премести во списокот за читање";
 "action-read" = "Прочитај";
+"action-redo" = "Повтори";
 "action-remove" = "Отстрани";
 "action-save" = "Зачувај";
 "action-saved" = "Зачувано";
@@ -71,11 +67,11 @@
 "action-saved-accessibility-notification" = "Статијата е зачувана за подоцна";
 "action-share" = "Сподели";
 "action-sort" = "Подреди";
+"action-undo" = "Врати";
 "action-unsave" = "Тргни";
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
-"alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -156,26 +152,60 @@
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "dim-images" = "Пригушени слики";
+"edit-bold-accessibility-label" = "Стави задебелено форматирање";
+"edit-bold-remove-accessibility-label" = "Отстрани задебелено форматирање";
+"edit-comment-accessibility-label" = "Стави синтакса за коментар";
+"edit-comment-remove-accessibility-label" = "Отстрани синтакса за коментар";
+"edit-decrease-indent-depth-accessibility-label" = "Намали отстап";
+"edit-direction-down-accessibility-label" = "Показникот надолу";
+"edit-direction-left-accessibility-label" = "Показникот налево";
+"edit-direction-right-accessibility-label" = "Показникот надесно";
+"edit-direction-up-accessibility-label" = "Показникот нагоре";
+"edit-increase-indent-depth-accessibility-label" = "Зголеми отстап";
+"edit-indent-accessibility-label" = "Отстап во тековниот ред";
+"edit-italic-accessibility-label" = "Стави закосено форматирање";
+"edit-italic-remove-accessibility-label" = "Отстрани закосено форматирање";
+"edit-link-accessibility-label" = "Стави синтакса за врска";
+"edit-link-remove-accessibility-label" = "Отстрани синтакса за врска";
 "edit-minor-learn-more-text" = "Дознајте повеќе за ситните уредувања";
 "edit-minor-text" = "Ова е ситно уредување";
+"edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
+"edit-ordered-list-remove-accessibility-label" = "Отстрани подреден список од тековниот ред";
 "edit-published" = "Уредувањето е објавено";
 "edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
+"edit-reference-accessibility-label" = "Стави синтакса за навод";
+"edit-reference-remove-accessibility-label" = "Отстрани синтакса за навод";
+"edit-signature-accessibility-label" = "Стави синтакса за потпис";
+"edit-signature-remove-accessibility-label" = "Отстрани синтакса за потпис";
+"edit-strikethrough-accessibility-label" = "Стави прецртување";
+"edit-strikethrough-remove-accessibility-label" = "Отстрани прецртување";
 "edit-style-table-view-title" = "Стил";
+"edit-subscript-accessibility-label" = "Стави форматирање за долен индекс";
+"edit-subscript-remove-accessibility-label" = "Отстрани форматирање за долен индекс";
 "edit-summary-add-summary-text" = "Додај опис на уредувањето";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
 "edit-summary-choice-linked-words" = "Додадени врски";
 "edit-summary-learn-more-text" = "Дознајте повеќе";
 "edit-summary-placeholder-text" = "На кој начин ја подобривте статијата?";
+"edit-superscript-accessibility-label" = "Стави форматирање за горен индекс";
+"edit-superscript-remove-accessibility-label" = "Отстрани форматирање за горен индекс";
+"edit-template-accessibility-label" = "Стави синтакса за шаблон";
+"edit-template-remove-accessibility-label" = "Отстрани синтакса за шаблон";
+"edit-text-formatting-accessibility-label" = "Прикажи мени за форматирање на текстот";
 "edit-text-formatting-table-view-title" = "Форматирање на текстот";
 "edit-text-size-table-view-title" = "Големина на текстот";
+"edit-text-style-accessibility-label" = "Прикажи мени за стил на текстот";
+"edit-underline-accessibility-label" = "Стави потцртување";
+"edit-underline-remove-accessibility-label" = "Отстрани потцртување";
+"edit-unordered-list-accessibility-label" = "Направи го тековниот ред неподреден список";
+"edit-unordered-list-remove-accessibility-label" = "Отстрани неподреден список од тековниот ред";
 "edit-watch-list-learn-more-text" = "Дознајте повеќе за набљудуваните";
 "edit-watch-this-page-text" = "Набљудувај ја страницава";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
-"empty-no-feed-title" = "Не сте поврзани со семрежјето";
 "empty-no-history-message" = "Тука се заведува сè имате читано";
 "empty-no-history-title" = "Нема историја";
 "empty-no-reading-lists-message" = "Правете списоци за читање за местата што сакате да ги посетите, омилени теми и многу друго";
@@ -252,7 +282,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Вклучи го „Истражи“";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ова ќе го замени јазичето „Нагодувања“ со јазичето „Истражи“. Можете да дојдете до нагодувањата над јазичето „Истражи“ стискајќи на иконката со запченик";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Да го всклучам јазичето „Истражи“?";
-"action-undo" = "Врати";
 "explore-hide-card-prompt" = "Скриј ја картичкава";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -299,7 +328,6 @@
 "field-token-title" = "Потврден код";
 "field-username-placeholder" = "внесете корисничко име:";
 "field-username-title" = "Корисничко име";
-"action-find-in-page" = "Најди на страницата";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Задај нова лозинка";
 "forgot-password-email-sent" = "На е-пошта ви се испратени напатствија за задавање на нова лозинка";
@@ -378,6 +406,9 @@
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
 "new-password-title" = "Ставете лозинка";
 "no-email-account-alert" = "Зададете е-пошта на вашиот уред и обидете се повторно.";
+"no-internet-connection" = "Не сте поврзани со семрежјето";
+"no-internet-connection-article-reload" = "Може да постои понова верзија на статијава, но не може да се вчита без врска со семрежјето";
+"no-internet-connection-article-reload-button" = "Врати на последната зачувана верзија";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 млн.";
 "number-thousands" = "$1 илј.";
@@ -392,6 +423,7 @@
 "page-edit-history" = "Цела историја на уредувања";
 "page-history-title" = "Историја на статијата";
 "page-issues" = "Проблеми со страницата";
+// Fuzzy
 "page-last-edited" = "Изменето пред $1 дена";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
@@ -399,6 +431,7 @@
 "page-protected-can-not-edit-title" = "Оваа страница е заштитена";
 "page-protected-other" = "Оваа страница е заштитена во следниве степени: $1";
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
+// Fuzzy
 "page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-similar-titles" = "Слични страници";
 "page-talk-page" = "Разговорна страница";
@@ -656,8 +689,7 @@
 "wikitext-preview-changes-none" = "Не направивте промени.";
 "wikitext-preview-link-preview-description" = "Врскава води кон „$1“";
 "wikitext-preview-link-preview-title" = "Преглед на врската";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "Зачувајте ги промените";
+"wikitext-preview-save-changes-title" = "Зачувај промени";
 "wikitext-upload-captcha-error" = "Грешка при проверката со сликичка.";
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со сликичка.";
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";

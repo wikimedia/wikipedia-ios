@@ -25,7 +25,6 @@
 "about-wikipedia" = "ဝီႇၶီႇၽီးတီးယႃး";
 // Fuzzy
 "abuse-filter-disallow-heading" = "ၸဝ်ႈၵဝ်ႇ တေဢမ်ႇၸၢင်ႈ ပိုၼ်ဢွၵ်ႇ ​လွင်ႈမႄးထတ်း ဢၼ်ၼႆႉ။ ၶႅၼ်းတေႃႈ ၵႂႃႇၽၢႆႇလင်ၶိုၼ်းသေ မႄးလႅၵ်ႈလၢႆႈ ဢၼ်ၼႆႉၵွၼ်ႇ။";
-"abuse-filter-disallow-notable" = "ဝီႇၶီႇၽီးတီးယႃးၼႆႉ ပဵၼ်ပပ်ႉသႅၼ်သမ်ႇလႄႈ ပဵၼ်ဢၼ်ယူႇထၢၼ်ႈၵၢၼ်၊ တူဝ်ၼႂ်းမၼ်းၼႆႉၵေႃႈ ပဵၼ်ဢၼ်လီတွင်းမၢႆသေ ပဵၼ်ဢၼ်ၵူႈၵေႃႉတီးၼႆႈပိူင်ႇယဝ်ႉ။";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "တူဝ်ထွင်ႁင်းၶေႃ လႆႈမၵ်းမၼ်ႈဝႃႈ လွင်ႈမႄးထတ်းဢၼ်ၼႆႉ မၼ်းလႅပ်ႈတေပဵၼ် လွင်ႈဢမ်ႇမီး တၢင်းၵမ်ႉထႅမ်လီ ဢမ်ႇၼၼ် ပဵၼ်လွင်ႈယႃႉၵဝ်းလဵၼ်ႈ။";
 // Fuzzy
@@ -50,11 +49,12 @@
 "account-creation-passwords-mismatched" = "လွၵ်းၶေႃႈလပ်ႉ ဢမ်ႇမႅၼ်ႈၵၼ်။";
 "account-creation-saving" = "တိုၵ်ႉသိမ်းပၼ်ယူႇ...";
 "account-creation-title" = "ၵေႃႇသၢင်ႈဢၶွင်ႉဢၼ်မႂ်ႇ";
+// Fuzzy
+"action-find-in-page" = "သွၵ်ႈႁႃ တီႈၼႂ်း ၼႃႈလိၵ်ႈ";
 "action-read" = "လူတူၺ်း";
 "action-save" = "ၵဵပ်းသိမ်း";
 "action-saved" = "ၵဵပ်းသိမ်းယဝ်ႉ";
 "action-share" = "ၽႄႈတိုၼ်း";
-"alert-no-internet" = "ဢမ်ႇမီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ";
 // Fuzzy
 "announcements-dismiss" = "ပႆႇၵွၼ်ႇ";
 "article-about-title" = "လွင်ႈပွင်ႈလိၵ်ႈဢၼ်ၼႆႉ";
@@ -84,7 +84,6 @@
 "empty-no-article-message" = "ၵဵင်ၸႂ်ယူႇ၊ ဢမ်ႇၸၢင်ႈထုတ်ႇပိုတ်ႇ ပွင်ႈလိၵ်ႈ";
 "empty-no-feed-action-message" = "ၸဝ်ႈၵဝ်ႇ တိုၵ်ႇၸၢင်ႈလူလႆႈ ၼႃႈလိၵ်ႈၸိူဝ်းသိမ်းဝႆႉၼၼ်ႉ";
 "empty-no-feed-message" = "ၸဝ်ႈၵဝ်ႇၸၢင်ႈတူၺ်းလႆႈ ပွင်ႈလိၵ်ႈၸိူဝ်းၸဝ်ႈၵဝ်ႇ ၶႆႈၸႂ်ႈဝႆႉ ၽွင်းမိူဝ်ႈၸဝ်ႈၵဝ်ႇ မီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉၼၼ်ႉ။";
-"empty-no-feed-title" = "ဢမ်ႇမီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ";
 "empty-no-history-message" = "ၸွပ်ႇတူၺ်းဝႃႈ ၸဝ်ႈၵဝ်ႇလူသင်ၵႂႃႇ ၵႃႈတီႈၼႆႈ";
 "empty-no-history-title" = "ဢမ်ႇမီးပိုၼ်းလင်တႃႇတေၼႄ";
 "empty-no-saved-pages-message" = "သိမ်းၼႃႈလိၵ်ႈတႃတူၺ်းၶဝ်ဝၢႆးလင်၊ ႁူမ်ဝႃႈ ဢမ်ႇမီးၼႅတ်ႇ";
@@ -134,7 +133,6 @@
 "field-token-title" = "ၶူတ်ႉၼႄႉၼွၼ်း";
 "field-username-placeholder" = "ပေႃႇသႂ်ႇပၼ် ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း";
 "field-username-title" = "ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း";
-"action-find-in-page" = "သွၵ်ႈႁႃ တီႈၼႂ်း ၼႃႈလိၵ်ႈ";
 "find-in-page-number-matches" = "$1 တီႈ $2";
 "forgot-password-button-title" = "ၶိုၼ်းတင်ႈ";
 "forgot-password-email-sent" = "ဢီးမေးလ် ဢၼ်မီး ၶေႃႈၸီႉသင်ႇ တႃႇၶိုၼ်းတင်ႈ ၶေႃႈလပ်ႉၼၼ်ႉ ထုၵ်ႇသူင်ႇၵႂႃႇယဝ်ႉ";
@@ -207,6 +205,7 @@
 "page-edit-history" = "ပိုၼ်းမႄးထတ်း တဵမ်ထူၼ်ႈ";
 "page-history-title" = "ပိုၼ်းပွင်ႈလိၵ်ႈ";
 "page-issues" = "ၶေႃႈၶၼ် ၼႃႈလိၵ်ႈ";
+// Fuzzy
 "page-last-edited" = "မႄးထတ်းဝႆႉ မိူဝ်ႈပူၼ်ႈမႃး $1 ဝၼ်း";
 "page-location" = "တူၺ်းၵႃႈတီႈၼိူဝ် ႁၢင်ႈၽႅၼ်ႇလိၼ်";
 "page-protected-autoconfirmed" = "ၼႃႈလိၵ်ႈဢၼ်ၼႆႉ ထုၵ်ႇ ႁႄႉၵင်ႈဝႆႉ ၵမ်ႈၽွင်ႈ";
@@ -214,6 +213,7 @@
 "page-protected-can-not-edit-title" = "ၼႃႈလိၵ်ႈၼႆႉ ထုၵ်ႇႁႄႉၵၼ်ဝႆႉဢေႃႈ။";
 "page-protected-other" = "ၼႃႈလိၵ်ႈၼႆႉ ထုၵ်ႇႁႄႉၵင်ႈဝႆႉ ၸွမ်းၼင်ႇ ၸၼ်ႉထၢၼ်ႈ : %s";
 "page-protected-sysop" = "ၼႃႈလိၵ်ႈၼႆႉ ထုၵ်ႇႁႄႉၵင်ႈဝႆႉ တင်းမူတ်း။";
+// Fuzzy
 "page-read-in-other-languages" = "$1 ဢဝ်ၸႂ်ႉလႆႈ တီႈၼႂ်း ၽႃႇသႃႇၵႂၢမ်းတၢင်ႇၸိူဝ်း";
 "page-similar-titles" = "ၼႃႈလိၵ်ႈ မိူၼ်ၵၼ်";
 "pictured" = "ႁၢင်ႈ";

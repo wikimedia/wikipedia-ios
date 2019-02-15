@@ -36,7 +36,6 @@
 "about-wikipedia" = "Wikipédia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Túto úpravu nie je možné uložiť. Prosím, vráťte sa späť a zmeňte ju.";
-"abuse-filter-disallow-notable" = "Wikipédia je encyklopédia a patrí sem iba neutrálny a hodnotný obsah.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Automatický filter označil túto úpravu ako potencionálne nekonštruktívnu alebo ako pokus o vandalizmus.";
 // Fuzzy
@@ -65,6 +64,8 @@
 "action-add-to-reading-list" = "Pridať do zoznamu na prečítanie";
 "action-add-to-reading-list-short" = "Pridať do zoznamu";
 "action-cancel" = "Zrušiť";
+// Fuzzy
+"action-find-in-page" = "Nájsť na stránke";
 "action-move-to" = "Presunúť do…";
 "action-move-to-reading-list" = "Presunúť do zoznamu na prečítanie";
 "action-read" = "Čítať";
@@ -74,10 +75,11 @@
 "action-saved-accessibility-notification" = "Článok bol uložený na neskôr";
 "action-share" = "Zdieľať";
 "action-sort" = "Zoradiť";
+// Fuzzy
+"action-undo" = "Vrátiť";
 "action-unsave" = "Zrušiť uloženie";
 "action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
-"alert-no-internet" = "Žiadne pripojenie na internet";
 "announcements-dismiss" = "Zrušiť";
 "app-store-keywords" = "Wikipédia, referencie, wiki, encyklopédia, informácie, vedomosti, výskum, informácie, objaviť, učenie";
 "app-store-short-description" = "Stiahnite si aplikáciu Wikipédie pre objavovanie miest v blízkosti vás, na preberanie článkov do vášho zariadenia a prispôsobenie čítanie článkov.";
@@ -133,7 +135,6 @@
 "empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
-"empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-history-message" = "Vaša história je prázdna";
 "empty-no-history-title" = "Nemáte žiadnu históriu.";
 "empty-no-saved-pages-title" = "Žiadne uložené stránky.";
@@ -165,7 +166,6 @@
 "explore-feed-preferences-potd-description" = "Denný obrázok z Commons";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Vypnúť kanál Objaviť";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Vypnúť kanál Objaviť";
-"action-undo" = "Vrátiť";
 "explore-hide-card-prompt" = "Skryť túto kartu";
 "explore-main-page-description" = "Hlavná stránka projektov Wikimedie";
 "explore-main-page-heading" = "Dnes na Wikipédii";
@@ -204,7 +204,6 @@
 "field-token-title" = "Overovací kód";
 "field-username-placeholder" = "zadajte užívateľské meno";
 "field-username-title" = "Používateľské meno";
-"action-find-in-page" = "Nájsť na stránke";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Obnoviť";
 "forgot-password-email-sent" = "Poslali sme vám e-mail s inštrukciami na obnovu hesla";
@@ -278,6 +277,7 @@
 "page-edit-history" = "Úplná história úprav";
 "page-history-title" = "História článku";
 "page-issues" = "Problémy stránky";
+// Fuzzy
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-location" = "Zobraziť na mape";
 "page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
@@ -285,6 +285,7 @@
 "page-protected-can-not-edit-title" = "Táto stránka je zamknutá";
 "page-protected-other" = "Táto stránka je zamknutá na nasledujúcu úroveň: $1";
 "page-protected-sysop" = "Táto stránka je zamknutá.";
+// Fuzzy
 "page-read-in-other-languages" = "Článok je dostupný v $1 ďalších jazykoch";
 "page-similar-titles" = "Podobné stránky";
 "page-talk-page" = "Zobraziť diskusiu";

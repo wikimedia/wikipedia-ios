@@ -27,7 +27,6 @@
 "about-wikipedia" = "Vikipedija";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Ne možete da objavite ovu izmenu. Vratite se i promenite je.";
-"abuse-filter-disallow-notable" = "Vikipedija je enciklopedija i ovde pripada samo neutralan i značajan sadržaj.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Automatizovani filter je označio ovu izmenu kao potencijalno nekonstruktivnu ili kao pokušaj vandalizma.";
 // Fuzzy
@@ -56,6 +55,8 @@
 "action-add-to-reading-list" = "Dodaj na listu za čitanje";
 "action-add-to-reading-list-short" = "Dodaj na listu";
 "action-cancel" = "Otkaži";
+// Fuzzy
+"action-find-in-page" = "Pronađi na stranici";
 "action-move-to" = "Premesti u…";
 "action-move-to-reading-list" = "Premesti na listu za čitanje";
 "action-read" = "Pročitaj";
@@ -66,11 +67,12 @@
 "action-saved-accessibility-notification" = "Članak je sačuvan za kasnije";
 "action-share" = "Deli";
 "action-sort" = "Sortiraj";
+// Fuzzy
+"action-undo" = "Opozovi";
 "action-unsave" = "Ukloni";
 "action-unsaved-accessibility-notification" = "Članak je uklonjen iz sačuvanih";
 "action-update" = "Ažuriraj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na listu za čitanje";
-"alert-no-internet" = "Nema veze sa internetom";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Vikipedija, reference, viki, enciklopedija, info, znanje, istraživanje, informacije, istraži, nauči";
 "app-store-release-notes" = "Potpuno prilagodljiv i čitljiviji fid „Istraži“. Poboljšanja lokalizacije, performansi i ispravke grešaka.";
@@ -158,7 +160,6 @@
 "empty-no-article-message" = "Nije moguće učitati članak";
 "empty-no-feed-action-message" = "I dalje možete da čitate sačuvane stranice";
 "empty-no-feed-message" = "Preporučene članke ćete videti kada budete onlajn";
-"empty-no-feed-title" = "Nema veze sa internetom";
 "empty-no-history-message" = "Ovde pratite sve što ste čitali";
 "empty-no-history-title" = "Nema istorije";
 "empty-no-reading-lists-message" = "Pravite liste o mestima koja želite da posetite, omiljenim temama i drugo";
@@ -236,7 +237,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Uključi „Istraži”";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Kartica „Podešavanja” će biti zamenjena karticom „Istraži”. Podešavanja se nalaze na vrhu kartice „Istraži” pritiskom na ikonu zupčanika.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Uključiti karticu „Istraži”?";
-"action-undo" = "Opozovi";
 "explore-hide-card-prompt" = "Sakrij ovu karticu";
 "explore-main-page-description" = "Glavna stranica Vikimedijinih projekata";
 "explore-main-page-heading" = "Danas na Vikipediji";
@@ -281,7 +281,6 @@
 "field-token-title" = "Kôd za verifikaciju";
 "field-username-placeholder" = "unesite korisničko ime";
 "field-username-title" = "Korisničko ime";
-"action-find-in-page" = "Pronađi na stranici";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Resetuj";
 "forgot-password-email-sent" = "Imejl sa uputstvom za resetovanje lozinke je poslat";
@@ -370,6 +369,7 @@
 "page-edit-history" = "Celokupna istorija izmena";
 "page-history-title" = "Istorija članka";
 "page-issues" = "Problemi sa stranicom";
+// Fuzzy
 "page-last-edited" = "Izmenjeno pre $1 dana";
 "page-location" = "Prikaži na mapi";
 "page-protected-autoconfirmed" = "Ova stranica je poluzaštićena.";
@@ -377,6 +377,7 @@
 "page-protected-can-not-edit-title" = "Ova stranica je zaštićena";
 "page-protected-other" = "Ova stranica je zaštićena na sledećim nivoima: $1";
 "page-protected-sysop" = "Ova stranica je potpuno zaštićena.";
+// Fuzzy
 "page-read-in-other-languages" = "Dostupno na još $1 jezika";
 "page-similar-titles" = "Slične stranice";
 "page-talk-page" = "Prikaži stranicu za razgovor";

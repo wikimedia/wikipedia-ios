@@ -5,6 +5,7 @@
 // Author: Ainali
 // Author: Bengtsson96
 // Author: Freked
+// Author: Haxpett
 // Author: Jenniesarina
 // Author: Johan
 // Author: Jopparn
@@ -41,21 +42,15 @@
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Du kan inte publicera denna redigering. Gå tillbaka och ändra den.";
-"abuse-filter-disallow-notable" = "Wikipedia är ett uppslagsverk och bara neutralt anmärkningsvärt innehåll hör hemma här.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Ett automatiskt filter har identifierat denna redigering som potentiellt icke-konstruktivt eller ett försök till vandalism.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Tömmande av artiklar eller spam";
-// Fuzzy
+"abuse-filter-disallow-heading" = "Du kan inte publicera denna redigering.";
+"abuse-filter-disallow-unconstructive" = "Ett automatiskt filter har identifierat denna redigering som potentiellt icke-konstruktivt eller ett försök till vandalism. Var vänlig gå tillbaka och ändra din redigering.";
+"abuse-filter-warning-blanking" = "Borttagning av stycken eller hela artiklar";
 "abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
 "abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill publicera den?";
 "abuse-filter-warning-irrelevant" = "Irrelevanta externa länkar eller bilder";
-// Fuzzy
 "abuse-filter-warning-repeat" = "Upprepade tecken";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Din redigering kan innehålla ett eller flera av följande:";
+"abuse-filter-warning-spam" = "Tillägg av spam till artiklar";
+"abuse-filter-warning-subheading" = "Din redigering kan innehålla:";
 "account-creation-captcha-cannot-see-image" = "Kan du inte se bilden? $1";
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA...";
 "account-creation-captcha-request-account" = "Begär konto.";
@@ -72,9 +67,11 @@
 "action-add-to-reading-list" = "Lägg till i läslista";
 "action-add-to-reading-list-short" = "Lägg till i lista";
 "action-cancel" = "Avbryt";
+"action-find-in-page" = "Sök på sidan";
 "action-move-to" = "Flytta till...";
 "action-move-to-reading-list" = "Flytta till läslista";
 "action-read" = "Läs";
+"action-redo" = "Gör om";
 "action-remove" = "Ta bort";
 "action-save" = "Spara";
 "action-saved" = "Sparades";
@@ -82,11 +79,11 @@
 "action-saved-accessibility-notification" = "Artikeln sparades till senare";
 "action-share" = "Dela";
 "action-sort" = "Sortera";
+"action-undo" = "Ångra";
 "action-unsave" = "Ta bort";
 "action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "action-update" = "Uppdatera";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
-"alert-no-internet" = "Det finns ingen Internetanslutning";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -186,7 +183,6 @@
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
-"empty-no-feed-title" = "Ingen Internetanslutning";
 "empty-no-history-message" = "Håll koll på vad du har läst här";
 "empty-no-history-title" = "Ingen historik att visa";
 "empty-no-reading-lists-message" = "Skapa listor för platser att resa till, favoritämnen och mycket mer";
@@ -263,7 +259,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Aktivera utforska";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Detta kommer att ersätta inställningsfliken med utforskarfliken, du kan komma åt inställningarna längst upp i utforskarfliken genom att trycka på kugghjulsikonen";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Aktivera utforskarfliken?";
-"action-undo" = "Ångra";
 "explore-hide-card-prompt" = "Dölj detta kort";
 "explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
 "explore-main-page-heading" = "Idag på Wikipedia";
@@ -310,7 +305,6 @@
 "field-token-title" = "Verifieringskod";
 "field-username-placeholder" = "ange användarnamn";
 "field-username-title" = "Användarnamn";
-"action-find-in-page" = "Sök på sidan";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Återställ";
 "forgot-password-email-sent" = "Ett e-postmeddelande med instruktioner om lösenordsåterställning skickades";
@@ -403,6 +397,7 @@
 "page-edit-history" = "Full redigeringshistorik";
 "page-history-title" = "Artikelhistorik";
 "page-issues" = "Sidproblem";
+// Fuzzy
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
@@ -410,6 +405,7 @@
 "page-protected-can-not-edit-title" = "Denna sida är skrivskyddad";
 "page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
+// Fuzzy
 "page-read-in-other-languages" = "Tillgänglig på $1 andra språk";
 "page-similar-titles" = "Liknande sidor";
 "page-talk-page" = "Visa diskussionssidan";
@@ -667,8 +663,7 @@
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";
 "wikitext-preview-link-preview-description" = "Denna länk leder till \"$1\"";
 "wikitext-preview-link-preview-title" = "Länkförhandsvisning";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "Spara dina ändringar";
+"wikitext-preview-save-changes-title" = "Spara ändringar";
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
 "wikitext-upload-result-unknown" = "Kunde inte att avgöra wikitextens uppladdningsresultat.";

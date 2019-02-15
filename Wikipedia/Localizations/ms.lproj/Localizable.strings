@@ -33,7 +33,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Suntingan ini tidak boleh diterbitkan. Sila kembali dan suntingnya semula.";
-"abuse-filter-disallow-notable" = "Wikipedia ialah sebuah ensiklopedia. Oleh itu, hanya kandungan yang berkecuali dan berkelayakan dibenarkan di sini.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Penapis automatik telah mengenal pasti suntingan ini sebagai mungkin tidak membina ataupun cubaan laku musnah.";
 // Fuzzy
@@ -62,6 +61,8 @@
 "action-add-to-reading-list" = "Tambahkan ke senarai bacaan";
 "action-add-to-reading-list-short" = "Tambahkan kepada senarai";
 "action-cancel" = "Batalkan";
+// Fuzzy
+"action-find-in-page" = "Cari dalam laman";
 "action-move-to" = "Pindah ke...";
 "action-move-to-reading-list" = "Pindahkan ke senarai bacaan";
 "action-read" = "Baca";
@@ -72,11 +73,12 @@
 "action-saved-accessibility-notification" = "Rencana disimpan untuk kemudian";
 "action-share" = "Kongsi";
 "action-sort" = "Isih";
+// Fuzzy
+"action-undo" = "Nyahbuat";
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana batal disimpan";
 "action-update" = "Kemas kini";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke senarai bacaan";
-"alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Singkir";
 "app-store-keywords" = "Wikipedia, rujukan, wiki, ensiklopedia, info, pengetahuan, penyelidikan, maklumat, meneroka, belajar";
 "app-store-release-notes" = "Sepenuhnya disesuaikan dan mudah dibaca meneroka suapan. Penyetempatan, penambahbaikan prestasi dan pembetulan pepijat.";
@@ -164,7 +166,6 @@
 "empty-no-article-message" = "Maaf, rencana tidak boleh dimuat";
 "empty-no-feed-action-message" = "Anda masih boleh membaca laman tersimpan";
 "empty-no-feed-message" = "Anda boleh lihat rencana cadangan anda apabila anda mempunyai internet";
-"empty-no-feed-title" = "Tiada Sambungan Internet";
 "empty-no-history-message" = "Menjejaki apa yang anda telah membaca di sini";
 "empty-no-history-title" = "Tiada sejarah yang ditunjukkan";
 "empty-no-reading-lists-message" = "Buat senarai tempat untuk pergi ke, topik kegemaran dan banyak lagi";
@@ -242,7 +243,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Hidupkan Jelajah";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ini akan menggantikan tab Tetapan dengan tab Jelajahi, anda boleh mengakses Tetapan dari bahagian atas tab Jelajahi dengan mengetuk ikon gear";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Hidupkan tab Jelajah?";
-"action-undo" = "Nyahbuat";
 "explore-hide-card-prompt" = "Sembunyikan kad ini";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -287,7 +287,6 @@
 "field-token-title" = "Token";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
-"action-find-in-page" = "Cari dalam laman";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Set semula";
 "forgot-password-email-sent" = "E-mel dengan arahan set semula kata laluan telah dihantar";
@@ -376,6 +375,7 @@
 "page-edit-history" = "Semua sejarah penyuntingan";
 "page-history-title" = "Sejarah rencana";
 "page-issues" = "Isu-isu laman";
+// Fuzzy
 "page-last-edited" = "Disunting $1 hari yang lalu";
 "page-location" = "Paparkan di peta";
 "page-protected-autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
@@ -383,6 +383,7 @@
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "page-protected-other" = "Laman ini dilindungi kepada tahap-tahap berikut: $1";
 "page-protected-sysop" = "Laman ini telah diberi perlindungan penuh.";
+// Fuzzy
 "page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
 "page-similar-titles" = "Laman-laman serupa";
 "page-talk-page" = "Lihat laman perbincangan";
