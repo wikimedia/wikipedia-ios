@@ -282,10 +282,11 @@
 
       // For now only supports single line selection ranges.
       const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
-      const tokenReducer = (token) => token.type !== null && rangesIntersect(selectionRange, {start: token.start, end: token.end})
-      const tokenRangesIntersectingSelectionRange = intersectingTokens.filter(token => tokenReducer(token))
-      tokenRangesIntersectingSelectionRange.forEach(token => {
+      intersectingTokens.forEach(token => {
         const type = token.type
+        if (type === null) {
+          return
+        }
         const buttonInfoDict = { start: token.start, end: token.end }
         if (type.includes('strong')) {
           result.push(buttonPayload('bold', buttonInfoDict))
