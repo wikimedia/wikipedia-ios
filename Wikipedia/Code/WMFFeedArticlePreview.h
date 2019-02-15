@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite, nullable) NSString *snippet;
 
-@property (nonatomic, copy, readwrite) NSString *language;
-
 @property (nonatomic, copy, readwrite, nullable) NSURL *thumbnailURL;
 
 @property (nonatomic, copy, readwrite, nullable) NSString *imageURLString;
