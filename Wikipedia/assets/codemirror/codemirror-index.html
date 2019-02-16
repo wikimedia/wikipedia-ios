@@ -50,9 +50,9 @@
     
     const tokensIntersectingSelection = (selectionRange, lineTokens) => {
       return lineTokens
-      .filter(token => {
-        return rangesIntersect(selectionRange, token)
-      })
+        .filter(token => {
+          return rangesIntersect(selectionRange, token)
+        })
     }
 
     const buttonPayload = (buttonName, buttonInfoDict) => {
@@ -148,10 +148,10 @@
         addTypeToToken(token, `mw-signature-depth-${token.end - token.start}`)
       }
       lineTokens
-      .filter(token => {
-        return tokenIncludesType(token, 'mw-signature')
-      })
-      .forEach(supplementToken)
+        .filter(token => {
+          return tokenIncludesType(token, 'mw-signature')
+        })
+        .forEach(supplementToken)
     }
 
 
@@ -160,20 +160,20 @@
     // easier see what tags the current selection intersects and also makes
     // it easier to expand selection later to encompass entire tag contents.
     /*
-    - loops through line tokens
-    - each time it encounters a tag it's not already tracking, it records start
-    - until it encounters token w/o that tracked tag, at which point it records end and stops tracking that tag
-    - end result will be array of ranges for all tags encountered (can be more that one for a given tag)
-    - returns array similar to:
-    [
-    sup: {start: 12, end: 25},
-    small: {start: 32, end: 98},
-    large: {start: 12, end: 108},
-    small: {start: 100, end: 102}
-    ]
-    - This is *vastly* simpler to use than large numbers of line tokens.
-    - then we can easily set this all encompassing range in the button payload for tags
-    (will just need to loop through this array with selection range )
+      - loops through line tokens
+      - each time it encounters a tag it's not already tracking, it records start
+      - until it encounters token w/o that tracked tag, at which point it records end and stops tracking that tag
+      - end result will be array of ranges for all tags encountered (can be more that one for a given tag)
+      - returns array similar to:
+        [
+          sup: {start: 12, end: 25},
+          small: {start: 32, end: 98},
+          large: {start: 12, end: 108},
+          small: {start: 100, end: 102}
+        ]
+      - This is *vastly* simpler to use than large numbers of line tokens.
+      - then we can easily set this all encompassing range in the button payload for tags
+        (will just need to loop through this array with selection range )
     */
     const completeTagRangesForLineTokens = (lineTokens) => {
      
@@ -206,8 +206,8 @@
         }
         
         [...tags]
-        .filter(isNotAlreadyTrackingTag)
-        .forEach(startTrackingTag)
+          .filter(isNotAlreadyTrackingTag)
+          .forEach(startTrackingTag)
 
         let tagsToStopTracking = new Set()
         
@@ -228,8 +228,8 @@
         }
         
         [...trackedTags]
-        .filter(shouldStopTrackingTag)
-        .forEach(stopTrackingTag)
+          .filter(shouldStopTrackingTag)
+          .forEach(stopTrackingTag)
         
         tagsToStopTracking.forEach(trackedTags.delete, trackedTags)
       }
@@ -283,11 +283,11 @@
       // For now only supports single line selection ranges.
       const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
       const typesArray = intersectingTokens.map(token => token.type)
-      .join(' ')
-      .split(' ')
-      .filter(s => {
-        return s.trim().length > 0
-      })
+        .join(' ')
+        .split(' ')
+        .filter(s => {
+          return s.trim().length > 0
+        })
       
       
       if (typesArray.includes('strong')) {
