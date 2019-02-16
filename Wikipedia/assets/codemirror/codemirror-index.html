@@ -618,23 +618,6 @@
     return payloadsForButton[0]
   }
 
-  const expandTagSelection = (button) => {
-    const selectionRange = getSelectionRange(editor)
-    if (!selectionRange.isSingleLine) {
-      return
-    }
-    const payload = selectionPayloadForButton(button)
-    if (payload === null) {
-      return
-    }
-    editor.setSelection({line: selectionRange.line, ch: payload.info.start}, {line: selectionRange.line, ch: payload.info.end})
-  }
-
-  const expandTagSelectionAndToggleMarkup = (button, openingMarkup, closingMarkup) => {
-    expandTagSelection(button)
-    toggleMarkup(button, openingMarkup, closingMarkup)        
-  }
-
   const toggleListForSelectedLines = (char) => {
     const listPayload = selectionPayloadForButton('li')
     const isExistingListSelected = listPayload !== null
@@ -904,44 +887,6 @@
         return true
       }
       performCallBackForSelectedListItemLines(editor, listItemLineCallback)
-    },
-    textSize: (newSize) => {
-      switch (newSize) {
-        case 'small': {
-          const selectedButton = selectionPayloadForButton('textSize')
-          if (selectedButton) {
-            if (selectedButton.info.size === 'big') {
-              expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
-            } else if (selectedButton.info.size === 'small') {
-              // If after toggle above the selection is still inside a 'small' (ie 'big' was nested in small before it was toggled off) expand the selection to encompass the small
-              expandTagSelection('smallTextSize')
-            }
-          }
-          expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
-        } break
-        case 'big': {
-          const selectedButton = selectionPayloadForButton('textSize')
-          if (selectedButton) {
-            if (selectedButton.info.size === 'small') {
-              expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
-            } else if (selectedButton.info.size === 'big') {
-              // If after toggle above the selection is still inside a 'big' (ie 'small' was nested in big before it was toggled off) expand the selection to encompass the big
-              expandTagSelection('bigTextSize')
-            }
-          }
-          expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
-        } break
-        case 'normal': {
-          const selectedButton = selectionPayloadForButton('textSize')
-          if (selectedButton) {
-            if (selectedButton.info.size === 'small') {
-              expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
-            } else if (selectedButton.info.size === 'big') {
-              expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')
-            }
-          }
-        } break
-      }
     },
     selectAll: () => editor.execCommand('selectAll'),
     highlighting: () => {
