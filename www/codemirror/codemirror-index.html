@@ -140,7 +140,7 @@
         addTypeToToken(token, `mw-indenting-depth-${soughtToken.end}`)
       }
       lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
-      .forEach(supplementToken)
+        .forEach(supplementToken)
     }
 
     const enrichSignatureTokens = (lineTokens) => {
@@ -314,612 +314,612 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
         result.push(buttonPayload('indent', {depth: depth}))
       }
-    if (typesArray.includes('mw-signature')/* || typesArray.includes('mw-signature-contents')*/) {
-      const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
-      result.push(buttonPayload('signature', {depth: depth}))
-    }
-    const listItemLineCallback = (item) => {
-      result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
-      return false // No need to continue (only need to send one 'li' message)
-    }
-    performCallBackForSelectedListItemLines(doc, listItemLineCallback)
+      if (typesArray.includes('mw-signature')/* || typesArray.includes('mw-signature-contents')*/) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
+        result.push(buttonPayload('signature', {depth: depth}))
+      }
+      const listItemLineCallback = (item) => {
+        result.push(buttonPayload('li', {depth: item.depth, ordered: item.isOrdered}))
+        return false // No need to continue (only need to send one 'li' message)
+      }
+      performCallBackForSelectedListItemLines(doc, listItemLineCallback)
 
-    return result
-  }
+      return result
+    }
 
-  const disabledButtons = (doc, selectedButtons) => {
-    let buttonsToDisable = []
+    const disabledButtons = (doc, selectedButtons) => {
+      let buttonsToDisable = []
       
-    const listPayload = selectionPayloadForButton('li', selectedButtons)
-    const selectionContainsList = listPayload !== null
-    if (!selectionContainsList || listPayload.info.depth <= 1) {
-      buttonsToDisable.push(buttonPayload('decreaseIndentDepth'))
-    }
-    if (!selectionContainsList) {
-      buttonsToDisable.push(buttonPayload('increaseIndentDepth'))
+      const listPayload = selectionPayloadForButton('li', selectedButtons)
+      const selectionContainsList = listPayload !== null
+      if (!selectionContainsList || listPayload.info.depth <= 1) {
+        buttonsToDisable.push(buttonPayload('decreaseIndentDepth'))
+      }
+      if (!selectionContainsList) {
+        buttonsToDisable.push(buttonPayload('increaseIndentDepth'))
+      }
+
+      const historySize = doc.historySize()
+      if (historySize.undo < 2) {
+        buttonsToDisable.push(buttonPayload('undo'))  
+        buttonsToDisable.push(buttonPayload('progress'))
+      }
+      if (historySize.redo < 1) {
+        buttonsToDisable.push(buttonPayload('redo'))
+      }
+
+      return buttonsToDisable
     }
 
-    const historySize = doc.historySize()
-    if (historySize.undo < 2) {
-      buttonsToDisable.push(buttonPayload('undo'))  
-      buttonsToDisable.push(buttonPayload('progress'))
+    const sendNativeMessages = (doc) => {
+      const buttonsToSelect = selectedButtons(doc)
+      const nativeMessages = {
+        // message to native land that selection has changed,
+        // upon receipt native land should de-select and re-enable all buttons.
+        // (`selectionChanged` should be processed before the other messages)
+        selectionChanged: getSelectionRange(doc).isRangeSelected,
+        // message to native land about which buttons should be selected,
+        // native land should assume only these buttons should appear selected
+        highlightTheseButtons: buttonsToSelect,
+        // message to native land about which buttons should be disabled,
+        // native land should assume only these buttons should be disabled
+        disableTheseButtons: disabledButtons(doc, buttonsToSelect)
+      }
+      window.webkit.messageHandlers.codeMirrorMessage.postMessage(nativeMessages)
     }
-    if (historySize.redo < 1) {
-      buttonsToDisable.push(buttonPayload('redo'))
-    }
-
-    return buttonsToDisable
-  }
-
-  const sendNativeMessages = (doc) => {
-    const buttonsToSelect = selectedButtons(doc)
-    const nativeMessages = {
-      // message to native land that selection has changed,
-      // upon receipt native land should de-select and re-enable all buttons.
-      // (`selectionChanged` should be processed before the other messages)
-      selectionChanged: getSelectionRange(doc).isRangeSelected,
-      // message to native land about which buttons should be selected,
-      // native land should assume only these buttons should appear selected
-      highlightTheseButtons: buttonsToSelect,
-      // message to native land about which buttons should be disabled,
-      // native land should assume only these buttons should be disabled
-      disableTheseButtons: disabledButtons(doc, buttonsToSelect)
-    }
-    window.webkit.messageHandlers.codeMirrorMessage.postMessage(nativeMessages)
-  }
         
-  const applyTheme = (themeName) => {
-    document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
-  }
-    
-  let cursorActivityScrollTimer
-    
-  const setupCodemirrorWithSettings = (codeMirrorSettings, callback) => {
-    editor = CodeMirror(document.body, codeMirrorSettings)
-    if (callback) {
-      callback()
+    const applyTheme = (themeName) => {
+      document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
     }
-    editor.on('cursorActivity', (doc) => {
-      sendNativeMessages(doc)
-
-      clearTimeout(cursorActivityScrollTimer)
-      cursorActivityScrollTimer = setTimeout(() => {
-        scrollCursorIntoViewIfNeeded()        
-      }, 25)
-
-    })
-  }
     
-  const setupCodemirror = (language, direction, themeName, textSizeAdjustment, callback) => {
-    applyTheme(themeName)
-    document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
-    let xhr = new XMLHttpRequest()
-    let url = `config/codemirror-config-${language}.json`
-    xhr.open('GET', url, true)
-    xhr.onload = () => {
-      let object = JSON.parse(xhr.responseText)
-      let mwConfig = object['extCodeMirrorConfig']
-      let codeMirrorSettings = {
-        mwConfig: mwConfig,
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: "text/mediawiki",
-        matchBrackets: true,
-        extraKeys: {
-          // t.b.d.
-        }, 
-        inputStyle: 'contenteditable',
-        direction: direction,
-        autocorrect: true,
-        autocapitalize: true,
-        spellcheck: false,
-        preventDefaultOnKeyPress: false,
-        viewportMargin: Infinity
+    let cursorActivityScrollTimer
+    
+    const setupCodemirrorWithSettings = (codeMirrorSettings, callback) => {
+      editor = CodeMirror(document.body, codeMirrorSettings)
+      if (callback) {
+        callback()
       }
-      setupCodemirrorWithSettings(codeMirrorSettings, callback)
-    };
-    xhr.send()
-  }
+      editor.on('cursorActivity', (doc) => {
+        sendNativeMessages(doc)
+
+        clearTimeout(cursorActivityScrollTimer)
+        cursorActivityScrollTimer = setTimeout(() => {
+          scrollCursorIntoViewIfNeeded()        
+        }, 25)
+
+      })
+    }
+    
+    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, callback) => {
+      applyTheme(themeName)
+      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+      let xhr = new XMLHttpRequest()
+      let url = `config/codemirror-config-${language}.json`
+      xhr.open('GET', url, true)
+      xhr.onload = () => {
+        let object = JSON.parse(xhr.responseText)
+        let mwConfig = object['extCodeMirrorConfig']
+        let codeMirrorSettings = {
+          mwConfig: mwConfig,
+          lineWrapping: true,
+          lineNumbers: true,
+          mode: "text/mediawiki",
+          matchBrackets: true,
+          extraKeys: {
+            // t.b.d.
+          }, 
+          inputStyle: 'contenteditable',
+          direction: direction,
+          autocorrect: true,
+          autocapitalize: true,
+          spellcheck: false,
+          preventDefaultOnKeyPress: false,
+          viewportMargin: Infinity
+        }
+        setupCodemirrorWithSettings(codeMirrorSettings, callback)
+      };
+      xhr.send()
+    }
       
-  const wrapSelectionWith = (openingMarkup, closingMarkup) => {
-    if (closingMarkup === undefined) {
-      closingMarkup = openingMarkup
-    }
-    var selectedText = editor.getSelection()
-    if (!selectedText || selectedText.length == 0) {
-      selectedText = ' '
-    }
-    editor.replaceSelection(openingMarkup + selectedText + closingMarkup, 'around')
-    const selections = editor.listSelections()
-    if (selections.length > 0) {
-      const openingMarkupLength = openingMarkup.length
-      const closingMarkupLength = closingMarkup.length
-      const selection = selections[0]
-      const fromPos = selection.from()
-      const toPos = selection.to()
-      const from = {line: fromPos.line, ch: fromPos.ch + openingMarkupLength, sticky: fromPos.sticky}
-      const to = {line: toPos.line, ch: toPos.ch - closingMarkupLength, sticky: toPos.sticky}
-      editor.setSelection(from, to)
-    }
-  }
-    
-  const reverseString = (string) => {
-    return string.split('').reverse().join('')
-  }
-    
-  const selectionWrapInfo = (openingMarkup, closingMarkup) => {
-    if (closingMarkup === undefined) {
-      closingMarkup = openingMarkup
-    }
-    const selections = editor.listSelections()
-    if (selections.length < 1) {
-      return {isWrapped: false, selectionLength: 0, openDistance: -1, closeDistance: -1}
-    }
-    const selection = selections[0]
-    const fromPos = selection.from()
-    const toPos = selection.to()
-    if (fromPos.line != toPos.line) {
-      return {isWrapped: false, selectionLength: 0, openDistance: -1, closeDistance: -1}
-    }
-    const lineIndex = fromPos.line
-    const line = editor.getLine(lineIndex)
-	  
-    var lastOpenMatchBeforeSelection = {distance: -1}
-    var firstOpenMatchAfterSelection = {distance: -1}
-    line.replace(new RegExp(openingMarkup, 'g'), (match, index) => {
-      if (index + match.length <= fromPos.ch) {
-        lastOpenMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
+    const wrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
       }
-      if (index >= toPos.ch && firstOpenMatchAfterSelection.distance === -1) {
-        firstOpenMatchAfterSelection = {match: match, distance: index - toPos.ch}	
+      var selectedText = editor.getSelection()
+      if (!selectedText || selectedText.length == 0) {
+        selectedText = ' '
       }
-    })
-	  
-    var lastCloseMatchBeforeSelection = {distance: -1}
-    var firstCloseMatchAfterSelection = {distance: -1}
-    line.replace(new RegExp(closingMarkup, 'g'), (match, index) => {
-      if (index + match.length <= fromPos.ch) {
-        lastCloseMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
-      }
-      if (index >= toPos.ch && firstCloseMatchAfterSelection.distance === -1) {
-        firstCloseMatchAfterSelection = {match: match, distance: index - toPos.ch}	
-      }
-    })
-    const isWrapped = lastOpenMatchBeforeSelection.distance !== -1 && (lastCloseMatchBeforeSelection.distance === -1 || lastOpenMatchBeforeSelection.distance < lastCloseMatchBeforeSelection.distance) // exclude equal distances to rule out self-contained tags, for example <ref name=blah/>
-    return {isWrapped: isWrapped, selectionLength: toPos.ch - fromPos.ch, openMatch: lastOpenMatchBeforeSelection.match, closeMatch: firstCloseMatchAfterSelection.match, openDistance: lastOpenMatchBeforeSelection.distance, closeDistance: firstCloseMatchAfterSelection.distance, priorCloseDistance: lastCloseMatchBeforeSelection.distance, nextOpenDistance: firstOpenMatchAfterSelection.distance, priorCloseMatch: lastCloseMatchBeforeSelection.match, nextOpenMatch: firstOpenMatchAfterSelection.match}
-  }
-    
-  const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
-    if (closingMarkup === undefined) {
-      closingMarkup = openingMarkup
-    }
-    const selectedText = editor.getSelection()
-    if (selectedText === ' ') { // remove single whitespace that was likely inserted by wrapSelection
-      editor.replaceSelection('', 'start')
-    }
-    const selections = editor.listSelections()
-    if (selections.length > 0) {
-      const selection = selections[0]
-      const fromPos = selection.from()
-      const toPos = selection.to()
-      const lineIndex = fromPos.line
-      const line = editor.getLine(lineIndex)
-      const before = line.substring(0, fromPos.ch)
-      const after = line.substring(fromPos.ch, line.length)
-      const adjustedBefore = reverseString(reverseString(before).replace(reverseString(openingMarkup), ''))
-      const adjustedAfter = after.replace(closingMarkup, '')
-      const adjustedLine = adjustedBefore + adjustedAfter
-      if (line.length != adjustedLine.length) {
-        editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
+      editor.replaceSelection(openingMarkup + selectedText + closingMarkup, 'around')
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
         const openingMarkupLength = openingMarkup.length
-        const from = {line: fromPos.line, ch: fromPos.ch - openingMarkupLength, sticky: fromPos.sticky}
-        const to = {line: toPos.line, ch: toPos.ch - openingMarkupLength, sticky: toPos.sticky}
+        const closingMarkupLength = closingMarkup.length
+        const selection = selections[0]
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        const from = {line: fromPos.line, ch: fromPos.ch + openingMarkupLength, sticky: fromPos.sticky}
+        const to = {line: toPos.line, ch: toPos.ch - closingMarkupLength, sticky: toPos.sticky}
         editor.setSelection(from, to)
       }
     }
-  }
-  
-  const identicalMarkupSelectionWrapInfo = (markup) => {
-    const selections = editor.listSelections()
-    if (selections.length < 1) {
-      return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
-    }
-    const selection = selections[0]
-    const fromPos = selection.from()
-    const toPos = selection.to()
-    if (fromPos.line != toPos.line) {
-      return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
-    }
-    const lineIndex = fromPos.line
-    const line = editor.getLine(lineIndex)
-    const before = line.substring(0, fromPos.ch)
-    const after = line.substring(toPos.ch, line.length)
-    const beforeIndex = reverseString(before).indexOf(reverseString(markup))
-    const afterIndex = after.indexOf(markup)
-    return {selectionLength: toPos.ch - fromPos.ch, beforeIndex: beforeIndex, afterIndex: afterIndex}
-  }
-  
-  const isSelectionWrappedWithIdenticalMarkup = (markup) => {
-    const info = identicalMarkupSelectionWrapInfo(markup)
-    return info.selectionLength == 0 ? info.beforeIndex >= 0 && info.afterIndex >= 0 : info.beforeIndex == 0 && info.afterIndex == 0
-  }
-  
-  const toggleIdenticalMarkup = (button, markup) => {
-    const info = identicalMarkupSelectionWrapInfo(markup)
-    if (info.selectionLength == 0 || (info.beforeIndex == 0 && info.afterIndex == 0))  {
-      unwrapSelectionWith(markup)
-    } else {
-      wrapSelectionWith(markup)
-    }
-  }
     
-  const toggleMarkup = (button, openingMarkup, closingMarkup, defaultOpeningMarkup, defaultClosingMarkup) => {
-    if (closingMarkup === undefined) {
-      closingMarkup = openingMarkup
+    const reverseString = (string) => {
+      return string.split('').reverse().join('')
     }
-    if (defaultOpeningMarkup == undefined) {
-      defaultOpeningMarkup = openingMarkup
-    }
-    if (defaultClosingMarkup == undefined) {
-      defaultClosingMarkup = closingMarkup
-    }
-    const info = selectionWrapInfo(openingMarkup, closingMarkup)
-    if (info.isWrapped) {
-      if ((info.openDistance == 0 && info.closeDistance == 0) || info.selectionLength == 0) {
-        unwrapSelectionWith(info.openMatch, info.closeMatch)
-      } else if (info.openDistance == 0 && info.closeDistance > 0) { // slide opening markup to the right
-        const selectedText = editor.getSelection()
-        const selectionRange = getSelectionRange(editor)
-        const replacement = `${selectedText}${info.openMatch}`
-        const line = selectionRange.line
-        const from = { line: line, ch: selectionRange.start - info.openMatch.length }
-        const to = { line: line, ch: selectionRange.end }
-        editor.replaceRange(replacement, from, to)
-      } else if (info.openDistance >= 0 && info.closeDistance == 0) { // slide closing markup to the left
-        const selectedText = editor.getSelection()
-        const selectionRange = getSelectionRange(editor)
-        const replacement = `${info.closeMatch}${selectedText}`
-        const line = selectionRange.line
-        const from = { line: line, ch: selectionRange.start }
-        const to = { line: line, ch: selectionRange.end + info.closeMatch.length }
-        editor.replaceRange(replacement, from, to)
-      } else {
-        wrapSelectionWith(defaultClosingMarkup, defaultOpeningMarkup)
-      }
-    } else { // not wrapped with markup
-      if (info.priorCloseDistance == 0 && info.nextOpenDistance == 0) {
-        unwrapSelectionWith(info.priorCloseMatch, info.nextOpenMatch)
-      } else {
-        wrapSelectionWith(defaultOpeningMarkup, defaultClosingMarkup)
-      }
-    }
-  }
     
-  const wmf = {}
-    
-  wmf.getWikitext = () => editor.getValue()
-  wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
-  wmf.setup = (language, direction, themeName, textSizeAdjustment, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, callback)
-  wmf.applyTheme = (themeName) => applyTheme(themeName)
-
-  const italicMarkup = "''"
-  const boldMarkup = "'''"
-
-
-  // Method for easier mining of button payload information for current selection. 
-  // For example, if you want to know if the current selection is a heading, and if so how many
-  // '=' does it use, this will return a button payload IF the current selection has been 
-  // determined to be a button. This is the same payload we send to native land to tell it which
-  // buttons are selected and any associated relevant properties - in the case of a heading the
-  // payload's info.depth tells us how many '=' the currently selected heading has.
-  const selectionPayloadForButton = (buttonType, selectedButtonsArray) => {
-    if (selectedButtonsArray === undefined) {
-      selectedButtonsArray = selectedButtons(editor)
-    }
-    const payloadsForButton = selectedButtonsArray.filter((item) => {return item.button === buttonType})
-    if (payloadsForButton.length === 0) {
-      return null
-    }
-    return payloadsForButton[0]
-  }
-
-  const toggleListForSelectedLines = (char) => {
-    const listPayload = selectionPayloadForButton('li')
-    const isExistingListSelected = listPayload !== null
-    if (isExistingListSelected) {
-      delistifySelectedLines()
-      if (char === '#' && listPayload.info.ordered) {
-        return
+    const selectionWrapInfo = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
       }
-      if (char === '*' && !listPayload.info.ordered) {
-        return
+      const selections = editor.listSelections()
+      if (selections.length < 1) {
+        return {isWrapped: false, selectionLength: 0, openDistance: -1, closeDistance: -1}
       }
-    }
-    convertSelectedLinesToList(char)
-  }
-
-  class LineListItem {
-    constructor(entireLine, leadingCharsAndWhitespace, char, depth) {
-      this.entireLine = entireLine
-      this.leadingCharsAndWhitespace = leadingCharsAndWhitespace
-      this.char = char
-      this.depth = depth
-      this.isOrdered = (char === '#')
-    }
-  }
-
-  const leadingListItemRepeatingCharactersAndWhitespace = (entireLine) => {
-    const leadingCharsAndWhitespace = entireLine.match(new RegExp(`^(?:(\\*+|#+))\\s*`))
-    if (!leadingCharsAndWhitespace) {
-      return null
-    }
-    return new LineListItem(entireLine, leadingCharsAndWhitespace[0], leadingCharsAndWhitespace[1].charAt(0), leadingCharsAndWhitespace[1].length)
-  } 
-
-  const delistifySelectedLines = () => {
-    const listItemLineCallback = (item, line) => {
-      editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: item.leadingCharsAndWhitespace.length})
-      return true
-    }
-    performCallBackForSelectedListItemLines(editor, listItemLineCallback)
-  }
-
-  const performCallBackForSelectedListItemLines = (doc, callback) => {
-    let toLine = doc.getCursor('to').line
-    let fromLine = doc.getCursor('from').line
-    for (let line = toLine; line >= fromLine; line--) {
-      const thisLineText = doc.getLine(line)
-      const lineListItem = leadingListItemRepeatingCharactersAndWhitespace(thisLineText)
-      if (lineListItem) {
-        const shouldContinue = callback(lineListItem, line)
-        if (!shouldContinue) {
-          return
+      const selection = selections[0]
+      const fromPos = selection.from()
+      const toPos = selection.to()
+      if (fromPos.line != toPos.line) {
+        return {isWrapped: false, selectionLength: 0, openDistance: -1, closeDistance: -1}
+      }
+      const lineIndex = fromPos.line
+      const line = editor.getLine(lineIndex)
+	  
+      var lastOpenMatchBeforeSelection = {distance: -1}
+      var firstOpenMatchAfterSelection = {distance: -1}
+      line.replace(new RegExp(openingMarkup, 'g'), (match, index) => {
+        if (index + match.length <= fromPos.ch) {
+          lastOpenMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
         }
-      }
-    }
-  }
-
-  const expandSelectionToEntireLines = () => {
-    const newFrom = {line: editor.getCursor('from').line, ch: 0}
-    const currentTo = editor.getCursor('to')
-    const newTo = {line: currentTo.line, ch: editor.getLine(currentTo.line).length}
-    editor.setSelection(newFrom, newTo)
-  }
-
-  const convertSelectedLinesToList = (char) => {      
-    const selectionRange = getSelectionRange(editor)
-    if (selectionRange.isSingleLine) {
-      editor.replaceRange(`${char} `, {line: selectionRange.line, ch: 0})
-      return
-    }
-    // Ensure start of selection range is at beginning of line.
-    expandSelectionToEntireLines()
-    // Now can add characters - the 'around' option preserves selection.
-    editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
-  }
-
-  const verticalOffsetNeededToScrollCursorIntoView = () => {
-    const fromTopOfWebView = cursorOffsetFromTopOfWebView()
-    if (fromTopOfWebView < 0) {
-      return fromTopOfWebView
-    }
-    const fromTopOfKeyboard = cursorOffsetFromTopOfKeyboard()
-    if (fromTopOfKeyboard > 0) {
-      return fromTopOfKeyboard
-    }
-    return 0
-  }
-
-  let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
-  const webViewHeightNotCoveredByKeyboard = () => document.documentElement.clientHeight - adjustedContentInset.bottom
-  const cursorOffsetFromTopOfWebView = () => editor.cursorCoords(true, 'window').top
-  const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords(false, 'window').bottom - webViewHeightNotCoveredByKeyboard()
-
-  const scrollCursorIntoViewIfNeeded = () => {
-    if (getSelectionRange(editor).isRangeSelected) {
-      return
-    }
-    const offset = verticalOffsetNeededToScrollCursorIntoView()
-    if (offset === 0) {
-      return
-    }
-    // WKWebView doesn't currently support `window.scrollTo` with `behavior: smooth`,
-    // so let native land do the scrolling.
-    window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
-  }
-
-  let resizeTimer
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer)
-    resizeTimer = setTimeout(() => {
-      scrollCursorIntoViewIfNeeded()        
-    }, 250)
-  }, true)
-
-  let previousAdjustedContentInsetBottom = 0
-  const adjustedContentInsetBottomChanged = () => {
-    if (adjustedContentInset.bottom == previousAdjustedContentInsetBottom) {
-      return false
-    }
-    previousAdjustedContentInsetBottom = adjustedContentInset.bottom
-    return true  
-  }
-	
-
-  const openReferenceRegex = /<ref[\s]*[^>]*>/
-  const closeReferenceRegex = /<(?:\/[\s]*ref[\s]*|ref[\s]*[^>]*\/)>/
-	
-  const openAnchorRegex = /\[\[/
-  const closeAnchorRegex = /\]\]/
-    
-  const openTemplateRegex = /\{\{/
-  const closeTemplateRegex = /\}\}/
-  
-  wmf.commands = {
-    adjustedContentInsetChanged: (newInset) => {
-      adjustedContentInset = newInset
-      if (adjustedContentInsetBottomChanged()) {
-        scrollCursorIntoViewIfNeeded()
-      }
-    },
-    focus: () => {
-      editor.focus()
-    },
-    undo: () => editor.undo(),
-    redo: () => editor.redo(),
-    cursorUp: () => editor.execCommand('goLineUp'),
-    cursorDown: () => editor.execCommand('goLineDown'),
-    cursorLeft: () => editor.execCommand('goCharLeft'),
-    cursorRight: () => editor.execCommand('goCharRight'),
-    bold: () => {
-      toggleIdenticalMarkup('bold', boldMarkup)
-    },
-    italic: () => {
-      if (isSelectionWrappedWithIdenticalMarkup(boldMarkup + italicMarkup)) {
-        unwrapSelectionWith(italicMarkup)
-      } else if (isSelectionWrappedWithIdenticalMarkup(boldMarkup)) {
-        wrapSelectionWith(italicMarkup)
-      } else {
-        toggleIdenticalMarkup('italic', italicMarkup)
-      }
-    },
-    reference: () => {
-      toggleMarkup('reference', openReferenceRegex, closeReferenceRegex, '<ref>', '</ref>')
-    },
-    template: () => {
-      toggleMarkup('template', openTemplateRegex, closeTemplateRegex, '{{', '}}')
-    },
-    anchor: () => {
-      toggleMarkup('anchor', openAnchorRegex, closeAnchorRegex, '[[', ']]')
-    },
-    comment: () => {
-      toggleMarkup('comment', '<!--', '-->')
-    },
-    indent: () => {
-      console.log('indent')
-    },
-    signature: () => {
-      console.log('signature')
-    },
-    unorderedList: () => {
-      toggleListForSelectedLines('*')
-    },
-    orderedList: () => {
-      toggleListForSelectedLines('#')
-    },
-    superscript: () => {
-      toggleMarkup('superscript', '<sup>', '</sup>')
-    },
-    subscript: () => {
-      toggleMarkup('subscript', '<sub>', '</sub>')
-    },
-    underline: () => {
-      toggleMarkup('underline', '<u>', '</u>')
-    },
-    strikethrough: () => {
-      toggleMarkup('strikethrough', '<s>', '</s>')
-    },
-    heading: (depth) => {
-      const selectionRange = getSelectionRange(editor)
-      if (!selectionRange.isSingleLine) {
-        return
-      }
-
-      // Attempt to get details about any currenly selected heading.
-      const headingPayload = selectionPayloadForButton('heading')
-
-      // If cursor is in existing heading we'll have a payload telling us now many '=' it uses.
-      const isExistingHeadingSelected = headingPayload !== null
-        
-      // First toggle off existing selection heading.
-      if (isExistingHeadingSelected) {
-        // Expand selection to encompass current heading (you can't nest headings so this is better).
-        const lineTokens = enrichedLineTokens(editor, selectionRange.line)
-        const headerTextTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-section-header-text')
-        if (headerTextTokenIndex) {
-          const headerTextToken = lineTokens[headerTextTokenIndex]
-          editor.setSelection({line: selectionRange.line, ch: headerTextToken.start}, {line: selectionRange.line, ch: headerTextToken.end})
+        if (index >= toPos.ch && firstOpenMatchAfterSelection.distance === -1) {
+          firstOpenMatchAfterSelection = {match: match, distance: index - toPos.ch}	
         }
-          
-        // Now remove the existing heading equals so the toggle at the end of the method will add the new amount of equals.
-        const currentDepth = headingPayload.info.depth
-        // But don't remove the existing heading equals if new depth is same as old.
-        // This way the toggle at the end of the method will remove all equals when we try to set the same number of equals that are already present.
-        if (currentDepth !== depth) {
-          const currentEquals = '='.repeat(currentDepth)
-          toggleMarkup('heading', currentEquals, currentEquals)
-        }          
+      })
+	  
+      var lastCloseMatchBeforeSelection = {distance: -1}
+      var firstCloseMatchAfterSelection = {distance: -1}
+      line.replace(new RegExp(closingMarkup, 'g'), (match, index) => {
+        if (index + match.length <= fromPos.ch) {
+          lastCloseMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
+        }
+        if (index >= toPos.ch && firstCloseMatchAfterSelection.distance === -1) {
+          firstCloseMatchAfterSelection = {match: match, distance: index - toPos.ch}	
+        }
+      })
+      const isWrapped = lastOpenMatchBeforeSelection.distance !== -1 && (lastCloseMatchBeforeSelection.distance === -1 || lastOpenMatchBeforeSelection.distance < lastCloseMatchBeforeSelection.distance) // exclude equal distances to rule out self-contained tags, for example <ref name=blah/>
+      return {isWrapped: isWrapped, selectionLength: toPos.ch - fromPos.ch, openMatch: lastOpenMatchBeforeSelection.match, closeMatch: firstCloseMatchAfterSelection.match, openDistance: lastOpenMatchBeforeSelection.distance, closeDistance: firstCloseMatchAfterSelection.distance, priorCloseDistance: lastCloseMatchBeforeSelection.distance, nextOpenDistance: firstOpenMatchAfterSelection.distance, priorCloseMatch: lastCloseMatchBeforeSelection.match, nextOpenMatch: firstOpenMatchAfterSelection.match}
+    }
+    
+    const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
       }
-
-      // If a heading isn't already selected, move the selection to its own line (and re-select it).
-      if (!isExistingHeadingSelected) {
-        const startOfSelectionIsNotStartOfLine = selectionRange.start !== 0
-        const endOfSelectionIsNotEndOfLine = selectionRange.end !== editor.getLine(selectionRange.line).length
-        if (startOfSelectionIsNotStartOfLine || endOfSelectionIsNotEndOfLine) {
-          const leadingBreak = startOfSelectionIsNotStartOfLine ? '\n' : ''
-          const trailingBreak = endOfSelectionIsNotEndOfLine ? '\n' : ''
-          
-          // Add leading or trailing line breaks as needed (heading must be on own line).
-          let from = {line: selectionRange.line, ch: selectionRange.start}
-          let to = {line: selectionRange.line, ch: selectionRange.end}
-          editor.replaceRange(`${leadingBreak}${editor.getSelection()}${trailingBreak}`, from, to)
-            
-          // Re-select selection after addition of leading and/or trailing line breaks.
-          const lineDelta = startOfSelectionIsNotStartOfLine ? 1 : 0
-          from = {line: selectionRange.line + lineDelta, ch: 0}
-          to = {line: selectionRange.line + lineDelta, ch: selectionRange.end - selectionRange.start}
+      const selectedText = editor.getSelection()
+      if (selectedText === ' ') { // remove single whitespace that was likely inserted by wrapSelection
+        editor.replaceSelection('', 'start')
+      }
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
+        const selection = selections[0]
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        const lineIndex = fromPos.line
+        const line = editor.getLine(lineIndex)
+        const before = line.substring(0, fromPos.ch)
+        const after = line.substring(fromPos.ch, line.length)
+        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(openingMarkup), ''))
+        const adjustedAfter = after.replace(closingMarkup, '')
+        const adjustedLine = adjustedBefore + adjustedAfter
+        if (line.length != adjustedLine.length) {
+          editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
+          const openingMarkupLength = openingMarkup.length
+          const from = {line: fromPos.line, ch: fromPos.ch - openingMarkupLength, sticky: fromPos.sticky}
+          const to = {line: toPos.line, ch: toPos.ch - openingMarkupLength, sticky: toPos.sticky}
           editor.setSelection(from, to)
         }
       }
+    }
+  
+    const identicalMarkupSelectionWrapInfo = (markup) => {
+      const selections = editor.listSelections()
+      if (selections.length < 1) {
+        return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
+      }
+      const selection = selections[0]
+      const fromPos = selection.from()
+      const toPos = selection.to()
+      if (fromPos.line != toPos.line) {
+        return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
+      }
+      const lineIndex = fromPos.line
+      const line = editor.getLine(lineIndex)
+      const before = line.substring(0, fromPos.ch)
+      const after = line.substring(toPos.ch, line.length)
+      const beforeIndex = reverseString(before).indexOf(reverseString(markup))
+      const afterIndex = after.indexOf(markup)
+      return {selectionLength: toPos.ch - fromPos.ch, beforeIndex: beforeIndex, afterIndex: afterIndex}
+    }
+  
+    const isSelectionWrappedWithIdenticalMarkup = (markup) => {
+      const info = identicalMarkupSelectionWrapInfo(markup)
+      return info.selectionLength == 0 ? info.beforeIndex >= 0 && info.afterIndex >= 0 : info.beforeIndex == 0 && info.afterIndex == 0
+    }
+  
+    const toggleIdenticalMarkup = (button, markup) => {
+      const info = identicalMarkupSelectionWrapInfo(markup)
+      if (info.selectionLength == 0 || (info.beforeIndex == 0 && info.afterIndex == 0))  {
+        unwrapSelectionWith(markup)
+      } else {
+        wrapSelectionWith(markup)
+      }
+    }
+    
+    const toggleMarkup = (button, openingMarkup, closingMarkup, defaultOpeningMarkup, defaultClosingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
+      if (defaultOpeningMarkup == undefined) {
+        defaultOpeningMarkup = openingMarkup
+      }
+      if (defaultClosingMarkup == undefined) {
+        defaultClosingMarkup = closingMarkup
+      }
+      const info = selectionWrapInfo(openingMarkup, closingMarkup)
+      if (info.isWrapped) {
+        if ((info.openDistance == 0 && info.closeDistance == 0) || info.selectionLength == 0) {
+          unwrapSelectionWith(info.openMatch, info.closeMatch)
+        } else if (info.openDistance == 0 && info.closeDistance > 0) { // slide opening markup to the right
+          const selectedText = editor.getSelection()
+          const selectionRange = getSelectionRange(editor)
+          const replacement = `${selectedText}${info.openMatch}`
+          const line = selectionRange.line
+          const from = { line: line, ch: selectionRange.start - info.openMatch.length }
+          const to = { line: line, ch: selectionRange.end }
+          editor.replaceRange(replacement, from, to)
+        } else if (info.openDistance >= 0 && info.closeDistance == 0) { // slide closing markup to the left
+          const selectedText = editor.getSelection()
+          const selectionRange = getSelectionRange(editor)
+          const replacement = `${info.closeMatch}${selectedText}`
+          const line = selectionRange.line
+          const from = { line: line, ch: selectionRange.start }
+          const to = { line: line, ch: selectionRange.end + info.closeMatch.length }
+          editor.replaceRange(replacement, from, to)
+        } else {
+          wrapSelectionWith(defaultClosingMarkup, defaultOpeningMarkup)
+        }
+      } else { // not wrapped with markup
+        if (info.priorCloseDistance == 0 && info.nextOpenDistance == 0) {
+          unwrapSelectionWith(info.priorCloseMatch, info.nextOpenMatch)
+        } else {
+          wrapSelectionWith(defaultOpeningMarkup, defaultClosingMarkup)
+        }
+      }
+    }
+    
+    const wmf = {}
+    
+    wmf.getWikitext = () => editor.getValue()
+    wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
+    wmf.setup = (language, direction, themeName, textSizeAdjustment, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, callback)
+    wmf.applyTheme = (themeName) => applyTheme(themeName)
 
-      // Now actually toggle heading for selected depth.
-      const equals = '='.repeat(depth)
-      toggleMarkup('heading', equals, equals)
-    },
-    increaseIndentDepth: () => {
+    const italicMarkup = "''"
+    const boldMarkup = "'''"
+
+
+    // Method for easier mining of button payload information for current selection. 
+    // For example, if you want to know if the current selection is a heading, and if so how many
+    // '=' does it use, this will return a button payload IF the current selection has been 
+    // determined to be a button. This is the same payload we send to native land to tell it which
+    // buttons are selected and any associated relevant properties - in the case of a heading the
+    // payload's info.depth tells us how many '=' the currently selected heading has.
+    const selectionPayloadForButton = (buttonType, selectedButtonsArray) => {
+      if (selectedButtonsArray === undefined) {
+        selectedButtonsArray = selectedButtons(editor)
+      }
+      const payloadsForButton = selectedButtonsArray.filter((item) => {return item.button === buttonType})
+      if (payloadsForButton.length === 0) {
+        return null
+      }
+      return payloadsForButton[0]
+    }
+
+    const toggleListForSelectedLines = (char) => {
+      const listPayload = selectionPayloadForButton('li')
+      const isExistingListSelected = listPayload !== null
+      if (isExistingListSelected) {
+        delistifySelectedLines()
+        if (char === '#' && listPayload.info.ordered) {
+          return
+        }
+        if (char === '*' && !listPayload.info.ordered) {
+          return
+        }
+      }
+      convertSelectedLinesToList(char)
+    }
+
+    class LineListItem {
+      constructor(entireLine, leadingCharsAndWhitespace, char, depth) {
+        this.entireLine = entireLine
+        this.leadingCharsAndWhitespace = leadingCharsAndWhitespace
+        this.char = char
+        this.depth = depth
+        this.isOrdered = (char === '#')
+      }
+    }
+
+    const leadingListItemRepeatingCharactersAndWhitespace = (entireLine) => {
+      const leadingCharsAndWhitespace = entireLine.match(new RegExp(`^(?:(\\*+|#+))\\s*`))
+      if (!leadingCharsAndWhitespace) {
+        return null
+      }
+      return new LineListItem(entireLine, leadingCharsAndWhitespace[0], leadingCharsAndWhitespace[1].charAt(0), leadingCharsAndWhitespace[1].length)
+    } 
+
+    const delistifySelectedLines = () => {
       const listItemLineCallback = (item, line) => {
-        editor.replaceRange(item.char, {line: line, ch: 0})
+        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: item.leadingCharsAndWhitespace.length})
         return true
       }
       performCallBackForSelectedListItemLines(editor, listItemLineCallback)
-    },
-    decreaseIndentDepth: () => {
-      const listItemLineCallback = (item, line) => {
-        if (item.depth === 1) {
+    }
+
+    const performCallBackForSelectedListItemLines = (doc, callback) => {
+      let toLine = doc.getCursor('to').line
+      let fromLine = doc.getCursor('from').line
+      for (let line = toLine; line >= fromLine; line--) {
+        const thisLineText = doc.getLine(line)
+        const lineListItem = leadingListItemRepeatingCharactersAndWhitespace(thisLineText)
+        if (lineListItem) {
+          const shouldContinue = callback(lineListItem, line)
+          if (!shouldContinue) {
+            return
+          }
+        }
+      }
+    }
+
+    const expandSelectionToEntireLines = () => {
+      const newFrom = {line: editor.getCursor('from').line, ch: 0}
+      const currentTo = editor.getCursor('to')
+      const newTo = {line: currentTo.line, ch: editor.getLine(currentTo.line).length}
+      editor.setSelection(newFrom, newTo)
+    }
+
+    const convertSelectedLinesToList = (char) => {      
+      const selectionRange = getSelectionRange(editor)
+      if (selectionRange.isSingleLine) {
+        editor.replaceRange(`${char} `, {line: selectionRange.line, ch: 0})
+        return
+      }
+      // Ensure start of selection range is at beginning of line.
+      expandSelectionToEntireLines()
+      // Now can add characters - the 'around' option preserves selection.
+      editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
+    }
+
+    const verticalOffsetNeededToScrollCursorIntoView = () => {
+      const fromTopOfWebView = cursorOffsetFromTopOfWebView()
+      if (fromTopOfWebView < 0) {
+        return fromTopOfWebView
+      }
+      const fromTopOfKeyboard = cursorOffsetFromTopOfKeyboard()
+      if (fromTopOfKeyboard > 0) {
+        return fromTopOfKeyboard
+      }
+      return 0
+    }
+
+    let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
+    const webViewHeightNotCoveredByKeyboard = () => document.documentElement.clientHeight - adjustedContentInset.bottom
+    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords(true, 'window').top
+    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords(false, 'window').bottom - webViewHeightNotCoveredByKeyboard()
+
+    const scrollCursorIntoViewIfNeeded = () => {
+      if (getSelectionRange(editor).isRangeSelected) {
+        return
+      }
+      const offset = verticalOffsetNeededToScrollCursorIntoView()
+      if (offset === 0) {
+        return
+      }
+      // WKWebView doesn't currently support `window.scrollTo` with `behavior: smooth`,
+      // so let native land do the scrolling.
+      window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
+    }
+
+    let resizeTimer
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        scrollCursorIntoViewIfNeeded()        
+      }, 250)
+    }, true)
+
+    let previousAdjustedContentInsetBottom = 0
+    const adjustedContentInsetBottomChanged = () => {
+      if (adjustedContentInset.bottom == previousAdjustedContentInsetBottom) {
+        return false
+      }
+      previousAdjustedContentInsetBottom = adjustedContentInset.bottom
+      return true  
+    }
+	
+
+    const openReferenceRegex = /<ref[\s]*[^>]*>/
+    const closeReferenceRegex = /<(?:\/[\s]*ref[\s]*|ref[\s]*[^>]*\/)>/
+	
+    const openAnchorRegex = /\[\[/
+    const closeAnchorRegex = /\]\]/
+    
+    const openTemplateRegex = /\{\{/
+    const closeTemplateRegex = /\}\}/
+  
+    wmf.commands = {
+      adjustedContentInsetChanged: (newInset) => {
+        adjustedContentInset = newInset
+        if (adjustedContentInsetBottomChanged()) {
+          scrollCursorIntoViewIfNeeded()
+        }
+      },
+      focus: () => {
+        editor.focus()
+      },
+      undo: () => editor.undo(),
+      redo: () => editor.redo(),
+      cursorUp: () => editor.execCommand('goLineUp'),
+      cursorDown: () => editor.execCommand('goLineDown'),
+      cursorLeft: () => editor.execCommand('goCharLeft'),
+      cursorRight: () => editor.execCommand('goCharRight'),
+      bold: () => {
+        toggleIdenticalMarkup('bold', boldMarkup)
+      },
+      italic: () => {
+        if (isSelectionWrappedWithIdenticalMarkup(boldMarkup + italicMarkup)) {
+          unwrapSelectionWith(italicMarkup)
+        } else if (isSelectionWrappedWithIdenticalMarkup(boldMarkup)) {
+          wrapSelectionWith(italicMarkup)
+        } else {
+          toggleIdenticalMarkup('italic', italicMarkup)
+        }
+      },
+      reference: () => {
+        toggleMarkup('reference', openReferenceRegex, closeReferenceRegex, '<ref>', '</ref>')
+      },
+      template: () => {
+        toggleMarkup('template', openTemplateRegex, closeTemplateRegex, '{{', '}}')
+      },
+      anchor: () => {
+        toggleMarkup('anchor', openAnchorRegex, closeAnchorRegex, '[[', ']]')
+      },
+      comment: () => {
+        toggleMarkup('comment', '<!--', '-->')
+      },
+      indent: () => {
+        console.log('indent')
+      },
+      signature: () => {
+        console.log('signature')
+      },
+      unorderedList: () => {
+        toggleListForSelectedLines('*')
+      },
+      orderedList: () => {
+        toggleListForSelectedLines('#')
+      },
+      superscript: () => {
+        toggleMarkup('superscript', '<sup>', '</sup>')
+      },
+      subscript: () => {
+        toggleMarkup('subscript', '<sub>', '</sub>')
+      },
+      underline: () => {
+        toggleMarkup('underline', '<u>', '</u>')
+      },
+      strikethrough: () => {
+        toggleMarkup('strikethrough', '<s>', '</s>')
+      },
+      heading: (depth) => {
+        const selectionRange = getSelectionRange(editor)
+        if (!selectionRange.isSingleLine) {
+          return
+        }
+
+        // Attempt to get details about any currenly selected heading.
+        const headingPayload = selectionPayloadForButton('heading')
+
+        // If cursor is in existing heading we'll have a payload telling us now many '=' it uses.
+        const isExistingHeadingSelected = headingPayload !== null
+        
+        // First toggle off existing selection heading.
+        if (isExistingHeadingSelected) {
+          // Expand selection to encompass current heading (you can't nest headings so this is better).
+          const lineTokens = enrichedLineTokens(editor, selectionRange.line)
+          const headerTextTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-section-header-text')
+          if (headerTextTokenIndex) {
+            const headerTextToken = lineTokens[headerTextTokenIndex]
+            editor.setSelection({line: selectionRange.line, ch: headerTextToken.start}, {line: selectionRange.line, ch: headerTextToken.end})
+          }
+          
+          // Now remove the existing heading equals so the toggle at the end of the method will add the new amount of equals.
+          const currentDepth = headingPayload.info.depth
+          // But don't remove the existing heading equals if new depth is same as old.
+          // This way the toggle at the end of the method will remove all equals when we try to set the same number of equals that are already present.
+          if (currentDepth !== depth) {
+            const currentEquals = '='.repeat(currentDepth)
+            toggleMarkup('heading', currentEquals, currentEquals)
+          }          
+        }
+
+        // If a heading isn't already selected, move the selection to its own line (and re-select it).
+        if (!isExistingHeadingSelected) {
+          const startOfSelectionIsNotStartOfLine = selectionRange.start !== 0
+          const endOfSelectionIsNotEndOfLine = selectionRange.end !== editor.getLine(selectionRange.line).length
+          if (startOfSelectionIsNotStartOfLine || endOfSelectionIsNotEndOfLine) {
+            const leadingBreak = startOfSelectionIsNotStartOfLine ? '\n' : ''
+            const trailingBreak = endOfSelectionIsNotEndOfLine ? '\n' : ''
+          
+            // Add leading or trailing line breaks as needed (heading must be on own line).
+            let from = {line: selectionRange.line, ch: selectionRange.start}
+            let to = {line: selectionRange.line, ch: selectionRange.end}
+            editor.replaceRange(`${leadingBreak}${editor.getSelection()}${trailingBreak}`, from, to)
+            
+            // Re-select selection after addition of leading and/or trailing line breaks.
+            const lineDelta = startOfSelectionIsNotStartOfLine ? 1 : 0
+            from = {line: selectionRange.line + lineDelta, ch: 0}
+            to = {line: selectionRange.line + lineDelta, ch: selectionRange.end - selectionRange.start}
+            editor.setSelection(from, to)
+          }
+        }
+
+        // Now actually toggle heading for selected depth.
+        const equals = '='.repeat(depth)
+        toggleMarkup('heading', equals, equals)
+      },
+      increaseIndentDepth: () => {
+        const listItemLineCallback = (item, line) => {
+          editor.replaceRange(item.char, {line: line, ch: 0})
           return true
         }
-        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: 1})
-        return true
-      }
-      performCallBackForSelectedListItemLines(editor, listItemLineCallback)
-    },
-    selectAll: () => editor.execCommand('selectAll'),
-    highlighting: () => {
-      editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
-      editor.refresh()
-    },
-    find: (text) => {
-      editor.state.query = text
-      editor.execCommand('find')
-    },
-    findNext: () => editor.execCommand('findNext'),
-    findPrevious: () => editor.execCommand('findPrev'),
-    clearSearch: () => editor.execCommand('clearSearch'),
-  }
-
-  // TODO: Import js/elementLocation ?
-  wmf.elementLocation = {}
-  wmf.elementLocation.getElementRect = element => {
-    const rect = element.getBoundingClientRect()
-    return {
-      Y: rect.top,
-      X: rect.left,
-      Width: rect.width,
-      Height: rect.height
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
+      },
+      decreaseIndentDepth: () => {
+        const listItemLineCallback = (item, line) => {
+          if (item.depth === 1) {
+            return true
+          }
+          editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: 1})
+          return true
+        }
+        performCallBackForSelectedListItemLines(editor, listItemLineCallback)
+      },
+      selectAll: () => editor.execCommand('selectAll'),
+      highlighting: () => {
+        editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
+        editor.refresh()
+      },
+      find: (text) => {
+        editor.state.query = text
+        editor.execCommand('find')
+      },
+      findNext: () => editor.execCommand('findNext'),
+      findPrevious: () => editor.execCommand('findPrev'),
+      clearSearch: () => editor.execCommand('clearSearch'),
     }
-  }
+
+    // TODO: Import js/elementLocation ?
+    wmf.elementLocation = {}
+    wmf.elementLocation.getElementRect = element => {
+      const rect = element.getBoundingClientRect()
+      return {
+        Y: rect.top,
+        X: rect.left,
+        Width: rect.width,
+        Height: rect.height
+      }
+    }
     
-  window.wmf = wmf
+    window.wmf = wmf
 
   </script>
 </body>
