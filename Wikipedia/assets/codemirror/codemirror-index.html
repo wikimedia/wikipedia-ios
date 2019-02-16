@@ -489,11 +489,6 @@
     return {isWrapped: isWrapped, selectionLength: toPos.ch - fromPos.ch, openMatch: lastOpenMatchBeforeSelection.match, closeMatch: firstCloseMatchAfterSelection.match, openDistance: lastOpenMatchBeforeSelection.distance, closeDistance: firstCloseMatchAfterSelection.distance, priorCloseDistance: lastCloseMatchBeforeSelection.distance, nextOpenDistance: firstOpenMatchAfterSelection.distance, priorCloseMatch: lastCloseMatchBeforeSelection.match, nextOpenMatch: firstOpenMatchAfterSelection.match}
   }
     
-  const isSelectionWrappedWith = (openingMarkup, closingMarkup) => {
-    const info = selectionWrapInfo(openingMarkup, closingMarkup)
-    return info.selectionLength == 0 ? info.openDistance >= 0 && info.closeDistance >= 0 : info.openDistance == 0 && info.closeDistance == 0
-  }
-    
   const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
     if (closingMarkup === undefined) {
       closingMarkup = openingMarkup
@@ -523,7 +518,36 @@
       }
     }
   }
-      
+  
+  const isSelectionWrappedWith = (markup) => {
+    const selections = editor.listSelections()
+    if (selections.length < 1) {
+      return false
+    }
+    const selection = selections[0]
+    const fromPos = selection.from()
+    const toPos = selection.to()
+    if (fromPos.line != toPos.line) {
+      return false
+    }
+    const lineIndex = fromPos.line
+    const line = editor.getLine(lineIndex)
+    const before = line.substring(0, fromPos.ch)
+    const after = line.substring(toPos.ch, line.length)
+    const beforeIndex = reverseString(before).indexOf(reverseString(markup))
+    const afterIndex = after.indexOf(markup)
+    return fromPos.ch == toPos.ch ? beforeIndex >= 0 && afterIndex >= 0 : beforeIndex == 0 && afterIndex == 0
+  }
+  
+  const toggleIdenticalMarkup = (button, markup) => {
+    const hasMarkup = isSelectionWrappedWith(markup)
+    if (hasMarkup) {
+      unwrapSelectionWith(markup)
+    } else {
+      wrapSelectionWith(markup)
+    }
+  }
+    
   const toggleMarkup = (button, openingMarkup, closingMarkup, defaultOpeningMarkup, defaultClosingMarkup) => {
     if (closingMarkup === undefined) {
       closingMarkup = openingMarkup
@@ -760,7 +784,7 @@
     cursorLeft: () => editor.execCommand('goCharLeft'),
     cursorRight: () => editor.execCommand('goCharRight'),
     bold: () => {
-      toggleMarkup('bold', boldMarkup)
+      toggleIdenticalMarkup('bold', boldMarkup)
     },
     italic: () => {
       if (isSelectionWrappedWith(boldMarkup + italicMarkup)) {
@@ -768,7 +792,7 @@
       } else if (isSelectionWrappedWith(boldMarkup)) {
         wrapSelectionWith(italicMarkup)
       } else {
-        toggleMarkup('italic', italicMarkup)
+        toggleIdenticalMarkup('italic', italicMarkup)
       }
     },
     reference: () => {
