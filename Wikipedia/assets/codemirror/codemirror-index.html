@@ -519,16 +519,16 @@
     }
   }
   
-  const isSelectionWrappedWith = (markup) => {
+  const identicalMarkupSelectionWrapInfo = (markup) => {
     const selections = editor.listSelections()
     if (selections.length < 1) {
-      return false
+      return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
     }
     const selection = selections[0]
     const fromPos = selection.from()
     const toPos = selection.to()
     if (fromPos.line != toPos.line) {
-      return false
+      return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
     }
     const lineIndex = fromPos.line
     const line = editor.getLine(lineIndex)
@@ -536,12 +536,17 @@
     const after = line.substring(toPos.ch, line.length)
     const beforeIndex = reverseString(before).indexOf(reverseString(markup))
     const afterIndex = after.indexOf(markup)
-    return fromPos.ch == toPos.ch ? beforeIndex >= 0 && afterIndex >= 0 : beforeIndex == 0 && afterIndex == 0
+    return {selectionLength: toPos.ch - fromPos.ch, beforeIndex: beforeIndex, afterIndex: afterIndex}
+  }
+  
+  const isSelectionWrappedWithIdenticalMarkup = (markup) => {
+    const info = identicalMarkupSelectionWrapInfo(markup)
+    return info.selectionLength == 0 ? info.beforeIndex >= 0 && info.afterIndex >= 0 : info.beforeIndex == 0 && info.afterIndex == 0
   }
   
   const toggleIdenticalMarkup = (button, markup) => {
-    const hasMarkup = isSelectionWrappedWith(markup)
-    if (hasMarkup) {
+    const info = identicalMarkupSelectionWrapInfo(markup)
+    if (info.selectionLength == 0 || (info.beforeIndex == 0 && info.afterIndex == 0))  {
       unwrapSelectionWith(markup)
     } else {
       wrapSelectionWith(markup)
@@ -770,9 +775,9 @@
       toggleIdenticalMarkup('bold', boldMarkup)
     },
     italic: () => {
-      if (isSelectionWrappedWith(boldMarkup + italicMarkup)) {
+      if (isSelectionWrappedWithIdenticalMarkup(boldMarkup + italicMarkup)) {
         unwrapSelectionWith(italicMarkup)
-      } else if (isSelectionWrappedWith(boldMarkup)) {
+      } else if (isSelectionWrappedWithIdenticalMarkup(boldMarkup)) {
         wrapSelectionWith(italicMarkup)
       } else {
         toggleIdenticalMarkup('italic', italicMarkup)
