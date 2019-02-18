@@ -117,7 +117,6 @@
 "button-saved-remove" = "Eltávolítás a mentettek közül";
 "button-skip" = "Kihagyás";
 "cancel" = "Mégse";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Bezárás";
 "compass-direction" = "$1 óra irányban";
@@ -218,7 +217,6 @@
 "forgot-password-instructions" = "Töltsd ki a lenti mezők egyikét, hogy megkapd a jelszó-visszaállítási utasításokat e-mailben";
 "forgot-password-title" = "Jelszó visszaállítása";
 "forgot-password-username-or-email-title" = "Vagy";
-"gfdl" = "GFDL";
 "history-clear-all" = "Törlés";
 "history-clear-cancel" = "Mégsem";
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
@@ -294,7 +292,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 történelmi esemény|$1 történelmi esemény}}";
 "on-this-day-footer" = "Több történelmi események ezen a napon";
 "on-this-day-title" = "Ezen a napon";
-"open-link-cancel" = "Mégse";
 "page-edit-history" = "Teljes laptörténet";
 "page-history-title" = "Cikktörténet";
 "page-issues" = "A lap problémái";
@@ -357,11 +354,13 @@
 "reading-list-create-new-list-title" = "Új lista létrehozása";
 "reading-list-deleted-accessibility-notification" = "Olvasólista törölve";
 "reading-list-do-not-keep-button-title" = "Nem, töröld a szócikket az eszközről";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "A szócikkek száma legfeljebb $1 lehet.";
 "reading-list-entry-limit-reached" = "A {{PLURAL:$1|szócikket|szócikkeket}} nem lehet hozzáadni ehhez a listához. Elérted a maximális $2 szócikket a $3 olvasólistában.";
 "reading-list-generic-error" = "Váratlan hiba történt az olvasólisták frissítése során.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Szócikkek rendezése";
 "reading-list-list-limit-exceeded-message" = "Az olvasólista és benne mentett szócikkek nem fognak szinkronizálódni. Csökkentsd a listák számát $1-ra/re a listák szinkronizálásának folytatásához.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Az olvasólisták száma legfeljebb $1 lehet fiókonként.";
 "reading-list-list-limit-reached" = "Az olvasólisták száma legfeljebb $1 lehet.";
 "reading-list-login-button-title" = "Jelentkezz be a mentett szócikkek szinkronizálásához";
@@ -478,7 +477,6 @@
 "welcome-send-data-sub-title" = "Segíts az alkalmazás jobbá tételében azzal, hogy megosztod a Wikimédia Alapítvánnyal, hogyan használod azt. A gyűjtött adatok névtelenek.";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
 "wikitext-download-failed" = "A legfrissebb változat lekérése sikertelen.";
-"wikitext-download-success" = "A tartalom betöltve.";
 "wikitext-downloading" = "Tartalom betöltése…";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
 "wikitext-preview-changes-none" = "Nem történt megjeleníthető változtatás.";

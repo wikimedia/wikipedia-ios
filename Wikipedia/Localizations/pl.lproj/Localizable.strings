@@ -111,7 +111,6 @@
 "button-report-a-bug" = "Zgłoś błąd";
 "button-skip" = "Pomiń";
 "cancel" = "Anuluj";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Zamknij";
 "description-add-link-title" = "Dodaj opis tytułu";
@@ -197,7 +196,6 @@
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
 "forgot-password-username-or-email-title" = "Lub";
-"gfdl" = "GFDL";
 "history-clear-all" = "Wyczyść";
 "history-clear-cancel" = "Anuluj";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
@@ -258,7 +256,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 wydarzenie historyczne|$1 wydarzenia historyczne|$1 wydarzeń historycznych}}";
 "on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
 "on-this-day-title" = "W tym dniu...";
-"open-link-cancel" = "Anuluj";
 "page-edit-history" = "Pełna historia edycji";
 "page-history-title" = "Historia artykułu";
 "page-issues" = "Problemy ze stroną";
@@ -302,6 +299,7 @@
 "reading-list-create-new-list-description" = "Opis";
 "reading-list-create-new-list-title" = "Utwórz nową listę";
 "reading-list-do-not-keep-button-title" = "Nie, usuń artykuły z urządzenia";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Przekroczyłeś limit $1 artykułów na konto.";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-keep-title" = "Zachować na urządzeniu zapisane artykuły?";
@@ -384,7 +382,6 @@
 "welcome-send-data-learn-more" = "Dowiedz się więcej o gromadzonych danych";
 "welcome-volunteer-send-usage-reports" = "Wyślij raporty używania";
 "wikitext-download-failed" = "Nie można uzyskać najnowszej wersji.";
-"wikitext-download-success" = "Zawartość załadowana.";
 "wikitext-downloading" = "Wczytywanie treści...";
 "wikitext-preview-changes" = "Uzyskiwanie podglądu wprowadzonych zmian...";
 "wikitext-preview-changes-none" = "Nie wprowadzono żadnych zmian, które można było by zobaczyć.";

@@ -114,7 +114,6 @@
 "button-saved-remove" = "เอาออกจากรายการที่บันทึกไว้";
 "button-skip" = "ข้าม";
 "cancel" = "ยกเลิก";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "ปิด";
 "compass-direction" = "ที่ $1 นาฬิกา";
@@ -287,7 +286,6 @@
 "nearby-distance-label-miles" = "$1 ไมล์";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|เหตุการณ์ย้อนหลัง $1 เหตุการณ์}}";
 "on-this-day-title" = "วันนี้ในอดีต";
-"open-link-cancel" = "ยกเลิก";
 "page-protected-autoconfirmed" = "หน้านี้ถูกล็อกแบบกึ่งล็อก";
 "page-protected-can-not-edit" = "คุณไม่มีสิทธิ์แก้ไขหน้านี้";
 "page-protected-can-not-edit-title" = "หน้านี้ถูกล็อก";
@@ -318,6 +316,7 @@
 "preference-title-eventlogging-opt-in" = "ส่งรายงานการใช้";
 "reading-list-create-new-list-button-title" = "สร้างรายการอ่าน";
 "reading-list-create-new-list-title" = "สร้างรายการใหม่";
+"reading-list-entry-limit-exceeded-title" = "คุณได้เกินขีดจำกัดของ {{PLURAL:$1|$1 article|$1 บทความ}} ต่อบัญชี";
 "reading-list-login-or-create-account-button-title" = "เข้าสู่ระบบหรือสร้างบัญชี";
 "reading-lists-default-list-title" = "ที่บันทึกไว้";
 "saved-all-articles-title" = "บทความทั้งหมด";
@@ -374,7 +373,6 @@
 "welcome-send-data-sub-title" = "ช่วยปรับปรุงแอปให้ดียิ่งขึ้นโดยบอกให้ทางมูลนิธิวิกิมีเดียทราบว่าคุณใช้แอปอย่างไร โดยข้อมูลที่รวบรวมจะไม่มีการระบุตัวตนใดๆ";
 "welcome-volunteer-send-usage-reports" = "ส่งรายงานการใช้งาน";
 "wikitext-download-failed" = "ไม่สามารถดึงรุ่นล่าสุดได้";
-"wikitext-download-success" = "โหลดเนื้อหาแล้ว";
 "wikitext-downloading" = "กำลังโหลดเนื้อหา...";
 "wikitext-preview-changes" = "กำลังดึงตัวอย่างการเปลี่ยนแปลงของคุณ...";
 "wikitext-preview-changes-none" = "ไม่มีการเปลี่ยนแปลงใดที่ต้องมีตัวอย่าง";
@@ -382,6 +380,8 @@
 "wikitext-upload-captcha-needed" = "ต้องการการทวนสอบ CAPTCHA";
 "wikitext-upload-result-unknown" = "ไม่สามารถกำหนดผลการอัปโหลดข้อความวิกิได้";
 "wikitext-upload-save" = "กำลังเผยแพร่...";
+"wikitext-upload-save-anonymously-or-login" = "การแก้ไขจะเกิดจากที่อยู่ไอพีของอุปกรณ์ของคุณ หากคุณ $1 เข้าสู่ระบบ $2 คุณจะมีความเป็นส่วนตัวมากขึ้น";
 "wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นหากคุณ $1";
 "wikitext-upload-save-sign-in" = "เข้าสู่ระบบ";
+"wikitext-upload-save-terms-and-licenses" = "โดยการเผยแพร่การเปลี่ยนแปลง คุณเห็นด้วยกับเงื่อนไข $1 ของการใช้งาน $2 และคุณตกลงที่จะไม่เพิกถอนการบริจาคของคุณภายใต้ $3 สัญญาอนุญาตครีเอทีฟคอมมอนส์ 3.0 $4 และ $5 สัญญาอนุญาตเอกสารเสรีของกนู $6 คุณยอมรับว่าการเชื่อมโยงหลายมิติหรือยูอาร์แอลเป็นการระบุแหล่งที่มาที่เพียงพอภายใต้สัญญาอนุญาตครีเอทีฟคอมมอนส์";
 "wikitext-upload-save-terms-name" = "ข้อกำหนดการใช้งาน";

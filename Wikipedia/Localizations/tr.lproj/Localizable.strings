@@ -135,7 +135,6 @@
 "button-saved-remove" = "Kaydedilenlerden kaldırıldı";
 "button-skip" = "Atla";
 "cancel" = "İptal";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
@@ -317,7 +316,6 @@
 "forgot-password-instructions" = "Parola sıfırlama talımatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
 "forgot-password-title" = "Parolayı sıfırla";
 "forgot-password-username-or-email-title" = "Veya";
-"gfdl" = "GFDL";
 "history-clear-all" = "Temizle";
 "history-clear-cancel" = "İptal";
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
@@ -398,7 +396,6 @@
 "on-this-day-footer-with-event-count" = "Tarihte bugün gerçekleşen diğer $1 olay";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
-"open-link-cancel" = "İptal";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
 "page-edit-history" = "Bütün düzenleme geçmişi";
 "page-history-title" = "Madde geçmişi";
@@ -469,7 +466,7 @@
 "reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
 "reading-list-do-not-keep-button-title" = "Hayır, cihazdan makaleleri sil";
 "reading-list-entry-limit-exceeded-message" = "Bu listedeki tüm maddelerin senkronizasyonunu devam ettirmek için lütfen bu listedeki maddelerin sayısını $1 olarak azaltın.";
-"reading-list-entry-limit-exceeded-title" = "Hesap başına $1 madde sınırını aştınız.";
+"reading-list-entry-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 makale|$1 makale}} sınırını aştınız.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Madde|Madde}}, bu listeye eklenemez. $3 için okuma listesi başına $2 madde sınırına ulaştınız";
 "reading-list-exists-with-same-name" = "Okuma listesine verilen ad zaten kullanımda";
 "reading-list-generic-error" = "Okuma listeleriniz güncellenirken ederken beklenmeyen bir hata oluştu.";
@@ -482,7 +479,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 adet sıralanmamış madde sınırı var. Sıralanmamış maddelerin senkronizasyonuna devam etmek için lütfen mevcut maddelerinizi listelere ayırın.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sıralanmamış maddeler için limit sayısı";
 "reading-list-list-limit-exceeded-message" = "Bu okuma listesi ve bu listeye kaydedilen maddeler senkronize edilmeyecektir, lütfen bu listenin senkronizasyonunu devam ettirmek için listelerinizi şu sayıya düşürün: $1";
-"reading-list-list-limit-exceeded-title" = "Hesap başına $1 okuma listesi sınırını aştınız.";
+"reading-list-list-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 okuma listesi|$1 okuma listeleri}} sınırını aştınız.";
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
 "reading-list-login-button-title" = "Kayıtlı maddelerinizi senkronize etmek için giriş yapın";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
@@ -664,7 +661,6 @@
 "welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı Wikimedia Vakfı'na bildirerek uygulamanın geliştirilmesine katkı sağlayın. Veriler anonim olarak toplanır.";
 "welcome-volunteer-send-usage-reports" = "Kullanım raporlarını gönder";
 "wikitext-download-failed" = "En son sürüm getirilemiyor.";
-"wikitext-download-success" = "İçerik yüklendi.";
 "wikitext-downloading" = "İçerik yükleniyor...";
 "wikitext-preview-changes" = "Değişikliklerinizin ön izlemesi getiriliyor...";
 "wikitext-preview-changes-none" = "Ön izlemesi yapılacak bir değişiklik yok.";
@@ -675,8 +671,7 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA doğrulaması gerekli.";
 "wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";
 "wikitext-upload-save" = "Paylaşılıyor...";
+"wikitext-upload-save-anonymously-or-login" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1'lık $2 giriş yaparsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-sign-in" = "Oturum aç";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Değişikliklerinizi kaydederek $1 kabul etmiş sayılırsınız ve bu değişiklikler $2 ve $3 lisansı altında yayınlanır.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";

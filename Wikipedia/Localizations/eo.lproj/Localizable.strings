@@ -121,7 +121,6 @@
 "button-saved-remove" = "Forigita de la konservitaĵoj";
 "button-skip" = "Preterlasi";
 "cancel" = "Nuligi";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Krea Komunaĵo CCO";
 "close-button-accessibility-label" = "Fermi";
 "compass-direction" = "je la $1 horo";
@@ -297,7 +296,6 @@
 "forgot-password-instructions" = "Plenigu unu el la kampoj ĉi-sube por ricevi instrukcioj pri restarigo de pasvorto per retpoŝto";
 "forgot-password-title" = "Restarigi pasvorton";
 "forgot-password-username-or-email-title" = "Aŭ";
-"gfdl" = "GFDL";
 "history-clear-all" = "Malplenigi";
 "history-clear-cancel" = "Nuligi";
 "history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
@@ -378,7 +376,6 @@
 "on-this-day-footer-with-event-count" = "$1 pli da historiaj eventoj en ĉi tiu tago";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de $2 Vikipedio";
 "on-this-day-title" = "En ĉi tiu tago";
-"open-link-cancel" = "Nuligi";
 "original-tab-button-popover-description" = "Tuŝetu sur 'W' por reveni al la taba folio de kiu vi startis";
 "page-edit-history" = "Plena redakto-historion";
 "page-history-title" = "Artikola historio";
@@ -449,6 +446,7 @@
 "reading-list-deleted-accessibility-notification" = "Legolisto forigita";
 "reading-list-do-not-keep-button-title" = "Ne, forigi artikolojn de la aparato";
 "reading-list-entry-limit-exceeded-message" = "Bonvolu malpliigi la nombron de artikoloj en ĉi tiu listo al $1 por daŭrigi la sinkronigadon de ĉiuj artikoloj en ĉi tiu listo.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Vi preterpasis la limon de po $1 artikoloj por konto.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikolo|Artikoloj}} ne povis esti aldonita al via listo. Vi atingis la limon de po $2 artikoloj por legolisto por $3";
 "reading-list-exists-with-same-name" = "Nomo de legolisto jam uzata";
@@ -462,6 +460,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Estas limo de 5000 neordigitaj artikoloj. Bonvolu ordigi viajn ekzistantajn artikolojn en listoj por daŭrigi la sinkronigadon de neordigitaj artikoloj.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limo-atingo de neordigitaj artikoloj";
 "reading-list-list-limit-exceeded-message" = "Ĉi tiu legolisto kaj la artikoloj konservitaj al ĝi ne estos sinkronigitaj. Bonvolu malpliigi vian nombron de listoj al $1 por daŭrigi la sinkronigadon de ĉi tiu listo.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Vi preterpasis la limon de po $1 legolistoj por konto.";
 "reading-list-list-limit-reached" = "Vi atingis la limon de po $1 legolistoj por konto";
 "reading-list-login-button-title" = "Ensalutu por sinkronigi viajn konservitajn artikolojn";
@@ -644,7 +643,6 @@
 "welcome-send-data-sub-title" = "Helpu plibonigi la aplikaĵon informante la Vikimedian Fondaĵon kiel vi uzas ĝin. Datumkolektado estas sennoma.";
 "welcome-volunteer-send-usage-reports" = "Sendi raporton pri uzado";
 "wikitext-download-failed" = "Ne eblas ricevi lastan revizion.";
-"wikitext-download-success" = "Enhavo ŝargita.";
 "wikitext-downloading" = "Ŝargante enhavon...";
 "wikitext-preview-changes" = "Ricevado de antaŭrigardo de viaj ŝanĝoj...";
 "wikitext-preview-changes-none" = "Neniuj ŝanĝoj estas faritaj por antaŭrigardi.";
@@ -656,6 +654,4 @@
 "wikitext-upload-save" = "Publikigas...";
 "wikitext-upload-save-anonymously-warning" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1, vi havos pli da privateco.";
 "wikitext-upload-save-sign-in" = "Ensaluti";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Konservante ŝanĝojn, vi konsentas kun la $1 kaj konsentas publikigi viajn kontribuojn laŭ la permesilo $2 kaj $3.";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";

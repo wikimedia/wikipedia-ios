@@ -92,7 +92,6 @@
 "button-saved-remove" = "Kkes seg usekles";
 "button-skip" = "Zgel";
 "cancel" = "Sefsex";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Mdel";
 "compass-direction" = "af $1 n isragen";
 "continue-reading-empty-description" = "Snirem Wikipedia i wugar n imagraden ara teɣreḍ";
@@ -159,7 +158,6 @@
 "forgot-password-instructions" = "Ččaṛ urtan ddaw-a akken ad d-remseḍ tinaḍin n uwennez n wawal uffir s yimayl";
 "forgot-password-title" = "Ales awennez n wawal uffir";
 "forgot-password-username-or-email-title" = "Neɣ";
-"gfdl" = "GFDL";
 "history-clear-all" = "Sfeḍ";
 "history-clear-cancel" = "Sefsex";
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
@@ -229,7 +227,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 n tedyant tamazrayt|$1 n tidyanin timazrayin}}";
 "on-this-day-footer" = "Ugar n tidyanin timazrayin ass-a";
 "on-this-day-title" = "Ass-a";
-"open-link-cancel" = "Sefsex";
 "page-edit-history" = "Amazray ummid n usnifel";
 "page-history-title" = "amazray n umagrad";
 "page-issues" = "Uguren n usebter";
@@ -382,7 +379,6 @@
 "welcome-send-data-sub-title" = "Mudd afus i tesbeddit Wikimedia akken ad tesnerni asnas ma temliḍ-aɣ-d amek i t-teseqdaceḍ. Isefka yettwaleqḍen d udrigen.";
 "welcome-volunteer-send-usage-reports" = "Azen ineqqisen n useqdec";
 "wikitext-download-failed" = "Ur izmir ara ad d-yawi lqem aneggaru.";
-"wikitext-download-success" = "Agbur yuli-d.";
 "wikitext-downloading" = "Asali n ugbur...";
 "wikitext-preview-changes" = "Awway n teskant n usnifel-ik...";
 "wikitext-preview-changes-none" = "Ulac taẓrigt ittwasxedmen ara twaliḍ.";
@@ -394,6 +390,4 @@
 "wikitext-upload-save" = "Asuffeɣ...";
 "wikitext-upload-save-anonymously-warning" = "Asnifel ad ittunefk i tensa IP n terbaɛt-ik. Ma yella kečč $1, ad yili ɣur-k ugar n tbaḍnit.";
 "wikitext-upload-save-sign-in" = "Qqen";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "S usuffeɣ n usnifel, ad tqebleḍ $1 udiɣ ad nerr attekki-yik daw n turagin $2 d $3.";
 "wikitext-upload-save-terms-name" = "Tiwtilin n useqdec";
