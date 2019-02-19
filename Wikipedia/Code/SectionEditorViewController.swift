@@ -159,7 +159,7 @@ class SectionEditorViewController: UIViewController {
                         return
                 }
                 
-                self.editFunnel?.logStart()
+                self.editFunnel?.logStart(section.article?.url.wmf_language)
                 
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
