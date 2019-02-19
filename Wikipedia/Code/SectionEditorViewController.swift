@@ -159,7 +159,7 @@ class SectionEditorViewController: UIViewController {
                         return
                 }
                 
-                self.editFunnel?.logStart()
+                self.editFunnel?.logStart(section.article?.url.wmf_language)
                 
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
@@ -308,11 +308,4 @@ extension SectionEditorViewController: Themeable {
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }
-}
-
-// MARK: - Old localized strings
-
-extension SectionEditorViewController {
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, nil, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved")
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, nil, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited")
 }

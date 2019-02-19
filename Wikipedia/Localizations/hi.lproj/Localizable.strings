@@ -43,7 +43,6 @@
 "about-wikipedia" = "विकिपीडिया";
 // Fuzzy
 "abuse-filter-disallow-heading" = "आप इस संपादन को प्रकाशित नहीं कर सकते। कृपया वापस जाएँ और इसे बदलें।";
-"abuse-filter-disallow-notable" = "विकिपीडिया एक ज्ञानकोश है और केवल तटस्थ और नोट करने योग्य जानकारी का ही यहाँ से सम्बन्ध है।";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "एक स्वचलित फ़िल्टर ने इस संपादन को संभावित अरचनात्मक या बर्बरता के प्रयास के रूप में चिह्नित किया है।";
 // Fuzzy
@@ -68,6 +67,8 @@
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-title" = "एक नया खाता बनायें";
+// Fuzzy
+"action-find-in-page" = "पेज में ढूंढें";
 "action-read" = "पढ़ें";
 "action-save" = "सहेजें";
 "action-saved" = "सहेजा गया";
@@ -77,7 +78,6 @@
 "action-sort" = "क्रमबद्ध करें";
 "action-unsave" = "न सहेजें";
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
-"alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
 "announcements-dismiss" = "रद्द करें";
 "appearance-settings-adjust-text-sizing" = "लेख में शब्दों का आकार व्यवस्थित करें";
 "appearance-settings-image-dimming-footer" = "गहरे और काले रंग की विषयवस्तुओं पर छवियों की अस्पष्टता घटाएँ";
@@ -114,16 +114,22 @@
 "continue-reading-empty-description" = "विकिपीडिया को और लेख पढ़ने के लिए खोजें";
 "continue-reading-empty-title" = "कोई हाल के पढ़े लेख नहीं";
 "dim-images" = "मंद छवियाँ";
+"edit-bold-remove-accessibility-label" = "मोटा स्वरुप हटायें";
+"edit-direction-left-accessibility-label" = "कर्सर बायें ले जायें";
+"edit-italic-accessibility-label" = "तिरक्षा अक्षर स्वरुप जोड़ें";
+"edit-reference-accessibility-label" = "सन्दर्भ विन्यास जोड़ें";
+"edit-signature-accessibility-label" = "हस्ताक्षर विन्यास जोड़ें";
+"edit-signature-remove-accessibility-label" = "हस्ताक्षर विन्यास हटायें";
 "edit-summary-add-summary-text" = "सम्पादन सारांश";
 "edit-summary-choice-fixed-grammar" = "व्याकरण सुधार";
 "edit-summary-choice-fixed-typos" = "टाइपो सुधारा गया";
 "edit-summary-choice-linked-words" = "कड़ियाँ लगाई";
 "edit-summary-learn-more-text" = "अधिक जानें";
 "edit-text-size-table-view-title" = "अक्षर आकार";
+"edit-underline-accessibility-label" = "अंडरलाइन जोड़ें";
 "empty-no-article-message" = "क्षमा करें, लेख को लोड नहीं किया जा सका";
 "empty-no-feed-action-message" = "आप फिर भी सहेजे गए पेज पढ़ सकते हैं";
 "empty-no-feed-message" = "जब आपके पास इंटरनेट होगा तब आप सुझाये गए लेख देख सकते हैं";
-"empty-no-feed-title" = "इंटरनेट कनेक्शन नहीं है";
 "empty-no-history-message" = "याद रखें कि आपके द्वारा यहाँ क्या पढ़ा जा रहा है";
 "empty-no-history-title" = "दिखाने को कोई इतिहास नहीं";
 "empty-no-saved-pages-message" = "ऑफलाइन होने पर भी, बाद में देखने के लिए पेजों को सहेजें";
@@ -175,7 +181,6 @@
 "field-token-title" = "सत्यापन कोड";
 "field-username-placeholder" = "सदस्य नाम डालें";
 "field-username-title" = "सदस्यनाम";
-"action-find-in-page" = "पेज में ढूंढें";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "रिसेट";
 "forgot-password-email-sent" = "पासवर्ड रिसेट निर्देशों के साथ एक ईमेल भेज दिया गया है";
@@ -258,6 +263,7 @@
 "page-edit-history" = "पूर्ण संपादन इतिहास";
 "page-history-title" = "लेख इतिहास";
 "page-issues" = "पेज समस्याएं";
+// Fuzzy
 "page-last-edited" = "$1 दिन पहले सम्पादित किया गया";
 "page-location" = "नक्शे पर देखें";
 "page-protected-autoconfirmed" = "यह पृष्ठ अर्ध-सुरक्षित है।";
@@ -265,6 +271,7 @@
 "page-protected-can-not-edit-title" = "यह पृष्ठ सुरक्षित है";
 "page-protected-other" = "इस पेज को निम्न स्तरों तक सुरक्षित किया गया है: $1";
 "page-protected-sysop" = "यह पृष्ठ पूर्ण सुरक्षित है।";
+// Fuzzy
 "page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
 "page-similar-titles" = "समान पृष्ठ";
 "page-talk-page" = "वार्ता पृष्ठ देखें";

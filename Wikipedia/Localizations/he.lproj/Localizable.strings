@@ -38,21 +38,15 @@
 "about-translators-details" = "היישום הזה תורגם על־ידי מתרגמים מתנדבים באתר $1";
 "about-wikimedia-foundation" = "קרן ויקימדיה";
 "about-wikipedia" = "ויקיפדיה";
-// Fuzzy
-"abuse-filter-disallow-heading" = "לא ניתן לפרסם את העריכה הזו. נא לחזור לדף הקודם ולשנות אותה.";
-"abuse-filter-disallow-notable" = "ויקיפדיה היא אנציקלופדיה ורק תוכן מאוזן ובעל־חשיבות שייך אליה.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "מסנן אוטומטי זיהה את העריכה הזאת בתור בלתי־מועילה או בתור ניסיון השחתה.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "ריקון ערכים או פרסום זבל";
-// Fuzzy
+"abuse-filter-disallow-heading" = "לא ניתן לפרסם את העריכה הזאת.";
+"abuse-filter-disallow-unconstructive" = "מסנן אוטומטי זיהה את העריכה הזאת בתור בלתי־מועילה או בתור ניסיון השחתה. נא לחזור ולשנות את העריכה שלך.";
+"abuse-filter-warning-blanking" = "מחיקת פסקאות או ערכים שלמים";
 "abuse-filter-warning-caps" = "הקלדה באותיות גדולות";
 "abuse-filter-warning-heading" = "עריכה זו זוהתה כעריכה בלתי מועילה. האם ברצונך לפרסם אותה?";
 "abuse-filter-warning-irrelevant" = "קישורים חיצוניים או צילומים בלתי־רלוונטיים";
-// Fuzzy
-"abuse-filter-warning-repeat" = "אותיות חוזזזזזרות";
-// Fuzzy
-"abuse-filter-warning-subheading" = "העריכה שלך עשויה להכיל אחד מהדברים הבאים:";
+"abuse-filter-warning-repeat" = "אותיות חוזרות";
+"abuse-filter-warning-spam" = "הוספת פרסום זבל לערכים";
+"abuse-filter-warning-subheading" = "ייתכן שהעריכה שלך מכילה:";
 "account-creation-captcha-cannot-see-image" = "אינך יכול לראות את התמונה? $1";
 "account-creation-captcha-obtaining" = "הצגת תמונת אימות חדשה...";
 "account-creation-captcha-request-account" = "בקשת חשבון.";
@@ -69,9 +63,11 @@
 "action-add-to-reading-list" = "הוספה לרשימת קריאה";
 "action-add-to-reading-list-short" = "הוספה לרשימה";
 "action-cancel" = "ביטול";
+"action-find-in-page" = "למצוא בדף";
 "action-move-to" = "העברה ל־...";
 "action-move-to-reading-list" = "העברה לרשימת קריאה";
 "action-read" = "קריאה";
+"action-redo" = "ביצוע חוזר";
 "action-remove" = "הסרה";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
@@ -79,11 +75,11 @@
 "action-saved-accessibility-notification" = "ערכים שנשמרו לאחר־כך";
 "action-share" = "שיתוף";
 "action-sort" = "מיון";
+"action-undo" = "ביטול";
 "action-unsave" = "ביטול שמירה";
 "action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
 "action-update" = "עדכון";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
-"alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
 "app-store-release-notes" = "הזנת ה\"לחקור\" ניתנת להתאמה אישית וקל יותר לקרוא אותה. שיפורי מיקום, ביצועים ותיקוני באגים.";
@@ -164,26 +160,60 @@
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "dim-images" = "עמעום תמונות";
+"edit-bold-accessibility-label" = "הוספת עיצוב בולט";
+"edit-bold-remove-accessibility-label" = "הסרת עיצוב בולט";
+"edit-comment-accessibility-label" = "הוספת תחביר הערה";
+"edit-comment-remove-accessibility-label" = "הסרת תחביר הערה";
+"edit-decrease-indent-depth-accessibility-label" = "הורדת עומק הזחה";
+"edit-direction-down-accessibility-label" = "הזזת סמן מטה";
+"edit-direction-left-accessibility-label" = "הזזת סמן שמאלה";
+"edit-direction-right-accessibility-label" = "הזזת סמן ימינה";
+"edit-direction-up-accessibility-label" = "הזזת סמן מעלה";
+"edit-increase-indent-depth-accessibility-label" = "העלאת עומק הזחה";
+"edit-indent-accessibility-label" = "הזחת השורה הנוכחית";
+"edit-italic-accessibility-label" = "הוספת עיצוב נטוי";
+"edit-italic-remove-accessibility-label" = "הסרת עיצוב נטוי";
+"edit-link-accessibility-label" = "הוספת תחביר קישור";
+"edit-link-remove-accessibility-label" = "הסרת תחביר קישור";
 "edit-minor-learn-more-text" = "מידע נוסף על עריכות משניות";
 "edit-minor-text" = "זוהי עריכה משנית";
+"edit-ordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימה ממוספרת";
+"edit-ordered-list-remove-accessibility-label" = "הסרת רשימה ממוספרת מהשורה הנוכחית";
 "edit-published" = "העריכה פורסמה";
 "edit-published-button-title" = "סיום";
 "edit-published-subtitle" = "שיפרת עכשיו את ויקיפדיה בשביל כולם";
+"edit-reference-accessibility-label" = "הוספת תחביר הערה";
+"edit-reference-remove-accessibility-label" = "הסרת תחביר הערה";
+"edit-signature-accessibility-label" = "הוספת תחביר חתימה";
+"edit-signature-remove-accessibility-label" = "הסרת תחביר חתימה";
+"edit-strikethrough-accessibility-label" = "הוספת קו חוצה";
+"edit-strikethrough-remove-accessibility-label" = "הסרת קו חוצה";
 "edit-style-table-view-title" = "סגנון";
+"edit-subscript-accessibility-label" = "הוספת עיצוב כתב תחתי";
+"edit-subscript-remove-accessibility-label" = "הסרת עיצוב כתב תחתי";
 "edit-summary-add-summary-text" = "הוספת תקציר עריכה";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";
 "edit-summary-choice-linked-words" = "הוספתי קישורים";
 "edit-summary-learn-more-text" = "מידע נוסף";
 "edit-summary-placeholder-text" = "איך שיפרת את הערך?";
+"edit-superscript-accessibility-label" = "הוספת עיצוב כתב עילי";
+"edit-superscript-remove-accessibility-label" = "הסרת עיצוב כתב עילי";
+"edit-template-accessibility-label" = "הוספת עיצוב תבנית";
+"edit-template-remove-accessibility-label" = "הסרת עיצוב תבנית";
+"edit-text-formatting-accessibility-label" = "הצגת תפריט עיצוב טקסט";
 "edit-text-formatting-table-view-title" = "עיצוב טקסט";
 "edit-text-size-table-view-title" = "גודל טקסט";
+"edit-text-style-accessibility-label" = "הצגת תפריט סגנון טקסט";
+"edit-underline-accessibility-label" = "הוספת קו תחתי";
+"edit-underline-remove-accessibility-label" = "הסרת קו תחתי";
+"edit-unordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימת תבליטים";
+"edit-unordered-list-remove-accessibility-label" = "הסרת רשימת תבליטים מהשורה הנוכחית";
 "edit-watch-list-learn-more-text" = "מידע נוסף על רשימות מעקב";
 "edit-watch-this-page-text" = "מעקב אחר דף זה";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
-"empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-history-message" = "כאן אפשר לעקוב אחרי מה שקראת";
 "empty-no-history-title" = "אין היסטוריה להציג";
 "empty-no-reading-lists-message" = "צרו רשימות קריאה עבור מקומות שאתם רוצים לטייל בהם, נושאים שמעניינים אתכם, ועוד";
@@ -260,7 +290,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "הפעלת הלשונית \"לחקור\"";
 "explore-feed-preferences-turn-on-explore-tab-message" = "זה יגרום להחלפת לשונית ההגדרות בלשונית לחקור. ניתן יהיה לגשת להגדרות מהחלק העליון של הלשונית לחקור, באמצעות לחיצה על כפתור גלגל השיניים";
 "explore-feed-preferences-turn-on-explore-tab-title" = "להפעיל את הלשונית \"לחקור\"?";
-"action-undo" = "ביטול";
 "explore-hide-card-prompt" = "הסתרת כרטיס זה";
 "explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
@@ -307,7 +336,6 @@
 "field-token-title" = "קוד אימות";
 "field-username-placeholder" = "נא להזין שם משתמש";
 "field-username-title" = "שם משתמש";
-"action-find-in-page" = "למצוא בדף";
 "find-in-page-number-matches" = "$1 מתוך $2";
 "forgot-password-button-title" = "אתחול";
 "forgot-password-email-sent" = "נשלח מכתב עם הוראות אתחול ססמה";
@@ -386,6 +414,9 @@
 "new-password-instructions" = "נכנסת עם ססמה זמנית. כדי לסיים את הכניסה יש להגדיר כאן ססמה חדשה.";
 "new-password-title" = "נא להגדיר את הססמה שלך";
 "no-email-account-alert" = "נא להגדיר חשבון דואר אלקטרוני במכשיר שלך ולנסות שוב.";
+"no-internet-connection" = "אין חיבור אינטרנט";
+"no-internet-connection-article-reload" = "ייתכן שזמינה גרסה חדשה של הערך הזה, אבל אי־אפשר לטעון אותה ללא חיבור לאינטרנט";
+"no-internet-connection-article-reload-button" = "חזרה לגרסה השמורה האחרונה";
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1K";
@@ -400,6 +431,7 @@
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-title" = "היסטוריית הערך";
 "page-issues" = "בעיות בדף";
+// Fuzzy
 "page-last-edited" = "נערך לפני $1 ימים";
 "page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
@@ -407,6 +439,7 @@
 "page-protected-can-not-edit-title" = "הדף הזה מוגן";
 "page-protected-other" = "הדף הזה הוגן לרמות הבאות: $1";
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
+// Fuzzy
 "page-read-in-other-languages" = "זמין בעוד $1 שפות";
 "page-similar-titles" = "דפים דומים";
 "page-talk-page" = "הצגת דף השיחה";
@@ -664,8 +697,7 @@
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";
 "wikitext-preview-link-preview-description" = "הקישור הזה מוביל לכתובת '$1'";
 "wikitext-preview-link-preview-title" = "תצוגה מקדימה של קישור";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "שמירת השינויים שלך";
+"wikitext-preview-save-changes-title" = "שמירת השינויים";
 "wikitext-upload-captcha-error" = "שגיאת אימות.";
 "wikitext-upload-captcha-needed" = "נדרש אימות תמונה.";
 "wikitext-upload-result-unknown" = "לא ניתן להסיק את התוצאה של העלאת קוד ויקי.";

@@ -52,7 +52,6 @@
 "about-wikipedia" = "ویکی‌پدیا";
 // Fuzzy
 "abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را منتشر کنید. لطفاً بازگردید و آن را تغییر دهید.";
-"abuse-filter-disallow-notable" = "ویکی‌پدیا یک دانشنامه است و فقط محتوای بی طرف و سرشناس به اینجا تعلق دارند.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار این ویرایش را به طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است.";
 // Fuzzy
@@ -81,6 +80,8 @@
 "action-add-to-reading-list" = "افزودن به فهرست مطالعه";
 "action-add-to-reading-list-short" = "افزودن به فهرست";
 "action-cancel" = "لغو";
+// Fuzzy
+"action-find-in-page" = "در صفحه پیدا کنید";
 "action-move-to" = "منتقل شد به...";
 "action-move-to-reading-list" = "انتقال به فهرست خواندن";
 "action-read" = "خواندن";
@@ -91,11 +92,12 @@
 "action-saved-accessibility-notification" = "مقالهد ذخیره شده برای بعداً";
 "action-share" = "به اشتراک گذاشتن";
 "action-sort" = "مرتب‌سازی";
+// Fuzzy
+"action-undo" = "واگردانی";
 "action-unsave" = "ذخیره‌نشده";
 "action-unsaved-accessibility-notification" = "مقالهٔ ذخیره نشده";
 "action-update" = "به‌روزرسانی";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 article|$1 articles}}  به فهرست خواندن";
-"alert-no-internet" = "به اینترنت متصل نیستید";
 "announcements-dismiss" = "پنهان‌سازی";
 "app-store-subtitle" = "دانشنامهٔ آزاد";
 "appearance-settings-adjust-text-sizing" = "تنظیم اندازه متن مقاله";
@@ -160,7 +162,6 @@
 "empty-no-article-message" = "متاسفانه امکان بارگیری مقاله نیست";
 "empty-no-feed-action-message" = "فعلاً می توانید صفحه‌های ذخیره شده را مطالعه کنید";
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
-"empty-no-feed-title" = "عدم اتصال به اینترنت";
 "empty-no-history-message" = "پیگیری مواردی که مطالعه کرده‌اید";
 "empty-no-history-title" = "تاریخچه‌ای برای مشاهده وجود ندارد";
 // Fuzzy
@@ -188,7 +189,6 @@
 "explore-feed-preferences-hide-card-action-title" = "مخفی کردن این کارت";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "خاموش کردن جستجو";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "روشن کردن جستجو";
-"action-undo" = "واگردانی";
 "explore-hide-card-prompt" = "مخفی کردن این کارت";
 "explore-main-page-description" = "صفحهٔ اصلی در پروژه‌های ویکی‌مدیا";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
@@ -230,7 +230,6 @@
 "field-token-title" = "کد تائید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
-"action-find-in-page" = "در صفحه پیدا کنید";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور فرستاده شد";
@@ -315,6 +314,7 @@
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "page-history-title" = "تاریخچهٔ مقاله";
 "page-issues" = "موضوعات صفحه";
+// Fuzzy
 "page-last-edited" = "تغییر یافته در $1 روز پیش";
 "page-location" = "دیدن در نقشه";
 "page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
@@ -322,6 +322,7 @@
 "page-protected-can-not-edit-title" = "این صفحه محافظت شده‌است";
 "page-protected-other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
+// Fuzzy
 "page-read-in-other-languages" = "به $1 زبان در دسترس است";
 "page-similar-titles" = "صفحات مشابه";
 "page-talk-page" = "نمایش صفحه بحث";

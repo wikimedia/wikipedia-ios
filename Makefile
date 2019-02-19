@@ -88,9 +88,6 @@ get-node: brew-install
 
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 BUNDLER = "$(shell which bundle 2/dev/null)"
-
-get-ruby: ##Install Ruby via rbenv and Homebrew (to remove need for sudo)
-	@./scripts/setup_rbenv_and_ruby
 	
 bundle-install: ##Install all gems using Bundler
 bundle-install: bundler-check

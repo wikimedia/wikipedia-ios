@@ -32,7 +32,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Nun puedes espublizar esta edición. Por favor vuelve atrás y cámbiala.";
-"abuse-filter-disallow-notable" = "Wikipedia ye una enciclopedia y sólo cabe equí el conteníu neutral y notable.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu.";
 // Fuzzy
@@ -61,6 +60,8 @@
 "action-add-to-reading-list" = "Añadir a llista de llectura";
 "action-add-to-reading-list-short" = "Amestar a la llista";
 "action-cancel" = "Encaboxar";
+// Fuzzy
+"action-find-in-page" = "Alcontrar na páxina";
 "action-move-to" = "Treslladar a…";
 "action-move-to-reading-list" = "Treslladar a llista de llectura";
 "action-read" = "Lleer";
@@ -71,11 +72,12 @@
 "action-saved-accessibility-notification" = "Artículu guardáu pa dempués";
 "action-share" = "Compartir";
 "action-sort" = "Ordenar";
+// Fuzzy
+"action-undo" = "Desfacer";
 "action-unsave" = "Nun guardar";
 "action-unsaved-accessibility-notification" = "Artículu ensin guardar";
 "action-update" = "Anovar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
-"alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, información, conocimientu, investigación, esploración, deprendimientu";
 "app-store-release-notes" = "Canal d'esploración completamente configurable y fácil de lleer. Allugamientu, ameyoramientos de rindimientu y correición d'errores.";
@@ -126,7 +128,6 @@
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
 "empty-no-feed-action-message" = "Inda puedes lleer páxines guardaes";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
-"empty-no-feed-title" = "Sin conexón a Internet";
 "empty-no-history-message" = "Caltener un rexistru de lo que tuvisti lleyendo equí";
 "empty-no-history-title" = "Nun hai nengún historial qu'amosar";
 "empty-no-reading-lists-message" = "Crea llistes de llugares pa viaxar, temes favorites y muncho más";
@@ -183,7 +184,6 @@
 "explore-feed-preferences-show-on-this-day-footer-text" = "Desactivar la tarxeta d'Un día como güei desactivará la tarxeta en tolos idiomes disponibles.";
 "explore-feed-preferences-show-on-this-day-title" = "Amosar la tarxeta Un día como güei";
 "explore-feed-preferences-show-picture-of-the-day-title" = "Amosar la tarxeta d'Imaxe del día";
-"action-undo" = "Desfacer";
 "explore-hide-card-prompt" = "Tapecer esta tarxeta";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
@@ -228,7 +228,6 @@
 "field-token-title" = "Códigu de comprobación";
 "field-username-placeholder" = "escribe'l nome d'usuariu";
 "field-username-title" = "Nome d'usuariu";
-"action-find-in-page" = "Alcontrar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reaniciar";
 "forgot-password-email-sent" = "Unvióse un corréu electrónicu con instrucciones pa reaniciar la contraseña";
@@ -317,6 +316,7 @@
 "page-edit-history" = "Historial d'edición completu";
 "page-history-title" = "Historial del artículu";
 "page-issues" = "Problemes de la páxina";
+// Fuzzy
 "page-last-edited" = "Editáu fai $1 díes";
 "page-location" = "Ver nun mapa";
 "page-protected-autoconfirmed" = "Esta páxina ta semiprotexida.";
@@ -324,6 +324,7 @@
 "page-protected-can-not-edit-title" = "Esta páxina ta protexida";
 "page-protected-other" = "Esta páxina ta protexida colos siguientes niveles: $1";
 "page-protected-sysop" = "Esta páxina ta protexida dafechu.";
+// Fuzzy
 "page-read-in-other-languages" = "Disponible'n $1 idiomes más";
 "page-similar-titles" = "Páxines asemeyaes";
 "page-talk-page" = "Ver la páxina d'alderique";
