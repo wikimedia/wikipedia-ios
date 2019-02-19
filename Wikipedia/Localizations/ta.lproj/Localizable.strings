@@ -43,6 +43,8 @@
 "account-creation-passwords-mismatched" = "கடவுச்சொல் களங்கள் பொருந்தவில்லை.";
 "account-creation-saving" = "சேமிக்கிறது...";
 "account-creation-title" = "புதிய கணக்கு ஒன்றை உருவாக்கு";
+// Fuzzy
+"action-find-in-page" = "பக்கத்திற்குள் கண்டுபிடி";
 "action-read" = "படி";
 "action-save" = "சேமி";
 "action-saved" = "சேமிக்கப்பட்டது";
@@ -50,7 +52,6 @@
 "action-share" = "பகிர்க";
 "action-unsave" = "சேமிக்கப்படாதது";
 "action-unsaved-accessibility-notification" = "கட்டுரை சேமிக்கப்படவில்லை";
-"alert-no-internet" = "எந்த இணைய இணைப்பும் இல்லை";
 "announcements-dismiss" = "அகற்று";
 "appearance-settings-adjust-text-sizing" = "கட்டுரை அளவை பொருத்திக்கொள்";
 "appearance-settings-expand-tables" = "அட்டவணைகளை விரிவாக்குக";
@@ -89,7 +90,6 @@
 "edit-summary-choice-linked-words" = "இணைக்கப்பட்ட சுட்டிகள்";
 "empty-no-article-message" = "மன்னிக்கவும், கட்டுரையை ஏற்றமுடியவில்லை";
 "empty-no-feed-action-message" = "நீங்கள் சேமிக்கப்பட்ட பக்கங்களை தொடர்ந்து படிக்கலாம்";
-"empty-no-feed-title" = "இணைய இணைப்பு இல்லை";
 "empty-no-history-title" = "காட்டுவதற்கு வரலாறு ஏதுமில்லை";
 "empty-no-saved-pages-title" = "இன்னும் சேமிக்கப்பட்ட பக்கங்கள் இல்லை.";
 "empty-no-search-results-message" = "முடிவுகள் எதுவும் காணப்படவில்லை";
@@ -132,7 +132,6 @@
 "field-token-title" = "உறுதிப்படுத்தல் குறியீடு";
 "field-username-placeholder" = "பயனர் பெயரொன்றை இடுக";
 "field-username-title" = "பயனர் பெயர்";
-"action-find-in-page" = "பக்கத்திற்குள் கண்டுபிடி";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "மீட்டமை";
 "forgot-password-title" = "கடவுச்சொலை மீளமை";
@@ -203,6 +202,7 @@
 "page-edit-history" = "முழு தொகுப்பு வரலாறு";
 "page-history-title" = "கட்டுரை வரலாறு";
 "page-issues" = "பக்க சிக்கல்கள்";
+// Fuzzy
 "page-last-edited" = "$1 நாட்களுக்கு முன் தொகுக்கப்பட்டது";
 "page-location" = "நிலப்படத்தில் காட்டுக";
 "page-protected-autoconfirmed" = "இந்த பக்கம் அரைப் பாதுகாக்கபட்டுள்ளது.";
@@ -210,6 +210,7 @@
 "page-protected-can-not-edit-title" = "இந்த பக்கம் பாதுகாக்கப்பட்டுள்ளது.";
 "page-protected-other" = "இந்தப்பக்கம் பின்வரும் நிலைகளில் பாதுகாக்கப்பட்டுள்ளது: $1";
 "page-protected-sysop" = "இந்த பக்கம் முழுமையாகப் பாதுகாக்கப்பட்டுள்ளது.";
+// Fuzzy
 "page-read-in-other-languages" = "$1 மற்ற மொழிகளில் கிடைக்கத்தக்கது";
 "page-similar-titles" = "ஒத்த பக்கங்கள்";
 "page-talk-page" = "பேச்சுப் பக்கத்தைக் காண்க";

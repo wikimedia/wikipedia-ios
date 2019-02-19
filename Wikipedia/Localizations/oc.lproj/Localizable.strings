@@ -36,6 +36,8 @@
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
 "account-creation-saving" = "Enregistrament en cors…";
 "action-add-to-reading-list-short" = "Ajustar a la lista";
+// Fuzzy
+"action-find-in-page" = "Trobar dins la pagina";
 "action-read" = "Legir";
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";
@@ -65,7 +67,6 @@
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
 "edit-summary-choice-fixed-typos" = "Correccion de fautas";
 "edit-summary-choice-linked-words" = "Ligams aponduts";
-"empty-no-feed-title" = "Pas de connexion a Internet";
 // Fuzzy
 "empty-no-reading-lists-message" = "Clicatz sul « + » blau per crear de listas de lecturas a prepaus de luòcs a visitar, de subjèctes favorits e de nombrosas autras tematicas";
 "empty-no-search-results-message" = "Cap de resultat pas trobat";
@@ -91,7 +92,6 @@
 "field-password-title" = "Senhal";
 "field-token-title" = "Còdi de verificacion";
 "field-username-title" = "Nom d'utilizaire";
-"action-find-in-page" = "Trobar dins la pagina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reïnicializar";
 "forgot-password-title" = "Reïnicializar lo senhal";
@@ -155,8 +155,10 @@
 "page-edit-history" = "Istoric complet de las modificacions";
 "page-history-title" = "Istoric de l’article";
 "page-issues" = "Problèmas de pagina";
+// Fuzzy
 "page-last-edited" = "Modificat i a $1 jorns";
 "page-protected-can-not-edit-title" = "Aquesta pagina es protegida";
+// Fuzzy
 "page-read-in-other-languages" = "Disponible dins $1 autras lengas";
 "page-similar-titles" = "Paginas similaras";
 "places-search-recently-searched-header" = "Recercat recentament";

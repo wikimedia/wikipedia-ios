@@ -44,21 +44,15 @@
 "about-translators-details" = "由 $1 的志工翻譯";
 "about-wikimedia-foundation" = "維基媒體基金會";
 "about-wikipedia" = "維基百科";
-// Fuzzy
-"abuse-filter-disallow-heading" = "您不能發佈此編輯。請返回並修正。";
-"abuse-filter-disallow-notable" = "維基百科是個百科全書，僅接受中立的、俱關注度的內容。";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "自動過濾器已確定此編輯可能不具建設性或企圖破壞。";
-// Fuzzy
-"abuse-filter-warning-blanking" = "空白的條目或含有垃圾訊息";
-// Fuzzy
-"abuse-filter-warning-caps" = "全部輸入大寫字母";
+"abuse-filter-disallow-heading" = "您不能發佈此編輯";
+"abuse-filter-disallow-unconstructive" = "自動過濾器已確定此編輯可能不具建設性或是具有破壞企圖。請返回並更改您的編輯。";
+"abuse-filter-warning-blanking" = "刪除段落或是整個條目";
+"abuse-filter-warning-caps" = "所有大寫文字";
 "abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要發佈它？";
 "abuse-filter-warning-irrelevant" = "不相關的外部連結或圖片";
-// Fuzzy
 "abuse-filter-warning-repeat" = "重複字元";
-// Fuzzy
-"abuse-filter-warning-subheading" = "您的編輯可能包含下列情況之一：";
+"abuse-filter-warning-spam" = "添加垃圾訊息在條目裡";
+"abuse-filter-warning-subheading" = "您的編輯可能包含：";
 "account-creation-captcha-cannot-see-image" = "看不見圖片嗎？$1";
 "account-creation-captcha-obtaining" = "取得新驗證碼中…";
 "account-creation-captcha-request-account" = "請求帳號。";
@@ -75,9 +69,11 @@
 "action-add-to-reading-list" = "新增至閱讀清單";
 "action-add-to-reading-list-short" = "加入至清單";
 "action-cancel" = "取消";
+"action-find-in-page" = "在頁面裡尋找";
 "action-move-to" = "移動至…";
 "action-move-to-reading-list" = "移動至閱讀清單";
 "action-read" = "閱讀";
+"action-redo" = "重做";
 "action-remove" = "移除";
 "action-save" = "儲存";
 "action-saved" = "已儲存";
@@ -85,11 +81,11 @@
 "action-saved-accessibility-notification" = "條目已儲存供日後使用";
 "action-share" = "分享";
 "action-sort" = "排序";
+"action-undo" = "還原";
 "action-unsave" = "未儲存";
 "action-unsaved-accessibility-notification" = "條目未儲存";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
-"alert-no-internet" = "無網路連線";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科,參考,wiki,百科全書,訊息,知識,研究,資訊,探索,學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。\n在地化、性能改進、並修正程式錯誤。";
@@ -170,26 +166,60 @@
 "description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
 "description-welcome-start-editing-button" = "開始編輯";
 "dim-images" = "調暗圖片";
+"edit-bold-accessibility-label" = "添加粗體格式";
+"edit-bold-remove-accessibility-label" = "移除粗體格式";
+"edit-comment-accessibility-label" = "添加註釋語法";
+"edit-comment-remove-accessibility-label" = "移除註釋語法";
+"edit-decrease-indent-depth-accessibility-label" = "減少縮排深度";
+"edit-direction-down-accessibility-label" = "移動游標往下";
+"edit-direction-left-accessibility-label" = "移動游標往左";
+"edit-direction-right-accessibility-label" = "移動游標往右";
+"edit-direction-up-accessibility-label" = "移動游標往上";
+"edit-increase-indent-depth-accessibility-label" = "增加縮排深度";
+"edit-indent-accessibility-label" = "縮排目前的列";
+"edit-italic-accessibility-label" = "添加斜體格式";
+"edit-italic-remove-accessibility-label" = "移除斜體格式";
+"edit-link-accessibility-label" = "添加連結語法";
+"edit-link-remove-accessibility-label" = "移除連結語法";
 "edit-minor-learn-more-text" = "了解更多關於小修改";
 "edit-minor-text" = "這是一個小修改";
+"edit-ordered-list-accessibility-label" = "建立目前列的有序清單";
+"edit-ordered-list-remove-accessibility-label" = "從目前列來移除有序清單";
 "edit-published" = "已發佈編輯";
 "edit-published-button-title" = "完成";
 "edit-published-subtitle" = "謝謝您！您剛剛已令維基百科變得更完善，所有人都會受惠";
+"edit-reference-accessibility-label" = "添加參考資料語法";
+"edit-reference-remove-accessibility-label" = "移除參考資料語法";
+"edit-signature-accessibility-label" = "添加簽名語法";
+"edit-signature-remove-accessibility-label" = "移除簽名語法";
+"edit-strikethrough-accessibility-label" = "添加刪除線";
+"edit-strikethrough-remove-accessibility-label" = "移除刪除線";
 "edit-style-table-view-title" = "風格";
+"edit-subscript-accessibility-label" = "添加下標格式";
+"edit-subscript-remove-accessibility-label" = "移除下標格式";
 "edit-summary-add-summary-text" = "添加編輯摘要";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-typos" = "修正筆誤";
 "edit-summary-choice-linked-words" = "新增連結";
 "edit-summary-learn-more-text" = "了解更多";
 "edit-summary-placeholder-text" = "您如何改善此條目？";
+"edit-superscript-accessibility-label" = "添加上標格式";
+"edit-superscript-remove-accessibility-label" = "移除上標格式";
+"edit-template-accessibility-label" = "添加模板語法";
+"edit-template-remove-accessibility-label" = "移除模板語法";
+"edit-text-formatting-accessibility-label" = "顯示文字格式選單";
 "edit-text-formatting-table-view-title" = "文字格式";
 "edit-text-size-table-view-title" = "文字大小";
+"edit-text-style-accessibility-label" = "顯示文字風格選單";
+"edit-underline-accessibility-label" = "添加底線";
+"edit-underline-remove-accessibility-label" = "移除底線";
+"edit-unordered-list-accessibility-label" = "建立目前列的無排序清單";
+"edit-unordered-list-remove-accessibility-label" = "從目前列來移除無排序清單";
 "edit-watch-list-learn-more-text" = "了解更多關於監視清單";
 "edit-watch-this-page-text" = "監視此頁面";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";
 "empty-no-feed-message" = "在有網路時，您可以看到推薦的條目";
-"empty-no-feed-title" = "無網路連線";
 "empty-no-history-message" = "在此記錄您的閱讀歷程";
 "empty-no-history-title" = "無歷史可顯示";
 "empty-no-reading-lists-message" = "建立前往旅行的地點、喜愛的主題，以及更多其它事物的清單";
@@ -266,7 +296,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "開啟探索";
 "explore-feed-preferences-turn-on-explore-tab-message" = "這會以探索分頁來取代設定分頁，您可以從探索分頁的頂端使用輕觸齒輪圖示方式來取用設定";
 "explore-feed-preferences-turn-on-explore-tab-title" = "開啟探索分頁？";
-"action-undo" = "還原";
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
@@ -313,7 +342,6 @@
 "field-token-title" = "驗證代碼";
 "field-username-placeholder" = "輸入使用者名稱";
 "field-username-title" = "使用者名稱";
-"action-find-in-page" = "在頁面裡找尋";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電子郵件已寄出";
@@ -392,6 +420,9 @@
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
 "new-password-title" = "設定您的密碼";
 "no-email-account-alert" = "請在您的裝置上設定一個電子郵件地址後，再試一次。";
+"no-internet-connection" = "無網路連線";
+"no-internet-connection-article-reload" = "有可用的此條目新版本，但沒有連上網路無法載入";
+"no-internet-connection-article-reload-button" = "返回上一次儲存的版本";
 "number-billions" = "$1十億";
 "number-millions" = "$1百萬";
 "number-thousands" = "$1千";
@@ -406,6 +437,7 @@
 "page-edit-history" = "完整編輯歷史";
 "page-history-title" = "條目歷史";
 "page-issues" = "頁面問題";
+// Fuzzy
 "page-last-edited" = "$1 日前編輯";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
@@ -413,6 +445,7 @@
 "page-protected-can-not-edit-title" = "此頁面受到保護";
 "page-protected-other" = "此頁面已受到以下層級的保護：$1";
 "page-protected-sysop" = "此頁面已受全保護。";
+// Fuzzy
 "page-read-in-other-languages" = "在 $1 種其他語言中可用";
 "page-similar-titles" = "相似的頁面";
 "page-talk-page" = "檢視討論頁";
@@ -670,8 +703,7 @@
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";
 "wikitext-preview-link-preview-description" = "此連結引至「$1」";
 "wikitext-preview-link-preview-title" = "連結預覽";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "儲存您的變更";
+"wikitext-preview-save-changes-title" = "儲存變更";
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";
 "wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";

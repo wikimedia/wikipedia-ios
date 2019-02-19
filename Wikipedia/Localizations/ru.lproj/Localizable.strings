@@ -60,21 +60,15 @@
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
 "about-wikimedia-foundation" = "Фонд Викимедиа";
 "about-wikipedia" = "Википедия";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Вы не можете опубликовать эту правку. Пожалуйста, вернитесь назад и измените её.";
-"abuse-filter-disallow-notable" = "Википедия — это энциклопедия, и здесь допустимо только нейтральное и значимое содержимое.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Автоматизированный фильтр определил эту правку как потенциально деструктивную или как попытку вандализма.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Пустая статья или спам";
-// Fuzzy
-"abuse-filter-warning-caps" = "Печать ЗАГЛАВНЫМИ БУКВАМИ";
+"abuse-filter-disallow-heading" = "Вы не можете опубликовать эту правку";
+"abuse-filter-disallow-unconstructive" = "Автоматизированный фильтр определил эту правку как потенциально деструктивную или как попытку вандализма. Вернитесь назад и измените правку.";
+"abuse-filter-warning-blanking" = "Удаление частей или полных статей";
+"abuse-filter-warning-caps" = "Заглавными буквами";
 "abuse-filter-warning-heading" = "Эта выглядит как деструктивная правка. Вы уверены, что хотите опубликовать её?";
 "abuse-filter-warning-irrelevant" = "Нерелевантные внешние ссылки или изображения";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Повторяяяяяющиеся символы";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько из следующих действий:";
+"abuse-filter-warning-repeat" = "Повторяющиеся символы";
+"abuse-filter-warning-spam" = "Добавление спама в статьи";
+"abuse-filter-warning-subheading" = "Ваша правка может содержать:";
 "account-creation-captcha-cannot-see-image" = "Не видите изображение? $1";
 "account-creation-captcha-obtaining" = "Получение новой CAPTCHA...";
 "account-creation-captcha-request-account" = "Запрос учётной записи.";
@@ -91,9 +85,11 @@
 "action-add-to-reading-list" = "Добавить в список для чтения";
 "action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
+"action-find-in-page" = "Найти на странице";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
 "action-read" = "Читать";
+"action-redo" = "Повторить";
 "action-remove" = "Удалить";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
@@ -101,11 +97,11 @@
 "action-saved-accessibility-notification" = "Статья сохранена на потом.";
 "action-share" = "Поделиться";
 "action-sort" = "Сортировать";
+"action-undo" = "Отменить";
 "action-unsave" = "Не сохранено";
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
 "action-update" = "Обновить";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
-"alert-no-internet" = "Нет соединения с интернетом";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -186,26 +182,60 @@
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
 "dim-images" = "Делать изображения менее яркими";
+"edit-bold-accessibility-label" = "Добавить полужирное начертание";
+"edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
+"edit-comment-accessibility-label" = "Добавить комментарий";
+"edit-comment-remove-accessibility-label" = "Убрать комментарий";
+"edit-decrease-indent-depth-accessibility-label" = "Уменьшить отступ";
+"edit-direction-down-accessibility-label" = "Сдвинуть курсор вниз";
+"edit-direction-left-accessibility-label" = "Сдвинуть курсор влево";
+"edit-direction-right-accessibility-label" = "Сдвинуть курсор вправо";
+"edit-direction-up-accessibility-label" = "Сдвинуть курсор вверх";
+"edit-increase-indent-depth-accessibility-label" = "Увеличить отступ";
+"edit-indent-accessibility-label" = "Отступ текущей строки";
+"edit-italic-accessibility-label" = "Добавить наклонное начертание";
+"edit-italic-remove-accessibility-label" = "Убрать наклонное начертание";
+"edit-link-accessibility-label" = "Добавить ссылку";
+"edit-link-remove-accessibility-label" = "Убрать ссылку";
 "edit-minor-learn-more-text" = "Узнать подробнее о малых правках";
 "edit-minor-text" = "Это малая правка";
+"edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
+"edit-ordered-list-remove-accessibility-label" = "Убрать нумерованный список";
 "edit-published" = "Правка опубликована";
 "edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Вы только что сделали Википедию лучше для всех";
+"edit-reference-accessibility-label" = "Добавить примечание";
+"edit-reference-remove-accessibility-label" = "Убрать примечание";
+"edit-signature-accessibility-label" = "Добавить подпись";
+"edit-signature-remove-accessibility-label" = "Убрать подпись";
+"edit-strikethrough-accessibility-label" = "Зачеркнуть";
+"edit-strikethrough-remove-accessibility-label" = "Убрать зачёркивание";
 "edit-style-table-view-title" = "Оформление";
+"edit-subscript-accessibility-label" = "Добавить подстрочное начертание";
+"edit-subscript-remove-accessibility-label" = "Убрать подстрочное начертание";
 "edit-summary-add-summary-text" = "Добавление описания правки";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
 "edit-summary-choice-linked-words" = "Добавленные ссылки";
 "edit-summary-learn-more-text" = "Подробнее";
 "edit-summary-placeholder-text" = "Как именно вы улучшили страницу?";
+"edit-superscript-accessibility-label" = "Добавить надстрочное начертание";
+"edit-superscript-remove-accessibility-label" = "Убрать надстрочное начертание";
+"edit-template-accessibility-label" = "Добавить шаблон";
+"edit-template-remove-accessibility-label" = "Убрать шаблон";
+"edit-text-formatting-accessibility-label" = "Показать меню форматирования";
 "edit-text-formatting-table-view-title" = "Форматирование текста";
 "edit-text-size-table-view-title" = "Размер шрифта";
+"edit-text-style-accessibility-label" = "Показать меню стиля оформления";
+"edit-underline-accessibility-label" = "Подчеркнуть";
+"edit-underline-remove-accessibility-label" = "Убрать подчеркивание";
+"edit-unordered-list-accessibility-label" = "Сделать ненумерованным списком";
+"edit-unordered-list-remove-accessibility-label" = "Убрать ненумерованный список";
 "edit-watch-list-learn-more-text" = "Узнайте больше о списках наблюдения";
 "edit-watch-this-page-text" = "Следить за этой страницей";
 "empty-no-article-message" = "К сожалению, не удалось загрузить статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
-"empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-history-message" = "Отслеживайте здесь прочитанные вами статьи.";
 "empty-no-history-title" = "Нет истории для отображения";
 "empty-no-reading-lists-message" = "Создавайте списки статей, например, о местах для путешествий, об интересующих вас темах и о многом другом";
@@ -282,7 +312,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить «Ленту»";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка «Настройки» будет заменена вкладкой «Лента». Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Включить «Ленту»?";
-"action-undo" = "Отменить";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
@@ -329,7 +358,6 @@
 "field-token-title" = "Код подтверждения";
 "field-username-placeholder" = "введите имя пользователя";
 "field-username-title" = "Имя участника";
-"action-find-in-page" = "Найти на странице";
 "find-in-page-number-matches" = "$1 из $2";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
@@ -408,6 +436,9 @@
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
 "new-password-title" = "Установите пароль";
 "no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учётную запись электронной почты и попробуйте ещё раз.";
+"no-internet-connection" = "Нет подключения к интернету";
+"no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её загрузить, требуется подключение к интернету";
+"no-internet-connection-article-reload-button" = "Вернуться к последней сохранённой версии";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1М";
 "number-thousands" = "$1 тыс.";
@@ -422,6 +453,7 @@
 "page-edit-history" = "Полная история редактирования";
 "page-history-title" = "История страницы";
 "page-issues" = "Вопросы по странице";
+// Fuzzy
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-location" = "Посмотреть на карте";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
@@ -429,6 +461,7 @@
 "page-protected-can-not-edit-title" = "Эта страница защищена";
 "page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
 "page-protected-sysop" = "Эта страница была полностью защищена.";
+// Fuzzy
 "page-read-in-other-languages" = "Доступно на {{PLURAL:$1|другом языке|$1 других языках}}";
 "page-similar-titles" = "Похожие страницы";
 "page-talk-page" = "Страница обсуждения";
@@ -541,7 +574,7 @@
 "reading-lists-list-not-synced-limit-exceeded" = "Список не синхронизирован, превышен лимит";
 "reading-lists-sort-saved-articles" = "Отсортировать сохранённые статьи";
 "reading-lists-split-notification" = "Существует лимит в $1 статей в одном списке для чтения. Существующие списки, в которых превышен этот лимит, были разделены на несколько.";
-"reading-lists-sync-error-no-internet-connection" = "Синхронизация возобновится при появлении соединения с интернетом";
+"reading-lists-sync-error-no-internet-connection" = "Синхронизация возобновится при появлении подключения к интернету";
 "reading-themes-controls-accessibility-black-theme-button" = "Чёрная тема";
 "reading-themes-controls-accessibility-brightness-slider" = "Ползунок яркости";
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
@@ -686,8 +719,7 @@
 "wikitext-preview-changes-none" = "Не было внесено никаких изменений, которые можно было бы просмотреть.";
 "wikitext-preview-link-preview-description" = "Эта ссылка ведёт на '$1'";
 "wikitext-preview-link-preview-title" = "Предпросмотр ссылки";
-// Fuzzy
-"wikitext-preview-save-changes-title" = "Сохранение внесённых изменений";
+"wikitext-preview-save-changes-title" = "Сохранить изменения";
 "wikitext-upload-captcha-error" = "Ошибка проверки капчи.";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
 "wikitext-upload-result-unknown" = "Не удаётся определить результат загрузки вики-текста.";

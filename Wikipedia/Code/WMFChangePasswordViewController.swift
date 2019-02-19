@@ -29,7 +29,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
                 enableProgressiveButton(false)
                 return
         }
-        enableProgressiveButton((password.count > 0 && retype.count > 0))
+        enableProgressiveButton((!password.isEmpty && !retype.isEmpty))
     }
     
     fileprivate func passwordFieldsMatch() -> Bool {

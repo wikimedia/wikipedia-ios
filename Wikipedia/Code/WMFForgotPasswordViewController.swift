@@ -68,7 +68,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
                 enableProgressiveButton(false)
                 return
         }
-        enableProgressiveButton((username.count > 0 || email.count > 0))
+        enableProgressiveButton((!username.isEmpty || !email.isEmpty))
     }
 
     func enableProgressiveButton(_ highlight: Bool) {

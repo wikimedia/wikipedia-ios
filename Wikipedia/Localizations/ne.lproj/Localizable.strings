@@ -42,6 +42,8 @@
 "action-add-to" = "यहाँ थप्नुहोस्…";
 "action-add-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-cancel" = "रद्द गर्नुहोस्";
+// Fuzzy
+"action-find-in-page" = "पानामा खोज्नुहोस्";
 "action-move-to" = "मा सार्ने…";
 "action-move-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-read" = "पढ्नुहोस्";
@@ -93,7 +95,6 @@
 "empty-no-article-message" = "माफ गर्नुहोस् लेख खोल्न सकिएन";
 "empty-no-feed-action-message" = "तपाईँले सङ्ग्रह गरिसकिएका पृष्ठहरू पढ्न सक्नुहुने छ";
 "empty-no-feed-message" = "तपाईँलाई सिफारिस गरिएका लेखहरू तपाईँसँग इन्टरनेट भएको बेला देखिने छ";
-"empty-no-feed-title" = "इन्टरनेट जडान छैन";
 "empty-no-history-title" = "देखाउने इतिकास छैन";
 "empty-no-saved-pages-message" = "पछि या अफलाइनमा पढ्न पृष्ठहरू सङ्ग्रहर गर्नुहोस्";
 "empty-no-saved-pages-title" = "कुनै पनि सङ्ग्रहगरिएका पृष्ठहरू छैनन्";
@@ -143,7 +144,6 @@
 "field-token-title" = "प्रमाणिकरण कोड";
 "field-username-placeholder" = "प्रयोगकर्ता नाम प्रविष्टि गर्नुहोस्";
 "field-username-title" = "प्रयोगकर्ताको नाम";
-"action-find-in-page" = "पानामा खोज्नुहोस्";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "पूर्वरूपमा फर्काउनुहोस्";
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";
@@ -217,6 +217,7 @@
 "page-edit-history" = "पूर्ण सम्पादन इतिहास";
 "page-history-title" = "लेखको इतिहास";
 "page-issues" = "पृष्ठका समस्याहरू";
+// Fuzzy
 "page-last-edited" = "$1 दिन पहिले सम्पादन गरिएको";
 "page-location" = "कुनै नक्सामा हेर्नुहोस्";
 "page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
@@ -224,6 +225,7 @@
 "page-protected-can-not-edit-title" = "यो पृष्ठ सुरक्षण गरिएको छ";
 "page-protected-other" = "निम्न स्तरसम्म यस पृष्ठलाई सुरक्षण गरिएको छ: $1";
 "page-protected-sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
+// Fuzzy
 "page-read-in-other-languages" = " $1 अरु भाषाहरूमा उपलब्ध";
 "page-similar-titles" = "मिल्दोजुल्दो पृष्ठहरू";
 "page-talk-page" = "वार्तालाप पृष्ठ हेर्नुहोस्";

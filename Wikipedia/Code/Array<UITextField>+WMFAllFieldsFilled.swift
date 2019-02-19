@@ -9,7 +9,7 @@ extension Array where Element: UITextField {
             guard let text = element.text else {
                 return true
             }
-            return text.count == 0
+            return text.isEmpty
         }
         return emptyElement == nil
     }

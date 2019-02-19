@@ -32,7 +32,6 @@
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 // Fuzzy
 "abuse-filter-disallow-heading" = "ਤੁਸੀਂ ਇਹ ਸੋਧ ਸਾਂਭ ਨਹੀਂ ਸਕਦੇ। ਕਿਰਪਾ ਕਰਕੇ ਪਿੱਛੇ ਜਾ ਕੇ ਇਸਨੂੰ ਬਦਲੋ ਜੀ।";
-"abuse-filter-disallow-notable" = "ਵਿਕੀਪੀਡੀਆ ਇੱਕ ਗਿਆਨਕੋਸ਼ ਹੈ ਅਤੇ ਸਿਰਫ਼ ਨਿਰਪੱਖ ਅਤੇ ਉੱਘੀ ਸਮੱਗਰੀ ਹੀ ਇਹਦਾ ਹਿੱਸਾ ਹੋ ਸਕਦੀ ਹੈ।";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "ਇੱਕ ਆਪੇ ਚੱਲਦੀ ਛਾਨਣੀ ਨੇ ਇਸ ਸੋਧ ਨੂੰ ਬੇਉਸਾਰੂ ਜਾਂ ਉਜਾੜੇ ਦੀ ਕੋਸ਼ਿਸ਼ ਵਜੋਂ ਪਛਾਣਿਆ ਹੈ।";
 // Fuzzy
@@ -59,7 +58,6 @@
 "action-save" = "ਸਾਂਭੋ";
 "action-saved" = "ਸੰਭਾਲਿਆ";
 "action-share" = "ਸਾਂਝਾ ਕਰੋ";
-"alert-no-internet" = "ਇੱਥੇ ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ ਹੈ";
 // Fuzzy
 "announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";
 "article-about-title" = "ਇਸ ਲੇਖ ਬਾਰੇ";
@@ -88,7 +86,6 @@
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
 "empty-no-article-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਲੇਖ ਨਹੀਂ ਆ ਰਿਹਾ";
 "empty-no-feed-action-message" = "ਤੁਸੀੰ ਹਾਲੇ ਵੀ ਸੰਭਾਲੇ ਸਫ਼ੇ ਪੜ੍ਹ ਸਕਦੇ ਹੋ";
-"empty-no-feed-title" = "ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ";
 "empty-no-history-title" = "ਦਿਖਾਉਣ ਲਈ ਕੋਈ ਇਤਿਹਾਸ ਨਹੀੰ";
 "empty-no-saved-pages-message" = "ਸਫ਼ਿਆਂ ਨੂੰ ਬਾਅਦ ਵਿਚ ਵੇਖਣ ਲਾਇ ਸੰਭਾਲੋ, ਔਫਲਾਈਨ ਵੀ";
 "empty-no-saved-pages-title" = "ਹਾਲੇ ਤੱਕ ਕੋੲੀ ਸਫ਼ਾ ਨਹੀ ਸੰਭਾਲੇ ਗਏ";
@@ -175,12 +172,14 @@
 "page-edit-history" = "ਪੂਰਾ ਸੋਧ ਇਤੇਹਾਸ";
 "page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";
 "page-issues" = "ਸਫ਼ੇ ਸੰਬੰਧੀ ਮੁੱਦੇ";
+// Fuzzy
 "page-last-edited" = "$1 ਪਹਿਲਾੰ ਸੋਧਿਆ ਗਿਆ";
 "page-protected-autoconfirmed" = "ਇਹ ਸਫ਼ਾ ਨੀਮ-ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
 "page-protected-can-not-edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
 "page-protected-can-not-edit-title" = "ਇਹ ਸਫ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ";
 "page-protected-other" = "ਇਸ ਸਫ਼ੇ ਨੂੰ ਇਹਨਾਂ ਤਹਿਆਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ: $1";
 "page-protected-sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
+// Fuzzy
 "page-read-in-other-languages" = "$1 ਹੋਰ ਭਾਸ਼ਾਵਾੰ ਵਿੱਚ ਉਪਲਬਧ";
 "page-similar-titles" = "ੲਿੱਕੋ ਜਿਹੇ ਪੰਨੇ";
 "places-title" = "ਥਾਂਵਾਂ";

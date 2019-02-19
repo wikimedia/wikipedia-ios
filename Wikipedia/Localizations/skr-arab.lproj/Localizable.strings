@@ -18,13 +18,18 @@
 "account-creation-title" = "نواں کھاتہ کھولو";
 "action-add-to" = "شامل کرو۔۔۔";
 "action-cancel" = "منسوخ";
+// Fuzzy
+"action-find-in-page" = "ورقے وچ ڳولو";
 "action-move-to" = "تے ون٘ڄو...";
 "action-read" = "پڑھو";
+"action-redo" = "ولدا کرو";
 "action-remove" = "ہٹاؤ";
 "action-save" = "بچاؤ";
 "action-saved" = "محفوظ";
 "action-share" = "شیئر";
 "action-sort" = "چھانٹ";
+// Fuzzy
+"action-undo" = "واپس";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
 // Fuzzy
@@ -72,7 +77,6 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 تے";
-"action-undo" = "واپس";
 "explore-hide-card-prompt" = "ایں کارڈ کوں لکاؤ";
 "explore-most-read-sub-heading-on-wikipedia" = "وکیپیڈیا تے";
 "explore-nearby-placeholder-heading" = "جاہیں";
@@ -96,7 +100,6 @@
 "field-token-title" = "تصدیقی کوڈ";
 "field-username-placeholder" = "ورتݨ آلا ناں درج کرو";
 "field-username-title" = "ورتݨ آلا ناں";
-"action-find-in-page" = "ورقے وچ ڳولو";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ولدا ٹھیک کرو";
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";

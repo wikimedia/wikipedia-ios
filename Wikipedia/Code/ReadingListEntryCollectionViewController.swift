@@ -236,7 +236,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             }
             return entry.articleKey == articleKey
         }
-        
+
         guard !visibleIndexPathsWithChanges.isEmpty else {
             return
         }

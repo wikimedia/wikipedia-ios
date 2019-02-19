@@ -37,7 +37,6 @@
 "about-wikipedia" = "Vikipedio";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Vi ne povas publikigi ĉi tiun modifon. Bonvolu iri reen kaj ŝanĝi ĝin.";
-"abuse-filter-disallow-notable" = "Vikipedio estas encyclopedio kaj nur neŭtrala, rimarkinda enhavo aperu ĉi tie.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Aŭtomatigita filtrilo identigis ĉi tiun redakton kiel potenciale malhelpan aŭ provon je vandalismo.";
 // Fuzzy
@@ -66,6 +65,8 @@
 "action-add-to-reading-list" = "Aldoni al legolisto";
 "action-add-to-reading-list-short" = "Aldoni al listo";
 "action-cancel" = "Nuligi";
+// Fuzzy
+"action-find-in-page" = "Trovi en la paĝo";
 "action-move-to" = "Movi al...";
 "action-move-to-reading-list" = "Movi al legolisto";
 "action-read" = "Legi";
@@ -76,11 +77,12 @@
 "action-saved-accessibility-notification" = "Artikolo konservita por poste";
 "action-share" = "Konigi";
 "action-sort" = "Ordigi";
+// Fuzzy
+"action-undo" = "Malfari";
 "action-unsave" = "Malkonservi";
 "action-unsaved-accessibility-notification" = "Artikolo malkonservita";
 "action-update" = "Ĝisdatigi";
 "add-articles-to-reading-list" = "Aldoni {{PLURAL:$1|$1 artikolon|$1 artikolojn}} al legolisto";
-"alert-no-internet" = "Estas neniu interreta konekto";
 "announcements-dismiss" = "Rezigni";
 "app-store-keywords" = "Vikipedio, referenco, vikio, encyclopedio, informoj, scio, esplorado, esplori, lerni";
 "app-store-release-notes" = "Plene tajlorebla kaj pli facile legebla Esplorfluo. Internaciigo, rendimentaj plibonigoj kaj cimoriparoj.";
@@ -168,7 +170,6 @@
 "empty-no-article-message" = "Pardonon, ne povis ŝargi la artikolon";
 "empty-no-feed-action-message" = "Vi daŭre povas legi konservitajn paĝojn";
 "empty-no-feed-message" = "Vi povas vidi viajn rekomenditajn artikolojn kiam vi havas retaliron";
-"empty-no-feed-title" = "Neniu retkonekto";
 "empty-no-history-message" = "Atentadu tion kion vi legis ĉi tie";
 "empty-no-history-title" = "Neniu historio por montri";
 "empty-no-reading-lists-message" = "Krei listojn por lokoj vizitindaj, ŝatataj temoj kaj multe pli";
@@ -246,7 +247,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ŝalti Esploradon";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ĉi tio anstataŭos la taban folion Agordoj per la Esplorflua taba folio. Vi povas aliri la agordojn supre de la Esplorflua taba folio, tuŝetante la dentoradan bildsimbolon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ĉu ŝalti la Esplorfluan taban folion?";
-"action-undo" = "Malfari";
 "explore-hide-card-prompt" = "Kaŝi ĉi tiun karton";
 "explore-main-page-description" = "Ĉefa paĝo de vikimediaj projektoj";
 "explore-main-page-heading" = "Hodiaŭ sur Vikipedio";
@@ -291,7 +291,6 @@
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
 "field-username-title" = "Salutnomo";
-"action-find-in-page" = "Trovi en la paĝo";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restarigi";
 "forgot-password-email-sent" = "Retmesaĝo kun instrukcioj pri la restarigo de pasvorto estas sendita";
@@ -384,6 +383,7 @@
 "page-edit-history" = "Plena redakto-historion";
 "page-history-title" = "Artikola historio";
 "page-issues" = "Problemoj pri paĝo";
+// Fuzzy
 "page-last-edited" = "Redaktita antaŭ $1 tagoj";
 "page-location" = "Montri sur mapo";
 "page-protected-autoconfirmed" = "Ĉi tiu paĝo estas duon-protektita.";
@@ -391,6 +391,7 @@
 "page-protected-can-not-edit-title" = "Ĉi tiu paĝo estas protektita";
 "page-protected-other" = "Ĉi tiu paĝo estas protektita je la jenaj niveloj: $1";
 "page-protected-sysop" = "Ĉi tiu paĝo estas tut-protektita.";
+// Fuzzy
 "page-read-in-other-languages" = "Disponebla en $1 aliaj lingvoj";
 "page-similar-titles" = "Similaj paĝoj";
 "page-talk-page" = "Montri diskutpaĝon";

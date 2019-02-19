@@ -29,7 +29,6 @@
 "about-wikipedia" = "विकिपीडिया";
 // Fuzzy
 "abuse-filter-disallow-heading" = "या संपादनाचे प्रकाशन करु शकत नाही.कृपया परत जाउन ते बदला.";
-"abuse-filter-disallow-notable" = "विकिपीडिया हा विश्वकोश आहे व येथे त्यात फक्त तटस्थ, नोंदविण्याजोगा आशय असतो.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "स्वयंचलित गाळणीने हे संपादन उच्च दर्जाचे अरचनात्मक किंवा उपद्रवी कृती म्हणून नोंदविलेले आहे.";
 // Fuzzy
@@ -47,8 +46,9 @@
 "account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";
 "account-creation-passwords-mismatched" = "परवलीचा शब्द जुळत नाही.";
 "account-creation-saving" = "जतन करीत आहे...";
+// Fuzzy
+"action-find-in-page" = "पानामध्ये शोधा";
 "action-sort" = "निवडा";
-"alert-no-internet" = "इथे इंटरनेट सेवा उपलब्ध नाही";
 "article-about-title" = "या लेखाबद्दल";
 "article-delete" = "हटवा";
 "article-languages-filter-placeholder" = "भाषा शोधा";
@@ -73,7 +73,6 @@
 "empty-no-article-message" = "माफ करा, लेख दाखवू शकलो नाही";
 "empty-no-feed-action-message" = "आपण अजूनही जतन केलेली पाने वाचू शकता";
 "empty-no-feed-message" = "आपल्यापाशी आंतरजाल असल्यावर आपण आपले शिफारस केलेले लेख बघु शकता";
-"empty-no-feed-title" = "इंटरनेट सेवा उपलब्ध नाहीत";
 "empty-no-history-message" = "आपण येथे काय वाचत आहात त्याचा मागोवा घ्या";
 "empty-no-history-title" = "दर्शविण्यास काहीच इतिहास नाही";
 "empty-no-saved-pages-message" = "नंतर बघण्यास पाने जतन करा, विनाजाल सुद्धा";
@@ -90,7 +89,6 @@
 "explore-nearby-sub-heading-your-location" = "आपले ठिकाण";
 "explore-potd-heading" = "आजचे चित्र";
 "explore-random-article-heading" = "अविशिष्ट लेख";
-"action-find-in-page" = "पानामध्ये शोधा";
 "history-clear-all" = "स्वछ करा";
 "history-clear-cancel" = "रद्द करा";
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
@@ -145,12 +143,14 @@
 "page-edit-history" = "संपूर्ण संपादन इतिहास";
 "page-history-title" = "लेख इतिहास";
 "page-issues" = "पानाची समस्या";
+// Fuzzy
 "page-last-edited" = "$1 दिवसांआधी संपादित केले";
 "page-protected-autoconfirmed" = "हे पान अर्ध-सुरक्षित आहे.";
 "page-protected-can-not-edit" = "तुम्हाला हे पान संपादन करण्याचा अधिकार नाही";
 "page-protected-can-not-edit-title" = "हे पान संरक्षित आहे";
 "page-protected-other" = "हे पान खालील स्तरांपर्यंत सुरक्षित आहे:$1";
 "page-protected-sysop" = "हे पान पूर्णत: सुरक्षित आहे.";
+// Fuzzy
 "page-read-in-other-languages" = "$1 इतर भाषेत उपलब्ध";
 "page-similar-titles" = "सारखी पाने";
 "potd-description-prefix" = "$1 साठी आजचे चित्र";

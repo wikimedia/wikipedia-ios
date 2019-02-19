@@ -46,7 +46,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             }
                         }
                     }  else if let readingListError = error as? ReadingListsOperationError, readingListError == .cancelled {
-                        self.apiController.cancelPendingTasks()
+                        self.apiController.cancelAllTasks()
                         self.finish()
                     } else {
                         self.finish(with: error)
@@ -458,7 +458,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             newReadingLists.append(newReadingList)
         }
         newReadingLists.append(readingList)
-        if newReadingLists.count > 0 {
+        if !newReadingLists.isEmpty {
             let userInfo = [ReadingListsController.readingListsWereSplitNotificationEntryLimitKey: size]
             NotificationCenter.default.post(name: ReadingListsController.readingListsWereSplitNotification, object: nil, userInfo: userInfo)
             UserDefaults.wmf.wmf_setDidSplitExistingReadingLists(true)
@@ -729,7 +729,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func locallyCreate(_ readingListEntries: [APIReadingListEntry], with readingListsByEntryID: [Int64: ReadingList]? = nil, in moc: NSManagedObjectContext) throws {
-        guard readingListEntries.count > 0 else {
+        guard !readingListEntries.isEmpty else {
             return
         }
         let group = WMFTaskGroup()
@@ -857,7 +857,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func createOrUpdate(remoteReadingLists: [APIReadingList], deleteMissingLocalLists: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Int {
-        guard remoteReadingLists.count > 0 || deleteMissingLocalLists else {
+        guard !remoteReadingLists.isEmpty || deleteMissingLocalLists else {
             return 0
         }
         var createdOrUpdatedReadingListsCount = 0
@@ -950,7 +950,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, deleteMissingLocalEntries: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Int {
-        guard remoteReadingListEntries.count > 0 || deleteMissingLocalEntries else {
+        guard !remoteReadingListEntries.isEmpty || deleteMissingLocalEntries else {
             return 0
         }
         var createdOrUpdatedReadingListEntriesCount = 0

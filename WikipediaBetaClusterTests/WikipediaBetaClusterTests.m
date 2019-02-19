@@ -32,8 +32,8 @@
         [self expectationWithDescription:@"Fetch img tag html for a piece of image wikitext. Thus way we can be notified when image tag formatting changes in any way so we can ensure image widening/caching/proxying still work with whatever changes are made."];
 
     NSString *imgWikitext = @"[[File:Example.jpg|20px|link=MediaWiki]]";
-    NSURL *baseURL = [NSURL URLWithString:@"http://en.wikipedia.beta.wmflabs.org/"];
-    NSString *urlString = [NSString stringWithFormat:@"http://en.wikipedia.beta.wmflabs.org/w/api.php"
+    NSURL *baseURL = [NSURL URLWithString:@"https://en.wikipedia.beta.wmflabs.org/"];
+    NSString *urlString = [NSString stringWithFormat:@"https://en.wikipedia.beta.wmflabs.org/w/api.php"
                                                       "?action=parse"
                                                       "&format=json"
                                                       "&text=%@"
@@ -48,6 +48,7 @@
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                                                 NSString *html = json[@"parse"][@"text"][@"*"];
+                                                XCTAssertNotNil(html, @"Incomplete response from beta cluser");
                                                 [html wmf_enumerateHTMLImageTagContentsWithHandler:^(NSString *_Nonnull imageTagContents, NSRange range) {
                                                     WMFImageTag *tag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents baseURL:baseURL];
 
@@ -59,10 +60,8 @@
 
                                                     // alt has never been parsed - should it be?
                                                     //XCTAssertEqualObjects(tag.alt, @"Example.jpg");
-
                                                 }];
                                                 [expectation fulfill];
-
                                             }];
     [dataTask resume];
 
@@ -95,7 +94,7 @@
                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                                         NSArray *sectionsFromBetaCluster = json[@"mobileview"][@"sections"];
-
+                                        XCTAssertNotNil(sectionsFromBetaCluster, @"Incomplete response from beta cluser");
                                         for (NSInteger i = 0; i < sectionsFromBetaCluster.count; i++) {
                                             NSDictionary *sectionFromBetaCluster = sectionsFromBetaCluster[i];
                                             NSString *sectionTextFromBetaCluster = sectionFromBetaCluster[@"text"];
@@ -108,7 +107,6 @@
                                         }
 
                                         [expectation fulfill];
-
                                     }];
     [dataTask resume];
 
@@ -148,13 +146,16 @@
                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                                         NSArray *sectionsFromBetaCluster = json[@"mobileview"][@"sections"];
-
+                                        if (sectionsFromBetaCluster.count == 0) {
+                                            XCTFail(@"Incomplete response from beta cluser");
+                                            [expectation fulfill];
+                                            return;
+                                        }
                                         NSDictionary *firstSectionFromBetaCluster = sectionsFromBetaCluster[0];
                                         NSString *firstSectionTextFromBetaCluster = firstSectionFromBetaCluster[@"text"];
                                         XCTAssertTrue([firstSectionTextFromBetaCluster hasPrefix:@"<p>hello there"], @"\n\nSome parser HTML may have leaked into mobileview output. This test which just failed is an early warning sign that something has been staged to the beta cluster which may cause a parser div to leak into mobileview output if it is deployed to production. Don't ignore this failure!\n\n");
 
                                         [expectation fulfill];
-
                                     }];
     [dataTask resume];
 

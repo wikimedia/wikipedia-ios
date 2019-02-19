@@ -24,8 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageHeight): @"originalimage.height",
              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
-             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"content_urls.desktop.page", @"normalizedtitle", @"lang"]};
-}
+             WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, articleURL): @[@"content_urls.desktop.page", @"lang", @"normalizedtitle"]};
+};
 
 + (NSValueTransformer *)thumbnailURLJSONTransformer {
     return [MTLValueTransformer

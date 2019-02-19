@@ -26,7 +26,6 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "abuse-filter-disallow-heading" = "U kan nie hierdie wysiging publiseer nie. Gaan asseblief terug en verander dit.";
-"abuse-filter-disallow-notable" = "Wikipedia is 'n ensiklopedie: slegs neutrale en noemenswaardige inhoud behoort hier.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "'n Outomatiese filter het hierdie wysiging as potensiëel onkonstruktief, of 'n poging tot vandalisme geïdentifiseer.";
 // Fuzzy
@@ -52,6 +51,8 @@
 "action-add-to-reading-list" = "Voeg by leeslys";
 "action-add-to-reading-list-short" = "Voeg by lys";
 "action-cancel" = "Kanselleer";
+// Fuzzy
+"action-find-in-page" = "Soek in blad";
 "action-move-to" = "Skuif na…";
 "action-move-to-reading-list" = "Skuif na leeslys";
 "action-read" = "Lees";
@@ -60,7 +61,6 @@
 "action-saved" = "Bewaar";
 "action-share" = "Deel";
 "action-sort" = "Sorteer";
-"alert-no-internet" = "Daar is geen internetverbinding";
 // Fuzzy
 "announcements-dismiss" = "Nee dankie";
 "app-store-subtitle" = "Die vry ensiklopedie";
@@ -128,7 +128,6 @@
 "field-token-title" = "Bevestigingskode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"action-find-in-page" = "Soek in blad";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Herstel";
 "forgot-password-email-sent" = "'n E-pos is gestuur met instruksies om die wagwoord te herstel";
@@ -198,6 +197,7 @@
 "original-tab-button-popover-description" = "Raak op die 'W' om terug te gaan na die eerste oortjie";
 "page-history-title" = "Artikelgeskiedenis";
 "page-issues" = "Bladprobleme";
+// Fuzzy
 "page-last-edited" = "$1 dae gelede gewysig";
 "page-location" = "Bekyk op ’n kaart";
 "page-protected-autoconfirmed" = "Hierdie blad is semi-beskerm.";
@@ -205,6 +205,7 @@
 "page-protected-can-not-edit-title" = "Hierdie blad is beskerm";
 "page-protected-other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
 "page-protected-sysop" = "Hierdie blad is volledig beskerm.";
+// Fuzzy
 "page-read-in-other-languages" = "Beskikbaar in nog $1 tale";
 "page-similar-titles" = "Soortgelyke bladsye";
 "places-accessibility-group" = "$1 artikels";

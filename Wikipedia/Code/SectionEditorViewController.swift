@@ -163,7 +163,7 @@ class SectionEditorViewController: UIViewController {
                 
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
-                    allowedGroups.count > 0 {
+                    !allowedGroups.isEmpty {
                     let message: String
                     if allowedGroups.contains("autoconfirmed") {
                         message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
@@ -308,11 +308,4 @@ extension SectionEditorViewController: Themeable {
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }
-}
-
-// MARK: - Old localized strings
-
-extension SectionEditorViewController {
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, nil, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved")
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, nil, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited")
 }
