@@ -117,7 +117,6 @@
 "button-saved-remove" = "Padamkan dari disimpan";
 "button-skip" = "Langkau";
 "cancel" = "Batalkan";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
@@ -293,7 +292,6 @@
 "forgot-password-instructions" = "Isikan dalam salah satu medan di bawah untuk menerima arahan set semula kata laluan melalui e-mel";
 "forgot-password-title" = "Set semula kata laluan";
 "forgot-password-username-or-email-title" = "Atau";
-"gfdl" = "GFDL";
 "history-clear-all" = "Padamkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Adakah anda benar-benar ingin memadamkan semua butir terbaru anda?";
@@ -370,7 +368,6 @@
 "on-this-day-footer-with-event-count" = "Lebih banyak $1 peristiwa bersejarah pada hari ini";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
-"open-link-cancel" = "Batal";
 "original-tab-button-popover-description" = "Ketik pada 'W' untuk kembali ke tab yang anda bermula";
 "page-edit-history" = "Semua sejarah penyuntingan";
 "page-history-title" = "Sejarah rencana";
@@ -441,6 +438,7 @@
 "reading-list-deleted-accessibility-notification" = "Senarai bacaan dipadamkan";
 "reading-list-do-not-keep-button-title" = "Tidak, padamkan rencana dari peranti";
 "reading-list-entry-limit-exceeded-message" = "Sila menurunkan jumlah rencana anda dalam senarai ini hingga $1 untuk menyambung semula penyegerakan semua rencana dalam senarai ini.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Anda telah melebihi had $1 rencana bagi setiap akaun.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Rencana|Rencana}} tidak boleh ditambah ke senarai ini. Anda telah mencapai had $2 rencana setiap senarai bacaan untuk $3";
 "reading-list-exists-with-same-name" = "Nama senarai bacaan sudah digunakan";
@@ -454,6 +452,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Terdapat had 5000 rencana tak disortir. Sila sortir rencana anda yang ada dalam senarai untuk meneruskan penyegerakan rencana yang tidak disortir.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Had untuk rencana yang tidak disortir";
 "reading-list-list-limit-exceeded-message" = "Senarai bacaan dan rencana yang disimpan untuknya tidak akan diselaraskan, sila tolakkan jumlah senarai anda hingga $1 untuk menyambung semula penyegerakan senarai ini.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Anda telah melebihi had $1 senarai bacaan bagi setiap akaun.";
 "reading-list-list-limit-reached" = "Anda telah mencapai had $1 senarai bacaan setiap akaun";
 "reading-list-login-button-title" = "Log masuk untuk menyegerakkan rencana anda yang disimpan";
@@ -636,7 +635,6 @@
 "welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui cara anda menggunakannya. Data yang dikumpul tidak dikenali.";
 "welcome-volunteer-send-usage-reports" = "Hantar laporan penggunaan";
 "wikitext-download-failed" = "Semakan terkini tidak dapat diperoleh.";
-"wikitext-download-success" = "Kandungan telah dimuat.";
 "wikitext-downloading" = "Memuat kandungan...";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";
@@ -648,6 +646,4 @@
 "wikitext-upload-save" = "Sedang menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Dengan menyiarkan perubahan, anda bersetuju dengan $1 dan bersetuju untuk melepaskan sumbangan anda di bawah lesen $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";

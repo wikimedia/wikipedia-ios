@@ -111,7 +111,6 @@
 "button-saved-remove" = "Ukloni iz sačuvanih";
 "button-skip" = "Preskoči";
 "cancel" = "Otkaži";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Zatvori";
 "compass-direction" = "u $1 č.";
@@ -287,7 +286,6 @@
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste primili uputstvo za resetovanje lozinke putem imejla";
 "forgot-password-title" = "Resetovanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
-"gfdl" = "GFDL";
 "history-clear-all" = "Obriši";
 "history-clear-cancel" = "Otkaži";
 "history-clear-confirmation-heading" = "Želite li zaista da izbrišete sve nedavne stavke?";
@@ -364,7 +362,6 @@
 "on-this-day-footer-with-event-count" = "Još $1 istorijskih događaja na današnji dan";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sa $2 Vikipedije";
 "on-this-day-title" = "Na današnji dan";
-"open-link-cancel" = "Otkaži";
 "original-tab-button-popover-description" = "Dodirnite „W” da biste se vratili na početnu karticu";
 "page-edit-history" = "Celokupna istorija izmena";
 "page-history-title" = "Istorija članka";
@@ -435,6 +432,7 @@
 "reading-list-deleted-accessibility-notification" = "Lista za čitanje je izbrisana";
 "reading-list-do-not-keep-button-title" = "Ne, izbriši članke sa uređaja";
 "reading-list-entry-limit-exceeded-message" = "Smanjite broj članaka na ovoj listi na $1 da biste nastavili sa njihovom sinhronizacijom.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Prekoračili ste ograničenje od $1 članaka po nalogu.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Članak se ne može|Članci se ne mogu}} dodati na listu. Dostigli ste ograničenje od $2 članaka po listi za čitanje za $3.";
 "reading-list-exists-with-same-name" = "Već postoji lista za čitanje pod tim imenom";
@@ -448,6 +446,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Možete da imate najviše 5000 nesortiranih članaka. Organizujte postojeće članke po listama da biste ponovo sinhronizovali nesortirane članke.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Dostignuto je ograničenje za nesortirane članke";
 "reading-list-list-limit-exceeded-message" = "Ova lista za čitanje i članci sačuvani na njoj neće biti sinhronizovani. Smanjite broj lista na $1 da biste ponovo sinhronizovali ovu listu.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Prekoračili ste ograničenje od $1 lista za čitanje po nalogu.";
 "reading-list-list-limit-reached" = "Dostigli ste ograničenje od $1 lista za čitanje po nalogu";
 "reading-list-login-button-title" = "Prijavite se da biste sinhronizovali sačuvane članke";
@@ -630,7 +629,6 @@
 "welcome-send-data-sub-title" = "Pomozite Zadužbini Vikimedija da poboljša aplikaciju slanjem informacija o upotrebi. Prikupljeni podaci su anonimni.";
 "welcome-volunteer-send-usage-reports" = "Šalji izveštaje o upotrebi";
 "wikitext-download-failed" = "Nije moguće dobaviti najnoviju izmenu.";
-"wikitext-download-success" = "Sadržaj je učitan.";
 "wikitext-downloading" = "Učitavam sadržaj…";
 "wikitext-preview-changes" = "Preuzimam pregled vaših promena…";
 "wikitext-preview-changes-none" = "Nema promena za pregled.";
@@ -642,6 +640,4 @@
 "wikitext-upload-save" = "Objavljujem…";
 "wikitext-upload-save-anonymously-warning" = "Izmene će biti pripisane IP adresi vašeg uređaja. Ako se prijavite, imaćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Čuvanjem promena, slažete se sa $1 i prihvatate objavljivanje svog doprinosa pod licencama $2 i $3.";
 "wikitext-upload-save-terms-name" = "uslove korišćenja";

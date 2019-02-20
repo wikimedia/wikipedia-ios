@@ -82,7 +82,6 @@
 "button-saved-for-later" = "Bewaar vir later";
 "button-skip" = "Slaan oor";
 "cancel" = "Kanselleer";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sluit";
 "compass-direction" = "by $1 uur";
 "continue-reading-empty-description" = "Verken Wikipedia vir meer artikels om te lees";
@@ -133,7 +132,6 @@
 "forgot-password-email-sent" = "'n E-pos is gestuur met instruksies om die wagwoord te herstel";
 "forgot-password-title" = "Herstel wagwoord";
 "forgot-password-username-or-email-title" = "Of";
-"gfdl" = "GFDL";
 "history-clear-all" = "Maak skoon";
 "history-clear-cancel" = "Kanselleer";
 // Fuzzy
@@ -193,7 +191,6 @@
 "on-this-day-detail-header-date-range" = "tussen $1 - $2";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 uit Wikipedia in $2";
 "on-this-day-title" = "Op dié dag";
-"open-link-cancel" = "Kanselleer";
 "original-tab-button-popover-description" = "Raak op die 'W' om terug te gaan na die eerste oortjie";
 "page-history-title" = "Artikelgeskiedenis";
 "page-issues" = "Bladprobleme";
@@ -281,7 +278,6 @@
 "welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
 "welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
 "wikitext-download-failed" = "Kon nie nuutste weergawe bekom nie.";
-"wikitext-download-success" = "Inhoud gelaai.";
 "wikitext-downloading" = "Laai inhoud...";
 "wikitext-preview-changes" = "Verkry voorskou van u wysigings...";
 "wikitext-preview-changes-none" = "Geen wysigings gemaak om voor te skou.";

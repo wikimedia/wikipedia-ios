@@ -66,7 +66,6 @@
 "button-save-for-later" = "Išsaugoti ateičiai";
 "button-saved-for-later" = "Išsaugoti ateičiai";
 "button-skip" = "Praleisti";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Uždaryti";
 "compass-direction" = "$1 valandą";
 "continue-reading-empty-title" = "Nėra neseniai skaitytų straipsnių";
@@ -173,7 +172,6 @@
 "on-this-day-detail-header-date-range" = "nuo $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "on-this-day-title" = "Šią dieną";
-"open-link-cancel" = "Atšaukti";
 "page-edit-history" = "Pilna keitimų istorija";
 "page-history-title" = "Straipsnio istorija";
 "page-issues" = "Puslapio klausimai";
@@ -270,7 +268,6 @@
 "welcome-send-data-learn-more" = "Sužinoti daugiau apie duomenų rinkimą";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
 "wikitext-download-failed" = "Nepavyko gauti naujausios versijos.";
-"wikitext-download-success" = "Turinys įkeltas.";
 "wikitext-downloading" = "Įkeliamas turinys...";
 "wikitext-upload-captcha-error" = "Saugos kodo tikrinimo klaida.";
 "wikitext-upload-captcha-needed" = "Reikia patikrinimo saugos kodu.";

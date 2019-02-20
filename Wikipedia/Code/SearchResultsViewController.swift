@@ -34,6 +34,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return .search
     }
     
+    override func isExternalURL(at indexPath: IndexPath) -> Bool {
+        return results[indexPath.item].titleNamespace?.intValue ?? 0 != 0
+    }
+    
     override func articleURL(at indexPath: IndexPath) -> URL? {
         return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
     }

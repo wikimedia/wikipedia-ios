@@ -74,8 +74,8 @@ public class ReadingListsAlertController: NSObject {
             completion?(false)
             return
         }
-        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists. %1$d is replaced with number of lists to be deleted. %1$d will be replaced with the appropriate plural for the number of lists being deleted"), readingListsCount)
-        let message =  String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-message", value: "This action cannot be undone. Any articles saved only to {{PLURAL:%1$d|this list|these lists}} will be unsaved.", comment: "Title of the altert shown before deleting selected reading lists. %1$d will be replaced with the appropriate plural for the number of lists being deleted"), readingListsCount)
+        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists. %1$d is replaced with number of lists to be deleted. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
+        let message =  String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-message", value: "This action cannot be undone. Any articles saved only to {{PLURAL:%1$d|this list|these lists}} will be unsaved.", comment: "Title of the altert shown before deleting selected reading lists. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
         presenter.present(alert(with: title, message: message, actions: actions), animated: true) {
             completion?(true)
         }

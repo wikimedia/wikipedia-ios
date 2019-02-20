@@ -134,7 +134,6 @@
 "button-saved-remove" = "Quitar de los guardados";
 "button-skip" = "Omitir";
 "cancel" = "Cancelar";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Cerrar";
 "compass-direction" = "a las $1 en punto";
@@ -269,7 +268,6 @@
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
 "forgot-password-title" = "Restablecer contraseña";
 "forgot-password-username-or-email-title" = "O";
-"gfdl" = "GFDL";
 "history-clear-all" = "Vaciar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
@@ -343,7 +341,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimiento histórico|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más acontecimientos históricos en este día";
 "on-this-day-title" = "Un día como hoy";
-"open-link-cancel" = "Cancelar";
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial de página";
 "page-issues" = "Problemas de la página";
@@ -407,11 +404,13 @@
 "reading-list-create-new-list-title" = "Crear una lista nueva";
 "reading-list-deleted-accessibility-notification" = "Leyendo la lista eliminada";
 "reading-list-do-not-keep-button-title" = "No, eliminar artículos del dispositivo";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Has sobrepasado el límite de $1 artículos por cuenta.";
 "reading-list-exists-with-same-name" = "El nombre de la lista de lectura ya está en uso";
 "reading-list-generic-error" = "Se produjo un error inesperado al actualizar tus listas de lectura.";
 "reading-list-keep-button-title" = "Sí, mantener artículos en el dispositivo";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artículos";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Has sobrepasado el límite de $1 listas de lectura por cuenta.";
 "reading-list-list-limit-reached" = "Has alcanzado el límite de $1 listas de lectura por cuenta";
 "reading-list-login-button-title" = "Accede para sincronizar tus artículos guardados";
@@ -559,7 +558,6 @@
 "welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación al decirnos cómo la usas. Los datos recolectados son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "wikitext-download-failed" = "No se puede obtener la versión más reciente.";
-"wikitext-download-success" = "Se cargó el contenido.";
 "wikitext-downloading" = "Cargando el contenido…";
 "wikitext-preview-changes" = "Generando previsualización de tus cambios…";
 "wikitext-preview-changes-none" = "No se realizaron cambios que revisar.";
@@ -572,5 +570,4 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 "wikitext-upload-save-sign-in" = "Acceder";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Por cambios editoriales,  apalabras el $<span class=\"notranslate\">1</span>, y tú irrevocably apalabrar liberar vuestra contribución bajo el $<span class=\"notranslate\">2</span> Licencia y el $3.  Estás de acuerdo que un hiperenlace o URL es atribución suficiente bajo el Creativo Commons licencia.";
 "wikitext-upload-save-terms-name" = "Términos de uso";

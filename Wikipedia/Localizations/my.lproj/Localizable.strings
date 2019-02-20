@@ -104,7 +104,6 @@
 "button-saved-remove" = "သိမ်းဆည်းမှုမှ ဖယ်ရှားပြီး";
 "button-skip" = "ကျော်ရန်";
 "cancel" = "မလုပ်တော့ပါ";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ပိတ်ရန်";
 "compass-direction" = "$1 နာရီတွင်";
 "continue-reading-empty-description" = "ဆောင်းပါးများပိုမိုဖတ်ရှုရန် ဝီကီပီးဒီးယားကို စူးစမ်းပါ";
@@ -234,7 +233,6 @@
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
 "forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";
 "forgot-password-username-or-email-title" = "သို့မဟုတ်";
-"gfdl" = "GFDL";
 "history-clear-all" = "ရှင်းလင်း";
 "history-clear-cancel" = "မလုပ်တော့ပါ";
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
@@ -306,7 +304,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 သမိုင်းဝင်ဖြစ်ရပ်|$1 သမိုင်းဝင်ဖြစ်ရပ်များ}}";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
-"open-link-cancel" = "မလုပ်တော့ပါ";
 "page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
 "page-history-title" = "ဆောင်းပါး ရာဇဝင်";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
@@ -366,6 +363,7 @@
 "reading-list-create-new-list-title" = "စာရင်းသစ်တစ်ခု ဖန်တီးရန်";
 "reading-list-deleted-accessibility-notification" = "စာဖတ်စာရင်း ဖျက်ပြီးပြီ";
 "reading-list-do-not-keep-button-title" = "ဟင်းအင်း၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲမှ ဖျက်လိုက်ပါ။";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "အကောင့်တစ်ခုလျင် $1 ဆောင်းပါးနှုန်း ကန့်သတ်ချက်ကို ကျော်လွန်သွားပါသည်။";
 "reading-list-exists-with-same-name" = "စာဖတ်စာရင်းနာမည်မှာ အသုံးပြုပြီးသားဖြစ်သည်";
 "reading-list-keep-button-title" = "ဟုတ်ကဲ့၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲ မှတ်ထားပါ။";
@@ -508,7 +506,6 @@
 "welcome-send-data-sub-title" = "သင် မည်ကဲ့သို့အသုံးချခဲ့သည်ကို ဝီကီမီဒီယာ ဖောင်ဒေးရှင်းအားအသိပေး၍ ဤဆော့ဝဲလ်အား ပိုကောင်းလာစေရန် ကူညီပေးပါ။ ဒေတာစုဆောင်းခြင်းမှာ အမည်မသိစနစ်ဖြစ်ပါသည်။";
 "welcome-volunteer-send-usage-reports" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
 "wikitext-download-failed" = "နောက်ဆုံးမူအား မရယူနိုင်ပါ။";
-"wikitext-download-success" = "အကြောင်းအရာ ရယူပြီး။";
 "wikitext-downloading" = "အကြောင်းအရာများ ရယူနေသည်...";
 "wikitext-preview-changes" = "သင့်ပြောင်းလဲမှုများ၏ နမူနာကို ရယူနေသည်...";
 "wikitext-preview-changes-none" = "နမူနာပြရန် ပြောင်းလဲမှု ပြုလုပ်ထားခြင်း မရှိပါ။";
@@ -520,6 +517,4 @@
 "wikitext-upload-save" = "လွှင့်တင်နေသည်...";
 "wikitext-upload-save-anonymously-warning" = "တည်းဖြတ်မှုကို သင့်စက်၏ အိုင်ပီလိပ်စာအနေဖြင့် မှတ်သားမည်။ အကယ်၍ သင် $1 လျှင် သင့်အတွက် လုံခြုံမှု ပိုရနိုင်သည်။";
 "wikitext-upload-save-sign-in" = "အကောင့်ဝင်ရန်";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "ပြောင်းလဲမှုများကို လွှင့်တင်ရာ၌ သင်သည် $1 ကိုသဘောတူညီပြီး သင်၏ပံ့ပိုးမှုများကို $2 နှင့် $3 လိုင်စင်အောက်တွင် ထုတ်ပြန်မည်ဖြစ်ကြောင်း သဘောတူသည်။";
 "wikitext-upload-save-terms-name" = "အသုံးပြုခြင်းဆိုင်ရာ သတ်မှတ်ချက်များ";

@@ -128,7 +128,6 @@
 "button-saved-remove" = "Supprimer des enregistrements";
 "button-skip" = "Passer";
 "cancel" = "Annuler";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "licence Creative Commons Zéro";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
@@ -353,7 +352,6 @@
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
 "forgot-password-title" = "Réinitialiser le mot de passe";
 "forgot-password-username-or-email-title" = "Ou";
-"gfdl" = "GFDL";
 "history-clear-all" = "Effacer";
 "history-clear-cancel" = "Annuler";
 "history-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos éléments récents ?";
@@ -437,7 +435,6 @@
 "on-this-day-footer-with-event-count" = "$1 événements historiques supplémentaires de ce jour";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipedia en $2";
 "on-this-day-title" = "Ce jour";
-"open-link-cancel" = "Annuler";
 "original-tab-button-popover-description" = "Cliquez sur le 'W' pour revenir à l'onglet avec lequel vous avez commencé";
 "page-edit-history" = "Historique complet des modifications";
 "page-history-title" = "Historique de l’article";
@@ -506,7 +503,7 @@
 "reading-list-deleted-accessibility-notification" = "Liste de lecture supprimée";
 "reading-list-do-not-keep-button-title" = "Non, supprimer les articles de l’appareil";
 "reading-list-entry-limit-exceeded-message" = "Veuillez réduire le nombre d’articles dans cette liste à $1 pour reprendre la synchronisation de tous les articles de cette liste.";
-"reading-list-entry-limit-exceeded-title" = "Vous avez dépassé la limite de $1 articles par compte.";
+"reading-list-entry-limit-exceeded-title" = "Vous avez dépassé la limite de {{PLURAL:$1|$1 article|$1 articles}} par compte.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|L’article n’a pas pu être ajouté|Les articles n’ont pas pu être ajoutés}} à cette liste. Vous avez atteint la limite de $2 articles par liste de lecture pour $3";
 "reading-list-exists-with-same-name" = "Nom de liste de lecture déjà utilisé";
 "reading-list-generic-error" = "Une erreur inattendue s’est produite lors de la mise à jour de vos listes de lecture.";
@@ -519,7 +516,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limite atteinte pour les articles non triés";
 "reading-list-list-limit-exceeded-message" = "Cette liste de lecture et les articles enregistrés dedans ne seront pas synchronisés, veuillez réduire le nombre de listes à $1 pour reprendre la synchronisation de cette liste.";
-"reading-list-list-limit-exceeded-title" = "Vous avez dépassé la limite de $1 listes de lecture par compte.";
+"reading-list-list-limit-exceeded-title" = "Vous avez dépassé la limite de {{PLURAL:$1|$1 liste|$1 listes}} de lecture par compte.";
 "reading-list-list-limit-reached" = "Vous avez atteint la limite de $1 listes de lecture par compte";
 "reading-list-login-button-title" = "Connectez-vous pour synchroniser vos articles enregistrés";
 "reading-list-login-or-create-account-button-title" = "Se connecter ou créer un compte";
@@ -700,7 +697,6 @@
 "welcome-send-data-sub-title" = "Aider à améliorer l’application en indiquant à la Fondation Wikimédia la manière dont vous l’utilisez. Les données collectées sont anonymes.";
 "welcome-volunteer-send-usage-reports" = "Envoyer les rapports d’utilisation";
 "wikitext-download-failed" = "Impossible d’obtenir la dernière révision.";
-"wikitext-download-success" = "Contenu chargé.";
 "wikitext-downloading" = "Chargement du contenu…";
 "wikitext-preview-changes" = "Récupération de l’aperçu de vos modifications…";
 "wikitext-preview-changes-none" = "Aucune modification faite pour l’aperçu.";
@@ -711,7 +707,8 @@
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
 "wikitext-upload-result-unknown" = "Impossible de déterminer le résultat du téléversement du wikitexte.";
 "wikitext-upload-save" = "Publication en cours…";
+"wikitext-upload-save-anonymously-or-login" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous vous $1Connectez$2, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-sign-in" = "Se connecter";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "En publiant les modifications, vous acceptez les $1, et acceptez de façon irrévocable de mettre votre contribution sous les licences $2 et $3. Vous acceptez qu’un hyperlien ou un URL soit une attribution suffisante pour la licence Creative Commons.";
+"wikitext-upload-save-terms-and-licenses" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez de façon irrévocable de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
