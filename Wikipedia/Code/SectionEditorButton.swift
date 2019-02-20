@@ -29,84 +29,54 @@ struct SectionEditorButton {
         case findInPage
         case textFormattingMenu
         case textStyleMenu
+
         
-        private var isFormatting: Bool {
-            switch self {
-            case .li:
-                fallthrough
-            case .signature:
-                fallthrough
-            case .link:
-                fallthrough
-            case .bold:
-                fallthrough
-            case .italic:
-               fallthrough
-            case .reference:
-                fallthrough
-            case .template:
-                fallthrough
-            case .comment:
-               fallthrough
-            case .superscript:
-               fallthrough
-            case .subscript:
-                fallthrough
-            case .underline:
-                fallthrough
-            case .strikethrough:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        private var title: String? {
+        var accessibilityLabel: String? {
             switch self {
             case .li(let ordered):
-                return ordered ? WMFLocalizedString("edit-ordered-list-title", value: "Ordered list", comment: "Title for ordered list button") : WMFLocalizedString("edit-unordered-list-title", value: "Unordered list", comment: "Title for unordered list button")
+                return ordered ? WMFLocalizedString("edit-ordered-list-accessibility-label", value: "Make current line ordered list", comment: "Accessibility label for ordered list button") : WMFLocalizedString("edit-unordered-list-accessibility-label", value: "Make current line unordered list", comment: "Accessibility label for unordered list button")
             case .indent:
-                return WMFLocalizedString("edit-indent-title", value: "Indent", comment: "Title for indent button")
+                return WMFLocalizedString("edit-indent-accessibility-label", value: "Indent current line", comment: "Accessibility label for indent button")
             case .heading:
                 return nil
             case .signature:
-                return WMFLocalizedString("edit-signature-label", value: "Signature", comment: "Title for signature button")
+                return WMFLocalizedString("edit-signature-accessibility-label", value: "Add signature syntax", comment: "Acessibility label for add signature syntax button")
             case .link:
-                return WMFLocalizedString("edit-link-title", value: "Link", comment: "Title for link button")
+                return WMFLocalizedString("edit-link-accessibility-label", value: "Add link syntax", comment: "Accessibility label for the button that adds link syntax to the current selection")
             case .bold:
-                return WMFLocalizedString("edit-bold-title", value: "Bold", comment: "Title for bold button")
+                return WMFLocalizedString("edit-bold-accessibility-label", value: "Add bold formatting", comment: "Accessibility label for the button that adds bold formatting to the current selection")
             case .italic:
-                return WMFLocalizedString("edit-italic-title", value: "Italic", comment: "Title for italic button")
+                return WMFLocalizedString("edit-italic-accessibility-label", value: "Add italic formatting", comment: "Accessibility label for italic button")
             case .reference:
-                return WMFLocalizedString("edit-reference-title", value: "Reference", comment: "Title for reference button")
+                return WMFLocalizedString("edit-reference-accessibility-label", value: "Add reference syntax", comment: "Accessibility label for add reference syntax button")
             case .template:
-                return WMFLocalizedString("edit-template-title", value: "Template", comment: "Title for template button")
+                return WMFLocalizedString("edit-template-accessibility-label", value: "Add template syntax", comment: "Accessibility label for add template syntax button")
             case .undo:
                 return CommonStrings.undo
             case .redo:
                 return CommonStrings.redo
             case .comment:
-                return WMFLocalizedString("edit-comment-title", value: "Comment", comment: "Title for comment button")
+                return WMFLocalizedString("edit-comment-accessibility-label", value: "Add comment syntax", comment: "Accessibility label for add comment syntax button")
             case .superscript:
-                return WMFLocalizedString("edit-superscript-title", value: "Superscript", comment: "Title for superscript button")
+                return WMFLocalizedString("edit-superscript-accessibility-label", value: "Add superscript formatting", comment: "Accessibility label for add superscript formatting button")
             case .subscript:
-                return WMFLocalizedString("edit-subscript-title", value: "Subscript", comment: "Title for subscript button")
+                return WMFLocalizedString("edit-subscript-accessibility-label", value: "Add subscript formatting", comment: "Accessibility label for add subscript formatting button")
             case .underline:
-                return WMFLocalizedString("edit-underline-title", value: "Underline", comment: "Title for underline button")
+                return WMFLocalizedString("edit-underline-accessibility-label", value: "Add underline", comment: "Accessibility label for add underline button")
             case .strikethrough:
-                return WMFLocalizedString("edit-strikethrough-title", value: "Strikethrough", comment: "Title for strikethrough button")
+                return WMFLocalizedString("edit-strikethrough-accessibility-label", value: "Add strikethrough", comment: "Accessibility label for add strikethrough button")
             case .decreaseIndentDepth:
-                return WMFLocalizedString("edit-decrease-indent-depth-title", value: "Decrease indent depth", comment: "Title for decrease indent depth button")
+                return WMFLocalizedString("edit-decrease-indent-depth-accessibility-label", value: "Decrease indent depth", comment: "Accessibility label for decrease indent depth button")
             case .increaseIndentDepth:
-                return WMFLocalizedString("edit-increase-indent-depth-title", value: "Increase indent depth", comment: "Title for increase indent depth button")
+                return WMFLocalizedString("edit-increase-indent-depth-accessibility-label", value: "Increase indent depth", comment: "Accessibility label for increase indent depth button")
             case .directionUp:
-                return WMFLocalizedString("edit-direction-up-title", value: "Move cursor up", comment: "Title for move cursor up button")
+                return WMFLocalizedString("edit-direction-up-accessibility-label", value: "Move cursor up", comment: "Accessibility label for move cursor up button")
             case .directionDown:
-                return WMFLocalizedString("edit-direction-down-title", value: "Move cursor down", comment: "Title for move cursor down button")
+                return WMFLocalizedString("edit-direction-down-accessibility-label", value: "Move cursor down", comment: "Accessibility label for move cursor down button")
             case .directionLeft:
-                return WMFLocalizedString("edit-direction-left-title", value: "Move cursor left", comment: "Title for move cursor left button")
+                return WMFLocalizedString("edit-direction-left-accessibility-label", value: "Move cursor left", comment: "Accessibility label for move cursor left button")
             case .directionRight:
-                return WMFLocalizedString("edit-direction-right-title", value: "Move cursor right", comment: "Title for move cursor right button")
+                return WMFLocalizedString("edit-direction-right-accessibility-label", value: "Move cursor right", comment: "Accessibility label for move cursor right button")
             case .findInPage:
                 return CommonStrings.findInPage
             case .progress:
@@ -114,34 +84,44 @@ struct SectionEditorButton {
             case .textSize:
                 return nil
             case .textFormattingMenu:
-                return WMFLocalizedString("edit-text-formatting-title", value: "Show text formatting menu", comment: "Title for text formatting menu")
+                return WMFLocalizedString("edit-text-formatting-accessibility-label", value: "Show text formatting menu", comment: "Accessibility label for text formatting menu")
             case .textStyleMenu:
-                return WMFLocalizedString("edit-text-style-title", value: "Show text style menu", comment: "Title for text style menu")
+                return WMFLocalizedString("edit-text-style-accessibility-label", value: "Show text style menu", comment: "Accessibility label for text style menu")
             }
-        }
-        
-        var accessibilityLabel: String? {
-            guard isFormatting else {
-                return title
-            }
-            guard let title = title else {
-                return nil
-            }
-            let format = WMFLocalizedString("edit-remove-formatting-accessibility-label", value: "Add “%1$@” formatting", comment: "Adds formatting. Type of formatting replaces %1$@/")
-            return String.localizedStringWithFormat(format, title)
         }
         
         var selectedAccessibilityLabel: String? {
-            guard isFormatting else {
-                return title
+            switch self {
+            case .li(let ordered):
+                return ordered ? WMFLocalizedString("edit-ordered-list-remove-accessibility-label", value: "Remove ordered list from current line", comment: "Accessibility label for remove ordered list button") : WMFLocalizedString("edit-unordered-list-remove-accessibility-label", value: "Remove unordered list from current line", comment: "Accessibility label for remove unordered list button")
+            case .signature:
+                return WMFLocalizedString("edit-signature-remove-accessibility-label", value: "Remove signature syntax", comment: "Acessibility label for remove signature syntax button")
+            case .link:
+                return WMFLocalizedString("edit-link-remove-accessibility-label", value: "Remove link syntax", comment: "Accessibility label for the button that removes link syntax to the current selection")
+            case .bold:
+                return WMFLocalizedString("edit-bold-remove-accessibility-label", value: "Remove bold formatting", comment: "Accessibility label for the button that removes bold formatting to the current selection")
+            case .italic:
+                return WMFLocalizedString("edit-italic-remove-accessibility-label", value: "Remove italic formatting", comment: "Accessibility label for italic button")
+            case .reference:
+                return WMFLocalizedString("edit-reference-remove-accessibility-label", value: "Remove reference syntax", comment: "Accessibility label for remove reference syntax button")
+            case .template:
+                return WMFLocalizedString("edit-template-remove-accessibility-label", value: "Remove template syntax", comment: "Accessibility label for remove template syntax button")
+            case .comment:
+                return WMFLocalizedString("edit-comment-remove-accessibility-label", value: "Remove comment syntax", comment: "Accessibility label for remove comment syntax button")
+            case .superscript:
+                return WMFLocalizedString("edit-superscript-remove-accessibility-label", value: "Remove superscript formatting", comment: "Accessibility label for remove superscript formatting button")
+            case .subscript:
+                return WMFLocalizedString("edit-subscript-remove-accessibility-label", value: "Remove subscript formatting", comment: "Accessibility label for remove subscript formatting button")
+            case .underline:
+                return WMFLocalizedString("edit-underline-remove-accessibility-label", value: "Remove underline", comment: "Accessibility label for remove underline button")
+            case .strikethrough:
+                return WMFLocalizedString("edit-strikethrough-remove-accessibility-label", value: "Remove strikethrough", comment: "Accessibility label for remove strikethrough button")
+            default:
+                return accessibilityLabel
             }
-            guard let title = title else {
-                return nil
-            }
-            let format = WMFLocalizedString("edit-add-formatting-accessibility-label", value: "Remove “%1$@” formatting", comment: "Removes formatting. Type of formatting replaces %1$@/")
-            return String.localizedStringWithFormat(format, title)
         }
         
+      
         init?(identifier: Int) {
             switch identifier {
             case 1:

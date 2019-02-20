@@ -44,14 +44,19 @@
 "about-translators-details" = "Diterjemahkan oleh relawan di $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Anda tidak dapat menerbitkan suntingan ini. Silakan kembali dan mengubahnya.";
-"abuse-filter-disallow-notable" = "Wikipedia adalah sebuah ensiklopedia dan netral, konten penting termasuk di sini.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Penyaring otomatis telah mengidentifikasi suntingan ini sebagai berpotensi tidak konstruktif, atau upaya vandalisme.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Mengosongkan artikel atau spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Mengetik dalam SEMUA HURUF BESAR";
 "abuse-filter-warning-heading" = "Ini tampak seperti suntingan yang tidak konstruktif. Apakah Anda yakin ingin menerbitkannya?";
 "abuse-filter-warning-irrelevant" = "Pranala luar atau gambar yang tidak relevan";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Karakter beruuuulang";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Suntingan Anda dapat berisi satu atau lebih hal berikut:";
 "account-creation-captcha-cannot-see-image" = "Tidak dapat melihat gambar? $1";
 "account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru...";
@@ -69,6 +74,8 @@
 "action-add-to-reading-list" = "Tambahkan ke daftar bacaan";
 "action-add-to-reading-list-short" = "Tambah ke daftar";
 "action-cancel" = "Batal";
+// Fuzzy
+"action-find-in-page" = "Cari di halaman";
 "action-move-to" = "Pindahkan ke...";
 "action-move-to-reading-list" = "Pindahkan ke daftar bacaan";
 "action-read" = "Baca";
@@ -79,11 +86,12 @@
 "action-saved-accessibility-notification" = "Artikel tersimpan untuk nanti";
 "action-share" = "Bagikan";
 "action-sort" = "Urutkan";
+// Fuzzy
+"action-undo" = "Urungkan";
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
-"alert-no-internet" = "Tidak ada sambungan internet";
 "announcements-dismiss" = "Tutup";
 "app-store-keywords" = "Wikipedia, referensi, wiki, ensiklopedia, info, pengetahuan, penelitian, informasi, mengeksplorasi, belajar";
 "app-store-release-notes" = "Sepenuhnya dapat disesuaikan dan lebih mudah membaca umpan Jelajahi. Lokalisasi, peningkatan kinerja, dan perbaikan kesalahan.";
@@ -122,7 +130,6 @@
 "button-saved-remove" = "Hapus dari tersimpan";
 "button-skip" = "Lewati";
 "cancel" = "Batal";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
@@ -172,7 +179,6 @@
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
-"empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
 "empty-no-reading-lists-message" = "Buat daftar untuk tempat yang harus dikunjungi, topik favorit dan banyak lagi";
@@ -250,7 +256,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Hidupkan Jelajahi";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ini akan mengganti tab Pengaturan dengan tab Jelajahi, Anda dapat mengakses Pengaturan dari bagian atas tab Jelajahi dengan mengetuk ikon roda gigi";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Hidupkan tab Jelajahi?";
-"action-undo" = "Urungkan";
 "explore-hide-card-prompt" = "Sembunyikan kartu ini";
 "explore-main-page-description" = "Halaman utama proyek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -295,14 +300,12 @@
 "field-token-title" = "Kode verifikasi";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
-"action-find-in-page" = "Cari di halaman";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Atur ulang";
 "forgot-password-email-sent" = "Sebuah surel dengan instruksi penyetelan ulang kata sandi telah dikirim";
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
 "forgot-password-title" = "Setel ulang kata sandi";
 "forgot-password-username-or-email-title" = "Atau";
-"gfdl" = "GFDL";
 "history-clear-all" = "Kosongkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
@@ -382,11 +385,11 @@
 "on-this-day-footer-with-event-count" = "$1 peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
-"open-link-cancel" = "Batal";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
 "page-edit-history" = "Semua riwayat suntingan";
 "page-history-title" = "Versi terdahulu artikel";
 "page-issues" = "Masalah halaman";
+// Fuzzy
 "page-last-edited" = "Disunting $1 hari yang lalu";
 "page-location" = "Lihat di peta";
 "page-protected-autoconfirmed" = "Halaman ini telah dilindungi sebagian.";
@@ -394,6 +397,7 @@
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "page-protected-other" = "Halaman ini telah dilindungi dengan tingkat sebagai berikut: $1";
 "page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
+// Fuzzy
 "page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
 "page-similar-titles" = "Halaman serupa";
 "page-talk-page" = "Lihat halaman pembicaraan";
@@ -451,6 +455,7 @@
 "reading-list-deleted-accessibility-notification" = "Daftar bacaan dihapus";
 "reading-list-do-not-keep-button-title" = "Tidak, hapus artikel dari perangkat";
 "reading-list-entry-limit-exceeded-message" = "Harap kurangi jumlah artikel Anda dalam daftar ini menjadi $1 untuk melanjutkan sinkronisasi semua artikel dalam daftar ini.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Anda telah melampaui batas $1 artikel per akun.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel|Artikel}} tidak dapat ditambahkan ke daftar ini. Anda telah mencapai batas $2 artikel per daftar bacaan untuk $3";
 "reading-list-exists-with-same-name" = "Nama daftar bacaan sudah digunakan";
@@ -464,6 +469,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Ada batas 5.000 artikel yang tidak diurutkan. Silakan urutkan artikel Anda yang ada ke dalam daftar untuk melanjutkan sinkronisasi artikel yang tidak diurutkan.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Batasan untuk artikel yang tidak diurutkan";
 "reading-list-list-limit-exceeded-message" = "Daftar bacaan ini dan artikel yang disimpan di dalamnya tidak akan disinkronkan, harap kurangi jumlah daftar Anda menjadi $1 untuk melanjutkan sinkronisasi daftar ini.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Anda telah melampaui batas $1 daftar bacaan per akun.";
 "reading-list-list-limit-reached" = "Anda telah mencapai batas $1 daftar bacaan per akun";
 "reading-list-login-button-title" = "Masuk log untuk menyinkronkan artikel tersimpan Anda";
@@ -646,7 +652,6 @@
 "welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui bagaimana Anda menggunakannya. Data yang dikumpulkan bersifat anonim.";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan penggunaan";
 "wikitext-download-failed" = "Tidak dapat memperoleh revisi terbaru.";
-"wikitext-download-success" = "Konten dimuat.";
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
@@ -658,6 +663,4 @@
 "wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";

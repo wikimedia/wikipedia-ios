@@ -31,6 +31,7 @@
 "about-translators-details" = "$1 का स्वयंसेवकहरूद्वारा अनुवाद गरिएको";
 "about-wikimedia-foundation" = "विकिमिडिया फाउन्डेसन";
 "about-wikipedia" = "विकिपिडिया";
+// Fuzzy
 "abuse-filter-disallow-heading" = "यस सम्पादनलाई प्रकाशन गर्न सक्नुहुन्न। कृपया पछाडि जानुहोस् र यसलाई परिवर्तन गर्नुहोस्।";
 "account-creation-captcha-request-account" = "खाता अनुरोध गर्नुहोस् ।";
 "account-creation-create-account" = "खाता खोल्नुहोस्";
@@ -41,6 +42,8 @@
 "action-add-to" = "यहाँ थप्नुहोस्…";
 "action-add-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-cancel" = "रद्द गर्नुहोस्";
+// Fuzzy
+"action-find-in-page" = "पानामा खोज्नुहोस्";
 "action-move-to" = "मा सार्ने…";
 "action-move-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-read" = "पढ्नुहोस्";
@@ -73,7 +76,6 @@
 "button-saved-remove" = "सङ्ग्रह गरिएकोबाट हटाउनुहोस्";
 "button-skip" = "छोड्नुहोस्";
 "cancel" = "रद्द गर्नुहोस्";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
 "description-help-about-title" = "बारेमा";
 "description-help-about-wikidata" = "विकिपिडियाको बारेमा";
@@ -92,7 +94,6 @@
 "empty-no-article-message" = "माफ गर्नुहोस् लेख खोल्न सकिएन";
 "empty-no-feed-action-message" = "तपाईँले सङ्ग्रह गरिसकिएका पृष्ठहरू पढ्न सक्नुहुने छ";
 "empty-no-feed-message" = "तपाईँलाई सिफारिस गरिएका लेखहरू तपाईँसँग इन्टरनेट भएको बेला देखिने छ";
-"empty-no-feed-title" = "इन्टरनेट जडान छैन";
 "empty-no-history-title" = "देखाउने इतिकास छैन";
 "empty-no-saved-pages-message" = "पछि या अफलाइनमा पढ्न पृष्ठहरू सङ्ग्रहर गर्नुहोस्";
 "empty-no-saved-pages-title" = "कुनै पनि सङ्ग्रहगरिएका पृष्ठहरू छैनन्";
@@ -142,12 +143,10 @@
 "field-token-title" = "प्रमाणिकरण कोड";
 "field-username-placeholder" = "प्रयोगकर्ता नाम प्रविष्टि गर्नुहोस्";
 "field-username-title" = "प्रयोगकर्ताको नाम";
-"action-find-in-page" = "पानामा खोज्नुहोस्";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "पूर्वरूपमा फर्काउनुहोस्";
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";
 "forgot-password-username-or-email-title" = "अथवा";
-"gfdl" = "GFDL";
 "history-clear-all" = "खाली गर्नुहोस्";
 "history-clear-cancel" = "रद्द गर्नुहोस्";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
@@ -212,10 +211,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
-"open-link-cancel" = "रद्द गर्नुहोस्";
 "page-edit-history" = "पूर्ण सम्पादन इतिहास";
 "page-history-title" = "लेखको इतिहास";
 "page-issues" = "पृष्ठका समस्याहरू";
+// Fuzzy
 "page-last-edited" = "$1 दिन पहिले सम्पादन गरिएको";
 "page-location" = "कुनै नक्सामा हेर्नुहोस्";
 "page-protected-autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
@@ -223,6 +222,7 @@
 "page-protected-can-not-edit-title" = "यो पृष्ठ सुरक्षण गरिएको छ";
 "page-protected-other" = "निम्न स्तरसम्म यस पृष्ठलाई सुरक्षण गरिएको छ: $1";
 "page-protected-sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
+// Fuzzy
 "page-read-in-other-languages" = " $1 अरु भाषाहरूमा उपलब्ध";
 "page-similar-titles" = "मिल्दोजुल्दो पृष्ठहरू";
 "page-talk-page" = "वार्तालाप पृष्ठ हेर्नुहोस्";
@@ -261,7 +261,7 @@
 "reverted-edit-thanks-for-editing-title" = "विकिपिडियामा सम्पादन गर्नुभएको धन्यवाद!";
 "saved-all-articles-title" = "सबै लेखहरू";
 "saved-search-default-text" = "खोजिएका पृष्ठहरू सुरक्षित";
-"saved-title" = "संग्रह गर्ने";
+"saved-title" = "सङ्ग्रह गर्ने";
 "search-button-accessibility-label" = "विकिपिडियामा खोज्नुहोस्";
 "search-clear-title" = "खाली";
 "search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
@@ -311,9 +311,9 @@
 "welcome-notifications-tell-me-more-title" = "जानकारीको बारेमा थप";
 "welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। सङकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
 "welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
-"wikitext-download-success" = "सामग्री लोड गरियो ।";
 "wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
+// Fuzzy
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";

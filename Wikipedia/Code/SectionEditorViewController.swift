@@ -76,13 +76,13 @@ class SectionEditorViewController: UIViewController {
         let configuration = WKWebViewConfiguration()
         let schemeHandler = WMFURLSchemeHandler.shared()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
-        
+        let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
-        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme) { [weak self] in
+        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
@@ -159,11 +159,11 @@ class SectionEditorViewController: UIViewController {
                         return
                 }
                 
-                self.editFunnel?.logStart()
+                self.editFunnel?.logStart(section.article?.url.wmf_language)
                 
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
-                    allowedGroups.count > 0 {
+                    !allowedGroups.isEmpty {
                     let message: String
                     if allowedGroups.contains("autoconfirmed") {
                         message = WMFLocalizedString("page-protected-autoconfirmed", value: "This page has been semi-protected.", comment: "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.")
@@ -225,8 +225,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.section = self.section
                     vc.wikitext = wikitext
                     vc.delegate = self
-                    // TODO: Set funnels
-                    // TODO: Apply theme
+                    vc.funnel = self.editFunnel
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
@@ -292,8 +291,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
-        // TODO: Set funnels
-        // TODO: Apply theme
+        vc.funnel = self.editFunnel
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -310,11 +308,4 @@ extension SectionEditorViewController: Themeable {
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
     }
-}
-
-// MARK: - Old localized strings
-
-extension SectionEditorViewController {
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, nil, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved")
-    // WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, nil, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited")
 }

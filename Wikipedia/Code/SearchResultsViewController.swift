@@ -18,6 +18,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     func reload() {
         collectionView.reloadData()
+        updateEmptyState()
     }
     
     var searchSiteURL: URL? = nil
@@ -26,11 +27,15 @@ class SearchResultsViewController: ArticleCollectionViewController {
         guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
             return false
         }
-        return results.count > 0 && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
+        return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
     }
     
     override var eventLoggingCategory: EventLoggingCategory {
         return .search
+    }
+    
+    override func isExternalURL(at indexPath: IndexPath) -> Bool {
+        return results[indexPath.item].titleNamespace?.intValue ?? 0 != 0
     }
     
     override func articleURL(at indexPath: IndexPath) -> URL? {

@@ -230,19 +230,5 @@
 			<string>記事を削除しますか？</string>
 		</dict>
 	</dict>
-	<key>wikitext-upload-save-terms-cc-by-sa-and-gfdl</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>other</key>
-			<string>変更内容を保存すると、あなたは %1$@ に同意し、自分の投稿内容を %2$@ ライセンスのもとで公開することに同意したと見なされます。</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

@@ -22,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fI-DJ-2eF" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="527"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="520"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bAX-n7-9aq">
-                                                <rect key="frame" x="43.5" y="0.0" width="288" height="507"/>
+                                                <rect key="frame" x="43.5" y="0.0" width="288" height="500"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="H2h-I4-15C">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="163"/>
@@ -161,8 +161,8 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZbI-A8-0p9">
-                                                        <rect key="frame" x="0.0" y="419" width="288" height="88"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZbI-A8-0p9">
+                                                        <rect key="frame" x="0.0" y="419" width="288" height="81"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JF6-Dm-AdC" userLabel="Spacer view">
                                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="0.0"/>
@@ -172,34 +172,36 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Td-fr-eA2" userLabel="Divider view">
-                                                                <rect key="frame" x="0.0" y="20" width="288" height="1"/>
+                                                                <rect key="frame" x="0.0" y="10" width="288" height="1"/>
                                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="62E-DT-zBt"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgO-JK-gnL">
-                                                                <rect key="frame" x="0.0" y="41" width="288" height="13.5"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <gestureRecognizers/>
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum and stuff..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ajI-ie-t0i">
+                                                                <rect key="frame" x="0.0" y="21" width="288" height="25"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" placeholder="YES" id="ivo-ql-zVt"/>
+                                                                </constraints>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                                <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="lMd-5N-ucz" appends="YES" id="YwG-Jk-f01"/>
-                                                                </connections>
-                                                            </label>
-                                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocD-KD-f6u">
-                                                                <rect key="frame" x="0.0" y="74.5" width="288" height="13.5"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                            </textView>
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum and stuff..." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeI-SY-JgQ">
+                                                                <rect key="frame" x="0.0" y="56" width="288" height="25"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <gestureRecognizers/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" placeholder="YES" id="7X9-8Z-vG0"/>
+                                                                </constraints>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                                 <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="ett-vg-bCK" appends="YES" id="7Zh-Y1-17c"/>
+                                                                    <outletCollection property="gestureRecognizers" destination="tK8-DQ-YSj" appends="YES" id="ChZ-ZL-aH7"/>
                                                                 </connections>
-                                                            </label>
+                                                            </textView>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
@@ -242,8 +244,8 @@
                         <outlet property="addToWatchlistToggle" destination="FAR-zq-Bq9" id="GP4-UY-MCP"/>
                         <outlet property="captchaContainer" destination="bEh-0m-jAS" id="XJu-Rn-30B"/>
                         <outlet property="editSummaryVCContainer" destination="3cs-Ud-1l5" id="P8A-dG-3X8"/>
-                        <outlet property="licenseLoginLabel" destination="ocD-KD-f6u" id="CT4-DO-tps"/>
-                        <outlet property="licenseTitleLabel" destination="sgO-JK-gnL" id="97S-9p-sL6"/>
+                        <outlet property="licenseLoginTextView" destination="JeI-SY-JgQ" id="Oox-6h-fYS"/>
+                        <outlet property="licenseTitleTextView" destination="ajI-ie-t0i" id="1LO-ir-Oam"/>
                         <outlet property="minorEditButton" destination="Pxq-wG-5IZ" id="9cN-m2-oA8"/>
                         <outlet property="minorEditLabel" destination="rf9-ar-bHj" id="Zf5-sk-JLN"/>
                         <outlet property="minorEditToggle" destination="Wq7-Dh-cIU" id="AdV-xV-hWl"/>
@@ -258,17 +260,14 @@
                         <outletCollection property="dividerViews" destination="4lL-3a-u6s" collectionClass="NSMutableArray" id="paH-Ge-UGx"/>
                         <outletCollection property="dividerViews" destination="hKQ-rD-xWx" collectionClass="NSMutableArray" id="gBD-PN-sYk"/>
                         <outletCollection property="dividerHeightConstraits" destination="DPy-ju-0C2" collectionClass="NSMutableArray" id="rRm-At-WUU"/>
+                        <outletCollection property="textViews" destination="JeI-SY-JgQ" collectionClass="NSMutableArray" id="jMG-2q-Qj5"/>
+                        <outletCollection property="textViews" destination="ajI-ie-t0i" collectionClass="NSMutableArray" id="GoB-1T-ZYf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lKe-tq-9vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="lMd-5N-ucz">
+                <tapGestureRecognizer id="tK8-DQ-YSj">
                     <connections>
-                        <action selector="licenseTitleLabelTapped:" destination="YCc-it-nqb" id="Mn9-HM-b95"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="ett-vg-bCK">
-                    <connections>
-                        <action selector="licenseLoginLabelTapped:" destination="YCc-it-nqb" id="Z62-sU-qH2"/>
+                        <action selector="licenseLoginLabelTapped:" destination="YCc-it-nqb" id="sop-eE-8fm"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

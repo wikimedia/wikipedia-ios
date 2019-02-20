@@ -66,6 +66,40 @@
 			<string>%1$d историски настани</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Изменето вчера</string>
+			<key>other</key>
+			<string>Изменето пред %1$d дена</string>
+			<key>zero</key>
+			<string>Изменето денес</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Достапно на уште %1$d јазик</string>
+			<key>other</key>
+			<string>Достапно на уште %1$d јазици</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +116,22 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ја надминавте границата од %1$d статија.</string>
+			<key>other</key>
+			<string>Ја надминавте границата од %1$d статии.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +146,22 @@
 			<string>Статијата не може да се додаде во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
 			<key>other</key>
 			<string>Статиите не можат да се додадат во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ја достигнавте границата од %1$d список за читање</string>
+			<key>other</key>
+			<string>Ја достигнавте границата од %1$d списоци за читање</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

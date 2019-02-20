@@ -42,7 +42,7 @@ public class ReadingList: NSManagedObject {
                 continue
             }
         }
-        if validArticleKeys.count > 0 {
+        if !validArticleKeys.isEmpty {
             let articleKeysToAdd = validArticleKeys.subtracting(previousKeys)
             let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
             countOfEntries = Int64(validEntries.count)

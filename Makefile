@@ -49,7 +49,7 @@ LOCAL_CSS_PREFIX="http://127.0.0.1:8080/w"
 CSS_PREFIX=$(PROD_CSS_PREFIX)
 WEB_ASSETS_DIR = "Wikipedia/assets"
 
-CSS_ORIGIN = $(CSS_PREFIX)/load.php?only=styles&target=mobile&skin=minerva&modules=skins.minerva.base.reset|skins.minerva.content.styles|ext.math.styles|ext.pygments|mobile.app
+CSS_ORIGIN = $(CSS_PREFIX)/load.php?only=styles&target=mobile&skin=minerva&modules=skins.minerva.base.styles|skins.minerva.content.styles|ext.math.styles|ext.pygments|mobile.app
 
 define get_css_module
 curl -s -L -o
@@ -88,9 +88,6 @@ get-node: brew-install
 
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 BUNDLER = "$(shell which bundle 2/dev/null)"
-
-get-ruby: ##Install Ruby via rbenv and Homebrew (to remove need for sudo)
-	@./scripts/setup_rbenv_and_ruby
 	
 bundle-install: ##Install all gems using Bundler
 bundle-install: bundler-check

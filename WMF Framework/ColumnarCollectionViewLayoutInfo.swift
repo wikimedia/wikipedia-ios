@@ -98,15 +98,15 @@ public class ColumnarCollectionViewLayoutInfo {
             }
         }
         
-        if invalidatedHeaderIndexPaths.count > 0 {
+        if !invalidatedHeaderIndexPaths.isEmpty {
             context.invalidateSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader, at: invalidatedHeaderIndexPaths)
         }
         
-        if invalidatedItemIndexPaths.count > 0 {
+        if !invalidatedItemIndexPaths.isEmpty {
             context.invalidateItems(at: invalidatedItemIndexPaths)
         }
         
-        if invalidatedFooterIndexPaths.count > 0 {
+        if !invalidatedFooterIndexPaths.isEmpty {
             context.invalidateSupplementaryElements(ofKind: UICollectionView.elementKindSectionFooter, at: invalidatedFooterIndexPaths)
         }
     }

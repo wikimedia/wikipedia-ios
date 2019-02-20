@@ -9,6 +9,7 @@
 // Author: Mads Haupt
 // Author: Mortenelling
 // Author: Nemo bis
+// Author: Rho
 // Author: Saederup92
 // Author: Sarrus
 
@@ -33,15 +34,17 @@
 "about-translators-details" = "Oversat af frivillige på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Du kan ikke udgive denne redigering. Gå venligst tilbage og ændr den.";
-"abuse-filter-disallow-notable" = "Wikipedia er en encyklopædi. Kun neutralt og relevant indhold hører til her.";
+"abuse-filter-disallow-heading" = "Du kan ikke udgive denne redigering";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Et automatisk filter har identificeret denne redigering som potentielt ukonstruktiv eller forsøg på hærværk.";
-"abuse-filter-warning-blanking" = "Tømning af artikler eller spam";
+"abuse-filter-warning-blanking" = "Tømning af afsnit eller hele artikler";
+// Fuzzy
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOGSTAVER";
 "abuse-filter-warning-heading" = "Dette ligner en redigering som ikke er konstruktiv. Er du sikker på at du ønsker at udgive den?";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne links eller billeder";
-"abuse-filter-warning-repeat" = "Gentaaaaagende tegn";
-"abuse-filter-warning-subheading" = "Din redigering kan indeholde en eller flere af følgende:";
+"abuse-filter-warning-repeat" = "Gentagende tegn";
+"abuse-filter-warning-spam" = "Tilføjelse af spam til artikler";
+"abuse-filter-warning-subheading" = "Din redigering kan indeholde:";
 "account-creation-captcha-cannot-see-image" = "Kan du ikke se billedet? $1";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
 "account-creation-captcha-request-account" = "Anmod om konto.";
@@ -58,6 +61,8 @@
 "action-add-to-reading-list" = "Tilføj til læseliste";
 "action-add-to-reading-list-short" = "Tilføj til liste";
 "action-cancel" = "Annuller";
+// Fuzzy
+"action-find-in-page" = "Søg på siden";
 "action-move-to" = "Flyt til ...";
 "action-move-to-reading-list" = "Flyt til læseliste";
 "action-read" = "Læs";
@@ -68,11 +73,12 @@
 "action-saved-accessibility-notification" = "Artikel gemt til senere";
 "action-share" = "Del";
 "action-sort" = "Sorter";
+// Fuzzy
+"action-undo" = "Fortryd";
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
-"alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
 "app-store-subtitle" = "Den frie encyklopædi";
 "appearance-settings-adjust-text-sizing" = "Juster størrelse for artikelteksten";
@@ -108,7 +114,6 @@
 "button-saved-remove" = "Fjern fra gemte";
 "button-skip" = "Udelad";
 "cancel" = "Afbryd";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Luk";
 "compass-direction" = "mod klokken $1";
@@ -135,10 +140,15 @@
 "description-welcome-concise-title" = "Gør det kort";
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "dim-images" = "Mørklæg billeder";
+"edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
 "edit-minor-learn-more-text" = "Lær mere om mindre ændringer";
 "edit-minor-text" = "Dette er en mindre ændring";
 "edit-published-button-title" = "Udført";
 "edit-published-subtitle" = "Du har lige gjort Wikipedia bedre for alle";
+"edit-reference-accessibility-label" = "Tilføj referencesyntaks";
+"edit-reference-remove-accessibility-label" = "Fjern referencesyntaks";
+"edit-signature-accessibility-label" = "Tilføj signatursyntaks";
+"edit-signature-remove-accessibility-label" = "Fjern signatursyntaks";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -151,7 +161,6 @@
 "empty-no-article-message" = "Beklager, kunne ikke indlæse artiklen";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
-"empty-no-feed-title" = "Ingen internetforbindelse";
 "empty-no-history-message" = "Hold styr på hvad du har læst her";
 "empty-no-history-title" = "Ingen historik at vise";
 // Fuzzy
@@ -179,7 +188,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle “%@” kort";
 "explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle begivenheder";
-"action-undo" = "Fortryd";
 "explore-hide-card-prompt" = "Skjul dette kort";
 "explore-main-page-description" = "Hovedside for Wikimedia-projekt";
 "explore-main-page-heading" = "I dag på Wikipedia";
@@ -202,6 +210,7 @@
 "explore-randomizer" = "Tilfældig artikel";
 "feed-news-notification-button-text" = "Slå notifikationer til";
 "feed-news-notification-text" = "Aktiver påmindelser for at blive påmindet af Wikipedia når artikler er populære i nyhederne.";
+"fetcher-error-generic" = "Noget gik galt. Prøv venligst igen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Adgangskoderne stemmer ikke overens";
 "field-alert-password-invalid" = "Ugyldig adgangskode";
@@ -224,14 +233,12 @@
 "field-token-title" = "Bekræftelseskode";
 "field-username-placeholder" = "indtast brugernavn";
 "field-username-title" = "Brugernavn";
-"action-find-in-page" = "Søg på siden";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Nulstil";
 "forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";
 "forgot-password-instructions" = "Udfyld et af felterne nedenfor for at modtage instruktioner om nulstilling af adgangskoden via e-mail";
 "forgot-password-title" = "Nulstil adgangskode";
 "forgot-password-username-or-email-title" = "Eller";
-"gfdl" = "GFDL";
 "history-clear-all" = "Ryd";
 "history-clear-cancel" = "Annuller";
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
@@ -301,6 +308,8 @@
 "new-password-instructions" = "Du loggede på med en midlertidig adgangskode. Angiv en ny adgangskode her for at færdiggøre login.";
 "new-password-title" = "Sæt din adgangskode";
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
+"no-internet-connection" = "Ingen internetforbindelse";
+"no-internet-connection-article-reload-button" = "Vend tilbage til seneste gemte version";
 "number-billions" = "$1 mia.";
 "number-millions" = "$1 mio.";
 "number-thousands" = "$1K";
@@ -309,18 +318,17 @@
 "on-this-day-footer" = "Flere historiske hændelser på denne dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra $2 Wikipedia";
 "on-this-day-title" = "På denne dag";
-"open-link-cancel" = "Annullér";
 "page-edit-history" = "Fuld redigeringshistorik";
 "page-history-title" = "Artikelhistorik";
 "page-issues" = "Problemer med siden";
-"page-last-edited" = "Redigeret for $1 dage siden";
+"page-last-edited" = "{{PLURAL:$1|0=Redigeret i dag|Redigeret i går|Redigeret for $1 dage siden}}";
 "page-location" = "Vis på et kort";
 "page-protected-autoconfirmed" = "Denne side er delvis beskyttet.";
 "page-protected-can-not-edit" = "Du har ikke rettigheder til at redigere denne side";
 "page-protected-can-not-edit-title" = "Denne side er beskyttet";
 "page-protected-other" = "Denne side er beskyttet til følgende niveauer: $1";
 "page-protected-sysop" = "Denne side er beskyttet.";
-"page-read-in-other-languages" = "Tilgængelig på $1 andre sprog";
+"page-read-in-other-languages" = "Tilgængelig på {{PLURAL:$1|$1 andet sprog|$1 andre sprog}}";
 "page-similar-titles" = "Lignende sider";
 "page-talk-page" = "Vis diskussionsside";
 "pictured" = "billedet";
@@ -548,19 +556,16 @@
 "welcome-send-data-sub-title" = "Hjælp Wikipedia Foundation med at gøre programmet bedre ved at oplyse os om, hvordan du bruger den. Data indsamles anonymt.";
 "welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
 "wikitext-download-failed" = "Ude af stand til at hente seneste version.";
-"wikitext-download-success" = "Indhold hentet.";
 "wikitext-downloading" = "Henter indhold...";
 "wikitext-preview-changes" = "Henter forhåndsvisning af dine ændringer…";
 "wikitext-preview-changes-none" = "Ingen ændringer blev foretaget som kan forhåndsvises.";
 "wikitext-preview-link-preview-description" = "Dette link leder til '$1'";
 "wikitext-preview-link-preview-title" = "Linkforhåndsvisning";
-"wikitext-preview-save-changes-title" = "Gem dine ændringer";
+"wikitext-preview-save-changes-title" = "Gem ændringer";
 "wikitext-upload-captcha-error" = "CAPTCHA kontrolfejl.";
 "wikitext-upload-captcha-needed" = "Brug for CAPTCHA bekræftelse.";
 "wikitext-upload-result-unknown" = "Ude af stand til at afgøre resultatet af wikitext upload.";
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
 "wikitext-upload-save-sign-in" = "Log på";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";

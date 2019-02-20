@@ -8,6 +8,7 @@
 // Author: Satdeep gill
 // Author: Sony dandiwal
 // Author: Tow
+// Author: ਗੁਰਪ੍ਰੀਤ ਹੁੰਦਲ
 // Author: ਪ੍ਰਚਾਰਕ
 
 "about-content-license" = "ਸਮੱਗਰੀ ਲਸੰਸ";
@@ -30,14 +31,17 @@
 "about-translators-details" = "$1 ਦੇ ਵਲੰਟੀਅਰਾੰ ਦੁਆਰਾ ਅਨੁਵਾਦ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
-"abuse-filter-disallow-heading" = "ਤੁਸੀਂ ਇਹ ਸੋਧ ਸਾਂਭ ਨਹੀਂ ਸਕਦੇ। ਕਿਰਪਾ ਕਰਕੇ ਪਿੱਛੇ ਜਾ ਕੇ ਇਸਨੂੰ ਬਦਲੋ ਜੀ।";
-"abuse-filter-disallow-notable" = "ਵਿਕੀਪੀਡੀਆ ਇੱਕ ਗਿਆਨਕੋਸ਼ ਹੈ ਅਤੇ ਸਿਰਫ਼ ਨਿਰਪੱਖ ਅਤੇ ਉੱਘੀ ਸਮੱਗਰੀ ਹੀ ਇਹਦਾ ਹਿੱਸਾ ਹੋ ਸਕਦੀ ਹੈ।";
+"abuse-filter-disallow-heading" = "ਤੁਸੀਂ ਇਸ ਸੋਧ ਨੂੰ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਕਰ ਸਕਦੇ";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "ਇੱਕ ਆਪੇ ਚੱਲਦੀ ਛਾਨਣੀ ਨੇ ਇਸ ਸੋਧ ਨੂੰ ਬੇਉਸਾਰੂ ਜਾਂ ਉਜਾੜੇ ਦੀ ਕੋਸ਼ਿਸ਼ ਵਜੋਂ ਪਛਾਣਿਆ ਹੈ।";
+// Fuzzy
 "abuse-filter-warning-blanking" = "ਖ਼ਾਲੀ ਕੀਤੇ ਲੇਖ ਜਾਂ ਊਲ-ਜਲੂਲ";
-"abuse-filter-warning-caps" = "ਸਾਰੇ ਵੱਡੇ ਅੱਖਰਾਂ 'ਚ ਲਿਖ ਰਿਹਾ ਹੈ";
+"abuse-filter-warning-caps" = "ਸਾਰੇ ਵੱਡੇ ਅੱਖਰ";
 "abuse-filter-warning-heading" = "ਇਹ ਇੱਕ ਬੇਉਸਾਰੂ ਸੋਧ ਜਾਪਦੀ ਹੈ, ਕੀ ਤੁਸੀਂ ਸੱਚੀਂ ਇਸਨੂੰ ਸਾਂਭਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "abuse-filter-warning-irrelevant" = "ਬੇਤੁਕੇ ਬਾਹਰੀ ਜੋੜ ਜਾਂ ਤਸਵੀਰਾਂ";
+// Fuzzy
 "abuse-filter-warning-repeat" = "ਦੁਹਰਾਏਏਏ ਚਿੰਨ";
+// Fuzzy
 "abuse-filter-warning-subheading" = "ਤੁਹਾਡੀ ਸੋਧ ਵਿੱਚ ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਇੱਕ ਜਾਂ ਇੱਕ ਤੋਂ ਵੱਧ ਹੋ ਸਕਦੇ ਹਨ:";
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-captcha-request-account" = "ਅਕਾਊਂਟ ਬੇਨਤੀ";
@@ -53,7 +57,6 @@
 "action-save" = "ਸਾਂਭੋ";
 "action-saved" = "ਸੰਭਾਲਿਆ";
 "action-share" = "ਸਾਂਝਾ ਕਰੋ";
-"alert-no-internet" = "ਇੱਥੇ ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ ਹੈ";
 // Fuzzy
 "announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";
 "article-about-title" = "ਇਸ ਲੇਖ ਬਾਰੇ";
@@ -74,15 +77,15 @@
 "button-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
 "button-saved-remove" = "ਸੰਭਾਲਿਆਂ ਵਿੱਚੋਂ ਹਟਾਓ";
 "cancel" = "ਰੱਦ ਕਰੋ";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ਬੰਦ";
 "compass-direction" = "$1 ਵਜੇ";
+"edit-published" = "ਸੋਧ ਪ੍ਰਕਾਸ਼ਿਤ";
+"edit-published-button-title" = "ਮੁਕੰਮਲ";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-typos" = "ਹਿੱਜੇ ਸਹੀ ਕੀਤੇ";
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
 "empty-no-article-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਲੇਖ ਨਹੀਂ ਆ ਰਿਹਾ";
 "empty-no-feed-action-message" = "ਤੁਸੀੰ ਹਾਲੇ ਵੀ ਸੰਭਾਲੇ ਸਫ਼ੇ ਪੜ੍ਹ ਸਕਦੇ ਹੋ";
-"empty-no-feed-title" = "ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ";
 "empty-no-history-title" = "ਦਿਖਾਉਣ ਲਈ ਕੋਈ ਇਤਿਹਾਸ ਨਹੀੰ";
 "empty-no-saved-pages-message" = "ਸਫ਼ਿਆਂ ਨੂੰ ਬਾਅਦ ਵਿਚ ਵੇਖਣ ਲਾਇ ਸੰਭਾਲੋ, ਔਫਲਾਈਨ ਵੀ";
 "empty-no-saved-pages-title" = "ਹਾਲੇ ਤੱਕ ਕੋੲੀ ਸਫ਼ਾ ਨਹੀ ਸੰਭਾਲੇ ਗਏ";
@@ -90,6 +93,7 @@
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਰਲ਼ਵਾਂ ਲੇਖ";
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
+"explore-feed-preferences-hide-feed-cards-action-title" = "ਸਾਰੇ ਪੱਤੇ \"%@\" ਓਹਲੇ ਕਰੋ";
 "explore-main-page-heading" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ";
 // Fuzzy
 "explore-most-read-footer" = "ਸਾਰੇ ਚੋਟੀ ਦੇ ਲੇਖ";
@@ -109,8 +113,8 @@
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
-"field-new-password-title" = "ਨਵਾਂ ਪਾਸਵਰਡ:";
-"field-password-title" = "ਪਾਸਵਰਡ";
+"field-new-password-title" = "ਨਵਾਂ ਲੰਘ-ਸ਼ਬਦ:";
+"field-password-title" = "ਲੰਘ-ਸ਼ਬਦ";
 "forgot-password-username-or-email-title" = "ਜਾਂ";
 "history-clear-all" = "ਸਾਫ਼ ਕਰੋ";
 "history-clear-cancel" = "ਰੱਦ ਕਰੋ";
@@ -165,16 +169,17 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"open-link-cancel" = "ਰੱਦ ਕਰੋ";
 "page-edit-history" = "ਪੂਰਾ ਸੋਧ ਇਤੇਹਾਸ";
 "page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";
 "page-issues" = "ਸਫ਼ੇ ਸੰਬੰਧੀ ਮੁੱਦੇ";
+// Fuzzy
 "page-last-edited" = "$1 ਪਹਿਲਾੰ ਸੋਧਿਆ ਗਿਆ";
 "page-protected-autoconfirmed" = "ਇਹ ਸਫ਼ਾ ਨੀਮ-ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
 "page-protected-can-not-edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
 "page-protected-can-not-edit-title" = "ਇਹ ਸਫ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ";
 "page-protected-other" = "ਇਸ ਸਫ਼ੇ ਨੂੰ ਇਹਨਾਂ ਤਹਿਆਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ: $1";
 "page-protected-sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
+// Fuzzy
 "page-read-in-other-languages" = "$1 ਹੋਰ ਭਾਸ਼ਾਵਾੰ ਵਿੱਚ ਉਪਲਬਧ";
 "page-similar-titles" = "ੲਿੱਕੋ ਜਿਹੇ ਪੰਨੇ";
 "places-title" = "ਥਾਂਵਾਂ";
@@ -233,7 +238,6 @@
 "welcome-languages-add-button" = "ਕੋਈ ਹੋਰ ਭਾਸ਼ਾ ਪਾਓ";
 "welcome-volunteer-send-usage-reports" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
 "wikitext-download-failed" = "ਅਖ਼ੀਰਲੀ ਸੁਧਾਈ ਲਿਆਂਦੀ ਨਹੀਂ ਜਾ ਰਹੀ।";
-"wikitext-download-success" = "ਸਮੱਗਰੀ ਲੱਦੀ ਗਈ।";
 "wikitext-downloading" = "ਸਮੱਗਰੀ ਲੱਦ ਰਿਹਾ ਹੈ...";
 "wikitext-preview-changes" = "ਤੁਹਾਡੀਆਂ ਤਬਦੀਲੀਆਂ ਦੀ ਝਾਤ ਲਿਆਂਦੀ ਜਾ ਰਹੀ ਹੈ...";
 "wikitext-preview-changes-none" = "ਝਾਤ ਮਾਰਨ ਵਾਸਤੇ ਕੋਈ ਵੀ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ ਗਈਆਂ।";

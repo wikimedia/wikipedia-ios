@@ -21,14 +21,19 @@
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
 "about-wikimedia-foundation" = "ფონდი ვიკიმედია";
 "about-wikipedia" = "ვიკიპედია";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ამ ცვლილების გამოქვეყნება არ შეგიძლიათ. დაბრუნდით უკან და შეცვალეთ.";
-"abuse-filter-disallow-notable" = "ვიკიპედია მხოლოდ და მხოლოდ ნეიტრალური ენციკლოპედიაა.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "ავტომატურმა ფილტრმა ეს რედაქტირება მიიჩნია შესაძლო არაკონსტრუქციულად ან ვანდალიზმით მცდელობად.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "სტატიების დაცარიელება ან სპამი";
+// Fuzzy
 "abuse-filter-warning-caps" = "იკრიფება დიდ ასოებზე";
 "abuse-filter-warning-heading" = "თქვენი რედაქტირება არაკონსტრუქციულს ჰგავს, დარწმუნებული ხართ, რომ გსურთ მისი გამოქვეყნება?";
 "abuse-filter-warning-irrelevant" = "შეუსაბამო გარე ბმულები ან სურათები";
+// Fuzzy
 "abuse-filter-warning-repeat" = "სიმბოლოების გამეორება";
+// Fuzzy
 "abuse-filter-warning-subheading" = "თქვენი რედაქტირება შესაძლოა შეიცავდეს ერთ ან რამდენიმე შემდეგ ელემენტს:";
 "account-creation-captcha-obtaining" = "ახალი CAPTCHA-ს მიღება...";
 "account-creation-log-in" = "შესვლა.";
@@ -36,10 +41,11 @@
 "account-creation-missing-fields" = "ანგარიშის შესაქმნელად, თქვენ უნდა შეიყვანოთ მომხმარებლის სახელი, პაროლი და პაროლის დადასტურება.";
 "account-creation-passwords-mismatched" = "პაროლის ველები არ დაემთხვა.";
 "account-creation-saving" = "ინახება...";
+// Fuzzy
+"action-find-in-page" = "გვერდში ძიება";
 "action-read" = "კითხვა";
 "action-save" = "შენახვა";
 "action-saved" = "შენახულია";
-"alert-no-internet" = "ინტერნეტ-კავშირი არ არის";
 "announcements-dismiss" = "უარყოფა";
 "article-about-title" = "ამ სტატიის შესახებ";
 "article-languages-filter-placeholder" = "მოძებნე ენა";
@@ -57,7 +63,6 @@
 "button-save-for-later" = "შეინახეთ";
 "button-saved-for-later" = "შენახულია";
 "button-saved-remove" = "შენახულიდან წაშლა";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "დახურვა";
 "compass-direction" = "$1 საათზე";
 "edit-summary-choice-fixed-grammar" = "გრამატიკის შესწორება";
@@ -66,7 +71,6 @@
 "empty-no-article-message" = "უკაცრავად, სტატიის ჩატვირთვა ვერ მოხერხდა";
 "empty-no-feed-action-message" = "შეგიძლიათ იხილოთ შენახული გვერდები";
 "empty-no-feed-message" = "თქვენ შეძლებთ რეკომენდებული სტატიების ნახვას, როდესაც გექნებათ ინტერნეტი";
-"empty-no-feed-title" = "ინტერნეტ-კავშირი არ არის";
 "empty-no-history-message" = "შეინახეს ის, რასაც აქ კითხულობდით";
 "empty-no-history-title" = "სანახავი ისტორია არ არსებობს";
 "empty-no-saved-pages-message" = "შეინახეთ გვერდები მათ მოგვიანებით სანახავად";
@@ -103,7 +107,6 @@
 "field-token-title" = "დადასტურების კოდი";
 "field-username-placeholder" = "შეიყვანეთ მომხმარებლის სახელი";
 "field-username-title" = "მომხმარებლის სახელი";
-"action-find-in-page" = "გვერდში ძიება";
 "history-clear-all" = "გასუფთავება";
 "history-clear-cancel" = "გაუქმება";
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
@@ -154,16 +157,17 @@
 "number-billions" = "$1 მლრდ.";
 "number-millions" = "$1 მლნ.";
 "number-thousands" = "$1 ათ.";
-"open-link-cancel" = "გაუქმება";
 "page-edit-history" = "მთლიანი რედაქტირების ისტორია";
 "page-history-title" = "სტატიის ისტორია";
 "page-issues" = "გვერდის საკითხები";
+// Fuzzy
 "page-last-edited" = "რედაქტირებულია $1 დღის წინ";
 "page-protected-autoconfirmed" = "ეს გვერდი ნახევრად დაცულია.";
 "page-protected-can-not-edit" = "თქვენ არ გაქვთ ამ გვერდის რედაქტირების უფლება";
 "page-protected-can-not-edit-title" = "ეს გვერდი დაცულია";
 "page-protected-other" = "ეს გვერდი დაცულია შემდეგ დონეებზე: $1";
 "page-protected-sysop" = "ეს გვერდი სრულად დაცულია.";
+// Fuzzy
 "page-read-in-other-languages" = "ხელმისაწვდომია $1-სა და სხვა ენებზე";
 "page-similar-titles" = "მსგავსი გვერდები";
 "places-accessibility-group" = "$1 სტატიები";
@@ -214,7 +218,6 @@
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
 "wikitext-download-failed" = "უახლესი ვერსიის ხილვა შეუძლებელია.";
-"wikitext-download-success" = "შიგთავსი ჩაიტვირთა.";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-preview-changes" = "თქვენი ცვლილებების წინასწარი გადახედვის ჩვენება...";
 "wikitext-preview-changes-none" = "წინასწარ გადახედვისათვის არანაირი ცვლილება არ განხორციელებულა.";

@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
+class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
 
     fileprivate var mapView: MapView!
 
@@ -624,13 +624,13 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 do {
                     let articlesToShow = try moc.fetch(request)
                     self.articleKeyToSelect = articlesToShow.first?.key
-                    if articlesToShow.count > 0 {
+                    if !articlesToShow.isEmpty {
                         if (self.currentSearch?.region == nil) {
                             self.currentSearchRegion = self.region(thatFits: articlesToShow)
                             self.mapRegion = self.currentSearchRegion
                         }
                     }
-                    if articlesToShow.count == 0 {
+                    if articlesToShow.isEmpty {
                         self.wmf_showAlertWithMessage(WMFLocalizedString("places-no-saved-articles-have-location", value:"None of your saved articles have location information", comment:"Indicates to the user that none of their saved articles have location information"))
                     }
                 } catch let error {
@@ -649,7 +649,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         let nserror = error as NSError
                         if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
                             let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
-                            if (completions.count > 0) {
+                            if !completions.isEmpty {
                                 self.showDidYouMeanButton(search: completions[0])
                             }
                         }
@@ -1633,6 +1633,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         super.scrollViewInsetsDidChange()
         emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
     }
+
+    // MARK: HintPresenting
+
+    var hintController: HintController?
     
     func dismissCurrentArticlePopover() {
         guard let popover = selectedArticlePopover else {
@@ -1846,7 +1850,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch], isSearchDone: Bool) {
-        guard currentSearchString != "" || completions.count > 0 else {
+        guard currentSearchString != "" || !completions.isEmpty else {
             
             // Search is empty, run a default search
             
@@ -1889,7 +1893,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
             let searchText = searchBar.text ?? ""
-            if !searchText.wmf_hasNonWhitespaceText && recentSearches.count == 0 {
+            if !searchText.wmf_hasNonWhitespaceText && recentSearches.isEmpty {
                 setupEmptySearchOverlayView()
                 emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
                 searchSuggestionView.superview?.addSubview(emptySearchOverlayView)
@@ -1968,9 +1972,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
-        if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
+        if !searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
-        } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
+        } else if !searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection][0]
         }
     }
@@ -2083,7 +2087,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             return
         }
         
-        guard searchText.trimmingCharacters(in: .whitespaces).count > 0 else {
+        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
         
@@ -2269,6 +2273,7 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
+        hintController?.dismissHintDueToUserInteraction()
     }
     
     func regionDidChange() {

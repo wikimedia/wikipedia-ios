@@ -415,12 +415,20 @@ func importLocalizationsFromTWN(_ path: String) {
         var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders
         var englishPluralDictionary: NSMutableDictionary?
         for filename in contents {
-            guard let locale = filename.components(separatedBy: ".").first?.lowercased(), localeIsAvailable(locale) else {
+            guard let locale = filename.components(separatedBy: ".").first?.lowercased() else {
                 continue
             }
-            guard let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
+            
+            let localeFolder = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj"
+
+            guard localeIsAvailable(locale), let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
+                try? fm.removeItem(atPath: localeFolder)
                 continue
             }
+            
+            let stringsDictFilePath = "\(localeFolder)/Localizable.stringsdict"
+            let stringsFilePath = "\(localeFolder)/Localizable.strings"
+            
             let stringsDict = NSMutableDictionary(capacity: twnStrings.count)
             let strings = NSMutableDictionary(capacity: twnStrings.count)
             for (key, value) in twnStrings {
@@ -442,18 +450,12 @@ func importLocalizationsFromTWN(_ path: String) {
                     strings[key] = nativeLocalization
                 }
             }
-            let stringsFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings"
             if locale != "en" { // only write the english plurals, skip the main file
                 if strings.count > 0 {
                     try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
                 } else {
-                    do {
-                        try fm.removeItem(atPath: stringsFilePath)
-                    } catch { }
+                    try? fm.removeItem(atPath: stringsFilePath)
                 }
-                
-             
-
             } else {
                 englishPluralDictionary = stringsDict
             }
@@ -482,9 +484,6 @@ func importLocalizationsFromTWN(_ path: String) {
                 let folderURL = fileURLForFastlaneMetadataFolder(for: locale)
                 try? fm.removeItem(at: folderURL)
             }
-            
-            
-            let stringsDictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
             
             if stringsDict.count > 0 {
                 stringsDict.write(toFile: stringsDictFilePath, atomically: true)

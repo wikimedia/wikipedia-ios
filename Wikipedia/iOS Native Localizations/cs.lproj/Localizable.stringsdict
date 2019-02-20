@@ -66,6 +66,40 @@
 			<string>%1$d historické události</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Editováno včera</string>
+			<key>other</key>
+			<string>Editováno před %1$d dny</string>
+			<key>zero</key>
+			<string>Editováno dnes</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Dostupné v %1$d dalším jazyce</string>
+			<key>other</key>
+			<string>Dostupné v %1$d dalších jazycích</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +116,22 @@
 			<string>%1$d článků</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Překročili jste maximální limit %1$d článek na účet.</string>
+			<key>other</key>
+			<string>Překročili jste maximální limit %1$d článků na účet.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +146,22 @@
 			<string>Článek nelze do tohoto seznamu přidat. Dosáhli jste limitu %2$d článků pro seznam k přečtení %3$@</string>
 			<key>other</key>
 			<string>Článků nelze do tohoto seznamu přidat. Dosáhli jste limitu %2$d článků pro seznam k přečtení %3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Překročili jste maximální limit %1$d seznamu k přečtení na účet.</string>
+			<key>other</key>
+			<string>Překročili jste maximální limit %1$d seznamů k přečtení na účet.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

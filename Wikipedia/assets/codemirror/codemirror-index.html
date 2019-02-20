@@ -24,6 +24,8 @@
     const rangesIntersect = (range1, range2) => {
       if (range1.start > range2.start + (range2.end - range2.start)) return false
       if (range2.start > range1.start + (range1.end - range1.start)) return false
+      const isSelected = ((Math.abs(range1.start - range1.end) > 0) && (Math.abs(range2.start - range2.end) > 0))
+      if ((range1.start === range2.end) || (range1.end === range2.start) && isSelected) return false
       return true
     }
 
@@ -294,7 +296,7 @@
       if (typesArray.includes('em')) {
         result.push(buttonPayload('italic'))
       }
-      if (typesArray.includes('mw-link-ground')) {
+      if (typesArray.includes('mw-link-ground') || typesArray.includes('mw-template-link-ground')) {
         result.push(buttonPayload('link'))
       }
       if (typesArray.includes('mw-template-ground')) {
@@ -388,8 +390,9 @@
       })
     }
     
-    const setupCodemirror = (language, direction, themeName, callback) => {
+    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, callback) => {
       applyTheme(themeName)
+      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
       let xhr = new XMLHttpRequest()
       let url = `config/codemirror-config-${language}.json`
       xhr.open('GET', url, true)
@@ -444,19 +447,19 @@
       return string.split('').reverse().join('')
     }
     
-    const isSelectionWrappedWith = (openingMarkup, closingMarkup) => {
+    const selectionWrapInfo = (openingMarkup, closingMarkup) => {
       if (closingMarkup === undefined) {
         closingMarkup = openingMarkup
       }
       const selections = editor.listSelections()
       if (selections.length < 1) {
-        return false
+        return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
       }
       const selection = selections[0]
       const fromPos = selection.from()
       const toPos = selection.to()
       if (fromPos.line != toPos.line) {
-        return false
+        return {selectionLength: 0, beforeIndex: -1, afterIndex: -1}
       }
       const lineIndex = fromPos.line
       const line = editor.getLine(lineIndex)
@@ -464,7 +467,12 @@
       const after = line.substring(toPos.ch, line.length)
       const beforeIndex = reverseString(before).indexOf(reverseString(openingMarkup))
       const afterIndex = after.indexOf(closingMarkup)
-      return fromPos.ch == toPos.ch ? beforeIndex >= 0 && afterIndex >= 0 : beforeIndex == 0 && afterIndex == 0
+      return {selectionLength: toPos.ch - fromPos.ch, beforeIndex: beforeIndex, afterIndex: afterIndex}
+    }
+    
+    const isSelectionWrappedWith = (openingMarkup, closingMarkup) => {
+      const info = selectionWrapInfo(openingMarkup, closingMarkup)
+      return info.selectionLength == 0 ? info.beforeIndex >= 0 && info.afterIndex >= 0 : info.beforeIndex == 0 && info.afterIndex == 0
     }
     
     const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
@@ -498,8 +506,40 @@
     }
       
     const toggleMarkup = (button, openingMarkup, closingMarkup) => {
-      const hasMarkup = isSelectionWrappedWith(openingMarkup, closingMarkup)
-      if (hasMarkup) {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
+      const info = selectionWrapInfo(openingMarkup, closingMarkup)
+      const reversedInfo = selectionWrapInfo(closingMarkup, openingMarkup)
+      if (info.beforeIndex >= 0 && info.afterIndex >= 0) {
+        if (reversedInfo.beforeIndex == 0 && reversedInfo.afterIndex == 0) {
+          unwrapSelectionWith(closingMarkup, openingMarkup)
+        } else if (reversedInfo.beforeIndex >= 0 && reversedInfo.afterIndex >= 0 && reversedInfo.beforeIndex < info.beforeIndex && reversedInfo.afterIndex < info.afterIndex) { 
+          wrapSelectionWith(openingMarkup, closingMarkup)
+        } else if (info.selectionLength == 0) {
+          unwrapSelectionWith(openingMarkup, closingMarkup)
+        } else if (info.beforeIndex == 0 && info.afterIndex == 0) {
+          unwrapSelectionWith(openingMarkup, closingMarkup)
+        } else if (info.beforeIndex == 0 && info.afterIndex > 0) { // slide opening markup to the right
+          const selectedText = editor.getSelection()
+          const selectionRange = getSelectionRange(editor)
+          const replacement = `${selectedText}${openingMarkup}`
+          const line = selectionRange.line
+          const from = { line: line, ch: selectionRange.start - openingMarkup.length }
+          const to = { line: line, ch: selectionRange.end }
+          editor.replaceRange(replacement, from, to)
+        } else if (info.beforeIndex >= 0 && info.afterIndex == 0) { // slide closing markup to the left
+          const selectedText = editor.getSelection()
+          const selectionRange = getSelectionRange(editor)
+          const replacement = `${closingMarkup}${selectedText}`
+          const line = selectionRange.line
+          const from = { line: line, ch: selectionRange.start }
+          const to = { line: line, ch: selectionRange.end + closingMarkup.length }
+          editor.replaceRange(replacement, from, to)
+        } else {
+          wrapSelectionWith(closingMarkup, openingMarkup)
+        }
+      } else if (info.beforeIndex == 0 && info.afterIndex == 0)  {
         unwrapSelectionWith(openingMarkup, closingMarkup)
       } else {
         wrapSelectionWith(openingMarkup, closingMarkup)
@@ -510,7 +550,7 @@
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
-    wmf.setup = (language, direction, themeName, callback) => setupCodemirror(language, direction, themeName, callback)
+    wmf.setup = (language, direction, themeName, textSizeAdjustment, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
 
     const italicMarkup = "''"
@@ -702,7 +742,7 @@
         }
       },
       reference: () => {
-        expandTagSelectionAndToggleMarkup('reference', '<ref>', '</ref>')
+        toggleMarkup('reference', '<ref>', '</ref>')
       },
       template: () => {
         toggleMarkup('template', '{{', '}}')
@@ -726,16 +766,16 @@
         toggleListForSelectedLines('#')
       },
       superscript: () => {
-        expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
+        toggleMarkup('superscript', '<sup>', '</sup>')
       },
       subscript: () => {
-        expandTagSelectionAndToggleMarkup('subscript', '<sub>', '</sub>')
+        toggleMarkup('subscript', '<sub>', '</sub>')
       },
       underline: () => {
-        expandTagSelectionAndToggleMarkup('underline', '<u>', '</u>')
+        toggleMarkup('underline', '<u>', '</u>')
       },
       strikethrough: () => {
-        expandTagSelectionAndToggleMarkup('strikethrough', '<s>', '</s>')
+        toggleMarkup('strikethrough', '<s>', '</s>')
       },
       heading: (depth) => {
         const selectionRange = getSelectionRange(editor)

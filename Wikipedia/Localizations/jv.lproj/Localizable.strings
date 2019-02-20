@@ -25,14 +25,19 @@
 "about-translators-details" = "Dipertal déning sukarilawan ing $1";
 "about-wikimedia-foundation" = "Yeyasan Wikimedia";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Panjenengan ora bisa mbabar besutan iki. Mangga balika lan dandanana.";
-"abuse-filter-disallow-notable" = "Wikipédia iku bauwarna lan mligi macak kontèn kang nétral tur wigati.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Saringan otomatis ngonangi yèn besutan iki bokmanawa ora mbangun utawa pamrihé arep ngrusak.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Ngothongaké artikel utawa nyampah";
+// Fuzzy
 "abuse-filter-warning-caps" = "Ngetik HURUF GEDHÉ KABÈH";
 "abuse-filter-warning-heading" = "Iki prasasat besutan kang ora mbangun. Panjenengan yakin arep mbabar iki?";
 "abuse-filter-warning-irrelevant" = "Pranala njaba utawa gambar kang ora magepokan";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Karakter kang mbooolan-mbaaalèni";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Besutané panjenengan bokmanawa ngemu siji utawa luwih bab ing ngisor iki:";
 "account-creation-captcha-cannot-see-image" = "Ora bisa ndeleng gambar? $1";
 "account-creation-captcha-obtaining" = "Njupuk CAPTCHA anyar...";
@@ -50,6 +55,8 @@
 "action-add-to-reading-list" = "Tambahaké ing pratélan wacan";
 "action-add-to-reading-list-short" = "Tambahaké ing pratélan";
 "action-cancel" = "Wurung";
+// Fuzzy
+"action-find-in-page" = "Golèk ing kaca";
 "action-move-to" = "Lih menyang...";
 "action-move-to-reading-list" = "Lih menyang pratélan wacan";
 "action-read" = "Waca";
@@ -63,7 +70,6 @@
 "action-unsave" = "Wurung nyimpen";
 "action-unsaved-accessibility-notification" = "Artikel wurung disimpen";
 "action-update" = "Anyari";
-"alert-no-internet" = "Ora ana gayutan Internèt";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Larasaké ukurané tulisan ing artikel";
 "appearance-settings-reading-themes" = "Cakrik wacan";
@@ -90,7 +96,6 @@
 "button-saved-remove" = "Busak saka panyimpenan";
 "button-skip" = "Langkahi";
 "cancel" = "Wurung";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "nalika pukul $1 thèng";
@@ -107,7 +112,6 @@
 "empty-no-article-message" = "Nyuwun pangapura, ora bisa ngamot artikel";
 "empty-no-feed-action-message" = "Panjenengan isih bisa maca kaca kang kasimpen";
 "empty-no-feed-message" = "Kowé bisa ndeleng artikel kang kaprayogakaké yèn wis nyambung Internèt";
-"empty-no-feed-title" = "Ora Ana Gayutan Internet";
 "empty-no-history-message" = "Ngetutaké apa kang wis panjenengan waca ing kéné";
 "empty-no-history-title" = "Ora ana sajarah kang bisa tinuduhaké";
 "empty-no-saved-pages-message" = "Simpen kaca kanggo ndeleng mengko, malah offline";
@@ -174,14 +178,12 @@
 "field-token-title" = "Kodhe vèrifikasi";
 "field-username-placeholder" = "lebokaké jeneng panganggo";
 "field-username-title" = "Jeneng panganggo";
-"action-find-in-page" = "Golèk ing kaca";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rèsèt";
 "forgot-password-email-sent" = "Layang-èl sing isiné panuntun setèl-ulang tembung wadi wis dikirim";
 "forgot-password-instructions" = "Isi ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung-wadi lumantar layang-èl";
 "forgot-password-title" = "Ambali nyetèl tembung wadi";
 "forgot-password-username-or-email-title" = "Utawa";
-"gfdl" = "GFDL";
 "history-clear-all" = "Busak";
 "history-clear-cancel" = "Wurung";
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
@@ -249,10 +251,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 prastawa historis}}";
 "on-this-day-footer" = "Prastawa historis liyané ing dina iki";
 "on-this-day-title" = "Ing dina iki";
-"open-link-cancel" = "Wurung";
 "page-edit-history" = "Sajarah besutan wutuh";
 "page-history-title" = "Sajarah artikel";
 "page-issues" = "Masalah kaca";
+// Fuzzy
 "page-last-edited" = "Dibesut $1 dina kapungkur";
 "page-location" = "Deleng ing petha";
 "page-protected-autoconfirmed" = "Kaca iki wis semu direksa.";
@@ -260,6 +262,7 @@
 "page-protected-can-not-edit-title" = "Kaca iki direksa";
 "page-protected-other" = "Kaca iki wis direksa tumeka tataran iki: $1";
 "page-protected-sysop" = "Kaca iki wis kareksa wutuh.";
+// Fuzzy
 "page-read-in-other-languages" = "Ana ing $1 basa liyané";
 "page-similar-titles" = "Kaca sairib";
 "page-talk-page" = "Deleng kaca parembugan";
@@ -390,7 +393,6 @@
 "welcome-send-data-sub-title" = "Éwangi ngapiki aplikasiné kanthi ngolèhaké Yeyasan Wikimedia ngertèni olèhé panjenengan nganggo aplikasiné. Dhata sing kalumpukaké bakal anonim.";
 "welcome-volunteer-send-usage-reports" = "Ngirim laporan panggunan";
 "wikitext-download-failed" = "Iso diwenehi vèrsi.";
-"wikitext-download-success" = "Isi dimot.";
 "wikitext-downloading" = "Mbukak isi...";
 "wikitext-preview-changes" = "Nampa pratayang owah-owahan panjenengan ...";
 "wikitext-preview-changes-none" = "Ora ana owah-padha digawe kanggo dipratinjau.";
@@ -402,6 +404,4 @@
 "wikitext-upload-save" = "Mbabar...";
 "wikitext-upload-save-anonymously-warning" = "Besutan bakal diatribusèkaké marang alamat IP pirantiné panjenengan. Yèn panjenengan $1, panjenengan bakal duwé privasi luwih.";
 "wikitext-upload-save-sign-in" = "Mlebu log";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
 "wikitext-upload-save-terms-name" = "Pranatan Pangguna";

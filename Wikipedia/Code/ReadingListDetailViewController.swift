@@ -8,7 +8,7 @@ class ReadingListDetailViewController: ViewController {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
-    let articlesCollectionViewController: ArticlesCollectionViewController
+    let readingListEntryCollectionViewController: ReadingListEntryCollectionViewController
     
     var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
@@ -20,8 +20,8 @@ class ReadingListDetailViewController: ViewController {
         self.dataStore = dataStore
         self.displayType = displayType
         readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
-        articlesCollectionViewController = ArticlesCollectionViewController(for: readingList, with: dataStore)
-        articlesCollectionViewController.emptyViewType = .noSavedPagesInReadingList
+        readingListEntryCollectionViewController = ReadingListEntryCollectionViewController(for: readingList, with: dataStore)
+        readingListEntryCollectionViewController.emptyViewType = .noSavedPagesInReadingList
         super.init()
         searchBarExtendedViewController = SearchBarExtendedViewController()
         searchBarExtendedViewController?.dataSource = self
@@ -58,22 +58,22 @@ class ReadingListDetailViewController: ViewController {
     }()
     
     private func setUpArticlesViewController() {
-        addChild(articlesCollectionViewController)
-        view.addSubview(articlesCollectionViewController.view)
-        articlesCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        articlesCollectionViewController.edgesForExtendedLayout = .all
-        scrollView = articlesCollectionViewController.collectionView
+        addChild(readingListEntryCollectionViewController)
+        view.addSubview(readingListEntryCollectionViewController.view)
+        readingListEntryCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        readingListEntryCollectionViewController.edgesForExtendedLayout = .all
+        scrollView = readingListEntryCollectionViewController.collectionView
         NSLayoutConstraint.activate(
             [
-                articlesCollectionViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                articlesCollectionViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                articlesCollectionViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                articlesCollectionViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+                readingListEntryCollectionViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+                readingListEntryCollectionViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                readingListEntryCollectionViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                readingListEntryCollectionViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ]
         )
-        articlesCollectionViewController.didMove(toParent: self)
-        articlesCollectionViewController.delegate = self
-        articlesCollectionViewController.editController.navigationDelegate = self
+        readingListEntryCollectionViewController.didMove(toParent: self)
+        readingListEntryCollectionViewController.delegate = self
+        readingListEntryCollectionViewController.editController.navigationDelegate = self
     }
     
     override func viewDidLoad() {
@@ -95,7 +95,7 @@ class ReadingListDetailViewController: ViewController {
         }
         
         wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
-        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: articlesCollectionViewController, collectionView: articlesCollectionViewController.collectionView, editController: articlesCollectionViewController.editController)
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: readingListEntryCollectionViewController, collectionView: readingListEntryCollectionViewController.collectionView, editController: readingListEntryCollectionViewController.editController)
     }
     
     private func addExtendedView() {
@@ -118,7 +118,7 @@ class ReadingListDetailViewController: ViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        articlesCollectionViewController.apply(theme: theme)
+        readingListEntryCollectionViewController.apply(theme: theme)
         readingListDetailUnderBarViewController.apply(theme: theme)
         searchBarExtendedViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
@@ -165,11 +165,11 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         switch newEditingState {
         case .editing:
             fallthrough
-        case .open where articlesCollectionViewController.isEmpty:
+        case .open where readingListEntryCollectionViewController.isEmpty:
             readingListDetailUnderBarViewController.beginEditing()
         case .done:
             readingListDetailUnderBarViewController.finishEditing()
-        case .closed where articlesCollectionViewController.isEmpty:
+        case .closed where readingListEntryCollectionViewController.isEmpty:
             fallthrough
         case .cancelled:
             readingListDetailUnderBarViewController.cancelEditing()
@@ -188,7 +188,7 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
     }
     
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {
-        articlesCollectionViewController.editController.isTextEditing = true
+        readingListEntryCollectionViewController.editController.isTextEditing = true
     }
     
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField) {
@@ -220,7 +220,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDataSo
 
 extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        articlesCollectionViewController.updateSearchString(searchText)
+        readingListEntryCollectionViewController.updateSearchString(searchText)
         
         if searchText.isEmpty {
             makeSearchBarResignFirstResponder(searchBar)
@@ -241,7 +241,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        articlesCollectionViewController.updateSearchString("")
+        readingListEntryCollectionViewController.updateSearchString("")
         searchBar.resignFirstResponder()
         navigationBar.isExtendedViewHidingEnabled = true
     }
@@ -267,22 +267,22 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         }
         switch buttonType {
         case .sort:
-            articlesCollectionViewController.presentSortAlert(from: button)
+            readingListEntryCollectionViewController.presentSortAlert(from: button)
         case .cancel:
             makeSearchBarResignFirstResponder(searchBar)
         }
     }
 }
 
-// MARK: - ArticlesCollectionViewControllerDelegate
+// MARK: - ReadingListEntryCollectionViewControllerDelegate
 
-extension ReadingListDetailViewController: ArticlesCollectionViewControllerDelegate {
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, didUpdate collectionView: UICollectionView) {
+extension ReadingListDetailViewController: ReadingListEntryCollectionViewControllerDelegate {
+    func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView) {
         readingListDetailUnderBarViewController.reconfigureAlert(for: readingList)
         readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
     }
     
-    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ArticlesCollectionViewController) {
+    func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController) {
         let isReadingListEmpty = readingList.countOfEntries == 0
         let isEmptyStateMatchingReadingListEmptyState = viewController.isEmpty == isReadingListEmpty
         if !isEmptyStateMatchingReadingListEmptyState {
