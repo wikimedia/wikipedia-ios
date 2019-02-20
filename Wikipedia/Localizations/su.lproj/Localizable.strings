@@ -93,7 +93,6 @@
 "button-saved-remove" = "Pupus tina simpenan";
 "button-skip" = "Liwatan";
 "cancel" = "Bolay";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "jam $1 pas";
 "continue-reading-empty-description" = "Langlang Wikipédia pikeun artikel bacaeun lianna";
@@ -162,7 +161,6 @@
 "forgot-password-instructions" = "Eusian salah sahiji widang di handap pikeun narima instruksi panyetelan ulang kecap sandi liwa surélék";
 "forgot-password-title" = "Setél ulang kecap sandi";
 "forgot-password-username-or-email-title" = "Atawa";
-"gfdl" = "GFDL";
 "history-clear-all" = "Bersihkeun";
 "history-clear-cancel" = "Bolay";
 "history-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh poin kiwari anjeun?";
@@ -232,7 +230,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 kajadian sajarah|$1 kajadian sajarah}}";
 "on-this-day-footer" = "Kajadian sajarah lianna dina poé ieu";
 "on-this-day-title" = "Dina poé ieu";
-"open-link-cancel" = "Bolay";
 "page-edit-history" = "Sakumna jujutan édit";
 "page-history-title" = "Jujutan artikel";
 "page-issues" = "Masalah kaca";
@@ -387,7 +384,6 @@
 "welcome-send-data-sub-title" = "Bantu ngaropéa aplikasi ku cara méré nyaho Wikimedia Foundation kumaha cara anjeun dina maké aplikasi. Data nu dikumpulkeun miwatek anonim";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan pamakéan";
 "wikitext-download-failed" = "Teu bisa nampa révisi panganyarna.";
-"wikitext-download-success" = "Kontén dimuat.";
 "wikitext-downloading" = "Muatkeun kontén...";
 "wikitext-preview-changes" = "Nganteur pramidang tina parobahan ajeun...";
 "wikitext-preview-changes-none" = "Taya parobahan nu dijieun pikeun némbongan pramidang.";
@@ -399,6 +395,4 @@
 "wikitext-upload-save" = "Midangkeun...";
 "wikitext-upload-save-anonymously-warning" = "Éditan bakal ditepungkeun kana alamat IP parangkat. Mun anjeun $1 anjeun bakal mibanda privasi leuwih.";
 "wikitext-upload-save-sign-in" = "Asup log";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ku medalkeun parobahan, anjeun sapuk kana $1 sarta sapuk pikeun mikeun kontribusi anjeun dina lisénsi $2 jeung $3.";
 "wikitext-upload-save-terms-name" = "Katangtuan Pamakéan";

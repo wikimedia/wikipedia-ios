@@ -64,7 +64,7 @@
 "account-creation-have-account" = "لديك حساب بالفعل؟ $1";
 "account-creation-log-in" = "ادخل.";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
-"account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
+"account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة سر، وتأكيد كلمة السر لإنشاء حساب.";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
 "account-creation-title" = "أنشئ حسابًا جديدًا";
@@ -126,7 +126,6 @@
 "button-saved-remove" = "حذف من المحفوظات";
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "المشاع الإبداعي CC0";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
@@ -351,7 +350,6 @@
 "forgot-password-instructions" = "أدخل أحد الحقول أدناه لتستقبل تعليمات إعادة ضبط كلمة السر عبر البريد الإلكتروني";
 "forgot-password-title" = "أعد ضبط كلمة السر";
 "forgot-password-username-or-email-title" = "أو";
-"gfdl" = "رخصة جنو للوثائق الحرة";
 "history-clear-all" = "امسح";
 "history-clear-cancel" = "إلغاء";
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
@@ -435,21 +433,18 @@
 "on-this-day-footer-with-event-count" = "$1 أكثر من الأحداث التاريخية في هذا اليوم";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
-"open-link-cancel" = "إلغاء";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
 "page-edit-history" = "تاريخ التعديل الكامل";
 "page-history-title" = "تاريخ المقالة";
 "page-issues" = "مشاكل في الصفحة";
-// Fuzzy
-"page-last-edited" = "عدلت $1 يوم مضى";
+"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|أمس|منذ $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
 "page-protected-can-not-edit-title" = "هذه الصفحة محمية";
 "page-protected-other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
-// Fuzzy
-"page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
+"page-read-in-other-languages" = "متاحة {{PLURAL:$1|بـ$1 لغة أخرى|بـ$1 لغات أخرى}}";
 "page-similar-titles" = "صفحات مشابهة";
 "page-talk-page" = "اعرض صفحة النقاش";
 "pictured" = "مصوّر";
@@ -506,7 +501,7 @@
 "reading-list-deleted-accessibility-notification" = "تم حذف قائمة القراءة";
 "reading-list-do-not-keep-button-title" = "لا، احذف المقالات من القوائم";
 "reading-list-entry-limit-exceeded-message" = "الرجاء تقليل عدد المقالات في هذه القائمة إلى $1 لاستئناف المزامنة لجميع المقالات في هذه القائمة.";
-"reading-list-entry-limit-exceeded-title" = "لقد تجاوزت الحد الأقصى وهو $1 لكل حساب.";
+"reading-list-entry-limit-exceeded-title" = "لقد تجاوزت الحد الأقصى وهو {{PLURAL:$1|$1 مقالة|$1 مقالات}} لكل حساب.";
 "reading-list-entry-limit-reached" = "لا يمكن إضافة {{PLURAL:$1|مقالة|مقالات}} إلى هذه القائمة; لقد بلغت الحد الأقصى $2 مقالات لكل قائمة قراءة لـ$3";
 "reading-list-exists-with-same-name" = "اسم قائمة القراءة قيد الاستخدام بالفعل";
 "reading-list-generic-error" = "حدث خطأ غير متوقع أثناء تحديث قوائم قراءتك.";
@@ -519,7 +514,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "هناك حد 5000 مقالة لم يتم فرزها; يُرجَى فرز مقالاتك الحالية إلى قوائم لمتابعة مزامنة المقالات التي لم يتم فرزها.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "الحد الأقصى لإصابة المقالات التي لم يتم فرزها";
 "reading-list-list-limit-exceeded-message" = "لن تتم مزامنة قائمة القراءة هذه والمقالات المحفوظة فيها; يُرجَى تقليل عدد قوائمك إلى $1 لاستئناف مزامنة هذه القائمة.";
-"reading-list-list-limit-exceeded-title" = "لقد تجاوزت الحد المسموح به وهو $1 قوائم قراءة لكل حساب.";
+"reading-list-list-limit-exceeded-title" = "لقد تجاوزت الحد المسموح به وهو {{PLURAL:$1|$1 قائمة قراءة|$1 قوائم قراءة}} لكل حساب.";
 "reading-list-list-limit-reached" = "لقد تجاوزت الحد الأقصى وهو $1 قوائم قراءة لكل حساب.";
 "reading-list-login-button-title" = "سجل الدخول لمزامنة مقالاتك المحفوظة";
 "reading-list-login-or-create-account-button-title" = "تسجيل الدخول أو إنشاء حساب";
@@ -700,7 +695,6 @@
 "welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
-"wikitext-download-success" = "تم تحميل المحتوى.";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-preview-changes" = "جار جلب عرض التغييرات التي قمت بها...";
 "wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";
@@ -711,7 +705,8 @@
 "wikitext-upload-captcha-needed" = "مطلوب التحقق من كابتشا.";
 "wikitext-upload-result-unknown" = "غير قادر على تحديد نتيجة تحميل النص";
 "wikitext-upload-save" = "جارٍ الحفظ...";
+"wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان آيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "بنشر التغييرات، فإنك توافق على $1، وأنت توافق بشكل لا رجعة فيه على إطلاق مساهمتك بموجب الترخيص $2 و$3، أنت توافق على أن الرابط التشعبي أو المسار إسناد كافٍ بموجب ترخيص المشاع الإبداعي.";
+"wikitext-upload-save-terms-and-licenses" = "بنشر التغييرات، فإنك توافق على $شروط الاستخدام$2، وتوافق بشكل لا رجعة فيه على إطلاق مساهمتك تحت $3رخصة المشاع الإبداعي: النسبة-الترخيص بالمثل3.0$4 و$5رخصة جنو للوثائق الحرة$6، أنت توافق على أن الرابط التشعبي أو المسار يمثل إسنادا كافيا بموجب ترخيص  المشاع الإبداعي.";
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";

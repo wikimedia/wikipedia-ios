@@ -115,7 +115,6 @@
 "button-saved-remove" = "Fjarlægja úr vistuðu";
 "button-skip" = "Sleppa";
 "cancel" = "Hætta við";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Loka";
 "compass-direction" = "klukkan $1 á áttavita";
@@ -305,7 +304,6 @@
 "forgot-password-instructions" = "Fylltu í einn af reitunum hér fyrir neðan til að fá tölvupóst með leiðbeiningum varðandi endurstillingu lykilorðs";
 "forgot-password-title" = "Endurstilla lykilorð";
 "forgot-password-username-or-email-title" = "eða";
-"gfdl" = "GFDL";
 "history-clear-all" = "Hreinsa";
 "history-clear-cancel" = "Hætta við";
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
@@ -386,7 +384,6 @@
 "on-this-day-footer-with-event-count" = "$1 fleiri sögulegir atburðir á þessum degi";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 af $2 Wikipedia";
 "on-this-day-title" = "Á þessum degi";
-"open-link-cancel" = "Hætta við";
 "original-tab-button-popover-description" = "Ýttu á 'W'-ið til að fara til baka á flipann þar sem þú varst";
 "page-edit-history" = "Öll breytingaskráin";
 "page-history-title" = "Breytingaskrá greinar";
@@ -457,6 +454,7 @@
 "reading-list-deleted-accessibility-notification" = "Leslista eytt";
 "reading-list-do-not-keep-button-title" = "Nei, eyða greinum af tæki";
 "reading-list-entry-limit-exceeded-message" = "Fækkaðu greinunum á þessum lista niður í $1 til að halda áfram samstillingu allra greina á listanum.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Þú hefur farið fram úr hámarkinu með $1 greinar á hvern notandaaðgang.";
 "reading-list-entry-limit-reached" = "Get ekki bætt {{PLURAL:$1|grein|greinum}} á þennan lista. Þú hefur náð $2 greina takmörkum á hvern lista fyrir $3";
 "reading-list-exists-with-same-name" = "Leslisti með þessu heiti er þegar til staðar";
@@ -470,6 +468,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Það eru takmörk upp á 5000 óraðaðar greinar. Raðaðu greinunum sem þú ert með í lista til að geta haldið áfram samstillingu óraðaðra greina.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Náði takmörkum fyrir óraðaðar greinar";
 "reading-list-list-limit-exceeded-message" = "Þessi leslisti og greinarnar vistaðar á hann verða ekki samstilltar, fækkaðu greinunum á þessum lista niður í $1 til að halda áfram samstillingu á listanum.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Þú hefur farið fram úr hámarkinu með $1 leslista á hvern notandaaðgang.";
 "reading-list-list-limit-reached" = "Þú hefur náð hámarkinu með $1 leslista á hvern notandaaðgang";
 "reading-list-login-button-title" = "Skráðu inn til að samstilla vistuðu greinarnar þínar";
@@ -651,7 +650,6 @@
 "welcome-send-data-sub-title" = "Hjálpaðu okkur að bæta forritið með því að leyfa okkur að sjá hvernig þú notar það. Gögnum er safnað án persónuauðkenna.";
 "welcome-volunteer-send-usage-reports" = "Senda notkunarskýrslur";
 "wikitext-download-failed" = "Tókst ekki að ná í seinustu útgáfu.";
-"wikitext-download-success" = "Efnið hlaðið.";
 "wikitext-downloading" = "Hleður efni...";
 "wikitext-preview-changes" = "Sækir forskoðun á breytingum þínum...";
 "wikitext-preview-changes-none" = "Engar breytingar voru gerðar sem geta verið forskoðaðar.";
@@ -665,5 +663,4 @@
 "wikitext-upload-save" = "Gef út...";
 "wikitext-upload-save-anonymously-warning" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi þitt er best að $1.";
 "wikitext-upload-save-sign-in" = "Innskrá";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Með því að birta breytingar, samþykkir þú $1 og þú samþykkir óafturkræft að framlag þitt verði gefið út með $2 og $3 notkunarleyfum. Þú fellst líka á að veftengill sé næg tilvísun í höfundarréttindi undir Creative Commons notkunarleyfi.";
 "wikitext-upload-save-terms-name" = "Notkunarskilmálar";

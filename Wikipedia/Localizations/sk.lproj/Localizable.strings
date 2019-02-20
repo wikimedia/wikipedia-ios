@@ -107,7 +107,6 @@
 "button-saved-remove" = "Odstrániť z uložených";
 "button-skip" = "Preskočiť";
 "cancel" = "Zrušiť";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Zavrieť";
 "compass-direction" = "na $1. hodine";
@@ -210,7 +209,6 @@
 "forgot-password-instructions" = "Ak chcete dostať inštrukcie na obnovenie hesla e-mailom, vyplňte jedno z polí nižšie";
 "forgot-password-title" = "Obnoviť heslo";
 "forgot-password-username-or-email-title" = "Alebo";
-"gfdl" = "GFDL";
 "history-clear-all" = "Vyčistiť";
 "history-clear-cancel" = "Zrušiť";
 "history-clear-confirmation-heading" = "Naozaj chcete vymazať vašu nedávnu históriu prehliadania?";
@@ -273,7 +271,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická udalosť|$1 historické udalosti|$1 historických udalostí}}";
 "on-this-day-footer" = "Ďalšie historické udalosti, ktoré sa odohrali v tento deň";
 "on-this-day-title" = "Dnes";
-"open-link-cancel" = "Zrušiť";
 "page-edit-history" = "Úplná história úprav";
 "page-history-title" = "História článku";
 "page-issues" = "Problémy stránky";
@@ -470,7 +467,6 @@
 "welcome-send-data-sub-title" = "Pomôžte Nadácii Wikimedia vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
 "welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
-"wikitext-download-success" = "Obsah je načítaný.";
 "wikitext-downloading" = "Načítavam obsah...";
 "wikitext-preview-changes" = "Načítava sa ukážka vykonaných zmien...";
 "wikitext-preview-changes-none" = "Neboli vykonané žiadne zmeny.";
@@ -482,6 +478,4 @@
 "wikitext-upload-save" = "Uverejňuje sa...";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho prístroja. Ak $1, budete mať viac súkromia.";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Uložením zmien súhlasíte s $1 a s uvoľnením svojho príspevku za podmienok $2 a $3.";
 "wikitext-upload-save-terms-name" = "Podmienky používania";

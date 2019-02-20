@@ -33,6 +33,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
+    open func isExternalURL(at indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     open func articleURL(at indexPath: IndexPath) -> URL? {
         assert(false, "Subclassers should override this function")
         return nil
@@ -166,6 +170,10 @@ extension ArticleCollectionViewController {
             return
         }
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
+        guard !isExternalURL(at: indexPath) else {
+            wmf_openExternalUrl(articleURL)
+            return
+        }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     

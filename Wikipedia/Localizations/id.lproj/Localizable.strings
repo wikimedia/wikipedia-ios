@@ -130,7 +130,6 @@
 "button-saved-remove" = "Hapus dari tersimpan";
 "button-skip" = "Lewati";
 "cancel" = "Batal";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
@@ -307,7 +306,6 @@
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
 "forgot-password-title" = "Setel ulang kata sandi";
 "forgot-password-username-or-email-title" = "Atau";
-"gfdl" = "GFDL";
 "history-clear-all" = "Kosongkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
@@ -387,7 +385,6 @@
 "on-this-day-footer-with-event-count" = "$1 peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
-"open-link-cancel" = "Batal";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
 "page-edit-history" = "Semua riwayat suntingan";
 "page-history-title" = "Versi terdahulu artikel";
@@ -458,6 +455,7 @@
 "reading-list-deleted-accessibility-notification" = "Daftar bacaan dihapus";
 "reading-list-do-not-keep-button-title" = "Tidak, hapus artikel dari perangkat";
 "reading-list-entry-limit-exceeded-message" = "Harap kurangi jumlah artikel Anda dalam daftar ini menjadi $1 untuk melanjutkan sinkronisasi semua artikel dalam daftar ini.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Anda telah melampaui batas $1 artikel per akun.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel|Artikel}} tidak dapat ditambahkan ke daftar ini. Anda telah mencapai batas $2 artikel per daftar bacaan untuk $3";
 "reading-list-exists-with-same-name" = "Nama daftar bacaan sudah digunakan";
@@ -471,6 +469,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Ada batas 5.000 artikel yang tidak diurutkan. Silakan urutkan artikel Anda yang ada ke dalam daftar untuk melanjutkan sinkronisasi artikel yang tidak diurutkan.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Batasan untuk artikel yang tidak diurutkan";
 "reading-list-list-limit-exceeded-message" = "Daftar bacaan ini dan artikel yang disimpan di dalamnya tidak akan disinkronkan, harap kurangi jumlah daftar Anda menjadi $1 untuk melanjutkan sinkronisasi daftar ini.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Anda telah melampaui batas $1 daftar bacaan per akun.";
 "reading-list-list-limit-reached" = "Anda telah mencapai batas $1 daftar bacaan per akun";
 "reading-list-login-button-title" = "Masuk log untuk menyinkronkan artikel tersimpan Anda";
@@ -653,7 +652,6 @@
 "welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui bagaimana Anda menggunakannya. Data yang dikumpulkan bersifat anonim.";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan penggunaan";
 "wikitext-download-failed" = "Tidak dapat memperoleh revisi terbaru.";
-"wikitext-download-success" = "Konten dimuat.";
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
@@ -665,6 +663,4 @@
 "wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";

@@ -63,7 +63,6 @@
 "button-save-for-later" = "შეინახეთ";
 "button-saved-for-later" = "შენახულია";
 "button-saved-remove" = "შენახულიდან წაშლა";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "დახურვა";
 "compass-direction" = "$1 საათზე";
 "edit-summary-choice-fixed-grammar" = "გრამატიკის შესწორება";
@@ -158,7 +157,6 @@
 "number-billions" = "$1 მლრდ.";
 "number-millions" = "$1 მლნ.";
 "number-thousands" = "$1 ათ.";
-"open-link-cancel" = "გაუქმება";
 "page-edit-history" = "მთლიანი რედაქტირების ისტორია";
 "page-history-title" = "სტატიის ისტორია";
 "page-issues" = "გვერდის საკითხები";
@@ -220,7 +218,6 @@
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
 "wikitext-download-failed" = "უახლესი ვერსიის ხილვა შეუძლებელია.";
-"wikitext-download-success" = "შიგთავსი ჩაიტვირთა.";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-preview-changes" = "თქვენი ცვლილებების წინასწარი გადახედვის ჩვენება...";
 "wikitext-preview-changes-none" = "წინასწარ გადახედვისათვის არანაირი ცვლილება არ განხორციელებულა.";

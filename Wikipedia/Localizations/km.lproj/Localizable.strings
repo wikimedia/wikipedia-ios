@@ -105,7 +105,6 @@
 "button-saved-remove" = "លុបចេញពីទំព័ររក្សាទុក";
 "button-skip" = "រំលង";
 "cancel" = "បោះបង់";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "បិទ";
 "compass-direction" = "ចង្អុលទីតាំងម៉ោង$1";
@@ -181,7 +180,6 @@
 "forgot-password-instructions" = "សូមបំពេញប្រអប់ខាងក្រោមដើម្បីទទួលសេចក្ដីណែនាំពីរបៀបកំណត់ពាក្យសម្ងាត់ឡើងវិញតាមរយៈអ៊ីមែល";
 "forgot-password-title" = "កំណត់ពាក្យសម្ងាត់ឡើងវិញ";
 "forgot-password-username-or-email-title" = "ឬ";
-"gfdl" = "GFDL";
 "history-clear-all" = "សម្អាត";
 "history-clear-cancel" = "បោះបង់";
 "history-clear-confirmation-heading" = "តើអ្នកពិតជាងចង់លុបចោលរបស់ថ្មីៗទាំងអស់ឬ?";
@@ -250,7 +248,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ}}";
 "on-this-day-footer" = "ព្រឹត្រិការណ៍ប្រវត្តិសាស្ត្រនៅថ្ងៃនេះបន្ថែមទៀត";
 "on-this-day-title" = "នៅថ្ងៃនេះ";
-"open-link-cancel" = "បោះបង់";
 "page-edit-history" = "ប្រវត្តិការកែប្រែទាំងអស់";
 "page-history-title" = "ប្រវត្តិអត្ថបទ";
 "page-issues" = "បញ្ហាក្នុងទំព័រ";
@@ -395,7 +392,6 @@
 "welcome-send-data-learn-more" = "ស្វែងយល់បន្ថែមអំពីទិន្នន័យដែលបានប្រមូលទុក";
 "welcome-send-data-sub-title" = "ជួយកែលម្អកម្មវិធីតាមរយៈការរាយការណ៍ទៅមូលនិធិវិគីមេឌាពីរបៀបដែលអ្នកប្រើវា។ ទិន្នន័យត្រូវប្រមូលដោយលាក់ឈ្មោះ។";
 "welcome-volunteer-send-usage-reports" = "ផ្ញើរបាយការណ៍ពីបម្រើបម្រាស់";
-"wikitext-download-success" = "ខ្លឹមសារផ្ទុករួចហើយ។";
 "wikitext-downloading" = "កំពុងផ្ទុកខ្លឹមសារ...";
 "wikitext-preview-changes-none" = "គ្មានបន្លាស់ប្ដូរសម្រាប់មើលជាមុនទេ។";
 "wikitext-preview-link-preview-description" = "តំណភ្ជាប់នេះនាំទៅកាន់$1";
@@ -405,6 +401,4 @@
 "wikitext-upload-save" = "កំពុងបោះផ្សាយ...";
 "wikitext-upload-save-anonymously-warning" = "ការកែប្រែនឹងត្រូវភ្ជាប់ព័ត៌មានជាមួយអាសយដ្ឋាន IP របស់ឧបករណ៍របស់អ្នក។ ប្រសិនបើអ្នក$1 នោះអ្នកនឹងអាចរក្សាឯកជនភាពរបស់អ្នកបានប្រសើរជាងនេះ។";
 "wikitext-upload-save-sign-in" = "កត់ឈ្មោះចូល";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "តាមរយៈការបោះផ្សាយបន្លាស់ប្ដូរនេះ អ្នកយល់ព្រមជាមួយ $1 និងយល់ព្រមក្នុងការផ្សព្វផ្សាយការរួមចំណែករបស់អ្នកក្រោមអាជ្ញាប័ណ្ណ $2 និង $3។";
 "wikitext-upload-save-terms-name" = "លក្ខខណ្ឌប្រើប្រាស់";

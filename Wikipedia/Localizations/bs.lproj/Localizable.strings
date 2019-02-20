@@ -81,7 +81,6 @@
 "button-saved-remove" = "Ukloni iz sačuvanih";
 "button-skip" = "Preskoči";
 "cancel" = "Otkaži";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zatvori";
 "compass-direction" = "u $1 sati";
 "continue-reading-empty-description" = "Istražite Wikipediju – pročitajte još članaka";
@@ -149,7 +148,6 @@
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste e-poštom primili uputstva za ponovno postavljanje lozinke";
 "forgot-password-title" = "Ponovno postavljanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
-"gfdl" = "GFDL";
 "history-clear-all" = "Očisti";
 "history-clear-cancel" = "Odustani";
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve nedavne stavke?";
@@ -216,7 +214,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historijski događaj|$1 historijska događaja|$1 historijskih događaja}}";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";
-"open-link-cancel" = "Odustani";
 "page-edit-history" = "Cjelokupna historija izmjena";
 "page-history-title" = "Historija članka";
 "page-issues" = "Problemi sa sadržajem";
@@ -349,7 +346,6 @@
 "welcome-send-data-sub-title" = "Pomozite Zadužbini Wikimedia da poboljša aplikaciju tako što ćete nam poslati podatke o tom kako je koristite. Prikupljeni podaci su anonimni.";
 "welcome-volunteer-send-usage-reports" = "Šalji izvještaje o korištenju";
 "wikitext-download-failed" = "Ne mogu dobiti najnoviju izmjenu.";
-"wikitext-download-success" = "Sadržaj je učitan.";
 "wikitext-downloading" = "Učitavam sadržaj...";
 "wikitext-preview-changes" = "Ispisujem pregled izmjena koje ste napravili...";
 "wikitext-preview-changes-none" = "Nema izmjena za pregled.";
@@ -361,6 +357,4 @@
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";

@@ -105,7 +105,6 @@
 "button-saved-remove" = "সংরক্ষণ থেকে সরান";
 "button-skip" = "এড়ান";
 "cancel" = "বাতিল";
-"cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
@@ -193,7 +192,6 @@
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
 "forgot-password-username-or-email-title" = "অথবা";
-"gfdl" = "GFDL";
 "history-clear-all" = "পরিষ্কার করুন";
 "history-clear-cancel" = "বাতিল";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
@@ -264,7 +262,6 @@
 "on-this-day-detail-header-date-range" = "$1 - $2 থেকে";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 উইকিপিডিয়া থেকে $1";
 "on-this-day-title" = "আজকের এই দিনে";
-"open-link-cancel" = "বাতিল";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
 "page-history-title" = "নিবন্ধের ইতিহাস";
 "page-issues" = "পাতার সমস্যা";
@@ -395,7 +392,6 @@
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
 "welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
-"wikitext-download-success" = "বিষয়বস্তু লোড হয়েছে।";
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
 "wikitext-preview-changes-none" = "প্রাকদর্শন করার মত কোন পরিবর্তন করা হয়নি।";
@@ -407,6 +403,4 @@
 "wikitext-upload-save" = "প্রকাশ করা হচ্ছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 ও $3 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";

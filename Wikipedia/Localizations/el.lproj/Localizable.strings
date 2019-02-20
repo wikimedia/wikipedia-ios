@@ -108,7 +108,6 @@
 "button-saved-remove" = "Αφαίρεση από τα αποθηκευμένα";
 "button-skip" = "Παράβλεψη";
 "cancel" = "Ακύρωση";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Κλείσιμο";
 "compass-direction" = "στις $1 ακριβώς";
 "continue-reading-empty-description" = "Εξερευνήστε τη Βικιπαίδεια για να διαβάσετε περισσότερα λήμματα";
@@ -215,7 +214,6 @@
 "forgot-password-instructions" = "Συμπληρώστε ένα από τα παρακάτω πεδία για να λαμβάνετε οδηγίες επαναφοράς κωδικού πρόσβασης μέσω ηλεκτρονικού ταχυδρομείου";
 "forgot-password-title" = "Επαναφορά κωδικού";
 "forgot-password-username-or-email-title" = "Ή";
-"gfdl" = "GFDL";
 "history-clear-all" = "Εκκαθάριση";
 "history-clear-cancel" = "Ακύρωση";
 "history-clear-delete-all" = "Ναι, διαγραφή όλων";
@@ -289,7 +287,6 @@
 "on-this-day-footer-with-event-count" = "$1 Περισσότερα ιστορικά γεγονότα αυτή την ημέρα";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 από $2 Βικιπαίδεια";
 "on-this-day-title" = "Αυτήν την μέρα";
-"open-link-cancel" = "Ακύρωση";
 "page-edit-history" = "Πλήρες ιστορικό επεξεργασίας";
 "page-history-title" = "Ιστορικό άρθρου";
 "page-issues" = "Ζητήματα με τη σελίδα";
@@ -475,7 +472,6 @@
 "welcome-send-data-sub-title" = "Βοηθήστε στη βελτίωση της εφαρμογής αφήνοντας το Ίδρυμα Wikimedia να ξέρει πως το χρησιμοποιείτε. Τα δεδομένα που συλλέγονται είναι ανώνυμα.";
 "welcome-volunteer-send-usage-reports" = "Στείλτε αναφορές χρήσης";
 "wikitext-download-failed" = "Αποτυχία στην ανάκτηση της τελευταίας αναθεώρησης.";
-"wikitext-download-success" = "Το περιεχόμενο φορτώθηκε";
 "wikitext-downloading" = "Γίνεται φόρτωση περιεχομένου...";
 "wikitext-preview-changes" = "Ανάκτηση προεπισκόπησης των αλλαγών σας σε εξέλιξη...";
 "wikitext-preview-changes-none" = "Δεν έγιναν αλλαγές για προεπισκόπηση.";

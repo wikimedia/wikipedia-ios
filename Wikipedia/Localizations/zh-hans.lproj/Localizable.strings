@@ -130,7 +130,6 @@
 "button-saved-remove" = "从已保存内容中移除";
 "button-skip" = "跳过";
 "cancel" = "取消";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "知识共享CC0";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
@@ -313,7 +312,6 @@
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
 "forgot-password-title" = "重置密码";
 "forgot-password-username-or-email-title" = "或";
-"gfdl" = "GFDL";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目么？";
@@ -394,7 +392,6 @@
 "on-this-day-footer-with-event-count" = "今天的$1个更多历史活动";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
-"open-link-cancel" = "取消";
 "original-tab-button-popover-description" = "点按“W”以返回您开始来自的标签";
 "page-edit-history" = "完整编辑历史";
 "page-history-title" = "条目历史";
@@ -465,6 +462,7 @@
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-do-not-keep-button-title" = "否，从设备中删除条目";
 "reading-list-entry-limit-exceeded-message" = "请减少您在此列表中的条目数至$1以恢复同步所有此列表的条目。";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "您已超过每账户$1个条目限制。";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|条目}}不能添加到此列表。您已超过每个$3的阅读列表$2个条目限制";
 "reading-list-exists-with-same-name" = "阅读列表名称已被使用";
@@ -478,6 +476,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "限制5000个未分类条目。请将您的现有条目排序成列表以继续同步未分类条目。";
 "reading-list-limit-hit-for-unsorted-articles-title" = "未分类条目的限制触发";
 "reading-list-list-limit-exceeded-message" = "此阅读列表（及保存至此的条目）将不会同步，请减少您的列表数量至$1以恢复同步此列表。";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "您已超过每账户$1个阅读列表限制。";
 "reading-list-list-limit-reached" = "您已超过每账户$1个阅读列表限制";
 "reading-list-login-button-title" = "登录以同步您保存的条目";
@@ -659,7 +658,6 @@
 "welcome-send-data-sub-title" = "通过让维基媒体基金会知道您是如何使用来协助改善应用程序。收集的数据都是匿名的。";
 "welcome-volunteer-send-usage-reports" = "发送使用情况报告";
 "wikitext-download-failed" = "无法获取最新的版本。";
-"wikitext-download-success" = "内容已加载。";
 "wikitext-downloading" = "正在加载内容...";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
 "wikitext-preview-changes-none" = "没有可供预览的更改";
@@ -672,6 +670,4 @@
 "wikitext-upload-save" = "正在发布...";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
 "wikitext-upload-save-sign-in" = "登录";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "通过发布更改，您同意$1并同意将您的贡献根据$2和$3许可协议发布。";
 "wikitext-upload-save-terms-name" = "使用条款";
