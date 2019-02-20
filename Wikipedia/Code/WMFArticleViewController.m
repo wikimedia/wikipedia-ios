@@ -99,7 +99,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
                                         DescriptionEditViewControllerDelegate,
-                                        WMFHintPresenting>
+                                        WMFHintPresenting,
+                                        SFSafariViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1291,17 +1292,16 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                          tapCallBack:NULL];
                 }
             } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
-                NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
-                if (specialPageActivity) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
-                    [self.navigationController popViewControllerAnimated:NO];
-                    return;
+                NSURL *externalURL = self.articleURL;
+                if (externalURL) {
+                    [self showExternalURL:externalURL];
                 } else {
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
                                                dismissPreviousAlerts:NO
                                                          tapCallBack:NULL];
                 }
+                return;
             } else {
                 if (force && [error wmf_isNetworkConnectionError]) {
                     [self wmf_showNoInternetConnectionPanelViewControllerWithTheme:self.theme
@@ -1344,6 +1344,14 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)fetchArticleIfNeeded {
     [self fetchArticleForce:NO];
+}
+
+- (void)showExternalURL:(NSURL *)externalURL {
+    SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:externalURL];
+    vc.delegate = self;
+    [self addChildViewController:vc];
+    [self.view wmf_addSubviewWithConstraintsToEdges:vc.view];
+    [vc didMoveToParentViewController:self];
 }
 
 #pragma mark - Share
@@ -2237,6 +2245,12 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                                width:230.0f
                                                             duration:3.0];
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
+}
+
+#pragma mark - SFSafariViewControllerDelegate
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - EventLoggingSearchSourceProviding
