@@ -122,7 +122,6 @@
 "button-saved-remove" = "Gordetakoetatik kendu";
 "button-skip" = "Jauzi";
 "cancel" = "Ezeztatu";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Itxi";
 "compass-direction" = "ordu $1(e)tan";
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
@@ -240,7 +239,6 @@
 "forgot-password-instructions" = "Hurrengo hutsuneak bete, emailez jasotzeko pasahitza berrezartzeko jarraibideak";
 "forgot-password-title" = "Pasahitza berrezarri";
 "forgot-password-username-or-email-title" = "Edo";
-"gfdl" = "GFDL";
 "history-clear-all" = "Garbitu";
 "history-clear-cancel" = "Utzi";
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
@@ -318,7 +316,6 @@
 "on-this-day-footer-with-event-count" = "Egun honetako $1 gertaera historiko gehiago";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
-"open-link-cancel" = "Utzi";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
 "page-edit-history" = "Aldaketa guztien historia";
 "page-history-title" = "Artikuluaren historia";
@@ -389,6 +386,7 @@
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
 "reading-list-entry-limit-exceeded-message" = "Mesedez, gutxitu zerrenda honetako artikulu kopurua $ 1-ra zerrendako artikulu guztien sinkronizazioa berreskuratzeko.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezin izan d(ir)a zerrendara gehitu. Irakurketa-zerrenda bakoitzeko $2 artikulutako muga gainditu duzu $3-engatik";
 "reading-list-exists-with-same-name" = "Irakurketa zerrendari jarritako izena erabilpean dago";
@@ -402,6 +400,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Sailkatu gabeko 5000 artikuluren muga dago. Mesedez, antola itzazu jadanik existitzen diren artikuluak zerrendatan sailkatu gabeko artikuluak sinkronizatu ahal izateko.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sailkatu gabeko artikuluen muga jo duzu";
 "reading-list-list-limit-exceeded-message" = "Irakurketa zerrenda eta horretan gordetako artikuluak ez dira sinkronizatuk, mesedez jaitsi zure zerrenden zenbakia $1-(e)ra zerrenda honen sinkronizatzea amaitu ahal izateko.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
 "reading-list-list-limit-reached" = "Kontu bakoitzeko $1 irakurketa-zerrenden muga gainditu duzu.";
 "reading-list-login-button-title" = "Hasi saioa gordetako arikuluak sinkronizatzeko";
@@ -575,7 +574,6 @@
 "welcome-send-data-sub-title" = "Lagun iezaiozu Wikimedia Fundazioari aplikazioa hobetzen hau bera nola erabiltzen duzun jakinaraziz. Bildutako datuak anonimoak dira.";
 "welcome-volunteer-send-usage-reports" = "Bidali erabilpen iruzkina";
 "wikitext-download-failed" = "Ezin izan da azkeneko berrikusketa jaso.";
-"wikitext-download-success" = "Edukia kargatu da.";
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-preview-changes" = "Zure aldaketen aurrebista eskuratzen...";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
@@ -587,6 +585,4 @@
 "wikitext-upload-save" = "Argitaratzen...";
 "wikitext-upload-save-anonymously-warning" = "Aldaketak zure gailuko IP helbideari egotziko zaizkio. Zuk $1 egiten baduzu, pribautasun gehiago edukiko duzu.";
 "wikitext-upload-save-sign-in" = "Hasi saioa";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Aldaketak argitaratzean, $1-arekin bat egiten duzu eta $2-$3-ko lizentzia ekarpena egitea onartzen duzu.";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";

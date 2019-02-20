@@ -99,7 +99,6 @@
 "button-saved-remove" = "لە خەزێنەکراوەکانی لابەرە";
 "button-skip" = "پەڕاندن";
 "cancel" = "ھەڵوەشاندنەوە";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "داخستن";
 "compass-direction" = "لە کاتژمێر $1";
 "continue-reading-empty-description" = "ویکیپیدیا بگەڕێ بۆ دۆزینەوەی وتاری زیاتر بۆ خوێندنەوەیان";
@@ -168,7 +167,6 @@
 "forgot-password-instructions" = "یەکێک لەم بۆشاییانەی خوارەوە پڕ بکەرەوە بۆ ئەوەی فێرکاری گۆڕینی تێپەڕوشەکەت پێ بگات بە ئیمەیڵ.";
 "forgot-password-title" = "ڕێکخستنەوەی تێپەڕوشە";
 "forgot-password-username-or-email-title" = "یان";
-"gfdl" = "GDFL";
 "history-clear-all" = "سڕینەوە";
 "history-clear-cancel" = "ھەڵوەشاندنەوە";
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
@@ -240,7 +238,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ڕووداوی مێژوویی|$1 ڕووداوە مێژووییەکان}}";
 "on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
 "on-this-day-title" = "لەم ڕۆژەدا";
-"open-link-cancel" = "ھەڵوەشاندنەوە";
 "page-edit-history" = "مێژووی دەستکاری تەواو";
 "page-history-title" = "مێژووی وتار";
 "page-issues" = "گرفتەکانی پەڕە";
@@ -395,7 +392,6 @@
 "welcome-send-data-sub-title" = "یارمەتی ویکیپیدیا بدە لە باشترکردنی بەرنامەکە بە ناردنی زانیاریی بەکارھێنان تا چۆنییەتی بەکارھێنانی بەرنامەکە لەلایەن بەکارھێنەرانەوە بزانین. ئەو زانیارییانەی کۆدەکرێنەوە کەسایەتیت دەرناخات.";
 "welcome-volunteer-send-usage-reports" = "ڕاپۆرتی بەکارھێنان بنێرە";
 "wikitext-download-failed" = "نەتواندرا دوایین پێداچوونەوە بەدەست بھێندرێت.";
-"wikitext-download-success" = "ناوەڕۆک دابەزێندرا.";
 "wikitext-downloading" = "ناوەڕۆک دەھێندرێت...";
 "wikitext-preview-changes" = "گۆڕانکارییەکانت بیشان دەدرێن...";
 "wikitext-preview-changes-none" = "ھیچ گۆڕانکارییەک نەکراوە تا نیشان بدرێت.";
@@ -407,6 +403,4 @@
 "wikitext-upload-save" = "بڵاوکردنەوە...";
 "wikitext-upload-save-anonymously-warning" = "دەستکارییەکان دەدرێنە پاڵ ناونیشانی ئای پییەکەی مۆبایلەکەت. ئەگەر $1 ئای پییەکەت دەشاردرێتەوە.";
 "wikitext-upload-save-sign-in" = "بچۆ ژوورەوە";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "بە پاشەکەوتکردنی گۆڕانکارییەکان، تۆ $1 پەسەند دەکەیت و ڕازی دەبیت بە بڵاوکردنەوەی بەشدارییەکانت لەژێر مۆڵەتنامەکانی $2 و $3.";
 "wikitext-upload-save-terms-name" = "مەرجەکانی بەکارھێنان";

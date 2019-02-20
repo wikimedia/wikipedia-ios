@@ -129,7 +129,6 @@
 "button-saved-remove" = "Uit opgeslagen verwijderen";
 "button-skip" = "Overslaan";
 "cancel" = "Annuleren";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
@@ -335,7 +334,6 @@
 "forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via email over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
-"gfdl" = "GFDL";
 "history-clear-all" = "Wissen";
 "history-clear-cancel" = "Annuleren";
 "history-clear-confirmation-heading" = "Weet u zeker dat u alle recente items wilt verwijderen?";
@@ -419,7 +417,6 @@
 "on-this-day-footer-with-event-count" = "nog $1 historische gebeurtenissen op deze dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
-"open-link-cancel" = "Annuleren";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "page-history-title" = "Paginageschiedenis";
@@ -488,7 +485,7 @@
 "reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
 "reading-list-do-not-keep-button-title" = "Nee, verwijder de artikelen van dit apparaat";
 "reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
-"reading-list-entry-limit-exceeded-title" = "Maximum aantal artikelen $1 per registratie bereikt.";
+"reading-list-entry-limit-exceeded-title" = "U hebt de limiet van {{PLURAL:$1|$1 artikel|$1 artikels}} per account overschreden.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
 "reading-list-exists-with-same-name" = "Leeslijstnaam bestaat al";
 "reading-list-generic-error" = "Er is een onverwachte fout opgetreden bij het bijwerken van uw leeslijsten.";
@@ -501,7 +498,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Er is een limiet van 5000 ongesorteerde artikelen. Sorteer uw bestaande artikelen in lijsten om door te gaan met het synchroniseren van ongesorteerde artikelen.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limiet bereikt voor ongesorteerde artikelen";
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
-"reading-list-list-limit-exceeded-title" = "Maximum aantal leeslijsten $1 per registratie bereikt.";
+"reading-list-list-limit-exceeded-title" = "U hebt de limiet van {{PLURAL:$1|$1 leeslijst|$1 leeslijten}} per account overschreden.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
 "reading-list-login-button-title" = "Log in om uw opgeslagen artikelen te synchroniseren";
 "reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
@@ -682,7 +679,6 @@
 "welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
-"wikitext-download-success" = "Inhoud geladen.";
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
@@ -695,5 +691,4 @@
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Door het publiceren van wijzigingen, gaat u akkoord met de $1 en gaat u akoord gaat met het onherroepelijk vrijgeven van uw bijdragen onder de licentie $2 en de $3. U gaat er mee akkoord dat een koppeling of URL voldoende naamsvermelding is voor de Creative Commons licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";

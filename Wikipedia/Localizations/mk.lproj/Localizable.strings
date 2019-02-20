@@ -109,7 +109,6 @@
 "button-saved-remove" = "Отстрани од зачувани";
 "button-skip" = "Прескокни";
 "cancel" = "Откажи";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Криејтив комонс CC0";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "во $1 часот";
@@ -334,7 +333,6 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Нова лозинка";
 "forgot-password-username-or-email-title" = "Или";
-"gfdl" = "ГЛСД";
 "history-clear-all" = "Исчисти";
 "history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
@@ -418,21 +416,18 @@
 "on-this-day-footer-with-event-count" = "Уште $1 историски настани на денешен ден";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
-"open-link-cancel" = "Откажи";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
 "page-edit-history" = "Цела историја на уредувања";
 "page-history-title" = "Историја на статијата";
 "page-issues" = "Проблеми со страницата";
-// Fuzzy
-"page-last-edited" = "Изменето пред $1 дена";
+"page-last-edited" = "{{PLURAL:$1|0=Изменето денес|Изменето вчера|Изменето пред $1 дена}}";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
 "page-protected-can-not-edit-title" = "Оваа страница е заштитена";
 "page-protected-other" = "Оваа страница е заштитена во следниве степени: $1";
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
-// Fuzzy
-"page-read-in-other-languages" = "Достапно на $1 други јазици";
+"page-read-in-other-languages" = "Достапно на {{PLURAL:$1|уште $1 јазик|уште $1 јазици}}";
 "page-similar-titles" = "Слични страници";
 "page-talk-page" = "Разговорна страница";
 "pictured" = "на сликата";
@@ -489,7 +484,7 @@
 "reading-list-deleted-accessibility-notification" = "Списокот за читање е избришан";
 "reading-list-do-not-keep-button-title" = "Не, избриши ги статиите од уредот";
 "reading-list-entry-limit-exceeded-message" = "Сведете го бројот на статии во списоков на $1 за да продолжите со нивното усогласување.";
-"reading-list-entry-limit-exceeded-title" = "Ја надминавте границата од $1 статии по сметка.";
+"reading-list-entry-limit-exceeded-title" = "Ја надминавте границата од {{PLURAL:$1|$1 статија|$1 статии}}.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Статијата не може да се додаде|Статиите не можат да се додадат}} во списоков. Ја достигнавте границата од $2 статии по список за $3";
 "reading-list-exists-with-same-name" = "Веќе постои список за читање со тоа име";
 "reading-list-generic-error" = "Се појави неочекувана грешка при подновата на вашите списоци за читање.";
@@ -502,7 +497,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Може да има највеќе 5000 неподредени статии. Подредете ги постоечките статии во списоци за да продолжите со усогласување на неподредените.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Достигната границата на неподредени статии";
 "reading-list-list-limit-exceeded-message" = "Овој список за читање и статиите зачувани во него нема да бидат усогласени. Сведете го бројот на списоци на $1 за да продолжите со усогласување на списокот.";
-"reading-list-list-limit-exceeded-title" = "Ја достигнавте границата од $1 списоци по сметка";
+"reading-list-list-limit-exceeded-title" = "Ја достигнавте границата од {{PLURAL:$1|$1 список за читање|$1 списоци за читање}}";
 "reading-list-list-limit-reached" = "Ја достигнавте границата од $1 списоци по сметка";
 "reading-list-login-button-title" = "Најавете се за да ги усогласите зачуваните статии";
 "reading-list-login-or-create-account-button-title" = "Најава / направи сметка";
@@ -683,7 +678,6 @@
 "welcome-send-data-sub-title" = "Помогнете ни да го подобриме прилогот со тоа што ќе ни овозможите да собираме податоци за тоа како го користите. Податоците се собираат анонимно.";
 "welcome-volunteer-send-usage-reports" = "Испраќај извештаи за употребата";
 "wikitext-download-failed" = "Не можам да ја добијам најновата преработка.";
-"wikitext-download-success" = "Содржината е вчитана.";
 "wikitext-downloading" = "Ги вчитувам содржините...";
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-changes-none" = "Не направивте промени.";
@@ -694,7 +688,8 @@
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со сликичка.";
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";
 "wikitext-upload-save" = "Објавувам...";
+"wikitext-upload-save-anonymously-or-login" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако $1се најавите$2, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-sign-in" = "Најава";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Објавувајќи ги промените, се согласувате со $1 и со објавувањето вашите придонеси под лиценците $2 и $3. Се согласувате дека наведената хиперврска или URL претставува достатен припис согласно лиценцата на Криејтив комонс.";
+"wikitext-upload-save-terms-and-licenses" = "Објавувајќи ги промените, се согласувате со $1Условите на употреба$2 и со објавувањето вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6. Се согласувате дека наведената хиперврска или URL претставува достатен припис согласно лиценцата на Криејтив комонс.";
 "wikitext-upload-save-terms-name" = "Условите на употреба";

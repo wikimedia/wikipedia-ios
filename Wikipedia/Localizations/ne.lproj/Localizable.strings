@@ -76,7 +76,6 @@
 "button-saved-remove" = "सङ्ग्रह गरिएकोबाट हटाउनुहोस्";
 "button-skip" = "छोड्नुहोस्";
 "cancel" = "रद्द गर्नुहोस्";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
 "description-help-about-title" = "बारेमा";
 "description-help-about-wikidata" = "विकिपिडियाको बारेमा";
@@ -148,7 +147,6 @@
 "forgot-password-button-title" = "पूर्वरूपमा फर्काउनुहोस्";
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";
 "forgot-password-username-or-email-title" = "अथवा";
-"gfdl" = "GFDL";
 "history-clear-all" = "खाली गर्नुहोस्";
 "history-clear-cancel" = "रद्द गर्नुहोस्";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
@@ -213,7 +211,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
-"open-link-cancel" = "रद्द गर्नुहोस्";
 "page-edit-history" = "पूर्ण सम्पादन इतिहास";
 "page-history-title" = "लेखको इतिहास";
 "page-issues" = "पृष्ठका समस्याहरू";
@@ -314,7 +311,6 @@
 "welcome-notifications-tell-me-more-title" = "जानकारीको बारेमा थप";
 "welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। सङकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
 "welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
-"wikitext-download-success" = "सामग्री लोड गरियो ।";
 "wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
 // Fuzzy

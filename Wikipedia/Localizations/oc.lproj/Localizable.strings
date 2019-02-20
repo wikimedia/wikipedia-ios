@@ -60,7 +60,6 @@
 "button-save-for-later" = "Enregistrar per mai tard";
 "button-saved-for-later" = "Enregistrat per mai tard";
 "button-saved-remove" = "Suprimir dels enregistraments";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tampar";
 "compass-direction" = "a $1 oras";
 "continue-reading-empty-title" = "Cap d'articles pas legits recentament";
@@ -151,7 +150,6 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 eveniments istorics}}";
 "on-this-day-title" = "Aqueste jorn";
-"open-link-cancel" = "Anullar";
 "page-edit-history" = "Istoric complet de las modificacions";
 "page-history-title" = "Istoric de l’article";
 "page-issues" = "Problèmas de pagina";
@@ -219,7 +217,6 @@
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
 "welcome-volunteer-send-usage-reports" = "Mandar los rapòrts d’utilizacion";
-"wikitext-download-success" = "Contengut cargat.";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-sign-in" = "Se connectar";

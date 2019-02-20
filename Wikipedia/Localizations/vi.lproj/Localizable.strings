@@ -123,7 +123,6 @@
 "button-saved-remove" = "Xóa khỏi Đã lưu";
 "button-skip" = "Bỏ qua";
 "cancel" = "Hủy bỏ";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Đóng";
 "compass-direction" = "hướng $1 giờ";
 "continue-reading-empty-description" = "Kiếm thêm bài Wikipedia để đọc";
@@ -260,7 +259,6 @@
 "forgot-password-instructions" = "Điền vào một trong những trường sau để nhận hướng dẫn đặt lại mật khẩu qua thư điện tử";
 "forgot-password-title" = "Đặt lại mật khẩu";
 "forgot-password-username-or-email-title" = "Hoặc";
-"gfdl" = "GFDL";
 "history-clear-all" = "Xóa sạch";
 "history-clear-cancel" = "Hủy bỏ";
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
@@ -337,7 +335,6 @@
 "on-this-day-footer-with-event-count" = "$1 sự kiện nữa xảy ra ngày này năm xưa";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia tiếng $2";
 "on-this-day-title" = "Ngày này năm xưa";
-"open-link-cancel" = "Hủy bỏ";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
 "page-edit-history" = "Toàn bộ lịch sử sửa đổi";
 "page-history-title" = "Lịch sử trang";
@@ -408,6 +405,7 @@
 "reading-list-deleted-accessibility-notification" = "Đã xóa danh sách đọc";
 "reading-list-do-not-keep-button-title" = "Không, xóa các bài khỏi thiết bị";
 "reading-list-entry-limit-exceeded-message" = "Vui lòng giảm số bài trong danh sách tới $1 để tiếp tục đồng bộ hóa bài viết trong danh sách này.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Bạn đã vượt quá giới hạn $1 bài viết mỗi tài khoản.";
 "reading-list-entry-limit-reached" = "Không thể thêm bài viết vào danh sách này. Danh sách $3 đã vượt quá hạn chế mỗi danh sách chỉ có $2 bài.";
 "reading-list-exists-with-same-name" = "Tên danh sách đọc đã được sử dụng";
@@ -421,6 +419,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Số bài viết tối đa chưa được phân loại mà bạn có thể lưu là 5.000. Xin hãy xếp các bài viết vào các danh sách đọc để tiếp tục quá trình đồng bộ hóa các bài viết chưa được phân loại.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Đã đạt giới hạn về bài viết chưa phân loại";
 "reading-list-list-limit-exceeded-message" = "Danh sách đọc này cũng như toàn bộ các bài viết trong danh sách sẽ không được đồng bộ hóa, xin hãy giảm số danh sách xuống còn $1 để tiếp tục quá trình đồng bộ hóa.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Bạn đã vượt quá giới hạn $1 danh sách đọc mỗi tài khoản.";
 "reading-list-list-limit-reached" = "Bạn đã tới giới hạn $1 danh sách đọc mỗi tài khoản";
 "reading-list-login-button-title" = "Đăng nhập để đồng bộ các bài đã lưu của bạn";
@@ -595,7 +594,6 @@
 "welcome-send-data-sub-title" = "Giúp cải thiện ứng dụng này bằng cách cho Quỹ Wikimedia biết bạn sử dụng ứng dụng như thế nào. Các dữ liệu được tập hợp là vô danh.";
 "welcome-volunteer-send-usage-reports" = "Gửi báo cáo sử dụng";
 "wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
-"wikitext-download-success" = "Đã tải xong nội dung.";
 "wikitext-downloading" = "Đang tải nội dung…";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";
 "wikitext-preview-changes-none" = "Không có thay đổi để xem trước.";
@@ -607,6 +605,4 @@
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Với việc đăng các thay đổi, bạn chấp nhận các $1 và đồng ý phát hành đóng góp của bạn theo các giấy phép $2 và $3.";
 "wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";

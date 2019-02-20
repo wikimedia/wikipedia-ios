@@ -119,7 +119,6 @@
 "button-saved-remove" = "Remover dos guardados";
 "button-skip" = "Ignorar";
 "cancel" = "Cancelar";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
@@ -344,7 +343,6 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição da palavra-passe por correio eletrónico";
 "forgot-password-title" = "Redefinir palavra-passe";
 "forgot-password-username-or-email-title" = "Ou";
-"gfdl" = "GFDL";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Tem a certeza de que deseja eliminar todos os seus elementos recentes?";
@@ -428,21 +426,18 @@
 "on-this-day-footer-with-event-count" = "Mais $1 acontecimentos históricos neste dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
-"open-link-cancel" = "Cancelar";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
 "page-edit-history" = "Histórico completo";
 "page-history-title" = "Histórico do artigo";
 "page-issues" = "Problemas da página";
-// Fuzzy
-"page-last-edited" = "Editado há $1 dias";
+"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|Editado ontem|Editado há $1 dias}}";
 "page-location" = "Ver num mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Não tem permissão para editar esta página";
 "page-protected-can-not-edit-title" = "Esta página está protegida";
 "page-protected-other" = "Esta página está protegida para os seguintes níveis: $1";
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
-// Fuzzy
-"page-read-in-other-languages" = "Disponível noutras $1 línguas";
+"page-read-in-other-languages" = "Disponível {{PLURAL:$1|noutra língua|em $1 outras línguas}}";
 "page-similar-titles" = "Páginas semelhantes";
 "page-talk-page" = "Ver página de discussão";
 "pictured" = "retratado";
@@ -499,7 +494,7 @@
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
 "reading-list-entry-limit-exceeded-message" = "Para continuar a sincronização de todos os artigos desta lista, reduza o número de artigos para $1.";
-"reading-list-entry-limit-exceeded-title" = "Excedeu o limite de $1 artigos por conta.";
+"reading-list-entry-limit-exceeded-title" = "Excedeu o limite de {{PLURAL:$1|$1 artigo|$1 artigos}}  por conta.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|O artigo não pode ser adicionado|Os artigos não podem ser adicionados}} a esta lista. Atingiu o limite de $2 artigos por lista de leitura para $3";
 "reading-list-exists-with-same-name" = "O nome da lista de leitura já está a ser utilizado";
 "reading-list-generic-error" = "Ocorreu um erro inesperado ao atualizar as suas listas de leitura.";
@@ -512,7 +507,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Foi atingido o limite de artigos não ordenados";
 "reading-list-list-limit-exceeded-message" = "Esta lista de leitura e os artigos nela guardados não serão sincronizados. Para continuar a sincronização da lista reduza o número de listas para $1, por favor.";
-"reading-list-list-limit-exceeded-title" = "Excedeu o limite de $1 listas de leitura por conta.";
+"reading-list-list-limit-exceeded-title" = "Excedeu o limite de {{PLURAL:$1|$1 lista de leitura|$1 listas de leitura}} por conta.";
 "reading-list-list-limit-reached" = "Atingiu o limite de $1 listas de leitura por conta";
 "reading-list-login-button-title" = "Entre para sincronizar os seus artigos guardados";
 "reading-list-login-or-create-account-button-title" = "Entre ou crie uma conta";
@@ -693,7 +688,6 @@
 "welcome-send-data-sub-title" = "Ajude a melhorar a aplicação indicando à Wikimedia Foundation como a utiliza. Os dados recolhidos são anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar relatórios de utilização";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
-"wikitext-download-success" = "Conteúdo carregado.";
 "wikitext-downloading" = "A carregar conteúdo...";
 "wikitext-preview-changes" = "A recuperar antevisão das suas alterações...";
 "wikitext-preview-changes-none" = "Não existem alterações para antever.";
@@ -704,7 +698,8 @@
 "wikitext-upload-captcha-needed" = "É necessária a verificação do código CAPTCHA.";
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do texto wiki.";
 "wikitext-upload-save" = "A publicar...";
+"wikitext-upload-save-anonymously-or-login" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1iniciar uma sessão$2, terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ao publicar as alterações, concorda com as $1 e concorda irrevogavelmente em publicar o seu contributo com as licenças $2 e $3. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
+"wikitext-upload-save-terms-and-licenses" = "Ao publicar as alterações, concorda com as $1Condições de Utilização$2 e concorda irrevogavelmente em publicar o seu contributo com a licença $3CC BY-SA 3.0$4 e a $5GFDL$6. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";

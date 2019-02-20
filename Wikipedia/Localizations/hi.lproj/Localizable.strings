@@ -108,7 +108,6 @@
 "button-saved-remove" = "सहेजे हुओं में से निकालें";
 "button-skip" = "छोड़ें";
 "cancel" = "रद्द करना";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बंद करें";
 "compass-direction" = "$1 बजे पर";
 "continue-reading-empty-description" = "विकिपीडिया को और लेख पढ़ने के लिए खोजें";
@@ -187,7 +186,6 @@
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
 "forgot-password-title" = "पासवर्ड रिसेट करें";
 "forgot-password-username-or-email-title" = "या";
-"gfdl" = "जीएफडीएल";
 "history-clear-all" = "साफ करें";
 "history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
@@ -259,7 +257,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटना|$1 ऐतिहासिक घटनाओं}}";
 "on-this-day-footer" = "इस दिन की अधिक ऐतिहासिक घटनाएं";
 "on-this-day-title" = "आज के दिन";
-"open-link-cancel" = "रद्द करें";
 "page-edit-history" = "पूर्ण संपादन इतिहास";
 "page-history-title" = "लेख इतिहास";
 "page-issues" = "पेज समस्याएं";
@@ -429,7 +426,6 @@
 "welcome-send-data-sub-title" = "विकिमीडिया फाउंडेशन को यह जानने की आज्ञा देकर कि आप एप को किस प्रकार प्रयोग करते हैं, एप बेहतर बनाने में सहायता करें। एकत्रित डेटा एनोनिमस है।";
 "welcome-volunteer-send-usage-reports" = "उपयोग रिपोर्ट भेजें";
 "wikitext-download-failed" = "हाल के परिवर्तन को प्राप्त करने में असफल।";
-"wikitext-download-success" = "सामग्री को लोड किया जा चुका है।";
 "wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
 "wikitext-preview-changes-none" = "प्रीव्यू के लिए कोई बदलाव नहीं हैं।";
@@ -441,6 +437,4 @@
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-sign-in" = "प्रवेश";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "परिवर्तन प्रकाशित करके, आप $1 से सहमत होते हैं और $2 और $3 लाइसेंस के तहत अपना योगदान जारी करने के लिए सहमत होते हैं।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";

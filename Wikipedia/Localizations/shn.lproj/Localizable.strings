@@ -73,7 +73,6 @@
 "button-save-for-later" = "သိမ်းဝႆႉတႃႇဝၢႆးလင်";
 "button-saved-for-later" = "တွၼ်ႈတႃႇဝၢႆးလင် သိမ်းဝႆႉယဝ်ႉ";
 "button-saved-remove" = "ထွၼ်ပႅတ်ႈၵႃႈတီႈ သိမ်းဝႆႉ";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ႁပ်း";
 "compass-direction" = "မိူဝ်ႈ $1 မူင်း";
 "continue-reading-empty-description" = "ပိုတ်ႇႁႃ ဝီႇၶီႇၽီးတီးယႃး တွၼ်ႈတႃႇလူ ပွင်ႇလိၵ်ႈထႅင်ႈ";
@@ -201,7 +200,6 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"open-link-cancel" = "ဢမ်ႇႁဵတ်း";
 "page-edit-history" = "ပိုၼ်းမႄးထတ်း တဵမ်ထူၼ်ႈ";
 "page-history-title" = "ပိုၼ်းပွင်ႈလိၵ်ႈ";
 "page-issues" = "ၶေႃႈၶၼ် ၼႃႈလိၵ်ႈ";
@@ -316,7 +314,6 @@
 "welcome-send-data-sub-title" = "ပၼ်ႁႂ်ႈႁဝ်းၶႃႈ ၸူႉၸွမ်းဝႃႈ ၸဝ်ႈၵဝ်ႇႁဵတ်းႁိုဝ်ၸႂ်ႉ ဢႅပ်ႉၼႆသေၵေႃႈ ၸွႆႈထႅမ်ၾွင်ႇတေးသျိၼ်း ဝီႇၶီႇမီႇတီႇယႃႇ တႃႇႁဵတ်းႁႂ်ႈ ဢႅပ်ႉလီသေလီ။ လွင်ႈၸူႉတွမ်ၶေႃႈမုၼ်းတႄႉ တေပဵၼ် ဢၼ်လပ်ႉၸိုဝ်ႈဝႆႉၵူၺ်း။";
 "welcome-volunteer-send-usage-reports" = "တၢင်ႇ ၶေႃႈလၢတ်ႈ လွင်ႈၸႂ်ႉတိုဝ်း";
 "wikitext-download-failed" = "ဢမ်ႇဢဝ်လႆႈ ​မၢႆဢွၵ်ႇၵမ်းလိုၼ်းသုတ်း။";
-"wikitext-download-success" = "ၶေႃႈၼႂ်း ထုတ်ႇပိုတ်ႇယဝ်ႉ။";
 "wikitext-downloading" = "တိုၵ်ႉထုတ်ႇပိုတ်ႇ ၶေႃႈၼႂ်း...";
 "wikitext-preview-changes" = "တိုၵ်ႉၸူင်ဢဝ်တူၺ်းလူင်ႈၼႃႈ ၶွင်လွင်ႈလႅၵ်ႈလၢႆႈၸဝ်ႈၵဝ်ႇ...";
 "wikitext-preview-changes-none" = "တႃႇတေတူၺ်းလူင်ႈၼႃႈ ဢမ်ႇမီး လွင်ႈလႅၵ်ႈလၢႆႈသင်။";

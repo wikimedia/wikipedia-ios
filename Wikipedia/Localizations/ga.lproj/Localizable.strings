@@ -88,7 +88,6 @@
 "button-report-a-bug" = "Tuairiscigh fabht";
 "button-skip" = "Scipeáil";
 "cancel" = "Cealaigh";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Dún";
 "compass-direction" = "i dtreo a $1 a chlog";
@@ -231,7 +230,6 @@
 "forgot-password-instructions" = "Líon ceann de na réimsí seo thíos le treoracha athshocraithe pasfhocail a ghlacadh trí ríomhphost";
 "forgot-password-title" = "Athshocraigh pasfhocal";
 "forgot-password-username-or-email-title" = "Nó";
-"gfdl" = "GFDL";
 "history-clear-all" = "Glan";
 "history-clear-cancel" = "Cealaigh";
 "history-clear-delete-all" = "Tá, scrios uile";
@@ -304,7 +302,6 @@
 "on-this-day-footer" = "Tuilleadh ócáidí stairiúla ar an lá seo";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ó Vicipéid ($2)";
 "on-this-day-title" = "Ar an lá seo";
-"open-link-cancel" = "Cealaigh";
 "original-tab-button-popover-description" = "Tapáil ar an 'W' le fill ar an táb inar thosaigh tú";
 "page-edit-history" = "Stair iomlán eagarthóireachta";
 "page-history-title" = "Stair an ailt";
@@ -495,7 +492,6 @@
 "welcome-send-data-learn-more" = "Foghlaim tuilleadh maidir le sonraí a bhailítear";
 "welcome-send-data-sub-title" = "Cuidigh leis an aip a fheabhsú tríd an bhFondúireacht Wikimedia a chur ar an eolas ar conas mar a úsáideann tú é. Is anaithnid na sonraí a bhailítear.";
 "welcome-volunteer-send-usage-reports" = "Seol tuairiscí úsáide";
-"wikitext-download-success" = "Lódáladh inneachar.";
 "wikitext-downloading" = "Ag lódáil inneachair...";
 "wikitext-preview-link-preview-title" = "Réamhamharc ar an nasc";
 "wikitext-upload-captcha-needed" = "Deimhniú CAPTCHA de dhíth";
