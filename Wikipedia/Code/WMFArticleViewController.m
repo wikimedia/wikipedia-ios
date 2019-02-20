@@ -1346,6 +1346,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self fetchArticleForce:NO];
 }
 
+// Shows external URL as a child VC - works around an issue where pushing a SFSafariViewController
+// while removing this VC from the stack would put the app in a state where it needed to be force quit
 - (void)showExternalURL:(NSURL *)externalURL {
     SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:externalURL];
     vc.delegate = self;
@@ -1777,8 +1779,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showTalkPage {
-    SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleTalkPageURL];
-    [self.navigationController presentViewController:safariController animated:YES completion:nil];
+    // use wmf_openExternal instead of showExternalURL because this VC
+    // should be pushed on the stack instead of displayed here
+    [self wmf_openExternalUrl:self.articleTalkPageURL];
 }
 
 - (NSURL *)articleTalkPageURL {
