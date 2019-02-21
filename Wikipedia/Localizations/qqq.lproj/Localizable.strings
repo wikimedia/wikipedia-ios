@@ -345,7 +345,7 @@
 "icon-shortcut-nearby-title" = "Title for app icon force touch shortcut to quickly open the nearby articles interface.";
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article.\n{{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
-"image-gallery-license-title" = "Title for the alert that shows the short description of the image license.";
+"image-gallery-more-information-button-title" = "Title for button that shows more information about an image.";
 "image-gallery-unknown-license" = "Fallback text for when an item in the image gallery doesn't have a specified license.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";

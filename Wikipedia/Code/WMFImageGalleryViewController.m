@@ -376,31 +376,40 @@ NS_ASSUME_NONNULL_BEGIN
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 
-    @weakify(self)
-        caption.ownerTapCallback = ^{
-        @strongify(self) if (imageInfo.license.URL) {
+    @weakify(self);
+    caption.ownerTapCallback = ^{
+        @strongify(self);
+        if (imageInfo.license.URL) {
             [self wmf_openExternalUrl:imageInfo.license.URL];
-        }
-        else {
-            NSString *title = WMFLocalizedStringWithDefaultValue(@"image-gallery-license-title", nil, nil, @"Image license", @"Title for the alert that shows the short description of the image license.");
+        } else {
             NSString *message = imageInfo.license.shortDescription ?: WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-license", nil, nil, @"License unknown", @"Fallback text for when an item in the image gallery doesn't have a specified license.");
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:NULL]];
+            NSString *moreInformation = WMFLocalizedStringWithDefaultValue(@"image-gallery-more-information-button-title", nil, nil, @"More information", @"Title for button that shows more information about an image.");
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleCancel handler:NULL]];
+            NSURL *filePageURL = imageInfo.filePageURL;
+            if (filePageURL) {
+                [alert addAction:[UIAlertAction actionWithTitle:moreInformation
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction *_Nonnull action) {
+                                                            [self wmf_openExternalUrl:filePageURL];
+                                                        }]];
+            }
             [self presentViewController:alert animated:YES completion:NULL];
         }
     };
     caption.infoTapCallback = ^{
-        @strongify(self) if (imageInfo.filePageURL) {
+        @strongify(self);
+        if (imageInfo.filePageURL) {
             [self wmf_openExternalUrl:imageInfo.filePageURL];
         }
     };
-    @weakify(caption)
-        caption.descriptionTapCallback = ^{
+    @weakify(caption);
+    caption.descriptionTapCallback = ^{
         [UIView animateWithDuration:0.3
                          animations:^{
-                             @strongify(self)
-                                 @strongify(caption)
-                                     [caption toggleDescriptionOpenState];
+                             @strongify(self);
+                             @strongify(caption);
+                             [caption toggleDescriptionOpenState];
                              [self.view layoutIfNeeded];
                          }
                          completion:NULL];
