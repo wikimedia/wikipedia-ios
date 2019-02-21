@@ -53,6 +53,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
             self.view.setNeedsLayout()
+            self.resultsViewController.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         })
     }
