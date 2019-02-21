@@ -2,7 +2,7 @@
 
 ## Setup
 
-Similar to the [project's Ruby setup for ci](ci.md), we recommend using a node version manager to install node and manage multiple versions of node on the same machine.
+Similar to the [project's Ruby setup for ci](ci.md), we recommend using a [node version manager](https://github.com/nodenv/nodenv) to install node and manage multiple versions of [node](https://nodejs.org/) on the same machine.
 
 These are the recommended steps for setting up your machine for web development:
 
