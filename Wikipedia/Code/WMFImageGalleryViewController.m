@@ -381,20 +381,11 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         if (imageInfo.license.URL) {
             [self wmf_openExternalUrl:imageInfo.license.URL];
+        } else if (imageInfo.filePageURL) {
+            [self wmf_openExternalUrl:imageInfo.filePageURL];
         } else {
-            NSString *message = imageInfo.license.shortDescription ?: WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-license", nil, nil, @"License unknown", @"Fallback text for when an item in the image gallery doesn't have a specified license.");
-            NSString *moreInformation = WMFLocalizedStringWithDefaultValue(@"image-gallery-more-information-button-title", nil, nil, @"More information", @"Title for button that shows more information about an image.");
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleCancel handler:NULL]];
-            NSURL *filePageURL = imageInfo.filePageURL;
-            if (filePageURL) {
-                [alert addAction:[UIAlertAction actionWithTitle:moreInformation
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction *_Nonnull action) {
-                                                            [self wmf_openExternalUrl:filePageURL];
-                                                        }]];
-            }
-            [self presentViewController:alert animated:YES completion:NULL];
+            // There should always be a file page URL, but log an error anyway
+            DDLogError(@"No license URL or file page URL for %@", imageInfo);
         }
     };
     caption.infoTapCallback = ^{
