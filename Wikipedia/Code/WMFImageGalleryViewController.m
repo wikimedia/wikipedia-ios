@@ -364,46 +364,50 @@ NS_ASSUME_NONNULL_BEGIN
     if (!imageInfo) {
         return nil;
     }
-    
+
     WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
     caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
 
     caption.imageDescription =
         [imageInfo.imageDescription stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
     NSString *ownerOrFallback = imageInfo.owner ? [imageInfo.owner stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                                                 : WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-owner", nil, nil, @"Author unknown.", @"Fallback text for when an item in the image gallery doesn't have a specified owner.");
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 
     @weakify(self)
-    caption.ownerTapCallback = ^{
-        @strongify(self)
-        if (imageInfo.license.URL) {
+        caption.ownerTapCallback = ^{
+        @strongify(self) if (imageInfo.license.URL) {
             [self wmf_openExternalUrl:imageInfo.license.URL];
+        }
+        else {
+            NSString *title = WMFLocalizedStringWithDefaultValue(@"image-gallery-license-title", nil, nil, @"Image license", @"Title for the alert that shows the short description of the image license.");
+            NSString *message = imageInfo.license.shortDescription ?: WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-license", nil, nil, @"License unknown", @"Fallback text for when an item in the image gallery doesn't have a specified license.");
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:NULL]];
+            [self presentViewController:alert animated:YES completion:NULL];
         }
     };
     caption.infoTapCallback = ^{
-        @strongify(self)
-        if (imageInfo.filePageURL) {
+        @strongify(self) if (imageInfo.filePageURL) {
             [self wmf_openExternalUrl:imageInfo.filePageURL];
         }
     };
     @weakify(caption)
-    caption.descriptionTapCallback = ^{
+        caption.descriptionTapCallback = ^{
         [UIView animateWithDuration:0.3
                          animations:^{
                              @strongify(self)
-                             @strongify(caption)
-                             [caption toggleDescriptionOpenState];
+                                 @strongify(caption)
+                                     [caption toggleDescriptionOpenState];
                              [self.view layoutIfNeeded];
                          }
                          completion:NULL];
     };
 
     caption.maximumDescriptionHeight = self.view.frame.size.height;
-    
+
     return caption;
 }
 
