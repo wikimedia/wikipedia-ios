@@ -11,7 +11,11 @@ Similar to the [project's node setup for web dev](web_dev.md), we recommend usin
 
 These are the recommended steps for setting up Fastlane:
 
-#### Install [homebrew](https://brew.sh) if you haven't already
+#### Install [homebrew](https://brew.sh)
+[homebrew](https://brew.sh) should have been installed by `scripts/setup`, but if you didn't run that script or would like to manually install it:
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 
 #### Install [rbenv](https://github.com/rbenv/rbenv)
 rbenv installs Ruby inside of your home folder so you don't have to modify the macOS ruby installation using root privileges. You can also manage multiple ruby versions on the same machine if you have other projects that depend on a different Ruby version. After [homebrew](https://brew.sh) is installed, install [rbenv](https://github.com/rbenv/rbenv) by running:

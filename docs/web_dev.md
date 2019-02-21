@@ -1,4 +1,5 @@
 # Wikipedia iOS Web Development
+This document covers setting up your machine for work on the web components of the Wikipedia iOS project.
 
 ## Setup
 
@@ -6,7 +7,11 @@ Similar to the [project's Ruby setup for ci](ci.md), we recommend using a [node 
 
 These are the recommended steps for setting up your machine for web development:
 
-#### Install [homebrew](https://brew.sh) if you haven't already
+#### Install [homebrew](https://brew.sh)
+[homebrew](https://brew.sh) should have been installed by `scripts/setup`, but if you didn't run that script or would like to manually install it:
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 
 #### Install [nodenv](https://github.com/nodenv/nodenv)
 [nodenv](https://github.com/nodenv/nodenv) manages  multiple node versions on the same machine. This is helpful in our environment where other Wikimedia Foundation repositories depend on different node versions. After [homebrew](https://brew.sh) is installed, install [nodenv](https://github.com/nodenv/nodenv) by running:
