@@ -26,7 +26,7 @@ First `cd` to the directory where you have this repository:
 cd /path/to/your/wikipedia-ios
 ```
 
-Then, install the ruby version specified by our project by running:
+Then, install the [node](https://nodejs.org/) version specified by our project by running:
 ```
 nodenv install -s
 ```
