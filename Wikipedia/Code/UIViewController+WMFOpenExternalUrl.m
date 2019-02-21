@@ -46,7 +46,7 @@
 
 - (void)wmf_presentExternalUrlAsSFSafari:(NSURL *)url {
     SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:url];
-    [self.navigationController presentViewController:vc animated:YES completion:nil];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 @end
