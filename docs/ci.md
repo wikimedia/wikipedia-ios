@@ -7,7 +7,9 @@ This document describes the dependencies for working on continuous-integration-r
 
 Fastlane isn't necessary for normal development, but will be necessary if you need to automate tasks locally or you'll be updating the lanes run on our CI sever.
 
-Recommended steps for setting up Fastlane:
+Similar to the [project's node setup for web dev](web_dev.md), we recommend using a Ruby version manager to install node and manage multiple versions of Ruby on the same machine.
+
+These are the recommended steps for setting up Fastlane:
 
 #### Install [homebrew](https://brew.sh) if you haven't already
 
