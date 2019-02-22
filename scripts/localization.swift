@@ -48,14 +48,28 @@ fileprivate var mwLocalizedStringRegex: NSRegularExpression? = {
 
 fileprivate var countPrefixRegex: NSRegularExpression? = {
     do {
-        return try NSRegularExpression(pattern: "(:?^[0-9]+)(?:=)", options: [])
+        return try NSRegularExpression(pattern: "(:?^[^\\=]+)(?:=)", options: [])
     } catch {
         assertionFailure("countPrefixRegex failed to compile")
     }
     return nil
 }()
 
-let keysByPrefix = ["0":"zero", "1":"one", "2":"two", "3":"few"]
+// lookup from translator prefix to iOS-supported stringsdict key
+// 0= == zero, 1= == one, etc. Also support use of zero, one, etc. directly
+let keysByPrefix = [
+    "0":"zero",
+    "1":"one",
+    "2":"two",
+    "3":"few",
+    "zero":"zero",
+    "one":"one",
+    "two":"two",
+    "few":"few",
+    "many":"many",
+    "other":"other"
+]
+
 extension String {
     var fullRange: NSRange {
         return NSRange(location: 0, length: (self as NSString).length)
@@ -117,11 +131,15 @@ extension String {
             var keyForComponent: String?
             var actualComponent: String? = component
             guard let match = countPrefixRegex.firstMatch(in: component, options: [], range: component.fullRange) else {
+                if component.contains("=") {
+                    print("Unsupported prefix: \(String(describing: component))")
+                    abort()
+                }
                 unlabeledComponents.append(component)
                 continue
             }
             
-            // Support for 0= 1= 2=
+            // Support for 0= 1= 2= zero= one= few= many=
             let numberString = countPrefixRegex.replacementString(for: match, in: component, offset: 0, template: "$1")
             if let key = keysByPrefix[numberString] {
                 keyForComponent = key
@@ -140,22 +158,27 @@ extension String {
             keyDictionary[keyToInsert] = nsSelf.replacingCharacters(in:range, with: componentToInsert).iOSNativeLocalization(tokens: tokens)
         }
         
-        guard let other = unlabeledComponents.last else {
-            print("missing base translation for \(keys) \(tokens)")
-            abort()
-        }
-        keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).iOSNativeLocalization(tokens: tokens)
-        
-        var keyIndex = 0
-        for component in unlabeledComponents[0..<(unlabeledComponents.count - 1)] {
-            guard keyIndex < remainingKeys.count else {
-                break
+        if let other = unlabeledComponents.last {
+            keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).iOSNativeLocalization(tokens: tokens)
+            
+            for (keyIndex, component) in unlabeledComponents.enumerated() {
+                guard
+                    keyIndex < unlabeledComponents.count - 1,
+                    keyIndex < remainingKeys.count
+                else {
+                    break
+                }
+                keyDictionary[remainingKeys[keyIndex]] = nsSelf.replacingCharacters(in:range, with: component).iOSNativeLocalization(tokens: tokens)
             }
-            keyDictionary[remainingKeys[keyIndex]] = nsSelf.replacingCharacters(in:range, with: component).iOSNativeLocalization(tokens: tokens)
-            keyIndex += 1
+        } else if keyDictionary["other"] == nil {
+            if keyDictionary["many"] != nil {
+                keyDictionary["other"] = keyDictionary["many"]
+            } else {
+                print("missing default translation")
+                abort()
+            }
         }
-        
-        
+    
         let key = "v0"
         mutableDictionary[key] = keyDictionary
         let replacement = "%#@\(key)@"
