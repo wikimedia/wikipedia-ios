@@ -55,13 +55,12 @@ fileprivate var countPrefixRegex: NSRegularExpression? = {
     return nil
 }()
 
-// lookup from translator prefix to iOS-supported stringsdict key
-// 0= == zero, 1= == one, etc. Also support use of zero, one, etc. directly
+// lookup from translatewiki prefix to iOS-supported stringsdict key
 let keysByPrefix = [
     "0":"zero",
-    "1":"one",
-    "2":"two",
-    "3":"few",
+    //"1":"one" digits on translatewiki mean only use the translation when the replacement number === that digit. On iOS one, two, and few are more generic. for example, the translation for one could map to 1, 21, 31, etc
+    //"2":"two",
+    //"3":"few"
     "zero":"zero",
     "one":"one",
     "two":"two",
@@ -77,7 +76,9 @@ extension String {
     var escapedString: String {
         return self.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\n")
     }
-    func pluralDictionary(with keys: [String], tokens: [String: String]) -> NSDictionary? {
+    
+    /* supportsOneEquals indicates that the language's singular translation on iOS is only valid for n=1. digits on translatewiki mean only use the translation when the replacement number === that digit. On iOS one, two, and few are more generic. for example, the translation for one could map to 1, 21, 31, etc. Only use 1= for one when the iOS definition matches the translatewiki definition for a given language. */
+    func pluralDictionary(with keys: [String], tokens: [String: String], supportsOneEquals: Bool) -> NSDictionary? {
         //https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html#//apple_ref/doc/uid/10000171i-CH16-SW1
         guard let dictionaryRegex = dictionaryRegex else {
             return nil
@@ -141,14 +142,14 @@ extension String {
             
             // Support for 0= 1= 2= zero= one= few= many=
             let numberString = countPrefixRegex.replacementString(for: match, in: component, offset: 0, template: "$1")
-            if let key = keysByPrefix[numberString] {
+            if let key = (supportsOneEquals && (numberString == "1" || numberString == "one")) ? "one" : keysByPrefix[numberString] {
                 keyForComponent = key
                 remainingKeys = remainingKeys.filter({ (aKey) -> Bool in
                     return key != aKey
                 })
                 actualComponent = String(component.suffix(from: component.index(component.startIndex, offsetBy: match.range.length)))
             } else {
-                print("Unsupported prefix. Ignoring \(String(describing: component))")
+                print("Translatewiki prefix \(numberString) not supported on iOS for this language. Ignoring \(String(describing: component))")
             }
             
             guard let keyToInsert = keyForComponent, let componentToInsert = actualComponent else {
@@ -467,7 +468,7 @@ func importLocalizationsFromTWN(_ path: String) {
                 if twnString.contains("{{PLURAL:") {
                     let lang = locale.components(separatedBy: "-").first ?? ""
                     let keys = keysByLanguage[lang] ?? defaultKeys
-                    stringsDict[key] = twnString.pluralDictionary(with: keys, tokens:enTokens)
+                    stringsDict[key] = twnString.pluralDictionary(with: keys, tokens:enTokens, supportsOneEquals: locale == "en")
                     strings[key] = nativeLocalization
                 } else {
                     strings[key] = nativeLocalization

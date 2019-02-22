@@ -86,8 +86,6 @@
 			<string>Отредактировано %1$d дня назад</string>
 			<key>many</key>
 			<string>Отредактировано %1$d дней назад</string>
-			<key>one</key>
-			<string>Отредактировано вчера</string>
 			<key>other</key>
 			<string>Отредактировано %1$d дней назад</string>
 			<key>zero</key>
@@ -282,10 +280,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>few</key>
-			<string>%1$d года назад</string>
 			<key>one</key>
-			<string>Прошлый год</string>
+			<string>%1$d года назад</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>
