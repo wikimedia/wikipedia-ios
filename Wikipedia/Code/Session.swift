@@ -87,12 +87,6 @@ import Foundation
         return URLSession(configuration: config)
     }()
     
-    internal let queue: OperationQueue = { // DEPRECATED: requestWithCSRF could be updated to not use an operation for cancellation and instread use the use the cancellation mechanism defined in the fetcher
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 16
-        return queue
-    }()
-    
     public func hasValidCentralAuthCookies(for domain: String) -> Bool {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return false
