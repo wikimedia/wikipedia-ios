@@ -114,6 +114,22 @@
 			<string>%1$d Artikel</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Du hast die Grenze von einem Artikel pro Benutzerkonto überschritten.</string>
+			<key>other</key>
+			<string>Du hast die Grenze von %1$d Artikeln pro Benutzerkonto überschritten.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -128,6 +144,22 @@
 			<string>Der Artikel konnte nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
 			<key>other</key>
 			<string>Die Artikel konnten nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Du hast die Grenze von einer Leseliste pro Benutzerkonto überschritten.</string>
+			<key>other</key>
+			<string>Du hast die Grenze von %1$d Leselisten pro Benutzerkonto überschritten.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

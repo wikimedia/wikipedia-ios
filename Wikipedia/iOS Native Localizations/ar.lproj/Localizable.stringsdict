@@ -66,6 +66,40 @@
 			<string>%1$d أحداث تاريخية</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>عُدِّلت أمس</string>
+			<key>other</key>
+			<string>عُدِّلت منذ %1$d أيام</string>
+			<key>zero</key>
+			<string>عُدِّلت اليوم</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>متاحة بـ%1$d لغة أخرى</string>
+			<key>other</key>
+			<string>متاحة بـ%1$d لغات أخرى</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +116,22 @@
 			<string>مقالات</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>لقد تجاوزت الحد الأقصى وهو %1$d مقالة لكل حساب.</string>
+			<key>other</key>
+			<string>لقد تجاوزت الحد الأقصى وهو %1$d مقالات لكل حساب.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +146,22 @@
 			<string>لا يمكن إضافة مقالة إلى هذه القائمة; لقد بلغت الحد الأقصى %2$d مقالات لكل قائمة قراءة لـ%3$@</string>
 			<key>other</key>
 			<string>لا يمكن إضافة مقالات إلى هذه القائمة; لقد بلغت الحد الأقصى %2$d مقالات لكل قائمة قراءة لـ%3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>لقد تجاوزت الحد المسموح به وهو %1$d قائمة قراءة لكل حساب.</string>
+			<key>other</key>
+			<string>لقد تجاوزت الحد المسموح به وهو %1$d قوائم قراءة لكل حساب.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

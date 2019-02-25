@@ -73,7 +73,6 @@
 "action-add-to-reading-list" = "Aggiungi all'elenco di lettura";
 "action-add-to-reading-list-short" = "Aggiungi all'elenco";
 "action-cancel" = "Annulla";
-// Fuzzy
 "action-find-in-page" = "Trova nella pagina";
 "action-move-to" = "Sposta in…";
 "action-move-to-reading-list" = "Sposta nell'elenco di lettura";
@@ -84,7 +83,6 @@
 "action-saved" = "Salvato";
 "action-saved-accessibility-notification" = "Voce salvata per dopo";
 "action-share" = "Condividi";
-// Fuzzy
 "action-undo" = "Annulla";
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
@@ -117,7 +115,6 @@
 "button-saved-remove" = "Rimuovi dai salvati";
 "button-skip" = "Salta";
 "cancel" = "Annulla";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "alle ore $1";
@@ -242,7 +239,6 @@
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";
 "forgot-password-username-or-email-title" = "O";
-"gfdl" = "GFDL";
 "history-clear-all" = "Pulisci";
 "history-clear-cancel" = "Annulla";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
@@ -318,7 +314,6 @@
 "on-this-day-footer" = "Alti eventi storici in questo giorno";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
-"open-link-cancel" = "Annulla";
 "page-edit-history" = "Cronologia delle modifiche completa";
 "page-history-title" = "Cronologia dell'articolo";
 "page-issues" = "Problemi alla pagina";
@@ -366,7 +361,9 @@
 "reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
 "reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
+"reading-list-entry-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 voce|$1 voci}} per utenza.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
+"reading-list-list-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura per utenza.";
 "reading-list-sync-enabled-panel-message" = "La sincronizzazione degli elenchi di lettura è attivata su questo account. Per bloccarla, puoi disattivare la sincronizzazione di questo account aggiornando le tue impostazioni.";
 "reading-list-sync-enabled-panel-title" = "La sincronizzazione è attivata su questo account";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
@@ -471,7 +468,6 @@
 "welcome-send-data-sub-title" = "Aiuta a migliorare l'applicazione facendo conoscere alla Fondazione Wikimedia come la utilizzi. I dati raccolti sono anonimi.";
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
-"wikitext-download-success" = "Contenuto caricato.";
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
@@ -482,7 +478,8 @@
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
 "wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";
 "wikitext-upload-save" = "Pubblicazione...";
+"wikitext-upload-save-anonymously-or-login" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1accedi$2 avrai maggiore privacy.";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Pubblicando le modifiche, accetti le nostre $1, e accetti irrevocabilmente di rilasciare il tuo contributo in base alle licenze $2 e $3. Accetti che un collegamento ipertestuale o URL sia sufficiente per l'attribuzione in base alla licenza Creative Commons.";
+"wikitext-upload-save-terms-and-licenses" = "Pubblicando le modifiche, accetti le nostre $1condizioni d'uso$2, e accetti irrevocabilmente di rilasciare il tuo contributo in base alle licenze $3CC BY-SA 3.0$4 e $5GFDL$6. Accetti che un collegamento ipertestuale o URL sia sufficiente per l'attribuzione in base alla licenza Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";

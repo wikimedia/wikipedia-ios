@@ -116,6 +116,22 @@
 			<string>%1$d artikelen</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>U hebt de limiet van %1$d artikel per account overschreden.</string>
+			<key>other</key>
+			<string>U hebt de limiet van %1$d artikels per account overschreden.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -130,6 +146,22 @@
 			<string>Artikel kan niet meer bij deze lijst. Maximum aantal leeslijsten %2$d per leeslijst voor %3$@ bereikt.</string>
 			<key>other</key>
 			<string>Artikelen kunnen niet meer bij deze lijst. Maximum aantal leeslijsten %2$d per leeslijst voor %3$@ bereikt.</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>U hebt de limiet van %1$d leeslijst per account overschreden.</string>
+			<key>other</key>
+			<string>U hebt de limiet van %1$d leeslijten per account overschreden.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

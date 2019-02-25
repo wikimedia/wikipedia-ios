@@ -128,7 +128,6 @@
 "button-saved-remove" = "Poista tallennetuista";
 "button-skip" = "Ohita";
 "cancel" = "Peruuta";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
@@ -304,7 +303,6 @@
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "Tai";
-"gfdl" = "GFDL";
 "history-clear-all" = "Tyhjennä";
 "history-clear-cancel" = "Peruuta";
 "history-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tuoreet kohteesi?";
@@ -384,7 +382,6 @@
 "on-this-day-footer-with-event-count" = "$1 lisää historiallista tapahtumaa tänä päivänä";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediasta";
 "on-this-day-title" = "Tänä päivänä";
-"open-link-cancel" = "Peruuta";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
 "page-edit-history" = "Täysi muokkaushistoria";
 "page-history-title" = "Artikkelin historia";
@@ -455,6 +452,7 @@
 "reading-list-deleted-accessibility-notification" = "Lukulista poistettu";
 "reading-list-do-not-keep-button-title" = "Ei, poista artikkelit laitteesta";
 "reading-list-entry-limit-exceeded-message" = "Laske tällä listalla olevien artikkelien määrää (maksimi $1) jatkaaksesi synkronointia kaikilla artikkeleilla.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Olet ylittänyt tunnuskohtaisen rajoituksen, joka on $1 artikkelia tunnusta kohden.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikkelia|Artikkeleita}} ei voitu lisätä listaan. Olet kohdannut $2 artikkelin rajan listassa \"$3\"";
 "reading-list-exists-with-same-name" = "Lukulistan nimi on jo käytössä";
@@ -468,6 +466,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Lajittelemattomien artikkeleiden maksimimäärä on 5000. Lajittele olemassaolevat artikkelit listoihin jatkaaksesi lajittelemattomien artikkeleiden synkronointia.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Lajittelemattomien artikkeleiden raja kohdattu";
 "reading-list-list-limit-exceeded-message" = "Tätä lukulistaa tai siinä olevia artikkeleita ei synkronoida; siinä olevien listojen määrää tulee vähentää (raja $1), jotta synkronointia voidaan jatkaa.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Olet ylittänyt tunnuskohtaisen rajoituksen, joka on $1 listaa tunnusta kohden.";
 "reading-list-list-limit-reached" = "Olet ylittänyt $1 listan tunnuskohtaisen rajoituksen";
 "reading-list-login-button-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelisi";
@@ -646,7 +645,6 @@
 "welcome-send-data-sub-title" = "Auta tekemään sovelluksesta parempi kertomalla Wikimedia Foundationille kuinka käytät sitä. Kerätyt tiedot ovat anonyymejä.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
 "wikitext-download-failed" = "Uusimman version hakeminen ei onnistu.";
-"wikitext-download-success" = "Sisältö ladattu.";
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
@@ -660,6 +658,4 @@
 "wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";

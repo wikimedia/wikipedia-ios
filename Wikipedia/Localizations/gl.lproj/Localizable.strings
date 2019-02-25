@@ -71,6 +71,7 @@
 "action-move-to" = "Mover a...";
 "action-move-to-reading-list" = "Mover á lista de lectura";
 "action-read" = "Ler";
+"action-redo" = "Refacer";
 "action-remove" = "Eliminar";
 "action-save" = "Gardar";
 "action-saved" = "Gardado";
@@ -78,7 +79,6 @@
 "action-saved-accessibility-notification" = "Artigo gardado para despois";
 "action-share" = "Compartir";
 "action-sort" = "Ordenar";
-// Fuzzy
 "action-undo" = "Desfacer";
 "action-unsave" = "Non gardar";
 "action-unsaved-accessibility-notification" = "Artigo sen gardar";
@@ -121,7 +121,6 @@
 "button-saved-remove" = "Quitar dos gardados";
 "button-skip" = "Omitir";
 "cancel" = "Cancelar";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Pechar";
 "compass-direction" = "ás $1";
@@ -309,7 +308,6 @@
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-username-or-email-title" = "Ou";
-"gfdl" = "GFDL";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Está seguro de que quere borrar todos os seus elementos recentes?";
@@ -390,7 +388,6 @@
 "on-this-day-footer-with-event-count" = "$1 acontecementos históricos máis nesta data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia en $2";
 "on-this-day-title" = "Neste día";
-"open-link-cancel" = "Cancelar";
 "original-tab-button-popover-description" = "Prema na \"W\" para volver á pestana na que comezou";
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial do artigo";
@@ -461,6 +458,7 @@
 "reading-list-deleted-accessibility-notification" = "A lista de lectura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Non, eliminar artigos do dispositivo";
 "reading-list-entry-limit-exceeded-message" = "Por favor, reduza o número de artigos nesta lista a $1 para continuar a sincronización de tódolos artigos da lista.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Superou o límite de $1 artigos por conta.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|O artigo non pode ser engadido|Os artigos non poden ser engadidos}} a esta lista. Chegou ó límite de $2 artigos por lista de lectura para $3";
 "reading-list-exists-with-same-name" = "O nome da lista de lectura xa está en uso";
@@ -474,6 +472,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hai un límite de 5000 artigos para ordenar. Por favor, ordene os seus artigos existentes en listas para continuar a sincronización dos artigos sen ordenar.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Alcanzouse o límite de artigos non ordenados";
 "reading-list-list-limit-exceeded-message" = "Esta lista de lectura e os artigos gardados nela non serán sincronizados, por favor, reduza o seu número de listas a $1 para continuar coa sincronización desta lista.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Sobrepasou o límite de $1 listas de lectura por conta.";
 "reading-list-list-limit-reached" = "Alcanzou o límite de $1 listas de lectura por conta";
 "reading-list-login-button-title" = "Acceda para sincronizar os seus artigos gardados";
@@ -655,7 +654,6 @@
 "welcome-send-data-sub-title" = "Axude a mellorar esta aplicación indicando á Fundación Wikimedia a maneira en como a utiliza. Os datos recollidos son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "wikitext-download-failed" = "Non se pode obter a versión máis recente.";
-"wikitext-download-success" = "Contido cargado.";
 "wikitext-downloading" = "Cargando o contido...";
 "wikitext-preview-changes" = "Xenerando previsualización dos teus cambios…";
 "wikitext-preview-changes-none" = "Non se fixeron cambios que revisar.";
@@ -669,6 +667,4 @@
 "wikitext-upload-save" = "Publicando...";
 "wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse á dirección IP do dispositivo. Se $1 terá máis privacidade.";
 "wikitext-upload-save-sign-in" = "Acceda ao sistema";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ó publicar cambios, vostede acepta $1 e acepta liberar a súa contribución baixo as licenzas $2 e $3.";
 "wikitext-upload-save-terms-name" = "Termos de uso";

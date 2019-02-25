@@ -51,7 +51,6 @@
 "button-report-a-bug" = "Ziņot par kļūdu";
 "button-skip" = "Izlaist";
 "cancel" = "Atcelt";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Aizvērt";
 "edit-direction-left-accessibility-label" = "Pārvietot kursoru pa kreisi";
 "edit-direction-right-accessibility-label" = "Pārvietot kursoru pa labi";
@@ -125,7 +124,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
-"open-link-cancel" = "Atcelt";
 "page-edit-history" = "Pilna labojumu vēsture";
 "page-history-title" = "Raksta vēsture";
 "page-protected-can-not-edit-title" = "Šī lapa ir aizsargāta";
@@ -192,7 +190,6 @@
 "welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
 "welcome-send-data-helps-title" = "Palīdzi uzlabot lietotni";
 "welcome-volunteer-send-usage-reports" = "Sūtīt lietojuma ziņojumus";
-"wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-downloading" = "Ielādē saturu...";
 "wikitext-preview-link-preview-title" = "Saites pirmskats";
 // Fuzzy

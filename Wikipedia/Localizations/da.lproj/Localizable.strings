@@ -34,19 +34,17 @@
 "about-translators-details" = "Oversat af frivillige på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Du kan ikke udgive denne redigering. Gå venligst tilbage og ændr den.";
+"abuse-filter-disallow-heading" = "Du kan ikke udgive denne redigering";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Et automatisk filter har identificeret denne redigering som potentielt ukonstruktiv eller forsøg på hærværk.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Tømning af artikler eller spam";
+"abuse-filter-warning-blanking" = "Tømning af afsnit eller hele artikler";
 // Fuzzy
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOGSTAVER";
 "abuse-filter-warning-heading" = "Dette ligner en redigering som ikke er konstruktiv. Er du sikker på at du ønsker at udgive den?";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne links eller billeder";
 "abuse-filter-warning-repeat" = "Gentagende tegn";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Din redigering kan indeholde en eller flere af følgende:";
+"abuse-filter-warning-spam" = "Tilføjelse af spam til artikler";
+"abuse-filter-warning-subheading" = "Din redigering kan indeholde:";
 "account-creation-captcha-cannot-see-image" = "Kan du ikke se billedet? $1";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
 "account-creation-captcha-request-account" = "Anmod om konto.";
@@ -116,7 +114,6 @@
 "button-saved-remove" = "Fjern fra gemte";
 "button-skip" = "Udelad";
 "cancel" = "Afbryd";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Luk";
 "compass-direction" = "mod klokken $1";
@@ -143,10 +140,15 @@
 "description-welcome-concise-title" = "Gør det kort";
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "dim-images" = "Mørklæg billeder";
+"edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
 "edit-minor-learn-more-text" = "Lær mere om mindre ændringer";
 "edit-minor-text" = "Dette er en mindre ændring";
 "edit-published-button-title" = "Udført";
 "edit-published-subtitle" = "Du har lige gjort Wikipedia bedre for alle";
+"edit-reference-accessibility-label" = "Tilføj referencesyntaks";
+"edit-reference-remove-accessibility-label" = "Fjern referencesyntaks";
+"edit-signature-accessibility-label" = "Tilføj signatursyntaks";
+"edit-signature-remove-accessibility-label" = "Fjern signatursyntaks";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -237,7 +239,6 @@
 "forgot-password-instructions" = "Udfyld et af felterne nedenfor for at modtage instruktioner om nulstilling af adgangskoden via e-mail";
 "forgot-password-title" = "Nulstil adgangskode";
 "forgot-password-username-or-email-title" = "Eller";
-"gfdl" = "GFDL";
 "history-clear-all" = "Ryd";
 "history-clear-cancel" = "Annuller";
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
@@ -308,6 +309,7 @@
 "new-password-title" = "Sæt din adgangskode";
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "no-internet-connection" = "Ingen internetforbindelse";
+"no-internet-connection-article-reload-button" = "Vend tilbage til seneste gemte version";
 "number-billions" = "$1 mia.";
 "number-millions" = "$1 mio.";
 "number-thousands" = "$1K";
@@ -316,7 +318,6 @@
 "on-this-day-footer" = "Flere historiske hændelser på denne dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra $2 Wikipedia";
 "on-this-day-title" = "På denne dag";
-"open-link-cancel" = "Annullér";
 "page-edit-history" = "Fuld redigeringshistorik";
 "page-history-title" = "Artikelhistorik";
 "page-issues" = "Problemer med siden";
@@ -555,7 +556,6 @@
 "welcome-send-data-sub-title" = "Hjælp Wikipedia Foundation med at gøre programmet bedre ved at oplyse os om, hvordan du bruger den. Data indsamles anonymt.";
 "welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
 "wikitext-download-failed" = "Ude af stand til at hente seneste version.";
-"wikitext-download-success" = "Indhold hentet.";
 "wikitext-downloading" = "Henter indhold...";
 "wikitext-preview-changes" = "Henter forhåndsvisning af dine ændringer…";
 "wikitext-preview-changes-none" = "Ingen ændringer blev foretaget som kan forhåndsvises.";
@@ -568,6 +568,4 @@
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
 "wikitext-upload-save-sign-in" = "Log på";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";

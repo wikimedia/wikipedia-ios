@@ -100,6 +100,22 @@
 			<string>%1$d artigos</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Excedeu o limite de %1$d artigo por conta.</string>
+			<key>other</key>
+			<string>Excedeu o limite de %1$d artigos por conta.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -114,6 +130,22 @@
 			<string>O artigo não pode ser adicionado a esta lista. Atingiu o limite de %2$d artigos por lista de leitura para %3$@</string>
 			<key>other</key>
 			<string>Os artigos não podem ser adicionados a esta lista. Atingiu o limite de %2$d artigos por lista de leitura para %3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Excedeu o limite de %1$d lista de leitura por conta.</string>
+			<key>other</key>
+			<string>Excedeu o limite de %1$d listas de leitura por conta.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

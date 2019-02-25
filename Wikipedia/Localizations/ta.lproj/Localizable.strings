@@ -78,7 +78,6 @@
 "button-saved-remove" = "சேமிக்கப்பட்டதிலிருந்து நீக்கவும்";
 "button-skip" = "தவிர்";
 "cancel" = "கைவிடுக";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "மூடுக";
 "compass-direction" = "$1 மணிக்கு";
 "continue-reading-empty-description" = "மேலும் கட்டுரைகளைப் படிக்க விக்கிப்பீடியாவை சுற்றிப்பார்";
@@ -198,7 +197,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 வரலாற்று நிகழ்வு|$1 வரலாற்று நிகழ்வுகள்}}";
 "on-this-day-footer" = "மேலும் இந்த நாளின் வரலாற்று நிகழ்வுகள்";
 "on-this-day-title" = "இந்த நாளில்";
-"open-link-cancel" = "ரத்து செய்";
 "page-edit-history" = "முழு தொகுப்பு வரலாறு";
 "page-history-title" = "கட்டுரை வரலாறு";
 "page-issues" = "பக்க சிக்கல்கள்";

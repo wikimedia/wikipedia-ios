@@ -1,6 +1,7 @@
 // Messages for Urdu (اردو)
 // Exported from translatewiki.net
 // Author: Abdulq
+// Author: Bukhari
 // Author: BukhariSaeed
 // Author: Hindustanilanguage
 // Author: Mhurd
@@ -21,6 +22,7 @@
 "about-libraries-license" = "اجازت نامہ";
 "about-libraries-licenses-title" = "ہم کھلے ذرائع کے سافٹ ویئر $1 کو پسند کرتے ہیں";
 "about-places-maps-license" = "مقامات کے نقشوں کا اجازت نامہ";
+"about-places-maps-license-details" = "وہ مقامات جو ایپل کے فراہم کردہ نقشہ جات کے مطابق ہیں۔ $1";
 "about-places-maps-license-details-link-text" = "لائسنس کی معلومات کے لئے یہاں دیکھیں";
 "about-product-of" = "اس اطلاقیے کو آپ جیسے رضاکاروں کی مدد سے $1 نے تیار کیا ہے";
 "about-repositories" = "ذخائر";
@@ -34,20 +36,15 @@
 "about-translators-details" = "$1 پر رضاکاروں نے ترجمہ کیا ہے";
 "about-wikimedia-foundation" = "ویکیمیڈیا فاؤنڈیشن";
 "about-wikipedia" = "ویکیپیڈیا";
-// Fuzzy
-"abuse-filter-disallow-heading" = "آپ اس ترمیم کو محفوظ نہیں کر سکتے۔ پیچھے جاکر اسے بدلیے۔";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "ایک خودکار فلٹر نے اس ترمیم کی امکانی طور پر غیرتعمیری یا تخریب کاری کی کوشش کے طور پر شناخت کی ہے۔";
-// Fuzzy
-"abuse-filter-warning-blanking" = "مضامین کو خالی کرنا یا ان میں تشہیری مواد بھرنا";
-// Fuzzy
-"abuse-filter-warning-caps" = "پوری ٹائپنگ کیاپس میں کی گئی";
+"abuse-filter-disallow-heading" = "آپ اس ترمیم کو شائع نہیں کر سکتے۔";
+"abuse-filter-disallow-unconstructive" = "ایک خودکار فلٹر نے اس ترمیم کی امکانی طور پر غیرتعمیری یا تخریب کاری کی کوشش کے طور پر شناخت کی ہے۔ براہ مہرانی واپس جائیں اور اپنی ترمیم بدلیں۔";
+"abuse-filter-warning-blanking" = "زمرہ جات یا مضامین کو مکمل حذف کرنا";
+"abuse-filter-warning-caps" = "کل کیاپس متن";
 "abuse-filter-warning-heading" = "یہ ایک غیر تعمیری ترمیم ہو سکتی ہے۔ کیا آپ اسے یقینی طور پر محفوظ کرنا چاہتے ہیں؟";
 "abuse-filter-warning-irrelevant" = "غیر متعلقہ خارجی روابط یا تصاویر";
-// Fuzzy
 "abuse-filter-warning-repeat" = "مکرر حروف یا رموز";
-// Fuzzy
-"abuse-filter-warning-subheading" = "آپ کی ترمیم مندرجہ میں سے ایک یا اس سے زیادہ کی متحمل ہو سکتی ہے:";
+"abuse-filter-warning-spam" = "مضمون میں غیر ضروری مواد کا اضافہ";
+"abuse-filter-warning-subheading" = "آپ کی ترمیم متحمل ہو سکتی ہے:";
 "account-creation-captcha-cannot-see-image" = "تصویر نہیں دیکھ سکے؟ $1";
 "account-creation-captcha-obtaining" = "نئی کیپچا حاصل کی جارہی ہے۔";
 "account-creation-captcha-request-account" = "درخواست برائے کھاتہ۔";
@@ -62,20 +59,21 @@
 "account-creation-title" = "نیا کھاتہ بنائیں";
 "action-add-to" = "جمح کریں۔۔۔۔";
 "action-add-to-reading-list" = "فہرست مطالعہ میں شامل کریں";
+"action-add-to-reading-list-short" = "فہرست میں شامل کریں";
 "action-cancel" = "منسوخ";
-// Fuzzy
 "action-find-in-page" = "صفحہ میں تلاش کریں";
 "action-move-to" = "موو کریں۔۔۔";
 "action-move-to-reading-list" = "فہرست مطالعہ میں منتقل کریں";
 "action-read" = "مطالعہ";
+"action-redo" = "بحال";
 "action-remove" = "حذف";
 "action-save" = "محفوظ";
 "action-saved" = "محفوظ ہو گیا";
+"action-saved-accessibility" = "محفوظ شد۔ غیر محفوظ کرنے کے لیے فعال کریں۔";
 "action-saved-accessibility-notification" = "بعد کے لیے مضمون محفوظ ہو گیا";
 "action-share" = "دوسروں کو بھیجیں";
 "action-sort" = "مرتب کریں";
-// Fuzzy
-"action-undo" = "واپس";
+"action-undo" = "رد";
 "action-unsave" = "غیر محفوظ";
 "action-unsaved-accessibility-notification" = "مضمون غیر محفوظ کر دیا گیا";
 "action-update" = "تجدید";
@@ -99,6 +97,7 @@
 "article-share" = "دوسروں کو بھیجیں";
 "article-unable-to-load-section" = "اس قطعے کو لوڈ نہیں کیا جا سکا۔ مضمون تازہ لوڈ کرکے دیکھیے کہ کیا اس مسئلے کا حل ممکن ہوچکا ہے۔";
 "back-button-accessibility-label" = "واپس";
+"back-button-popover-title" = "واپس جانے کے لیے طک کریں";
 "button-next" = "اگلا";
 "button-ok" = "ٹھیک ہے";
 "button-publish" = "شائع کریں";
@@ -109,28 +108,44 @@
 "button-saved-remove" = "محفوظات سے حذف کریں";
 "button-skip" = "آگے بڑھیں";
 "cancel" = "منسوخ";
-"cc-by-sa-3.0" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
+"cc-zero" = "کریئیٹیو کامنز CC0";
 "close-button-accessibility-label" = "بند";
 "compass-direction" = "$1 بجے پر";
 "continue-reading-empty-description" = "مطالعہ کے لیے مزید مضامین تلاش کریں";
+"continue-reading-empty-title" = "کوئی حالیہ پڑھا گیا مضمون نہیں";
 "description-add-link-title" = "عنوان کی وضاحت درج کریں";
+"description-add-title" = "وضاحت شامل کریں";
+"description-edit-for-article" = "$1 کے لیے عنوان وضاحت";
 "description-edit-learn-more" = "مزید پڑھیے";
 "description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "دیباچے میں ترمیم  کے ساتھ ہی  مجھے اپنی ترامیم کے ضمن میں $1 اور $2 کے تحت  ناقابل تنسیخ واگزاشت لائسنس کی شرائط سے مکمل اتفاق ہے۔";
 "description-edit-pencil-introduction" = "تعاوف میں ترمیم کریں";
 "description-edit-pencil-title" = "لیبل میں ترمیم کریں";
 "description-edit-placeholder-title" = "انتہائی مختصر وضاحت ہی بہتر ہے";
 "description-edit-publish" = "وضاحت شائع کریں";
 "description-edit-title" = "وضاحت میں ترمیم کریں";
+"description-edit-warning" = "دیباچہ جامع اور مختصر رکھیں تاکہ پڑھنے والے پہلی نظر میں ہی عنوان اور نفس مضمون سے آگاہ ہو جائیں۔";
 "description-help-about-description" = "عنوانات (مضامین) کی مختصر ترین وضاحتیں، قارئین کو مضمون کے موضوع کو ایک ہی نظر میں، سمجھنے میں معاون ہوتی ہیں۔";
 "description-help-about-title" = "ہمارے بارے میں";
 "description-help-about-wikidata" = "ویکی ڈیٹا سے متعلق";
 "description-help-more-info-title" = "مزید معلومات";
+"description-help-tips-example-title-two" = "دنیا کا بلند ترین پہاڑ";
 "description-help-tips-for-example" = "بطور مثال:";
 "description-published-button-title" = "تکمیل";
+"description-welcome-concise-title" = "اس کو مختصر رکھیں";
+"description-welcome-descriptions-sub-title" = "مضامین کی مختصر ترین وضاحتیں، قارئین کو مضمون کے موضوع کو ایک ہی نظر میں، سمجھنے میں معاون ہوتی ہیں۔";
+"description-welcome-descriptions-title" = "عنوان کی وضاحتیں";
+"description-welcome-promise-title" = "شروع کرنے سے قبل میں عہد لیتا ہوں کہ اس فیچر کا غلط استعمال نہیں کروں گا۔";
+"description-welcome-start-editing-button" = "ترمیم شروع کریں";
 "dim-images" = "تصاویر کو کم روشن کریں";
+"edit-bold-accessibility-label" = "جِلی فارمیٹنگ شامل کریں۔";
+"edit-bold-remove-accessibility-label" = "جِلی فارمیٹنگ ہٹائیں";
+"edit-published" = "ترمیم شائع ہوگئی";
+"edit-published-button-title" = "تکمیل";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
 "edit-summary-choice-linked-words" = "روابط شامل کیے";
+"edit-summary-placeholder-text" = "اس صفحہ میں آپ نے کیا درستی کی؟";
 "empty-no-article-message" = "معاف کیجیے، مضمون کو لوڈ نہیں کیا جاسکا";
 "empty-no-feed-action-message" = "آپ اب بھی اپنے محفوظ کردہ صفحات پڑھ سکتے ہیں";
 "empty-no-feed-message" = "آپ اپنے سفارش کردہ مضامین کو اس وقت دیکھ سکتے ہیں جب آپ کے پاس انٹرنیٹ ہو۔";
@@ -200,7 +215,6 @@
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
 "forgot-password-username-or-email-title" = "یا";
-"gfdl" = "جی ایف ڈی ایل";
 "history-clear-all" = "واضح";
 "history-clear-cancel" = "منسوخ";
 "history-clear-confirmation-heading" = "کیا آپ تمام حالیہ مواد کو حذف کرنا چاہتے ہیں؟";
@@ -269,7 +283,6 @@
 "on-this-day-footer" = "اس دن کے مزید تاریخی واقعات";
 "on-this-day-footer-with-event-count" = "اس دن کے مزید $1 تاریخی واقعات";
 "on-this-day-title" = "آج کے دن";
-"open-link-cancel" = "منسوخ";
 "page-edit-history" = "مکمل ترمیمی تاریخچہ";
 "page-history-title" = "مضمون کا تاریخچہ";
 "page-issues" = "تبصرہ تحریر";
@@ -339,12 +352,17 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "متائیں";
 "settings-support" = "ویکیپیڈیا سے تعاون کریں";
 "settings-title" = "ترجیحات";
-"share-article-name-on-wikipedia" = "\"$1\" @Wikipedia پر:";
-"share-custom-menu-item" = "دوسروں کو بھیجیں";
+"share-a-fact-made-with" = "شائع شدہ بتوسط ویکیپیڈیا ایپ";
+"share-article-name-on-wikipedia" = "@Wikipedia پر \"$1\":";
+"share-building" = "اشتراک حقائق کارڈ زیر تخلیق…";
+"share-custom-menu-item" = "شیئر۔۔۔";
+"share-email-format" = "«$1»\n\nاز «$2»\n\n$3";
 "share-menu-item" = "شیئر…";
-"share-message-format" = "”$1“ $2";
-"share-on-twitter-sign-off" = "@Wikipedia کے ذریعہ سے";
+"share-message-format" = "«$1» $2";
+"share-on-twitter-sign-off" = "بتوسط @UrduWikipedia";
 "share-open-in-maps" = "نقشوں میں کھولیں";
+"share-social-format" = "”$1“ بذریعہ ویکیپیڈیا: $2";
+"share-social-mention-format" = "«$1» بتوسط @UrduWikipedia: $2";
 "sort-by-title-action" = "عنوان";
 "table-of-contents-button-label" = "فہرست";
 "table-of-contents-close-accessibility-hint" = "بند کریں";
@@ -370,7 +388,6 @@
 "welcome-send-data-helps-title" = "اطلاقیہ کو مزید بہتر بنانے میں مدد کریں";
 "welcome-volunteer-send-usage-reports" = "استعمال کی رپورٹ بھیجیے";
 "wikitext-download-failed" = "تازہ ترین نظرثانی حاصل نہیں کی جاسکی ہے۔";
-"wikitext-download-success" = "مواد کو لوڈ کیا جا چکا ہے۔";
 "wikitext-downloading" = "مواد کو لوڈ کیا جارہا ہے...";
 "wikitext-preview-changes" = "آپ کی تبدیلیوں کی نمائش دوبارہ حاصل کی جارہی ہے...";
 "wikitext-preview-changes-none" = "کوئی تبدیلی نہیں کی گئی ہے جس کی نمائش کی جا سکے۔";
