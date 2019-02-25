@@ -12,6 +12,8 @@ pipeline {
         export LANGUAGE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
         eval "$(rbenv init -)"
+        brew update
+        brew upgrade rbenv ruby-build
         rbenv install -s
         gem install bundler
         bundle install
