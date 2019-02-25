@@ -12,6 +12,8 @@ pipeline {
         export LANGUAGE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
         eval "$(rbenv init -)"
+        rbenv install -s
+        gem install bundler
         bundle install
         bundle exec fastlane verify_pull_request
         '''
