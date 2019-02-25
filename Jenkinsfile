@@ -22,15 +22,5 @@ pipeline {
         }
       }
     }
-    stage('Update') {
-      steps {
-        sh '''eval "$(rbenv init -)"
-        brew update
-        brew upgrade rbenv ruby-build
-        rbenv install -s
-        gem install bundler
-        '''
-      }
-    }
   }
 }
