@@ -389,9 +389,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Téama séipia";
 "reading-themes-controls-accessibility-text-size-slider" = "Barra sleamhnáin na clómhéide";
 "reference-title" = "Tagairt $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Inniu|Inné|$1 lá ó shin}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Le déanaí|$1 uair amháin ó shin|$1 uair ó shin}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Díreach anois|$1 nóiméad amháin ó shin|$1 nóiméad ó shin}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=An bhliain seo|An bhliain seo caite|$1 bliana ó shin}}";
 "reverted-edit-back-to-article-button-title" = "Siar go halt";
 "reverted-edit-notification-read-more-action-title" = "Léigh tuilleadh";

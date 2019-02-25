@@ -249,6 +249,7 @@
 "rank-accessibility-label" = "တၢင်းၼမ် $1";
 "readers-accessibility-label" = "ၽူႈလူလိၵ်ႈ $1";
 "reference-title" = "ၽိုၼ်ဢိင် $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=မိူဝ်ႈၼႆႉ|မိူဝ်ႈဝႃး |ပူၼ်ႉမႃး $1 ဝၼ်း }}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=မိူဝ်ႈပႆႇႁိုင်|ပူၼ်ႉမႃး $1 မူင်း|ပူၼ်ႉမႃး $1 မူင်း}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယၢမ်းလဵဝ်ၵူၺ်း|ပူၼ်ႉမႃး $1 မိတ်ႉၼိတ်ႉ|ပူၼ်ႉမႃး $1 မိတ်ႉၼိတ်ႉ}}";

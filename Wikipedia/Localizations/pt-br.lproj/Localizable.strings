@@ -443,7 +443,7 @@
 "page-edit-history" = "Histórico de edição completo";
 "page-history-title" = "Histórico de artigos";
 "page-issues" = "Problemas da página";
-"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|Editado ontem|Editado $1 dia atrás}}";
+"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado $1 dia atrás}}";
 "page-location" = "Ver no mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Você não tem permissão para editar esta página";
@@ -570,10 +570,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema Sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Controlador de tamanho de texto";
 "reference-title" = "Referências $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Today|Ontem|$1 dias atrás}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Today|1=Ontem|$1 dias atrás}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 hora atrás|$1 horas atrás}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|$1 minuto atrás|$1 minutos atrás}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|Ano passado|$1 anos atrás}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|1=Ano passado|$1 anos atrás}}";
 "request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
 "reverted-edit-notification-body" = "A edição que você fez do artigo $1 foi revertida por $2";

@@ -11,6 +11,7 @@
 // Author: John Trololo
 // Author: Macofe
 // Author: Nemo bis
+// Author: Niridya
 // Author: Od1n
 // Author: Orikrin1998
 // Author: Orlodrim
@@ -439,7 +440,7 @@
 "page-edit-history" = "Historique complet des modifications";
 "page-history-title" = "Historique de l’article";
 "page-issues" = "Problèmes de page";
-"page-last-edited" = "{{PLURAL:$1|0=Modifié aujourd'hui|Modifié hier|Modifié il y a $1 jours}}";
+"page-last-edited" = "{{PLURAL:$1|0=Modifié aujourd'hui|1=Modifié hier|Modifié il y a $1 jours}}";
 "page-location" = "Afficher sur une carte";
 "page-protected-autoconfirmed" = "Cette page a été semi-protégée.";
 "page-protected-can-not-edit" = "Vous n’avez pas le droit de modifier cette page";
@@ -566,10 +567,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Thème sépia";
 "reading-themes-controls-accessibility-text-size-slider" = "Curseur de la taille du texte";
 "reference-title" = "Référence $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd'hui|Hier|Il y a $1 jours}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd'hui|1=Hier|Il y a $1 jours}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Il y a un instant|Il y a $1 minute |Il y a $1 minutes}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Cette année|L’année passée|Il y a $1 ans}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Cette année|1=L’année passée|Il y a $1 ans}}";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "reverted-edit-back-to-article-button-title" = "Retour à l'article";
 "reverted-edit-notification-body" = "La modification que vous avez apportée à l'article $1 a été annulée par $2";

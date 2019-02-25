@@ -451,9 +451,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia gaia";
 "reading-themes-controls-accessibility-text-size-slider" = "Testuaren tamaina irristagarria";
 "reference-title" = "$1 erreferentzia";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Gaur|Atzo|Orain dela $1 egun}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Aurreko batean|Orain dela ordu $1|Orain dela $1 ordu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Oraintxe|Orain dela minutu $1|Orain dela $1 minutu}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURALA:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";

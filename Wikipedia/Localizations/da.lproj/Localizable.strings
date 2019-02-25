@@ -321,6 +321,7 @@
 "page-edit-history" = "Fuld redigeringshistorik";
 "page-history-title" = "Artikelhistorik";
 "page-issues" = "Problemer med siden";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=Redigeret i dag|Redigeret i går|Redigeret for $1 dage siden}}";
 "page-location" = "Vis på et kort";
 "page-protected-autoconfirmed" = "Denne side er delvis beskyttet.";
@@ -426,9 +427,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-tema";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekststørrelseskyder";
 "reference-title" = "Reference $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|$1 dage siden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|Sidste år|$1 år siden}}";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";

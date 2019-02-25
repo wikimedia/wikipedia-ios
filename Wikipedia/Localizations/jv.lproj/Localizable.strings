@@ -307,9 +307,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Ules sèpia";
 "reading-themes-controls-accessibility-text-size-slider" = "Panggeser ukuran tèks";
 "reference-title" = "Rujukan $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dina iki|Wingi|$1 dina kapungkur}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mentas waé|$1 jam kapungkur}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mentas waé|$1 menit kapungkur}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun iki|Taun wingi|$1 taun kapungkur}}";
 "request-feedback-on-error" = "Aplikasiné kena masalah sing arep dingertèni déning para pangembangé awak dhéwé. Mangga tunyuk ing kéné kanggo ngirimi awak dhéwé layang-èl sing isiné rerincèn masalah.";
 "saved-pages-image-download-error" = "Wurung ngundhuh gambar tumrap kaca simpenan iki.";

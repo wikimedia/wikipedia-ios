@@ -496,9 +496,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "ပသာန် ပရူပရာ";
 "reading-themes-controls-accessibility-text-size-slider" = "ပလေဝ် ဇၞော် မလိက်";
 "reference-title" = "စၞောန် $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=တ္ၚဲဏအ်|တ္ၚဲယး|$1 တ္ၚဲ တုဲကၠုင်}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ပြဟ်ဟ်ဏအ်|$1 နာဍဳ တုဲကၠုင်|$1 နာဍဳ တုဲကၠုင်}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=လၟုဟ်ရ|$1 မိနေတ် တုဲကၠုင်|$1 မိနေတ် တုဲကၠုင်}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=သၞာံဏအ်|သၞာံတုဲကၠုင်ဏအ်|$1 သၞာံ တုဲကၠုင်}}";
 "request-feedback-on-error" = "app ဒးစုက် ကုပြသၞာ ဟိုတ်ဂှ်ရ ပိုယ်မိက်ဂွံတီ ဟိုတ်ပြသၞာဂှ်ရ၊၊ ပဂုန်တုဲ ဍဵုဒၞာဲဏအ် သွက်ဂွံ ပလံင် တင်မဗၠေတ်ယောင်ယာဂှ် ကဵုပိုယ် နကဵု အဳမေဝ်၊၊";
 "saved-all-articles-title" = "လိက်ပရေင်ဂမၠိုင်";

@@ -22,6 +22,7 @@
 // Author: Ykhwong
 // Author: Ysjbserver
 // Author: 고솜
+// Author: 렌즈
 // Author: 밥풀떼기
 // Author: 아라
 
@@ -51,16 +52,14 @@
 "abuse-filter-disallow-heading" = "이 편집을 게시할 수 없습니다";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "자동화된 필터가 이 편집을 잠재적으로 비생산적이거나 훼손 시도를 한 것으로 식별합니다.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "문서가 비어 있거나 스팸을 넣음";
+"abuse-filter-warning-blanking" = "문서 전체 혹은 문단을 지움";
 // Fuzzy
 "abuse-filter-warning-caps" = "모두 대문자로 입력";
 "abuse-filter-warning-heading" = "비생산적인 편집인 것 같습니다. 그래도 게시하겠습니까?";
 "abuse-filter-warning-irrelevant" = "관련 없는 외부 링크나 그림";
 // Fuzzy
 "abuse-filter-warning-repeat" = "글자 반복";
-// Fuzzy
-"abuse-filter-warning-subheading" = "당신의 편집에 다음 중 하나 이상을 포함할 수 있습니다:";
+"abuse-filter-warning-subheading" = "당신의 편집은 다음을 포함할 수 있습니다:";
 "account-creation-captcha-cannot-see-image" = "사진이 보이지 않습니까? $1";
 "account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다...";
 "account-creation-captcha-request-account" = "계정 요청.";
@@ -419,7 +418,7 @@
 "page-edit-history" = "전체 편집 내역";
 "page-history-title" = "문서 역사";
 "page-issues" = "문서 이슈";
-"page-last-edited" = "{{PLURAL:$1|0=오늘 마지막으로 편집|어제 마지막으로 편집|$1일 전에 마지막으로 편집}}";
+"page-last-edited" = "{{PLURAL:$1|0=오늘 마지막으로 편집|1=어제 마지막으로 편집|$1일 전에 마지막으로 편집}}";
 "page-location" = "지도에서 보기";
 "page-protected-autoconfirmed" = "이 문서는 준보호되어 있습니다.";
 "page-protected-can-not-edit" = "이 문서를 편집할 권한이 없습니다";
@@ -546,10 +545,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "세피아 테마";
 "reading-themes-controls-accessibility-text-size-slider" = "텍스트 크기 슬라이더";
 "reference-title" = "각주 $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=오늘|어제|$1일 전}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=오늘|1=어제|$1일 전}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=올해|지난해|$1년 전}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=올해|1=지난해|$1년 전}}";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "reverted-edit-back-to-article-button-title" = "문서로 돌아가기";
 "reverted-edit-notification-body" = "$1 문서에 한 편집은 $2님에 의해 되돌려졌습니다";

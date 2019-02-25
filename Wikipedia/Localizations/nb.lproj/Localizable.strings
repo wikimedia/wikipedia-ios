@@ -36,8 +36,7 @@
 "about-translators-details" = "Oversatt av frivillige på $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Du kan ikke publisere denne endringen. Gå tilbake og endre den.";
+"abuse-filter-disallow-heading" = "Du kan ikke publisere denne endringen.";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Redigeringen har blitt automatisk identifisert som potensielt destruktiv eller et forsøk på vandalisme.";
 // Fuzzy
@@ -65,6 +64,7 @@
 // Fuzzy
 "action-find-in-page" = "Finn på siden";
 "action-read" = "Les";
+"action-redo" = "Gjenta";
 "action-save" = "Lagre";
 "action-saved" = "Lagret";
 "action-saved-accessibility" = "Lagret. Aktiver for å fjerne lagring.";
@@ -111,11 +111,15 @@
 "continue-reading-empty-description" = "Utforsk Wikipedia for flere artikler å lese";
 "continue-reading-empty-title" = "Ingen nylig leste artikler";
 "dim-images" = "Mørklegg bilder";
+"edit-direction-down-accessibility-label" = "Flytt peker nedover";
 "edit-direction-left-accessibility-label" = "Flytt markøren til venstre";
 "edit-direction-right-accessibility-label" = "Flytt markøren til høyre";
+"edit-direction-up-accessibility-label" = "Flytt peker oppover";
+"edit-strikethrough-remove-accessibility-label" = "Fjern gjennomstreking";
 "edit-summary-choice-fixed-grammar" = "Korrigerte grammatikk";
 "edit-summary-choice-fixed-typos" = "Fikset typo";
 "edit-summary-choice-linked-words" = "La til lenker";
+"edit-underline-remove-accessibility-label" = "Fjern understrek";
 "empty-no-article-message" = "Artikkelen kunne ikke lastes";
 "empty-no-feed-action-message" = "Du kan fremdeles lese lagrede sider";
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
@@ -245,6 +249,7 @@
 "new-password-instructions" = "Du ble logget inn med et midlertidig passord. For å fullføre registreringen må du lage deg et nytt passord her.";
 "new-password-title" = "Lag passord";
 "no-email-account-alert" = "Legg til en epostkonto på enheten din og prøv igjen.";
+"no-internet-connection" = "Ingen internettforbindelse";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mill.";
 "number-thousands" = "$1 tusen";
@@ -256,7 +261,7 @@
 "page-edit-history" = "Fullstendig redigeringshistorikk";
 "page-history-title" = "Artikkelhistorikk";
 "page-issues" = "Merknader for siden";
-"page-last-edited" = "{{PLURAL:$1|0=Redigert i dag|Redigert i går|Redigert $1 dager siden}}";
+"page-last-edited" = "{{PLURAL:$1|0=Redigert i dag|1=Redigert i går|Redigert for $1 dager siden}}";
 "page-location" = "Vis på kart";
 "page-protected-autoconfirmed" = "Denne siden er delvis beskyttet.";
 "page-protected-can-not-edit" = "Du har ikke rettigheter til å redigere denne siden";
@@ -312,10 +317,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-drakt";
 "reading-themes-controls-accessibility-text-size-slider" = "Glidebryter for tekststørrelse";
 "reference-title" = "Referanse $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|For $1 dager siden}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|1=I går|For $1 dager siden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nylig|For $1 time siden|For $1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nettopp|For $1 minutt siden|For $1 minutter siden}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=I år|I fjor|For $1 år siden}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=I år|1=I fjor|For $1 år siden}}";
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
 "saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";
 "saved-title" = "Lagret";
@@ -414,6 +419,7 @@
 "wikitext-preview-changes-none" = "Ingen endringer ble gjort som kunne forhåndsvises.";
 "wikitext-preview-link-preview-description" = "Denne lenken fører til «$1»";
 "wikitext-preview-link-preview-title" = "Lenkeforhåndsvisning";
+"wikitext-preview-save-changes-title" = "Lagre endringer";
 "wikitext-upload-captcha-error" = "CAPTCHA-verifikasjonsfeil";
 "wikitext-upload-captcha-needed" = "Trenger CAPTCHA-verifikasjon.";
 "wikitext-upload-result-unknown" = "Kunne ikke avgjøre resultatet av oppdateringen.";

@@ -439,7 +439,7 @@
 "page-edit-history" = "Celá historie editací";
 "page-history-title" = "Historie článku";
 "page-issues" = "Nedostatky stránky";
-"page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|Editováno včera|Editováno před $1 dny}}";
+"page-last-edited" = "{{PLURAL:$1|0=Editováno dnes|1=Editováno včera|2=Editováno předevčírem|Editováno před $1 dny}}";
 "page-location" = "Zobrazit na mapě";
 "page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
@@ -566,10 +566,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Vzhled sépie";
 "reading-themes-controls-accessibility-text-size-slider" = "Posuvník velikosti textu";
 "reference-title" = "Reference $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|Včera|Před $1 dny}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|1=Včera|2=Předevčírem|Před $1 dny}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Před $1 hodinou|Před $1 hodinami}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Právě teď|Před $1 minutou|Před $1 minutami}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|Loni|Před $1 roky}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Loni|2=Předloni|Před $1 lety}}";
 "request-feedback-on-error" = "V aplikaci došlo k chybě, o které by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "reverted-edit-back-to-article-button-title" = "Zpět do článku";
 "reverted-edit-notification-body" = "Vaše editace článku $1 byla revertována wikipedistou $2";

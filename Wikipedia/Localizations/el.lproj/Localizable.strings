@@ -376,9 +376,11 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Φωτεινό θέμα";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Θέμα Σέπια";
 "reference-title" = "Αναφορά $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Σήμερα|Χθες|$1 ημέρες πριν}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=πρόσφατα|$1 ώρα πριν|$1 ώρες πριν}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=μόλις τώρα|$1 λεπτό πριν|$1 λεπτά πριν}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Αυτό το έτος|το προηγούμενο έτος|$1 χρόνια πριν}}";
 "saved-all-articles-title" = "Όλα τα άρθρα";
 "saved-default-reading-list-tag" = "Η λίστα δεν μπορεί να διαγραφεί";
