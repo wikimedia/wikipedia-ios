@@ -34,14 +34,19 @@
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
 "about-wikimedia-foundation" = "Nadáciou Wikimedia";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Túto úpravu nie je možné uložiť. Prosím, vráťte sa späť a zmeňte ju.";
-"abuse-filter-disallow-notable" = "Wikipédia je encyklopédia a patrí sem iba neutrálny a hodnotný obsah.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Automatický filter označil túto úpravu ako potencionálne nekonštruktívnu alebo ako pokus o vandalizmus.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Vymazávanie článkov alebo spam";
+// Fuzzy
 "abuse-filter-warning-caps" = "Píšete veľkými písmenami";
 "abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
 "abuse-filter-warning-irrelevant" = "Irelevantné odkazy alebo obrázky";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Opakovanie znakov";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Vaša úprava môže obsahovať niektorú z nasledujúcich chýb:";
 "account-creation-captcha-cannot-see-image" = "Nevidíte obrázok? $1";
 "account-creation-captcha-obtaining" = "Generuje sa nová CAPTCHA...";
@@ -59,6 +64,8 @@
 "action-add-to-reading-list" = "Pridať do zoznamu na prečítanie";
 "action-add-to-reading-list-short" = "Pridať do zoznamu";
 "action-cancel" = "Zrušiť";
+// Fuzzy
+"action-find-in-page" = "Nájsť na stránke";
 "action-move-to" = "Presunúť do…";
 "action-move-to-reading-list" = "Presunúť do zoznamu na prečítanie";
 "action-read" = "Čítať";
@@ -68,10 +75,11 @@
 "action-saved-accessibility-notification" = "Článok bol uložený na neskôr";
 "action-share" = "Zdieľať";
 "action-sort" = "Zoradiť";
+// Fuzzy
+"action-undo" = "Vrátiť";
 "action-unsave" = "Zrušiť uloženie";
 "action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
-"alert-no-internet" = "Žiadne pripojenie na internet";
 "announcements-dismiss" = "Zrušiť";
 "app-store-keywords" = "Wikipédia, referencie, wiki, encyklopédia, informácie, vedomosti, výskum, informácie, objaviť, učenie";
 "app-store-short-description" = "Stiahnite si aplikáciu Wikipédie pre objavovanie miest v blízkosti vás, na preberanie článkov do vášho zariadenia a prispôsobenie čítanie článkov.";
@@ -89,7 +97,6 @@
 "article-share" = "Zdieľať";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
 "back-button-accessibility-label" = "Späť";
-"button-done" = "Hotovo";
 "button-next" = "Ďalej";
 "button-ok" = "OK";
 "button-publish" = "Uverejniť";
@@ -100,7 +107,6 @@
 "button-saved-remove" = "Odstrániť z uložených";
 "button-skip" = "Preskočiť";
 "cancel" = "Zrušiť";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Zavrieť";
 "compass-direction" = "na $1. hodine";
@@ -125,13 +131,9 @@
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
-"edit-summary-choice-other" = "Iné";
-"edit-summary-field-placeholder-text" = "Ako inak ste vylepšili článok?";
-"edit-summary-title" = "Ako ste vylepšili článok?";
 "empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
-"empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-history-message" = "Vaša história je prázdna";
 "empty-no-history-title" = "Nemáte žiadnu históriu.";
 "empty-no-saved-pages-title" = "Žiadne uložené stránky.";
@@ -163,7 +165,6 @@
 "explore-feed-preferences-potd-description" = "Denný obrázok z Commons";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Vypnúť kanál Objaviť";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Vypnúť kanál Objaviť";
-"explore-feed-preferences-undo-customization" = "Vrátiť";
 "explore-hide-card-prompt" = "Skryť túto kartu";
 "explore-main-page-description" = "Hlavná stránka projektov Wikimedie";
 "explore-main-page-heading" = "Dnes na Wikipédii";
@@ -202,14 +203,12 @@
 "field-token-title" = "Overovací kód";
 "field-username-placeholder" = "zadajte užívateľské meno";
 "field-username-title" = "Používateľské meno";
-"find-in-page-button-label" = "Nájsť na stránke";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Obnoviť";
 "forgot-password-email-sent" = "Poslali sme vám e-mail s inštrukciami na obnovu hesla";
 "forgot-password-instructions" = "Ak chcete dostať inštrukcie na obnovenie hesla e-mailom, vyplňte jedno z polí nižšie";
 "forgot-password-title" = "Obnoviť heslo";
 "forgot-password-username-or-email-title" = "Alebo";
-"gfdl" = "GFDL";
 "history-clear-all" = "Vyčistiť";
 "history-clear-cancel" = "Zrušiť";
 "history-clear-confirmation-heading" = "Naozaj chcete vymazať vašu nedávnu históriu prehliadania?";
@@ -248,7 +247,6 @@
 "main-menu-debug-tweaks" = "Nastavenia pre vývojárov";
 "main-menu-heading-debug" = "Ladiť";
 "main-menu-heading-legal" = "Ochrana osobných údajov a podmienky používania";
-"main-menu-heading-zero" = "Wikipédia Zero";
 "main-menu-nearby" = "V okolí";
 "main-menu-privacy-policy" = "Ochrana osobných údajov";
 "main-menu-rate-app" = "Ohodnoťte aplikáciu";
@@ -273,10 +271,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická udalosť|$1 historické udalosti|$1 historických udalostí}}";
 "on-this-day-footer" = "Ďalšie historické udalosti, ktoré sa odohrali v tento deň";
 "on-this-day-title" = "Dnes";
-"open-link-cancel" = "Zrušiť";
 "page-edit-history" = "Úplná história úprav";
 "page-history-title" = "História článku";
 "page-issues" = "Problémy stránky";
+// Fuzzy
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-location" = "Zobraziť na mape";
 "page-protected-autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
@@ -284,6 +282,7 @@
 "page-protected-can-not-edit-title" = "Táto stránka je zamknutá";
 "page-protected-other" = "Táto stránka je zamknutá na nasledujúcu úroveň: $1";
 "page-protected-sysop" = "Táto stránka je zamknutá.";
+// Fuzzy
 "page-read-in-other-languages" = "Článok je dostupný v $1 ďalších jazykoch";
 "page-similar-titles" = "Podobné stránky";
 "page-talk-page" = "Zobraziť diskusiu";
@@ -468,7 +467,6 @@
 "welcome-send-data-sub-title" = "Pomôžte Nadácii Wikimedia vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
 "welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
-"wikitext-download-success" = "Obsah je načítaný.";
 "wikitext-downloading" = "Načítavam obsah...";
 "wikitext-preview-changes" = "Načítava sa ukážka vykonaných zmien...";
 "wikitext-preview-changes-none" = "Neboli vykonané žiadne zmeny.";
@@ -480,16 +478,4 @@
 "wikitext-upload-save" = "Uverejňuje sa...";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho prístroja. Ak $1, budete mať viac súkromia.";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Uložením zmien súhlasíte s $1 a s uvoľnením svojho príspevku za podmienok $2 a $3.";
 "wikitext-upload-save-terms-name" = "Podmienky používania";
-"zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
-"zero-charged-verbiage-extended" = "Pri načítaní iných článkov môžu byť účtované poplatky za dáta. Články uložené offline nespotrebúvajú dáta a sú teda zadarmo.";
-"zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
-"zero-interstitial-cancel" = "Zostať tu";
-"zero-interstitial-continue" = "Pokračovať";
-"zero-interstitial-leave-app" = "Môžu sa objaviť poplatky za prenos dát. Pokračovať na externú stránku?";
-"zero-interstitial-title" = "Opúšťate Wikipédiu Zero";
-"zero-learn-more" = "Táto aplikácia je oslobodená od poplatkov za prenos dát.";
-"zero-learn-more-learn-more" = "Ďalšie informácie";
-"zero-learn-more-no-thanks" = "Nie, ďakujem";
-"zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Zero";

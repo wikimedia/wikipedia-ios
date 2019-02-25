@@ -6,6 +6,7 @@ static NSString *const kAnonKey = @"anon";
 static NSString *const kTimestampKey = @"client_dt";
 static NSString *const kWikidataDescriptionEdit = @"wikidataDescriptionEdit";
 static NSString *const kActionKey = @"action";
+static NSString *const kRevisionIDKey = @"revID";
 
 @implementation EditFunnel
 
@@ -31,85 +32,87 @@ static NSString *const kActionKey = @"action";
 
 #pragma mark - EditFunnel methods
 
-- (void)logStart {
-    [self log:@{kActionKey: @"start"}];
+- (void)logStart:(NSString *)language {
+    [self log:@{kActionKey: @"start"} language:language] ;
 }
 
-- (void)logPreview {
-    [self log:@{kActionKey: @"preview"}];
+- (void)logPreview:(NSString *)language {
+    [self log:@{kActionKey: @"preview"} language:language];
 }
 
-- (void)logEditSummaryTap:(NSString *)editSummaryTapped {
+- (void)logEditSummaryTap:(NSString *)editSummaryTapped language:(NSString *)language {
     [self log:@{kActionKey: @"editSummaryTap",
-                @"editSummaryTapped": editSummaryTapped ? editSummaryTapped : @""}];
+                @"editSummaryTapped": editSummaryTapped ? editSummaryTapped : @""} language:language];
 }
 
-- (void)logSavedRevision:(int)revID {
+- (void)logSavedRevision:(int)revID language:(NSString *)language {
     NSNumber *revIDNumber = [NSNumber numberWithInt:revID];
     [self log:@{kActionKey: @"saved",
-                @"revID": (revIDNumber ? revIDNumber : @"")}];
+                kRevisionIDKey: (revIDNumber ? revIDNumber : @"")} language:language];
 }
 
-- (void)logCaptchaShown {
-    [self log:@{kActionKey: @"captchaShown"}];
+- (void)logCaptchaShown:(NSString *)language {
+    [self log:@{kActionKey: @"captchaShown"} language:language];
 }
 
-- (void)logCaptchaFailure {
-    [self log:@{kActionKey: @"captchaFailure"}];
+- (void)logCaptchaFailure:(NSString *)language {
+    [self log:@{kActionKey: @"captchaFailure"} language:language];
 }
 
-- (void)logAbuseFilterWarning:(NSString *)name {
+- (void)logAbuseFilterWarning:(NSString *)name language:(NSString *)language {
     [self log:@{kActionKey: @"abuseFilterWarning",
-                @"abuseFilterName": (name ? name : @"")}];
+                @"abuseFilterName": (name ? name : @"")} language:language];
 }
 
-- (void)logAbuseFilterError:(NSString *)name {
+- (void)logAbuseFilterError:(NSString *)name language:(NSString *)language {
     [self log:@{kActionKey: @"abuseFilterError",
-                @"abuseFilterName": (name ? name : @"")}];
+                @"abuseFilterName": (name ? name : @"")} language:language];
 }
 
-- (void)logAbuseFilterWarningIgnore:(NSString *)name {
+- (void)logAbuseFilterWarningIgnore:(NSString *)name language:(NSString *)language {
     [self log:@{kActionKey: @"abuseFilterWarningIgnore",
-                @"abuseFilterName": (name ? name : @"")}];
+                @"abuseFilterName": (name ? name : @"")} language:language];
 }
 
-- (void)logAbuseFilterWarningBack:(NSString *)name {
+- (void)logAbuseFilterWarningBack:(NSString *)name language:(NSString *)language {
     [self log:@{kActionKey: @"abuseFilterWarningBack",
-                @"abuseFilterName": (name ? name : @"")}];
+                @"abuseFilterName": (name ? name : @"")} language:language];
 }
 
-- (void)logSaveAttempt {
-    [self log:@{kActionKey: @"saveAttempt"}];
+- (void)logSaveAttempt:(NSString *)language {
+    [self log:@{kActionKey: @"saveAttempt"} language:language];
 }
 
-- (void)logError:(NSString *)code {
+- (void)logError:(NSString *)code language:(NSString *)language {
     [self log:@{kActionKey: @"error",
-                @"errorText": (code ? code : @"")}];
+                @"errorText": (code ? code : @"")} language:language];
 }
 
-- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditStart:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"start",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditReady:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"ready",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditSaveAttempt:(BOOL)isEditingExistingDescription language:(NSString *)language {
     [self log:@{kActionKey: @"saveAttempt",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]} language:language];
 }
 
-- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditSaved:(BOOL)isEditingExistingDescription language:(NSString *)language revID:(NSNumber *)revID {
     [self log:@{kActionKey: @"saved",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription],
+                kRevisionIDKey: revID ?: @""} language:language];
 }
 
-- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription {
+- (void)logWikidataDescriptionEditError:(BOOL)isEditingExistingDescription language:(NSString *)language errorText:(NSString *)errorText {
     [self log:@{kActionKey: @"error",
-                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription]}];
+                kWikidataDescriptionEdit: [self wikidataDescriptionType:isEditingExistingDescription],
+                @"errorText": errorText} language:language];
 }
 
 - (NSString *)wikidataDescriptionType:(BOOL)isEditingExistingWikidataDescription {

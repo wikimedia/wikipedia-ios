@@ -166,10 +166,10 @@ private extension WMFContentGroupKind {
     // "on" / "off" define by: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
     var userHistorySchemaLanguageInfo: [String: [String]] {
         var info = [String: [String]]()
-        if languageCodes.count > 0 {
+        if !languageCodes.isEmpty {
             info["on"] = Array(languageCodes)
         }
-        if offLanguageCodes.count > 0 {
+        if !offLanguageCodes.isEmpty {
             info["off"] = Array(offLanguageCodes)
         }
         return info

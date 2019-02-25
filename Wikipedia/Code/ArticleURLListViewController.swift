@@ -12,7 +12,6 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
         feedFunnelContext = FeedFunnelContext(contentGroup)
         self.theme = theme
         self.dataStore = dataStore
-        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     deinit {
@@ -53,6 +52,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
         super.viewDidLoad()
         collectionView.reloadData()
         updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

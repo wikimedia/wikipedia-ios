@@ -33,7 +33,7 @@ extension NSManagedObjectContext {
     
     public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: [String: Any]]) throws -> [WMFArticle] {
         let keys = summaryResponses.keys
-        guard keys.count > 0 else {
+        guard !keys.isEmpty else {
             return []
         }
         var keysToCreate = Set(keys)

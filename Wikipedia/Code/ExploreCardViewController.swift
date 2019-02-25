@@ -2,7 +2,6 @@ import UIKit
 
 protocol ExploreCardViewControllerDelegate {
     var saveButtonsController: SaveButtonsController { get }
-    var readingListHintController: ReadingListHintController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
@@ -257,7 +256,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     private func configureOnThisDayCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let index = indexPath.row
-        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 0, events.indices.contains(index) else {
+        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], !events.isEmpty, events.indices.contains(index) else {
             return
         }
         let event = events[index]
@@ -287,7 +286,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)?.first {
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
-        if imageInfo.imageDescription.count > 0 {
+        if !imageInfo.imageDescription.isEmpty {
             cell.captionIsRTL = imageInfo.imageDescriptionIsRTL
             cell.caption = imageInfo.imageDescription.wmf_stringByRemovingHTML()
         } else {
@@ -526,20 +525,14 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
-                if let article = article(at: indexPath) {
-                    delegate?.readingListHintController.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
-                }
+                ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
-                if let article = article(at: indexPath) {
-                    delegate?.readingListHintController.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
-                }
+                ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 return true
             }
         case .share:
@@ -615,7 +608,7 @@ extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
     }
     
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        delegate?.readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
+
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {

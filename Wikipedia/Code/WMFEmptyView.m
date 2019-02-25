@@ -46,7 +46,7 @@
 + (instancetype)noFeedEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"no-internet"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-title", nil, nil, @"No Internet Connection", @"Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available");
+    view.titleLabel.text = [WMFCommonStrings noInternetConnection];
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-message", nil, nil, @"You can see your recommended articles when you have internet", @"Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored");
     view.actionLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-action-message", nil, nil, @"You can still read saved pages", @"Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline");
     [view.button removeFromSuperview];
@@ -83,6 +83,18 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-title", nil, nil, @"No saved pages yet", @"Title of a blank screen shown when a user has no saved pages");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-message", nil, nil, @"Save pages to view them later, even offline", @"Message of a blank screen shown when a user has no saved pages");
 
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
++ (instancetype)noInternetConnectionEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"no-internet-blank"];
+    view.titleLabel.text = [WMFCommonStrings noInternetConnection];
+
+    [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];

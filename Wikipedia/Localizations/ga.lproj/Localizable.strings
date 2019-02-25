@@ -26,8 +26,11 @@
 "about-translators-details" = "Arna aistriú ag oibrithe deonacha de chuid $1";
 "about-wikimedia-foundation" = "Fondúireacht Wikimedia";
 "about-wikipedia" = "Vicipéid";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Ailt a fholmhú nó turscar a sheoladh";
+// Fuzzy
 "abuse-filter-warning-caps" = "Scríobh i gCEANNLITREACHA";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Carachtair a ath-chlóóóóscriobh";
 "account-creation-captcha-cannot-see-image" = "Nach bhfuil tú in ann an íomhá a fhéachaint? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA nua a fháil...";
@@ -45,6 +48,8 @@
 "action-add-to-reading-list" = "Cuir ar liosta léitheoireachta";
 "action-add-to-reading-list-short" = "Cuir ar liosta";
 "action-cancel" = "Cealaigh";
+// Fuzzy
+"action-find-in-page" = "Aimsigh sa leathanach";
 "action-move-to" = "Bog chuig...";
 "action-move-to-reading-list" = "Bog chuig liosta léitheoireachta";
 "action-read" = "Léigh";
@@ -54,10 +59,11 @@
 "action-saved-accessibility" = "Sábháilte. Gníomhachtaigh le díshábháil.";
 "action-share" = "Comhroinn";
 "action-sort" = "Sórtáil";
+// Fuzzy
+"action-undo" = "Cealaigh";
 "action-unsave" = "Díshábháil";
 "action-unsaved-accessibility-notification" = "Díshábháladh an t-alt";
 "action-update" = "Nuashonraigh";
-"alert-no-internet" = "Níl aon nasc idirlín ann";
 "announcements-dismiss" = "Ruaig";
 "app-store-keywords" = "Vicipéid, tagairt, vicí, ciclipéid, eolas, sonraí, taighde, taiscéal, foghlaim";
 "app-store-short-description" = "Íoslódáil an aip Vicipéide le háiteanna in aice leat a thaiscéaladh, ailt a shioncrónú le léamh as líne, agus d'eispéireas léitheoireachta a chur in oiriúint.";
@@ -76,14 +82,12 @@
 "article-share" = "Comhroinn";
 "back-button-accessibility-label" = "Siar";
 "back-button-popover-title" = "Tapáil le gabháil siar";
-"button-done" = "Déanta";
 "button-next" = "Ar aghaidh";
 "button-publish" = "Foilsigh";
 "button-read-now" = "Léigh anois";
 "button-report-a-bug" = "Tuairiscigh fabht";
 "button-skip" = "Scipeáil";
 "cancel" = "Cealaigh";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Dún";
 "compass-direction" = "i dtreo a $1 a chlog";
@@ -125,13 +129,9 @@
 "edit-summary-choice-fixed-grammar" = "Réitíodh gramadach";
 "edit-summary-choice-fixed-typos" = "Réitíodh botún cló";
 "edit-summary-choice-linked-words" = "Cuireadh naisc leis";
-"edit-summary-choice-other" = "Eile";
-"edit-summary-field-placeholder-text" = "Modhanna eile mar a fheabhsaigh tú an t-alt";
-"edit-summary-title" = "Conas mar a fheabhsaigh tú an t-alt?";
 "edit-text-size-table-view-title" = "Clómhéid";
 "empty-no-article-message" = "Tá brón orainn, níorbh fhéidir an t-alt a lódáil";
 "empty-no-feed-message" = "Féadfaidh tú do chuid alt molta a fhéachaint nuair a bheidh idirlíon agat";
-"empty-no-feed-title" = "Níl Nasc Idirlín Ann";
 "empty-no-history-message" = "Coinnigh súil anseo ar na hailt atá léite agat";
 "empty-no-saved-pages-message" = "Sábháil leathanaigh le féachaint orthu níos déanaí, fiú amháin as líne";
 "empty-no-saved-pages-title" = "Níor sábháladh aon leathanach fós";
@@ -182,7 +182,6 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "Má chastar an táb Taiscéal as, cuirfear táb Socruithe in ionad an táib Taiscéal.";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Cas air Taiscéal";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Cas air táb Taiscéal?";
-"explore-feed-preferences-undo-customization" = "Cealaigh";
 "explore-hide-card-prompt" = "Folaigh an cárta seo";
 "explore-main-page-heading" = "Inniu ar Vicipéid";
 "explore-most-read-footer" = "Na hailt uile is mó léamh";
@@ -225,14 +224,12 @@
 "field-token-title" = "Cód fíoraithe";
 "field-username-placeholder" = "iontráil ainm úsáideora";
 "field-username-title" = "Ainm úsáideora";
-"find-in-page-button-label" = "Aimsigh sa leathanach";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Athshocraigh";
 "forgot-password-email-sent" = "Seoladh ríomhphost le treoracha athshocraithe pasfhocail";
 "forgot-password-instructions" = "Líon ceann de na réimsí seo thíos le treoracha athshocraithe pasfhocail a ghlacadh trí ríomhphost";
 "forgot-password-title" = "Athshocraigh pasfhocal";
 "forgot-password-username-or-email-title" = "Nó";
-"gfdl" = "GFDL";
 "history-clear-all" = "Glan";
 "history-clear-cancel" = "Cealaigh";
 "history-clear-delete-all" = "Tá, scrios uile";
@@ -282,7 +279,6 @@
 "main-menu-account-title-logged-in" = "Logáilte isteach mar $1";
 "main-menu-heading-debug" = "Dífhabhtú";
 "main-menu-heading-legal" = "Príobháideachas agus Coinníollacha";
-"main-menu-heading-zero" = "Vicipéid a Náid";
 "main-menu-nearby" = "In aice láimhe";
 "main-menu-privacy-policy" = "Polasaí príobháideachais";
 "main-menu-rate-app" = "Rangaigh an aip";
@@ -306,16 +302,17 @@
 "on-this-day-footer" = "Tuilleadh ócáidí stairiúla ar an lá seo";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ó Vicipéid ($2)";
 "on-this-day-title" = "Ar an lá seo";
-"open-link-cancel" = "Cealaigh";
 "original-tab-button-popover-description" = "Tapáil ar an 'W' le fill ar an táb inar thosaigh tú";
 "page-edit-history" = "Stair iomlán eagarthóireachta";
 "page-history-title" = "Stair an ailt";
 "page-issues" = "Ceisteanna le reitiu";
+// Fuzzy
 "page-last-edited" = "Curtha in eagar $1 lá ó shin";
 "page-location" = "Féach ar léarscáil";
 "page-protected-autoconfirmed" = "Tá an leathanach seo leath-chosanta.";
 "page-protected-can-not-edit-title" = "Tá an leathanach seo cosanta.";
 "page-protected-sysop" = "Tá an leathanach seo cosanta go hiomlán.";
+// Fuzzy
 "page-read-in-other-languages" = "Ar fáil i $1 teanga eile";
 "page-similar-titles" = "Leathanaigh den chineál céanna";
 "page-talk-page" = "Féach ar leathanach plé";
@@ -404,7 +401,7 @@
 "saved-default-reading-list-tag" = "Ní féidir an liosta seo a scriosadh";
 "saved-pages-progress-syncing" = "Alt á íoslódáil...";
 "saved-reading-lists-title" = "Liostaí léitheoireachta";
-"saved-search-default-text" = "Cuardaigh ailt sábháilte";
+"saved-search-default-text" = "Cuardaigh ailt shábháilte";
 "saved-title" = "Sábháilte";
 "search-button-accessibility-label" = "Cuardaigh Vicipéid";
 "search-clear-title" = "Glan";
@@ -495,18 +492,9 @@
 "welcome-send-data-learn-more" = "Foghlaim tuilleadh maidir le sonraí a bhailítear";
 "welcome-send-data-sub-title" = "Cuidigh leis an aip a fheabhsú tríd an bhFondúireacht Wikimedia a chur ar an eolas ar conas mar a úsáideann tú é. Is anaithnid na sonraí a bhailítear.";
 "welcome-volunteer-send-usage-reports" = "Seol tuairiscí úsáide";
-"wikitext-download-success" = "Lódáladh inneachar.";
 "wikitext-downloading" = "Ag lódáil inneachair...";
 "wikitext-preview-link-preview-title" = "Réamhamharc ar an nasc";
 "wikitext-upload-captcha-needed" = "Deimhniú CAPTCHA de dhíth";
 "wikitext-upload-save" = "Ag foilsiú...";
 "wikitext-upload-save-sign-in" = "Logáil isteach";
 "wikitext-upload-save-terms-name" = "Coinníollacha Úsáide";
-"zero-charged-verbiage" = "Tá Vicipéid a Náid as";
-"zero-interstitial-cancel" = "Fan anseo";
-"zero-interstitial-continue" = "Imigh";
-"zero-interstitial-leave-app" = "B'fhéidir go mbeadh táillí sonraí i gceist. Lean ar aghaidh go suíomh seachtrach?";
-"zero-interstitial-title" = "Ag imeacht ó Vicipéid a Náid";
-"zero-learn-more" = "Ní ghlactar aon táille sonraí don aip Vicipéide seo.";
-"zero-learn-more-learn-more" = "Léigh tuilleadh";
-"zero-learn-more-no-thanks" = "Ruaig";

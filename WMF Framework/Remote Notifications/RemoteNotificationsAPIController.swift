@@ -154,9 +154,16 @@ class RemoteNotificationsAPIController: Fetcher {
         var components = NotificationsAPI.components
         components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
         if method == .get {
-            let _ = session.jsonDecodableTask(with: components.url, method: .get, completionHandler: completion)
+            session.jsonDecodableTask(with: components.url, method: .get, completionHandler: completion)
         } else {
-            let _ = requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: method, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: completion)
+            requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
+                switch result {
+                case .failure(let error):
+                    completion(nil, nil, error)
+                case .success(let token):
+                    self.session.jsonDecodableTask(with: components.url, method: method, bodyParameters: ["token": token], bodyEncoding: .form, completionHandler: completion)
+                }
+            }
         }
     }
 

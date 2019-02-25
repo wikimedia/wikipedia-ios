@@ -26,14 +26,19 @@
 "about-translators-details" = "ကၠာဲစၠောအ်လဝ် နကဵု စေတနာ ပ္ဍဲ $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "ဝဳကဳပဳဒဳယာ";
+// Fuzzy
 "abuse-filter-disallow-heading" = "မၞး တြးပတိတ် အရာမပလေဝ်ဒါန်ဏအ် ဟွံဂွံ၊၊ ပဂုန်တုဲ ကလေင်တုဲ ပလေဝ်ထောအ်ညိ၊၊";
-"abuse-filter-disallow-notable" = "ဝဳကဳပဳဒဳယာဂှ် ဒှ်ပြကိုဟ်အညာ မွဲ တုဲ ဒတဴလိုင် လဒေါဝ်၊ ဟွံဗက်မုက် တုဲ လိက်တအ်ဂှ် ဆေင်စပ်ကဵု ဒၞာဲဏအ်ရ၊၊";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "ဝှာင် အဝ်တဝ်မတေတ်မွဲ မံက်ဂတဝ်ကၠုင်၊၊ အရာမပလေဝ်ဒါန်လဝ် လၟုဟ်ဂှ် ဒှ်အရာ မပတိတ်တရး ဟွံဂပ်ဝ်မွဲ ဟွံသေင်မ္ဂး ဒှ်အရာ လပါ်ခိုဟ်မွဲ ဟွံသေင်ရ၊၊";
+// Fuzzy
 "abuse-filter-warning-blanking" = "လိက်ပရေင် ဟွံမဲကဵု တင်ဂၞင် ဟွံသေင်မ္ဂး အရာမပထုဲ";
+// Fuzzy
 "abuse-filter-warning-caps" = "တက်လိက် နကဵု မလိက်ဇၞော်ဖအိုတ် ALL CAPS";
 "abuse-filter-warning-heading" = "လိက်ဏအ်ဂှ် ဒှ်အရာမပလေဝ်ဒါန် လပါ်ခိုဟ် ဟွံသေင်ရ၊၊ မၞး မိက်ဂွံတြးပတိတ် ကွေဟ်ဟ်ဟာ？";
 "abuse-filter-warning-irrelevant" = "လေန် ဟွံသေင်မ္ဂး ဗီုရုပ် နူမ္ၚး ဟွံလုပ်အဝေါင်";
+// Fuzzy
 "abuse-filter-warning-repeat" = "မအက္ခရ်တုပ်ဒၟံင် ရေင်သကအ်";
+// Fuzzy
 "abuse-filter-warning-subheading" = "အရာမပလေဝ်မၞးဂှ် အရာ ဗွဲသၟဝ်ဝွံ ပါလုပ်ဒၟံင်ရ၊၊";
 "account-creation-captcha-cannot-see-image" = "ဟွံဆဵု ဗီုရုပ်ဟာ $1";
 "account-creation-captcha-obtaining" = "CAPTCHA...တၟိ ပါလုပ်ဒၟံင်";
@@ -51,6 +56,8 @@
 "action-add-to-reading-list" = "စုတ် ပ္ဍဲ စရင် လိက်ဗွဟ်";
 "action-add-to-reading-list-short" = "စုတ် ပ္ဍဲ စရင်";
 "action-cancel" = "တးပဲါ";
+// Fuzzy
+"action-find-in-page" = "ဂၠာဲ ပ္ဍဲ မုက်လိက်";
 "action-move-to" = "ပြံင်ဏာ ဇရေင်";
 "action-move-to-reading-list" = "ပြံင်ဏာ ပ္ဍဲ စရင် လိက်ဗွဟ်";
 "action-read" = "ဗှ်";
@@ -61,11 +68,12 @@
 "action-saved-accessibility-notification" = "လိက်ပရေင် ဂိုင်သိပ် လက္ကရဴ";
 "action-share" = "ပါ်ပရအ်";
 "action-sort" = "ဖျေဟ်ဒၞာဲ";
+// Fuzzy
+"action-undo" = "ဟွံပ";
 "action-unsave" = "လ္ပဂိုင်သိပ်";
 "action-unsaved-accessibility-notification" = "လိက်ပရေင် ဟွံဂိုင်သိပ်";
 "action-update" = "ပခိုဟ်လဟဵု";
 "add-articles-to-reading-list" = "စုတ် {{PLURAL:$1|$1 article|$1 articles}} ပ္ဍဲ စရင် လိက်ဗွဟ်";
-"alert-no-internet" = "ပရေင်ဆက်စၠောအ် အေန်တာနေတ် ဟွံမဲ";
 "announcements-dismiss" = "ပလီု";
 "app-store-keywords" = "ဝဳကဳပဳဒဳယာ, စၟတ်သမ္တီ, ဝဳကဳ, ပြကိုဟ်ဗိသ္တာ, ကဵုပရိုင်, ဗဟုသုတ, သုတေသန, ပရိုင်တင်ဂၞင်, စၟဳစၟတ်, ဗတောန်";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -74,6 +82,7 @@
 "appearance-settings-adjust-text-sizing" = "ပညဳ ဇမၞော် မအက္ခရ် လိက်ပရေင်";
 "appearance-settings-expand-tables" = "ဇၞော်ပတိုန် သ္ၚိအင်";
 "appearance-settings-expand-tables-footer" = "လိက်ပရေင် သီုဖအိုတ်ကီု သီုကဵု သ္ၚိအင်ဂှ် ပံက် နကဵု default, သီုကဵု Quick facts, References, Notes သီုကဵု External links.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "ဖျအ်ဖျေဟ် လျးလက္ကရဴ ဗီုရုပ် ပ္ဍဲဒၞာဲလမ္စံက်";
 "appearance-settings-reading-themes" = "ဒၞာဲ ဗွဟ်";
 "appearance-settings-set-automatic-table-opening" = "သ္ၚိအင် ဒၞာဲမဖျေဟ်ဒၞာဲ";
@@ -93,7 +102,6 @@
 "article-unable-to-load-section" = "ကဏ္ဍဏအ် ထ္ၜး ဟွံဂွံ၊၊ ကလေင်မ္ၚုဟ်ထောအ် လိက်ပရေင်ဏအ် သွက်ဂွံ ဗှ်ညာတ်၊ ယဝ်ရ အခက်အခုဲနွံဒၟံင်မ္ဂး၊၊";
 "back-button-accessibility-label" = "ကလေင်";
 "back-button-popover-title" = "ကလေင်အာ လပါ်လက္ကရဴ";
-"button-done" = "တုဲဒှ်";
 "button-next" = "ဂတ";
 "button-ok" = "OK";
 "button-publish" = "တြးပတိတ်";
@@ -104,7 +112,6 @@
 "button-saved-remove" = "ပတိတ်ထော နူ ဒၞာဲမဂိုင်သိပ်";
 "button-skip" = "သလာ်";
 "cancel" = "တးပဲါ";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Commons CC0 မဒှ်မခၞံကၠောန်";
 "close-button-accessibility-label" = "ကၟာတ်";
 "compass-direction" = "ပ္ဍဲ $1 နာဍဳ";
@@ -150,13 +157,9 @@
 "edit-summary-choice-fixed-grammar" = "ပလေဝ်ပလေတ် သဒ္ဒါ";
 "edit-summary-choice-fixed-typos" = "ပလေဝ်ပလေတ် ဗီုပြင်";
 "edit-summary-choice-linked-words" = "စုတ် လေန်";
-"edit-summary-choice-other" = "တၞဟ်";
-"edit-summary-field-placeholder-text" = "မၞး ပခိုဟ်ပတိုန် လိက်ပရေင် နကဵုနဲတၞဟ်";
-"edit-summary-title" = "ဗီုလဵု မၞး ဂွံပခိုဟ်ပတိုန် လိက်ပရေင်ရော？";
 "empty-no-article-message" = "သၠးအခေါင်၊ မၞးဗဵု လိက်ပရေင်ဂှ် ဟွံဂွံ";
 "empty-no-feed-action-message" = "မၞး ဆက်ဗှ် မုက်လိက် မဂိုင်လဝ်တုဲ ဂွံ";
 "empty-no-feed-message" = "လိက်ပရေင် မၞးမကဵုလဝ် ကသပ်တအ်ဂှ် မၞးမဂွံဆဵုကေတ်မာန် ကာလမၞးအေန်တာနေတ် နွံတှ်ေ၊၊";
-"empty-no-feed-title" = "အဆက်စၠောအ် ကုအေန်တာနေတ် ဟွံမွဲ";
 "empty-no-history-message" = "ဆက် ကလေင်ကျောဝ် မုမၞးမဗှ်လဝ် ပ္ဍဲဒၞာဲဏအ်၊၊";
 "empty-no-history-title" = "အရာမကၠောန်လဝ်တုဲတုဲ သွက်ဂွံထ္ၜး ဟွံမွဲ";
 "empty-no-reading-lists-message" = "စွံကောန်လဴ လတူ အသာ်သၚေက် ‘+’ သွက်ဂွံ ခၞံကၠောန် စရင် လိက်ဗွဟ် သွက်ဒၞာဲ သွက်ဂွံအာဝေင်၊ က္ဍိုပ်လိက် မဒးဂၞပ် ကေုာံ အရာတၞဟ်၊၊";
@@ -196,6 +199,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "အရေဝ်ဘာသာလဵု ဟွံဆက်စပ်";
 "explore-feed-preferences-global-cards-title" = "ကာတ် အလုံလိုက်";
 "explore-feed-preferences-hide-card-action-title" = "ဗဒန် ကာတ် ဏအ်";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ပၞုက်ဗဒန်  %@ ကာတ် သီုဖအိုတ်";
 "explore-feed-preferences-in-the-news-description" = "လိက်ပရေင် ပရူ အရာမဒှ်ဒၟံင် လၟုဟ်";
 "explore-feed-preferences-languages-footer-text" = "မၞး ပၞုက်ဗဒန်ထောအ် ပ္ဍဲဒၞာဲ ဘာသာမၞးမ္ဂး ဍေဟ်ကၟာတ်အာ ပ္ဍဲဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊၊";
@@ -231,7 +235,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "ပံက် ဒၞာဲမဂၠာဲသ္ၚေဝ် Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "တေပ် ဒၞာဲမဖျေဟ်ဒၞာဲ လုပ်ကေတ်ထောအ် ဒၞာဲ တေပ် ဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊ မိက်ဂွံကလေင် ဖျေဟ်ဒၞာဲတၟိမ္ဂး လုပ်ပ္ဍဲဒၞာဲ မဖျေဟ်ဒၞာဲ နကဵု မဍဵု ပ္ဍဲရုပ်အာင်ကန် ၚေက်က";
 "explore-feed-preferences-turn-on-explore-tab-title" = "ပံက် တေပ် Explore?";
-"explore-feed-preferences-undo-customization" = "ဟွံပ";
 "explore-hide-card-prompt" = "ဗဒန် ကာတ် ဏအ်";
 "explore-main-page-description" = "မုက်လိက်တမ် ပရဝ်ဂျေတ် ဝဳကဳပဳဒဳယာ";
 "explore-main-page-heading" = "တ္ၚဲဏအ် ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
@@ -276,14 +279,12 @@
 "field-token-title" = "စဳစောတ် ကုဒ်";
 "field-username-placeholder" = "စုတ် ယၟုမသုင်စောဲ";
 "field-username-title" = "ယၟုမသုင်စောဲ";
-"find-in-page-button-label" = "ဂၠာဲ ပ္ဍဲ မုက်လိက်";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ကလေင်တၟိ";
 "forgot-password-email-sent" = "အဳမေလ် နကဵု မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိဂှ် ပလံင်ဏာရ";
 "forgot-password-instructions" = "ကျောဝ် ပ္ဍဲဝှာင် ဗွဲသၟဝ်ဏအ် သွက်ဂွံ ဒုင်တဲ မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိ နကဵု အဳမေလ်";
 "forgot-password-title" = "ကလေင်စုတ် မလိက်ပၞုက်";
 "forgot-password-username-or-email-title" = "ဟွံသေင်မ္ဂး";
-"gfdl" = "GFDL";
 "history-clear-all" = "ဖအး";
 "history-clear-cancel" = "တးပဲါ";
 "history-clear-confirmation-heading" = "မၞး မိက်ဂွံ ပလီုထောအ် item မၞး သီုဖအိုတ် ကွေဟ်ဟ်ရဟာ？";
@@ -333,7 +334,6 @@
 "main-menu-debug-tweaks" = "ဒၞာဲမဖျေဟ်ဒၞာဲ သွက်ဂွံပခိုဟ်ပတိုန်";
 "main-menu-heading-debug" = "သ္ၚေဝ်ဂၠာဲဟိုတ်ဖဵု";
 "main-menu-heading-legal" = "Privacy and Terms";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "ဗဒဲါဒၞာဲဏအ်";
 "main-menu-privacy-policy" = "ပဝ်လသဳ မဆေင်ကဵု အခေါင်အရာပူဂဵု";
 "main-menu-rate-app" = "ကဵုစၟတ် ကု app";
@@ -361,11 +361,11 @@
 "on-this-day-footer-with-event-count" = "$1 သဘင်မကတဵုဒှ်လဝ်ဂမၠိုင် ပ္ဍဲ တ္ၚဲဏအ်";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 နူ $2 ဝဳကဳပဳဒဳယာ";
 "on-this-day-title" = "ပ္ဍဲ တ္ၚဲဏအ်";
-"open-link-cancel" = "တးပဲါ";
 "original-tab-button-popover-description" = "ဍဵု လတူ W သွက်ဂွံ ပ္ဍဲတေပ် မၞးမစကၠုင်လဝ်";
 "page-edit-history" = "ဗဵု လၟေင် မပလေဝ်ကၠုင်လဝ်";
 "page-history-title" = "လိက်ပရေင် မဗှ်လဝ်တုဲတုဲဂမၠိုင်";
 "page-issues" = "မုက်လိက် ပတိတ်တြး";
+// Fuzzy
 "page-last-edited" = "ပလေဝ်ဒါန်လဝ် နူကဵု $1 တ္ၚဲမတုဲကၠုင်";
 "page-location" = "ဗဵု ပ္ဍဲ ဗီုတိ";
 "page-protected-autoconfirmed" = "မုက်လိက်ဏအ် ဒးဒုင်ကၟာတ်လဒဵုလဝ် ၜိုတ်ကဝက်၊၊";
@@ -373,6 +373,7 @@
 "page-protected-can-not-edit-title" = "မုက်လိက်ဏအ် စဵုဒၞာလဝ်၊၊";
 "page-protected-other" = "မုက်လိက်ဏအ် ဒးဒုင်ကၟာတ်လဒဵုလဝ် ၜိုတ်ကဆံင် $1";
 "page-protected-sysop" = "မုက်လိက်ဏအ် ဒးဒုင်ကၟာတ်လဒဵုလဝ် ပေင်င်၊၊";
+// Fuzzy
 "page-read-in-other-languages" = "ဟွံမွဲဏီ ပ္ဍဲ $1 ဘာသာတၞဟ်";
 "page-similar-titles" = "မုက်လိက် မတုပ်သၟဟ်";
 "page-talk-page" = "ဗဵု မုက်လိက် ဓရီုကျာ";
@@ -430,6 +431,7 @@
 "reading-list-deleted-accessibility-notification" = "စရင် လိက်ဗွဟ် ပလီုထောအ်တုဲ";
 "reading-list-do-not-keep-button-title" = "ဟအှ်ေ၊ ဇိုတ်ထောအ် လိက်ပရေင်တအ် နူကဵု device";
 "reading-list-entry-limit-exceeded-message" = "ပဂုန်တုဲ ဖ္အောန်ဖျေဟ် လၟိဟ်ဂၞန် လိက်ပရေင် ပ္ဍဲ စရင် ပ္ဍဲ $1 သွက်ဂွံ ကလေင် ကချဳဓရာင် လိက်ပရေင်သီုဖအိုတ် ပ္ဍဲစရင်ဏအ်၊၊";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "မၞး ကလိဂွံလဝ် လိက်ပရေင် $1 ဂၠိုင်ၜက်အာ နူ မကဵုလဝ်အခေါင် သွက် အကံက်မွဲရ၊၊";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Article|Articles}} ဂှ် စုတ်ပ္ဍဲ စရင်ဏအ် ဟွံဂွံ၊၊ မၞးစိုပ်ၜက်အာ နူကဵုလဝ်အခေါင် $2 လိက်ပရေင် သွက် စရင်လိက်ဗွဟ်မွဲ သွက်  $3";
 "reading-list-exists-with-same-name" = "ယၟု စရင် လိက်ဗွဟ်ဂှ် နွံဒၟံင်တုဲတုဲ";
@@ -443,6 +445,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "လိက်ပရေင် မဟွံပြေင်စွံတအ်ဂှ် အခေါင်နွံ ၅၀၀၀ ဓဝ်ရ၊၊ ပဂုန်တုဲ ပြေင်စွံ လိက်ပရေင်မၞး မၞုံဒၟံင်တအ် အပ္ဍဲ စရင် သွက်ဂွံပချဳဓရာင် လိက်ပရေင် ဟွံပြေင်စွံလဝ် ဏီတအ်၊၊";
 "reading-list-limit-hit-for-unsorted-articles-title" = "သွက် လိက်ပရေင် ဟွံပြေင်စွံလဝ်တအ်ဂှ် အပိုင်အခြာ စိုပ်ဒၟံင်ရ၊၊";
 "reading-list-list-limit-exceeded-message" = "စရင် လိက်ဗွဟ်ဏအ် ကဵု လိက်ပရေင်မဂိုင်သိပ်တအ် ပချဳဓရာင် ဂွံ ဟွံသေင်ရ၊၊ ပဂုန်တုဲ ဖ္အောန်ဖျေဟ် လၟိဟ်ဂၞန် စရင် $1 သွက်ဂွံ ကလေင်ပချဳဓရာင် စရင်ဏအ်၊၊";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "မၞး ကလိဂွံလဝ် လိက်ပရေင် $1 ဂၠိုင်ၜက်အာ နူ မကဵုလဝ်အခေါင် သွက် အကံက်မွဲရ၊၊";
 "reading-list-list-limit-reached" = "မၞး စိုပ်အာ အပိုင်အခြာ $1 စရင် လိက်ဗွဟ် သွက် အကံက်မွဲ၊၊";
 "reading-list-login-button-title" = "လုပ်လံက်အေန် သွက်ဂွံ ပချဳဓရာင် လိက်ပရေင် မဂိုင်သိပ် မၞး";
@@ -617,7 +620,6 @@
 "welcome-send-data-sub-title" = "မရီုဗင်ဂှ် ပခိုဟ်ပတိုန် app နကဵု the Wikimedia Foundation ဂွံတီကေတ် ဗီုလဵု မၞးမစကာဍေဟ်ရ၊၊ မပကောံတင်ဂၞင်ဒါတာဂှ် ဓလုလဝ် ယၟုရ၊၊";
 "welcome-volunteer-send-usage-reports" = "ပလံင် လိက်ဒုင်စဳရေင် ညးမသုင်စောဲ";
 "wikitext-download-failed" = "မူတၟိ လက္ကရဴအိုတ်ဂှ် ကလိဂွံ ဟွံသၟဟ်အစောံ";
-"wikitext-download-success" = "လိက်ဂှ် ပံက်တုဲ";
 "wikitext-downloading" = "လိက်ဂှ် အဃောမပံက်ဒၟံင်...";
 "wikitext-preview-changes" = "ကလေင်ကေတ်ဒၟံင် နမူနာ အရာမၞးမပလေဝ်လဝ် ...";
 "wikitext-preview-changes-none" = "သွက်ဂွံထ္ၜး နမူနာဂှ် အရာမကၠောန်လဝ် ပရေင်ပြံင်လှာဲ ဟွံမဲ";
@@ -629,16 +631,4 @@
 "wikitext-upload-save" = "ပတိတ်တြးဒၟံင်...";
 "wikitext-upload-save-anonymously-warning" = "ပလေဝ်ဒါန်ဂှ် တြးပတိတ် ပ္ဍဲ IP address device မၞး. ယဝ်ရ မၞး $1 မ္ဂး မၞး သကလိဂွံ အခေါင်ပုဂ္ဂလိ ဂၠိုင်ရ၊၊";
 "wikitext-upload-save-sign-in" = "လုပ်လံက်အေန်";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "နကဵု မတြးပတိတ်ဂှ် မၞးတုပ်စိုတ် သွက် $1 ကေုာံ တုပ်စိုတ် သွက်ဂွံ ဗလးပတိတ် လိက်မၞး နကဵုသၟဝ် လာင်ဇြေန် $2 ကေုာံ $3၊၊";
 "wikitext-upload-save-terms-name" = "Terms of Use";
-"zero-charged-verbiage" = "Wikipedia Zero ဂှ် ကၟာတ်";
-"zero-charged-verbiage-extended" = "မပံက် လိက်ပရေင်တၞဟ်မ္ဂး အရာမၞုံဒၟံင် လၟုဟ်ဂှ် ပြံင်လှာဲအာမာန်ရ၊၊ ဂိုင်သိပ် လိက်ပရေင် ပ္ဍဲဒၞာဲဂိုင်ဒိပ်မ္ဂး ဟွံစကာ ဒါတာအေန်တာနေတ် တုဲ ဒှ် သက္ကုၚုဟ်ရ၊၊";
-"zero-free-verbiage" = "Free Wikipedia လုပ်စိုပ် နူစက်ဖုန်မၞး (data charges waived)";
-"zero-interstitial-cancel" = "ဆက်မံင် ဒၞာဲဏအ်";
-"zero-interstitial-continue" = "တိတ်";
-"zero-interstitial-leave-app" = "တင်ဂၞင် ပြံင်လှာဲမ္ဂး ဒးဗမံက်ထ္ၜး၊၊ ဆက်စကာ နကဵုမုက်လိက်မ္ၚးဟာ？";
-"zero-interstitial-title" = "တိတ် နူ Wikipedia Zero";
-"zero-learn-more" = "Data charges are waived for this Wikipedia app.";
-"zero-learn-more-learn-more" = "ဆက် ဗှ်";
-"zero-learn-more-no-thanks" = "ပလီု";
-"zero-warn-when-leaving" = "ကဵုသတိ ယဝ်ရ တိတ်နူ Zero";

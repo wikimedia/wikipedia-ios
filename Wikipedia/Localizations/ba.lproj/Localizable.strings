@@ -35,13 +35,18 @@
 // Fuzzy
 "abuse-filter-disallow-heading" = "Һеҙ был битте һаҡлай алмайһығыҙ, кире артҡа ҡайтып уны үҙгәртегеҙ";
 "abuse-filter-disallow-notable" = "Википедия - ул энциклопедия, бында тик нейтраль һәм әһәмиәтле нәмәләр";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Автоматлаштырылған фильтр был төҙәтеүҙе хаталы йәки емерергә маташыу тип билдәләй";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Буш мәҡәлә йәки спам";
+// Fuzzy
 "abuse-filter-warning-caps" = "Баш хәрефтәр менән баҫыу";
 // Fuzzy
 "abuse-filter-warning-heading" = "Был төҙәтеү хаталы. Һеҙ ысынлап та уны һаҡларға теләйһегеҙме?";
 "abuse-filter-warning-irrelevant" = "Әһәмиәтле булмаған тышҡы һылтанмалар йәки һүрәттәр";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Ҡабатланған символдар";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Һеҙҙең төҙәтеү түбәндәге бер йәки бер нисә ғәмәлде үҙ эсенә алырға мөмкин";
 // Fuzzy
 "account-creation-captcha-obtaining" = "Яңы CAPTCHA алыу";
@@ -59,7 +64,6 @@
 "article-read-more-title" = "Тулыраҡ уҡырға";
 "article-unable-to-load-section" = "Был бүлекте күсереп булмай. Мәҡәләне яңыртып ҡарағыҙ, бәлки проблеманы хәл итер.";
 "back-button-accessibility-label" = "Артҡа";
-"button-done" = "Әҙер";
 "button-next" = "Артабан";
 "button-save-for-later" = "Аҙаҡҡыға һаҡларға";
 "button-saved-for-later" = "Киләсәккә һаҡланды";
@@ -70,9 +74,6 @@
 "edit-summary-choice-fixed-grammar" = "Дөрөҫ яҙыу төҙәтелгән";
 "edit-summary-choice-fixed-typos" = "Баҫма хатаһы төҙәтелгән";
 "edit-summary-choice-linked-words" = "Өҫтәлгән һылтанмалар";
-"edit-summary-choice-other" = "Башҡа";
-"edit-summary-field-placeholder-text" = "Битегеҙҙе яҡшыртҡан башҡа төрлө алымдар";
-"edit-summary-title" = "Нисегерәк итеп үҙегеҙҙең битегеҙҙе яҡшырттығыҙ?";
 "empty-no-article-message" = "Үкенескә ҡаршы, мәҡәләне күсереп булманы";
 "empty-no-feed-action-message" = "Әлегә һеҙ элек һаҡланған мәҡәләләрҙе уҡый алаһығыҙ";
 "empty-no-feed-message" = "Интернет булғанда, тәҡдим ителгән мәҡәләләрҙе күрә алаһығыҙ";
@@ -123,7 +124,6 @@
 "main-menu-debug-tweaks" = "Әҙерләүселәр өсөн көйләүҙәр";
 "main-menu-heading-debug" = "Көйләү";
 "main-menu-heading-legal" = "Конфиденциаллек һәм шарттар";
-"main-menu-heading-zero" = "Zero википедияһы";
 "main-menu-nearby" = "Эргәлә";
 "main-menu-privacy-policy" = "Сер һаҡлау сәйәсәте";
 "main-menu-rate-app" = "Ҡушымтаны баһаларға";
@@ -208,14 +208,3 @@
 "wikitext-upload-save-anonymously-warning" = "Төҙәтеүҙәр һеҙҙең ҡоролмағыҙҙың IP-адресы менән билдәләнәсәк. Әгәр һеҙ $1 икән, юғарыраҡ кимәлдәге конфиденциаллек алығыҙ";
 "wikitext-upload-save-sign-in" = "Инеү";
 "wikitext-upload-save-terms-name" = "Ҡулланыу шарттары";
-"zero-charged-verbiage" = "Zero Википедияһы һүндерелгән";
-"zero-charged-verbiage-extended" = "Башҡа мәҡәләләрҙе күсергәндә, мәғлүмәт ебәргән өсөн түләтеүҙәре ихтимал. Айырым һаҡланған мәҡәләләр мәғлүмәт биреүҙе талап итмәй, шуға күрә бушлай.";
-"zero-free-verbiage" = "Һеҙҙең операторҙың Википедияға бушлай инергә рөхсәте бар (трафик өсөн түләү алынмай)";
-"zero-interstitial-cancel" = "Ҡалырға";
-"zero-interstitial-continue" = "Күсеү";
-"zero-interstitial-leave-app" = "Мәғлүмәт ебәргән өсөн стандарт хаҡ алыныуы ихтимал. Тышҡы сайтҡа күсеүҙе дауам итергәме?";
-"zero-interstitial-title" = " Zero википедияһынан сығыу";
-"zero-learn-more" = "Википедияның был ҡушымтаһын файҙаланғанда мәғлүмәт өсөн хаҡ алынмай";
-"zero-learn-more-learn-more" = "Тулыраҡ";
-"zero-learn-more-no-thanks" = "Ябырға";
-"zero-warn-when-leaving" = "Zero-нан сыҡһағыҙ иҫкәртегеҙ";

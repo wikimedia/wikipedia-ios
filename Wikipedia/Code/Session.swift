@@ -87,18 +87,12 @@ import Foundation
         return URLSession(configuration: config)
     }()
     
-    internal lazy var queue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 16
-        return queue
-    }()
-    
     public func hasValidCentralAuthCookies(for domain: String) -> Bool {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return false
         }
         let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain)
-        guard cookies.count > 0 else {
+        guard !cookies.isEmpty else {
             return false
         }
         let now = Date()
@@ -206,13 +200,10 @@ import Foundation
     }
     
     /**
-     Creates a URLSessionTask that will handle the response by decoding it to the codable type T. If the response isn't 200, or decoding to T fails, it'll attempt to decode the response to codable type E (typically an error response).
+     Creates a URLSessionTask that will handle the response by decoding it to the decodable type T. If the response isn't 200, or decoding to T fails, it'll attempt to decode the response to codable type E (typically an error response).
      - parameters:
-         - host: The host for the request
-         - scheme: The scheme for the request
+         - url: The url for the request
          - method: The HTTP method for the request
-         - path: The path for the request
-         - queryParameters: The query parameters for the request
          - bodyParameters: The body parameters for the request
          - bodyEncoding: The body encoding for the request body parameters
          - completionHandler: Called after the request completes
@@ -221,7 +212,7 @@ import Foundation
          - response: The URLResponse
          - error: Any network or parsing error
      */
-    public func jsonCodableTask<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+    @discardableResult public func jsonDecodableTaskWithDecodableError<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
@@ -253,14 +244,26 @@ import Foundation
                 handleErrorResponse()
             }
         }) else {
+            completionHandler(nil, nil, nil, RequestError.invalidParameters)
             return nil
         }
-        let op = URLSessionTaskOperation(task: task)
-        queue.addOperation(op)
+        task.resume()
         return task
     }
 
-    public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) {
+    /**
+     Creates a URLSessionTask that will handle the response by decoding it to the decodable type T.
+     - parameters:
+     - url: The url for the request
+     - method: The HTTP method for the request
+     - bodyParameters: The body parameters for the request
+     - bodyEncoding: The body encoding for the request body parameters
+     - completionHandler: Called after the request completes
+     - result: The result object decoded from JSON
+     - response: The URLResponse
+     - error: Any network or parsing error
+     */
+    public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) {
         guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
@@ -280,10 +283,10 @@ import Foundation
                 completionHandler(nil, response, resultParsingError)
             }
         }) else {
+            completionHandler(nil, nil, RequestError.invalidParameters)
             return
         }
-        let op = URLSessionTaskOperation(task: task)
-        queue.addOperation(op)
+        task.resume()
     }
     
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
@@ -294,7 +297,7 @@ import Foundation
                 return
             }
             do {
-                guard data.count > 0, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                guard !data.isEmpty, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
                     completionHandler(nil, response as? HTTPURLResponse, nil)
                     return
                 }
@@ -367,8 +370,7 @@ import Foundation
             return
         }
         task.priority = priority
-        let operation = URLSessionTaskOperation(task: task)
-        queue.addOperation(operation)
+        task.resume()
     }
     
     @objc(fetchMediaForArticleURL:priority:completionHandler:)

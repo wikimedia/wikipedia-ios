@@ -156,14 +156,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>few</key>
-			<string>לפני יומיים</string>
-			<key>one</key>
-			<string>אתמול</string>
 			<key>other</key>
 			<string>לפני %1$d ימים</string>
-			<key>two</key>
-			<string>שלשום</string>
 			<key>zero</key>
 			<string>היום</string>
 		</dict>
@@ -178,12 +172,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>לפני שעה</string>
 			<key>other</key>
 			<string>לפני %1$d שעות</string>
-			<key>two</key>
-			<string>לפני שעתיים</string>
 			<key>zero</key>
 			<string>לפני זמן קצר</string>
 		</dict>
@@ -198,8 +188,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>לפני דקה</string>
 			<key>other</key>
 			<string>לפני %1$d דקות</string>
 			<key>zero</key>

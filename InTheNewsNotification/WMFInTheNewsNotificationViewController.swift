@@ -88,7 +88,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             return
         }
         
-        guard let viewCounts = viewCountDict.wmf_pageViewsSortedByDate, viewCounts.count > 0 else {
+        guard let viewCounts = viewCountDict.wmf_pageViewsSortedByDate, !viewCounts.isEmpty else {
             readerCountLabel.text = ""
             return
         }

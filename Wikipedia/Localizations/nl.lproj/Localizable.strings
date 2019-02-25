@@ -1,5 +1,7 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
+// Author: Bouman4
+// Author: Elroy
 // Author: FabianRM
 // Author: Festina90
 // Author: Hex
@@ -23,6 +25,7 @@
 // Author: Southparkfan
 // Author: TrisbaasBaan
 // Author: Wikibelgiaan
+// Author: Xbaked potatox
 
 "about-content-license" = "Inhoudslicentie";
 "about-content-license-details" = "Tenzij anders vermeld, is de inhoud beschikbaar onder een $1.";
@@ -47,15 +50,15 @@
 "about-translators-details" = "Deze app is vertaald door de vrijwillige vertalers van $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "U kunt deze bewerking niet publiceren. Ga terug en pas deze aan.";
-"abuse-filter-disallow-notable" = "Wikipedia is een encylopedie en alleen neutrale relevante inhoud is hier toegestaan.";
-"abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
-"abuse-filter-warning-blanking" = "Pagina's leegmaken of spam plaatsen";
-"abuse-filter-warning-caps" = "Tekst in HOOFDLETTERS";
+"abuse-filter-disallow-heading" = "U kunt deze bewerking niet publiceren";
+"abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalism. Ga terug en wijzig uw bewerking.";
+"abuse-filter-warning-blanking" = "Secties of volledige artikelen verwijderen";
+"abuse-filter-warning-caps" = "Alle tekst in hoofdletters";
 "abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt publiceren?";
 "abuse-filter-warning-irrelevant" = "Irrelevante externe koppelingen of afbeeldingen";
-"abuse-filter-warning-repeat" = "Herhaaaalende tekens";
-"abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
+"abuse-filter-warning-repeat" = "Herhalende tekens";
+"abuse-filter-warning-spam" = "Spam toevoegen aan artikelen";
+"abuse-filter-warning-subheading" = "Uw bewerking kan het volgende bevatten:";
 "account-creation-captcha-cannot-see-image" = "Kunt u de afbeelding niet zien? $1";
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
 "account-creation-captcha-request-account" = "Account aanvragen";
@@ -72,9 +75,11 @@
 "action-add-to-reading-list" = "Aan leeslijst toevoegen";
 "action-add-to-reading-list-short" = "Aan lijst toevoegen";
 "action-cancel" = "Annuleren";
+"action-find-in-page" = "Op pagina zoeken";
 "action-move-to" = "Verplaatsen naar…";
 "action-move-to-reading-list" = "Naar leeslijst verplaatsen";
 "action-read" = "Lezen";
+"action-redo" = "Opnieuw uitvoeren";
 "action-remove" = "Verwijderen";
 "action-save" = "Opslaan";
 "action-saved" = "Opgeslagen";
@@ -82,11 +87,11 @@
 "action-saved-accessibility-notification" = "Pagina opgeslagen voor later";
 "action-share" = "Delen";
 "action-sort" = "Sorteren";
+"action-undo" = "Ongedaan maken";
 "action-unsave" = "Wissen";
 "action-unsaved-accessibility-notification" = "Artikel terug opgeslagen";
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
-"alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
 "app-store-release-notes" = "Volledig aanpasbaar verkennen-tabblad welke tevens makkelijker te verkennen is. Lokalisatie, prestatieverbeteringen en foutoplossingen.";
@@ -95,7 +100,7 @@
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
 "appearance-settings-expand-tables" = "Tabellen uitklappen";
 "appearance-settings-expand-tables-footer" = "Alle tabellen in alle artikelen standaard openen, inclusief snelle feiten, referenties, notities en externe links.";
-"appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeeldingen in het donkere thema";
+"appearance-settings-image-dimming-footer" = "Verlaag de ondoorzichtigheid van afbeeldingen in de donkere en zwarte thema's";
 "appearance-settings-reading-themes" = "Leesthema's";
 "appearance-settings-set-automatic-table-opening" = "Tabelinstellingen";
 "appearance-settings-text-sizing-example-text" = "Versleep de schuifregelaar om de tekstgrootte van het artikel te wijzigen. Gebruik de tekstgrootte van uw systeem om het formaat van andere tekstgebieden in de app te wijzigen.";
@@ -114,7 +119,6 @@
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
-"button-done" = "Afgerond";
 "button-next" = "Volgende";
 "button-ok" = "OK";
 "button-publish" = "Publiceren";
@@ -125,7 +129,6 @@
 "button-saved-remove" = "Uit opgeslagen verwijderen";
 "button-skip" = "Overslaan";
 "cancel" = "Annuleren";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
@@ -168,19 +171,41 @@
 "description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "dim-images" = "Afbeeldingen dimmen";
+"edit-bold-accessibility-label" = "Vetgedrukte opmaak toevoegen";
+"edit-bold-remove-accessibility-label" = "Vetgedrukte opmaak verwijderen";
+"edit-decrease-indent-depth-accessibility-label" = "Inspringing verkleinen";
+"edit-direction-down-accessibility-label" = "Cursor naar beneden verplaatsen";
+"edit-direction-left-accessibility-label" = "Cursor naar links verplaatsen";
+"edit-direction-right-accessibility-label" = "Cursor naar rechts verplaatsen";
+"edit-direction-up-accessibility-label" = "Cursor naar boven verplaatsen";
+"edit-increase-indent-depth-accessibility-label" = "Inspringing vergroten";
+"edit-indent-accessibility-label" = "Huidge lijn inspringen";
+"edit-italic-accessibility-label" = "Cursieve opmaak toevoegen";
+"edit-italic-remove-accessibility-label" = "Cursieve opmaak weghalen";
+"edit-link-remove-accessibility-label" = "Syntaxis van koppeling verwijderen";
+"edit-minor-learn-more-text" = "Meer informatie over kleine bewerkingen";
+"edit-minor-text" = "Dit is een kleine bewerking";
+"edit-published" = "Bewerking gepubliceerd";
+"edit-published-button-title" = "Afgerond";
+"edit-published-subtitle" = "U hebt Wikipedia zojuist voor iedereen beter gemaakt";
+"edit-reference-accessibility-label" = "Voeg referentiesyntaxis toe";
+"edit-strikethrough-accessibility-label" = "Doorhalen toevoegen";
 "edit-style-table-view-title" = "Stijl";
+"edit-summary-add-summary-text" = "Voeg een bewerkingssamenvatting toe";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
-"edit-summary-choice-other" = "Overige";
-"edit-summary-field-placeholder-text" = "Andere manieren waarop u de pagina hebt verbeterd";
-"edit-summary-title" = "Hoe hebt u het artikel verbeterd?";
+"edit-summary-learn-more-text" = "Meer informatie";
+"edit-summary-placeholder-text" = "Hoe hebt u de pagina verbeterd?";
+"edit-template-remove-accessibility-label" = "Syntaxis van sjabloon verwijderen";
 "edit-text-formatting-table-view-title" = "Tekstopmaak";
 "edit-text-size-table-view-title" = "Tekstgrootte";
+"edit-underline-accessibility-label" = "Onderstreep toevoegen";
+"edit-watch-list-learn-more-text" = "Meer over kijklijsten";
+"edit-watch-this-page-text" = "Deze pagina volgen";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
-"empty-no-feed-title" = "Geen internetverbinding";
 "empty-no-history-message" = "Blijf op de hoogte van wat je hebt gelezen";
 "empty-no-history-title" = "Geen geschiedenis om te weergeven";
 "empty-no-reading-lists-message" = "Maak lijsten met te bezoeken plaatsen, favoriete onderwerpen en zoveel meer";
@@ -222,7 +247,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Niet-taalspecifiek";
 "explore-feed-preferences-global-cards-title" = "Globale kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Deze kaart verbergen";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Alle %@-kaarten verbergen";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Alle kaarten van %@ verbergen";
 "explore-feed-preferences-in-the-news-description" = "Pagina's over huidige gebeurtenissen";
 "explore-feed-preferences-languages-footer-text" = "Het verbergen van alle kaarten op het verkennen-tabblad in alle talen zal het tabblad uitschakelen.";
 "explore-feed-preferences-on-this-day-description" = "Gebeurtenissen in de geschiedenis op deze dag";
@@ -257,7 +282,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Verkennen inschakelen";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Dit zal het tabblad Instellingen vervangen door het tabblad Ontdekken, u kunt Instellingen openen vanaf de bovenkant van het tabblad Ontdekken door op het tandwielpictogram te klikken";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Het tabblad verkennen inschakelen?";
-"explore-feed-preferences-undo-customization" = "Ongedaan maken";
 "explore-hide-card-prompt" = "Deze kaart verbergen";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
@@ -280,6 +304,8 @@
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
 "feed-news-notification-text" = "Schakel meldingen in om geïnformeerd te worden door Wikipedia wanneer artikelen trending zijn in het nieuws.";
+"fetcher-error-generic" = "Er is iets misgegaan. Probeer het later opnieuw.";
+"fetcher-error-unexpected-response" = "De toepassing heeft een onverwacht antwoord van de server ontvangen. Probeer het later opnieuw.";
 "field-alert-captcha-invalid" = "Ongeldige CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Wachtwoorden komen niet overeen";
 "field-alert-password-invalid" = "Ongeldig wachtwoord";
@@ -302,14 +328,12 @@
 "field-token-title" = "Verificatiecode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"find-in-page-button-label" = "Op pagina zoeken";
 "find-in-page-number-matches" = "$1 van $2";
 "forgot-password-button-title" = "Opnieuw instellen";
 "forgot-password-email-sent" = "Een email met de instructies om uw wachtwoord opnieuw in te stellen is gestuurd";
 "forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via email over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
-"gfdl" = "GFDL";
 "history-clear-all" = "Wissen";
 "history-clear-cancel" = "Annuleren";
 "history-clear-confirmation-heading" = "Weet u zeker dat u alle recente items wilt verwijderen?";
@@ -363,7 +387,6 @@
 "main-menu-debug-tweaks" = "Ontwikkelaarsvoorkeuren";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privacy en voorwaarden";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "In de buurt";
 "main-menu-privacy-policy" = "Privacybeleid";
 "main-menu-rate-app" = "App beoordelen";
@@ -382,6 +405,9 @@
 "new-password-instructions" = "U bent aangemeld met een tijdelijk code die u per e-mail hebt ontvangen.\nOm het aanmelden te voltooien moet u hier een nieuw wachtwoord instellen.";
 "new-password-title" = "Wachtwoord instellen";
 "no-email-account-alert" = "Stel alstublieft een e-mailaccount in op uw apparaat en probeer het opnieuw.";
+"no-internet-connection" = "Geen internetverbinding";
+"no-internet-connection-article-reload" = "Een nieuwere versie van dit artikel kan mogelijk beschikbaar zijn, maar kan niet worden geladen zonder internetverbinding";
+"no-internet-connection-article-reload-button" = "Terug naar laatst bewaarde versie";
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mln.";
 "number-thousands" = "$1k";
@@ -391,19 +417,18 @@
 "on-this-day-footer-with-event-count" = "nog $1 historische gebeurtenissen op deze dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
-"open-link-cancel" = "Annuleren";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "page-history-title" = "Paginageschiedenis";
 "page-issues" = "Paginaproblemen";
-"page-last-edited" = "$1 dagen geleden bewerkt";
+"page-last-edited" = "{{PLURAL:$1|0=Vandaag bewerkt|Gisteren bewerkt|$1 dagen geleden bewerkt}}";
 "page-location" = "Op een kaart bekijken";
 "page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
 "page-protected-can-not-edit-title" = "Deze pagina is beveiligd";
 "page-protected-other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
 "page-protected-sysop" = "Deze pagina is volledig beveiligd.";
-"page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
+"page-read-in-other-languages" = "Beschikbaar in {{PLURAL:$1|$1 andere taal|$1 andere talen}}";
 "page-similar-titles" = "Vergelijkbare pagina's";
 "page-talk-page" = "Overlegpagina bekijken";
 "pictured" = "afgebeeld";
@@ -460,7 +485,7 @@
 "reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
 "reading-list-do-not-keep-button-title" = "Nee, verwijder de artikelen van dit apparaat";
 "reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
-"reading-list-entry-limit-exceeded-title" = "Maximum aantal artikelen $1 per registratie bereikt.";
+"reading-list-entry-limit-exceeded-title" = "U hebt de limiet van {{PLURAL:$1|$1 artikel|$1 artikels}} per account overschreden.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
 "reading-list-exists-with-same-name" = "Leeslijstnaam bestaat al";
 "reading-list-generic-error" = "Er is een onverwachte fout opgetreden bij het bijwerken van uw leeslijsten.";
@@ -473,7 +498,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Er is een limiet van 5000 ongesorteerde artikelen. Sorteer uw bestaande artikelen in lijsten om door te gaan met het synchroniseren van ongesorteerde artikelen.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limiet bereikt voor ongesorteerde artikelen";
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
-"reading-list-list-limit-exceeded-title" = "Maximum aantal leeslijsten $1 per registratie bereikt.";
+"reading-list-list-limit-exceeded-title" = "U hebt de limiet van {{PLURAL:$1|$1 leeslijst|$1 leeslijten}} per account overschreden.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
 "reading-list-login-button-title" = "Log in om uw opgeslagen artikelen te synchroniseren";
 "reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
@@ -541,8 +566,7 @@
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-pages-progress-syncing" = "Pagina-download bezig...";
 "saved-reading-lists-title" = "Leeslijsten";
-// Fuzzy
-"saved-search-default-text" = "Zoeken";
+"saved-search-default-text" = "Opgeslagen artikelen doorzoeken";
 "saved-title" = "Opgeslagen";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Het wissen van {{PLURAL:$1|dit artikel wist dit artikel|deze artikelen wist deze artikelen}} van alle bijbehorende leeslijsten";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Wis opgeslagen {{PLURAL:$1|artikel|artikelen}}?";
@@ -655,28 +679,16 @@
 "welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
-"wikitext-download-success" = "Inhoud geladen.";
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
 "wikitext-preview-link-preview-description" = "Deze link leidt naar '$1'";
 "wikitext-preview-link-preview-title" = "Linkvoorvertoning";
+"wikitext-preview-save-changes-title" = "Wijzigingen opslaan";
 "wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Door het publiceren van wijzigingen, gaat u akkoord met de $1 en gaat u akoord gaat met het vrijgeven van uw bijdragen onder de licentie $2 en $3.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
-"zero-charged-verbiage" = "Wikipedia Zero staat uit";
-"zero-charged-verbiage-extended" = "Het laden van andere pagina's kan kosten met zich meebrengen. Opgeslagen pagina's gebruiken geen dataverkeer en zijn dus gratis.";
-"zero-free-verbiage" = "Gratis toegang tot Wikipedia van uw mobiele provider (geen kosten voor gegevens)";
-"zero-interstitial-cancel" = "Hier blijven";
-"zero-interstitial-continue" = "Sluiten";
-"zero-interstitial-leave-app" = "Er kunnen extra kosten worden verrekend. Doorgaan naar de externe website?";
-"zero-interstitial-title" = "U verlaat Wikipedia Zero";
-"zero-learn-more" = "Er worden geen datakosten in rekening gebracht voor het gebruik van deze Wikipedia-app.";
-"zero-learn-more-learn-more" = "Meer lezen";
-"zero-learn-more-no-thanks" = "Sluiten";
-"zero-warn-when-leaving" = "Waarschuwen bij verlaten Zero";

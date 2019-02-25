@@ -22,14 +22,19 @@
 "about-translators-details" = "ត្រូវបានបកប្រែដោយអ្នកស្ម័គ្រចិត្តនៅ $1";
 "about-wikimedia-foundation" = "មូលនិធិវិគីមេឌា";
 "about-wikipedia" = "វិគីភីឌា";
+// Fuzzy
 "abuse-filter-disallow-heading" = "អ្នកមិនអាចបោះផ្សាយការកែប្រែនេះបានទេ។ សូមត្រឡប់ក្រោយរួចកែតម្រួវវា។";
-"abuse-filter-disallow-notable" = "វិគីភីឌាជាសព្វវចនាធិប្បាយមួយដែលមានតែអត្ថបទដែលមានអព្យាក្រិតនិងគួរកត់សម្គាល់។";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "តម្រងស្វ័យប្រវត្តិបានសម្គាល់កំណែប្រែនេះថាជាទង្វើគ្មានការស្ថាបនាឬមានបំណងបំផ្លិចបំផ្លាញ។";
+// Fuzzy
 "abuse-filter-warning-blanking" = "ការលុបខ្លឹមសារអត្ថបទឬដាក់ស្ប៉ាម";
+// Fuzzy
 "abuse-filter-warning-caps" = "វាយបញ្ចូលជាអក្សរធំ";
 "abuse-filter-warning-heading" = "នេះប្រហែលជាការកែប្រែដែលគ្មានលក្ខណៈស្ថាបនាទេ។ តើអ្នកពិតជាចង់បោះផ្សាយវាមែនទេ?";
 "abuse-filter-warning-irrelevant" = "តំណភ្ជាប់ខាងក្រៅឬរូបភាពដែលមិនទាក់ទិន";
+// Fuzzy
 "abuse-filter-warning-repeat" = "អក្សរស្ទួន";
+// Fuzzy
 "abuse-filter-warning-subheading" = "ការកែប្រែរបស់អ្នកអាចមានបញ្ហាណាមួយឬលើសពីមួយដូចខាងក្រោម៖";
 "account-creation-captcha-cannot-see-image" = "មើលរូបភាពមិនឃើញមែនទេ? $1";
 "account-creation-captcha-obtaining" = "កំពុងយក CAPTCHA ថ្មី...";
@@ -47,6 +52,8 @@
 "action-add-to-reading-list" = "បន្ថែមទៅក្នុងបញ្ជីអំណាន";
 "action-add-to-reading-list-short" = "បន្ថែមទៅក្នុង​បញ្ជី​";
 "action-cancel" = "បោះបង់";
+// Fuzzy
+"action-find-in-page" = "ស្វែងរកក្នុងទំព័រ";
 "action-move-to" = "ប្ដូរទៅតាំងទៅ…";
 "action-move-to-reading-list" = "ប្ដូរទៅតាំងទៅបញ្ជីអំណាន";
 "action-read" = "អាន";
@@ -62,12 +69,12 @@
 "action-update" = "បន្ទាន់សម័យ";
 // Fuzzy
 "add-articles-to-reading-list" = "បន្ថែម $1 ទៅបញ្ជីអំណាន";
-"alert-no-internet" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "announcements-dismiss" = "លាក់";
 "app-store-subtitle" = "សព្វវចនាធិប្បាយសេរី";
 "appearance-settings-adjust-text-sizing" = "កែតម្រូវទំហំតួអក្សរអត្ថបទ";
 "appearance-settings-expand-tables" = "ពន្លាតតារាង";
 "appearance-settings-expand-tables-footer" = "កំណត់តារាងទាំងអស់អោយបើកតាមលំនាំដើម​ រួមទាំងព័ត៌មានសង្ខេប ឯកសារយោង កំណត់សម្គាល់ និងតំណភ្ជាប់ខាងក្រៅ។";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "បន្ថយភាពស្រអាប់របស់រូបភាពនៅលើរចនាបថងងឹត";
 "appearance-settings-reading-themes" = "រចនាបថអំណាន";
 "appearance-settings-set-automatic-table-opening" = "ការកំណត់តារាង";
@@ -88,7 +95,6 @@
 "article-unable-to-load-section" = "មិនអាចផ្ទុកផ្នែកអត្ថបទនេះទេ។ សូមសាកល្បងផ្ទុកអត្ថបទម្ដងទៀតក្រែងលោបញ្ហាដោះស្រាយហើយ។";
 "back-button-accessibility-label" = "ត្រឡប់ក្រោយ";
 "back-button-popover-title" = "ចុចដើម្បីត្រឡប់ក្រោយ";
-"button-done" = "រួចរាល់";
 "button-next" = "បន្ទាប់";
 "button-ok" = "យល់ព្រម";
 "button-publish" = "បោះផ្សាយ";
@@ -99,7 +105,6 @@
 "button-saved-remove" = "លុបចេញពីទំព័ររក្សាទុក";
 "button-skip" = "រំលង";
 "cancel" = "បោះបង់";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "បិទ";
 "compass-direction" = "ចង្អុលទីតាំងម៉ោង$1";
@@ -114,13 +119,9 @@
 "edit-summary-choice-fixed-grammar" = "បានកែតម្រូវវេយ្យាករណ៍";
 "edit-summary-choice-fixed-typos" = "បានកែតម្រូវកំហុសអក្ខរាវិរុទ្ធ";
 "edit-summary-choice-linked-words" = "បានបន្ថែមតំណភ្ជាប់";
-"edit-summary-choice-other" = "ផ្សេងទៀត";
-"edit-summary-field-placeholder-text" = "របៀបផ្សេងទៀតដែលអ្នកបានកែលម្អអត្ថបទ";
-"edit-summary-title" = "តើអ្នកបានកែលម្អអត្ថបទរបៀបណា?";
 "empty-no-article-message" = "សូមអភ័យទោស។ អត្ថបទផ្ទុកមិនបានទេ។";
 "empty-no-feed-action-message" = "អ្នកនៅតែអាចអានទំព័រដែលបានរក្សាទុក";
 "empty-no-feed-message" = "អ្នកអាចមើលឃើញអត្ថបទស្នើអោយអាយពេលដែលអ្នកមានអ៊ីនធើណិត។";
-"empty-no-feed-title" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "empty-no-history-message" = "តាមដានអ្វីដែលអ្នកបានអាននិងកំពុងអាននៅទីនេះ";
 "empty-no-history-title" = "គ្មានប្រវត្តិសម្រាប់បង្ហាញ";
 "empty-no-saved-pages-message" = "រក្សាទុកទំព័រសម្រាប់អានលើកក្រោយ ទោះគ្មានអ៊ីនធើណិត";
@@ -173,14 +174,12 @@
 "field-token-title" = "កូដបញ្ចាក់ទទួលស្គាល់";
 "field-username-placeholder" = "វាយបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់";
 "field-username-title" = "ឈ្មោះអ្នកប្រើប្រាស់";
-"find-in-page-button-label" = "ស្វែងរកក្នុងទំព័រ";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "កំណត់ឡើងវិញ";
 "forgot-password-email-sent" = "អ៊ីមែលសេចក្ដីណែនាំពីរបៀបកំណត់ពាក្យសម្ងាត់ឡើងវិញត្រូវបានផ្ញើរួចហើយ";
 "forgot-password-instructions" = "សូមបំពេញប្រអប់ខាងក្រោមដើម្បីទទួលសេចក្ដីណែនាំពីរបៀបកំណត់ពាក្យសម្ងាត់ឡើងវិញតាមរយៈអ៊ីមែល";
 "forgot-password-title" = "កំណត់ពាក្យសម្ងាត់ឡើងវិញ";
 "forgot-password-username-or-email-title" = "ឬ";
-"gfdl" = "GFDL";
 "history-clear-all" = "សម្អាត";
 "history-clear-cancel" = "បោះបង់";
 "history-clear-confirmation-heading" = "តើអ្នកពិតជាងចង់លុបចោលរបស់ថ្មីៗទាំងអស់ឬ?";
@@ -225,7 +224,6 @@
 "main-menu-account-logout-cancel" = "បោះបង់";
 "main-menu-account-title-logged-in" = "កត់ឈ្មោះចូលជា $1";
 "main-menu-heading-legal" = "ភាពឯកជននិងលក្ខខណ្ឌប្រើប្រាស់";
-"main-menu-heading-zero" = "វិគីភីឌាសូន្យ";
 "main-menu-nearby" = "ជិតខាង";
 "main-menu-privacy-policy" = "គោលការណ៍នៃ​ភាពឯកជន";
 "main-menu-rate-app" = "វាយតម្លៃកម្មវិធី";
@@ -250,10 +248,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ}}";
 "on-this-day-footer" = "ព្រឹត្រិការណ៍ប្រវត្តិសាស្ត្រនៅថ្ងៃនេះបន្ថែមទៀត";
 "on-this-day-title" = "នៅថ្ងៃនេះ";
-"open-link-cancel" = "បោះបង់";
 "page-edit-history" = "ប្រវត្តិការកែប្រែទាំងអស់";
 "page-history-title" = "ប្រវត្តិអត្ថបទ";
 "page-issues" = "បញ្ហាក្នុងទំព័រ";
+// Fuzzy
 "page-last-edited" = "បានកែប្រែ $1 ថ្ងៃមុន";
 "page-location" = "មើលនៅលើផែនទី";
 "page-protected-autoconfirmed" = "ទំព័រនេះត្រូវបានការពារពាក់កណ្ដាល។";
@@ -261,6 +259,7 @@
 "page-protected-can-not-edit-title" = "ទំព័រនេះត្រូវបានការពាររួចហើយ";
 "page-protected-other" = "ទំព័រនេះត្រូវបានការពារត្រឹមកម្រិតដូចតទៅ៖ $1";
 "page-protected-sysop" = "ទំព័រនេះត្រូវបានការពារពេញលេញ។";
+// Fuzzy
 "page-read-in-other-languages" = "អាចប្រើបានជា$1ភាសាផ្សេងទៀត";
 "page-similar-titles" = "ទំព័រស្រដៀង";
 "page-talk-page" = "មើលទំព័រពិភាក្សា";
@@ -393,7 +392,6 @@
 "welcome-send-data-learn-more" = "ស្វែងយល់បន្ថែមអំពីទិន្នន័យដែលបានប្រមូលទុក";
 "welcome-send-data-sub-title" = "ជួយកែលម្អកម្មវិធីតាមរយៈការរាយការណ៍ទៅមូលនិធិវិគីមេឌាពីរបៀបដែលអ្នកប្រើវា។ ទិន្នន័យត្រូវប្រមូលដោយលាក់ឈ្មោះ។";
 "welcome-volunteer-send-usage-reports" = "ផ្ញើរបាយការណ៍ពីបម្រើបម្រាស់";
-"wikitext-download-success" = "ខ្លឹមសារផ្ទុករួចហើយ។";
 "wikitext-downloading" = "កំពុងផ្ទុកខ្លឹមសារ...";
 "wikitext-preview-changes-none" = "គ្មានបន្លាស់ប្ដូរសម្រាប់មើលជាមុនទេ។";
 "wikitext-preview-link-preview-description" = "តំណភ្ជាប់នេះនាំទៅកាន់$1";
@@ -403,15 +401,4 @@
 "wikitext-upload-save" = "កំពុងបោះផ្សាយ...";
 "wikitext-upload-save-anonymously-warning" = "ការកែប្រែនឹងត្រូវភ្ជាប់ព័ត៌មានជាមួយអាសយដ្ឋាន IP របស់ឧបករណ៍របស់អ្នក។ ប្រសិនបើអ្នក$1 នោះអ្នកនឹងអាចរក្សាឯកជនភាពរបស់អ្នកបានប្រសើរជាងនេះ។";
 "wikitext-upload-save-sign-in" = "កត់ឈ្មោះចូល";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "តាមរយៈការបោះផ្សាយបន្លាស់ប្ដូរនេះ អ្នកយល់ព្រមជាមួយ $1 និងយល់ព្រមក្នុងការផ្សព្វផ្សាយការរួមចំណែករបស់អ្នកក្រោមអាជ្ញាប័ណ្ណ $2 និង $3។";
 "wikitext-upload-save-terms-name" = "លក្ខខណ្ឌប្រើប្រាស់";
-"zero-charged-verbiage" = "វិគីភីឌាសូន្យកំពុងបិទមិនប្រើ";
-"zero-free-verbiage" = "ចូលទៅកាន់វិគីភីឌាពីប្រព័ន្ធទូរស័ព្ទចល័តរបស់អ្នកដោយឥតគិតថ្លៃ (លើកលែងមិនបាច់បង់តម្លៃផ្ញើទិន្នន័យចេញចូល)";
-"zero-interstitial-cancel" = "មិនចាកចេញ";
-"zero-interstitial-continue" = "ចាកចេញ";
-"zero-interstitial-leave-app" = "អាចអស់ប្រាក់ក្នុងការផ្ញើទិន្នន័យចេញចូល។ តើអ្នកចង់បន្តទៅវិបសាយខាងក្រៅទេ?";
-"zero-interstitial-title" = "ចាកចេញពីវិគីសូន្យ";
-"zero-learn-more" = "ការផ្ញើចេញចូលទិន្នន័យនៅក្នុងកម្មវិធីវិគីភីឌានេះមិនអស់ប្រាក់ទេ។";
-"zero-learn-more-learn-more" = "អានបន្ថែម";
-"zero-learn-more-no-thanks" = "លាក់";
-"zero-warn-when-leaving" = "រំលឹកពេលចង់ចាកចេញពីវិគីសូន្យ";

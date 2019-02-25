@@ -48,14 +48,18 @@
 "about-translators-details" = "$1의 자원 번역자가 번역했습니다";
 "about-wikimedia-foundation" = "위키미디어 재단";
 "about-wikipedia" = "위키백과";
-"abuse-filter-disallow-heading" = "이 편집을 게시할 수 없습니다. 뒤로 이동한 다음 바꿔주세요.";
-"abuse-filter-disallow-notable" = "위키백과는 백과사전이자 중립적이며, 주목할만한 내용만이 여기에 들어갑니다.";
+"abuse-filter-disallow-heading" = "이 편집을 게시할 수 없습니다";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "자동화된 필터가 이 편집을 잠재적으로 비생산적이거나 훼손 시도를 한 것으로 식별합니다.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "문서가 비어 있거나 스팸을 넣음";
+// Fuzzy
 "abuse-filter-warning-caps" = "모두 대문자로 입력";
 "abuse-filter-warning-heading" = "비생산적인 편집인 것 같습니다. 그래도 게시하겠습니까?";
 "abuse-filter-warning-irrelevant" = "관련 없는 외부 링크나 그림";
+// Fuzzy
 "abuse-filter-warning-repeat" = "글자 반복";
+// Fuzzy
 "abuse-filter-warning-subheading" = "당신의 편집에 다음 중 하나 이상을 포함할 수 있습니다:";
 "account-creation-captcha-cannot-see-image" = "사진이 보이지 않습니까? $1";
 "account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다...";
@@ -73,9 +77,12 @@
 "action-add-to-reading-list" = "읽기 목록에 추가";
 "action-add-to-reading-list-short" = "목록에 추가";
 "action-cancel" = "취소";
+// Fuzzy
+"action-find-in-page" = "문서에서 찾기";
 "action-move-to" = "이동...";
 "action-move-to-reading-list" = "읽기 목록으로 이동";
 "action-read" = "읽기";
+"action-redo" = "다시 시도";
 "action-remove" = "제거";
 "action-save" = "저장";
 "action-saved" = "저장됨";
@@ -83,11 +90,12 @@
 "action-saved-accessibility-notification" = "나중을 위해 문서가 저장됨";
 "action-share" = "공유";
 "action-sort" = "정렬";
+// Fuzzy
+"action-undo" = "실행 취소";
 "action-unsave" = "저장하지 않음";
 "action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
 "action-update" = "업데이트";
 "add-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록에 추가";
-"alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
 "app-store-keywords" = "위키백과, 참고문헌, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
 "app-store-release-notes" = "탐색 피드를 온전히 사용자에 맞추어 지정하고 더 쉽게 읽습니다. 지역화, 성능 개선, 버그 수정.";
@@ -96,7 +104,7 @@
 "appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
 "appearance-settings-expand-tables" = "테이블 펼치기";
 "appearance-settings-expand-tables-footer" = "빠른 사실, 출처, 각주, 외부 링크 등을 포함해 문서 안에 있는 모든 표를 기본적으로 열려있도록 설정하세요.";
-"appearance-settings-image-dimming-footer" = "어두운 테마에서 그림의 투명도를 줄입니다";
+"appearance-settings-image-dimming-footer" = "어둡고 검은 테마에서 그림의 투명도를 줄입니다";
 "appearance-settings-reading-themes" = "읽기 테마";
 "appearance-settings-set-automatic-table-opening" = "테이블 설정";
 "appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
@@ -115,7 +123,6 @@
 "article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
 "back-button-accessibility-label" = "뒤로 가기";
 "back-button-popover-title" = "뒤로 돌아가려면 탭하세요";
-"button-done" = "완료";
 "button-next" = "다음";
 "button-ok" = "확인";
 "button-publish" = "게시";
@@ -126,7 +133,6 @@
 "button-saved-remove" = "저장된 항목에서 제거";
 "button-skip" = "건너뛰기";
 "cancel" = "취소";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "크리에이티브 커먼즈 CC0";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
@@ -169,19 +175,39 @@
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
 "dim-images" = "이미지를 어둡게";
+"edit-bold-accessibility-label" = "굵은 서식 추가";
+"edit-bold-remove-accessibility-label" = "굵은 서식 제거";
+"edit-italic-accessibility-label" = "기울임 서식 추가";
+"edit-link-accessibility-label" = "링크 문법 추가";
+"edit-link-remove-accessibility-label" = "링크 문법 제거";
+"edit-minor-learn-more-text" = "사소한 편집에 대해 더 알아보기";
+"edit-minor-text" = "사소한 편집입니다";
+"edit-published" = "편집이 게시됐습니다";
+"edit-published-button-title" = "완료";
+"edit-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
+"edit-reference-accessibility-label" = "각주 문법 추가";
+"edit-reference-remove-accessibility-label" = "각주 문법 제거";
+"edit-signature-accessibility-label" = "서명 문법 추가";
+"edit-signature-remove-accessibility-label" = "서명 문법 제거";
+"edit-strikethrough-accessibility-label" = "취소선 추가";
+"edit-strikethrough-remove-accessibility-label" = "취소선 제거";
 "edit-style-table-view-title" = "스타일";
+"edit-summary-add-summary-text" = "편집 요약을 추가합니다";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
-"edit-summary-choice-other" = "기타";
-"edit-summary-field-placeholder-text" = "문서를 개선하는 다른 방법";
-"edit-summary-title" = "어떻게 문서를 개선했습니까?";
+"edit-summary-learn-more-text" = "더 알아보기";
+"edit-summary-placeholder-text" = "어떻게 문서를 개선했습니까?";
+"edit-template-remove-accessibility-label" = "틀 문법 제거";
 "edit-text-formatting-table-view-title" = "텍스트 서식 지정";
 "edit-text-size-table-view-title" = "텍스트 크기";
+"edit-underline-accessibility-label" = "밑줄 추가";
+"edit-underline-remove-accessibility-label" = "밑줄 제거";
+"edit-watch-list-learn-more-text" = "주시문서 목록에 대해 더 알아보기";
+"edit-watch-this-page-text" = "이 문서 주시하기";
 "empty-no-article-message" = "죄송합니다, 문서를 불러올 수 없습니다";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
-"empty-no-feed-title" = "인터넷 연결 없음";
 "empty-no-history-message" = "여기에는 당신이 읽은 문서들이 표시됩니다";
 "empty-no-history-title" = "표시할 역사가 없습니다";
 "empty-no-reading-lists-message" = "여행 갈 장소, 좋아하는 주제 등을 위한 목록을 만드세요";
@@ -223,7 +249,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "언어를 특정하지 않음";
 "explore-feed-preferences-global-cards-title" = "전역 카드";
 "explore-feed-preferences-hide-card-action-title" = "이 카드 숨기기";
-"explore-feed-preferences-hide-feed-cards-action-title" = "모든 %@ 카드 숨기기";
+"explore-feed-preferences-hide-feed-cards-action-title" = "모든 \"%@\" 카드 숨기기";
 "explore-feed-preferences-in-the-news-description" = "요즘 화제에 관한 글";
 "explore-feed-preferences-languages-footer-text" = "자신의 모든 언어의 모든 탐색 피드 카드를 숨기면 탐색 탭이 꺼지게 됩니다.";
 "explore-feed-preferences-on-this-day-description" = "오늘의 역사적 사건";
@@ -256,7 +282,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "탐색 켜기";
 "explore-feed-preferences-turn-on-explore-tab-message" = "이것은 설정 탭을 탐색 탭으로 바꾸지만 톱니바퀴 아이콘을 탭함으로써 탐색 탭의 최상위에서 설정에 접근할 수 있습니다";
 "explore-feed-preferences-turn-on-explore-tab-title" = "탐색 탭을 켜시겠습니까?";
-"explore-feed-preferences-undo-customization" = "실행 취소";
 "explore-hide-card-prompt" = "이 카드 숨기기";
 "explore-main-page-description" = "위키미디어 프로젝트의 대문";
 "explore-main-page-heading" = "오늘의 위키백과";
@@ -279,6 +304,8 @@
 "explore-randomizer" = "임의 문서 보기";
 "feed-news-notification-button-text" = "알림 켜기";
 "feed-news-notification-text" = "위키백과 문서의 소식 동향이 있을 경우에 알림을 받을 수 있습니다.";
+"fetcher-error-generic" = "무언가가 잘못되었습니다. 나중에 다시 시도해 주십시오.";
+"fetcher-error-unexpected-response" = "앱은 서버로부터 예기치 않은 응답을 받았습니다. 나중에 다시 시도해 주십시오.";
 "field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
 "field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
 "field-alert-password-invalid" = "유효하지 않은 비밀번호";
@@ -301,14 +328,12 @@
 "field-token-title" = "인증 코드";
 "field-username-placeholder" = "사용자 이름 입력";
 "field-username-title" = "사용자 이름";
-"find-in-page-button-label" = "문서에서 찾기";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "재설정";
 "forgot-password-email-sent" = "비밀번호 재설정 안내 이메일을 보냈습니다";
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
 "forgot-password-title" = "비밀번호 재설정";
 "forgot-password-username-or-email-title" = "또는";
-"gfdl" = "GFDL";
 "history-clear-all" = "지우기";
 "history-clear-cancel" = "취소";
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
@@ -362,7 +387,6 @@
 "main-menu-debug-tweaks" = "개발자용 설정";
 "main-menu-heading-debug" = "디버그";
 "main-menu-heading-legal" = "개인정보 보호 및 약관";
-"main-menu-heading-zero" = "위키백과 제로";
 "main-menu-nearby" = "근처";
 "main-menu-privacy-policy" = "개인정보 정책";
 "main-menu-rate-app" = "앱 평가";
@@ -381,6 +405,7 @@
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";
 "new-password-title" = "비밀번호 설정";
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
+"no-internet-connection" = "인터넷 연결 없음";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -390,19 +415,18 @@
 "on-this-day-footer-with-event-count" = "이 날에 있었던 더 많은 역사적 사건 $1개";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 위키백과에서 $1";
 "on-this-day-title" = "오늘의 역사";
-"open-link-cancel" = "취소";
 "original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
 "page-edit-history" = "전체 편집 내역";
 "page-history-title" = "문서 역사";
 "page-issues" = "문서 이슈";
-"page-last-edited" = "$1일 전에 마지막으로 편집";
+"page-last-edited" = "{{PLURAL:$1|0=오늘 마지막으로 편집|어제 마지막으로 편집|$1일 전에 마지막으로 편집}}";
 "page-location" = "지도에서 보기";
 "page-protected-autoconfirmed" = "이 문서는 준보호되어 있습니다.";
 "page-protected-can-not-edit" = "이 문서를 편집할 권한이 없습니다";
 "page-protected-can-not-edit-title" = "이 문서는 보호되어 있습니다";
 "page-protected-other" = "이 문서는 다음 수준으로 보호되어 있습니다: $1";
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
-"page-read-in-other-languages" = "$1개의 다른 언어로 읽어보기";
+"page-read-in-other-languages" = "{{PLURAL:$1|$1개의 다른 언어}}로 읽어보기";
 "page-similar-titles" = "비슷한 문서";
 "page-talk-page" = "토론 문서 보기";
 "pictured" = "사진";
@@ -459,7 +483,7 @@
 "reading-list-deleted-accessibility-notification" = "읽기 목록을 삭제했습니다";
 "reading-list-do-not-keep-button-title" = "아니요, 장치에서 문서를 삭제합니다";
 "reading-list-entry-limit-exceeded-message" = "이 문서의 모든 목록의 동기화를 계속하려면 이 목록의 문서 수를 $1개로 줄여 주십시오.";
-"reading-list-entry-limit-exceeded-title" = "계정 당 $1개의 문서 제한에 도달했습니다.";
+"reading-list-entry-limit-exceeded-title" = "계정 당 {{PLURAL:$1|$1개의 문서}} 제한에 도달했습니다.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|문서}}를 이 목록에 추가할 수 없습니다. $3에 대해 읽기 목록 당 $1개의 문서 제한에 도달했습니다";
 "reading-list-exists-with-same-name" = "읽기 목록 이름을 이미 사용 중입니다";
 "reading-list-generic-error" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다.";
@@ -472,7 +496,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "500건의 정렬되지 않은 문서 제한이 있습니다. 정렬되지 않은 문서를 계속 정렬하려면 기존 문서들을 목록으로 정렬시켜 주십시오.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "정렬되지 않은 문서의 제한 히트 수";
 "reading-list-list-limit-exceeded-message" = "읽기 목록과 읽기 목록에 저장된 문서들이 동기화되지 않습니다. 이 목록의 동기화를 계속하려면 목록 수를 $1개로 줄여 주십시오.";
-"reading-list-list-limit-exceeded-title" = "계정 당 $1개의 읽기 목록 제한에 도달했습니다.";
+"reading-list-list-limit-exceeded-title" = "계정 당 {{PLURAL:$1|$1개의 읽기 목록}} 제한에 도달했습니다.";
 "reading-list-list-limit-reached" = "계정 당 $1개의 읽기 목록 제한에 도달했습니다";
 "reading-list-login-button-title" = "로그인하여 저장된 문서를 동기화합니다";
 "reading-list-login-or-create-account-button-title" = "로그인 / 계정 만들기";
@@ -653,28 +677,16 @@
 "welcome-send-data-sub-title" = "위키미디어 재단의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다.";
 "welcome-volunteer-send-usage-reports" = "사용 보고서 보내기";
 "wikitext-download-failed" = "최신 판을 가져올 수 없습니다.";
-"wikitext-download-success" = "내용을 불러왔습니다.";
 "wikitext-downloading" = "내용을 불러오는 중...";
 "wikitext-preview-changes" = "바뀐 내용의 미리 보기를 가져오는 중...";
 "wikitext-preview-changes-none" = "미리 보기에 바뀐 내용이 없습니다.";
 "wikitext-preview-link-preview-description" = "이 링크는 '$1'(으)로 이어집니다";
 "wikitext-preview-link-preview-title" = "링크 미리 보기";
+"wikitext-preview-save-changes-title" = "바뀐 내용 저장하기";
 "wikitext-upload-captcha-error" = "캡차 확인 오류입니다.";
 "wikitext-upload-captcha-needed" = "캡차 확인이 필요합니다.";
 "wikitext-upload-result-unknown" = "위키텍스트 올리기 결과를 파악할 수 없습니다.";
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "변경 사항을 저장하게 되면 $1에 동의하고 $2 및 $3 라이선스에 따라 이 기여를 배포하는 데 동의한다는 것을 의미합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
-"zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
-"zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";
-"zero-free-verbiage" = "이동 통신사에서 무료로 위키백과에 접속하세요 (데이터 요금 면제)";
-"zero-interstitial-cancel" = "여기에 머물기";
-"zero-interstitial-continue" = "떠나기";
-"zero-interstitial-leave-app" = "데이터 요금이 부과될 수 있습니다. 외부 사이트로 계속해서 떠날까요?";
-"zero-interstitial-title" = "위키백과 제로를 떠나고 있습니다";
-"zero-learn-more" = "데이터 요금은 이 위키백과 앱에 대해서 면제됩니다.";
-"zero-learn-more-learn-more" = "더 읽어보기";
-"zero-learn-more-no-thanks" = "숨기기";
-"zero-warn-when-leaving" = "제로를 떠나면 경고";

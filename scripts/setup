@@ -9,5 +9,3 @@ cp -f scripts/clang_format_git_diff .git/hooks/pre-commit
 if ! xcode-select -p > /dev/null ; then \
 	xcode-select --install; \
 fi
-
-scripts/carthage_bootstrap $1

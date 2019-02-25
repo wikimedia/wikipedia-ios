@@ -7,19 +7,19 @@
 @implementation WMFLocalizedDateFormatStrings
 
 + (NSString *)yearsAgoForSiteURL:(nullable NSURL *)siteURL {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", siteURL.wmf_language, nil, @"{{PLURAL:%1$d|0=This year|Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year. %1$d will be replaced with appropriate plural for number of years ago.");
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", siteURL.wmf_language, nil, @"{{PLURAL:%1$d|0=This year|1=Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year. %1$d will be replaced with the number of years ago.");
 }
 
 + (NSString *)daysAgo {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-days-ago", nil, nil, @"{{PLURAL:%1$d|0=Today|Yesterday|%1$d days ago}}", @"Relative days ago. 0 = today, singular = yesterday. %1$d will be replaced with appropriate plural for number of days ago.");
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-days-ago", nil, nil, @"{{PLURAL:%1$d|0=Today|1=Yesterday|%1$d days ago}}", @"Relative days ago. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago.");
 }
 
 + (NSString *)hoursAgo {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-hours-ago", nil, nil, @"{{PLURAL:%1$d|0=Recently|%1$d hour ago|%1$d hours ago}}", @"Relative hours ago. 0 = this hour. %1$d will be replaced with appropriate plural for number of hours ago.");
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-hours-ago", nil, nil, @"{{PLURAL:%1$d|0=Recently|%1$d hour ago|%1$d hours ago}}", @"Relative hours ago. 0 = this hour. %1$d will be replaced with the number of hours ago.");
 }
 
 + (NSString *)minutesAgo {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-minutes-ago", nil, nil, @"{{PLURAL:%1$d|0=Just now|%1$d minute ago|%1$d minutes ago}}", @"Relative minutes ago. 0 = just now. %1$d will be replaced with appropriate plural for number of minutes ago.");
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-minutes-ago", nil, nil, @"{{PLURAL:%1$d|0=Just now|%1$d minute ago|%1$d minutes ago}}", @"Relative minutes ago. 0 = just now. %1$d will be replaced with the number of minutes ago.");
 }
 
 @end

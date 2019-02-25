@@ -1,113 +1,54 @@
 # Wikipedia iOS
-The official Wikipedia iOS client.
+The official Wikipedia iOS app.
 
 [![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/wikimedia/wikipedia-ios/develop/LICENSE.txt)
 
 * License: MIT License
 * Source repo: https://github.com/wikimedia/wikipedia-ios
-* Code review: https://github.com/wikimedia/wikipedia-ios
 * Planning (bugs & features): https://phabricator.wikimedia.org/project/view/782/
-* IRC chat: #wikimedia-ios on irc.freenode.net
 * Team page: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
-
-## Development Team
-The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team). This README provides high-level guidelines for getting started with the project. 
-If you have any questions or comments, you can join the #wikimedia-mobile channel on the Freenode IRC server and talk to us during Eastern and Pacific business hours. We'll also gladly accept any tickets filed against the [project in Phabricator](https://phabricator.wikimedia.org/project/view/782/).
 
 ## Building and Running
 
-### Minimum Requirements
+Running `scripts/setup` will setup your computer to build and run the app. The script assumes you have Xcode installed already. It will install [homebrew](https://brew.sh), [Carthage](https://github.com/Carthage/Carthage), and [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html). It will also create a pre-commit hook that uses ClangFormat for linting.
+
+After running `scripts/setup`, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a [bug report](https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+How+many+times+were+you+able+to+reproduce+it?%0D%0A%0D%0A%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+%0D%0A%0D%0A%3D%3D%3D+Regression?+%0D%0A%0D%0A+Tag++task+with+%23Regression+%0A) or messaging us on IRC in #wikimedia-mobile on Freenode.
+
+### Required dependencies
+If you'd rather install the development prerequisites yourself without our script:
+
 * [Xcode](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
+* [Carthage](https://github.com/Carthage/Carthage) - We check in prebuilt dependencies to simplify the initial build and run experience but you'll still need Carthage installed to allow Xcode to properly copy the frameworks into the built app. After you add, remove, or upgrade a dependency, you should run `scripts/carthage_update` to update the built dependencies.
+* [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) - We use this for linting
 
-You should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a [bug report]( https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+How+many+times+were+you+able+to+reproduce+it?%0D%0A%0D%0A%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+%0D%0A%0D%0A%3D%3D%3D+Regression?+%0D%0A%0D%0A+Tag++task+with+%23Regression+%0A) or messaging us on IRC in #wikimedia-ios on Freenode.
+## Contributing
+Covered in the [contributing document](CONTRIBUTING.md).
 
-## Development
-
-### Guidelines
+## Development Guidelines
 These are general guidelines rather than hard rules.
 
-#### Objective-C
+### Objective-C
 * [Apple's Coding Guidelines for Cocoa](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html)
-#### Swift
+### Swift
 * [swift.org API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
 
 ### Formatting
 We use Xcode's default 4 space indentation and our `.clang-format` file with the pre-commit hook setup by `scripts/setup`. Currently, this does not enforce Swift formatting.
 
-### Third-party Dependencies
-We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party native dependencies and [npm](#npm) for web.
+### Process and code review norms
+Covered in the [process document](docs/process.md).
 
-## Testing
-The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action.
+### Testing
+The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. Screenshot tests will fail unless you are running on one of the configurations defined by `configurations_to_test_on_pull` in `fastlane/Fastfile`.
+
+### Continuous integration
+Covered in the [ci document](docs/ci.md).
 
 ### Event logging
-Note: Testing event logging requires `labs` access to `deployment-eventlog05.eqiad.wmflabs`
+Covered in the [event logging document](docs/event_logging.md).
 
-To test event logging:
-- ensure event logging is enabled via `Gear icon > Send usage reports`
-- select `Event Logging Dev Debug` scheme in Xcode
-- get the app install id:
-  - run app in the simulator
-  - pause
-  - paste `po [WMFEventLoggingService sharedInstance].appInstallID` in the Xcode console and copy the resulting string
-- ssh to labs: `ssh deployment-eventlog05.eqiad.wmflabs`
-- [tail](https://en.wikipedia.org/wiki/Tail_%28Unix%29) the following files (`tail` keeps stream open and prints last few lines of a file any time it changes) with the app install id and the id of the schema being tested (from [MPopov](https://meta.wikimedia.org/wiki/User:MPopov_%28WMF%29/Notes/Android_app_analytics#Verifying)):
-  - `/srv/log/eventlogging/all-events.log`
-    - only has events which have been validated against the appropriate schemas
-  - `/srv/log/eventlogging/client-side-events.log`
-    - has all incoming events (as raw, encoded URI query strings) regardless of their validity
-  - `/var/log/eventlogging/eventlogging-processor@client-side-00.log`
-  - `/var/log/eventlogging/eventlogging-processor@client-side-01.log`
-    - if there are any issues with the incoming events or their validation, there will be detailed messages in the two `eventlogging-processor@-client-side-XX` logs  
-  
-  Example:
-  - `tail -f /srv/log/eventlogging/all-events.log | grep "<app install id>" | grep "<schema id>"`
+### Web development
+The article view and several other components of the app rely on web components. Instructions for working on these components is covered in the [web development document](docs/web_dev.md).
 
-## Contributing
-Covered in the [contributing document](CONTRIBUTING.md).
-
-### Gerrit
-We also maintain a mirror of this repository on Gerrit (see above), syncing the code after every release. If you'd rather use Gerrit to send us a patch, you'll need to:
-
-- [Create an SSH key](https://help.github.com/articles/generating-an-ssh-key/)
-- [Create a Wikimedia developer account](https://wikitech.wikimedia.org/wiki/Special:UserLogin/signup)
-- Clone the gerrit repo: `git clone ssh://<wikimedia-dev-username>@gerrit.wikimedia.org:29418/apps/ios/wikipedia.git`
-- [Install git-review](https://www.mediawiki.org/wiki/Gerrit/git-review)
-- Make some changes...
-- Squash them into one commit (following our [commit subject and message guidelines](https://www.mediawiki.org/wiki/Gerrit/Commit_message_guidelines))
-- Submit your commit review: `git review`
-  - You should see a URL pointing your patch on [gerrit.wikimedia.org](https://gerrit.wikimedia.org)
-- Add two or more of the [team members](#development-team) as reviewers for your patch
-
-## Other Development Dependencies
-Certain development and maintenance tasks will require the installation of specific tools. Many of these tools are installable using [Homebrew](http://brew.sh), which is our recommended package manager.
-
-> **Homebrew and many other tools require the Xcode command line tools, which can be installed by running `xcode-select --install` on newer versions of OS X. They can also be installed via Xcode or downloaded from the [Apple Developer downloads page](https://developer.apple.com/downloads) on older versions of OS X.**
-
-### Carthage
- 
-`brew install carthage`
-
-We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. We check in prebuilt dependencies to simplify the initial build and run experience. After you add, remove, or upgrade a dependency, you should run `scripts/carthage_update` to update the built dependencies.
-
-### Clang-Format
- 
-`brew install clang-format`
-
-As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use a pre-commit hook to format code. The pre commit hook is `scripts/clang_format_diff` and is installed by `scripts/setup`.
-
-### NPM
- 
-`brew install npm`
- 
-[npm](https://www.npmjs.com/) is a package manager for [nodejs](https://nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
-
-### Fastlane
-
-[fastlane](https://fastlane.tools) automates common development tasks - for example bumping version numbers, running tests on multiple configurations, or submitting to the App Store. You can list the available lanes (our project-specific scripts) using `bundle exec fastlane lanes`. You can list available actions (all actions available to be scripted via lanes) using `bundle exec fastlane actions`. The fastlane configuration and scripts are in the `fastlane` folder.
-
-#### Production Builds
-For production builds, should ensure you have the `DELIVER_USER` (your Apple ID) and `HOCKEY_PRODUCTION` (Wikimedia's HockeyApp API token) environment variables set.
-
-## Continuous Integration
-Tests are run on [Jenkins](https://jenkins.io) in response to pull requests. Volunteer contributor pull requests require an `ok to test` comment on the pull request from a project admin before tests are run. 
+### Contact us
+If you have any questions or comments, you can join the #wikimedia-mobile channel on the Freenode IRC server. We'll also gladly accept any [bug reports](https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+How+many+times+were+you+able+to+reproduce+it?%0D%0A%0D%0A%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+%0D%0A%0D%0A%3D%3D%3D+Regression?+%0D%0A%0D%0A+Tag++task+with+%23Regression+%0A).

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noSavedPagesInReadingListEmptyView;
 + (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nonnull SEL)action;
 + (instancetype)noHistoryEmptyView;
++ (instancetype)noInternetConnectionEmptyView;
 
 NS_ASSUME_NONNULL_END
 

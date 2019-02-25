@@ -39,7 +39,7 @@
                                                 <action selector="toggleItalicSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="Asq-Rw-n6O"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-6l-4YM" userLabel="Format Heading Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                        <button opaque="NO" tag="29" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-6l-4YM" userLabel="Format Heading Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="67.5" y="11" width="30" height="22"/>
                                             <state key="normal" image="text-formatting-style"/>
                                             <connections>

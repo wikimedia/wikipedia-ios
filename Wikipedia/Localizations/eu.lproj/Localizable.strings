@@ -11,6 +11,7 @@
 // Author: Nemo bis
 // Author: Sator
 // Author: Subi
+// Author: Xabier Armendaritz
 
 "about-content-license" = "Lizentziaren edukia";
 "about-content-license-details" = "Beste era batera zehazten ez bada, edukia $1(r)en pean eskuragarri egongo da.";
@@ -33,14 +34,19 @@
 "about-translators-details" = "$1(e)n boluntarioek itzulita";
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu. Mesedez itzul zaitez eta alda ezazu.";
-"abuse-filter-disallow-notable" = "Wikipedia entziklopedia neutrala da, hortaz, bakarrik eduki egokia izan daiteke haren parte.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek potentzialki mingarria edo bandalismoa izan daitezkeen aldaketak identifikatu ditu.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Artikulu hutsak edo spamming estekak";
+// Fuzzy
 "abuse-filter-warning-caps" = "CAPS guztiak idazten";
 "abuse-filter-warning-heading" = "Hau editatze ezezaguna izan daiteke. Ziur al zaude argitaratu nahi duzula?";
 "abuse-filter-warning-irrelevant" = "Garrantzirik gabeko kanpo-loturak edo argazkiak";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Errepikatutako karaktereak";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Zure aldaketak hurrengotariko baten bat eduki dezake:";
 "account-creation-captcha-cannot-see-image" = "Ezin duzu argazkia ikusi? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA berria lortzen...";
@@ -58,6 +64,8 @@
 "action-add-to-reading-list" = "Gehitu irakurketa zerrendara";
 "action-add-to-reading-list-short" = "Zerrendara gehitu";
 "action-cancel" = "Utzi";
+// Fuzzy
+"action-find-in-page" = "Aurkitu orrialdean";
 "action-move-to" = "Horra mugitu...";
 "action-move-to-reading-list" = "Irakurketa zerrendara mugitu";
 "action-read" = "Irakurri";
@@ -68,11 +76,12 @@
 "action-saved-accessibility-notification" = "Gerorako gorde da artikulua";
 "action-share" = "Partekatu";
 "action-sort" = "Sailkatu";
+// Fuzzy
+"action-undo" = "Desegin";
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
 "action-update" = "Eguneratu";
 "add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
-"alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Utzi";
 "app-store-keywords" = "Wikipedia, erreferentzia, wiki, entziklopedia, informazioa, ezagutza, ikerketa, informazioa, arakatu, ikasi";
 // Fuzzy
@@ -82,6 +91,7 @@
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
 "appearance-settings-expand-tables" = "Taulak zabaldu";
 "appearance-settings-expand-tables-footer" = "Ezarri artikulu guztietako taula guztiak lehenespenez irekitzeko, Quick facts, References, Notes eta Kanpoko estekak barne.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Gai ilunetako argazkien opakotasuna gutxiagotu";
 "appearance-settings-reading-themes" = "Irakurketa gaiak";
 "appearance-settings-set-automatic-table-opening" = "Taula Ezarpenak";
@@ -102,7 +112,6 @@
 "article-unable-to-load-section" = "Sekzio hau ezin da kargatu. Saia zaitez artikulua freskatzen ikusteko arazoa konpontzen den.";
 "back-button-accessibility-label" = "Atzera";
 "back-button-popover-title" = "Eman atzera joateko";
-"button-done" = "Egina";
 "button-next" = "Hurrengoa";
 "button-ok" = "OK";
 "button-publish" = "Argitaratu";
@@ -113,7 +122,6 @@
 "button-saved-remove" = "Gordetakoetatik kendu";
 "button-skip" = "Jauzi";
 "cancel" = "Ezeztatu";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Itxi";
 "compass-direction" = "ordu $1(e)tan";
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
@@ -122,13 +130,9 @@
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
 "edit-summary-choice-fixed-typos" = "Tipografia konpondu";
 "edit-summary-choice-linked-words" = "Loturak gehitu";
-"edit-summary-choice-other" = "Beste";
-"edit-summary-field-placeholder-text" = "Artikulua hobetzeko beste bide batzuk";
-"edit-summary-title" = "Nola hobetu duzu artikulua?";
 "empty-no-article-message" = "Barkatu, ezin da artikulua kargatu";
 "empty-no-feed-action-message" = "Oraindik gordetako orrialdeak irakurri ditzakezu";
 "empty-no-feed-message" = "Interneta duzunean ikusi ahal izango dituzu iradokitutako artikuluak";
-"empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
 "empty-no-history-title" = "Erakusteko historiarik ez";
 // Fuzzy
@@ -167,6 +171,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Hizkuntza zehaztasun gabea";
 "explore-feed-preferences-global-cards-title" = "Txartel globalak";
 "explore-feed-preferences-hide-card-action-title" = "Txartel hau ezkutatu";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "%@ txartel guztiak ezkutatu";
 "explore-feed-preferences-in-the-news-description" = "Eguneko ekitaldiei buruzko artikuluak";
 "explore-feed-preferences-on-this-day-description" = "Gaurko eguneko historian zehar gertaturiko ekitaldiak";
@@ -186,7 +191,6 @@
 "explore-feed-preferences-turn-off-explore-tab-title" = "Itxi nahi duzu Arakatzaile leihoa?";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Arakatzailea Piztu";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Piztu nahi duzu Arakatzaile leihoa?";
-"explore-feed-preferences-undo-customization" = "Desegin";
 "explore-hide-card-prompt" = "Txartel hau ezkutatu";
 "explore-main-page-description" = "Wikimedia proiektuen orrialde nagusia";
 "explore-main-page-heading" = "Gaur Wikipedian";
@@ -229,14 +233,12 @@
 "field-token-title" = "Berrespen kodea";
 "field-username-placeholder" = "Erabiltzaile izena sartu";
 "field-username-title" = "Erabiltzaile izena";
-"find-in-page-button-label" = "Aurkitu orrialdean";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Berrezarri";
 "forgot-password-email-sent" = "Emaila bidali da, pasahitza berrezartzeko jarraibideekin";
 "forgot-password-instructions" = "Hurrengo hutsuneak bete, emailez jasotzeko pasahitza berrezartzeko jarraibideak";
 "forgot-password-title" = "Pasahitza berrezarri";
 "forgot-password-username-or-email-title" = "Edo";
-"gfdl" = "GFDL";
 "history-clear-all" = "Garbitu";
 "history-clear-cancel" = "Utzi";
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
@@ -287,7 +289,6 @@
 "main-menu-debug-tweaks" = "Garatzailearen ezarpenak";
 "main-menu-heading-debug" = "Araztu";
 "main-menu-heading-legal" = "Terminoak eta Pribautasuna";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Gertukoak";
 "main-menu-privacy-policy" = "Pribatutasun politika";
 "main-menu-rate-app" = "Baloratu aplikazioa";
@@ -315,18 +316,19 @@
 "on-this-day-footer-with-event-count" = "Egun honetako $1 gertaera historiko gehiago";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
-"open-link-cancel" = "Utzi";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
 "page-edit-history" = "Aldaketa guztien historia";
 "page-history-title" = "Artikuluaren historia";
 "page-issues" = "Orriaren arazoak";
+// Fuzzy
 "page-last-edited" = "Orain dela $1 egun aldatu da";
 "page-location" = "Ikusi mapan";
-"page-protected-autoconfirmed" = "Orri hau  erdi babestua dago.";
+"page-protected-autoconfirmed" = "Orri hau erdi babestua dago.";
 "page-protected-can-not-edit" = "Ez duzu orrialde hau aldatzeko baimenik";
 "page-protected-can-not-edit-title" = "Orrialde hau babestuta dago";
 "page-protected-other" = "Orrialde hau ondoren mailetan babestu da: $1";
 "page-protected-sysop" = "Orri hau erabat babestua dago.";
+// Fuzzy
 "page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
 "page-similar-titles" = "Antzeko orriak";
 "page-talk-page" = "Elkarrizketa orrialdea ikusi";
@@ -384,6 +386,7 @@
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
 "reading-list-entry-limit-exceeded-message" = "Mesedez, gutxitu zerrenda honetako artikulu kopurua $ 1-ra zerrendako artikulu guztien sinkronizazioa berreskuratzeko.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezin izan d(ir)a zerrendara gehitu. Irakurketa-zerrenda bakoitzeko $2 artikulutako muga gainditu duzu $3-engatik";
 "reading-list-exists-with-same-name" = "Irakurketa zerrendari jarritako izena erabilpean dago";
@@ -397,6 +400,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Sailkatu gabeko 5000 artikuluren muga dago. Mesedez, antola itzazu jadanik existitzen diren artikuluak zerrendatan sailkatu gabeko artikuluak sinkronizatu ahal izateko.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sailkatu gabeko artikuluen muga jo duzu";
 "reading-list-list-limit-exceeded-message" = "Irakurketa zerrenda eta horretan gordetako artikuluak ez dira sinkronizatuk, mesedez jaitsi zure zerrenden zenbakia $1-(e)ra zerrenda honen sinkronizatzea amaitu ahal izateko.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
 "reading-list-list-limit-reached" = "Kontu bakoitzeko $1 irakurketa-zerrenden muga gainditu duzu.";
 "reading-list-login-button-title" = "Hasi saioa gordetako arikuluak sinkronizatzeko";
@@ -570,7 +574,6 @@
 "welcome-send-data-sub-title" = "Lagun iezaiozu Wikimedia Fundazioari aplikazioa hobetzen hau bera nola erabiltzen duzun jakinaraziz. Bildutako datuak anonimoak dira.";
 "welcome-volunteer-send-usage-reports" = "Bidali erabilpen iruzkina";
 "wikitext-download-failed" = "Ezin izan da azkeneko berrikusketa jaso.";
-"wikitext-download-success" = "Edukia kargatu da.";
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-preview-changes" = "Zure aldaketen aurrebista eskuratzen...";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
@@ -582,16 +585,4 @@
 "wikitext-upload-save" = "Argitaratzen...";
 "wikitext-upload-save-anonymously-warning" = "Aldaketak zure gailuko IP helbideari egotziko zaizkio. Zuk $1 egiten baduzu, pribautasun gehiago edukiko duzu.";
 "wikitext-upload-save-sign-in" = "Hasi saioa";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Aldaketak argitaratzean, $1-arekin bat egiten duzu eta $2-$3-ko lizentzia ekarpena egitea onartzen duzu.";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
-"zero-charged-verbiage" = "Wikipedia Zero itzalita dago";
-"zero-charged-verbiage-extended" = "Beste artikulu batzuk kargatzeak datu kostuak ekar ditzake. Konexiorik gabe gordeta dauden artikuluak irakur ditzakezu daturik erabili gabe.";
-"zero-free-verbiage" = "Zure gailu operadoretik Free Wikipediarako sarrera (datu kostuak kenduta daude)";
-"zero-interstitial-cancel" = "Gelditu hemen";
-"zero-interstitial-continue" = "Irten";
-"zero-interstitial-leave-app" = "Datuengatik kobratzea posible da. Kanpoko gune batera jarraitu nahi duzu?";
-"zero-interstitial-title" = "Wikipedia Zerotik irteten";
-"zero-learn-more" = "Datuengatik kobratzen da Wikipedia aplikazio honetan.";
-"zero-learn-more-learn-more" = "Irakurri gehiago";
-"zero-learn-more-no-thanks" = "Utzi";
-"zero-warn-when-leaving" = "Abisatu Zero uzterakoan";
