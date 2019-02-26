@@ -76,8 +76,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Gisteren bewerkt</string>
 			<key>other</key>
 			<string>%1$d dagen geleden bewerkt</string>
 			<key>zero</key>
@@ -222,8 +220,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Gisteren</string>
 			<key>other</key>
 			<string>%1$d dagen gelden</string>
 			<key>zero</key>
@@ -276,8 +272,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Vorig jaar</string>
 			<key>other</key>
 			<string>%1$d jaar geleden</string>
 			<key>zero</key>

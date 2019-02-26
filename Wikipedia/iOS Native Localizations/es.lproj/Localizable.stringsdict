@@ -76,10 +76,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>
-
-Editado ayer</string>
 			<key>other</key>
 			<string>
 

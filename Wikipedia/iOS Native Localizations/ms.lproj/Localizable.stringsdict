@@ -76,8 +76,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Disunting semalam</string>
 			<key>other</key>
 			<string>Disunting %1$d hari lalu</string>
 			<key>zero</key>
@@ -222,8 +220,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Semalam</string>
 			<key>other</key>
 			<string>%1$d hari yang lalu</string>
 			<key>zero</key>
@@ -276,8 +272,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Tahun lepas</string>
 			<key>other</key>
 			<string>%1$d tahun lepas</string>
 			<key>zero</key>
