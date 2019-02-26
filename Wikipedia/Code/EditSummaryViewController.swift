@@ -93,8 +93,8 @@ class EditSummaryViewController: UIViewController, Themeable {
         learnMoreButton.titleLabel?.textColor = theme.colors.link
         summaryTextField.apply(theme: theme)
         cannedEditSummaryButtons.forEach {
-            $0.titleLabel?.textColor = theme.colors.link
-            $0.backgroundColor = theme.colors.border
+            $0.setTitleColor(theme.colors.tagText, for: .normal)
+            $0.backgroundColor = theme.colors.tagBackground
         }
     }
 }
