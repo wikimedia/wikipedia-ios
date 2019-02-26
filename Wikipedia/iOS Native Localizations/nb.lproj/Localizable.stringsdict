@@ -31,7 +31,7 @@
 			<key>one</key>
 			<string>Redigert i går</string>
 			<key>other</key>
-			<string>Redigert %1$d dager siden</string>
+			<string>Redigert for %1$d dager siden</string>
 			<key>zero</key>
 			<string>Redigert i dag</string>
 		</dict>

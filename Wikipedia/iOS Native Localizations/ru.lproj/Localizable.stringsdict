@@ -83,11 +83,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Отредактировано few=%1$d дня назад</string>
+			<string>few=Отредактировано %1$d дня назад</string>
 			<key>one</key>
 			<string>Отредактировано вчера</string>
 			<key>other</key>
-			<string>Отредактировано many=%1$d дней назад</string>
+			<string>many=Отредактировано %1$d дней назад</string>
 			<key>zero</key>
 			<string>Отредактировано сегодня</string>
 		</dict>
@@ -281,11 +281,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%1$d года назад</string>
+			<string>few=%1$d года назад</string>
 			<key>one</key>
 			<string>Прошлый год</string>
 			<key>other</key>
-			<string>%1$d лет назад</string>
+			<string>many=%1$d лет назад</string>
 			<key>zero</key>
 			<string>Этот год</string>
 		</dict>

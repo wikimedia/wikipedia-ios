@@ -80,6 +80,8 @@
 			<string>Editováno včera</string>
 			<key>other</key>
 			<string>Editováno před %1$d dny</string>
+			<key>two</key>
+			<string>Editováno předevčírem</string>
 			<key>zero</key>
 			<string>Editováno dnes</string>
 		</dict>
@@ -226,6 +228,8 @@
 			<string>Včera</string>
 			<key>other</key>
 			<string>Před %1$d dny</string>
+			<key>two</key>
+			<string>Předevčírem</string>
 			<key>zero</key>
 			<string>Dnes</string>
 		</dict>
@@ -279,7 +283,9 @@
 			<key>one</key>
 			<string>Loni</string>
 			<key>other</key>
-			<string>Před %1$d roky</string>
+			<string>Před %1$d lety</string>
+			<key>two</key>
+			<string>Předloni</string>
 			<key>zero</key>
 			<string>Tento rok</string>
 		</dict>
