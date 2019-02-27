@@ -432,7 +432,7 @@
 "page-edit-history" = "Full redigeringshistorik";
 "page-history-title" = "Artikelhistorik";
 "page-issues" = "Sidproblem";
-"page-last-edited" = "Redigerades {{PLURAL:$1|0=idag|igår|för $1 dagar sedan}}";
+"page-last-edited" = "Redigerades {{PLURAL:$1|0=idag|1=igår|för $1 dagar sedan}}";
 "page-location" = "Visa på en karta";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
@@ -559,10 +559,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepiatema";
 "reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
 "reference-title" = "Referens $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|$1 dagar sedan}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|1=I går|$1 dagar sedan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|Senaste året|$1 år sedan}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|1=Senaste året|$1 år sedan}}";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "reverted-edit-back-to-article-button-title" = "Tillbaka till artikeln";
 "reverted-edit-notification-body" = "Redigeringen du gjorde på artikeln $1 ångrades av $2";

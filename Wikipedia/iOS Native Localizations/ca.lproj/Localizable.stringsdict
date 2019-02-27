@@ -76,8 +76,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>S'ha modificat ahir</string>
 			<key>other</key>
 			<string>S'ha modificat fa %1$d dies</string>
 			<key>zero</key>
@@ -222,8 +220,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Ahir</string>
 			<key>other</key>
 			<string>Fa %1$d dies</string>
 			<key>zero</key>
@@ -276,8 +272,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>L'any passat</string>
 			<key>other</key>
 			<string>Fa %1$d anys</string>
 			<key>zero</key>

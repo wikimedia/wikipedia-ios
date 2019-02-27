@@ -434,6 +434,7 @@
 "page-edit-history" = "完整編輯歷史";
 "page-history-title" = "條目歷史";
 "page-issues" = "頁面問題";
+// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=今日編輯|昨日編輯|$1 日前編輯}}";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
@@ -561,9 +562,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "深褐主題";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
 "reference-title" = "參考資料 $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1 天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1 年前}}";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "reverted-edit-back-to-article-button-title" = "返回條目";

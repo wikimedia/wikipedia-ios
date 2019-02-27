@@ -429,15 +429,14 @@
 "page-history-title" = "היסטוריית הערך";
 "page-issues" = "בעיות בדף";
 // Fuzzy
-"page-last-edited" = "נערך לפני $1 ימים";
+"page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
 "page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
 "page-protected-can-not-edit" = "אין לך הרשאה לערוך את הדף הזה";
 "page-protected-can-not-edit-title" = "הדף הזה מוגן";
 "page-protected-other" = "הדף הזה הוגן לרמות הבאות: $1";
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
-// Fuzzy
-"page-read-in-other-languages" = "זמין בעוד $1 שפות";
+"page-read-in-other-languages" = "זמין ב{{PLURAL:$1|עוד שפה אחת|־$1 שפות נוספות}}";
 "page-similar-titles" = "דפים דומים";
 "page-talk-page" = "הצגת דף השיחה";
 "pictured" = "בתמונה";
@@ -494,8 +493,7 @@
 "reading-list-deleted-accessibility-notification" = "רשימת הקריאה נמחקה";
 "reading-list-do-not-keep-button-title" = "לא, למחוק ערכים מהמכשיר";
 "reading-list-entry-limit-exceeded-message" = "נא לצמצם את מספר הערכים ברשימה זו ל־$1, כדי שניתן יהיה להמשיך לסנכרן את כל הערכים ברשימה.";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "עברת את המגבלה של $1 ערכים לחשבון אחד.";
+"reading-list-entry-limit-exceeded-title" = "חרגת ממגבלת {{PLURAL:$1|ערך אחד|$1 ערכים}} לחשבון.";
 "reading-list-entry-limit-reached" = "לא ניתן להוסיף {{PLURAL:$1|ערך|ערכים}} לרשימה זו. הגעת למגבלה של $2 ערכים ברשימת קריאה עבור $3";
 "reading-list-exists-with-same-name" = "השם של רשימת הקריאה הזו כבר נמצא בשימוש";
 "reading-list-generic-error" = "אירעה שגיאה בלתי־צפויה בעת עדכון רשימות הקריאה שלך.";
@@ -508,8 +506,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "ישנה מגבלה של 5000 ערכים שאינם ממוינים. נא למיין את הערכים הקיימים שלך לפי רשימות, כדי שניתן יהיה להמשיך בסנכרון הערכים שאינם ממוינים.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "מגבלה על ערכים שאינם ממוינים";
 "reading-list-list-limit-exceeded-message" = "רשימת הקריאה הזו והערכים השמורים בה לא יסונכרנו, נא לצמצם את מספר הרשימות ל־$1 כדי שניתן יהיה להמשיך לסנכרן את הרשימה הזו.";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "עברת את המגבלה של $1 רשימות קריאה לחשבון אחד.";
+"reading-list-list-limit-exceeded-title" = "חרגת ממגבלת {{PLURAL:$1|רשימת קריאה אחת|$1 רשימות קריאה}} לחשבון.";
 "reading-list-list-limit-reached" = "הגעת למגבלה של $1 רשימות קריאה לחשבון אחד";
 "reading-list-login-button-title" = "יש להיכנס לחשבון כדי לסנכרן את הערכים השמורים שלך";
 "reading-list-login-or-create-account-button-title" = "כניסה לחשבון או יצירת חשבון";
@@ -559,9 +556,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "ערכת נושא ספיה";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
 "reference-title" = "הערה $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|3=לפני יומיים|לפני $1 ימים}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=השנה|בשנה שעברה|לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
@@ -700,6 +699,8 @@
 "wikitext-upload-captcha-needed" = "נדרש אימות תמונה.";
 "wikitext-upload-result-unknown" = "לא ניתן להסיק את התוצאה של העלאת קוד ויקי.";
 "wikitext-upload-save" = "מפרסם...";
+"wikitext-upload-save-anonymously-or-login" = "עריכות ייוחסו לכתובת ה־IP של המכשיר שלך. $1כניסה$2 לחשבון תאפשר לך פרטיות רבה יותר.";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
+"wikitext-upload-save-terms-and-licenses" = "פרסום השינויים מהווה את הסכמתך ל$1תנאי השימוש$2, כמו כן, את הסכמתך שלא לחזור בך מהפצת התרומות שלך תחת הרישיון $3CC BY-SA 3.0$4 ותחת $5GFDL$6. זוהי גם הסכמתך שקישור או כתובת מספקים אותך כייחוס תחת רישיון Creative Commons.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";

@@ -6,6 +6,7 @@
 // Author: Hwboehm
 // Author: JanRei
 // Author: Kghbln
+// Author: Lucas Werkmeister
 // Author: Metalhead64
 // Author: Mirzali
 // Author: Nemo bis
@@ -139,7 +140,7 @@
 "description-help-tips-example-description-one" = "Titelbeschreibung für einen Artikel über die Mona Lisa";
 "description-help-tips-example-description-two" = "Titelbeschreibung für einen Artikel über den Mount Everest";
 "description-help-tips-example-title-one" = "Gemälde von Leonardo da Vinci";
-"description-help-tips-example-title-two" = "Höchster Berg der Erde";
+"description-help-tips-example-title-two" = "höchster Berg der Erde";
 "description-help-tips-for-example" = "Zum Beispiel:";
 "description-help-tips-title" = "Tipps zum Erstellen von Beschreibungen";
 "description-help-title" = "Hilfe zu Titelbeschreibungen";
@@ -424,7 +425,7 @@
 "page-edit-history" = "Vollständige Versionsgeschichte";
 "page-history-title" = "Artikelversionsgeschichte";
 "page-issues" = "Seitenprobleme";
-"page-last-edited" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}} bearbeitet";
+"page-last-edited" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}} bearbeitet";
 "page-location" = "Auf einer Karte ansehen";
 "page-protected-autoconfirmed" = "Diese Seite wurde halbgesperrt.";
 "page-protected-can-not-edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
@@ -551,10 +552,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Farbschema";
 "reading-themes-controls-accessibility-text-size-slider" = "Textgrößenschieber";
 "reference-title" = "Einzelnachweis $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|Letztes Jahr|Vor $1 Jahren}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|1=Letztes Jahr|Vor $1 Jahren}}";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
 "reverted-edit-notification-body" = "Deine Bearbeitung am Artikel $1 wurde von $2 zurückgesetzt";

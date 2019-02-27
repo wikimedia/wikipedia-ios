@@ -76,8 +76,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Editováno včera</string>
 			<key>other</key>
 			<string>Editováno před %1$d dny</string>
 			<key>zero</key>
@@ -222,8 +220,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Včera</string>
 			<key>other</key>
 			<string>Před %1$d dny</string>
 			<key>zero</key>
@@ -276,10 +272,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Loni</string>
 			<key>other</key>
-			<string>Před %1$d roky</string>
+			<string>Před %1$d lety</string>
 			<key>zero</key>
 			<string>Tento rok</string>
 		</dict>

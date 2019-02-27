@@ -286,9 +286,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Téma sépia";
 "reading-themes-controls-accessibility-text-size-slider" = "Pangésér ukuran téks";
 "reference-title" = "Rujukan $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Poé ieu|Kamari|$1 poé kaliwat}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bieu pisan|$1 jam kaliwat|$1 jam kaliwat}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Cik kénéh|$1 menit kaliwat|$1 menit kaliwat}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun ieu|Taun kamari|$1 taun kaliwat}}";
 "request-feedback-on-error" = "Ieu aplikasi ngalaman masalah nu nyumebabkeun pangembang kami hayng mikanyaho leuwih jero. Pék totog di dieu pikeun ngirimkeun surélék kalawan wincikan kasalahan.";
 "saved-pages-image-download-error" = "Gagal ngundeur gambar pikeun ieu kaca kasimpen.";

@@ -74,8 +74,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Gestern bearbeitet</string>
 			<key>other</key>
 			<string>Vor %1$d Tagen bearbeitet</string>
 			<key>zero</key>
@@ -220,8 +218,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Gestern</string>
 			<key>other</key>
 			<string>Vor %1$d Tagen</string>
 			<key>zero</key>
@@ -274,8 +270,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Letztes Jahr</string>
 			<key>other</key>
 			<string>Vor %1$d Jahren</string>
 			<key>zero</key>

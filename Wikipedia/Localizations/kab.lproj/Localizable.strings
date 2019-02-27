@@ -283,9 +283,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Asentel sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Taḥnaccaḍt n teɣzi n uḍris";
 "reference-title" = "Tamsisɣelt $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=ass-a|Iḍelli|$1 n wussan aya}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Melmi kan|$1 usrag aya|$1 n isragen aya}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=tura kan|$1 n tesdat|$1 n tisdatin aya}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Aseggas-a|Aseggas yezrin|$1 n useggas aya}}";
 "request-feedback-on-error" = "Asnas yemmuger-d ugur anida ineflayen-nneɣ ad bɣan ad ẓren ugar fell-as. Nnal dagi akken aɣ-d-azneḍ imayl s telqayt ɣef tuccḍa.";
 "saved-pages-image-download-error" = "Ur izmir ara ad d-isali tugniwin n usebter-agi yettwaskelsen.";

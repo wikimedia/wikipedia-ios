@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Hesap başına %1$d makale sınırını aştınız.</string>
+			<string>Hesap başına %1$d madde sınırını aştınız.</string>
 			<key>other</key>
-			<string>Hesap başına %1$d makale sınırını aştınız.</string>
+			<string>Hesap başına %1$d madde sınırını aştınız.</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -127,7 +127,7 @@
 			<key>one</key>
 			<string>Hesap başına %1$d okuma listesi sınırını aştınız.</string>
 			<key>other</key>
-			<string>Hesap başına %1$d okuma listeleri sınırını aştınız.</string>
+			<string>Hesap başına %1$d okuma listesi sınırını aştınız.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

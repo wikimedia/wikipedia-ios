@@ -206,9 +206,11 @@
 "readers-accessibility-label" = "$1 skaitytojai";
 "reading-themes-controls-accessibility-black-theme-button" = "Juoda tema";
 "reference-title" = "Išnaša $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Šiandien|Vakar|Prieš $1 dienas|Prieš $1 dienų}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Neseniai|Prieš $1 valandą|Prieš $1 valandas|Prieš $1 valandų}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ką tik|Prieš $1 minutę|Prieš $1 minutes|Prieš $1 minučių}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Šiais metais|Praeitais metais|Prieš $1 metus|Prieš $1 metų}}";
 "saved-all-articles-title" = "Visi straipsniai";
 "saved-title" = "Išsaugota";

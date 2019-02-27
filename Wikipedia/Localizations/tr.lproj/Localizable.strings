@@ -466,7 +466,7 @@
 "reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
 "reading-list-do-not-keep-button-title" = "Hayır, cihazdan makaleleri sil";
 "reading-list-entry-limit-exceeded-message" = "Bu listedeki tüm maddelerin senkronizasyonunu devam ettirmek için lütfen bu listedeki maddelerin sayısını $1 olarak azaltın.";
-"reading-list-entry-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 makale|$1 makale}} sınırını aştınız.";
+"reading-list-entry-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 madde|$1 madde}} sınırını aştınız.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Madde|Madde}}, bu listeye eklenemez. $3 için okuma listesi başına $2 madde sınırına ulaştınız";
 "reading-list-exists-with-same-name" = "Okuma listesine verilen ad zaten kullanımda";
 "reading-list-generic-error" = "Okuma listeleriniz güncellenirken ederken beklenmeyen bir hata oluştu.";
@@ -479,7 +479,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 adet sıralanmamış madde sınırı var. Sıralanmamış maddelerin senkronizasyonuna devam etmek için lütfen mevcut maddelerinizi listelere ayırın.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sıralanmamış maddeler için limit sayısı";
 "reading-list-list-limit-exceeded-message" = "Bu okuma listesi ve bu listeye kaydedilen maddeler senkronize edilmeyecektir, lütfen bu listenin senkronizasyonunu devam ettirmek için listelerinizi şu sayıya düşürün: $1";
-"reading-list-list-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 okuma listesi|$1 okuma listeleri}} sınırını aştınız.";
+"reading-list-list-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 okuma listesi|$1 okuma listesi}} sınırını aştınız.";
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
 "reading-list-login-button-title" = "Kayıtlı maddelerinizi senkronize etmek için giriş yapın";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
@@ -529,9 +529,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepya tema";
 "reading-themes-controls-accessibility-text-size-slider" = "Metin boyutu kaydırıcısı";
 "reference-title" = "$1 referansı";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|Dün|$1 gün önce}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "reverted-edit-back-to-article-button-title" = "Maddeye dön";
