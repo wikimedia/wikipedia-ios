@@ -1,6 +1,6 @@
 import UIKit
 
-@objc public protocol WMFReadingThemesControlsViewControllerDelegate {
+public protocol WMFReadingThemesControlsViewControllerDelegate: class {
     
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
 }
@@ -10,6 +10,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
+    @objc static let nibName = "ReadingThemesControlsViewController"
     
     var theme = Theme.standard
     
@@ -38,7 +39,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     var visible = false
     
-    @objc open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
+    open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()

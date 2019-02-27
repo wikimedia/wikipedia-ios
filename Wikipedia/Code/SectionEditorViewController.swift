@@ -17,6 +17,10 @@ class SectionEditorViewController: UIViewController {
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
     
+    lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
+        return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
+    }()
+    
     private var theme = Theme.standard
     
     @objc var editFunnel: EditFunnel?
@@ -246,6 +250,11 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         messagingController.redo()
     }
+    
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+
+        showReadingThemesControlsPopup(on: self, theme: theme)
+    }
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTextSelectionDelegate {
@@ -307,5 +316,30 @@ extension SectionEditorViewController: Themeable {
         webView.backgroundColor = theme.colors.paperBackground
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
+    }
+}
+
+extension SectionEditorViewController: ReadingThemesControlsPresenterProtocol {
+    
+    var passthroughNavBar: Bool {
+        return false
+    }
+    
+    var wkWebView: WKWebView {
+        return self.webView
+    }
+    
+    var readingThemesControlsToolbarItem: UIBarButtonItem {
+        return self.navigationItemController.readingThemesControlsToolbarItem
+    }
+}
+
+extension SectionEditorViewController {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }

@@ -87,7 +87,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @interface WMFArticleViewController () <WMFSectionEditorViewControllerDelegate,
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
-                                        WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
@@ -148,8 +147,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
-
 @property (strong, nonatomic, nullable) NSTimer *significantlyViewedTimer;
+
+// Reading Themes
+@property (nonatomic, strong) WMFReadingThemesControlsPresenter *readingThemesControlsPresenter;
 
 /**
  *  We need to do this to prevent auto loading from occuring,
@@ -259,7 +260,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     [self updateToolbar];
     [self setupTableOfContentsViewController];
-    [self setupReadingThemesControls];
     [self updateTableOfContentsForFootersIfNeeded];
 
     if (_article && self.shouldShareArticleOnLoad) {
@@ -341,6 +341,21 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         _webViewController.headerView = self.headerView;
     }
     return _webViewController;
+}
+
+- (WMFReadingThemesControlsViewController *)readingThemesViewController {
+    if (!_readingThemesViewController) {
+        _readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName: [WMFReadingThemesControlsViewController nibName] bundle:nil];
+    }
+    
+    return _readingThemesViewController;
+}
+
+- (WMFReadingThemesControlsPresenter *)readingThemesControlsPresenter {
+    if (!_readingThemesControlsPresenter) {
+        _readingThemesControlsPresenter = [[WMFReadingThemesControlsPresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
+    }
+    return _readingThemesControlsPresenter;
 }
 
 #pragma mark - Notifications and Observations
@@ -575,7 +590,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (!_readingThemesControlsToolbarItem) {
         _readingThemesControlsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showReadingThemesControlsPopup)];
     }
-    _readingThemesControlsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"article-toolbar-reading-themes-controls-toolbar-item", nil, nil, @"Reading Themes Controls", @"Accessibility label for the Reading Themes Controls article toolbar item");
+    _readingThemesControlsToolbarItem.accessibilityLabel = [WMFCommonStrings readingThemesControls];
     return _readingThemesControlsToolbarItem;
 }
 
@@ -604,7 +619,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [CATransaction setCompletionBlock:^{
         [self.webViewController showFindInPage];
     }];
-    [self dismissReadingThemesPopoverIfActive];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
     [CATransaction commit];
 }
 
@@ -621,7 +636,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
-    [self dismissReadingThemesPopoverIfActive];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
     [self presentViewControllerEmbeddedInNavigationController:languagesVC];
@@ -741,7 +756,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)titleBarButtonPressed {
-    [self dismissReadingThemesPopoverIfActive];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -777,8 +792,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    NSUInteger index = self.indexOfCurrentFontSize;
-    NSNumber *multiplier = self.fontSizeMultipliers[index];
+    NSUInteger index = self.readingThemesControlsPresenter.objcIndexOfCurrentFontSize;
+    NSNumber *multiplier = self.readingThemesControlsPresenter.objcFontSizeMultipliers[index];
     [self.webViewController setFontSizeMultiplier:multiplier];
 
     [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
@@ -817,7 +832,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
-    [self dismissReadingThemesPopoverIfActive];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
 
     [self cancelWIconPopoverDisplay];
 }
@@ -1069,7 +1084,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showTableOfContents:(id)sender {
-    [self dismissReadingThemesPopoverIfActive];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
 
     if (self.tableOfContentsViewController == nil) {
         return;
@@ -1368,7 +1383,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)shareArticle {
-    [self dismissReadingThemesPopoverIfActive];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
 
     [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
         if (text.length > 0) {
@@ -1431,7 +1446,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)toggleSave:(id)sender event:(UIEvent *)event {
     UIImpactFeedbackGenerator *feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
     [feedbackGenerator impactOccurred];
-    [self dismissReadingThemesPopoverIfActive];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && articleToUnsave.userCreatedReadingListsCount > 0) {
         WMFReadingListsAlertController *readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
@@ -1486,95 +1501,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 #pragma mark - Reading Themes Controls
 
-- (void)setupReadingThemesControls {
-    self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"ReadingThemesControlsViewController" bundle:nil];
-}
-
 - (void)showReadingThemesControlsPopup {
-    NSArray *fontSizes = self.fontSizeMultipliers;
-    NSUInteger index = self.indexOfCurrentFontSize;
-
-    self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
-
-    self.readingThemesViewController.delegate = self;
-
-    [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
-
     self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
-
-    [self.readingThemesViewController applyTheme:self.theme];
-
-    self.readingThemesPopoverPresenter.delegate = self;
-    self.readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
-    self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
-
-    self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
-
-    [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
-
-    self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
-}
-
-- (void)dismissReadingThemesPopoverIfActive {
-    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
-        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
-    return UIModalPresentationNone;
-}
-
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection {
-    // This method is called in iOS 8.3 or later regardless of trait collection, in which case use the original presentation style (UIModalPresentationNone signals no adaptation)
-    return UIModalPresentationNone;
-}
-
-- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
-    NSArray *fontSizes = self.fontSizeMultipliers;
-
-    if (value > fontSizes.count) {
-        return;
-    }
-
-    NSNumber *multiplier = self.fontSizeMultipliers[value];
-    [self.webViewController setFontSizeMultiplier:multiplier];
-    [[NSUserDefaults wmf] wmf_setArticleFontSizeMultiplier:multiplier];
-}
-
-- (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *_Nonnull)controller theme:(WMFTheme *_Nonnull)theme {
-}
-
-- (NSArray<NSNumber *> *)fontSizeMultipliers {
-#if WMF_TWEAKS_ENABLED
-    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierExtraSmall)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", WMFFontSizeMultiplierSmall)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", WMFFontSizeMultiplierMedium)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", WMFFontSizeMultiplierLarge)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", WMFFontSizeMultiplierExtraLarge)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", WMFFontSizeMultiplierExtraExtraLarge)),
-             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", WMFFontSizeMultiplierExtraExtraExtraLarge))];
-#else
-    return @[@(WMFFontSizeMultiplierExtraSmall),
-             @(WMFFontSizeMultiplierSmall),
-             @(WMFFontSizeMultiplierMedium),
-             @(WMFFontSizeMultiplierLarge),
-             @(WMFFontSizeMultiplierExtraLarge),
-             @(WMFFontSizeMultiplierExtraExtraLarge),
-             @(WMFFontSizeMultiplierExtraExtraExtraLarge)];
-#endif
-}
-
-- (NSUInteger)indexOfCurrentFontSize {
-    NSNumber *fontSize = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
-
-    NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
-
-    if (index == NSNotFound) {
-        index = [self fontSizeMultipliers].count / 2;
-    }
-
-    return index;
+    [self.readingThemesControlsPresenter objCShowReadingThemesControlsPopupOn:self theme:self.theme];
 }
 
 #pragma mark - WMFWebViewControllerDelegate
