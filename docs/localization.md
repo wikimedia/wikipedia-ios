@@ -116,7 +116,7 @@ With "zero" value:
 
 iOS doesn't support arbitrary numerals, only `0=`. For example, the `12=` translation in `{{PLURAL:%1$d|12=a dozen places|one place|%1$d places}}` can't be utilized on iOS. We allow users on Translatewiki to enter arbitrary numeral translations should there ever be a way to support it on iOS. 
 
-For some languages, the singular form only applies to n=1. In these languages, we can map the Translatewiki's `1=` translations to the `one` key on iOS. For example, if n is 'years ago' and the translation is `1=Last year`, this works for languages where `one` is only ever used for `n=1`. For other languages, like Russian, the value for the `one` translation is used for certain numbers ending in 1. If we mapped the Russian Translatewiki value for `1=` to iOS's `one`, it would use the Russian equivalent of `Last year` for n=1,11,21,31,41,etc. years ago.
+For some languages, the singular form only applies to `n=1`. In these languages, we can map the Translatewiki's `1=` translations to the `one` key on iOS. For example, if n is 'years ago' and the translation is `1=Last year`, this works for languages where `one` is only ever used for `n=1`. For other languages, like Russian, the value for the `one` translation is used for certain numbers ending in 1. If we mapped the Russian Translatewiki value for `1=` to iOS's `one`, it would use the Russian equivalent of `Last year` for `n=1,11,21,31,...` years ago.
 
 More information about iOS plural support can be found in [Apple's documentation for the stringsdict file format](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html#//apple_ref/doc/uid/10000171i-CH16-SW1).
 
