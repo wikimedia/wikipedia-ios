@@ -444,9 +444,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Control de tamañu del testu";
 "reference-title" = "Referencia $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Güei|Ayeri|Hai $1 díes}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recién|Hai $1 hora|Hai $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Hai $1 minutu|Hai $1 minutos}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Esti añu|L'añu pasáu|hai $1 años}}";
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "saved-all-articles-title" = "Tolos artículos";

@@ -19,6 +19,7 @@
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
+// Author: Ulinfaizah
 // Author: WongKentir
 
 "about-content-license" = "Lisensi konten";
@@ -44,20 +45,15 @@
 "about-translators-details" = "Diterjemahkan oleh relawan di $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Anda tidak dapat menerbitkan suntingan ini. Silakan kembali dan mengubahnya.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Penyaring otomatis telah mengidentifikasi suntingan ini sebagai berpotensi tidak konstruktif, atau upaya vandalisme.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Mengosongkan artikel atau spam";
-// Fuzzy
-"abuse-filter-warning-caps" = "Mengetik dalam SEMUA HURUF BESAR";
+"abuse-filter-disallow-heading" = "Anda tidak dapat menerbitkan suntingan ini";
+"abuse-filter-disallow-unconstructive" = "Filter otomatis telah mengidentifikasi suntingan ini sebagai berpotensi tidak konstruktif atau sebagai upaya vandalisme. Harap kembali dan ubah suntingan Anda.";
+"abuse-filter-warning-blanking" = "Menghapus bagian atau artikel lengkap";
+"abuse-filter-warning-caps" = "Semua huruf besar";
 "abuse-filter-warning-heading" = "Ini tampak seperti suntingan yang tidak konstruktif. Apakah Anda yakin ingin menerbitkannya?";
 "abuse-filter-warning-irrelevant" = "Pranala luar atau gambar yang tidak relevan";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Karakter beruuuulang";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Suntingan Anda dapat berisi satu atau lebih hal berikut:";
+"abuse-filter-warning-repeat" = "Karakter berulang";
+"abuse-filter-warning-spam" = "Menambahkan spam ke artikel";
+"abuse-filter-warning-subheading" = "Suntingan Anda dapat berisi:";
 "account-creation-captcha-cannot-see-image" = "Tidak dapat melihat gambar? $1";
 "account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru...";
 "account-creation-captcha-request-account" = "Minta akun.";
@@ -74,11 +70,11 @@
 "action-add-to-reading-list" = "Tambahkan ke daftar bacaan";
 "action-add-to-reading-list-short" = "Tambah ke daftar";
 "action-cancel" = "Batal";
-// Fuzzy
 "action-find-in-page" = "Cari di halaman";
 "action-move-to" = "Pindahkan ke...";
 "action-move-to-reading-list" = "Pindahkan ke daftar bacaan";
 "action-read" = "Baca";
+"action-redo" = "Ulangi";
 "action-remove" = "Hapus";
 "action-save" = "Simpan";
 "action-saved" = "Tersimpan";
@@ -86,7 +82,6 @@
 "action-saved-accessibility-notification" = "Artikel tersimpan untuk nanti";
 "action-share" = "Bagikan";
 "action-sort" = "Urutkan";
-// Fuzzy
 "action-undo" = "Urungkan";
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
@@ -100,8 +95,7 @@
 "appearance-settings-adjust-text-sizing" = "Sesuaikan ukuran teks artikel";
 "appearance-settings-expand-tables" = "Perluas tabel";
 "appearance-settings-expand-tables-footer" = "Tetapkan semua tabel di semua artikel agar dibuka secara default, termasuk Fakta singkat, Referensi, Catatan dan Pranala luar.";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "Turunkan kegelapan gambar pada tema gelap";
+"appearance-settings-image-dimming-footer" = "Kurangi kegelapan gambar pada tema gelap dan hitam";
 "appearance-settings-reading-themes" = "Tema bacaan";
 "appearance-settings-set-automatic-table-opening" = "Pengaturan Tabel";
 "appearance-settings-text-sizing-example-text" = "Seret penggeser untuk mengubah ukuran teks artikel. Manfaatkan ukuran teks sistem Anda untuk mengubah ukuran area teks lain di aplikasi.";
@@ -172,10 +166,57 @@
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
 "dim-images" = "Redupkan gambar";
+"edit-bold-accessibility-label" = "Tambahkan pemformatan tebal";
+"edit-bold-remove-accessibility-label" = "Hapus pemformatan tebal";
+"edit-comment-accessibility-label" = "Tambahkan sintaks komentar";
+"edit-comment-remove-accessibility-label" = "Hapus sintaks komentar";
+"edit-decrease-indent-depth-accessibility-label" = "Kurangi kedalaman indentasi";
+"edit-direction-down-accessibility-label" = "Pindahkan kursor ke bawah";
+"edit-direction-left-accessibility-label" = "Pindahkan kursor ke kiri";
+"edit-direction-right-accessibility-label" = "Pindahkan kursor ke kanan";
+"edit-direction-up-accessibility-label" = "Pindahkan kursor ke atas";
+"edit-increase-indent-depth-accessibility-label" = "Tingkatkan kedalaman indentasi";
+"edit-indent-accessibility-label" = "Indentasi baris saat ini";
+"edit-italic-accessibility-label" = "Tambahkan pemformatan miring";
+"edit-italic-remove-accessibility-label" = "Hapus pemformatan miring";
+"edit-link-accessibility-label" = "Tambahkan sintaks pranala";
+"edit-link-remove-accessibility-label" = "Hapus sintaks pranala";
+"edit-minor-learn-more-text" = "Pelajari lebih lanjut tentang suntingan kecil";
+"edit-minor-text" = "Ini adalah suntingan kecil";
+"edit-ordered-list-accessibility-label" = "Buat daftar urutan baris saat ini";
+"edit-ordered-list-remove-accessibility-label" = "Hapus daftar yang diurutkan dari baris saat ini";
+"edit-published" = "Suntingan telah diterbitkan";
+"edit-published-button-title" = "Selesai";
+"edit-published-subtitle" = "Anda baru saja menjadikan Wikipedia lebih baik untuk semua orang";
+"edit-reference-accessibility-label" = "Tambahkan sintaks referensi";
+"edit-reference-remove-accessibility-label" = "Hapus sintaks referensi";
+"edit-signature-accessibility-label" = "Tambahkan sintaks tanda tangan";
+"edit-signature-remove-accessibility-label" = "Hapus sintaks tanda tangan";
+"edit-strikethrough-accessibility-label" = "Tambahkan coretan teks";
+"edit-strikethrough-remove-accessibility-label" = "Hapus coretan teks";
+"edit-style-table-view-title" = "Gaya";
+"edit-subscript-accessibility-label" = "Tambahkan pemformatan subskrip";
+"edit-subscript-remove-accessibility-label" = "Hapus pemformatan subskrip";
+"edit-summary-add-summary-text" = "Tambahkan ringkasan suntingan";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-typos" = "Perbaikan kesalahan ketik";
 "edit-summary-choice-linked-words" = "Penambahan pranala";
+"edit-summary-learn-more-text" = "Pelajari lebih lanjut";
+"edit-summary-placeholder-text" = "Bagaimana Anda menyempurnakan artikel ini?";
+"edit-superscript-accessibility-label" = "Tambahkan pemformatan superskrip";
+"edit-superscript-remove-accessibility-label" = "Hapus pemformatan superskrip";
+"edit-template-accessibility-label" = "Tambahkan sintaks templat";
+"edit-template-remove-accessibility-label" = "Hapus sintaks templat";
+"edit-text-formatting-accessibility-label" = "Tampilkan menu pemformatan teks";
+"edit-text-formatting-table-view-title" = "Pemformatan teks";
 "edit-text-size-table-view-title" = "Ukuran teks";
+"edit-text-style-accessibility-label" = "Tampilkan menu gaya teks";
+"edit-underline-accessibility-label" = "Tambahkan garis bawah";
+"edit-underline-remove-accessibility-label" = "Hapus garis bawah";
+"edit-unordered-list-accessibility-label" = "Buat daftar tidak terurut baris saat ini";
+"edit-unordered-list-remove-accessibility-label" = "Hapus daftar tidak terurut dari baris saat ini";
+"edit-watch-list-learn-more-text" = "Pelajari lebih lanjut tentang daftar pantauan";
+"edit-watch-this-page-text" = "Pantau halaman ini";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-feed-action-message" = "Anda masih dapat membaca halaman tersimpan";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
@@ -220,8 +261,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
 "explore-feed-preferences-global-cards-title" = "Kartu global";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kartu ini";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua %@ kartu";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kartu “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artikel mengenai peristiwa saat ini";
 "explore-feed-preferences-languages-footer-text" = "Menyembunyikan semua kartu umpan Jelajahi dalam semua bahasa Anda akan mematikan tab Jelajahi.";
 "explore-feed-preferences-on-this-day-description" = "Peristiwa bersejarah pada hari ini";
@@ -278,6 +318,8 @@
 "explore-randomizer" = "Artikel sembarang";
 "feed-news-notification-button-text" = "Aktifkan pemberitahuan";
 "feed-news-notification-text" = "Aktifkan pemberitahuan yang akan diberitahu oleh Wikipedia saat artikel sedang tren dalam peristiwa terkini.";
+"fetcher-error-generic" = "Ada yang salah. Silakan coba lagi nanti.";
+"fetcher-error-unexpected-response" = "Aplikasi menerima respons yang tidak terduga dari server. Silakan coba lagi nanti.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sesuai";
 "field-alert-password-confirm-mismatch" = "Kata sandi tidak cocok";
 "field-alert-password-invalid" = "Kata sandi salah";
@@ -344,6 +386,7 @@
 "license-footer-text" = "Konten tersedia di bawah $1 kecuali dinyatakan lain.";
 "logged-out-continue-without-logging-in-button-title" = "Lanjutkan tanpa masuk log";
 "logged-out-log-back-in-button-title" = "Masuk log kembali ke akun Anda";
+"logged-out-subtitle" = "Terjadi masalah saat mengautentikasi akun Anda. Untuk menyinkronkan daftar bacaan Anda dan menyunting di bawah nama pengguna Anda, silakan masuk log kembali.";
 "logged-out-title" = "Anda sudah keluar log";
 "login-forgot-password" = "Lupa kata sandi Anda?";
 "login-join-wikipedia" = "Bergabunglah dengan Wikipedia";
@@ -376,6 +419,9 @@
 "new-password-instructions" = "Anda masuk log dengan kata sandi sementara. Untuk menyelesaikan masuk log atur kata sandi baru di sini.";
 "new-password-title" = "Setel kata sandi Anda";
 "no-email-account-alert" = "Silakan menyiapkan sebuah akun surel di perangkat Anda dan coba lagi.";
+"no-internet-connection" = "Tidak ada sambungan internet";
+"no-internet-connection-article-reload" = "Versi yang lebih baru dari artikel ini mungkin tersedia, tetapi tidak dapat dimuat tanpa sambungan ke internet";
+"no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "number-billions" = "$1 miliar";
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";
@@ -389,16 +435,14 @@
 "page-edit-history" = "Semua riwayat suntingan";
 "page-history-title" = "Versi terdahulu artikel";
 "page-issues" = "Masalah halaman";
-// Fuzzy
-"page-last-edited" = "Disunting $1 hari yang lalu";
+"page-last-edited" = "{{PLURAL:$1|0=Disunting hari ini|1=Disunting kemarin|Disunting $1 hari yang lalu}}";
 "page-location" = "Lihat di peta";
 "page-protected-autoconfirmed" = "Halaman ini telah dilindungi sebagian.";
 "page-protected-can-not-edit" = "Anda tidak memiliki hak untuk menyunting halaman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "page-protected-other" = "Halaman ini telah dilindungi dengan tingkat sebagai berikut: $1";
 "page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
-// Fuzzy
-"page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
+"page-read-in-other-languages" = "Tersedia dalam {{PLURAL:$1|$1 bahasa lain|$1 bahasa lain}}";
 "page-similar-titles" = "Halaman serupa";
 "page-talk-page" = "Lihat halaman pembicaraan";
 "pictured" = "gambar";
@@ -455,8 +499,7 @@
 "reading-list-deleted-accessibility-notification" = "Daftar bacaan dihapus";
 "reading-list-do-not-keep-button-title" = "Tidak, hapus artikel dari perangkat";
 "reading-list-entry-limit-exceeded-message" = "Harap kurangi jumlah artikel Anda dalam daftar ini menjadi $1 untuk melanjutkan sinkronisasi semua artikel dalam daftar ini.";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "Anda telah melampaui batas $1 artikel per akun.";
+"reading-list-entry-limit-exceeded-title" = "Anda telah melampaui batas {{PLURAL:$1|$1 artikel|$1 artikel}} per akun.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel|Artikel}} tidak dapat ditambahkan ke daftar ini. Anda telah mencapai batas $2 artikel per daftar bacaan untuk $3";
 "reading-list-exists-with-same-name" = "Nama daftar bacaan sudah digunakan";
 "reading-list-generic-error" = "Terjadi kesalahan tak terduga saat memperbarui daftar bacaan Anda.";
@@ -469,8 +512,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Ada batas 5.000 artikel yang tidak diurutkan. Silakan urutkan artikel Anda yang ada ke dalam daftar untuk melanjutkan sinkronisasi artikel yang tidak diurutkan.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Batasan untuk artikel yang tidak diurutkan";
 "reading-list-list-limit-exceeded-message" = "Daftar bacaan ini dan artikel yang disimpan di dalamnya tidak akan disinkronkan, harap kurangi jumlah daftar Anda menjadi $1 untuk melanjutkan sinkronisasi daftar ini.";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "Anda telah melampaui batas $1 daftar bacaan per akun.";
+"reading-list-list-limit-exceeded-title" = "Anda telah melampaui batas {{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}} per akun.";
 "reading-list-list-limit-reached" = "Anda telah mencapai batas $1 daftar bacaan per akun";
 "reading-list-login-button-title" = "Masuk log untuk menyinkronkan artikel tersimpan Anda";
 "reading-list-login-or-create-account-button-title" = "Masuk log atau buat akun";
@@ -520,10 +562,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Penggeser ukuran teks";
 "reference-title" = "Referensi $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|Kemarin|$1 hari yang lalu}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|1=Kemarin|$1 hari yang lalu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|Tahun lalu|$1 tahun yang lalu}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lalu|$1 tahun yang lalu}}";
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke artikel";
 "reverted-edit-notification-body" = "Suntingan yang Anda buat dari artikel $1 dikembalikan oleh $2";
@@ -538,8 +580,7 @@
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
 "saved-pages-progress-syncing" = "Pengunduhan artikel sedang berlangsung...";
 "saved-reading-lists-title" = "Daftar bacaan";
-// Fuzzy
-"saved-search-default-text" = "Cari";
+"saved-search-default-text" = "Cari artikel yang disimpan";
 "saved-title" = "Tersimpan";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Membatalkan simpan {{PLURAL:$1|artikel ini akan menghapusnya|artikel ini akan menghapusnya}} dari semua daftar bacaan yang terkait";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Batal simpan {{PLURAL:$1|artikel|artikel}}?";
@@ -657,10 +698,13 @@
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
 "wikitext-preview-link-preview-description" = "Pranala ini menuju ke '$1'";
 "wikitext-preview-link-preview-title" = "Pratayang pranala";
+"wikitext-preview-save-changes-title" = "Simpan perubahan";
 "wikitext-upload-captcha-error" = "Kesalahan verifikasi CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Memerlukan verifikasi CAPTCHA.";
 "wikitext-upload-result-unknown" = "Tidak dapat menentukan hasil unggah teks wiki.";
 "wikitext-upload-save" = "Menerbitkan...";
+"wikitext-upload-save-anonymously-or-login" = "Suntingan akan dikaitkan dengan alamat IP perangkat Anda. Jika Anda $1Masuk log$2, Anda akan memiliki lebih banyak privasi.";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
+"wikitext-upload-save-terms-and-licenses" = "Dengan menerbitkan perubahan, Anda menyatakan setuju pada $1Ketentuan Penggunaan$2 dan Anda secara tetap setuju untuk melepas kontribusi Anda di bawah Lisensi $3CC BY-SA 3.0$4 dan $5GFDL$6. Anda setuju bahwa pemberian pranala atau URL sudah dirasa cukup untuk atribusi di bawah Lisensi Creative Commons.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";

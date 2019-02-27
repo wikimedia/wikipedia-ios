@@ -303,9 +303,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "រចនាបថកាគី";
 "reading-themes-controls-accessibility-text-size-slider" = "របារកែសម្រួលទំហំអក្សរ";
 "reference-title" = "ឯកសារ​យោង​$1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=ថ្ងៃនេះ|ម្សិលមិញ|$1 ថ្ងៃមុន}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ថ្មីៗនេះ|$1 ១ម៉ោងមុន|$1 ម៉ោងមុន}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=អម្បាញ់មិញ|$1 ១នាទីមុន|$1 នាទីមុន}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=ឆ្នាំនេះ|ឆ្នាំមុន|$1 ឆ្នាំមុន}}";
 "saved-pages-image-download-error" = "ទាញយករូបភាពរបស់ទំព័រដែលបានរក្សាទុកនេះមិនបានសម្រេចទេ។";
 "saved-title" = "រក្សាទុករួច";

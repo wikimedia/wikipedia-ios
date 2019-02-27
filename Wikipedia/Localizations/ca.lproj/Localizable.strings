@@ -431,7 +431,7 @@
 "page-edit-history" = "Historial complet";
 "page-history-title" = "Historial de l'article";
 "page-issues" = "Problemes de la pàgina";
-"page-last-edited" = "{{PLURAL:$1|0=S'ha modificat avui|S'ha modificat ahir|S'ha modificat fa $1 dies}}";
+"page-last-edited" = "{{PLURAL:$1|0=S'ha modificat avui|1=S'ha modificat ahir|S'ha modificat fa $1 dies}}";
 "page-location" = "Mostra en un mapa";
 "page-protected-autoconfirmed" = "La pàgina ha estat semiprotegida.";
 "page-protected-can-not-edit" = "No teniu permisos per modificar la pàgina";
@@ -558,10 +558,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sèpia";
 "reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
 "reference-title" = "Referència $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Avui|Ahir|Fa $1 dies}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Avui|1=Ahir|Fa $1 dies}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ara mateix|Fa $1 minut|Fa $1 minuts}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|L'any passat|Fa $1 anys}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|1=L'any passat|Fa $1 anys}}";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "reverted-edit-back-to-article-button-title" = "Torna a l'article";
 "reverted-edit-notification-body" = "La modificació que vàreu fer de l'article $1 va ser revertida per $2";

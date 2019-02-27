@@ -517,9 +517,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Seepiateema";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstin koon liukusäädin";
 "reference-title" = "Lähde $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Tänään|Eilen|$1 päivää sitten}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tänä vuonna|Viime vuonna|$1 vuotta sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "reverted-edit-back-to-article-button-title" = "Takaisin artikkeliin";

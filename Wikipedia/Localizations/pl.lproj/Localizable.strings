@@ -314,6 +314,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Ciemny motyw";
 "reading-themes-controls-accessibility-light-theme-button" = "Jasny motyw";
 "reference-title" = "Przypis $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dzisiaj|Wczoraj|$1 dni temu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Ostatnio|$1 godzinę temu|$1 godziny temu|$1 godzin temu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Przed chwilą|$1 minutę temu|$1 minuty temu|$1 minut temu}}";

@@ -470,9 +470,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Giao diện nâu";
 "reading-themes-controls-accessibility-text-size-slider" = "Con trượt kích thước văn bản";
 "reference-title" = "Chú thích $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hôm nay|Hôm qua|Cách đây $1 ngày}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 giờ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 phút}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Năm nay|Năm ngoái|Cách đây $1 năm}}";
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
 "saved-all-articles-title" = "Tất cả các bài";

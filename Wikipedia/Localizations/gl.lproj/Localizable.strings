@@ -523,9 +523,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Cursor de tamaño do texto";
 "reference-title" = "Referencia $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoxe|Onte|Hai $1 días}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Hai $1 hora|Hai $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Xusto agora|Hai $1 minuto|Hai $1 minutos}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|O último ano|hai $1 anos}}";
 "request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ó artigo";

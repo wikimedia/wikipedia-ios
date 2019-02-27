@@ -38,19 +38,15 @@
 "about-translators-details" = "Превели добровољци сајта $1";
 "about-wikimedia-foundation" = "Задужбина Викимедија";
 "about-wikipedia" = "Википедија";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Не можете да објавите ову измену. Вратите се и промените је.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је означио ову измену као потенцијално неконструктивну или као покушај вандализма.";
+"abuse-filter-disallow-heading" = "Не можете да објавите ову измену.";
+"abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је означио ову измену као потенцијално неконструктивну или као покушај вандализма. Молимо вас да се вратите и промените вашу измену.";
 "abuse-filter-warning-blanking" = "Брисање одељака или целих чланака";
-// Fuzzy
-"abuse-filter-warning-caps" = "Писање великим словима";
+"abuse-filter-warning-caps" = "Текст великим словима";
 "abuse-filter-warning-heading" = "Ово личи на неконструктивну измену. Желите ли заиста да је објавите?";
 "abuse-filter-warning-irrelevant" = "Ирелевантни спољашњи линкови или слике";
 "abuse-filter-warning-repeat" = "Понављајући знакови";
 "abuse-filter-warning-spam" = "Додавање непожељног садржаја у чланке";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Ваша измена може садржати нешто од следећег:";
+"abuse-filter-warning-subheading" = "Ваша измена може садржати:";
 "account-creation-captcha-cannot-see-image" = "Не видите слику? $1";
 "account-creation-captcha-obtaining" = "Преузимам нову CAPTCHA слику…";
 "account-creation-captcha-request-account" = "Захтевајте налог.";
@@ -395,14 +391,13 @@
 "page-history-title" = "Историја чланка";
 "page-issues" = "Проблеми са страницом";
 // Fuzzy
-"page-last-edited" = "Измењено пре $1 дана";
+"page-last-edited" = "{{PLURAL:$1|0=Измењено данас|Измењено јуче|Измењено пре $1 дана}}";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
 "page-protected-can-not-edit-title" = "Ова страница је заштићена";
 "page-protected-other" = "Ова страница је заштићена на следећим нивоима: $1";
 "page-protected-sysop" = "Ова страница је потпуно заштићена.";
-// Fuzzy
 "page-read-in-other-languages" = "Доступно на још $1 језика";
 "page-similar-titles" = "Сличне странице";
 "page-talk-page" = "Прикажи страницу за разговор";
@@ -460,8 +455,7 @@
 "reading-list-deleted-accessibility-notification" = "Листа за читање је избрисана";
 "reading-list-do-not-keep-button-title" = "Не, избриши чланке са уређаја";
 "reading-list-entry-limit-exceeded-message" = "Смањите број чланака на овој листи на $1 да бисте наставили са њиховом синхронизацијом.";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "Прекорачили сте ограничење од $1 чланака по налогу.";
+"reading-list-entry-limit-exceeded-title" = "Прекорачили сте ограничење од {{PLURAL:$1|$1 чланка|$1 чланака}} по налогу.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Чланак се не може|Чланци се не могу}} додати на листу. Достигли сте ограничење од $2 чланака по листи за читање за $3.";
 "reading-list-exists-with-same-name" = "Већ постоји листа за читање под тим именом";
 "reading-list-generic-error" = "Дошло је до неочекиване грешке при ажурирању ваших листа за читање.";
@@ -474,8 +468,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Можете да имате највише 5000 несортираних чланака. Организујте постојеће чланке по листама да бисте поново синхронизовали несортиране чланке.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Достигнуто је ограничење за несортиране чланке";
 "reading-list-list-limit-exceeded-message" = "Ова листа за читање и чланци сачувани на њој неће бити синхронизовани. Смањите број листа на $1 да бисте поново синхронизовали ову листу.";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "Прекорачили сте ограничење од $1 листа за читање по налогу.";
+"reading-list-list-limit-exceeded-title" = "Прекорачили сте ограничење од {{PLURAL:$1|$1 листе за читање|$1 листа за читање}} по налогу.";
 "reading-list-list-limit-reached" = "Достигли сте ограничење од $1 листа за читање по налогу";
 "reading-list-login-button-title" = "Пријавите се да бисте синхронизовали сачуване чланке";
 "reading-list-login-or-create-account-button-title" = "Пријава/регистрација";
@@ -525,9 +518,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Сепија";
 "reading-themes-controls-accessibility-text-size-slider" = "Клизач за величину текста";
 "reference-title" = "Референца $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=данас|јуче|пре $1 дана}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=недавно|пре $1 сат|пре $1 сата|пре $1 сати}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=управо сад|пре један минут|пре $1 минута}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=ове године|прошле године|пре $1 године|пре $1 година}}";
 "request-feedback-on-error" = "Апликација је наишла на проблем о ком би наши програмери желели да знају више. Додирните овде да бисте нам послали имејл са детаљима о грешци.";
 "reverted-edit-back-to-article-button-title" = "Назад на чланак";

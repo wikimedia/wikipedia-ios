@@ -511,9 +511,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia etoso";
 "reading-themes-controls-accessibility-text-size-slider" = "Ŝovilo pri teksta grando";
 "reference-title" = "Referenco $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hodiaŭ|Hieraŭ|Antaŭ $1 tagoj}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Antaŭ nelonge|Antaŭ $1 horo|Antaŭ $1 horoj}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ĵus|Antaŭ $1 minuto|Antaŭ $1 minutoj}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ĉi-jare|Pasintjare|Antaŭ $1 jaroj}}";
 "request-feedback-on-error" = "La aplikaĵo ekhavis problemon pri kiu niaj programistoj ŝatus scii pli. Bonvolu tuŝeti ĉi tie por sendi retmesaĝon al ni kun la eraro-detaloj.";
 "reverted-edit-back-to-article-button-title" = "Reen al la artikolo";

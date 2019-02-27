@@ -177,9 +177,9 @@
 "edit-direction-down-accessibility-label" = "Cursor naar beneden verplaatsen";
 "edit-direction-left-accessibility-label" = "Cursor naar links verplaatsen";
 "edit-direction-right-accessibility-label" = "Cursor naar rechts verplaatsen";
-"edit-direction-up-accessibility-label" = "Cursor naar boven verplaatsen";
+"edit-direction-up-accessibility-label" = "De aanwijzer omhoogverplaatsen";
 "edit-increase-indent-depth-accessibility-label" = "Inspringing vergroten";
-"edit-indent-accessibility-label" = "Huidge lijn inspringen";
+"edit-indent-accessibility-label" = "Huidige streep inspringen";
 "edit-italic-accessibility-label" = "Cursieve opmaak toevoegen";
 "edit-italic-remove-accessibility-label" = "Cursieve opmaak weghalen";
 "edit-link-remove-accessibility-label" = "Syntaxis van koppeling verwijderen";
@@ -190,6 +190,7 @@
 "edit-published-subtitle" = "U hebt Wikipedia zojuist voor iedereen beter gemaakt";
 "edit-reference-accessibility-label" = "Voeg referentiesyntaxis toe";
 "edit-strikethrough-accessibility-label" = "Doorhalen toevoegen";
+"edit-strikethrough-remove-accessibility-label" = "Doorhalen verwijderen";
 "edit-style-table-view-title" = "Stijl";
 "edit-summary-add-summary-text" = "Voeg een bewerkingssamenvatting toe";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
@@ -201,6 +202,7 @@
 "edit-text-formatting-table-view-title" = "Tekstopmaak";
 "edit-text-size-table-view-title" = "Tekstgrootte";
 "edit-underline-accessibility-label" = "Onderstreep toevoegen";
+"edit-underline-remove-accessibility-label" = "Onderstrepen verwijderen";
 "edit-watch-list-learn-more-text" = "Meer over kijklijsten";
 "edit-watch-this-page-text" = "Deze pagina volgen";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
@@ -421,7 +423,7 @@
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "page-history-title" = "Paginageschiedenis";
 "page-issues" = "Paginaproblemen";
-"page-last-edited" = "{{PLURAL:$1|0=Vandaag bewerkt|Gisteren bewerkt|$1 dagen geleden bewerkt}}";
+"page-last-edited" = "{{PLURAL:$1|0=Vandaag bewerkt|1=Gisteren bewerkt|$1 dagen geleden bewerkt}}";
 "page-location" = "Op een kaart bekijken";
 "page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
@@ -485,7 +487,7 @@
 "reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
 "reading-list-do-not-keep-button-title" = "Nee, verwijder de artikelen van dit apparaat";
 "reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
-"reading-list-entry-limit-exceeded-title" = "U hebt de limiet van {{PLURAL:$1|$1 artikel|$1 artikels}} per account overschreden.";
+"reading-list-entry-limit-exceeded-title" = "U hebt de grens van {{PLURAL:$1|$1 pagina|$1 pagina's}} per profiel overschreden.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
 "reading-list-exists-with-same-name" = "Leeslijstnaam bestaat al";
 "reading-list-generic-error" = "Er is een onverwachte fout opgetreden bij het bijwerken van uw leeslijsten.";
@@ -498,7 +500,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Er is een limiet van 5000 ongesorteerde artikelen. Sorteer uw bestaande artikelen in lijsten om door te gaan met het synchroniseren van ongesorteerde artikelen.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limiet bereikt voor ongesorteerde artikelen";
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
-"reading-list-list-limit-exceeded-title" = "U hebt de limiet van {{PLURAL:$1|$1 leeslijst|$1 leeslijten}} per account overschreden.";
+"reading-list-list-limit-exceeded-title" = "U hebt de grens van {{PLURAL:$1|$1 leeslijst|$1 leeslijsten}} per profiel overschreden.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
 "reading-list-login-button-title" = "Log in om uw opgeslagen artikelen te synchroniseren";
 "reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
@@ -548,10 +550,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstgrootteschuiver";
 "reference-title" = "Referentie $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|Gisteren|$1 dagen gelden}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|1=Gisteren|$1 dagen gelden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|1=Vorig jaar|$1 jaar geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "reverted-edit-back-to-article-button-title" = "Terug naar artikel";
 "reverted-edit-notification-body" = "De bewerking die u deed in het artikel $1 is teruggedraaid door $2";

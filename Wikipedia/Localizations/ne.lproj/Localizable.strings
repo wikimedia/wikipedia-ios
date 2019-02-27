@@ -180,7 +180,7 @@
 "login-title" = "खातामा प्रवेश गर्नुहोस्";
 "main-menu-about" = "विकिपिडिया अनुप्रयोगको बारेमा";
 "main-menu-account-login" = "लग इन";
-"main-menu-account-logout" = "लग आउट गर्नुहोस्";
+"main-menu-account-logout" = "निर्गमन";
 "main-menu-account-logout-are-you-sure" = "के तपाई निर्गमन गर्न चहानुहुन्छ?";
 "main-menu-account-logout-cancel" = "रद्द गर्नुहोस्";
 "main-menu-account-title-logged-in" = "$1 का रूपमा लगइन गरियो";

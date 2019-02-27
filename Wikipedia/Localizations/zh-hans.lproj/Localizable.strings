@@ -527,9 +527,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "棕黑主题";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑块";
 "reference-title" = "参考文献$1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1小时前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=刚刚|$1分钟前}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1年前}}";
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "reverted-edit-back-to-article-button-title" = "返回到文章";
