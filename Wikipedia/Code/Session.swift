@@ -169,7 +169,9 @@ import Foundation
         guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
-        return jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        let task = jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        task.resume()
+        return task
     }
     
     public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
