@@ -114,7 +114,13 @@ With "zero" value:
 {{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}}
 ```
 
-We don't support arbitrary numerals, only `0=`. For example, `{{PLURAL:%1$d|12=a dozen places|one place|%1$d places}}` is invalid.
+iOS doesn't support arbitrary numerals, only `0=`. For example, the `12=` translation in `{{PLURAL:%1$d|12=a dozen places|one place|%1$d places}}` can't be utilized on iOS. We allow users on Translatewiki to enter arbitrary numeral translations should there ever be a way to support it on iOS. 
+
+For some languages, the singular form only applies to `n=1`. In these languages, we can map the Translatewiki's `1=` translations to the `one` key on iOS. For example, if n is 'years ago' and the translation is `1=Last year`, this works for languages where `one` is only ever used for `n=1`. For other languages, like Russian, the value for the `one` translation is used for certain numbers ending in 1. If we mapped the Russian Translatewiki value for `1=` to iOS's `one`, it would use the Russian equivalent of `Last year` for `n=1,11,21,31,...` years ago.
+
+More information about iOS plural support can be found in [Apple's documentation for the stringsdict file format](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html#//apple_ref/doc/uid/10000171i-CH16-SW1).
+
+More information about MediaWiki plural support can be found [on Translatewiki's page for plural handling](https://translatewiki.net/wiki/Plural#Plural_in_MediaWiki).
 
  
 ### Translation workflow
@@ -136,7 +142,7 @@ Translatewiki's script reads the `Wikipedia/Localizations` `qqq` and `en` files,
 
 ### Updating the localization script
 
-Inside the main project (`Wikipedia.xcodeproj`), there's a `localization` target that is a Mac command line tool. You can edit the swift files used by this target (`scripts/localization.swift`, `localization/main.swift`) to update the localization script. Once you make changes, you can build and run the localization target to re-run localizations and verify the output. Once you're done making changes, you need to archive the `localization` target and copy the binary to `scripts/localizations` where it will be run with every build.
+Inside the main project (`Wikipedia.xcodeproj`), there's a `localization` target that is a Mac command line tool. You can edit the swift files used by this target (`scripts/localization.swift`, `localization/main.swift`) to update the localization script. Once you make changes, you can build and run the localization target to re-run localizations and verify the output. Once you're done making changes, you need to archive the `localization` target which should copy the binary to `scripts/localizations` where it will be run with every build. Commit the changes to the script and the updated binary to the repo.
 
 ### Testing the app
 #### Indications for international testing
