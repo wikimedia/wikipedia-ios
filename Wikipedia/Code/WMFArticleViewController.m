@@ -108,7 +108,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong) WebViewController *webViewController;
 
 @property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
-@property (nonatomic, strong) UIPopoverPresentationController *readingThemesPopoverPresenter;
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -353,7 +352,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (WMFReadingThemesControlsPresenter *)readingThemesControlsPresenter {
     if (!_readingThemesControlsPresenter) {
-        _readingThemesControlsPresenter = [[WMFReadingThemesControlsPresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
+        _readingThemesControlsPresenter = [[WMFReadingThemesControlsPresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController readingThemesControlsPopoverPresenter: self.readingThemesViewController.popoverPresentationController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
     }
     return _readingThemesControlsPresenter;
 }
@@ -1502,7 +1501,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 #pragma mark - Reading Themes Controls
 
 - (void)showReadingThemesControlsPopup {
-    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
     [self.readingThemesControlsPresenter objCShowReadingThemesControlsPopupOn:self theme:self.theme];
 }
 
@@ -2208,11 +2206,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
     self.headerImageView.alpha = theme.imageOpacity;
     [self.tableOfContentsViewController applyTheme:theme];
-    [self.readingThemesViewController applyTheme:theme];
+    [self.readingThemesControlsPresenter objCApplyPresentationThemeWithTheme:theme];
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
-    self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
     self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
 }
 

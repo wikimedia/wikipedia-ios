@@ -319,39 +319,36 @@ extension SectionEditorViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.backgroundColor = theme.colors.paperBackground
         webView.backgroundColor = theme.colors.paperBackground
+        messagingController.applyTheme(theme: theme)
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
+        apply(presentationTheme: theme)
     }
 }
 
-extension SectionEditorViewController: ReadingThemesControlsPresenterProtocol {
-    var toggleSyntaxHighlightingBlock: (() -> Void)? {
-        return { [weak self] in
-            self?.messagingController.toggleLineNumbers()
-            self?.messagingController.toggleSyntaxColors()
-        }
+extension SectionEditorViewController: ReadingThemesControlsPresenting {
+    var readingThemesControlsPopoverPresenter: UIPopoverPresentationController? {
+        return readingThemesControlsViewController.popoverPresentationController
     }
     
-    var fontSizeChangedBlock: ((Int) -> Void)? {
-        return { [weak self] (textSize: Int) in
-            self?.messagingController.scaleBodyText(newSize: String(textSize))
-        }
-    }
-    
-    var passthroughNavBar: Bool {
+    var shouldPassthroughNavBar: Bool {
         return false
     }
     
-    var syntaxHighlighting: Bool {
+    var showsSyntaxHighlighting: Bool {
         return true
-    }
-    
-    var wkWebView: WKWebView {
-        return self.webView
     }
     
     var readingThemesControlsToolbarItem: UIBarButtonItem {
         return self.navigationItemController.readingThemesControlsToolbarItem
+    }
+    
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        messagingController.toggleLineNumbers()
+        messagingController.toggleSyntaxColors()
+    }
+    func updateWebViewTextSize(textSize: Int) {
+        messagingController.scaleBodyText(newSize: String(textSize))
     }
 }
 

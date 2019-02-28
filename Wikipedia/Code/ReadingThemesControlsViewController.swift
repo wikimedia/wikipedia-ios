@@ -42,10 +42,10 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet var syntaxHighlightingContainerView: UIView!
     
     var visible = false
-    var syntaxHighlighting: Bool = false {
+    var showsSyntaxHighlighting: Bool = false {
         didSet {
-            lastSeparator.isHidden = !syntaxHighlighting
-            syntaxHighlightingContainerView.isHidden = !syntaxHighlighting
+            lastSeparator.isHidden = !showsSyntaxHighlighting
+            syntaxHighlightingContainerView.isHidden = !showsSyntaxHighlighting
         }
     }
     

@@ -8,17 +8,15 @@
 
 import Foundation
 
-protocol ReadingThemesControlsPresenterProtocol: WMFReadingThemesControlsViewControllerDelegate, UIPopoverPresentationControllerDelegate {
-    var readingThemesControlsViewController: ReadingThemesControlsViewController { get } //lazy loaded
-    var wkWebView: WKWebView { get }
+protocol ReadingThemesControlsPresenting: WMFReadingThemesControlsViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+    var readingThemesControlsViewController: ReadingThemesControlsViewController { get }
     var readingThemesControlsToolbarItem: UIBarButtonItem { get }
-    var passthroughNavBar: Bool { get }
-    var syntaxHighlighting: Bool { get }
-    var toggleSyntaxHighlightingBlock: (() -> Void)? { get }
-    var fontSizeChangedBlock: ((Int) -> Void)? { get }
+    var shouldPassthroughNavBar: Bool { get }
+    var showsSyntaxHighlighting: Bool { get }
+    func updateWebViewTextSize(textSize: Int)
 }
 
-extension ReadingThemesControlsPresenterProtocol {
+extension ReadingThemesControlsPresenting {
     
     var fontSizeMultipliers: [Int] {
 
@@ -49,20 +47,20 @@ extension ReadingThemesControlsPresenterProtocol {
         
         readingThemesControlsViewController.delegate = self
         readingThemesControlsViewController.setValuesWithSteps(fontSizes.count, current: index)
-        readingThemesControlsViewController.apply(theme: theme)
-        readingThemesControlsViewController.syntaxHighlighting = syntaxHighlighting
+        readingThemesControlsViewController.showsSyntaxHighlighting = showsSyntaxHighlighting
         
-        let popoverPresentationController = readingThemesControlsViewController.popoverPresentationController
+        apply(presentationTheme: theme)
         
-        popoverPresentationController?.barButtonItem = readingThemesControlsToolbarItem
-        popoverPresentationController?.permittedArrowDirections = [.down, .up]
-        popoverPresentationController?.backgroundColor = theme.colors.popoverBackground
-        viewController.present(readingThemesControlsViewController, animated: true, completion: nil)
+        let popoverPresenter = readingThemesControlsViewController.popoverPresentationController
+        popoverPresenter?.barButtonItem = readingThemesControlsToolbarItem
+        popoverPresenter?.permittedArrowDirections = [.down, .up]
         
         if let navBar = viewController.navigationController?.navigationBar,
-            passthroughNavBar {
-            popoverPresentationController?.passthroughViews = [navBar]
+            shouldPassthroughNavBar {
+            popoverPresenter?.passthroughViews = [navBar]
         }
+        
+        viewController.present(readingThemesControlsViewController, animated: true, completion: nil)
     }
     
     func dismissReadingThemesPopoverIfActive(from viewController: UIViewController) {
@@ -82,43 +80,33 @@ extension ReadingThemesControlsPresenterProtocol {
         
         let multiplier = fontSizeMultipliers[value]
         let nsNumber = NSNumber(value: multiplier)
-        wkWebView.wmf_setTextSize(multiplier)
         UserDefaults.wmf.wmf_setArticleFontSizeMultiplier(nsNumber)
         
-        fontSizeChangedBlock?(multiplier)
+        updateWebViewTextSize(textSize: multiplier)
     }
     
-    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        toggleSyntaxHighlightingBlock?()
+   func apply(presentationTheme theme: Theme) {
+        readingThemesControlsViewController.apply(theme: theme)
+        readingThemesControlsViewController.popoverPresentationController?.backgroundColor = theme.colors.popoverBackground
     }
 }
 
 //objective-c wrapper for Article presentation.
 @objc(WMFReadingThemesControlsPresenter)
-class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenterProtocol {
+class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenting {
     
-    //TODO: why doesn't Article VC need these blocks...
-    var fontSizeChangedBlock: ((Int) -> Void)? {
-        return nil
-    }
-    
-    var toggleSyntaxHighlightingBlock: (() -> Void)? {
-        return nil
-    }
-    
-    var passthroughNavBar: Bool {
+    var shouldPassthroughNavBar: Bool {
         return true
     }
     
-    var syntaxHighlighting: Bool {
+    var showsSyntaxHighlighting: Bool {
         return false
     }
     
     var readingThemesControlsViewController: ReadingThemesControlsViewController
-    
-    var wkWebView: WKWebView
-    
     var readingThemesControlsToolbarItem: UIBarButtonItem
+    var readingThemesControlsPopoverPresenter: UIPopoverPresentationController?
+    private let wkWebView: WKWebView
     
     @objc var objcIndexOfCurrentFontSize: Int {
         return indexOfCurrentFontSize
@@ -128,10 +116,11 @@ class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenterPr
         return fontSizeMultipliers
     }
     
-    @objc init(readingThemesControlsViewController: ReadingThemesControlsViewController, wkWebView: WKWebView, readingThemesControlsToolbarItem: UIBarButtonItem) {
+    @objc init(readingThemesControlsViewController: ReadingThemesControlsViewController, readingThemesControlsPopoverPresenter: UIPopoverPresentationController, wkWebView: WKWebView, readingThemesControlsToolbarItem: UIBarButtonItem) {
         self.readingThemesControlsViewController = readingThemesControlsViewController
         self.wkWebView = wkWebView
         self.readingThemesControlsToolbarItem = readingThemesControlsToolbarItem
+        self.readingThemesControlsPopoverPresenter = readingThemesControlsPopoverPresenter
         super.init()
     }
     
@@ -142,6 +131,10 @@ class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenterPr
     @objc func objCDismissReadingThemesPopoverIfActive(from viewController: UIViewController) {
         dismissReadingThemesPopoverIfActive(from: viewController)
     }
+
+    @objc func objCApplyPresentationTheme(theme: Theme) {
+        apply(presentationTheme: theme)
+    }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
@@ -149,5 +142,13 @@ class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenterPr
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
+    }
+    
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        //do nothing
+    }
+    
+    func updateWebViewTextSize(textSize: Int) {
+        wkWebView.wmf_setTextSize(textSize)
     }
 }
