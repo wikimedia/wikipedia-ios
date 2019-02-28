@@ -254,6 +254,11 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
 
         showReadingThemesControlsPopup(on: self, theme: theme)
+        //messagingController.toggleLineNumbers()
+        //messagingController.applyTheme(theme: Theme.black)
+        //messagingController.toggleSyntaxColors()
+        //let textSize = String(WMFFontSizeMultiplier.extraExtraExtraLarge.rawValue)
+        //messagingController.scaleBodyText(newSize: textSize)
     }
 }
 
@@ -320,9 +325,25 @@ extension SectionEditorViewController: Themeable {
 }
 
 extension SectionEditorViewController: ReadingThemesControlsPresenterProtocol {
+    var toggleSyntaxHighlightingBlock: (() -> Void)? {
+        return { [weak self] in
+            self?.messagingController.toggleLineNumbers()
+            self?.messagingController.toggleSyntaxColors()
+        }
+    }
+    
+    var fontSizeChangedBlock: ((Int) -> Void)? {
+        return { [weak self] (textSize: Int) in
+            self?.messagingController.scaleBodyText(newSize: String(textSize))
+        }
+    }
     
     var passthroughNavBar: Bool {
         return false
+    }
+    
+    var syntaxHighlighting: Bool {
+        return true
     }
     
     var wkWebView: WKWebView {

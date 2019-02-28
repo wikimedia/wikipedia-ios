@@ -3,6 +3,7 @@ import UIKit
 public protocol WMFReadingThemesControlsViewControllerDelegate: class {
     
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController)
 }
 
 @objc(WMFReadingThemesControlsViewController)
@@ -37,7 +38,16 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet var stackView: UIStackView!
     
+    @IBOutlet var lastSeparator: UIView!
+    @IBOutlet var syntaxHighlightingContainerView: UIView!
+    
     var visible = false
+    var syntaxHighlighting: Bool = false {
+        didSet {
+            lastSeparator.isHidden = !syntaxHighlighting
+            syntaxHighlightingContainerView.isHidden = !syntaxHighlighting
+        }
+    }
     
     open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
@@ -178,6 +188,11 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBAction func blackThemeButtonPressed(_ sender: Any) {
         userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
     }
+    
+    @IBAction func syntaxHighlightingToggleSwitched(_ sender: Any) {
+        delegate?.toggleSyntaxHighlighting(self)
+    }
+    
 }
 
 // MARK: - Themeable

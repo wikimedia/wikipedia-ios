@@ -1,0 +1,95 @@
+html, body, .CodeMirror {
+  background-color: #FFF;
+  color: #222;
+}
+
+.CodeMirror-gutters {
+  background-color: #FFF;
+  border-right: 4px solid #FFF;
+}
+
+.CodeMirror-linenumber {
+  color: #72777D;
+  font-size: 0.8em;
+}
+
+.cm-mw-template {
+  color: #222; /* plain text color */
+}
+
+.cm-mw-link,
+.cm-mw-link-pagename,
+.cm-mw-link-tosection,
+.cm-mw-link-bracket,
+.cm-mw-link-delimiter,
+.cm-mw-extlink,
+.cm-mw-free-extlink,
+.cm-mw-extlink-protocol,
+.cm-mw-free-extlink-protocol,
+.cm-mw-extlink-bracket,
+.cm-mw-doubleUnderscore,
+.cm-mw-signature,
+.cm-mw-hr {
+  color: #222;
+  font-weight: normal;
+}
+
+.cm-mw-mnemonic,
+.cm-mw-exttag-name,
+.cm-mw-exttag-bracket,
+.cm-mw-exttag-attribute,
+.cm-mw-htmltag-name,
+.cm-mw-htmltag-bracket,
+.cm-mw-htmltag-attribute {
+  color: #222;
+  font-weight: normal;
+}
+
+.cm-mw-parserfunction-name,
+.cm-mw-parserfunction-bracket,
+.cm-mw-parserfunction-delimiter { 
+  color: #222;
+}
+
+.cm-mw-table-bracket,
+.cm-mw-table-delimiter,
+.cm-mw-table-definition { 
+  color: #222;
+  font-weight: normal;
+}
+
+.cm-mw-template-name,
+.cm-mw-template-argument-name,
+.cm-mw-template-delimiter,
+.cm-mw-template-bracket  {
+  color: #222;
+  font-weight: normal;
+}
+
+.cm-mw-list,
+.cm-mw-doubleUnderscore, 
+.cm-mw-signature, 
+.cm-mw-hr,
+.cm-mw-indenting,
+.cm-mw-apostrophes-bold, 
+.cm-mw-apostrophes-italic,
+.cm-mw-section-header,
+.cm-mw-templatevariable,
+.cm-mw-templatevariable-name,
+.cm-mw-templatevariable-bracket,
+.cm-mw-templatevariable-delimiter,
+.cm-mw-matching {
+  color: #222;
+  font-weight: normal;
+}
+
+.cm-mw-comment,
+.cm-mw-skipformatting {
+  color: #222;
+}
+
+.cm-searching {
+  color: #000;
+  background-color: rgba(255, 204, 51, 0.3);
+  border-radius: 2px;
+}

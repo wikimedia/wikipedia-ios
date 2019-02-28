@@ -13,6 +13,9 @@ protocol ReadingThemesControlsPresenterProtocol: WMFReadingThemesControlsViewCon
     var wkWebView: WKWebView { get }
     var readingThemesControlsToolbarItem: UIBarButtonItem { get }
     var passthroughNavBar: Bool { get }
+    var syntaxHighlighting: Bool { get }
+    var toggleSyntaxHighlightingBlock: (() -> Void)? { get }
+    var fontSizeChangedBlock: ((Int) -> Void)? { get }
 }
 
 extension ReadingThemesControlsPresenterProtocol {
@@ -47,6 +50,7 @@ extension ReadingThemesControlsPresenterProtocol {
         readingThemesControlsViewController.delegate = self
         readingThemesControlsViewController.setValuesWithSteps(fontSizes.count, current: index)
         readingThemesControlsViewController.apply(theme: theme)
+        readingThemesControlsViewController.syntaxHighlighting = syntaxHighlighting
         
         let popoverPresentationController = readingThemesControlsViewController.popoverPresentationController
         
@@ -80,6 +84,12 @@ extension ReadingThemesControlsPresenterProtocol {
         let nsNumber = NSNumber(value: multiplier)
         wkWebView.wmf_setTextSize(multiplier)
         UserDefaults.wmf.wmf_setArticleFontSizeMultiplier(nsNumber)
+        
+        fontSizeChangedBlock?(multiplier)
+    }
+    
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        toggleSyntaxHighlightingBlock?()
     }
 }
 
@@ -87,8 +97,21 @@ extension ReadingThemesControlsPresenterProtocol {
 @objc(WMFReadingThemesControlsPresenter)
 class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenterProtocol {
     
+    //TODO: why doesn't Article VC need these blocks...
+    var fontSizeChangedBlock: ((Int) -> Void)? {
+        return nil
+    }
+    
+    var toggleSyntaxHighlightingBlock: (() -> Void)? {
+        return nil
+    }
+    
     var passthroughNavBar: Bool {
         return true
+    }
+    
+    var syntaxHighlighting: Bool {
+        return false
     }
     
     var readingThemesControlsViewController: ReadingThemesControlsViewController

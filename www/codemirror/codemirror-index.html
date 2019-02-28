@@ -371,6 +371,17 @@
     const applyTheme = (themeName) => {
       document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
     }
+  
+    const toggleSyntaxColors = () => {
+        var name = document.getElementById('codemirror-theme').getAttribute('href')
+        
+        var newName = name.includes("-none") ? name.replace("-none", "") : name.substring(0, name.length - 4) + "-none.css"
+        document.getElementById('codemirror-theme').setAttribute('href', newName)
+    }
+  
+    const scaleBodyText = (textSizeAdjustment) => {
+      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+    }
     
     let cursorActivityScrollTimer
     
@@ -392,7 +403,7 @@
     
     const setupCodemirror = (language, direction, themeName, textSizeAdjustment, callback) => {
       applyTheme(themeName)
-      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+      scaleBodyText(textSizeAdjustment)
       let xhr = new XMLHttpRequest()
       let url = `config/codemirror-config-${language}.json`
       xhr.open('GET', url, true)
@@ -897,6 +908,19 @@
       highlighting: () => {
         editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
         editor.refresh()
+      },
+      lineNumbers: () => {
+          editor.setOption('lineNumbers', editor.getOption('lineNumbers') == true ? false : true)
+          editor.refresh()
+      },
+      theme: (theme) => {
+          applyTheme(theme)
+      },
+      syntaxColors: () => {
+          toggleSyntaxColors()
+      },
+      scaleBodyText: (textSizeAdjustment) => {
+          scaleBodyText(textSizeAdjustment)
       },
       find: (text) => {
         editor.state.query = text
