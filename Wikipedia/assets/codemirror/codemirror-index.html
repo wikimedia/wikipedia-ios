@@ -602,21 +602,9 @@
         if ((info.openDistance == 0 && info.closeDistance == 0) || info.selectionLength == 0) {
           unwrapSelectionWith(info.openMatch, info.closeMatch)
         } else if (info.openDistance == 0 && info.closeDistance > 0) { // slide opening markup to the right
-          const selectedText = editor.getSelection()
-          const selectionRange = getSelectionRange(editor)
-          const replacement = `${selectedText}${info.openMatch}`
-          const line = selectionRange.line
-          const from = { line: line, ch: selectionRange.start - info.openMatch.length }
-          const to = { line: line, ch: selectionRange.end }
-          editor.replaceRange(replacement, from, to)
-        } else if (info.openDistance >= 0 && info.closeDistance == 0) { // slide closing markup to the left
-          const selectedText = editor.getSelection()
-          const selectionRange = getSelectionRange(editor)
-          const replacement = `${info.closeMatch}${selectedText}`
-          const line = selectionRange.line
-          const from = { line: line, ch: selectionRange.start }
-          const to = { line: line, ch: selectionRange.end + info.closeMatch.length }
-          editor.replaceRange(replacement, from, to)
+          slideMarkupRight(info.openMatch)
+        } else if (info.openDistance > 0 && info.closeDistance == 0) { // slide closing markup to the left
+          slideMarkupLeft(info.closeMatch)
         } else {
           wrapSelectionWith(defaultClosingMarkup, defaultOpeningMarkup)
         }
