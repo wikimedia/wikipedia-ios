@@ -577,7 +577,9 @@
           wrapSelectionWith(markup, markup)
         }
       } else {
-        if (info.afterIndex == 0) {
+        if (info.selectionLength == 0) {
+          wrapSelectionWith(markup, markup)
+        } else if (info.afterIndex == 0) {
           slideMarkupLeft(markup)
         } else if (info.beforeIndex == 0) {
           slideMarkupRight(markup)
@@ -609,8 +611,14 @@
           wrapSelectionWith(defaultClosingMarkup, defaultOpeningMarkup)
         }
       } else { // not wrapped with markup
-        if (info.priorCloseDistance == 0 && info.nextOpenDistance == 0) {
+        if (info.selectionLength == 0) {
+          wrapSelectionWith(defaultOpeningMarkup, defaultClosingMarkup)
+        } else if (info.priorCloseDistance == 0 && info.nextOpenDistance == 0) {
           unwrapSelectionWith(info.priorCloseMatch, info.nextOpenMatch)
+        } else if (info.nextOpenDistance == 0) {
+          slideMarkupLeft(info.nextOpenMatch)
+        } else if (info.priorCloseDistance == 0) {
+          slideMarkupRight(info.priorCloseMatch)
         } else {
           wrapSelectionWith(defaultOpeningMarkup, defaultClosingMarkup)
         }
