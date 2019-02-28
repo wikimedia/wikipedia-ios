@@ -149,7 +149,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (strong, nonatomic, nullable) NSTimer *significantlyViewedTimer;
 
 // Reading Themes
-@property (nonatomic, strong) WMFReadingThemesControlsPresenter *readingThemesControlsPresenter;
+@property (nonatomic, strong) WMFReadingThemesControlsArticlePresenter *readingThemesControlsPresenter;
 
 /**
  *  We need to do this to prevent auto loading from occuring,
@@ -350,9 +350,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     return _readingThemesViewController;
 }
 
-- (WMFReadingThemesControlsPresenter *)readingThemesControlsPresenter {
+- (WMFReadingThemesControlsArticlePresenter *)readingThemesControlsPresenter {
     if (!_readingThemesControlsPresenter) {
-        _readingThemesControlsPresenter = [[WMFReadingThemesControlsPresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController readingThemesControlsPopoverPresenter: self.readingThemesViewController.popoverPresentationController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
+        _readingThemesControlsPresenter = [[WMFReadingThemesControlsArticlePresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController readingThemesControlsPopoverPresenter: self.readingThemesViewController.popoverPresentationController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
     }
     return _readingThemesControlsPresenter;
 }

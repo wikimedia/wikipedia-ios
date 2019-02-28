@@ -253,12 +253,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
 
-        showReadingThemesControlsPopup(on: self, theme: theme)
-        //messagingController.toggleLineNumbers()
-        //messagingController.applyTheme(theme: Theme.black)
-        //messagingController.toggleSyntaxColors()
-        //let textSize = String(WMFFontSizeMultiplier.extraExtraExtraLarge.rawValue)
-        //messagingController.scaleBodyText(newSize: textSize)
+        showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
 }
 
@@ -343,21 +338,22 @@ extension SectionEditorViewController: ReadingThemesControlsPresenting {
         return self.navigationItemController.readingThemesControlsToolbarItem
     }
     
-    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        messagingController.toggleLineNumbers()
-        messagingController.toggleSyntaxColors()
-    }
-    func updateWebViewTextSize(textSize: Int) {
-        messagingController.scaleBodyText(newSize: String(textSize))
-    }
-}
-
-extension SectionEditorViewController {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
+    }
+}
+
+extension SectionEditorViewController: ReadingThemesControlsResponding {
+    func updateWebViewTextSize(textSize: Int) {
+        messagingController.scaleBodyText(newSize: String(textSize))
+    }
+    
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        messagingController.toggleLineNumbers()
+        messagingController.toggleSyntaxColors()
     }
 }

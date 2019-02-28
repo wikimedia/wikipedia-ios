@@ -1,5 +1,5 @@
 //
-//  ReadingThemesControlsPresenter.swift
+//  ReadingThemesControlsProtocols.swift
 //  Wikipedia
 //
 //  Created by Toni Sevener on 2/27/19.
@@ -8,36 +8,39 @@
 
 import Foundation
 
-protocol ReadingThemesControlsPresenting: WMFReadingThemesControlsViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+fileprivate var fontSizeMultipliers: [Int] {
+    
+    return [WMFFontSizeMultiplier.extraSmall.rawValue,
+            WMFFontSizeMultiplier.small.rawValue,
+            WMFFontSizeMultiplier.medium.rawValue,
+            WMFFontSizeMultiplier.large.rawValue,
+            WMFFontSizeMultiplier.extraLarge.rawValue,
+            WMFFontSizeMultiplier.extraExtraLarge.rawValue,
+            WMFFontSizeMultiplier.extraExtraExtraLarge.rawValue]
+}
+
+fileprivate var indexOfCurrentFontSize: Int {
+    get {
+        let fontSize = UserDefaults.wmf.wmf_articleFontSizeMultiplier()
+        let index = fontSizeMultipliers.firstIndex(of: fontSize.intValue) ?? fontSizeMultipliers.count / 2
+        return index
+    }
+}
+
+protocol ReadingThemesControlsPresenting: UIPopoverPresentationControllerDelegate {
     var readingThemesControlsViewController: ReadingThemesControlsViewController { get }
     var readingThemesControlsToolbarItem: UIBarButtonItem { get }
     var shouldPassthroughNavBar: Bool { get }
     var showsSyntaxHighlighting: Bool { get }
+}
+
+protocol ReadingThemesControlsResponding: WMFReadingThemesControlsViewControllerDelegate {
     func updateWebViewTextSize(textSize: Int)
 }
 
 extension ReadingThemesControlsPresenting {
     
-    var fontSizeMultipliers: [Int] {
-
-        return [WMFFontSizeMultiplier.extraSmall.rawValue,
-                WMFFontSizeMultiplier.small.rawValue,
-                WMFFontSizeMultiplier.medium.rawValue,
-                WMFFontSizeMultiplier.large.rawValue,
-                WMFFontSizeMultiplier.extraLarge.rawValue,
-                WMFFontSizeMultiplier.extraExtraLarge.rawValue,
-                WMFFontSizeMultiplier.extraExtraExtraLarge.rawValue]
-    }
-    
-    var indexOfCurrentFontSize: Int {
-        get {
-            let fontSize = UserDefaults.wmf.wmf_articleFontSizeMultiplier()
-            let index = fontSizeMultipliers.firstIndex(of: fontSize.intValue) ?? fontSizeMultipliers.count / 2
-            return index
-        }
-    }
-    
-    func showReadingThemesControlsPopup(on viewController: UIViewController, theme: Theme) {
+    func showReadingThemesControlsPopup(on viewController: UIViewController, responder: ReadingThemesControlsResponding, theme: Theme) {
         
         let fontSizes = fontSizeMultipliers
         let index = indexOfCurrentFontSize
@@ -45,7 +48,7 @@ extension ReadingThemesControlsPresenting {
         readingThemesControlsViewController.modalPresentationStyle = .popover
         readingThemesControlsViewController.popoverPresentationController?.delegate = self
         
-        readingThemesControlsViewController.delegate = self
+        readingThemesControlsViewController.delegate = responder
         readingThemesControlsViewController.setValuesWithSteps(fontSizes.count, current: index)
         readingThemesControlsViewController.showsSyntaxHighlighting = showsSyntaxHighlighting
         
@@ -69,8 +72,13 @@ extension ReadingThemesControlsPresenting {
         }
     }
     
-    //MARK: WMFReadingThemesControlsViewControllerDelegate
-    
+   func apply(presentationTheme theme: Theme) {
+        readingThemesControlsViewController.apply(theme: theme)
+        readingThemesControlsViewController.popoverPresentationController?.backgroundColor = theme.colors.popoverBackground
+    }
+}
+
+extension WMFReadingThemesControlsViewControllerDelegate where Self: ReadingThemesControlsResponding {
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int) {
         let fontSizes = fontSizeMultipliers
         
@@ -84,16 +92,10 @@ extension ReadingThemesControlsPresenting {
         
         updateWebViewTextSize(textSize: multiplier)
     }
-    
-   func apply(presentationTheme theme: Theme) {
-        readingThemesControlsViewController.apply(theme: theme)
-        readingThemesControlsViewController.popoverPresentationController?.backgroundColor = theme.colors.popoverBackground
-    }
 }
 
-//objective-c wrapper for Article presentation.
-@objc(WMFReadingThemesControlsPresenter)
-class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenting {
+@objc(WMFReadingThemesControlsArticlePresenter)
+class ReadingThemesControlsArticlePresenter: NSObject, ReadingThemesControlsPresenting {
     
     var shouldPassthroughNavBar: Bool {
         return true
@@ -125,7 +127,7 @@ class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenting 
     }
     
     @objc func objCShowReadingThemesControlsPopup(on viewController: UIViewController, theme: Theme) {
-        showReadingThemesControlsPopup(on: viewController, theme: theme)
+        showReadingThemesControlsPopup(on: viewController, responder: self, theme: theme)
     }
     
     @objc func objCDismissReadingThemesPopoverIfActive(from viewController: UIViewController) {
@@ -143,12 +145,14 @@ class ReadingThemesControlsPresenter: NSObject, ReadingThemesControlsPresenting 
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
+}
+
+extension ReadingThemesControlsArticlePresenter: ReadingThemesControlsResponding {
+    func updateWebViewTextSize(textSize: Int) {
+        wkWebView.wmf_setTextSize(textSize)
+    }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
         //do nothing
-    }
-    
-    func updateWebViewTextSize(textSize: Int) {
-        wkWebView.wmf_setTextSize(textSize)
     }
 }
