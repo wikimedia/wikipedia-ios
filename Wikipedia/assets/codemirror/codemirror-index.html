@@ -543,13 +543,49 @@
       const info = identicalMarkupSelectionWrapInfo(markup)
       return info.selectionLength == 0 ? info.beforeIndex >= 0 && info.afterIndex >= 0 : info.beforeIndex == 0 && info.afterIndex == 0
     }
+    
+    const slideMarkupLeft = (markup) => {
+      const selectedText = editor.getSelection()
+      const selectionRange = getSelectionRange(editor)
+      const replacement = `${markup}${selectedText}`
+      const line = selectionRange.line
+      const from = { line: line, ch: selectionRange.start }
+      const to = { line: line, ch: selectionRange.end + markup.length }
+      editor.replaceRange(replacement, from, to)
+    }
+    
+    const slideMarkupRight = (markup) => {
+      const selectedText = editor.getSelection()
+      const selectionRange = getSelectionRange(editor)
+      const replacement = `${selectedText}${markup}`
+      const line = selectionRange.line
+      const from = { line: line, ch: selectionRange.start - markup.length }
+      const to = { line: line, ch: selectionRange.end }
+      editor.replaceRange(replacement, from, to)
+    }
   
     const toggleIdenticalMarkup = (button, markup) => {
       const info = identicalMarkupSelectionWrapInfo(markup)
-      if (info.selectionLength == 0 || (info.beforeIndex == 0 && info.afterIndex == 0))  {
-        unwrapSelectionWith(markup)
+      if (info.beforeIndex >= 0 && info.afterIndex >= 0) {
+        if (info.selectionLength == 0 || (info.beforeIndex == 0 && info.afterIndex == 0)) {
+          unwrapSelectionWith(markup, markup)
+        } else if (info.beforeIndex == 0 && info.afterIndex > 0) { // slide opening markup to the right
+          slideMarkupRight(markup)
+        } else if (info.beforeIndex > 0 && info.afterIndex == 0) { // slide closing markup to the left
+          slideMarkupLeft(markup)
+        } else {
+          wrapSelectionWith(markup, markup)
+        }
+      } else if (info.beforeIndex == 0 && info.afterIndex == 0)  {
+        unwrapSelectionWith(markup, markup)
       } else {
-        wrapSelectionWith(markup)
+        if (info.afterIndex == 0) {
+          slideMarkupLeft(markup)
+        } else if (info.beforeIndex == 0) {
+          slideMarkupRight(markup)
+        } else {
+          wrapSelectionWith(markup, markup)
+        }
       }
     }
     
