@@ -302,25 +302,30 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if (!self.wmf_isCommonsLink) {
         return self;
     }
-    
-    if (![self.pathExtension.lowercaseString isEqualToString:@"ogg"]) {
+
+    NSString *pathExtension = self.pathExtension.lowercaseString;
+    if (!pathExtension) {
         return self;
     }
-    
+
+    if (![@[@"ogg", @"oga"] containsObject:pathExtension]) {
+        return self;
+    }
+
     NSMutableArray<NSString *> *pathComponents = [self.pathComponents mutableCopy];
     NSInteger index = [pathComponents indexOfObject:@"commons"];
     if (index == NSNotFound || index + 1 >= pathComponents.count) {
         return self;
     }
-    
+
     [pathComponents insertObject:@"transcoded" atIndex:index + 1];
     NSString *filename = [pathComponents lastObject];
     NSString *mp3Filename = [filename stringByAppendingPathExtension:@"mp3"];
     [pathComponents addObject:mp3Filename];
-    
+
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.path = [pathComponents componentsJoinedByString:@"/"];
-    
+
     return components.URL;
 }
 
