@@ -46,7 +46,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
-        static let didShowDescriptionEditPublishedPanel = "WMFDidShowDescriptionEditPublishedPanel"
+        static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
     }
 
     @objc public static let wmf: UserDefaults = {
@@ -487,12 +487,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
 
-    public var didShowDescriptionEditPublishedPanel: Bool {
+    public var didShowDescriptionPublishedPanel: Bool {
         get {
-            return bool(forKey: UserDefaults.Key.didShowDescriptionEditPublishedPanel)
+            return bool(forKey: UserDefaults.Key.didShowDescriptionPublishedPanel)
         }
         set {
-            set(newValue, forKey: UserDefaults.Key.didShowDescriptionEditPublishedPanel)
+            set(newValue, forKey: UserDefaults.Key.didShowDescriptionPublishedPanel)
         }
     }
 }

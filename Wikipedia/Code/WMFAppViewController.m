@@ -520,7 +520,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)dscriptionEditWasPublished:(NSNotification *)note {
-    if (![NSUserDefaults.wmf didShowDescriptionEditPublishedPanel]) {
+    if (![NSUserDefaults.wmf didShowDescriptionPublishedPanel]) {
         return;
     }
     [self toggleHint:self.editHintController context:nil];

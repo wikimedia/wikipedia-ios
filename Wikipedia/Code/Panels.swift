@@ -371,7 +371,7 @@ extension UIViewController {
     }
 
     @objc func wmf_showDescriptionPublishedPanelViewController(theme: Theme) {
-        guard !UserDefaults.wmf.didShowDescriptionEditPublishedPanel else {
+        guard !UserDefaults.wmf.didShowDescriptionPublishedPanel else {
             return
         }
         let doneTapHandler: ScrollableEducationPanelButtonTapHandler = { sender in
@@ -379,7 +379,7 @@ extension UIViewController {
         }
         let panelVC = DescriptionPublishedPanelViewController(showCloseButton: true, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true) {
-            UserDefaults.wmf.didShowDescriptionEditPublishedPanel = true
+            UserDefaults.wmf.didShowDescriptionPublishedPanel = true
         }
     }
 
