@@ -247,7 +247,6 @@ import Foundation
             completionHandler(nil, nil, nil, RequestError.invalidParameters)
             return nil
         }
-        task.resume()
         return task
     }
 
