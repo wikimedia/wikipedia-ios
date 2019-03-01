@@ -7728,7 +7728,7 @@ function defineOptions(CodeMirror) {
   option("direction", "ltr", function (cm, val) { return cm.doc.setDirection(val); }, true);
   option("autocorrect", false)
   option("autocapitalize", false)
-  option("preventDefaultOnKeyPress", true)
+  option("preventDefault", true)
 }
 
 function guttersChanged(cm) {
@@ -7846,45 +7846,46 @@ CodeMirror$1.optionHandlers = optionHandlers;
 // Attach the necessary event handlers when initializing the editor
 function registerEventHandlers(cm) {
   var d = cm.display;
-  on(d.scroller, "mousedown", operation(cm, onMouseDown));
-  // Older IE's will not fire a second mousedown for a double click
-  if (ie && ie_version < 11)
-    { on(d.scroller, "dblclick", operation(cm, function (e) {
-      if (signalDOMEvent(cm, e)) { return }
-      var pos = posFromMouse(cm, e);
-      if (!pos || clickInGutter(cm, e) || eventInWidget(cm.display, e)) { return }
-      e_preventDefault(e);
-      var word = cm.findWordAt(pos);
-      extendSelection(cm.doc, word.anchor, word.head);
-    })); }
-  else
-    { on(d.scroller, "dblclick", function (e) { return signalDOMEvent(cm, e) || e_preventDefault(e); }); }
-  // Some browsers fire contextmenu *after* opening the menu, at
-  // which point we can't mess with it anymore. Context menu is
-  // handled in onMouseDown for these browsers.
-  if (!captureRightClick) { on(d.scroller, "contextmenu", function (e) { return onContextMenu(cm, e); }); }
-
-  // Used to suppress mouse event handling when a touch happens
-  var touchFinished, prevTouch = {end: 0};
-  function finishTouch() {
-    if (d.activeTouch) {
-      touchFinished = setTimeout(function () { return d.activeTouch = null; }, 1000);
-      prevTouch = d.activeTouch;
-      prevTouch.end = +new Date;
-    }
-  }
-  function isMouseLikeTouchEvent(e) {
-    if (e.touches.length != 1) { return false }
-    var touch = e.touches[0];
-    return touch.radiusX <= 1 && touch.radiusY <= 1
-  }
-  function farAway(touch, other) {
-    if (other.left == null) { return true }
-    var dx = other.left - touch.left, dy = other.top - touch.top;
-    return dx * dx + dy * dy > 20 * 20
-  }
   
-  if (cm.options.preventDefaultOnKeyPress) {
+  if (cm.options.preventDefault) {
+    on(d.scroller, "mousedown", operation(cm, onMouseDown));
+    // Older IE's will not fire a second mousedown for a double click
+    if (ie && ie_version < 11)
+      { on(d.scroller, "dblclick", operation(cm, function (e) {
+        if (signalDOMEvent(cm, e)) { return }
+        var pos = posFromMouse(cm, e);
+        if (!pos || clickInGutter(cm, e) || eventInWidget(cm.display, e)) { return }
+        e_preventDefault(e);
+        var word = cm.findWordAt(pos);
+        extendSelection(cm.doc, word.anchor, word.head);
+      })); }
+    else
+      { on(d.scroller, "dblclick", function (e) { return signalDOMEvent(cm, e) || e_preventDefault(e); }); }
+    // Some browsers fire contextmenu *after* opening the menu, at
+    // which point we can't mess with it anymore. Context menu is
+    // handled in onMouseDown for these browsers.
+    if (!captureRightClick) { on(d.scroller, "contextmenu", function (e) { return onContextMenu(cm, e); }); }
+
+    // Used to suppress mouse event handling when a touch happens
+    var touchFinished, prevTouch = {end: 0};
+    function finishTouch() {
+      if (d.activeTouch) {
+        touchFinished = setTimeout(function () { return d.activeTouch = null; }, 1000);
+        prevTouch = d.activeTouch;
+        prevTouch.end = +new Date;
+      }
+    }
+    function isMouseLikeTouchEvent(e) {
+      if (e.touches.length != 1) { return false }
+      var touch = e.touches[0];
+      return touch.radiusX <= 1 && touch.radiusY <= 1
+    }
+    function farAway(touch, other) {
+      if (other.left == null) { return true }
+      var dx = other.left - touch.left, dy = other.top - touch.top;
+      return dx * dx + dy * dy > 20 * 20
+    }
+  
     on(d.scroller, "touchstart", function (e) {
       if (!signalDOMEvent(cm, e) && !isMouseLikeTouchEvent(e) && !clickInGutter(cm, e)) {
         d.input.ensurePolled();
@@ -7919,7 +7920,12 @@ function registerEventHandlers(cm) {
       finishTouch();
     });
     on(d.scroller, "touchcancel", finishTouch);
+    
+    // Listen to wheel events in order to try and update the viewport on time.
+    on(d.scroller, "mousewheel", function (e) { return onScrollWheel(cm, e); });
+    on(d.scroller, "DOMMouseScroll", function (e) { return onScrollWheel(cm, e); });
   }
+  
 
   // Sync scrolling between fake scrollbars and real scrollable
   // area, ensure viewport is updated when scrolling.
@@ -7931,9 +7937,7 @@ function registerEventHandlers(cm) {
     }
   });
 
-  // Listen to wheel events in order to try and update the viewport on time.
-  on(d.scroller, "mousewheel", function (e) { return onScrollWheel(cm, e); });
-  on(d.scroller, "DOMMouseScroll", function (e) { return onScrollWheel(cm, e); });
+ 
 
   // Prevent wrapper from ever scrolling
   on(d.wrapper, "scroll", function () { return d.wrapper.scrollTop = d.wrapper.scrollLeft = 0; });
@@ -7947,9 +7951,11 @@ function registerEventHandlers(cm) {
   };
 
   var inp = d.input.getField();
-  on(inp, "keyup", function (e) { return onKeyUp.call(cm, e); });
-  on(inp, "keydown", operation(cm, onKeyDown));
-  on(inp, "keypress", operation(cm, onKeyPress));
+  if (cm.options.preventDefault) {
+    on(inp, "keyup", function (e) { return onKeyUp.call(cm, e); });
+    on(inp, "keydown", operation(cm, onKeyDown));
+    on(inp, "keypress", operation(cm, onKeyPress));
+  }
   on(inp, "focus", function (e) { return onFocus(cm, e); });
   on(inp, "blur", function (e) { return onBlur(cm, e); });
 }
@@ -8693,12 +8699,14 @@ ContentEditableInput.prototype.init = function (display) {
   var div = input.div = display.lineDiv;
   disableBrowserMagic(div, cm.options.spellcheck, cm.options.autocorrect, cm.options.autocapitalize);
 
-  on(div, "paste", function (e) {
-    if (signalDOMEvent(cm, e) || handlePaste(e, cm)) { return }
-    // IE doesn't fire input events, so we schedule a read for the pasted content in this way
-    if (ie_version <= 11) { setTimeout(operation(cm, function () { return this$1.updateFromDOM(); }), 20); }
-  });
-
+  if (cm.options.preventDefault) {
+    on(div, "paste", function (e) {
+      if (signalDOMEvent(cm, e) || handlePaste(e, cm)) { return }
+      // IE doesn't fire input events, so we schedule a read for the pasted content in this way
+      if (ie_version <= 11) { setTimeout(operation(cm, function () { return this$1.updateFromDOM(); }), 20); }
+    });
+  }
+ 
   on(div, "compositionstart", function (e) {
     this$1.composing = {data: e.data, done: false};
   });
@@ -8718,47 +8726,49 @@ ContentEditableInput.prototype.init = function (display) {
     if (!this$1.composing) { this$1.readFromDOMSoon(); }
   });
 
-  function onCopyCut(e) {
-    if (signalDOMEvent(cm, e)) { return }
-    if (cm.somethingSelected()) {
-      setLastCopied({lineWise: false, text: cm.getSelections()});
-      if (e.type == "cut") { cm.replaceSelection("", null, "cut"); }
-    } else if (!cm.options.lineWiseCopyCut) {
-      return
-    } else {
-      var ranges = copyableRanges(cm);
-      setLastCopied({lineWise: true, text: ranges.text});
-      if (e.type == "cut") {
-        cm.operation(function () {
-          cm.setSelections(ranges.ranges, 0, sel_dontScroll);
-          cm.replaceSelection("", null, "cut");
-        });
-      }
-    }
-    if (e.clipboardData) {
-      e.clipboardData.clearData();
-      var content = lastCopied.text.join("\n");
-      // iOS exposes the clipboard API, but seems to discard content inserted into it
-      e.clipboardData.setData("Text", content);
-      if (e.clipboardData.getData("Text") == content) {
-        e.preventDefault();
+  if (cm.options.preventDefault) {
+    function onCopyCut(e) {
+      if (signalDOMEvent(cm, e)) { return }
+      if (cm.somethingSelected()) {
+        setLastCopied({lineWise: false, text: cm.getSelections()});
+        if (e.type == "cut") { cm.replaceSelection("", null, "cut"); }
+      } else if (!cm.options.lineWiseCopyCut) {
         return
+      } else {
+        var ranges = copyableRanges(cm);
+        setLastCopied({lineWise: true, text: ranges.text});
+        if (e.type == "cut") {
+          cm.operation(function () {
+            cm.setSelections(ranges.ranges, 0, sel_dontScroll);
+            cm.replaceSelection("", null, "cut");
+          });
+        }
       }
+      if (e.clipboardData) {
+        e.clipboardData.clearData();
+        var content = lastCopied.text.join("\n");
+        // iOS exposes the clipboard API, but seems to discard content inserted into it
+        e.clipboardData.setData("Text", content);
+        if (e.clipboardData.getData("Text") == content) {
+          e.preventDefault();
+          return
+        }
+      }
+      // Old-fashioned briefly-focus-a-textarea hack
+      var kludge = hiddenTextarea(), te = kludge.firstChild;
+      cm.display.lineSpace.insertBefore(kludge, cm.display.lineSpace.firstChild);
+      te.value = lastCopied.text.join("\n");
+      var hadFocus = document.activeElement;
+      selectInput(te);
+      setTimeout(function () {
+        cm.display.lineSpace.removeChild(kludge);
+        hadFocus.focus();
+        if (hadFocus == div) { input.showPrimarySelection(); }
+      }, 50);
     }
-    // Old-fashioned briefly-focus-a-textarea hack
-    var kludge = hiddenTextarea(), te = kludge.firstChild;
-    cm.display.lineSpace.insertBefore(kludge, cm.display.lineSpace.firstChild);
-    te.value = lastCopied.text.join("\n");
-    var hadFocus = document.activeElement;
-    selectInput(te);
-    setTimeout(function () {
-      cm.display.lineSpace.removeChild(kludge);
-      hadFocus.focus();
-      if (hadFocus == div) { input.showPrimarySelection(); }
-    }, 50);
+    on(div, "copy", onCopyCut);
+    on(div, "cut", onCopyCut);
   }
-  on(div, "copy", onCopyCut);
-  on(div, "cut", onCopyCut);
 };
 
 ContentEditableInput.prototype.prepareSelection = function () {
@@ -9023,7 +9033,7 @@ ContentEditableInput.prototype.setUneditable = function (node) {
 };
 
 ContentEditableInput.prototype.onKeyPress = function (e) {
-  if (!this.cm.options.preventDefaultOnKeyPress) {
+  if (!this.cm.options.preventDefault) {
     return
   }
   if (e.charCode == 0) { return }
