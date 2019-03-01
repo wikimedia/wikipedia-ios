@@ -7883,40 +7883,43 @@ function registerEventHandlers(cm) {
     var dx = other.left - touch.left, dy = other.top - touch.top;
     return dx * dx + dy * dy > 20 * 20
   }
-  on(d.scroller, "touchstart", function (e) {
-    if (!signalDOMEvent(cm, e) && !isMouseLikeTouchEvent(e) && !clickInGutter(cm, e)) {
-      d.input.ensurePolled();
-      clearTimeout(touchFinished);
-      var now = +new Date;
-      d.activeTouch = {start: now, moved: false,
-                       prev: now - prevTouch.end <= 300 ? prevTouch : null};
-      if (e.touches.length == 1) {
-        d.activeTouch.left = e.touches[0].pageX;
-        d.activeTouch.top = e.touches[0].pageY;
+  
+  if (cm.options.preventDefaultOnKeyPress) {
+    on(d.scroller, "touchstart", function (e) {
+      if (!signalDOMEvent(cm, e) && !isMouseLikeTouchEvent(e) && !clickInGutter(cm, e)) {
+        d.input.ensurePolled();
+        clearTimeout(touchFinished);
+        var now = +new Date;
+        d.activeTouch = {start: now, moved: false,
+                         prev: now - prevTouch.end <= 300 ? prevTouch : null};
+        if (e.touches.length == 1) {
+          d.activeTouch.left = e.touches[0].pageX;
+          d.activeTouch.top = e.touches[0].pageY;
+        }
       }
-    }
-  });
-  on(d.scroller, "touchmove", function () {
-    if (d.activeTouch) { d.activeTouch.moved = true; }
-  });
-  on(d.scroller, "touchend", function (e) {
-    var touch = d.activeTouch;
-    if (touch && !eventInWidget(d, e) && touch.left != null &&
-        !touch.moved && new Date - touch.start < 300) {
-      var pos = cm.coordsChar(d.activeTouch, "page"), range;
-      if (!touch.prev || farAway(touch, touch.prev)) // Single tap
-        { range = new Range(pos, pos); }
-      else if (!touch.prev.prev || farAway(touch, touch.prev.prev)) // Double tap
-        { range = cm.findWordAt(pos); }
-      else // Triple tap
-        { range = new Range(Pos(pos.line, 0), clipPos(cm.doc, Pos(pos.line + 1, 0))); }
-      cm.setSelection(range.anchor, range.head);
-      cm.focus();
-      e_preventDefault(e);
-    }
-    finishTouch();
-  });
-  on(d.scroller, "touchcancel", finishTouch);
+    });
+    on(d.scroller, "touchmove", function () {
+      if (d.activeTouch) { d.activeTouch.moved = true; }
+    });
+    on(d.scroller, "touchend", function (e) {
+      var touch = d.activeTouch;
+      if (touch && !eventInWidget(d, e) && touch.left != null &&
+          !touch.moved && new Date - touch.start < 300) {
+        var pos = cm.coordsChar(d.activeTouch, "page"), range;
+        if (!touch.prev || farAway(touch, touch.prev)) // Single tap
+          { range = new Range(pos, pos); }
+        else if (!touch.prev.prev || farAway(touch, touch.prev.prev)) // Double tap
+          { range = cm.findWordAt(pos); }
+        else // Triple tap
+          { range = new Range(Pos(pos.line, 0), clipPos(cm.doc, Pos(pos.line + 1, 0))); }
+        cm.setSelection(range.anchor, range.head);
+        cm.focus();
+        e_preventDefault(e);
+      }
+      finishTouch();
+    });
+    on(d.scroller, "touchcancel", finishTouch);
+  }
 
   // Sync scrolling between fake scrollbars and real scrollable
   // area, ensure viewport is updated when scrolling.
