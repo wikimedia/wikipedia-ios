@@ -45,7 +45,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 @objc public extension UserDefaults {
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
-        @objc static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
+        static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionEditPublishedPanel = "WMFDidShowDescriptionEditPublishedPanel"
     }
 
