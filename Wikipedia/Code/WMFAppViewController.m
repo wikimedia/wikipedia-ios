@@ -218,7 +218,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editPublished:)
+                                             selector:@selector(editWasPublished:)
                                                  name:WMFEditPublishedNotification
                                                object:nil];
 
@@ -512,7 +512,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self toggleHint:self.readingListHintController context:@{WMFReadingListHintController.ContextArticleKey: article}];
 }
 
-- (void)editPublished:(NSNotification *)note {
+- (void)editWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
         return;
     }
