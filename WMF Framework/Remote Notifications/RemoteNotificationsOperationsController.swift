@@ -27,7 +27,7 @@ class RemoteNotificationsOperationsController: NSObject {
 
         super.init()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didPublishWikidataDescription), name: WikidataDescriptionEditingController.didPublishNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
     }
 
@@ -86,8 +86,15 @@ class RemoteNotificationsOperationsController: NSObject {
 
     // MARK: Notifications
 
-    @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
-        deadlineController?.resetDeadline()
+    @objc private func didPublishWikidataDescription(_ note: Notification) {
+        guard
+            let authorized = note.object as? Bool,
+            authorized,
+            let deadlineController = deadlineController
+        else {
+            return
+        }
+        deadlineController.resetDeadline()
     }
 
     @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
