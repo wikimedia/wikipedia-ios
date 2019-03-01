@@ -627,7 +627,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
-    @objc(unsaveArticles:inManagedObjectContext:completion:) public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext, completion: ((Error?) -> Void)? = nil) {
+    public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext, completion: ((Error?) -> Void)? = nil) {
         do {
             let keys = articles.compactMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
