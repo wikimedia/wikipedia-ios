@@ -213,10 +213,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editPublished:)
+                                             selector:@selector(editWasPublished:)
                                                  name:WMFEditPublishedNotification
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(descriptionEditWasPublished:)
+                                                 name:[DescriptionEditViewController didPublishNotification]
+                                               object:nil];
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
 }
@@ -509,8 +513,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self toggleHint:self.readingListHintController context:@{WMFReadingListHintController.ContextArticleKey: article}];
 }
 
-- (void)editPublished:(NSNotification *)note {
+- (void)editWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
+        return;
+    }
+    [self toggleHint:self.editHintController context:nil];
+}
+
+- (void)descriptionEditWasPublished:(NSNotification *)note {
+    if (![NSUserDefaults.wmf didShowDescriptionPublishedPanel]) {
         return;
     }
     [self toggleHint:self.editHintController context:nil];
@@ -537,7 +548,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (![visibleViewController conformsToProtocol:@protocol(WMFHintPresenting)]) {
         return nil;
     }
-    return (UIViewController <WMFHintPresenting> *)visibleViewController;
+    return (UIViewController<WMFHintPresenting> *)visibleViewController;
 }
 
 #pragma mark - Background Fetch
