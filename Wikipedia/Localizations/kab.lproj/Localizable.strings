@@ -25,14 +25,19 @@
 "about-translators-details" = "Suqlen-t imttekkiyen di $1";
 "about-wikimedia-foundation" = "Tasbeddit Wikimédia";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ur tezmireḍ ara ad tessuffɣeḍ taẓrigt-agi. Ma ulac aqilif, uɣal ar deffirsakin beddel-it.";
-"abuse-filter-disallow-notable" = "Wikipedia d tasanayt, agbur-is d arawsan, s wazal-is.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Imzizdig awurman yufa-d d akken asnifel-agi mačči d ayen yelhan neɣ ahat d aɛraḍ n uhuddu.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Imagraden ilmawen neɣ ispamen";
+// Fuzzy
 "abuse-filter-warning-caps" = "Aḍris s USEKKIL MEQQREN";
 "abuse-filter-warning-heading" = "Ahat yezmer ad yili d asnifel ur nemɛin ara. Tebɣiḍ ad tessuffɣeḍ?";
 "abuse-filter-warning-irrelevant" = "Iseɣwan neɣ tugniwin ur nemɛin ara";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Tulsaaaaa n usekkil";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Asnifel-ik yezmer yegber yisen seg iferdisen-agi:";
 "account-creation-captcha-cannot-see-image" = "Ur tezmireḍ ara ad twalid tugna? $1";
 "account-creation-captcha-obtaining" = "Awway n CAPTCHA amaynut...";
@@ -46,6 +51,8 @@
 "account-creation-passwords-mismatched" = "Urtan n wawal uffir ur mṣadan ara.";
 "account-creation-saving" = "Asekles...";
 "account-creation-title" = "Rnu amiḍan";
+// Fuzzy
+"action-find-in-page" = "Af-d deg usebter";
 "action-read" = "Ɣeṛ";
 "action-save" = "Sekles";
 "action-saved" = "Yettwasekles";
@@ -54,9 +61,9 @@
 "action-share" = "Bḍu";
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
-"alert-no-internet" = "Ulac tuqqna Internet";
 "announcements-dismiss" = "Zgel";
 "appearance-settings-adjust-text-sizing" = "Seggem teɣzi n uḍris n umagrad";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Senɣes tebrek n tugniwin n usentel ubrik";
 "appearance-settings-reading-themes" = "Isental n tɣuri";
 // Fuzzy
@@ -75,7 +82,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Asenqed n isental n tɣuri";
 "article-unable-to-load-section" = "Ur izmir ara ad d-isali tigezmi-agi. Ɛreḍ asmiren n umagrad akken ad twaliḍ ma yefra wugur.";
 "back-button-accessibility-label" = "Uɣal";
-"button-done" = "Immed";
 "button-next" = "Ar zdat";
 "button-ok" = "IH";
 "button-publish" = "Suffeɣ-d";
@@ -86,7 +92,6 @@
 "button-saved-remove" = "Kkes seg usekles";
 "button-skip" = "Zgel";
 "cancel" = "Sefsex";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Mdel";
 "compass-direction" = "af $1 n isragen";
 "continue-reading-empty-description" = "Snirem Wikipedia i wugar n imagraden ara teɣreḍ";
@@ -95,13 +100,9 @@
 "edit-summary-choice-fixed-grammar" = "Aseɣti n tira";
 "edit-summary-choice-fixed-typos" = "Aseɣti n tuccḍiwin";
 "edit-summary-choice-linked-words" = "Iseɣwan yettwarnan";
-"edit-summary-choice-other" = "Wayeḍ";
-"edit-summary-field-placeholder-text" = "Iberdan-nniḍen n usnerni n umagrad";
-"edit-summary-title" = "Amek i tesnernayed amagrad?";
 "empty-no-article-message" = "Suref-aɣ, ur tezmireḍ ara ad tessaliḍ amagrad";
 "empty-no-feed-action-message" = "Tzemreḍ ad teɣreḍ isebtar yettwaskelsen";
 "empty-no-feed-message" = "Tzemreḍ ad twaliḍ imagraden yettuweṣṣan ticki ɣur-k internet";
-"empty-no-feed-title" = "Ulac tuqqna Internet";
 "empty-no-history-message" = "Ḍfeṛ ayen ɣef wayen telliḍ teqqareḍ dagi.";
 "empty-no-history-title" = "Ulac amazray ara twaliḍ";
 "empty-no-saved-pages-message" = "Sekles isebtar ara twaliḍ ticki, ɣas ukac tuqqna";
@@ -151,14 +152,12 @@
 "field-token-title" = "Tangalt n usenqed";
 "field-username-placeholder" = "Sekcem isem n useqdac";
 "field-username-title" = "Isem n useqdac";
-"find-in-page-button-label" = "Af-d deg usebter";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Ales awennez";
 "forgot-password-email-sent" = "Imayl s tinadin n uwennez n wawal uffir yettwazen";
 "forgot-password-instructions" = "Ččaṛ urtan ddaw-a akken ad d-remseḍ tinaḍin n uwennez n wawal uffir s yimayl";
 "forgot-password-title" = "Ales awennez n wawal uffir";
 "forgot-password-username-or-email-title" = "Neɣ";
-"gfdl" = "GFDL";
 "history-clear-all" = "Sfeḍ";
 "history-clear-cancel" = "Sefsex";
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
@@ -206,7 +205,6 @@
 "main-menu-debug-tweaks" = "Iɣewwaṛen n uneflay";
 "main-menu-heading-debug" = "Tamseɣtayt";
 "main-menu-heading-legal" = "Tabaḍnit d tiwtilin";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "S lqeṛban";
 "main-menu-privacy-policy" = "Tasertit n tbaḍnit";
 "main-menu-rate-app" = "Rnu tazmilt i usnas";
@@ -229,10 +227,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 n tedyant tamazrayt|$1 n tidyanin timazrayin}}";
 "on-this-day-footer" = "Ugar n tidyanin timazrayin ass-a";
 "on-this-day-title" = "Ass-a";
-"open-link-cancel" = "Sefsex";
 "page-edit-history" = "Amazray ummid n usnifel";
 "page-history-title" = "amazray n umagrad";
 "page-issues" = "Uguren n usebter";
+// Fuzzy
 "page-last-edited" = "Yettwaẓreg $1 n wussan aya";
 "page-location" = "Wali ɣef tkarḍa";
 "page-protected-autoconfirmed" = "Asebter-agi yettumesten s uzgen.";
@@ -240,6 +238,7 @@
 "page-protected-can-not-edit-title" = "Asebter-agi yettummesten";
 "page-protected-other" = "Asebter-agi yettummesten i yiswiren-agi: $1";
 "page-protected-sysop" = "Asebter-agi yettummesten meṛṛa.";
+// Fuzzy
 "page-read-in-other-languages" = "Yella deg $1 n tutlayin-nniḍen";
 "page-similar-titles" = "Isebtar icuban";
 "page-talk-page" = "Wali asebter n usqerdec";
@@ -284,9 +283,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Asentel sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Taḥnaccaḍt n teɣzi n uḍris";
 "reference-title" = "Tamsisɣelt $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=ass-a|Iḍelli|$1 n wussan aya}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Melmi kan|$1 usrag aya|$1 n isragen aya}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=tura kan|$1 n tesdat|$1 n tisdatin aya}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Aseggas-a|Aseggas yezrin|$1 n useggas aya}}";
 "request-feedback-on-error" = "Asnas yemmuger-d ugur anida ineflayen-nneɣ ad bɣan ad ẓren ugar fell-as. Nnal dagi akken aɣ-d-azneḍ imayl s telqayt ɣef tuccḍa.";
 "saved-pages-image-download-error" = "Ur izmir ara ad d-isali tugniwin n usebter-agi yettwaskelsen.";
@@ -380,7 +381,6 @@
 "welcome-send-data-sub-title" = "Mudd afus i tesbeddit Wikimedia akken ad tesnerni asnas ma temliḍ-aɣ-d amek i t-teseqdaceḍ. Isefka yettwaleqḍen d udrigen.";
 "welcome-volunteer-send-usage-reports" = "Azen ineqqisen n useqdec";
 "wikitext-download-failed" = "Ur izmir ara ad d-yawi lqem aneggaru.";
-"wikitext-download-success" = "Agbur yuli-d.";
 "wikitext-downloading" = "Asali n ugbur...";
 "wikitext-preview-changes" = "Awway n teskant n usnifel-ik...";
 "wikitext-preview-changes-none" = "Ulac taẓrigt ittwasxedmen ara twaliḍ.";
@@ -392,16 +392,4 @@
 "wikitext-upload-save" = "Asuffeɣ...";
 "wikitext-upload-save-anonymously-warning" = "Asnifel ad ittunefk i tensa IP n terbaɛt-ik. Ma yella kečč $1, ad yili ɣur-k ugar n tbaḍnit.";
 "wikitext-upload-save-sign-in" = "Qqen";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "S usuffeɣ n usnifel, ad tqebleḍ $1 udiɣ ad nerr attekki-yik daw n turagin $2 d $3.";
 "wikitext-upload-save-terms-name" = "Tiwtilin n useqdec";
-"zero-charged-verbiage" = "Wikipedia Zero yensa";
-"zero-charged-verbiage-extended" = "Asali n imagraden nniḍen yezmer ad isali tasqamt n isefka. Imagraden yettwaskelsen s war tuuqqna ur tetten ara isefka, ihi baṭel.";
-"zero-free-verbiage" = "Anekcum ilelli ar Wikipedia s ɣur asaǧǧaw-ik aziraz (ulac degs lexlaṣ)";
-"zero-interstitial-cancel" = "Qim dagi";
-"zero-interstitial-continue" = "Ffeɣ";
-"zero-interstitial-leave-app" = "Yezmer ad yili lexlaṣ. Tebɣiḍ ad tkemmleḍ ɣer usmel azɣaray?";
-"zero-interstitial-title" = "Tuffɣa si Wikipedia Zero";
-"zero-learn-more" = "Tasqamt n isefka ur tettwaḥsab ara i usnas-agi Wikipedia.";
-"zero-learn-more-learn-more" = "Ɣer ugar";
-"zero-learn-more-no-thanks" = "Mdel";
-"zero-warn-when-leaving" = "Lɣu ticki teffɣeḍ si Zero";

@@ -66,6 +66,40 @@
 			<string>%1$d אירועים היסטוריים</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>נערך אתמול</string>
+			<key>other</key>
+			<string>נערך לפני %1$d ימים</string>
+			<key>zero</key>
+			<string>נערך היום</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>זמין בעוד שפה אחת</string>
+			<key>other</key>
+			<string>זמין ב־%1$d שפות נוספות</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +116,22 @@
 			<string>%1$d ערכים</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>חרגת ממגבלת ערך אחד לחשבון.</string>
+			<key>other</key>
+			<string>חרגת ממגבלת %1$d ערכים לחשבון.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +146,22 @@
 			<string>לא ניתן להוסיף ערך לרשימה זו. הגעת למגבלה של %2$d ערכים ברשימת קריאה עבור %3$@</string>
 			<key>other</key>
 			<string>לא ניתן להוסיף ערכים לרשימה זו. הגעת למגבלה של %2$d ערכים ברשימת קריאה עבור %3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>חרגת ממגבלת רשימת קריאה אחת לחשבון.</string>
+			<key>other</key>
+			<string>חרגת ממגבלת %1$d רשימות קריאה לחשבון.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -156,14 +222,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>few</key>
-			<string>לפני יומיים</string>
-			<key>one</key>
-			<string>אתמול</string>
 			<key>other</key>
 			<string>לפני %1$d ימים</string>
-			<key>two</key>
-			<string>שלשום</string>
 			<key>zero</key>
 			<string>היום</string>
 		</dict>
@@ -178,12 +238,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>לפני שעה</string>
 			<key>other</key>
 			<string>לפני %1$d שעות</string>
-			<key>two</key>
-			<string>לפני שעתיים</string>
 			<key>zero</key>
 			<string>לפני זמן קצר</string>
 		</dict>
@@ -198,8 +254,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>לפני דקה</string>
 			<key>other</key>
 			<string>לפני %1$d דקות</string>
 			<key>zero</key>

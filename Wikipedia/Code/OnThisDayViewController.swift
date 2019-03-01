@@ -1,11 +1,10 @@
 import WMF;
 
-class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
+class OnThisDayViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
-    var readingListHintController: ReadingListHintController?
-    
+
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
@@ -29,7 +28,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
             // Work-around for: https://phabricator.wikimedia.org/T169277
             // Presently the event looks to its first article preview when you ask it for the language, so if the event has no previews, no lang!
             let firstEventWithArticlePreviews = events.first(where: {
-                guard let previews = $0.articlePreviews, previews.count > 0 else {
+                guard let previews = $0.articlePreviews, !previews.isEmpty else {
                     return false
                 }
                 return true
@@ -56,7 +55,6 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         layoutManager.register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
         layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
-        readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {

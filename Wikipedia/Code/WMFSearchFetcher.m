@@ -1,42 +1,14 @@
 #import "WMFSearchFetcher_Testing.h"
 #import "WMFSearchResults_Internal.h"
-#import "WMFSearchResults+ResponseSerializer.h"
 @import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 
 NSUInteger const WMFMaxSearchResultLimit = 24;
 
-#pragma mark - Internal Class Declarations
-
-@interface WMFSearchRequestParameters : NSObject
-@property (nonatomic, strong) NSString *searchTerm;
-@property (nonatomic, assign) NSUInteger numberOfResults;
-@property (nonatomic, assign) BOOL fullTextSearch;
-
-@end
-
-@interface WMFSearchRequestSerializer : WMFBaseRequestSerializer
-@end
-
 #pragma mark - Fetcher Implementation
 
 @implementation WMFSearchFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
-        manager.requestSerializer = [WMFSearchRequestSerializer serializer];
-        manager.responseSerializer = [WMFSearchResults responseSerializer];
-        self.operationManager = manager;
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [self.operationManager invalidateSessionCancelingTasks:YES];
-}
 
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
                            siteURL:(NSURL *)siteURL
@@ -50,18 +22,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                            siteURL:(NSURL *)siteURL
                        resultLimit:(NSUInteger)resultLimit
                     fullTextSearch:(BOOL)fullTextSearch
-           appendToPreviousResults:(nullable WMFSearchResults *)results
-                           failure:(WMFErrorHandler)failure
-                           success:(WMFSearchResultsHandler)success {
-    [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO failure:failure success:success];
-}
-
-- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
-                           siteURL:(NSURL *)siteURL
-                       resultLimit:(NSUInteger)resultLimit
-                    fullTextSearch:(BOOL)fullTextSearch
            appendToPreviousResults:(nullable WMFSearchResults *)previousResults
-                     useDesktopURL:(BOOL)useDeskTopURL
                            failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success {
     if (!siteURL) {
@@ -69,79 +30,26 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     }
 
     if (!siteURL) {
-        failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        failure([WMFFetcher invalidParametersError]);
         return;
     }
 
-    NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
-
-    WMFSearchRequestParameters *params = [WMFSearchRequestParameters new];
-    params.searchTerm = searchTerm;
-    params.numberOfResults = resultLimit;
-    params.fullTextSearch = fullTextSearch;
+    if (resultLimit > WMFMaxSearchResultLimit) {
+        DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
+                   (unsigned long)resultLimit, (unsigned long)WMFMaxSearchResultLimit);
+        resultLimit = WMFMaxSearchResultLimit;
+    }
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [self.operationManager GET:url.absoluteString
-        parameters:params
-        progress:NULL
-        success:^(NSURLSessionDataTask *operation, id response) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+    NSNumber *numResults = @(resultLimit);
 
-            WMFSearchResults *searchResults = response;
-            searchResults.searchTerm = searchTerm;
-
-            if (!previousResults) {
-                success(searchResults);
-                return;
-            }
-
-            [previousResults mergeValuesForKeysFromModel:searchResults];
-
-            success(previousResults);
-        }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            failure(error);
-        }];
-}
-
-@end
-
-#pragma mark - Internal Class Implementations
-
-@implementation WMFSearchRequestParameters
-
-- (void)setNumberOfResults:(NSUInteger)numberOfResults {
-    if (numberOfResults > WMFMaxSearchResultLimit) {
-        DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
-                   (unsigned long)numberOfResults, (unsigned long)WMFMaxSearchResultLimit);
-        numberOfResults = WMFMaxSearchResultLimit;
-    }
-    _numberOfResults = numberOfResults;
-}
-
-@end
-
-#pragma mark - Request Serializer
-
-@implementation WMFSearchRequestSerializer
-
-- (nullable NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
-                                        withParameters:(nullable id)parameters
-                                                 error:(NSError *__autoreleasing *)error {
-    NSDictionary *serializedParams = [self serializedParams:(WMFSearchRequestParameters *)parameters];
-    return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
-}
-
-- (NSDictionary *)serializedParams:(WMFSearchRequestParameters *)params {
-    NSNumber *numResults = @(params.numberOfResults);
-
-    if (!params.fullTextSearch) {
-        return @{
+    NSDictionary *params = nil;
+    if (!fullTextSearch) {
+        params = @{
             @"action": @"query",
             @"generator": @"prefixsearch",
-            @"gpssearch": params.searchTerm,
+            @"gpssearch": searchTerm,
             @"gpsnamespace": @0,
             @"gpslimit": numResults,
             @"prop": @"description|pageprops|pageimages|revisions|coordinates",
@@ -155,7 +63,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             @"rvprop": @"ids",
             // -- Parameters causing prefix search to efficiently return suggestion.
             @"list": @"search",
-            @"srsearch": params.searchTerm,
+            @"srsearch": searchTerm,
             @"srnamespace": @0,
             @"srwhat": @"text",
             @"srinfo": @"suggestion",
@@ -168,13 +76,13 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             @"format": @"json"
         };
     } else {
-        return @{
+        params = @{
             @"action": @"query",
             @"prop": @"description|pageprops|pageimages|revisions|coordinates",
             @"coprop": @"type|dim",
             @"ppprop": @"displaytitle|disambiguation",
             @"generator": @"search",
-            @"gsrsearch": params.searchTerm,
+            @"gsrsearch": searchTerm,
             @"gsrnamespace": @0,
             @"gsrwhat": @"text",
             @"gsrinfo": @"",
@@ -192,6 +100,38 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             @"redirects": @1,
         };
     }
+    [self performMediaWikiAPIGETForURL:siteURL
+                   withQueryParameters:params
+                     completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+                         [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                         if (error) {
+                             failure(error);
+                             return;
+                         }
+
+                         NSDictionary *query = [result objectForKey:@"query"];
+                         if (!query) {
+                             success([[WMFSearchResults alloc] init]);
+                             return;
+                         }
+
+                         NSError *mantleError = nil;
+                         WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:query error:&mantleError];
+                         if (mantleError) {
+                             failure(mantleError);
+                             return;
+                         }
+                         searchResults.searchTerm = searchTerm;
+
+                         if (!previousResults) {
+                             success(searchResults);
+                             return;
+                         }
+
+                         [previousResults mergeValuesForKeysFromModel:searchResults];
+
+                         success(previousResults);
+                     }];
 }
 
 @end

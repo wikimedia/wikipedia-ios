@@ -72,12 +72,12 @@ class ReadingListDetailUnderBarViewController: UIViewController {
             }
             switch alertType {
             case .listLimitExceeded(let limit):
-                let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of %1$d reading lists per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account. %1$d will be replaced with the maximum number of allowed lists")
+                let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}} per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account. %1$d will be replaced with the maximum number of allowed lists")
                 let alertMessageFormat = WMFLocalizedString("reading-list-list-limit-exceeded-message", value: "This reading list and the articles saved to it will not be synced, please decrease your number of lists to %1$d to resume syncing of this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased. %1$d will be replaced with the maximimum number of allowed lists.")
                 alertTitleLabel?.text = String.localizedStringWithFormat(alertTitleFormat, limit)
                 alertMessageLabel?.text = String.localizedStringWithFormat(alertMessageFormat, limit)
             case .entryLimitExceeded(let limit):
-                let alertTitleFormat = WMFLocalizedString("reading-list-entry-limit-exceeded-title", value: "You have exceeded the limit of %1$d articles per account.", comment: "Informs the user that they have reached the allowed limit of articles per account. %1$d will be replaced with the maximum number of allowed articles")
+                let alertTitleFormat = WMFLocalizedString("reading-list-entry-limit-exceeded-title", value: "You have exceeded the limit of {{PLURAL:%1$d|%1$d article|%1$d articles}} per account.", comment: "Informs the user that they have reached the allowed limit of articles per account. %1$d will be replaced with the maximum number of allowed articles")
                 let alertMessageFormat = WMFLocalizedString("reading-list-entry-limit-exceeded-message", value: "Please decrease your number of articles in this list to %1$d to resume syncing of all articles in this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of articles in the list is decreased. %1$d will be replaced with the maximum number of allowed articles in a list")
                 alertTitleLabel?.text = String.localizedStringWithFormat(alertTitleFormat, limit)
                 alertMessageLabel?.text = String.localizedStringWithFormat(alertMessageFormat, limit)

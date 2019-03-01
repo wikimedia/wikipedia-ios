@@ -6,16 +6,11 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, EventLoggingEventValuesProviding {
-    @objc var dataStore: MWKDataStore! {
-        didSet {
-            readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
-        }
-    }
+class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, EventLoggingEventValuesProviding {
+    @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     var editController: CollectionViewEditController!
-    var readingListHintController: ReadingListHintController?
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
 
@@ -36,6 +31,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    open func isExternalURL(at indexPath: IndexPath) -> Bool {
+        return false
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
@@ -171,6 +170,10 @@ extension ArticleCollectionViewController {
             return
         }
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
+        guard !isExternalURL(at: indexPath) else {
+            wmf_openExternalUrl(articleURL)
+            return
+        }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
@@ -244,20 +247,14 @@ extension ArticleCollectionViewController: ActionDelegate {
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
-                if let article = article(at: indexPath) {
-                    readingListHintController?.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
-                }
+                ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
-                if let article = article(at: indexPath) {
-                    readingListHintController?.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
-                }
+                ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 return true
             }
         case .share:

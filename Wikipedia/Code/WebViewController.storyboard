@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,25 +22,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.93000000000000005" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="aCV-ih-PXn" userLabel="Zero Status Label" customClass="PaddedLabel">
-                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" placeholder="YES" id="JYC-aG-aKe"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="dho-2s-f1C" secondAttribute="leading" id="3Zs-jL-a48"/>
-                            <constraint firstItem="aCV-ih-PXn" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="CEq-wS-qK0"/>
-                            <constraint firstItem="aCV-ih-PXn" firstAttribute="leading" secondItem="dho-2s-f1C" secondAttribute="leading" id="Odo-tm-VoC"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="dho-2s-f1C" secondAttribute="trailing" id="WBK-jv-ayM"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="aLf-fD-fGd"/>
-                            <constraint firstItem="dho-2s-f1C" firstAttribute="bottom" secondItem="aCV-ih-PXn" secondAttribute="bottom" id="pGp-mc-GIK"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="sgn-CU-OVa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dho-2s-f1C"/>
@@ -54,12 +41,11 @@
                     <connections>
                         <outlet property="containerView" destination="WeL-Mj-Zsh" id="Tj2-D7-M5k"/>
                         <outlet property="webViewBottomConstraint" destination="aLf-fD-fGd" id="tTg-Aw-gdz"/>
-                        <outlet property="zeroStatusLabel" destination="aCV-ih-PXn" id="uhp-ae-eMa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122.5" y="-286.5"/>
+            <point key="canvasLocation" x="196" y="-257.72113943028489"/>
         </scene>
     </scenes>
 </document>

@@ -1,84 +1,122 @@
-import UIKit
-import WMF
 
-enum EditSummaryViewControllerConstants {
-    static let maximumSummaryLength = 255
+import UIKit
+
+protocol EditSummaryViewDelegate: AnyObject {
+    func summaryChanged(newSummary: String)
+    func learnMoreButtonTapped(sender: UIButton)
+    func cannedButtonTapped(type: EditSummaryViewCannedButtonType)
 }
 
-class EditSummaryViewController: UIViewController {
+// Int because we use `tag` from storyboard buttons.
+public enum EditSummaryViewCannedButtonType: Int {
+    case typo, grammar, link
     
-    typealias C = EditSummaryViewControllerConstants
-    
-    @objc var didSaveSummary: ((String?) -> ())?
-    @objc var summaryText: String = ""
-    
-    fileprivate var theme: Theme = Theme.standard
-    @IBOutlet private weak var bottomLineHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var summaryTextField: ThemeableTextField! {
-        didSet {
-            summaryTextField.placeholder = WMFLocalizedStringWithDefaultValue("edit-summary-field-placeholder-text", nil, nil, "Other ways you improved the article", "Placeholder text which appears initially in the free-form edit summary text box")
-            summaryTextField.returnKeyType = .done
-            summaryTextField.delegate = self
-            summaryTextField.textAlignment = .natural
-            summaryTextField.font = UIFont.systemFont(ofSize: 14.0)
+    var eventLoggingKey: String {
+        switch self {
+        case .typo:
+            return "typo"
+        case .grammar:
+            return "grammar"
+        case .link:
+            return "links"
         }
     }
+}
+
+class EditSummaryViewController: UIViewController, Themeable {
+    static let maximumSummaryLength = 255
+    
+    public var theme: Theme = .standard
+
+    public weak var delegate: EditSummaryViewDelegate?
+    
+    @IBOutlet private weak var addSummaryLabel: UILabel!
+    @IBOutlet private weak var learnMoreButton: UIButton!
+    @IBOutlet private weak var summaryTextField: ThemeableTextField!
+
+    @IBOutlet private weak var fixedTypoButton: UIButton!
+    @IBOutlet private weak var fixedGrammarButton: UIButton!
+    @IBOutlet private weak var addedLinksButton: UIButton!
+    @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
+
+    private let placeholderText = WMFLocalizedString("edit-summary-placeholder-text", value: "How did you improve the article?", comment: "Placeholder text which appears initially in the free-form edit summary text box")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(closeButtonPressed))
-        let localization = WMFLocalizedStringWithDefaultValue("button-done", nil, nil, "Done", "Button text for done button used in various places.\n{{Identical|Done}}")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: localization, style: .plain, target: self, action: #selector(save))
-        
-        bottomLineHeightConstraint.constant = 1.0 / UIScreen.main.scale
+
+        cannedEditSummaryButtons.compactMap{ $0.titleLabel }.forEach {
+            $0.numberOfLines = 1
+            $0.setContentCompressionResistancePriority(.required, for: .horizontal)
+        }
+
+        addSummaryLabel.text = WMFLocalizedString("edit-summary-add-summary-text", value: "Add an edit summary", comment: "Text for add summary label")
+        learnMoreButton.setTitle(WMFLocalizedString("edit-summary-learn-more-text", value: "Learn more", comment: "Text for learn more button"), for: .normal)
+        summaryTextField.placeholder = placeholderText
+        summaryTextField.delegate = self
+        summaryTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)
+        fixedTypoButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-typos", value: "Fixed typo", comment: "Button text for quick 'fixed typos' edit summary selection"), for: .normal)
+        fixedGrammarButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-grammar", value: "Fixed grammar", comment: "Button text for quick 'improved grammar' edit summary selection"), for: .normal)
+        addedLinksButton.setTitle(WMFLocalizedString("edit-summary-choice-linked-words", value: "Added links", comment: "Button text for quick 'link addition' edit summary selection"), for: .normal)
         
         apply(theme: theme)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        summaryTextField.becomeFirstResponder()
+        
+    @IBAction private func learnMoreButtonTapped(sender: UIButton) {
+        delegate?.learnMoreButtonTapped(sender: sender)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        summaryTextField.text = summaryText
+
+    @objc public func textFieldDidChange(textField: UITextField){
+        notifyDelegateOfSummaryChange()
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        summaryTextField.resignFirstResponder()
+
+    private func notifyDelegateOfSummaryChange() {
+        delegate?.summaryChanged(newSummary: summaryTextField.text ?? "")
     }
-    
-    @objc func closeButtonPressed() {
-        dismiss(animated: true, completion: nil)
+
+    @IBAction private func cannedSummaryButtonTapped(sender: UIButton) {
+        summaryTextField.text = sender.titleLabel?.text
+        notifyDelegateOfSummaryChange()
+        guard let buttonType = EditSummaryViewCannedButtonType(rawValue: sender.tag) else {
+            assertionFailure("Expected button type not found")
+            return
+        }
+        delegate?.cannedButtonTapped(type: buttonType)
     }
-    
-    @objc func save() {
-        let trimmedSummary = summaryTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        didSaveSummary?(trimmedSummary)
-        dismiss(animated: true, completion: nil)
+
+    public func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.paperBackground
+        addSummaryLabel.textColor = theme.colors.secondaryText
+        learnMoreButton.titleLabel?.textColor = theme.colors.link
+        summaryTextField.apply(theme: theme)
+        cannedEditSummaryButtons.forEach {
+            $0.setTitleColor(theme.colors.tagText, for: .normal)
+            $0.backgroundColor = theme.colors.tagBackground
+        }
     }
 }
 
 extension EditSummaryViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        save()
+        //save()
         return true
     }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let newLength = (textField.text?.count ?? 0) + string.count - range.length
-        return newLength <= C.maximumSummaryLength
+        return newLength <= EditSummaryViewController.maximumSummaryLength
     }
 }
 
-extension EditSummaryViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else { return }
-        view.backgroundColor = theme.colors.paperBackground
-        summaryTextField.apply(theme: theme)
+public class SummaryButtonScrollView: UIScrollView {
+    @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
+    private func sizeEncompassingTallestButton() -> CGSize {
+        let heightOfTallestButton = cannedEditSummaryButtons.map{ $0.intrinsicContentSize.height }.max()
+        return CGSize(width: UIView.noIntrinsicMetric, height: heightOfTallestButton ?? UIView.noIntrinsicMetric)
+    }
+    override public var intrinsicContentSize: CGSize {
+        return sizeEncompassingTallestButton()
     }
 }

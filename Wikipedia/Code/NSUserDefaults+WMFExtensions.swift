@@ -31,6 +31,7 @@ let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
 let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
+let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -411,6 +412,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() -> Bool {
         return self.bool(forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
+    }
+
+    @objc public func wmf_setDidShowFirstEditPublishedPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowFirstEditPublishedPanelKey)
+    }
+    
+    @objc public func wmf_didShowFirstEditPublishedPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowFirstEditPublishedPanelKey)
     }
     
     @objc public func wmf_didShowLimitHitForUnsortedArticlesPanel() -> Bool {

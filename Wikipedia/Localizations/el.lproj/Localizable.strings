@@ -7,6 +7,7 @@
 // Author: Giorgos456
 // Author: Glavkos
 // Author: KATRINE1992
+// Author: KATRINE1993
 // Author: Nemo bis
 // Author: Nikosgranturismogt
 // Author: Protnet
@@ -33,12 +34,16 @@
 "about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
 "about-wikimedia-foundation" = "Ίδρυμα Wikimedia";
 "about-wikipedia" = "Βικιπαίδεια";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Δεν μπορείτε να αποθηκεύσετε αυτή την επεξεργασία. Παρακαλούμε πηγαίνετε πίσω και αλλάξτε την.";
-"abuse-filter-disallow-notable" = "Η Βικιπαίδεια είναι μια εγκυκλοπαίδεια και μόνο ουδέτερη, το αξιοσημείωτο περιεχόμενο ανήκει εδώ.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Ένα αυτόματο φίλτρο έχει αναγνωρίσει αυτή την επεξεργασία ως πιθανώς μη εποικοδομητική ή προσπάθεια βανδαλισμού.";
+// Fuzzy
 "abuse-filter-warning-caps" = "Πληκτρολογώντας με κεφαλαία γράμματα";
 "abuse-filter-warning-heading" = "Αυτή μπορεί να είναι μια μη εποικοδομητική επεξεργασία, είσαι σίγουρος ότι θέλεις να την δημοσιεύσεις;";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Επαναλααααμβανόμενοι χαρακτήρες";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Η επεξεργασία σας μπορεί να περιέχει ένα ή περισσότερα από τα παρακάτω:";
 "account-creation-captcha-cannot-see-image" = "Δεν μπορείτε να δείτε την εικόνα; $1";
 "account-creation-captcha-request-account" = "Αίτημα λογαριασμού.";
@@ -54,6 +59,8 @@
 "action-add-to" = "Πρόσθεση σε...";
 "action-add-to-reading-list" = "Πρόσθεση στην λίστα ανάγνωσης";
 "action-cancel" = "Ακύρωση";
+// Fuzzy
+"action-find-in-page" = "Βρείτε στην σελίδα";
 "action-move-to" = "Μετακίνηση σε...";
 "action-move-to-reading-list" = "Μετακίνηση στη λίστα ανάγνωσης";
 "action-read" = "Ανάγνωση";
@@ -64,11 +71,12 @@
 "action-saved-accessibility-notification" = "Το άρθρο αποθηκεύτηκε για αργότερα";
 "action-share" = "Κοινοποίηση";
 "action-sort" = "Ταξινόμηση";
+// Fuzzy
+"action-undo" = "Αναίρεση";
 "action-unsave" = "Ξεαποθήκευση";
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
 "action-update" = "Ενημέρωση";
 "add-articles-to-reading-list" = "Πρόσθεση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
-"alert-no-internet" = "Δεν υπάρχει σύνδεση στο διαδίκτυο";
 "announcements-dismiss" = "Απόρριψη";
 "app-store-keywords" = "Βικιπαίδεια, παραπομπή, βίκι, εγκυκλοπαίδεια, πληροφορία, γνώση, έρευνα, πληροφορίες, εξερευνήστε, μάθετε";
 // Fuzzy
@@ -90,7 +98,6 @@
 "article-read-more-title" = "Διαβάστε περισσότερα";
 "article-share" = "Κοινοποίηση";
 "back-button-accessibility-label" = "Πίσω";
-"button-done" = "Έγινε";
 "button-next" = "Επόμενο";
 "button-ok" = "Εντάξει";
 "button-publish" = "Δημοσίευση";
@@ -101,22 +108,19 @@
 "button-saved-remove" = "Αφαίρεση από τα αποθηκευμένα";
 "button-skip" = "Παράβλεψη";
 "cancel" = "Ακύρωση";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Κλείσιμο";
 "compass-direction" = "στις $1 ακριβώς";
 "continue-reading-empty-description" = "Εξερευνήστε τη Βικιπαίδεια για να διαβάσετε περισσότερα λήμματα";
 "continue-reading-empty-title" = "Δεν υπάρχουν πρόσφατα διαβασμένα λήμματα";
 "dim-images" = "εικόνες Dim";
+"edit-bold-accessibility-label" = "Προσθέστε πλάγια";
+"edit-bold-remove-accessibility-label" = "Αφαιρέστε τα πλάγια";
 "edit-summary-choice-fixed-grammar" = "Διόρθωση γραμματικής";
 "edit-summary-choice-fixed-typos" = "Διόρθωση ορθογραφίας";
 "edit-summary-choice-linked-words" = "Σύνδεσμοι που προστέθηκαν";
-"edit-summary-choice-other" = "Άλλα";
-"edit-summary-field-placeholder-text" = "Άλλοι τρόποι που βελτιώσατε τη σελίδα";
-"edit-summary-title" = "Πώς βελτιώσατε το άρθρο;";
 "empty-no-article-message" = "Λυπούμαστε, το άρθρο δεν μπόρεσε να φορτωθεί";
 "empty-no-feed-action-message" = "Μπορείτε να διαβάσετε ακόμα αποθηκευμένες σελίδες";
 "empty-no-feed-message" = "Μπορείτε να δείτε τα προτεινόμενα λήμματά σας όταν έχετε σύνδεση στο διαδίκτυο";
-"empty-no-feed-title" = "Χωρίς σύνδεση στο διαδίκτυο";
 "empty-no-history-message" = "Ιχνηλατήστε τι έχετε διαβάσει εδώ.";
 "empty-no-history-title" = "Δεν υπάρχει ιστορικό για εμφάνιση";
 "empty-no-saved-pages-message" = "Αποθηκεύστε σελίδες για να τις διαβάσετε αργότερα, ακόμα και όταν είστε εκτός σύνδεσης";
@@ -161,7 +165,6 @@
 "explore-feed-preferences-top-read-description" = "Καθημερινά πιο αναγνωσμένα λήμματα";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Απενεργοποίηση ροής Εξερεύνησης";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Απενεργοποίηση ροής Εξερεύνησης;";
-"explore-feed-preferences-undo-customization" = "Αναίρεση";
 "explore-hide-card-prompt" = "Απόκρυψη αυτής της κάρτας";
 "explore-main-page-description" = "Κύρια σελίδα εγχειρημάτων του Wikimedia";
 "explore-main-page-heading" = "Σήμερα στη Βικιπαίδεια";
@@ -205,14 +208,12 @@
 "field-token-title" = "Κωδικός επαλήθευσης:";
 "field-username-placeholder" = "Εισαγωγή ονόματος χρήστη";
 "field-username-title" = "Όνομα χρήστη";
-"find-in-page-button-label" = "Βρείτε στην σελίδα";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Επαναφορά";
 "forgot-password-email-sent" = "Εστάλη ένα email με οδηγίες επαναφοράς κωδικού.";
 "forgot-password-instructions" = "Συμπληρώστε ένα από τα παρακάτω πεδία για να λαμβάνετε οδηγίες επαναφοράς κωδικού πρόσβασης μέσω ηλεκτρονικού ταχυδρομείου";
 "forgot-password-title" = "Επαναφορά κωδικού";
 "forgot-password-username-or-email-title" = "Ή";
-"gfdl" = "GFDL";
 "history-clear-all" = "Εκκαθάριση";
 "history-clear-cancel" = "Ακύρωση";
 "history-clear-delete-all" = "Ναι, διαγραφή όλων";
@@ -259,7 +260,6 @@
 "main-menu-debug-tweaks" = "Ρυθμίσεις προγραμματιστή";
 "main-menu-heading-debug" = "Αποσφαλμάτωση";
 "main-menu-heading-legal" = "Ιδιωτικότητα και Όροι";
-"main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-nearby" = "Κοντινά";
 "main-menu-privacy-policy" = "Πολιτική ιδιωτικού απορρήτου";
 "main-menu-rate-app" = "Αξιολόγηση της εφαρμογής";
@@ -287,10 +287,10 @@
 "on-this-day-footer-with-event-count" = "$1 Περισσότερα ιστορικά γεγονότα αυτή την ημέρα";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 από $2 Βικιπαίδεια";
 "on-this-day-title" = "Αυτήν την μέρα";
-"open-link-cancel" = "Ακύρωση";
 "page-edit-history" = "Πλήρες ιστορικό επεξεργασίας";
 "page-history-title" = "Ιστορικό άρθρου";
 "page-issues" = "Ζητήματα με τη σελίδα";
+// Fuzzy
 "page-last-edited" = "Επεξεργάστηκε $1 ημέρες πριν";
 "page-location" = "Προβολή σε έναν χάρτη";
 "page-protected-autoconfirmed" = "Αυτή η σελίδα είναι ημιπροστατευμένη";
@@ -298,6 +298,7 @@
 "page-protected-can-not-edit-title" = "Αυτή η σελίδα είναι προστατευμένη";
 "page-protected-other" = "Αυτή η σελίδα έχει προστατευτεί στα ακόλουθα επίπεδα: $1";
 "page-protected-sysop" = "Αυτή η σελίδα είναι πλήρως προσταστατευμένη.";
+// Fuzzy
 "page-read-in-other-languages" = "Διαθέσιμο σε $1 άλλες γλώσσες";
 "page-similar-titles" = "Παρόμοιες σελίδες";
 "page-talk-page" = "Προβολή σελίδας συζήτησης";
@@ -375,9 +376,11 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Φωτεινό θέμα";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Θέμα Σέπια";
 "reference-title" = "Αναφορά $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Σήμερα|Χθες|$1 ημέρες πριν}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=πρόσφατα|$1 ώρα πριν|$1 ώρες πριν}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=μόλις τώρα|$1 λεπτό πριν|$1 λεπτά πριν}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Αυτό το έτος|το προηγούμενο έτος|$1 χρόνια πριν}}";
 "saved-all-articles-title" = "Όλα τα άρθρα";
 "saved-default-reading-list-tag" = "Η λίστα δεν μπορεί να διαγραφεί";
@@ -471,7 +474,6 @@
 "welcome-send-data-sub-title" = "Βοηθήστε στη βελτίωση της εφαρμογής αφήνοντας το Ίδρυμα Wikimedia να ξέρει πως το χρησιμοποιείτε. Τα δεδομένα που συλλέγονται είναι ανώνυμα.";
 "welcome-volunteer-send-usage-reports" = "Στείλτε αναφορές χρήσης";
 "wikitext-download-failed" = "Αποτυχία στην ανάκτηση της τελευταίας αναθεώρησης.";
-"wikitext-download-success" = "Το περιεχόμενο φορτώθηκε";
 "wikitext-downloading" = "Γίνεται φόρτωση περιεχομένου...";
 "wikitext-preview-changes" = "Ανάκτηση προεπισκόπησης των αλλαγών σας σε εξέλιξη...";
 "wikitext-preview-changes-none" = "Δεν έγιναν αλλαγές για προεπισκόπηση.";
@@ -483,11 +485,3 @@
 "wikitext-upload-save-anonymously-warning" = "Οι επεξεργασίες θα αποδοθούν στην διεύθυνση IP της συσκευής σας. Αν $1, θα έχετε περισσότερη ιδιωτικότητα.";
 "wikitext-upload-save-sign-in" = "Είσοδος";
 "wikitext-upload-save-terms-name" = "Όροι χρήσης";
-"zero-charged-verbiage" = "Το Wikipedia Zero είναι απενεργοποιημένο";
-"zero-interstitial-cancel" = "Παραμονή εδώ";
-"zero-interstitial-continue" = "Συνέχεια";
-"zero-interstitial-leave-app" = "Ενδέχεται να ισχύουν χρεώσεις δεδομένων. Να συνεχίσετε στον εξωτερικό ιστότοπο;";
-"zero-interstitial-title" = "Αφήνετε το Wikipedia Zero";
-"zero-learn-more-learn-more" = "Διαβάστε περισσότερα";
-"zero-learn-more-no-thanks" = "Απόρριψη";
-"zero-warn-when-leaving" = "Να προειδοποιηθώ αν φεύγω από το Zero";

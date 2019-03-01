@@ -1,4 +1,4 @@
-@import WMF.FetcherBase;
+@import WMF.WMFLegacyFetcher;
 
 /*
    Note about langlinks:
@@ -9,26 +9,12 @@
 
    0: https://en.wikipedia.org/w/api.php?action=query&titles=Main_Page&prop=langlinks&lllimit=500&format=json
  */
+NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, LanguageLinksFetchErrorType) {
-    LANGUAGE_LINKS_FETCH_ERROR_UNKNOWN = 0,
-    LANGUAGE_LINKS_FETCH_ERROR_API = 1
-};
+@interface MWKLanguageLinkFetcher : WMFLegacyFetcher
 
-@class AFHTTPSessionManager;
-
-@interface MWKLanguageLinkFetcher : FetcherBase
-
-/// Fetches the language links for the given page title.
-- (instancetype)initAndFetchLanguageLinksForArticleURL:(NSURL *)url
-                                           withManager:(AFHTTPSessionManager *)manager
-                                    thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate;
-
-- (instancetype)initWithManager:(AFHTTPSessionManager *)manager
-                       delegate:(id<FetchFinishedDelegate>)delegate;
-
-- (void)fetchLanguageLinksForArticleURL:(NSURL *)url
-                                success:(void (^)(NSArray *langLinks))success
-                                failure:(void (^)(NSError *error))error;
+- (void)fetchLanguageLinksForArticleURL:(NSURL *)url success:(void (^)(NSArray *langLinks))success failure:(void (^)(NSError *error))error;
 
 @end
+
+NS_ASSUME_NONNULL_END

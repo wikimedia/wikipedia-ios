@@ -1,6 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 @import WMF;
+@import SystemConfiguration;
 
 #import "WMFEmptyView.h"
 
@@ -21,7 +22,6 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+
+static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progress = @"kvo_WMFArticleViewController_articleFetcherPromise_progress";
+
+NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 @interface MWKArticle (WMFSharingActivityViewController)
 
@@ -88,13 +92,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
                                         ReadingListsAlertControllerDelegate,
-                                        WMFReadingListHintPresenter,
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
                                         WMFImageScaleTransitionProviding,
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
-                                        DescriptionEditViewControllerDelegate>
+                                        DescriptionEditViewControllerDelegate,
+                                        WMFHintPresenting,
+                                        SFSafariViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -156,17 +161,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, getter=isWaitingUntilViewDidAppearToShowToolbar) BOOL waitingUntilViewDidAppearToShowToolbar;
 
-@property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
-
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
 @property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
 @property (nonatomic, readwrite) EditFunnel *editFunnel;
 
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
+@property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
 @end
 
 @implementation WMFArticleViewController
+@synthesize articleFetcherPromise = _articleFetcherPromise;
+@synthesize hintController;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -188,7 +194,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         components.query = nil;
         self.articleURL = components.URL;
         self.dataStore = dataStore;
-        self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
 
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
@@ -589,7 +594,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(findInPageButtonPressed)];
-        _findInPageToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, nil, @"Find in page", @"Accessibility label for the Find in Page button");
+        _findInPageToolbarItem.accessibilityLabel = WMFCommonStrings.findInPage;
     }
     return _findInPageToolbarItem;
 }
@@ -654,7 +659,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationBar setProgressHidden:YES animated:animated];
 }
 
-- (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
+- (void)updateProgress:(double)progress animated:(BOOL)animated {
     if (progress < self.navigationBar.progress) {
         return;
     }
@@ -677,7 +682,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
  *  Some of the progress is in loading the HTML into the webview
  *  This leaves 20% of progress for that work.
  */
-- (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
+- (double)totalProgressWithArticleFetcherProgress:(double)progress {
     return 0.1 + (0.7 * progress);
 }
 
@@ -798,6 +803,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+
+    if (self.viewDidAppearCompletion) {
+        self.viewDidAppearCompletion();
+        self.viewDidAppearCompletion = nil;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -1231,6 +1241,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)setArticleFetcherPromise:(nullable NSURLSessionTask *)articleFetcherPromise {
+    if (_articleFetcherPromise) {
+        [_articleFetcherPromise removeObserver:self forKeyPath:@"fractionCompleted"];
+    }
+    _articleFetcherPromise = articleFetcherPromise;
+    if (_articleFetcherPromise) {
+        [_articleFetcherPromise addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:&kvo_WMFArticleViewController_articleFetcherPromise_progress];
+    }
+}
+
+- (nullable NSURLSessionTask *)articleFetcherPromise {
+    return _articleFetcherPromise;
+}
+
 - (void)fetchArticleForce:(BOOL)force {
     // ** Always call articleDidLoad after the article loads or fails & before returning from this method **
     WMFAssertMainThread(@"Not on main thread!");
@@ -1249,9 +1273,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         forceDownload:force
         saveToDisk:NO
         priority:NSURLSessionTaskPriorityHigh
-        progress:^(CGFloat progress) {
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
-        }
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
@@ -1269,24 +1290,32 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                dismissPreviousAlerts:NO
                                                          tapCallBack:NULL];
                 }
-            } else if ([error wmf_isWMFErrorMissingTitle]) {
-                NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
-                if (specialPageActivity) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
-                    [self.navigationController popViewControllerAnimated:NO];
-                    return;
+            } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
+                NSURL *externalURL = self.articleURL;
+                if (externalURL) {
+                    [self showExternalURL:externalURL];
                 } else {
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
                                                dismissPreviousAlerts:NO
                                                          tapCallBack:NULL];
                 }
+                return;
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
-                [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                          sticky:NO
-                                           dismissPreviousAlerts:NO
-                                                     tapCallBack:NULL];
+                if (force && [error wmf_isNetworkConnectionError]) {
+                    [self wmf_showNoInternetConnectionPanelViewControllerWithTheme:self.theme
+                                                           primaryButtonTapHandler:^(id sender) {
+                                                               [self dismissPresentedViewController];
+                                                           }
+                                                                        completion:^(){
+                                                                        }];
+                } else {
+                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                              sticky:NO
+                                               dismissPreviousAlerts:NO
+                                                         tapCallBack:NULL];
+                }
 
                 if ([error wmf_isNetworkConnectionError]) {
                     [self.reachabilityNotifier start];
@@ -1314,6 +1343,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)fetchArticleIfNeeded {
     [self fetchArticleForce:NO];
+}
+
+// Shows external URL as a child VC - works around an issue where pushing a SFSafariViewController
+// while removing this VC from the stack would put the app in a state where it needed to be force quit
+- (void)showExternalURL:(NSURL *)externalURL {
+    SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:externalURL];
+    vc.delegate = self;
+    [self addChildViewController:vc];
+    [self.view wmf_addSubviewWithConstraintsToEdges:vc.view];
+    [vc didMoveToParentViewController:self];
 }
 
 #pragma mark - Share
@@ -1390,6 +1429,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Save
 
 - (void)toggleSave:(id)sender event:(UIEvent *)event {
+    UIImpactFeedbackGenerator *feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+    [feedbackGenerator impactOccurred];
     [self dismissReadingThemesPopoverIfActive];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && articleToUnsave.userCreatedReadingListsCount > 0) {
@@ -1421,7 +1462,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.savedPagesFunnel logDeleteWithArticleURL:self.articleURL];
         [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle:self.articleURL];
     }
-    [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)handleSaveButtonLongPressGestureRecognizer:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
@@ -1638,7 +1678,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
-    [self.readingListHintController scrollViewWillBeginDragging];
+    if (self.hintController) {
+        [self.hintController dismissHintDueToUserInteraction];
+    }
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -1698,7 +1740,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
-    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
         [[ReadingListsFunnel shared] logArticleSaveInReadMore:articleURL];
     } else {
@@ -1737,8 +1778,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showTalkPage {
-    SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleTalkPageURL];
-    [self.navigationController presentViewController:safariController animated:YES completion:nil];
+    // use wmf_openExternal instead of showExternalURL because this VC
+    // should be pushed on the stack instead of displayed here
+    [self wmf_openExternalUrl:self.articleTalkPageURL];
 }
 
 - (NSURL *)articleTalkPageURL {
@@ -1820,7 +1862,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showTitleDescriptionEditor {
     BOOL hasWikidataDescription = self.article.entityDescription != NULL;
-    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription];
+    NSString *articleLanguage = self.article.url.wmf_language;
+    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription language:articleLanguage];
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
@@ -1842,6 +1885,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     void (^showIntro)(void) = ^{
         @strongify(self);
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+        welcomeVC.completionBlock = ^{
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+        };
         [welcomeVC applyTheme:self.theme];
         [navVC presentViewController:welcomeVC
                             animated:YES
@@ -1851,8 +1897,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                               navVC.view.alpha = 1;
                           }];
     };
-
-    [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
+    [self presentViewController:navVC animated:!needsIntro completion:^{
+        if (needsIntro) {
+            showIntro();
+        } else {
+            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+        }
+    }];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
@@ -1877,7 +1928,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showProtectedDialog {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") message:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, nil, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}") style:UIAlertActionStyleCancel handler:NULL]];
+    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStrings okTitle] style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
@@ -1892,6 +1943,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.articleContentLoadCompletion = ^{
             [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
             weakSelf.webViewController.webView.hidden = NO;
+            [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];
+        };
+        self.viewDidAppearCompletion = ^{
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFEditPublishedNotification object:nil];
         };
         [self fetchArticle];
     }
@@ -2142,7 +2197,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
-    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
         [[ReadingListsFunnel shared] logSaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     } else {
@@ -2195,6 +2249,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
 }
 
+#pragma mark - SFSafariViewControllerDelegate
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - EventLoggingSearchSourceProviding
 
 - (nonnull NSString *)searchSource {
@@ -2225,6 +2285,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
     self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context {
+    if (context == &kvo_WMFArticleViewController_articleFetcherPromise_progress) {
+        double progress = self.articleFetcherPromise.progress.fractionCompleted;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+        });
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end

@@ -1,10 +1,4 @@
-struct RemoteNotificationsAPIController {
-    private let session: Session
-
-    init(with session: Session) {
-        self.session = session
-    }
-    
+class RemoteNotificationsAPIController: Fetcher {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {
@@ -109,7 +103,7 @@ struct RemoteNotificationsAPIController {
     }
 
     public func getAllUnreadNotifications(from subdomains: [String], completion: @escaping (Set<NotificationsResult.Notification>?, Error?) -> Void) {
-        let completion: (NotificationsResult?, URLResponse?, Bool?, Error?) -> Void = { result, _, _, error in
+        let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion([], error)
                 return
@@ -126,7 +120,7 @@ struct RemoteNotificationsAPIController {
         let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
 
         split.asyncCompactMap({ (notifications, completion: @escaping (Error?) -> Void) in
-            request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
+            request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, error) in
                 if let error = error {
                     completion(error)
                     return
@@ -156,13 +150,20 @@ struct RemoteNotificationsAPIController {
         }
     }
 
-    private func request<T: Decodable>(_ queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Bool?, Error?) -> Void) {
+    private func request<T: Decodable>(_ queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
         var components = NotificationsAPI.components
         components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
         if method == .get {
-            let _ = session.jsonDecodableTask(with: components.url, method: .get, completionHandler: completion)
+            session.jsonDecodableTask(with: components.url, method: .get, completionHandler: completion)
         } else {
-            let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: method, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: completion)
+            requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
+                switch result {
+                case .failure(let error):
+                    completion(nil, nil, error)
+                case .success(let token):
+                    self.session.jsonDecodableTask(with: components.url, method: method, bodyParameters: ["token": token], bodyEncoding: .form, completionHandler: completion)
+                }
+            }
         }
     }
 

@@ -149,7 +149,7 @@
 #pragma mark - Save
 
 - (void)saveWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    dispatchOnMainQueue(^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (self.dirty) {
             [self performSaveWithCompletion:^{
                 self.dirty = NO;
@@ -175,8 +175,9 @@
 }
 
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
+    assert(false);
     if (errorHandler) {
-        errorHandler([NSError wmf_unableToSaveErrorWithReason:@"Save is unimplemented for this list"]);
+        errorHandler([NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:nil]);
     }
 }
 

@@ -72,6 +72,42 @@
 			<string>%1$d исторических событий</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Отредактировано %1$d дня назад</string>
+			<key>many</key>
+			<string>Отредактировано %1$d дней назад</string>
+			<key>other</key>
+			<string>Отредактировано %1$d дней назад</string>
+			<key>zero</key>
+			<string>Отредактировано сегодня</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Доступно на другом языке</string>
+			<key>other</key>
+			<string>Доступно на %1$d других языках</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -119,9 +155,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Вы превысили лимит в %1$d список  чтения на одну учётную запись.</string>
+			<string>Вы превысили лимит в %1$d список  для чтения на одну учётную запись.</string>
 			<key>other</key>
-			<string>Вы превысили лимит в %1$d списков  чтения на одну учётную запись.</string>
+			<string>Вы превысили лимит в %1$d списков  для чтения на одну учётную запись.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -184,10 +220,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>few</key>
-			<string>%1$d дней назад</string>
 			<key>one</key>
-			<string>Вчера</string>
+			<string>%1$d дней назад</string>
 			<key>other</key>
 			<string>%1$d дня назад</string>
 			<key>zero</key>
@@ -246,8 +280,8 @@
 			<string>d</string>
 			<key>few</key>
 			<string>%1$d года назад</string>
-			<key>one</key>
-			<string>Прошлый год</string>
+			<key>many</key>
+			<string>%1$d лет назад</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>

@@ -7,11 +7,13 @@
 // Author: NehalDaveND
 // Author: Nemo bis
 // Author: Nitin1485
+// Author: Prong$31
 // Author: Rajatkatiyar10
 // Author: Rishi.Singh
 // Author: Sachinkatiyar
 // Author: Sahilrathod
 // Author: Sfic
+// Author: Shypoetess
 // Author: Vivek Rai
 // Author: Wikiuser13
 // Author: YmKavishwar
@@ -39,14 +41,19 @@
 "about-translators-details" = "$1 पर स्वयंसेवकों द्वारा अनुवादित";
 "about-wikimedia-foundation" = "विकिमीडिया संस्था";
 "about-wikipedia" = "विकिपीडिया";
+// Fuzzy
 "abuse-filter-disallow-heading" = "आप इस संपादन को प्रकाशित नहीं कर सकते। कृपया वापस जाएँ और इसे बदलें।";
-"abuse-filter-disallow-notable" = "विकिपीडिया एक ज्ञानकोश है और केवल तटस्थ और नोट करने योग्य जानकारी का ही यहाँ से सम्बन्ध है।";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "एक स्वचलित फ़िल्टर ने इस संपादन को संभावित अरचनात्मक या बर्बरता के प्रयास के रूप में चिह्नित किया है।";
+// Fuzzy
 "abuse-filter-warning-blanking" = "लेख खाली करना या स्पैमिंग";
+// Fuzzy
 "abuse-filter-warning-caps" = "सब कैप्स में लिखना";
 "abuse-filter-warning-heading" = "यह एक अरचनात्मक संपादन लगता है, क्या आप इसे प्रकाशित करने को लेकर निश्चित हैं?";
 "abuse-filter-warning-irrelevant" = "अनुपयुक्त बाहरी लिंक या चित्र";
+// Fuzzy
 "abuse-filter-warning-repeat" = "अक्षरों का दोहराव";
+// Fuzzy
 "abuse-filter-warning-subheading" = "आपके संपादन में निम्न में से एक या अधिक हैं:";
 "account-creation-captcha-cannot-see-image" = "$1 चित्र को नहीं देख सकते?";
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
@@ -60,6 +67,8 @@
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-title" = "एक नया खाता बनायें";
+// Fuzzy
+"action-find-in-page" = "पेज में ढूंढें";
 "action-read" = "पढ़ें";
 "action-save" = "सहेजें";
 "action-saved" = "सहेजा गया";
@@ -69,10 +78,9 @@
 "action-sort" = "क्रमबद्ध करें";
 "action-unsave" = "न सहेजें";
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
-"alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
 "announcements-dismiss" = "रद्द करें";
 "appearance-settings-adjust-text-sizing" = "लेख में शब्दों का आकार व्यवस्थित करें";
-"appearance-settings-image-dimming-footer" = "डार्क थीम पर चित्रों की अपारदर्शिता कम करें";
+"appearance-settings-image-dimming-footer" = "गहरे और काले रंग की विषयवस्तुओं पर छवियों की अस्पष्टता घटाएँ";
 "appearance-settings-reading-themes" = "विषय पढ़ रहा";
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "लेख में शब्दों के आकार को बदलने के लिए ऊपर दिए बटन को खिसकाएँ। एप के अन्य स्थानों पर शब्दों के आकार को बदलने के लिए अपने सिस्टम सेटिंग्स का प्रयोग करें।";
@@ -90,7 +98,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
 "article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
 "back-button-accessibility-label" = "पीछे";
-"button-done" = "पूर्ण हुआ";
 "button-next" = "अगला";
 "button-ok" = "ठीक है";
 "button-publish" = "प्रकाशित करें";
@@ -101,22 +108,27 @@
 "button-saved-remove" = "सहेजे हुओं में से निकालें";
 "button-skip" = "छोड़ें";
 "cancel" = "रद्द करना";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बंद करें";
 "compass-direction" = "$1 बजे पर";
 "continue-reading-empty-description" = "विकिपीडिया को और लेख पढ़ने के लिए खोजें";
 "continue-reading-empty-title" = "कोई हाल के पढ़े लेख नहीं";
 "dim-images" = "मंद छवियाँ";
+"edit-bold-remove-accessibility-label" = "मोटा स्वरुप हटायें";
+"edit-direction-left-accessibility-label" = "कर्सर बायें ले जायें";
+"edit-italic-accessibility-label" = "तिरक्षा अक्षर स्वरुप जोड़ें";
+"edit-reference-accessibility-label" = "सन्दर्भ विन्यास जोड़ें";
+"edit-signature-accessibility-label" = "हस्ताक्षर विन्यास जोड़ें";
+"edit-signature-remove-accessibility-label" = "हस्ताक्षर विन्यास हटायें";
+"edit-summary-add-summary-text" = "सम्पादन सारांश";
 "edit-summary-choice-fixed-grammar" = "व्याकरण सुधार";
 "edit-summary-choice-fixed-typos" = "टाइपो सुधारा गया";
 "edit-summary-choice-linked-words" = "कड़ियाँ लगाई";
-"edit-summary-choice-other" = "अन्य";
-"edit-summary-field-placeholder-text" = "दूसरे तरीके जिनसे अपने लेख को सुधारा";
-"edit-summary-title" = "आपने लेख को कैसे सुधारा?";
+"edit-summary-learn-more-text" = "अधिक जानें";
+"edit-text-size-table-view-title" = "अक्षर आकार";
+"edit-underline-accessibility-label" = "अंडरलाइन जोड़ें";
 "empty-no-article-message" = "क्षमा करें, लेख को लोड नहीं किया जा सका";
 "empty-no-feed-action-message" = "आप फिर भी सहेजे गए पेज पढ़ सकते हैं";
 "empty-no-feed-message" = "जब आपके पास इंटरनेट होगा तब आप सुझाये गए लेख देख सकते हैं";
-"empty-no-feed-title" = "इंटरनेट कनेक्शन नहीं है";
 "empty-no-history-message" = "याद रखें कि आपके द्वारा यहाँ क्या पढ़ा जा रहा है";
 "empty-no-history-title" = "दिखाने को कोई इतिहास नहीं";
 "empty-no-saved-pages-message" = "ऑफलाइन होने पर भी, बाद में देखने के लिए पेजों को सहेजें";
@@ -168,14 +180,12 @@
 "field-token-title" = "सत्यापन कोड";
 "field-username-placeholder" = "सदस्य नाम डालें";
 "field-username-title" = "सदस्यनाम";
-"find-in-page-button-label" = "पेज में ढूंढें";
 "find-in-page-number-matches" = "$1/$2";
 "forgot-password-button-title" = "रिसेट";
 "forgot-password-email-sent" = "पासवर्ड रिसेट निर्देशों के साथ एक ईमेल भेज दिया गया है";
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
 "forgot-password-title" = "पासवर्ड रिसेट करें";
 "forgot-password-username-or-email-title" = "या";
-"gfdl" = "जीएफडीएल";
 "history-clear-all" = "साफ करें";
 "history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
@@ -223,7 +233,6 @@
 "main-menu-debug-tweaks" = "डेवलपर सेटिंग्स";
 "main-menu-heading-debug" = "डीबग";
 "main-menu-heading-legal" = "गोपनीयता और शर्तें";
-"main-menu-heading-zero" = "विकिपीडिया शून्य";
 "main-menu-nearby" = "पास में";
 "main-menu-privacy-policy" = "गोपनीयता नीति";
 "main-menu-rate-app" = "एप को रेट करें";
@@ -248,10 +257,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटना|$1 ऐतिहासिक घटनाओं}}";
 "on-this-day-footer" = "इस दिन की अधिक ऐतिहासिक घटनाएं";
 "on-this-day-title" = "आज के दिन";
-"open-link-cancel" = "रद्द करें";
 "page-edit-history" = "पूर्ण संपादन इतिहास";
 "page-history-title" = "लेख इतिहास";
 "page-issues" = "पेज समस्याएं";
+// Fuzzy
 "page-last-edited" = "$1 दिन पहले सम्पादित किया गया";
 "page-location" = "नक्शे पर देखें";
 "page-protected-autoconfirmed" = "यह पृष्ठ अर्ध-सुरक्षित है।";
@@ -259,6 +268,7 @@
 "page-protected-can-not-edit-title" = "यह पृष्ठ सुरक्षित है";
 "page-protected-other" = "इस पेज को निम्न स्तरों तक सुरक्षित किया गया है: $1";
 "page-protected-sysop" = "यह पृष्ठ पूर्ण सुरक्षित है।";
+// Fuzzy
 "page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
 "page-similar-titles" = "समान पृष्ठ";
 "page-talk-page" = "वार्ता पृष्ठ देखें";
@@ -314,9 +324,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "लाल-भूरे रंग का विषय";
 "reading-themes-controls-accessibility-text-size-slider" = "पाठ आकार खिसकाने वाला";
 "reference-title" = "सन्दर्भ $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=आज|कल|$1 दिन पहले}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=हाल ही में|$1 घंटे पहले|$1 घंटे पहले}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=इस वर्ष|पिछला वर्ष|$1 वर्ष पहले}}";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
@@ -416,7 +428,6 @@
 "welcome-send-data-sub-title" = "विकिमीडिया फाउंडेशन को यह जानने की आज्ञा देकर कि आप एप को किस प्रकार प्रयोग करते हैं, एप बेहतर बनाने में सहायता करें। एकत्रित डेटा एनोनिमस है।";
 "welcome-volunteer-send-usage-reports" = "उपयोग रिपोर्ट भेजें";
 "wikitext-download-failed" = "हाल के परिवर्तन को प्राप्त करने में असफल।";
-"wikitext-download-success" = "सामग्री को लोड किया जा चुका है।";
 "wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
 "wikitext-preview-changes-none" = "प्रीव्यू के लिए कोई बदलाव नहीं हैं।";
@@ -428,16 +439,4 @@
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-sign-in" = "प्रवेश";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "परिवर्तन प्रकाशित करके, आप $1 से सहमत होते हैं और $2 और $3 लाइसेंस के तहत अपना योगदान जारी करने के लिए सहमत होते हैं।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
-"zero-charged-verbiage" = "विकिपीडिया ज़ीरो बंद है";
-"zero-charged-verbiage-extended" = "दूसरे लेखों को लोड करने पर डेटा चार्ज लग सकता है। ऑफलाइन सहेजे गए पेज मुफ़्त हैं और डेटा का प्रयोग नहीं करते।";
-"zero-free-verbiage" = "अपने मोबाइल ऑपरेटर से विकिपीडिया का  मुफ़्त प्रयोग (डाटा शुल्क माफ)";
-"zero-interstitial-cancel" = "यहीं रुकें";
-"zero-interstitial-continue" = "छोड़ें";
-"zero-interstitial-leave-app" = "डेटा चार्ज लग सकते हैं। बाहरी साईट पर आगे बढ़ें?";
-"zero-interstitial-title" = "विकिपीडिया जीरो को छोड़ा जा रहा है";
-"zero-learn-more" = "इस विकिपीडिया एप के लिए डाटा-चार्ज माफ़ किये गए हैं।";
-"zero-learn-more-learn-more" = "अधिक जानें";
-"zero-learn-more-no-thanks" = "ख़ारिज करें";
-"zero-warn-when-leaving" = "चेतावनी दें अगर ज़ीरो को छोड़ा जा रहा है";

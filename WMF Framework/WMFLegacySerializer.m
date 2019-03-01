@@ -10,7 +10,7 @@
 
     if (![maybeJSONDictionaries isKindOfClass:[NSArray class]]) {
         if (error) {
-            *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+            *error = [WMFFetcher unexpectedResponseError];
         }
         return nil;
     }
@@ -23,7 +23,7 @@
     
     if (![maybeJSONDictionaries isKindOfClass:[NSDictionary class]]) {
         if (error) {
-            *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+            *error = [WMFFetcher unexpectedResponseError];
         }
         return nil;
     }

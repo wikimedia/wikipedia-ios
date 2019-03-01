@@ -91,18 +91,12 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/WMFImageURLParsing.h>
-#import <WMF/WMFZeroConfiguration.h>
-#import <WMF/WMFZeroConfigurationFetcher.h>
 #import <WMF/MWKSectionMetaData.h>
 #import <WMF/MWKLanguageLink.h>
 
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageFilter.h>
-#import <WMF/WMFApiJsonResponseSerializer.h>
-#import <WMF/MWKLanguageLinkResponseSerializer.h>
-#import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNetworkUtilities.h>
-#import <WMF/FetcherBase.h>
 
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/NSURL+WMFMainPage.h>
@@ -133,8 +127,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFFeedNewsStory.h>
 #import <WMF/WMFFeedOnThisDayEvent.h>
 
-#import <WMF/MWKSiteInfo.h>
-#import <WMF/MWKSiteInfoFetcher.h>
 #import <WMF/WMFRandomArticleFetcher.h>
 
 #import <WMF/WMFLocationManager.h>
@@ -145,7 +137,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/WMFRelatedSearchFetcher.h>
 #import <WMF/WMFRelatedSearchResults.h>
-#import <WMF/WMFSearchResponseSerializer.h>
 
 #import <WMF/MWKLocationSearchResult.h>
 #import <WMF/WMFLocationSearchResults.h>
@@ -153,11 +144,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKLocationSearchResult.h>
 
 #import <WMF/EventLoggingFunnel.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/AFHTTPRequestSerializer+WMFRequestHeaders.h>
-#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 #import <WMF/WMFArticlePreviewFetcher.h>
-#import <WMF/WMFBaseRequestSerializer.h>
 #import <WMF/MWKSearchResult.h>
 #import <WMF/NSDictionary+WMFCommonParams.h>
 
@@ -180,6 +167,8 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFGradientView.h>
 #import <WMF/WMFFeedContentDisplaying.h>
 #import <WMF/WMFContentGroup+WMFFeedContentDisplaying.h>
+#import <WMF/WMFLegacyFetcher.h>
+#import <WMF/WMFLegacySerializer.h>
 
 //Deprecated
 #import <WMF/MWKHistoryEntry.h>
@@ -188,8 +177,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKSite.h>
 #import <WMF/MWKTitle.h>
 #import <WMF/SessionSingleton.h>
-#import <WMF/QueuesSingleton.h>
 #import <WMF/MWKSavedPageEntry.h>
 #import <WMF/WMFLegacyContentGroup.h>
 #import <WMF/WMFLegacyImageCache.h>
-#import <WMF/AFNetworking.h>

@@ -82,6 +82,22 @@
 			<string>%1$d madde</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Hesap başına %1$d madde sınırını aştınız.</string>
+			<key>other</key>
+			<string>Hesap başına %1$d madde sınırını aştınız.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +112,22 @@
 			<string>Madde, bu listeye eklenemez. %3$@ için okuma listesi başına %2$d madde sınırına ulaştınız</string>
 			<key>other</key>
 			<string>Madde, bu listeye eklenemez. %3$@ için okuma listesi başına %2$d madde sınırına ulaştınız</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Hesap başına %1$d okuma listesi sınırını aştınız.</string>
+			<key>other</key>
+			<string>Hesap başına %1$d okuma listesi sınırını aştınız.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

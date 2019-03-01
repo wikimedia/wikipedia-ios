@@ -251,10 +251,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return sbc
     }()
     
-    lazy var readingListHintController: ReadingListHintController = {
-        return ReadingListHintController(dataStore: dataStore, presenter: self)
-    }()
-    
     var numberOfSectionsInExploreFeed: Int {
         guard let sections = fetchedResultsController?.sections else {
             return 0
@@ -616,7 +612,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
+    func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         guard needsReloadVisibleCells else {
             return
         }
@@ -627,7 +623,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layout.currentSection = nil
     }
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+    func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) {
         layoutCache.invalidateGroupKey(groupKey(at: indexPath))
         collectionView.collectionViewLayout.invalidateLayout()
         if wantsDeleteInsertOnNextItemUpdate {
@@ -730,14 +726,13 @@ extension ExploreViewController {
 
 extension ExploreViewController: SaveButtonsControllerDelegate {
     func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle, userInfo: Any?) {
-        let notifyReadingListHintControllerAndLogEvent = {
-            self.readingListHintController.didSave(didSave, article: article, theme: self.theme)
+        let logSavedEvent = {
             self.logArticleSavedStateChange(didSave, saveButton: saveButton, article: article, userInfo: userInfo)
         }
         if isPresentingAddArticlesToReadingListVC() {
-            addArticlesToReadingListVCDidDisappear = notifyReadingListHintControllerAndLogEvent
+            addArticlesToReadingListVCDidDisappear = logSavedEvent
         } else {
-            notifyReadingListHintControllerAndLogEvent()
+            logSavedEvent()
         }
     }
     
@@ -767,7 +762,7 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
 }
 
 extension ExploreViewController: AddArticlesToReadingListDelegate {
-    func addArticlesToReadingListWillBeClosed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+    func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
     }
 
     func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
@@ -842,7 +837,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return contentGroup.previewArticleKeys.contains(articleKey)
         }
         
-        guard visibleIndexPathsWithChanges.count > 0 else {
+        guard !visibleIndexPathsWithChanges.isEmpty else {
             return
         }
         
@@ -883,7 +878,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             assertionFailure("Expected header title for group \(group.contentGroupKind)")
             return nil
         }
-        let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all %@ cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
+        let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all “%@” cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
             let feedContentController = self.dataStore.feedContentController
             feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false, completion: {
                 // If there's only one group left it means that we're about to show an alert about turning off the Explore tab. In those cases, we don't want to provide the option to undo.
@@ -940,7 +935,6 @@ extension ExploreViewController {
     }
 
     override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
         if didSave {
             ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
         } else {

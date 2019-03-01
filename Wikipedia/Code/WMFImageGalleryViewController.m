@@ -6,6 +6,7 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
+@import CoreServices;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -363,38 +364,42 @@ NS_ASSUME_NONNULL_BEGIN
     if (!imageInfo) {
         return nil;
     }
-    
+
     WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
     caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
 
     caption.imageDescription =
         [imageInfo.imageDescription stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
     NSString *ownerOrFallback = imageInfo.owner ? [imageInfo.owner stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                                                 : WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-owner", nil, nil, @"Author unknown.", @"Fallback text for when an item in the image gallery doesn't have a specified owner.");
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 
-    @weakify(self)
+    @weakify(self);
     caption.ownerTapCallback = ^{
-        @strongify(self)
+        @strongify(self);
         if (imageInfo.license.URL) {
             [self wmf_openExternalUrl:imageInfo.license.URL];
+        } else if (imageInfo.filePageURL) {
+            [self wmf_openExternalUrl:imageInfo.filePageURL];
+        } else {
+            // There should always be a file page URL, but log an error anyway
+            DDLogError(@"No license URL or file page URL for %@", imageInfo);
         }
     };
     caption.infoTapCallback = ^{
-        @strongify(self)
+        @strongify(self);
         if (imageInfo.filePageURL) {
             [self wmf_openExternalUrl:imageInfo.filePageURL];
         }
     };
-    @weakify(caption)
+    @weakify(caption);
     caption.descriptionTapCallback = ^{
         [UIView animateWithDuration:0.3
                          animations:^{
-                             @strongify(self)
-                             @strongify(caption)
+                             @strongify(self);
+                             @strongify(caption);
                              [caption toggleDescriptionOpenState];
                              [self.view layoutIfNeeded];
                          }
@@ -402,13 +407,15 @@ NS_ASSUME_NONNULL_BEGIN
     };
 
     caption.maximumDescriptionHeight = self.view.frame.size.height;
-    
+
     return caption;
 }
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo {
     //Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
-    [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
+    });
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -575,8 +582,9 @@ NS_ASSUME_NONNULL_BEGIN
                                         [self fetchImageForPhoto:obj];
                                     }
                                 }];
-
-    [self updateOverlayInformation];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateOverlayInformation];
+    });
 }
 
 - (void)imageInfoController:(WMFImageInfoController *)controller
@@ -770,7 +778,9 @@ NS_ASSUME_NONNULL_BEGIN
         success:^(id _Nonnull info) {
             @strongify(self);
             galleryImage.imageInfo = info;
-            [self updateOverlayInformation];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateOverlayInformation];
+            });
             [self fetchImageForPhoto:galleryImage];
         }];
 }

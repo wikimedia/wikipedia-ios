@@ -66,6 +66,38 @@
 			<string>%1$d eventi storici</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Modificata %1$d giorni fa</string>
+			<key>zero</key>
+			<string>Modificata oggi</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Disponibile in un'altra lingua</string>
+			<key>other</key>
+			<string>Disponibile in altre %1$d lingue</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +112,38 @@
 			<string>%1$d %1$d voce</string>
 			<key>other</key>
 			<string>%1$d %1$d voci</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Hai superato il limite di %1$d voce per utenza.</string>
+			<key>other</key>
+			<string>Hai superato il limite di %1$d voci per utenza.</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Hai superato il limite di %1$d elenco di lettura per utenza.</string>
+			<key>other</key>
+			<string>Hai superato il limite di %1$d elenchi di lettura per utenza.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -124,8 +188,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Ieri</string>
 			<key>other</key>
 			<string>%1$d giorni fa</string>
 			<key>zero</key>
@@ -178,8 +240,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>L'anno scorso</string>
 			<key>other</key>
 			<string>%1$d anni fa</string>
 			<key>zero</key>

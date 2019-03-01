@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditSummaryViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="addSummaryLabel" destination="zty-gx-vvg" id="1d2-0C-lOJ"/>
+                <outlet property="addedLinksButton" destination="XFh-HH-sUX" id="47D-UM-Q6q"/>
+                <outlet property="fixedGrammarButton" destination="WbA-2G-gXe" id="I20-AY-f9b"/>
+                <outlet property="fixedTypoButton" destination="mqy-lh-5zo" id="ElI-7T-dib"/>
+                <outlet property="learnMoreButton" destination="zHK-us-xbV" id="uR5-Cg-E3z"/>
+                <outlet property="summaryTextField" destination="fTI-kM-ZnK" id="nqe-lW-bvZ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="cannedEditSummaryButtons" destination="mqy-lh-5zo" collectionClass="NSMutableArray" id="FmM-3v-SXq"/>
+                <outletCollection property="cannedEditSummaryButtons" destination="WbA-2G-gXe" collectionClass="NSMutableArray" id="UTK-Jx-gQP"/>
+                <outletCollection property="cannedEditSummaryButtons" destination="XFh-HH-sUX" collectionClass="NSMutableArray" id="1H7-BM-Zg6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="161"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9qV-Rj-Pqa">
+                    <rect key="frame" x="0.0" y="0.0" width="379" height="161"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="OaO-gp-C2I">
+                            <rect key="frame" x="0.0" y="0.0" width="379" height="69"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zty-gx-vvg">
+                                    <rect key="frame" x="0.0" y="0.0" width="379" height="38"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHK-us-xbV" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="39" width="379" height="30"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="learnMoreButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="RAT-nl-v3C"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fTI-kM-ZnK" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="0.0" y="74" width="379" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="F5s-Eu-1Te"/>
+                            </constraints>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LJc-5L-7Pr">
+                            <rect key="frame" x="0.0" y="109" width="379" height="2"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="2" id="4nR-rW-dTw"/>
+                            </constraints>
+                        </view>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrs-Gz-05R" customClass="SummaryButtonScrollView" customModule="Wikipedia" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="116" width="379" height="45"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="SlK-YP-NSk" userLabel="Container view">
+                                    <rect key="frame" x="0.0" y="0.0" width="130" height="27"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c9k-al-4Mv">
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="27"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqy-lh-5zo" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="38" height="27"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="cannedSummaryButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="Qti-ut-OCH"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-2G-gXe" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="46" y="0.0" width="38" height="27"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="cannedSummaryButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="IUE-cM-Qhv"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-HH-sUX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="92" y="0.0" width="38" height="27"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="cannedSummaryButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="iIo-QZ-4Ca"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="c9k-al-4Mv" firstAttribute="top" secondItem="SlK-YP-NSk" secondAttribute="top" id="7DU-lY-seH"/>
+                                        <constraint firstAttribute="bottom" secondItem="c9k-al-4Mv" secondAttribute="bottom" id="rsh-qx-XBc"/>
+                                        <constraint firstAttribute="trailing" secondItem="c9k-al-4Mv" secondAttribute="trailing" id="vdB-re-ncp"/>
+                                        <constraint firstItem="c9k-al-4Mv" firstAttribute="leading" secondItem="SlK-YP-NSk" secondAttribute="leading" id="wXv-Aj-iUY"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="SlK-YP-NSk" secondAttribute="bottom" id="8ef-pp-wny"/>
+                                <constraint firstItem="SlK-YP-NSk" firstAttribute="top" secondItem="wrs-Gz-05R" secondAttribute="top" id="XGM-rV-arN"/>
+                                <constraint firstAttribute="trailing" secondItem="SlK-YP-NSk" secondAttribute="trailing" id="p3P-so-1BP"/>
+                                <constraint firstItem="SlK-YP-NSk" firstAttribute="leading" secondItem="wrs-Gz-05R" secondAttribute="leading" id="pcT-pM-O8j"/>
+                                <constraint firstAttribute="height" constant="45" placeholder="YES" id="s2t-1f-jkP"/>
+                            </constraints>
+                            <connections>
+                                <outletCollection property="cannedEditSummaryButtons" destination="mqy-lh-5zo" collectionClass="NSMutableArray" id="1Of-Gs-khy"/>
+                                <outletCollection property="cannedEditSummaryButtons" destination="WbA-2G-gXe" collectionClass="NSMutableArray" id="5no-GZ-DPu"/>
+                                <outletCollection property="cannedEditSummaryButtons" destination="XFh-HH-sUX" collectionClass="NSMutableArray" id="AyT-me-cjH"/>
+                            </connections>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9qV-Rj-Pqa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Y7e-nN-6HF"/>
+                <constraint firstItem="9qV-Rj-Pqa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cin-Sm-C4t"/>
+                <constraint firstAttribute="trailing" secondItem="9qV-Rj-Pqa" secondAttribute="trailing" id="liG-oe-yBV"/>
+                <constraint firstAttribute="bottom" secondItem="9qV-Rj-Pqa" secondAttribute="bottom" id="va4-7S-u29"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="135.19999999999999" y="-73.313343328335833"/>
+        </view>
+    </objects>
+</document>

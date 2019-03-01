@@ -70,7 +70,6 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         descriptionTextView.becomeFirstResponder()
-        editFunnel?.logWikidataDescriptionEditReady(isEditingExistingDescription)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -101,7 +100,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             return true
         }
         let newText = textView.text.replacingCharacters(in: range, with: text)
-        isPlaceholderLabelHidden = newText.count > 0
+        isPlaceholderLabelHidden = !newText.isEmpty
         return true
     }
     
@@ -174,7 +173,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        editFunnel?.logWikidataDescriptionEditSaveAttempt(isEditingExistingDescription)
+        editFunnel?.logWikidataDescriptionEditSaveAttempt(isEditingExistingDescription, language: article?.url.wmf_language)
         save()
     }
 
@@ -203,7 +202,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
 
         guard
             let descriptionToSave = descriptionTextView.normalizedWhitespaceText(),
-            descriptionToSave.count > 0
+            !descriptionToSave.isEmpty
             else {
                 descriptionTextView.text = nil
                 // manually call `textViewDidChange` since it's not called when UITextView text is changed programmatically
@@ -216,14 +215,16 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             DispatchQueue.main.async {
                 self.enableProgressiveButton(true)
                 guard let error = error else {
-                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription)
+                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription, language: language, revID: self.article?.revisionId)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
                     }
                     return
                 }
-                self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription)
+                let apiErrorCode = (error as? WikidataAPIResult.APIError)?.code
+                let errorText = apiErrorCode ?? "\((error as NSError).domain)-\((error as NSError).code)"
+                self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription, language: language, errorText: errorText)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }
         }
@@ -238,7 +239,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        let hasText = descriptionTextView.text.count > 0
+        let hasText = !descriptionTextView.text.isEmpty
         enableProgressiveButton(hasText)
         updateWarningLabelsForDescriptionCount()
         isPlaceholderLabelHidden = hasText

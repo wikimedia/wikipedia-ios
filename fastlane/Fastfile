@@ -6,24 +6,24 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 6s', os: '12.0'},
+  {device: 'iPhone X', os: '12.1'},
   {device: 'iPad Air 2', os: '11.4'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone 6s', os: '12.0', scheme: "WikipediaRTL"}
+  {device: 'iPhone X', os: '12.1', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
-  {device: 'iPhone 6s', os: '12.0', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone X', os: '12.1', scheme: "Beta Cluster Tests"}
 ]
 
 def get_devices_by_scheme_from_options(options)
-  configs = options[:configurations] || [{device: 'iPhone 6s', os: '11.4'}]
+  configs = options[:configurations] || [{device: 'iPhone X', os: '11.4'}]
   devices_by_scheme = {}
   configs.each do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    device = options[:device] || 'iPhone 6s'
+    device = options[:device] || 'iPhone X'
     os = options[:os]         || '11.4'
     sim = "#{device} (#{os})"
     devices = devices_by_scheme[scheme] || []
@@ -71,16 +71,12 @@ platform :ios do
 
   desc "Runs tests on the primary platforms and configurations"
   lane :verify_test_platforms do
-    configurations_to_test.each do |config|
-      verify(config)
-    end
+    verify({configurations: configurations_to_test})
   end
   
   desc "Runs tests against the beta cluster to check for upstream changes."
   lane :beta_cluster_tests do
-    beta_cluster_configurations_to_test.each do |config|
-      verify(config)
-    end
+    verify({configurations: beta_cluster_configurations_to_test})
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
@@ -293,6 +289,10 @@ platform :ios do
       project: "Wikipedia"
     )
     
+    tag(
+      prefix: tag_prefix,
+      build_number: build_number
+    )
     
     pilot(
       ipa: ipa_path,
@@ -301,11 +301,6 @@ platform :ios do
       distribute_external: false,
       app_identifier:  app_identifier,
       beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org"
-    )
-    
-    tag(
-      prefix: tag_prefix,
-      build_number: build_number
     )
     
     if wait_for_build_processing #dsyms are only available if we wait

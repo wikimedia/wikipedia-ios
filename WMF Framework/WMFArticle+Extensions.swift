@@ -12,7 +12,7 @@ extension WMFArticle {
     }
     
     @objc public var capitalizedWikidataDescriptionOrSnippet: String? {
-        guard let wikidataDescription = capitalizedWikidataDescription, wikidataDescription.count > 0 else {
+        guard let wikidataDescription = capitalizedWikidataDescription, !wikidataDescription.isEmpty else {
             return snippet
         }
         return wikidataDescription
@@ -25,6 +25,12 @@ extension WMFArticle {
     
     @objc public var hasChangedValuesForCurrentEventThatAffectSavedArticlesFetch: Bool {
         let previewKeys: Set<String> = ["savedDate", "isDownloaded"]
+        return hasChangedValuesForCurrentEventForKeys(previewKeys)
+    }
+    
+    
+    public var hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews: Bool {
+        let previewKeys: Set<String> = ["wikidataDescription", "snippet", "imageURLString", "isDownloaded"]
         return hasChangedValuesForCurrentEventForKeys(previewKeys)
     }
 }

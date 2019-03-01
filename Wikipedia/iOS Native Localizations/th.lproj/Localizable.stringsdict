@@ -72,5 +72,21 @@
 			<string>%1$d บทความ</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>คุณได้เกินขีดจำกัดของ %1$d article ต่อบัญชี</string>
+			<key>other</key>
+			<string>คุณได้เกินขีดจำกัดของ %1$d บทความ ต่อบัญชี</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

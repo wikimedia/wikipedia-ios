@@ -30,6 +30,7 @@ public class Configuration: NSObject {
         static let wmflabs = "wikipedia.beta.wmflabs.org"
         static let localhost = "localhost"
         static let englishWikipedia = "en.wikipedia.org"
+        static let wikimedia = "wikimedia.org"
         static let metaWiki = "meta.wikimedia.org"
     }
     
@@ -96,15 +97,24 @@ public class Configuration: NSObject {
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
 
-    @objc(mobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
-    public func mobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+    @objc(wikipediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
+    public func wikipediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
         let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(host)
         return builder.components(byAppending: pathComponents)
     }
     
+    @objc(wikimediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
+    public func wikimediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(Domain.wikimedia)
+        return builder.components(byAppending: pathComponents)
+    }
+    
     @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
-    public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
+    public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
+        guard let queryParameters = queryParameters else {
+            return builder.components()
+        }
         return builder.components(queryParameters: queryParameters)
     }
     

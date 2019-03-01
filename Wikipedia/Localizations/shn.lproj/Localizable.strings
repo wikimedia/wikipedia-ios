@@ -23,14 +23,19 @@
 "about-translators-details" = "ၽူႈၶဝ်ႈႁူမ်ႈၸွႆႈ ၵေႃႉပိၼ်ႇၽႃႇသႃႇဝႆႉ တီႈ $1";
 "about-wikimedia-foundation" = "ၾွၼ်ႇတေးသျိၼ်း ဝီႇၶီႇမီႇတီႇယႃႇ";
 "about-wikipedia" = "ဝီႇၶီႇၽီးတီးယႃး";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ၸဝ်ႈၵဝ်ႇ တေဢမ်ႇၸၢင်ႈ ပိုၼ်ဢွၵ်ႇ ​လွင်ႈမႄးထတ်း ဢၼ်ၼႆႉ။ ၶႅၼ်းတေႃႈ ၵႂႃႇၽၢႆႇလင်ၶိုၼ်းသေ မႄးလႅၵ်ႈလၢႆႈ ဢၼ်ၼႆႉၵွၼ်ႇ။";
-"abuse-filter-disallow-notable" = "ဝီႇၶီႇၽီးတီးယႃးၼႆႉ ပဵၼ်ပပ်ႉသႅၼ်သမ်ႇလႄႈ ပဵၼ်ဢၼ်ယူႇထၢၼ်ႈၵၢၼ်၊ တူဝ်ၼႂ်းမၼ်းၼႆႉၵေႃႈ ပဵၼ်ဢၼ်လီတွင်းမၢႆသေ ပဵၼ်ဢၼ်ၵူႈၵေႃႉတီးၼႆႈပိူင်ႇယဝ်ႉ။";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "တူဝ်ထွင်ႁင်းၶေႃ လႆႈမၵ်းမၼ်ႈဝႃႈ လွင်ႈမႄးထတ်းဢၼ်ၼႆႉ မၼ်းလႅပ်ႈတေပဵၼ် လွင်ႈဢမ်ႇမီး တၢင်းၵမ်ႉထႅမ်လီ ဢမ်ႇၼၼ် ပဵၼ်လွင်ႈယႃႉၵဝ်းလဵၼ်ႈ။";
+// Fuzzy
 "abuse-filter-warning-blanking" = "ပွင်ႈလိၵ်ႈပဝ်ႇ ဢမ်ႇၼၼ် မႅင်းၵဝ်း";
+// Fuzzy
 "abuse-filter-warning-caps" = "ဢၼ်တိုၵ်ႉပေႃႉသႂ်ႇၼႆႉ ပဵၼ်တူဝ်လိၵ်ႈယႂ်ႇတင်းသဵင်ႈ";
 "abuse-filter-warning-heading" = "ၼႆႉပဵၼ် လွင်ႈမႄးထတ်း ဢၼ်ဢမ်ႇမီးလွင်ႈၵမ်ႉထႅမ်လွင်ႈလီသင်။ တေပိုၼ်ဢွၵ်ႇၼႆ ၸဝ်ႈၵဝ်ႇ လပ်ႉလွင်းယဝ်ႉႁႃႉ?";
 "abuse-filter-warning-irrelevant" = "ပဵၼ်ႁဵင်းၵွင်ႉၽၢႆႇၼွၵ်ႇ ဢမ်ႇၼၼ် ၶႅပ်းႁၢင်ႈ ဢၼ်ဢမ်ႇမီးလွင်ႈၵပ်းၵၢႆႇ";
+// Fuzzy
 "abuse-filter-warning-repeat" = "တူဝ်လိၵ်ႈသွၼ်ႉၵၼ်";
+// Fuzzy
 "abuse-filter-warning-subheading" = "လွင်ႈမႄးထတ်းၸဝ်ႈၵဝ်ႇ တေၸၢင်ႈၶဝ်ႈပႃး ဢၼ်ၼိုင်ႈ ဢမ်ႇၼၼ် တင်းၼမ် ၼင်ႇၸိူဝ်းၽၢႆႇတႂ်ႈၼႆႉ:";
 "account-creation-captcha-cannot-see-image" = "ဢမ်ႇႁၼ်လႆႈၶႅပ်းႁၢင်ႈၼႄႇ? $1";
 "account-creation-captcha-obtaining" = "ၽွင်းတိုၵ်ႉဢဝ် တူဝ်လိၵ်ႈၼႄႉၼွၼ်း ဢၼ်မႂ်ႇ...";
@@ -44,11 +49,12 @@
 "account-creation-passwords-mismatched" = "လွၵ်းၶေႃႈလပ်ႉ ဢမ်ႇမႅၼ်ႈၵၼ်။";
 "account-creation-saving" = "တိုၵ်ႉသိမ်းပၼ်ယူႇ...";
 "account-creation-title" = "ၵေႃႇသၢင်ႈဢၶွင်ႉဢၼ်မႂ်ႇ";
+// Fuzzy
+"action-find-in-page" = "သွၵ်ႈႁႃ တီႈၼႂ်း ၼႃႈလိၵ်ႈ";
 "action-read" = "လူတူၺ်း";
 "action-save" = "ၵဵပ်းသိမ်း";
 "action-saved" = "ၵဵပ်းသိမ်းယဝ်ႉ";
 "action-share" = "ၽႄႈတိုၼ်း";
-"alert-no-internet" = "ဢမ်ႇမီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ";
 // Fuzzy
 "announcements-dismiss" = "ပႆႇၵွၼ်ႇ";
 "article-about-title" = "လွင်ႈပွင်ႈလိၵ်ႈဢၼ်ၼႆႉ";
@@ -59,7 +65,6 @@
 "article-read-more-title" = "သိုပ်ႇလူ";
 "article-unable-to-load-section" = "ဢမ်ႇၸၢင်ႈထုတ်ႇပိုတ်ႇ တွၼ်ႈၵၼ်ၼႆ့။ ၶတ်းၸႂ်သၢႆၶိုၼ်း ပွင်ႈလိၵ်ႈ တွၼ်ႈတႃတူၺ်း ပေႃးဝႃႈ မၼ်းမႄးပၼ်ပၼ်ႁႃယဝ်ႉၼၼ်ႉ။";
 "back-button-accessibility-label" = "ႁူၼ်လင်";
-"button-done" = "ယဝ်ႉ";
 "button-next" = "ၵႂႃႇၼႃႈ";
 "button-ok" = "ဢူဝ်ႇၶေႇ";
 "button-publish" = "ပိုၼ်ဢွၵ်ႇ";
@@ -68,7 +73,6 @@
 "button-save-for-later" = "သိမ်းဝႆႉတႃႇဝၢႆးလင်";
 "button-saved-for-later" = "တွၼ်ႈတႃႇဝၢႆးလင် သိမ်းဝႆႉယဝ်ႉ";
 "button-saved-remove" = "ထွၼ်ပႅတ်ႈၵႃႈတီႈ သိမ်းဝႆႉ";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ႁပ်း";
 "compass-direction" = "မိူဝ်ႈ $1 မူင်း";
 "continue-reading-empty-description" = "ပိုတ်ႇႁႃ ဝီႇၶီႇၽီးတီးယႃး တွၼ်ႈတႃႇလူ ပွင်ႇလိၵ်ႈထႅင်ႈ";
@@ -76,13 +80,9 @@
 "edit-summary-choice-fixed-grammar" = "လၢႆးတႅမ်ႈလိၵ်ႈ ဢၼ်မႄးဝႆႉ";
 "edit-summary-choice-fixed-typos" = "ၵၢၼ်ပေႃႉလိၵ်ႈ ဢၼ်မႄးဝႆႉ";
 "edit-summary-choice-linked-words" = "ႁဵင်းၵွင်ႉ ဢၼ်ထႅမ်သႂ်ႇဝႆႉ";
-"edit-summary-choice-other" = "တၢင်ႇၸိူဝ်း";
-"edit-summary-field-placeholder-text" = "လွၵ်ႈလၢႆးတၢင်ႇဢၼ် လွင်ႈၸဝ်ႈၵဝ်ႇ ၸုၼ်ၸၼ် ၼႃႈလိၵ်ႈ";
-"edit-summary-title" = "ၸဝ်ႈၵဝ်ႇ ႁဵတ်းႁိုဝ်ၸုင်ၸၼ် ၼႃႈလိၵ်ႈမႃး?";
 "empty-no-article-message" = "ၵဵင်ၸႂ်ယူႇ၊ ဢမ်ႇၸၢင်ႈထုတ်ႇပိုတ်ႇ ပွင်ႈလိၵ်ႈ";
 "empty-no-feed-action-message" = "ၸဝ်ႈၵဝ်ႇ တိုၵ်ႇၸၢင်ႈလူလႆႈ ၼႃႈလိၵ်ႈၸိူဝ်းသိမ်းဝႆႉၼၼ်ႉ";
 "empty-no-feed-message" = "ၸဝ်ႈၵဝ်ႇၸၢင်ႈတူၺ်းလႆႈ ပွင်ႈလိၵ်ႈၸိူဝ်းၸဝ်ႈၵဝ်ႇ ၶႆႈၸႂ်ႈဝႆႉ ၽွင်းမိူဝ်ႈၸဝ်ႈၵဝ်ႇ မီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉၼၼ်ႉ။";
-"empty-no-feed-title" = "ဢမ်ႇမီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ";
 "empty-no-history-message" = "ၸွပ်ႇတူၺ်းဝႃႈ ၸဝ်ႈၵဝ်ႇလူသင်ၵႂႃႇ ၵႃႈတီႈၼႆႈ";
 "empty-no-history-title" = "ဢမ်ႇမီးပိုၼ်းလင်တႃႇတေၼႄ";
 "empty-no-saved-pages-message" = "သိမ်းၼႃႈလိၵ်ႈတႃတူၺ်းၶဝ်ဝၢႆးလင်၊ ႁူမ်ဝႃႈ ဢမ်ႇမီးၼႅတ်ႇ";
@@ -132,7 +132,6 @@
 "field-token-title" = "ၶူတ်ႉၼႄႉၼွၼ်း";
 "field-username-placeholder" = "ပေႃႇသႂ်ႇပၼ် ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း";
 "field-username-title" = "ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း";
-"find-in-page-button-label" = "သွၵ်ႈႁႃ တီႈၼႂ်း ၼႃႈလိၵ်ႈ";
 "find-in-page-number-matches" = "$1 တီႈ $2";
 "forgot-password-button-title" = "ၶိုၼ်းတင်ႈ";
 "forgot-password-email-sent" = "ဢီးမေးလ် ဢၼ်မီး ၶေႃႈၸီႉသင်ႇ တႃႇၶိုၼ်းတင်ႈ ၶေႃႈလပ်ႉၼၼ်ႉ ထုၵ်ႇသူင်ႇၵႂႃႇယဝ်ႉ";
@@ -183,7 +182,6 @@
 "main-menu-debug-tweaks" = "ၵၢၼ်တင်ႈ ၽူႈၶူင်သၢင်ႈ";
 "main-menu-heading-debug" = "မႄးၶိုၼ်း";
 "main-menu-heading-legal" = "လွင်ႈႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လႄႈ ၶေႃႈမၼ်ႈၸႂ်";
-"main-menu-heading-zero" = "ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
 "main-menu-nearby" = "ႁိမ်းႁွမ်း";
 "main-menu-privacy-policy" = "လၵ်း​ၼမ်း လွင်ႈ​ႁူမ်ႇ​လူမ်ႈ သုၼ်ႇ​လဵဝ်";
 "main-menu-rate-app" = "ပၼ်ထၢၼ်ႈ ဢႅပ်ႉ";
@@ -202,10 +200,10 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"open-link-cancel" = "ဢမ်ႇႁဵတ်း";
 "page-edit-history" = "ပိုၼ်းမႄးထတ်း တဵမ်ထူၼ်ႈ";
 "page-history-title" = "ပိုၼ်းပွင်ႈလိၵ်ႈ";
 "page-issues" = "ၶေႃႈၶၼ် ၼႃႈလိၵ်ႈ";
+// Fuzzy
 "page-last-edited" = "မႄးထတ်းဝႆႉ မိူဝ်ႈပူၼ်ႈမႃး $1 ဝၼ်း";
 "page-location" = "တူၺ်းၵႃႈတီႈၼိူဝ် ႁၢင်ႈၽႅၼ်ႇလိၼ်";
 "page-protected-autoconfirmed" = "ၼႃႈလိၵ်ႈဢၼ်ၼႆႉ ထုၵ်ႇ ႁႄႉၵင်ႈဝႆႉ ၵမ်ႈၽွင်ႈ";
@@ -213,6 +211,7 @@
 "page-protected-can-not-edit-title" = "ၼႃႈလိၵ်ႈၼႆႉ ထုၵ်ႇႁႄႉၵၼ်ဝႆႉဢေႃႈ။";
 "page-protected-other" = "ၼႃႈလိၵ်ႈၼႆႉ ထုၵ်ႇႁႄႉၵင်ႈဝႆႉ ၸွမ်းၼင်ႇ ၸၼ်ႉထၢၼ်ႈ : %s";
 "page-protected-sysop" = "ၼႃႈလိၵ်ႈၼႆႉ ထုၵ်ႇႁႄႉၵင်ႈဝႆႉ တင်းမူတ်း။";
+// Fuzzy
 "page-read-in-other-languages" = "$1 ဢဝ်ၸႂ်ႉလႆႈ တီႈၼႂ်း ၽႃႇသႃႇၵႂၢမ်းတၢင်ႇၸိူဝ်း";
 "page-similar-titles" = "ၼႃႈလိၵ်ႈ မိူၼ်ၵၼ်";
 "pictured" = "ႁၢင်ႈ";
@@ -250,6 +249,7 @@
 "rank-accessibility-label" = "တၢင်းၼမ် $1";
 "readers-accessibility-label" = "ၽူႈလူလိၵ်ႈ $1";
 "reference-title" = "ၽိုၼ်ဢိင် $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=မိူဝ်ႈၼႆႉ|မိူဝ်ႈဝႃး |ပူၼ်ႉမႃး $1 ဝၼ်း }}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=မိူဝ်ႈပႆႇႁိုင်|ပူၼ်ႉမႃး $1 မူင်း|ပူၼ်ႉမႃး $1 မူင်း}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယၢမ်းလဵဝ်ၵူၺ်း|ပူၼ်ႉမႃး $1 မိတ်ႉၼိတ်ႉ|ပူၼ်ႉမႃး $1 မိတ်ႉၼိတ်ႉ}}";
@@ -315,7 +315,6 @@
 "welcome-send-data-sub-title" = "ပၼ်ႁႂ်ႈႁဝ်းၶႃႈ ၸူႉၸွမ်းဝႃႈ ၸဝ်ႈၵဝ်ႇႁဵတ်းႁိုဝ်ၸႂ်ႉ ဢႅပ်ႉၼႆသေၵေႃႈ ၸွႆႈထႅမ်ၾွင်ႇတေးသျိၼ်း ဝီႇၶီႇမီႇတီႇယႃႇ တႃႇႁဵတ်းႁႂ်ႈ ဢႅပ်ႉလီသေလီ။ လွင်ႈၸူႉတွမ်ၶေႃႈမုၼ်းတႄႉ တေပဵၼ် ဢၼ်လပ်ႉၸိုဝ်ႈဝႆႉၵူၺ်း။";
 "welcome-volunteer-send-usage-reports" = "တၢင်ႇ ၶေႃႈလၢတ်ႈ လွင်ႈၸႂ်ႉတိုဝ်း";
 "wikitext-download-failed" = "ဢမ်ႇဢဝ်လႆႈ ​မၢႆဢွၵ်ႇၵမ်းလိုၼ်းသုတ်း။";
-"wikitext-download-success" = "ၶေႃႈၼႂ်း ထုတ်ႇပိုတ်ႇယဝ်ႉ။";
 "wikitext-downloading" = "တိုၵ်ႉထုတ်ႇပိုတ်ႇ ၶေႃႈၼႂ်း...";
 "wikitext-preview-changes" = "တိုၵ်ႉၸူင်ဢဝ်တူၺ်းလူင်ႈၼႃႈ ၶွင်လွင်ႈလႅၵ်ႈလၢႆႈၸဝ်ႈၵဝ်ႇ...";
 "wikitext-preview-changes-none" = "တႃႇတေတူၺ်းလူင်ႈၼႃႈ ဢမ်ႇမီး လွင်ႈလႅၵ်ႈလၢႆႈသင်။";
@@ -328,14 +327,3 @@
 "wikitext-upload-save-anonymously-warning" = "လွင်ႈမႄးထတ်း တေမၢႆဢဝ် ႁဵင်းလိၵ်ႈဢၢႆႇၽီႇ ၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႉဝႃႈ ၸဝ်ႈၵဝ်ႇ $1 ၸဝ်ႈၵဝ်ႇ တေမီးပၢႆးႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လိူဝ်။";
 "wikitext-upload-save-sign-in" = "လွၵ်ႉဢိၼ်ႇ";
 "wikitext-upload-save-terms-name" = "ၶေႃႈၽၢင်ႉလွင်ႈၸႂ်ႉတိုဝ်း";
-"zero-charged-verbiage" = "ဢိုတ်းဝႆႉ ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
-"zero-charged-verbiage-extended" = "လွင်ႈထုတ်ႇပိုတ်ႇ ပွင်ႈလိၵ်ႈတၢင်ႇၸိူဝ်း ၼႆႉ တေၸၢင်ႈၵိၼ်ငိုၼ်းၶေႃႈမုၼ်း။  ပွင်ႈလိၵ်ႈၸိူဝ်းသိမ်းဝႆႉ တႃႇဢွပ်ႉၾ်လၢႆးၼႆႉ မၼ်းတေဢမ်ႇၸႂ်ႉ သၢႆၶေႃမုၼ်းလႄႈ မၼ်းပဵၼ်ဢၼ်ၸႂ်ႉလႆႈ လၢႆလၢႆ။";
-"zero-free-verbiage" = "လွင်ႈၸႂ်ႉဝီႇၶီႇၽီးတီးယႃး လၢႆလၢႆ ၵႃႈတီႈ ၽူႈၵမ်ႉထႅမ်မူဝ်ႇပၢႆးၸဝ်ႈၵဝ်ႇ (လွင်ႈယွၼ်ႇဢဝ်ငိုၼ်းသၢႆၶေႃႈမုၼ်း)";
-"zero-interstitial-cancel" = "သိုပ်ႇယူႇဝႆႉ တီႈၼႆႈ";
-"zero-interstitial-continue" = "ဢွၵ်ႇၵႂႃႇ";
-"zero-interstitial-leave-app" = "တေမီး လွင်ႈၵဵပ်းဢဝ်ငိုၼ်းယဝ်ႉ။ တေသိုပ်ႇၵႂႃႇၸူး သၢႆႉၼႃႈလိၵ်ႈ ၽၢႆႇၼွၵ်ႈယူႇႁႃႉ?";
-"zero-interstitial-title" = "ဢွၵ်ႇၵႂႃႇတီႈ ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
-"zero-learn-more" = "ၵႃႈၶၼ်တႃႇသၢႆၶေႃႈမုၼ်းၼႆႉ ထုၵ်ႇယွၼ်ႇဝႆႉပၼ် တႃႇ ဢႅပ်ႇဝီႇၶီႇၽီးတီးယႃးဢၼ်ၼႆႉ။";
-"zero-learn-more-learn-more" = "သိုပ်ႇလူ";
-"zero-learn-more-no-thanks" = "လူတ်းၵၢၼ်";
-"zero-warn-when-leaving" = "ပၼ်ၾၢင်ႉပၼ် ပေႃးဝႃႈဢွၵ်ႇၵႂႃႇတီႈ သုၼ်";

@@ -40,6 +40,9 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeNoReadingLists:
             view = [WMFEmptyView noReadingListsEmptyViewWithTarget:self action:action];
             break;
+        case WMFEmptyViewTypeNoInternetConnection:
+            view = [WMFEmptyView noInternetConnectionEmptyView];
+            break;
         default:
             return;
     }

@@ -131,6 +131,26 @@ class DescriptionPublishedPanelViewController: ScrollableEducationPanelViewContr
     }
 }
 
+class EditPublishedPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "description-published")
+        heading = WMFLocalizedString("edit-published", value: "Edit published", comment: "Title edit published panel letting user know their edit was saved.")
+        subheading = WMFLocalizedString("edit-published-subtitle", value: "You just made Wikipedia better for everyone", comment: "Subtitle for letting users know their edit improved Wikipedia.")
+        primaryButtonTitle = WMFLocalizedString("edit-published-button-title", value: "Done", comment: "Title for edit published panel done button.")
+    }
+}
+
+class NoInternetConnectionPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "no-internet-article")
+        heading = CommonStrings.noInternetConnection
+        subheading = WMFLocalizedString("no-internet-connection-article-reload", value: "A newer version of this article might be available, but cannot be loaded without a connection to the internet", comment: "Subtitle for letting users know article cannot be reloaded without internet connection.")
+        primaryButtonTitle = WMFLocalizedString("no-internet-connection-article-reload-button", value: "Return to last saved version", comment: "Title for button to return to last saved version of article.")
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
@@ -147,7 +167,7 @@ extension UIViewController {
         guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
             return false
         }
-        return fetchedObjects.count > 0
+        return !fetchedObjects.isEmpty
     }
         
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {
@@ -356,5 +376,24 @@ extension UIViewController {
         }
         let panelVC = DescriptionPublishedPanelViewController(showCloseButton: true, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true, completion: nil)
+    }
+
+    @objc func wmf_showEditPublishedPanelViewController(theme: Theme) {
+        guard !UserDefaults.wmf.wmf_didShowFirstEditPublishedPanel() else {
+            return
+        }
+
+        let doneTapHandler: ScrollableEducationPanelButtonTapHandler = { sender in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let panelVC = EditPublishedPanelViewController(showCloseButton: false, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        present(panelVC, animated: true, completion: {
+            UserDefaults.wmf.wmf_setDidShowFirstEditPublishedPanel(true)
+        })
+    }
+
+    @objc func wmf_showNoInternetConnectionPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
+        let panelVC = NoInternetConnectionPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        present(panelVC, animated: true, completion: completion)
     }
 }

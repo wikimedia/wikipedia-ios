@@ -1,5 +1,6 @@
 #import "WMFAppViewController.h"
 @import WMF;
+@import SystemConfiguration;
 #import "Wikipedia-Swift.h"
 
 #define DEBUG_THEMES 1
@@ -118,6 +119,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) RemoteNotificationsModelChangeResponseCoordinator *remoteNotificationsModelChangeResponseCoordinator;
 
+@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong) WMFEditHintController *editHintController;
+
 @end
 
 @implementation WMFAppViewController
@@ -138,11 +142,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.theme = [[NSUserDefaults wmf] wmf_appTheme];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(isZeroRatedChanged:)
-                                                 name:WMFZeroRatingChanged
-                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(navigateToActivityNotification:)
@@ -213,7 +212,19 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleWasUpdated:)
+                                                 name:WMFArticleUpdatedNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editPublished:)
+                                                 name:WMFEditPublishedNotification
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    self.editHintController = [[WMFEditHintController alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -477,6 +488,54 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             update();
         }
     });
+}
+
+#pragma mark - Hint
+
+- (void)articleWasUpdated:(NSNotification *)note {
+    WMFArticle *article = (WMFArticle *)note.object;
+    if (![article isKindOfClass:[WMFArticle class]]) {
+        return;
+    }
+    if (article.changedValues[@"savedDate"] == NULL) {
+        return;
+    }
+    UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
+    if (!visibleHintPresentingViewController) {
+        return;
+    }
+    [self toggleHint:self.readingListHintController context:@{WMFReadingListHintController.ContextArticleKey: article}];
+}
+
+- (void)editPublished:(NSNotification *)note {
+    if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
+        return;
+    }
+    [self toggleHint:self.editHintController context:nil];
+}
+
+- (void)toggleHint:(HintController *)hintController context:(nullable NSDictionary<NSString *, id> *)context {
+    UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
+    if (!visibleHintPresentingViewController) {
+        return;
+    }
+    [hintController toggleWithPresenter:visibleHintPresentingViewController context:context theme:self.theme];
+}
+
+- (UIViewController *)visibleViewController {
+    UIViewController *visibleViewController = self.navigationController.visibleViewController;
+    if (visibleViewController == self) {
+        return self.selectedViewController;
+    }
+    return visibleViewController;
+}
+
+- (UIViewController<WMFHintPresenting> *)visibleHintPresentingViewController {
+    UIViewController *visibleViewController = [self visibleViewController];
+    if (![visibleViewController conformsToProtocol:@protocol(WMFHintPresenting)]) {
+        return nil;
+    }
+    return (UIViewController <WMFHintPresenting> *)visibleViewController;
 }
 
 #pragma mark - Background Fetch
@@ -1600,60 +1659,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return ![gestureRecognizer isMemberOfClass:[UIScreenEdgePanGestureRecognizer class]];
 }
 
-#pragma mark - Wikipedia Zero
-
-- (void)isZeroRatedChanged:(NSNotification *)note {
-    WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
-    if (zeroConfigurationManager.isZeroRated) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
-        });
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showZeroOffAlert];
-        });
-    }
-}
-
-- (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults wmf] setBool:YES forKey:WMFZeroOnDialogShownOnce];
-}
-
-- (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults wmf] boolForKey:WMFZeroOnDialogShownOnce];
-}
-
-- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {
-    if ([self zeroOnDialogShownOnce]) {
-        return;
-    }
-
-    [self setZeroOnDialogShownOnce];
-
-    NSString *title = zeroConfiguration.message ? zeroConfiguration.message : WMFLocalizedStringWithDefaultValue(@"zero-free-verbiage", nil, nil, @"Free Wikipedia access from your mobile operator (data charges waived)", @"Alert text for Wikipedia Zero free data access enabled");
-
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:WMFLocalizedStringWithDefaultValue(@"zero-learn-more", nil, nil, @"Data charges are waived for this Wikipedia app.", @"Alert text for learning more about Wikipedia Zero") preferredStyle:UIAlertControllerStyleAlert];
-
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-no-thanks", nil, nil, @"Dismiss", @"Button text for declining to learn more about Wikipedia Zero.\n{{Identical|Dismiss}}") style:UIAlertActionStyleCancel handler:NULL]];
-
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-learn-more", nil, nil, @"Read more", @"Button text for learn more about Wikipedia Zero.\n{{Identical|Read more}}")
-                                               style:UIAlertActionStyleDestructive
-                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ"] options:@{} completionHandler:NULL];
-                                             }]];
-
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
-}
-
-- (void)showZeroOffAlert {
-
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-charged-verbiage", nil, nil, @"Wikipedia Zero is off", @"Alert text for Wikipedia Zero free data access disabled") message:WMFLocalizedStringWithDefaultValue(@"zero-charged-verbiage-extended", nil, nil, @"Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.", @"Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.") preferredStyle:UIAlertControllerStyleAlert];
-
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-no-thanks", nil, nil, @"Dismiss", @"Button text for declining to learn more about Wikipedia Zero.\n{{Identical|Dismiss}}") style:UIAlertActionStyleCancel handler:NULL]];
-
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
-}
-
 #pragma mark - UNUserNotificationCenterDelegate
 
 // The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
@@ -1815,6 +1820,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
+
+    [self.readingListHintController applyTheme:self.theme];
+    [self.editHintController applyTheme:self.theme];
 
     [self setNeedsStatusBarAppearanceUpdate];
 }

@@ -1,9 +1,7 @@
 #import "PageHistoryViewController.h"
 #import "PageHistoryResultCell.h"
-#import "PaddedLabel.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
-@import WMF.AFHTTPSessionManager_WMFCancelAll;
 #import "WMFPageHistoryRevision.h"
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
@@ -68,26 +66,29 @@
     [self.pageHistoryFetcher fetchRevisionInfo:self.article.url
         requestParams:self.historyFetcherParams
         failure:^(NSError *_Nonnull error) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-            DDLogError(@"Failed to fetch items for section %@. %@", self, error);
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-            self.isLoadingData = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) {
+                    return;
+                }
+                DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+                self.isLoadingData = NO;
+            });
         }
         success:^(HistoryFetchResults *_Nonnull historyFetchResults) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-            [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
-            self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
-            self.batchComplete = historyFetchResults.batchComplete;
-            [[WMFAlertManager sharedInstance] dismissAlert];
-            [self.tableView reloadData];
-            self.isLoadingData = NO;
-
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) {
+                    return;
+                }
+                [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
+                self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
+                self.batchComplete = historyFetchResults.batchComplete;
+                [[WMFAlertManager sharedInstance] dismissAlert];
+                [self.tableView reloadData];
+                self.isLoadingData = NO;
+            });
         }];
 }
 
@@ -125,24 +126,16 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = self.theme.colors.baseBackground;
     view.autoresizesSubviews = YES;
-    PaddedLabel *label = [[PaddedLabel alloc] init];
 
-    CGFloat leadingIndent = 10.0;
-    label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
-
-
+    UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle semiboldFootnote] compatibleWithTraitCollection:self.traitCollection];
     label.textColor = self.theme.colors.secondaryText;
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = self.theme.colors.baseBackground;
-
     label.textAlignment = NSTextAlignmentNatural;
-
     label.text = self.pageHistoryDataArray[section].sectionTitle;
-
     [label wmf_configureSubviewsForDynamicType];
 
-    [view addSubview:label];
+    [view wmf_addSubview:label withConstraintsToEdgesWithInsets:UIEdgeInsetsMake(0, 10, 0, 10) priority:UILayoutPriorityRequired];
 
     return view;
 }

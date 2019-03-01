@@ -42,22 +42,14 @@ public class WMFAccountLoginResult: NSObject {
     }
 }
 
-public class WMFAccountLogin {
-    private let manager = AFHTTPSessionManager.wmf_createDefault()
-    public func isFetching() -> Bool {
-        return manager.operationQueue.operationCount > 0
-    }
-    
-    public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
-        let manager = AFHTTPSessionManager(baseURL: siteURL, sessionConfiguration: Session.defaultConfiguration)
-        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
+public class WMFAccountLogin: Fetcher {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         
         var parameters = [
             "action": "clientlogin",
             "username": username,
             "password": password,
             "loginreturnurl": "https://www.wikipedia.org",
-            "logintoken": loginToken,
             "rememberMe": "1",
             "format": "json"
         ]
@@ -79,10 +71,13 @@ public class WMFAccountLogin {
             parameters["captchaWord"] = captchaWord
         }
 
-        _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
+        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters) { (result, response, error) in
+            if let error = error {
+                failure(error)
+                return
+            }
             guard
-                let response = response as? [String : AnyObject],
-                let clientlogin = response["clientlogin"] as? [String : AnyObject],
+                let clientlogin = result?["clientlogin"] as? [String : Any],
                 let status = clientlogin["status"] as? String
                 else {
                     failure(WMFAccountLoginError.cannotExtractLoginStatus)
@@ -129,8 +124,6 @@ public class WMFAccountLogin {
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username
             success(WMFAccountLoginResult.init(status: status, username: normalizedUsername, message: message))
-        }, failure: { (_, error) in
-            failure(error)
-        })
+        }
     }
 }

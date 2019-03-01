@@ -75,7 +75,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         }
         [task didFinish];
     } else {
-        [task didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]];
+        [task didFailWithError:[WMFFetcher unexpectedResponseError]];
     }
 }
 
@@ -85,7 +85,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         return;
     }
     if (![proxiedResponse isKindOfClass:[NSHTTPURLResponse class]]) {
-        [self finishTask:task withResponse:nil data:nil error:[NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]];
+        [self finishTask:task withResponse:nil data:nil error:[WMFFetcher unexpectedResponseError]];
         return;
     }
     [self finishTask:task withResponse:proxiedResponse data:data];
@@ -339,12 +339,12 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     NSURLRequest *request = [urlSchemeTask request];
     NSURL *requestURL = [request URL];
     if (!requestURL) {
-        [urlSchemeTask didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]];
+        [urlSchemeTask didFailWithError:[WMFFetcher invalidParametersError]];
         return;
     }
 
     dispatch_block_t notFound = ^{
-        [urlSchemeTask didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]];
+        [urlSchemeTask didFailWithError:[WMFFetcher invalidParametersError]];
     };
 
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:requestURL resolvingAgainstBaseURL:NO];

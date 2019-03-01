@@ -63,7 +63,7 @@
 "field-new-password-title" = "కొత్త సంకేతపదం";
 "field-password-title" = "సంకేతపదం";
 "field-username-title" = "వాడుకరి పేరు";
-"find-in-page-button-label" = "పేజీలో వెతుకు";
+"action-find-in-page" = "పేజీలో వెతుకు";
 "forgot-password-username-or-email-title" = "లేదా";
 "history-clear-cancel" = "రద్దు";
 // Fuzzy

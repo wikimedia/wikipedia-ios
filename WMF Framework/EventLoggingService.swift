@@ -104,6 +104,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.persistentStoreCoordinator = psc
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         self.managedObjectContext.persistentStoreCoordinator = psc
+        super.init()
+        if self.isEnabled {
+            self.session.xWMFUUID = appInstallID
+        } else {
+            self.session.xWMFUUID = nil
+        }
     }
 
     
@@ -179,7 +185,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     }
                 }
 
-                if eventRecords.count > 0 {
+                if !eventRecords.isEmpty {
                     self.postEvents(eventRecords, onlyWiFi: wifiOnly, completion: {
                         operation.finish()
                     })
@@ -393,6 +399,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
         set {
             setLibraryValue(NSNumber(booleanLiteral: newValue), for: Key.isEnabled)
+            if newValue {
+                session.xWMFUUID = appInstallID
+            } else {
+                session.xWMFUUID = nil
+            }
         }
     }
     

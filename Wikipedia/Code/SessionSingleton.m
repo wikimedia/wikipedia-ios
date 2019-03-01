@@ -39,8 +39,6 @@
                                                                    diskPath:nil];
         [NSURLCache setSharedURLCache:urlCache];
 
-        self.zeroConfigurationManager = [[WMFZeroConfigurationManager alloc] init];
-
         self.dataStore = dataStore;
 
         _currentArticleSiteURL = [self lastKnownSite];

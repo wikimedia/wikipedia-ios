@@ -72,6 +72,24 @@
 			<string>%1$d историјских догађаја</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Измењено јуче</string>
+			<key>other</key>
+			<string>Измењено пре %1$d дана</string>
+			<key>zero</key>
+			<string>Измењено данас</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -90,6 +108,22 @@
 			<string>%1$d чланака</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Прекорачили сте ограничење од %1$d чланка по налогу.</string>
+			<key>other</key>
+			<string>Прекорачили сте ограничење од %1$d чланака по налогу.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -104,6 +138,22 @@
 			<string>Чланак се не може додати на листу. Достигли сте ограничење од %2$d чланака по листи за читање за %3$@.</string>
 			<key>other</key>
 			<string>Чланци се не могу додати на листу. Достигли сте ограничење од %2$d чланака по листи за читање за %3$@.</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Прекорачили сте ограничење од %1$d листе за читање по налогу.</string>
+			<key>other</key>
+			<string>Прекорачили сте ограничење од %1$d листа за читање по налогу.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

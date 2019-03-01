@@ -100,14 +100,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>AFNetworking</string>
-			<key>Source URL</key>
-			<string>https://github.com/AFNetworking/AFNetworking</string>
-			<key>License Text</key>
-			<string>pod install</string>
-		</dict>
-		<dict>
-			<key>Name</key>
 			<string>CocoaPods</string>
 			<key>Source URL</key>
 			<string>https://github.com/CocoaPods/CocoaPods</string>

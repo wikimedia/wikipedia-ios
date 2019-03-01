@@ -23,7 +23,9 @@
 "about-translators-details" = "Aquesta aplicacion es estada traduita per de traductors benevòls sus $1";
 "about-wikimedia-foundation" = "Fondacion Wikimèdia";
 "about-wikipedia" = "Wikipèdia";
+// Fuzzy
 "abuse-filter-warning-caps" = "Tèxte en MAJUSCULAS";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Caractèrs repeeeetits";
 "account-creation-captcha-cannot-see-image" = "Impossible de veire l’imatge ? $1";
 "account-creation-captcha-obtaining" = "Obtencion d’un novèl CAPTCHA…";
@@ -34,6 +36,8 @@
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
 "account-creation-saving" = "Enregistrament en cors…";
 "action-add-to-reading-list-short" = "Ajustar a la lista";
+// Fuzzy
+"action-find-in-page" = "Trobar dins la pagina";
 "action-read" = "Legir";
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";
@@ -48,7 +52,6 @@
 "article-read-more-title" = "Ne saber mai";
 "article-share" = "Partejar";
 "back-button-accessibility-label" = "Retorn";
-"button-done" = "Acabat";
 "button-next" = "Seguent";
 "button-ok" = "D’acòrdi";
 "button-publish" = "Publicar";
@@ -57,15 +60,12 @@
 "button-save-for-later" = "Enregistrar per mai tard";
 "button-saved-for-later" = "Enregistrat per mai tard";
 "button-saved-remove" = "Suprimir dels enregistraments";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tampar";
 "compass-direction" = "a $1 oras";
 "continue-reading-empty-title" = "Cap d'articles pas legits recentament";
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
 "edit-summary-choice-fixed-typos" = "Correccion de fautas";
 "edit-summary-choice-linked-words" = "Ligams aponduts";
-"edit-summary-choice-other" = "Autre";
-"empty-no-feed-title" = "Pas de connexion a Internet";
 // Fuzzy
 "empty-no-reading-lists-message" = "Clicatz sul « + » blau per crear de listas de lecturas a prepaus de luòcs a visitar, de subjèctes favorits e de nombrosas autras tematicas";
 "empty-no-search-results-message" = "Cap de resultat pas trobat";
@@ -91,7 +91,6 @@
 "field-password-title" = "Senhal";
 "field-token-title" = "Còdi de verificacion";
 "field-username-title" = "Nom d'utilizaire";
-"find-in-page-button-label" = "Trobar dins la pagina";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reïnicializar";
 "forgot-password-title" = "Reïnicializar lo senhal";
@@ -132,7 +131,6 @@
 "main-menu-debug-tweaks" = "Paramètres de desvolopament";
 "main-menu-heading-debug" = "Desbogar";
 "main-menu-heading-legal" = "Confidencialitat e condicions";
-"main-menu-heading-zero" = "Wikipèdia Zèro";
 "main-menu-nearby" = "A proximitat";
 "main-menu-privacy-policy" = "Politica de confidencialitat";
 "main-menu-rate-app" = "Notar l’aplicacion";
@@ -152,12 +150,13 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 eveniments istorics}}";
 "on-this-day-title" = "Aqueste jorn";
-"open-link-cancel" = "Anullar";
 "page-edit-history" = "Istoric complet de las modificacions";
 "page-history-title" = "Istoric de l’article";
 "page-issues" = "Problèmas de pagina";
+// Fuzzy
 "page-last-edited" = "Modificat i a $1 jorns";
 "page-protected-can-not-edit-title" = "Aquesta pagina es protegida";
+// Fuzzy
 "page-read-in-other-languages" = "Disponible dins $1 autras lengas";
 "page-similar-titles" = "Paginas similaras";
 "places-search-recently-searched-header" = "Recercat recentament";
@@ -174,6 +173,7 @@
 "reading-list-sync-enable-subtitle" = "Vòstres articles e listas de lectura salvagardats pòdon ara èstre salvats dins vòstre compte Wikipedia e sincronizats demest las aplicacions Wikipedia.";
 "reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";
 // Fuzzy
 "saved-pages-progress-syncing" = "Sincronizacion de l'article en cors...";
@@ -218,15 +218,7 @@
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
 "welcome-volunteer-send-usage-reports" = "Mandar los rapòrts d’utilizacion";
-"wikitext-download-success" = "Contengut cargat.";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";
-"zero-charged-verbiage" = "Wikipèdia Zèro es desactivada";
-"zero-interstitial-cancel" = "Demorar aicí";
-"zero-interstitial-continue" = "Quitar";
-"zero-interstitial-title" = "Sortida de Wikipèdia Zèro";
-"zero-learn-more-learn-more" = "Legir la seguida";
-"zero-learn-more-no-thanks" = "Regetar";
-"zero-warn-when-leaving" = "Avertir en quitant Zèro";

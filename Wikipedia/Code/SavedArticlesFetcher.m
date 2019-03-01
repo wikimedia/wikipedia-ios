@@ -225,7 +225,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self.spotlightManager removeFromIndexWithUrl:articleURL];
         } else {
             self.updating = NO;
-            [self notifyDelegateIfFinished];
             [self updateFetchesInProcessCount];
             endBackgroundTask();
         }
@@ -252,12 +251,12 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     WMFAssertMainThread(@"must be called on the main thread");
     if (!articleURL.wmf_title) {
         DDLogError(@"Attempted to save articleURL without title: %@", articleURL);
-        failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        failure([WMFFetcher invalidParametersError]);
         return;
     }
 
     if (self.fetchOperationsByArticleTitle[articleURL]) { // Protect against duplicate fetches & infinite fetch loops
-        failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
+        failure([WMFFetcher invalidParametersError]);
         return;
     }
 
@@ -283,7 +282,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self.articleFetcher fetchArticleForURL:articleURL
                 saveToDisk:YES
                 priority:priority
-                progress:NULL
                 failure:^(NSError *_Nonnull error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self didFetchArticle:nil url:articleURL error:error];
@@ -376,7 +374,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         success:^(NSArray *info) {
             @strongify(self);
             if (!self) {
-                failure([NSError wmf_cancelledError]);
+                failure([WMFFetcher cancelledError]);
                 return;
             }
             if (info.count == 0) {
@@ -424,7 +422,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                                   withBlock:^{
                                       @strongify(self);
                                       if (!self) {
-                                          failure([NSError wmf_cancelledError]);
+                                          failure([WMFFetcher cancelledError]);
                                           return;
                                       }
                                       [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
@@ -501,25 +499,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     [self.dataStore save:&saveError];
     if (saveError) {
         DDLogError(@"Error saving after saved articles fetch: %@", saveError);
-    }
-}
-
-/// Only invoke within accessQueue
-- (void)notifyDelegateIfFinished {
-    //Uncomment when dropping iOS 9
-    //dispatch_assert_queue_debug(self.accessQueue);
-    if ([self.fetchOperationsByArticleTitle count] == 0) {
-        NSError *reportedError;
-        if ([self.errorsByArticleTitle count] > 0) {
-            reportedError = [[self.errorsByArticleTitle allValues] firstObject];
-        }
-
-        [self.errorsByArticleTitle removeAllObjects];
-
-        DDLogDebug(@"Finished downloading all saved pages!");
-
-        [self finishWithError:reportedError
-                  fetchedData:nil];
     }
 }
 

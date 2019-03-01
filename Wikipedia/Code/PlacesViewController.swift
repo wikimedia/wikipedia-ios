@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
+class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
 
     fileprivate var mapView: MapView!
 
@@ -624,13 +624,13 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 do {
                     let articlesToShow = try moc.fetch(request)
                     self.articleKeyToSelect = articlesToShow.first?.key
-                    if articlesToShow.count > 0 {
+                    if !articlesToShow.isEmpty {
                         if (self.currentSearch?.region == nil) {
                             self.currentSearchRegion = self.region(thatFits: articlesToShow)
                             self.mapRegion = self.currentSearchRegion
                         }
                     }
-                    if articlesToShow.count == 0 {
+                    if articlesToShow.isEmpty {
                         self.wmf_showAlertWithMessage(WMFLocalizedString("places-no-saved-articles-have-location", value:"None of your saved articles have location information", comment:"Indicates to the user that none of their saved articles have location information"))
                     }
                 } catch let error {
@@ -649,7 +649,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         let nserror = error as NSError
                         if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
                             let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
-                            if (completions.count > 0) {
+                            if !completions.isEmpty {
                                 self.showDidYouMeanButton(search: completions[0])
                             }
                         }
@@ -697,12 +697,12 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
     func performWikidataQuery(forSearch search: PlaceSearch) {
         let fail = {
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
                 self.currentSearch = newSearch
-            })
+            }
         }
         guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL) else {
             fail()
@@ -713,13 +713,13 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             DDLogError("Error fetching bounding region from Wikidata: \(error)")
             fail()
         }, success: { (region) in
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
                 newSearch.region = region
                 self.currentSearch = newSearch
-            })
+            }
         })
     }
     
@@ -1633,6 +1633,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         super.scrollViewInsetsDidChange()
         emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
     }
+
+    // MARK: HintPresenting
+
+    var hintController: HintController?
     
     func dismissCurrentArticlePopover() {
         guard let popover = selectedArticlePopover else {
@@ -1846,7 +1850,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch], isSearchDone: Bool) {
-        guard currentSearchString != "" || completions.count > 0 else {
+        guard currentSearchString != "" || !completions.isEmpty else {
             
             // Search is empty, run a default search
             
@@ -1889,7 +1893,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
             let searchText = searchBar.text ?? ""
-            if !searchText.wmf_hasNonWhitespaceText && recentSearches.count == 0 {
+            if !searchText.wmf_hasNonWhitespaceText && recentSearches.isEmpty {
                 setupEmptySearchOverlayView()
                 emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
                 searchSuggestionView.superview?.addSubview(emptySearchOverlayView)
@@ -1968,9 +1972,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
-        if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
+        if !searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
-        } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
+        } else if !searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection][0]
         }
     }
@@ -2006,40 +2010,42 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
-            guard text == self.searchBar.text else {
-                return
+            DispatchQueue.main.async {
+                guard text == self.searchBar.text else {
+                    return
+                }
+                self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
+                self.isWaitingForSearchSuggestionUpdate = false
             }
-            self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
-            self.isWaitingForSearchSuggestionUpdate = false
         }) { (searchResult) in
-            guard text == self.searchBar.text else {
-                return
-            }
-            
-            if let suggestion = searchResult.searchSuggestion {
-                DDLogDebug("got suggestion! \(suggestion)")
-            }
-            
-            let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
-            self.isWaitingForSearchSuggestionUpdate = false
-            guard completions.count < 10 else {
-                return
-            }
-            
-            let center = self.mapView.userLocation.coordinate
-            let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
-            self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
+            DispatchQueue.main.async {
                 guard text == self.searchBar.text else {
                     return
                 }
-                var combinedResults: [MWKSearchResult] = searchResult.results ?? []
-                let newResults = locationSearchResults.results as [MWKSearchResult]
-                combinedResults.append(contentsOf: newResults)
-                let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
-            }) { (error) in
-                guard text == self.searchBar.text else {
+                
+                if let suggestion = searchResult.searchSuggestion {
+                    DDLogDebug("got suggestion! \(suggestion)")
+                }
+                
+                let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
+                self.isWaitingForSearchSuggestionUpdate = false
+                guard completions.count < 10 else {
                     return
                 }
+                
+                let center = self.mapView.userLocation.coordinate
+                let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
+                self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
+                    DispatchQueue.main.async {
+                        guard text == self.searchBar.text else {
+                            return
+                        }
+                        var combinedResults: [MWKSearchResult] = searchResult.results ?? []
+                        let newResults = locationSearchResults.results as [MWKSearchResult]
+                        combinedResults.append(contentsOf: newResults)
+                        let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
+                    }
+                }) { (error) in }
             }
         }
     }
@@ -2081,7 +2087,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             return
         }
         
-        guard searchText.trimmingCharacters(in: .whitespaces).count > 0 else {
+        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
         
@@ -2267,6 +2273,7 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
+        hintController?.dismissHintDueToUserInteraction()
     }
     
     func regionDidChange() {
@@ -2341,7 +2348,7 @@ extension PlacesViewController {
         if place.articles.count > 1 && place.nextCoordinate == nil {
             placeView?.alpha = 0
             placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.transform = CGAffineTransform.identity
@@ -2349,10 +2356,10 @@ extension PlacesViewController {
                 }, completion: { (done) in
                     self.countOfAnimatingAnnotations -= 1
                 })
-            })
+            }
         } else if let nextCoordinate = place.nextCoordinate {
             placeView?.alpha = 0
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                     place.coordinate = nextCoordinate
@@ -2362,17 +2369,17 @@ extension PlacesViewController {
                 UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
                 }, completion: nil)
-            })
+            }
         } else {
             placeView?.alpha = 0
-            dispatchOnMainQueue({
+            DispatchQueue.main.async {
                 self.countOfAnimatingAnnotations += 1
                 UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
                     placeView?.alpha = 1
                 }, completion: { (done) in
                     self.countOfAnimatingAnnotations -= 1
                 })
-            })
+            }
         }
         
         return placeView

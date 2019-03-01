@@ -24,7 +24,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
-    let tokenFetcher = WMFAuthTokenFetcher()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -96,7 +95,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         guard let text = captchaViewController?.solution else {
             return false
         }
-        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count > 0)
+        return !(text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)).isEmpty
     }
     
     fileprivate func requiredInputFields() -> [UITextField] {
@@ -285,9 +284,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
-            self.captchaViewController?.captcha = info.captcha
-            self.updatePasswordFieldReturnKeyType()
-            self.enableProgressiveButtonIfNecessary()
+            DispatchQueue.main.async {
+                self.captchaViewController?.captcha = info.captcha
+                self.updatePasswordFieldReturnKeyType()
+                self.enableProgressiveButtonIfNecessary()
+            }
         }, failure: captchaFailure)
     }
 

@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate {
+class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
     
     enum HeaderStyle {
         case sections
@@ -97,15 +97,16 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
             self.layout.invalidateLayout(with: invalidationContext)
         })
     }
+
+    // MARK: HintPresenting
+
+    var hintController: HintController?
     
     // MARK: - UIScrollViewDelegate
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
-        guard let hintPresenter = self as? ReadingListHintPresenter else {
-            return
-        }
-        hintPresenter.readingListHintController?.scrollViewWillBeginDragging()
+        hintController?.dismissHintDueToUserInteraction()
     }
     
     // MARK: - Refresh Control
@@ -148,6 +149,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     var emptyViewType: WMFEmptyViewType = .none
     
     final var isEmpty = true
+    final var showingEmptyViewType: WMFEmptyViewType?
     final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
@@ -159,7 +161,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
             }
         }
         
-        guard isCurrentlyEmpty != isEmpty else {
+        guard isCurrentlyEmpty != isEmpty || showingEmptyViewType != emptyViewType else {
             return
         }
         
@@ -179,8 +181,10 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     open func isEmptyDidChange() {
         if isEmpty {
             wmf_showEmptyView(of: emptyViewType, action: emptyViewAction, theme: theme, frame: emptyViewFrame)
+            showingEmptyViewType = emptyViewType
         } else {
             wmf_hideEmptyView()
+            showingEmptyViewType = nil
         }
     }
     
@@ -375,15 +379,12 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDelegate {
-
+    
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        if let hintPresenter = self as? ReadingListHintPresenter {
-            hintPresenter.readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
-        }
         if let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding {
             if didSave {
                 ReadingListsFunnel.shared.logSave(category: eventLoggingEventValuesProviding.eventLoggingCategory, label: eventLoggingEventValuesProviding.eventLoggingLabel, articleURL: articleURL)

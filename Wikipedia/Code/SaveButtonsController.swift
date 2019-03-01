@@ -51,7 +51,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         saveButton.removeTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.remove(saveButton)
-        if saveButtons.count == 0 {
+        if saveButtons.isEmpty {
             visibleSaveButtons.removeValue(forKey: tag)
             visibleArticleKeys.removeValue(forKey: tag)
             visibleUserInfo.removeValue(forKey: tag)
@@ -95,7 +95,10 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }
-        
+
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
         activeKey = key
         activeSender = sender
         

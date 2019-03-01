@@ -35,14 +35,19 @@
 "about-translators-details" = "Tradukita de volontuloj ĉe $1";
 "about-wikimedia-foundation" = "Fondaĵo Vikimedio";
 "about-wikipedia" = "Vikipedio";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Vi ne povas publikigi ĉi tiun modifon. Bonvolu iri reen kaj ŝanĝi ĝin.";
-"abuse-filter-disallow-notable" = "Vikipedio estas encyclopedio kaj nur neŭtrala, rimarkinda enhavo aperu ĉi tie.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Aŭtomatigita filtrilo identigis ĉi tiun redakton kiel potenciale malhelpan aŭ provon je vandalismo.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Malplenigi artikolon aŭ spamado";
+// Fuzzy
 "abuse-filter-warning-caps" = "Skribi ĈION MAJUSKLE";
 "abuse-filter-warning-heading" = "Tio ĉi eble estas malhelpa redakto. Ĉu vi certas, ke vi volas publikigi ĝin?";
 "abuse-filter-warning-irrelevant" = "Senrilata ekstera ligilo aŭ bildo";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Ripetaaaado de signoj";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Via redakto povas enhavi unu aŭ pli de la jeno:";
 "account-creation-captcha-cannot-see-image" = "Ĉu vi ne povas vidi la bildon? $1";
 "account-creation-captcha-obtaining" = "Akiras novan CAPTCHA...";
@@ -60,6 +65,8 @@
 "action-add-to-reading-list" = "Aldoni al legolisto";
 "action-add-to-reading-list-short" = "Aldoni al listo";
 "action-cancel" = "Nuligi";
+// Fuzzy
+"action-find-in-page" = "Trovi en la paĝo";
 "action-move-to" = "Movi al...";
 "action-move-to-reading-list" = "Movi al legolisto";
 "action-read" = "Legi";
@@ -70,11 +77,12 @@
 "action-saved-accessibility-notification" = "Artikolo konservita por poste";
 "action-share" = "Konigi";
 "action-sort" = "Ordigi";
+// Fuzzy
+"action-undo" = "Malfari";
 "action-unsave" = "Malkonservi";
 "action-unsaved-accessibility-notification" = "Artikolo malkonservita";
 "action-update" = "Ĝisdatigi";
 "add-articles-to-reading-list" = "Aldoni {{PLURAL:$1|$1 artikolon|$1 artikolojn}} al legolisto";
-"alert-no-internet" = "Estas neniu interreta konekto";
 "announcements-dismiss" = "Rezigni";
 "app-store-keywords" = "Vikipedio, referenco, vikio, encyclopedio, informoj, scio, esplorado, esplori, lerni";
 "app-store-release-notes" = "Plene tajlorebla kaj pli facile legebla Esplorfluo. Internaciigo, rendimentaj plibonigoj kaj cimoriparoj.";
@@ -83,6 +91,7 @@
 "appearance-settings-adjust-text-sizing" = "Ĝustigi artikolan tekstograndon";
 "appearance-settings-expand-tables" = "Etendi tabelojn";
 "appearance-settings-expand-tables-footer" = "Agordi ĉiujn tabelojn en ĉiuj artikoloj ke ili estu defaŭlte malfermitaj, inkluzive de Rapidaj faktoj, Referencoj, Notoj kaj Eksteraj ligiloj.";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Malpliigi la opakecon de bildoj sur malluma etoso";
 "appearance-settings-reading-themes" = "Lego-etosoj";
 "appearance-settings-set-automatic-table-opening" = "Tabelaj agordoj";
@@ -102,7 +111,6 @@
 "article-unable-to-load-section" = "Ne eblas ŝargi tiun ĉi sekcion. Provu aktualigi la artikolon, tio eble riparos la problemon.";
 "back-button-accessibility-label" = "Reen";
 "back-button-popover-title" = "Tuŝetu por reiri";
-"button-done" = "Farite";
 "button-next" = "Sekva";
 "button-ok" = "Bone";
 "button-publish" = "Publikigi";
@@ -113,7 +121,6 @@
 "button-saved-remove" = "Forigita de la konservitaĵoj";
 "button-skip" = "Preterlasi";
 "cancel" = "Nuligi";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "cc-zero" = "Krea Komunaĵo CCO";
 "close-button-accessibility-label" = "Fermi";
 "compass-direction" = "je la $1 horo";
@@ -159,13 +166,9 @@
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
-"edit-summary-choice-other" = "Alia";
-"edit-summary-field-placeholder-text" = "Aliaj manieroj en kiuj vi plibonigis la artikolon";
-"edit-summary-title" = "Kiel vi plibonigis la artikolon?";
 "empty-no-article-message" = "Pardonon, ne povis ŝargi la artikolon";
 "empty-no-feed-action-message" = "Vi daŭre povas legi konservitajn paĝojn";
 "empty-no-feed-message" = "Vi povas vidi viajn rekomenditajn artikolojn kiam vi havas retaliron";
-"empty-no-feed-title" = "Neniu retkonekto";
 "empty-no-history-message" = "Atentadu tion kion vi legis ĉi tie";
 "empty-no-history-title" = "Neniu historio por montri";
 "empty-no-reading-lists-message" = "Krei listojn por lokoj vizitindaj, ŝatataj temoj kaj multe pli";
@@ -207,6 +210,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Ne lingvospecifa";
 "explore-feed-preferences-global-cards-title" = "Tutmondaj kartoj";
 "explore-feed-preferences-hide-card-action-title" = "Kaŝi ĉi tiun karton";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "Kaŝi ĉiuj %@ kartoj";
 "explore-feed-preferences-in-the-news-description" = "Artikoloj pri nunaj eventoj";
 "explore-feed-preferences-languages-footer-text" = "Se vi kaŝas ĉiujn kartojn sur la Esplorfluo en via lingvo, la Esplortaba folio estos malŝaltita.";
@@ -242,7 +246,6 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ŝalti Esploradon";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ĉi tio anstataŭos la taban folion Agordoj per la Esplorflua taba folio. Vi povas aliri la agordojn supre de la Esplorflua taba folio, tuŝetante la dentoradan bildsimbolon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ĉu ŝalti la Esplorfluan taban folion?";
-"explore-feed-preferences-undo-customization" = "Malfari";
 "explore-hide-card-prompt" = "Kaŝi ĉi tiun karton";
 "explore-main-page-description" = "Ĉefa paĝo de vikimediaj projektoj";
 "explore-main-page-heading" = "Hodiaŭ sur Vikipedio";
@@ -287,14 +290,12 @@
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
 "field-username-title" = "Salutnomo";
-"find-in-page-button-label" = "Trovi en la paĝo";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restarigi";
 "forgot-password-email-sent" = "Retmesaĝo kun instrukcioj pri la restarigo de pasvorto estas sendita";
 "forgot-password-instructions" = "Plenigu unu el la kampoj ĉi-sube por ricevi instrukcioj pri restarigo de pasvorto per retpoŝto";
 "forgot-password-title" = "Restarigi pasvorton";
 "forgot-password-username-or-email-title" = "Aŭ";
-"gfdl" = "GFDL";
 "history-clear-all" = "Malplenigi";
 "history-clear-cancel" = "Nuligi";
 "history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
@@ -348,7 +349,6 @@
 "main-menu-debug-tweaks" = "Programistaj agordoj";
 "main-menu-heading-debug" = "Sencimigi";
 "main-menu-heading-legal" = "Privateco kaj uzkondiĉoj";
-"main-menu-heading-zero" = "Vikipedio Zero";
 "main-menu-nearby" = "Ĉirkaŭe";
 "main-menu-privacy-policy" = "Politiko pri privateco";
 "main-menu-rate-app" = "Taksi la aplikaĵon";
@@ -376,11 +376,11 @@
 "on-this-day-footer-with-event-count" = "$1 pli da historiaj eventoj en ĉi tiu tago";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de $2 Vikipedio";
 "on-this-day-title" = "En ĉi tiu tago";
-"open-link-cancel" = "Nuligi";
 "original-tab-button-popover-description" = "Tuŝetu sur 'W' por reveni al la taba folio de kiu vi startis";
 "page-edit-history" = "Plena redakto-historion";
 "page-history-title" = "Artikola historio";
 "page-issues" = "Problemoj pri paĝo";
+// Fuzzy
 "page-last-edited" = "Redaktita antaŭ $1 tagoj";
 "page-location" = "Montri sur mapo";
 "page-protected-autoconfirmed" = "Ĉi tiu paĝo estas duon-protektita.";
@@ -388,6 +388,7 @@
 "page-protected-can-not-edit-title" = "Ĉi tiu paĝo estas protektita";
 "page-protected-other" = "Ĉi tiu paĝo estas protektita je la jenaj niveloj: $1";
 "page-protected-sysop" = "Ĉi tiu paĝo estas tut-protektita.";
+// Fuzzy
 "page-read-in-other-languages" = "Disponebla en $1 aliaj lingvoj";
 "page-similar-titles" = "Similaj paĝoj";
 "page-talk-page" = "Montri diskutpaĝon";
@@ -445,6 +446,7 @@
 "reading-list-deleted-accessibility-notification" = "Legolisto forigita";
 "reading-list-do-not-keep-button-title" = "Ne, forigi artikolojn de la aparato";
 "reading-list-entry-limit-exceeded-message" = "Bonvolu malpliigi la nombron de artikoloj en ĉi tiu listo al $1 por daŭrigi la sinkronigadon de ĉiuj artikoloj en ĉi tiu listo.";
+// Fuzzy
 "reading-list-entry-limit-exceeded-title" = "Vi preterpasis la limon de po $1 artikoloj por konto.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikolo|Artikoloj}} ne povis esti aldonita al via listo. Vi atingis la limon de po $2 artikoloj por legolisto por $3";
 "reading-list-exists-with-same-name" = "Nomo de legolisto jam uzata";
@@ -458,6 +460,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Estas limo de 5000 neordigitaj artikoloj. Bonvolu ordigi viajn ekzistantajn artikolojn en listoj por daŭrigi la sinkronigadon de neordigitaj artikoloj.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limo-atingo de neordigitaj artikoloj";
 "reading-list-list-limit-exceeded-message" = "Ĉi tiu legolisto kaj la artikoloj konservitaj al ĝi ne estos sinkronigitaj. Bonvolu malpliigi vian nombron de listoj al $1 por daŭrigi la sinkronigadon de ĉi tiu listo.";
+// Fuzzy
 "reading-list-list-limit-exceeded-title" = "Vi preterpasis la limon de po $1 legolistoj por konto.";
 "reading-list-list-limit-reached" = "Vi atingis la limon de po $1 legolistoj por konto";
 "reading-list-login-button-title" = "Ensalutu por sinkronigi viajn konservitajn artikolojn";
@@ -508,9 +511,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia etoso";
 "reading-themes-controls-accessibility-text-size-slider" = "Ŝovilo pri teksta grando";
 "reference-title" = "Referenco $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hodiaŭ|Hieraŭ|Antaŭ $1 tagoj}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Antaŭ nelonge|Antaŭ $1 horo|Antaŭ $1 horoj}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ĵus|Antaŭ $1 minuto|Antaŭ $1 minutoj}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ĉi-jare|Pasintjare|Antaŭ $1 jaroj}}";
 "request-feedback-on-error" = "La aplikaĵo ekhavis problemon pri kiu niaj programistoj ŝatus scii pli. Bonvolu tuŝeti ĉi tie por sendi retmesaĝon al ni kun la eraro-detaloj.";
 "reverted-edit-back-to-article-button-title" = "Reen al la artikolo";
@@ -640,7 +645,6 @@
 "welcome-send-data-sub-title" = "Helpu plibonigi la aplikaĵon informante la Vikimedian Fondaĵon kiel vi uzas ĝin. Datumkolektado estas sennoma.";
 "welcome-volunteer-send-usage-reports" = "Sendi raporton pri uzado";
 "wikitext-download-failed" = "Ne eblas ricevi lastan revizion.";
-"wikitext-download-success" = "Enhavo ŝargita.";
 "wikitext-downloading" = "Ŝargante enhavon...";
 "wikitext-preview-changes" = "Ricevado de antaŭrigardo de viaj ŝanĝoj...";
 "wikitext-preview-changes-none" = "Neniuj ŝanĝoj estas faritaj por antaŭrigardi.";
@@ -652,16 +656,4 @@
 "wikitext-upload-save" = "Publikigas...";
 "wikitext-upload-save-anonymously-warning" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1, vi havos pli da privateco.";
 "wikitext-upload-save-sign-in" = "Ensaluti";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Konservante ŝanĝojn, vi konsentas kun la $1 kaj konsentas publikigi viajn kontribuojn laŭ la permesilo $2 kaj $3.";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";
-"zero-charged-verbiage" = "Vikipedio Zero estas malŝaltita";
-"zero-charged-verbiage-extended" = "Se vi ŝargas kromajn artikolojn, tio povas kaŭzi elspezojn por datumoj. Artikoloj kiujn vi konservis eksterrete ne uzas datumojn kaj estas senpagaj.";
-"zero-free-verbiage" = "Senpaga aliro al Vikipedio de via provizanto de sendrata retkonekto (sen bezono pagi datum-ŝutadon)";
-"zero-interstitial-cancel" = "Resti ĉi tie";
-"zero-interstitial-continue" = "Foriri";
-"zero-interstitial-leave-app" = "Eble vi elspezos por datumoj. Ĉu vi volas daŭrigi al ekstera retejo?";
-"zero-interstitial-title" = "Forlasante Vikipedio Zero";
-"zero-learn-more" = "Oni rezignis pri elspezoj por datumoj por ĉi tiu vikipedia aplikaĵo.";
-"zero-learn-more-learn-more" = "Legi plu";
-"zero-learn-more-no-thanks" = "Rezigni";
-"zero-warn-when-leaving" = "Averti dum forlasado de Zero";
