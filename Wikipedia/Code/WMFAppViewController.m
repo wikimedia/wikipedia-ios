@@ -222,6 +222,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:WMFEditPublishedNotification
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dscriptionEditWasPublished:)
+                                                 name:[WikidataDescriptionEditingController didPublishNotification]
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
     self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
     self.editHintController = [[WMFEditHintController alloc] init];
@@ -509,6 +514,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)editPublished:(NSNotification *)note {
     if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
+        return;
+    }
+    [self toggleHint:self.editHintController context:nil];
+}
+
+- (void)dscriptionEditWasPublished:(NSNotification *)note {
+    if (![NSUserDefaults.wmf didShowDescriptionEditPublishedPanel]) {
         return;
     }
     [self toggleHint:self.editHintController context:nil];
