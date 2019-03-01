@@ -598,6 +598,7 @@ public typealias ReadingListsController = WMFReadingListsController
         sync()
     }
     
+    @objc public var userChangedArticleSavedStateCallback: ((WMFArticle) -> Void)?
     @objc public func save(_ article: WMFArticle) {
         assert(Thread.isMainThread)
         do {
@@ -606,6 +607,7 @@ public typealias ReadingListsController = WMFReadingListsController
             if moc.hasChanges {
                 try moc.save()
             }
+            userChangedArticleSavedStateCallback?(article)
             sync()
         } catch let error {
             DDLogError("Error adding article to default list: \(error)")
@@ -617,18 +619,25 @@ public typealias ReadingListsController = WMFReadingListsController
     }
     
     @objc(unsaveArticle:inManagedObjectContext:) public func unsaveArticle(_ article: WMFArticle, in moc: NSManagedObjectContext) {
-        unsave([article], in: moc)
+        unsave([article], in: moc) { error in
+            guard Thread.isMainThread, error == nil else {
+                return
+            }
+            self.userChangedArticleSavedStateCallback?(article)
+        }
     }
     
-    @objc(unsaveArticles:inManagedObjectContext:) public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext) {
+    @objc(unsaveArticles:inManagedObjectContext:completion:) public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext, completion: ((Error?) -> Void)? = nil) {
         do {
             let keys = articles.compactMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey IN %@", keys)
             let entries = try moc.fetch(entryFetchRequest)
             try markLocalDeletion(for: entries)
+            completion?(nil)
         } catch let error {
             DDLogError("Error removing article from default list: \(error)")
+            completion?(error)
         }
     }
     
