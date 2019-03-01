@@ -223,7 +223,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(dscriptionEditWasPublished:)
+                                             selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
 
@@ -519,7 +519,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self toggleHint:self.editHintController context:nil];
 }
 
-- (void)dscriptionEditWasPublished:(NSNotification *)note {
+- (void)descriptionEditWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.wmf didShowDescriptionPublishedPanel]) {
         return;
     }
