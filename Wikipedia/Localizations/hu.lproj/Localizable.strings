@@ -377,9 +377,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Szépia téma";
 "reading-themes-controls-accessibility-text-size-slider" = "Szövegméret csúszka";
 "reference-title" = "Forráshivatkozás $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ma|Tegnap|$1 napja}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nemrég|$1 órája|$1 órája}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Épp most|$1 perce|$1 perce}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ez évben|Tavaly|$1 évvel ezelőtt}}";
 "request-feedback-on-error" = "Az alkalmazás egy olyan hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "reverted-edit-notification-read-more-action-title" = "További információ";

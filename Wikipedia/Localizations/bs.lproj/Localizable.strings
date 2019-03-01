@@ -269,9 +269,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tamnosmeđa tema";
 "reading-themes-controls-accessibility-text-size-slider" = "Klizač veličine teksta";
 "reference-title" = "Referenca $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Danas|Jučer|Prije $1 dana}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedavno|Prije $1 sat|Prije $1 sata|Prije $1 sati}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Upravo|Prije $1 minute|Prije $1 minute|Prije $1 minuta}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ove godine|Prošle godine|Prije $1 godine|Prije $1 godina}}";
 "request-feedback-on-error" = "Aplikacija je naišla na problem za koji naši programeri želi doznati više. Dodirnite ovdje da biste nam poslali e-poruku s informacijama o grešci.";
 "saved-pages-image-download-error" = "Ne mogu preuzeti slike za ovu sačuvanu stranicu.";

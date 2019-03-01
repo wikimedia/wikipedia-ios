@@ -52,7 +52,7 @@
 "abuse-filter-warning-blanking" = "حذف أقسام أو مقالات كاملة";
 "abuse-filter-warning-caps" = "نص باستخدام أحرف كبيرة فقط";
 "abuse-filter-warning-heading" = "يبدو أن هذا التعديل غير مثمر، هل أنت متأكد من أنك ترغب في نشره؟";
-"abuse-filter-warning-irrelevant" = "روابط أو صور خارجية لا صلة لها بالموضوع";
+"abuse-filter-warning-irrelevant" = "وصلات أو صور خارجية لا صلة لها بالموضوع";
 "abuse-filter-warning-repeat" = "حروف متكررة";
 "abuse-filter-warning-spam" = "إضافة سبام إلى المقالات";
 "abuse-filter-warning-subheading" = "تعديلك ربما يحتوي على:";
@@ -437,6 +437,7 @@
 "page-edit-history" = "تاريخ التعديل الكامل";
 "page-history-title" = "تاريخ المقالة";
 "page-issues" = "مشاكل في الصفحة";
+// Fuzzy
 "page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|أمس|منذ $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
@@ -564,9 +565,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "موضوع بني داكن";
 "reading-themes-controls-accessibility-text-size-slider" = "شريط تمرير حجم النص";
 "reference-title" = "$1 مرجع";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|أمس|قبل $1 أيام}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=مؤخرا|قبل $1 ساعة|قبل $1 ساعات}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|منذ $1 دقيقة|منذ $1 دقائق}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|العام الماضي|منذ $1 سنوات}}";
 "request-feedback-on-error" = "واجه التطبيق مشكلة والتي يود مطورينا أن يتعرفوا على المزيد عنها. يرجى النقر هنا كي ترسل لينا رسالة بريد إلكتروني تبين لنا فيها تفاصيل الخطأ.";
 "reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
@@ -705,7 +708,7 @@
 "wikitext-upload-captcha-needed" = "مطلوب التحقق من كابتشا.";
 "wikitext-upload-result-unknown" = "غير قادر على تحديد نتيجة تحميل النص";
 "wikitext-upload-save" = "جارٍ الحفظ...";
-"wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان آيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
+"wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان أيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
 "wikitext-upload-save-terms-and-licenses" = "بنشر التغييرات، فإنك توافق على $شروط الاستخدام$2، وتوافق بشكل لا رجعة فيه على إطلاق مساهمتك تحت $3رخصة المشاع الإبداعي: النسبة-الترخيص بالمثل3.0$4 و$5رخصة جنو للوثائق الحرة$6، أنت توافق على أن الرابط التشعبي أو المسار يمثل إسنادا كافيا بموجب ترخيص  المشاع الإبداعي.";

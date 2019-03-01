@@ -76,8 +76,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Gisteren bewerkt</string>
 			<key>other</key>
 			<string>%1$d dagen geleden bewerkt</string>
 			<key>zero</key>
@@ -127,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>U hebt de limiet van %1$d artikel per account overschreden.</string>
+			<string>U hebt de grens van %1$d pagina per profiel overschreden.</string>
 			<key>other</key>
-			<string>U hebt de limiet van %1$d artikels per account overschreden.</string>
+			<string>U hebt de grens van %1$d pagina's per profiel overschreden.</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -159,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>U hebt de limiet van %1$d leeslijst per account overschreden.</string>
+			<string>U hebt de grens van %1$d leeslijst per profiel overschreden.</string>
 			<key>other</key>
-			<string>U hebt de limiet van %1$d leeslijten per account overschreden.</string>
+			<string>U hebt de grens van %1$d leeslijsten per profiel overschreden.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -222,8 +220,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Gisteren</string>
 			<key>other</key>
 			<string>%1$d dagen gelden</string>
 			<key>zero</key>
@@ -276,10 +272,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Laatste jaar</string>
 			<key>other</key>
-			<string>%1$d jaren geleden</string>
+			<string>%1$d jaar geleden</string>
 			<key>zero</key>
 			<string>Dit jaar</string>
 		</dict>

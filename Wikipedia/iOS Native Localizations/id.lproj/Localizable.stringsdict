@@ -66,6 +66,38 @@
 			<string>%1$d peristiwa bersejarah</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Disunting %1$d hari yang lalu</string>
+			<key>zero</key>
+			<string>Disunting hari ini</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Tersedia dalam %1$d bahasa lain</string>
+			<key>other</key>
+			<string>Tersedia dalam %1$d bahasa lain</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +114,22 @@
 			<string>%1$d artikel</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Anda telah melampaui batas %1$d artikel per akun.</string>
+			<key>other</key>
+			<string>Anda telah melampaui batas %1$d artikel per akun.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +144,22 @@
 			<string>Artikel tidak dapat ditambahkan ke daftar ini. Anda telah mencapai batas %2$d artikel per daftar bacaan untuk %3$@</string>
 			<key>other</key>
 			<string>Artikel tidak dapat ditambahkan ke daftar ini. Anda telah mencapai batas %2$d artikel per daftar bacaan untuk %3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Anda telah melampaui batas %1$d daftar bacaan per akun.</string>
+			<key>other</key>
+			<string>Anda telah melampaui batas %1$d daftar bacaan per akun.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -156,8 +220,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Kemarin</string>
 			<key>other</key>
 			<string>%1$d hari yang lalu</string>
 			<key>zero</key>
@@ -210,8 +272,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Tahun lalu</string>
 			<key>other</key>
 			<string>%1$d tahun yang lalu</string>
 			<key>zero</key>

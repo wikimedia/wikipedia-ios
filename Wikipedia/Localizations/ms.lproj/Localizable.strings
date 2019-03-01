@@ -31,20 +31,15 @@
 "about-translators-details" = "Aplikasi ini diterjemahkan oleh para penterjemah sukarela di $1";
 "about-wikimedia-foundation" = "Yayasan Wikimedia";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Suntingan ini tidak boleh diterbitkan. Sila kembali dan suntingnya semula.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Penapis automatik telah mengenal pasti suntingan ini sebagai mungkin tidak membina ataupun cubaan laku musnah.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Mengosongkan rencana atau melakukan ''spam''";
-// Fuzzy
-"abuse-filter-warning-caps" = "Menaip dengan SERBA HURUF BESAR";
+"abuse-filter-disallow-heading" = "Suntingan ini tidak boleh diterbitkan";
+"abuse-filter-disallow-unconstructive" = "Penapis automatik telah mengenal pasti suntingan ini sebagai mungkin tidak membina ataupun sebagai cubaan laku musnah. Sila kembali dan suntingnya semula.";
+"abuse-filter-warning-blanking" = "Memadam bahagian atau rencana penuh";
+"abuse-filter-warning-caps" = "Serba huruf besar";
 "abuse-filter-warning-heading" = "Suntingan ini kelihatan tidak membina. Adakah anda betul-betul mahu menerbitkannya?";
 "abuse-filter-warning-irrelevant" = "Pautan-pautan luar atau gambar-gambar yang tidak relevan";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Aksara beruuuulang";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Suntingan anda mungkin mengandungi antara yang berikut:";
+"abuse-filter-warning-repeat" = "Aksara berulang";
+"abuse-filter-warning-spam" = "Menambah spam pada rencana";
+"abuse-filter-warning-subheading" = "Suntingan anda mungkin mengandungi:";
 "account-creation-captcha-cannot-see-image" = "Tidak boleh melihat imej? $1";
 "account-creation-captcha-obtaining" = "Mendapatkan CAPTCHA baru...";
 "account-creation-captcha-request-account" = "Mohon akaun.";
@@ -61,11 +56,11 @@
 "action-add-to-reading-list" = "Tambahkan ke senarai bacaan";
 "action-add-to-reading-list-short" = "Tambahkan kepada senarai";
 "action-cancel" = "Batalkan";
-// Fuzzy
 "action-find-in-page" = "Cari dalam laman";
 "action-move-to" = "Pindah ke...";
 "action-move-to-reading-list" = "Pindahkan ke senarai bacaan";
 "action-read" = "Baca";
+"action-redo" = "Buat semula";
 "action-remove" = "Buang";
 "action-save" = "Simpan";
 "action-saved" = "Disimpan";
@@ -73,7 +68,6 @@
 "action-saved-accessibility-notification" = "Rencana disimpan untuk kemudian";
 "action-share" = "Kongsi";
 "action-sort" = "Isih";
-// Fuzzy
 "action-undo" = "Nyahbuat";
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana batal disimpan";
@@ -87,8 +81,7 @@
 "appearance-settings-adjust-text-sizing" = "Laraskan saiz teks rencana";
 "appearance-settings-expand-tables" = "Kembangkan jadual";
 "appearance-settings-expand-tables-footer" = "Tetapkan semua jadual dalam semua rencana untuk dibuka secara lalai, termasuk Fakta pantas, Rujukan, Nota dan Pautan luar.";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "Kurangkan kelegapan imej pada tema gelap";
+"appearance-settings-image-dimming-footer" = "Kurangkan kelegapan imej pada tema gelap dan hitam";
 "appearance-settings-reading-themes" = "Tema bacaan";
 "appearance-settings-set-automatic-table-opening" = "Tetapan Jadual";
 "appearance-settings-text-sizing-example-text" = "Seret gelangsar untuk mengubah ukuran teks rencana. Gunakan saiz teks sistem anda untuk mengubah saiz kawasan teks lain dalam aplikasi.";
@@ -159,9 +152,57 @@
 "description-welcome-promise-title" = "Dengan bermula, saya berjanji tidak menyalahgunakan ciri ini";
 "description-welcome-start-editing-button" = "Mula menyunting";
 "dim-images" = "Samarkan imej";
+"edit-bold-accessibility-label" = "Tambah pemformatan tebal";
+"edit-bold-remove-accessibility-label" = "Buang pemformatan tebal";
+"edit-comment-accessibility-label" = "Tambah sintaks komen";
+"edit-comment-remove-accessibility-label" = "Buang sintaks komen";
+"edit-decrease-indent-depth-accessibility-label" = "Kurangkan kedalaman inden";
+"edit-direction-down-accessibility-label" = "Gerakkan kursor ke bawah";
+"edit-direction-left-accessibility-label" = "Gerakkan kursor ke kiri";
+"edit-direction-right-accessibility-label" = "Gerakkan kursor ke kanan";
+"edit-direction-up-accessibility-label" = "Gerakkan kursor ke atas";
+"edit-increase-indent-depth-accessibility-label" = "Meningkatkan kedalaman inden";
+"edit-indent-accessibility-label" = "Inden baris semasa";
+"edit-italic-accessibility-label" = "Tambah pemformatan italik";
+"edit-italic-remove-accessibility-label" = "Buang pemformatan italik";
+"edit-link-accessibility-label" = "Tambah sintaks pautan";
+"edit-link-remove-accessibility-label" = "Buang sintaks pautan";
+"edit-minor-learn-more-text" = "Ketahui lebih lanjut mengenai suntingan kecil";
+"edit-minor-text" = "Ini ialah suntingan kecil";
+"edit-ordered-list-accessibility-label" = "Buat senarai yang diperintahkan baris semasa";
+"edit-ordered-list-remove-accessibility-label" = "Buang senarai pesanan dari baris semasa";
+"edit-published" = "Suntingan diterbitkan";
+"edit-published-button-title" = "Siap";
+"edit-published-subtitle" = "Anda hanya membuat Wikipedia lebih baik untuk semua orang";
+"edit-reference-accessibility-label" = "Tambah sintaks rujukan";
+"edit-reference-remove-accessibility-label" = "Buang sintaks rujukan";
+"edit-signature-accessibility-label" = "Tambah sintaks tandatangan";
+"edit-signature-remove-accessibility-label" = "Buang sintaks tandatangan";
+"edit-strikethrough-accessibility-label" = "Tambah strikethrough";
+"edit-strikethrough-remove-accessibility-label" = "Buang strikethrough";
+"edit-style-table-view-title" = "Gaya";
+"edit-subscript-accessibility-label" = "Tambah pemformatan subskrip";
+"edit-subscript-remove-accessibility-label" = "Buang pemformatan subskrip";
+"edit-summary-add-summary-text" = "Tambah ringkasan suntingan";
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
 "edit-summary-choice-linked-words" = "Menambahkan pautan";
+"edit-summary-learn-more-text" = "Ketahui lebih lanjut";
+"edit-summary-placeholder-text" = "Bagaimana anda memperbaiki rencana ini?";
+"edit-superscript-accessibility-label" = "Tambah pemformatan superskrip";
+"edit-superscript-remove-accessibility-label" = "Buang pemformatan superskrip";
+"edit-template-accessibility-label" = "Tambah sintaks templat";
+"edit-template-remove-accessibility-label" = "Buang sintaks templat";
+"edit-text-formatting-accessibility-label" = "Tunjukkan menu pemformatan teks";
+"edit-text-formatting-table-view-title" = "Pemformatan teks";
+"edit-text-size-table-view-title" = "Saiz teks";
+"edit-text-style-accessibility-label" = "Paparkan menu gaya teks";
+"edit-underline-accessibility-label" = "Tambah garis bawah";
+"edit-underline-remove-accessibility-label" = "Buang garis bawah";
+"edit-unordered-list-accessibility-label" = "Buat senarai baris yang tidak teratur semasa";
+"edit-unordered-list-remove-accessibility-label" = "Buang senarai tanpa urutan dari baris semasa";
+"edit-watch-list-learn-more-text" = "Ketahui lebih lanjut mengenai senarai pantau";
+"edit-watch-this-page-text" = "Pantau laman ini";
 "empty-no-article-message" = "Maaf, rencana tidak boleh dimuat";
 "empty-no-feed-action-message" = "Anda masih boleh membaca laman tersimpan";
 "empty-no-feed-message" = "Anda boleh lihat rencana cadangan anda apabila anda mempunyai internet";
@@ -206,8 +247,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
 "explore-feed-preferences-global-cards-title" = "Kad global";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kad ini";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua %@ kad";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kad “%@”";
 "explore-feed-preferences-in-the-news-description" = "Rencana mengenai peristiwa semasa";
 "explore-feed-preferences-languages-footer-text" = "Menyembunyikan semua Mencari kad suapan dalam semua bahasa anda akan mematikan tab Jelajah.";
 "explore-feed-preferences-on-this-day-description" = "Peristiwa dalam sejarah pada hari ini";
@@ -264,6 +304,8 @@
 "explore-randomizer" = "Rencana sembarang";
 "feed-news-notification-button-text" = "Hidupkan pemberitahuan";
 "feed-news-notification-text" = "Membolehkan pemberitahuan untuk dimaklumkan oleh Wikipedia apabila rencana sedang berkembang dalam berita terkini.";
+"fetcher-error-generic" = "Ada yang salah. Sila cuba sebentar lagi.";
+"fetcher-error-unexpected-response" = "Aplikasi ini menerima sambutan yang tidak dijangka daripada pelayan. Sila cuba sebentar lagi.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sah";
 "field-alert-password-confirm-mismatch" = "Kata laluan tidak sepadan";
 "field-alert-password-invalid" = "Kata laluan tidak sah";
@@ -328,6 +370,10 @@
 "languages-wikipedia" = "Bahasa Wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Kandungan disediakan di bawah $1 melainkan dinyatakan sebaliknya.";
+"logged-out-continue-without-logging-in-button-title" = "Terus tanpa log masuk";
+"logged-out-log-back-in-button-title" = "Log masuk semula ke akaun anda";
+"logged-out-subtitle" = "Terdapat masalah mengesahkan akaun anda. Untuk menyegerakkan senarai bacaan anda dan menyunting di bawah nama pengguna anda sila log masuk semula.";
+"logged-out-title" = "Anda telah log keluar";
 "login-forgot-password" = "Lupa kata laluan anda?";
 "login-join-wikipedia" = "Sertai Wikipedia";
 "login-no-account" = "Belum mempunyai akaun? $1";
@@ -359,6 +405,9 @@
 "new-password-instructions" = "Anda log masuk dengan kata laluan sementara. Untuk menyelesaikan log masuk dengan menetapkan kata laluan baru di sini.";
 "new-password-title" = "Tetapkan kata laluan anda";
 "no-email-account-alert" = "Sila setup akaun e-mel pada peranti anda dan cuba lagi.";
+"no-internet-connection" = "Tiada sambungan internet";
+"no-internet-connection-article-reload" = "Versi baru rencana ini mungkin tersedia, tetapi tidak boleh dimuatkan tanpa sambungan ke internet";
+"no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "number-billions" = "$1 bilion";
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";
@@ -372,16 +421,14 @@
 "page-edit-history" = "Semua sejarah penyuntingan";
 "page-history-title" = "Sejarah rencana";
 "page-issues" = "Isu-isu laman";
-// Fuzzy
-"page-last-edited" = "Disunting $1 hari yang lalu";
+"page-last-edited" = "{{PLURAL:$1|0=Disunting hari ini|1=Disunting semalam|Disunting $1 hari lalu}}";
 "page-location" = "Paparkan di peta";
 "page-protected-autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
 "page-protected-can-not-edit" = "Anda tidak mempunyai izin untuk menyunting laman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "page-protected-other" = "Laman ini dilindungi kepada tahap-tahap berikut: $1";
 "page-protected-sysop" = "Laman ini telah diberi perlindungan penuh.";
-// Fuzzy
-"page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
+"page-read-in-other-languages" = "Tersedia dalam {{PLURAL:$1|$1 bahasa lain|$1 bahasa lain}}";
 "page-similar-titles" = "Laman-laman serupa";
 "page-talk-page" = "Lihat laman perbincangan";
 "pictured" = "gambar";
@@ -438,8 +485,7 @@
 "reading-list-deleted-accessibility-notification" = "Senarai bacaan dipadamkan";
 "reading-list-do-not-keep-button-title" = "Tidak, padamkan rencana dari peranti";
 "reading-list-entry-limit-exceeded-message" = "Sila menurunkan jumlah rencana anda dalam senarai ini hingga $1 untuk menyambung semula penyegerakan semua rencana dalam senarai ini.";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "Anda telah melebihi had $1 rencana bagi setiap akaun.";
+"reading-list-entry-limit-exceeded-title" = "Anda telah melebihi had {{PLURAL:$1|$1 rencana|$1 rencana}} bagi setiap akaun.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Rencana|Rencana}} tidak boleh ditambah ke senarai ini. Anda telah mencapai had $2 rencana setiap senarai bacaan untuk $3";
 "reading-list-exists-with-same-name" = "Nama senarai bacaan sudah digunakan";
 "reading-list-generic-error" = "Ralat yang tidak dijangka berlaku semasa mengemas kini senarai bacaan anda.";
@@ -452,8 +498,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Terdapat had 5000 rencana tak disortir. Sila sortir rencana anda yang ada dalam senarai untuk meneruskan penyegerakan rencana yang tidak disortir.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Had untuk rencana yang tidak disortir";
 "reading-list-list-limit-exceeded-message" = "Senarai bacaan dan rencana yang disimpan untuknya tidak akan diselaraskan, sila tolakkan jumlah senarai anda hingga $1 untuk menyambung semula penyegerakan senarai ini.";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "Anda telah melebihi had $1 senarai bacaan bagi setiap akaun.";
+"reading-list-list-limit-exceeded-title" = "Anda telah melebihi had {{PLURAL:$1|$1 senarai bacaan|$1 senarai bacaan}} bagi setiap akaun.";
 "reading-list-list-limit-reached" = "Anda telah mencapai had $1 senarai bacaan setiap akaun";
 "reading-list-login-button-title" = "Log masuk untuk menyegerakkan rencana anda yang disimpan";
 "reading-list-login-or-create-account-button-title" = "Log masuk atau buka akaun";
@@ -503,10 +548,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Slider saiz teks";
 "reference-title" = "Referensi $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|Semalam|$1 hari yang lalu}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|1=Semalam|$1 hari yang lalu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Tadi|$1 minit yang lalu|$1 minit yang lalu}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|Tahun lepas|$1 tahun lepas}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lepas|$1 tahun lepas}}";
 "request-feedback-on-error" = "Aplikasi ini telah menghadapi masalah yang pemaju kami ingin tahu lebih lanjut mengenai. Sila ketik di sini untuk menghantar e-mel kepada kami dengan butiran ralat.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke rencana";
 "reverted-edit-notification-body" = "Penyuntingan yang anda buat dari rencana $1 telah dikembalikan oleh $2";
@@ -521,8 +566,7 @@
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
 "saved-pages-progress-syncing" = "Muat turun rencana sedang berjalan...";
 "saved-reading-lists-title" = "Senarai bacaan";
-// Fuzzy
-"saved-search-default-text" = "Cari";
+"saved-search-default-text" = "Cari rencana yang disimpan";
 "saved-title" = "Disimpan";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Mengosongkan {{PLURAL:$1|rencana ini akan membuangnya|rencana ini akan membuangnya}} daripada semua senarai bacaan yang berkaitan";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Batal simpan {{PLURAL:$1|rencana|rencana}}?";
@@ -640,10 +684,13 @@
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";
 "wikitext-preview-link-preview-description" = "Pautan ini membawa kepada '$1'";
 "wikitext-preview-link-preview-title" = "Pralihat pautan";
+"wikitext-preview-save-changes-title" = "Simpan perubahan";
 "wikitext-upload-captcha-error" = "Ralat pengesahan CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Pengesahan CAPTCHA diperlukan.";
 "wikitext-upload-result-unknown" = "Hasil muat naikan teks wiki tidak dapat ditentukan.";
 "wikitext-upload-save" = "Sedang menerbitkan...";
+"wikitext-upload-save-anonymously-or-login" = "Suntingan akan dikaitkan dengan alamat IP peranti anda. Jika anda $1Log masuk$2, anda akan mempunyai lebih banyak privasi.";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
+"wikitext-upload-save-terms-and-licenses" = "Dengan menyimpan perubahan, anda setujui kepada $1Syarat-Syarat Penggunaan$2, dan bersetuju, tanpa kebolehan menarik balik, untuk melepaskan sumbangan anda di bawah Lesen $3CC BY-SA 3.0$4 serta $5GFDL$6. Anda bersetuju bahawa sebuah pautan hiper atau URL ialah pengiktirafan yang memadai di bawah lesen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";

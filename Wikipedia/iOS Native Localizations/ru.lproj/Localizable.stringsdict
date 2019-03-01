@@ -220,10 +220,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>few</key>
-			<string>%1$d дней назад</string>
 			<key>one</key>
-			<string>Вчера</string>
+			<string>%1$d дней назад</string>
 			<key>other</key>
 			<string>%1$d дня назад</string>
 			<key>zero</key>
@@ -280,8 +278,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
+			<key>few</key>
 			<string>%1$d года назад</string>
+			<key>many</key>
+			<string>%1$d лет назад</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>

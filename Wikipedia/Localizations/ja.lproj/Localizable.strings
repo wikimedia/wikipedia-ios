@@ -511,9 +511,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "セピアテーマ";
 "reading-themes-controls-accessibility-text-size-slider" = "文字サイズ調節スライダ";
 "reference-title" = "情報源$1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|昨日|$1日前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 1時間前|$1 時間前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|昨年| $1年前}}";
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "saved-all-articles-title" = "すべての記事";

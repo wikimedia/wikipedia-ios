@@ -419,9 +419,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "سيپيا نظارو";
 "reading-themes-controls-accessibility-text-size-slider" = "لکت جي ماپ جو سلائيڊر";
 "reference-title" = "حوالو $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=اڄ|ڪالھ|$1 ڏينھن اڳ}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ھاڻي|$1 ڪلاڪ اڳ|$1 ڪلاڪَ اڳ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=بلڪل ھاڻي|$1 منٽ اڳ|$1 منٽَ اڳ}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|گذريل سال|$1 سالَ اڳ}}";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "saved-all-articles-title" = "سڀ مضمون";

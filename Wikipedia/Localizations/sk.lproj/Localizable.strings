@@ -355,9 +355,11 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sépia";
 "reading-themes-controls-accessibility-text-size-slider" = "Posuvník veľkosti textu";
 "reference-title" = "Referencia $1";
+// Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|Včera|Pred $1 dňami}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Pred $1 hodinou|Pred $1 hodinami}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Práve teraz|Pred $1 minútou|Pred $1 minútami}}";
+// Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|Minulý rok|Pred $1 rokmi}}";
 "request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
 "reverted-edit-back-to-article-button-title" = "Späť na článok";

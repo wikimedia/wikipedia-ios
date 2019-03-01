@@ -66,6 +66,40 @@
 			<string>%1$d sögulegir atburðir</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Breytt í gær</string>
+			<key>other</key>
+			<string>Breytt fyrir %1$d dögum síðan</string>
+			<key>zero</key>
+			<string>Breytt í dag</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Aðgengilegt á %1$d öðru tungumáli</string>
+			<key>other</key>
+			<string>Aðgengilegt á %1$d öðrum tungumálum</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +116,22 @@
 			<string>%1$d greinar</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Þú hefur farið fram úr hámarkinu með %1$d grein á hvern notandaaðgang.</string>
+			<key>other</key>
+			<string>Þú hefur farið fram úr hámarkinu með %1$d greinar á hvern notandaaðgang.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +146,22 @@
 			<string>Get ekki bætt grein á þennan lista. Þú hefur náð %2$d greina takmörkum á hvern lista fyrir %3$@</string>
 			<key>other</key>
 			<string>Get ekki bætt greinum á þennan lista. Þú hefur náð %2$d greina takmörkum á hvern lista fyrir %3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Þú hefur farið fram úr hámarkinu með %1$d leslista á hvern notandaaðgang.</string>
+			<key>other</key>
+			<string>Þú hefur farið fram úr hámarkinu með %1$d leslista á hvern notandaaðgang.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
