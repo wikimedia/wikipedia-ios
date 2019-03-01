@@ -213,17 +213,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(articleWasUpdated:)
-                                                 name:WMFArticleUpdatedNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editPublished:)
+                                             selector:@selector(editWasPublished:)
                                                  name:WMFEditPublishedNotification
                                                object:nil];
 
-    self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
-    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(descriptionEditWasPublished:)
+                                                 name:[DescriptionEditViewController didPublishNotification]
+                                               object:nil];
+    [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
 }
 
@@ -313,6 +311,21 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     } else if (self.selectedIndex != WMFAppTabTypeMain) {
         [self setSelectedIndex:WMFAppTabTypeMain];
     }
+}
+
+- (void)setupReadingListsHelpers {
+    self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidSaveOrUnsaveArticle:) name:WMFReadingListsController.userDidSaveOrUnsaveArticleNotification object:nil];
+}
+
+- (void)userDidSaveOrUnsaveArticle:(NSNotification *)note {
+    WMFAssertMainThread(@"User save/unsave article notification should only be posted on the main thread");
+    id maybeArticle = [note object];
+    if (![maybeArticle isKindOfClass:[WMFArticle class]]) {
+        return;
+    }
+    [self showReadingListHintForArticle:(WMFArticle *)maybeArticle];
 }
 
 #pragma mark - Notifications
@@ -492,14 +505,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Hint
 
-- (void)articleWasUpdated:(NSNotification *)note {
-    WMFArticle *article = (WMFArticle *)note.object;
-    if (![article isKindOfClass:[WMFArticle class]]) {
-        return;
-    }
-    if (article.changedValues[@"savedDate"] == NULL) {
-        return;
-    }
+- (void)showReadingListHintForArticle:(WMFArticle *)article {
     UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
     if (!visibleHintPresentingViewController) {
         return;
@@ -507,8 +513,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self toggleHint:self.readingListHintController context:@{WMFReadingListHintController.ContextArticleKey: article}];
 }
 
-- (void)editPublished:(NSNotification *)note {
+- (void)editWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.wmf wmf_didShowFirstEditPublishedPanel]) {
+        return;
+    }
+    [self toggleHint:self.editHintController context:nil];
+}
+
+- (void)descriptionEditWasPublished:(NSNotification *)note {
+    if (![NSUserDefaults.wmf didShowDescriptionPublishedPanel]) {
         return;
     }
     [self toggleHint:self.editHintController context:nil];
@@ -535,7 +548,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (![visibleViewController conformsToProtocol:@protocol(WMFHintPresenting)]) {
         return nil;
     }
-    return (UIViewController <WMFHintPresenting> *)visibleViewController;
+    return (UIViewController<WMFHintPresenting> *)visibleViewController;
 }
 
 #pragma mark - Background Fetch
