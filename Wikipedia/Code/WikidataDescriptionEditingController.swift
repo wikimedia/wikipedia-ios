@@ -30,7 +30,7 @@ enum WikidataPublishingError: LocalizedError {
 }
 
 @objc public final class WikidataDescriptionEditingController: Fetcher {
-    static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
+    @objc static let didPublishNotification = NSNotification.Name(rawValue: "WikidataDescriptionEditingControllerDidPublishNotification")
     /// Publish new wikidata description.
     ///
     /// - Parameters:
@@ -57,7 +57,7 @@ enum WikidataPublishingError: LocalizedError {
 
             if let authorized = authorized, authorized, result.error == nil {
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
+                    NotificationCenter.default.post(name: WikidataDescriptionEditingController.didPublishNotification, object: authorized)
                 }
             }
         }
