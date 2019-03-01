@@ -312,10 +312,16 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)setupReadingListsHelpers {
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
     self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
-    __weak typeof(self) weakSelf = self;
-    self.dataStore.readingListsController.userChangedArticleSavedStateCallback = ^(WMFArticle *article) {
-        [weakSelf showReadingListHintForArticle:article];
-    };
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidSaveOrUnsaveArticle:) name:WMFReadingListsController.userDidSaveOrUnsaveArticleNotification object:nil];
+}
+
+- (void)userDidSaveOrUnsaveArticle:(NSNotification *)note {
+    WMFAssertMainThread(@"User save/unsave article notification should only be posted on the main thread");
+    id maybeArticle = [note object];
+    if (![maybeArticle isKindOfClass:[WMFArticle class]]) {
+        return;
+    }
+    [self showReadingListHintForArticle:(WMFArticle *)maybeArticle];
 }
 
 #pragma mark - Notifications

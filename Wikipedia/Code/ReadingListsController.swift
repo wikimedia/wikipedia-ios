@@ -104,6 +104,8 @@ public typealias ReadingListsController = WMFReadingListsController
     @objc public static let syncDidFinishSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
     @objc public static let syncDidFinishSyncedReadingListEntriesCountKey = NSNotification.Name(rawValue: "syncedReadingListEntries")
 
+    @objc public static let userDidSaveOrUnsaveArticleNotification = NSNotification.Name(rawValue: "WMFUserDidSaveOrUnsaveArticleNotification")
+
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
         
@@ -598,8 +600,11 @@ public typealias ReadingListsController = WMFReadingListsController
         sync()
     }
     
-    @objc public var userChangedArticleSavedStateCallback: ((WMFArticle) -> Void)?
-    @objc public func save(_ article: WMFArticle) {
+    @objc public func addArticleToDefaultReadingList(_ article: WMFArticle) throws {
+        try article.addToDefaultReadingList()
+    }
+    
+    @objc public func userSave(_ article: WMFArticle) {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
@@ -607,37 +612,37 @@ public typealias ReadingListsController = WMFReadingListsController
             if moc.hasChanges {
                 try moc.save()
             }
-            userChangedArticleSavedStateCallback?(article)
+            NotificationCenter.default.post(name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: article)
             sync()
         } catch let error {
-            DDLogError("Error adding article to default list: \(error)")
+            DDLogError("Error saving article: \(error)")
         }
     }
-    
-    @objc public func addArticleToDefaultReadingList(_ article: WMFArticle) throws {
-        try article.addToDefaultReadingList()
-    }
-    
-    @objc(unsaveArticle:inManagedObjectContext:) public func unsaveArticle(_ article: WMFArticle, in moc: NSManagedObjectContext) {
-        unsave([article], in: moc) { error in
-            guard Thread.isMainThread, error == nil else {
-                return
+
+    @objc public func userUnsave(_ article: WMFArticle) {
+        assert(Thread.isMainThread)
+        do {
+            let moc = dataStore.viewContext
+            unsave([article], in: moc)
+            if moc.hasChanges {
+                try moc.save()
             }
-            self.userChangedArticleSavedStateCallback?(article)
+            NotificationCenter.default.post(name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: article)
+            sync()
+        } catch let error {
+            DDLogError("Error unsaving article: \(error)")
         }
     }
     
-    public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext, completion: ((Error?) -> Void)? = nil) {
+    public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext) {
         do {
             let keys = articles.compactMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey IN %@", keys)
             let entries = try moc.fetch(entryFetchRequest)
             try markLocalDeletion(for: entries)
-            completion?(nil)
         } catch let error {
             DDLogError("Error removing article from default list: \(error)")
-            completion?(error)
         }
     }
     
