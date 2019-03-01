@@ -548,7 +548,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (![visibleViewController conformsToProtocol:@protocol(WMFHintPresenting)]) {
         return nil;
     }
-    return (UIViewController <WMFHintPresenting> *)visibleViewController;
+    return (UIViewController<WMFHintPresenting> *)visibleViewController;
 }
 
 #pragma mark - Background Fetch
