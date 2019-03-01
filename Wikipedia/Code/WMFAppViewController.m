@@ -226,9 +226,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                              selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
-
-    self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
-    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
 }
 
@@ -318,6 +316,21 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     } else if (self.selectedIndex != WMFAppTabTypeMain) {
         [self setSelectedIndex:WMFAppTabTypeMain];
     }
+}
+
+- (void)setupReadingListsHelpers {
+    self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidSaveOrUnsaveArticle:) name:WMFReadingListsController.userDidSaveOrUnsaveArticleNotification object:nil];
+}
+
+- (void)userDidSaveOrUnsaveArticle:(NSNotification *)note {
+    WMFAssertMainThread(@"User save/unsave article notification should only be posted on the main thread");
+    id maybeArticle = [note object];
+    if (![maybeArticle isKindOfClass:[WMFArticle class]]) {
+        return;
+    }
+    [self showReadingListHintForArticle:(WMFArticle *)maybeArticle];
 }
 
 #pragma mark - Notifications
@@ -497,14 +510,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Hint
 
-- (void)articleWasUpdated:(NSNotification *)note {
-    WMFArticle *article = (WMFArticle *)note.object;
-    if (![article isKindOfClass:[WMFArticle class]]) {
-        return;
-    }
-    if (article.changedValues[@"savedDate"] == NULL) {
-        return;
-    }
+- (void)showReadingListHintForArticle:(WMFArticle *)article {
     UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
     if (!visibleHintPresentingViewController) {
         return;
