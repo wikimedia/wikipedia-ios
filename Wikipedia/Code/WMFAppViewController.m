@@ -224,7 +224,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(dscriptionEditWasPublished:)
-                                                 name:[WikidataDescriptionEditingController didPublishNotification]
+                                                 name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
