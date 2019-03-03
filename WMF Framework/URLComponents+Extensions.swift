@@ -14,8 +14,8 @@ extension URLComponents {
         var query = ""
         for (name, value) in queryParameters {
             guard
-                let encodedName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlQueryAllowed),
-                let encodedValue = String(describing: value).addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlQueryAllowed) else {
+                let encodedName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed),
+                let encodedValue = String(describing: value).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryComponentAllowed) else {
                     continue
             }
             if query != "" {
