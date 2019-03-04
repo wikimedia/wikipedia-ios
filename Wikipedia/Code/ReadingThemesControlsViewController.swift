@@ -44,8 +44,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     var visible = false
     var showsSyntaxHighlighting: Bool = false {
         didSet {
-            lastSeparator.isHidden = !showsSyntaxHighlighting
-            syntaxHighlightingContainerView.isHidden = !showsSyntaxHighlighting
+            updateSyntaxHighlightingState()
         }
     }
     
@@ -84,7 +83,8 @@ open class ReadingThemesControlsViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: UIScreen.brightnessDidChangeNotification, object: nil)
         
-        preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        updatePreferredContentSize()
+        updateSyntaxHighlightingState()
     }
     
     deinit {
@@ -116,7 +116,7 @@ open class ReadingThemesControlsViewController: UIViewController {
             for slideView in textSizeSliderViews {
                 slideView.isHidden = newValue
             }
-            preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            updatePreferredContentSize()
         }
         get {
             return textSizeSliderViews.first?.isHidden ?? false
@@ -155,6 +155,16 @@ open class ReadingThemesControlsViewController: UIViewController {
     fileprivate func logBrightnessChange() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_logBrightnessChange), object: nil)
         self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [RunLoop.Mode.default])
+    }
+    
+    fileprivate func updatePreferredContentSize() {
+        preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
+    
+    fileprivate func updateSyntaxHighlightingState() {
+        lastSeparator.isHidden = !showsSyntaxHighlighting
+        syntaxHighlightingContainerView.isHidden = !showsSyntaxHighlighting
+        updatePreferredContentSize()
     }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
@@ -199,6 +209,7 @@ open class ReadingThemesControlsViewController: UIViewController {
 
 extension ReadingThemesControlsViewController: Themeable {
     public func apply(theme: Theme) {
+        
         self.theme = theme
         
         view.backgroundColor = theme.colors.popoverBackground

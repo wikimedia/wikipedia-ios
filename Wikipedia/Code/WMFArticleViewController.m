@@ -352,7 +352,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (WMFReadingThemesControlsArticlePresenter *)readingThemesControlsPresenter {
     if (!_readingThemesControlsPresenter) {
-        _readingThemesControlsPresenter = [[WMFReadingThemesControlsArticlePresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController readingThemesControlsPopoverPresenter: self.readingThemesViewController.popoverPresentationController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
+        _readingThemesControlsPresenter = [[WMFReadingThemesControlsArticlePresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
     }
     return _readingThemesControlsPresenter;
 }

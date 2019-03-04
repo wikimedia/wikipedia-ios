@@ -322,9 +322,6 @@ extension SectionEditorViewController: Themeable {
 }
 
 extension SectionEditorViewController: ReadingThemesControlsPresenting {
-    var readingThemesControlsPopoverPresenter: UIPopoverPresentationController? {
-        return readingThemesControlsViewController.popoverPresentationController
-    }
     
     var shouldPassthroughNavBar: Bool {
         return false

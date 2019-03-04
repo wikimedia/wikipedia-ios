@@ -107,7 +107,6 @@ class ReadingThemesControlsArticlePresenter: NSObject, ReadingThemesControlsPres
     
     var readingThemesControlsViewController: ReadingThemesControlsViewController
     var readingThemesControlsToolbarItem: UIBarButtonItem
-    var readingThemesControlsPopoverPresenter: UIPopoverPresentationController?
     private let wkWebView: WKWebView
     
     @objc var objcIndexOfCurrentFontSize: Int {
@@ -118,11 +117,10 @@ class ReadingThemesControlsArticlePresenter: NSObject, ReadingThemesControlsPres
         return fontSizeMultipliers
     }
     
-    @objc init(readingThemesControlsViewController: ReadingThemesControlsViewController, readingThemesControlsPopoverPresenter: UIPopoverPresentationController, wkWebView: WKWebView, readingThemesControlsToolbarItem: UIBarButtonItem) {
+    @objc init(readingThemesControlsViewController: ReadingThemesControlsViewController, wkWebView: WKWebView, readingThemesControlsToolbarItem: UIBarButtonItem) {
         self.readingThemesControlsViewController = readingThemesControlsViewController
         self.wkWebView = wkWebView
         self.readingThemesControlsToolbarItem = readingThemesControlsToolbarItem
-        self.readingThemesControlsPopoverPresenter = readingThemesControlsPopoverPresenter
         super.init()
     }
     
