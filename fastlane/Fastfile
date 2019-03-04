@@ -71,16 +71,12 @@ platform :ios do
 
   desc "Runs tests on the primary platforms and configurations"
   lane :verify_test_platforms do
-    configurations_to_test.each do |config|
-      verify(config)
-    end
+    verify({configurations: configurations_to_test})
   end
   
   desc "Runs tests against the beta cluster to check for upstream changes."
   lane :beta_cluster_tests do
-    beta_cluster_configurations_to_test.each do |config|
-      verify(config)
-    end
+    verify({configurations: beta_cluster_configurations_to_test})
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
