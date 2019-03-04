@@ -5,9 +5,11 @@ extension CharacterSet {
         return NSCharacterSet.wmf_URLArticleTitlePathComponentAllowed()
     }
 
-    static var wmf_urlQueryAllowed: CharacterSet {
-        return NSCharacterSet.wmf_URLQueryAllowed()
-    }
+    static let urlQueryComponentAllowed: CharacterSet = {
+        var characterSet = CharacterSet.urlQueryAllowed
+        characterSet.remove(charactersIn: "+&=")
+        return characterSet
+    }()
 }
 
 extension URL {
