@@ -84,7 +84,7 @@ enum WikidataPublishingError: LocalizedError {
                                           "uselang": normalizedLanguage,
                                           "id": wikidataID,
                                           "value": newWikidataDescription,
-                                          "token": token.token]
+                                          "token": token.value]
                     self.session.jsonDecodableTask(with: components.url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form) { (result: WikidataAPIResult?, response, error) in
                         requestWithCSRFCompletion(result, response, token.isAuthorized, error)
                     }

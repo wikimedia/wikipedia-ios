@@ -146,7 +146,7 @@ class ReadingListsAPIController: Fetcher {
             case .failure(let error):
                 completion(nil, nil, error)
             case .success(let token):
-                let tokenQueryParameters = ["csrf_token": token]
+                let tokenQueryParameters = ["csrf_token": token.value]
                 var componentsWithToken = components
                 componentsWithToken.appendQueryParametersToPercentEncodedQuery(tokenQueryParameters)
                 let identifier =  UUID().uuidString
