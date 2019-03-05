@@ -86,7 +86,8 @@ class SectionEditorViewController: UIViewController {
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
-        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment) { [weak self] in
+        let isSyntaxHighlighted = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
+        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
@@ -252,7 +253,10 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
-
+        
+        messagingController.blur()
+        inputViewsController.hideInputView()
+        
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
 }
@@ -341,6 +345,11 @@ extension SectionEditorViewController: ReadingThemesControlsPresenting {
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        messagingController.focus()
+        inputViewsController.showInputView()
     }
 }
 

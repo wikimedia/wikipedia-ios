@@ -22,7 +22,9 @@
                 <outlet property="sepiaThemeButton" destination="x0K-vq-CgH" id="n57-Po-a7M"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
                 <outlet property="stackView" destination="KZU-5g-iSy" id="R0I-tr-o0b"/>
-                <outlet property="syntaxHighlightingContainerView" destination="Kkd-Mq-to7" id="av3-ht-m5a"/>
+                <outlet property="syntaxHighlightingContainerView" destination="Kkd-Mq-to7" id="As0-Cm-8eU"/>
+                <outlet property="syntaxHighlightingLabel" destination="uMd-Oo-cjP" id="ZwQ-aN-SM0"/>
+                <outlet property="syntaxHighlightingSwitch" destination="I3z-iR-C3C" id="pAk-Vm-O90"/>
                 <outlet property="tLargeImageView" destination="Ycr-G6-Fi3" id="5nX-hh-UCh"/>
                 <outlet property="tSmallImageView" destination="vkB-ph-elW" id="zTO-Cg-lOB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
@@ -43,7 +45,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KZU-5g-iSy">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="292"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzF-dw-OTG">
                                     <rect key="frame" x="0.0" y="0.0" width="290" height="32"/>
@@ -267,28 +269,28 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kkd-Mq-to7">
-                                    <rect key="frame" x="0.0" y="240" width="290" height="50"/>
+                                    <rect key="frame" x="0.0" y="240" width="290" height="52"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Syntax Highlighting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMd-Oo-cjP">
-                                            <rect key="frame" x="10" y="15" width="148.66666666666666" height="22"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="10" y="15" width="211" height="24"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I3z-iR-C3C">
-                                            <rect key="frame" x="231" y="10.666666666666657" width="51" height="31"/>
+                                            <rect key="frame" x="231" y="11.666666666666657" width="51" height="31"/>
                                             <connections>
-                                                <action selector="syntaxHighlightingToggleSwitched:" destination="-1" eventType="valueChanged" id="S5v-Tf-dGl"/>
+                                                <action selector="syntaxHighlightingSwitched:" destination="-1" eventType="valueChanged" id="BRB-hP-lRd"/>
                                             </connections>
                                         </switch>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="I3z-iR-C3C" firstAttribute="centerY" secondItem="uMd-Oo-cjP" secondAttribute="centerY" id="Dtb-Af-JJz"/>
                                         <constraint firstAttribute="trailing" secondItem="I3z-iR-C3C" secondAttribute="trailing" constant="10" id="GQn-y0-VCJ"/>
                                         <constraint firstAttribute="bottom" secondItem="uMd-Oo-cjP" secondAttribute="bottom" constant="13" id="K6G-3Z-Zlj"/>
                                         <constraint firstItem="uMd-Oo-cjP" firstAttribute="top" secondItem="Kkd-Mq-to7" secondAttribute="top" constant="15" id="UHF-I7-HCT"/>
                                         <constraint firstItem="uMd-Oo-cjP" firstAttribute="leading" secondItem="Kkd-Mq-to7" secondAttribute="leading" constant="10" id="f3D-J5-XfV"/>
+                                        <constraint firstItem="I3z-iR-C3C" firstAttribute="leading" secondItem="uMd-Oo-cjP" secondAttribute="trailing" constant="10" id="wh0-By-rar"/>
                                     </constraints>
                                 </view>
                             </subviews>

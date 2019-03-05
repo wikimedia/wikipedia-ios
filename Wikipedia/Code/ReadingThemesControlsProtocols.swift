@@ -1,11 +1,3 @@
-//
-//  ReadingThemesControlsProtocols.swift
-//  Wikipedia
-//
-//  Created by Toni Sevener on 2/27/19.
-//  Copyright © 2019 Wikimedia Foundation. All rights reserved.
-//
-
 import Foundation
 
 fileprivate var fontSizeMultipliers: [Int] {

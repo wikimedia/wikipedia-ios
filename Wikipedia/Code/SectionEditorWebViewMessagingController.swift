@@ -146,6 +146,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case cursorRight
         case comment
         case focus
+        case blur
         case selectAll
         case highlighting
         case lineNumbers
@@ -249,6 +250,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func focus() {
         execCommand(for: .focus)
+    }
+    
+    func blur() {
+        execCommand(for: .blur)
     }
 
     func selectAllText() {

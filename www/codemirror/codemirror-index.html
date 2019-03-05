@@ -401,8 +401,11 @@
       })
     }
     
-    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, callback) => {
+    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
       applyTheme(themeName)
+      if (!isSyntaxHighlighted) {
+          toggleSyntaxColors()
+      }
       scaleBodyText(textSizeAdjustment)
       let xhr = new XMLHttpRequest()
       let url = `config/codemirror-config-${language}.json`
@@ -413,7 +416,7 @@
         let codeMirrorSettings = {
           mwConfig: mwConfig,
           lineWrapping: true,
-          lineNumbers: true,
+          lineNumbers: isSyntaxHighlighted,
           mode: "text/mediawiki",
           matchBrackets: true,
           extraKeys: {
@@ -610,7 +613,7 @@
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
-    wmf.setup = (language, direction, themeName, textSizeAdjustment, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, callback)
+    wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
 
     const italicMarkup = "''"
@@ -775,6 +778,9 @@
       },
       focus: () => {
         editor.focus()
+      },
+      blur: () => {
+          editor.getInputField().blur()
       },
       undo: () => editor.undo(),
       redo: () => editor.redo(),

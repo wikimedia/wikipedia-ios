@@ -124,6 +124,14 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         inputViewType = nil
         inputAccessoryViewType = .default
     }
+    
+    func hideInputView() {
+        webView.setInputAccessoryView(nil)
+    }
+    
+    func showInputView() {
+        webView.setInputAccessoryView(inputAccessoryView)
+    }
 }
 
 // MARK: TextFormattingDelegate

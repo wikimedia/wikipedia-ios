@@ -536,7 +536,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider that adjusts article text size.";
+"reading-themes-controls-syntax-highlighting" = "Text for syntax highlighting label in the Reading Themes Controls popover";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with the number of hours ago.";
