@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="resources/mode/mediawiki/mediawiki.css">
   <link rel="stylesheet" type="text/css" href="codemirror-common.css">
   <link rel="stylesheet" id="codemirror-theme" type="text/css" href="">
+  <link rel="stylesheet" id="codemirror-syntax-highlighting-off" type="text/css" href="">
 
   <script src="resources/addon/search/search.js"></script>
   <script src="resources/addon/search/searchcursor.js"></script>
@@ -373,10 +374,9 @@
     }
   
     const toggleSyntaxColors = () => {
-        var name = document.getElementById('codemirror-theme').getAttribute('href')
-        
-        var newName = name.includes("-none") ? name.replace("-none", "") : name.substring(0, name.length - 4) + "-none.css"
-        document.getElementById('codemirror-theme').setAttribute('href', newName)
+        var oldName = document.getElementById('codemirror-syntax-highlighting-off').getAttribute('href')
+        var newName = oldName.length > 0 ? '' : 'codemirror-syntax-highlighting-off.css'
+        document.getElementById('codemirror-syntax-highlighting-off').setAttribute('href', newName)
     }
   
     const scaleBodyText = (textSizeAdjustment) => {
