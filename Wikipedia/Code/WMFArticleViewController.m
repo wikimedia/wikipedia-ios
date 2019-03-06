@@ -132,7 +132,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *readingThemesControlsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
@@ -608,12 +608,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [CATransaction commit];
 }
 
-- (UIBarButtonItem *)languagesToolbarItem {
+- (IconBarButtonItem *)languagesToolbarItem {
     if (!_languagesToolbarItem) {
-        _languagesToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"language"]
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(showLanguagePicker)];
+        _languagesToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"language" target: self action:@selector(showLanguagePicker) for: UIControlEventTouchUpInside];
+        [_languagesToolbarItem applyTheme:self.theme];
     }
     return _languagesToolbarItem;
 }
@@ -2285,6 +2283,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
     self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
+    [self.languagesToolbarItem applyTheme:self.theme];
 }
 
 #pragma mark - KVO
