@@ -1,3 +1,4 @@
+import UIKit
 class IconBarButtonItem: UIBarButtonItem {
     
     private var theme: Theme?
@@ -29,6 +30,8 @@ extension IconBarButtonItem: Themeable {
         self.theme = theme
         if let customView = customView as? UIButton {
             customView.tintColor = isEnabled ? theme.colors.link : theme.colors.disabledLink
+        } else {
+            tintColor = isEnabled ? theme.colors.link : theme.colors.disabledLink
         }
     }
 }
