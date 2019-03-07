@@ -279,13 +279,6 @@ const getSelectedAndAdjacentText = () => {
   return new SelectedAndAdjacentText(selectedText, textBeforeSelectedText, textAfterSelectedText)
 }
 
-const trimEverythingAfterFirstLineBreak = s => s.split('\n')[0]
-
-const trimEverythingBeforeLastLineBreak = s => {
-  const lines = s.split('\n')
-  return lines[lines.length - 1]
-}
-
 exports.getSelectedTextEditInfo = getSelectedTextEditInfo
 },{"./utilities":9}],5:[function(require,module,exports){
 //  Used by methods in "UIWebView+ElementLocation.h" category.

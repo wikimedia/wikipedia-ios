@@ -73,11 +73,4 @@ const getSelectedAndAdjacentText = () => {
   return new SelectedAndAdjacentText(selectedText, textBeforeSelectedText, textAfterSelectedText)
 }
 
-const trimEverythingAfterFirstLineBreak = s => s.split('\n')[0]
-
-const trimEverythingBeforeLastLineBreak = s => {
-  const lines = s.split('\n')
-  return lines[lines.length - 1]
-}
-
 exports.getSelectedTextEditInfo = getSelectedTextEditInfo
