@@ -858,7 +858,15 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     NSString *shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu");
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:shareMenuItemTitle
                                                           action:@selector(shareMenuItemTapped:)];
-    [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
+
+    UIMenuItem *editItem = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
+                                                          action:@selector(editMenuItemTapped:)];
+
+    [UIMenuController sharedMenuController].menuItems = @[editItem, shareSnippet];
+}
+
+- (void)editMenuItemTapped:(id)sender {
+    [self.delegate webViewControllerDidTapEditMenuItem:self];
 }
 
 #pragma mark References

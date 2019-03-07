@@ -8,6 +8,7 @@ class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     @objc var section: MWKSection?
+    @objc var selectedTextEditInfo: SelectedTextEditInfo?
     
     private var webView: SectionEditorWebView!
     private let sectionFetcher = WikiTextSectionFetcher()
@@ -137,6 +138,11 @@ class SectionEditorViewController: UIViewController {
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
+
+        guard let selectedTextEditInfo = selectedTextEditInfo else {
+            return
+        }
+        messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
     }
     
     private func loadWikitext() {
