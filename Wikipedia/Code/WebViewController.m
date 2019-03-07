@@ -866,7 +866,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)editMenuItemTapped:(id)sender {
-    [self.delegate webViewControllerDidTapEditMenuItem:self];
+    [self.delegate webViewController:self didTapEditMenuItemInMenuController:sender];
 }
 
 #pragma mark References

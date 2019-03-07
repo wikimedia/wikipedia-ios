@@ -1651,7 +1651,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self shareAFactWithTextSnippet:text];
 }
 
-- (void)webViewControllerDidTapEditMenuItem:(WebViewController *)controller {
+- (void)webViewController:(WebViewController *)controller didTapEditMenuItemInMenuController:(UIMenuController *)menuController {
     @weakify(self);
     [self.webViewController.webView wmf_getSelectedTextEditInfoWithCompletionHandler:^(SelectedTextEditInfo* selectedTextEditInfo, NSError *error) {
         @strongify(self);
