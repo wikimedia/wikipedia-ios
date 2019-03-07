@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "Wikipedia-Swift.h"
 
 #if TEST
 
@@ -34,6 +35,8 @@
 
 int main(int argc, char *argv[]) {
     @autoreleasepool {
+        WMFSwiftKVOCrashWorkaround *workarounder = [[WMFSwiftKVOCrashWorkaround alloc] init];
+        [workarounder performWorkaround];
         NSString *delegateClass = NSStringFromClass([AppDelegate class]);
 #if TEST
         // disable app when unit testing to allow tests to run in isolation (w/o side effects)
