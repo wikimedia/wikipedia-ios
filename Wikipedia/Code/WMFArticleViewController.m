@@ -1661,8 +1661,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         if (selectedTextEditInfo.isSelectedTextInTitleDescription) {
             [self showTitleDescriptionEditor];
         } else {
-            MWKSection *section = self.article.sections[selectedTextEditInfo.sectionID];
-            [self showEditorForSection:section selectedTextEditInfo:selectedTextEditInfo];
+            if (self.article.sections && self.article.sections.count > 0) {
+                MWKSection *section = self.article.sections[selectedTextEditInfo.sectionID];
+                [self showEditorForSection:section selectedTextEditInfo:selectedTextEditInfo];
+            }
         }
     }];
 }
