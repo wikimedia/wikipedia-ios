@@ -112,9 +112,9 @@ const scrollToAndHighlightRange = (range, codemirror) => {
       window.getSelection().removeAllRanges()
     }, 3000)
     */
-    setTimeout(() => {
+    window.requestAnimationFrame(() => {
       window.getSelection().removeAllRanges()
-    }, 10)
+    })
   }, 250)
 }
 
