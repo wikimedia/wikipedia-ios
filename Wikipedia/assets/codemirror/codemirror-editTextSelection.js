@@ -70,6 +70,9 @@ const wikitextRangeForSelectedAndAdjacentText = (selectedAndAdjacentText, wikite
     return null
   }
   const match = wikitext.match(regex)
+  if (match === null) {
+    return null
+  }
   const matchedWikitextBeforeSelection = match[1]
   const matchedWikitextSelection = match[2]
   const wikitextRange = getWikitextRangeToSelect(matchedWikitextBeforeSelection, matchedWikitextSelection)
