@@ -96,26 +96,22 @@ const getWikitextRangeToSelect = (wikitextBeforeSelection, wikitextSelection) =>
 
 const scrollToAndHighlightRange = (range, codemirror) => {
   let marker = null
-  // Temporarily set selection so we can use existing `scrollCursorIntoViewIfNeeded` method to bring the selection on-screen.
-  codemirror.setSelection(range.from, range.to)
+  marker = codemirror.markText(range.from, range.to, {
+    css: 'background-color: rgba(255, 204, 51, 0.4)', // Can use 'className' (vs 'css') if needed.
+    clearOnEnter: true,
+    inclusiveLeft: true,
+    inclusiveRight: true
+  })
+
+  setTimeout(() => { // Slight pause needed to ensure keyboard height is accounted for.
+    scrollRangeIntoViewIfNeeded(range.from, range.to)
+  }, 150)
+    
+  /*
   setTimeout(() => {
-    scrollCursorIntoViewIfNeeded(true)
-    marker = codemirror.markText(range.from, range.to, {
-      css: 'background-color: rgba(255, 204, 51, 0.4)', // Can use 'className' (vs 'css') if needed.
-      clearOnEnter: true,
-      inclusiveLeft: true,
-      inclusiveRight: true
-    })
-    /*
-    setTimeout(() => {
-      marker.clear()
-      window.getSelection().removeAllRanges()
-    }, 3000)
-    */
-    window.requestAnimationFrame(() => {
-      window.getSelection().removeAllRanges()
-    })
-  }, 250)
+    marker.clear()
+  }, 3000)
+  */
 }
 
 const highlightAndScrollToWikitextForSelectedAndAdjacentText = (selectedText, textBeforeSelectedText, textAfterSelectedText) => {
