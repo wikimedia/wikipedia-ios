@@ -131,6 +131,9 @@ class SectionEditorViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.messagingController.focus()
                     self?.webView.isHidden = false
+                    if let selectedTextEditInfo = self?.selectedTextEditInfo {
+                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
+                    }
                 }
             }
         }
@@ -138,11 +141,6 @@ class SectionEditorViewController: UIViewController {
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         messagingController.setWikitext(wikitext, completionHandler: completionHandler)
-
-        guard let selectedTextEditInfo = selectedTextEditInfo else {
-            return
-        }
-        messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
     }
     
     private func loadWikitext() {
