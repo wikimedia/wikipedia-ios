@@ -95,6 +95,8 @@ const getWikitextRangeToSelect = (wikitextBeforeSelection, wikitextSelection) =>
 }
 
 const scrollToAndHighlightRange = (range, codemirror) => {
+  codemirror.setCursor(range.to)
+
   let marker = null
   marker = codemirror.markText(range.from, range.to, {
     css: 'background-color: rgba(255, 204, 51, 0.4)', // Can use 'className' (vs 'css') if needed.
