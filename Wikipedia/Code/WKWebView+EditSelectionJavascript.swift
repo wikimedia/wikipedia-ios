@@ -40,7 +40,7 @@ extension WKWebView {
     }
 }
 
-@objcMembers class SelectedAndAdjacentText: NSObject  {
+class SelectedAndAdjacentText  {
     public let selectedText: String
     public let textAfterSelectedText: String
     public let textBeforeSelectedText: String
