@@ -57,6 +57,7 @@
 "action-saved-accessibility" = "Saved. Activate to unsave.";
 "action-saved-accessibility-notification" = "Article saved for later";
 "action-share" = "Share";
+"action-share-accessibility" = "Share";
 "action-sort" = "Sort";
 "action-undo" = "Undo";
 "action-unsave" = "Unsave";

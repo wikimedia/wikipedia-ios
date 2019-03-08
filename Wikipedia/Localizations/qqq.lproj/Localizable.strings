@@ -57,6 +57,7 @@
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
 "action-saved-accessibility-notification" = "Notification spoken after user saves an article for later.";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
+"action-share-accessibility" = "Accessibility title for the 'Share' action";
 "action-sort" = "Title of the sort action.";
 "action-undo" = "Title text and accessibility label for undo action on buttons or info sheets.";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";

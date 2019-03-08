@@ -13,15 +13,4 @@
     return wmf_URLArticleTitleAllowedCharacterSet;
 }
 
-+ (NSCharacterSet *)wmf_URLQueryAllowedCharacterSet {
-    static dispatch_once_t onceToken;
-    static NSCharacterSet *wmf_URLQueryAllowedCharacterSet;
-    dispatch_once(&onceToken, ^{
-        NSMutableCharacterSet *queryAllowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
-        [queryAllowedCharacterSet removeCharactersInString:@"+&"];
-        wmf_URLQueryAllowedCharacterSet = [queryAllowedCharacterSet copy];
-    });
-    return wmf_URLQueryAllowedCharacterSet;
-}
-
 @end

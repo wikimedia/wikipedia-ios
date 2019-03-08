@@ -136,6 +136,7 @@ class ReadingListsAPIController: Fetcher {
             return
         }
         track(task: task, for: key)
+        task.resume()
     }
     
     fileprivate func requestWithCSRF(path: [String], method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
@@ -145,7 +146,7 @@ class ReadingListsAPIController: Fetcher {
             case .failure(let error):
                 completion(nil, nil, error)
             case .success(let token):
-                let tokenQueryParameters = ["csrf_token": token]
+                let tokenQueryParameters = ["csrf_token": token.value]
                 var componentsWithToken = components
                 componentsWithToken.appendQueryParametersToPercentEncodedQuery(tokenQueryParameters)
                 let identifier =  UUID().uuidString
@@ -167,6 +168,7 @@ class ReadingListsAPIController: Fetcher {
                     completion(result, response, error)
                 })
                 self.track(task: task, for: identifier)
+                task?.resume()
             }
         }
     }

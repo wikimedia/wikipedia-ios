@@ -138,8 +138,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
             pageControl.isUserInteractionEnabled = false
-            pageControl.pageIndicatorTintColor = theme.colors.disabledLink
-            pageControl.currentPageIndicatorTintColor = theme.colors.link
+            pageControl.pageIndicatorTintColor = theme.colors.pageIndicator
+            pageControl.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
         }
     }
 

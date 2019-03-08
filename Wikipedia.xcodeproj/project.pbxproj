@@ -96,6 +96,11 @@
 		41FCAA3821C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3921C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3A21C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
+		672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
+		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
+		67CE5D21222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
+		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
+		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -663,6 +668,11 @@
 		83987AD320E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
 		83987AD420E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
 		83A1561420DBE08C0052487B /* ColumnarCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */; };
+		83A642752226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
+		83A642762226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
+		83A642772226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
+		83A642782226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
+		83A642792226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
@@ -3323,6 +3333,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
+		672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBarButtonItem.swift; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatchEditToolbarViewController.xib; sourceTree = "<group>"; };
 		7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFunnel.swift; sourceTree = "<group>"; };
@@ -3475,6 +3486,7 @@
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Theme.swift"; sourceTree = "<group>"; };
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
+		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -6423,6 +6435,7 @@
 				0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */,
 				0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */,
 				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
+				83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
 				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 			);
@@ -6549,6 +6562,7 @@
 		BC45D56C1C32E910007C72F3 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */,
 				7A4B333B2136EDED00C6C820 /* UnderlineButton.swift */,
 				B0E803CA1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.h */,
 				B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */,
@@ -10069,6 +10083,7 @@
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
+				83A642752226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				B0C7A07A1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
@@ -10250,6 +10265,7 @@
 				B0408C552127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				B0E805911C0CE2C60065EBC0 /* WMFLoginFunnel.m in Sources */,
 				7AF56C3521DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
+				672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */,
 				D88C70181EE595E90022A26A /* MapView.swift in Sources */,
 				7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
@@ -10412,6 +10428,7 @@
 				83FBE9731F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				B07F823F203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D80ED2FC1EE57F4800CE8C50 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
+				67CE5D21222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				83B4CDC320E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				B0CD9DF61F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D80ED2FE1EE57F4800CE8C50 /* AboutViewController.m in Sources */,
@@ -10484,6 +10501,7 @@
 				8350FC5020DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D80ED3431EE57F4800CE8C50 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				7AF8B7462102297A009772CC /* SearchSettingsViewController.swift in Sources */,
+				83A642792226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				D80ED3451EE57F4800CE8C50 /* AppDelegate.m in Sources */,
 				BA6972581F2BA2D600E35F78 /* SettingsTableViewSection.swift in Sources */,
 				83927D7F1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -11089,6 +11107,7 @@
 				B0F9299E1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D8B166881FD97A0500097D8B /* ViewController.swift in Sources */,
 				D8A42AC41E815A9C00D8E281 /* WMFTableOfContentsViewController.swift in Sources */,
+				83A642782226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				D8A42AC61E815A9C00D8E281 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0C7A07B1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8A42AC71E815A9C00D8E281 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
@@ -11138,6 +11157,7 @@
 				7A35CB8A1FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				D8A42AF11E815A9C00D8E281 /* MWKLanguageLinkFetcher.m in Sources */,
 				D8A42AF21E815A9C00D8E281 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
+				67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				BA6972591F2BA2D700E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8A42AF51E815A9C00D8E281 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476D20D019A100A21F34 /* ExploreViewController.swift in Sources */,
@@ -11440,6 +11460,7 @@
 				83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				B07F823C203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
 				83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
+				67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D8CE25671E698E2400DAE2E0 /* NSObject+WMFExtras.m in Sources */,
@@ -11512,6 +11533,7 @@
 				41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
+				83A642762226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				7AF8B7432102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */,
 				D8CE25A91E698E2400DAE2E0 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
@@ -11785,6 +11807,7 @@
 				BA4524261F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */,
 				83FBE9711F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
+				67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,
 				B07F823D203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
@@ -11857,6 +11880,7 @@
 				41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC4E20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
+				83A642772226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
 				D8EC3EA51E9BDA35006712EB /* WMFMapsActivity.swift in Sources */,
 				8367A28120D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
