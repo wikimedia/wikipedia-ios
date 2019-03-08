@@ -105,7 +105,7 @@ const scrollToAndHighlightRange = (range, codemirror) => {
 
   setTimeout(() => { // Slight pause needed to ensure keyboard height is accounted for.
     scrollRangeIntoViewIfNeeded(range.from, range.to)
-  }, 150)
+  }, 250)
     
   /*
   setTimeout(() => {
