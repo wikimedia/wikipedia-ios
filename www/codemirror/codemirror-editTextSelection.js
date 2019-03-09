@@ -7,10 +7,25 @@ class SelectedAndAdjacentText {
     this.textAfterSelectedText = textAfterSelectedText
   }
 
+  selectedWordCount() {
+    return this.selectedText.split(' ').length
+  }
+  
+  // If enough selected words there's no need for as many adjacent disambiguation words.
+  maxAdjacentWordsToUse() {
+    const selectedWordCount = this.selectedWordCount()
+    if (selectedWordCount < 4) {
+      return 4
+    }
+    if (selectedWordCount < 6) {
+      return 1
+    }
+    return 0
+  }
+
   regexForLocatingSelectedTextInWikitext(wikitext) {
-    const maxAdjacentWordsToUse = 4
     const getWorkingRegexWithMostAdjacentWords = (regexGetter) => {
-      for (let i = maxAdjacentWordsToUse; i > 0; i--) {
+      for (let i = this.maxAdjacentWordsToUse(); i >= 0; i--) {
         const regex = regexGetter(i)
         if (regex.test(wikitext)) {
           return regex
