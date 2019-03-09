@@ -757,6 +757,13 @@
       // so let native land do the scrolling.
       window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
     }
+  
+  const presentReplaceAllNumber = () => {
+      var replaceAllNumber = editor.state.replaceAllNumber
+      // WKWebView doesn't currently support `window.scrollTo` with `behavior: smooth`,
+      // so let native land do the scrolling.
+      window.webkit.messageHandlers.replaceAllNumberMessage.postMessage(replaceAllNumber)
+  }
 
     let resizeTimer
     window.addEventListener('resize', () => {
@@ -935,6 +942,17 @@
       findNext: () => editor.execCommand('findNext'),
       findPrevious: () => editor.execCommand('findPrev'),
       clearSearch: () => editor.execCommand('clearSearch'),
+      replaceAll: (text) => {
+        editor.state.replaceText = text
+        editor.execCommand('replaceAllQuiet')
+        presentReplaceAllNumber()
+        editor.state.replaceText = null
+        editor.state.replaceAllNum = null
+      },
+      replaceSingle: (text) => {
+          editor.state.replaceText = text
+          editor.execCommand('replaceSingleQuiet')
+      }
     }
 
     // TODO: Import js/elementLocation ?

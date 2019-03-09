@@ -208,14 +208,63 @@
     });}
   
     function replaceAll(cm, query, text) {
+      var count = 0;
       cm.operation(function() {
         for (var cursor = getSearchCursor(cm, query); cursor.findNext();) {
           if (typeof query != "string") {
             var match = cm.getRange(cursor.from(), cursor.to()).match(query);
             cursor.replace(text.replace(/\$(\d)/g, function(_, i) {return match[i];}));
-          } else cursor.replace(text);
+          } else {
+            cursor.replace(text);
+          }
+          count++;
         }
       });
+      cm.state.replaceAllNum = count;
+    }
+     
+    //same as replace but bypasses CodeMirror dialogs. Split this up into all & single variants for simplicity
+    function replaceAllQuiet(cm) {
+      var replaceText = cm.state.replaceText
+      if (cm.getOption("readOnly")) return;
+      if (!replaceText) return;
+
+      var query = cm.getSelection() || getSearchState(cm).lastQuery;
+      query = parseQuery(query);
+      replaceText = parseString(replaceText);
+      replaceAll(cm, query, replaceText);
+      //todo: will need a way to return the number of items replaced
+    }
+
+    function replaceSingleQuiet(cm) {
+      if (cm.getOption("readOnly")) return;
+      var replaceText = cm.state.replaceText
+      if (!replaceText) return;
+
+      var query = cm.getSelection() || getSearchState(cm).lastQuery;
+      query = parseQuery(query);
+      replaceText = parseString(replaceText);
+      clearSearch(cm);
+      var cursor = getSearchCursor(cm, query, cm.getCursor("from"));
+
+      var advance = function(shouldReplace) {
+        var start = cursor.from(), match;
+        if (!(match = cursor.findNext())) {
+          cursor = getSearchCursor(cm, query);
+          if (!(match = cursor.findNext()) ||
+            (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) return;
+        }
+        cm.setSelection(cursor.from(), cursor.to());
+        cm.scrollIntoView({from: cursor.from(), to: cursor.to()});
+        if (shouldReplace) {
+          doReplace(match);
+        }
+      }
+      var doReplace = function(match) {
+        cursor.replace(replaceText);
+        advance(false);
+      };
+      advance(true);
     }
   
     function replace(cm, all) {
@@ -262,4 +311,6 @@
     CodeMirror.commands.clearSearch = clearSearch;
     CodeMirror.commands.replace = replace;
     CodeMirror.commands.replaceAll = function(cm) {replace(cm, true);};
+    CodeMirror.commands.replaceAllQuiet = function(cm) { replaceAllQuiet(cm);};
+    CodeMirror.commands.replaceSingleQuiet = function(cm) { replaceSingleQuiet(cm);};
   });
