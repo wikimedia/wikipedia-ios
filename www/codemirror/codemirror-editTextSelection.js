@@ -20,7 +20,7 @@ class SelectedAndAdjacentText {
     if (selectedWordCount < 6) {
       return 2
     }
-    return 0
+    return 1
   }
 
   regexForLocatingSelectedTextInWikitext(wikitext) {
