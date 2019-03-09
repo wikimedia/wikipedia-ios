@@ -18,7 +18,7 @@ class SelectedAndAdjacentText {
       return 4
     }
     if (selectedWordCount < 6) {
-      return 1
+      return 2
     }
     return 0
   }
