@@ -390,8 +390,7 @@
 "page-edit-history" = "Целокупна историја измена";
 "page-history-title" = "Историја чланка";
 "page-issues" = "Проблеми са страницом";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Измењено данас|Измењено јуче|Измењено пре $1 дана}}";
+"page-last-edited" = "{{PLURAL:$1|0=Измењено данас|1=Измењено јуче|Измењено пре $1 дана}}";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
