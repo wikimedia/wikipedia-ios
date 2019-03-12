@@ -13,5 +13,6 @@ wmf.platform = require('wikimedia-page-library').PlatformTransform
 wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
 wmf.windowResizeScroll = require('./js/windowResizeScroll')
+wmf.editTextSelection = require('./js/editTextSelection')
 
 window.wmf = wmf
