@@ -16,12 +16,65 @@
   <script src="resources/addon/search/searchcursor.js"></script>
   <script src="resources/addon/search/match-highlighter.js"></script>
 
+<<<<<<< HEAD
   <script src="codemirror-editTextSelection.js"></script>
+=======
+  <script src="codemirror-range-determination-bundle.js"></script>
+
+>>>>>>> add some temporary testing code (this commit is just for testing)
 </head>
 
 
 <body>
   <script>    
+  
+
+
+
+
+
+
+
+
+
+let showDebugButtons = () => {
+  RangeHelper.rangeDebugging.showRangeDebuggingButtonsForCursorLine(editor)
+}
+setTimeout(showDebugButtons, 1000)
+
+const test = (doc) => {
+  const selectionRange = RangeHelper.rangeUtilities.getItemRangeFromSelection(doc)
+  
+  console.log(`
+    selectionRange:
+      from: ${selectionRange.startLocation.line}, ${selectionRange.startLocation.ch}
+      to: ${selectionRange.endLocation.line}, ${selectionRange.endLocation.ch}
+  `)
+
+  const buttonNamesInSelectionRange = RangeHelper.rangeUtilities.getButtonNamesIntersectingSelection(doc)
+  console.log(`
+    buttonNamesInSelectionRange:
+      ${buttonNamesInSelectionRange}
+  `)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
     let editor
 
     const rangesIntersect = (range1, range2) => {
@@ -394,6 +447,8 @@
       }
       editor.on('cursorActivity', (doc) => {
         sendNativeMessages(doc)
+        
+test(doc)
 
         clearTimeout(cursorActivityScrollTimer)
         cursorActivityScrollTimer = setTimeout(() => {
