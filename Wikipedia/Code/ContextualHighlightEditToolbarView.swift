@@ -1,6 +1,5 @@
 class ContextualHighlightEditToolbarView: EditToolbarView {
-    @IBOutlet weak var stackView: UIStackView!
-    
+    @IBOutlet private weak var stackView: UIStackView!
     override func awakeFromNib() {
         super.awakeFromNib()
         stackView.isLayoutMarginsRelativeArrangement = true
