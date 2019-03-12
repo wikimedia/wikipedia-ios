@@ -158,6 +158,7 @@
 "edit-italic-remove-accessibility-label" = "Accessibility label for italic button";
 "edit-link-accessibility-label" = "Accessibility label for the button that adds link syntax to the current selection";
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
+"edit-menu-item" = "Button label for text selection 'Edit' menu item";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
 "edit-minor-text" = "Text for minor edit label";
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";
