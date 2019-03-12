@@ -22,10 +22,6 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         delegate?.textFormattingProvidingDidTapTextStyleFormatting()
     }
 
-    @IBAction private func removeSelectionFormatting(_ sender: UIButton) {
-        //
-    }
-
     @IBAction private func toggleReferenceSelection(_ sender: UIButton) {
         delegate?.textFormattingProvidingDidTapReference()
     }
