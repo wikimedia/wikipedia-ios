@@ -281,7 +281,7 @@ extension SectionEditorInputViewsController: WMFFindInPageKeyboardBarDelegate {
     }
 
     func keyboardBarCloseButtonTapped(_ keyboardBar: WMFFindInPageKeyboardBar!) {
-        messagingController.replaceSingle(text: "blerg")
+        messagingController.replaceAll(text: "blerg")
         /*
         messagingController.clearSearch()
         keyboardBar.reset()

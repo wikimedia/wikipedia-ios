@@ -81,6 +81,7 @@ class SectionEditorViewController: UIViewController {
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
+        messagingController.alertDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
         let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment) { [weak self] in
             self?.isCodemirrorReady = true
@@ -93,7 +94,7 @@ class SectionEditorViewController: UIViewController {
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllNumberMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -263,6 +264,13 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
     func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton) {
         navigationItemController.disableButton(button: button)
         inputViewsController.disableButton(button: button)
+    }
+}
+
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAlertDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int) {
+        #warning("todo: Localize & pluralize this")
+        wmf_showAlertWithMessage("\(replacedCount) items replaced")
     }
 }
 

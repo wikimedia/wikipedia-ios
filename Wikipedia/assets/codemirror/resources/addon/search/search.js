@@ -220,7 +220,7 @@
           count++;
         }
       });
-      cm.state.replaceAllNum = count;
+      cm.state.replaceAllCount = count;
     }
      
     //same as replace but bypasses CodeMirror dialogs. Split this up into all & single variants for simplicity
@@ -233,7 +233,10 @@
       query = parseQuery(query);
       replaceText = parseString(replaceText);
       replaceAll(cm, query, replaceText);
-      //todo: will need a way to return the number of items replaced
+
+      //reset count to 0/0
+      let state = getSearchState(cm)
+      focusOnMatch(state);
     }
 
     function replaceSingleQuiet(cm) {
@@ -241,21 +244,25 @@
       var replaceText = cm.state.replaceText
       if (!replaceText) return;
 
-      var query = cm.getSelection() || getSearchState(cm).lastQuery;
+      var state = getSearchState(cm);
+      var query = cm.getSelection() || state.lastQuery;
       query = parseQuery(query);
       replaceText = parseString(replaceText);
-      clearSearch(cm);
-      var cursor = getSearchCursor(cm, query, cm.getCursor("from"));
+      var cursor = getSearchCursor(cm, query, state.posFrom);
 
       var advance = function(shouldReplace) {
         var start = cursor.from(), match;
         if (!(match = cursor.findNext())) {
           cursor = getSearchCursor(cm, query);
-          if (!(match = cursor.findNext()) ||
-            (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) return;
+          state.focusedMatchIndex = 0;
+          if (!(match = cursor.findNext()) || (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) {
+            focusOnMatch(state); //this resets count to 0/0
+            return;
+          }
         }
-        cm.setSelection(cursor.from(), cursor.to());
-        cm.scrollIntoView({from: cursor.from(), to: cursor.to()});
+        
+        state.posFrom = cursor.from(); state.posTo = cursor.to();
+        focusOnMatch(state)
         if (shouldReplace) {
           doReplace(match);
         }
@@ -266,7 +273,7 @@
       };
       advance(true);
     }
-  
+
     function replace(cm, all) {
       if (cm.getOption("readOnly")) return;
       var query = cm.getSelection() || getSearchState(cm).lastQuery;
