@@ -6,6 +6,8 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         super.awakeFromNib()
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+
+        showMoreButton.tintColorKeyPath = \Theme.colors.link
     }
 
     @IBAction private func toggleBoldSelection(_ sender: UIButton) {
