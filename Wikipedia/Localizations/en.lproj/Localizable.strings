@@ -158,6 +158,7 @@
 "edit-italic-remove-accessibility-label" = "Remove italic formatting";
 "edit-link-accessibility-label" = "Add link syntax";
 "edit-link-remove-accessibility-label" = "Remove link syntax";
+"edit-menu-item" = "Edit";
 "edit-minor-learn-more-text" = "Learn more about minor edits";
 "edit-minor-text" = "This is a minor edit";
 "edit-ordered-list-accessibility-label" = "Make current line ordered list";
