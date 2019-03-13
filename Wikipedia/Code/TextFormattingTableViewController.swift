@@ -53,7 +53,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             self.textStyleFormattingTableViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.textStyleFormattingTableViewController, animated: true)
         }
-        return Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
+        return Item(with: Content(type: .detail, title: textStyleFormattingTableViewController.titleLabelText, detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
     }
 
     private var textSize: Item {
@@ -63,7 +63,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             self.textSizeFormattingTableViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.textSizeFormattingTableViewController, animated: true)
         }
-        return Item(with: Content(type: .detail, title: "Text size", detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
+        return Item(with: Content(type: .detail, title: textSizeFormattingTableViewController.titleLabelText, detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
     }
 
     private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
