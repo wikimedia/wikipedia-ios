@@ -16,6 +16,7 @@ final class RelatedSearchFetcher: Fetcher {
             let description: String?
             let extract: String?
             let thumbnail: Image?
+            let coordinates: Coordinates?
 
             var isList: Bool {
                 return description?.contains("Wikimedia list article") ?? false
@@ -35,6 +36,7 @@ final class RelatedSearchFetcher: Fetcher {
                 case description
                 case extract
                 case thumbnail
+                case coordinates
             }
 
             struct Image: Decodable {
@@ -46,6 +48,11 @@ final class RelatedSearchFetcher: Fetcher {
                     }
                     return URL(string: source)
                 }
+            }
+
+            struct Coordinates: Decodable {
+                let lat: Double
+                let lon: Double
             }
         }
     }
@@ -109,7 +116,8 @@ final class RelatedSearchFetcher: Fetcher {
                 }
                 let index = page.index.flatMap { NSNumber(value: $0) }
                 let namespace = page.namespace.flatMap { NSNumber(value: $0) }
-                return MWKSearchResult(articleID: id, revID: revision, title: page.title, displayTitle: page.displayTitle, displayTitleHTML: page.displayTitle, wikidataDescription: page.description, extract: page.extract, thumbnailURL: page.thumbnail?.url, index: index, isDisambiguation: page.isDisambiguation, isList: page.isList, titleNamespace: namespace)
+                let location = page.coordinates.flatMap { CLLocation(latitude: $0.lat, longitude: $0.lon) }
+                return MWKSearchResult(articleID: id, revID: revision, title: page.title, displayTitle: page.displayTitle, displayTitleHTML: page.displayTitle, wikidataDescription: page.description, extract: page.extract, thumbnailURL: page.thumbnail?.url, index: index, isDisambiguation: page.isDisambiguation, isList: page.isList, titleNamespace: namespace, location: location)
             }
 
             completion(nil, results)
