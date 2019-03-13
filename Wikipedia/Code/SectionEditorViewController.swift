@@ -255,7 +255,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
         
         messagingController.blur()
-        inputViewsController.hideInputView()
+        inputViewsController.suppressMenus = true
         
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
@@ -348,8 +348,7 @@ extension SectionEditorViewController: ReadingThemesControlsPresenting {
     }
     
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        messagingController.focus()
-        inputViewsController.showInputView()
+        inputViewsController.suppressMenus = false
     }
 }
 
