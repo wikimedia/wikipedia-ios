@@ -18,14 +18,6 @@ final class RelatedSearchFetcher: Fetcher {
             let thumbnail: Image?
             let coordinates: Coordinates?
 
-            var isList: Bool {
-                return description?.contains("Wikimedia list article") ?? false
-            }
-
-            var isDisambiguation: Bool {
-                return description?.contains("disambiguation page") ?? false
-            }
-
             enum CodingKeys: String, CodingKey {
                 case id = "pageid"
                 case revision
@@ -117,7 +109,7 @@ final class RelatedSearchFetcher: Fetcher {
                 let index = page.index.flatMap { NSNumber(value: $0) }
                 let namespace = page.namespace.flatMap { NSNumber(value: $0) }
                 let location = page.coordinates.flatMap { CLLocation(latitude: $0.lat, longitude: $0.lon) }
-                return MWKSearchResult(articleID: id, revID: revision, title: page.title, displayTitle: page.displayTitle, displayTitleHTML: page.displayTitle, wikidataDescription: page.description, extract: page.extract, thumbnailURL: page.thumbnail?.url, index: index, isDisambiguation: page.isDisambiguation, isList: page.isList, titleNamespace: namespace, location: location)
+                return MWKSearchResult(articleID: id, revID: revision, title: page.title, displayTitle: page.displayTitle, displayTitleHTML: page.displayTitle, wikidataDescription: page.description, extract: page.extract, thumbnailURL: page.thumbnail?.url, index: index, titleNamespace: namespace, location: location)
             }
 
             completion(nil, results)

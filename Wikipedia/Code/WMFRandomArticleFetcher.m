@@ -33,9 +33,32 @@ NS_ASSUME_NONNULL_BEGIN
         
         NSError *serializerError = nil;
         
-        NSArray<MWKSearchResult *> *randomResults = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromAllValuesOfDictionaryForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
+        NSDictionary *resultsDictionary = [result valueForKeyPath:@"query.pages"];
+        if (![resultsDictionary isKindOfClass:[NSDictionary class]]) {
+            completion([WMFFetcher unexpectedResponseError], nil);
+            return;
+        }
+        
+        NSArray *results = [resultsDictionary allValues];
+        results = [results wmf_select:^BOOL(NSDictionary *obj) {
+            if (![obj isKindOfClass:[NSDictionary class]]) {
+                return NO;
+            }
+            NSDictionary *pageprops = obj[@"pageprops"];
+            if (![pageprops isKindOfClass:[NSDictionary class]]) {
+                return YES;
+            }
+            return pageprops[@"disambiguation"] == nil;
+        }];
+        
+        NSArray<MWKSearchResult *> *randomResults = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromUntypedArray:results error:&serializerError];
         if (serializerError) {
             completion(serializerError, nil);
+            return;
+        }
+        
+        if ([randomResults count] == 0) {
+            completion([WMFFetcher unexpectedResponseError], nil);
             return;
         }
         
@@ -46,13 +69,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKSearchResult *)getBestRandomResultFromResults:(NSArray *)results {
-    //Sort so random results with good extracts and images come first and disambiguation pages come last.
     NSSortDescriptor *extractSorter = [[NSSortDescriptor alloc] initWithKey:@"extract.length" ascending:NO];
     NSSortDescriptor *descripSorter = [[NSSortDescriptor alloc] initWithKey:@"wikidataDescription" ascending:NO];
     NSSortDescriptor *thumbSorter = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL.absoluteString" ascending:NO];
-    NSSortDescriptor *disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
-    NSSortDescriptor *listSorter = [[NSSortDescriptor alloc] initWithKey:@"isList" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, thumbSorter, descripSorter, extractSorter]];
+    results = [results sortedArrayUsingDescriptors:@[thumbSorter, descripSorter, extractSorter]];
     return [results firstObject];
 }
 
