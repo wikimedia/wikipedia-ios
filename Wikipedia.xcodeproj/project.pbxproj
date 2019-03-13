@@ -955,6 +955,11 @@
 		B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */; };
 		B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
 		B09BE6A11FB3DA46007F52E3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BE6A01FB3DA45007F52E3 /* WebKit.framework */; };
+		B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */; };
+		B09CE59B222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */; };
+		B09CE59C222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */; };
+		B09CE59D222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */; };
+		B09CE59E222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */; };
 		B0ACB13321265B930078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
 		B0ACB13421265B9C0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
 		B0ACB13521265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
@@ -3626,6 +3631,7 @@
 		B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFWelcomeStoryboard.swift"; path = "Wikipedia/Code/UIViewController+WMFWelcomeStoryboard.swift"; sourceTree = SOURCE_ROOT; };
 		B09BE6A01FB3DA45007F52E3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFArticleSectionLoadingJSPerformanceTests.swift; sourceTree = "<group>"; };
+		B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKWebView+EditSelectionJavascript.swift"; sourceTree = "<group>"; };
 		B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryDescriptionTextView.swift; sourceTree = "<group>"; };
 		B0B0CAD71D2345CB009CE8ED /* WMFImageTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTagList.h; path = Wikipedia/Code/WMFImageTagList.h; sourceTree = SOURCE_ROOT; };
 		B0B0CAD81D2345CB009CE8ED /* WMFImageTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTagList.m; path = Wikipedia/Code/WMFImageTagList.m; sourceTree = SOURCE_ROOT; };
@@ -6616,6 +6622,7 @@
 				B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */,
 				B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */,
 				B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */,
+				B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -10172,6 +10179,7 @@
 				83F26B2A220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
+				B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				BAFCE8431F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift in Sources */,
@@ -10558,6 +10566,7 @@
 				B0524B23214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D8A3C4EB2113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
 				7A4D228121B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
+				B09CE59E222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				8382F8DD20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				D80ED3691EE57F4800CE8C50 /* WMFLanguageCell.m in Sources */,
 				D80ED36A1EE57F4800CE8C50 /* WMFSearchButton.m in Sources */,
@@ -11198,6 +11207,7 @@
 				7AA96D5F21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				D8A42B231E815A9C00D8E281 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
+				B09CE59D222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				D8A42B271E815A9C00D8E281 /* ArticlePlace.swift in Sources */,
 				D87B13A81F276B1000B27227 /* ShareActivityController.swift in Sources */,
 				83023C1420E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
@@ -11590,6 +11600,7 @@
 				B0524B20214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D8A3C4E82113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
 				7A4D227E21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
+				B09CE59B222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				8382F8DA20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				D8CE25CE1E698E2400DAE2E0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
@@ -11937,6 +11948,7 @@
 				B0524B21214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D8A3C4E92113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
 				7A4D227F21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
+				B09CE59C222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				D8EC3ECC1E9BDA35006712EB /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8E27BA81F82B38600F9D2B3 /* RMessage.m in Sources */,

@@ -89,6 +89,7 @@
 "action-saved-accessibility" = "Salvou. Ative para não se proteger.";
 "action-saved-accessibility-notification" = "Artigo salvo para posterior";
 "action-share" = "Compartilhar";
+"action-share-accessibility" = "Compartilhar";
 "action-sort" = "Ordenar";
 "action-undo" = "Desfazer";
 "action-unsave" = "Não salvo";

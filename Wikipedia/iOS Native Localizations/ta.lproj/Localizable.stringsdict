@@ -44,8 +44,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>நேற்று தொகுக்கப்பட்டது</string>
 			<key>other</key>
 			<string>%1$d நாட்களுக்கு முன் தொகுக்கப்பட்டது</string>
 			<key>zero</key>
@@ -94,8 +92,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>நேற்று</string>
 			<key>other</key>
 			<string>%1$d நாட்களுக்கு முன்</string>
 			<key>zero</key>
@@ -148,8 +144,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>சென்ற வருடம்</string>
 			<key>other</key>
 			<string>%1$d வருடங்களுக்கு முன்பு</string>
 			<key>zero</key>

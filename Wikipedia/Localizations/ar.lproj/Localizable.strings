@@ -83,6 +83,7 @@
 "action-saved-accessibility" = "تم الحفظ، تفعيل لعدم الحفظ.";
 "action-saved-accessibility-notification" = "المقالة المحفوظة لوقت لاحق";
 "action-share" = "شارك";
+"action-share-accessibility" = "مشاركة";
 "action-sort" = "ترتيب";
 "action-undo" = "رجوع";
 "action-unsave" = "إلغاء الحفظ";
@@ -437,8 +438,7 @@
 "page-edit-history" = "تاريخ التعديل الكامل";
 "page-history-title" = "تاريخ المقالة";
 "page-issues" = "مشاكل في الصفحة";
-// Fuzzy
-"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|أمس|منذ $1 أيام}}";
+"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|منذ $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
@@ -565,12 +565,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "موضوع بني داكن";
 "reading-themes-controls-accessibility-text-size-slider" = "شريط تمرير حجم النص";
 "reference-title" = "$1 مرجع";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|أمس|قبل $1 أيام}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=مؤخرا|قبل $1 ساعة|قبل $1 ساعات}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|منذ $1 دقيقة|منذ $1 دقائق}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|العام الماضي|منذ $1 سنوات}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|1=العام الماضي|منذ $1 سنوات}}";
 "request-feedback-on-error" = "واجه التطبيق مشكلة والتي يود مطورينا أن يتعرفوا على المزيد عنها. يرجى النقر هنا كي ترسل لينا رسالة بريد إلكتروني تبين لنا فيها تفاصيل الخطأ.";
 "reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
 "reverted-edit-notification-body" = "تم إرجاع التعديل الذي تم إجراؤه بمقالة $1 بواسطة $2";

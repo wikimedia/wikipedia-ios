@@ -150,7 +150,7 @@ class ReadingListsAPIController: Fetcher {
                 var componentsWithToken = components
                 componentsWithToken.appendQueryParametersToPercentEncodedQuery(tokenQueryParameters)
                 let identifier =  UUID().uuidString
-                let task = self.session.jsonDictionaryTask(with: componentsWithToken.url, method: method, completionHandler: { (result, response, error) in
+                let task = self.session.jsonDictionaryTask(with: componentsWithToken.url, method: method, bodyParameters: bodyParameters, completionHandler: { (result, response, error) in
                     defer {
                         self.untrack(taskFor: identifier)
                     }

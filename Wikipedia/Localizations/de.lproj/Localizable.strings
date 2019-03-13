@@ -71,6 +71,7 @@
 "action-saved-accessibility" = "Gespeichert. Aktivieren zum Löschen.";
 "action-saved-accessibility-notification" = "Artikel für später gespeichert";
 "action-share" = "Teilen";
+"action-share-accessibility" = "Teilen";
 "action-sort" = "Sortieren";
 "action-undo" = "Rückgängig";
 "action-unsave" = "Löschen";
