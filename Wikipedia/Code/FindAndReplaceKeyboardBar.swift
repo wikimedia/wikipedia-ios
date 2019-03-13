@@ -8,33 +8,51 @@
 
 import UIKit
 
-@objc (WMFFindAndReplaceKeyboardBarDelegate)
-protocol FindAndReplaceKeyboardBarDelegate {
+protocol FindAndReplaceKeyboardBarDelegate: class {
     func keyboardBar(_ keyboardBar: FindAndReplaceKeyboardBar, didChangeSearchTerm searchTerm: String?)
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapPrevious(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapReturn(_ keyboardBar: FindAndReplaceKeyboardBar)
+    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceState: ReplaceState)
+}
+
+protocol FindAndReplaceKeyboardBarAlertDelegate: class {
+    func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar)
+}
+
+enum ReplaceState {
+    case replace
+    case replaceAll
 }
 
 @objc (WMFFindAndReplaceKeyboardBar)
 class FindAndReplaceKeyboardBar: UIInputView {
-
-    @IBOutlet private var textField: UITextField!
-    @IBOutlet private var textFieldContainer: UIView!
+    @IBOutlet private var findTextField: UITextField!
+    @IBOutlet private var findTextFieldContainer: UIView!
+    @IBOutlet private var replaceTextField: UITextField!
+    @IBOutlet private var replaceTextFieldContainer: UIView!
     @IBOutlet private var closeButton: UIButton!
-    @IBOutlet private var clearButton: UIButton!
+    @IBOutlet private var findClearButton: UIButton!
+    @IBOutlet private var replaceClearButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
     @IBOutlet private var previousButton: UIButton!
     @IBOutlet private var currentMatchLabel: UILabel!
     @IBOutlet private var magnifyImageView: UIImageView!
     
+    var replaceState: ReplaceState = .replace {
+        didSet {
+            #warning("todo: update replace/replace all info label here")
+        }
+    }
+    
     weak var delegate: FindAndReplaceKeyboardBarDelegate?
+    weak var alertDelegate: FindAndReplaceKeyboardBarAlertDelegate?
     
     var isVisible: Bool {
         get {
-            return textField.isFirstResponder
+            return findTextField.isFirstResponder
         }
     }
     
@@ -61,24 +79,29 @@ class FindAndReplaceKeyboardBar: UIInputView {
     }
     
     func show() {
-        textField.becomeFirstResponder()
+        findTextField.becomeFirstResponder()
     }
     
     func hide() {
-        textField.resignFirstResponder()
+        findTextField.resignFirstResponder()
     }
     
     func reset() {
-        textField.text = nil
+        findTextField.text = nil
         currentMatchLabel.text = nil
-        clearButton.isHidden = true
+        findClearButton.isHidden = true
     }
     
-    @IBAction func tappedClear() {
+    @IBAction func tappedFindClear() {
         delegate?.keyboardBarDidTapClear(self)
         if !isVisible {
             show()
         }
+    }
+    
+    @IBAction func tappedReplaceClear() {
+        replaceTextField.text = nil
+        replaceClearButton.isHidden = true
     }
     
     @IBAction func tappedClose() {
@@ -93,12 +116,29 @@ class FindAndReplaceKeyboardBar: UIInputView {
         delegate?.keyboardBarDidTapPrevious(self)
     }
     
+    @IBAction func tappedReplace() {
+        
+        #warning("todo: set replace enable/disable button states")
+        guard let replaceText = replaceTextField.text else {
+            return
+        }
+        delegate?.keyboardBarDidTapReplace(self, replaceText: replaceText, replaceState: replaceState)
+    }
+    
+    @IBAction func tappedReplaceSwitch() {
+        #warning("todo: set replace enable/disable button states")
+        alertDelegate?.keyboardBarDidTapReplaceSwitch(self)
+    }
+    
     @IBAction func textFieldDidChange(_ sender: UITextField) {
+        let count = sender.text?.count ?? 0
         
-        delegate?.keyboardBar(self, didChangeSearchTerm: textField.text)
-        
-        let count = textField.text?.count ?? 0
-        clearButton.isHidden = count == 0
+        if sender == findTextField {
+            delegate?.keyboardBar(self, didChangeSearchTerm: findTextField.text)
+            findClearButton.isHidden = count == 0
+        } else {
+            replaceClearButton.isHidden = count == 0
+        }
     }
 }
 
@@ -115,15 +155,15 @@ extension FindAndReplaceKeyboardBar: UITextFieldDelegate {
 
 extension FindAndReplaceKeyboardBar: Themeable {
     func apply(theme: Theme) {
-        textField.keyboardAppearance = theme.keyboardAppearance
-        textField.textColor = theme.colors.primaryText
-        textFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
+        findTextField.keyboardAppearance = theme.keyboardAppearance
+        findTextField.textColor = theme.colors.primaryText
+        findTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
         tintColor = theme.colors.link
         closeButton.tintColor = theme.colors.secondaryText
         previousButton.tintColor = theme.colors.secondaryText
         nextButton.tintColor = theme.colors.secondaryText
         magnifyImageView.tintColor = theme.colors.secondaryText
-        clearButton.tintColor = theme.colors.secondaryText
+        findClearButton.tintColor = theme.colors.secondaryText
         currentMatchLabel.textColor = theme.colors.tertiaryText
     }
 }
@@ -132,15 +172,15 @@ extension FindAndReplaceKeyboardBar: Themeable {
 
 private extension FindAndReplaceKeyboardBar {
     func hideUndoRedoIcons() {
-        if textField.responds(to: #selector(getter: inputAssistantItem)) {
-            textField.inputAssistantItem.leadingBarButtonGroups = []
-            textField.inputAssistantItem.trailingBarButtonGroups = []
+        if findTextField.responds(to: #selector(getter: inputAssistantItem)) {
+            findTextField.inputAssistantItem.leadingBarButtonGroups = []
+            findTextField.inputAssistantItem.trailingBarButtonGroups = []
         }
     }
     
     func updateMatchCountLabel(index: Int, total: UInt) {
         
-        guard let findText = textField.text,
+        guard let findText = findTextField.text,
             findText.count > 0 else {
                 currentMatchLabel.text = nil
                 return

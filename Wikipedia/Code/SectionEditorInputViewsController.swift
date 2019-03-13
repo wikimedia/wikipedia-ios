@@ -11,7 +11,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
     let findAndReplaceView = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
-    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController) {
+    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceAlertDelegate: FindAndReplaceKeyboardBarAlertDelegate) {
         self.webView = webView
         self.messagingController = messagingController
 
@@ -21,6 +21,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
         findAndReplaceView?.delegate = self
+        findAndReplaceView?.alertDelegate = findAndReplaceAlertDelegate
 
         messagingController.findInPageDelegate = self
 
@@ -54,6 +55,10 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         defaultEditToolbarView?.selectButton(button)
         contextualHighlightEditToolbarView?.selectButton(button)
         textFormattingInputViewController.buttonSelectionDidChange(button: button)
+    }
+    
+    func updateReplaceState(state: ReplaceState) {
+        findAndReplaceView?.replaceState = state
     }
 
     var inputViewType: TextFormattingInputViewController.InputViewType?
@@ -307,5 +312,14 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     
     func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar) {
         messagingController.findNext()
+    }
+    
+    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceState: ReplaceState) {
+        switch replaceState {
+        case .replace:
+            messagingController.replaceSingle(text: replaceText)
+        case .replaceAll:
+            messagingController.replaceAll(text: replaceText)
+        }
     }
 }

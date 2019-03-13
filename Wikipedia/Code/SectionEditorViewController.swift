@@ -103,7 +103,7 @@ class SectionEditorViewController: UIViewController {
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
         
-        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
+        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceAlertDelegate: self)
         webView.inputViewsSource = inputViewsController
         
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -273,6 +273,25 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAl
         wmf_showAlertWithMessage("\(replacedCount) items replaced")
     }
 }
+
+extension SectionEditorViewController: FindAndReplaceKeyboardBarAlertDelegate {
+    func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        #warning("todo: Localize")
+        let alertController = UIAlertController(title: "Find and replace", message: nil, preferredStyle: .actionSheet)
+        let replaceAction = UIAlertAction(title: "Replace", style: .default) { (_) in
+            self.inputViewsController.updateReplaceState(state: .replace)
+        }
+        let replaceAllAction = UIAlertAction(title: "Replace all", style: .default) { (_) in
+            self.inputViewsController.updateReplaceState(state: .replaceAll)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(replaceAction)
+        alertController.addAction(replaceAllAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
 
 // MARK: - WKNavigationDelegate
 
