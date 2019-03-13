@@ -202,6 +202,8 @@ NS_ASSUME_NONNULL_BEGIN
     if ([related count] > 0) {
         if (completion) {
             completion();
+        }
+    }
     [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL resultLimit:WMFRelatedSearchFetcher.MaxResultLimit completion:^(NSError * _Nullable error, NSArray<MWKSearchResult *> * _Nullable results) {
         if (error) {
             DDLogError(@"Failed to fetch related articles for %@: %@.",
