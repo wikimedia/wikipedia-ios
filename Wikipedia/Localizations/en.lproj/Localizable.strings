@@ -195,6 +195,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Remove unordered list from current line";
 "edit-watch-list-learn-more-text" = "Learn more about watch lists";
 "edit-watch-this-page-text" = "Watch this page";
+"editing-welcome-be-bold-subtitle" = "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community.";
+"editing-welcome-be-bold-title" = "Your voice is important";
+"editing-welcome-citations-subtitle" = "All content must be verifiable. When adding new information to an article, editors should provide an inline citation to a reliable source that directly supports the contribution.";
+"editing-welcome-citations-title" = "Cite reliable sources";
+"editing-welcome-impartial-tone-subtitle" = "We strive for articles to be written in an impartial tone. When editing, aim to make a fair representation of the world as reliable sources describe it.";
+"editing-welcome-impartial-tone-title" = "Write in an impartial tone";
+"editing-welcome-set-knowledge-free-subtitle" = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you. ";
+"editing-welcome-set-knowledge-free-title" = "Set knowledge free";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
