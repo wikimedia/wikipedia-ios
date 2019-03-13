@@ -83,13 +83,13 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Отредактировано %1$d дня назад</string>
+			<string>Изменено %1$d дня назад</string>
 			<key>many</key>
-			<string>Отредактировано %1$d дней назад</string>
+			<string>Изменено %1$d дней назад</string>
 			<key>other</key>
-			<string>Отредактировано %1$d дней назад</string>
+			<string>Изменено %1$d дней назад</string>
 			<key>zero</key>
-			<string>Отредактировано сегодня</string>
+			<string>Изменено сегодня</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>

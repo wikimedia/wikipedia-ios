@@ -271,7 +271,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>בשנה שעברה</string>
+			<string>לפני %1$d שנה</string>
 			<key>other</key>
 			<string>לפני %1$d שנים</string>
 			<key>zero</key>

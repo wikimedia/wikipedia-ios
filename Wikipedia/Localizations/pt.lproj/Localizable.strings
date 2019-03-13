@@ -76,6 +76,7 @@
 "action-saved-accessibility" = "Guardado. Ativar para não guardar.";
 "action-saved-accessibility-notification" = "Artigo guardado para mais tarde";
 "action-share" = "Partilhar";
+"action-share-accessibility" = "Partilhar";
 "action-sort" = "Ordenar";
 "action-undo" = "Desfazer";
 "action-unsave" = "Não guardar";
@@ -430,8 +431,7 @@
 "page-edit-history" = "Histórico completo";
 "page-history-title" = "Histórico do artigo";
 "page-issues" = "Problemas da página";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|Editado ontem|Editado há $1 dias}}";
+"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado há $1 dias}}";
 "page-location" = "Ver num mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Não tem permissão para editar esta página";
@@ -558,12 +558,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sépia";
 "reading-themes-controls-accessibility-text-size-slider" = "Controlo do tamanho do texto";
 "reference-title" = "Referência $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Hoje|Ontem|Há $1 dias}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hoje|1=Ontem|Há $1 dias}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Há $1 hora|Há $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Há $1 minuto|Há $1 minutos}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|No ano passado|Há $1 anos}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|1=No ano passado|Há $1 anos}}";
 "request-feedback-on-error" = "A aplicação encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um correio eletrónico com os detalhes do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
 "reverted-edit-notification-body" = "A sua edição do artigo $1 foi revertida por $2";

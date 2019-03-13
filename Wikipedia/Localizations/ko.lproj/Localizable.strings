@@ -88,6 +88,7 @@
 "action-saved-accessibility" = "저장했습니다. 저장을 취소하려면 활성화하세요.";
 "action-saved-accessibility-notification" = "나중을 위해 문서가 저장됨";
 "action-share" = "공유";
+"action-share-accessibility" = "공유";
 "action-sort" = "정렬";
 // Fuzzy
 "action-undo" = "실행 취소";

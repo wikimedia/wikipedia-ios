@@ -38,15 +38,15 @@
 "about-translators-details" = "Превели добровољци сајта $1";
 "about-wikimedia-foundation" = "Задужбина Викимедија";
 "about-wikipedia" = "Википедија";
-"abuse-filter-disallow-heading" = "Не можете да објавите ову измену.";
-"abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је означио ову измену као потенцијално неконструктивну или као покушај вандализма. Молимо вас да се вратите и промените вашу измену.";
+"abuse-filter-disallow-heading" = "Не можете да објавите ову измену";
+"abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је утврдио да је ова измена  потенцијално неконструктивна или покушај вандализма. Вратите се и промените вашу измену.";
 "abuse-filter-warning-blanking" = "Брисање одељака или целих чланака";
 "abuse-filter-warning-caps" = "Текст великим словима";
 "abuse-filter-warning-heading" = "Ово личи на неконструктивну измену. Желите ли заиста да је објавите?";
 "abuse-filter-warning-irrelevant" = "Ирелевантни спољашњи линкови или слике";
 "abuse-filter-warning-repeat" = "Понављајући знакови";
 "abuse-filter-warning-spam" = "Додавање непожељног садржаја у чланке";
-"abuse-filter-warning-subheading" = "Ваша измена може садржати:";
+"abuse-filter-warning-subheading" = "Ваша измена можда садржи:";
 "account-creation-captcha-cannot-see-image" = "Не видите слику? $1";
 "account-creation-captcha-obtaining" = "Преузимам нову CAPTCHA слику…";
 "account-creation-captcha-request-account" = "Захтевајте налог.";
@@ -390,8 +390,7 @@
 "page-edit-history" = "Целокупна историја измена";
 "page-history-title" = "Историја чланка";
 "page-issues" = "Проблеми са страницом";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Измењено данас|Измењено јуче|Измењено пре $1 дана}}";
+"page-last-edited" = "{{PLURAL:$1|0=Измењено данас|1=Измењено јуче|Измењено пре $1 дана}}";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";

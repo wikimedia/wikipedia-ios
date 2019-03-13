@@ -72,6 +72,7 @@
 "action-saved-accessibility" = "Gemt. Aktiver for at fortryde.";
 "action-saved-accessibility-notification" = "Artikel gemt til senere";
 "action-share" = "Del";
+"action-share-accessibility" = "Del";
 "action-sort" = "Sorter";
 // Fuzzy
 "action-undo" = "Fortryd";
@@ -321,8 +322,7 @@
 "page-edit-history" = "Fuld redigeringshistorik";
 "page-history-title" = "Artikelhistorik";
 "page-issues" = "Problemer med siden";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Redigeret i dag|Redigeret i går|Redigeret for $1 dage siden}}";
+"page-last-edited" = "{{PLURAL:$1|0=Redigeret i dag|1=Redigeret i går|Redigeret for $1 dage siden}}";
 "page-location" = "Vis på et kort";
 "page-protected-autoconfirmed" = "Denne side er delvis beskyttet.";
 "page-protected-can-not-edit" = "Du har ikke rettigheder til at redigere denne side";
@@ -427,12 +427,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-tema";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekststørrelseskyder";
 "reference-title" = "Reference $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|$1 dage siden}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|1=I går|$1 dage siden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|Sidste år|$1 år siden}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|1=Sidste år|$1 år siden}}";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
 "reverted-edit-notification-body" = "Redigeringen du lavede på artiklen $1 blev omgjort af $2";

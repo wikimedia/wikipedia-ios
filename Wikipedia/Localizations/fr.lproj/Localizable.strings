@@ -86,6 +86,7 @@
 "action-saved-accessibility" = "Enregistré. Activer pour supprimer la sauvegarde.";
 "action-saved-accessibility-notification" = "Article sauvegardé pour plus tard";
 "action-share" = "Partager";
+"action-share-accessibility" = "Partager";
 "action-sort" = "Trier";
 "action-undo" = "Annuler";
 "action-unsave" = "Non enregistré";

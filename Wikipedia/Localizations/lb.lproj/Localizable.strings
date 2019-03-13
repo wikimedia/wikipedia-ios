@@ -60,6 +60,7 @@
 "action-saved" = "Gespäichert";
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
 "action-share" = "Deelen";
+"action-share-accessibility" = "Deelen";
 "action-sort" = "Zortéieren";
 // Fuzzy
 "action-undo" = "Réckgängeg maachen";
