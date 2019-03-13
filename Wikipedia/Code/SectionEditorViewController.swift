@@ -258,7 +258,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
         
-        messagingController.blur()
+        webView.resignFirstResponder()
         inputViewsController.suppressMenus = true
         
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)

@@ -813,9 +813,6 @@
       focus: () => {
         editor.focus()
       },
-      blur: () => {
-          editor.getInputField().blur()
-      },
       undo: () => editor.undo(),
       redo: () => editor.redo(),
       cursorUp: () => editor.execCommand('goLineUp'),

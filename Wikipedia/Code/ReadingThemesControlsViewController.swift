@@ -1,13 +1,13 @@
 import UIKit
 
-public protocol WMFReadingThemesControlsViewControllerDelegate: class {
+protocol WMFReadingThemesControlsViewControllerDelegate: class {
     
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController)
 }
 
 @objc(WMFReadingThemesControlsViewController)
-open class ReadingThemesControlsViewController: UIViewController {
+class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
@@ -151,6 +151,11 @@ open class ReadingThemesControlsViewController: UIViewController {
         visible = true
         let currentTheme = UserDefaults.wmf.wmf_appTheme
         apply(theme: currentTheme)
+    }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        syntaxHighlightingLabel.font = UIFont.wmf_font(.title2, compatibleWithTraitCollection: traitCollection)
     }
     
     @objc func screenBrightnessChangedInApp(notification: Notification){
