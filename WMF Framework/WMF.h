@@ -127,8 +127,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFFeedNewsStory.h>
 #import <WMF/WMFFeedOnThisDayEvent.h>
 
-#import <WMF/WMFRandomArticleFetcher.h>
-
 #import <WMF/WMFLocationManager.h>
 #import <WMF/CLLocationManager+WMFLocationManagers.h>
 #import <WMF/CLLocation+WMFBearing.h>

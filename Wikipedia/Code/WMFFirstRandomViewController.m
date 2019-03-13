@@ -1,5 +1,4 @@
 #import "WMFFirstRandomViewController.h"
-#import <WMF/WMFRandomArticleFetcher.h>
 #import "Wikipedia-Swift.h"
 #import <WMF/MWKDataStore.h>
 #import <WMF/SessionSingleton.h>
@@ -39,13 +38,13 @@
     [super viewDidAppear:animated];
     NSURL *siteURL = self.siteURL;
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-    [fetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, MWKSearchResult * _Nullable result) {
+    [fetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, NSDictionary * _Nullable summary) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (error || !result) {
+            if (error || !articleURL) {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-            } else {}
-            NSURL *titleURL = [result articleURLForSiteURL:siteURL];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme];
+                return;
+            }
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = NO; // self.isPermaRandomMode to turn on
 #endif
