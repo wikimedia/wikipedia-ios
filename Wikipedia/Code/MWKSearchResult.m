@@ -49,7 +49,8 @@
                             index:(NSNumber *)index
                  isDisambiguation:(BOOL)isDisambiguation
                            isList:(BOOL)isList
-                   titleNamespace:(NSNumber *)titleNamespace {
+                   titleNamespace:(NSNumber *)titleNamespace
+                         location:(nullable CLLocation *)location {
     self = [super init];
     if (self) {
         self.articleID = articleID;
@@ -64,6 +65,7 @@
         self.isDisambiguation = isDisambiguation;
         self.isList = isList;
         self.titleNamespace = titleNamespace;
+        self.location = location;
     }
     return self;
 }
