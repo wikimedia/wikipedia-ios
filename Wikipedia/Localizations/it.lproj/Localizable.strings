@@ -83,6 +83,7 @@
 "action-saved" = "Salvato";
 "action-saved-accessibility-notification" = "Voce salvata per dopo";
 "action-share" = "Condividi";
+"action-share-accessibility" = "Condividi";
 "action-undo" = "Annulla";
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";

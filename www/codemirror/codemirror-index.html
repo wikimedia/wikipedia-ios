@@ -15,6 +15,8 @@
   <script src="resources/addon/search/search.js"></script>
   <script src="resources/addon/search/searchcursor.js"></script>
   <script src="resources/addon/search/match-highlighter.js"></script>
+
+  <script src="codemirror-editTextSelection.js"></script>
 </head>
 
 
@@ -645,6 +647,7 @@
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
     wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
+    wmf.highlightAndScrollToWikitextForSelectedAndAdjacentText = highlightAndScrollToWikitextForSelectedAndAdjacentText
 
     const italicMarkup = "''"
     const boldMarkup = "'''"
@@ -742,12 +745,12 @@
       editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
     }
 
-    const verticalOffsetNeededToScrollCursorIntoView = () => {
-      const fromTopOfWebView = cursorOffsetFromTopOfWebView()
+    const verticalOffsetNeededToScrollRangeIntoView = (from, to) => {
+      const fromTopOfWebView = locationOffsetFromTopOfWebView(from)
       if (fromTopOfWebView < 0) {
         return fromTopOfWebView
       }
-      const fromTopOfKeyboard = cursorOffsetFromTopOfKeyboard()
+      const fromTopOfKeyboard = locationOffsetFromTopOfKeyboard(to)
       if (fromTopOfKeyboard > 0) {
         return fromTopOfKeyboard
       }
@@ -756,14 +759,15 @@
 
     let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
     const webViewHeightNotCoveredByKeyboard = () => document.documentElement.clientHeight - adjustedContentInset.bottom
-    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords(true, 'window').top
-    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords(false, 'window').bottom - webViewHeightNotCoveredByKeyboard()
+    const locationOffsetFromTopOfWebView = (location) => editor.charCoords(location, 'window').top
+    const locationOffsetFromTopOfKeyboard = (location) => editor.charCoords(location, 'window').bottom - webViewHeightNotCoveredByKeyboard()
 
     const scrollCursorIntoViewIfNeeded = () => {
-      if (getSelectionRange(editor).isRangeSelected) {
-        return
-      }
-      const offset = verticalOffsetNeededToScrollCursorIntoView()
+      scrollRangeIntoViewIfNeeded(editor.getCursor('from'), editor.getCursor('to'))
+    }
+
+    const scrollRangeIntoViewIfNeeded = (from, to) => {
+      const offset = verticalOffsetNeededToScrollRangeIntoView(from, to)
       if (offset === 0) {
         return
       }

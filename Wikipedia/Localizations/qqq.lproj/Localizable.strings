@@ -57,6 +57,7 @@
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
 "action-saved-accessibility-notification" = "Notification spoken after user saves an article for later.";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
+"action-share-accessibility" = "Accessibility title for the 'Share' action";
 "action-sort" = "Title of the sort action.";
 "action-undo" = "Title text and accessibility label for undo action on buttons or info sheets.";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
@@ -157,6 +158,7 @@
 "edit-italic-remove-accessibility-label" = "Accessibility label for italic button";
 "edit-link-accessibility-label" = "Accessibility label for the button that adds link syntax to the current selection";
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
+"edit-menu-item" = "Button label for text selection 'Edit' menu item";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
 "edit-minor-text" = "Text for minor edit label";
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";
@@ -193,6 +195,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Accessibility label for remove unordered list button";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
+"editing-welcome-be-bold-subtitle" = "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles";
+"editing-welcome-be-bold-title" = "Title for editing onboarding screen encouraging users to start editing Wikipedia articles";
+"editing-welcome-citations-subtitle" = "Subtitle for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles";
+"editing-welcome-citations-title" = "Title for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles";
+"editing-welcome-impartial-tone-subtitle" = "Subtitle for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles";
+"editing-welcome-impartial-tone-title" = "Title for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles";
+"editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
+"editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";

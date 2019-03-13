@@ -70,6 +70,7 @@
 "action-saved-accessibility" = "Lagret. Aktiver for å fjerne lagring.";
 "action-saved-accessibility-notification" = "Lagrede artikler";
 "action-share" = "Del";
+"action-share-accessibility" = "Del";
 "action-unsave" = "Fjern lagring";
 "action-unsaved-accessibility-notification" = "Artikkelen er ikke lenger lagret";
 "announcements-dismiss" = "Lukk";

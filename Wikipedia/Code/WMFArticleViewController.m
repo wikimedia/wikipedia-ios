@@ -129,13 +129,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong, nullable) UIImageView *headerImageTransitionView;
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UIView *headerView;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *readingThemesControlsToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *saveToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *languagesToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *shareToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *readingThemesControlsToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *showTableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *hideTableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) IconBarButtonItem *findInPageToolbarItem;
 @property (nonatomic, strong) UIRefreshControl *pullToRefresh;
 @property (nonatomic, readwrite, nullable) UIImageView *imageScaleTransitionView;
 
@@ -545,69 +545,68 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 #pragma mark - Toolbar Items
 
-- (UIBarButtonItem *)showTableOfContentsToolbarItem {
+- (IconBarButtonItem *)showTableOfContentsToolbarItem {
     if (!_showTableOfContentsToolbarItem) {
-        _showTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
-                                                                           style:UIBarButtonItemStylePlain
-                                                                          target:self
-                                                                          action:@selector(showTableOfContents:)];
+        _showTableOfContentsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"toc" target: self action:@selector(showTableOfContents:) for: UIControlEventTouchUpInside];
         _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        [_showTableOfContentsToolbarItem applyTheme:self.theme];
         return _showTableOfContentsToolbarItem;
     }
     return _showTableOfContentsToolbarItem;
 }
 
-- (UIBarButtonItem *)hideTableOfContentsToolbarItem {
+- (IconBarButtonItem *)hideTableOfContentsToolbarItem {
     if (!_hideTableOfContentsToolbarItem) {
-        UIImage *closeImage = [UIImage imageNamed:@"toc"];
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [closeButton setImage:closeImage forState:UIControlStateNormal];
-        [closeButton addTarget:self action:@selector(hideTableOfContents:) forControlEvents:UIControlEventTouchUpInside];
-        closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
-        closeButton.layer.cornerRadius = 5;
-        closeButton.layer.masksToBounds = YES;
-        _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+        _hideTableOfContentsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"toc" target: self action: @selector(hideTableOfContents:) for: UIControlEventTouchUpInside];
+        
+         if ([_hideTableOfContentsToolbarItem.customView isKindOfClass:[UIButton class]]) {
+             UIButton *button = (UIButton *)_hideTableOfContentsToolbarItem.customView;
+             button.layer.cornerRadius = 5;
+             button.layer.masksToBounds = YES;
+         }
+        
         _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        
+         [_hideTableOfContentsToolbarItem applyTheme:self.theme];
     }
     return _hideTableOfContentsToolbarItem;
 }
 
-- (UIBarButtonItem *)saveToolbarItem {
+- (IconBarButtonItem *)saveToolbarItem {
     if (!_saveToolbarItem) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 25, 25);
-        [button setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(toggleSave:event:) forControlEvents:UIControlEventTouchUpInside];
+        _saveToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"save" target: self action:@selector(toggleSave:event:) for: UIControlEventTouchUpInside];
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleSaveButtonLongPressGestureRecognizer:)];
-        [button addGestureRecognizer:longPress];
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        if ([_saveToolbarItem.customView isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)_saveToolbarItem.customView;
+             [button addGestureRecognizer:longPress];
+        }
+        [_saveToolbarItem applyTheme:self.theme];
     }
     return _saveToolbarItem;
 }
 
-- (UIBarButtonItem *)readingThemesControlsToolbarItem {
+- (IconBarButtonItem *)readingThemesControlsToolbarItem {
     if (!_readingThemesControlsToolbarItem) {
-        _readingThemesControlsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showReadingThemesControlsPopup)];
+        _readingThemesControlsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"font-size" target: self action:@selector(showReadingThemesControlsPopup) for: UIControlEventTouchUpInside];
+        [_readingThemesControlsToolbarItem applyTheme:self.theme];
     }
     _readingThemesControlsToolbarItem.accessibilityLabel = [WMFCommonStrings readingThemesControls];
     return _readingThemesControlsToolbarItem;
 }
 
-- (UIBarButtonItem *)shareToolbarItem {
+- (IconBarButtonItem *)shareToolbarItem {
     if (!_shareToolbarItem) {
-        _shareToolbarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                          target:self
-                                                                          action:@selector(shareArticle)];
+        _shareToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"share" target: self action:@selector(shareArticle) for: UIControlEventTouchUpInside];
+        _shareToolbarItem.accessibilityLabel = WMFCommonStrings.accessibilityShareTitle;
+        [_shareToolbarItem applyTheme:self.theme];
     }
     return _shareToolbarItem;
 }
 
-- (UIBarButtonItem *)findInPageToolbarItem {
+- (IconBarButtonItem *)findInPageToolbarItem {
     if (!_findInPageToolbarItem) {
-        _findInPageToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"find-in-page"]
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(findInPageButtonPressed)];
+        _findInPageToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"find-in-page" target: self action:@selector(findInPageButtonPressed) for: UIControlEventTouchUpInside];
+        [_findInPageToolbarItem applyTheme:self.theme];
         _findInPageToolbarItem.accessibilityLabel = WMFCommonStrings.findInPage;
     }
     return _findInPageToolbarItem;
@@ -622,12 +621,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [CATransaction commit];
 }
 
-- (UIBarButtonItem *)languagesToolbarItem {
+- (IconBarButtonItem *)languagesToolbarItem {
     if (!_languagesToolbarItem) {
-        _languagesToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"language"]
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(showLanguagePicker)];
+        _languagesToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"language" target: self action:@selector(showLanguagePicker) for: UIControlEventTouchUpInside];
+        [_languagesToolbarItem applyTheme:self.theme];
     }
     return _languagesToolbarItem;
 }
@@ -1581,6 +1578,24 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self shareAFactWithTextSnippet:text];
 }
 
+- (void)webViewController:(WebViewController *)controller didTapEditMenuItemInMenuController:(UIMenuController *)menuController {
+    @weakify(self);
+    [self.webViewController.webView wmf_getSelectedTextEditInfoWithCompletionHandler:^(SelectedTextEditInfo* selectedTextEditInfo, NSError *error) {
+        @strongify(self);
+        if (error) {
+            return;
+        }
+        if (selectedTextEditInfo.isSelectedTextInTitleDescription) {
+            [self showTitleDescriptionEditor];
+        } else {
+            if (self.article.sections && self.article.sections.count > 0) {
+                MWKSection *section = self.article.sections[selectedTextEditInfo.sectionID];
+                [self showEditorForSection:section selectedTextEditInfo:selectedTextEditInfo];
+            }
+        }
+    }];
+}
+
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
     self.sectionToRestoreScrollOffset = nil;
     @weakify(self);
@@ -1766,7 +1781,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         if ([self.article isWikidataDescriptionEditable] && [section isLeadSection] && self.article.entityDescription) {
             [self showEditSectionOrTitleDescriptionDialogForSection:section];
         } else {
-            [self showEditorForSection:section];
+            [self showEditorForSection:section selectedTextEditInfo:nil];
         }
     } else {
         ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
@@ -1775,11 +1790,12 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-- (void)showEditorForSection:(MWKSection *)section {
+- (void)showEditorForSection:(MWKSection *)section selectedTextEditInfo:(nullable SelectedTextEditInfo *)selectedTextEditInfo {
     WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
     sectionEditVC.editFunnel = self.editFunnel;
+    sectionEditVC.selectedTextEditInfo = selectedTextEditInfo;
     [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
 }
 
@@ -1845,7 +1861,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self showEditorForSection:section];
+                                                [self showEditorForSection:section selectedTextEditInfo:nil];
                                             }]];
 
     [sheet addAction:[UIAlertAction actionWithTitle:[WMFCommonStrings cancelActionTitle] style:UIAlertActionStyleCancel handler:NULL]];
@@ -2211,6 +2227,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.pullToRefresh.tintColor = theme.colors.refreshControlTint;
+    [self.saveToolbarItem applyTheme:self.theme];
+    [self.languagesToolbarItem applyTheme:self.theme];
+    [self.shareToolbarItem applyTheme:self.theme];
+    [self.readingThemesControlsToolbarItem applyTheme:self.theme];
+    [self.showTableOfContentsToolbarItem applyTheme:self.theme];
+    [self.hideTableOfContentsToolbarItem applyTheme:self.theme];
+    [self.findInPageToolbarItem applyTheme:self.theme];
 }
 
 #pragma mark - KVO

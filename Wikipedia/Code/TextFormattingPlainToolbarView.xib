@@ -39,25 +39,25 @@
                                 <action selector="toggleReferenceWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="5MZ-OG-euF"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-hb-02O" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyH-tA-Dma" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                             <rect key="frame" x="178.5" y="11.5" width="18" height="22"/>
+                            <state key="normal" image="text-formatting-link"/>
+                            <connections>
+                                <action selector="toggleLinkWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="bCO-0O-bvJ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-hb-02O" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                            <rect key="frame" x="244" y="11.5" width="18" height="22"/>
                             <state key="normal" image="text-formatting-curly-brackets"/>
                             <connections>
                                 <action selector="toggleTemplateWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="gPN-4i-arl"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEU-F8-gGT" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                            <rect key="frame" x="244" y="11.5" width="18" height="22"/>
+                            <rect key="frame" x="309" y="11.5" width="18" height="22"/>
                             <state key="normal" image="text-formatting-exclamation-point"/>
                             <connections>
                                 <action selector="toggleCommentWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="090-9A-drP"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyH-tA-Dma" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                            <rect key="frame" x="309" y="11.5" width="18" height="22"/>
-                            <state key="normal" image="text-formatting-link"/>
-                            <connections>
-                                <action selector="toggleLinkWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="bCO-0O-bvJ"/>
                             </connections>
                         </button>
                     </subviews>

@@ -76,8 +76,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>昨日編輯</string>
 			<key>other</key>
 			<string>%1$d 日前編輯</string>
 			<key>zero</key>
@@ -216,8 +214,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>昨天</string>
 			<key>other</key>
 			<string>%1$d 天前</string>
 			<key>zero</key>
@@ -270,8 +266,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>去年</string>
 			<key>other</key>
 			<string>%1$d 年前</string>
 			<key>zero</key>

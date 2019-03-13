@@ -50,6 +50,36 @@
 			<string>%1$d件の歴史上の出来事</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d日前に編集</string>
+			<key>zero</key>
+			<string>今日編集</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>他に%1$d 言語で利用可能</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -62,6 +92,20 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d件</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>1アカウントあたりに保存できる記事の上限%1$d 件を超えました。</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -138,10 +182,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>昨日</string>
 			<key>other</key>
-			<string>%1$d日前</string>
+			<string>%1$d 日前</string>
 			<key>zero</key>
 			<string>今日</string>
 		</dict>
@@ -190,8 +232,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>昨年</string>
 			<key>other</key>
 			<string> %1$d年前</string>
 			<key>zero</key>

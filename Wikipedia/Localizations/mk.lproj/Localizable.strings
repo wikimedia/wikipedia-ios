@@ -66,6 +66,7 @@
 "action-saved-accessibility" = "Зачувано. Активирајте за да го избришете.";
 "action-saved-accessibility-notification" = "Статијата е зачувана за подоцна";
 "action-share" = "Сподели";
+"action-share-accessibility" = "Сподели";
 "action-sort" = "Подреди";
 "action-undo" = "Врати";
 "action-unsave" = "Тргни";
@@ -420,8 +421,7 @@
 "page-edit-history" = "Цела историја на уредувања";
 "page-history-title" = "Историја на статијата";
 "page-issues" = "Проблеми со страницата";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Изменето денес|Изменето вчера|Изменето пред $1 дена}}";
+"page-last-edited" = "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
@@ -548,12 +548,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Сипин изглед";
 "reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
 "reference-title" = "Навод $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=денес|вчера|пред $1 дена}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=денес|1=вчера|пред $1 дена}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|Лани|Пред $1 години}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|1=Лани|Пред $1 години}}";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "reverted-edit-back-to-article-button-title" = "Назад на статијата";
 "reverted-edit-notification-body" = "Вашето уредување на статијата $1 беше отповикано од $2";

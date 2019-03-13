@@ -8,6 +8,7 @@ class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     @objc var section: MWKSection?
+    @objc var selectedTextEditInfo: SelectedTextEditInfo?
     
     private var webView: SectionEditorWebView!
     private let sectionFetcher = WikiTextSectionFetcher()
@@ -135,6 +136,9 @@ class SectionEditorViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.messagingController.focus()
                     self?.webView.isHidden = false
+                    if let selectedTextEditInfo = self?.selectedTextEditInfo {
+                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
+                    }
                 }
             }
         }

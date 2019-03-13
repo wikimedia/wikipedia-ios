@@ -86,6 +86,7 @@
 "action-saved-accessibility" = "Bewaard. Activeer om ongedaan te maken.";
 "action-saved-accessibility-notification" = "Pagina opgeslagen voor later";
 "action-share" = "Delen";
+"action-share-accessibility" = "Delen";
 "action-sort" = "Sorteren";
 "action-undo" = "Ongedaan maken";
 "action-unsave" = "Wissen";
