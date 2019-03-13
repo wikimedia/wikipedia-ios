@@ -202,22 +202,31 @@ NS_ASSUME_NONNULL_BEGIN
     if ([related count] > 0) {
         if (completion) {
             completion();
+    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL resultLimit:WMFRelatedSearchFetcher.MaxResultLimit completion:^(NSError * _Nullable error, NSArray<MWKSearchResult *> * _Nullable results) {
+        if (error) {
+            DDLogError(@"Failed to fetch related articles for %@: %@.",
+                       article.URL, error.localizedDescription);
+            if (completion) {
+                completion();
+            }
+            return;
         }
-        return;
-    }
-    [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:article.URL
-        resultLimit:WMFMaxRelatedSearchResultLimit
-        completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
-            if ([results.results count] == 0) {
+        if (!results) {
+            if (completion) {
+                completion();
+            }
+            return;
+        } else {
+            if (results.count == 0) {
                 if (completion) {
                     completion();
                 }
                 return;
             }
             [moc performBlock:^{
-                NSMutableArray<NSURL *> *urls = [NSMutableArray arrayWithCapacity:results.results.count];
-                for (MWKSearchResult *result in results.results) {
-                    NSURL *articleURL = [results urlForResult:result];
+                NSMutableArray<NSURL *> *urls = [NSMutableArray arrayWithCapacity:results.count];
+                for (MWKSearchResult *result in results) {
+                    NSURL *articleURL = [result articleURLForSiteURL:article.URL];;
                     if (!articleURL) {
                         continue;
                     }
@@ -251,12 +260,7 @@ NS_ASSUME_NONNULL_BEGIN
                 }
             }];
         }
-        failureBlock:^(NSError *_Nonnull error) {
-            //TODO: how to handle failure?
-            if (completion) {
-                completion();
-            }
-        }];
+    }];
 }
 
 @end
