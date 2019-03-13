@@ -52,6 +52,6 @@
                           isDisambiguation:(BOOL)isDisambiguation
                                     isList:(BOOL)isList
                             titleNamespace:(nullable NSNumber *)titleNamespace
-                            location:(nullable CLLocation *)location;
+                                  location:(nullable CLLocation *)location;
 
 @end
