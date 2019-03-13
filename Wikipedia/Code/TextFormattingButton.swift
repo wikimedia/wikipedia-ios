@@ -12,6 +12,8 @@ class TextFormattingButton: UIButton, Themeable {
             }
         }
     }
+
+    var tintColorKeyPath: KeyPath<Theme, UIColor>?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,7 +32,11 @@ class TextFormattingButton: UIButton, Themeable {
     }
     
     private func updateColors() {
-        self.tintColor = self.isSelected ? theme.colors.inputAccessoryButtonSelectedTint : theme.colors.inputAccessoryButtonTint
+        if let tintColorKeyPath = tintColorKeyPath {
+            self.tintColor = theme[keyPath: tintColorKeyPath]
+        } else {
+            self.tintColor = self.isSelected ? theme.colors.inputAccessoryButtonSelectedTint : theme.colors.inputAccessoryButtonTint
+        }
         self.backgroundColor = self.isSelected ? theme.colors.inputAccessoryButtonSelectedBackgroundColor : .clear
     }
     
