@@ -1,8 +1,6 @@
 #import <WMF/WMFRelatedPagesContentSource.h>
 #import <WMF/MWKDataStore.h>
 #import <WMF/MWKSearchResult.h>
-#import <WMF/WMFRelatedSearchFetcher.h>
-#import <WMF/WMFRelatedSearchResults.h>
 #import <WMF/WMF-Swift.h>
 
 static const NSInteger WMFMaximumSavedOrReadDaysAgoForRelatedPages = 3;
