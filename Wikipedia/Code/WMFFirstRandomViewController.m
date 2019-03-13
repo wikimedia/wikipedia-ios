@@ -5,6 +5,7 @@
 #import <WMF/MWKSearchResult.h>
 #import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import <WMF/WMF-Swift.h>
 
 @interface WMFFirstRandomViewController ()
 

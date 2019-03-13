@@ -3,6 +3,7 @@
 #import "Wikipedia-Swift.h"
 #import "WMFRandomDiceButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import <WMF/WMF-Swift.h>
 #if WMF_TWEAKS_ENABLED
 #import <WMF/MWKDataStore.h>
 #import <WMF/MWKSavedPageList.h>

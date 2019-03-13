@@ -1,5 +1,7 @@
+import Foundation
+
 @objc(WMFRandomArticleFetcher)
-final class RandomArticleFetcher: Fetcher {
+public final class RandomArticleFetcher: Fetcher {
     @objc func fetchRandomArticle(withSiteURL siteURL: URL, completion: @escaping (Error?, URL?, [String: Any]?) -> Void) {
         let pathComponents = ["page", "random", "summary"]
         guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(siteURL.host, appending: pathComponents).url else {
