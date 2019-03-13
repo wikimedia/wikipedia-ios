@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable, WKNavigationDelegate>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindAndReplaceKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable, WKNavigationDelegate>
 
 @property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, strong) NSArray *findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
-@property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
+@property (nonatomic, readwrite, retain) WMFFindAndReplaceKeyboardBar *inputAccessoryView;
 @property (weak, nonatomic) IBOutlet UIView *statusBarUnderlayView;
 
 @property (nonatomic, strong) NSArray<WMFReference *> *lastClickedReferencesGroup;
@@ -366,16 +366,16 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return YES;
 }
 
-- (WMFFindInPageKeyboardBar *)inputAccessoryView {
+- (WMFFindAndReplaceKeyboardBar *)inputAccessoryView {
     if (!_inputAccessoryView) {
-        _inputAccessoryView = [WMFFindInPageKeyboardBar wmf_viewFromClassNib];
+        _inputAccessoryView = [WMFFindAndReplaceKeyboardBar wmf_viewFromClassNib];
         _inputAccessoryView.delegate = self;
         [_inputAccessoryView applyTheme:self.theme];
     }
     return _inputAccessoryView;
 }
 
-- (WMFFindInPageKeyboardBar *)findInPageKeyboardBar {
+- (WMFFindAndReplaceKeyboardBar *)findInPageKeyboardBar {
     return self.view.inputAccessoryView;
 }
 
@@ -405,7 +405,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                    completionHandler:^(id obj, NSError *_Nullable error) {
                        self.findInPageMatches = @[];
                        self.findInPageSelectedMatchIndex = -1;
-                       [[self findInPageKeyboardBar] reset];
+                       [[self findInPageKeyboardBar] resetFind];
                        if (completion) {
                            completion();
                        }
@@ -480,8 +480,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 #pragma FindInPage label and prev / next button state
 
 - (void)updateFindInPageKeyboardBar {
-    [[self findInPageKeyboardBar] updateForCurrentMatchIndex:self.findInPageSelectedMatchIndex
-                                                matchesCount:self.findInPageMatches.count];
+    [[self findInPageKeyboardBar] updateMatchCountsWithIndex:self.findInPageSelectedMatchIndex total:self.findInPageMatches.count];
 }
 
 #pragma FindInPageBar selected match
@@ -548,12 +547,49 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)scrollToAndFocusOnFirstMatch {
     self.findInPageSelectedMatchIndex = -1;
-    [self keyboardBarNextButtonTapped:nil];
+    [self keyboardBarDidTapNext: nil];
 }
 
-#pragma FindInPageKeyboardBarDelegate
+#pragma FindAndReplaceKeyboardBarDelegate
 
-- (void)keyboardBar:(WMFFindInPageKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
+- (void)keyboardBar:(WMFFindAndReplaceKeyboardBar *)keyboardBar didChangeSearchTerm:(NSString *)searchTerm {
+    searchTerm = [searchTerm wmf_stringBySanitizingForJavaScript];
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", searchTerm]
+                   completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
+                       [self scrollToAndFocusOnFirstMatch];
+                   }];
+}
+
+- (void)keyboardBarDidTapClose:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
+     [self hideFindInPageWithCompletion:nil];
+}
+
+- (void)keyboardBarDidTapClear:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
+    // Stop scrolling to let the keyboard open
+    [self killScroll];
+    [self resetFindInPageWithCompletion:nil];
+}
+
+- (void)keyboardBarDidTapPrevious:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
+    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionPrevious];
+    [self scrollToAndFocusOnSelectedMatch];
+}
+
+- (void)keyboardBarDidTapNext:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
+    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionNext];
+    [self scrollToAndFocusOnSelectedMatch];
+}
+
+- (void)keyboardBarDidTapReturn:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
+    [keyboardBar hide];
+}
+
+- (void)keyboardBarDidTapReplace:(WMFFindAndReplaceKeyboardBar *)keyboardBar replaceText:(NSString *)replaceText replaceType:(enum ReplaceType)replaceType {
+    //no-op
+}
+
+/*
+- (void)keyboardBar:(WMFFindAndReplaceKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
     term = [term wmf_stringBySanitizingForJavaScript];
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term]
                    completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
@@ -561,30 +597,30 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                    }];
 }
 
-- (void)keyboardBarCloseButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+- (void)keyboardBarCloseButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
     [self hideFindInPageWithCompletion:nil];
 }
 
-- (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+- (void)keyboardBarClearButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
     // Stop scrolling to let the keyboard open
     [self killScroll];
     [self resetFindInPageWithCompletion:nil];
 }
 
-- (void)keyboardBarReturnTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+- (void)keyboardBarReturnTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
     [keyboardBar hide];
 }
 
-- (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+- (void)keyboardBarPreviousButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
     [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionPrevious];
     [self scrollToAndFocusOnSelectedMatch];
 }
 
-- (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
+- (void)keyboardBarNextButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
     [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionNext];
     [self scrollToAndFocusOnSelectedMatch];
 }
-
+*/
 #pragma mark - WebView configuration
 
 - (WKWebViewConfiguration *)configuration {

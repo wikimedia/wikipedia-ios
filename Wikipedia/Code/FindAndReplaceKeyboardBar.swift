@@ -8,49 +8,69 @@
 
 import UIKit
 
+@objc (WMFFindAndReplaceKeyboardBarDelegate)
 protocol FindAndReplaceKeyboardBarDelegate: class {
     func keyboardBar(_ keyboardBar: FindAndReplaceKeyboardBar, didChangeSearchTerm searchTerm: String?)
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapPrevious(_ keyboardBar: FindAndReplaceKeyboardBar)
-    func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar)
+    func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar?)
     func keyboardBarDidTapReturn(_ keyboardBar: FindAndReplaceKeyboardBar)
-    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceState: ReplaceState)
+    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType)
 }
 
 protocol FindAndReplaceKeyboardBarAlertDelegate: class {
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar)
 }
 
-enum ReplaceState {
-    case replace
+@objc enum ReplaceType: Int {
+    case replaceSingle
     case replaceAll
 }
 
 @objc (WMFFindAndReplaceKeyboardBar)
 class FindAndReplaceKeyboardBar: UIInputView {
+    @IBOutlet private var outerStackView: UIStackView!
+    
+    @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var findTextField: UITextField!
     @IBOutlet private var findTextFieldContainer: UIView!
-    @IBOutlet private var replaceTextField: UITextField!
-    @IBOutlet private var replaceTextFieldContainer: UIView!
-    @IBOutlet private var closeButton: UIButton!
+    @IBOutlet private var magnifyImageView: UIImageView!
+    @IBOutlet private var currentMatchLabel: UILabel!
     @IBOutlet private var findClearButton: UIButton!
-    @IBOutlet private var replaceClearButton: UIButton!
+    @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
     @IBOutlet private var previousButton: UIButton!
-    @IBOutlet private var currentMatchLabel: UILabel!
-    @IBOutlet private var magnifyImageView: UIImageView!
+   
+    @IBOutlet private var replaceStackView: UIStackView!
+    @IBOutlet private var replaceTextField: UITextField!
+    @IBOutlet private var replaceTextFieldContainer: UIView!
+    @IBOutlet private var pencilImageView: UIImageView!
+    @IBOutlet private var replaceLabel: UILabel!
+    @IBOutlet private var replaceClearButton: UIButton!
+    @IBOutlet private var replaceButton: UIButton!
+    @IBOutlet private var replaceSwitchButton: UIButton!
     
-    var replaceState: ReplaceState = .replace {
+    @objc weak var delegate: FindAndReplaceKeyboardBarDelegate?
+    weak var alertDelegate: FindAndReplaceKeyboardBarAlertDelegate?
+    
+    var replaceType: ReplaceType = .replaceSingle {
         didSet {
-            #warning("todo: update replace/replace all info label here")
+            if oldValue != replaceType {
+                updateReplaceTypeState()
+            }
         }
     }
     
-    weak var delegate: FindAndReplaceKeyboardBarDelegate?
-    weak var alertDelegate: FindAndReplaceKeyboardBarAlertDelegate?
+    var isShowingReplace: Bool = false {
+        didSet {
+            if oldValue != isShowingReplace {
+                updateShowingReplaceState()
+            }
+        }
+    }
     
-    var isVisible: Bool {
+    @objc var isVisible: Bool {
         get {
             return findTextField.isFirstResponder
         }
@@ -67,26 +87,28 @@ class FindAndReplaceKeyboardBar: UIInputView {
         previousButton.isEnabled = false
         nextButton.isEnabled = false
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        updateReplaceTypeState()
+        updateShowingReplaceState()
     }
     
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 46)
     }
     
-    func updateMatchCounts(index: Int, total: UInt) {
+    @objc func updateMatchCounts(index: Int, total: UInt) {
         updateMatchCountLabel(index: index, total: total)
-        updatePreviousNextButtonsEnabled(total: total)
+        updatePreviousNextButtonsState(total: total)
     }
     
-    func show() {
+    @objc func show() {
         findTextField.becomeFirstResponder()
     }
     
-    func hide() {
+    @objc func hide() {
         findTextField.resignFirstResponder()
     }
     
-    func reset() {
+    @objc func resetFind() {
         findTextField.text = nil
         currentMatchLabel.text = nil
         findClearButton.isHidden = true
@@ -122,7 +144,7 @@ class FindAndReplaceKeyboardBar: UIInputView {
         guard let replaceText = replaceTextField.text else {
             return
         }
-        delegate?.keyboardBarDidTapReplace(self, replaceText: replaceText, replaceState: replaceState)
+        delegate?.keyboardBarDidTapReplace(self, replaceText: replaceText, replaceType: replaceType)
     }
     
     @IBAction func tappedReplaceSwitch() {
@@ -133,11 +155,14 @@ class FindAndReplaceKeyboardBar: UIInputView {
     @IBAction func textFieldDidChange(_ sender: UITextField) {
         let count = sender.text?.count ?? 0
         
-        if sender == findTextField {
+        switch sender {
+        case findTextField:
             delegate?.keyboardBar(self, didChangeSearchTerm: findTextField.text)
             findClearButton.isHidden = count == 0
-        } else {
+        case replaceTextField:
             replaceClearButton.isHidden = count == 0
+        default:
+            break
         }
     }
 }
@@ -146,7 +171,14 @@ class FindAndReplaceKeyboardBar: UIInputView {
 
 extension FindAndReplaceKeyboardBar: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.keyboardBarDidTapReturn(self)
+        
+        switch textField {
+        case findTextField:
+             delegate?.keyboardBarDidTapReturn(self)
+        default:
+            break
+        }
+       
         return true
     }
 }
@@ -199,9 +231,34 @@ private extension FindAndReplaceKeyboardBar {
         currentMatchLabel.text = labelText
     }
     
-    func updatePreviousNextButtonsEnabled(total: UInt) {
+    func updatePreviousNextButtonsState(total: UInt) {
         previousButton.isEnabled = total > 2
         nextButton.isEnabled = total > 2
+    }
+    
+    func updateReplaceTypeState() {
+        
+        #warning("todo: localize")
+        
+        switch replaceType {
+        case .replaceSingle: replaceLabel.text = "Replace"
+        case .replaceAll: replaceLabel.text = "Replace all"
+        }
+    }
+    
+    func updateShowingReplaceState() {
+        
+        if isShowingReplace {
+            replaceStackView.isHidden = false
+            closeButton.isHidden = true
+            findStackView.addArrangedSubview(previousButton)
+            findStackView.addArrangedSubview(nextButton)
+        } else {
+            replaceStackView.isHidden = true
+            closeButton.isHidden = false
+            findStackView.insertArrangedSubview(previousButton, at: 0)
+             findStackView.insertArrangedSubview(nextButton, at: 1)
+        }
     }
 }
 

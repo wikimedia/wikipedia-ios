@@ -22,11 +22,14 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         contextualHighlightEditToolbarView?.delegate = self
         findAndReplaceView?.delegate = self
         findAndReplaceView?.alertDelegate = findAndReplaceAlertDelegate
+        findAndReplaceView?.isShowingReplace = true
 
         messagingController.findInPageDelegate = self
 
         inputViewType = nil
         inputAccessoryViewType = .default
+        
+        
     }
 
 
@@ -34,7 +37,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         if inputViewType == nil {
             if inputAccessoryViewType == .findInPage {
                 messagingController.clearSearch()
-                findAndReplaceView?.reset()
+                findAndReplaceView?.resetFind()
             }
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
         }
@@ -57,8 +60,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         textFormattingInputViewController.buttonSelectionDidChange(button: button)
     }
     
-    func updateReplaceState(state: ReplaceState) {
-        findAndReplaceView?.replaceState = state
+    func updateReplaceState(state: ReplaceType) {
+        findAndReplaceView?.replaceType = state
     }
 
     var inputViewType: TextFormattingInputViewController.InputViewType?
@@ -290,33 +293,30 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     }
     
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar) {
-        messagingController.replaceAll(text: "blerg")
-        /*
          messagingController.clearSearch()
-         keyboardBar.reset()
+         keyboardBar.resetFind()
          inputAccessoryViewType = previousInputAccessoryViewType
-         if keyboardBar.isVisible() {
-         messagingController.focus()
+         if keyboardBar.isVisible {
+            messagingController.focus()
          }
-         */
     }
     
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar) {
         messagingController.clearSearch()
-        keyboardBar.reset()
+        keyboardBar.resetFind()
     }
     
     func keyboardBarDidTapPrevious(_ keyboardBar: FindAndReplaceKeyboardBar) {
         messagingController.findPrevious()
     }
     
-    func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar) {
+    func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar?) {
         messagingController.findNext()
     }
     
-    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceState: ReplaceState) {
-        switch replaceState {
-        case .replace:
+    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType) {
+        switch replaceType {
+        case .replaceSingle:
             messagingController.replaceSingle(text: replaceText)
         case .replaceAll:
             messagingController.replaceAll(text: replaceText)

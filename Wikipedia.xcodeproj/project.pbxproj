@@ -103,6 +103,10 @@
 		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67E069062238A396008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
 		67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
+		67E069122239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
+		67E069132239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
+		67E069142239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
+		67E069152239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -10379,6 +10383,7 @@
 				D80ED2AA1EE57F4800CE8C50 /* WMFSearchFetcher.m in Sources */,
 				D80ED2AC1EE57F4800CE8C50 /* LoggingDefaults.swift in Sources */,
 				7A9A612221124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
+				67E069152239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				D80ED2B01EE57F4800CE8C50 /* MWKTitleLanguageController.m in Sources */,
 				D80ED2B11EE57F4800CE8C50 /* UIView+WMFSnapshotting.m in Sources */,
 				7A60E9DA215D511900F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
@@ -11154,6 +11159,7 @@
 				D8A42AE41E815A9C00D8E281 /* WMFSuggestedPagesFunnel.m in Sources */,
 				7A6ED51120ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				8304D7C31F60131900A0CDD6 /* WMFWebView.m in Sources */,
+				67E069142239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				D8B3D7691EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				7AFA21BE20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				D8A3C4EA2113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
@@ -11413,6 +11419,7 @@
 				D8CE25181E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D8CE25191E698E2400DAE2E0 /* WMFSearchFetcher.m in Sources */,
 				7A9A611F21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
+				67E069132239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
 				D8CE25201E698E2400DAE2E0 /* MWKTitleLanguageController.m in Sources */,
 				7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
@@ -11761,6 +11768,7 @@
 				7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				D8EC3E0B1E9BDA35006712EB /* SavedArticlesFetcher.m in Sources */,
+				67E069122239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				D8EC3E0C1E9BDA35006712EB /* WMFSettingsTableViewCell.m in Sources */,
 				D8EC3E0D1E9BDA35006712EB /* UIView+WMFSubviews.swift in Sources */,
 				D8EC3E0F1E9BDA35006712EB /* WMFReferencePopoverMessageViewController.m in Sources */,
