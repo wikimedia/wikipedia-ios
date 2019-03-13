@@ -60,7 +60,7 @@ final class RelatedSearchFetcher: Fetcher {
     @objc func fetchRelatedArticles(forArticleWithURL articleURL: URL?, resultLimit: Int = RelatedSearchFetcher.MaxResultLimit, completion: @escaping (Error?, [MWKSearchResult]?) -> Void) {
         guard
             let articleURL = articleURL,
-            let articleTitle = articleURL.wmf_titleWithUnderscores
+            let articleTitle = articleURL.wmf_titleWithUnderscores?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed)
         else {
             completion(Fetcher.invalidParametersError, nil)
             return
