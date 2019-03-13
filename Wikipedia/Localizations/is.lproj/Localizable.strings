@@ -344,7 +344,7 @@
 "icon-shortcut-nearby-title" = "Greinar í nágrenninu";
 "icon-shortcut-random-title" = "Handahófsvalin grein";
 "icon-shortcut-search-title" = "Leita á Wikipedia";
-"image-gallery-unknown-owner" = "Óþekkur höfundur.";
+"image-gallery-unknown-owner" = "Óþekktur höfundur.";
 "in-the-news-currently-trending" = "Núna í umræðunni";
 "in-the-news-notification-read-now-action-title" = "Lesa núna";
 "in-the-news-notification-save-for-later-action-title" = "Vista til síðari tíma";
@@ -410,8 +410,7 @@
 "page-edit-history" = "Öll breytingaskráin";
 "page-history-title" = "Breytingaskrá greinar";
 "page-issues" = "Vandamál varðandi síðu";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Breytt í dag|Breytt í gær|Breytt fyrir $1 dögum síðan}}";
+"page-last-edited" = "{{PLURAL:$1|0=Breytt í dag|1=Breytt í gær|Breytt fyrir $1 dögum síðan}}";
 "page-location" = "Skoða á korti";
 "page-protected-autoconfirmed" = "Þessi síða er varin að hluta til.";
 "page-protected-can-not-edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";
@@ -538,12 +537,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepía þema";
 "reading-themes-controls-accessibility-text-size-slider" = "Sleði fyrir textastærð";
 "reference-title" = "Tilvísun $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Í dag|Í gær|Fyrir $1 dögum síðan}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Í dag|1=Í gær|Fyrir $1 dögum síðan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Fyrir stuttu|Fyrir $1 klukkutíma síðan|Fyrir $1 klukkutímum síðan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Rétt í þessu|Fyrir $1 mínútu síðan|Fyrir $1 mínútum síðan}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Á þessu ári|Á síðasta ári|Fyrir $1 ári síðan}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Á þessu ári|1=Á síðasta ári|Fyrir $1 ári síðan}}";
 "request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "reverted-edit-back-to-article-button-title" = "Til baka í grein";
 "reverted-edit-notification-body" = "Breyting þín á greininni $1 var tekin aftur af $2";

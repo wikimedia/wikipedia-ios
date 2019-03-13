@@ -74,6 +74,7 @@
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
 "action-saved-accessibility-notification" = "ערכים שנשמרו לאחר־כך";
 "action-share" = "שיתוף";
+"action-share-accessibility" = "שיתוף";
 "action-sort" = "מיון";
 "action-undo" = "ביטול";
 "action-unsave" = "ביטול שמירה";
@@ -428,7 +429,6 @@
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-title" = "היסטוריית הערך";
 "page-issues" = "בעיות בדף";
-// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
 "page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
@@ -556,12 +556,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "ערכת נושא ספיה";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
 "reference-title" = "הערה $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|3=לפני יומיים|לפני $1 ימים}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|לפני $1 ימים}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=השנה|בשנה שעברה|לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=השנה|1=בשנה שעברה|2=לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
 "reverted-edit-notification-body" = "העריכה שעשית לערך $1 שוחזרה על־ידי $2";

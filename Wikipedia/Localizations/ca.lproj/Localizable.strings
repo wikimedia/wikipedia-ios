@@ -77,6 +77,7 @@
 "action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
 "action-saved-accessibility-notification" = "Article desat per a més endavant";
 "action-share" = "Comparteix";
+"action-share-accessibility" = "Comparteix";
 "action-sort" = "Ordena";
 "action-undo" = "Desfés";
 "action-unsave" = "No ho desis";
