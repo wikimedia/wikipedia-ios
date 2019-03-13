@@ -58,16 +58,19 @@ final class RelatedSearchFetcher: Fetcher {
             completion(Fetcher.invalidParametersError, nil)
             return
         }
+
         var resultLimit = resultLimit
         if resultLimit > RelatedSearchFetcher.MaxResultLimit {
             DDLogError("Illegal attempt to request \(resultLimit) articles, limiting to \(RelatedSearchFetcher.MaxResultLimit).")
             resultLimit = RelatedSearchFetcher.MaxResultLimit
         }
+
         let pathComponents = ["page", "related", articleTitle]
         guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url else {
             completion(Fetcher.invalidParametersError, nil)
             return
         }
+        
         session.jsonDecodableTask(with: taskURL) { (relatedPages: RelatedPages?, response, error) in
             if let error = error {
                 completion(error, nil)
