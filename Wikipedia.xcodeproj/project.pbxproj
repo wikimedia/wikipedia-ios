@@ -404,6 +404,11 @@
 		7ABAD6C120349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C220349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C320349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
+		7ABE17002239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
+		7ABE17012239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
+		7ABE17022239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
+		7ABE17032239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
+		7ABE17042239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
 		7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
@@ -3416,6 +3421,7 @@
 		7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailUnderBarViewController.swift; sourceTree = "<group>"; };
 		7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailUnderBarViewController.xib; sourceTree = "<group>"; };
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
@@ -6091,6 +6097,7 @@
 			name = "Storage and syncing";
 			sourceTree = "<group>";
 		};
+				7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */,
 		83023C1720E6581A00EC7592 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
