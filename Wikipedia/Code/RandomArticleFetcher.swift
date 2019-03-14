@@ -13,10 +13,7 @@ public final class RandomArticleFetcher: Fetcher {
                 completion(error, nil, nil)
                 return
             }
-            guard
-                let title = result?["title"] as? String,
-                let articleURL = siteURL.wmf_URL(withTitle: title)
-            else {
+            guard let articleURL = result?.articleSummaryURL else {
                 completion(Fetcher.unexpectedResponseError, nil, nil)
                 return
             }

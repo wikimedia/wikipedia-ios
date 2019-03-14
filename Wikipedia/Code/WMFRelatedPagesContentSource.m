@@ -204,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
             completion();
         }
     }
-    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL resultLimit:WMFRelatedSearchFetcher.MaxResultLimit completion:^(NSError * _Nullable error, NSArray<MWKSearchResult *> * _Nullable results) {
+    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL completion:^(NSError * _Nullable error, NSDictionary<NSString *,NSDictionary<NSString *,id> *> * _Nullable summariesByKey) {
         if (error) {
             DDLogError(@"Failed to fetch related articles for %@: %@.",
                        article.URL, error.localizedDescription);
@@ -213,36 +213,30 @@ NS_ASSUME_NONNULL_BEGIN
             }
             return;
         }
-        if (!results) {
+        if (!summariesByKey) {
             if (completion) {
                 completion();
             }
             return;
         } else {
-            if (results.count == 0) {
+            if (summariesByKey.count == 0) {
                 if (completion) {
                     completion();
                 }
                 return;
             }
             [moc performBlock:^{
-                NSMutableArray<NSURL *> *urls = [NSMutableArray arrayWithCapacity:results.count];
-                for (MWKSearchResult *result in results) {
-                    NSURL *articleURL = [result articleURLForSiteURL:article.URL];;
-                    if (!articleURL) {
-                        continue;
-                    }
-                    NSString *key = [articleURL wmf_articleDatabaseKey];
-                    if (!key) {
-                        continue;
-                    }
-                    if ([excludedArticleKeys containsObject:key]) {
-                        continue;
-                    }
-                    [urls addObject:articleURL];
-                    [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
+                NSError *summaryError = nil;
+                NSArray<WMFArticle *> *articles = [moc wmf_createOrUpdateArticleSummmariesWithSummaryResponses:summariesByKey error:&summaryError];
+                if (summaryError) {
+                    DDLogError(@"Error creating or updating summaries: %@", summaryError);
+                    completion();
+                    return;
                 }
-                if ([urls count] < 3 && completion) {
+                NSArray<NSURL *> *articleURLs = [articles wmf_mapAndRejectNil:^id _Nullable(WMFArticle * _Nonnull obj) {
+                    return obj.URL;
+                }];
+                if ([articleURLs count] < 3 && completion) {
                     completion();
                     return;
                 }
@@ -250,7 +244,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        ofKind:WMFContentGroupKindRelatedPages
                                       forDate:date
                                   withSiteURL:article.URL.wmf_siteURL
-                            associatedContent:urls
+                            associatedContent:articleURLs
                            customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                group.articleURL = article.URL;
                                NSDate *contentDate = article.viewedDate ? article.viewedDate : article.savedDate;

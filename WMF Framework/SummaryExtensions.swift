@@ -29,9 +29,39 @@ extension WMFArticle {
     }
 }
 
+public typealias ArticleSummariesByKey = [String: [String: Any]]
+
+extension Dictionary where Key == String, Value == Any {
+    var articleSummaryURL: URL? {
+        guard
+            let contentURLs = self["content_urls"] as? [String: Any],
+            let desktopURLs = contentURLs["desktop"] as? [String: Any],
+            let pageURLString = desktopURLs["page"] as? String
+            else {
+                return nil
+        }
+        return URL(string: pageURLString)
+    }
+}
+
+extension Array where Element == [String: Any] {
+    var articleSummariesByKey: ArticleSummariesByKey {
+        let keysAndSummaries = compactMap { (summary) -> (String, [String: Any])? in
+            guard
+                let articleSummaryURL = summary.articleSummaryURL,
+                let key = articleSummaryURL.wmf_articleDatabaseKey
+                else {
+                    return nil
+            }
+            return (key, summary)
+        }
+        return Dictionary(uniqueKeysWithValues: keysAndSummaries)
+    }
+}
+
 extension NSManagedObjectContext {
     
-    public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: [String: Any]]) throws -> [WMFArticle] {
+    @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: ArticleSummariesByKey) throws -> [WMFArticle] {
         let keys = summaryResponses.keys
         guard !keys.isEmpty else {
             return []
@@ -59,10 +89,7 @@ extension NSManagedObjectContext {
         try self.save()
         return articles
     }
-    
-    
 
-    
     public func wmf_updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: @escaping ([WMFArticle]) -> Void) {
         Session.shared.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
             self.perform {
@@ -76,4 +103,5 @@ extension NSManagedObjectContext {
             }
         }
     }
+    
 }
