@@ -409,6 +409,11 @@
 		7ABE17022239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
 		7ABE17032239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
 		7ABE17042239B346006BA309 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */; };
+		7ABE170C2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
+		7ABE170D2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
+		7ABE170E2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
+		7ABE170F2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
+		7ABE17102239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
 		7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
@@ -3422,6 +3427,7 @@
 		7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailUnderBarViewController.xib; sourceTree = "<group>"; };
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageViewController.swift; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
@@ -10094,6 +10100,7 @@
 				7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8B3D7661EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				B0524B65214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
+				7ABE170C2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
@@ -10587,6 +10594,7 @@
 				D80ED3771EE57F4800CE8C50 /* ArticlePopoverViewController.swift in Sources */,
 				D80ED3781EE57F4800CE8C50 /* WMFLogFormatter.m in Sources */,
 				B03103311F677BEE00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
+				7ABE17102239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				7A2432C21FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D80ED37A1EE57F4800CE8C50 /* WMFHelpViewController.m in Sources */,
 				D80ED37B1EE57F4800CE8C50 /* NSString+FormattedAttributedString.m in Sources */,
@@ -11120,6 +11128,7 @@
 				D8A42ABB1E815A9C00D8E281 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				B0524B68214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				D8A42AC01E815A9C00D8E281 /* PageHistorySection.swift in Sources */,
+				7ABE170F2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299E1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D8B166881FD97A0500097D8B /* ViewController.swift in Sources */,
 				D8A42AC41E815A9C00D8E281 /* WMFTableOfContentsViewController.swift in Sources */,
@@ -11621,6 +11630,7 @@
 				7A6ED51820ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				D8CE25DF1E698E2400DAE2E0 /* WMFFirstRandomViewController.m in Sources */,
 				D8CE25E11E698E2400DAE2E0 /* ArticlePopoverViewController.swift in Sources */,
+				7ABE170D2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
 				B031032E1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
@@ -11969,6 +11979,7 @@
 				7A6ED51420ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8EC3EDD1E9BDA35006712EB /* WMFFirstRandomViewController.m in Sources */,
+				7ABE170E2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
 				7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
