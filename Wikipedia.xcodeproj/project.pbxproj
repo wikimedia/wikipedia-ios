@@ -414,6 +414,16 @@
 		7ABE170E2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
 		7ABE170F2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
 		7ABE17102239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
+		7ABE17242239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
+		7ABE17252239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
+		7ABE17262239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
+		7ABE17272239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
+		7ABE17282239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
+		7ABE17292239BB54006BA309 /* WelcomePanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */; };
+		7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */; };
+		7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */; };
+		7ABE172C2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */; };
+		7ABE172D2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */; };
 		7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
@@ -3428,6 +3438,8 @@
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageViewController.swift; sourceTree = "<group>"; };
+		7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePanelViewController.swift; sourceTree = "<group>"; };
+		7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomePanelViewController.xib; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
@@ -6104,6 +6116,8 @@
 			sourceTree = "<group>";
 		};
 				7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */,
+				7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */,
+				7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */,
 		83023C1720E6581A00EC7592 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
@@ -9098,6 +9112,7 @@
 				B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */,
 				B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */,
 				B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */,
+				7ABE17292239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7ADF498C21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8D92B651DF22E1700B95311 /* NotificationBackgroundWarning@2x.png in Resources */,
 				7A25367C21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -9193,6 +9208,7 @@
 				7ADF499021B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				B0B423711EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8E27BB81F82B5DD00F9D2B3 /* RMessageView.xib in Resources */,
+				7ABE172D2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7AE1D3371FCD057200393471 /* Saved.storyboard in Resources */,
 				7A741DD3207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
 				D80ED3E81EE57F4800CE8C50 /* LibrariesUsed.plist in Resources */,
@@ -9335,6 +9351,7 @@
 				D8A42BD91E815A9C00D8E281 /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8A42BDA1E815A9C00D8E281 /* WMFLoginViewController.storyboard in Resources */,
 				D8A42BDC1E815A9C00D8E281 /* WMFWelcome.storyboard in Resources */,
+				7ABE172C2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8A42BE21E815A9C00D8E281 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -9432,6 +9449,7 @@
 				D8CE26601E698E2400DAE2E0 /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8CE26611E698E2400DAE2E0 /* WMFLoginViewController.storyboard in Resources */,
 				D8CE26631E698E2400DAE2E0 /* WMFWelcome.storyboard in Resources */,
+				7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8CE26691E698E2400DAE2E0 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -9529,6 +9547,7 @@
 				D8EC3F601E9BDA35006712EB /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8EC3F611E9BDA35006712EB /* WMFLoginViewController.storyboard in Resources */,
 				D8EC3F631E9BDA35006712EB /* WMFWelcome.storyboard in Resources */,
+				7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8EC3F691E9BDA35006712EB /* WMFFindInPageKeyboardBar.xib in Resources */,
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -10154,6 +10173,7 @@
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A611E21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
+				7ABE17242239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				B011FA4C1D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m in Sources */,
 				B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */,
 				BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */,
@@ -10661,6 +10681,7 @@
 				7AEBAD492102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				D80ED3AD1EE57F4800CE8C50 /* MWKSection+TOCItem.swift in Sources */,
 				D87B13A91F276B1000B27227 /* ShareActivityController.swift in Sources */,
+				7ABE17282239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				D80ED3AE1EE57F4800CE8C50 /* PageHistoryFetcher.swift in Sources */,
 				D80ED3AF1EE57F4800CE8C50 /* WikiTextSectionFetcher.m in Sources */,
 				D80ED3B01EE57F4800CE8C50 /* CreateAccountFunnel.m in Sources */,
@@ -11182,6 +11203,7 @@
 				7A35CB8A1FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				D8A42AF11E815A9C00D8E281 /* MWKLanguageLinkFetcher.m in Sources */,
 				D8A42AF21E815A9C00D8E281 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
+				7ABE17272239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				BA6972591F2BA2D700E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8A42AF51E815A9C00D8E281 /* WMFImageTextActivitySource.swift in Sources */,
@@ -11697,6 +11719,7 @@
 				7AEBAD462102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				D8CE26181E698E2400DAE2E0 /* MWKSection+TOCItem.swift in Sources */,
 				D8CE26191E698E2400DAE2E0 /* PageHistoryFetcher.swift in Sources */,
+				7ABE17252239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				D8CE261A1E698E2400DAE2E0 /* WikiTextSectionFetcher.m in Sources */,
 				B025D8CA1EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D8CE261B1E698E2400DAE2E0 /* CreateAccountFunnel.m in Sources */,
@@ -12046,6 +12069,7 @@
 				7A0161E21FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				D8EC3F181E9BDA35006712EB /* PageHistoryFetcher.swift in Sources */,
 				D87B13A71F276B1000B27227 /* ShareActivityController.swift in Sources */,
+				7ABE17262239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				D8EC3F191E9BDA35006712EB /* WikiTextSectionFetcher.m in Sources */,
 				B025D8CB1EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D8EC3F1A1E9BDA35006712EB /* CreateAccountFunnel.m in Sources */,
