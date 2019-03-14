@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
-    <device id="retina6_5" orientation="landscape">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,11 +18,11 @@
                         <viewControllerLayoutGuide type="bottom" id="1if-w8-0bU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HVN-iR-kMH">
-                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OF3-17-BHf">
-                                <rect key="frame" x="0.0" y="0.0" width="896" height="393"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <connections>
                                     <segue destination="Moa-oS-JJe" kind="embed" id="AQ2-ET-srQ"/>
                                 </connections>
@@ -138,17 +138,17 @@
                         <viewControllerLayoutGuide type="bottom" id="7pS-zT-pQN"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="lzy-Eu-ayy">
-                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NFg-Vn-ndK">
-                                <rect key="frame" x="200.66666666666663" y="47" width="495" height="320"/>
+                                <rect key="frame" x="47" y="172" width="320" height="552"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y48-XV-eDQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="225" height="320"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
                                         <subviews>
                                             <containerView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-a9-VNf" userLabel="Top Foreground Container View">
-                                                <rect key="frame" x="0.0" y="0.0" width="225" height="225"/>
+                                                <rect key="frame" x="51" y="7" width="218" height="218"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7gU-a9-VNf" secondAttribute="height" multiplier="1:1" id="r9o-Z0-sm1"/>
@@ -191,7 +191,7 @@
                                         </variation>
                                     </view>
                                     <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJI-Er-O9h">
-                                        <rect key="frame" x="245" y="0.0" width="250" height="320"/>
+                                        <rect key="frame" x="0.0" y="232" width="320" height="320"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="999" constant="320" id="2mK-dI-Fex"/>
                                             <constraint firstAttribute="width" priority="999" constant="250" id="IfH-Fg-hsf"/>
@@ -265,32 +265,32 @@
                         <viewControllerLayoutGuide type="bottom" id="SLT-o2-kyd"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="Ev9-ZH-utG">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jFe-ge-E8U">
-                                <rect key="frame" x="10" y="10" width="230" height="310"/>
+                                <rect key="frame" x="10" y="10" width="300" height="310"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Q4-HU-LZa">
-                                        <rect key="frame" x="0.0" y="0.0" width="230" height="212"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="212"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qh-do-wff">
-                                                <rect key="frame" x="0.0" y="0.0" width="230" height="212"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="212"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdP-mw-3KH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="230" height="308.66666666666669"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="308.66666666666669"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="c6R-Yf-TON">
-                                                                <rect key="frame" x="14" y="0.0" width="202" height="308.66666666666669"/>
+                                                                <rect key="frame" x="14" y="0.0" width="272" height="308.66666666666669"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="rei-4o-C2s">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="202" height="28.666666666666668"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="272" height="28.666666666666668"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yn9-On-Dfp">
-                                                                        <rect key="frame" x="0.0" y="48.666666666666657" width="202" height="260"/>
+                                                                        <rect key="frame" x="0.0" y="48.666666666666657" width="272" height="260"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="260" placeholder="YES" id="xYE-2J-k8Z"/>
@@ -316,8 +316,8 @@
                                                     <constraint firstItem="CdP-mw-3KH" firstAttribute="top" secondItem="9Qh-do-wff" secondAttribute="top" id="guM-oK-7bP"/>
                                                 </constraints>
                                             </scrollView>
-                                            <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCk-3C-Qgq" customClass="DescriptionWelcomePanelScrollViewGradient" customModule="Wikipedia" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="230" height="212"/>
+                                            <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCk-3C-Qgq" customClass="WelcomePanelScrollViewGradient" customModule="Wikipedia" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="212"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -334,10 +334,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feb-fU-2ul">
-                                        <rect key="frame" x="0.0" y="212" width="230" height="98"/>
+                                        <rect key="frame" x="0.0" y="212" width="300" height="98"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fi0-7O-Fk0" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                <rect key="frame" x="14" y="48" width="202" height="50"/>
+                                                <rect key="frame" x="14" y="48" width="272" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="750" constant="50" id="nLl-WJ-m8O"/>
@@ -358,7 +358,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eW1-V5-2mT">
-                                                <rect key="frame" x="14" y="10" width="202" height="18"/>
+                                                <rect key="frame" x="14" y="10" width="272" height="18"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
