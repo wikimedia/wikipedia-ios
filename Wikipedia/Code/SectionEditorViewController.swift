@@ -292,6 +292,9 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarAlertDelegate {
         alertController.addAction(replaceAction)
         alertController.addAction(replaceAllAction)
         alertController.addAction(cancelAction)
+        alertController.popoverPresentationController?.sourceView = keyboardBar.replaceSwitchButton
+        alertController.popoverPresentationController?.sourceRect = keyboardBar.replaceSwitchButton.bounds
+        
         present(alertController, animated: true, completion: nil)
     }
 }

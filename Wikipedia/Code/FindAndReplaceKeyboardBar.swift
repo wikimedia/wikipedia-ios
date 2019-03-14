@@ -31,6 +31,8 @@ protocol FindAndReplaceKeyboardBarAlertDelegate: class {
 @objc (WMFFindAndReplaceKeyboardBar)
 class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private var outerStackView: UIStackView!
+    @IBOutlet var outerStackViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var outerStackViewTrailingConstraint: NSLayoutConstraint!
     
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var findTextField: UITextField!
@@ -40,6 +42,7 @@ class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private var findClearButton: UIButton!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
+    @IBOutlet private var nextPrevButtonStackView: UIStackView!
     @IBOutlet private var previousButton: UIButton!
    
     @IBOutlet private var replaceStackView: UIStackView!
@@ -49,15 +52,17 @@ class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private var replaceLabel: UILabel!
     @IBOutlet private var replaceClearButton: UIButton!
     @IBOutlet private var replaceButton: UIButton!
-    @IBOutlet private var replaceSwitchButton: UIButton!
+    @IBOutlet private(set) var replaceSwitchButton: UIButton!
     
     @objc weak var delegate: FindAndReplaceKeyboardBarDelegate?
     weak var alertDelegate: FindAndReplaceKeyboardBarAlertDelegate?
     
+    private var currentMatchTotal: UInt = 0
+    
     var replaceType: ReplaceType = .replaceSingle {
         didSet {
             if oldValue != replaceType {
-                updateReplaceTypeState()
+                updateReplaceLabelState()
             }
         }
     }
@@ -87,8 +92,9 @@ class FindAndReplaceKeyboardBar: UIInputView {
         previousButton.isEnabled = false
         nextButton.isEnabled = false
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        updateReplaceTypeState()
         updateShowingReplaceState()
+        updateReplaceLabelState()
+        updateReplaceButtonsState()
     }
     
     override var intrinsicContentSize: CGSize {
@@ -96,8 +102,10 @@ class FindAndReplaceKeyboardBar: UIInputView {
     }
     
     @objc func updateMatchCounts(index: Int, total: UInt) {
+        currentMatchTotal = total
         updateMatchCountLabel(index: index, total: total)
         updatePreviousNextButtonsState(total: total)
+        updateReplaceButtonsState()
     }
     
     @objc func show() {
@@ -123,7 +131,8 @@ class FindAndReplaceKeyboardBar: UIInputView {
     
     @IBAction func tappedReplaceClear() {
         replaceTextField.text = nil
-        replaceClearButton.isHidden = true
+        updateReplaceLabelState()
+        updateReplaceButtonsState()
     }
     
     @IBAction func tappedClose() {
@@ -159,8 +168,10 @@ class FindAndReplaceKeyboardBar: UIInputView {
         case findTextField:
             delegate?.keyboardBar(self, didChangeSearchTerm: findTextField.text)
             findClearButton.isHidden = count == 0
+            updateReplaceButtonsState()
         case replaceTextField:
-            replaceClearButton.isHidden = count == 0
+            updateReplaceButtonsState()
+            updateReplaceLabelState()
         default:
             break
         }
@@ -175,11 +186,27 @@ extension FindAndReplaceKeyboardBar: UITextFieldDelegate {
         switch textField {
         case findTextField:
              delegate?.keyboardBarDidTapReturn(self)
+        case replaceTextField:
+            
+            guard let replaceText = replaceTextField.text,
+                let findText = findTextField.text,
+                currentMatchTotal > 0,
+                findText.count > 0,
+                replaceText.count > 0 else {
+                return false
+            }
+            
+            delegate?.keyboardBarDidTapReplace(self, replaceText: replaceText, replaceType: replaceType)
         default:
             break
         }
        
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateReplaceLabelState()
+        updateReplaceButtonsState()
     }
 }
 
@@ -187,16 +214,27 @@ extension FindAndReplaceKeyboardBar: UITextFieldDelegate {
 
 extension FindAndReplaceKeyboardBar: Themeable {
     func apply(theme: Theme) {
+        tintColor = theme.colors.link
+        
         findTextField.keyboardAppearance = theme.keyboardAppearance
         findTextField.textColor = theme.colors.primaryText
         findTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
-        tintColor = theme.colors.link
         closeButton.tintColor = theme.colors.secondaryText
         previousButton.tintColor = theme.colors.secondaryText
         nextButton.tintColor = theme.colors.secondaryText
         magnifyImageView.tintColor = theme.colors.secondaryText
         findClearButton.tintColor = theme.colors.secondaryText
         currentMatchLabel.textColor = theme.colors.tertiaryText
+        
+        replaceTextField.keyboardAppearance = theme.keyboardAppearance
+        replaceTextField.textColor = theme.colors.primaryText
+        replaceTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
+        replaceButton.tintColor = theme.colors.secondaryText
+        replaceSwitchButton.tintColor = theme.colors.secondaryText
+        pencilImageView.tintColor = theme.colors.secondaryText
+        replaceClearButton.tintColor = theme.colors.secondaryText
+        replaceLabel.textColor = theme.colors.tertiaryText
+        
     }
 }
 
@@ -207,6 +245,11 @@ private extension FindAndReplaceKeyboardBar {
         if findTextField.responds(to: #selector(getter: inputAssistantItem)) {
             findTextField.inputAssistantItem.leadingBarButtonGroups = []
             findTextField.inputAssistantItem.trailingBarButtonGroups = []
+        }
+        
+        if replaceTextField.responds(to: #selector(getter: inputAssistantItem)) {
+            replaceTextField.inputAssistantItem.leadingBarButtonGroups = []
+            replaceTextField.inputAssistantItem.trailingBarButtonGroups = []
         }
     }
     
@@ -232,18 +275,29 @@ private extension FindAndReplaceKeyboardBar {
     }
     
     func updatePreviousNextButtonsState(total: UInt) {
-        previousButton.isEnabled = total > 2
-        nextButton.isEnabled = total > 2
+        previousButton.isEnabled = total >= 2
+        nextButton.isEnabled = total >= 2
     }
     
-    func updateReplaceTypeState() {
-        
+    func updateReplaceLabelState() {
         #warning("todo: localize")
+        let count = replaceTextField.text?.count ?? 0
         
+        var replaceTypeText: String
         switch replaceType {
-        case .replaceSingle: replaceLabel.text = "Replace"
-        case .replaceAll: replaceLabel.text = "Replace all"
+        case .replaceSingle: replaceTypeText = "Replace"
+        case .replaceAll: replaceTypeText = "Replace all"
         }
+        
+        replaceLabel.textAlignment = (replaceTextField.isFirstResponder || count > 0) ? .right : .left
+        replaceLabel.text =  (replaceTextField.isFirstResponder || count > 0) ? replaceTypeText : "Replace with..."
+    }
+    
+    func updateReplaceButtonsState() {
+        let count = replaceTextField.text?.count ?? 0
+        replaceButton.isEnabled = count > 0 && currentMatchTotal > 0
+        replaceSwitchButton.isEnabled = count > 0 || replaceTextField.isFirstResponder
+        replaceClearButton.isHidden = count == 0
     }
     
     func updateShowingReplaceState() {
@@ -251,14 +305,15 @@ private extension FindAndReplaceKeyboardBar {
         if isShowingReplace {
             replaceStackView.isHidden = false
             closeButton.isHidden = true
-            findStackView.addArrangedSubview(previousButton)
-            findStackView.addArrangedSubview(nextButton)
+            findStackView.addArrangedSubview(nextPrevButtonStackView)
+            outerStackViewLeadingConstraint.constant = 18
+            outerStackViewTrailingConstraint.constant = 18
         } else {
             replaceStackView.isHidden = true
             closeButton.isHidden = false
-            findStackView.insertArrangedSubview(previousButton, at: 0)
-             findStackView.insertArrangedSubview(nextButton, at: 1)
+            findStackView.insertArrangedSubview(nextPrevButtonStackView, at: 0)
+            outerStackViewLeadingConstraint.constant = 10
+            outerStackViewTrailingConstraint.constant = 5
         }
     }
 }
-
