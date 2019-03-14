@@ -32,6 +32,7 @@ let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
 let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
 let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
+let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -141,6 +142,19 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFIsImageDimmingEnabled)
+        }
+    }
+    
+    @objc public var wmf_IsSyntaxHighlightingEnabled: Bool {
+        get {
+            if object(forKey: WMFIsSyntaxHighlightingEnabled) == nil {
+                return true //default to highlighting enabled
+            }
+            
+            return bool(forKey: WMFIsSyntaxHighlightingEnabled)
+        }
+        set {
+            set(newValue, forKey: WMFIsSyntaxHighlightingEnabled)
         }
     }
     
