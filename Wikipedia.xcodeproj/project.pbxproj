@@ -703,6 +703,7 @@
 		83CA612E20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
+		83D3FC13223A8BCD0048384B /* SummaryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3FC12223A8BCD0048384B /* SummaryFetcher.swift */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83E52BB41F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
 		83E52BB51F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
@@ -3505,6 +3506,7 @@
 		83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardViewController.swift; sourceTree = "<group>"; };
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
 		83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+HTML.m"; sourceTree = "<group>"; };
+		83D3FC12223A8BCD0048384B /* SummaryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryFetcher.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
 		83E52BB31F681F940045E776 /* ShareAFactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAFactViewController.xib; sourceTree = "<group>"; };
@@ -6104,6 +6106,14 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
+		83D3FC11223A8BB70048384B /* Fetchers */ = {
+			isa = PBXGroup;
+			children = (
+				83D3FC12223A8BCD0048384B /* SummaryFetcher.swift */,
+			);
+			name = Fetchers;
+			sourceTree = "<group>";
+		};
 		B011FA471D470F4700AD7C5E /* FindInPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -7717,6 +7727,7 @@
 				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
 				83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */,
 				83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */,
+				83D3FC11223A8BB70048384B /* Fetchers */,
 				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
 				7A255D3D215162AF0081A068 /* Remote Notifications */,
@@ -10891,6 +10902,7 @@
 				D8726D431EBA052900A107D0 /* Localization.swift in Sources */,
 				0E8768401DDE012300B8CACD /* WMFAnnouncement.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
+				83D3FC13223A8BCD0048384B /* SummaryFetcher.swift in Sources */,
 				0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */,
 				D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */,
 				0E728D461DAEEE880074EB4B /* NSString+WMFDistance.m in Sources */,

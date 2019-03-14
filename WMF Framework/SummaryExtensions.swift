@@ -1,35 +1,27 @@
 extension WMFArticle {
-    @objc public func update(withSummary summary: [String: Any]) {
-        if let originalImage = summary["originalimage"] as? [String: Any],
-            let source = originalImage["source"] as? String,
-            let width = originalImage["width"] as? Int,
-            let height = originalImage["height"] as? Int{
-            self.imageURLString = source
-            self.imageWidth = NSNumber(value: width)
-            self.imageHeight = NSNumber(value: height)
-        }
+    @objc public func update(withSummary summary: ArticleSummary) {
+        #warning("fix")
+//        if let originalImage = summary["originalimage"] as? [String: Any],
+//            let source = originalImage["source"] as? String,
+//            let width = originalImage["width"] as? Int,
+//            let height = originalImage["height"] as? Int{
+//            self.imageURLString = source
+//            self.imageWidth = NSNumber(value: width)
+//            self.imageHeight = NSNumber(value: height)
+//        }
+//
+        wikidataDescription = summary.articleDescription
+        displayTitleHTMLString = summary.displayTitle
+        snippet = summary.extract?.wmf_summaryFromText()
+    
         
-        if let description = summary["description"] as? String {
-            self.wikidataDescription = description
-        }
-        
-        if let displaytitle = summary["displaytitle"] as? String {
-            self.displayTitleHTML = displaytitle
-        }
-        
-        if let extract = summary["extract"] as? String {
-            self.snippet = extract.wmf_summaryFromText()
-        }
-        
-        if let coordinate = summary["coordinates"] as? [String: Any] ?? (summary["coordinates"] as? [[String: Any]])?.first,
-            let lat = coordinate["lat"] as? Double,
-            let lon = coordinate["lon"] as? Double {
-            self.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        if let summaryCoordinate = summary.coordinates {
+            coordinate = CLLocationCoordinate2D(latitude: summaryCoordinate.lat, longitude: summaryCoordinate.lon)
         }
     }
 }
 
-public typealias ArticleSummariesByKey = [String: [String: Any]]
+public typealias ArticleSummariesByKey = [String: [String : Any]]
 
 extension Dictionary where Key == String, Value == Any {
     var articleSummaryURL: URL? {
@@ -61,7 +53,7 @@ extension Array where Element == [String: Any] {
 
 extension NSManagedObjectContext {
     
-    @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: ArticleSummariesByKey) throws -> [WMFArticle] {
+    @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: ArticleSummary]) throws -> [WMFArticle] {
         let keys = summaryResponses.keys
         guard !keys.isEmpty else {
             return []
@@ -91,7 +83,8 @@ extension NSManagedObjectContext {
     }
 
     public func wmf_updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: @escaping ([WMFArticle]) -> Void) {
-        Session.shared.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
+        let fetcher = AppsServicesFetcher(session: Session.shared, configuration: Configuration.current)
+        fetcher.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
             self.perform {
                 do {
                     let articles = try self.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)

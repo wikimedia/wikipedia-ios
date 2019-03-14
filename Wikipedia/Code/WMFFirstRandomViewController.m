@@ -39,7 +39,7 @@
     [super viewDidAppear:animated];
     NSURL *siteURL = self.siteURL;
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-    [fetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, NSDictionary * _Nullable summary) {
+    [fetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, WMFArticleSummary * _Nullable summary) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error || !articleURL) {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];

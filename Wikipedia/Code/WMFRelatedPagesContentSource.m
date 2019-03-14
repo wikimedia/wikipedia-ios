@@ -195,16 +195,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetch
 
-- (void)fetchAndSaveRelatedArticlesForArticle:(WMFArticle *)article excludedArticleKeys:(NSSet *)excludedArticleKeys date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
-    NSURL *groupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:article.URL];
-    WMFContentGroup *existingGroup = [moc contentGroupForURL:groupURL];
-    NSArray<NSURL *> *related = (NSArray<NSURL *> *)existingGroup.fullContent.object;
-    if ([related count] > 0) {
-        if (completion) {
-            completion();
-        }
-    }
-    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL completion:^(NSError * _Nullable error, NSDictionary<NSString *,NSDictionary<NSString *,id> *> * _Nullable summariesByKey) {
+- (void)extracted:(WMFArticle * _Nonnull)article completion:(dispatch_block_t _Nullable)completion date:(NSDate * _Nonnull)date groupURL:(NSURL *)groupURL moc:(NSManagedObjectContext * _Nonnull)moc {
+    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL completion:^(NSError * _Nullable error, NSDictionary<NSString *, WMFArticleSummary *> * _Nullable summariesByKey) {
         if (error) {
             DDLogError(@"Failed to fetch related articles for %@: %@.",
                        article.URL, error.localizedDescription);
@@ -257,6 +249,18 @@ NS_ASSUME_NONNULL_BEGIN
             }];
         }
     }];
+}
+
+- (void)fetchAndSaveRelatedArticlesForArticle:(WMFArticle *)article excludedArticleKeys:(NSSet *)excludedArticleKeys date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
+    NSURL *groupURL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:article.URL];
+    WMFContentGroup *existingGroup = [moc contentGroupForURL:groupURL];
+    NSArray<NSURL *> *related = (NSArray<NSURL *> *)existingGroup.fullContent.object;
+    if ([related count] > 0) {
+        if (completion) {
+            completion();
+        }
+    }
+    [self extracted:article completion:completion date:date groupURL:groupURL moc:moc];
 }
 
 @end
