@@ -3,10 +3,15 @@ protocol SectionEditorNavigationItemControllerDelegate: class {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem)
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem)
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem)
 }
 
 class SectionEditorNavigationItemController: NSObject, Themeable {
     weak var navigationItem: UINavigationItem?
+
+    var readingThemesControlsToolbarItem: UIBarButtonItem {
+        return readingThemesControlsButton
+    }
 
     init(navigationItem: UINavigationItem) {
         self.navigationItem = navigationItem
@@ -68,6 +73,10 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     private lazy var undoButton: BarButtonItem = {
         return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.undo)
     }()
+    
+    private lazy var readingThemesControlsButton: BarButtonItem = {
+        return BarButtonItem(image: #imageLiteral(resourceName: "settings-appearance"), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)), tintColorKeyPath: \Theme.colors.inputAccessoryButtonTint, accessibilityLabel: CommonStrings.readingThemesControls)
+    }()
 
     private lazy var separatorButton: BarButtonItem = {
         let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.chromeText)
@@ -91,6 +100,10 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     @objc private func redo(_ sender: UIBarButtonItem) {
         delegate?.sectionEditorNavigationItemController(self, didTapRedoButton: sender)
     }
+    
+    @objc private func showReadingThemesControls(_ sender: UIBarButtonItem) {
+         delegate?.sectionEditorNavigationItemController(self, didTapReadingThemesControlsButton: sender)
+    }
 
     private func configureNavigationButtonItems() {
         let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
@@ -102,6 +115,8 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             progressButton,
             UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             separatorButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
+            readingThemesControlsButton,
             UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             redoButton,
             UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
