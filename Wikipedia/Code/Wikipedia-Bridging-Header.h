@@ -58,6 +58,7 @@
 #import "WMFCompassView.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
+#import "WKWebView+WMFWebViewControllerJavascript.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"

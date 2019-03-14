@@ -170,6 +170,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case focus
         case selectAll
         case highlighting
+        case lineNumbers
+        case syntaxColors
+        case scaleBodyText
+        case theme
         case `subscript`
         case superscript
         case underline
@@ -240,7 +244,6 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .decreaseIndentDepth)
     }
 
-
     func undo() {
         execCommand(for: .undo)
     }
@@ -278,6 +281,22 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func toggleSyntaxHighlighting() {
         execCommand(for: .highlighting)
+    }
+    
+    func toggleLineNumbers() {
+        execCommand(for: .lineNumbers)
+    }
+    
+    func applyTheme(theme: Theme) {
+        execCommand(for: .theme, argument: "'\(theme.webName)'")
+    }
+    
+    func toggleSyntaxColors() {
+        execCommand(for: .syntaxColors)
+    }
+    
+    func scaleBodyText(newSize: String) {
+        execCommand(for: .scaleBodyText, argument: "\"\(newSize)\"")
     }
 
     func toggleSubscript() {

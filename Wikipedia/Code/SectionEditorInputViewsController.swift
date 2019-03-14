@@ -65,9 +65,17 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     var inputViewType: TextFormattingInputViewController.InputViewType?
+    var suppressMenus: Bool = false {
+        didSet {
+            if suppressMenus {
+                inputAccessoryViewType = nil
+            }
+        }
+    }
 
     var inputViewController: UIInputViewController? {
-        guard let inputViewType = inputViewType else {
+        guard let inputViewType = inputViewType,
+        !suppressMenus else {
             return nil
         }
         textFormattingInputViewController.inputViewType = inputViewType
@@ -89,7 +97,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     private var inputAccessoryView: UIView? {
-        guard let inputAccessoryViewType = inputAccessoryViewType else {
+        guard let inputAccessoryViewType = inputAccessoryViewType,
+        !suppressMenus else {
             return nil
         }
 

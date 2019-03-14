@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="resources/mode/mediawiki/mediawiki.css">
   <link rel="stylesheet" type="text/css" href="codemirror-common.css">
   <link rel="stylesheet" id="codemirror-theme" type="text/css" href="">
+  <link rel="stylesheet" id="codemirror-syntax-highlighting-off" type="text/css" href="">
 
   <script src="resources/addon/search/search.js"></script>
   <script src="resources/addon/search/searchcursor.js"></script>
@@ -373,6 +374,16 @@
     const applyTheme = (themeName) => {
       document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
     }
+  
+    const toggleSyntaxColors = () => {
+        var oldName = document.getElementById('codemirror-syntax-highlighting-off').getAttribute('href')
+        var newName = oldName.length > 0 ? '' : 'codemirror-syntax-highlighting-off.css'
+        document.getElementById('codemirror-syntax-highlighting-off').setAttribute('href', newName)
+    }
+  
+    const scaleBodyText = (textSizeAdjustment) => {
+      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+    }
     
     let cursorActivityScrollTimer
     
@@ -392,9 +403,12 @@
       })
     }
     
-    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, callback) => {
+    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
       applyTheme(themeName)
-      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+      if (!isSyntaxHighlighted) {
+          toggleSyntaxColors()
+      }
+      scaleBodyText(textSizeAdjustment)
       let xhr = new XMLHttpRequest()
       let url = `config/codemirror-config-${language}.json`
       xhr.open('GET', url, true)
@@ -404,7 +418,7 @@
         let codeMirrorSettings = {
           mwConfig: mwConfig,
           lineWrapping: true,
-          lineNumbers: true,
+          lineNumbers: isSyntaxHighlighted,
           mode: "text/mediawiki",
           matchBrackets: true,
           extraKeys: {
@@ -631,7 +645,7 @@
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
-    wmf.setup = (language, direction, themeName, textSizeAdjustment, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, callback)
+    wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
     wmf.highlightAndScrollToWikitextForSelectedAndAdjacentText = highlightAndScrollToWikitextForSelectedAndAdjacentText
 
@@ -937,6 +951,19 @@
       highlighting: () => {
         editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
         editor.refresh()
+      },
+      lineNumbers: () => {
+          editor.setOption('lineNumbers', editor.getOption('lineNumbers') == true ? false : true)
+          editor.refresh()
+      },
+      theme: (theme) => {
+          applyTheme(theme)
+      },
+      syntaxColors: () => {
+          toggleSyntaxColors()
+      },
+      scaleBodyText: (textSizeAdjustment) => {
+          scaleBodyText(textSizeAdjustment)
       },
       find: (text) => {
         editor.state.query = text

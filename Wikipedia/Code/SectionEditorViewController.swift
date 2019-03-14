@@ -18,6 +18,10 @@ class SectionEditorViewController: UIViewController {
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
     
+    lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
+        return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
+    }()
+    
     private var theme = Theme.standard
     
     @objc var editFunnel: EditFunnel?
@@ -84,7 +88,8 @@ class SectionEditorViewController: UIViewController {
         messagingController.buttonSelectionDelegate = self
         messagingController.alertDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
-        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment) { [weak self] in
+        let isSyntaxHighlighted = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
+        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
@@ -252,6 +257,14 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         messagingController.redo()
     }
+    
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+        
+        webView.resignFirstResponder()
+        inputViewsController.suppressMenus = true
+        
+        showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
+    }
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTextSelectionDelegate {
@@ -340,7 +353,47 @@ extension SectionEditorViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.backgroundColor = theme.colors.paperBackground
         webView.backgroundColor = theme.colors.paperBackground
+        messagingController.applyTheme(theme: theme)
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
+        apply(presentationTheme: theme)
+    }
+}
+
+extension SectionEditorViewController: ReadingThemesControlsPresenting {
+    
+    var shouldPassthroughNavBar: Bool {
+        return false
+    }
+    
+    var showsSyntaxHighlighting: Bool {
+        return true
+    }
+    
+    var readingThemesControlsToolbarItem: UIBarButtonItem {
+        return self.navigationItemController.readingThemesControlsToolbarItem
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        inputViewsController.suppressMenus = false
+    }
+}
+
+extension SectionEditorViewController: ReadingThemesControlsResponding {
+    func updateWebViewTextSize(textSize: Int) {
+        messagingController.scaleBodyText(newSize: String(textSize))
+    }
+    
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        messagingController.toggleLineNumbers()
+        messagingController.toggleSyntaxColors()
     }
 }
