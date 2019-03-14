@@ -414,6 +414,16 @@
 		7ABE170E2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
 		7ABE170F2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
 		7ABE17102239B5A0006BA309 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */; };
+		7ABE17182239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17162239B8EE006BA309 /* WelcomeContainerViewController.swift */; };
+		7ABE17192239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17162239B8EE006BA309 /* WelcomeContainerViewController.swift */; };
+		7ABE171A2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17162239B8EE006BA309 /* WelcomeContainerViewController.swift */; };
+		7ABE171B2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17162239B8EE006BA309 /* WelcomeContainerViewController.swift */; };
+		7ABE171C2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17162239B8EE006BA309 /* WelcomeContainerViewController.swift */; };
+		7ABE171D2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */; };
+		7ABE171E2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */; };
+		7ABE171F2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */; };
+		7ABE17202239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */; };
+		7ABE17212239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */; };
 		7ABE17242239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
 		7ABE17252239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
 		7ABE17262239BB54006BA309 /* WelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */; };
@@ -3438,6 +3448,8 @@
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageViewController.swift; sourceTree = "<group>"; };
+		7ABE17162239B8EE006BA309 /* WelcomeContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContainerViewController.swift; sourceTree = "<group>"; };
+		7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeContainerViewController.xib; sourceTree = "<group>"; };
 		7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePanelViewController.swift; sourceTree = "<group>"; };
 		7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomePanelViewController.xib; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
@@ -6118,6 +6130,8 @@
 				7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */,
 				7ABE17222239BB54006BA309 /* WelcomePanelViewController.swift */,
 				7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */,
+				7ABE17162239B8EE006BA309 /* WelcomeContainerViewController.swift */,
+				7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */,
 		83023C1720E6581A00EC7592 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
@@ -9152,6 +9166,7 @@
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
+				7ABE171D2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				B0267CE91E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard in Resources */,
 				B0E804111C0CDE480065EBC0 /* PageHistoryViewController.storyboard in Resources */,
 				B0845E1C2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
@@ -11360,6 +11375,7 @@
 				7A203F0E1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */,
 				D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */,
+				7ABE171B2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
 				B04AE84F21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
@@ -11396,6 +11412,7 @@
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D87676A021E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
+				7ABE17192239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				83F26B2B220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				D8CE24EC1E698E2400DAE2E0 /* PlacesViewController.swift in Sources */,
@@ -11746,6 +11763,7 @@
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
 				D87676A121E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
+				7ABE171A2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				B0CD9DE51F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				83F26B2C220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */,
