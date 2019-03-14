@@ -1,22 +1,23 @@
 extension WMFArticle {
     @objc public func update(withSummary summary: ArticleSummary) {
-        #warning("fix")
-//        if let originalImage = summary["originalimage"] as? [String: Any],
-//            let source = originalImage["source"] as? String,
-//            let width = originalImage["width"] as? Int,
-//            let height = originalImage["height"] as? Int{
-//            self.imageURLString = source
-//            self.imageWidth = NSNumber(value: width)
-//            self.imageHeight = NSNumber(value: height)
-//        }
-//
+        if let original = summary.original {
+            imageURLString = original.source
+            imageWidth = NSNumber(value: original.width)
+            imageHeight = NSNumber(value: original.height)
+        } else {
+            imageURLString = nil
+            imageWidth = NSNumber(value: 0)
+            imageHeight = NSNumber(value: 0)
+        }
+       
         wikidataDescription = summary.articleDescription
         displayTitleHTMLString = summary.displayTitle
         snippet = summary.extract?.wmf_summaryFromText()
     
-        
         if let summaryCoordinate = summary.coordinates {
             coordinate = CLLocationCoordinate2D(latitude: summaryCoordinate.lat, longitude: summaryCoordinate.lon)
+        } else {
+            coordinate = nil
         }
     }
 }
@@ -82,19 +83,6 @@ extension NSManagedObjectContext {
         return articles
     }
 
-    public func wmf_updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: @escaping ([WMFArticle]) -> Void) {
-        let fetcher = AppsServicesFetcher(session: Session.shared, configuration: Configuration.current)
-        fetcher.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
-            self.perform {
-                do {
-                    let articles = try self.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
-                    completion(articles)
-                } catch let error {
-                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                    completion([])
-                }
-            }
-        }
-    }
+    
     
 }

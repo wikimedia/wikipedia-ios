@@ -2,12 +2,10 @@ import Foundation
 
 @objc(WMFArticleSummaryImage)
 class ArticleSummaryImage: NSObject, Codable {
-    let source: String?
-    
+    let source: String
+    let width: Int
+    let height: Int
     var url: URL? {
-        guard let source = source else {
-            return nil
-        }
         return URL(string: source)
     }
 }
@@ -44,6 +42,7 @@ public class ArticleSummary: NSObject, Codable {
     let extract: String?
     let extractHTML: String?
     let thumbnail: ArticleSummaryImage?
+    let original: ArticleSummaryImage?
     @objc let coordinates: ArticleSummaryCoordinates?
     
     enum CodingKeys: String, CodingKey {
@@ -57,6 +56,7 @@ public class ArticleSummary: NSObject, Codable {
         case extract
         case extractHTML = "extract_html"
         case thumbnail
+        case original = "originalimage"
         case coordinates
         case contentURLs = "content_urls"
     }
@@ -72,23 +72,8 @@ public class ArticleSummary: NSObject, Codable {
 }
 
 
-@objc(WMFAppsServicesFetcher)
-public class AppsServicesFetcher: Fetcher {
-    public func request(with url: URL) throws -> URLRequest  {
-        guard var request = session.request(with: url) else {
-            throw Fetcher.invalidParametersError
-        }
-        request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
-        return request
-    }
-    
-    public func titlePathComponent(for articleURL: URL) throws -> String {
-        guard let title = articleURL.wmf_titleWithUnderscores?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
-            throw Fetcher.invalidParametersError
-        }
-        return title
-    }
-
+@objc(WMFArticleSummaryFetcher)
+public class ArticleSummaryFetcher: Fetcher {
     public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) {
         articleURLs.asyncMapToDictionary(block: { (articleURL, asyncMapCompletion) in
             fetchSummary(for: articleURL, priority: priority, completion: { (responseObject, response, error) in
@@ -98,16 +83,16 @@ public class AppsServicesFetcher: Fetcher {
     }
     
     @objc public func fetchSummary(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) {
-        do {
-            let title = try titlePathComponent(for: articleURL)
-            let pathComponents = ["page", "summary", title]
-            let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url
-            session.jsonDecodableTask(with: taskURL, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
-                completion(summary, response, error)
-            }
-        } catch let error {
-            completion(nil, nil, error)
+        guard let title = articleURL.wmf_percentEscapedTitle else {
+            completion(nil, nil, Fetcher.invalidParametersError)
             return
+        }
+        let pathComponents = ["page", "summary", title]
+        let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url
+        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
+        let headers = ["Accept": "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\""]
+        session.jsonDecodableTask(with: taskURL, headers: headers, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
+            completion(summary, response, error)
         }
     }
 }

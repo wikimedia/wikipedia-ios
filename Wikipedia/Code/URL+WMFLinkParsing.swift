@@ -13,6 +13,10 @@ extension CharacterSet {
 }
 
 extension URL {
+    public var wmf_percentEscapedTitle: String? {
+        return wmf_titleWithUnderscores?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed)
+    }
+    
     public var wmf_language: String? {
         return (self as NSURL).wmf_language
     }

@@ -143,7 +143,7 @@ class PlaceSearchService
                 })
                 // TODO: ARM: I don't understand this --------------------V
                 //var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
-                dataStore.viewContext.wmf_updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
+                dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
                     //allArticlesWithLocation.append(contentsOf: articles)
                     done()
                 }

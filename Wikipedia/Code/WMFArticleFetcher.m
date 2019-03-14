@@ -33,7 +33,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
-@property (nonatomic, strong) WMFAppsServicesFetcher *summaryFetcher;
+@property (nonatomic, strong) WMFArticleSummaryFetcher *summaryFetcher;
 
 
 @end
@@ -49,7 +49,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
-        self.summaryFetcher = [[WMFAppsServicesFetcher alloc] initWithSession:self.session configuration:self.configuration];
+        self.summaryFetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:self.session configuration:self.configuration];
     }
     return self;
 }
