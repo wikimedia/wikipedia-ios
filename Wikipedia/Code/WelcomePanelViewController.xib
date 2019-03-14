@@ -73,7 +73,7 @@
                                         <constraint firstItem="UVD-iW-SNC" firstAttribute="width" secondItem="1on-Ec-EaB" secondAttribute="width" id="Yak-sj-SIx"/>
                                     </constraints>
                                 </scrollView>
-                                <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yah-7B-ltZ" customClass="WelcomePanelScrollViewGradientView" customModule="Wikipedia" customModuleProvider="target">
+                                <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yah-7B-ltZ" customClass="WelcomePanelScrollViewGradient" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="559"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>

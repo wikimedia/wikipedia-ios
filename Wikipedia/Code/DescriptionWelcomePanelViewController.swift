@@ -17,7 +17,7 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
     @IBOutlet private var bottomLabel:UILabel!
     @IBOutlet private var nextButton:AutoLayoutSafeMultiLineButton!
     @IBOutlet private var scrollView:UIScrollView!
-    @IBOutlet private var scrollViewGradientView:DescriptionWelcomePanelScrollViewGradient!
+    @IBOutlet private var scrollViewGradientView:WelcomePanelScrollViewGradient!
     @IBOutlet private var nextButtonContainerView:UIView!
 
     private var viewControllerForContainerView:UIViewController? = nil
@@ -77,7 +77,7 @@ private extension UIScrollView {
     }
 }
 
-class DescriptionWelcomePanelScrollViewGradient : UIView, Themeable {
+class WelcomePanelScrollViewGradient : UIView, Themeable {
     private var theme = Theme.standard
     func apply(theme: Theme) {
         self.theme = theme
