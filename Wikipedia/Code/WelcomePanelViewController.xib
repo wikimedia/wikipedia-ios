@@ -27,13 +27,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wlh-UI-800">
-                    <rect key="frame" x="10" y="10" width="355" height="657"/>
+                    <rect key="frame" x="10" y="30" width="355" height="637"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvg-KD-7Mc" userLabel="Content View">
-                            <rect key="frame" x="0.0" y="0.0" width="355" height="559"/>
+                            <rect key="frame" x="0.0" y="0.0" width="355" height="541"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1on-Ec-EaB">
-                                    <rect key="frame" x="0.0" y="0.0" width="355" height="559"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="355" height="541"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UVD-iW-SNC">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="309"/>
@@ -74,7 +74,7 @@
                                     </constraints>
                                 </scrollView>
                                 <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yah-7B-ltZ" customClass="WelcomePanelScrollViewGradient" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="355" height="559"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="355" height="541"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                             </subviews>
@@ -90,19 +90,19 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zu-oB-zQ9" userLabel="Button View">
-                            <rect key="frame" x="0.0" y="559" width="355" height="98"/>
+                            <rect key="frame" x="0.0" y="541" width="355" height="96"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ycy-bJ-iCU">
-                                    <rect key="frame" x="14" y="10" width="327" height="88"/>
+                                    <rect key="frame" x="14" y="10" width="327" height="86"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5D-dC-jd4">
-                                            <rect key="frame" x="0.0" y="0.0" width="327" height="18"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="327" height="16"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urh-zw-u6D" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="38" width="327" height="50"/>
+                                            <rect key="frame" x="0.0" y="36" width="327" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="750" constant="50" id="xBf-Su-jTq"/>
@@ -136,7 +136,7 @@
                 </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="wlh-UI-800" firstAttribute="top" secondItem="uba-xZ-kBn" secondAttribute="top" constant="10" id="NBg-fo-a5o"/>
+                <constraint firstItem="wlh-UI-800" firstAttribute="top" secondItem="uba-xZ-kBn" secondAttribute="topMargin" constant="10" id="NBg-fo-a5o"/>
                 <constraint firstItem="wlh-UI-800" firstAttribute="leading" secondItem="uba-xZ-kBn" secondAttribute="leading" constant="10" id="d2x-iB-a3Y"/>
                 <constraint firstAttribute="trailing" secondItem="wlh-UI-800" secondAttribute="trailing" constant="10" id="iMn-E9-8tE"/>
                 <constraint firstAttribute="bottom" secondItem="wlh-UI-800" secondAttribute="bottom" id="ovg-X0-YVT"/>
