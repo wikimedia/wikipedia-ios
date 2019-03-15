@@ -208,16 +208,72 @@
     });}
   
     function replaceAll(cm, query, text) {
+      var count = 0;
       cm.operation(function() {
         for (var cursor = getSearchCursor(cm, query); cursor.findNext();) {
           if (typeof query != "string") {
             var match = cm.getRange(cursor.from(), cursor.to()).match(query);
             cursor.replace(text.replace(/\$(\d)/g, function(_, i) {return match[i];}));
-          } else cursor.replace(text);
+          } else {
+            cursor.replace(text);
+          }
+          count++;
         }
       });
+      cm.state.replaceAllCount = count;
     }
-  
+     
+    //same as replace(cm, all) but bypasses CodeMirror dialogs. Split this up into all & single variants for simplicity
+    function replaceAllWithoutDialogs(cm) {
+      var replaceText = cm.state.replaceText
+      if (cm.getOption("readOnly")) return;
+      if (!replaceText) return;
+
+     var query = cm.state.query;
+      query = parseQuery(query);
+      replaceText = parseString(replaceText);
+      replaceAll(cm, query, replaceText);
+
+      //resets count to 0/0
+      let state = getSearchState(cm)
+      focusOnMatch(state);
+    }
+
+    function replaceSingleWithoutDialogs(cm) {
+      if (cm.getOption("readOnly")) return;
+      var replaceText = cm.state.replaceText
+      if (!replaceText) return;
+
+      var state = getSearchState(cm);
+      var query = state.query;
+      query = parseQuery(query);
+      replaceText = parseString(replaceText);
+      var cursor = getSearchCursor(cm, query, state.posFrom);
+
+      var advance = function(shouldReplace) {
+        var start = cursor.from(), match;
+        if (!(match = cursor.findNext())) {
+          cursor = getSearchCursor(cm, query);
+          state.focusedMatchIndex = 0;
+          if (!(match = cursor.findNext()) || (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) {
+            focusOnMatch(state); //resets count to 0/0
+            return;
+          }
+        }
+        
+        state.posFrom = cursor.from(); state.posTo = cursor.to();
+        focusOnMatch(state)
+        if (shouldReplace) {
+          doReplace(match);
+        }
+      }
+      var doReplace = function(match) {
+        cursor.replace(replaceText);
+        advance(false);
+      };
+      advance(true);
+    }
+
     function replace(cm, all) {
       if (cm.getOption("readOnly")) return;
       var query = cm.getSelection() || getSearchState(cm).lastQuery;
@@ -262,4 +318,6 @@
     CodeMirror.commands.clearSearch = clearSearch;
     CodeMirror.commands.replace = replace;
     CodeMirror.commands.replaceAll = function(cm) {replace(cm, true);};
+    CodeMirror.commands.replaceAllWithoutDialogs = function(cm) { replaceAllWithoutDialogs(cm);};
+    CodeMirror.commands.replaceSingleWithoutDialogs = function(cm) { replaceSingleWithoutDialogs(cm);};
   });

@@ -776,6 +776,12 @@
       window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
     }
 
+    const presentReplaceAllCount = () => {
+      var replaceAllCount = editor.state.replaceAllCount;
+      window.webkit.messageHandlers.replaceAllCountMessage.postMessage(replaceAllCount);
+      editor.state.replaceAllCount = null;
+    }
+
     let resizeTimer
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer)
@@ -966,6 +972,17 @@
       findNext: () => editor.execCommand('findNext'),
       findPrevious: () => editor.execCommand('findPrev'),
       clearSearch: () => editor.execCommand('clearSearch'),
+      replaceAll: (text) => {
+        editor.state.replaceText = text
+        editor.execCommand('replaceAllWithoutDialogs')
+        presentReplaceAllCount()
+        editor.state.replaceText = null
+        editor.state.replaceAllNum = null
+      },
+      replaceSingle: (text) => {
+          editor.state.replaceText = text
+          editor.execCommand('replaceSingleWithoutDialogs')
+      }
     }
 
     // TODO: Import js/elementLocation ?
