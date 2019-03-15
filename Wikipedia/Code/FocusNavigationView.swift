@@ -9,7 +9,6 @@ final class FocusNavigationView: UIView {
     @IBOutlet private var titleLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var closeButton: UIButton!
-    #warning("todo: accessible close btn")
     
     weak var delegate: FocusNavigationViewDelegate?
     
@@ -19,6 +18,7 @@ final class FocusNavigationView: UIView {
             titleLabel.text = text
         }
         
+        //TODO: needs accessible close button
         titleLabel.font = UIFont.wmf_font(.mediumHeadline, compatibleWithTraitCollection: traitCollection)
         titleLabelBottomConstraint.constant = traitCollection.verticalSizeClass == .compact ? 0 : 6
     }

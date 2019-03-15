@@ -83,8 +83,8 @@ class SectionEditorViewController: UIViewController {
     }
     
     private func setupFocusNavigationView() {
-        #warning("todo: localize")
-        
+       
+        //TODO: Localize
         focusNavigationView.isHidden = true
         focusNavigationView.configure(text: "Find and replace", traitCollection: traitCollection)
         focusNavigationView.delegate = self
@@ -365,7 +365,8 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAlertDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int) {
-        #warning("todo: Localize & pluralize this")
+        
+        //TODO: Localize & pluralize
         wmf_showAlertWithMessage("\(replacedCount) items replaced")
     }
 }
@@ -380,7 +381,8 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
     }
     
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
-        #warning("todo: Localize")
+        
+        //TODO: Localize
         let alertController = UIAlertController(title: "Find and replace", message: nil, preferredStyle: .actionSheet)
         let replaceAction = UIAlertAction(title: "Replace", style: .default) { (_) in
             self.inputViewsController.updateReplaceType(type: .replaceSingle)

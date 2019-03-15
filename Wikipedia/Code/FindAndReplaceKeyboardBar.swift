@@ -290,8 +290,8 @@ private extension FindAndReplaceKeyboardBar {
     }
     
     func updateReplaceLabelState() {
-        #warning("todo: localize")
         
+        //TODO: Localize
         let count = replaceTextField.text?.count ?? 0
         replacePlaceholderLabel.text = "Replace with..."
         
