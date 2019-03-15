@@ -1,11 +1,3 @@
-//
-//  FocusNavigationView.swift
-//  Wikipedia
-//
-//  Created by Toni Sevener on 3/14/19.
-//  Copyright © 2019 Wikimedia Foundation. All rights reserved.
-//
-
 import UIKit
 
 protocol FocusNavigationViewDelegate: class {
