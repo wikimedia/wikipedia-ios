@@ -128,7 +128,7 @@
                                                     <rect key="frame" x="10" y="8.5" width="13" height="13"/>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-vp-s0R">
-                                                    <rect key="frame" x="33" y="6.5" width="268" height="17"/>
+                                                    <rect key="frame" x="33" y="6.5" width="267" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                                     <connections>
@@ -136,8 +136,14 @@
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="XLZ-Yt-8tI"/>
                                                     </connections>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kuN-If-Lkg">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2M-Bu-4DV">
                                                     <rect key="frame" x="33" y="15" width="277" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kuN-If-Lkg">
+                                                    <rect key="frame" x="310" y="15" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -158,15 +164,17 @@
                                             <constraints>
                                                 <constraint firstItem="aF4-ek-Hx6" firstAttribute="leading" secondItem="f5H-rU-PLL" secondAttribute="leading" constant="10" id="0dR-Of-25g"/>
                                                 <constraint firstItem="Yj1-6o-NCE" firstAttribute="leading" secondItem="kuN-If-Lkg" secondAttribute="trailing" constant="1" id="57L-KN-Nkb"/>
-                                                <constraint firstItem="kuN-If-Lkg" firstAttribute="leading" secondItem="aF4-ek-Hx6" secondAttribute="trailing" constant="10" id="9dX-vY-cst"/>
+                                                <constraint firstItem="Yj1-6o-NCE" firstAttribute="leading" secondItem="S2M-Bu-4DV" secondAttribute="trailing" constant="1" id="Dbj-Ek-eMj"/>
                                                 <constraint firstAttribute="trailing" secondItem="Yj1-6o-NCE" secondAttribute="trailing" id="F8j-dn-OUG"/>
                                                 <constraint firstItem="kuN-If-Lkg" firstAttribute="centerY" secondItem="f5H-rU-PLL" secondAttribute="centerY" id="IAh-YM-jcp"/>
                                                 <constraint firstItem="Dce-vp-s0R" firstAttribute="centerY" secondItem="f5H-rU-PLL" secondAttribute="centerY" id="Vws-hO-nUa"/>
-                                                <constraint firstItem="Yj1-6o-NCE" firstAttribute="leading" secondItem="Dce-vp-s0R" secondAttribute="trailing" constant="10" id="aeU-dX-afU"/>
                                                 <constraint firstItem="Dce-vp-s0R" firstAttribute="leading" secondItem="aF4-ek-Hx6" secondAttribute="trailing" constant="10" id="cQj-7n-Vve"/>
                                                 <constraint firstItem="Yj1-6o-NCE" firstAttribute="centerY" secondItem="f5H-rU-PLL" secondAttribute="centerY" id="fm1-ei-Xvc"/>
+                                                <constraint firstItem="S2M-Bu-4DV" firstAttribute="leading" secondItem="aF4-ek-Hx6" secondAttribute="trailing" constant="10" id="iIv-za-Yri"/>
                                                 <constraint firstAttribute="height" constant="30" id="j9R-c8-UsW"/>
                                                 <constraint firstItem="aF4-ek-Hx6" firstAttribute="centerY" secondItem="f5H-rU-PLL" secondAttribute="centerY" id="rng-RI-tzV"/>
+                                                <constraint firstItem="S2M-Bu-4DV" firstAttribute="centerY" secondItem="f5H-rU-PLL" secondAttribute="centerY" id="v5U-TB-uQm"/>
+                                                <constraint firstItem="kuN-If-Lkg" firstAttribute="leading" secondItem="Dce-vp-s0R" secondAttribute="trailing" constant="10" id="wXG-FX-KwE"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -245,13 +253,14 @@
                 <outlet property="previousButton" destination="bHU-iI-iHx" id="WHJ-D2-QJY"/>
                 <outlet property="replaceButton" destination="QXc-r2-jdZ" id="Vxj-RG-c1x"/>
                 <outlet property="replaceClearButton" destination="Yj1-6o-NCE" id="AgE-dK-N5N"/>
-                <outlet property="replaceLabel" destination="kuN-If-Lkg" id="8yf-oK-AT6"/>
+                <outlet property="replacePlaceholderLabel" destination="S2M-Bu-4DV" id="uo5-Yj-nNS"/>
                 <outlet property="replaceStackView" destination="6z3-12-dnS" id="WUE-qP-zHL"/>
                 <outlet property="replaceSwitchButton" destination="ID5-aA-3Fl" id="ERA-V5-3Uj"/>
                 <outlet property="replaceTextField" destination="Dce-vp-s0R" id="g7i-Tg-BmC"/>
                 <outlet property="replaceTextFieldContainer" destination="f5H-rU-PLL" id="aIS-ab-dzW"/>
+                <outlet property="replaceTypeLabel" destination="kuN-If-Lkg" id="vJi-2U-kRQ"/>
             </connections>
-            <point key="canvasLocation" x="279.5" y="-224"/>
+            <point key="canvasLocation" x="279.19999999999999" y="-224.88755622188907"/>
         </view>
     </objects>
     <resources>

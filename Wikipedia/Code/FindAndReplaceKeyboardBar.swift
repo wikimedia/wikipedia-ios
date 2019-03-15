@@ -51,7 +51,8 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private var replaceTextField: UITextField!
     @IBOutlet private var replaceTextFieldContainer: UIView!
     @IBOutlet private var pencilImageView: UIImageView!
-    @IBOutlet private var replaceLabel: UILabel!
+    @IBOutlet private var replaceTypeLabel: UILabel!
+    @IBOutlet private var replacePlaceholderLabel: UILabel!
     @IBOutlet private var replaceClearButton: UIButton!
     @IBOutlet private var replaceButton: UIButton!
     @IBOutlet private(set) var replaceSwitchButton: UIButton!
@@ -79,7 +80,7 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     
     @objc var isVisible: Bool {
         get {
-            return findTextField.isFirstResponder
+            return findTextField.isFirstResponder || replaceTextField.isFirstResponder
         }
     }
     
@@ -120,11 +121,21 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         displayDelegate?.keyboardBarDidHide(self)
     }
     
+    func reset() {
+        resetFind()
+        resetReplace()
+    }
+    
     @objc func resetFind() {
         findTextField.text = nil
         currentMatchLabel.text = nil
         findClearButton.isHidden = true
+        currentMatchTotal = 0
+        updateMatchCounts(index: 0, total: 0)
+        updatePreviousNextButtonsState(total: 0)
     }
+    
+    //MARK: IBActions
     
     @IBAction func tappedFindClear() {
         delegate?.keyboardBarDidTapClear(self)
@@ -235,7 +246,8 @@ extension FindAndReplaceKeyboardBar: Themeable {
         replaceSwitchButton.tintColor = theme.colors.secondaryText
         pencilImageView.tintColor = theme.colors.secondaryText
         replaceClearButton.tintColor = theme.colors.secondaryText
-        replaceLabel.textColor = theme.colors.tertiaryText
+        replaceTypeLabel.textColor = theme.colors.tertiaryText
+        replacePlaceholderLabel.textColor = theme.colors.tertiaryText
         
     }
 }
@@ -243,6 +255,7 @@ extension FindAndReplaceKeyboardBar: Themeable {
 //MARK: Private
 
 private extension FindAndReplaceKeyboardBar {
+    
     func hideUndoRedoIcons() {
         if findTextField.responds(to: #selector(getter: inputAssistantItem)) {
             findTextField.inputAssistantItem.leadingBarButtonGroups = []
@@ -253,6 +266,11 @@ private extension FindAndReplaceKeyboardBar {
             replaceTextField.inputAssistantItem.leadingBarButtonGroups = []
             replaceTextField.inputAssistantItem.trailingBarButtonGroups = []
         }
+    }
+    
+    func resetReplace() {
+        replaceTextField.text = nil
+        replaceType = .replaceSingle
     }
     
     func updateMatchCountLabel(index: Int, total: UInt) {
@@ -281,7 +299,9 @@ private extension FindAndReplaceKeyboardBar {
     
     func updateReplaceLabelState() {
         #warning("todo: localize")
+        
         let count = replaceTextField.text?.count ?? 0
+        replacePlaceholderLabel.text = "Replace with..."
         
         var replaceTypeText: String
         switch replaceType {
@@ -289,8 +309,22 @@ private extension FindAndReplaceKeyboardBar {
         case .replaceAll: replaceTypeText = "Replace all"
         }
         
-        replaceLabel.textAlignment = (replaceTextField.isFirstResponder || count > 0) ? .right : .left
-        replaceLabel.text =  (replaceTextField.isFirstResponder || count > 0) ? replaceTypeText : "Replace with..."
+        switch (replaceTextField.isFirstResponder, count) {
+        case (false, 0):
+            replaceTypeLabel.text = nil //niling out so longer placeholder strings will bump up against the X button
+            replaceTypeLabel.isHidden = true
+            replacePlaceholderLabel.isHidden = false
+        case (true, 0):
+            replaceTypeLabel.text = nil
+            replaceTypeLabel.isHidden = true
+            replacePlaceholderLabel.isHidden = true
+        case (_, 1...):
+            replaceTypeLabel.text = replaceTypeText
+            replaceTypeLabel.isHidden = false
+            replacePlaceholderLabel.isHidden = true
+        default:
+            assertionFailure("Unexpected replace label state")
+        }
     }
     
     func updateReplaceButtonsState() {

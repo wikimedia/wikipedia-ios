@@ -36,7 +36,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         if inputViewType == nil {
             if inputAccessoryViewType == .findInPage {
                 messagingController.clearSearch()
-                findAndReplaceView?.resetFind()
+                findAndReplaceView?.reset()
                 findAndReplaceView?.hide()
             }
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
@@ -149,7 +149,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         }
         
         messagingController.clearSearch()
-        keyboardBar.resetFind()
+        keyboardBar.reset()
         inputAccessoryViewType = previousInputAccessoryViewType
         if keyboardBar.isVisible {
             messagingController.focus()
