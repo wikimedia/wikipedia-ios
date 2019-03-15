@@ -1,7 +1,6 @@
 import UIKit
 
 class WelcomeAnimationView: UIView {
-
     open func animate() {
 
     }
