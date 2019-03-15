@@ -402,7 +402,7 @@ public enum RequestError: LocalizedError {
         case .unexpectedResponse:
             return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
         default:
-            return WMFLocalizedString("fetcher-error-generic", value: "Something went wrong. Please try again later.", comment: "Error shown to the user for generic errors with no clear recovery steps for the user.")
+            return CommonStrings.genericErrorDescription
         }
     }
 }

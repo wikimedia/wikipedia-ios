@@ -96,6 +96,7 @@
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
 "action-saved-accessibility-notification" = "Статья сохранена на потом.";
 "action-share" = "Поделиться";
+"action-share-accessibility" = "Поделиться";
 "action-sort" = "Сортировать";
 "action-undo" = "Отменить";
 "action-unsave" = "Не сохранено";
@@ -196,6 +197,7 @@
 "edit-italic-remove-accessibility-label" = "Убрать наклонное начертание";
 "edit-link-accessibility-label" = "Добавить ссылку";
 "edit-link-remove-accessibility-label" = "Убрать ссылку";
+"edit-menu-item" = "Редактировать";
 "edit-minor-learn-more-text" = "Узнать подробнее о малых правках";
 "edit-minor-text" = "Это малая правка";
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
@@ -232,6 +234,10 @@
 "edit-unordered-list-remove-accessibility-label" = "Убрать ненумерованный список";
 "edit-watch-list-learn-more-text" = "Узнайте больше о списках наблюдения";
 "edit-watch-this-page-text" = "Следить за этой страницей";
+"editing-welcome-be-bold-title" = "Ваш голос важен";
+"editing-welcome-citations-title" = "Используйте проверенные источники";
+"editing-welcome-impartial-tone-title" = "Пишите непредвзято";
+"editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
 "empty-no-article-message" = "К сожалению, не удалось загрузить статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";

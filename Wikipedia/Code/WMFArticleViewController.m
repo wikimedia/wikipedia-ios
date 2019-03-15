@@ -1791,12 +1791,43 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showEditorForSection:(MWKSection *)section selectedTextEditInfo:(nullable SelectedTextEditInfo *)selectedTextEditInfo {
+    [self cancelWIconPopoverDisplay];
     WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
     sectionEditVC.editFunnel = self.editFunnel;
     sectionEditVC.selectedTextEditInfo = selectedTextEditInfo;
-    [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
+
+    WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:sectionEditVC theme:self.theme];
+    navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+
+    BOOL needsIntro = !NSUserDefaults.standardUserDefaults.didShowEditingOnboarding;
+    if (needsIntro) {
+        navigationController.view.alpha = 0;
+    }
+
+    sectionEditVC.shouldFocusWebView = !needsIntro;
+    @weakify(self);
+    void (^showIntro)(void) = ^{
+        @strongify(self);
+        WMFEditingWelcomeViewController *editingWelcomeViewController = [[WMFEditingWelcomeViewController alloc] initWithTheme:self.theme completion:^{
+            sectionEditVC.shouldFocusWebView = YES;
+        }];
+        [editingWelcomeViewController applyTheme:self.theme];
+        [navigationController presentViewController:editingWelcomeViewController
+                                           animated:YES
+                                         completion:^{
+                                             NSUserDefaults.standardUserDefaults.didShowEditingOnboarding = YES;
+                                             navigationController.view.alpha = 1;
+                                         }];
+    };
+    [self presentViewController:navigationController
+                       animated:!needsIntro
+                     completion:^{
+                         if (needsIntro) {
+                             showIntro();
+                         }
+                     }];
 }
 
 - (void)descriptionEditViewControllerEditSucceeded:(DescriptionEditViewController *)descriptionEditViewController {
@@ -2164,7 +2195,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 #pragma mark - One-time toolbar item popover tips
 
 - (BOOL)shouldShowWIconPopover {
-    if (!self.navigationController || self.navigationBar.navigationBarPercentHidden == 1.0 || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
+    if (self.presentedViewController || !self.navigationController || self.navigationBar.navigationBarPercentHidden == 1.0 || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
         return NO;
     } else {
         return YES;

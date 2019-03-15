@@ -114,7 +114,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             //@"pilicense": @"any",
             @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
             @"pilimit": @(numberOfResults),
-            @"ppprop": @"displaytitle|disambiguation",
+            @"ppprop": @"displaytitle",
             @"format": @"json",
         }];
         switch (sortStyle) {
@@ -143,7 +143,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
             @"pilimit": @(numberOfResults),
             //@"pilicense": @"any",
-            @"ppprop": @"displaytitle|disambiguation",
+            @"ppprop": @"displaytitle",
             @"generator": @"geosearch",
             @"ggscoord": coords,
             @"codistancefrompoint": coords,
