@@ -775,12 +775,12 @@
       // so let native land do the scrolling.
       window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
     }
-  
-  const presentReplaceAllCount = () => {
+
+    const presentReplaceAllCount = () => {
       var replaceAllCount = editor.state.replaceAllCount;
       window.webkit.messageHandlers.replaceAllCountMessage.postMessage(replaceAllCount);
       editor.state.replaceAllCount = null;
-  }
+    }
 
     let resizeTimer
     window.addEventListener('resize', () => {
