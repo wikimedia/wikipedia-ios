@@ -19,6 +19,7 @@
 // Author: Luzcaru
 // Author: Macofe
 // Author: MadriCR
+// Author: Marcelo9987
 // Author: MarcoAurelio
 // Author: Mcervera
 // Author: Mgpena
@@ -192,6 +193,7 @@
 "edit-italic-remove-accessibility-label" = "\nQuitar cursivas";
 "edit-link-accessibility-label" = "\nAñadir enlace";
 "edit-link-remove-accessibility-label" = "\nQuitar enlace";
+"edit-menu-item" = "Editar";
 "edit-minor-learn-more-text" = "Más información sobre las ediciones etiquetadas";
 "edit-minor-text" = "Esta es una edición menor";
 "edit-ordered-list-accessibility-label" = "Convertir esta línea en una lista ordenada";
@@ -228,6 +230,8 @@
 "edit-unordered-list-remove-accessibility-label" = "\nBorrar lista desordenada de esta línea";
 "edit-watch-list-learn-more-text" = "\nAprende más acerca de las listas de seguimiento";
 "edit-watch-this-page-text" = "Vigilar esta página";
+"editing-welcome-be-bold-subtitle" = "Ser intrépido pero no temerario al actualizar artículos.  No sufra de más cometiendo equivocaciones: cada versión pasada de una página está salvada, las equivocaciones pueden ser fácilmente corregidas por nuestra comunidad.";
+"editing-welcome-be-bold-title" = "Tu voz es importante";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas internet";

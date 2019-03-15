@@ -180,6 +180,7 @@
 "edit-italic-accessibility-label" = "기울임 서식 추가";
 "edit-link-accessibility-label" = "링크 문법 추가";
 "edit-link-remove-accessibility-label" = "링크 문법 제거";
+"edit-menu-item" = "편집";
 "edit-minor-learn-more-text" = "사소한 편집에 대해 더 알아보기";
 "edit-minor-text" = "사소한 편집입니다";
 "edit-published" = "편집이 게시됐습니다";
