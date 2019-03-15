@@ -403,7 +403,6 @@ extension SectionEditorViewController: ReadingThemesControlsResponding {
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        messagingController.toggleLineNumbers()
         messagingController.toggleSyntaxColors()
     }
 }
