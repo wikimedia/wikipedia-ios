@@ -79,6 +79,10 @@ class WelcomePanelViewController: UIViewController {
         viewController.didMove(toParent: self)
         viewController.apply(theme: theme)
     }
+
+    @IBAction private func performAction(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
 }
 
 extension WelcomePanelViewController: Themeable {
