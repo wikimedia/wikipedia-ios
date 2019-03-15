@@ -4,14 +4,14 @@ import UIKit
 final class EditingWelcomeViewController: WelcomeViewController {
     private let beBoldDataSource = BeBoldDataSource()
     private let impartialToneDataSource = ImpartialToneDataSource()
-    private let citeReliableSources = CiteReliableSourcesDataSource()
+    private let citeReliableSourcesDataSource = CiteReliableSourcesDataSource()
     private let setKnowledgeFreeDataSource = SetKnowledgeFreeDataSource()
 
     @objc init(theme: Theme) {
         super.init(theme: theme, viewControllers: [
             WelcomeContainerViewController(dataSource: beBoldDataSource),
             WelcomeContainerViewController(dataSource: impartialToneDataSource),
-            WelcomeContainerViewController(dataSource: citeReliableSources),
+            WelcomeContainerViewController(dataSource: citeReliableSourcesDataSource),
             WelcomeContainerViewController(dataSource: setKnowledgeFreeDataSource)
         ])
     }
