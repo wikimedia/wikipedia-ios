@@ -3,6 +3,7 @@ import UIKit
 class WelcomePanelLabelContentViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     private let text: String
+    private var theme = Theme.standard
 
     init(text: String) {
         self.text = text
@@ -26,6 +27,12 @@ class WelcomePanelLabelContentViewController: UIViewController {
 
 extension WelcomePanelLabelContentViewController: Themeable {
     func apply(theme: Theme) {
-
+        guard viewIfLoaded != nil else {
+            self.theme = theme
+            return
+        }
+        view.backgroundColor = theme.colors.midBackground
+        label.textColor = theme.colors.primaryText
+        label.backgroundColor = theme.colors.midBackground
     }
 }

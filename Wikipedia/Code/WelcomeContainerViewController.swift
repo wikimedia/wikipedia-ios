@@ -63,6 +63,9 @@ extension WelcomeContainerViewController: Themeable {
             self.theme = theme
             return
         }
-        #warning("Theme WelcomeContainerViewController")
+        children.forEach { ($0 as? Themeable)?.apply(theme: theme) }
+        topForegroundContainerView.backgroundColor = theme.colors.midBackground
+        topBackgroundContainerView.backgroundColor = theme.colors.midBackground
+        bottomContainerView.backgroundColor = theme.colors.midBackground
     }
 }
