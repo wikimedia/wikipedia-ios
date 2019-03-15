@@ -17,7 +17,7 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
     @IBOutlet private var bottomLabel:UILabel!
     @IBOutlet private var nextButton:AutoLayoutSafeMultiLineButton!
     @IBOutlet private var scrollView:UIScrollView!
-    @IBOutlet private var scrollViewGradientView:DescriptionWelcomePanelScrollViewGradient!
+    @IBOutlet private var scrollViewGradientView:WelcomePanelScrollViewGradient!
     @IBOutlet private var nextButtonContainerView:UIView!
 
     private var viewControllerForContainerView:UIViewController? = nil
@@ -53,7 +53,7 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
             titleLabel.text = WMFLocalizedString("description-welcome-concise-title", value:"Keep it short", comment:"Title text explaining descriptions should be concise")
         }
     
-        bottomLabel.text = WMFLocalizedString("description-welcome-promise-title", value:"By starting, I promise not to misuse this feature", comment:"Title text asking user to edit descriptions responsibly")
+        bottomLabel.text = CommonStrings.welcomePromiseTitle
         
         nextButton.setTitle(WMFLocalizedString("description-welcome-start-editing-button", value:"Start editing", comment:"Text for button for dismissing description editing welcome screens"), for: .normal)
     }
@@ -77,7 +77,7 @@ private extension UIScrollView {
     }
 }
 
-class DescriptionWelcomePanelScrollViewGradient : UIView, Themeable {
+class WelcomePanelScrollViewGradient : UIView, Themeable {
     private var theme = Theme.standard
     func apply(theme: Theme) {
         self.theme = theme
