@@ -89,7 +89,7 @@ final fileprivate class SetKnowledgeFreeDataSource: WelcomeContainerViewControll
     lazy var panelViewController: WelcomePanelViewController = {
         let contentText = WMFLocalizedString("editing-welcome-set-knowledge-free-subtitle", value: "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.", comment: "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content")
         let contentViewController = WelcomePanelLabelContentViewController(text: contentText)
-        return WelcomePanelViewController(titleLabelText: WMFLocalizedString("editing-welcome-set-knowledge-free-title", value: "Set knowledge free", comment: "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content"), actionLabelText: nil, actionButtonTitle: "Get started", contentViewController: contentViewController)
+        return WelcomePanelViewController(titleLabelText: WMFLocalizedString("editing-welcome-set-knowledge-free-title", value: "Set knowledge free", comment: "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content"), actionLabelText: nil, actionButtonTitle: CommonStrings.getStartedTitle, contentViewController: contentViewController)
     }()
 }
 
