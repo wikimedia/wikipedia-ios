@@ -1,8 +1,6 @@
 #import <WMF/WMFRelatedPagesContentSource.h>
 #import <WMF/MWKDataStore.h>
 #import <WMF/MWKSearchResult.h>
-#import <WMF/WMFRelatedSearchFetcher.h>
-#import <WMF/WMFRelatedSearchResults.h>
 #import <WMF/WMF-Swift.h>
 
 static const NSInteger WMFMaximumSavedOrReadDaysAgoForRelatedPages = 3;
@@ -205,35 +203,40 @@ NS_ASSUME_NONNULL_BEGIN
         if (completion) {
             completion();
         }
-        return;
     }
-    [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:article.URL
-        resultLimit:WMFMaxRelatedSearchResultLimit
-        completionBlock:^(WMFRelatedSearchResults *_Nonnull results) {
-            if ([results.results count] == 0) {
+    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL completion:^(NSError * _Nullable error, NSDictionary<NSString *,NSDictionary<NSString *,id> *> * _Nullable summariesByKey) {
+        if (error) {
+            DDLogError(@"Failed to fetch related articles for %@: %@.",
+                       article.URL, error.localizedDescription);
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+        if (!summariesByKey) {
+            if (completion) {
+                completion();
+            }
+            return;
+        } else {
+            if (summariesByKey.count == 0) {
                 if (completion) {
                     completion();
                 }
                 return;
             }
             [moc performBlock:^{
-                NSMutableArray<NSURL *> *urls = [NSMutableArray arrayWithCapacity:results.results.count];
-                for (MWKSearchResult *result in results.results) {
-                    NSURL *articleURL = [results urlForResult:result];
-                    if (!articleURL) {
-                        continue;
-                    }
-                    NSString *key = [articleURL wmf_articleDatabaseKey];
-                    if (!key) {
-                        continue;
-                    }
-                    if ([excludedArticleKeys containsObject:key]) {
-                        continue;
-                    }
-                    [urls addObject:articleURL];
-                    [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
+                NSError *summaryError = nil;
+                NSArray<WMFArticle *> *articles = [moc wmf_createOrUpdateArticleSummmariesWithSummaryResponses:summariesByKey error:&summaryError];
+                if (summaryError) {
+                    DDLogError(@"Error creating or updating summaries: %@", summaryError);
+                    completion();
+                    return;
                 }
-                if ([urls count] < 3 && completion) {
+                NSArray<NSURL *> *articleURLs = [articles wmf_mapAndRejectNil:^id _Nullable(WMFArticle * _Nonnull obj) {
+                    return obj.URL;
+                }];
+                if ([articleURLs count] < 3 && completion) {
                     completion();
                     return;
                 }
@@ -241,7 +244,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        ofKind:WMFContentGroupKindRelatedPages
                                       forDate:date
                                   withSiteURL:article.URL.wmf_siteURL
-                            associatedContent:urls
+                            associatedContent:articleURLs
                            customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                group.articleURL = article.URL;
                                NSDate *contentDate = article.viewedDate ? article.viewedDate : article.savedDate;
@@ -253,12 +256,7 @@ NS_ASSUME_NONNULL_BEGIN
                 }
             }];
         }
-        failureBlock:^(NSError *_Nonnull error) {
-            //TODO: how to handle failure?
-            if (completion) {
-                completion();
-            }
-        }];
+    }];
 }
 
 @end

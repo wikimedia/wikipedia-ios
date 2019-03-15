@@ -28,10 +28,6 @@
 
 @property (nonatomic, copy, readwrite) NSNumber *titleNamespace;
 
-@property (nonatomic, assign, readwrite) BOOL isDisambiguation;
-
-@property (nonatomic, assign, readwrite) BOOL isList;
-
 @property (nonatomic, copy, readwrite) CLLocation *location;
 
 @end
@@ -47,9 +43,8 @@
                           extract:(NSString *)extract
                      thumbnailURL:(NSURL *)thumbnailURL
                             index:(NSNumber *)index
-                 isDisambiguation:(BOOL)isDisambiguation
-                           isList:(BOOL)isList
-                   titleNamespace:(NSNumber *)titleNamespace {
+                   titleNamespace:(NSNumber *)titleNamespace
+                         location:(nullable CLLocation *)location {
     self = [super init];
     if (self) {
         self.articleID = articleID;
@@ -61,15 +56,14 @@
         self.extract = extract;
         self.thumbnailURL = thumbnailURL;
         self.index = index;
-        self.isDisambiguation = isDisambiguation;
-        self.isList = isList;
         self.titleNamespace = titleNamespace;
+        self.location = location;
     }
     return self;
 }
 
 + (NSUInteger)modelVersion {
-    return 3;
+    return 4;
 }
 
 #pragma mark - MTLJSONSerializing
@@ -105,20 +99,6 @@
     }];
 }
 
-+ (NSValueTransformer *)isDisambiguationJSONTransformer {
-    return [MTLValueTransformer
-        transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
-            NSString *disambiguation = value[@"pageprops.disambiguation"];
-            if (disambiguation) {
-                return @YES;
-            }
-            // HAX: occasionally the search api doesn't report back "disambiguation" page term ( T121288 ),
-            // so double-check wiki data description for "disambiguation page" string.
-            NSString *description = value[@"description"];
-            return @(description && [description containsString:@"disambiguation page"]);
-        }];
-}
-
 + (NSString *)displayTitleFromValue:(NSDictionary *)value {
     NSString *displayTitle = value[@"pageprops.displaytitle"];
     if ([displayTitle isKindOfClass:[NSString class]]) { // nil & type check just to be safe
@@ -142,15 +122,6 @@
     return [MTLValueTransformer
         transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
             return [self displayTitleFromValue:value];
-        }];
-}
-
-+ (MTLValueTransformer *)isListJSONTransformer {
-    return [MTLValueTransformer
-        transformerUsingForwardBlock:^(NSString *value, BOOL *success, NSError **error) {
-            // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
-            // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
-            return @(value && [value containsString:@"Wikimedia list article"]);
         }];
 }
 
@@ -262,8 +233,6 @@
              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"description",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"description"],
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"description",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoDimension): @"coordinates",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoType): @"coordinates",
