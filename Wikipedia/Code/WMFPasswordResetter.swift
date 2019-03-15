@@ -2,14 +2,25 @@
 public enum WMFPasswordResetterError: LocalizedError {
     case cannotExtractResetStatus
     case resetStatusNotSuccess
+    case accountError(code: String, message: String)
+
     public var errorDescription: String? {
         switch self {
         case .cannotExtractResetStatus:
             return "Could not extract status"
         case .resetStatusNotSuccess:
             return "Password reset did not succeed"
+        case .accountError(let code, let message) where WMFPasswordResetterError.supportedAccountErrorCodes.contains(code):
+            return message
+        default:
+            return CommonStrings.genericErrorDescription
         }
     }
+
+    private static let supportedAccountErrorCodes = [
+        "ratelimited",
+        "noemail"
+    ]
 }
 
 public typealias WMFPasswordResetterResultBlock = (WMFPasswordResetterResult) -> Void
@@ -38,6 +49,10 @@ public class WMFPasswordResetter: Fetcher {
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: parameters) { (result, response, error) in
             if let error = error {
                 failure(error)
+                return
+            }
+            if let error = result?["error"] as? [String: Any], let code = error["code"] as? String, let info = error["info"] as? String {
+                failure(WMFPasswordResetterError.accountError(code: code, message: info))
                 return
             }
             guard
