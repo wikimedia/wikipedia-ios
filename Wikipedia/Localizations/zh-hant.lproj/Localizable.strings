@@ -181,6 +181,7 @@
 "edit-italic-remove-accessibility-label" = "移除斜體格式";
 "edit-link-accessibility-label" = "添加連結語法";
 "edit-link-remove-accessibility-label" = "移除連結語法";
+"edit-menu-item" = "編輯";
 "edit-minor-learn-more-text" = "了解更多關於小修改";
 "edit-minor-text" = "這是一個小修改";
 "edit-ordered-list-accessibility-label" = "建立目前列的有序清單";
@@ -217,6 +218,14 @@
 "edit-unordered-list-remove-accessibility-label" = "從目前列來移除無排序清單";
 "edit-watch-list-learn-more-text" = "了解更多關於監視清單";
 "edit-watch-this-page-text" = "監視此頁面";
+"editing-welcome-be-bold-subtitle" = "更新條目內容要大膽而不魯莽。不必因為犯過錯而苦惱：條目上任何發佈過的版本都會被保留下來，可讓我們的社群容易糾正錯誤。";
+"editing-welcome-be-bold-title" = "您的想法很重要";
+"editing-welcome-citations-subtitle" = "所有的內容都必須是可查證的。當添加新資訊到條目時，編者應提供能直接證實此貢獻之可靠來源的內文引用。";
+"editing-welcome-citations-title" = "引用可靠的來源";
+"editing-welcome-impartial-tone-subtitle" = "我們力求以客觀語氣來編寫條目。在進行編輯時，旨在如同以可靠來源描述來對外公正呈現。";
+"editing-welcome-impartial-tone-title" = "以客觀語氣編寫";
+"editing-welcome-set-knowledge-free-subtitle" = "為了讓任何人能取用世界上的知識，我們需要您透過閱讀、編輯、貢獻您最感興趣的主題來參與創建。";
+"editing-welcome-set-knowledge-free-title" = "讓知識能自由取得";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";
 "empty-no-feed-message" = "在有網路時，您可以看到推薦的條目";
@@ -403,7 +412,7 @@
 "main-menu-heading-legal" = "隱私與條款";
 "main-menu-nearby" = "附近";
 "main-menu-privacy-policy" = "隱私政策";
-"main-menu-rate-app" = "付費應用程式";
+"main-menu-rate-app" = "評分應用程式";
 "main-menu-terms-of-use" = "使用條款";
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "維基百科零計劃常見問題";
@@ -693,7 +702,7 @@
 "welcome-send-data-sub-title" = "透過讓我們了解您是如何使用，來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
 "welcome-volunteer-send-usage-reports" = "傳送使用情況報告";
 "wikitext-download-failed" = "無法取得最新的版本。";
-"wikitext-downloading" = "讀取內容中…";
+"wikitext-downloading" = "載入內容中…";
 "wikitext-preview-changes" = "取得您的變更預覽中...";
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";
 "wikitext-preview-link-preview-description" = "此連結引至「$1」";
