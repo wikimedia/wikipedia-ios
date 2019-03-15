@@ -22,6 +22,11 @@ class SectionEditorViewController: UIViewController {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
     
+    private lazy var focusNavigationView: FocusNavigationView = {
+        return FocusNavigationView.wmf_viewFromClassNib()
+    }()
+    private var focusNavigationViewBottomConstraint: NSLayoutConstraint!
+    
     private var theme = Theme.standard
     
     @objc var editFunnel: EditFunnel?
@@ -56,6 +61,8 @@ class SectionEditorViewController: UIViewController {
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
         
         webView.scrollView.delegate = self
+        
+        setupFocusNavigationView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,6 +78,36 @@ class SectionEditorViewController: UIViewController {
     
     @objc func keyboardDidHide() {
         inputViewsController.keyboardDidHide()
+    }
+    
+    private func setupFocusNavigationView() {
+        #warning("todo: localize")
+        
+        focusNavigationView.isHidden = true
+        focusNavigationView.configure(text: "Find and replace", traitCollection: traitCollection)
+        focusNavigationView.delegate = self
+        focusNavigationView.apply(theme: theme)
+        
+        focusNavigationView.translatesAutoresizingMaskIntoConstraints = false
+        navigationController?.navigationBar.addSubview(focusNavigationView)
+        
+        focusNavigationView.setNeedsLayout()
+        focusNavigationView.layoutIfNeeded()
+        
+        navigationController?.navigationBar.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor).isActive = true
+        navigationController?.navigationBar.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor).isActive = true
+        focusNavigationViewBottomConstraint = navigationController?.navigationBar.bottomAnchor.constraint(equalTo: focusNavigationView.bottomAnchor, constant: focusNavigationView.frame.height)
+        focusNavigationViewBottomConstraint.isActive = true
+    }
+    
+    private func showFocusNavigationView() {
+        focusNavigationViewBottomConstraint.constant = 6 //extra padding so we can see the navigation bar shadow below.
+        focusNavigationView.isHidden = false
+    }
+    
+    private func hideFocusNavigationView() {
+        focusNavigationViewBottomConstraint.constant = focusNavigationView.frame.height
+        focusNavigationView.isHidden = true
     }
     
     private func configureWebView() {
@@ -109,7 +146,7 @@ class SectionEditorViewController: UIViewController {
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
         
-        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceAlertDelegate: self)
+        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
         webView.inputViewsSource = inputViewsController
         
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -205,6 +242,7 @@ class SectionEditorViewController: UIViewController {
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { (_) in
             self.inputViewsController.didTransitionToNewCollection()
+            self.focusNavigationView.configure(traitCollection: newCollection)
         }
     }
 }
@@ -291,7 +329,15 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAl
     }
 }
 
-extension SectionEditorViewController: FindAndReplaceKeyboardBarAlertDelegate {
+extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate {
+    func keyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        hideFocusNavigationView()
+    }
+    
+    func keyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        showFocusNavigationView()
+    }
+    
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
         #warning("todo: Localize")
         let alertController = UIAlertController(title: "Find and replace", message: nil, preferredStyle: .actionSheet)
@@ -357,6 +403,7 @@ extension SectionEditorViewController: Themeable {
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
         apply(presentationTheme: theme)
+        focusNavigationView.apply(theme: theme)
     }
 }
 
@@ -395,5 +442,12 @@ extension SectionEditorViewController: ReadingThemesControlsResponding {
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
         messagingController.toggleLineNumbers()
         messagingController.toggleSyntaxColors()
+    }
+}
+
+extension SectionEditorViewController: FocusNavigationViewDelegate {
+    func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
+        hideFocusNavigationView()
+        inputViewsController.closeFindAndReplace()
     }
 }

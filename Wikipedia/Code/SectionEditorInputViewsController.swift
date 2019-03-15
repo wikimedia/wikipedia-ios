@@ -11,7 +11,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
     let findAndReplaceView = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
-    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceAlertDelegate: FindAndReplaceKeyboardBarAlertDelegate) {
+    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
         self.messagingController = messagingController
 
@@ -21,7 +21,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
         findAndReplaceView?.delegate = self
-        findAndReplaceView?.alertDelegate = findAndReplaceAlertDelegate
+        findAndReplaceView?.displayDelegate = findAndReplaceDisplayDelegate
         findAndReplaceView?.isShowingReplace = true
 
         messagingController.findInPageDelegate = self
@@ -32,12 +32,12 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         
     }
 
-
     func textSelectionDidChange(isRangeSelected: Bool) {
         if inputViewType == nil {
             if inputAccessoryViewType == .findInPage {
                 messagingController.clearSearch()
                 findAndReplaceView?.resetFind()
+                findAndReplaceView?.hide()
             }
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
         }
@@ -140,6 +140,20 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         }
         inputViewType = nil
         inputAccessoryViewType = .default
+    }
+    
+    func closeFindAndReplace() {
+        
+        guard let keyboardBar = findAndReplaceView else {
+            return
+        }
+        
+        messagingController.clearSearch()
+        keyboardBar.resetFind()
+        inputAccessoryViewType = previousInputAccessoryViewType
+        if keyboardBar.isVisible {
+            messagingController.focus()
+        }
     }
 }
 
@@ -302,12 +316,7 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     }
     
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar) {
-         messagingController.clearSearch()
-         keyboardBar.resetFind()
-         inputAccessoryViewType = previousInputAccessoryViewType
-         if keyboardBar.isVisible {
-            messagingController.focus()
-         }
+         //no-op, FindAndReplaceKeyboardBar not showing close button in Editor context
     }
     
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar) {

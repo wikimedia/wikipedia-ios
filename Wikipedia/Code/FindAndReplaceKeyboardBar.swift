@@ -19,8 +19,10 @@ protocol FindAndReplaceKeyboardBarDelegate: class {
     func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType)
 }
 
-protocol FindAndReplaceKeyboardBarAlertDelegate: class {
+protocol FindAndReplaceKeyboardBarDisplayDelegate: class {
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar)
+    func keyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar)
+    func keyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar)
 }
 
 @objc enum ReplaceType: Int {
@@ -55,7 +57,7 @@ class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private(set) var replaceSwitchButton: UIButton!
     
     @objc weak var delegate: FindAndReplaceKeyboardBarDelegate?
-    weak var alertDelegate: FindAndReplaceKeyboardBarAlertDelegate?
+    weak var displayDelegate: FindAndReplaceKeyboardBarDisplayDelegate?
     
     private var currentMatchTotal: UInt = 0
     
@@ -110,10 +112,12 @@ class FindAndReplaceKeyboardBar: UIInputView {
     
     @objc func show() {
         findTextField.becomeFirstResponder()
+        displayDelegate?.keyboardBarDidShow(self)
     }
     
     @objc func hide() {
         findTextField.resignFirstResponder()
+        displayDelegate?.keyboardBarDidHide(self)
     }
     
     @objc func resetFind() {
@@ -158,7 +162,7 @@ class FindAndReplaceKeyboardBar: UIInputView {
     
     @IBAction func tappedReplaceSwitch() {
         #warning("todo: set replace enable/disable button states")
-        alertDelegate?.keyboardBarDidTapReplaceSwitch(self)
+        displayDelegate?.keyboardBarDidTapReplaceSwitch(self)
     }
     
     @IBAction func textFieldDidChange(_ sender: UITextField) {
