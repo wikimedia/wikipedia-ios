@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -111,10 +111,22 @@
                 <constraint firstItem="dMs-Cs-puZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JZ4-ja-FOA" secondAttribute="top" constant="10" id="APm-88-9dP"/>
                 <constraint firstItem="JZ4-ja-FOA" firstAttribute="bottom" secondItem="dMs-Cs-puZ" secondAttribute="bottom" id="Sej-DO-JER"/>
                 <constraint firstItem="dMs-Cs-puZ" firstAttribute="centerY" secondItem="7M8-99-dh4" secondAttribute="centerY" priority="999" id="TZL-Bc-Arq"/>
+                <constraint firstItem="JZ4-ja-FOA" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dMs-Cs-puZ" secondAttribute="bottom" constant="10" id="gQc-Dw-PzX"/>
                 <constraint firstItem="dMs-Cs-puZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JZ4-ja-FOA" secondAttribute="leading" priority="999" id="kTs-1N-B5U"/>
                 <constraint firstItem="dMs-Cs-puZ" firstAttribute="centerX" secondItem="7M8-99-dh4" secondAttribute="centerX" priority="999" id="xmT-yg-OL3"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="JZ4-ja-FOA"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="gQc-Dw-PzX"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=regular">
+                <mask key="constraints">
+                    <exclude reference="Sej-DO-JER"/>
+                    <include reference="gQc-Dw-PzX"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="785" y="403"/>
         </view>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
