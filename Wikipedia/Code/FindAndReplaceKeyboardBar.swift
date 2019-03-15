@@ -25,8 +25,8 @@ protocol FindAndReplaceKeyboardBarDisplayDelegate: class {
 @objc (WMFFindAndReplaceKeyboardBar)
 final class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private var outerStackView: UIStackView!
-    @IBOutlet var outerStackViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet var outerStackViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private var outerStackViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private var outerStackViewTrailingConstraint: NSLayoutConstraint!
     
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var findTextField: UITextField!
