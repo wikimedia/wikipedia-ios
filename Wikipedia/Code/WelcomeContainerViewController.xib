@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dMs-Cs-puZ">
-                    <rect key="frame" x="36" y="310" width="342" height="552"/>
+                    <rect key="frame" x="36" y="344" width="342" height="552"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dub-mg-qOR" userLabel="Top View">
                             <rect key="frame" x="0.0" y="0.0" width="342" height="232"/>
@@ -109,7 +109,7 @@
             <constraints>
                 <constraint firstItem="JZ4-ja-FOA" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dMs-Cs-puZ" secondAttribute="trailing" priority="999" id="6x0-Ih-xGh"/>
                 <constraint firstItem="dMs-Cs-puZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JZ4-ja-FOA" secondAttribute="top" constant="10" id="APm-88-9dP"/>
-                <constraint firstItem="JZ4-ja-FOA" firstAttribute="bottom" secondItem="dMs-Cs-puZ" secondAttribute="bottom" id="Sej-DO-JER"/>
+                <constraint firstAttribute="bottom" secondItem="dMs-Cs-puZ" secondAttribute="bottom" id="Sej-DO-JER"/>
                 <constraint firstItem="dMs-Cs-puZ" firstAttribute="centerY" secondItem="7M8-99-dh4" secondAttribute="centerY" priority="999" id="TZL-Bc-Arq"/>
                 <constraint firstItem="JZ4-ja-FOA" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dMs-Cs-puZ" secondAttribute="bottom" constant="10" id="gQc-Dw-PzX"/>
                 <constraint firstItem="dMs-Cs-puZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JZ4-ja-FOA" secondAttribute="leading" priority="999" id="kTs-1N-B5U"/>

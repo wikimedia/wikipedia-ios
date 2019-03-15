@@ -9,6 +9,7 @@ class WelcomePanelViewController: UIViewController {
 
     @IBOutlet private weak var actionLabel: UILabel!
     @IBOutlet private weak var actionButton: AutoLayoutSafeMultiLineButton!
+    @IBOutlet private weak var actionStackViewBottomConstraint: NSLayoutConstraint!
 
     private let titleLabelText: String
     private let actionLabelText: String?
@@ -50,6 +51,7 @@ class WelcomePanelViewController: UIViewController {
     private func configureActionButton() {
         actionButton.setTitle(actionButtonTitle, for: .normal)
         actionButton.isHidden = actionButtonTitle == nil
+        actionStackViewBottomConstraint.constant = actionButton.isHidden ? 16 : 0
     }
 
     private func configureTitleLabel() {

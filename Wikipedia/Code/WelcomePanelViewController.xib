@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="actionButton" destination="urh-zw-u6D" id="yvV-XP-4Lu"/>
                 <outlet property="actionLabel" destination="r5D-dC-jd4" id="ywW-af-B7Q"/>
+                <outlet property="actionStackViewBottomConstraint" destination="3i0-zA-CZ4" id="ooX-Hp-klG"/>
                 <outlet property="containerView" destination="yhi-Hr-7Gh" id="ASX-gd-iL4"/>
                 <outlet property="scrollView" destination="1on-Ec-EaB" id="nau-Xo-0mZ"/>
                 <outlet property="scrollViewGradientView" destination="Yah-7B-ltZ" id="37s-3p-y2U"/>
@@ -88,10 +89,10 @@
                                 <constraint firstAttribute="trailing" secondItem="1on-Ec-EaB" secondAttribute="trailing" id="z49-rg-B7a"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zu-oB-zQ9" userLabel="Button View">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zu-oB-zQ9" userLabel="Action View">
                             <rect key="frame" x="0.0" y="541" width="355" height="96"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ycy-bJ-iCU">
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ycy-bJ-iCU" userLabel="Action Stack View">
                                     <rect key="frame" x="14" y="10" width="327" height="86"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5D-dC-jd4">
@@ -99,6 +100,9 @@
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            </variation>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urh-zw-u6D" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="36" width="327" height="50"/>
