@@ -19,7 +19,8 @@ public enum WMFPasswordResetterError: LocalizedError {
 
     private static let supportedAccountErrorCodes = [
         "ratelimited",
-        "noemail"
+        "noemail",
+        "globalblocking-blocked-nopassreset"
     ]
 }
 
