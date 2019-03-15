@@ -184,6 +184,7 @@
 "edit-italic-remove-accessibility-label" = "إزالة التنسيق المائل";
 "edit-link-accessibility-label" = "إضافة صيغة الوصلة";
 "edit-link-remove-accessibility-label" = "إزالة صيغة الوصلة";
+"edit-menu-item" = "تعديل";
 "edit-minor-learn-more-text" = "معرفة المزيد عن التعديلات الطفيفة";
 "edit-minor-text" = "هذا تعديل طفيف";
 "edit-ordered-list-accessibility-label" = "جعل الخط الحالي قائمة مرتبة";
@@ -220,6 +221,14 @@
 "edit-unordered-list-remove-accessibility-label" = "إزالة قائمة غير مرتبة من الخط الحالي";
 "edit-watch-list-learn-more-text" = "تعرف على المزيد حول قوائم المراقبة";
 "edit-watch-this-page-text" = "راقب هذه الصفحة";
+"editing-welcome-be-bold-subtitle" = "كن جريئا ولكن ليس متهورا في تحديث المقالات، لا تتعب من ارتكاب الأخطاء: يتم حفظ كل إصدار سابق من الصفحة؛ لذلك يمكن أن يصحح مجتمعنا الأخطاء بسهولة.";
+"editing-welcome-be-bold-title" = "صوتك مهم";
+"editing-welcome-citations-subtitle" = "يجب أن يكون كل المحتوى قابلا للتحقق، عند إضافة معلومات جديدة إلى مقال، يجب على المحررين تقديم استشهاد مضمن لمصدر موثوق يدعم المساهمة بشكل مباشر.";
+"editing-welcome-citations-title" = "استشهد بمصادر موثوقة";
+"editing-welcome-impartial-tone-subtitle" = "نحن نسعى جاهدين لكتابة المقالات بأسلوب محايد، عند التحرير، تهدف إلى تقديم تمثيل عادل للعالم كمصادر موثوقة تصفه.";
+"editing-welcome-impartial-tone-title" = "اكتب بنبرة محايدة";
+"editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
+"editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
 "empty-no-article-message" = "عذرا , غير قادر على تحميل الموضوع";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-feed-message" = "يمكنك مشاهدة مواضيعك المفضلة عندما تتصل بالانترنت";

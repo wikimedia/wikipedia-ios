@@ -78,6 +78,7 @@
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
 "action-saved-accessibility-notification" = "Artikeln sparades till senare";
 "action-share" = "Dela";
+"action-share-accessibility" = "Dela";
 "action-sort" = "Sortera";
 "action-undo" = "Ångra";
 "action-unsave" = "Ta bort";
@@ -178,6 +179,7 @@
 "edit-italic-remove-accessibility-label" = "Ta bort kursiverad formatering";
 "edit-link-accessibility-label" = "Lägg till länksyntax";
 "edit-link-remove-accessibility-label" = "Ta bort länksyntax";
+"edit-menu-item" = "Redigera";
 "edit-minor-learn-more-text" = "Läs mer om mindre redigeringar";
 "edit-minor-text" = "Detta är en mindre redigering";
 "edit-ordered-list-accessibility-label" = "Gör nuvarande rad till en ordnad lista";
