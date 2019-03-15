@@ -12,7 +12,7 @@ protocol FocusNavigationViewDelegate: class {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView)
 }
 
-class FocusNavigationView: UIView {
+final class FocusNavigationView: UIView {
 
     @IBOutlet private var titleLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet private var titleLabel: UILabel!

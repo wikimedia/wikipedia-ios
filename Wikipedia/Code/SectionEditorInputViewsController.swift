@@ -60,8 +60,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         textFormattingInputViewController.buttonSelectionDidChange(button: button)
     }
     
-    func updateReplaceState(state: ReplaceType) {
-        findAndReplaceView?.replaceType = state
+    func updateReplaceType(type: ReplaceType) {
+        findAndReplaceView?.replaceType = type
     }
 
     var inputViewType: TextFormattingInputViewController.InputViewType?

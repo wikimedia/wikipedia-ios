@@ -98,6 +98,18 @@
 		41FCAA3A21C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */; };
 		672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
+		67861A14223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
+		67861A15223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
+		67861A16223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
+		67861A17223C13830044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
+		67861A18223C13940044F69D /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
+		67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
+		67861A1A223C13940044F69D /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
+		67861A1B223C13950044F69D /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
+		67861A1C223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
+		67861A1D223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
+		67861A1E223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
+		67861A1F223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D21222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -9155,6 +9167,7 @@
 			files = (
 				D80ED3CC1EE57F4800CE8C50 /* WMFCaptchaViewController.storyboard in Resources */,
 				B0F4762421F921D300C4E254 /* EditSummaryViewController.xib in Resources */,
+				67861A17223C13830044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D82E958E1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				D8703DCF1EE8B27A001A4BAB /* mapstyle.json in Resources */,
 				D80ED3D11EE57F4800CE8C50 /* AboutViewController.plist in Resources */,
@@ -9234,6 +9247,7 @@
 				D80ED41A1EE57F4800CE8C50 /* PageHistoryViewController.storyboard in Resources */,
 				7A9A611C21124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				83AE1C891F34BB66004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
+				67861A1F223C13990044F69D /* FocusNavigationView.xib in Resources */,
 				D80ED41C1EE57F4800CE8C50 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D80ED41E1EE57F4800CE8C50 /* WebViewController.storyboard in Resources */,
 				B01EA0822022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9353,7 +9367,9 @@
 				D8A42BF91E815A9C00D8E281 /* TSMessagesDefaultDesign.json in Resources */,
 				D8A42BFA1E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8A42BFC1E815A9C00D8E281 /* ArticlePopoverViewController.xib in Resources */,
+				67861A1E223C13990044F69D /* FocusNavigationView.xib in Resources */,
 				D8C4D3D61FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
+				67861A16223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8A42BFD1E815A9C00D8E281 /* Launch Screen.storyboard in Resources */,
 				D8A42BFE1E815A9C00D8E281 /* EditSaveViewController.storyboard in Resources */,
 				D8A42BFF1E815A9C00D8E281 /* NotificationBackgroundWarning.png in Resources */,
@@ -9449,7 +9465,9 @@
 				D8CE26801E698E2400DAE2E0 /* TSMessagesDefaultDesign.json in Resources */,
 				D8CE26811E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8CE26831E698E2400DAE2E0 /* ArticlePopoverViewController.xib in Resources */,
+				67861A1C223C13990044F69D /* FocusNavigationView.xib in Resources */,
 				D8C4D3D41FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
+				67861A14223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8CE26841E698E2400DAE2E0 /* Launch Screen.storyboard in Resources */,
 				D8CE26851E698E2400DAE2E0 /* EditSaveViewController.storyboard in Resources */,
 				D8CE26861E698E2400DAE2E0 /* NotificationBackgroundWarning.png in Resources */,
@@ -9545,7 +9563,9 @@
 				D8EC3F801E9BDA35006712EB /* TSMessagesDefaultDesign.json in Resources */,
 				D8EC3F811E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8EC3F831E9BDA35006712EB /* ArticlePopoverViewController.xib in Resources */,
+				67861A1D223C13990044F69D /* FocusNavigationView.xib in Resources */,
 				D8C4D3D51FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
+				67861A15223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8EC3F841E9BDA35006712EB /* Launch Screen.storyboard in Resources */,
 				D8EC3F851E9BDA35006712EB /* EditSaveViewController.storyboard in Resources */,
 				D8EC3F861E9BDA35006712EB /* NotificationBackgroundWarning.png in Resources */,
@@ -10466,6 +10486,7 @@
 				7AFC79FC21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				B0C7A0821F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D80ED3091EE57F4800CE8C50 /* UIViewController+WMFHideKeyboard.swift in Sources */,
+				67861A1B223C13950044F69D /* FocusNavigationView.swift in Sources */,
 				83023C2320E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D80ED30B1EE57F4800CE8C50 /* WeakScriptMessageDelegate.swift in Sources */,
 				83023C0A20E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
@@ -11088,6 +11109,7 @@
 				B0421AA5206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				7A2BB1D721F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				B01E3AFC21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
+				67861A1A223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
 				67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
@@ -11502,6 +11524,7 @@
 				7AFC79F921B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
+				67861A18223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				83023C0720E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				D8CE25771E698E2400DAE2E0 /* MWKLanguageLinkFetcher.m in Sources */,
@@ -11851,6 +11874,7 @@
 				7AFC79FA21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				D8EC3E621E9BDA35006712EB /* WMFSuggestedPagesFunnel.m in Sources */,
 				D8EC3E631E9BDA35006712EB /* WMFWelcomeContainerViewController.swift in Sources */,
+				67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8EC3E641E9BDA35006712EB /* WMFAccountCreator.swift in Sources */,
 				D8EC3E651E9BDA35006712EB /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D8EC3E671E9BDA35006712EB /* WeakScriptMessageDelegate.swift in Sources */,

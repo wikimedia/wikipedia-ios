@@ -342,10 +342,10 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
         #warning("todo: Localize")
         let alertController = UIAlertController(title: "Find and replace", message: nil, preferredStyle: .actionSheet)
         let replaceAction = UIAlertAction(title: "Replace", style: .default) { (_) in
-            self.inputViewsController.updateReplaceState(state: .replaceSingle)
+            self.inputViewsController.updateReplaceType(type: .replaceSingle)
         }
         let replaceAllAction = UIAlertAction(title: "Replace all", style: .default) { (_) in
-            self.inputViewsController.updateReplaceState(state: .replaceAll)
+            self.inputViewsController.updateReplaceType(type: .replaceAll)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(replaceAction)
