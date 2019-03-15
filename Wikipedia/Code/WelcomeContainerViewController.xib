@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina4_0" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,23 +19,23 @@
             </connections>
         </placeholder>
         <view contentMode="scaleToFill" id="7M8-99-dh4">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dMs-Cs-puZ">
-                    <rect key="frame" x="36" y="344" width="342" height="552"/>
+                    <rect key="frame" x="1" y="10" width="566" height="310"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dub-mg-qOR" userLabel="Top View">
-                            <rect key="frame" x="0.0" y="0.0" width="342" height="232"/>
+                            <rect key="frame" x="0.0" y="0.0" width="296" height="310"/>
                             <subviews>
                                 <containerView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVm-53-1Qf" userLabel="Background Container View">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="232"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="296" height="200.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="NVm-53-1Qf" secondAttribute="height" multiplier="90:61" id="jxh-Bt-Yot"/>
                                     </constraints>
                                 </containerView>
                                 <containerView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgU-qJ-TmJ" userLabel="Foreground Container View">
-                                    <rect key="frame" x="62" y="7" width="218" height="218"/>
+                                    <rect key="frame" x="0.0" y="7" width="296" height="296"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="KgU-qJ-TmJ" secondAttribute="height" multiplier="1:1" id="64H-UY-FA4"/>
                                     </constraints>
@@ -46,17 +46,23 @@
                                 <constraint firstAttribute="bottom" secondItem="KgU-qJ-TmJ" secondAttribute="bottom" constant="7" id="1Hh-cL-Tpl"/>
                                 <constraint firstItem="NVm-53-1Qf" firstAttribute="leading" secondItem="Dub-mg-qOR" secondAttribute="leading" id="4w1-5y-9sB"/>
                                 <constraint firstItem="KgU-qJ-TmJ" firstAttribute="top" secondItem="Dub-mg-qOR" secondAttribute="top" constant="7" id="6uW-ZN-y8H"/>
+                                <constraint firstItem="KgU-qJ-TmJ" firstAttribute="leading" secondItem="Dub-mg-qOR" secondAttribute="leading" id="GJC-qi-tbw"/>
                                 <constraint firstAttribute="width" priority="999" constant="225" id="Hk5-JX-062"/>
                                 <constraint firstAttribute="bottom" secondItem="NVm-53-1Qf" secondAttribute="bottom" id="Jrl-vY-T9a"/>
                                 <constraint firstAttribute="trailing" secondItem="NVm-53-1Qf" secondAttribute="trailing" id="VDw-86-JAp"/>
                                 <constraint firstItem="NVm-53-1Qf" firstAttribute="centerX" secondItem="Dub-mg-qOR" secondAttribute="centerX" priority="999" id="dRD-uj-w5O"/>
                                 <constraint firstItem="NVm-53-1Qf" firstAttribute="top" secondItem="Dub-mg-qOR" secondAttribute="top" id="ggi-1e-cSD"/>
                                 <constraint firstAttribute="height" priority="999" constant="232" id="jwK-hN-0sv"/>
+                                <constraint firstAttribute="trailing" secondItem="KgU-qJ-TmJ" secondAttribute="trailing" id="m03-qE-4kE"/>
+                                <constraint firstItem="NVm-53-1Qf" firstAttribute="top" secondItem="Dub-mg-qOR" secondAttribute="top" id="vVk-9Z-yd3"/>
                                 <constraint firstItem="KgU-qJ-TmJ" firstAttribute="centerX" secondItem="Dub-mg-qOR" secondAttribute="centerX" id="zn3-ZW-EI3"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="Hk5-JX-062"/>
+                                    <exclude reference="vVk-9Z-yd3"/>
+                                    <exclude reference="GJC-qi-tbw"/>
+                                    <exclude reference="m03-qE-4kE"/>
                                 </mask>
                             </variation>
                             <variation key="heightClass=compact">
@@ -68,9 +74,17 @@
                                     <exclude reference="ggi-1e-cSD"/>
                                 </mask>
                             </variation>
+                            <variation key="heightClass=compact-widthClass=compact">
+                                <mask key="constraints">
+                                    <include reference="vVk-9Z-yd3"/>
+                                    <include reference="GJC-qi-tbw"/>
+                                    <include reference="m03-qE-4kE"/>
+                                    <exclude reference="zn3-ZW-EI3"/>
+                                </mask>
+                            </variation>
                         </view>
                         <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgT-3l-nhO" userLabel="Bottom Container View">
-                            <rect key="frame" x="0.0" y="232" width="342" height="320"/>
+                            <rect key="frame" x="316" y="0.0" width="250" height="310"/>
                             <constraints>
                                 <constraint firstAttribute="width" priority="999" constant="250" id="Jpk-pf-nMF"/>
                                 <constraint firstAttribute="height" priority="999" constant="320" id="UyW-ou-JaW"/>
@@ -123,8 +137,8 @@
             </variation>
             <variation key="heightClass=regular-widthClass=regular">
                 <mask key="constraints">
-                    <exclude reference="Sej-DO-JER"/>
                     <include reference="gQc-Dw-PzX"/>
+                    <exclude reference="Sej-DO-JER"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="785" y="403"/>
