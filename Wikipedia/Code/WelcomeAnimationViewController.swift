@@ -46,9 +46,3 @@ final class WelcomeAnimationViewController: UIViewController {
         view.addMotionEffect(group)
     }
 }
-
-extension WelcomeAnimationViewController: Themeable {
-    func apply(theme: Theme) {
-        #warning("Theme WelcomeAnimationViewController")
-    }
-}

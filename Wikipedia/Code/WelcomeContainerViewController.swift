@@ -41,7 +41,7 @@ class WelcomeContainerViewController: UIViewController {
         apply(theme: theme)
     }
     
-    private func addChild(_ viewController: (UIViewController & Themeable)?, to view: UIView) {
+    private func addChild(_ viewController: UIViewController?, to view: UIView) {
         guard
             let viewController = viewController,
             viewController.parent == nil,
@@ -53,7 +53,7 @@ class WelcomeContainerViewController: UIViewController {
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(viewController.view)
         viewController.didMove(toParent: self)
-        viewController.apply(theme: theme)
+        (viewController as? Themeable)?.apply(theme: theme)
     }
 }
 
