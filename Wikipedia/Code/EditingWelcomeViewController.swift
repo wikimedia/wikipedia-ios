@@ -7,13 +7,13 @@ final class EditingWelcomeViewController: WelcomeViewController {
     private let citeReliableSourcesDataSource = CiteReliableSourcesDataSource()
     private let setKnowledgeFreeDataSource = SetKnowledgeFreeDataSource()
 
-    @objc init(theme: Theme) {
+    @objc init(theme: Theme, completion: @escaping () -> Void) {
         super.init(theme: theme, viewControllers: [
             WelcomeContainerViewController(dataSource: beBoldDataSource),
             WelcomeContainerViewController(dataSource: impartialToneDataSource),
             WelcomeContainerViewController(dataSource: citeReliableSourcesDataSource),
             WelcomeContainerViewController(dataSource: setKnowledgeFreeDataSource)
-        ])
+        ], completion: completion)
     }
 
     required init?(coder aDecoder: NSCoder) {

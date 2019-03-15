@@ -1805,10 +1805,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         navigationController.view.alpha = 0;
     }
 
+    sectionEditVC.shouldFocusWebView = !needsIntro;
     @weakify(self);
     void (^showIntro)(void) = ^{
         @strongify(self);
-        WMFEditingWelcomeViewController *editingWelcomeViewController = [[WMFEditingWelcomeViewController alloc] initWithTheme:self.theme];
+        WMFEditingWelcomeViewController *editingWelcomeViewController = [[WMFEditingWelcomeViewController alloc] initWithTheme:self.theme completion:^{
+            sectionEditVC.shouldFocusWebView = YES;
+        }];
         [editingWelcomeViewController applyTheme:self.theme];
         [navigationController presentViewController:editingWelcomeViewController
                                            animated:YES

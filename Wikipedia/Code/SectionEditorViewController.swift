@@ -23,6 +23,8 @@ class SectionEditorViewController: UIViewController {
     }()
     
     private var theme = Theme.standard
+
+    private var didFocusWebViewCompletion: (() -> Void)?
     
     @objc var editFunnel: EditFunnel?
     
@@ -123,6 +125,24 @@ class SectionEditorViewController: UIViewController {
         webView.menuItemsDataSource = menuItemsController
         webView.menuItemsDelegate = menuItemsController
     }
+
+    @objc var shouldFocusWebView = true {
+        didSet {
+            guard shouldFocusWebView else {
+                return
+            }
+            focusWebViewIfReady()
+        }
+    }
+
+    private var didSetWikitextToWebView: Bool = false {
+        didSet {
+            guard shouldFocusWebView else {
+                return
+            }
+            focusWebViewIfReady()
+        }
+    }
     
     private func setWikitextToWebViewIfReady() {
         assert(Thread.isMainThread)
@@ -134,13 +154,27 @@ class SectionEditorViewController: UIViewController {
                 assertionFailure(error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
-                    self?.messagingController.focus()
-                    self?.webView.isHidden = false
+                    self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
                         self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
                     }
                 }
             }
+        }
+    }
+
+    private func focusWebViewIfReady() {
+        guard didSetWikitextToWebView else {
+            return
+        }
+        messagingController.focus()
+        webView.isHidden = false
+        dispatchOnMainQueueAfterDelayInSeconds(0.5) { [weak self] in
+            guard let didFocusWebViewCompletion = self?.didFocusWebViewCompletion else {
+                return
+            }
+            didFocusWebViewCompletion()
+            self?.didFocusWebViewCompletion = nil
         }
     }
     
@@ -153,12 +187,16 @@ class SectionEditorViewController: UIViewController {
             assertionFailure("Section should be set by now")
             return
         }
-        let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
-        WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
+        if shouldFocusWebView {
+            let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
+            WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
+        }
         sectionFetcher.fetch(section) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
+                    self.didFocusWebViewCompletion = {
+                        WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
+                    }
                     return
                 }
                 guard
@@ -169,7 +207,7 @@ class SectionEditorViewController: UIViewController {
                 }
                 
                 self.editFunnel?.logStart(section.article?.url.wmf_language)
-                
+
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
                     !allowedGroups.isEmpty {
@@ -181,15 +219,18 @@ class SectionEditorViewController: UIViewController {
                     } else {
                         message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
                     }
-                    WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+                    self.didFocusWebViewCompletion = {
+                        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+                    }
                 } else {
-                    WMFAlertManager.sharedInstance.dismissAlert()
+                    self.didFocusWebViewCompletion = {
+                        WMFAlertManager.sharedInstance.dismissAlert()
+                    }
                 }
                 
                 self.wikitext = revision
             }
         }
-        
     }
     
     // MARK: - Accessibility

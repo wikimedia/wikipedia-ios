@@ -2,8 +2,10 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     private var theme = Theme.standard
+    private let completion: () -> Void
 
-    init(theme: Theme, viewControllers: [UIViewController & Themeable]) {
+    init(theme: Theme, viewControllers: [UIViewController & Themeable], completion: @escaping () -> Void) {
+        self.completion = completion
         self.theme = theme
         super.init(nibName: nil, bundle: nil)
         addPageViewController(with: viewControllers)
@@ -16,6 +18,11 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        completion()
     }
 
     private func addPageViewController(with viewControllers: [UIViewController & Themeable]) {
