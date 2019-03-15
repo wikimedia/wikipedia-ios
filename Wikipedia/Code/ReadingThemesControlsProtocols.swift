@@ -47,7 +47,12 @@ extension ReadingThemesControlsPresenting {
         apply(presentationTheme: theme)
         
         let popoverPresenter = readingThemesControlsViewController.popoverPresentationController
-        popoverPresenter?.barButtonItem = readingThemesControlsToolbarItem
+        if let view = readingThemesControlsToolbarItem.customView {
+            popoverPresenter?.sourceView = viewController.view
+            popoverPresenter?.sourceRect = viewController.view.convert(view.bounds, from: view)
+        } else {
+            popoverPresenter?.barButtonItem = readingThemesControlsToolbarItem
+        }
         popoverPresenter?.permittedArrowDirections = [.down, .up]
         
         if let navBar = viewController.navigationController?.navigationBar,
