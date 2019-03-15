@@ -195,6 +195,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Accessibility label for remove unordered list button";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
+"editing-welcome-be-bold-subtitle" = "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles";
+"editing-welcome-be-bold-title" = "Title for editing onboarding screen encouraging users to start editing Wikipedia articles";
+"editing-welcome-citations-subtitle" = "Subtitle for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles";
+"editing-welcome-citations-title" = "Title for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles";
+"editing-welcome-impartial-tone-subtitle" = "Subtitle for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles";
+"editing-welcome-impartial-tone-title" = "Title for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles";
+"editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
+"editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
@@ -538,7 +546,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider that adjusts article text size.";
+"reading-themes-controls-syntax-highlighting" = "Text for syntax highlighting label in the Reading Themes Controls popover";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with the number of hours ago.";
