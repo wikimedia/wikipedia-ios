@@ -164,8 +164,6 @@ public class CommonStrings: NSObject {
 
     @objc public static let editSignIn = WMFLocalizedString("wikitext-upload-save-sign-in", value: "Log in", comment: "{{Identical|Log in}}")
     
-    public static let genericErrorDescription = WMFLocalizedString("error-generic-description", value: "An unexpected error occurred", comment: "Generic error message for when the error isn't recoverable by the user.")
-    public static let genericErrorRecoverySuggestion = WMFLocalizedString("error-generic-recovery-suggestion", value: "Please try again later", comment: "Generic recovery suggestion for when the error isn't recoverable by the user.")
 
     // MARK: Editing onboarding - will be moved out of Common Strings when screens are ready
 
