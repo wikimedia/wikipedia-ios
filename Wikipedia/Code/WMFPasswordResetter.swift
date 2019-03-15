@@ -2,7 +2,7 @@
 public enum WMFPasswordResetterError: LocalizedError {
     case cannotExtractResetStatus
     case resetStatusNotSuccess
-    case accountError(code: String, message: String)
+    case accountError(String)
 
     public var errorDescription: String? {
         switch self {
@@ -10,18 +10,10 @@ public enum WMFPasswordResetterError: LocalizedError {
             return "Could not extract status"
         case .resetStatusNotSuccess:
             return "Password reset did not succeed"
-        case .accountError(let code, let message) where WMFPasswordResetterError.supportedAccountErrorCodes.contains(code):
+        case .accountError(let message):
             return message
-        default:
-            return CommonStrings.genericErrorDescription
         }
     }
-
-    private static let supportedAccountErrorCodes = [
-        "ratelimited",
-        "noemail",
-        "globalblocking-blocked-nopassreset"
-    ]
 }
 
 public typealias WMFPasswordResetterResultBlock = (WMFPasswordResetterResult) -> Void
@@ -52,8 +44,8 @@ public class WMFPasswordResetter: Fetcher {
                 failure(error)
                 return
             }
-            if let error = result?["error"] as? [String: Any], let code = error["code"] as? String, let info = error["info"] as? String {
-                failure(WMFPasswordResetterError.accountError(code: code, message: info))
+            if let error = result?["error"] as? [String: Any], let info = error["info"] as? String {
+                failure(WMFPasswordResetterError.accountError(info))
                 return
             }
             guard
