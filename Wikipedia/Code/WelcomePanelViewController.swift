@@ -9,7 +9,6 @@ class WelcomePanelViewController: UIViewController {
 
     @IBOutlet private weak var actionLabel: UILabel!
     @IBOutlet private weak var actionButton: AutoLayoutSafeMultiLineButton!
-    @IBOutlet private weak var actionButtonContainerView: UIView!
 
     private let titleLabelText: String
     private let actionLabelText: String?

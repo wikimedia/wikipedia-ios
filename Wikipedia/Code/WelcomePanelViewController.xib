@@ -13,7 +13,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomePanelViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="actionButton" destination="urh-zw-u6D" id="yvV-XP-4Lu"/>
-                <outlet property="actionButtonContainerView" destination="4zu-oB-zQ9" id="Wht-sW-viX"/>
                 <outlet property="actionLabel" destination="r5D-dC-jd4" id="ywW-af-B7Q"/>
                 <outlet property="containerView" destination="yhi-Hr-7Gh" id="ASX-gd-iL4"/>
                 <outlet property="scrollView" destination="1on-Ec-EaB" id="nau-Xo-0mZ"/>
@@ -119,6 +118,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
+                                                <action selector="performAction:" destination="-1" eventType="touchUpInside" id="nMt-yR-Wkz"/>
                                                 <action selector="skipButtonTapped:" destination="-2" eventType="touchUpInside" id="arW-S8-XqK"/>
                                             </connections>
                                         </button>
