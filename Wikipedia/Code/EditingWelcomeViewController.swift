@@ -35,7 +35,7 @@ final fileprivate class BeBoldDataSource: WelcomeContainerViewControllerDataSour
     lazy var panelViewController: WelcomePanelViewController = {
         let contentText = "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community."
         let contentViewController = WelcomePanelLabelContentViewController(text: contentText)
-        return WelcomePanelViewController(titleLabelText: "Your voice is important", actionLabelText: "By starting, I promise not to misuse this feature", actionButtonTitle: nil, contentViewController: contentViewController)
+        return WelcomePanelViewController(titleLabelText: "Be bold", actionLabelText: "By starting, I promise not to misuse this feature", actionButtonTitle: nil, contentViewController: contentViewController)
     }()
 }
 
@@ -87,7 +87,7 @@ final fileprivate class SetKnowledgeFreeDataSource: WelcomeContainerViewControll
     }()
 
     lazy var panelViewController: WelcomePanelViewController = {
-        let contentText = " In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you. "
+        let contentText = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you."
         let contentViewController = WelcomePanelLabelContentViewController(text: contentText)
         return WelcomePanelViewController(titleLabelText: "Set knowledge free", actionLabelText: nil, actionButtonTitle: "Get started", contentViewController: contentViewController)
     }()
