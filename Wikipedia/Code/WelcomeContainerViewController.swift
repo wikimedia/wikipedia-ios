@@ -32,9 +32,10 @@ class WelcomeContainerViewController: UIViewController {
             return
         }
         addChild(WelcomeAnimationViewController(position: .foreground, animationView: dataSource.foregroundAnimationView), to: topForegroundContainerView)
-
         if let backgroundAnimationView = dataSource.backgroundAnimationView {
             addChild(WelcomeAnimationViewController(position: .background, animationView: backgroundAnimationView), to: topBackgroundContainerView)
+        } else {
+            topBackgroundContainerView.isHidden = true
         }
         addChild(dataSource.panelViewController, to: bottomContainerView)
         apply(theme: theme)
