@@ -33,6 +33,6 @@ extension FocusNavigationView: Themeable {
     func apply(theme: Theme) {
         titleLabel.textColor = theme.colors.primaryText
         closeButton.tintColor = theme.colors.secondaryText
-        backgroundColor = theme.colors.inputAccessoryBackground
+        backgroundColor = theme.colors.paperBackground
     }
 }
