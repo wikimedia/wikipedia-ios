@@ -16,7 +16,6 @@ final class WelcomePageViewController: UIPageViewController {
     private var theme = Theme.standard
 
     required init(viewControllers: [UIViewController]) {
-        #warning("Add dedicated dataSource and delegate")
         allViewControllers = viewControllers
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
         dataSource = self
