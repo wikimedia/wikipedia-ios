@@ -1800,7 +1800,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:sectionEditVC theme:self.theme];
     navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
 
-    BOOL __block needsIntro = !NSUserDefaults.standardUserDefaults.didShowEditingOnboarding;
+    BOOL needsIntro = !NSUserDefaults.standardUserDefaults.didShowEditingOnboarding;
     if (needsIntro) {
         navigationController.view.alpha = 0;
     }
