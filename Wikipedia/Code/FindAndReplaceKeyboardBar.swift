@@ -153,7 +153,6 @@ class FindAndReplaceKeyboardBar: UIInputView {
     
     @IBAction func tappedReplace() {
         
-        #warning("todo: set replace enable/disable button states")
         guard let replaceText = replaceTextField.text else {
             return
         }
@@ -161,7 +160,6 @@ class FindAndReplaceKeyboardBar: UIInputView {
     }
     
     @IBAction func tappedReplaceSwitch() {
-        #warning("todo: set replace enable/disable button states")
         displayDelegate?.keyboardBarDidTapReplaceSwitch(self)
     }
     
@@ -264,8 +262,6 @@ private extension FindAndReplaceKeyboardBar {
                 currentMatchLabel.text = nil
                 return
         }
-        
-        #warning("todo: try to use optional instead of -1")
         
         var labelText: String
         if total > 0 && index == -1 {

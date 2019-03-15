@@ -584,42 +584,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)keyboardBarDidTapReplace:(WMFFindAndReplaceKeyboardBar *)keyboardBar replaceText:(NSString *)replaceText replaceType:(enum ReplaceType)replaceType {
-    //no-op
+    //no-op, not showing replace bar in this context
 }
 
-/*
-- (void)keyboardBar:(WMFFindAndReplaceKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
-    term = [term wmf_stringBySanitizingForJavaScript];
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term]
-                   completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
-                       [self scrollToAndFocusOnFirstMatch];
-                   }];
-}
-
-- (void)keyboardBarCloseButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
-    [self hideFindInPageWithCompletion:nil];
-}
-
-- (void)keyboardBarClearButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
-    // Stop scrolling to let the keyboard open
-    [self killScroll];
-    [self resetFindInPageWithCompletion:nil];
-}
-
-- (void)keyboardBarReturnTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
-    [keyboardBar hide];
-}
-
-- (void)keyboardBarPreviousButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
-    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionPrevious];
-    [self scrollToAndFocusOnSelectedMatch];
-}
-
-- (void)keyboardBarNextButtonTapped:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
-    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionNext];
-    [self scrollToAndFocusOnSelectedMatch];
-}
-*/
 #pragma mark - WebView configuration
 
 - (WKWebViewConfiguration *)configuration {

@@ -223,29 +223,29 @@
       cm.state.replaceAllCount = count;
     }
      
-    //same as replace but bypasses CodeMirror dialogs. Split this up into all & single variants for simplicity
-    function replaceAllQuiet(cm) {
+    //same as replace(cm, all) but bypasses CodeMirror dialogs. Split this up into all & single variants for simplicity
+    function replaceAllWithoutDialogs(cm) {
       var replaceText = cm.state.replaceText
       if (cm.getOption("readOnly")) return;
       if (!replaceText) return;
 
-      var query = cm.getSelection() || getSearchState(cm).lastQuery;
+     var query = cm.state.query;
       query = parseQuery(query);
       replaceText = parseString(replaceText);
       replaceAll(cm, query, replaceText);
 
-      //reset count to 0/0
+      //resets count to 0/0
       let state = getSearchState(cm)
       focusOnMatch(state);
     }
 
-    function replaceSingleQuiet(cm) {
+    function replaceSingleWithoutDialogs(cm) {
       if (cm.getOption("readOnly")) return;
       var replaceText = cm.state.replaceText
       if (!replaceText) return;
 
       var state = getSearchState(cm);
-      var query = cm.getSelection() || state.lastQuery;
+      var query = state.query;
       query = parseQuery(query);
       replaceText = parseString(replaceText);
       var cursor = getSearchCursor(cm, query, state.posFrom);
@@ -256,7 +256,7 @@
           cursor = getSearchCursor(cm, query);
           state.focusedMatchIndex = 0;
           if (!(match = cursor.findNext()) || (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) {
-            focusOnMatch(state); //this resets count to 0/0
+            focusOnMatch(state); //resets count to 0/0
             return;
           }
         }
@@ -318,6 +318,6 @@
     CodeMirror.commands.clearSearch = clearSearch;
     CodeMirror.commands.replace = replace;
     CodeMirror.commands.replaceAll = function(cm) {replace(cm, true);};
-    CodeMirror.commands.replaceAllQuiet = function(cm) { replaceAllQuiet(cm);};
-    CodeMirror.commands.replaceSingleQuiet = function(cm) { replaceSingleQuiet(cm);};
+    CodeMirror.commands.replaceAllWithoutDialogs = function(cm) { replaceAllWithoutDialogs(cm);};
+    CodeMirror.commands.replaceSingleWithoutDialogs = function(cm) { replaceSingleWithoutDialogs(cm);};
   });

@@ -974,14 +974,14 @@
       clearSearch: () => editor.execCommand('clearSearch'),
       replaceAll: (text) => {
         editor.state.replaceText = text
-        editor.execCommand('replaceAllQuiet')
+        editor.execCommand('replaceAllWithoutDialogs')
         presentReplaceAllCount()
         editor.state.replaceText = null
         editor.state.replaceAllNum = null
       },
       replaceSingle: (text) => {
           editor.state.replaceText = text
-          editor.execCommand('replaceSingleQuiet')
+          editor.execCommand('replaceSingleWithoutDialogs')
       }
     }
 
