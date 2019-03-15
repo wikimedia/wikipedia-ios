@@ -1,7 +1,7 @@
 import UIKit
 
 class WelcomeViewController: UIViewController {
-    var theme = Theme.standard
+    private var theme = Theme.standard
 
     init(theme: Theme, viewControllers: [UIViewController & Themeable]) {
         self.theme = theme
