@@ -45,6 +45,16 @@ const tagMarkupItemsForLineTokens = (lineTokens, line) => {
     const closeTagStartTokenIndex = closeTagStartTokenIndices[i]
     const closeTagEndTokenIndex = closeTagEndTokenIndices[i]
 
+    if (
+      openTagStartTokenIndex === undefined ||
+      tagTypeTokenIndex === undefined ||
+      openTagEndTokenIndex === undefined ||
+      closeTagStartTokenIndex === undefined ||
+      closeTagEndTokenIndex === undefined
+    ) {
+      continue
+    }
+
     let outer = new ItemRange(new ItemLocation(line, lineTokens[openTagStartTokenIndex].start), new ItemLocation(line, lineTokens[closeTagEndTokenIndex].end))
     let inner = new ItemRange(new ItemLocation(line, lineTokens[openTagEndTokenIndex].end), new ItemLocation(line, lineTokens[closeTagStartTokenIndex].start))
     let type = lineTokens[tagTypeTokenIndex].string.trim()
