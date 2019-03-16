@@ -37,32 +37,28 @@ class ItemRange {
   isComplete() {
     return this.startLocation.isComplete() && this.endLocation.isComplete()
   }
-  
-  endsInsideRange(range) {
-    return (
-      this.endLocation.greaterThanOrEquals(range.startLocation)
-      &&
-      this.endLocation.lessThanOrEquals(range.endLocation)
-    )
+
+  endsInsideRange(range, allowEdgeOverlap = false) {
+    return allowEdgeOverlap ?
+      this.endLocation.greaterThanOrEquals(range.startLocation) && this.endLocation.lessThanOrEquals(range.endLocation) :
+      this.endLocation.greaterThan(range.startLocation) && this.endLocation.lessThan(range.endLocation)
   }
   
-  startsInsideRange(range) {
-    return (
-      this.startLocation.greaterThanOrEquals(range.startLocation)
-      &&
-      this.startLocation.lessThanOrEquals(range.endLocation)
-    )
+  startsInsideRange(range, allowEdgeOverlap = false) {
+    return allowEdgeOverlap ? 
+      this.startLocation.greaterThanOrEquals(range.startLocation) && this.startLocation.lessThanOrEquals(range.endLocation) :
+      this.startLocation.greaterThan(range.startLocation) && this.startLocation.lessThan(range.endLocation)
   }
 
-  intersectsRange(range) {
+  intersectsRange(range, allowEdgeOverlap = false) {
     return (
-      this.endsInsideRange(range)
+      this.endsInsideRange(range, allowEdgeOverlap)
       ||
-      this.startsInsideRange(range)
+      this.startsInsideRange(range, allowEdgeOverlap)
       ||
-      range.endsInsideRange(this)
+      range.endsInsideRange(this, allowEdgeOverlap)
       ||
-      range.startsInsideRange(this)
+      range.startsInsideRange(this, allowEdgeOverlap)
     )
   }
 }
@@ -101,6 +97,9 @@ class ItemLocation {
   }
   lessThanOrEquals(location) {
     return this.lessThan(location) || this.equals(location)
+  }
+  withOffset(line, ch) {
+    return new ItemLocation(this.line + line, this.ch + ch)
   }
 }
 
