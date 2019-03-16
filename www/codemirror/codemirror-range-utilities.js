@@ -1,7 +1,5 @@
 const ItemRange = require('./codemirror-range-objects').ItemRange
 const ItemLocation = require('./codemirror-range-objects').ItemLocation
-const SetUtilites = require('./codemirror-range-set-utilities')
-const markupItemsForLineTokens = require('./codemirror-range-determination').markupItemsForLineTokens
 
 const getItemRangeFromSelection = (codeMirror) => {
   const fromCursor = codeMirror.getCursor('from')
@@ -12,19 +10,17 @@ const getItemRangeFromSelection = (codeMirror) => {
   return selectionRange
 }
 
-const getMarkupItemsIntersectingSelection = (codeMirror) => {
-  const selectionRange = getItemRangeFromSelection(codeMirror)
-
-  const line = codeMirror.getCursor().line
-  const lineTokens = codeMirror.getLineTokens(line, true)
-  const markupItems = markupItemsForLineTokens(lineTokens, line)
-  
-  const markupItemsIntersectingSelection = markupItems.filter(item => item.outerRange.intersectsRange(selectionRange))  
-  
-  return markupItemsIntersectingSelection
+const getMarkupItemsIntersectingSelection = (codeMirror, markupItems, selectionRange) => {
+  const itemIntersectsSelection = item => item.outerRange.intersectsRange(selectionRange, true)
+  const itemDoesNotStartsAtSelectionEnd = item => !item.openingMarkupRange().startLocation.equals(selectionRange.endLocation)
+  const itemDoesNotEndAtSelectionStart = item => !item.closingMarkupRange().endLocation.equals(selectionRange.startLocation)
+  return markupItems
+    .filter(itemIntersectsSelection)
+    .filter(itemDoesNotStartsAtSelectionEnd)
+    .filter(itemDoesNotEndAtSelectionStart)
 }
 
-const getButtonNamesIntersectingSelection = (codeMirror) => getMarkupItemsIntersectingSelection(codeMirror).map(item => item.buttonName)
+const getButtonNamesFromMarkupItems = (markupItems) => markupItems.map(item => item.buttonName)
 
 /*
 TODO: add generic (non-regex or otherwise string aware) functional methods here for: 
@@ -35,4 +31,5 @@ TODO: add generic (non-regex or otherwise string aware) functional methods here 
 */
 
 exports.getItemRangeFromSelection = getItemRangeFromSelection
-exports.getButtonNamesIntersectingSelection = getButtonNamesIntersectingSelection
+exports.getMarkupItemsIntersectingSelection = getMarkupItemsIntersectingSelection
+exports.getButtonNamesFromMarkupItems = getButtonNamesFromMarkupItems
