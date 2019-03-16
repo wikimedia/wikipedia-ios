@@ -75,6 +75,10 @@ class ItemRange {
       range.startsInsideRange(this, allowEdgeOverlap)
     )
   }
+
+  isZeroLength() {
+    return this.startLocation.line === this.endLocation.line && this.startLocation.ch === this.endLocation.ch
+  }
 }
 
 class ItemLocation {
