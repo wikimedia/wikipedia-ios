@@ -1,5 +1,148 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const ItemRange = require('./codemirror-range-objects').ItemRange
+const ItemLocation = require('./codemirror-range-objects').ItemLocation
+
+const getItemRangeFromSelection = require('./codemirror-range-utilities').getItemRangeFromSelection
+const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilities').getMarkupItemsIntersectingSelection
+const getButtonNamesFromMarkupItems = require('./codemirror-range-utilities').getButtonNamesFromMarkupItems
+const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
+
+const canClearFormatting = (codeMirror) => {
+  let selectionRange = getItemRangeFromSelection(codeMirror)
+  if (selectionRange.isZeroLength()) {
+    return false
+  }
+
+  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
+  const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
+  const buttonNames = getButtonNamesFromMarkupItems(markupItemsIntersectingSelection)
+
+  if (buttonNames.includes('reference') || buttonNames.includes('template')) {
+    return false
+  }
+  
+  return relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, true)
+}
+
+const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnly = false) => {
+  let selectionRange = getItemRangeFromSelection(codeMirror)
+  const originalSelectionRange = selectionRange
+
+  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
+  
+  selectionRange = getExpandedSelectionRange(codeMirror, markupItems, selectionRange)
+  if (!evaluateOnly) {
+    codeMirror.setSelection(selectionRange.startLocation, selectionRange.endLocation)
+  }
+
+  const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
+
+  let markupRangesToMoveAfterSelection = []
+  let markupRangesToMoveBeforeSelection = []
+  let markupRangesToRemove = []
+  markupItemsIntersectingSelection.forEach(item => {
+    const startsInside = item.outerRange.startsInsideRange(selectionRange, true)
+    const endsInside = item.outerRange.endsInsideRange(selectionRange, true)
+    if (!(startsInside === endsInside)) { // XOR
+      if (startsInside) {
+        markupRangesToMoveAfterSelection.push(item.openingMarkupRange())
+      }
+      if (endsInside) {
+        markupRangesToMoveBeforeSelection.unshift(item.closingMarkupRange())
+      }
+    } else if (startsInside && endsInside) {
+      markupRangesToRemove.push(item.openingMarkupRange())
+      markupRangesToRemove.push(item.closingMarkupRange())
+    }
+  })
+  
+  const noMarkupToBeMovedToEitherSide = (markupRangesToMoveAfterSelection.length === 0 && markupRangesToMoveBeforeSelection.length === 0)
+  if (noMarkupToBeMovedToEitherSide) {
+    const openingMarkupRanges = markupItemsIntersectingSelection.map(item => item.openingMarkupRange())
+    const closingMarkupRanges = markupItemsIntersectingSelection.map(item => item.closingMarkupRange())
+    const allMarkupRanges = openingMarkupRanges.concat(closingMarkupRanges)
+    if (evaluateOnly) {
+      return allMarkupRanges.length > 0
+    }
+    removeTextFromRanges(codeMirror, allMarkupRanges)
+    return
+  }
+  if (evaluateOnly) {
+    return true
+  }
+
+  const accumulatedLeftMarkup = getTextFromRanges(codeMirror, markupRangesToMoveAfterSelection)
+  const accumulatedRightMarkup = getTextFromRanges(codeMirror, markupRangesToMoveBeforeSelection)
+
+  // Relocate any markup that needs to be moved after selection
+  codeMirror.replaceRange(accumulatedLeftMarkup, selectionRange.endLocation, null, '+')
+
+  // Remove any markup that needs to be blasted
+  const allMarkupRangesToRemove = markupRangesToMoveBeforeSelection.concat(markupRangesToMoveAfterSelection).concat(markupRangesToRemove)
+  removeTextFromRanges(codeMirror, allMarkupRangesToRemove)
+
+  // Relocate any markup that needs to be moved before selection
+  codeMirror.replaceRange(accumulatedRightMarkup, selectionRange.startLocation, null, '+')
+
+  // Adjust selection to account for adjustments made above.
+  codeMirror.setSelection(
+    selectionRange.startLocation.withOffset(0, accumulatedRightMarkup.length), 
+    selectionRange.endLocation.withOffset(0, -getTextFromRanges(codeMirror, markupRangesToMoveAfterSelection.concat(markupRangesToRemove)).length)
+  )
+}
+
+// Need to remove in reverse order of appearance to avoid invalidating yet-to-be-removed ranges.
+const removeTextFromRanges = (codeMirror, ranges) => {
+  const reverseSortedRanges = Array.from(ranges).sort((a, b) => {
+    return a.startLocation.lessThan(b.startLocation)
+  })
+  reverseSortedRanges.forEach(range => codeMirror.replaceRange('', range.startLocation, range.endLocation, '+'))
+}
+
+const getTextFromRanges = (codeMirror, ranges) => ranges.map(range => codeMirror.getRange(range.startLocation, range.endLocation)).join('')
+
+const getExpandedSelectionRange = (codeMirror, markupItems, selectionRange) => {
+  let newSelectionRange = selectionRange
+  
+  // If selectionRange starts inside a markup item's opening markup, the returned range start will be moved to start of opening markup.
+  const selectionStartsInOpeningMarkupOfItem = markupItems.find(item => selectionRange.startsInsideRange(item.openingMarkupRange(), true))
+  if (selectionStartsInOpeningMarkupOfItem) {
+    newSelectionRange.startLocation = selectionStartsInOpeningMarkupOfItem.openingMarkupRange().startLocation
+  } else {
+    // If selectionRange starts inside a markup item's closing markup, the returned range start will be moved to end of closing markup.
+    const selectionStartsInClosingMarkupOfItem = markupItems.find(item => selectionRange.startsInsideRange(item.closingMarkupRange(), true))
+    if (selectionStartsInClosingMarkupOfItem) {
+      newSelectionRange.startLocation = selectionStartsInClosingMarkupOfItem.closingMarkupRange().endLocation
+    }
+  }
+
+  // If selectionRange ends inside a markup item's closing markup, the returned range end will be moved to end of closing markup.
+  const selectionEndsInClosingMarkupOfItem = markupItems.find(item => selectionRange.endsInsideRange(item.closingMarkupRange(), true))
+  if (selectionEndsInClosingMarkupOfItem) {
+    newSelectionRange.endLocation = selectionEndsInClosingMarkupOfItem.closingMarkupRange().endLocation
+  } else {
+    // If selectionRange ends inside a markup item's opening markup, the returned range end will be moved to start of opening markup.
+    const selectionEndsInOpeningMarkupOfItem = markupItems.find(item => selectionRange.endsInsideRange(item.openingMarkupRange(), true))
+    if (selectionEndsInOpeningMarkupOfItem) {
+      newSelectionRange.endLocation = selectionEndsInOpeningMarkupOfItem.openingMarkupRange().startLocation
+    }
+  }
+  
+  return newSelectionRange
+}
+
+exports.relocateOrRemoveExistingMarkupForSelectionRange = relocateOrRemoveExistingMarkupForSelectionRange
+exports.canClearFormatting = canClearFormatting
+},{"./codemirror-range-determination":5,"./codemirror-range-objects":7,"./codemirror-range-utilities":9}],2:[function(require,module,exports){
 const markupItemsForLineTokens = require('./codemirror-range-determination').markupItemsForLineTokens
+
+// Uncomment the chunk below to add debugging buttons to top of article wikitext editor.
+
+/*
+setTimeout(() => {
+  showRangeDebuggingButtonsForCursorLine(editor)
+}, 1000)
+*/
 
 let markupItems = []
 let currentItemIndex = 0
@@ -107,9 +250,7 @@ const highlightTextForMarkupItemAtIndex = (index) => {
   })
 }
 
-exports.showRangeDebuggingButtonsForCursorLine = showRangeDebuggingButtonsForCursorLine
-
-},{"./codemirror-range-determination":4}],2:[function(require,module,exports){
+},{"./codemirror-range-determination":5}],3:[function(require,module,exports){
 const intersection = require('./codemirror-range-set-utilities').intersection
 const difference = require('./codemirror-range-set-utilities').difference
 const ItemRange = require('./codemirror-range-objects').ItemRange
@@ -181,7 +322,7 @@ const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
 
 exports.nonTagMarkupItemsForLineTokens = nonTagMarkupItemsForLineTokens
 
-},{"./codemirror-range-objects":6,"./codemirror-range-set-utilities":7}],3:[function(require,module,exports){
+},{"./codemirror-range-objects":7,"./codemirror-range-set-utilities":8}],4:[function(require,module,exports){
 const ItemRange = require('./codemirror-range-objects').ItemRange
 const MarkupItem = require('./codemirror-range-objects').MarkupItem
 const ItemLocation = require('./codemirror-range-objects').ItemLocation
@@ -229,6 +370,16 @@ const tagMarkupItemsForLineTokens = (lineTokens, line) => {
     const closeTagStartTokenIndex = closeTagStartTokenIndices[i]
     const closeTagEndTokenIndex = closeTagEndTokenIndices[i]
 
+    if (
+      openTagStartTokenIndex === undefined ||
+      tagTypeTokenIndex === undefined ||
+      openTagEndTokenIndex === undefined ||
+      closeTagStartTokenIndex === undefined ||
+      closeTagEndTokenIndex === undefined
+    ) {
+      continue
+    }
+
     let outer = new ItemRange(new ItemLocation(line, lineTokens[openTagStartTokenIndex].start), new ItemLocation(line, lineTokens[closeTagEndTokenIndex].end))
     let inner = new ItemRange(new ItemLocation(line, lineTokens[openTagEndTokenIndex].end), new ItemLocation(line, lineTokens[closeTagStartTokenIndex].start))
     let type = lineTokens[tagTypeTokenIndex].string.trim()
@@ -262,10 +413,10 @@ const getCloseTagStartTokenIndices = (lineTokens, openTagEndTokenIndices) => {
 
 exports.tagMarkupItemsForLineTokens = tagMarkupItemsForLineTokens
 
-},{"./codemirror-range-objects":6}],4:[function(require,module,exports){
-
+},{"./codemirror-range-objects":7}],5:[function(require,module,exports){
 const tagMarkupItemsForLineTokens = require('./codemirror-range-determination-tag').tagMarkupItemsForLineTokens
 const nonTagMarkupItemsForLineTokens = require('./codemirror-range-determination-non-tag').nonTagMarkupItemsForLineTokens
+const ItemRange = require('./codemirror-range-objects').ItemRange
 
 const markupItemsForLineTokens = (lineTokens, line) => {
   const tagMarkupItems = tagMarkupItemsForLineTokens(lineTokens, line)
@@ -274,18 +425,31 @@ const markupItemsForLineTokens = (lineTokens, line) => {
   return markupItems
 }
 
-exports.markupItemsForLineTokens = markupItemsForLineTokens
+// Gets all markup items for ALL lines between range's start and end. 
+// May include markup items to left of range start or right range end.
+const markupItemsForItemRangeLines = (codeMirror, range) => {
+  let markupItems = []
+  for (let line = range.startLocation.line; line <= range.endLocation.line; line++) {
+    const tokens = codeMirror.getLineTokens(line, true)
+    const items = markupItemsForLineTokens(tokens, line)
+    markupItems.push(...items)
+  }
+  return markupItems
+}
 
-},{"./codemirror-range-determination-non-tag":2,"./codemirror-range-determination-tag":3}],5:[function(require,module,exports){
+exports.markupItemsForLineTokens = markupItemsForLineTokens
+exports.markupItemsForItemRangeLines = markupItemsForItemRangeLines
+},{"./codemirror-range-determination-non-tag":3,"./codemirror-range-determination-tag":4,"./codemirror-range-objects":7}],6:[function(require,module,exports){
 const RangeHelper = {}
 
 RangeHelper.rangeDebugging = require('./codemirror-range-debugging')
 RangeHelper.rangeDetermination = require('./codemirror-range-determination')
 RangeHelper.rangeObjects = require('./codemirror-range-objects')
 RangeHelper.rangeUtilities = require('./codemirror-range-utilities')
+RangeHelper.rangeClearFormatting = require('./codemirror-range-clear-formatting')
 
 window.RangeHelper = RangeHelper
-},{"./codemirror-range-debugging":1,"./codemirror-range-determination":4,"./codemirror-range-objects":6,"./codemirror-range-utilities":8}],6:[function(require,module,exports){
+},{"./codemirror-range-clear-formatting":1,"./codemirror-range-debugging":2,"./codemirror-range-determination":5,"./codemirror-range-objects":7,"./codemirror-range-utilities":9}],7:[function(require,module,exports){
 
 class MarkupItem {
   constructor(type, innerRange, outerRange) {
@@ -313,7 +477,24 @@ class MarkupItem {
     if (type === 'mw-apostrophes-italic') {
       return 'italic'
     }
+    if (type === 'ref') {
+      return 'reference'
+    }
     return type  
+  }
+  
+  openingMarkupRange() {
+    return new ItemRange(
+      this.outerRange.startLocation, 
+      this.innerRange.startLocation
+    )
+  }
+  
+  closingMarkupRange() {
+    return new ItemRange(
+      this.innerRange.endLocation, 
+      this.outerRange.endLocation
+    )    
   }
 }
 
@@ -325,33 +506,33 @@ class ItemRange {
   isComplete() {
     return this.startLocation.isComplete() && this.endLocation.isComplete()
   }
-  
-  endsInsideRange(range) {
-    return (
-      this.endLocation.greaterThanOrEquals(range.startLocation)
-      &&
-      this.endLocation.lessThanOrEquals(range.endLocation)
-    )
+
+  endsInsideRange(range, allowEdgeOverlap = false) {
+    return allowEdgeOverlap ?
+      this.endLocation.greaterThanOrEquals(range.startLocation) && this.endLocation.lessThanOrEquals(range.endLocation) :
+      this.endLocation.greaterThan(range.startLocation) && this.endLocation.lessThan(range.endLocation)
   }
   
-  startsInsideRange(range) {
+  startsInsideRange(range, allowEdgeOverlap = false) {
+    return allowEdgeOverlap ? 
+      this.startLocation.greaterThanOrEquals(range.startLocation) && this.startLocation.lessThanOrEquals(range.endLocation) :
+      this.startLocation.greaterThan(range.startLocation) && this.startLocation.lessThan(range.endLocation)
+  }
+
+  intersectsRange(range, allowEdgeOverlap = false) {
     return (
-      this.startLocation.greaterThanOrEquals(range.startLocation)
-      &&
-      this.startLocation.lessThanOrEquals(range.endLocation)
+      this.endsInsideRange(range, allowEdgeOverlap)
+      ||
+      this.startsInsideRange(range, allowEdgeOverlap)
+      ||
+      range.endsInsideRange(this, allowEdgeOverlap)
+      ||
+      range.startsInsideRange(this, allowEdgeOverlap)
     )
   }
 
-  intersectsRange(range) {
-    return (
-      this.endsInsideRange(range)
-      ||
-      this.startsInsideRange(range)
-      ||
-      range.endsInsideRange(this)
-      ||
-      range.startsInsideRange(this)
-    )
+  isZeroLength() {
+    return this.startLocation.line === this.endLocation.line && this.startLocation.ch === this.endLocation.ch
   }
 }
 
@@ -390,13 +571,16 @@ class ItemLocation {
   lessThanOrEquals(location) {
     return this.lessThan(location) || this.equals(location)
   }
+  withOffset(line, ch) {
+    return new ItemLocation(this.line + line, this.ch + ch)
+  }
 }
 
 exports.ItemRange = ItemRange
 exports.MarkupItem = MarkupItem
 exports.ItemLocation = ItemLocation
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 const intersection = (a, b) => new Set([...a].filter(x => b.has(x)))
 const difference = (a, b) => new Set([...a].filter(x => !b.has(x)))
@@ -406,11 +590,9 @@ exports.intersection = intersection
 exports.difference = difference
 exports.union = union
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 const ItemRange = require('./codemirror-range-objects').ItemRange
 const ItemLocation = require('./codemirror-range-objects').ItemLocation
-const SetUtilites = require('./codemirror-range-set-utilities')
-const markupItemsForLineTokens = require('./codemirror-range-determination').markupItemsForLineTokens
 
 const getItemRangeFromSelection = (codeMirror) => {
   const fromCursor = codeMirror.getCursor('from')
@@ -421,19 +603,17 @@ const getItemRangeFromSelection = (codeMirror) => {
   return selectionRange
 }
 
-const getMarkupItemsIntersectingSelection = (codeMirror) => {
-  const selectionRange = getItemRangeFromSelection(codeMirror)
-
-  const line = codeMirror.getCursor().line
-  const lineTokens = codeMirror.getLineTokens(line, true)
-  const markupItems = markupItemsForLineTokens(lineTokens, line)
-  
-  const markupItemsIntersectingSelection = markupItems.filter(item => item.outerRange.intersectsRange(selectionRange))  
-  
-  return markupItemsIntersectingSelection
+const getMarkupItemsIntersectingSelection = (codeMirror, markupItems, selectionRange) => {
+  const itemIntersectsSelection = item => item.outerRange.intersectsRange(selectionRange, true)
+  const itemDoesNotStartsAtSelectionEnd = item => !item.openingMarkupRange().startLocation.equals(selectionRange.endLocation)
+  const itemDoesNotEndAtSelectionStart = item => !item.closingMarkupRange().endLocation.equals(selectionRange.startLocation)
+  return markupItems
+    .filter(itemIntersectsSelection)
+    .filter(itemDoesNotStartsAtSelectionEnd)
+    .filter(itemDoesNotEndAtSelectionStart)
 }
 
-const getButtonNamesIntersectingSelection = (codeMirror) => getMarkupItemsIntersectingSelection(codeMirror).map(item => item.buttonName)
+const getButtonNamesFromMarkupItems = (markupItems) => markupItems.map(item => item.buttonName)
 
 /*
 TODO: add generic (non-regex or otherwise string aware) functional methods here for: 
@@ -444,5 +624,7 @@ TODO: add generic (non-regex or otherwise string aware) functional methods here 
 */
 
 exports.getItemRangeFromSelection = getItemRangeFromSelection
-exports.getButtonNamesIntersectingSelection = getButtonNamesIntersectingSelection
-},{"./codemirror-range-determination":4,"./codemirror-range-objects":6,"./codemirror-range-set-utilities":7}]},{},[1,2,3,4,5,6,7,8]);
+exports.getMarkupItemsIntersectingSelection = getMarkupItemsIntersectingSelection
+exports.getButtonNamesFromMarkupItems = getButtonNamesFromMarkupItems
+
+},{"./codemirror-range-objects":7}]},{},[1,2,3,4,5,6,7,8,9]);
