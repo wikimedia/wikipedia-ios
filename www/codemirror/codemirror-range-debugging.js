@@ -1,5 +1,13 @@
 const markupItemsForLineTokens = require('./codemirror-range-determination').markupItemsForLineTokens
 
+// Uncomment the chunk below to add debugging buttons to top of article wikitext editor.
+
+/*
+setTimeout(() => {
+  showRangeDebuggingButtonsForCursorLine(editor)
+}, 1000)
+*/
+
 let markupItems = []
 let currentItemIndex = 0
 let highlightHandle = null
@@ -105,5 +113,3 @@ const highlightTextForMarkupItemAtIndex = (index) => {
     className: rangeDebuggingCSSClassName
   })
 }
-
-exports.showRangeDebuggingButtonsForCursorLine = showRangeDebuggingButtonsForCursorLine
