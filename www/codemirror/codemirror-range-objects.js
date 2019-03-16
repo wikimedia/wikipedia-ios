@@ -27,6 +27,20 @@ class MarkupItem {
     }
     return type  
   }
+  
+  openingMarkupRange() {
+    return new ItemRange(
+      this.outerRange.startLocation, 
+      this.innerRange.startLocation
+    )
+  }
+  
+  closingMarkupRange() {
+    return new ItemRange(
+      this.innerRange.endLocation, 
+      this.outerRange.endLocation
+    )    
+  }
 }
 
 class ItemRange {
