@@ -25,6 +25,9 @@ class MarkupItem {
     if (type === 'mw-apostrophes-italic') {
       return 'italic'
     }
+    if (type === 'ref') {
+      return 'reference'
+    }
     return type  
   }
   
