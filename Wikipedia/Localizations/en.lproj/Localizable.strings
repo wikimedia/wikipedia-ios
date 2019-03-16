@@ -145,6 +145,7 @@
 "dim-images" = "Dim images";
 "edit-bold-accessibility-label" = "Add bold formatting";
 "edit-bold-remove-accessibility-label" = "Remove bold formatting";
+"edit-clear-formatting-accessibility-label" = "Remove formatting";
 "edit-comment-accessibility-label" = "Add comment syntax";
 "edit-comment-remove-accessibility-label" = "Remove comment syntax";
 "edit-decrease-indent-depth-accessibility-label" = "Decrease indent depth";

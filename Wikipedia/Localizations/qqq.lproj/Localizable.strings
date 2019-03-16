@@ -145,6 +145,7 @@
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
 "edit-bold-remove-accessibility-label" = "Accessibility label for the button that removes bold formatting to the current selection";
+"edit-clear-formatting-accessibility-label" = "Accessibility label for the button that removes formatting from the current selection";
 "edit-comment-accessibility-label" = "Accessibility label for add comment syntax button";
 "edit-comment-remove-accessibility-label" = "Accessibility label for remove comment syntax button";
 "edit-decrease-indent-depth-accessibility-label" = "Accessibility label for decrease indent depth button";
