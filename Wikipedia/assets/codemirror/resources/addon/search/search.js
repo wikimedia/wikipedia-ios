@@ -18,8 +18,12 @@
       mod(CodeMirror);
   })(function(CodeMirror) {
     "use strict";
-  
-    function searchOverlay(query, caseInsensitive) {
+     
+    function searchOverlay(cm, state, query, caseInsensitive) {
+     
+     var loopMatchPositionIndex = 0;
+     state.initialFocusedMatchIndex = -1;
+     
       if (typeof query == "string")
         query = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), caseInsensitive ? "gi" : "g");
       else if (!query.global)
@@ -33,6 +37,13 @@
           return "searching";
         } else if (match) {
           stream.pos = match.index;
+          var fromCursor = cm.getCursor('from')
+          if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.pos >= fromCursor.ch)) {
+              if (state.initialFocusedMatchIndex == -1) {
+                state.initialFocusedMatchIndex = loopMatchPositionIndex;
+              }
+          }
+          loopMatchPositionIndex++;
         } else {
           stream.skipToEnd();
         }
@@ -82,7 +93,7 @@
       state.queryText = query;
       state.query = parseQuery(query);
       cm.removeOverlay(state.overlay, queryCaseInsensitive(state.query));
-      state.overlay = searchOverlay(state.query, queryCaseInsensitive(state.query));
+      state.overlay = searchOverlay(cm, state, state.query, queryCaseInsensitive(state.query));
       cm.addOverlay(state.overlay);
       if (cm.showMatchesOnScrollbar) {
         if (state.annotate) { state.annotate.clear(); state.annotate = null; }
@@ -117,9 +128,15 @@
     } 
 
     function focusOnMatch(state, focus) {
+     
       const matches = document.getElementsByClassName("cm-searching");
       const matchesCount = matches.length;
-      var focusedMatchIndex = state.focusedMatchIndex || 0;
+      var focusedMatchIndex;
+      if (state.initialFocusedMatchIndex > -1) {
+        focusedMatchIndex = state.initialFocusedMatchIndex;
+      } else {
+        focusedMatchIndex = state.focusedMatchIndex || 0;
+      }
 
       if (focus) {
         if (focus.next) {
@@ -158,6 +175,8 @@
       };
 
       window.webkit.messageHandlers.codeMirrorSearchMessage.postMessage(message);
+
+      state.initialFocusedMatchIndex = -1;
     }
 
     function focusOnMatchAtIndex(matches, index, id) {
