@@ -206,6 +206,8 @@
 "edit-underline-remove-accessibility-label" = "밑줄 제거";
 "edit-watch-list-learn-more-text" = "주시문서 목록에 대해 더 알아보기";
 "edit-watch-this-page-text" = "이 문서 주시하기";
+"editing-welcome-be-bold-title" = "당신의 의견은 중요합니다";
+"editing-welcome-citations-title" = "신뢰할 수 있는 출처 인용";
 "empty-no-article-message" = "죄송합니다, 문서를 불러올 수 없습니다";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
@@ -545,7 +547,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "어두운 테마";
 "reading-themes-controls-accessibility-light-theme-button" = "밝은 테마";
 "reading-themes-controls-accessibility-sepia-theme-button" = "세피아 테마";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "문법 강조";
 "reading-themes-controls-accessibility-text-size-slider" = "텍스트 크기 슬라이더";
+"reading-themes-controls-syntax-highlighting" = "문법 강조";
 "reference-title" = "각주 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=오늘|1=어제|$1일 전}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
