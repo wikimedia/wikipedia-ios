@@ -54,6 +54,7 @@
 "close-button-accessibility-label" = "Aizvērt";
 "edit-direction-left-accessibility-label" = "Pārvietot kursoru pa kreisi";
 "edit-direction-right-accessibility-label" = "Pārvietot kursoru pa labi";
+"edit-menu-item" = "Labot";
 "edit-minor-text" = "Šis ir maznozīmīgs labojums";
 "edit-published" = "Labojums publicēts";
 "edit-published-button-title" = "Gatavs";
