@@ -377,6 +377,8 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Evidenziazione della sintassi";
+"reading-themes-controls-syntax-highlighting" = "Evidenziazione della sintassi";
 "reference-title" = "Riferimento $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Oggi|1=Ieri|$1 giorni fa}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";

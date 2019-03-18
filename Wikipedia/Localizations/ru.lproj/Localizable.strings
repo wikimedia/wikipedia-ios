@@ -234,7 +234,9 @@
 "edit-unordered-list-remove-accessibility-label" = "Убрать ненумерованный список";
 "edit-watch-list-learn-more-text" = "Узнайте больше о списках наблюдения";
 "edit-watch-this-page-text" = "Следить за этой страницей";
+"editing-welcome-be-bold-subtitle" = "Делайте правки смело, но обдуманно. Не расстраивайтесь из-за ошибок — после каждой правки версия статьи сохраняется, поэтому ошибка может быть легко исправлена участниками википедии.";
 "editing-welcome-be-bold-title" = "Ваш голос важен";
+"editing-welcome-citations-subtitle" = "Вся информация должна быть проверяема. Добавляя новую информацию в статью участники википедии должны указать ссылку на надёжный источник этой информации.";
 "editing-welcome-citations-title" = "Используйте проверенные источники";
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
@@ -581,7 +583,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
 "reading-themes-controls-accessibility-light-theme-button" = "Светлая тема";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Сепия";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Подсветка синтаксиса";
 "reading-themes-controls-accessibility-text-size-slider" = "Ползунок размера текста";
+"reading-themes-controls-syntax-highlighting" = "Подсветка синтаксиса";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|1=Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
