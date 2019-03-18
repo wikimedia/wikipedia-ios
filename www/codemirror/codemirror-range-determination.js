@@ -13,11 +13,11 @@ const markupItemsForLineTokens = (lineTokens, line) => {
 // May include markup items to left of range start or right range end.
 const markupItemsForItemRangeLines = (codeMirror, range) => {
   let markupItems = []
-  for (let line = range.startLocation.line; line <= range.endLocation.line; line++) {
-    const tokens = codeMirror.getLineTokens(line, true)
-    const items = markupItemsForLineTokens(tokens, line)
+  range.lineNumbers().forEach(lineNumber => {
+    const tokens = codeMirror.getLineTokens(lineNumber, true)
+    const items = markupItemsForLineTokens(tokens, lineNumber)
     markupItems.push(...items)
-  }
+  })
   return markupItems
 }
 

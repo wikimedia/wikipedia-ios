@@ -429,16 +429,17 @@ const markupItemsForLineTokens = (lineTokens, line) => {
 // May include markup items to left of range start or right range end.
 const markupItemsForItemRangeLines = (codeMirror, range) => {
   let markupItems = []
-  for (let line = range.startLocation.line; line <= range.endLocation.line; line++) {
-    const tokens = codeMirror.getLineTokens(line, true)
-    const items = markupItemsForLineTokens(tokens, line)
+  range.lineNumbers().forEach(lineNumber => {
+    const tokens = codeMirror.getLineTokens(lineNumber, true)
+    const items = markupItemsForLineTokens(tokens, lineNumber)
     markupItems.push(...items)
-  }
+  })
   return markupItems
 }
 
 exports.markupItemsForLineTokens = markupItemsForLineTokens
 exports.markupItemsForItemRangeLines = markupItemsForItemRangeLines
+
 },{"./codemirror-range-determination-non-tag":3,"./codemirror-range-determination-tag":4,"./codemirror-range-objects":7}],6:[function(require,module,exports){
 const RangeHelper = {}
 
@@ -533,6 +534,12 @@ class ItemRange {
 
   isZeroLength() {
     return this.startLocation.line === this.endLocation.line && this.startLocation.ch === this.endLocation.ch
+  }
+  
+  lineNumbers() {
+    const startLine = this.startLocation.line
+    const endLine = this.endLocation.line
+    return new Array(endLine - startLine + 1).fill().map((d, i) => i + startLine)
   }
 }
 

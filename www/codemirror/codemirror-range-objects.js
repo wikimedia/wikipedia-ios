@@ -82,6 +82,12 @@ class ItemRange {
   isZeroLength() {
     return this.startLocation.line === this.endLocation.line && this.startLocation.ch === this.endLocation.ch
   }
+  
+  lineNumbers() {
+    const startLine = this.startLocation.line
+    const endLine = this.endLocation.line
+    return new Array(endLine - startLine + 1).fill().map((d, i) => i + startLine)
+  }
 }
 
 class ItemLocation {
