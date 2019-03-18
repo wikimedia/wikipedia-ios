@@ -394,13 +394,14 @@
       }
       editor.on('cursorActivity', (doc) => {
         
-        sendNativeMessages(doc)
+        if (!doc.isReplacing) {
+          sendNativeMessages(doc)
 
-        clearTimeout(cursorActivityScrollTimer)
-        cursorActivityScrollTimer = setTimeout(() => {
-          scrollCursorIntoViewIfNeeded()        
-        }, 25)
-
+          clearTimeout(cursorActivityScrollTimer)
+          cursorActivityScrollTimer = setTimeout(() => {
+            scrollCursorIntoViewIfNeeded()        
+          }, 25)
+        }
       })
     }
     

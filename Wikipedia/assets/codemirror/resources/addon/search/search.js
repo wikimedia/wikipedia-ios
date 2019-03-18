@@ -294,7 +294,9 @@
         state.posFrom = cursor.from(); state.posTo = cursor.to();
         focusOnMatch(state)
         if (shouldReplace) {
+          cm.isReplacing = true;
           doReplace(match);
+          cm.isReplacing = false
         }
       }
       var doReplace = function(match) {
