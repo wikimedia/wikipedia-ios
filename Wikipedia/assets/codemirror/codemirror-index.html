@@ -393,6 +393,7 @@
         callback()
       }
       editor.on('cursorActivity', (doc) => {
+        
         sendNativeMessages(doc)
 
         clearTimeout(cursorActivityScrollTimer)

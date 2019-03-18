@@ -34,9 +34,7 @@
         var match = query.exec(stream.string);
         if (match && match.index == stream.pos) {
           stream.pos += match[0].length || 1;
-          return "searching";
-        } else if (match) {
-          stream.pos = match.index;
+
           var fromCursor = cm.getCursor('from')
           if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.pos >= fromCursor.ch)) {
               if (state.initialFocusedMatchIndex == -1) {
@@ -44,6 +42,10 @@
               }
           }
           loopMatchPositionIndex++;
+
+          return "searching";
+        } else if (match) {
+          stream.pos = match.index;
         } else {
           stream.skipToEnd();
         }
@@ -132,10 +134,12 @@
       const matches = document.getElementsByClassName("cm-searching");
       const matchesCount = matches.length;
       var focusedMatchIndex;
-      if (state.initialFocusedMatchIndex > -1) {
+      if (state.focusedMatchIndex != undefined && state.focusedMatchIndex != null && state.focusedMatchIndex > -1) {
+        focusedMatchIndex = state.focusedMatchIndex
+      } else if (state.initialFocusedMatchIndex != undefined && state.initialFocusedMatchIndex != null && state.initialFocusedMatchIndex > -1) {
         focusedMatchIndex = state.initialFocusedMatchIndex;
       } else {
-        focusedMatchIndex = state.focusedMatchIndex || 0;
+        focusedMatchIndex = 0;
       }
 
       if (focus) {
@@ -209,6 +213,10 @@
       var cursor = getSearchCursor(cm, state.query, rev ? state.posFrom : state.posTo);
       if (!cursor.find(rev)) {
         cursor = getSearchCursor(cm, state.query, rev ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0));
+        //cm.focus();
+        //cm.setCursor({line: 0, ch: 0})
+        state.focusedMatchIndex = 0;
+        state.initialFocusedMatchIndex = -1;
         if (!cursor.find(rev)) return;
       }
       state.posFrom = cursor.from(); state.posTo = cursor.to();
@@ -274,6 +282,9 @@
         if (!(match = cursor.findNext())) {
           cursor = getSearchCursor(cm, query);
           state.focusedMatchIndex = 0;
+          state.initialFocusedMatchIndex = -1;
+          //cm.focus();
+          //cm.setCursor({line: 0, ch: 0})
           if (!(match = cursor.findNext()) || (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) {
             focusOnMatch(state); //resets count to 0/0
             return;
