@@ -826,8 +826,14 @@
       },
       selectLastFocusedMatch: () => {
         const state = editor.state.search
+        if (!state) {
+          return
+        }
         const from = state.posFrom
         const to = state.posTo
+        if (!from || !to) {
+          return
+        }
         editor.setSelection(from, to)
       },
       undo: () => editor.undo(),
