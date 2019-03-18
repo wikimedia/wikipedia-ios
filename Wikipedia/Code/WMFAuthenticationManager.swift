@@ -17,14 +17,14 @@ public class WMFAuthenticationManager: Fetcher {
         public var errorDescription: String? {
             switch self {
             default:
-                return CommonStrings.genericErrorDescription
+                return WMFLocalizedString("error-generic-description", value: "An unexpected error occurred", comment: "Generic error message for when the error isn't recoverable by the user.")
             }
         }
         
         public var recoverySuggestion: String? {
             switch self {
             default:
-                 return CommonStrings.genericErrorRecoverySuggestion
+                 return WMFLocalizedString("error-generic-recovery-suggestion", value: "Please try again later", comment: "Generic recovery suggestion for when the error isn't recoverable by the user.")
             }
         }
     }

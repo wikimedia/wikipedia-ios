@@ -22,7 +22,14 @@ class SectionEditorViewController: UIViewController {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
     
+    private lazy var focusNavigationView: FocusNavigationView = {
+        return FocusNavigationView.wmf_viewFromClassNib()
+    }()
+    private var focusNavigationViewBottomConstraint: NSLayoutConstraint!
+    
     private var theme = Theme.standard
+
+    private var didFocusWebViewCompletion: (() -> Void)?
     
     @objc var editFunnel: EditFunnel?
     
@@ -56,6 +63,8 @@ class SectionEditorViewController: UIViewController {
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
         
         webView.scrollView.delegate = self
+        
+        setupFocusNavigationView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +82,36 @@ class SectionEditorViewController: UIViewController {
         inputViewsController.keyboardDidHide()
     }
     
+    private func setupFocusNavigationView() {
+       
+        //TODO: Localize
+        focusNavigationView.isHidden = true
+        focusNavigationView.configure(text: "Find and replace", traitCollection: traitCollection)
+        focusNavigationView.delegate = self
+        focusNavigationView.apply(theme: theme)
+        
+        focusNavigationView.translatesAutoresizingMaskIntoConstraints = false
+        navigationController?.navigationBar.addSubview(focusNavigationView)
+        
+        focusNavigationView.setNeedsLayout()
+        focusNavigationView.layoutIfNeeded()
+        
+        navigationController?.navigationBar.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor).isActive = true
+        navigationController?.navigationBar.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor).isActive = true
+        focusNavigationViewBottomConstraint = navigationController?.navigationBar.bottomAnchor.constraint(equalTo: focusNavigationView.bottomAnchor, constant: focusNavigationView.frame.height)
+        focusNavigationViewBottomConstraint.isActive = true
+    }
+    
+    private func showFocusNavigationView() {
+        focusNavigationViewBottomConstraint.constant = 6 //extra padding so we can see the navigation bar shadow below.
+        focusNavigationView.isHidden = false
+    }
+    
+    private func hideFocusNavigationView() {
+        focusNavigationViewBottomConstraint.constant = focusNavigationView.frame.height
+        focusNavigationView.isHidden = true
+    }
+    
     private func configureWebView() {
         guard let language = section?.article?.url.wmf_language else {
             return
@@ -86,6 +125,7 @@ class SectionEditorViewController: UIViewController {
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
+        messagingController.alertDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
         let isSyntaxHighlighted = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
         let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
@@ -99,6 +139,7 @@ class SectionEditorViewController: UIViewController {
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -107,7 +148,7 @@ class SectionEditorViewController: UIViewController {
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
         
-        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
+        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
         webView.inputViewsSource = inputViewsController
         
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -123,6 +164,24 @@ class SectionEditorViewController: UIViewController {
         webView.menuItemsDataSource = menuItemsController
         webView.menuItemsDelegate = menuItemsController
     }
+
+    @objc var shouldFocusWebView = true {
+        didSet {
+            guard shouldFocusWebView else {
+                return
+            }
+            focusWebViewIfReady()
+        }
+    }
+
+    private var didSetWikitextToWebView: Bool = false {
+        didSet {
+            guard shouldFocusWebView else {
+                return
+            }
+            focusWebViewIfReady()
+        }
+    }
     
     private func setWikitextToWebViewIfReady() {
         assert(Thread.isMainThread)
@@ -134,13 +193,27 @@ class SectionEditorViewController: UIViewController {
                 assertionFailure(error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
-                    self?.messagingController.focus()
-                    self?.webView.isHidden = false
+                    self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
                         self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
                     }
                 }
             }
+        }
+    }
+
+    private func focusWebViewIfReady() {
+        guard didSetWikitextToWebView else {
+            return
+        }
+        messagingController.focus()
+        webView.isHidden = false
+        dispatchOnMainQueueAfterDelayInSeconds(0.5) { [weak self] in
+            guard let didFocusWebViewCompletion = self?.didFocusWebViewCompletion else {
+                return
+            }
+            didFocusWebViewCompletion()
+            self?.didFocusWebViewCompletion = nil
         }
     }
     
@@ -153,12 +226,16 @@ class SectionEditorViewController: UIViewController {
             assertionFailure("Section should be set by now")
             return
         }
-        let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
-        WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
+        if shouldFocusWebView {
+            let message = WMFLocalizedString("wikitext-downloading", value: "Loading content...", comment: "Alert text shown when obtaining latest revision of the section being edited")
+            WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
+        }
         sectionFetcher.fetch(section) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
+                    self.didFocusWebViewCompletion = {
+                        WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true)
+                    }
                     return
                 }
                 guard
@@ -169,7 +246,7 @@ class SectionEditorViewController: UIViewController {
                 }
                 
                 self.editFunnel?.logStart(section.article?.url.wmf_language)
-                
+
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
                     !allowedGroups.isEmpty {
@@ -181,15 +258,18 @@ class SectionEditorViewController: UIViewController {
                     } else {
                         message = WMFLocalizedString("page-protected-other", value: "This page has been protected to the following levels: %1$@", comment: "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.")
                     }
-                    WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+                    self.didFocusWebViewCompletion = {
+                        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+                    }
                 } else {
-                    WMFAlertManager.sharedInstance.dismissAlert()
+                    self.didFocusWebViewCompletion = {
+                        WMFAlertManager.sharedInstance.dismissAlert()
+                    }
                 }
                 
                 self.wikitext = revision
             }
         }
-        
     }
     
     // MARK: - Accessibility
@@ -203,6 +283,7 @@ class SectionEditorViewController: UIViewController {
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { (_) in
             self.inputViewsController.didTransitionToNewCollection()
+            self.focusNavigationView.configure(traitCollection: newCollection)
         }
     }
 }
@@ -282,6 +363,45 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
     }
 }
 
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAlertDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int) {
+        
+        //TODO: Localize & pluralize
+        wmf_showAlertWithMessage("\(replacedCount) items replaced")
+    }
+}
+
+extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate {
+    func keyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        hideFocusNavigationView()
+    }
+    
+    func keyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        showFocusNavigationView()
+    }
+    
+    func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
+        
+        //TODO: Localize
+        let alertController = UIAlertController(title: "Find and replace", message: nil, preferredStyle: .actionSheet)
+        let replaceAction = UIAlertAction(title: "Replace", style: .default) { (_) in
+            self.inputViewsController.updateReplaceType(type: .replaceSingle)
+        }
+        let replaceAllAction = UIAlertAction(title: "Replace all", style: .default) { (_) in
+            self.inputViewsController.updateReplaceType(type: .replaceAll)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(replaceAction)
+        alertController.addAction(replaceAllAction)
+        alertController.addAction(cancelAction)
+        alertController.popoverPresentationController?.sourceView = keyboardBar.replaceSwitchButton
+        alertController.popoverPresentationController?.sourceRect = keyboardBar.replaceSwitchButton.bounds
+        
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+
 // MARK: - WKNavigationDelegate
 
 extension SectionEditorViewController: WKNavigationDelegate {
@@ -326,6 +446,7 @@ extension SectionEditorViewController: Themeable {
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
         apply(presentationTheme: theme)
+        focusNavigationView.apply(theme: theme)
     }
 }
 
@@ -362,7 +483,13 @@ extension SectionEditorViewController: ReadingThemesControlsResponding {
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        messagingController.toggleLineNumbers()
         messagingController.toggleSyntaxColors()
+    }
+}
+
+extension SectionEditorViewController: FocusNavigationViewDelegate {
+    func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
+        hideFocusNavigationView()
+        inputViewsController.closeFindAndReplace()
     }
 }

@@ -11,10 +11,15 @@ protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
     func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?)
 }
 
+protocol SectionEditorWebViewMessagingControllerAlertDelegate: class {
+    func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int)
+}
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
     weak var findInPageDelegate: SectionEditorWebViewMessagingControllerFindInPageDelegate?
+    weak var alertDelegate: SectionEditorWebViewMessagingControllerAlertDelegate?
 
     weak var webView: WKWebView!
 
@@ -23,6 +28,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
 
+        case (Message.Name.replaceAllCountMessage, let count as Int):
+            alertDelegate?.sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(self, replacedCount: count)
         case (Message.Name.smoothScrollToYOffsetMessage, let yOffset as CGFloat):
             let newOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: webView.scrollView.contentOffset.y + yOffset)
             webView.scrollView.setContentOffset(newOffset, animated: true)
@@ -177,6 +184,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case findNext
         case findPrevious
         case adjustedContentInsetChanged
+        case replaceAll
+        case replaceSingle
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -330,6 +339,16 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func setAdjustedContentInset(newInset: UIEdgeInsets) {
         execCommand(for: .adjustedContentInsetChanged, argument: "{top: \(newInset.top), left: \(newInset.left), bottom: \(newInset.bottom), right: \(newInset.right)}")
     }
+    
+    func replaceAll(text: String) {
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .replaceAll, argument: "`\(escapedText)`")
+    }
+    
+    func replaceSingle(text: String) {
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .replaceSingle, argument: "`\(escapedText)`")
+    }
 }
 
 extension SectionEditorWebViewMessagingController {
@@ -344,6 +363,7 @@ extension SectionEditorWebViewMessagingController {
             static let findInPageFocusedMatchIndex = "findInPageFocusedMatchIndex"
             static let findInPageFocusedMatchID = "findInPageFocusedMatchID"
             static let smoothScrollToYOffsetMessage = "smoothScrollToYOffsetMessage"
+            static let replaceAllCountMessage = "replaceAllCountMessage"
         }
         struct Body {
             struct Key {

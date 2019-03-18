@@ -56,7 +56,6 @@
 #import "WMFLanguageCell.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFCompassView.h"
-#import "WMFFindInPageKeyboardBar.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
