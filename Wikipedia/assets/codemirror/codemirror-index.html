@@ -819,6 +819,17 @@
       focus: () => {
         editor.focus()
       },
+      focusWithoutScroll: () => {
+        const scrollY = window.scrollY
+        editor.focus()
+        window.scrollTo(window.scrollX, scrollY)
+      },
+      selectLastFocusedMatch: () => {
+        const state = editor.state.search
+        const from = state.posFrom
+        const to = state.posTo
+        editor.setSelection(from, to)
+      },
       undo: () => editor.undo(),
       redo: () => editor.redo(),
       cursorUp: () => editor.execCommand('goLineUp'),

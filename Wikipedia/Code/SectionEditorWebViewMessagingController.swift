@@ -168,6 +168,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case cursorRight
         case comment
         case focus
+        case focusWithoutScroll
         case selectAll
         case highlighting
         case lineNumbers
@@ -186,6 +187,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case adjustedContentInsetChanged
         case replaceAll
         case replaceSingle
+        case selectLastFocusedMatch
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -251,6 +253,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .redo)
     }
 
+    func selectLastFocusedMatch() {
+        execCommand(for: .selectLastFocusedMatch)
+    }
+
     func moveCursorDown() {
         execCommand(for: .cursorDown)
     }
@@ -273,6 +279,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func focus() {
         execCommand(for: .focus)
+    }
+
+    func focusWithoutScroll() {
+        execCommand(for: .focusWithoutScroll)
     }
 
     func selectAllText() {
