@@ -62,7 +62,7 @@
 "account-creation-captcha-title" = "اختبار التحقق البشري";
 "account-creation-create-account" = "أنشئ حسابك";
 "account-creation-have-account" = "لديك حساب بالفعل؟ $1";
-"account-creation-log-in" = "ادخل.";
+"account-creation-log-in" = "دخول.";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة سر، وتأكيد كلمة السر لإنشاء حساب.";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
@@ -71,7 +71,7 @@
 "action-add-to" = "أضف إلى…";
 "action-add-to-reading-list" = "أضف إلى قائمة القراءة";
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
-"action-cancel" = "ألغِ";
+"action-cancel" = "إلغاء";
 "action-find-in-page" = "البحث في الصفحة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
@@ -572,7 +572,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "الموضوع الداكن";
 "reading-themes-controls-accessibility-light-theme-button" = "موضوع فاتح";
 "reading-themes-controls-accessibility-sepia-theme-button" = "موضوع بني داكن";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "تسليط الضوء على التركيب";
 "reading-themes-controls-accessibility-text-size-slider" = "شريط تمرير حجم النص";
+"reading-themes-controls-syntax-highlighting" = "تسليط الضوء على التركيب";
 "reference-title" = "$1 مرجع";
 "relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=مؤخرا|قبل $1 ساعة|قبل $1 ساعات}}";

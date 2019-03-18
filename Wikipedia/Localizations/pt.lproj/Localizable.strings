@@ -177,6 +177,7 @@
 "edit-italic-remove-accessibility-label" = "Remover formatação de itálico";
 "edit-link-accessibility-label" = "Acrescentar sintaxe para hiperligação";
 "edit-link-remove-accessibility-label" = "Remover sintaxe de hiperligação";
+"edit-menu-item" = "Editar";
 "edit-minor-learn-more-text" = "Saiba mais sobre as edições menores";
 "edit-minor-text" = "Esta é uma edição menor";
 "edit-ordered-list-accessibility-label" = "Tornar a linha corrente numa lista ordenada";
@@ -213,6 +214,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Remover lista não ordenada da linha corrente";
 "edit-watch-list-learn-more-text" = "Saiba mais sobre listas de páginas vigiadas";
 "edit-watch-this-page-text" = "Vigiar esta página";
+"editing-welcome-be-bold-subtitle" = "Seja corajoso, mas não descuidado, na atualização de artigos. Não tenha receio de cometer erros: todas as versões anteriores das páginas são gravadas, portanto os erros podem ser facilmente corrigidos pela nossa comunidade.";
+"editing-welcome-be-bold-title" = "A sua voz é importante";
+"editing-welcome-citations-subtitle" = "Todo o conteúdo deve ser verificável. Ao adicionar informação nova a um artigo, os editores devem fornecer uma citação de uma fonte fiável que sustenha diretamente essa contribuição.";
+"editing-welcome-citations-title" = "Citar fontes fiáveis";
+"editing-welcome-impartial-tone-subtitle" = "Esforçamo-nos para que os artigos estejam redigidos de forma imparcial. Ao editar, tente dar uma imagem justa do mundo tal como as fontes fiáveis o descrevem.";
+"editing-welcome-impartial-tone-title" = "Escreva de forma imparcial";
+"editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos acesso ao conhecimento mundial, precisamos que participe na sua criação, lendo, editando e contribuindo nos assuntos que mais lhe interessam.";
+"editing-welcome-set-knowledge-free-title" = "Libertar o conhecimento";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Pode sempre ler as páginas guardadas";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados quando tiver acesso à Internet";
@@ -556,7 +565,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sépia";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Realce sintático";
 "reading-themes-controls-accessibility-text-size-slider" = "Controlo do tamanho do texto";
+"reading-themes-controls-syntax-highlighting" = "Realce sintático";
 "reference-title" = "Referência $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoje|1=Ontem|Há $1 dias}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Há $1 hora|Há $1 horas}}";
