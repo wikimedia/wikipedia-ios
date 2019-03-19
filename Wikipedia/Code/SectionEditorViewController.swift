@@ -84,9 +84,8 @@ class SectionEditorViewController: UIViewController {
     
     private func setupFocusNavigationView() {
        
-        //TODO: Localize
         focusNavigationView.isHidden = true
-        focusNavigationView.configure(text: "Find and replace", traitCollection: traitCollection)
+        focusNavigationView.configure(text: CommonStrings.findAndReplaceHeaderTitle, traitCollection: traitCollection)
         focusNavigationView.delegate = self
         focusNavigationView.apply(theme: theme)
         
@@ -366,8 +365,9 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAlertDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int) {
         
-        //TODO: Localize & pluralize
-        wmf_showAlertWithMessage("\(replacedCount) items replaced")
+        let format =  WMFLocalizedString("replace-replace-all-results-count", value: "%1$@ items replaced", comment: "Alert view label that tells the user how many instances they just replaced via \"Replace all\"")
+        let alertText = String.localizedStringWithFormat(format, NSNumber(value: replacedCount))
+        wmf_showAlertWithMessage(alertText)
     }
 }
 
@@ -382,15 +382,17 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
     
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
         
-        //TODO: Localize
-        let alertController = UIAlertController(title: "Find and replace", message: nil, preferredStyle: .actionSheet)
-        let replaceAction = UIAlertAction(title: "Replace", style: .default) { (_) in
+        let alertController = UIAlertController(title: CommonStrings.findAndReplaceHeaderTitle, message: nil, preferredStyle: .actionSheet)
+        let replaceAllActionTitle = WMFLocalizedString("action-replace-all", value: "Replace all", comment: "Title of the replace all action.")
+        let replaceActionTitle = WMFLocalizedString("action-replace", value: "Replace", comment: "Title of the replace all action.")
+        
+        let replaceAction = UIAlertAction(title: replaceActionTitle, style: .default) { (_) in
             self.inputViewsController.updateReplaceType(type: .replaceSingle)
         }
-        let replaceAllAction = UIAlertAction(title: "Replace all", style: .default) { (_) in
+        let replaceAllAction = UIAlertAction(title: replaceAllActionTitle, style: .default) { (_) in
             self.inputViewsController.updateReplaceType(type: .replaceAll)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         alertController.addAction(replaceAction)
         alertController.addAction(replaceAllAction)
         alertController.addAction(cancelAction)
