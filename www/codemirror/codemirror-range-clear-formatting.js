@@ -44,10 +44,10 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
     const endsInside = item.outerRange.endsInsideRange(selectionRange, true)
     if (!(startsInside === endsInside)) { // XOR
       if (startsInside) {
-        markupRangesToMoveAfterSelection.unshift(item.openingMarkupRange())
+        markupRangesToMoveAfterSelection.push(item.openingMarkupRange())
       }
       if (endsInside) {
-        markupRangesToMoveBeforeSelection.push(item.closingMarkupRange())
+        markupRangesToMoveBeforeSelection.unshift(item.closingMarkupRange())
       }
     } else if (startsInside && endsInside) {
       markupRangesToRemove.push(item.openingMarkupRange())

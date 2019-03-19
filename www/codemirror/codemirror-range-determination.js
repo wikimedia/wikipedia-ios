@@ -18,7 +18,9 @@ const markupItemsForItemRangeLines = (codeMirror, range) => {
     const items = markupItemsForLineTokens(tokens, lineNumber)
     markupItems.push(...items)
   })
-  return markupItems
+  return markupItems.sort((a, b) => {
+    return a.openingMarkupRange().startLocation.greaterThan(b.openingMarkupRange().startLocation)
+  })
 }
 
 exports.markupItemsForLineTokens = markupItemsForLineTokens
