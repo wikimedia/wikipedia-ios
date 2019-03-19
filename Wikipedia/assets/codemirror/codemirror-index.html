@@ -393,7 +393,6 @@
         callback()
       }
       editor.on('cursorActivity', (doc) => {
-        
         if (!doc.isReplacing) {
           sendNativeMessages(doc)
 
