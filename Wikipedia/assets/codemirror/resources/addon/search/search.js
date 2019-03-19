@@ -36,7 +36,7 @@
           stream.pos += match[0].length || 1;
 
           var fromCursor = cm.getCursor('from')
-          if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.pos >= fromCursor.ch)) {
+          if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.start >= fromCursor.ch)) {
               if (state.initialFocusedMatchIndex == -1) {
                 state.initialFocusedMatchIndex = loopMatchPositionIndex;
               }
@@ -134,7 +134,10 @@
       const matches = document.getElementsByClassName("cm-searching");
       const matchesCount = matches.length;
       var focusedMatchIndex;
-      if (state.focusedMatchIndex != undefined && state.focusedMatchIndex != null && state.focusedMatchIndex > -1) {
+      //here we're using focus as a flag for whether they came from find next / prev or from replace. 
+      //if they came from find next/previous, we are okay with focusedMatchIndex being -1 because it will get decremented/incremented below
+      //if they came from replace (where focus is null), we want to reset focusedMatchIndex to 0 but NOT increment
+      if (state.focusedMatchIndex != undefined && state.focusedMatchIndex != null && (state.focusedMatchIndex > -1 && !focus || state.focusedMatchIndex >= -1 && focus)) {
         focusedMatchIndex = state.focusedMatchIndex
       } else if (state.initialFocusedMatchIndex != undefined && state.initialFocusedMatchIndex != null && state.initialFocusedMatchIndex > -1) {
         focusedMatchIndex = state.initialFocusedMatchIndex;
@@ -215,7 +218,7 @@
         cursor = getSearchCursor(cm, state.query, rev ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0));
         //cm.focus();
         //cm.setCursor({line: 0, ch: 0})
-        state.focusedMatchIndex = 0;
+        state.focusedMatchIndex = -1;
         state.initialFocusedMatchIndex = -1;
         if (!cursor.find(rev)) return;
       }
@@ -229,6 +232,7 @@
       if (!state.query) return;
       clearFocusedMatches(cm);
       state.focusedMatchIndex = null
+      state.initialFocusedMatchIndex = null
       state.query = state.queryText = null;
       cm.removeOverlay(state.overlay);
       if (state.annotate) { state.annotate.clear(); state.annotate = null; }
@@ -281,7 +285,7 @@
         var start = cursor.from(), match;
         if (!(match = cursor.findNext())) {
           cursor = getSearchCursor(cm, query);
-          state.focusedMatchIndex = 0;
+          state.focusedMatchIndex = -1;
           state.initialFocusedMatchIndex = -1;
           //cm.focus();
           //cm.setCursor({line: 0, ch: 0})
