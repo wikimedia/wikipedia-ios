@@ -216,8 +216,6 @@
       var cursor = getSearchCursor(cm, state.query, rev ? state.posFrom : state.posTo);
       if (!cursor.find(rev)) {
         cursor = getSearchCursor(cm, state.query, rev ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0));
-        //cm.focus();
-        //cm.setCursor({line: 0, ch: 0})
         state.focusedMatchIndex = -1;
         state.initialFocusedMatchIndex = -1;
         if (!cursor.find(rev)) return;
@@ -287,8 +285,6 @@
           cursor = getSearchCursor(cm, query);
           state.focusedMatchIndex = -1;
           state.initialFocusedMatchIndex = -1;
-          //cm.focus();
-          //cm.setCursor({line: 0, ch: 0})
           if (!(match = cursor.findNext()) || (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) {
             focusOnMatch(state); //resets count to 0/0
             return;
