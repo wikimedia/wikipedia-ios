@@ -41,8 +41,8 @@
             if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.start >= fromCursor.ch)) {
               state.initialFocusedMatchIndex = loopMatchPositionIndex;
              }
+             loopMatchPositionIndex++;
           }
-          loopMatchPositionIndex++;
 
           return "searching";
         } else if (match) {
