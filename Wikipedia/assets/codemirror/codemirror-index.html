@@ -834,7 +834,7 @@
         if (!from || !to) {
           return
         }
-        editor.setSelection(from, to)
+        editor.setSelection(from, to, {scroll: false})
       },
       undo: () => editor.undo(),
       redo: () => editor.redo(),
