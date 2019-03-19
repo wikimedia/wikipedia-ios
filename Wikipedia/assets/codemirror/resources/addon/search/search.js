@@ -19,8 +19,9 @@
   })(function(CodeMirror) {
     "use strict";
   
-    function searchOverlay(cm, state, query, caseInsensitive) {
+    function searchOverlay(cm, state, caseInsensitive) {
 
+      var query = state.query;
       var loopMatchPositionIndex = 0;
       state.initialFocusedMatchIndex = -1;
 
@@ -35,11 +36,11 @@
         if (match && match.index == stream.pos) {
           stream.pos += match[0].length || 1;
 
-          var fromCursor = cm.getCursor('from')
-          if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.start >= fromCursor.ch)) {
-              if (state.initialFocusedMatchIndex == -1) {
-                state.initialFocusedMatchIndex = loopMatchPositionIndex;
-              }
+          if (state.initialFocusedMatchIndex == -1) {
+            var fromCursor = cm.getCursor('from')
+            if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.start >= fromCursor.ch)) {
+              state.initialFocusedMatchIndex = loopMatchPositionIndex;
+             }
           }
           loopMatchPositionIndex++;
 
@@ -95,7 +96,7 @@
       state.queryText = query;
       state.query = parseQuery(query);
       cm.removeOverlay(state.overlay, queryCaseInsensitive(state.query));
-      state.overlay = searchOverlay(cm, state, state.query, queryCaseInsensitive(state.query));
+      state.overlay = searchOverlay(cm, state, queryCaseInsensitive(state.query));
       cm.addOverlay(state.overlay);
       if (cm.showMatchesOnScrollbar) {
         if (state.annotate) { state.annotate.clear(); state.annotate = null; }
