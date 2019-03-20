@@ -1980,7 +1980,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     switch ([NSUserDefaults wmf].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             [self setSelectedIndex:WMFAppTabTypeMain];
-            [self wmf_pushViewController:subViewController animated:animated];
+            if (subViewController) {
+                [self wmf_pushViewController:subViewController animated:animated];
+            }
             break;
         default:
             [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
