@@ -995,7 +995,7 @@
           editor.execCommand('replaceSingleWithoutDialogs')
       },
       clearFormatting: () => {
-        RangeHelper.rangeClearFormatting.relocateOrRemoveExistingMarkupForSelectionRange(editor)
+        RangeHelper.rangeClearFormatting.clearFormatting(editor)
       }
     }
 

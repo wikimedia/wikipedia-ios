@@ -22,8 +22,14 @@ const canClearFormatting = (codeMirror) => {
     return false
   }
   
-  return relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, true)
+  return canRelocateOrRemoveExistingMarkupForSelectionRange(codeMirror)
 }
+
+const clearFormatting = (codeMirror) => {
+  relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, false)
+}
+
+const canRelocateOrRemoveExistingMarkupForSelectionRange = (codeMirror) => relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, true)
 
 const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnly = false) => {
   let selectionRange = getItemRangeFromSelection(codeMirror)
@@ -132,5 +138,5 @@ const getExpandedSelectionRange = (codeMirror, markupItems, selectionRange) => {
   return newSelectionRange
 }
 
-exports.relocateOrRemoveExistingMarkupForSelectionRange = relocateOrRemoveExistingMarkupForSelectionRange
+exports.clearFormatting = clearFormatting
 exports.canClearFormatting = canClearFormatting

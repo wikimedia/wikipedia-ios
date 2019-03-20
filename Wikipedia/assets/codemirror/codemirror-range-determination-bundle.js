@@ -23,8 +23,14 @@ const canClearFormatting = (codeMirror) => {
     return false
   }
   
-  return relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, true)
+  return canRelocateOrRemoveExistingMarkupForSelectionRange(codeMirror)
 }
+
+const clearFormatting = (codeMirror) => {
+  relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, false)
+}
+
+const canRelocateOrRemoveExistingMarkupForSelectionRange = (codeMirror) => relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, true)
 
 const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnly = false) => {
   let selectionRange = getItemRangeFromSelection(codeMirror)
@@ -133,7 +139,7 @@ const getExpandedSelectionRange = (codeMirror, markupItems, selectionRange) => {
   return newSelectionRange
 }
 
-exports.relocateOrRemoveExistingMarkupForSelectionRange = relocateOrRemoveExistingMarkupForSelectionRange
+exports.clearFormatting = clearFormatting
 exports.canClearFormatting = canClearFormatting
 },{"./codemirror-range-determination":5,"./codemirror-range-objects":7,"./codemirror-range-utilities":9}],2:[function(require,module,exports){
 const markupItemsForLineTokens = require('./codemirror-range-determination').markupItemsForLineTokens
