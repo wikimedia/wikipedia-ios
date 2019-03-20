@@ -332,7 +332,6 @@
 "field-username-title" = "Title for username field\n{{Identical|Username}}";
 "find-clear-button-accessibility-label" = "Accessibility label for the clear values X button in the find textfield.";
 "find-infolabel-number-matches" = "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. $1 is replaced with the numerator, $2 is replaced with the denominator.";
-"find-infolabel-number-matches-accessibility-label" = "Accessibility label for for indication of how many matches were found, and the current match highlighted in the traversal.";
 "find-next-button-accessibility-label" = "Accessibility label for the next button when traversing find results.";
 "find-previous-button-accessibility-label" = "Accessibility label for the previous button when traversing find results.";
 "find-replace-header-label" = "Find and replace header title.";
@@ -562,6 +561,7 @@
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with the number of hours ago.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with the number of minutes ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";
+"replace-button-accessibility-label" = "Accessibility label for button that triggers replace. $1 is replaced by \"Replace\" or \"Replace all\"";
 "replace-clear-button-accessibility-label" = "Accessibility label for the clear values X button in the replace textfield.";
 "replace-infolabel-method-replace" = "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.";
 "replace-infolabel-method-replace-all" = "Title for label indicating which replace method they have currently selected. This is for replacing all instances.";

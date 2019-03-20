@@ -251,15 +251,15 @@ extension FindAndReplaceKeyboardBar: Themeable {
 private extension FindAndReplaceKeyboardBar {
     
     func setupStaticAccessibilityLabels() {
-        findTextField.accessibilityLabel = WMFLocalizedString("find-textfield-accessibility-label", value: "Find textfield", comment: "Accessibility label for the find text field.")
-        findClearButton.accessibilityLabel = WMFLocalizedString("find-clear-button-accessibility-label", value: "Clear find textfield", comment: "Accessibility label for the clear values X button in the find textfield.")
+        findTextField.accessibilityLabel = WMFLocalizedString("find-textfield-accessibility-label", value: "Find", comment: "Accessibility label for the find text field.")
+        findClearButton.accessibilityLabel = WMFLocalizedString("find-clear-button-accessibility-label", value: "Clear find", comment: "Accessibility label for the clear values X button in the find textfield.")
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
         nextButton.accessibilityLabel = WMFLocalizedString("find-next-button-accessibility-label", value: "Next find result", comment: "Accessibility label for the next button when traversing find results.")
         previousButton.accessibilityLabel = WMFLocalizedString("find-previous-button-accessibility-label", value: "Previous find result", comment: "Accessibility label for the previous button when traversing find results.")
-        replaceTextField.accessibilityLabel = WMFLocalizedString("replace-textfield-accessibility-label", value: "Replace textfield", comment: "Accessibility label for the replace text field.")
+        replaceTextField.accessibilityLabel = WMFLocalizedString("replace-textfield-accessibility-label", value: "Replace", comment: "Accessibility label for the replace text field.")
         replaceTypeLabel.isAccessibilityElement = false
         replacePlaceholderLabel.isAccessibilityElement = false
-        replaceClearButton.accessibilityLabel = WMFLocalizedString("replace-clear-button-accessibility-label", value: "Clear replace textfield", comment: "Accessibility label for the clear values X button in the replace textfield.")
+        replaceClearButton.accessibilityLabel = WMFLocalizedString("replace-clear-button-accessibility-label", value: "Clear replace", comment: "Accessibility label for the clear values X button in the replace textfield.")
     }
     
     func hideUndoRedoIcons() {
@@ -299,10 +299,6 @@ private extension FindAndReplaceKeyboardBar {
         } else {
             let format = WMFLocalizedString("find-infolabel-number-matches", value: "%1$@ / %2$@", comment: "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$@ is replaced with the numerator, %2$@ is replaced with the denominator.")
             labelText = String.localizedStringWithFormat(format, NSNumber(value: index + 1), NSNumber(value: total))
-            
-            let accessibleFormat = WMFLocalizedString("find-infolabel-number-matches-accessibility-label", value: "Highlighted %1$@ match out of %2$@ matches", comment: "Accessibility label for for indication of how many matches were found, and the current match highlighted in the traversal.")
-            let accessibilityLabelText = String.localizedStringWithFormat(accessibleFormat, NSNumber(value: index + 1), NSNumber(value: total))
-            currentMatchLabel.accessibilityLabel = accessibilityLabelText
         }
         
         currentMatchLabel.text = labelText
@@ -342,6 +338,12 @@ private extension FindAndReplaceKeyboardBar {
         default:
             assertionFailure("Unexpected replace label state")
         }
+        
+        let replaceMethodAccessibleFormat = WMFLocalizedString("replace-method-button-accessibility-label", value: "Replace method. Set to %1$@. Select to change.", comment: "Accessibility label for replace method switch button in Find and Replace. %1$@ is replaced by \"Replace\" or \"Replace all\"")
+        replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(replaceMethodAccessibleFormat, replaceTypeText())
+        
+        let replaceAccessibleFormat = WMFLocalizedString("replace-button-accessibility-label", value: "Perform %1$@.", comment: "Accessibility label for button that triggers replace. %1$@ is replaced by \"Replace\" or \"Replace all\"")
+        replaceButton.accessibilityLabel = String.localizedStringWithFormat(replaceAccessibleFormat, replaceTypeText())
     }
     
     func updateReplaceButtonsState() {
@@ -349,10 +351,6 @@ private extension FindAndReplaceKeyboardBar {
         replaceButton.isEnabled = count > 0 && currentMatchValues.total > 0
         replaceSwitchButton.isEnabled = count > 0 || replaceTextField.isFirstResponder
         replaceClearButton.isHidden = count == 0
-        
-        //todo: is %@ even right
-        let accessibleFormat = WMFLocalizedString("replace-method-button-accessibility-label", value: "Replace method button. Set to %1$@. Select to change.", comment: "Accessibility label for replace method switch button in Find and Replace. %1$@ is replaced by \"Replace\" or \"Replace all\"")
-        replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(accessibleFormat, replaceTypeText())
     }
     
     func updateShowingReplaceState() {

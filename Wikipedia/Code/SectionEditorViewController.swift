@@ -365,8 +365,8 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAlertDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int) {
         
-        let format =  WMFLocalizedString("replace-replace-all-results-count", value: "%1$@ items replaced", comment: "Alert view label that tells the user how many instances they just replaced via \"Replace all\"")
-        let alertText = String.localizedStringWithFormat(format, NSNumber(value: replacedCount))
+        let format =  WMFLocalizedString("replace-replace-all-results-count", value: "{{PLURAL:%1$d|%1$d item replaced|%1$d items replaced}}", comment: "Alert view label that tells the user how many instances they just replaced via \"Replace all\"")
+        let alertText = String.localizedStringWithFormat(format, replacedCount)
         wmf_showAlertWithMessage(alertText)
     }
 }
