@@ -156,11 +156,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     NSURLCache *URLCache = [NSURLCache sharedURLCache];
     NSCachedURLResponse *cachedResponse = [URLCache cachedResponseForRequest:request];
     if (cachedResponse.response && cachedResponse.data) {
-        NSString *mimeType = cachedResponse.response.MIMEType;
-        if (mimeType == nil) {
-            mimeType = [[request URL] wmf_mimeTypeForExtension];
-        }
-        NSAssert(mimeType != nil, @"MIME type not found for URL %@", request);
         [self finishTask:task withCachedResponse:cachedResponse];
     } else {
         NSURLSessionDataTask *downloadTask = [self.session dataTaskWithRequest:request

@@ -52,8 +52,7 @@ NSString *const WikiTextSectionFetcherErrorDomain = @"org.wikimedia.fetcher.wiki
             return;
         }
         
-        NSDictionary *output = @{};
-        output = [self getSanitizedResponse:responseObject];
+        NSDictionary *output = [self getSanitizedResponse:responseObject];
         
         // Handle case where revision or userInfo not retrieved.
         if (![output objectForKey:@"revision"] || ![output objectForKey:@"userInfo"]) {
