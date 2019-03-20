@@ -60,23 +60,25 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 }
 
 - (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(nullable NSURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
-    if (![self isTaskActive:task]) {
-        return;
-    }
-    dispatch_barrier_async(self.activeTaskQueue, ^{
-        [self.activeTasks removeObject:task];
-    });
-    if (error) {
-        [task didFailWithError:error];
-    } else if (response) {
-        [task didReceiveResponse:response];
-        if (data) {
-            [task didReceiveData:data];
+    dispatch_sync(self.activeTaskQueue, ^{
+        if (![self isTaskActive:task]) {
+            return;
         }
-        [task didFinish];
-    } else {
-        [task didFailWithError:[WMFFetcher unexpectedResponseError]];
-    }
+        if (error) {
+            [task didFailWithError:error];
+        } else if (response) {
+            [task didReceiveResponse:response];
+            if (data) {
+                [task didReceiveData:data];
+            }
+            [task didFinish];
+        } else {
+            [task didFailWithError:[WMFFetcher unexpectedResponseError]];
+        }
+        dispatch_barrier_async(self.activeTaskQueue, ^{
+            [self.activeTasks removeObject:task];
+        });
+    });
 }
 
 - (void)finishTask:(id<WKURLSchemeTask>)task withProxiedResponse:(NSURLResponse *)proxiedResponse data:(nullable NSData *)data error:(NSError *)error {
