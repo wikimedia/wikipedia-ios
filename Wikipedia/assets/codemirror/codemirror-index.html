@@ -397,8 +397,11 @@
       if (callback) {
         callback()
       }
-      editor.on('cursorActivity', (doc) => {
-        if (!doc.isReplacing) {
+      editor.on('cursorActivity', notifyNativeAboutChangesAndScrollIfNeeded)
+    }
+
+    const notifyNativeAboutChangesAndScrollIfNeeded = (doc) => {
+      if (!doc.isReplacing) {
           sendNativeMessages(doc)
 
           clearTimeout(cursorActivityScrollTimer)
@@ -406,9 +409,8 @@
             scrollCursorIntoViewIfNeeded()        
           }, 25)
         }
-      })
     }
-    
+
     const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
       applyTheme(themeName)
       if (!isSyntaxHighlighted) {
@@ -842,7 +844,10 @@
         }
         editor.setSelection(from, to, {scroll: false})
       },
-      undo: () => editor.undo(),
+      undo: () => {
+        editor.undo()
+        notifyNativeAboutChangesAndScrollIfNeeded(editor)
+      },
       redo: () => editor.redo(),
       cursorUp: () => editor.execCommand('goLineUp'),
       cursorDown: () => editor.execCommand('goLineDown'),
