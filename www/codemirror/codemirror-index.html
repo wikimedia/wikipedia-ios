@@ -407,6 +407,11 @@
           }, 25)
         }
       })
+      editor.on('change', (doc) => {
+        if (!doc.isReplacing) {
+          sendNativeMessages(doc)
+        }
+      })
     }
     
     const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
