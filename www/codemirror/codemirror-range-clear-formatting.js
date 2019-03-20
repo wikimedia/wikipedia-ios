@@ -18,7 +18,6 @@ const canClearFormatting = (codeMirror) => {
   const markupItems = markupItemsStartingOrEndingInSelectionRange(codeMirror, selectionRange)
   const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
   const buttonNames = getButtonNamesFromMarkupItems(markupItemsIntersectingSelection)
-
   if (buttonNames.includes('reference') || buttonNames.includes('template')) {
     return false
   }
