@@ -14,7 +14,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 @property (nonatomic, strong) WMFFIFOCache<NSString *, MWKArticle *> *articleCache;
 @property (nonatomic, copy, nonnull) NSString *hostedFolderPath;
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) dispatch_queue_t activeTaskQueue;
 @property (nonatomic, strong) NSMutableSet *activeTasks;
 @end
 
@@ -42,25 +41,21 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     self.articleCache = [[WMFFIFOCache alloc] initWithCountLimit:WMFCachedResponseCountLimit];
     self.hostedFolderPath = [WikipediaAppUtils assetsPath];
     self.session = [WMFSession urlSession];
-    self.activeTaskQueue = dispatch_queue_create("org.wikipedia.WKURLSchemeHandler.accessQueue", DISPATCH_QUEUE_CONCURRENT);
     self.activeTasks = [[NSMutableSet alloc] init];
 }
 
 #pragma mark - Task handling
 
 - (BOOL)isTaskActive:(id<WKURLSchemeTask>)task {
-    __block BOOL isActive = NO;
+    WMFAssertMainThread(@"isTaskActive must be called on the main thread");
     if (!task) {
-        return isActive;
+        return NO;
     }
-    dispatch_sync(self.activeTaskQueue, ^{
-        isActive = [self.activeTasks containsObject:task];
-    });
-    return isActive;
+    return [self.activeTasks containsObject:task];
 }
 
 - (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(nullable NSURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
-    dispatch_sync(self.activeTaskQueue, ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (![self isTaskActive:task]) {
             return;
         }
@@ -75,9 +70,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         } else {
             [task didFailWithError:[WMFFetcher unexpectedResponseError]];
         }
-        dispatch_barrier_async(self.activeTaskQueue, ^{
-            [self.activeTasks removeObject:task];
-        });
+        [self.activeTasks removeObject:task];
     });
 }
 
@@ -335,9 +328,10 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 }
 
 - (void)webView:(nonnull WKWebView *)webView startURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask {
-    dispatch_barrier_async(self.activeTaskQueue, ^{
-        [self.activeTasks addObject:urlSchemeTask];
-    });
+    WMFAssertMainThread(@"startURLSchemeTask assumed to be called on the main thread");
+
+    [self.activeTasks addObject:urlSchemeTask];
+
     NSURLRequest *request = [urlSchemeTask request];
     NSURL *requestURL = [request URL];
     if (!requestURL) {
@@ -442,10 +436,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 }
 
 - (void)webView:(nonnull WKWebView *)webView stopURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask {
+    WMFAssertMainThread(@"stopURLSchemeTask assumed to be called on the main thread");
     DDLogDebug(@"stopURLSchemeTask %@", urlSchemeTask);
-    dispatch_barrier_sync(self.activeTaskQueue, ^{
-        [self.activeTasks removeObject:urlSchemeTask];
-    });
+    [self.activeTasks removeObject:urlSchemeTask];
 }
 
 @end
