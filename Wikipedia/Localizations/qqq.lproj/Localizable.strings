@@ -570,7 +570,7 @@
 "replace-infolabel-method-replace" = "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.";
 "replace-infolabel-method-replace-all" = "Title for label indicating which replace method they have currently selected. This is for replacing all instances.";
 "replace-method-button-accessibility" = "Accessibility label for replace method switch button in Find and Replace. $1 is replaced by \"Replace single instance\" or \"Replace all instances\"";
-"replace-replace-all-results-count" = "Alert view label that tells the user how many instances they just replaced via \"Replace all\"";
+"replace-replace-all-results-count" = "Alert view label that tells the user how many instances they just replaced via \"Replace all\". $1 is replaced with the number of instances that were replaced.";
 "replace-textfield-accessibility" = "Accessibility label for the replace text field.";
 "replace-textfield-placeholder" = "Placeholder text seen in replace textfield before textfield is focused.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
