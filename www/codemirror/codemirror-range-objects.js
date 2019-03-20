@@ -44,6 +44,10 @@ class MarkupItem {
       this.outerRange.endLocation
     )    
   }
+
+  innerRangeStartsOrEndsInRange(range) {
+    return this.innerRange.startsInsideRange(range, true) || this.innerRange.endsInsideRange(range, true)
+  }
 }
 
 class ItemRange {

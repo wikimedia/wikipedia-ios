@@ -6,13 +6,16 @@ const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilitie
 const getButtonNamesFromMarkupItems = require('./codemirror-range-utilities').getButtonNamesFromMarkupItems
 const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
 
+const markupItemsStartingOrEndingInSelectionRange = (codeMirror, selectionRange) =>
+  markupItemsForItemRangeLines(codeMirror, selectionRange).filter(item => item.innerRangeStartsOrEndsInRange(selectionRange))
+
 const canClearFormatting = (codeMirror) => {
   let selectionRange = getItemRangeFromSelection(codeMirror)
   if (selectionRange.isZeroLength()) {
     return false
   }
 
-  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
+  const markupItems = markupItemsStartingOrEndingInSelectionRange(codeMirror, selectionRange)
   const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
   const buttonNames = getButtonNamesFromMarkupItems(markupItemsIntersectingSelection)
 
@@ -27,7 +30,7 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
   let selectionRange = getItemRangeFromSelection(codeMirror)
   const originalSelectionRange = selectionRange
 
-  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
+  const markupItems = markupItemsStartingOrEndingInSelectionRange(codeMirror, selectionRange)
   
   selectionRange = getExpandedSelectionRange(codeMirror, markupItems, selectionRange)
   if (!evaluateOnly) {
