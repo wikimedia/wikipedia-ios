@@ -8,7 +8,6 @@ class WelcomeAnimationView: UIView {
     init(staticImage: UIImage) {
         super.init(frame: .zero)
         let imageView = UIImageView(image: staticImage)
-        imageView.sizeToFit()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         wmf_addSubviewWithConstraintsToEdges(imageView)
