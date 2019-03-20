@@ -97,7 +97,7 @@ extension WelcomePanelViewController: Themeable {
         scrollViewGradientView.apply(theme: theme)
         titleLabel.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
-        actionLabel.textColor = theme.colors.link
+        actionLabel.textColor = theme.colors.accent
         actionLabel.backgroundColor = theme.colors.midBackground
         actionButton.backgroundColor = theme.colors.link
     }
