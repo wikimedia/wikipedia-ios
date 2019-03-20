@@ -410,10 +410,15 @@
       editor.on('change', (doc) => {
         if (!doc.isReplacing) {
           sendNativeMessages(doc)
+
+          clearTimeout(cursorActivityScrollTimer)
+          cursorActivityScrollTimer = setTimeout(() => {
+            scrollCursorIntoViewIfNeeded()        
+          }, 25)
         }
       })
     }
-    
+        
     const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
       applyTheme(themeName)
       if (!isSyntaxHighlighted) {
