@@ -101,8 +101,6 @@ class SectionEditorViewController: UIViewController {
         view.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor).isActive = true
         view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: focusNavigationView.topAnchor).isActive = true
-        //focusNavigationViewBottomConstraint = navigationController?.navigationBar.bottomAnchor.constraint(equalTo: focusNavigationView.bottomAnchor, constant: focusNavigationView.frame.height)
-        //focusNavigationViewBottomConstraint.isActive = true
     }
     
     private func showFocusNavigationView() {

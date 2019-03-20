@@ -52,7 +52,7 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     @objc weak var delegate: FindAndReplaceKeyboardBarDelegate?
     weak var displayDelegate: FindAndReplaceKeyboardBarDisplayDelegate?
     
-    private var currentMatchValues: (index: Int, total: UInt) = (0, 0)
+    private var currentMatchTotal: UInt = 0
     
     var replaceType: ReplaceType = .replaceSingle {
         didSet {
@@ -99,9 +99,9 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     }
     
     @objc func updateMatchCounts(index: Int, total: UInt) {
-        currentMatchValues = (index: index, total: total)
-        updateMatchCountLabel()
-        updatePreviousNextButtonsState()
+        currentMatchTotal = total
+        updateMatchCountLabel(index: index, total: total)
+        updatePreviousNextButtonsState(total: total)
         updateReplaceButtonsState()
     }
     
@@ -124,9 +124,9 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         findTextField.text = nil
         currentMatchLabel.text = nil
         findClearButton.isHidden = true
-        currentMatchValues = (index: 0, total: 0)
+       currentMatchTotal = 0
         updateMatchCounts(index: 0, total: 0)
-        updatePreviousNextButtonsState()
+        updatePreviousNextButtonsState(total: 0)
     }
     
     //MARK: IBActions
@@ -197,7 +197,7 @@ extension FindAndReplaceKeyboardBar: UITextFieldDelegate {
             
             guard let replaceText = replaceTextField.text,
                 let findText = findTextField.text,
-                currentMatchValues.total > 0,
+                currentMatchTotal > 0,
                 findText.count > 0,
                 replaceText.count > 0 else {
                 return false
@@ -279,10 +279,7 @@ private extension FindAndReplaceKeyboardBar {
         replaceType = .replaceSingle
     }
     
-    func updateMatchCountLabel() {
-        
-        let total = currentMatchValues.total
-        let index = currentMatchValues.index
+    func updateMatchCountLabel(index: Int, total: UInt) {
         
         guard let findText = findTextField.text,
             findText.count > 0 else {
@@ -292,10 +289,8 @@ private extension FindAndReplaceKeyboardBar {
         
         var labelText: String
         
-        //todo: test plurality for something like 4th, 5th, etc.
         if total > 0 && index == -1 {
             labelText = String.localizedStringWithFormat("%lu", total)
-            //todo: is it possible to get into here from WebViewController? Clean out if not.
         } else {
             let format = WMFLocalizedString("find-infolabel-number-matches", value: "%1$@ / %2$@", comment: "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$@ is replaced with the numerator, %2$@ is replaced with the denominator.")
             labelText = String.localizedStringWithFormat(format, NSNumber(value: index + 1), NSNumber(value: total))
@@ -304,8 +299,7 @@ private extension FindAndReplaceKeyboardBar {
         currentMatchLabel.text = labelText
     }
     
-    func updatePreviousNextButtonsState() {
-        let total = currentMatchValues.total
+    func updatePreviousNextButtonsState(total: UInt) {
         previousButton.isEnabled = total >= 2
         nextButton.isEnabled = total >= 2
     }
@@ -355,7 +349,7 @@ private extension FindAndReplaceKeyboardBar {
     
     func updateReplaceButtonsState() {
         let count = replaceTextField.text?.count ?? 0
-        replaceButton.isEnabled = count > 0 && currentMatchValues.total > 0
+        replaceButton.isEnabled = count > 0 && currentMatchTotal > 0
         replaceSwitchButton.isEnabled = count > 0 || replaceTextField.isFirstResponder
         replaceClearButton.isHidden = count == 0
     }
