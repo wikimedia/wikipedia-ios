@@ -124,7 +124,7 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         findTextField.text = nil
         currentMatchLabel.text = nil
         findClearButton.isHidden = true
-       currentMatchTotal = 0
+        currentMatchTotal = 0
         updateMatchCounts(index: 0, total: 0)
         updatePreviousNextButtonsState(total: 0)
     }
