@@ -443,7 +443,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 - (void)webView:(nonnull WKWebView *)webView stopURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask {
     DDLogDebug(@"stopURLSchemeTask %@", urlSchemeTask);
-    dispatch_barrier_async(self.activeTaskQueue, ^{
+    dispatch_barrier_sync(self.activeTaskQueue, ^{
         [self.activeTasks removeObject:urlSchemeTask];
     });
 }
