@@ -51,7 +51,7 @@ class WelcomePanelViewController: UIViewController {
     private func configureActionButton() {
         actionButton.setTitle(actionButtonTitle, for: .normal)
         actionButton.isHidden = actionButtonTitle == nil
-        actionStackViewBottomConstraint.constant = actionButton.isHidden ? 16 : 0
+        actionStackViewBottomConstraint.constant = actionButton.isHidden ? 21 : 0
     }
 
     private func configureTitleLabel() {
