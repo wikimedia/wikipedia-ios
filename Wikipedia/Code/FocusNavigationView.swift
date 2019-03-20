@@ -6,21 +6,33 @@ protocol FocusNavigationViewDelegate: class {
 
 final class FocusNavigationView: UIView {
 
-    @IBOutlet private var titleLabelBottomConstraint: NSLayoutConstraint!
+
+    @IBOutlet var titleLabelVerticalConstraints: [NSLayoutConstraint]!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var closeButton: UIButton!
+    @IBOutlet private var divView: UIView!
     
     weak var delegate: FocusNavigationViewDelegate?
     
-    func configure(text: String? = nil, traitCollection: UITraitCollection) {
+    func configure(headerText: String? = nil, headerAccessibilityText: String? = nil, closeButtonAccessibilityText: String? = nil, traitCollection: UITraitCollection) {
+       
+        if let headerText = headerText {
+            titleLabel.text = headerText
+        }
         
-        if let text = text {
-            titleLabel.text = text
+        if let headerAccessibilityText = headerAccessibilityText {
+            titleLabel.accessibilityLabel = headerAccessibilityText
         }
         
         titleLabel.font = UIFont.wmf_font(.mediumHeadline, compatibleWithTraitCollection: traitCollection)
-        titleLabelBottomConstraint.constant = traitCollection.verticalSizeClass == .compact ? 0 : 6
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        
+        titleLabelVerticalConstraints.forEach { (constraint) in
+            constraint.constant = traitCollection.verticalSizeClass == .compact ? 5 : 15
+        }
+        
+        if let closeButtonAccessibilityText = closeButtonAccessibilityText {
+             closeButton.accessibilityLabel = closeButtonAccessibilityText
+        }
     }
     
     @IBAction func tappedClose() {
@@ -34,5 +46,6 @@ extension FocusNavigationView: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         closeButton.tintColor = theme.colors.secondaryText
         backgroundColor = theme.colors.paperBackground
+        divView.backgroundColor = theme.colors.midBackground
     }
 }

@@ -335,6 +335,8 @@
 "find-next-button-accessibility" = "Next find result";
 "find-previous-button-accessibility" = "Previous find result";
 "find-replace-header" = "Find and replace";
+"find-replace-header-accessibility" = "Find and replace heading";
+"find-replace-header-close-accessibility" = "Close find and replace";
 "find-textfield-accessibility" = "Find";
 "forgot-password-button-title" = "Reset";
 "forgot-password-email-sent" = "An email with password reset instructions was sent";

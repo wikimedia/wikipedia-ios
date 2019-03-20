@@ -25,7 +25,7 @@ class SectionEditorViewController: UIViewController {
     private lazy var focusNavigationView: FocusNavigationView = {
         return FocusNavigationView.wmf_viewFromClassNib()
     }()
-    private var focusNavigationViewBottomConstraint: NSLayoutConstraint!
+    private var webViewTopConstraint: NSLayoutConstraint!
     
     private var theme = Theme.standard
 
@@ -84,31 +84,38 @@ class SectionEditorViewController: UIViewController {
     
     private func setupFocusNavigationView() {
        
+        
+        let headerAccessibilityText = WMFLocalizedString("find-replace-header-accessibility", value: "Find and replace heading", comment: "Find and replace header title.")
+        let closeAccessibilityText = WMFLocalizedString("find-replace-header-close-accessibility", value: "Close find and replace", comment: "Accessibility label for closing the find and replace view.")
+        
+        focusNavigationView.configure(headerText: CommonStrings.findAndReplaceHeaderTitle, headerAccessibilityText: headerAccessibilityText, closeButtonAccessibilityText: closeAccessibilityText, traitCollection: traitCollection)
+        
         focusNavigationView.isHidden = true
-        focusNavigationView.configure(text: CommonStrings.findAndReplaceHeaderTitle, traitCollection: traitCollection)
         focusNavigationView.delegate = self
         focusNavigationView.apply(theme: theme)
         
         focusNavigationView.translatesAutoresizingMaskIntoConstraints = false
-        navigationController?.navigationBar.addSubview(focusNavigationView)
+
+        view.addSubview(focusNavigationView)
         
-        focusNavigationView.setNeedsLayout()
-        focusNavigationView.layoutIfNeeded()
-        
-        navigationController?.navigationBar.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor).isActive = true
-        navigationController?.navigationBar.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor).isActive = true
-        focusNavigationViewBottomConstraint = navigationController?.navigationBar.bottomAnchor.constraint(equalTo: focusNavigationView.bottomAnchor, constant: focusNavigationView.frame.height)
-        focusNavigationViewBottomConstraint.isActive = true
+        view.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor).isActive = true
+        view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: focusNavigationView.topAnchor).isActive = true
+        //focusNavigationViewBottomConstraint = navigationController?.navigationBar.bottomAnchor.constraint(equalTo: focusNavigationView.bottomAnchor, constant: focusNavigationView.frame.height)
+        //focusNavigationViewBottomConstraint.isActive = true
     }
     
     private func showFocusNavigationView() {
-        focusNavigationViewBottomConstraint.constant = 6 //extra padding so we can see the navigation bar shadow below.
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        webViewTopConstraint.constant = -focusNavigationView.frame.height
         focusNavigationView.isHidden = false
+        
     }
     
     private func hideFocusNavigationView() {
-        focusNavigationViewBottomConstraint.constant = focusNavigationView.frame.height
+        webViewTopConstraint.constant = 0
         focusNavigationView.isHidden = true
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     private func configureWebView() {
@@ -151,7 +158,12 @@ class SectionEditorViewController: UIViewController {
         webView.inputViewsSource = inputViewsController
         
         webView.translatesAutoresizingMaskIntoConstraints = false
-        view.wmf_addSubviewWithConstraintsToEdges(webView)
+        view.addSubview(webView)
+        view.leadingAnchor.constraint(equalTo: webView.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: webView.trailingAnchor).isActive = true
+        webViewTopConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: webView.topAnchor)
+        webViewTopConstraint.isActive = true
+        view.bottomAnchor.constraint(equalTo: webView.bottomAnchor).isActive = true
         
         let url = schemeHandler.appSchemeURL(forRelativeFilePath: "codemirror/codemirror-index.html", fragment: "top")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
