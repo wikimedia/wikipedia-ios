@@ -51,7 +51,7 @@ class WelcomePanelViewController: UIViewController {
     private func configureActionButton() {
         actionButton.setTitle(actionButtonTitle, for: .normal)
         actionButton.isHidden = actionButtonTitle == nil
-        actionStackViewBottomConstraint.constant = actionButton.isHidden ? 16 : 0
+        actionStackViewBottomConstraint.constant = actionButton.isHidden ? 21 : 0
     }
 
     private func configureTitleLabel() {
@@ -97,7 +97,7 @@ extension WelcomePanelViewController: Themeable {
         scrollViewGradientView.apply(theme: theme)
         titleLabel.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
-        actionLabel.textColor = theme.colors.link
+        actionLabel.textColor = theme.colors.accent
         actionLabel.backgroundColor = theme.colors.midBackground
         actionButton.backgroundColor = theme.colors.link
     }
