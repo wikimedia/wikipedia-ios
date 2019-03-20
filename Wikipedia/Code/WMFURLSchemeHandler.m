@@ -64,25 +64,17 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         return;
     }
     if (error) {
-        if ([self isTaskActive:task]) {
-            [task didFailWithError:error];
-        }
+        [task didFailWithError:error];
     } else if (response) {
-        if ([self isTaskActive:task]) {
-            [task didReceiveResponse:response];
-        }
+        [task didReceiveResponse:response];
         if (data) {
-            if ([self isTaskActive:task]) {
-                [task didReceiveData:data];
-            }
+            [task didReceiveData:data];
         }
         if ([self isTaskActive:task]) {
             [task didFinish];
         }
     } else {
-        if ([self isTaskActive:task]) {
-            [task didFailWithError:[WMFFetcher unexpectedResponseError]];
-        }
+        [task didFailWithError:[WMFFetcher unexpectedResponseError]];
     }
     dispatch_barrier_async(self.activeTaskQueue, ^{
         [self.activeTasks removeObject:task];
