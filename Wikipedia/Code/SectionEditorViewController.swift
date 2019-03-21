@@ -132,6 +132,7 @@ class SectionEditorViewController: UIViewController {
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
         messagingController.alertDelegate = self
+        messagingController.scrollDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
         let isSyntaxHighlighted = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
         let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
@@ -507,5 +508,14 @@ extension SectionEditorViewController: FocusNavigationViewDelegate {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
         hideFocusNavigationView()
         inputViewsController.closeFindAndReplace()
+    }
+}
+
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerScrollDelegate {
+    func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint) {
+        guard inputViewsController.inputAccessoryViewType != .findInPage else {
+            return
+        }
+        webView.scrollView.setContentOffset(newContentOffset, animated: true)
     }
 }
