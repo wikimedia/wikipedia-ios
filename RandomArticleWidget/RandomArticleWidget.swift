@@ -2,9 +2,6 @@
 //  RandomArticleWidget.swift
 //  RandomArticleWidget
 //
-//  Created by David Lynch on 2/5/19.
-//  Copyright © 2019 Wikimedia Foundation. All rights reserved.
-//
 
 import UIKit
 import NotificationCenter
