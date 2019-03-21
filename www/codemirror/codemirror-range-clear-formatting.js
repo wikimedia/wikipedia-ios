@@ -208,7 +208,7 @@ const splitMarkupAroundSelectionRange = (codeMirror, evaluateOnly = false) => {
       codeMirror.replaceRange('', item.outerRange.startLocation, item.outerRange.endLocation, '+')
     }
   }
-  updatedMarkupItems.forEach(deleteItemWikitextIfMarkedForRemoval)
+  updatedMarkupItems.reverse().forEach(deleteItemWikitextIfMarkedForRemoval)
 
   // Adjust selection.
   const origSelectionRangeLineExtent = selectionRange.endLocation.line - selectionRange.startLocation.line
