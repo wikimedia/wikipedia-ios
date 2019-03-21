@@ -9,7 +9,7 @@ import WMF
 
 class RandomArticleWidget: UIViewController, NCWidgetProviding {
     let randomArticleFetcher = RandomArticleFetcher()
-    let articlePreviewFetcher = WMFArticlePreviewFetcher()
+
     let collapsedArticleView = ArticleRightAlignedImageCollectionViewCell()
     let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
 
@@ -55,45 +55,48 @@ class RandomArticleWidget: UIViewController, NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         
-        defer {
-            updateView()
+        guard let siteURL = SessionSingleton.sharedInstance().currentArticleSiteURL else {
+            completionHandler(.failed)
+            return
         }
-        
-        let siteURL = SessionSingleton.sharedInstance().currentArticleSiteURL
-        self.randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL!, completion: { (error, result, summary) in
+        self.randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
+            defer {
+                self.updateView()
+            }
+
             if (error != nil) {
                 completionHandler(.failed)
                 return
             }
             
-            self.articlePreviewFetcher.fetchArticlePreviewResults(forArticleURLs: [result!], siteURL: siteURL!, completion: { (searchResults) in
-                DispatchQueue.main.async {
-                    guard let article = self.dataStore?.viewContext.fetchOrCreateArticle(with: result, updatedWith: searchResults[0]) else {
-                        assertionFailure("Coudn't fetch an article with \(String(describing: result))")
-                        completionHandler(.failed)
-                        return
-                    }
-                    
-                    // print("article", article)
-                    self.article = article
-                    
-                    let theme:Theme = .widget
-                    
-                    self.collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false)
-                    self.collapsedArticleView.titleTextStyle = .body
-                    self.collapsedArticleView.updateFonts(with: self.traitCollection)
-                    self.collapsedArticleView.tintColor = theme.colors.link
-                    
-                    self.expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
-                    self.expandedArticleView.tintColor = theme.colors.link
-                    self.expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
-                    
-                    completionHandler(.newData)
+            DispatchQueue.main.async {
+                guard
+                    let articleURL = result,
+                    let summary = summary,
+                    let article = self.dataStore?.viewContext.fetchOrCreateArticle(with: articleURL)
+                else {
+                    completionHandler(.failed)
+                    return
                 }
-            }, failure: { (error) in
-                // print("couldn't fetch preview")
-                completionHandler(.failed)
-            })
+                
+                article.update(withSummary: summary)
+                
+                // print("article", article)
+                self.article = article
+                
+                let theme:Theme = .widget
+                
+                self.collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false)
+                self.collapsedArticleView.titleTextStyle = .body
+                self.collapsedArticleView.updateFonts(with: self.traitCollection)
+                self.collapsedArticleView.tintColor = theme.colors.link
+                
+                self.expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
+                self.expandedArticleView.tintColor = theme.colors.link
+                self.expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+                
+                completionHandler(.newData)
+            }
         })
     }
     
