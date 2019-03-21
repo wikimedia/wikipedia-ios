@@ -296,6 +296,9 @@
         focusOnMatch(state);
         if (shouldReplace) {
           cm.isReplacing = true;
+
+          cm.setCursor(state.posFrom, null, '+')
+
           doReplace(match);
           cm.isReplacing = false;
         }

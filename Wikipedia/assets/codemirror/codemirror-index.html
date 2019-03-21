@@ -846,7 +846,15 @@
       },
       undo: () => {
         editor.undo()
-        notifyNativeAboutChangesAndScrollIfNeeded(editor)
+
+        // Hack to fix cursor *appearing* to be above actual line after undo.  
+        requestAnimationFrame(() => {
+          const line = editor.getCursor('from').line
+          editor.setCursor(line + 1)
+          editor.setCursor(line)
+        })
+        
+       notifyNativeAboutChangesAndScrollIfNeeded(editor)
       },
       redo: () => editor.redo(),
       cursorUp: () => editor.execCommand('goLineUp'),
