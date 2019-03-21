@@ -20,6 +20,20 @@ protocol FindAndReplaceKeyboardBarDisplayDelegate: class {
 @objc enum ReplaceType: Int {
     case replaceSingle
     case replaceAll
+    
+    var text: String {
+        switch self {
+        case .replaceSingle: return WMFLocalizedString("replace-infolabel-method-replace", value: "Replace", comment: "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.")
+        case .replaceAll: return WMFLocalizedString("replace-infolabel-method-replace-all", value: "Replace all", comment: "Title for label indicating which replace method they have currently selected. This is for replacing all instances.")
+        }
+    }
+    
+    var accessibilityText: String {
+        switch self {
+        case .replaceSingle: return WMFLocalizedString("replace-buttons-replace-accessibility", value: "Replace single instance", comment: "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing a single instance.")
+        case .replaceAll: return WMFLocalizedString("replace-buttons-replace-all-accessibility", value: "Replace all instances", comment: "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing all instances.")
+        }
+    }
 }
 
 @objc (WMFFindAndReplaceKeyboardBar)
@@ -304,24 +318,10 @@ private extension FindAndReplaceKeyboardBar {
         nextButton.isEnabled = total >= 2
     }
     
-    func replaceTypeText() -> String {
-        switch replaceType {
-        case .replaceSingle: return WMFLocalizedString("replace-infolabel-method-replace", value: "Replace", comment: "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.")
-        case .replaceAll: return WMFLocalizedString("replace-infolabel-method-replace-all", value: "Replace all", comment: "Title for label indicating which replace method they have currently selected. This is for replacing all instances.")
-        }
-    }
-    
-    func replaceTypeAccessibilityText() -> String {
-        switch replaceType {
-        case .replaceSingle: return WMFLocalizedString("replace-buttons-replace-accessibility", value: "Replace single instance", comment: "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing a single instance.")
-        case .replaceAll: return WMFLocalizedString("replace-buttons-replace-all-accessibility", value: "Replace all instances", comment: "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing all instances.")
-        }
-    }
-    
     func updateReplaceLabelState() {
         
         let count = replaceTextField.text?.count ?? 0
-        replacePlaceholderLabel.text = WMFLocalizedString("replace-textfield-placeholder", value: "Replace with...", comment: "Placeholder text seen in replace textfield before textfield is focused.")
+        replacePlaceholderLabel.text = WMFLocalizedString("replace-textfield-placeholder", value: "Replace with…", comment: "Placeholder text seen in replace textfield before textfield is focused.")
         
         switch (replaceTextField.isFirstResponder, count) {
         case (false, 0):
@@ -333,7 +333,7 @@ private extension FindAndReplaceKeyboardBar {
             replaceTypeLabel.isHidden = true
             replacePlaceholderLabel.isHidden = true
         case (_, 1...):
-            replaceTypeLabel.text = replaceTypeText()
+            replaceTypeLabel.text = replaceType.text
             replaceTypeLabel.isHidden = false
             replacePlaceholderLabel.isHidden = true
         default:
@@ -341,10 +341,10 @@ private extension FindAndReplaceKeyboardBar {
         }
         
         let replaceMethodAccessibleFormat = WMFLocalizedString("replace-method-button-accessibility", value: "Replace method. Set to %1$@. Select to change.", comment: "Accessibility label for replace method switch button in Find and Replace. %1$@ is replaced by \"Replace single instance\" or \"Replace all instances\"")
-        replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(replaceMethodAccessibleFormat, replaceTypeAccessibilityText())
+        replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(replaceMethodAccessibleFormat, replaceType.accessibilityText)
         
         let replaceAccessibleFormat = WMFLocalizedString("replace-button-accessibility", value: "Perform %1$@.", comment: "Accessibility label for button that triggers replace action. %1$@ is replaced by \"Replace single instance\" or \"Replace all instances\"")
-        replaceButton.accessibilityLabel = String.localizedStringWithFormat(replaceAccessibleFormat, replaceTypeAccessibilityText())
+        replaceButton.accessibilityLabel = String.localizedStringWithFormat(replaceAccessibleFormat, replaceType.accessibilityText)
     }
     
     func updateReplaceButtonsState() {

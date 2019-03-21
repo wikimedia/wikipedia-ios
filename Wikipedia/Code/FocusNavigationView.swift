@@ -6,7 +6,6 @@ protocol FocusNavigationViewDelegate: class {
 
 final class FocusNavigationView: UIView {
 
-
     @IBOutlet var titleLabelVerticalConstraints: [NSLayoutConstraint]!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var closeButton: UIButton!
@@ -14,24 +13,19 @@ final class FocusNavigationView: UIView {
     
     weak var delegate: FocusNavigationViewDelegate?
     
-    func configure(headerText: String? = nil, headerAccessibilityText: String? = nil, closeButtonAccessibilityText: String? = nil, traitCollection: UITraitCollection) {
+    func configure(titleText: String, closeButtonAccessibilityText: String, traitCollection: UITraitCollection, isTitleAccessible: Bool = false) {
        
-        if let headerText = headerText {
-            titleLabel.text = headerText
-        }
-        
-        if let headerAccessibilityText = headerAccessibilityText {
-            titleLabel.accessibilityLabel = headerAccessibilityText
-        }
-        
+        titleLabel.text = titleText
+        titleLabel.isAccessibilityElement = isTitleAccessible
         titleLabel.font = UIFont.wmf_font(.mediumHeadline, compatibleWithTraitCollection: traitCollection)
+        closeButton.accessibilityLabel = closeButtonAccessibilityText
         
+        updateLayout(for: traitCollection)
+    }
+    
+    func updateLayout(for traitCollection: UITraitCollection) {
         titleLabelVerticalConstraints.forEach { (constraint) in
             constraint.constant = traitCollection.verticalSizeClass == .compact ? 5 : 15
-        }
-        
-        if let closeButtonAccessibilityText = closeButtonAccessibilityText {
-             closeButton.accessibilityLabel = closeButtonAccessibilityText
         }
     }
     

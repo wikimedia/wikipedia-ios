@@ -335,7 +335,6 @@
 "find-next-button-accessibility" = "Accessibility label for the next button when traversing find results.";
 "find-previous-button-accessibility" = "Accessibility label for the previous button when traversing find results.";
 "find-replace-header" = "Find and replace header title.";
-"find-replace-header-accessibility" = "Find and replace header title.";
 "find-replace-header-close-accessibility" = "Accessibility label for closing the find and replace view.";
 "find-textfield-accessibility" = "Accessibility label for the find text field.";
 "forgot-password-button-title" = "Title for reset password button\n{{Identical|Reset}}";

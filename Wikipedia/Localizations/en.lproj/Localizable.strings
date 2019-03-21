@@ -335,7 +335,6 @@
 "find-next-button-accessibility" = "Next find result";
 "find-previous-button-accessibility" = "Previous find result";
 "find-replace-header" = "Find and replace";
-"find-replace-header-accessibility" = "Find and replace heading";
 "find-replace-header-close-accessibility" = "Close find and replace";
 "find-textfield-accessibility" = "Find";
 "forgot-password-button-title" = "Reset";
@@ -572,7 +571,7 @@
 "replace-method-button-accessibility" = "Replace method. Set to $1. Select to change.";
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item replaced|$1 items replaced}}";
 "replace-textfield-accessibility" = "Replace";
-"replace-textfield-placeholder" = "Replace with...";
+"replace-textfield-placeholder" = "Replace with…";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "reverted-edit-back-to-article-button-title" = "Back to article";
 "reverted-edit-notification-body" = "The edit you made of the article $1 was reverted by $2";

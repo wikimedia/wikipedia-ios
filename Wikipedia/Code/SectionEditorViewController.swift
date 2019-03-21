@@ -50,6 +50,8 @@ class SectionEditorViewController: UIViewController {
         return true
     }
     
+    private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadWikitext()
@@ -83,12 +85,10 @@ class SectionEditorViewController: UIViewController {
     }
     
     private func setupFocusNavigationView() {
-       
-        
-        let headerAccessibilityText = WMFLocalizedString("find-replace-header-accessibility", value: "Find and replace heading", comment: "Find and replace header title.")
+
         let closeAccessibilityText = WMFLocalizedString("find-replace-header-close-accessibility", value: "Close find and replace", comment: "Accessibility label for closing the find and replace view.")
         
-        focusNavigationView.configure(headerText: CommonStrings.findAndReplaceHeaderTitle, headerAccessibilityText: headerAccessibilityText, closeButtonAccessibilityText: closeAccessibilityText, traitCollection: traitCollection)
+        focusNavigationView.configure(titleText: findAndReplaceHeaderTitle, closeButtonAccessibilityText: closeAccessibilityText, traitCollection: traitCollection)
         
         focusNavigationView.isHidden = true
         focusNavigationView.delegate = self
@@ -98,9 +98,11 @@ class SectionEditorViewController: UIViewController {
 
         view.addSubview(focusNavigationView)
         
-        view.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor).isActive = true
-        view.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor).isActive = true
-        view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: focusNavigationView.topAnchor).isActive = true
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor)
+        let topConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: focusNavigationView.topAnchor)
+        
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint])
     }
     
     private func showFocusNavigationView() {
@@ -157,11 +159,13 @@ class SectionEditorViewController: UIViewController {
         
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)
-        view.leadingAnchor.constraint(equalTo: webView.leadingAnchor).isActive = true
-        view.trailingAnchor.constraint(equalTo: webView.trailingAnchor).isActive = true
+        
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
         webViewTopConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: webView.topAnchor)
-        webViewTopConstraint.isActive = true
-        view.bottomAnchor.constraint(equalTo: webView.bottomAnchor).isActive = true
+        let bottomConstraint = view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
         
         let url = schemeHandler.appSchemeURL(forRelativeFilePath: "codemirror/codemirror-index.html", fragment: "top")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
@@ -292,7 +296,7 @@ class SectionEditorViewController: UIViewController {
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { (_) in
             self.inputViewsController.didTransitionToNewCollection()
-            self.focusNavigationView.configure(traitCollection: newCollection)
+            self.focusNavigationView.updateLayout(for: newCollection)
         }
     }
 }
@@ -392,7 +396,7 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
     
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
         
-        let alertController = UIAlertController(title: CommonStrings.findAndReplaceHeaderTitle, message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: findAndReplaceHeaderTitle, message: nil, preferredStyle: .actionSheet)
         let replaceAllActionTitle = WMFLocalizedString("action-replace-all", value: "Replace all", comment: "Title of the replace all action.")
         let replaceActionTitle = WMFLocalizedString("action-replace", value: "Replace", comment: "Title of the replace all action.")
         
