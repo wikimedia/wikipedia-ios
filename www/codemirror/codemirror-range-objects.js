@@ -45,8 +45,8 @@ class MarkupItem {
     )    
   }
 
-  innerRangeStartsOrEndsInRange(range) {
-    return this.innerRange.startsInsideRange(range, true) || this.innerRange.endsInsideRange(range, true)
+  innerRangeStartsOrEndsInRange(range, allowEdgeOverlap = false) {
+    return this.innerRange.startsInsideRange(range, allowEdgeOverlap) || this.innerRange.endsInsideRange(range, allowEdgeOverlap)
   }
 }
 
