@@ -152,7 +152,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         keyboardBar.reset()
         inputAccessoryViewType = previousInputAccessoryViewType
         if keyboardBar.isVisible {
-            messagingController.focus()
+            messagingController.selectLastFocusedMatch()
+            messagingController.focusWithoutScroll()
         }
     }
 }

@@ -1,94 +1,94 @@
-html, body, .CodeMirror {
+.cm-mw-dark, .cm-mw-dark .CodeMirror {
   background-color: #2E3136;
   color: #FFF;
 }
 
-.CodeMirror-gutters {
+.cm-mw-dark .CodeMirror-gutters {
   background-color: #2E3136;
   border-right: 4px solid #2E3136;
 }
 
-.CodeMirror-linenumber {
+.cm-mw-dark .CodeMirror-linenumber {
   color: #C8CCD1;
   font-size: 0.8em;
 }
 
-.cm-mw-template {
+.cm-mw-dark .cm-mw-template {
   color: #FFF; /* plain text color */
 }
 
-.cm-mw-link,
-.cm-mw-link-pagename,
-.cm-mw-link-tosection,
-.cm-mw-link-bracket,
-.cm-mw-link-delimiter,
-.cm-mw-extlink,
-.cm-mw-free-extlink,
-.cm-mw-extlink-protocol,
-.cm-mw-free-extlink-protocol,
-.cm-mw-extlink-bracket,
-.cm-mw-doubleUnderscore,
-.cm-mw-signature,
-.cm-mw-hr {
+.cm-mw-dark .cm-mw-link,
+.cm-mw-dark .cm-mw-link-pagename,
+.cm-mw-dark .cm-mw-link-tosection,
+.cm-mw-dark .cm-mw-link-bracket,
+.cm-mw-dark .cm-mw-link-delimiter,
+.cm-mw-dark .cm-mw-extlink,
+.cm-mw-dark .cm-mw-free-extlink,
+.cm-mw-dark .cm-mw-extlink-protocol,
+.cm-mw-dark .cm-mw-free-extlink-protocol,
+.cm-mw-dark .cm-mw-extlink-bracket,
+.cm-mw-dark .cm-mw-doubleUnderscore,
+.cm-mw-dark .cm-mw-signature,
+.cm-mw-dark .cm-mw-hr {
   color: #6699FF;
   font-weight: normal;
 }
 
-.cm-mw-mnemonic,
-.cm-mw-exttag-name,
-.cm-mw-exttag-bracket,
-.cm-mw-exttag-attribute,
-.cm-mw-htmltag-name,
-.cm-mw-htmltag-bracket,
-.cm-mw-htmltag-attribute {
+.cm-mw-dark .cm-mw-mnemonic,
+.cm-mw-dark .cm-mw-exttag-name,
+.cm-mw-dark .cm-mw-exttag-bracket,
+.cm-mw-dark .cm-mw-exttag-attribute,
+.cm-mw-dark .cm-mw-htmltag-name,
+.cm-mw-dark .cm-mw-htmltag-bracket,
+.cm-mw-dark .cm-mw-htmltag-attribute {
   color: #00AF89;
   font-weight: normal;
 }
 
-.cm-mw-parserfunction-name,
-.cm-mw-parserfunction-bracket,
-.cm-mw-parserfunction-delimiter { 
+.cm-mw-dark .cm-mw-parserfunction-name,
+.cm-mw-dark .cm-mw-parserfunction-bracket,
+.cm-mw-dark .cm-mw-parserfunction-delimiter { 
   color: #FF6E6E;
 }
 
-.cm-mw-table-bracket,
-.cm-mw-table-delimiter,
-.cm-mw-table-definition { 
+.cm-mw-dark .cm-mw-table-bracket,
+.cm-mw-dark .cm-mw-table-delimiter,
+.cm-mw-dark .cm-mw-table-definition { 
   color: #F06695; 
   font-weight: normal; 
 }
 
-.cm-mw-template-name,
-.cm-mw-template-argument-name,
-.cm-mw-template-delimiter,
-.cm-mw-template-bracket  {
+.cm-mw-dark .cm-mw-template-name,
+.cm-mw-dark .cm-mw-template-argument-name,
+.cm-mw-dark .cm-mw-template-delimiter,
+.cm-mw-dark .cm-mw-template-bracket  {
   color: #C180BB;
   font-weight: normal;
 }
 
-.cm-mw-list,
-.cm-mw-doubleUnderscore, 
-.cm-mw-signature, 
-.cm-mw-hr,
-.cm-mw-indenting,
-.cm-mw-apostrophes-bold, 
-.cm-mw-apostrophes-italic,
-.cm-mw-section-header,
-.cm-mw-templatevariable,
-.cm-mw-templatevariable-name,
-.cm-mw-templatevariable-bracket,
-.cm-mw-templatevariable-delimiter,
-.cm-mw-matching {
+.cm-mw-dark .cm-mw-list,
+.cm-mw-dark .cm-mw-doubleUnderscore, 
+.cm-mw-dark .cm-mw-signature, 
+.cm-mw-dark .cm-mw-hr,
+.cm-mw-dark .cm-mw-indenting,
+.cm-mw-dark .cm-mw-apostrophes-bold, 
+.cm-mw-dark .cm-mw-apostrophes-italic,
+.cm-mw-dark .cm-mw-section-header,
+.cm-mw-dark .cm-mw-templatevariable,
+.cm-mw-dark .cm-mw-templatevariable-name,
+.cm-mw-dark .cm-mw-templatevariable-bracket,
+.cm-mw-dark .cm-mw-templatevariable-delimiter,
+.cm-mw-dark .cm-mw-matching {
   color: #FF9500;
   font-weight: normal;
 }
 
-.cm-mw-comment,
-.cm-mw-skipformatting {
+.cm-mw-dark .cm-mw-comment,
+.cm-mw-dark .cm-mw-skipformatting {
   color: #C8CCD1;
 }
 
-.cm-searching {
+.cm-mw-dark .cm-searching {
   color: #000;
   background-color: rgba(247, 215, 121, 0.7);
   border-radius: 2px;
