@@ -25,7 +25,7 @@ class SectionEditorViewController: UIViewController {
     private lazy var focusNavigationView: FocusNavigationView = {
         return FocusNavigationView.wmf_viewFromClassNib()
     }()
-    private var focusNavigationViewBottomConstraint: NSLayoutConstraint!
+    private var webViewTopConstraint: NSLayoutConstraint!
     
     private var theme = Theme.standard
 
@@ -49,6 +49,8 @@ class SectionEditorViewController: UIViewController {
     private var changesMade: Bool {
         return true
     }
+    
+    private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,33 +85,37 @@ class SectionEditorViewController: UIViewController {
     }
     
     private func setupFocusNavigationView() {
-       
-        //TODO: Localize
+
+        let closeAccessibilityText = WMFLocalizedString("find-replace-header-close-accessibility", value: "Close find and replace", comment: "Accessibility label for closing the find and replace view.")
+        
+        focusNavigationView.configure(titleText: findAndReplaceHeaderTitle, closeButtonAccessibilityText: closeAccessibilityText, traitCollection: traitCollection)
+        
         focusNavigationView.isHidden = true
-        focusNavigationView.configure(text: "Find and replace", traitCollection: traitCollection)
         focusNavigationView.delegate = self
         focusNavigationView.apply(theme: theme)
         
         focusNavigationView.translatesAutoresizingMaskIntoConstraints = false
-        navigationController?.navigationBar.addSubview(focusNavigationView)
+
+        view.addSubview(focusNavigationView)
         
-        focusNavigationView.setNeedsLayout()
-        focusNavigationView.layoutIfNeeded()
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor)
+        let topConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: focusNavigationView.topAnchor)
         
-        navigationController?.navigationBar.leadingAnchor.constraint(equalTo: focusNavigationView.leadingAnchor).isActive = true
-        navigationController?.navigationBar.trailingAnchor.constraint(equalTo: focusNavigationView.trailingAnchor).isActive = true
-        focusNavigationViewBottomConstraint = navigationController?.navigationBar.bottomAnchor.constraint(equalTo: focusNavigationView.bottomAnchor, constant: focusNavigationView.frame.height)
-        focusNavigationViewBottomConstraint.isActive = true
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint])
     }
     
     private func showFocusNavigationView() {
-        focusNavigationViewBottomConstraint.constant = 6 //extra padding so we can see the navigation bar shadow below.
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        webViewTopConstraint.constant = -focusNavigationView.frame.height
         focusNavigationView.isHidden = false
+        
     }
     
     private func hideFocusNavigationView() {
-        focusNavigationViewBottomConstraint.constant = focusNavigationView.frame.height
+        webViewTopConstraint.constant = 0
         focusNavigationView.isHidden = true
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     private func configureWebView() {
@@ -153,7 +159,14 @@ class SectionEditorViewController: UIViewController {
         webView.inputViewsSource = inputViewsController
         
         webView.translatesAutoresizingMaskIntoConstraints = false
-        view.wmf_addSubviewWithConstraintsToEdges(webView)
+        view.addSubview(webView)
+        
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+        webViewTopConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: webView.topAnchor)
+        let bottomConstraint = view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
         
         let url = schemeHandler.appSchemeURL(forRelativeFilePath: "codemirror/codemirror-index.html", fragment: "top")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
@@ -284,7 +297,7 @@ class SectionEditorViewController: UIViewController {
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { (_) in
             self.inputViewsController.didTransitionToNewCollection()
-            self.focusNavigationView.configure(traitCollection: newCollection)
+            self.focusNavigationView.updateLayout(for: newCollection)
         }
     }
 }
@@ -367,8 +380,9 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerAlertDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int) {
         
-        //TODO: Localize & pluralize
-        wmf_showAlertWithMessage("\(replacedCount) items replaced")
+        let format =  WMFLocalizedString("replace-replace-all-results-count", value: "{{PLURAL:%1$d|%1$d item replaced|%1$d items replaced}}", comment: "Alert view label that tells the user how many instances they just replaced via \"Replace all\". %1$d is replaced with the number of instances that were replaced.")
+        let alertText = String.localizedStringWithFormat(format, replacedCount)
+        wmf_showAlertWithMessage(alertText)
     }
 }
 
@@ -383,15 +397,17 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
     
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar) {
         
-        //TODO: Localize
-        let alertController = UIAlertController(title: "Find and replace", message: nil, preferredStyle: .actionSheet)
-        let replaceAction = UIAlertAction(title: "Replace", style: .default) { (_) in
+        let alertController = UIAlertController(title: findAndReplaceHeaderTitle, message: nil, preferredStyle: .actionSheet)
+        let replaceAllActionTitle = WMFLocalizedString("action-replace-all", value: "Replace all", comment: "Title of the replace all action.")
+        let replaceActionTitle = WMFLocalizedString("action-replace", value: "Replace", comment: "Title of the replace all action.")
+        
+        let replaceAction = UIAlertAction(title: replaceActionTitle, style: .default) { (_) in
             self.inputViewsController.updateReplaceType(type: .replaceSingle)
         }
-        let replaceAllAction = UIAlertAction(title: "Replace all", style: .default) { (_) in
+        let replaceAllAction = UIAlertAction(title: replaceAllActionTitle, style: .default) { (_) in
             self.inputViewsController.updateReplaceType(type: .replaceAll)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         alertController.addAction(replaceAction)
         alertController.addAction(replaceAllAction)
         alertController.addAction(cancelAction)
