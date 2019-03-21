@@ -41,7 +41,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="1" blue="0.1048771621" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Vya-pk-7Bs" secondAttribute="bottom" constant="15" id="3aL-2r-McR"/>
                 <constraint firstItem="Vya-pk-7Bs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="BFm-m1-wjB"/>
