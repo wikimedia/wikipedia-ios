@@ -327,6 +327,10 @@ const showRangeDebuggingButtonsForCursorLine = (cm) => {
     useOuter = false
     kickoff()
   })
+  
+  const span = document.createElement('span')
+  span.innerHTML = 'Tap line, then tap:'
+  document.body.insertBefore(span, document.body.firstChild)
 }
 
 const highlightTextForMarkupItemAtIndex = (index) => {
@@ -409,8 +413,50 @@ const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
     typesToStartTracking.forEach(tag => trackedTypes.add(tag))
   }
   
-  lineTokens.forEach(tokenWithEnrichedInHtmlTagArray)    
+  lineTokens.forEach(tokenWithEnrichedInHtmlTagArray)
+  
+  correctForCodeMirrorBoldItalicNestingBugsIfNeeded(outputMarkupItems)
+  
   return outputMarkupItems
+}
+
+// Codemirror incorrectly tokenizes end tokens for italic markup ('') nested inside bold markup (''') in some cases.
+// Example strings:
+//  Hello '''''there''''' one
+//  Hello '''x''there''''' two
+// This method detects such instances and corrects inner and outer range end locations.
+const correctForCodeMirrorBoldItalicNestingBugsIfNeeded = (markupItems) => {
+  const aStartsInsideBAndEndsExactlyAfterB = (a, b) => a.outerRange.startsInsideRange(b.innerRange, true) && a.innerRange.endLocation.equals(b.outerRange.endLocation)
+  const isItemItalic = item => item.buttonName === 'italic'
+  const isItemBold = item => item.buttonName === 'bold'
+  const soughtItalicItemForBoldItem = boldItem => markupItems
+    .filter(isItemItalic)
+    .find(italicItem => {
+      return aStartsInsideBAndEndsExactlyAfterB(italicItem, boldItem)
+    })
+  // Makes the actual adjustments to bold and italic inner and outer range ends.
+  const adjustBoldItalicPair = (pair) => {
+    pair.boldItem.innerRange.endLocation.ch = pair.boldItem.innerRange.endLocation.ch + 2
+    pair.boldItem.outerRange.endLocation.ch = pair.boldItem.outerRange.endLocation.ch + 2
+    pair.italicItem.innerRange.endLocation.ch = pair.italicItem.innerRange.endLocation.ch - 3
+    pair.italicItem.outerRange.endLocation.ch = pair.italicItem.outerRange.endLocation.ch - 3
+  }
+  
+  // Finds bold and italic pairs where:
+  //  - bold contains the italic start
+  //  - italic inner range end location equals the bold outer range end location
+  // Then makes needed adjustments on these pairs.
+  markupItems
+    .filter(isItemBold)
+    .map(boldItem => {
+      const italicItem = soughtItalicItemForBoldItem(boldItem)
+      if (italicItem === undefined) {
+        return null
+      }
+      return {boldItem, italicItem}
+    })
+    .filter(pair => pair !== null)
+    .forEach(adjustBoldItalicPair)
 }
 
 exports.nonTagMarkupItemsForLineTokens = nonTagMarkupItemsForLineTokens
@@ -688,13 +734,45 @@ exports.ItemLocation = ItemLocation
 
 },{}],8:[function(require,module,exports){
 
+// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+
+// Returns set containing items that exist in both sets.
 const intersection = (a, b) => new Set([...a].filter(x => b.has(x)))
+
+// Returns set containing items that exist only in the first set and not in both sets.
 const difference = (a, b) => new Set([...a].filter(x => !b.has(x)))
+
+// Returns set containing all items from both sets, without dupes.
 const union = (a, b) => new Set([...a, ...b])
+
+// Returns true if all items set b are in set a.
+const isSuperset = (a, b) => {
+  for (let e of b) {
+    if (!a.has(e)) {
+      return false
+    }
+  }
+  return true
+}
+
+// Returns set containing all items from both sets, except items that are present in both sets.
+const symmetricDifference = (a, b) => {
+  let diff = new Set(a)
+  for (let e of b) {
+    if (diff.has(e)) {
+      diff.delete(e)
+    } else {
+      diff.add(e)
+    }
+  }
+  return diff
+}
 
 exports.intersection = intersection
 exports.difference = difference
 exports.union = union
+exports.isSuperset = isSuperset
+exports.symmetricDifference = symmetricDifference
 
 },{}],9:[function(require,module,exports){
 const ItemRange = require('./codemirror-range-objects').ItemRange
