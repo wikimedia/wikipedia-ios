@@ -6,21 +6,27 @@ protocol FocusNavigationViewDelegate: class {
 
 final class FocusNavigationView: UIView {
 
-    @IBOutlet private var titleLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var titleLabelVerticalConstraints: [NSLayoutConstraint]!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var closeButton: UIButton!
+    @IBOutlet private var divView: UIView!
     
     weak var delegate: FocusNavigationViewDelegate?
     
-    func configure(text: String? = nil, traitCollection: UITraitCollection) {
-        
-        if let text = text {
-            titleLabel.text = text
-        }
-        
-        //TODO: needs accessible close button
+    func configure(titleText: String, closeButtonAccessibilityText: String, traitCollection: UITraitCollection, isTitleAccessible: Bool = false) {
+       
+        titleLabel.text = titleText
+        titleLabel.isAccessibilityElement = isTitleAccessible
         titleLabel.font = UIFont.wmf_font(.mediumHeadline, compatibleWithTraitCollection: traitCollection)
-        titleLabelBottomConstraint.constant = traitCollection.verticalSizeClass == .compact ? 0 : 6
+        closeButton.accessibilityLabel = closeButtonAccessibilityText
+        
+        updateLayout(for: traitCollection)
+    }
+    
+    func updateLayout(for traitCollection: UITraitCollection) {
+        titleLabelVerticalConstraints.forEach { (constraint) in
+            constraint.constant = traitCollection.verticalSizeClass == .compact ? 5 : 15
+        }
     }
     
     @IBAction func tappedClose() {
@@ -34,5 +40,6 @@ extension FocusNavigationView: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         closeButton.tintColor = theme.colors.secondaryText
         backgroundColor = theme.colors.paperBackground
+        divView.backgroundColor = theme.colors.midBackground
     }
 }

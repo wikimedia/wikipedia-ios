@@ -37,7 +37,7 @@ styles with only the things which need tweaking.
 /* baseline .content */
 /* Fixes T214728 */
 .content {
-  background-color: unset !important;
+  background-color: initial !important;
 }
 
 /* baseline table */
@@ -510,6 +510,7 @@ styles with only the things which need tweaking.
 table.infobox caption {
   text-align: center;
   font-weight: bold;
+  padding: 10px 10px 0px 10px;
 }
 
 div.pagelib_collapse_table_container {
@@ -1385,6 +1386,14 @@ li.gallerybox div.thumb > div {
 }
 div.gallerytext > p {
   margin-top: 0px !important;
+}
+/*
+Fix for upstream change: https://gerrit.wikimedia.org/r/#/c/mediawiki/skins/MinervaNeue/+/494374/3/resources/skins.minerva.content.styles/lists.less
+Which caused this clipping: https://phabricator.wikimedia.org/T150377#5019102
+*/
+.content ol {
+  list-style: decimal inside;
+  padding: 0;
 }
 
 /*# sourceMappingURL=wikimedia-page-library-transform.css.map*/

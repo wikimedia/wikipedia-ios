@@ -1,7 +1,11 @@
 #import "WMFArticle+CoreDataClass.h"
 
+@interface WMFArticle () {
+    NSArray<ReadingList *> * _Nullable _sortedNonDefaultReadingLists;
+}
+@end
+
 @implementation WMFArticle
-@synthesize sortedNonDefaultReadingLists = _sortedNonDefaultReadingLists;
 
 - (NSArray<ReadingList *> *)sortedNonDefaultReadingLists {
     @synchronized (self) {

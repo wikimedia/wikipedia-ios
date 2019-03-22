@@ -28,8 +28,6 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 
         inputViewType = nil
         inputAccessoryViewType = .default
-        
-        
     }
 
     func textSelectionDidChange(isRangeSelected: Bool) {
@@ -82,14 +80,14 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         return textFormattingInputViewController
     }
 
-    private enum InputAccessoryViewType {
+    enum InputAccessoryViewType {
         case `default`
         case highlight
         case findInPage
     }
 
     private var previousInputAccessoryViewType: InputAccessoryViewType?
-    private var inputAccessoryViewType: InputAccessoryViewType? {
+    private(set) var inputAccessoryViewType: InputAccessoryViewType? {
         didSet {
             previousInputAccessoryViewType = oldValue
             webView.setInputAccessoryView(inputAccessoryView)
@@ -152,7 +150,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         keyboardBar.reset()
         inputAccessoryViewType = previousInputAccessoryViewType
         if keyboardBar.isVisible {
-            messagingController.focus()
+            messagingController.selectLastFocusedMatch()
+            messagingController.focusWithoutScroll()
         }
     }
 }

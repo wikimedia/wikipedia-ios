@@ -19,7 +19,12 @@
   })(function(CodeMirror) {
     "use strict";
   
-    function searchOverlay(query, caseInsensitive) {
+    function searchOverlay(cm, state, caseInsensitive) {
+
+      var query = state.query;
+      var loopMatchPositionIndex = 0;
+      state.initialFocusedMatchIndex = -1;
+
       if (typeof query == "string")
         query = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), caseInsensitive ? "gi" : "g");
       else if (!query.global)
@@ -30,6 +35,15 @@
         var match = query.exec(stream.string);
         if (match && match.index == stream.pos) {
           stream.pos += match[0].length || 1;
+
+          if (state.initialFocusedMatchIndex == -1) {
+            var fromCursor = cm.getCursor('from')
+            if (stream.lineOracle.line > fromCursor.line || (stream.lineOracle.line == fromCursor.line && stream.start >= fromCursor.ch)) {
+              state.initialFocusedMatchIndex = loopMatchPositionIndex;
+             }
+             loopMatchPositionIndex++;
+          }
+
           return "searching";
         } else if (match) {
           stream.pos = match.index;
@@ -82,7 +96,7 @@
       state.queryText = query;
       state.query = parseQuery(query);
       cm.removeOverlay(state.overlay, queryCaseInsensitive(state.query));
-      state.overlay = searchOverlay(state.query, queryCaseInsensitive(state.query));
+      state.overlay = searchOverlay(cm, state, queryCaseInsensitive(state.query));
       cm.addOverlay(state.overlay);
       if (cm.showMatchesOnScrollbar) {
         if (state.annotate) { state.annotate.clear(); state.annotate = null; }
@@ -119,7 +133,18 @@
     function focusOnMatch(state, focus) {
       const matches = document.getElementsByClassName("cm-searching");
       const matchesCount = matches.length;
-      var focusedMatchIndex = state.focusedMatchIndex || 0;
+      
+      var focusedMatchIndex;
+      //here we're using focus as a flag for whether they came from find next / prev or from replace. 
+      //if they came from find next/previous, we are okay with focusedMatchIndex being -1 because it will get decremented/incremented below
+      //if they came from replace (where focus is null), we want to reset focusedMatchIndex to 0 but NOT increment
+      if (state.focusedMatchIndex != undefined && state.focusedMatchIndex != null && (state.focusedMatchIndex > -1 && !focus || state.focusedMatchIndex >= -1 && focus)) {
+        focusedMatchIndex = state.focusedMatchIndex;
+      } else if (state.initialFocusedMatchIndex != undefined && state.initialFocusedMatchIndex != null && state.initialFocusedMatchIndex > -1) {
+        focusedMatchIndex = state.initialFocusedMatchIndex;
+      } else {
+        focusedMatchIndex = 0;
+      }
 
       if (focus) {
         if (focus.next) {
@@ -158,6 +183,7 @@
       };
 
       window.webkit.messageHandlers.codeMirrorSearchMessage.postMessage(message);
+      state.initialFocusedMatchIndex = -1;
     }
 
     function focusOnMatchAtIndex(matches, index, id) {
@@ -190,6 +216,8 @@
       var cursor = getSearchCursor(cm, state.query, rev ? state.posFrom : state.posTo);
       if (!cursor.find(rev)) {
         cursor = getSearchCursor(cm, state.query, rev ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0));
+        state.focusedMatchIndex = -1;
+        state.initialFocusedMatchIndex = -1;
         if (!cursor.find(rev)) return;
       }
       state.posFrom = cursor.from(); state.posTo = cursor.to();
@@ -202,6 +230,7 @@
       if (!state.query) return;
       clearFocusedMatches(cm);
       state.focusedMatchIndex = null
+      state.initialFocusedMatchIndex = null;
       state.query = state.queryText = null;
       cm.removeOverlay(state.overlay);
       if (state.annotate) { state.annotate.clear(); state.annotate = null; }
@@ -222,26 +251,26 @@
       });
       cm.state.replaceAllCount = count;
     }
-     
+
     //same as replace(cm, all) but bypasses CodeMirror dialogs. Split this up into all & single variants for simplicity
     function replaceAllWithoutDialogs(cm) {
-      var replaceText = cm.state.replaceText
+      var replaceText = cm.state.replaceText;
       if (cm.getOption("readOnly")) return;
       if (!replaceText) return;
 
-     var query = cm.state.query;
+      var query = cm.state.query;
       query = parseQuery(query);
       replaceText = parseString(replaceText);
       replaceAll(cm, query, replaceText);
 
       //resets count to 0/0
-      let state = getSearchState(cm)
+      let state = getSearchState(cm);
       focusOnMatch(state);
     }
 
     function replaceSingleWithoutDialogs(cm) {
       if (cm.getOption("readOnly")) return;
-      var replaceText = cm.state.replaceText
+      var replaceText = cm.state.replaceText;
       if (!replaceText) return;
 
       var state = getSearchState(cm);
@@ -255,16 +284,23 @@
         if (!(match = cursor.findNext())) {
           cursor = getSearchCursor(cm, query);
           state.focusedMatchIndex = 0;
+          state.focusedMatchIndex = -1;
+          state.initialFocusedMatchIndex = -1;
           if (!(match = cursor.findNext()) || (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) {
             focusOnMatch(state); //resets count to 0/0
             return;
           }
         }
-        
+
         state.posFrom = cursor.from(); state.posTo = cursor.to();
-        focusOnMatch(state)
+        focusOnMatch(state);
         if (shouldReplace) {
+          cm.isReplacing = true;
+
+          cm.setCursor(state.posFrom)
+
           doReplace(match);
+          cm.isReplacing = false;
         }
       }
       var doReplace = function(match) {
@@ -273,7 +309,7 @@
       };
       advance(true);
     }
-
+  
     function replace(cm, all) {
       if (cm.getOption("readOnly")) return;
       var query = cm.getSelection() || getSearchState(cm).lastQuery;

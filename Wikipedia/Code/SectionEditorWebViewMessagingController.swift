@@ -15,11 +15,16 @@ protocol SectionEditorWebViewMessagingControllerAlertDelegate: class {
     func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int)
 }
 
+protocol SectionEditorWebViewMessagingControllerScrollDelegate: class {
+    func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint)
+}
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
     weak var findInPageDelegate: SectionEditorWebViewMessagingControllerFindInPageDelegate?
     weak var alertDelegate: SectionEditorWebViewMessagingControllerAlertDelegate?
+    weak var scrollDelegate: SectionEditorWebViewMessagingControllerScrollDelegate?
 
     weak var webView: WKWebView!
 
@@ -32,7 +37,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
             alertDelegate?.sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(self, replacedCount: count)
         case (Message.Name.smoothScrollToYOffsetMessage, let yOffset as CGFloat):
             let newOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: webView.scrollView.contentOffset.y + yOffset)
-            webView.scrollView.setContentOffset(newOffset, animated: true)
+            scrollDelegate?.sectionEditorWebViewMessagingController(self, didReceiveScrollMessageWithNewContentOffset: newOffset)
         case (Message.Name.codeMirrorMessage, let message as [String: Any]):
             guard
                 let selectionChangedMessage = message[Message.Name.selectionChanged],
@@ -168,6 +173,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case cursorRight
         case comment
         case focus
+        case focusWithoutScroll
         case selectAll
         case highlighting
         case lineNumbers
@@ -186,6 +192,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case adjustedContentInsetChanged
         case replaceAll
         case replaceSingle
+        case selectLastFocusedMatch
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -251,6 +258,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .redo)
     }
 
+    func selectLastFocusedMatch() {
+        execCommand(for: .selectLastFocusedMatch)
+    }
+
     func moveCursorDown() {
         execCommand(for: .cursorDown)
     }
@@ -273,6 +284,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func focus() {
         execCommand(for: .focus)
+    }
+
+    func focusWithoutScroll() {
+        execCommand(for: .focusWithoutScroll)
     }
 
     func selectAllText() {
