@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_5" orientation="landscape">
+    <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,23 +19,23 @@
             </connections>
         </placeholder>
         <view contentMode="scaleToFill" id="7M8-99-dh4">
-            <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dMs-Cs-puZ">
-                    <rect key="frame" x="150" y="94" width="596" height="320"/>
+                    <rect key="frame" x="0.0" y="128" width="414" height="768"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dub-mg-qOR" userLabel="Top View">
-                            <rect key="frame" x="0.0" y="0.0" width="326" height="320"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
                             <subviews>
                                 <containerView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVm-53-1Qf" userLabel="Background Container View">
-                                    <rect key="frame" x="0.0" y="0.0" width="326" height="242.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="NVm-53-1Qf" secondAttribute="height" multiplier="90:67" id="jxh-Bt-Yot"/>
+                                        <constraint firstAttribute="width" secondItem="NVm-53-1Qf" secondAttribute="height" multiplier="90:67" priority="999" id="jxh-Bt-Yot"/>
                                     </constraints>
                                 </containerView>
                                 <containerView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgU-qJ-TmJ" userLabel="Foreground Container View">
-                                    <rect key="frame" x="10" y="7" width="306" height="306"/>
+                                    <rect key="frame" x="-10" y="7" width="434" height="434"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="KgU-qJ-TmJ" secondAttribute="height" multiplier="1:1" id="64H-UY-FA4"/>
                                     </constraints>
@@ -90,7 +90,7 @@
                             </variation>
                         </view>
                         <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgT-3l-nhO" userLabel="Bottom Container View">
-                            <rect key="frame" x="346" y="0.0" width="250" height="320"/>
+                            <rect key="frame" x="0.0" y="448" width="414" height="320"/>
                             <constraints>
                                 <constraint firstAttribute="width" priority="999" constant="250" id="Jpk-pf-nMF"/>
                                 <constraint firstAttribute="height" priority="999" constant="320" id="UyW-ou-JaW"/>
