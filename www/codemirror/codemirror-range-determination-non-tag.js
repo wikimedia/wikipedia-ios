@@ -63,8 +63,50 @@ const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
     typesToStartTracking.forEach(tag => trackedTypes.add(tag))
   }
   
-  lineTokens.forEach(tokenWithEnrichedInHtmlTagArray)    
+  lineTokens.forEach(tokenWithEnrichedInHtmlTagArray)
+  
+  correctForCodeMirrorBoldItalicNestingBugsIfNeeded(outputMarkupItems)
+  
   return outputMarkupItems
+}
+
+// Codemirror incorrectly tokenizes end tokens for italic markup ('') nested inside bold markup (''') in some cases.
+// Example strings:
+//  Hello '''''there''''' one
+//  Hello '''x''there''''' two
+// This method detects such instances and corrects inner and outer range end locations.
+const correctForCodeMirrorBoldItalicNestingBugsIfNeeded = (markupItems) => {
+  const aStartsInsideBAndEndsExactlyAfterB = (a, b) => a.outerRange.startsInsideRange(b.innerRange, true) && a.innerRange.endLocation.equals(b.outerRange.endLocation)
+  const isItemItalic = item => item.buttonName === 'italic'
+  const isItemBold = item => item.buttonName === 'bold'
+  const soughtItalicItemForBoldItem = boldItem => markupItems
+    .filter(isItemItalic)
+    .find(italicItem => {
+      return aStartsInsideBAndEndsExactlyAfterB(italicItem, boldItem)
+    })
+  // Makes the actual adjustments to bold and italic inner and outer range ends.
+  const adjustBoldItalicPair = (pair) => {
+    pair.boldItem.innerRange.endLocation.ch = pair.boldItem.innerRange.endLocation.ch + 2
+    pair.boldItem.outerRange.endLocation.ch = pair.boldItem.outerRange.endLocation.ch + 2
+    pair.italicItem.innerRange.endLocation.ch = pair.italicItem.innerRange.endLocation.ch - 3
+    pair.italicItem.outerRange.endLocation.ch = pair.italicItem.outerRange.endLocation.ch - 3
+  }
+  
+  // Finds bold and italic pairs where:
+  //  - bold contains the italic start
+  //  - italic inner range end location equals the bold outer range end location
+  // Then makes needed adjustments on these pairs.
+  markupItems
+    .filter(isItemBold)
+    .map(boldItem => {
+      const italicItem = soughtItalicItemForBoldItem(boldItem)
+      if (italicItem === undefined) {
+        return null
+      }
+      return {boldItem, italicItem}
+    })
+    .filter(pair => pair !== null)
+    .forEach(adjustBoldItalicPair)
 }
 
 exports.nonTagMarkupItemsForLineTokens = nonTagMarkupItemsForLineTokens
