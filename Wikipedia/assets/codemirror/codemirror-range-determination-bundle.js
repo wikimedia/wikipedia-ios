@@ -231,11 +231,11 @@ const markupItemsForLineTokens = require('./codemirror-range-determination').mar
 
 // Uncomment the chunk below to add debugging buttons to top of article wikitext editor.
 
-/*
+
 setTimeout(() => {
   showRangeDebuggingButtonsForCursorLine(editor)
 }, 1000)
-*/
+
 
 let markupItems = []
 let currentItemIndex = 0
@@ -434,12 +434,13 @@ const correctForCodeMirrorBoldItalicNestingBugsIfNeeded = (markupItems) => {
     .find(italicItem => {
       return aStartsInsideBAndEndsExactlyAfterB(italicItem, boldItem)
     })
-  // Makes the actual adjustments to bold and italic inner and outer range ends.
-  const adjustBoldItalicPair = (pair) => {
-    pair.boldItem.innerRange.endLocation.ch = pair.boldItem.innerRange.endLocation.ch + 2
-    pair.boldItem.outerRange.endLocation.ch = pair.boldItem.outerRange.endLocation.ch + 2
-    pair.italicItem.innerRange.endLocation.ch = pair.italicItem.innerRange.endLocation.ch - 3
-    pair.italicItem.outerRange.endLocation.ch = pair.italicItem.outerRange.endLocation.ch - 3
+  const adjustBoldItalicPair = pair => {
+    adjustMarkupItemInnerAndOuterRangeEndLocations(pair.boldItem, 2)
+    adjustMarkupItemInnerAndOuterRangeEndLocations(pair.italicItem, -3)
+  }
+  const adjustMarkupItemInnerAndOuterRangeEndLocations = (markupItem, endLocationsOffset) => {
+    markupItem.innerRange.endLocation.ch = markupItem.innerRange.endLocation.ch + endLocationsOffset
+    markupItem.outerRange.endLocation.ch = markupItem.outerRange.endLocation.ch + endLocationsOffset
   }
   
   // Finds bold and italic pairs where:
@@ -450,12 +451,9 @@ const correctForCodeMirrorBoldItalicNestingBugsIfNeeded = (markupItems) => {
     .filter(isItemBold)
     .map(boldItem => {
       const italicItem = soughtItalicItemForBoldItem(boldItem)
-      if (italicItem === undefined) {
-        return null
-      }
-      return {boldItem, italicItem}
+      return (italicItem !== undefined) ? {boldItem, italicItem} : null
     })
-    .filter(pair => pair !== null)
+    .filter(maybePair => maybePair !== null)
     .forEach(adjustBoldItalicPair)
 }
 
