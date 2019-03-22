@@ -297,7 +297,7 @@
         if (shouldReplace) {
           cm.isReplacing = true;
 
-          cm.setCursor(state.posFrom, null, '+')
+          cm.setCursor(state.posFrom)
 
           doReplace(match);
           cm.isReplacing = false;
