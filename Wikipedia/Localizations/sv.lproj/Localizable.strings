@@ -216,6 +216,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Ta bort oordnad lista från nuvarande rad";
 "edit-watch-list-learn-more-text" = "Läs mer om bevakningslistor";
 "edit-watch-this-page-text" = "Bevaka denna sida";
+"editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Plåga inte dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";
+"editing-welcome-be-bold-title" = "Din röst är viktig";
+"editing-welcome-citations-subtitle" = "Allt innehåll måste kunna verifieras. När ny information läggs till i en artikel måste redigerare kunna inkludera en fotnot till en pålitlig källa som stöder bidraget.";
+"editing-welcome-citations-title" = "Citera pålitliga källor";
+"editing-welcome-impartial-tone-subtitle" = "Vi strävar mot att artiklar ska skrivas med en neutral ton. Sikta mot att göra en rättvis representation av världen som pålitliga källor beskriver den när du redigerar.";
+"editing-welcome-impartial-tone-title" = "Skriv med en neutral ton";
+"editing-welcome-set-knowledge-free-subtitle" = "För att alla ska få åtkomst till världens kunskap vill vi att du deltar genom att läsa, redigera och bidra till de ämnen som betyder mest för dig.";
+"editing-welcome-set-knowledge-free-title" = "Frigör kunskap";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
@@ -559,7 +567,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Mörkt tema";
 "reading-themes-controls-accessibility-light-theme-button" = "Ljust tema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepiatema";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaxmarkering";
 "reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
+"reading-themes-controls-syntax-highlighting" = "Syntaxmarkering";
 "reference-title" = "Referens $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|1=I går|$1 dagar sedan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";

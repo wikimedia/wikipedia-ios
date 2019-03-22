@@ -11,6 +11,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
     let findAndReplaceView = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
+    private var isRangeSelected = false
+
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
         self.messagingController = messagingController
@@ -31,6 +33,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     func textSelectionDidChange(isRangeSelected: Bool) {
+        self.isRangeSelected = isRangeSelected
+
         if inputViewType == nil {
             if inputAccessoryViewType == .findInPage {
                 messagingController.clearSearch()
@@ -39,6 +43,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
             }
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
         }
+
         defaultEditToolbarView?.enableAllButtons()
         contextualHighlightEditToolbarView?.enableAllButtons()
         defaultEditToolbarView?.deselectAllButtons()
@@ -198,7 +203,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapClose() {
         inputViewType = nil
-        inputAccessoryViewType = previousInputAccessoryViewType
+        inputAccessoryViewType = isRangeSelected ? .highlight : .default
     }
 
     func textFormattingProvidingDidTapHeading(depth: Int) {
