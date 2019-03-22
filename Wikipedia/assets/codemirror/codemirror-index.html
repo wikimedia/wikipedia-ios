@@ -860,8 +860,14 @@
         // Hack to fix cursor *appearing* to be above actual line after undo.  
         requestAnimationFrame(() => {
           const from = editor.getCursor('from')
+          const to = editor.getCursor('to')
+          const wasRangeSelected = (from.line !== to.line) || (to.ch - from.ch) > 0
+
           editor.setCursor(from.line + 1)
           editor.setCursor(from)
+          if (wasRangeSelected) {
+            editor.setSelection(from, to)
+          }
         })
         
        notifyNativeAboutChangesAndScrollIfNeeded(editor)
