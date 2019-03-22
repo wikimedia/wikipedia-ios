@@ -98,6 +98,10 @@ const showRangeDebuggingButtonsForCursorLine = (cm) => {
     useOuter = false
     kickoff()
   })
+  
+  const span = document.createElement('span')
+  span.innerHTML = 'Tap line, then tap:'
+  document.body.insertBefore(span, document.body.firstChild)
 }
 
 const highlightTextForMarkupItemAtIndex = (index) => {
