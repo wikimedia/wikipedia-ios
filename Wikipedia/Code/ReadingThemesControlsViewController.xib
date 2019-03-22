@@ -272,13 +272,13 @@
                                     <rect key="frame" x="0.0" y="240" width="290" height="52"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Syntax Highlighting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMd-Oo-cjP">
-                                            <rect key="frame" x="10" y="15" width="211" height="24"/>
+                                            <rect key="frame" x="10" y="15" width="211" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I3z-iR-C3C">
-                                            <rect key="frame" x="231" y="11.666666666666657" width="51" height="31"/>
+                                            <rect key="frame" x="231" y="13" width="51" height="31"/>
                                             <connections>
                                                 <action selector="syntaxHighlightingSwitched:" destination="-1" eventType="valueChanged" id="BRB-hP-lRd"/>
                                             </connections>
@@ -287,7 +287,7 @@
                                     <constraints>
                                         <constraint firstItem="I3z-iR-C3C" firstAttribute="centerY" secondItem="uMd-Oo-cjP" secondAttribute="centerY" id="Dtb-Af-JJz"/>
                                         <constraint firstAttribute="trailing" secondItem="I3z-iR-C3C" secondAttribute="trailing" constant="10" id="GQn-y0-VCJ"/>
-                                        <constraint firstAttribute="bottom" secondItem="uMd-Oo-cjP" secondAttribute="bottom" constant="13" id="K6G-3Z-Zlj"/>
+                                        <constraint firstAttribute="bottom" secondItem="uMd-Oo-cjP" secondAttribute="bottom" constant="10" id="K6G-3Z-Zlj"/>
                                         <constraint firstItem="uMd-Oo-cjP" firstAttribute="top" secondItem="Kkd-Mq-to7" secondAttribute="top" constant="15" id="UHF-I7-HCT"/>
                                         <constraint firstItem="uMd-Oo-cjP" firstAttribute="leading" secondItem="Kkd-Mq-to7" secondAttribute="leading" constant="10" id="f3D-J5-XfV"/>
                                         <constraint firstItem="I3z-iR-C3C" firstAttribute="leading" secondItem="uMd-Oo-cjP" secondAttribute="trailing" constant="10" id="wh0-By-rar"/>
