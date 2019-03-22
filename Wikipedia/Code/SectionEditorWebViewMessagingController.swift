@@ -19,6 +19,14 @@ protocol SectionEditorWebViewMessagingControllerScrollDelegate: class {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint)
 }
 
+enum WebViewMessagingError: LocalizedError {
+    case generic
+    var localizedDescription: String {
+        return CommonStrings.genericErrorDescription
+    }
+}
+    
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
@@ -148,8 +156,16 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
-        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
+    func getWikitext(completionHandler: ((String?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: { (result, error) in
+            guard error == nil, let wikitext = result as? String else {
+                completionHandler?(nil, WebViewMessagingError.generic)
+                return
+            }
+            // multiple spaces in a row have non breaking spaces automatically added, so they need to be removed https://phabricator.wikimedia.org/T218993
+            let transformedWikitext = wikitext.replacingOccurrences(of: "\u{00a0}", with: " ")
+            completionHandler?(transformedWikitext, nil)
+        })
     }
 
     private enum CodeMirrorCommandType: String {
