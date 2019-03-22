@@ -11,6 +11,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
     let findAndReplaceView = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
+    private var isRangeSelected = false
+
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
         self.messagingController = messagingController
@@ -28,11 +30,11 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 
         inputViewType = nil
         inputAccessoryViewType = .default
-        
-        
     }
 
     func textSelectionDidChange(isRangeSelected: Bool) {
+        self.isRangeSelected = isRangeSelected
+
         if inputViewType == nil {
             if inputAccessoryViewType == .findInPage {
                 messagingController.clearSearch()
@@ -41,6 +43,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
             }
             inputAccessoryViewType = isRangeSelected ? .highlight : .default
         }
+
         defaultEditToolbarView?.enableAllButtons()
         contextualHighlightEditToolbarView?.enableAllButtons()
         defaultEditToolbarView?.deselectAllButtons()
@@ -82,14 +85,14 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         return textFormattingInputViewController
     }
 
-    private enum InputAccessoryViewType {
+    enum InputAccessoryViewType {
         case `default`
         case highlight
         case findInPage
     }
 
     private var previousInputAccessoryViewType: InputAccessoryViewType?
-    private var inputAccessoryViewType: InputAccessoryViewType? {
+    private(set) var inputAccessoryViewType: InputAccessoryViewType? {
         didSet {
             previousInputAccessoryViewType = oldValue
             webView.setInputAccessoryView(inputAccessoryView)
@@ -152,7 +155,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         keyboardBar.reset()
         inputAccessoryViewType = previousInputAccessoryViewType
         if keyboardBar.isVisible {
-            messagingController.focus()
+            messagingController.selectLastFocusedMatch()
+            messagingController.focusWithoutScroll()
         }
     }
 }
@@ -199,7 +203,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
 
     func textFormattingProvidingDidTapClose() {
         inputViewType = nil
-        inputAccessoryViewType = previousInputAccessoryViewType
+        inputAccessoryViewType = isRangeSelected ? .highlight : .default
     }
 
     func textFormattingProvidingDidTapHeading(depth: Int) {

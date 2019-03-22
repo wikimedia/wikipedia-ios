@@ -155,7 +155,7 @@ class ReadingThemesControlsViewController: UIViewController {
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        syntaxHighlightingLabel.font = UIFont.wmf_font(.title2, compatibleWithTraitCollection: traitCollection)
+        syntaxHighlightingLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     
     @objc func screenBrightnessChangedInApp(notification: Notification){
