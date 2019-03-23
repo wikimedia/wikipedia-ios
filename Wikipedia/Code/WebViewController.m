@@ -546,7 +546,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)scrollToAndFocusOnFirstMatch {
     self.findInPageSelectedMatchIndex = -1;
-    [self keyboardBarDidTapNext: nil];
+    [self keyboardBarDidTapNext:nil];
 }
 
 #pragma FindAndReplaceKeyboardBarDelegate
@@ -560,7 +560,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)keyboardBarDidTapClose:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
-     [self hideFindInPageWithCompletion:nil];
+    [self hideFindInPageWithCompletion:nil];
 }
 
 - (void)keyboardBarDidTapClear:(WMFFindAndReplaceKeyboardBar *)keyboardBar {
@@ -862,9 +862,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                           action:@selector(shareMenuItemTapped:)];
 
     UIMenuItem *editItem = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"edit-menu-item", nil, nil, @"Edit", @"Button label for text selection 'Edit' menu item")
-                                                          action:@selector(editMenuItemTapped:)];
+                                                      action:@selector(editMenuItemTapped:)];
 
-    [UIMenuController sharedMenuController].menuItems = @[editItem, shareSnippet];
+    NSArray<UIMenuItem *> *menuItems = self.article.editable ? @[editItem, shareSnippet] : @[shareSnippet];
+
+    [UIMenuController sharedMenuController].menuItems = menuItems;
 }
 
 - (void)editMenuItemTapped:(id)sender {
