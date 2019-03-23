@@ -31,8 +31,10 @@ const canClearFormatting = (codeMirror) => {
 }
 
 const clearFormatting = (codeMirror) => {
-  relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, false)
-  splitMarkupAroundSelectionRange(codeMirror, false)
+  codeMirror.operation(() => {
+    relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, false)
+    splitMarkupAroundSelectionRange(codeMirror, false)    
+  })
 }
 
 const canRelocateOrRemoveExistingMarkupForSelectionRange = (codeMirror) => relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, true)
