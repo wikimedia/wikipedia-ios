@@ -33,7 +33,8 @@ const canClearFormatting = (codeMirror) => {
 const clearFormatting = (codeMirror) => {
   codeMirror.operation(() => {
     relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, false)
-    splitMarkupAroundSelectionRange(codeMirror, false)    
+    splitMarkupAroundSelectionRange(codeMirror, false)
+    pruneWhitespaceOnlyMarkupItems(codeMirror)
   })
 }
 
@@ -86,8 +87,18 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
     return true
   }
 
-  const accumulatedLeftMarkup = getTextFromRanges(codeMirror, markupRangesToMoveAfterSelection)
-  const accumulatedRightMarkup = getTextFromRanges(codeMirror, markupRangesToMoveBeforeSelection)
+  let accumulatedLeftMarkup = getTextFromRanges(codeMirror, markupRangesToMoveAfterSelection)
+  let accumulatedRightMarkup = getTextFromRanges(codeMirror, markupRangesToMoveBeforeSelection)
+
+  // Work-around for cases which will result in empty markup items such as `<u></u>`, which, in some
+  // cases, confuses the CodeMirror wikitext parsing. Injects a space inside such markup items so
+  // they tokenize correctly can later be identified as whitespace-only and pruned. 
+  if (selectionStartsAtOpeningMarkupEnd(markupItems, selectionRange)) {
+    accumulatedRightMarkup = ` ${accumulatedRightMarkup}`
+  }
+  if (selectionEndsAtClosingMarkupStart(markupItems, selectionRange)) {
+    accumulatedLeftMarkup = `${accumulatedLeftMarkup} `
+  }
 
   // Relocate any markup that needs to be moved after selection
   codeMirror.replaceRange(accumulatedLeftMarkup, selectionRange.endLocation, null, '+')
@@ -185,32 +196,20 @@ const splitMarkupAroundSelectionRange = (codeMirror, evaluateOnly = false) => {
   let accumulatedLeftMarkup = getTextFromRanges(codeMirror, markupRangesToAddBeforeSelection)
   let accumulatedRightMarkup = getTextFromRanges(codeMirror, markupRangesToAddAfterSelection)
 
-  // Work-around for cases which will result in empty markup items such as `<u></u>`.
-  // Injects text inside such markup items so they can be identified and pruned. 
-  // This also prevents a codemirror bug where it incorrectly tokenizes empty markup items.
-  const removeMeMarker = 'R!E@M#O$V%E'
-  const selectionStartsAtOpeningMarkupEnd = markupItems.find(item => item.openingMarkupRange().endLocation.equals(selectionRange.startLocation)) !== undefined
-  if (selectionStartsAtOpeningMarkupEnd) {
-    accumulatedLeftMarkup = `${removeMeMarker}${accumulatedLeftMarkup}`
+  // Work-around for cases which will result in empty markup items such as `<u></u>`, which, in some
+  // cases, confuses the CodeMirror wikitext parsing. Injects a space inside such markup items so
+  // they tokenize correctly can later be identified as whitespace-only and pruned. 
+  if (selectionStartsAtOpeningMarkupEnd(markupItems, selectionRange)) {
+    accumulatedLeftMarkup = ` ${accumulatedLeftMarkup}`
   }
-  const selectionEndsAtClosingMarkupStart = markupItems.find(item => item.closingMarkupRange().startLocation.equals(selectionRange.endLocation)) !== undefined
-  if (selectionEndsAtClosingMarkupStart) {
-    accumulatedRightMarkup = `${accumulatedRightMarkup}${removeMeMarker}`
+  if (selectionEndsAtClosingMarkupStart(markupItems, selectionRange)) {
+    accumulatedRightMarkup = `${accumulatedRightMarkup} `
   }
 
   // At selection end add opening tags.
   codeMirror.replaceRange(accumulatedRightMarkup, selectionRange.endLocation, null, '+')
   // At selection start add closing tags.
   codeMirror.replaceRange(accumulatedLeftMarkup, selectionRange.startLocation, null, '+')
-
-  // Prune wikitext for items with 'removeMeMarker'.
-  const updatedMarkupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
-  const deleteItemWikitextIfMarkedForRemoval = (item) => {
-    if (codeMirror.getRange(item.innerRange.startLocation, item.innerRange.endLocation) === removeMeMarker) {
-      codeMirror.replaceRange('', item.outerRange.startLocation, item.outerRange.endLocation, '+')
-    }
-  }
-  updatedMarkupItems.reverse().forEach(deleteItemWikitextIfMarkedForRemoval)
 
   // Adjust selection.
   const origSelectionRangeLineExtent = selectionRange.endLocation.line - selectionRange.startLocation.line
@@ -223,6 +222,27 @@ const splitMarkupAroundSelectionRange = (codeMirror, evaluateOnly = false) => {
   )
 
   return true
+}
+
+const selectionStartsAtOpeningMarkupEnd = (markupItems, selectionRange) => markupItems.find(item => item.openingMarkupRange().endLocation.equals(selectionRange.startLocation)) !== undefined
+const selectionEndsAtClosingMarkupStart = (markupItems, selectionRange) => markupItems.find(item => item.closingMarkupRange().startLocation.equals(selectionRange.endLocation)) !== undefined
+
+// Safely prunes even items which end up empty as a result of pruning other nested items.
+const pruneWhitespaceOnlyMarkupItems = (codeMirror) => {
+  const itemContainsOnlyWhitespace = item => codeMirror.getRange(item.innerRange.startLocation, item.innerRange.endLocation).trim().length === 0
+  const pruneItem = item => codeMirror.replaceRange('', item.outerRange.startLocation, item.outerRange.endLocation, '+')
+  const selectionRange = getItemRangeFromSelection(codeMirror)
+  let maxItemsToPrune = markupItemsForItemRangeLines(codeMirror, selectionRange).length
+  while (maxItemsToPrune > 0) {
+    let itemsToPrune = markupItemsForItemRangeLines(codeMirror, selectionRange).filter(itemContainsOnlyWhitespace)
+    if (itemsToPrune.length === 0) {
+      break
+    }
+    itemsToPrune.reverse().forEach(item => {
+      pruneItem(item)
+    })
+    maxItemsToPrune = maxItemsToPrune - 1  
+  }
 }
 
 exports.clearFormatting = clearFormatting
