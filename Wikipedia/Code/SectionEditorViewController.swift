@@ -333,7 +333,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                     return
-                } else if let wikitext = result as? String {
+                } else if let wikitext = result {
                     guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
