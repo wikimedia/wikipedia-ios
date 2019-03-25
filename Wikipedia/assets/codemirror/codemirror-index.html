@@ -789,6 +789,12 @@
       window.webkit.messageHandlers.replaceAllCountMessage.postMessage(replaceAllCount);
       editor.state.replaceAllCount = null;
     }
+  
+  const focusWithoutScroll = () => {
+      const scrollY = window.scrollY
+      editor.focus()
+      window.scrollTo(window.scrollX, scrollY)
+  }
 
     let resizeTimer
     window.addEventListener('resize', () => {
@@ -828,9 +834,16 @@
         editor.focus()
       },
       focusWithoutScroll: () => {
-        const scrollY = window.scrollY
-        editor.focus()
-        window.scrollTo(window.scrollX, scrollY)
+          focusWithoutScroll()
+      },
+      selectLastSelection: () => {
+          const from = editor.getCursor('from')
+          const to = editor.getCursor('to')
+          var selectionRange = getSelectionRange(editor)
+          if (selectionRange.isRangeSelected) { //i.e. if we have selected more than 1 character
+              editor.setSelection(from, to, {scroll: false})
+              focusWithoutScroll()
+          }
       },
       selectLastFocusedMatch: () => {
         const state = editor.state.search

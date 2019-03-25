@@ -31,6 +31,8 @@ class SectionEditorViewController: UIViewController {
 
     private var didFocusWebViewCompletion: (() -> Void)?
     
+    private var needsSelectLastSelection: Bool = false
+    
     @objc var editFunnel: EditFunnel?
     
     private var wikitext: String? {
@@ -72,6 +74,7 @@ class SectionEditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
+        selectLastSelectionIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -195,6 +198,20 @@ class SectionEditorViewController: UIViewController {
             }
             focusWebViewIfReady()
         }
+    }
+    
+    private func selectLastSelectionIfNeeded() {
+        
+        guard isCodemirrorReady,
+            shouldFocusWebView,
+            didSetWikitextToWebView,
+            needsSelectLastSelection,
+            wikitext != nil else {
+            return
+        }
+        
+        messagingController.selectLastSelection()
+        needsSelectLastSelection = false
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
@@ -329,7 +346,10 @@ extension SectionEditorViewController: UIScrollViewDelegate {
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         if changesMade {
-            messagingController.getWikitext { (result, error) in
+            messagingController.getWikitext { [weak self] (result, error) in
+                
+                guard let self = self else { return }
+                
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                     return
@@ -337,6 +357,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
+                    self.needsSelectLastSelection = true
                     vc.theme = self.theme
                     vc.section = self.section
                     vc.wikitext = wikitext

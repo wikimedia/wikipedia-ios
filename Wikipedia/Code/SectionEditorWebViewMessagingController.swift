@@ -209,6 +209,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case replaceAll
         case replaceSingle
         case selectLastFocusedMatch
+        case selectLastSelection
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -276,6 +277,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func selectLastFocusedMatch() {
         execCommand(for: .selectLastFocusedMatch)
+    }
+    
+    func selectLastSelection() {
+        execCommand(for: .selectLastSelection)
     }
 
     func moveCursorDown() {
