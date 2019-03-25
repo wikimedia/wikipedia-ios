@@ -84,7 +84,7 @@ class SectionEditorViewController: UIViewController {
     }
     
     @objc func keyboardDidHide() {
-        inputViewsController.keyboardDidHide()
+        inputViewsController.resetFormattingAndStyleSubmenus()
     }
     
     private func setupFocusNavigationView() {
@@ -211,6 +211,7 @@ class SectionEditorViewController: UIViewController {
         }
         
         messagingController.selectLastSelection()
+        messagingController.focusWithoutScroll()
         needsSelectLastSelection = false
     }
     
@@ -357,6 +358,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
+                    self.inputViewsController.resetFormattingAndStyleSubmenus()
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
                     vc.section = self.section
