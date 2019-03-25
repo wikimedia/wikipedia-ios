@@ -197,6 +197,14 @@ class SectionEditorViewController: UIViewController {
         }
     }
     
+    private func showCouldNotFindSelectionInWikitextAlert() {
+        let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
+        let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style:.default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func setWikitextToWebViewIfReady() {
         assert(Thread.isMainThread)
         guard isCodemirrorReady, let wikitext = wikitext else {
@@ -209,7 +217,11 @@ class SectionEditorViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
-                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
+                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
+                            if let _ = error {
+                                self?.showCouldNotFindSelectionInWikitextAlert()
+                            }
+                        }
                     }
                 }
             }

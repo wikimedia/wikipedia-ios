@@ -161,6 +161,8 @@
 "edit-link-accessibility-label" = "Add link syntax";
 "edit-link-remove-accessibility-label" = "Remove link syntax";
 "edit-menu-item" = "Edit";
+"edit-menu-item-could-not-find-selection-alert-message" = "This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted";
+"edit-menu-item-could-not-find-selection-alert-title" = "The text that you selected could not be located";
 "edit-minor-learn-more-text" = "Learn more about minor edits";
 "edit-minor-text" = "This is a minor edit";
 "edit-ordered-list-accessibility-label" = "Make current line ordered list";
