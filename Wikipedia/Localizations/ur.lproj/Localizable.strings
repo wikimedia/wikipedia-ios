@@ -212,7 +212,7 @@
 "field-token-title" = "توثیقی کوڈ";
 "field-username-placeholder" = "صارف نام درج کریں";
 "field-username-title" = "صارف نام";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
 "forgot-password-username-or-email-title" = "یا";

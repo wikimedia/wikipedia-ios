@@ -356,7 +356,7 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "escribe el nombre de usuario";
 "field-username-title" = "Nombre de usuario";
-"find-in-page-number-matches" = "$1/$2";
+"find-infolabel-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Se envió un correo electrónico con instrucciones para restablecer tu contraseña";
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
@@ -580,6 +580,8 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-years-ago" = "\n{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
+"replace-infolabel-method-replace" = "Reemplazar";
+"replace-infolabel-method-replace-all" = "Reemplazar todo";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "reverted-edit-back-to-article-button-title" = "Volver al artículo";
 "reverted-edit-notification-body" = "La edición que hiciste del artículo $1 ha sido rechazada por $2";

@@ -233,7 +233,7 @@
 "field-token-title" = "Berrespen kodea";
 "field-username-placeholder" = "Erabiltzaile izena sartu";
 "field-username-title" = "Erabiltzaile izena";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Berrezarri";
 "forgot-password-email-sent" = "Emaila bidali da, pasahitza berrezartzeko jarraibideekin";
 "forgot-password-instructions" = "Hurrengo hutsuneak bete, emailez jasotzeko pasahitza berrezartzeko jarraibideak";

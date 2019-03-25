@@ -79,6 +79,8 @@
 "action-read" = "Leggi";
 "action-redo" = "Ripeti";
 "action-remove" = "Rimuovi";
+"action-replace" = "Sostituisci";
+"action-replace-all" = "Sostituisci tutto";
 "action-save" = "Salva";
 "action-saved" = "Salvato";
 "action-saved-accessibility-notification" = "Voce salvata per dopo";
@@ -236,7 +238,9 @@
 "field-token-title" = "Codice di verifica";
 "field-username-placeholder" = "inserisci il nome utente";
 "field-username-title" = "Nome utente";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "Trova e sostituisci";
+"find-textfield-accessibility" = "Trova";
 "forgot-password-button-title" = "Reimposta";
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";
@@ -384,6 +388,12 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|1=L'anno scorso|$1 anni fa}}";
+"replace-button-accessibility" = "Esegui $1.";
+"replace-infolabel-method-replace" = "Sostituisci";
+"replace-infolabel-method-replace-all" = "Sostituisci tutto";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 elemento sostituito|$1 elementi sostituiti}}";
+"replace-textfield-accessibility" = "Sostituisci";
+"replace-textfield-placeholder" = "Sostituisci con…";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "reverted-edit-back-to-article-button-title" = "Torna alla voce";
 "reverted-edit-notification-body" = "La modifica che hai fatto alla voce $1 è stata annullata da $2";

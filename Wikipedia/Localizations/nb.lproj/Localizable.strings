@@ -180,7 +180,7 @@
 "field-token-title" = "Bekreftelseskode";
 "field-username-placeholder" = "fyll inn brukernavn";
 "field-username-title" = "Brukernavn";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Tilbakestill";
 "forgot-password-email-sent" = "Epost med instruksjoner for å tilbakestille passordet har blitt sendt deg";
 "forgot-password-instructions" = "Fyll inn et av feltene under for å motta instruksjoner for tilbakestilling av passord per epost";

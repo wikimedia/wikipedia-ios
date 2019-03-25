@@ -127,7 +127,7 @@
 "field-token-title" = "Bevestigingskode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Herstel";
 "forgot-password-email-sent" = "'n E-pos is gestuur met instruksies om die wagwoord te herstel";
 "forgot-password-title" = "Herstel wagwoord";

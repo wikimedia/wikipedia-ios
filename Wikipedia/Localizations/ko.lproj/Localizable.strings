@@ -331,7 +331,7 @@
 "field-token-title" = "인증 코드";
 "field-username-placeholder" = "사용자 이름 입력";
 "field-username-title" = "사용자 이름";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "재설정";
 "forgot-password-email-sent" = "비밀번호 재설정 안내 이메일을 보냈습니다";
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
