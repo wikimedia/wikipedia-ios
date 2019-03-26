@@ -324,15 +324,15 @@ public struct QuadKeyCoordinate {
 }
 
 public struct QuadKeyBounds {
-    let min: QuadKey
-    let max: QuadKey
+    public let min: QuadKey
+    public let max: QuadKey
     
-    init(min: QuadKey, max: QuadKey) {
+    public init(min: QuadKey, max: QuadKey) {
         self.min = min
         self.max = max
     }
     
-    init(quadKey: QuadKey, precision: QuadKeyPrecision) {
+    public init(quadKey: QuadKey, precision: QuadKeyPrecision) {
         let min = quadKey << QuadKey(64 - 2*precision)
         let mask = precision >= 32 ? QuadKey(0) : QuadKey.max >> QuadKey(2*precision)
         let max = min | mask
