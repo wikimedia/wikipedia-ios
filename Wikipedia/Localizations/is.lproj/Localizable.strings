@@ -317,7 +317,7 @@
 "field-token-title" = "Staðfestingarkóði";
 "field-username-placeholder" = "settu inn notandanafn";
 "field-username-title" = "Notandanafn";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Endurstilla";
 "forgot-password-email-sent" = "Tölvupóstur var sendur með leiðbeiningum varðandi endurstillingu lykilorðs";
 "forgot-password-instructions" = "Fylltu í einn af reitunum hér fyrir neðan til að fá tölvupóst með leiðbeiningum varðandi endurstillingu lykilorðs";

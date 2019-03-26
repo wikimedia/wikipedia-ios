@@ -280,7 +280,7 @@
 "field-token-title" = "Kôd za verifikaciju";
 "field-username-placeholder" = "unesite korisničko ime";
 "field-username-title" = "Korisničko ime";
-"find-in-page-number-matches" = "$1/$2";
+"find-infolabel-number-matches" = "$1/$2";
 "forgot-password-button-title" = "Resetuj";
 "forgot-password-email-sent" = "Imejl sa uputstvom za resetovanje lozinke je poslat";
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste primili uputstvo za resetovanje lozinke putem imejla";

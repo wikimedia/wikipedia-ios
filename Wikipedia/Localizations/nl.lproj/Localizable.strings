@@ -81,6 +81,8 @@
 "action-read" = "Lezen";
 "action-redo" = "Opnieuw uitvoeren";
 "action-remove" = "Verwijderen";
+"action-replace" = "Vervangen";
+"action-replace-all" = "Alles vervangen";
 "action-save" = "Opslaan";
 "action-saved" = "Opgeslagen";
 "action-saved-accessibility" = "Bewaard. Activeer om ongedaan te maken.";
@@ -332,7 +334,8 @@
 "field-token-title" = "Verificatiecode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
-"find-in-page-number-matches" = "$1 van $2";
+"find-infolabel-number-matches" = "$1 van $2";
+"find-textfield-accessibility" = "Zoeken";
 "forgot-password-button-title" = "Opnieuw instellen";
 "forgot-password-email-sent" = "Een email met de instructies om uw wachtwoord opnieuw in te stellen is gestuurd";
 "forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via email over hoe u uw wachtwoord kunt wijzigen.";
@@ -556,6 +559,11 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|1=Vorig jaar|$1 jaar geleden}}";
+"replace-infolabel-method-replace" = "Vervangen";
+"replace-infolabel-method-replace-all" = "Alles vervangen";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 item vervangen|$1 items vervangen}}";
+"replace-textfield-accessibility" = "Vervangen";
+"replace-textfield-placeholder" = "Vervangen door...";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "reverted-edit-back-to-article-button-title" = "Terug naar artikel";
 "reverted-edit-notification-body" = "De bewerking die u deed in het artikel $1 is teruggedraaid door $2";

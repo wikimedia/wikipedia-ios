@@ -91,7 +91,7 @@
 "field-password-title" = "Senhal";
 "field-token-title" = "Còdi de verificacion";
 "field-username-title" = "Nom d'utilizaire";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reïnicializar";
 "forgot-password-title" = "Reïnicializar lo senhal";
 "forgot-password-username-or-email-title" = "O";
