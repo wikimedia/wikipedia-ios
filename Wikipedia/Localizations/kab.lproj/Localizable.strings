@@ -152,7 +152,7 @@
 "field-token-title" = "Tangalt n usenqed";
 "field-username-placeholder" = "Sekcem isem n useqdac";
 "field-username-title" = "Isem n useqdac";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Ales awennez";
 "forgot-password-email-sent" = "Imayl s tinadin n uwennez n wawal uffir yettwazen";
 "forgot-password-instructions" = "Ččaṛ urtan ddaw-a akken ad d-remseḍ tinaḍin n uwennez n wawal uffir s yimayl";

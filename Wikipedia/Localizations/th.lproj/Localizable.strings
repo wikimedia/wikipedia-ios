@@ -249,7 +249,7 @@
 "field-token-title" = "รหัสการยืนยัน";
 "field-username-placeholder" = "ป้อนชื่อผู้ใช้";
 "field-username-title" = "ชื่อผู้ใช้";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "รีเซ็ต";
 "history-clear-all" = "ล้าง";
 "history-clear-cancel" = "ยกเลิก";

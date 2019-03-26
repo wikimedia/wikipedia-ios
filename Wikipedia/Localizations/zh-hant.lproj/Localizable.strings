@@ -351,7 +351,7 @@
 "field-token-title" = "驗證代碼";
 "field-username-placeholder" = "輸入使用者名稱";
 "field-username-title" = "使用者名稱";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電子郵件已寄出";
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";

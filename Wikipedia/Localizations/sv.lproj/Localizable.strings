@@ -349,7 +349,7 @@
 "field-token-title" = "Verifieringskod";
 "field-username-placeholder" = "ange användarnamn";
 "field-username-title" = "Användarnamn";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Återställ";
 "forgot-password-email-sent" = "Ett e-postmeddelande med instruktioner om lösenordsåterställning skickades";
 "forgot-password-instructions" = "Fyll i ett av fälten nedan för att få instruktioner om lösenordsåterställning via e-post";

@@ -5,6 +5,7 @@
 // Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Dicto23456
+// Author: Diralik
 // Author: Dyaydyasasha2015
 // Author: Facenapalm
 // Author: Happy13241
@@ -91,6 +92,8 @@
 "action-read" = "Читать";
 "action-redo" = "Повторить";
 "action-remove" = "Удалить";
+"action-replace" = "Заменить";
+"action-replace-all" = "Заменить всё";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
@@ -367,7 +370,9 @@
 "field-token-title" = "Код подтверждения";
 "field-username-placeholder" = "введите имя пользователя";
 "field-username-title" = "Имя участника";
-"find-in-page-number-matches" = "$1 из $2";
+"find-clear-button-accessibility" = "Очистить поиск";
+"find-infolabel-number-matches" = "$1 из $2";
+"find-textfield-accessibility" = "Найти";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
@@ -521,7 +526,7 @@
 "reading-list-create-new-list-description" = "Описание";
 "reading-list-create-new-list-reading-list-name" = "Название списка для чтения";
 "reading-list-create-new-list-title" = "Создать новый список";
-"reading-list-deleted-accessibility-notification" = "Список чтения удален";
+"reading-list-deleted-accessibility-notification" = "Список чтения удалён";
 "reading-list-do-not-keep-button-title" = "Нет, удалять статьи с устройства";
 "reading-list-entry-limit-exceeded-message" = "Пожалуйста уменьшите число статей в этом списке до $1, чтобы возобновить их синхронизацию.";
 "reading-list-entry-limit-exceeded-title" = "Вы превысили лимит в {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} на учётную запись.";
@@ -593,6 +598,11 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|few=$1 года назад|many=$1 лет назад}}";
+"replace-clear-button-accessibility" = "Очистить поиск";
+"replace-infolabel-method-replace" = "Заменить";
+"replace-infolabel-method-replace-all" = "Заменить всё";
+"replace-textfield-accessibility" = "Заменить";
+"replace-textfield-placeholder" = "Заменить на…";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "reverted-edit-back-to-article-button-title" = "Назад к статье";
 "reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";
