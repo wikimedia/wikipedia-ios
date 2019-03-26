@@ -174,7 +174,7 @@
 "field-token-title" = "កូដបញ្ចាក់ទទួលស្គាល់";
 "field-username-placeholder" = "វាយបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់";
 "field-username-title" = "ឈ្មោះអ្នកប្រើប្រាស់";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "កំណត់ឡើងវិញ";
 "forgot-password-email-sent" = "អ៊ីមែលសេចក្ដីណែនាំពីរបៀបកំណត់ពាក្យសម្ងាត់ឡើងវិញត្រូវបានផ្ញើរួចហើយ";
 "forgot-password-instructions" = "សូមបំពេញប្រអប់ខាងក្រោមដើម្បីទទួលសេចក្ដីណែនាំពីរបៀបកំណត់ពាក្យសម្ងាត់ឡើងវិញតាមរយៈអ៊ីមែល";

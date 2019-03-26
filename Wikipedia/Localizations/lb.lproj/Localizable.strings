@@ -54,6 +54,8 @@
 "action-move-to" = "Réckelen op...";
 "action-read" = "Liesen";
 "action-remove" = "Ewechhuelen";
+"action-replace" = "Ersetzen";
+"action-replace-all" = "All ersetzen";
 "action-save" = "Späicheren";
 "action-saved" = "Gespäichert";
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
@@ -195,7 +197,8 @@
 "field-token-title" = "Verificatiouns-Code";
 "field-username-placeholder" = "Benotzernumm aginn";
 "field-username-title" = "Benotzernumm";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Sichen eidelmaachen";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Zrécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
@@ -367,6 +370,10 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
+"replace-infolabel-method-replace" = "Ersetzen";
+"replace-infolabel-method-replace-all" = "All ersetzen";
+"replace-textfield-accessibility" = "Ersetzen";
+"replace-textfield-placeholder" = "Ersetzen duerch...";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "reverted-edit-back-to-article-button-title" = "Zréck op den Artikel";
 "reverted-edit-notification-read-more-action-title" = "Liest méi";

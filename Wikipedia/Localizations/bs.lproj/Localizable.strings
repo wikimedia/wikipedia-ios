@@ -142,7 +142,7 @@
 "field-token-title" = "Kod za potvrdu";
 "field-username-placeholder" = "upišite korisničko ime";
 "field-username-title" = "Korisničko ime";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Postavi novu";
 "forgot-password-email-sent" = "Na e-poštu su poslana uputstva za ponovno postavljanje lozinke";
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste e-poštom primili uputstva za ponovno postavljanje lozinke";

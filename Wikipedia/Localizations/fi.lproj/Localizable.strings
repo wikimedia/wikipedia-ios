@@ -297,7 +297,7 @@
 "field-token-title" = "Vahvistuskoodi";
 "field-username-placeholder" = "anna käyttäjänimi";
 "field-username-title" = "Käyttäjänimi";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";

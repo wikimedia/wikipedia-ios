@@ -131,7 +131,7 @@
 "field-token-title" = "உறுதிப்படுத்தல் குறியீடு";
 "field-username-placeholder" = "பயனர் பெயரொன்றை இடுக";
 "field-username-title" = "பயனர் பெயர்";
-"find-in-page-number-matches" = "$2 இல் $1";
+"find-infolabel-number-matches" = "$2 இல் $1";
 "forgot-password-button-title" = "மீட்டமை";
 "forgot-password-title" = "கடவுச்சொலை மீளமை";
 "forgot-password-username-or-email-title" = "அல்லது";
