@@ -69,10 +69,11 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
 
   let markupRangesToMoveAfterSelection = []
   let markupRangesToMoveBeforeSelection = []
+  let unsplittableMarkupRangesToRemove = []
   let markupRangesToRemove = []
   unsplittableItems.forEach(item => {
-    markupRangesToRemove.push(item.openingMarkupRange())
-    markupRangesToRemove.push(item.closingMarkupRange())
+    unsplittableMarkupRangesToRemove.push(item.openingMarkupRange())
+    unsplittableMarkupRangesToRemove.push(item.closingMarkupRange())
   })
   markupItemsIntersectingSelection.forEach(item => {
     const startsInside = item.outerRange.startsInsideRange(selectionRange, true)
@@ -94,7 +95,7 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
   if (noMarkupToBeMovedToEitherSide) {
     const openingMarkupRanges = markupItemsIntersectingSelection.map(item => item.openingMarkupRange())
     const closingMarkupRanges = markupItemsIntersectingSelection.map(item => item.closingMarkupRange())
-    const allMarkupRanges = markupRangesToRemove.concat(openingMarkupRanges.concat(closingMarkupRanges))
+    const allMarkupRanges = unsplittableMarkupRangesToRemove.concat(openingMarkupRanges.concat(closingMarkupRanges))
     if (evaluateOnly) {
       return allMarkupRanges.length > 0
     }
@@ -122,7 +123,7 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
   codeMirror.replaceRange(accumulatedLeftMarkup, selectionRange.endLocation, null, '+')
 
   // Remove any markup that needs to be blasted
-  const allMarkupRangesToRemove = markupRangesToMoveBeforeSelection.concat(markupRangesToMoveAfterSelection).concat(markupRangesToRemove)
+  const allMarkupRangesToRemove = markupRangesToMoveBeforeSelection.concat(markupRangesToMoveAfterSelection).concat(markupRangesToRemove).concat(unsplittableMarkupRangesToRemove)
   removeTextFromRanges(codeMirror, allMarkupRangesToRemove)
 
   // Relocate any markup that needs to be moved before selection
