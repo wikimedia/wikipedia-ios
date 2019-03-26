@@ -265,6 +265,10 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapSubscript() {
         messagingController.toggleSubscript()
     }
+    
+    func textFormattingProvidingDidTapClearFormatting() {
+        messagingController.clearFormatting()
+    }
 }
 
 extension SectionEditorInputViewsController: SectionEditorWebViewMessagingControllerFindInPageDelegate {

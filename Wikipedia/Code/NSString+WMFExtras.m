@@ -76,14 +76,17 @@
     NSRegularExpression *regex = [NSRegularExpression wmf_charactersToEscapeForJSRegex];
     NSMutableString *mutableSelf = [self mutableCopy];
     __block NSInteger offset = 0;
-    [regex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-        NSInteger indexForBackslash = result.range.location + offset;
-        if (indexForBackslash >= mutableSelf.length) {
-            return;
-        }
-        [mutableSelf insertString:@"\\" atIndex:indexForBackslash];
-        offset += 1;
-    }];
+    [regex enumerateMatchesInString:self
+                            options:0
+                              range:NSMakeRange(0, self.length)
+                         usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                             NSInteger indexForBackslash = result.range.location + offset;
+                             if (indexForBackslash >= mutableSelf.length) {
+                                 return;
+                             }
+                             [mutableSelf insertString:@"\\" atIndex:indexForBackslash];
+                             offset += 1;
+                         }];
     return mutableSelf;
 }
 
