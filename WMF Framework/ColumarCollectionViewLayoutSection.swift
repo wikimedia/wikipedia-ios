@@ -206,6 +206,8 @@ class ColumnarCollectionViewLayoutSection {
             default:
                 return ColumnarCollectionViewLayoutSectionInvalidationResults.empty
             }
+        @unknown default:
+            fatalError()
         }
         
     }

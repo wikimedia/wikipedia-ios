@@ -191,6 +191,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return ArticleRightAlignedImageExploreCollectionViewCell.identifier
         case .announcement, .notification, .theme, .readingList:
             return AnnouncementCollectionViewCell.identifier
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -362,6 +364,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             configureOnThisDayCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         case .theme, .notification, .announcement, .readingList:
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
+        @unknown default:
+            fatalError()
         }
         cell.layoutMargins = layout.itemLayoutMargins
     }

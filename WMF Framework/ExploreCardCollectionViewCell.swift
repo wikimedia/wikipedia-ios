@@ -144,6 +144,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 }
                 undoTitle = String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-feed-cards-hidden-title", value: "All %@ cards hidden", comment: "Title for cell that appears in place of feed card hidden by user via the overflow button - %@ is replaced with feed card type"), title)
                 isCollapsed = true
+            @unknown default:
+                fatalError()
             }
         }
     }

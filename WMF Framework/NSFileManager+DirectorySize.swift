@@ -14,7 +14,7 @@ import Foundation
                     try itemURL.getResourceValue(&value, forKey: key)
                     return value as? NSNumber
                 }
-                guard let value = try? resourceValueForKey(URLResourceKey.isRegularFileKey), let isRegularFile = value?.boolValue else {
+                guard let value = ((try? resourceValueForKey(URLResourceKey.isRegularFileKey)) as NSNumber??), let isRegularFile = value?.boolValue else {
                     continue
                 }
                 
@@ -22,8 +22,8 @@ import Foundation
                     continue
                 }
                 
-                var fileSize = try? resourceValueForKey(URLResourceKey.totalFileAllocatedSizeKey)
-                fileSize = try? fileSize ?? resourceValueForKey(URLResourceKey.fileAllocatedSizeKey)
+                var fileSize = ((try? resourceValueForKey(URLResourceKey.totalFileAllocatedSizeKey)) as NSNumber??)
+                fileSize = ((try? fileSize ?? resourceValueForKey(URLResourceKey.fileAllocatedSizeKey)) as NSNumber??)
                 
                 guard let allocatedSize = fileSize??.int64Value else {
                     assertionFailure("URLResourceKey.fileAllocatedSizeKey should always return a value")

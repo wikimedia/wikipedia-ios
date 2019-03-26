@@ -756,7 +756,7 @@ public extension NSManagedObjectContext {
     }
     
     // is sync available or is it shut down server-side
-    @objc public var wmf_isSyncRemotelyEnabled: Bool {
+    @objc var wmf_isSyncRemotelyEnabled: Bool {
         get {
             return wmf_numberValue(forKey: WMFReadingListSyncRemotelyEnabledKey)?.boolValue ?? true
         }
@@ -775,7 +775,7 @@ public extension NSManagedObjectContext {
     
     // MARK: - Reading lists config
     
-    @objc public var wmf_readingListsConfigMaxEntriesPerList: NSNumber {
+    @objc var wmf_readingListsConfigMaxEntriesPerList: NSNumber {
         get {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxEntriesPerList) ?? 5000
         }
@@ -789,7 +789,7 @@ public extension NSManagedObjectContext {
         }
     }
     
-    @objc public var wmf_readingListsConfigMaxListsPerUser: Int {
+    @objc var wmf_readingListsConfigMaxListsPerUser: Int {
         get {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser)?.intValue ?? 100
         }

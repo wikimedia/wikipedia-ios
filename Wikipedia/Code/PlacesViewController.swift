@@ -988,6 +988,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             set(overlayState: newState, withVelocity: panGR.velocity(in: view).y, animated: true)
             initialOverlayHeightForPan = nil
             break
+        @unknown default:
+            fatalError()
         }
     }
     

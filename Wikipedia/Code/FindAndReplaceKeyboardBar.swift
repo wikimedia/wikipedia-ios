@@ -368,11 +368,10 @@ private extension FindAndReplaceKeyboardBar {
             outerStackViewLeadingConstraint.constant = 10
             outerStackViewTrailingConstraint.constant = 5
         }
-        
         if isShowingReplace {
-            accessibilityElements = [findTextField, currentMatchLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton]
+            accessibilityElements = [findTextField, currentMatchLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
         } else {
-            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchLabel, findClearButton, closeButton]
+            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchLabel, findClearButton, closeButton].compactMap { $0 as Any }
         }
     }
 }
