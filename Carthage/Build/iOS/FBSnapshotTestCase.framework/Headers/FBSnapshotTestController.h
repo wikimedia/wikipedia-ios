@@ -1,23 +1,27 @@
 /*
- *  Copyright (c) 2015, Facebook, Inc.
- *  All rights reserved.
+ *  Copyright (c) 2017-2018, Uber Technologies, Inc.
+ *  Copyright (c) 2015-2018, Facebook, Inc.
  *
- *  This source code is licensed under the BSD-style license found in the
- *  LICENSE file in the root directory of this source tree. An additional grant
- *  of patent rights can be found in the PATENTS file in the same directory.
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
  *
  */
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import <FBSnapshotTestCase/FBSnapshotTestCasePlatform.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, FBSnapshotTestControllerErrorCode) {
-  FBSnapshotTestControllerErrorCodeUnknown,
-  FBSnapshotTestControllerErrorCodeNeedsRecord,
-  FBSnapshotTestControllerErrorCodePNGCreationFailed,
-  FBSnapshotTestControllerErrorCodeImagesDifferentSizes,
-  FBSnapshotTestControllerErrorCodeImagesDifferent,
+    FBSnapshotTestControllerErrorCodeUnknown,
+    FBSnapshotTestControllerErrorCodeNeedsRecord,
+    FBSnapshotTestControllerErrorCodePNGCreationFailed,
+    FBSnapshotTestControllerErrorCodeImagesDifferentSizes,
+    FBSnapshotTestControllerErrorCodeImagesDifferent,
 };
+
 /**
  Errors returned by the methods of FBSnapshotTestController use this domain.
  */
@@ -56,10 +60,17 @@ extern NSString *const FBDiffedImageKey;
 @property (readwrite, nonatomic, assign) BOOL recordMode;
 
 /**
- When @c YES appends the name of the device model and OS to the snapshot file name.
- The default value is @c NO.
+ When set, allows fine-grained control over what you want the file names to include.
+
+ Allows you to combine which device or simulator specific details you want in your snapshot file names.
+
+ The default value is FBSnapshotTestCaseFileNameIncludeOptionScreenScale.
+
+ @discussion If you are migrating from the now deleted FBSnapshotTestCaseAgnosticOption to FBSnapshotTestCaseFileNameIncludeOption, we default to using FBSnapshotTestCaseFileNameIncludeOptionScreenScale for fileNameOptions to make the transition easier. If you don't want to have the screen scale included in your file name, you need to set fileNameOptions to a mask that doesn't include FBSnapshotTestCaseFileNameIncludeOptionScreenScale:
+
+ self.fileNameOptions = (FBSnapshotTestCaseFileNameIncludeOptionDevice | FBSnapshotTestCaseFileNameIncludeOptionOS);
  */
-@property (readwrite, nonatomic, assign, getter=isDeviceAgnostic) BOOL deviceAgnostic;
+@property (readwrite, nonatomic, assign) FBSnapshotTestCaseFileNameIncludeOption fileNameOptions;
 
 /**
  Uses drawViewHierarchyInRect:afterScreenUpdates: to draw the image instead of renderInContext:
@@ -67,9 +78,19 @@ extern NSString *const FBDiffedImageKey;
 @property (readwrite, nonatomic, assign) BOOL usesDrawViewHierarchyInRect;
 
 /**
- The directory in which referfence images are stored.
+ The directory in which reference images are stored.
  */
-@property (readwrite, nonatomic, copy) NSString *referenceImagesDirectory;
+@property (readwrite, nonatomic, copy, nullable) NSString *referenceImagesDirectory;
+
+/**
+ The directory in which failed snapshot images are stored.
+ */
+@property (readwrite, nonatomic, copy) NSString *imageDiffDirectory;
+
+/**
+ The name folder in which the snapshots will be saved for a given test case.
+*/
+@property (readwrite, nonatomic, copy) NSString *folderName;
 
 /**
  @param testClass The subclass of FBSnapshotTestCase that is using this controller.
@@ -78,23 +99,16 @@ extern NSString *const FBDiffedImageKey;
 - (instancetype)initWithTestClass:(Class)testClass;
 
 /**
- Designated initializer.
- @param testName The name of the tests.
- @returns An instance of FBSnapshotTestController.
- */
-- (instancetype)initWithTestName:(NSString *)testName;
-
-/**
  Performs the comparison of the layer.
  @param layer The Layer to snapshot.
  @param selector The test method being run.
  @param identifier An optional identifier, used is there are muliptle snapshot tests in a given -test method.
- @param error An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
+ @param errorPtr An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
  @returns YES if the comparison (or saving of the reference image) succeeded.
  */
 - (BOOL)compareSnapshotOfLayer:(CALayer *)layer
                       selector:(SEL)selector
-                    identifier:(NSString *)identifier
+                    identifier:(nullable NSString *)identifier
                          error:(NSError **)errorPtr;
 
 /**
@@ -102,27 +116,44 @@ extern NSString *const FBDiffedImageKey;
  @param view The view to snapshot.
  @param selector The test method being run.
  @param identifier An optional identifier, used is there are muliptle snapshot tests in a given -test method.
- @param error An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
+ @param errorPtr An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
  @returns YES if the comparison (or saving of the reference image) succeeded.
  */
 - (BOOL)compareSnapshotOfView:(UIView *)view
                      selector:(SEL)selector
-                   identifier:(NSString *)identifier
+                   identifier:(nullable NSString *)identifier
                         error:(NSError **)errorPtr;
 
 /**
  Performs the comparison of a view or layer.
- @param view The view or layer to snapshot.
+ @param viewOrLayer The view or layer to snapshot.
  @param selector The test method being run.
  @param identifier An optional identifier, used is there are muliptle snapshot tests in a given -test method.
- @param tolerance The percentage of pixels that can differ and still be considered 'identical'
- @param error An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
+ @param overallTolerance The percentage of pixels that can differ and still be considered 'identical'.
+ @param errorPtr An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
  @returns YES if the comparison (or saving of the reference image) succeeded.
  */
 - (BOOL)compareSnapshotOfViewOrLayer:(id)viewOrLayer
                             selector:(SEL)selector
-                          identifier:(NSString *)identifier
-                           tolerance:(CGFloat)tolerance
+                          identifier:(nullable NSString *)identifier
+                    overallTolerance:(CGFloat)overallTolerance
+                               error:(NSError **)errorPtr;
+
+/**
+ Performs the comparison of a view or layer.
+ @param viewOrLayer The view or layer to snapshot.
+ @param selector The test method being run.
+ @param identifier An optional identifier, used is there are muliptle snapshot tests in a given -test method.
+ @param perPixelTolerance The percentage a given pixel's R,G,B and A components can differ and still be considered 'identical'.
+ @param overallTolerance The percentage of pixels that can differ and still be considered 'identical'.
+ @param errorPtr An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
+ @returns YES if the comparison (or saving of the reference image) succeeded.
+ */
+- (BOOL)compareSnapshotOfViewOrLayer:(id)viewOrLayer
+                            selector:(SEL)selector
+                          identifier:(nullable NSString *)identifier
+                   perPixelTolerance:(CGFloat)perPixelTolerance
+                    overallTolerance:(CGFloat)overallTolerance
                                error:(NSError **)errorPtr;
 
 /**
@@ -132,21 +163,36 @@ extern NSString *const FBDiffedImageKey;
  @param errorPtr An error, if this methods returns nil, the error will be something useful.
  @returns An image.
  */
-- (UIImage *)referenceImageForSelector:(SEL)selector
-                            identifier:(NSString *)identifier
-                                 error:(NSError **)errorPtr;
+- (nullable UIImage *)referenceImageForSelector:(SEL)selector
+                                     identifier:(nullable NSString *)identifier
+                                          error:(NSError **)errorPtr;
 
 /**
  Performs a pixel-by-pixel comparison of the two images with an allowable margin of error.
  @param referenceImage The reference (correct) image.
  @param image The image to test against the reference.
- @param tolerance The percentage of pixels that can differ and still be considered 'identical'
+ @param overallTolerance The percentage of pixels that can differ and still be considered 'identical'.
  @param errorPtr An error that indicates why the comparison failed if it does.
  @returns YES if the comparison succeeded and the images are the same(ish).
  */
 - (BOOL)compareReferenceImage:(UIImage *)referenceImage
                       toImage:(UIImage *)image
-                    tolerance:(CGFloat)tolerance
+             overallTolerance:(CGFloat)overallTolerance
+                        error:(NSError **)errorPtr;
+
+/**
+ Performs a pixel-by-pixel comparison of the two images with an allowable margin of error.
+ @param referenceImage The reference (correct) image.
+ @param image The image to test against the reference.
+ @param perPixelTolerance The percentage a given pixel's R,G,B and A components can differ and still be considered 'identical'.
+ @param overallTolerance The percentage of pixels that can differ and still be considered 'identical'.
+ @param errorPtr An error that indicates why the comparison failed if it does.
+ @returns YES if the comparison succeeded and the images are the same(ish).
+ */
+- (BOOL)compareReferenceImage:(UIImage *)referenceImage
+                      toImage:(UIImage *)image
+            perPixelTolerance:(CGFloat)perPixelTolerance
+             overallTolerance:(CGFloat)overallTolerance
                         error:(NSError **)errorPtr;
 
 /**
@@ -161,6 +207,8 @@ extern NSString *const FBDiffedImageKey;
 - (BOOL)saveFailedReferenceImage:(UIImage *)referenceImage
                        testImage:(UIImage *)testImage
                         selector:(SEL)selector
-                      identifier:(NSString *)identifier
+                      identifier:(nullable NSString *)identifier
                            error:(NSError **)errorPtr;
 @end
+
+NS_ASSUME_NONNULL_END
