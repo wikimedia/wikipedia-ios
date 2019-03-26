@@ -27,8 +27,20 @@ const canClearFormatting = (codeMirror) => {
   if (buttonNames.includes('reference') || buttonNames.includes('template')) {
     return false
   }
-  
+
+  // Temporary work-around for detecting selections *inside* multi-line templates.
+  // Selections which cross template boundaries will have been caught above.
+  // Will be unneeded later when ability to create MarkupItems for template arguments is added.
+  if (selectionInsideTemplateBoundaries(codeMirror, selectionRange)) {
+    return false
+  }
+
   return canRelocateOrRemoveExistingMarkupForSelectionRange(codeMirror) || canSplitMarkupAroundSelectionRange(codeMirror)
+}
+
+const selectionInsideTemplateBoundaries = (codeMirror, selectionRange) => {
+  const lineHasTemplateInfo = lineNumber => codeMirror.getLineTokens(lineNumber, true).find(token => token.type !== null && token.type.includes('mw-template')) !== undefined
+  return selectionRange.lineNumbers().find(lineHasTemplateInfo) !== undefined
 }
 
 const clearFormatting = (codeMirror) => {
