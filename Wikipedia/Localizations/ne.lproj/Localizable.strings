@@ -143,7 +143,7 @@
 "field-token-title" = "प्रमाणिकरण कोड";
 "field-username-placeholder" = "प्रयोगकर्ता नाम प्रविष्टि गर्नुहोस्";
 "field-username-title" = "प्रयोगकर्ताको नाम";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "पूर्वरूपमा फर्काउनुहोस्";
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";
 "forgot-password-username-or-email-title" = "अथवा";

@@ -161,7 +161,7 @@
 "field-token-title" = "کۆدی دووپاتکردنەوە";
 "field-username-placeholder" = "ناوی بەکارهێنەر بنووسە";
 "field-username-title" = "ناوی بەکارھێنەر";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دووبارە ڕێکخستنەوە";
 "forgot-password-email-sent" = "پۆستێکی ئەلیکترۆنی کە فێرکاری ڕێکخستنەوەی تێپەڕوشە لەخۆ دەگرێت نێردرا";
 "forgot-password-instructions" = "یەکێک لەم بۆشاییانەی خوارەوە پڕ بکەرەوە بۆ ئەوەی فێرکاری گۆڕینی تێپەڕوشەکەت پێ بگات بە ئیمەیڵ.";

@@ -336,7 +336,7 @@
 "field-token-title" = "קוד אימות";
 "field-username-placeholder" = "נא להזין שם משתמש";
 "field-username-title" = "שם משתמש";
-"find-in-page-number-matches" = "$1 מתוך $2";
+"find-infolabel-number-matches" = "$1 מתוך $2";
 "forgot-password-button-title" = "אתחול";
 "forgot-password-email-sent" = "נשלח מכתב עם הוראות אתחול ססמה";
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הססמה בדוא\"ל";

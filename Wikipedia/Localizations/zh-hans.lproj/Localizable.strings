@@ -347,7 +347,7 @@
 "field-token-title" = "验证码";
 "field-username-placeholder" = "输入用户名";
 "field-username-title" = "用户名";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重置";
 "forgot-password-email-sent" = "已发送一封带有密码重置说明的电子邮件";
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
