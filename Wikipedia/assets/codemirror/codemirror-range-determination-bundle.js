@@ -7,9 +7,6 @@ const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilitie
 const getButtonNamesFromMarkupItems = require('./codemirror-range-utilities').getButtonNamesFromMarkupItems
 const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
 
-const markupItemsStartingOrEndingInSelectionRange = (codeMirror, selectionRange) =>
-  markupItemsForItemRangeLines(codeMirror, selectionRange).filter(item => item.innerRangeStartsOrEndsInRange(selectionRange, true))
-
 const buttonNamesInSelectionRange = (codeMirror, selectionRange) => {
   const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
   const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
@@ -53,11 +50,15 @@ const clearFormatting = (codeMirror) => {
 
 const canRelocateOrRemoveExistingMarkupForSelectionRange = (codeMirror) => relocateOrRemoveExistingMarkupForSelectionRange(codeMirror, true)
 
+const unsplittableMarkupTypes = ["mw-section-header"]  // headers should always be removed, never split
+
 const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnly = false) => {
   let selectionRange = getItemRangeFromSelection(codeMirror)
   const originalSelectionRange = selectionRange
 
-  const markupItems = markupItemsStartingOrEndingInSelectionRange(codeMirror, selectionRange)
+  const allMarkupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
+  const markupItems = allMarkupItems.filter(item => !unsplittableMarkupTypes.includes(item.type) && item.innerRangeStartsOrEndsInRange(selectionRange, true))
+  const unsplittableItems = allMarkupItems.filter(item => unsplittableMarkupTypes.includes(item.type))
   
   selectionRange = getExpandedSelectionRange(codeMirror, markupItems, selectionRange)
   if (!evaluateOnly) {
@@ -69,6 +70,10 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
   let markupRangesToMoveAfterSelection = []
   let markupRangesToMoveBeforeSelection = []
   let markupRangesToRemove = []
+  unsplittableItems.forEach(item => {
+    markupRangesToRemove.push(item.openingMarkupRange())
+    markupRangesToRemove.push(item.closingMarkupRange())
+  })
   markupItemsIntersectingSelection.forEach(item => {
     const startsInside = item.outerRange.startsInsideRange(selectionRange, true)
     const endsInside = item.outerRange.endsInsideRange(selectionRange, true)
@@ -89,7 +94,7 @@ const relocateOrRemoveExistingMarkupForSelectionRange = (codeMirror, evaluateOnl
   if (noMarkupToBeMovedToEitherSide) {
     const openingMarkupRanges = markupItemsIntersectingSelection.map(item => item.openingMarkupRange())
     const closingMarkupRanges = markupItemsIntersectingSelection.map(item => item.closingMarkupRange())
-    const allMarkupRanges = openingMarkupRanges.concat(closingMarkupRanges)
+    const allMarkupRanges = markupRangesToRemove.concat(openingMarkupRanges.concat(closingMarkupRanges))
     if (evaluateOnly) {
       return allMarkupRanges.length > 0
     }
