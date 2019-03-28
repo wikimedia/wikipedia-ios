@@ -112,9 +112,7 @@ final fileprivate class CiteReliableSourcesDataSource: WelcomeContainerViewContr
             self.highlightAnimatedImageView.alpha = 1
         }, delayFactor: 0.6)
 
-        let plusesPropertyAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear)
-
-        plusesPropertyAnimator.addAnimations {
+        let plusesPropertyAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear) {
             self.plusesAnimatedImageView.alpha = 1
         }
 
@@ -181,15 +179,16 @@ final fileprivate class SetKnowledgeFreeDataSource: WelcomeContainerViewControll
         let articlePropertyAnimator = UIViewPropertyAnimator(duration: 0.8, curve: .easeInOut)
 
         articlePropertyAnimator.addAnimations {
-            self.articleAnimatedImageViews.forEach { imageView in
+            for imageView in self.articleAnimatedImageViews {
+                guard let destination = imageView.normalizedDestination else {
+                    continue
+                }
                 imageView.alpha = 1
-                imageView.frame.origin = imageView.normalizedDestination!
+                imageView.frame.origin = destination
             }
         }
 
-        let plusesPropertyAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .linear)
-
-        plusesPropertyAnimator.addAnimations {
+        let plusesPropertyAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .linear) {
             self.plusesAnimatedImageView.alpha = 1
         }
 
