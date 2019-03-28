@@ -31,6 +31,8 @@ class SectionEditorViewController: UIViewController {
 
     private var didFocusWebViewCompletion: (() -> Void)?
     
+    private var needsSelectLastSelection: Bool = false
+    
     @objc var editFunnel: EditFunnel?
     
     private var wikitext: String? {
@@ -72,6 +74,7 @@ class SectionEditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
+        selectLastSelectionIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -81,7 +84,7 @@ class SectionEditorViewController: UIViewController {
     }
     
     @objc func keyboardDidHide() {
-        inputViewsController.keyboardDidHide()
+        inputViewsController.resetFormattingAndStyleSubmenus()
     }
     
     private func setupFocusNavigationView() {
@@ -197,6 +200,29 @@ class SectionEditorViewController: UIViewController {
         }
     }
     
+    private func selectLastSelectionIfNeeded() {
+        
+        guard isCodemirrorReady,
+            shouldFocusWebView,
+            didSetWikitextToWebView,
+            needsSelectLastSelection,
+            wikitext != nil else {
+            return
+        }
+        
+        messagingController.selectLastSelection()
+        messagingController.focusWithoutScroll()
+        needsSelectLastSelection = false
+    }
+    
+    private func showCouldNotFindSelectionInWikitextAlert() {
+        let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
+        let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style:.default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func setWikitextToWebViewIfReady() {
         assert(Thread.isMainThread)
         guard isCodemirrorReady, let wikitext = wikitext else {
@@ -209,7 +235,11 @@ class SectionEditorViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
-                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo)
+                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
+                            if let _ = error {
+                                self?.showCouldNotFindSelectionInWikitextAlert()
+                            }
+                        }
                     }
                 }
             }
@@ -317,14 +347,19 @@ extension SectionEditorViewController: UIScrollViewDelegate {
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         if changesMade {
-            messagingController.getWikitext { (result, error) in
+            messagingController.getWikitext { [weak self] (result, error) in
+                
+                guard let self = self else { return }
+                
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                     return
-                } else if let wikitext = result as? String {
+                } else if let wikitext = result {
                     guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
+                    self.inputViewsController.resetFormattingAndStyleSubmenus()
+                    self.needsSelectLastSelection = true
                     vc.theme = self.theme
                     vc.section = self.section
                     vc.wikitext = wikitext

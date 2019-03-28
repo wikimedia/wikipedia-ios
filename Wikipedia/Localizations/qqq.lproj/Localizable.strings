@@ -147,6 +147,7 @@
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
 "edit-bold-remove-accessibility-label" = "Accessibility label for the button that removes bold formatting to the current selection";
+"edit-clear-formatting-accessibility-label" = "Accessibility label for the button that removes formatting from the current selection";
 "edit-comment-accessibility-label" = "Accessibility label for add comment syntax button";
 "edit-comment-remove-accessibility-label" = "Accessibility label for remove comment syntax button";
 "edit-decrease-indent-depth-accessibility-label" = "Accessibility label for decrease indent depth button";
@@ -161,6 +162,8 @@
 "edit-link-accessibility-label" = "Accessibility label for the button that adds link syntax to the current selection";
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
 "edit-menu-item" = "Button label for text selection 'Edit' menu item";
+"edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
+"edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
 "edit-minor-text" = "Text for minor edit label";
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";

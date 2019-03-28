@@ -3,6 +3,7 @@
 // Author: Fitoschido
 // Author: KuboF
 // Author: Lucas
+// Author: Luis Miguel Obando
 // Author: Marcellus
 // Author: Nemo bis
 // Author: Ochilov
@@ -163,6 +164,7 @@
 "description-welcome-promise-title" = "Ekante, mi promesas ne misuzi ĉi tiun eblon";
 "description-welcome-start-editing-button" = "Ekredakti";
 "dim-images" = "Malheligi bildojn";
+"edit-clear-formatting-accessibility-label" = "Forigi aspektigadon";
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
@@ -290,7 +292,7 @@
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
 "field-username-title" = "Salutnomo";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restarigi";
 "forgot-password-email-sent" = "Retmesaĝo kun instrukcioj pri la restarigo de pasvorto estas sendita";
 "forgot-password-instructions" = "Plenigu unu el la kampoj ĉi-sube por ricevi instrukcioj pri restarigo de pasvorto per retpoŝto";

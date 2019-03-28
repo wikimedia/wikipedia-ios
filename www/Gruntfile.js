@@ -11,6 +11,10 @@ module.exports = function (grunt) {
   grunt.initConfig( {
 
     browserify: {
+      codeMirror: {
+        src: ['codemirror/**/codemirror-range-*.js'],
+        dest: '../wikipedia/assets/codemirror/codemirror-range-determination-bundle.js'
+      },
       distMain: {
         src: [
           'index-main.js',
@@ -92,7 +96,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: 'codemirror/',
-            src: ['**'],
+            src: ['**', '!**/*.js'],
             dest: `${distFolder}codemirror/`
           }
         ]

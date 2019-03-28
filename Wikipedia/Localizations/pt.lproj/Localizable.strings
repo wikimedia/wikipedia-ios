@@ -347,7 +347,7 @@
 "field-token-title" = "Código de verificação:";
 "field-username-placeholder" = "introduza o nome de utilizador";
 "field-username-title" = "Nome de utilizador";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviada uma mensagem eletrónica com instruções de redefinição da palavra-passe";
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição da palavra-passe por correio eletrónico";

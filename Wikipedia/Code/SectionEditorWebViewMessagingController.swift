@@ -19,6 +19,14 @@ protocol SectionEditorWebViewMessagingControllerScrollDelegate: class {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint)
 }
 
+enum WebViewMessagingError: LocalizedError {
+    case generic
+    var localizedDescription: String {
+        return CommonStrings.genericErrorDescription
+    }
+}
+    
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
@@ -148,8 +156,16 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
-        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
+    func getWikitext(completionHandler: ((String?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: { (result, error) in
+            guard error == nil, let wikitext = result as? String else {
+                completionHandler?(nil, WebViewMessagingError.generic)
+                return
+            }
+            // multiple spaces in a row have non breaking spaces automatically added, so they need to be removed https://phabricator.wikimedia.org/T218993
+            let transformedWikitext = wikitext.replacingOccurrences(of: "\u{00a0}", with: " ")
+            completionHandler?(transformedWikitext, nil)
+        })
     }
 
     private enum CodeMirrorCommandType: String {
@@ -193,6 +209,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case replaceAll
         case replaceSingle
         case selectLastFocusedMatch
+        case selectLastSelection
+        case clearFormatting
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -260,6 +278,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func selectLastFocusedMatch() {
         execCommand(for: .selectLastFocusedMatch)
+    }
+    
+    func selectLastSelection() {
+        execCommand(for: .selectLastSelection)
     }
 
     func moveCursorDown() {
@@ -363,6 +385,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func replaceSingle(text: String) {
         let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
         execCommand(for: .replaceSingle, argument: "`\(escapedText)`")
+    }
+    
+    func clearFormatting() {
+        execCommand(for: .clearFormatting)
     }
 }
 

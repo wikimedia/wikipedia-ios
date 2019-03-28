@@ -253,7 +253,7 @@
 "field-token-title" = "Mã xác nhận";
 "field-username-placeholder" = "nhập tên người dùng";
 "field-username-title" = "Tên người dùng";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Mặc định lại";
 "forgot-password-email-sent" = "Đã gửi thư điện tử có hướng dẫn đặt lại mật khẩu";
 "forgot-password-instructions" = "Điền vào một trong những trường sau để nhận hướng dẫn đặt lại mật khẩu qua thư điện tử";

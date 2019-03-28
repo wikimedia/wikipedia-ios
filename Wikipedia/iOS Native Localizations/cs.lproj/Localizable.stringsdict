@@ -12,6 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Přidat %1$d články do seznamu k přečtení</string>
 			<key>one</key>
 			<string>Přidat %1$d článek do seznamu k přečtení</string>
 			<key>other</key>
@@ -44,6 +46,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Přidat %1$d články do seznamu k přečtení</string>
 			<key>one</key>
 			<string>Přidat %1$d článek do seznamu k přečtení</string>
 			<key>other</key>
@@ -60,10 +64,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d historické události</string>
 			<key>one</key>
 			<string>%1$d historická událost</string>
 			<key>other</key>
-			<string>%1$d historické události</string>
+			<string>%1$d historických událostí</string>
 		</dict>
 	</dict>
 	<key>page-last-edited</key>
@@ -108,6 +114,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d články</string>
 			<key>one</key>
 			<string>%1$d článek</string>
 			<key>other</key>
@@ -124,6 +132,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Překročili jste maximální limit %1$d články na účet.</string>
 			<key>one</key>
 			<string>Překročili jste maximální limit %1$d článek na účet.</string>
 			<key>other</key>
@@ -140,6 +150,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Články nelze do tohoto seznamu přidat. Dosáhli jste limitu %2$d článků pro seznam k přečtení %3$@</string>
 			<key>one</key>
 			<string>Článek nelze do tohoto seznamu přidat. Dosáhli jste limitu %2$d článků pro seznam k přečtení %3$@</string>
 			<key>other</key>
@@ -172,6 +184,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d seznamy k přečtení</string>
 			<key>one</key>
 			<string>%1$d seznam k přečtení</string>
 			<key>other</key>
@@ -278,6 +292,24 @@
 			<string>Tento rok</string>
 		</dict>
 	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d položky změněny</string>
+			<key>one</key>
+			<string>%1$d položka změněna</string>
+			<key>other</key>
+			<string>%1$d položek změněno</string>
+		</dict>
+	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -289,9 +321,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Zruší uložení tohoto článku a odstraní jej ze všech seznamů k přečtení, kterých se nachází</string>
+			<string>Zruší uložení tohoto článku a odstraní jej ze všech seznamů k přečtení, ve kterých se nachází</string>
 			<key>other</key>
-			<string>Zruší uložení těchto článků a odstraní je ze všech seznamů k přečtení, kterých se nachází</string>
+			<string>Zruší uložení těchto článků a odstraní je ze všech seznamů k přečtení, ve kterých se nachází</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>

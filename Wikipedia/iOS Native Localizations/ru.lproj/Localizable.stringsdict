@@ -288,6 +288,24 @@
 			<string>Этот год</string>
 		</dict>
 	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>выполнены %1$d замены</string>
+			<key>one</key>
+			<string>выполнена 1 замена</string>
+			<key>other</key>
+			<string>выполнены %1$d замен</string>
+		</dict>
+	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

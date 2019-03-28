@@ -12,13 +12,14 @@
 // Author: Rho
 // Author: Saederup92
 // Author: Sarrus
+// Author: Weblars
 
 "about-content-license" = "Indholdslicens";
 "about-content-license-details" = "Medmindre andet er specificeret er indholdet tilgængeligt under $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Kreditering-DelPåSammeVilkår-licensen";
 "about-contributors" = "bidragsydere";
 "about-libraries" = "anvendte biblioteker";
-"about-libraries-complete-list" = "Fuldfør liste";
+"about-libraries-complete-list" = "Fuldstændig liste";
 "about-libraries-license" = "Licens";
 "about-libraries-licenses-title" = "Vi elsker open source software $1";
 "about-places-maps-license-details-link-text" = "Se her for licens detaljer";
@@ -234,7 +235,7 @@
 "field-token-title" = "Bekræftelseskode";
 "field-username-placeholder" = "indtast brugernavn";
 "field-username-title" = "Brugernavn";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Nulstil";
 "forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";
 "forgot-password-instructions" = "Udfyld et af felterne nedenfor for at modtage instruktioner om nulstilling af adgangskoden via e-mail";
@@ -425,7 +426,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk tema";
 "reading-themes-controls-accessibility-light-theme-button" = "Lyst tema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-tema";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaksfremhævelse";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekststørrelseskyder";
+"reading-themes-controls-syntax-highlighting" = "Syntaksfremhævelse";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|1=I går|$1 dage siden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";

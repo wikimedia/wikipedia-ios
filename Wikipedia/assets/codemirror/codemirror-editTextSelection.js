@@ -132,11 +132,15 @@ const scrollToAndHighlightRange = (range, codemirror) => {
 }
 
 const highlightAndScrollToWikitextForSelectedAndAdjacentText = (selectedText, textBeforeSelectedText, textAfterSelectedText) => {
-  const wikitext = editor.getValue()
+  const throwError = () => {throw('Could not determine range to highlight')} // The message doesn't matter here. It's not displayed.
+  if (selectedText.trim().length === 0) {
+    throwError()
+  }
   const selectedAndAdjacentText = new SelectedAndAdjacentText(selectedText, textBeforeSelectedText, textAfterSelectedText)
+  const wikitext = editor.getValue()
   const rangeToHighlight = wikitextRangeForSelectedAndAdjacentText(selectedAndAdjacentText, wikitext)
   if (rangeToHighlight === null) {
-    return null
+    throwError()
   }
   scrollToAndHighlightRange(rangeToHighlight, editor)
 }

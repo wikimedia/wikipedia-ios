@@ -78,7 +78,6 @@
 "action-add-to-reading-list" = "Okuma listesine ekle";
 "action-add-to-reading-list-short" = "Listeye ekle";
 "action-cancel" = "Çıkış";
-// Fuzzy
 "action-find-in-page" = "Sayfada bul";
 "action-move-to" = "Taşı...";
 "action-move-to-reading-list" = "Okuma listesine taşı";
@@ -90,6 +89,7 @@
 "action-saved-accessibility" = "Kaydedildi. Geri almak için aktifleştirin.";
 "action-saved-accessibility-notification" = "Madde, sonrası için kaydedildi";
 "action-share" = "Paylaş";
+"action-share-accessibility" = "Paylaş";
 "action-sort" = "Sınıflandır";
 // Fuzzy
 "action-undo" = "Geri al";
@@ -182,10 +182,18 @@
 "edit-direction-left-accessibility-label" = "İmleci sola taşı";
 "edit-reference-accessibility-label" = "Referans sözdizimi ekle";
 "edit-strikethrough-accessibility-label" = "Üstü çizili ekle";
+"edit-summary-add-summary-text" = "Bir değişiklik özeti gir";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
+"edit-summary-learn-more-text" = "Daha fazla bilgi";
+"edit-summary-placeholder-text" = "Sayfayı hangi yönden geliştirdiniz?";
 "edit-underline-accessibility-label" = "Alt çizgi ekle";
+"edit-watch-this-page-text" = "Bu sayfayı izle";
+"editing-welcome-be-bold-title" = "Sizin sözünüz önemli";
+"editing-welcome-citations-subtitle" = "Bütün içerik doğrulanabilir olmalıdır. Katkı yapanlar, bir makaleye yeni bilgi eklerken, onu doğrudan destekleyen metin içi atıflar da sunmalıdır.";
+"editing-welcome-citations-title" = "Güvenilir kaynaklara atıp yap";
+"editing-welcome-set-knowledge-free-title" = "Bilgiyi özgür kıl";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
@@ -230,8 +238,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Dile özgü değil";
 "explore-feed-preferences-global-cards-title" = "Küresel kartlar";
 "explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Tüm %@ kartlarını gizle";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “%@” kartlarını gizle";
 "explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında makaleler";
 "explore-feed-preferences-languages-footer-text" = "Tüm Keşfet akış kartlarını tüm dillerinde gizlemek Keşfet sekmesini kapatır.";
 "explore-feed-preferences-on-this-day-description" = "Tarihte bugün gerçekleşen olaylar";
@@ -288,6 +295,8 @@
 "explore-randomizer" = "Rastgele";
 "feed-news-notification-button-text" = "Bildirimleri aç";
 "feed-news-notification-text" = "Gündemde olan Vikipedi maddelerinden haberdar olmak için bildirimleri etkinleştirin.";
+"fetcher-error-generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+"fetcher-error-unexpected-response" = "Uygulama, sunucudan beklenmeyen bir cevap aldı. Lütfen daha sonra tekrar deneyin.";
 "field-alert-captcha-invalid" = "Geçersiz CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Parolalar eşleşmiyor";
 "field-alert-password-invalid" = "Geçersiz parola";
@@ -310,7 +319,7 @@
 "field-token-title" = "Doğrulama kodu";
 "field-username-placeholder" = "kullanıcı adı girin";
 "field-username-title" = "Kullanıcı adı";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
 "forgot-password-instructions" = "Parola sıfırlama talımatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
@@ -387,6 +396,7 @@
 "new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
 "new-password-title" = "Parolanızı belirleyin";
 "no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp yeniden deneyin.";
+"no-internet-connection" = "İnternet bağlantısı yok";
 "number-billions" = "$1";
 "number-millions" = "$1M";
 "number-thousands" = "$1B";
