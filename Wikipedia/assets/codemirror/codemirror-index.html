@@ -842,6 +842,11 @@
         editor.focus()
         window.scrollTo(window.scrollX, scrollY)
       },
+      selectLastSelection: () => {
+          const from = editor.getCursor('from')
+          const to = editor.getCursor('to')
+          editor.setSelection(from, to, {scroll: false})
+      },
       selectLastFocusedMatch: () => {
         const state = editor.state.search
         if (!state) {

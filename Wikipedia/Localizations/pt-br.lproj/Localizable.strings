@@ -179,6 +179,7 @@
 "dim-images" = "Imagens fracas";
 "edit-bold-accessibility-label" = "Adicionar formatação em negrito";
 "edit-bold-remove-accessibility-label" = "Remover formatação em negrito";
+"edit-clear-formatting-accessibility-label" = "Remover formatação";
 "edit-comment-accessibility-label" = "Adicionar sintaxe de comentário";
 "edit-comment-remove-accessibility-label" = "Remover sintaxe de comentário";
 "edit-decrease-indent-depth-accessibility-label" = "Diminuir a profundidade do recuo";

@@ -161,6 +161,7 @@
 "dim-images" = "Bilder dimmen";
 "edit-bold-accessibility-label" = "Fett-Formatierung hinzufügen";
 "edit-bold-remove-accessibility-label" = "Fett-Formatierung entfernen";
+"edit-clear-formatting-accessibility-label" = "Formatierung entfernen";
 "edit-comment-accessibility-label" = "Kommentar-Syntax hinzufügen";
 "edit-comment-remove-accessibility-label" = "Kommentar-Syntax entfernen";
 "edit-decrease-indent-depth-accessibility-label" = "Einrückungstiefe verringern";

@@ -173,6 +173,7 @@
 "dim-images" = "صور باهتة";
 "edit-bold-accessibility-label" = "أضف تنسيقا عريضا";
 "edit-bold-remove-accessibility-label" = "إزالة التنسيق العريض";
+"edit-clear-formatting-accessibility-label" = "إزالة التهيئة";
 "edit-comment-accessibility-label" = "إضافة بناء جملة التعليقات";
 "edit-comment-remove-accessibility-label" = "إزالة صيغة التعليق";
 "edit-decrease-indent-depth-accessibility-label" = "إنقاص عمق المسافة البادئة";
@@ -187,6 +188,8 @@
 "edit-link-accessibility-label" = "إضافة صيغة الوصلة";
 "edit-link-remove-accessibility-label" = "إزالة صيغة الوصلة";
 "edit-menu-item" = "تعديل";
+"edit-menu-item-could-not-find-selection-alert-message" = "قد يكون هذا لأن النص الذي حددته غير قابل للتحرير (على سبيل المثال، عنوان مقالة أو عناوين صندوق معلومات) أو بسبب طول النص الذي تم تمييزه";
+"edit-menu-item-could-not-find-selection-alert-title" = "تعذر تحديد موقع النص الذي حددته";
 "edit-minor-learn-more-text" = "معرفة المزيد عن التعديلات الطفيفة";
 "edit-minor-text" = "هذا تعديل طفيف";
 "edit-ordered-list-accessibility-label" = "جعل الخط الحالي قائمة مرتبة";

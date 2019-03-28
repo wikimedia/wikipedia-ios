@@ -176,6 +176,7 @@
 "dim-images" = "Assombrir les images";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
 "edit-bold-remove-accessibility-label" = "Supprimer la mise en forme en gras";
+"edit-clear-formatting-accessibility-label" = "Supprimer la mise en forme";
 "edit-comment-accessibility-label" = "Ajouter une syntaxe de commentaire";
 "edit-comment-remove-accessibility-label" = "Supprimer la syntaxe de commentaire";
 "edit-decrease-indent-depth-accessibility-label" = "Diminuer la profondeur d’indentation";
@@ -190,6 +191,8 @@
 "edit-link-accessibility-label" = "Ajouter une syntaxe de lien";
 "edit-link-remove-accessibility-label" = "Supprimer la syntaxe de lien";
 "edit-menu-item" = "Modifier";
+"edit-menu-item-could-not-find-selection-alert-message" = "Cela peut être dû au fait que le texte que vous avez sélectionné n’est pas modifiable (par ex. titre d’article ou titres de boîte d’info) ou à cause de la longueur du texte qui a été mis en surbrillance";
+"edit-menu-item-could-not-find-selection-alert-title" = "Le texte que vous avez sélectionné n’a pas pu être localisé";
 "edit-minor-learn-more-text" = "En savoir plus sur les modifications mineures";
 "edit-minor-text" = "C’est une modification mineure";
 "edit-ordered-list-accessibility-label" = "Faire de la ligne actuelle une liste ordonnée";
