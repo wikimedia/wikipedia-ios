@@ -209,6 +209,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case replaceAll
         case replaceSingle
         case selectLastFocusedMatch
+        case selectLastSelection
         case clearFormatting
     }
 
@@ -277,6 +278,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func selectLastFocusedMatch() {
         execCommand(for: .selectLastFocusedMatch)
+    }
+    
+    func selectLastSelection() {
+        execCommand(for: .selectLastSelection)
     }
 
     func moveCursorDown() {
