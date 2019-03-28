@@ -31,7 +31,7 @@ final class WelcomeAnimationView: UIView {
         }
     }
 
-    func normalizedPoint(_ point: CGPoint, from aspectRatio: CGSize, to newRect: CGRect) -> CGPoint {
+    private func normalizedPoint(_ point: CGPoint, from aspectRatio: CGSize, to newRect: CGRect) -> CGPoint {
         let rect = AVMakeRect(aspectRatio: aspectRatio, insideRect: newRect)
         let scaledX = rect.width * (point.x / aspectRatio.width)
         let scaledY = rect.height * (point.y / aspectRatio.height)

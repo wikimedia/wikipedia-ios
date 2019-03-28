@@ -34,7 +34,7 @@ final fileprivate class BeBoldDataSource: WelcomeContainerViewControllerDataSour
     }()
 
     private lazy var propertyAnimator: UIViewPropertyAnimator = {
-        let editPropertyAnimator = UIViewPropertyAnimator(duration: 0.8, curve: .easeOut) {
+        let editPropertyAnimator = UIViewPropertyAnimator(duration: 0.8, curve: .easeInOut) {
             self.editAnimatedImageView.alpha = 1
         }
 
@@ -110,7 +110,7 @@ final fileprivate class CiteReliableSourcesDataSource: WelcomeContainerViewContr
 
         highlightPropertyAnimator.addAnimations({
             self.highlightAnimatedImageView.alpha = 1
-        }, delayFactor: 0.6)
+        }, delayFactor: 0.5)
 
         let plusesPropertyAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear) {
             self.plusesAnimatedImageView.alpha = 1
