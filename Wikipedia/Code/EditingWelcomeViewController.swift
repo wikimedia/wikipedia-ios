@@ -26,7 +26,7 @@ final class EditingWelcomeViewController: WelcomeViewController {
 final fileprivate class BeBoldDataSource: WelcomeContainerViewControllerDataSource {
     let isFirst = true
 
-    private let editAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/be-bold/edit", origin: CGPoint(x: 59, y: 159), insertBelow: false)
+    private let editAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/be-bold/edit", start: CGPoint(x: 59, y: 159), insertBelow: false)
     private let plusesAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/be-bold/pluses")
 
     lazy var animationView: WelcomeAnimationView = {
@@ -55,9 +55,9 @@ final fileprivate class BeBoldDataSource: WelcomeContainerViewControllerDataSour
 // MARK: Write in an impartial tone
 
 final fileprivate class ImpartialToneDataSource: WelcomeContainerViewControllerDataSource {
-    private let scaleBarAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/impartial-tone/bar", origin: CGPoint(x: 73, y: 50), insertBelow: false, initialAlpha: 1)
-    private let scaleArticleAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/impartial-tone/article", origin: CGPoint(x: 238, y: 61.5), initialAlpha: 1)
-    private let scaleSaturnAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/impartial-tone/saturn", origin: CGPoint(x: 40, y: 61.5), initialAlpha: 1)
+    private let scaleBarAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/impartial-tone/bar", start: CGPoint(x: 73, y: 50), insertBelow: false, initialAlpha: 1)
+    private let scaleArticleAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/impartial-tone/article", start: CGPoint(x: 238, y: 61.5), initialAlpha: 1)
+    private let scaleSaturnAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/impartial-tone/saturn", start: CGPoint(x: 40, y: 61.5), initialAlpha: 1)
     private let plusesAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/impartial-tone/pluses")
 
     lazy var animationView: WelcomeAnimationView = {
@@ -98,7 +98,7 @@ final fileprivate class ImpartialToneDataSource: WelcomeContainerViewControllerD
 // MARK: Cite reliable sources
 
 final fileprivate class CiteReliableSourcesDataSource: WelcomeContainerViewControllerDataSource {
-    private let highlightAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/cite/highlight", origin: CGPoint(x: 187, y: 96), insertBelow: false)
+    private let highlightAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/cite/highlight", start: CGPoint(x: 187, y: 96), insertBelow: false)
     private let plusesAnimatedImageView = WelcomeAnimatedImageView(imageName: "editing-welcome/cite/pluses")
 
     lazy var animationView: WelcomeAnimationView = {
@@ -141,34 +141,34 @@ final fileprivate class SetKnowledgeFreeDataSource: WelcomeContainerViewControll
         let namePrefix = "editing-welcome/set-knowledge-free/article-"
         let origin = CGPoint(x: 153, y: 85)
         return [
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 200, y: 118)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 104, y: 25)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 111, y: 144)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 122, y: 93)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", origin: origin, destination: CGPoint(x: 156, y: 62)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 139, y: 55)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 176, y: 26)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 225, y: 24)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)15", origin: origin, destination: CGPoint(x: 213, y: 30)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)11", origin: origin, destination: CGPoint(x: 167, y: 119)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", origin: origin, destination: CGPoint(x: 136, y: 167)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", origin: origin, destination: CGPoint(x: 163, y: 136)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", origin: origin, destination: CGPoint(x: 55, y: 92)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)15", origin: origin, destination: CGPoint(x: 113, y: 113)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)13", origin: origin, destination: CGPoint(x: 51, y: 26)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)2", origin: origin, destination: CGPoint(x: 225, y: 47)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)12", origin: origin, destination: CGPoint(x: 45, y: 67)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)11", origin: origin, destination: CGPoint(x: 93, y: 29)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)13", origin: origin, destination: CGPoint(x: 162, y: 33)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)9", origin: origin, destination: CGPoint(x: 226, y: 31)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)8", origin: origin, destination: CGPoint(x: 81, y: 79)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)11", origin: origin, destination: CGPoint(x: 223, y: 106)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)6", origin: origin, destination: CGPoint(x: 236, y: 85)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)5", origin: origin, destination: CGPoint(x: 108, y: 68)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)4", origin: origin, destination: CGPoint(x: 184, y: 95)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)3", origin: origin, destination: CGPoint(x: 188, y: 51)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)2", origin: origin, destination: CGPoint(x: 154, y: 160)),
-            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", origin: origin, destination: CGPoint(x: 76, y: 126))
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 200, y: 118)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 104, y: 25)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 111, y: 144)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 122, y: 93)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", start: origin, destination: CGPoint(x: 156, y: 62)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 139, y: 55)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 176, y: 26)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 225, y: 24)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)15", start: origin, destination: CGPoint(x: 213, y: 30)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)11", start: origin, destination: CGPoint(x: 167, y: 119)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)16", start: origin, destination: CGPoint(x: 136, y: 167)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", start: origin, destination: CGPoint(x: 163, y: 136)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", start: origin, destination: CGPoint(x: 55, y: 92)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)15", start: origin, destination: CGPoint(x: 113, y: 113)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)13", start: origin, destination: CGPoint(x: 51, y: 26)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)2", start: origin, destination: CGPoint(x: 225, y: 47)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)12", start: origin, destination: CGPoint(x: 45, y: 67)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)11", start: origin, destination: CGPoint(x: 93, y: 29)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)13", start: origin, destination: CGPoint(x: 162, y: 33)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)9", start: origin, destination: CGPoint(x: 226, y: 31)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)8", start: origin, destination: CGPoint(x: 81, y: 79)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)11", start: origin, destination: CGPoint(x: 223, y: 106)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)6", start: origin, destination: CGPoint(x: 236, y: 85)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)5", start: origin, destination: CGPoint(x: 108, y: 68)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)4", start: origin, destination: CGPoint(x: 184, y: 95)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)3", start: origin, destination: CGPoint(x: 188, y: 51)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)2", start: origin, destination: CGPoint(x: 154, y: 160)),
+            WelcomeAnimatedImageView(imageName: "\(namePrefix)14", start: origin, destination: CGPoint(x: 76, y: 126))
         ]
     }()
 

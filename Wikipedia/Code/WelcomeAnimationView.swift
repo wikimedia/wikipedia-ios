@@ -9,14 +9,14 @@ final class WelcomeAnimationView: UIView {
     private var propertyAnimator: UIViewPropertyAnimator?
 
     final class AnimatedImageView: UIImageView {
-        let origin: CGPoint
+        let start: CGPoint
         let destination: CGPoint?
         var normalizedDestination: CGPoint?
         let insertBelow: Bool
         let sizeReference: CGSize
 
-        init(imageName: String, contentMode: UIView.ContentMode = .scaleAspectFit, origin: CGPoint = .zero, destination: CGPoint? = nil, insertBelow: Bool = true, initialAlpha: CGFloat = 0) {
-            self.origin = origin
+        init(imageName: String, contentMode: UIView.ContentMode = .scaleAspectFit, start: CGPoint = .zero, destination: CGPoint? = nil, insertBelow: Bool = true, initialAlpha: CGFloat = 0) {
+            self.start = start
             self.destination = destination
             self.insertBelow = insertBelow
             let image = UIImage(named: imageName)!
@@ -83,7 +83,7 @@ final class WelcomeAnimationView: UIView {
             imageView.frame.size = size(for: imageView)
 
             let normalizedZero = normalizedPoint(.zero, from: imageView.sizeReference, to: imageView.bounds)
-            let normalizedOrigin = normalizedPoint(imageView.origin, from: sizeReference, to: bounds)
+            let normalizedOrigin = normalizedPoint(imageView.start, from: sizeReference, to: bounds)
 
             if finishedAnimating, let destination = imageView.destination {
                 let normalizedDestination = normalizedPoint(destination, from: sizeReference, to: bounds)
