@@ -115,7 +115,7 @@
         state.posFrom = state.posTo = cm.getCursor();
         findNext(cm, rev);
       });
-      focusOnMatch(state)
+      focusOnMatch(state, null, false)
     }
 
     function clearFocusedMatches(cm) {
@@ -130,7 +130,7 @@
       }
     } 
 
-    function focusOnMatch(state, focus) {
+    function focusOnMatch(state, focus, forceIncrement) {
       const matches = document.getElementsByClassName("cm-searching");
       const matchesCount = matches.length;
       
@@ -138,7 +138,7 @@
       //here we're using focus as a flag for whether they came from find next / prev or from replace. 
       //if they came from find next/previous, we are okay with focusedMatchIndex being -1 because it will get decremented/incremented below
       //if they came from replace (where focus is null), we want to reset focusedMatchIndex to 0 but NOT increment
-      if (state.focusedMatchIndex != undefined && state.focusedMatchIndex != null && (state.focusedMatchIndex > -1 && !focus || state.focusedMatchIndex >= -1 && focus)) {
+      if (state.focusedMatchIndex != undefined && state.focusedMatchIndex != null && ((state.focusedMatchIndex > -1 && !focus) || (state.focusedMatchIndex >= -1 && focus) || (state.focusedMatchIndex == -1 && !focus && forceIncrement))) {
         focusedMatchIndex = state.focusedMatchIndex;
       } else if (state.initialFocusedMatchIndex != undefined && state.initialFocusedMatchIndex != null && state.initialFocusedMatchIndex > -1) {
         focusedMatchIndex = state.initialFocusedMatchIndex;
@@ -146,8 +146,8 @@
         focusedMatchIndex = 0;
       }
 
-      if (focus) {
-        if (focus.next) {
+      if (forceIncrement || focus) {
+        if (forceIncrement || focus.next) {
           if (focusedMatchIndex >= matchesCount - 1) {
             focusedMatchIndex = 0;
           } else {
@@ -221,7 +221,7 @@
         if (!cursor.find(rev)) return;
       }
       state.posFrom = cursor.from(); state.posTo = cursor.to();
-      if (focus) focusOnMatch(state, focus)
+      if (focus) focusOnMatch(state, focus, false)
     });}
   
     function clearSearch(cm) {cm.operation(function() {
@@ -265,7 +265,7 @@
 
       //resets count to 0/0
       let state = getSearchState(cm);
-      focusOnMatch(state);
+      focusOnMatch(state, null, false);
     }
 
     function replaceSingleWithoutDialogs(cm) {
@@ -287,13 +287,12 @@
           state.focusedMatchIndex = -1;
           state.initialFocusedMatchIndex = -1;
           if (!(match = cursor.findNext()) || (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) {
-            focusOnMatch(state); //resets count to 0/0
+            focusOnMatch(state, null, false); //resets count to 0/0
             return;
           }
         }
 
         state.posFrom = cursor.from(); state.posTo = cursor.to();
-        focusOnMatch(state);
         if (shouldReplace) {
           cm.isReplacing = true;
 
@@ -306,6 +305,8 @@
       var doReplace = function(match) {
         cursor.replace(replaceText);
         advance(false);
+        var forceIncrement = replaceText.includes(query);
+        focusOnMatch(state, null, forceIncrement);
       };
       advance(true);
     }
