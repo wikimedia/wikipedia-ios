@@ -187,6 +187,7 @@
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
+"edit-clear-formatting-accessibility-label" = "Очистить форматирование";
 "edit-comment-accessibility-label" = "Добавить комментарий";
 "edit-comment-remove-accessibility-label" = "Убрать комментарий";
 "edit-decrease-indent-depth-accessibility-label" = "Уменьшить отступ";
@@ -201,6 +202,7 @@
 "edit-link-accessibility-label" = "Добавить ссылку";
 "edit-link-remove-accessibility-label" = "Убрать ссылку";
 "edit-menu-item" = "Редактировать";
+"edit-menu-item-could-not-find-selection-alert-title" = "Выбранный текст не найден";
 "edit-minor-learn-more-text" = "Узнать подробнее о малых правках";
 "edit-minor-text" = "Это малая правка";
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
@@ -372,6 +374,10 @@
 "field-username-title" = "Имя участника";
 "find-clear-button-accessibility" = "Очистить поиск";
 "find-infolabel-number-matches" = "$1 из $2";
+"find-next-button-accessibility" = "Следующее вхождение";
+"find-previous-button-accessibility" = "Предыдущее вхождение";
+"find-replace-header" = "Поиск и замена";
+"find-replace-header-close-accessibility" = "Закрыть диалог поиска и замены";
 "find-textfield-accessibility" = "Найти";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
@@ -598,9 +604,14 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|few=$1 года назад|many=$1 лет назад}}";
+"replace-button-accessibility" = "Выполнение операции \"$1\".";
+"replace-buttons-replace-accessibility" = "Заменить одно вхождение";
+"replace-buttons-replace-all-accessibility" = "Заменить все вхождения";
 "replace-clear-button-accessibility" = "Очистить поиск";
 "replace-infolabel-method-replace" = "Заменить";
 "replace-infolabel-method-replace-all" = "Заменить всё";
+"replace-method-button-accessibility" = "Текущий режим — \"$1\". Нажмите, чтобы сменить режим замен.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|выполнена 1 замена|выполнены $1 замены|выполнены $1 замен}}";
 "replace-textfield-accessibility" = "Заменить";
 "replace-textfield-placeholder" = "Заменить на…";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
