@@ -36,7 +36,7 @@ class WelcomeContainerViewController: UIViewController {
             apply(theme: theme)
             return
         }
-        addChild(WelcomeAnimationViewController(animationView: dataSource.animationView, shouldAnimateWhenViewAppears: !dataSource.isFirst), to: topContainerView)
+        addChild(WelcomeAnimationViewController(animationView: dataSource.animationView, waitsForAnimationTrigger: dataSource.isFirst), to: topContainerView)
         addChild(dataSource.panelViewController, to: bottomContainerView)
         apply(theme: theme)
     }

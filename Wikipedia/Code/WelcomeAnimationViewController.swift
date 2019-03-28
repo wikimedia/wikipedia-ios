@@ -3,11 +3,11 @@ import UIKit
 final class WelcomeAnimationViewController: UIViewController {
     private var completedAnimation = false
     let animationView: WelcomeAnimationView
-    private let shouldAnimateWhenViewAppears: Bool
+    private let waitsForAnimationTrigger: Bool
 
-    init(animationView: WelcomeAnimationView, shouldAnimateWhenViewAppears: Bool = true) {
+    init(animationView: WelcomeAnimationView, waitsForAnimationTrigger: Bool = true) {
         self.animationView = animationView
-        self.shouldAnimateWhenViewAppears = shouldAnimateWhenViewAppears
+        self.waitsForAnimationTrigger = waitsForAnimationTrigger
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -22,7 +22,7 @@ final class WelcomeAnimationViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard shouldAnimateWhenViewAppears else {
+        guard !waitsForAnimationTrigger else {
             return
         }
         animate()
