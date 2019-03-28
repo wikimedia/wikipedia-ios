@@ -110,7 +110,7 @@ final fileprivate class CiteReliableSourcesDataSource: WelcomeContainerViewContr
 
         highlightPropertyAnimator.addAnimations({
             self.highlightAnimatedImageView.alpha = 1
-        }, delayFactor: 0.5)
+        }, delayFactor: 0.6)
 
         let plusesPropertyAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear) {
             self.plusesAnimatedImageView.alpha = 1
