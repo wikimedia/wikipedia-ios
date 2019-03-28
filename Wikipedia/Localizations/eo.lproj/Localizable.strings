@@ -3,6 +3,7 @@
 // Author: Fitoschido
 // Author: KuboF
 // Author: Lucas
+// Author: Luis Miguel Obando
 // Author: Marcellus
 // Author: Nemo bis
 // Author: Ochilov
@@ -163,6 +164,7 @@
 "description-welcome-promise-title" = "Ekante, mi promesas ne misuzi ĉi tiun eblon";
 "description-welcome-start-editing-button" = "Ekredakti";
 "dim-images" = "Malheligi bildojn";
+"edit-clear-formatting-accessibility-label" = "Forigi aspektigadon";
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";

@@ -156,6 +156,7 @@
 "dim-images" = "Пригушени слики";
 "edit-bold-accessibility-label" = "Стави задебелено форматирање";
 "edit-bold-remove-accessibility-label" = "Отстрани задебелено форматирање";
+"edit-clear-formatting-accessibility-label" = "Отстрани форматирање";
 "edit-comment-accessibility-label" = "Стави синтакса за коментар";
 "edit-comment-remove-accessibility-label" = "Отстрани синтакса за коментар";
 "edit-decrease-indent-depth-accessibility-label" = "Намали отстап";
@@ -170,6 +171,8 @@
 "edit-link-accessibility-label" = "Стави синтакса за врска";
 "edit-link-remove-accessibility-label" = "Отстрани синтакса за врска";
 "edit-menu-item" = "Уреди";
+"edit-menu-item-could-not-find-selection-alert-message" = "Ова може да се случува бидејќи текстот што го избравте не е уредлив (на пр. наслов на статија или наслови ви инфокутија), или пак поради големината на означениот текст.";
+"edit-menu-item-could-not-find-selection-alert-title" = "Не можев да го пронајдам избраниот текст";
 "edit-minor-learn-more-text" = "Дознајте повеќе за ситните уредувања";
 "edit-minor-text" = "Ова е ситно уредување";
 "edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
