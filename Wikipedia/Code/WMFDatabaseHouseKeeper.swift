@@ -114,7 +114,7 @@ import Foundation
         }
         
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
-        
+
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         
         var urls: [URL] = []

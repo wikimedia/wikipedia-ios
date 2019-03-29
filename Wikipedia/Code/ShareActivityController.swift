@@ -36,7 +36,7 @@ extension ShareableArticlesProvider where Self: UIViewController & EventLoggingE
         if let article = article {
             return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         } else if let articleURL = articleURL {
-            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [articleURL]) { (articles) in
+            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [articleURL]) { (articles, _) in
                 guard let first = articles.first else {
                     return
                 }

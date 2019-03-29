@@ -40,11 +40,13 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
     
     func fetch() {
         fakeProgressController.start()
-        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: articleURLs, failure: { (error: Error) in
-            self.wmf_showAlertWithError(error as NSError)
-            }, finally: {
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: articleURLs) { (_, error) in
             self.fakeProgressController.finish()
-        })
+            if let error = error {
+                self.wmf_showAlertWithError(error as NSError)
+                return
+            }
+        }
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
