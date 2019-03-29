@@ -1,6 +1,12 @@
 import UIKit
 
+protocol PageViewControllerViewLifecycleDelegate: AnyObject {
+    func pageViewControllerDidAppear(_ pageViewController: UIPageViewController)
+}
+
 final class WelcomePageViewController: UIPageViewController {
+    weak var viewLifecycleDelegate: PageViewControllerViewLifecycleDelegate?
+
     private let allViewControllers: [UIViewController]
 
     private lazy var pageControl: UIPageControl? = {
@@ -31,9 +37,17 @@ final class WelcomePageViewController: UIPageViewController {
         assert(allViewControllers.count >= 2, "Expected allViewControllers to contain at least 2 elements")
         if let firstViewController = allViewControllers.first {
             setViewControllers([firstViewController], direction: direction, animated: true)
+            if let viewLifecycleDelegate = firstViewController as? PageViewControllerViewLifecycleDelegate {
+                self.viewLifecycleDelegate = viewLifecycleDelegate
+            }
         }
         addPageControlButtons()
         apply(theme: theme)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewLifecycleDelegate?.pageViewControllerDidAppear(self)
     }
 
     private func addPageControlButtons() {
