@@ -11,10 +11,28 @@ protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
     func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?)
 }
 
+protocol SectionEditorWebViewMessagingControllerAlertDelegate: class {
+    func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int)
+}
+
+protocol SectionEditorWebViewMessagingControllerScrollDelegate: class {
+    func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint)
+}
+
+enum WebViewMessagingError: LocalizedError {
+    case generic
+    var localizedDescription: String {
+        return CommonStrings.genericErrorDescription
+    }
+}
+    
+
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
     weak var findInPageDelegate: SectionEditorWebViewMessagingControllerFindInPageDelegate?
+    weak var alertDelegate: SectionEditorWebViewMessagingControllerAlertDelegate?
+    weak var scrollDelegate: SectionEditorWebViewMessagingControllerScrollDelegate?
 
     weak var webView: WKWebView!
 
@@ -23,9 +41,11 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
 
+        case (Message.Name.replaceAllCountMessage, let count as Int):
+            alertDelegate?.sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(self, replacedCount: count)
         case (Message.Name.smoothScrollToYOffsetMessage, let yOffset as CGFloat):
             let newOffset = CGPoint(x: webView.scrollView.contentOffset.x, y: webView.scrollView.contentOffset.y + yOffset)
-            webView.scrollView.setContentOffset(newOffset, animated: true)
+            scrollDelegate?.sectionEditorWebViewMessagingController(self, didReceiveScrollMessageWithNewContentOffset: newOffset)
         case (Message.Name.codeMirrorMessage, let message as [String: Any]):
             guard
                 let selectionChangedMessage = message[Message.Name.selectionChanged],
@@ -136,8 +156,16 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         }
     }
 
-    func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
-        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
+    func getWikitext(completionHandler: ((String?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: { (result, error) in
+            guard error == nil, let wikitext = result as? String else {
+                completionHandler?(nil, WebViewMessagingError.generic)
+                return
+            }
+            // multiple spaces in a row have non breaking spaces automatically added, so they need to be removed https://phabricator.wikimedia.org/T218993
+            let transformedWikitext = wikitext.replacingOccurrences(of: "\u{00a0}", with: " ")
+            completionHandler?(transformedWikitext, nil)
+        })
     }
 
     private enum CodeMirrorCommandType: String {
@@ -161,6 +189,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case cursorRight
         case comment
         case focus
+        case focusWithoutScroll
         case selectAll
         case highlighting
         case lineNumbers
@@ -177,6 +206,11 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case findNext
         case findPrevious
         case adjustedContentInsetChanged
+        case replaceAll
+        case replaceSingle
+        case selectLastFocusedMatch
+        case selectLastSelection
+        case clearFormatting
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -242,6 +276,14 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .redo)
     }
 
+    func selectLastFocusedMatch() {
+        execCommand(for: .selectLastFocusedMatch)
+    }
+    
+    func selectLastSelection() {
+        execCommand(for: .selectLastSelection)
+    }
+
     func moveCursorDown() {
         execCommand(for: .cursorDown)
     }
@@ -264,6 +306,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func focus() {
         execCommand(for: .focus)
+    }
+
+    func focusWithoutScroll() {
+        execCommand(for: .focusWithoutScroll)
     }
 
     func selectAllText() {
@@ -330,6 +376,20 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func setAdjustedContentInset(newInset: UIEdgeInsets) {
         execCommand(for: .adjustedContentInsetChanged, argument: "{top: \(newInset.top), left: \(newInset.left), bottom: \(newInset.bottom), right: \(newInset.right)}")
     }
+    
+    func replaceAll(text: String) {
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .replaceAll, argument: "`\(escapedText)`")
+    }
+    
+    func replaceSingle(text: String) {
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .replaceSingle, argument: "`\(escapedText)`")
+    }
+    
+    func clearFormatting() {
+        execCommand(for: .clearFormatting)
+    }
 }
 
 extension SectionEditorWebViewMessagingController {
@@ -344,6 +404,7 @@ extension SectionEditorWebViewMessagingController {
             static let findInPageFocusedMatchIndex = "findInPageFocusedMatchIndex"
             static let findInPageFocusedMatchID = "findInPageFocusedMatchID"
             static let smoothScrollToYOffsetMessage = "smoothScrollToYOffsetMessage"
+            static let replaceAllCountMessage = "replaceAllCountMessage"
         }
         struct Body {
             struct Key {

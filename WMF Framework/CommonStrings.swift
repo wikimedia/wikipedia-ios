@@ -100,7 +100,9 @@ public class CommonStrings: NSObject {
     @objc public static let findInPage = WMFLocalizedString("action-find-in-page", value: "Find in page", comment: "Title text and accessibility label for find in page action on buttons or info sheets.")
     @objc public static let readingThemesControls = WMFLocalizedStringWithDefaultValue("article-toolbar-reading-themes-controls-toolbar-item", nil, nil, "Reading Themes Controls", "Accessibility label for the Reading Themes Controls article toolbar item");
 
+    public static let welcomePromiseTitle = WMFLocalizedString("description-welcome-promise-title", value:"By starting, I promise not to misuse this feature", comment:"Title text asking user to edit descriptions responsibly")
     @objc public static let gotItButtonTitle = WMFLocalizedString("welcome-explore-tell-me-more-done-button", value: "Got it", comment:"Text for button dismissing detailed explanation of new features")
+    public static let getStartedTitle = WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for dismissing welcome screens\n{{Identical|Get started}}")
     
     @objc public static let privacyPolicyURLString = "https://foundation.m.wikimedia.org/wiki/Privacy_policy"
 
@@ -164,17 +166,5 @@ public class CommonStrings: NSObject {
 
     @objc public static let editSignIn = WMFLocalizedString("wikitext-upload-save-sign-in", value: "Log in", comment: "{{Identical|Log in}}")
     
-    public static let genericErrorDescription = WMFLocalizedString("error-generic-description", value: "An unexpected error occurred", comment: "Generic error message for when the error isn't recoverable by the user.")
-    public static let genericErrorRecoverySuggestion = WMFLocalizedString("error-generic-recovery-suggestion", value: "Please try again later", comment: "Generic recovery suggestion for when the error isn't recoverable by the user.")
-
-    // MARK: Editing onboarding - will be moved out of Common Strings when screens are ready
-
-    public static let beBoldTitle = WMFLocalizedString("editing-welcome-be-bold-title", value: "Your voice is important", comment: "Title for editing onboarding screen encouraging users to start editing Wikipedia articles")
-    public static let beBoldSubtitle = WMFLocalizedString("editing-welcome-be-bold-subtitle", value: "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community.", comment: "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles")
-    public static let impartialToneTitle = WMFLocalizedString("editing-welcome-impartial-tone-title", value: "Write in an impartial tone", comment: "Title for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles")
-    public static let impartialToneSubtitle = WMFLocalizedString("editing-welcome-impartial-tone-subtitle", value: "We strive for articles to be written in an impartial tone. When editing, aim to make a fair representation of the world as reliable sources describe it.", comment: "Subtitle for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles")
-    public static let citationsTitle = WMFLocalizedString("editing-welcome-citations-title", value: "Cite reliable sources", comment: "Title for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles")
-    public static let citationsSubtitle = WMFLocalizedString("editing-welcome-citations-subtitle", value: "All content must be verifiable. When adding new information to an article, editors should provide an inline citation to a reliable source that directly supports the contribution.", comment: "Subtitle for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles")
-    public static let setKnowledgeFreeTitle = WMFLocalizedString("editing-welcome-set-knowledge-free-title", value: "Set knowledge free", comment: "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content")
-     public static let setKnowledgeFreeSubtitle = WMFLocalizedString("editing-welcome-set-knowledge-free-subtitle", value: "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.", comment: "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content")
+    public static let genericErrorDescription = WMFLocalizedString("fetcher-error-generic", value: "Something went wrong. Please try again later.", comment: "Error shown to the user for generic errors with no clear recovery steps for the user.")
 }

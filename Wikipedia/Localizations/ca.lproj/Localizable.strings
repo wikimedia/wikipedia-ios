@@ -72,6 +72,7 @@
 "action-read" = "Llegeix";
 "action-redo" = "Refés";
 "action-remove" = "Suprimeix";
+"action-replace-all" = "Reemplaça-ho tot";
 "action-save" = "Desa";
 "action-saved" = "Desat";
 "action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
@@ -178,6 +179,7 @@
 "edit-italic-remove-accessibility-label" = "Suprimeix format en cursiva";
 "edit-link-accessibility-label" = "Afegeix sintaxi d'enllaç";
 "edit-link-remove-accessibility-label" = "Suprimeix sintaxi d'enllaç";
+"edit-menu-item-could-not-find-selection-alert-title" = "No s’ha pogut trobar el text que heu seleccionat";
 "edit-minor-learn-more-text" = "Més informació sobre les modificacions menors";
 "edit-minor-text" = "Aquesta és una modificació menor";
 "edit-ordered-list-accessibility-label" = "Fes la línia actual part d'una llista ordenada";
@@ -214,6 +216,7 @@
 "edit-unordered-list-remove-accessibility-label" = "Treu la línia actual de la llista no ordenada";
 "edit-watch-list-learn-more-text" = "Més informació sobre les llistes de seguiment";
 "edit-watch-this-page-text" = "Vigila aquesta pàgina";
+"editing-welcome-impartial-tone-title" = "Escriviu amb un to imparcial";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
@@ -339,7 +342,8 @@
 "field-token-title" = "Codi de verificació";
 "field-username-placeholder" = "introduïu un nom d'usuari";
 "field-username-title" = "Nom d'usuari";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "Cerca i reemplaça";
 "forgot-password-button-title" = "Restableix";
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
 "forgot-password-instructions" = "Omple un dels camps a continuació per a rebre instruccions de reinicialització de contrasenya per correu electrònic";
@@ -563,6 +567,10 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ara mateix|Fa $1 minut|Fa $1 minuts}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|1=L'any passat|Fa $1 anys}}";
+"replace-infolabel-method-replace" = "Reemplaça";
+"replace-infolabel-method-replace-all" = "Reemplaça-ho tot";
+"replace-textfield-accessibility" = "Reemplaça";
+"replace-textfield-placeholder" = "Reemplaça per…";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "reverted-edit-back-to-article-button-title" = "Torna a l'article";
 "reverted-edit-notification-body" = "La modificació que vàreu fer de l'article $1 va ser revertida per $2";

@@ -228,7 +228,7 @@
 "field-token-title" = "အတည်ပြုကုဒ်";
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ပြန်စရန်";
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
 "forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";

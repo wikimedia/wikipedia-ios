@@ -92,6 +92,7 @@
 "action-saved-accessibility" = "保存しました。リストから削除するには選択してください。";
 "action-saved-accessibility-notification" = "後で保存された記事";
 "action-share" = "共有";
+"action-share-accessibility" = "共有";
 "action-sort" = "並べ替え";
 "action-undo" = "取り消す";
 "action-unsave" = "リストから削除";
@@ -192,6 +193,7 @@
 "edit-italic-remove-accessibility-label" = "斜体を解除";
 "edit-link-accessibility-label" = "リンクを追加する";
 "edit-link-remove-accessibility-label" = "リンクを削除";
+"edit-menu-item" = "編集";
 "edit-minor-learn-more-text" = "細部の編集とは";
 "edit-minor-text" = "これは細部の編集です";
 "edit-ordered-list-accessibility-label" = "この行を数字付きリストにする";
@@ -353,7 +355,7 @@
 "field-token-title" = "検証コード";
 "field-username-placeholder" = "ユーザー名を入力";
 "field-username-title" = "ユーザー名";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "リセット";
 "forgot-password-email-sent" = "パスワードリセットの指示が記載されたメールが送信されました";
 "forgot-password-instructions" = "下記のいずれかのフィールドを入力して、電子メールでパスワードリセットの指示を受け取ります";
@@ -571,7 +573,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "ダークモード";
 "reading-themes-controls-accessibility-light-theme-button" = "ライトテーマ";
 "reading-themes-controls-accessibility-sepia-theme-button" = "セピアテーマ";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "構文の強調";
 "reading-themes-controls-accessibility-text-size-slider" = "文字サイズ調節スライダ";
+"reading-themes-controls-syntax-highlighting" = "構文の強調";
 "reference-title" = "情報源$1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|1=昨日|$1 日前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 1時間前|$1 時間前}}";

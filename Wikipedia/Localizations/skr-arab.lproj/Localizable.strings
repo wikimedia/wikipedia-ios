@@ -66,6 +66,7 @@
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
 "dim-images" = "مدھم تصویر";
+"edit-menu-item" = "لکھو";
 "edit-style-table-view-title" = "سٹائل";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";
 "edit-summary-learn-more-text" = "ٻیا سِکھو";
@@ -100,7 +101,7 @@
 "field-token-title" = "تصدیقی کوڈ";
 "field-username-placeholder" = "ورتݨ آلا ناں درج کرو";
 "field-username-title" = "ورتݨ آلا ناں";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ولدا ٹھیک کرو";
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";
 "forgot-password-username-or-email-title" = "یا";

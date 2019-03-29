@@ -42,7 +42,7 @@
     [fetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, WMFArticleSummary * _Nullable summary) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error || !articleURL) {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error ?: [WMFFetcher unexpectedResponseError] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
                 return;
             }
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];

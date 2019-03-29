@@ -133,7 +133,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, WMFArticleSummary * _Nullable summary) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error || !articleURL) {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error ?: [WMFFetcher unexpectedResponseError] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
             } else {
                 WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED

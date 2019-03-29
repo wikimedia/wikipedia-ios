@@ -391,6 +391,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             searchBar.endEditing(true)
             didCancelSearch()
         }
+        deselectAll(animated: true)
     }
     
     @objc func makeSearchBarBecomeFirstResponder() {
@@ -509,7 +510,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
         guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
             return
         }

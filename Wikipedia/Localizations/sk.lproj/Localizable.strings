@@ -203,7 +203,7 @@
 "field-token-title" = "Overovací kód";
 "field-username-placeholder" = "zadajte užívateľské meno";
 "field-username-title" = "Používateľské meno";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Obnoviť";
 "forgot-password-email-sent" = "Poslali sme vám e-mail s inštrukciami na obnovu hesla";
 "forgot-password-instructions" = "Ak chcete dostať inštrukcie na obnovenie hesla e-mailom, vyplňte jedno z polí nižšie";

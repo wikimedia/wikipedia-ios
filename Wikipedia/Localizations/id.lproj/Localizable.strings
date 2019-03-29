@@ -342,7 +342,7 @@
 "field-token-title" = "Kode verifikasi";
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Atur ulang";
 "forgot-password-email-sent" = "Sebuah surel dengan instruksi penyetelan ulang kata sandi telah dikirim";
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";

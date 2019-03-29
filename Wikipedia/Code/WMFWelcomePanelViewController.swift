@@ -63,7 +63,7 @@ class WMFWelcomePanelViewController: UIViewController {
             titleLabel.text = WMFLocalizedString("welcome-send-data-helps-title", value:"Help make the app better", comment:"Title for welcome screen allowing user to opt in to send usage reports")
         }
     
-        nextButton.setTitle(WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for dismissing welcome screens\n{{Identical|Get started}}"), for: .normal)
+        nextButton.setTitle(CommonStrings.getStartedTitle, for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
