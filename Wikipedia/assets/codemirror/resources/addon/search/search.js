@@ -63,11 +63,12 @@
     }
   
     function queryCaseInsensitive(query) {
-      return typeof query == "string" && query == query.toLowerCase();
+      //codemirror default is if the query string is all lowercase, do a case insensitive search.
+      //commenting out here so it's case insensitive whether query is lowercase or not.
+      return typeof query == "string" // && query == query.toLowerCase();
     }
   
     function getSearchCursor(cm, query, pos) {
-      // Heuristic: if the query string is all lowercase, do a case insensitive search.
       return cm.getSearchCursor(query, pos, {caseFold: queryCaseInsensitive(query), multiline: true});
     }
   
@@ -305,7 +306,7 @@
       var doReplace = function(match) {
         cursor.replace(replaceText);
         advance(false);
-        var forceIncrement = replaceText.includes(query);
+        var forceIncrement = replaceText.includes(query) || replaceText.lowercase == query.lowercase;
         focusOnMatch(state, null, forceIncrement);
       };
       advance(true);
