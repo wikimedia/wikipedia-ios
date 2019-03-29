@@ -55,6 +55,10 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
         cell.bottomSeparator.isHidden = false
     }
     
+    override func canDelete(at indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     override var eventLoggingLabel: EventLoggingLabel? {
         return .similarPage
     }
