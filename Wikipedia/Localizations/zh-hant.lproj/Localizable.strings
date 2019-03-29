@@ -75,6 +75,8 @@
 "action-read" = "閱讀";
 "action-redo" = "重做";
 "action-remove" = "移除";
+"action-replace" = "取代";
+"action-replace-all" = "全部取代";
 "action-save" = "儲存";
 "action-saved" = "已儲存";
 "action-saved-accessibility" = "已儲存。啟用來取消儲存。";
@@ -89,7 +91,7 @@
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科,參考,wiki,百科全書,訊息,知識,研究,資訊,探索,學習";
-"app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。\n在地化、性能改進、並修正程式錯誤。";
+"app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
 "app-store-short-description" = "下載維基百科應用程式來探索您附近的地點，同步條目以離線閱讀，並自訂化您的閱讀體驗。";
 "app-store-subtitle" = "自由的百科全書";
 "appearance-settings-adjust-text-sizing" = "調整條目文字大小";
@@ -168,6 +170,7 @@
 "dim-images" = "調暗圖片";
 "edit-bold-accessibility-label" = "添加粗體格式";
 "edit-bold-remove-accessibility-label" = "移除粗體格式";
+"edit-clear-formatting-accessibility-label" = "移除格式";
 "edit-comment-accessibility-label" = "添加註釋語法";
 "edit-comment-remove-accessibility-label" = "移除註釋語法";
 "edit-decrease-indent-depth-accessibility-label" = "減少縮排深度";
@@ -182,6 +185,8 @@
 "edit-link-accessibility-label" = "添加連結語法";
 "edit-link-remove-accessibility-label" = "移除連結語法";
 "edit-menu-item" = "編輯";
+"edit-menu-item-could-not-find-selection-alert-message" = "這可能是因為您所選擇的文字無法編輯（例如：條目標題或是資訊框標題），或是因為文字長度有被反白到";
+"edit-menu-item-could-not-find-selection-alert-title" = "您所選擇的文字無法載入";
 "edit-minor-learn-more-text" = "了解更多關於小修改";
 "edit-minor-text" = "這是一個小修改";
 "edit-ordered-list-accessibility-label" = "建立目前列的有序清單";
@@ -310,7 +315,7 @@
 "explore-main-page-heading" = "維基百科今日";
 "explore-most-read-footer" = "所有被最多閱讀的條目";
 "explore-most-read-generic-heading" = "最多閱讀";
-"explore-most-read-more-list-title-for-date" = "$1 熱門";
+"explore-most-read-more-list-title-for-date" = "在 $1 的熱門條目";
 "explore-most-read-sub-heading-on-language-wikipedia" = "在$1維基百科";
 "explore-most-read-sub-heading-on-wikipedia" = "在維基百科";
 "explore-nearby-heading" = "位置接近";
@@ -351,7 +356,13 @@
 "field-token-title" = "驗證代碼";
 "field-username-placeholder" = "輸入使用者名稱";
 "field-username-title" = "使用者名稱";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "清除尋找";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "下一個尋找結果";
+"find-previous-button-accessibility" = "前一個尋找結果";
+"find-replace-header" = "尋找與取代";
+"find-replace-header-close-accessibility" = "關閉尋找與取代";
+"find-textfield-accessibility" = "尋找";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電子郵件已寄出";
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";
@@ -577,6 +588,16 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|1=去年|$1 年前}}";
+"replace-button-accessibility" = "實行$1。";
+"replace-buttons-replace-accessibility" = "取代單一實體";
+"replace-buttons-replace-all-accessibility" = "取代所有實體";
+"replace-clear-button-accessibility" = "清除取代";
+"replace-infolabel-method-replace" = "取代";
+"replace-infolabel-method-replace-all" = "全部取代";
+"replace-method-button-accessibility" = "取代方法。設定成$1。選擇來更改。";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 個項目已取代}}";
+"replace-textfield-accessibility" = "取代";
+"replace-textfield-placeholder" = "取代為：";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "reverted-edit-back-to-article-button-title" = "返回條目";
 "reverted-edit-notification-body" = "您在條目$1所做的編輯被$2給回退";

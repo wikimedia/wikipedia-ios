@@ -83,6 +83,8 @@
 "action-read" = "읽기";
 "action-redo" = "다시 시도";
 "action-remove" = "제거";
+"action-replace" = "바꾸기";
+"action-replace-all" = "모두 바꾸기";
 "action-save" = "저장";
 "action-saved" = "저장됨";
 "action-saved-accessibility" = "저장했습니다. 저장을 취소하려면 활성화하세요.";
@@ -177,6 +179,7 @@
 "dim-images" = "이미지를 어둡게";
 "edit-bold-accessibility-label" = "굵은 서식 추가";
 "edit-bold-remove-accessibility-label" = "굵은 서식 제거";
+"edit-clear-formatting-accessibility-label" = "서식 제거";
 "edit-italic-accessibility-label" = "기울임 서식 추가";
 "edit-link-accessibility-label" = "링크 문법 추가";
 "edit-link-remove-accessibility-label" = "링크 문법 제거";
@@ -331,7 +334,11 @@
 "field-token-title" = "인증 코드";
 "field-username-placeholder" = "사용자 이름 입력";
 "field-username-title" = "사용자 이름";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "검색 지우기";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-previous-button-accessibility" = "이전 검색 결과";
+"find-replace-header" = "찾아 바꾸기";
+"find-textfield-accessibility" = "찾기";
 "forgot-password-button-title" = "재설정";
 "forgot-password-email-sent" = "비밀번호 재설정 안내 이메일을 보냈습니다";
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
@@ -555,6 +562,11 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=올해|1=지난해|$1년 전}}";
+"replace-buttons-replace-all-accessibility" = "모든 인스턴스 바꾸기";
+"replace-infolabel-method-replace" = "바꾸기";
+"replace-infolabel-method-replace-all" = "모두 바꾸기";
+"replace-textfield-accessibility" = "바꾸기";
+"replace-textfield-placeholder" = "다음으로 바꾸기...";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "reverted-edit-back-to-article-button-title" = "문서로 돌아가기";
 "reverted-edit-notification-body" = "$1 문서에 한 편집은 $2님에 의해 되돌려졌습니다";

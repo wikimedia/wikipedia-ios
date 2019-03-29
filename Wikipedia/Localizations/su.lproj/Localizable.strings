@@ -155,7 +155,7 @@
 "field-token-title" = "Kodeu vérifikasi";
 "field-username-placeholder" = "asupkeun sandiasma";
 "field-username-title" = "Sandiasma";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rését";
 "forgot-password-email-sent" = "Hiji surélék kalawan instruksi panyetélan ulang kecap sandi geus dikirim";
 "forgot-password-instructions" = "Eusian salah sahiji widang di handap pikeun narima instruksi panyetelan ulang kecap sandi liwa surélék";

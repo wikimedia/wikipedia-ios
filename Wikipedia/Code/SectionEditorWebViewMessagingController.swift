@@ -209,6 +209,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case replaceAll
         case replaceSingle
         case selectLastFocusedMatch
+        case selectLastSelection
+        case clearFormatting
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -276,6 +278,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func selectLastFocusedMatch() {
         execCommand(for: .selectLastFocusedMatch)
+    }
+    
+    func selectLastSelection() {
+        execCommand(for: .selectLastSelection)
     }
 
     func moveCursorDown() {
@@ -379,6 +385,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func replaceSingle(text: String) {
         let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
         execCommand(for: .replaceSingle, argument: "`\(escapedText)`")
+    }
+    
+    func clearFormatting() {
+        execCommand(for: .clearFormatting)
     }
 }
 

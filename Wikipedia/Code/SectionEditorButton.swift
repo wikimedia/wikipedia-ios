@@ -29,6 +29,7 @@ struct SectionEditorButton {
         case findInPage
         case textFormattingMenu
         case textStyleMenu
+        case clearFormatting
 
         
         var accessibilityLabel: String? {
@@ -87,6 +88,8 @@ struct SectionEditorButton {
                 return WMFLocalizedString("edit-text-formatting-accessibility-label", value: "Show text formatting menu", comment: "Accessibility label for text formatting menu")
             case .textStyleMenu:
                 return WMFLocalizedString("edit-text-style-accessibility-label", value: "Show text style menu", comment: "Accessibility label for text style menu")
+            case .clearFormatting:
+                return nil
             }
         }
         
@@ -116,6 +119,8 @@ struct SectionEditorButton {
                 return WMFLocalizedString("edit-underline-remove-accessibility-label", value: "Remove underline", comment: "Accessibility label for remove underline button")
             case .strikethrough:
                 return WMFLocalizedString("edit-strikethrough-remove-accessibility-label", value: "Remove strikethrough", comment: "Accessibility label for remove strikethrough button")
+            case .clearFormatting:
+                return WMFLocalizedString("edit-clear-formatting-accessibility-label", value: "Remove formatting", comment: "Accessibility label for the button that removes formatting from the current selection")
             default:
                 return accessibilityLabel
             }
@@ -178,6 +183,8 @@ struct SectionEditorButton {
                 self = .textFormattingMenu
             case 29:
                 self = .textStyleMenu
+            case 30:
+                self = .clearFormatting
             default:
                 return nil
             }
@@ -226,6 +233,8 @@ struct SectionEditorButton {
                     self = .decreaseIndentDepth
                 case "increaseIndentDepth":
                     self = .increaseIndentDepth
+                case "clearFormatting":
+                    self = .clearFormatting
                 default:
                     return nil
                 }

@@ -349,7 +349,7 @@ private extension FindAndReplaceKeyboardBar {
     
     func updateReplaceButtonsState() {
         let count = replaceTextField.text?.count ?? 0
-        replaceButton.isEnabled = count > 0 && currentMatchTotal > 0
+        replaceButton.isEnabled = count > 0 && currentMatchTotal > 0 && replaceTextField.text != findTextField.text
         replaceClearButton.isHidden = count == 0
     }
     

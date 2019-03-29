@@ -73,6 +73,8 @@
 "action-read" = "Läs";
 "action-redo" = "Gör om";
 "action-remove" = "Ta bort";
+"action-replace" = "Ersätt";
+"action-replace-all" = "Ersätt alla";
 "action-save" = "Spara";
 "action-saved" = "Sparades";
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
@@ -166,6 +168,7 @@
 "dim-images" = "Mörklägg bilder";
 "edit-bold-accessibility-label" = "Lägg till fetstilad formatering";
 "edit-bold-remove-accessibility-label" = "Ta bort fetstilad formatering";
+"edit-clear-formatting-accessibility-label" = "Ta bort formatering";
 "edit-comment-accessibility-label" = "Lägg till kommentarsyntax";
 "edit-comment-remove-accessibility-label" = "Ta bort kommentarsyntax";
 "edit-decrease-indent-depth-accessibility-label" = "Minska indrag";
@@ -180,6 +183,8 @@
 "edit-link-accessibility-label" = "Lägg till länksyntax";
 "edit-link-remove-accessibility-label" = "Ta bort länksyntax";
 "edit-menu-item" = "Redigera";
+"edit-menu-item-could-not-find-selection-alert-message" = "Detta kan bero på att texten du markerade inte kan redigeras (t.ex. artikelns eller inforutans titel) eller p.g.a. längden på texten som markerades";
+"edit-menu-item-could-not-find-selection-alert-title" = "Texten du markerade kunde inte hittas";
 "edit-minor-learn-more-text" = "Läs mer om mindre redigeringar";
 "edit-minor-text" = "Detta är en mindre redigering";
 "edit-ordered-list-accessibility-label" = "Gör nuvarande rad till en ordnad lista";
@@ -349,7 +354,13 @@
 "field-token-title" = "Verifieringskod";
 "field-username-placeholder" = "ange användarnamn";
 "field-username-title" = "Användarnamn";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Rensa hitta";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Hitta nästa resultat";
+"find-previous-button-accessibility" = "Hitta föregående resultat";
+"find-replace-header" = "Sök och ersätt";
+"find-replace-header-close-accessibility" = "Stäng hitta och ersätt";
+"find-textfield-accessibility" = "Hitta";
 "forgot-password-button-title" = "Återställ";
 "forgot-password-email-sent" = "Ett e-postmeddelande med instruktioner om lösenordsåterställning skickades";
 "forgot-password-instructions" = "Fyll i ett av fälten nedan för att få instruktioner om lösenordsåterställning via e-post";
@@ -575,6 +586,16 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|1=Senaste året|$1 år sedan}}";
+"replace-button-accessibility" = "Utför $1.";
+"replace-buttons-replace-accessibility" = "Ersätt en instans";
+"replace-buttons-replace-all-accessibility" = "Ersätt alla instanser";
+"replace-clear-button-accessibility" = "Rensa ersätt";
+"replace-infolabel-method-replace" = "Ersätt";
+"replace-infolabel-method-replace-all" = "Ersätt alla";
+"replace-method-button-accessibility" = "Ersättningsmetod. Är just nu $1. Välj för att ändra.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 instans ersättes|$1 instanser ersättes}}";
+"replace-textfield-accessibility" = "Ersätt";
+"replace-textfield-placeholder" = "Ersätt med…";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "reverted-edit-back-to-article-button-title" = "Tillbaka till artikeln";
 "reverted-edit-notification-body" = "Redigeringen du gjorde på artikeln $1 ångrades av $2";

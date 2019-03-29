@@ -81,6 +81,8 @@
 "action-read" = "Lire";
 "action-redo" = "Refaire";
 "action-remove" = "Supprimer";
+"action-replace" = "Remplacer";
+"action-replace-all" = "Remplacer tout";
 "action-save" = "Enregistrer";
 "action-saved" = "Enregistré";
 "action-saved-accessibility" = "Enregistré. Activer pour supprimer la sauvegarde.";
@@ -174,6 +176,7 @@
 "dim-images" = "Assombrir les images";
 "edit-bold-accessibility-label" = "Ajouter une mise en forme en gras";
 "edit-bold-remove-accessibility-label" = "Supprimer la mise en forme en gras";
+"edit-clear-formatting-accessibility-label" = "Supprimer la mise en forme";
 "edit-comment-accessibility-label" = "Ajouter une syntaxe de commentaire";
 "edit-comment-remove-accessibility-label" = "Supprimer la syntaxe de commentaire";
 "edit-decrease-indent-depth-accessibility-label" = "Diminuer la profondeur d’indentation";
@@ -188,6 +191,8 @@
 "edit-link-accessibility-label" = "Ajouter une syntaxe de lien";
 "edit-link-remove-accessibility-label" = "Supprimer la syntaxe de lien";
 "edit-menu-item" = "Modifier";
+"edit-menu-item-could-not-find-selection-alert-message" = "Cela peut être dû au fait que le texte que vous avez sélectionné n’est pas modifiable (par ex. titre d’article ou titres de boîte d’info) ou à cause de la longueur du texte qui a été mis en surbrillance";
+"edit-menu-item-could-not-find-selection-alert-title" = "Le texte que vous avez sélectionné n’a pas pu être localisé";
 "edit-minor-learn-more-text" = "En savoir plus sur les modifications mineures";
 "edit-minor-text" = "C’est une modification mineure";
 "edit-ordered-list-accessibility-label" = "Faire de la ligne actuelle une liste ordonnée";
@@ -357,7 +362,13 @@
 "field-token-title" = "Code de vérification";
 "field-username-placeholder" = "saisir le nom d’utilisateur";
 "field-username-title" = "Nom d’utilisateur";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Effacer la recherche";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Prochain résultat trouvé";
+"find-previous-button-accessibility" = "Résultat trouvé précédent";
+"find-replace-header" = "Trouver et remplacer";
+"find-replace-header-close-accessibility" = "Fermer trouver et remplacer";
+"find-textfield-accessibility" = "Trouver";
 "forgot-password-button-title" = "Réinitialiser";
 "forgot-password-email-sent" = "Un courriel avec les instructions de réinitialisation du mot de passe a été envoyé";
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
@@ -583,6 +594,16 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Il y a un instant|Il y a $1 minute |Il y a $1 minutes}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Cette année|1=L’année passée|Il y a $1 ans}}";
+"replace-button-accessibility" = "Effectuer $1.";
+"replace-buttons-replace-accessibility" = "Remplacer l’instance unique";
+"replace-buttons-replace-all-accessibility" = "Remplacer toutes les instances";
+"replace-clear-button-accessibility" = "Effacer le remplacement";
+"replace-infolabel-method-replace" = "Remplacer";
+"replace-infolabel-method-replace-all" = "Remplacer tout";
+"replace-method-button-accessibility" = "Méthode de remplacement. Définie à $1. Sélectionner pour modifier.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 élément remplacé|$1 éléments remplacés}}";
+"replace-textfield-accessibility" = "Remplacer";
+"replace-textfield-placeholder" = "Remplacer par…";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "reverted-edit-back-to-article-button-title" = "Retour à l'article";
 "reverted-edit-notification-body" = "La modification que vous avez apportée à l'article $1 a été annulée par $2";

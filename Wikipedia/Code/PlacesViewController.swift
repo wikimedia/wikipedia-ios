@@ -65,7 +65,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         get {
             switch (self.currentSearchFilter) {
             case .top:
-                return articleFetchedResultsController.fetchedObjects?.count ?? 0
+                return articleFetchedResultsController?.fetchedObjects?.count ?? 0
             case .saved:
                 return _displayCountForTopPlaces ?? 0
             }
@@ -301,12 +301,12 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
 
     fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let sections = articleFetchedResultsController.sections,
+        guard let sections = articleFetchedResultsController?.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
                 return nil
         }
-        return articleFetchedResultsController.object(at: indexPath)
+        return articleFetchedResultsController?.object(at: indexPath)
     }
 
     public func logListViewImpression(forIndexPath indexPath: IndexPath) {
@@ -491,20 +491,20 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: WMFLocalizedString("places-search-top-articles", value:"All top articles", comment:"A search suggestion for top articles"), searchResult: nil)
     }
     
-    var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>() {
+    var articleFetchedResultsController: NSFetchedResultsController<WMFArticle>? {
         didSet {
-            oldValue.delegate = nil
-            for article in oldValue.fetchedObjects ?? [] {
+            oldValue?.delegate = nil
+            for article in oldValue?.fetchedObjects ?? [] {
                 article.placesSortOrder = NSNumber(integerLiteral: 0)
             }
             do {
                 try dataStore.viewContext.save()
-                try articleFetchedResultsController.performFetch()
+                try articleFetchedResultsController?.performFetch()
             } catch let fetchError {
                 DDLogError("Error fetching articles for places: \(fetchError)")
             }
             updatePlaces()
-            articleFetchedResultsController.delegate = self
+            articleFetchedResultsController?.delegate = self
         }
     }
     
@@ -780,7 +780,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func updatePlaces() {
-        let articleURLs = articleFetchedResultsController.fetchedObjects?.compactMap({ (article) -> URL? in
+        let articleURLs = articleFetchedResultsController?.fetchedObjects?.compactMap({ (article) -> URL? in
             return article.url
         })
         listViewController.articleURLs = articleURLs ?? []
@@ -1388,7 +1388,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         var groups: [String: ArticleGroup] = [:]
         var splittableGroups: [String: ArticleGroup] = [:]
-        for article in articleFetchedResultsController.fetchedObjects ?? [] {
+        for article in articleFetchedResultsController?.fetchedObjects ?? [] {
             guard let quadKey = article.quadKey else {
                 continue
             }
@@ -1577,7 +1577,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             return
         }
 
-        if isViewModeOverlay, let indexPath = articleFetchedResultsController.indexPath(forObject: article) {
+        if isViewModeOverlay, let indexPath = articleFetchedResultsController?.indexPath(forObject: article) {
             listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         

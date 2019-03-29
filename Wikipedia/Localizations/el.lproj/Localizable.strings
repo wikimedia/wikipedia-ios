@@ -208,7 +208,7 @@
 "field-token-title" = "Κωδικός επαλήθευσης:";
 "field-username-placeholder" = "Εισαγωγή ονόματος χρήστη";
 "field-username-title" = "Όνομα χρήστη";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Επαναφορά";
 "forgot-password-email-sent" = "Εστάλη ένα email με οδηγίες επαναφοράς κωδικού.";
 "forgot-password-instructions" = "Συμπληρώστε ένα από τα παρακάτω πεδία για να λαμβάνετε οδηγίες επαναφοράς κωδικού πρόσβασης μέσω ηλεκτρονικού ταχυδρομείου";
