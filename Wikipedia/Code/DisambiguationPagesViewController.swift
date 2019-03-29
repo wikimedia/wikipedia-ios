@@ -2,18 +2,26 @@ import UIKit
 import WMF
 
 @objc(WMFDisambiguationPagesViewController)
-class DisambiguationPagesViewController: ArticleURLListViewController {
+class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
     
-    let titlesSearchFetcher = WMFArticlePreviewFetcher()
     let siteURL: URL
-    var results: [MWKSearchResult] = []
-    
+    let articleURLs: [URL]
     @objc var resultLimit: Int = 10
     
     @objc(initWithURLs:siteURL:dataStore:theme:)
     required init(with URLs: [URL], siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.siteURL = siteURL
-        super.init(articleURLs: URLs, dataStore: dataStore, theme: theme)
+        self.articleURLs = URLs
+        super.init()
+        self.dataStore = dataStore
+        self.theme = theme
+    }
+    
+    override func setupFetchedResultsController(with dataStore: MWKDataStore) {
+        let request = WMFArticle.fetchRequest()
+        request.predicate = NSPredicate(format: "key IN %@", articleURLs.compactMap { $0.wmf_articleDatabaseKey })
+        request.sortDescriptors = [NSSortDescriptor(key: "key", ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,34 +44,9 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
     
     var didFetch = false
     func fetch() {
-        titlesSearchFetcher.fetchArticlePreviewResults(forArticleURLs: articleURLs, siteURL: siteURL, completion: { (results) in
-            DispatchQueue.main.async {
-                self.results = results
-                self.collectionView.reloadData()
-            }
-        }) { (error) in
-            DispatchQueue.main.async {
-                self.wmf_showAlertWithError(error as NSError)
-            }
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: articleURLs) { (_) in // don't care, FRC will update
+            
         }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return results.count
-    }
-    
-    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.configureForCompactList(at: indexPath.item)
-        let articleURL = self.articleURL(at: indexPath)
-        let searchResult = results[indexPath.item]
-        cell.titleLabel.text = articleURL?.wmf_title
-        cell.descriptionLabel.text = (searchResult.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
-        if layoutOnly {
-            cell.isImageViewHidden = searchResult.thumbnailURL != nil
-        } else {
-            cell.imageURL = searchResult.thumbnailURL
-        }
-        cell.apply(theme: theme)
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
