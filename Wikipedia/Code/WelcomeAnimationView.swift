@@ -38,12 +38,15 @@ final class WelcomeAnimationView: UIView {
         return CGPoint(x: rect.origin.x + scaledX, y: rect.origin.y + scaledY)
     }
 
+    private var isAnimating = false
     private var finishedAnimating = false
 
     func animate() {
+        isAnimating = true
         propertyAnimator?.startAnimation()
         propertyAnimator?.addCompletion { position in
             self.finishedAnimating = true
+            self.isAnimating = false
         }
     }
 
@@ -85,7 +88,7 @@ final class WelcomeAnimationView: UIView {
             let normalizedZero = normalizedPoint(.zero, from: imageView.sizeReference, to: imageView.bounds)
             let normalizedOrigin = normalizedPoint(imageView.start, from: sizeReference, to: bounds)
 
-            if finishedAnimating, let destination = imageView.destination {
+            if isAnimating || finishedAnimating, let destination = imageView.destination {
                 let normalizedDestination = normalizedPoint(destination, from: sizeReference, to: bounds)
                 imageView.frame.origin = CGPoint(x: normalizedDestination.x - normalizedZero.x, y: normalizedDestination.y - normalizedZero.y)
             } else {
