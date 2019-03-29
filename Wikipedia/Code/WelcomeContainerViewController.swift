@@ -1,16 +1,21 @@
 import UIKit
 
 protocol WelcomeContainerViewControllerDataSource: AnyObject {
-    var foregroundAnimationView: WelcomeAnimationView { get }
-    var backgroundAnimationView: WelcomeAnimationView? { get }
+    var animationView: WelcomeAnimationView { get }
     var panelViewController: WelcomePanelViewController { get }
+    var isFirst: Bool { get }
+}
+
+extension WelcomeContainerViewControllerDataSource {
+    var isFirst: Bool {
+        return false
+    }
 }
 
 class WelcomeContainerViewController: UIViewController {
     weak var dataSource: WelcomeContainerViewControllerDataSource?
     
-    @IBOutlet private weak var topForegroundContainerView: UIView!
-    @IBOutlet private weak var topBackgroundContainerView: UIView!
+    @IBOutlet private weak var topContainerView: UIView!
     @IBOutlet private weak var bottomContainerView: UIView!
 
     private var theme = Theme.standard
@@ -31,12 +36,7 @@ class WelcomeContainerViewController: UIViewController {
             apply(theme: theme)
             return
         }
-        addChild(WelcomeAnimationViewController(position: .foreground, animationView: dataSource.foregroundAnimationView), to: topForegroundContainerView)
-        if let backgroundAnimationView = dataSource.backgroundAnimationView {
-            addChild(WelcomeAnimationViewController(position: .background, animationView: backgroundAnimationView), to: topBackgroundContainerView)
-        } else {
-            topBackgroundContainerView.isHidden = true
-        }
+        addChild(WelcomeAnimationViewController(animationView: dataSource.animationView, waitsForAnimationTrigger: dataSource.isFirst), to: topContainerView)
         addChild(dataSource.panelViewController, to: bottomContainerView)
         apply(theme: theme)
     }
@@ -64,8 +64,13 @@ extension WelcomeContainerViewController: Themeable {
             return
         }
         children.forEach { ($0 as? Themeable)?.apply(theme: theme) }
-        topForegroundContainerView.backgroundColor = theme.colors.midBackground
-        topBackgroundContainerView.backgroundColor = theme.colors.midBackground
+        topContainerView.backgroundColor = theme.colors.midBackground
         bottomContainerView.backgroundColor = theme.colors.midBackground
+    }
+}
+
+extension WelcomeContainerViewController: PageViewControllerViewLifecycleDelegate {
+    func pageViewControllerDidAppear(_ pageViewController: UIPageViewController) {
+        dataSource?.animationView.animate()
     }
 }
