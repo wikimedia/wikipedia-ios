@@ -10,19 +10,22 @@ public class ArticleSummaryController: NSObject {
         self.fetcher = fetcher
     }
     
-    public func updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: @escaping ([WMFArticle]) -> Void) {
+    public func updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], failure: ((Error) -> Void)? = nil, finally: (() -> Void)? = nil, success: (([WMFArticle]) -> Void)? = nil) {
+        defer {
+            finally?()
+        }
         guard let moc = dataStore?.viewContext else {
-            completion([])
+            failure?(RequestError.invalidParameters)
             return
         }
         fetcher.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
             moc.perform {
                 do {
                     let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
-                    completion(articles)
+                    success?(articles)
                 } catch let error {
                     DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                    completion([])
+                    failure?(error)
                 }
             }
         }

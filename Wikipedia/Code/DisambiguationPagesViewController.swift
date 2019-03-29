@@ -34,10 +34,17 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
         fetch()
     }
     
+    lazy var fakeProgressController: FakeProgressController = {
+        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
+    }()
+    
     func fetch() {
-        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: articleURLs) { (_) in // don't care, FRC will update
-            
-        }
+        fakeProgressController.start()
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: articleURLs, failure: { (error: Error) in
+            self.wmf_showAlertWithError(error as NSError)
+            }, finally: {
+            self.fakeProgressController.finish()
+        })
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
