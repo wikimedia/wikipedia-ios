@@ -49,6 +49,12 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
         }
     }
     
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+        cell.topSeparator.isHidden = indexPath.item != 0
+        cell.bottomSeparator.isHidden = false
+    }
+    
     override var eventLoggingLabel: EventLoggingLabel? {
         return .similarPage
     }
