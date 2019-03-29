@@ -22,38 +22,7 @@ extension WMFArticle {
     }
 }
 
-public typealias ArticleSummariesByKey = [String: [String : Any]]
-
-extension Dictionary where Key == String, Value == Any {
-    var articleSummaryURL: URL? {
-        guard
-            let contentURLs = self["content_urls"] as? [String: Any],
-            let desktopURLs = contentURLs["desktop"] as? [String: Any],
-            let pageURLString = desktopURLs["page"] as? String
-            else {
-                return nil
-        }
-        return URL(string: pageURLString)
-    }
-}
-
-extension Array where Element == [String: Any] {
-    var articleSummariesByKey: ArticleSummariesByKey {
-        let keysAndSummaries = compactMap { (summary) -> (String, [String: Any])? in
-            guard
-                let articleSummaryURL = summary.articleSummaryURL,
-                let key = articleSummaryURL.wmf_articleDatabaseKey
-                else {
-                    return nil
-            }
-            return (key, summary)
-        }
-        return Dictionary(uniqueKeysWithValues: keysAndSummaries)
-    }
-}
-
 extension NSManagedObjectContext {
-    
     @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: ArticleSummary]) throws -> [WMFArticle] {
         let keys = summaryResponses.keys
         guard !keys.isEmpty else {
@@ -82,7 +51,4 @@ extension NSManagedObjectContext {
         try self.save()
         return articles
     }
-
-    
-    
 }
