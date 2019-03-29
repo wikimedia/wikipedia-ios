@@ -1,18 +1,14 @@
 import UIKit
 
 final class WelcomeAnimationViewController: UIViewController {
+    private var completedAnimation = false
     let animationView: WelcomeAnimationView
-    let position: Position
+    private let waitsForAnimationTrigger: Bool
 
-    init(position: Position, animationView: WelcomeAnimationView) {
-        self.position = position
+    init(animationView: WelcomeAnimationView, waitsForAnimationTrigger: Bool = true) {
         self.animationView = animationView
+        self.waitsForAnimationTrigger = waitsForAnimationTrigger
         super.init(nibName: nil, bundle: nil)
-    }
-
-    enum Position {
-        case foreground
-        case background
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -22,27 +18,21 @@ final class WelcomeAnimationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wmf_addSubviewWithConstraintsToEdges(animationView)
-        if position == .background {
-            addHorizontalAndVerticalParallax(to: view, amount: 12)
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animationView.animate()
+        guard !waitsForAnimationTrigger else {
+            return
+        }
+        animate()
     }
 
-    private func addHorizontalAndVerticalParallax(to view: UIView, amount: Float) {
-        let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
-        horizontal.minimumRelativeValue = -amount
-        horizontal.maximumRelativeValue = amount
-
-        let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
-        vertical.minimumRelativeValue = -amount
-        vertical.maximumRelativeValue = amount
-
-        let group = UIMotionEffectGroup()
-        group.motionEffects = [horizontal, vertical]
-        view.addMotionEffect(group)
+    func animate() {
+        guard !completedAnimation else {
+            return
+        }
+        animationView.animate()
+        completedAnimation = true
     }
 }
