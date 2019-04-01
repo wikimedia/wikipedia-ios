@@ -21,7 +21,7 @@ public class ArticleSummaryController: NSObject {
                     let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
                     completion?(articles, nil)
                 } catch let error {
-                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                    DDLogError("Error fetching article summary responses: \(error.localizedDescription)")
                     completion?([], error)
                 }
             }
