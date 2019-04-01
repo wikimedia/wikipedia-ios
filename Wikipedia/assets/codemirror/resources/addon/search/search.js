@@ -131,6 +131,12 @@
       }
     } 
 
+    function clearReplaced(state) {
+      if (state.replacedMarkers) {
+        state.replacedMarkers.forEach((marker) => { marker.clear() });
+      }
+    }
+
     function focusOnMatch(state, focus, forceIncrement) {
       const matches = document.getElementsByClassName("cm-searching");
       const matchesCount = matches.length;
@@ -230,6 +236,7 @@
       state.lastQuery = state.query;
       if (!state.query) return;
       clearFocusedMatches(cm);
+      clearReplaced(state);
       state.focusedMatchIndex = null
       state.initialFocusedMatchIndex = null;
       state.query = state.queryText = null;
@@ -299,12 +306,18 @@
 
           cm.setCursor(state.posFrom)
 
-          doReplace(match);
+          doReplace(cm, state);
           cm.isReplacing = false;
         }
       }
-      var doReplace = function(match) {
+      var doReplace = function(cm, state) {
         cursor.replace(replaceText);
+        const marker = cm.markText(cursor.from(), cursor.to(), {className: 'cm-searching-replaced'})
+        if (state.replacedMarkers) {
+          state.replacedMarkers.push(marker);
+        } else {
+          state.replacedMarkers = [marker];
+        }
         advance(false);
         var forceIncrement = replaceText.includes(query) || replaceText.toLowerCase() === query.toLowerCase();
         focusOnMatch(state, null, forceIncrement);
