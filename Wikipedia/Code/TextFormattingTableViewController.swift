@@ -161,7 +161,6 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             cell.apply(theme: theme)
             cell.configure(with: title, detailText: detailText)
             cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .default
             cell.selectionStyle = .none
             return cell
         case .destructiveAction:
