@@ -264,7 +264,6 @@
           } else {
             cursor.replace(text);
           }
-          markReplacedText(cm, cursor);
           count++;
         }
       });
@@ -280,7 +279,9 @@
       var query = cm.state.query;
       query = parseQuery(query);
       replaceText = parseString(replaceText);
+      cm.isReplacing = true;
       replaceAll(cm, query, replaceText);
+      cm.isReplacing = false;
 
       //resets count to 0/0
       let state = getSearchState(cm);
