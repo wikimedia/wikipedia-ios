@@ -263,6 +263,7 @@
             cursor.replace(text.replace(/\$(\d)/g, function(_, i) {return match[i];}));
           } else {
             cursor.replace(text);
+            markReplacedText(cm, cursor);
           }
           count++;
         }
