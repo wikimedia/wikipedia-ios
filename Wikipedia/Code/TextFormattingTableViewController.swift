@@ -162,6 +162,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             cell.configure(with: title, detailText: detailText)
             cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .none
+            cell.accessibilityTraits = .button
             return cell
         case .destructiveAction:
             guard let cell = tableView.dequeueCell(ofType: TextFormattingDetailTableViewCell.self, for: indexPath) else {
