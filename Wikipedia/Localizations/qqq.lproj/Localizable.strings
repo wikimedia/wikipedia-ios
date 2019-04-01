@@ -190,6 +190,7 @@
 "edit-superscript-remove-accessibility-label" = "Accessibility label for remove superscript formatting button";
 "edit-template-accessibility-label" = "Accessibility label for add template syntax button";
 "edit-template-remove-accessibility-label" = "Accessibility label for remove template syntax button";
+"edit-text-clear-formatting" = "Title for the button that clears formatting from the selected range";
 "edit-text-formatting-accessibility-label" = "Accessibility label for text formatting menu";
 "edit-text-formatting-table-view-title" = "Title for text formatting menu in the editing interface";
 "edit-text-size-table-view-title" = "Title for text size menu in the editing interface";
