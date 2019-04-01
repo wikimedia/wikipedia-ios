@@ -175,6 +175,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             cell.textLabel?.textColor = content.isEnabled ? theme.colors.destructive : theme.colors.secondaryText
             cell.accessoryType = .none
             cell.selectionStyle = .none
+            cell.accessibilityTraits =  content.isEnabled ? .button : [.button, .notEnabled]
             return cell
         }
 
