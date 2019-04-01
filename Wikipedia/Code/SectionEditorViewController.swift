@@ -5,8 +5,6 @@ protocol SectionEditorViewControllerDelegate: class {
 
 @objc(WMFSectionEditorViewController)
 class SectionEditorViewController: UIViewController {
-    private var changesMade = false
-
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     @objc var section: MWKSection?
@@ -345,14 +343,11 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         messagingController.getWikitext { [weak self] (result, error) in
             guard let self = self else { return }
-
-            self.changesMade = self.wikitext != result
-
             if let error = error {
                 assertionFailure(error.localizedDescription)
                 return
             } else if let wikitext = result {
-                if self.changesMade {
+                if wikitext != self.wikitext {
                     guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
