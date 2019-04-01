@@ -133,13 +133,13 @@
 
     function markReplacedText(cm, cursor) {
       const state = getSearchState(cm);
-      const marker = cm.markText(cursor.from(), cursor.to(), {className: 'cm-searching-replaced'})
-          if (state.replacedMarkers) {
-          state.replacedMarkers.push(marker);
-          } else {
-          state.replacedMarkers = [marker];
-          }
-      } 
+      const marker = cm.markText(cursor.from(), cursor.to(), { className: 'cm-searching-replaced' })
+      if (state.replacedMarkers) {
+        state.replacedMarkers.push(marker);
+      } else {
+        state.replacedMarkers = [marker];
+      }
+    }
 
     function clearReplaced(state) {
       if (state.replacedMarkers) {
