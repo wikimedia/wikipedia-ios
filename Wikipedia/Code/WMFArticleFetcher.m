@@ -35,7 +35,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 @property (nonatomic, strong) WMFArticleSummaryFetcher *summaryFetcher;
 
-
 @end
 
 @implementation WMFArticleFetcher
@@ -76,23 +75,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         summaryResponse = summary;
         [taskGroup leave];
     }];
-     
-     
-//     fetchSummaryForArticleURL:articleURL
-//                                          priority:priority
-//                                 completion:^(WMFArticleSummary *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-//                                     summaryResponse = summary;
-//                                     [taskGroup leave];
-//                                 }];
-
-    //    __block id mediaResponse = nil;
-    //    [taskGroup enter];
-    //    [[WMFSession shared] fetchMediaForArticleURL:articleURL
-    //                                          priority:priority
-    //                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable media, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-    //                                     mediaResponse = media;
-    //                                     [taskGroup leave];
-    //                                 }];
 
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
