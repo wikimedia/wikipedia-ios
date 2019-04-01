@@ -217,8 +217,12 @@
 "edit-unordered-list-remove-accessibility-label" = "הסרת רשימת תבליטים מהשורה הנוכחית";
 "edit-watch-list-learn-more-text" = "מידע נוסף על רשימות מעקב";
 "edit-watch-this-page-text" = "מעקב אחר דף זה";
+"editing-welcome-be-bold-subtitle" = "היו נועזים, אבל לא פזיזים מדי בעדכון ערכים. אל תפחדו יותר מדי מטעויות: כל הגרסאות הקודמות של הדף נשמרות, ושגיאות יכולות להיות מתוקנות בקלות על־ידי הקהילה שלנו.";
 "editing-welcome-be-bold-title" = "הקול שלך עושה הבדל";
+"editing-welcome-citations-subtitle" = "כל התוכן צריך להיות בר־בדיקה. בעת הוספת מידע חדש לערך, עורכים צריכים לספק ציטוט למקור אמין שמאשר את תרומת התוכן.";
 "editing-welcome-citations-title" = "לצטט מקורות מהימנים";
+"editing-welcome-impartial-tone-subtitle" = "אנחנו שואפים לכך שערכים ייכתבו בנימה חסרת פניות. בעת עריכה, יש להשתדל לייצוג הוגן של העולם כפי שהוא מתואר במקורות אמינים.";
+"editing-welcome-impartial-tone-title" = "כתבו בנימה חסרת פניות";
 "editing-welcome-set-knowledge-free-subtitle" = "כדי להעניק לכולם גישה למידע עולמי, אנו רוצים לבקש ממך לקחת חלק בקריאה, עריכה ותרומה לנושאים שהכי נוגעים ללבך.";
 "editing-welcome-set-knowledge-free-title" = "להוציא את הידע לחופשי";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
