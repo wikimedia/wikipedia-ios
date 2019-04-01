@@ -306,7 +306,7 @@
       var doReplace = function(match) {
         cursor.replace(replaceText);
         advance(false);
-        var forceIncrement = replaceText.includes(query) || replaceText.lowercase == query.lowercase;
+        var forceIncrement = replaceText.includes(query) || replaceText.toLowerCase() === query.toLowerCase();
         focusOnMatch(state, null, forceIncrement);
       };
       advance(true);
