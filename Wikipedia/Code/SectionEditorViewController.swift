@@ -331,7 +331,6 @@ class SectionEditorViewController: UIViewController {
 
 extension SectionEditorViewController: UIScrollViewDelegate {
     public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        print("scrollView.adjustedContentInset: \(scrollView.adjustedContentInset)")
         let newAdjustedContentInset = scrollView.adjustedContentInset
         guard newAdjustedContentInset != previousAdjustedContentInset, presentedViewController == nil else {
             return
