@@ -989,7 +989,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             initialOverlayHeightForPan = nil
             break
         @unknown default:
-            fatalError()
+            break
         }
     }
     

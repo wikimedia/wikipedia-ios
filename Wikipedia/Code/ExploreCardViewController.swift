@@ -173,14 +173,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return NewsExploreCollectionViewCell.identifier
         case .event:
             return OnThisDayExploreCollectionViewCell.identifier
-        case .continueReading:
-            fallthrough
-        case .relatedPagesSourceArticle:
-            fallthrough
-        case .random:
-            fallthrough
-        case .pageWithPreview:
-            return ArticleFullWidthImageExploreCollectionViewCell.identifier
         case .photo:
             return ImageCollectionViewCell.identifier
         case .pageWithLocation:
@@ -191,8 +183,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return ArticleRightAlignedImageExploreCollectionViewCell.identifier
         case .announcement, .notification, .theme, .readingList:
             return AnnouncementCollectionViewCell.identifier
-        @unknown default:
-            fatalError()
+        default:
+            return ArticleFullWidthImageExploreCollectionViewCell.identifier
         }
     }
     
@@ -352,8 +344,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         switch displayType {
-        case .ranked, .page, .continueReading, .mainPage, .random, .pageWithPreview, .relatedPagesSourceArticle, .relatedPages, .compactList:
-            configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .pageWithLocation, .pageWithLocationPlaceholder:
             configureLocationCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .photo:
@@ -364,8 +354,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             configureOnThisDayCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         case .theme, .notification, .announcement, .readingList:
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
-        @unknown default:
-            fatalError()
+        default:
+            configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         }
         cell.layoutMargins = layout.itemLayoutMargins
     }

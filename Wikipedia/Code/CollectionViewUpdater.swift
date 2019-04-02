@@ -201,7 +201,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                         DDLogDebug("WMFBU unhandled update: \(objectChange)")
                     }
                 @unknown default:
-                    fatalError()
+                    break
                 }
             }
             
