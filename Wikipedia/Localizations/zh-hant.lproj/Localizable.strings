@@ -115,7 +115,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back-button-accessibility-label" = "返回";
-"back-button-popover-title" = "點擊返回";
+"back-button-popover-title" = "輕觸返回";
 "button-next" = "下一步";
 "button-ok" = "確定";
 "button-publish" = "發佈";
@@ -665,7 +665,7 @@
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
-"share-article-name-on-wikipedia" = " \"$1\"  在 @Wikipedia：";
+"share-article-name-on-wikipedia" = "\"$1\"在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
 "share-custom-menu-item" = "分享...";
 "share-default-format" = "「$1」來自於「$2」：$3";
