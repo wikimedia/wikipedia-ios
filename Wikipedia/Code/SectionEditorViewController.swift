@@ -34,6 +34,8 @@ class SectionEditorViewController: UIViewController {
     private var needsSelectLastSelection: Bool = false
     
     @objc var editFunnel: EditFunnel?
+
+    private var previousAdjustedContentInset = UIEdgeInsets.zero
     
     private var wikitext: String? {
         didSet {
@@ -327,11 +329,11 @@ class SectionEditorViewController: UIViewController {
     }
 }
 
-private var previousAdjustedContentInset = UIEdgeInsets.zero
 extension SectionEditorViewController: UIScrollViewDelegate {
     public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        print("scrollView.adjustedContentInset: \(scrollView.adjustedContentInset)")
         let newAdjustedContentInset = scrollView.adjustedContentInset
-        guard newAdjustedContentInset != previousAdjustedContentInset else {
+        guard newAdjustedContentInset != previousAdjustedContentInset, presentedViewController == nil else {
             return
         }
         previousAdjustedContentInset = newAdjustedContentInset
@@ -442,7 +444,11 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
         alertController.popoverPresentationController?.sourceView = keyboardBar.replaceSwitchButton
         alertController.popoverPresentationController?.sourceRect = keyboardBar.replaceSwitchButton.bounds
         
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true) {
+            let safeAreaInsets = self.view.safeAreaInsets
+            let unadjustedContentInset = UIEdgeInsets(top: self.previousAdjustedContentInset.top - safeAreaInsets.top, left: self.previousAdjustedContentInset.left - safeAreaInsets.left, bottom: self.previousAdjustedContentInset.bottom - safeAreaInsets.bottom, right: self.previousAdjustedContentInset.right - safeAreaInsets.right)
+            self.webView.scrollView.contentInset = unadjustedContentInset
+        }
     }
 }
 
@@ -541,9 +547,6 @@ extension SectionEditorViewController: FocusNavigationViewDelegate {
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerScrollDelegate {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint) {
-        guard presentedViewController == nil else {
-            return
-        }
         webView.scrollView.setContentOffset(newContentOffset, animated: true)
     }
 }
