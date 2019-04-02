@@ -66,6 +66,38 @@
 			<string>%1$d historiallista tapahtumaa</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Muokattu %1$d päivää sitten</string>
+			<key>zero</key>
+			<string>Muokattu tänään</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Saatavilla %1$d muulla kielellä</string>
+			<key>other</key>
+			<string>Saatavilla %1$d muulla kielellä</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -156,8 +188,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Eilen</string>
 			<key>other</key>
 			<string>%1$d päivää sitten</string>
 			<key>zero</key>
@@ -210,8 +240,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Viime vuonna</string>
 			<key>other</key>
 			<string>%1$d vuotta sitten</string>
 			<key>zero</key>
