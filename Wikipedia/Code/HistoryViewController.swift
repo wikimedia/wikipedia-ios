@@ -47,10 +47,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         dataStore.historyList.removeAllEntries()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-    }
-    
     override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
         return .sections
     }

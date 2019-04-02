@@ -1,67 +1,29 @@
 extension WMFArticle {
-    @objc public func update(withSummary summary: [String: Any]) {
-        if let originalImage = summary["originalimage"] as? [String: Any],
-            let source = originalImage["source"] as? String,
-            let width = originalImage["width"] as? Int,
-            let height = originalImage["height"] as? Int{
-            self.imageURLString = source
-            self.imageWidth = NSNumber(value: width)
-            self.imageHeight = NSNumber(value: height)
+    @objc public func update(withSummary summary: ArticleSummary) {
+        if let original = summary.original {
+            imageURLString = original.source
+            imageWidth = NSNumber(value: original.width)
+            imageHeight = NSNumber(value: original.height)
+        } else {
+            imageURLString = nil
+            imageWidth = NSNumber(value: 0)
+            imageHeight = NSNumber(value: 0)
         }
-        
-        if let description = summary["description"] as? String {
-            self.wikidataDescription = description
+       
+        wikidataDescription = summary.articleDescription
+        displayTitleHTMLString = summary.displayTitle
+        snippet = summary.extract?.wmf_summaryFromText()
+    
+        if let summaryCoordinate = summary.coordinates {
+            coordinate = CLLocationCoordinate2D(latitude: summaryCoordinate.lat, longitude: summaryCoordinate.lon)
+        } else {
+            coordinate = nil
         }
-        
-        if let displaytitle = summary["displaytitle"] as? String {
-            self.displayTitleHTML = displaytitle
-        }
-        
-        if let extract = summary["extract"] as? String {
-            self.snippet = extract.wmf_summaryFromText()
-        }
-        
-        if let coordinate = summary["coordinates"] as? [String: Any] ?? (summary["coordinates"] as? [[String: Any]])?.first,
-            let lat = coordinate["lat"] as? Double,
-            let lon = coordinate["lon"] as? Double {
-            self.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        }
-    }
-}
-
-public typealias ArticleSummariesByKey = [String: [String: Any]]
-
-extension Dictionary where Key == String, Value == Any {
-    var articleSummaryURL: URL? {
-        guard
-            let contentURLs = self["content_urls"] as? [String: Any],
-            let desktopURLs = contentURLs["desktop"] as? [String: Any],
-            let pageURLString = desktopURLs["page"] as? String
-            else {
-                return nil
-        }
-        return URL(string: pageURLString)
-    }
-}
-
-extension Array where Element == [String: Any] {
-    var articleSummariesByKey: ArticleSummariesByKey {
-        let keysAndSummaries = compactMap { (summary) -> (String, [String: Any])? in
-            guard
-                let articleSummaryURL = summary.articleSummaryURL,
-                let key = articleSummaryURL.wmf_articleDatabaseKey
-                else {
-                    return nil
-            }
-            return (key, summary)
-        }
-        return Dictionary(uniqueKeysWithValues: keysAndSummaries)
     }
 }
 
 extension NSManagedObjectContext {
-    
-    @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: ArticleSummariesByKey) throws -> [WMFArticle] {
+    @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: ArticleSummary]) throws -> [WMFArticle] {
         let keys = summaryResponses.keys
         guard !keys.isEmpty else {
             return []
@@ -89,19 +51,4 @@ extension NSManagedObjectContext {
         try self.save()
         return articles
     }
-
-    public func wmf_updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: @escaping ([WMFArticle]) -> Void) {
-        Session.shared.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
-            self.perform {
-                do {
-                    let articles = try self.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
-                    completion(articles)
-                } catch let error {
-                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                    completion([])
-                }
-            }
-        }
-    }
-    
 }

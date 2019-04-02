@@ -32,6 +32,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
 @property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
+@property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -177,6 +178,8 @@ static uint64_t bundleHash() {
         self.articleLocationController = [ArticleLocationController new];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
     }
     return self;
 }

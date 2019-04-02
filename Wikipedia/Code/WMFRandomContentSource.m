@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         @weakify(self)
-        [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, NSDictionary * _Nullable summary) {
+        [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, WMFArticleSummary * _Nullable summary) {
             if (error || !articleURL) {
                 if (completion) {
                     completion();

@@ -141,10 +141,8 @@ class PlaceSearchService
                 let urls = savedPagesWithoutLocation.compactMap({ (article) -> URL? in
                     return article.url
                 })
-                // TODO: ARM: I don't understand this --------------------V
-                //var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
-                dataStore.viewContext.wmf_updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
-                    //allArticlesWithLocation.append(contentsOf: articles)
+                // Fetch summaries from the server and update WMFArticle objects
+                dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles, _) in
                     done()
                 }
                 return
