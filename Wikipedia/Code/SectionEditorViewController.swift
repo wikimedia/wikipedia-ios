@@ -332,7 +332,7 @@ class SectionEditorViewController: UIViewController {
 extension SectionEditorViewController: UIScrollViewDelegate {
     public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
         let newAdjustedContentInset = scrollView.adjustedContentInset
-        guard newAdjustedContentInset != previousAdjustedContentInset, presentedViewController == nil else {
+        guard newAdjustedContentInset != previousAdjustedContentInset else {
             return
         }
         previousAdjustedContentInset = newAdjustedContentInset
@@ -443,11 +443,7 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
         alertController.popoverPresentationController?.sourceView = keyboardBar.replaceSwitchButton
         alertController.popoverPresentationController?.sourceRect = keyboardBar.replaceSwitchButton.bounds
         
-        present(alertController, animated: true) {
-            let safeAreaInsets = self.view.safeAreaInsets
-            let unadjustedContentInset = UIEdgeInsets(top: self.previousAdjustedContentInset.top - safeAreaInsets.top, left: self.previousAdjustedContentInset.left - safeAreaInsets.left, bottom: self.previousAdjustedContentInset.bottom - safeAreaInsets.bottom, right: self.previousAdjustedContentInset.right - safeAreaInsets.right)
-            self.webView.scrollView.contentInset = unadjustedContentInset
-        }
+        present(alertController, animated: true)
     }
 }
 
@@ -546,6 +542,9 @@ extension SectionEditorViewController: FocusNavigationViewDelegate {
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerScrollDelegate {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint) {
+        guard presentedViewController == nil else {
+            return
+        }
         webView.scrollView.setContentOffset(newContentOffset, animated: true)
     }
 }
