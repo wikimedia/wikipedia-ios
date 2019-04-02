@@ -15,6 +15,7 @@
 @class WMFReadingListsController;
 @class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
+@class WMFArticleSummaryController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -61,6 +62,7 @@ extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // Us
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
 @property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
+@property (readonly, strong, nonatomic) WMFArticleSummaryController *articleSummaryController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
