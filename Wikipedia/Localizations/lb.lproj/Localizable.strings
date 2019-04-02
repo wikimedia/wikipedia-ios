@@ -370,6 +370,7 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
+"replace-buttons-replace-all-accessibility" = "All Instanzen ersetzen";
 "replace-infolabel-method-replace" = "Ersetzen";
 "replace-infolabel-method-replace-all" = "All ersetzen";
 "replace-textfield-accessibility" = "Ersetzen";
