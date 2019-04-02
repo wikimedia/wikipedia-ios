@@ -69,17 +69,36 @@ class SectionEditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         selectLastSelectionIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
-        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self)
         super.viewWillDisappear(animated)
     }
     
     @objc func keyboardDidHide() {
         inputViewsController.resetFormattingAndStyleSubmenus()
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        webView.scrollView.contentInset = .zero
+        webView.scrollView.scrollIndicatorInsets = webView.scrollView.contentInset
+    }
+
+    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
+        guard
+            let userInfo = notification.userInfo,
+            let nsValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        else {
+            return
+        }
+        let keyboardViewEndFrame = view.convert(nsValue.cgRectValue, from: view.window)
+        webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        webView.scrollView.scrollIndicatorInsets = webView.scrollView.contentInset
     }
     
     private func setupFocusNavigationView() {
