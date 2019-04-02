@@ -129,7 +129,24 @@
         element.classList.remove(focusClassName);
         if (element.id === focusedMatchID) element.id = "";
       }
-    } 
+    }
+
+    function markReplacedText(cm, cursor) {
+      const state = getSearchState(cm);
+      const marker = cm.markText(cursor.from(), cursor.to(), { className: 'cm-searching-replaced' })
+      if (state.replacedMarkers) {
+        state.replacedMarkers.push(marker);
+      } else {
+        state.replacedMarkers = [marker];
+      }
+    }
+
+    function clearReplaced(state) {
+      if (state.replacedMarkers) {
+        state.replacedMarkers.forEach((marker) => { marker.clear() });
+        state.replacedMarkers = null;
+      }
+    }
 
     function focusOnMatch(state, focus, forceIncrement) {
       const matches = document.getElementsByClassName("cm-searching");
@@ -230,6 +247,7 @@
       state.lastQuery = state.query;
       if (!state.query) return;
       clearFocusedMatches(cm);
+      clearReplaced(state);
       state.focusedMatchIndex = null
       state.initialFocusedMatchIndex = null;
       state.query = state.queryText = null;
@@ -246,6 +264,7 @@
             cursor.replace(text.replace(/\$(\d)/g, function(_, i) {return match[i];}));
           } else {
             cursor.replace(text);
+            markReplacedText(cm, cursor);
           }
           count++;
         }
@@ -301,14 +320,15 @@
 
           cm.setCursor(state.posFrom)
 
-          doReplace(match);
+          doReplace(cm, state);
           cm.isReplacing = false;
         }
       }
-      var doReplace = function(match) {
+      var doReplace = function(cm, state) {
         cursor.replace(replaceText);
+        markReplacedText(cm, cursor);
         advance(false);
-        var forceIncrement = replaceText.includes(query) || replaceText.lowercase == query.lowercase;
+        var forceIncrement = replaceText.includes(query) || replaceText.toLowerCase() === query.toLowerCase();
         focusOnMatch(state, null, forceIncrement);
       };
       advance(true);
