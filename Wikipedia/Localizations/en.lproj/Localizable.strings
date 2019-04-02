@@ -190,6 +190,7 @@
 "edit-superscript-remove-accessibility-label" = "Remove superscript formatting";
 "edit-template-accessibility-label" = "Add template syntax";
 "edit-template-remove-accessibility-label" = "Remove template syntax";
+"edit-text-clear-formatting" = "Clear formatting";
 "edit-text-formatting-accessibility-label" = "Show text formatting menu";
 "edit-text-formatting-table-view-title" = "Text formatting";
 "edit-text-size-table-view-title" = "Text size";

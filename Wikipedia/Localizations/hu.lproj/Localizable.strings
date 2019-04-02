@@ -34,9 +34,8 @@
 "about-translators-details" = "A $1 önkéntesei fordították";
 "about-wikimedia-foundation" = "Wikimédia Alapítvány";
 "about-wikipedia" = "Wikipédia";
-"abuse-filter-disallow-heading" = "Nem teheted közzé ezt a szerkesztést";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Egy automatikus szűrő potenciálisan nem konstruktívként vagy vandalizmuskísérletként azonosította ezt a szerkesztést.";
+"abuse-filter-disallow-heading" = "Nem tudod közzétenni ezt a szerkesztést";
+"abuse-filter-disallow-unconstructive" = "Egy automatikus szűrő potenciálisan nem konstruktívként vagy vandalizmuskísérletként azonosította ezt a szerkesztést. Kérjük, lépj vissza, és módosítsd.";
 "abuse-filter-warning-blanking" = "Szócikkek tartalmának vagy egészének törlése";
 "abuse-filter-warning-caps" = "Csupa nagybetűs szöveg";
 "abuse-filter-warning-heading" = "Ez nem tűnik konstruktív szerkesztésnek, biztosan közzé akarod tenni?";
@@ -45,7 +44,7 @@
 "abuse-filter-warning-spam" = "Spam hozzáadása szócikkekhez";
 "abuse-filter-warning-subheading" = "A szerkesztésed a továbbiakat tartalmazhatja:";
 "account-creation-captcha-cannot-see-image" = "Nem látod a képet? $1";
-"account-creation-captcha-obtaining" = "Új CAPTCHA kérése folyamatban…";
+"account-creation-captcha-obtaining" = "Új CAPTCHA kérése…";
 "account-creation-captcha-request-account" = "Igényelj fiókot.";
 "account-creation-captcha-title" = "CAPTCHA biztonsági ellenőrzés";
 "account-creation-create-account" = "Fiók létrehozása";
@@ -86,8 +85,7 @@
 "appearance-settings-adjust-text-sizing" = "A szócikk szövegméretének beállítása";
 "appearance-settings-expand-tables" = "Táblázatok kinyitása";
 "appearance-settings-expand-tables-footer" = "Az összes táblázat kinyitása alapértelmezetten a cikkekben, beleértve a Gyors adatok, Forráshivatkozások, Jegyzetek és Külső hivatkozások dobozokat is.";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "A képek átlátszatlanságának csökkentése sötét téma esetén";
+"appearance-settings-image-dimming-footer" = "A képek átlátszatlanságának csökkentése sötét témák esetén";
 "appearance-settings-reading-themes" = "Olvasási témák";
 "appearance-settings-set-automatic-table-opening" = "Táblázatbeállítások";
 "appearance-settings-theme-options" = "Témabeállítások";
@@ -125,14 +123,14 @@
 "description-edit-learn-more" = "Tudj meg többet";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-pencil-introduction" = "Bevezetés szerkesztése";
-"description-edit-placeholder-title" = "A rövidebb leírások jobbak";
+"description-edit-placeholder-title" = "A rövid leírások jobbak";
 "description-edit-publish" = "Leírás közzététele";
 "description-edit-title" = "Leírás szerkesztése";
 "description-help-about-title" = "Névjegy";
 "description-help-about-wikidata" = "További információ a Wikidatáról";
-"description-help-more-info-description" = "A leírások a Wikidatán tárolódnak, ami Wikimédia Alapítvány egyik projektje, egy szabad, kollaboratív, többnyelvű, másodlagos adatbázis, ami a Wikipédiát és egyéb projekteket támogat.";
+"description-help-more-info-description" = "A leírások a Wikidatán tárolódnak, ami a Wikimédia Alapítvány egyik projektje, egy szabad, együttműködő, többnyelvű, másodlagos adatbázis, ami a Wikipédiát és egyéb projekteket támogat.";
 "description-help-more-info-title" = "További információk";
-"description-help-tips-description" = "A leírások ideális esetben nem hosszabbak egy sornál, 2–12 szavasak. Nem kezdődnek nagybetűvel, csak ha az első szó mondat közepén is nagybetűvel írandó.";
+"description-help-tips-description" = "A leírások ideális esetben nem hosszabbak egy sornál, és 2–12 szóból állnak. Nem kezdődnek nagybetűvel, csak ha az első szó mondat közepén is nagybetűvel írandó.";
 "description-help-tips-example-description-one" = "címleírás a Mona Lisáról szóló cikkhez";
 "description-help-tips-example-description-two" = "címleírás a Csomolungmáról szóló cikkhez";
 "description-help-tips-example-title-one" = "Leonardo da Vinci festménye";
@@ -322,7 +320,7 @@
 "number-thousands" = "$1k";
 "on-this-day-detail-header-date-range" = "$1 és $2 között";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 történelmi esemény|$1 történelmi esemény}}";
-"on-this-day-footer" = "Több történelmi események ezen a napon";
+"on-this-day-footer" = "Több történelmi esemény ezen a napon";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
 "page-edit-history" = "Teljes laptörténet";
@@ -357,7 +355,7 @@
 "places-filter-top-articles" = "Legolvasottabb";
 "places-filter-top-articles-count" = "$1 szócikk";
 "places-filter-top-read-articles" = "Legolvasottabb szócikkek";
-"places-location-enabled" = "Helymeghatározás engedélyezése";
+"places-location-enabled" = "Helymeghatározás engedélyezve";
 "places-no-saved-articles-have-location" = "Egyetlen mentett szócikked sem tartalmaz helyinformációkat.";
 "places-search-articles-that-match" = "$1 találat erre: „$2”";
 "places-search-default-text" = "Helyek keresése";
@@ -374,7 +372,7 @@
 "potd-description-prefix" = "A $1 nap képe";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
 "preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az alkalmazást, hogy még jobbá tehessük.";
-"preference-title-eventlogging-opt-in" = "Használati jelentés küldése";
+"preference-title-eventlogging-opt-in" = "Használati jelentések küldése";
 "rank-accessibility-label" = "$1.";
 "readers-accessibility-label" = "$1 olvasó";
 "reading-list-add-hint-title" = "„$1” hozzáadása egy olvasólistához?";
@@ -386,13 +384,11 @@
 "reading-list-create-new-list-title" = "Új lista létrehozása";
 "reading-list-deleted-accessibility-notification" = "Olvasólista törölve";
 "reading-list-do-not-keep-button-title" = "Nem, töröld a szócikket az eszközről";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "A szócikkek száma legfeljebb $1 lehet.";
-"reading-list-entry-limit-reached" = "A {{PLURAL:$1|szócikket|szócikkeket}} nem lehet hozzáadni ehhez a listához. Elérted a maximális $2 szócikket a $3 olvasólistában.";
+"reading-list-entry-limit-exceeded-title" = "A szócikkek száma legfeljebb $1 lehet fiókonként.";
+"reading-list-entry-limit-reached" = "A {{PLURAL:$1|szócikket|szócikkeket}} nem lehet hozzáadni ehhez a listához. Elérted a maximális $2 szócikket $3 olvasólistában.";
 "reading-list-generic-error" = "Váratlan hiba történt az olvasólisták frissítése során.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Szócikkek rendezése";
-"reading-list-list-limit-exceeded-message" = "Az olvasólista és benne mentett szócikkek nem fognak szinkronizálódni. Csökkentsd a listák számát $1-ra/re a listák szinkronizálásának folytatásához.";
-// Fuzzy
+"reading-list-list-limit-exceeded-message" = "Az olvasólista és a benne mentett szócikkek nem fognak szinkronizálódni. Csökkentsd a listák számát ennyire: $1, a listák szinkronizálásának folytatásához.";
 "reading-list-list-limit-exceeded-title" = "Az olvasólisták száma legfeljebb $1 lehet fiókonként.";
 "reading-list-list-limit-reached" = "Az olvasólisták száma legfeljebb $1 lehet.";
 "reading-list-login-button-title" = "Jelentkezz be a mentett szócikkek szinkronizálásához";
@@ -426,7 +422,7 @@
 "reverted-edit-back-to-article-button-title" = "Vissza a szócikkhez";
 "reverted-edit-notification-read-more-action-title" = "További információ";
 "reverted-edit-thanks-for-editing-title" = "Köszönjük, hogy szerkesztetted a Wikipédiát!";
-"reverted-edit-title" = "Visszavont szerkesztések";
+"reverted-edit-title" = "Visszavont szerkesztés";
 "reverted-edit-view-guidelines-text" = "Útmutatók megtekintése";
 "saved-all-articles-title" = "Minden szócikk";
 "saved-default-reading-list-tag" = "Ezt a listát nem lehet törölni";
@@ -462,8 +458,7 @@
 "settings-notifications-system-turn-on" = "Értesítések bekapcsolása";
 "settings-notifications-trending" = "Jelenlegi események";
 "settings-primary-language" = "Elsődleges";
-// Fuzzy
-"settings-primary-language-details" = "A listában szereplő első nyelv az alkalmazás elsődleges nyelve. Ennek megváltoztatása módosítja a napi tartalmat (mint a kiemelt szócikket) a Felfedezés lapon.";
+"settings-primary-language-details" = "A listában szereplő első nyelv az alkalmazás elsődleges nyelve.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Törlés";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Mentett szócikkek eltávolítása";
 "settings-support" = "Támogasd a Wikipédiát!";
@@ -515,8 +510,8 @@
 "welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
 "welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";
 "welcome-notifications-tell-me-more-title" = "További információk az értesítésekről";
-"welcome-send-data-helps-title" = "Segítsen jobbá tenni az alkalmazást";
-"welcome-send-data-learn-more" = "Tudjon meg többet a gyűjtött adatokról";
+"welcome-send-data-helps-title" = "Segíts jobbá tenni az alkalmazást";
+"welcome-send-data-learn-more" = "Tudj meg többet a gyűjtött adatokról";
 "welcome-send-data-sub-title" = "Segíts az alkalmazás jobbá tételében azzal, hogy megosztod a Wikimédia Alapítvánnyal, hogyan használod azt. A gyűjtött adatok névtelenek.";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
 "wikitext-download-failed" = "A legfrissebb változat lekérése sikertelen.";

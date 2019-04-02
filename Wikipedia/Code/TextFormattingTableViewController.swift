@@ -9,7 +9,8 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         let title: String?
         let detailText: String?
         let customView: (UIView & Themeable)?
-
+        var isEnabled: Bool = true
+        
         init(type: ContentType, title: String? = nil, detailText: String? = nil, customView: (UIView & Themeable)? = nil) {
             self.type = type
             self.title = title
@@ -21,11 +22,12 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     private enum ContentType {
         case customView
         case detail
+        case destructiveAction
     }
 
     private struct Item {
         let cell: TextFormattingTableViewCell.Type
-        let content: Content
+        var content: Content
         let onSelection: (() -> Void)?
 
         init(with content: Content, onSelection: (() -> Void)? = nil) {
@@ -33,6 +35,8 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             case .customView:
                 self.cell = TextFormattingCustomViewTableViewCell.self
             case .detail:
+                self.cell = TextFormattingDetailTableViewCell.self
+            case .destructiveAction:
                 self.cell = TextFormattingDetailTableViewCell.self
             }
             self.content = content
@@ -65,6 +69,21 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         }
         return Item(with: Content(type: .detail, title: textSizeFormattingTableViewController.titleLabelText, detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
     }
+    
+    private func didSelectClearFormatting() {
+        guard clearFormatting.content.isEnabled else {
+            return
+        }
+        delegate?.textFormattingProvidingDidTapClearFormatting()
+    }
+    
+    private lazy var clearFormatting: Item = {
+        let content = Content(type: .destructiveAction, title: WMFLocalizedString("edit-text-clear-formatting", value: "Clear formatting", comment: "Title for the button that clears formatting from the selected range"), detailText: nil, customView: nil)
+        let clearFormatting: () -> Void = { [weak self] in
+          self?.didSelectClearFormatting()
+        }
+        return Item(with: content, onSelection: clearFormatting)
+    }()
 
     private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
     private let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
@@ -90,7 +109,8 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
 
     private var items: [Item] {
         var allItems = staticItems
-        allItems.insert(textStyle, at: 2)
+        allItems.append(textStyle)
+        allItems.append(clearFormatting)
         return allItems
     }
 
@@ -101,6 +121,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
+    
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let configuredCell = configuredCell(for: indexPath) else {
@@ -125,6 +146,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             }
             cell.configure(with: customView)
             cell.apply(theme: theme)
+            cell.selectionStyle = .none
             return cell
         case .detail:
             guard let cell = tableView.dequeueCell(ofType: TextFormattingDetailTableViewCell.self, for: indexPath) else {
@@ -138,12 +160,31 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             }
             cell.apply(theme: theme)
             cell.configure(with: title, detailText: detailText)
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .none
+            cell.accessibilityTraits = .button
+            return cell
+        case .destructiveAction:
+            guard let cell = tableView.dequeueCell(ofType: TextFormattingDetailTableViewCell.self, for: indexPath) else {
+                break
+            }
+            guard let title = content.title else {
+                    break
+            }
+            cell.apply(theme: theme)
+            cell.configure(with: title, detailText: content.detailText)
+            cell.textLabel?.textColor = content.isEnabled ? theme.colors.destructive : theme.colors.secondaryText
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
+            cell.accessibilityTraits =  content.isEnabled ? .button : [.button, .notEnabled]
             return cell
         }
 
         return nil
     }
+    
 
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = items[indexPath.row]
         item.onSelection?()
@@ -157,6 +198,9 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         textSizeFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
         textFormattingPlainToolbarView?.deselectAllButtons()
         textFormattingGroupedToolbarView?.deselectAllButtons()
+        clearFormatting.content.isEnabled = true
+        tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .none)
+        
     }
 
     override func buttonSelectionDidChange(button: SectionEditorButton) {
@@ -173,6 +217,10 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         textSizeFormattingTableViewController.disableButton(button: button)
         textFormattingPlainToolbarView?.disableButton(button)
         textFormattingGroupedToolbarView?.disableButton(button)
+        if button.kind == .clearFormatting {
+            clearFormatting.content.isEnabled = false
+            tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .none)
+        }
     }
 
 }

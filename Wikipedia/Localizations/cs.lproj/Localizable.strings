@@ -94,7 +94,7 @@
 "action-unsave" = "Zrušit uložení";
 "action-unsaved-accessibility-notification" = "Zrušeno uložení článku";
 "action-update" = "Aktualizovat";
-"add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|few=$1 články|$1 článků}} do seznamu k přečtení";
+"add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informování, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
@@ -436,7 +436,7 @@
 "menu-cancel-accessibility-label" = "Zrušit";
 "more-languages-tooltip-description" = "Vyhledávejte a čtěte Wikipedii ve více než 300 jazycích";
 "more-languages-tooltip-title" = "Přidat jazyky";
-"move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|few=$1 články|$1 článků}} do seznamu k přečtení";
+"move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
 "nearby-distance-label-feet" = "$1 stopy";
 "nearby-distance-label-km" = "$1 km";
@@ -452,7 +452,7 @@
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tis.";
 "on-this-day-detail-header-date-range" = "mezi $1 až $2";
-"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|few=$1 historické události|$1 historických událostí}}";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|$1 historické události|$1 historických událostí}}";
 "on-this-day-footer" = "Další historické události tento den";
 "on-this-day-footer-with-event-count" = "$1 dalších historických událostí v tento den";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
@@ -488,7 +488,7 @@
 "places-filter-no-saved-places" = "Nemáte uložená žádná místa";
 "places-filter-saved-articles" = "Uložené články";
 "places-filter-top-articles" = "Nejčtenější";
-"places-filter-top-articles-count" = "{{PLURAL:$1|$1 článek|few=$1 články|$1 článků}}";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 článek|$1 články|$1 článků}}";
 "places-filter-top-read-articles" = "Nejčtenější články";
 "places-location-enabled" = "Geolokace povolena";
 "places-no-saved-articles-have-location" = "Žádný z uložených článků neobsahuje informace o poloze";
@@ -525,8 +525,8 @@
 "reading-list-deleted-accessibility-notification" = "Seznam k přečtení byl odstraněn";
 "reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
 "reading-list-entry-limit-exceeded-message" = "Zmenšete počet článků v tomto seznamu na $1, abyste obnovili synchronizaci všech článků v tomto seznamu.";
-"reading-list-entry-limit-exceeded-title" = "Překročili jste maximální limit {{PLURAL:$1|$1 článek|few=$1 články|$1 článků}} na účet.";
-"reading-list-entry-limit-reached" = "{{PLURAL:$1|Článek|few=Články|Článků}} nelze do tohoto seznamu přidat. Dosáhli jste limitu $2 článků pro seznam k přečtení $3";
+"reading-list-entry-limit-exceeded-title" = "Překročili jste maximální limit {{PLURAL:$1|$1 článku|$1 článků}} na účet.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Článek|Články}} nelze do tohoto seznamu přidat. Dosáhli jste limitu $2 článků pro seznam k přečtení $3";
 "reading-list-exists-with-same-name" = "Toto jméno seznamu již má jiný seznam k přečtení";
 "reading-list-generic-error" = "Nastala neočekávaná chyba při aktualizaci vašich seznamu k přečtení.";
 "reading-list-keep-button-title" = "Ano, zanechat články v zařízení";
@@ -571,7 +571,7 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Uvolněte místo na vašem zařízení a zkuste to znovu";
 "reading-lists-articles-not-synced-limit-exceeded" = "Některé články nebyly synchronizovány, limit byl překročen";
 "reading-lists-conflicting-reading-list-name-updated" = "Váš seznam „$1“ byl přejmenován na „$2“";
-"reading-lists-count" = "{{PLURAL:$1|$1 seznam k přečtení|few=$1 seznamy k přečtení|$1 seznamů k přečtení}}";
+"reading-lists-count" = "{{PLURAL:$1|$1 seznam k přečtení|$1 seznamy k přečtení|$1 seznamů k přečtení}}";
 "reading-lists-default-list-description" = "Výchozí seznam pro vaše uložené články";
 "reading-lists-default-list-title" = "Uloženo";
 "reading-lists-delete-reading-list-alert-message" = "Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do {{PLURAL:$1|tohoto seznamu|těchto seznamů}} nebudou nadále mezi uloženými.";
@@ -601,7 +601,7 @@
 "replace-infolabel-method-replace" = "Nahradit";
 "replace-infolabel-method-replace-all" = "Nahradit vše";
 "replace-method-button-accessibility" = "Způsob nahrazení. Nastavit na $1.";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka změněna|few=$1 položky změněny|$1 položek změněno}}";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka změněna|$1 položky změněny|$1 položek změněno}}";
 "replace-textfield-accessibility" = "Nahradit";
 "replace-textfield-placeholder" = "Nahradit za...";
 "request-feedback-on-error" = "V aplikaci došlo k chybě, o které by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
