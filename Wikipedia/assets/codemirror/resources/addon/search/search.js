@@ -144,6 +144,7 @@
     function clearReplaced(state) {
       if (state.replacedMarkers) {
         state.replacedMarkers.forEach((marker) => { marker.clear() });
+        state.replacedMarkers = null;
       }
     }
 
