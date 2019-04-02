@@ -140,7 +140,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     open func disableButton(button: SectionEditorButton) {
-
+        
     }
 }
 
