@@ -34,8 +34,6 @@ class SectionEditorViewController: UIViewController {
     private var needsSelectLastSelection: Bool = false
     
     @objc var editFunnel: EditFunnel?
-
-    private var previousAdjustedContentInset = UIEdgeInsets.zero
     
     private var wikitext: String? {
         didSet {
@@ -329,6 +327,7 @@ class SectionEditorViewController: UIViewController {
     }
 }
 
+private var previousAdjustedContentInset = UIEdgeInsets.zero
 extension SectionEditorViewController: UIScrollViewDelegate {
     public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
         let newAdjustedContentInset = scrollView.adjustedContentInset
@@ -443,7 +442,7 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
         alertController.popoverPresentationController?.sourceView = keyboardBar.replaceSwitchButton
         alertController.popoverPresentationController?.sourceRect = keyboardBar.replaceSwitchButton.bounds
         
-        present(alertController, animated: true)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
