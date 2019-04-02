@@ -46,12 +46,7 @@ class SectionEditorViewController: UIViewController {
             setWikitextToWebViewIfReady()
         }
     }
-    
-    // TODO
-    private var changesMade: Bool {
-        return true
-    }
-    
+
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
     override func viewDidLoad() {
@@ -346,15 +341,13 @@ extension SectionEditorViewController: UIScrollViewDelegate {
 
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
-        if changesMade {
-            messagingController.getWikitext { [weak self] (result, error) in
-                
-                guard let self = self else { return }
-                
-                if let error = error {
-                    assertionFailure(error.localizedDescription)
-                    return
-                } else if let wikitext = result {
+        messagingController.getWikitext { [weak self] (result, error) in
+            guard let self = self else { return }
+            if let error = error {
+                assertionFailure(error.localizedDescription)
+                return
+            } else if let wikitext = result {
+                if wikitext != self.wikitext {
                     guard let vc = EditPreviewViewController.wmf_initialViewControllerFromClassStoryboard() else {
                         return
                     }
@@ -366,11 +359,11 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.delegate = self
                     vc.funnel = self.editFunnel
                     self.navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
+                    WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
                 }
             }
-        } else {
-            let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
-            WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
     }
     
@@ -548,7 +541,7 @@ extension SectionEditorViewController: FocusNavigationViewDelegate {
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerScrollDelegate {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint) {
-        guard inputViewsController.inputAccessoryViewType != .findInPage else {
+        guard presentedViewController == nil else {
             return
         }
         webView.scrollView.setContentOffset(newContentOffset, animated: true)
