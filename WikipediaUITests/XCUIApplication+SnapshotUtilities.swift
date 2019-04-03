@@ -187,3 +187,9 @@ struct ScrollItem {
         self.predicate = ElementPropertyType.`self`.wildcardPredicate(for: WMFLocalizedString(key, value: "", comment: ""))
     }
 }
+
+extension XCUIApplication {
+    func dismissPopover() {
+        otherElements["PopoverDismissRegion"].tap()
+    }
+}

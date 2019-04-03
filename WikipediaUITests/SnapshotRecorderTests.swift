@@ -251,7 +251,7 @@ class WikipediaUITests: XCTestCase {
         wmf_snapshot("ArticleThemesBlack")
 
         app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-light-theme-button"])
-
+        app.dismissPopover()
         
         // Article find in page
         app.wmf_tapFirstButton(withTranslationIn: ["action-find-in-page"])
