@@ -383,6 +383,7 @@ class WikipediaUITests: XCTestCase {
             ]
         )
 
+        app.wmf_tapFirstCloseButton()
         
         // SAVED
         app.wmf_tapFirstButton(withTranslationIn: ["saved-title"])
