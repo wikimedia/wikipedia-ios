@@ -216,6 +216,7 @@
 "edit-superscript-remove-accessibility-label" = "إزالة التنسيق المرتفع";
 "edit-template-accessibility-label" = "أضف صيغة القالب";
 "edit-template-remove-accessibility-label" = "إزالة صيغة القالب";
+"edit-text-clear-formatting" = "إلغاء التهيئة";
 "edit-text-formatting-accessibility-label" = "إظهار قائمة تنسيق النص";
 "edit-text-formatting-table-view-title" = "تنسيق النص";
 "edit-text-size-table-view-title" = "حجم الخط";

@@ -204,6 +204,7 @@
 "edit-superscript-remove-accessibility-label" = "Hochstellen-Formatierung entfernen";
 "edit-template-accessibility-label" = "Vorlagensyntax hinzufügen";
 "edit-template-remove-accessibility-label" = "Vorlagensyntax entfernen";
+"edit-text-clear-formatting" = "Formatierung löschen";
 "edit-text-formatting-accessibility-label" = "Textformatierungsmenü anzeigen";
 "edit-text-formatting-table-view-title" = "Textformatierung";
 "edit-text-size-table-view-title" = "Textgröße";
