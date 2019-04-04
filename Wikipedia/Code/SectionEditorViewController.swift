@@ -15,7 +15,7 @@ class SectionEditorViewController: UIViewController {
     private let sectionFetcher = WikiTextSectionFetcher()
     
     private var inputViewsController: SectionEditorInputViewsController!
-    private var _messagingController: SectionEditorWebViewMessagingController!
+    private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
     
@@ -48,11 +48,21 @@ class SectionEditorViewController: UIViewController {
         }
     }
     
-    //inject for testing
-    var findAndReplaceView: FindAndReplaceKeyboardBar?
-    var messagingController: SectionEditorWebViewMessagingController?
-    
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.messagingController  = SectionEditorWebViewMessagingController()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    init(messagingController: SectionEditorWebViewMessagingController = SectionEditorWebViewMessagingController()) {
+        self.messagingController = messagingController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,11 +142,10 @@ class SectionEditorViewController: UIViewController {
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
 
-        _messagingController = messagingController ?? SectionEditorWebViewMessagingController()
-        _messagingController.textSelectionDelegate = self
-        _messagingController.buttonSelectionDelegate = self
-        _messagingController.alertDelegate = self
-        _messagingController.scrollDelegate = self
+        messagingController.textSelectionDelegate = self
+        messagingController.buttonSelectionDelegate = self
+        messagingController.alertDelegate = self
+        messagingController.scrollDelegate = self
         let languageInfo = MWLanguageInfo(forCode: language)
         let isSyntaxHighlighted = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
         let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: languageInfo.dir) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
@@ -146,11 +155,11 @@ class SectionEditorViewController: UIViewController {
         contentController.addUserScript(setupUserScript)
         contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
-        contentController.add(_messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
-        contentController.add(_messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
         
-        contentController.add(_messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
-        contentController.add(_messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -159,11 +168,7 @@ class SectionEditorViewController: UIViewController {
         webView.isHidden = true // hidden until wikitext is set
         webView.scrollView.keyboardDismissMode = .interactive
         
-        if let findAndReplaceView = findAndReplaceView {
-            inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: _messagingController, findAndReplaceDisplayDelegate: self, findAndReplaceView: findAndReplaceView)
-        } else {
-             inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: _messagingController, findAndReplaceDisplayDelegate: self)
-        }
+        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
         
         webView.inputViewsSource = inputViewsController
         
@@ -181,9 +186,9 @@ class SectionEditorViewController: UIViewController {
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
         webView.load(request)
         
-        _messagingController.webView = webView
+        messagingController.webView = webView
         
-        menuItemsController = SectionEditorMenuItemsController(messagingController: _messagingController)
+        menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
         webView.menuItemsDataSource = menuItemsController
         webView.menuItemsDelegate = menuItemsController
     }
@@ -216,8 +221,8 @@ class SectionEditorViewController: UIViewController {
             return
         }
         
-        _messagingController.selectLastSelection()
-        _messagingController.focusWithoutScroll()
+        messagingController.selectLastSelection()
+        messagingController.focusWithoutScroll()
         needsSelectLastSelection = false
     }
     
@@ -241,7 +246,7 @@ class SectionEditorViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
-                        self?._messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
+                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
                             if let _ = error {
                                 self?.showCouldNotFindSelectionInWikitextAlert()
                             }
@@ -256,7 +261,7 @@ class SectionEditorViewController: UIViewController {
         guard didSetWikitextToWebView else {
             return
         }
-        _messagingController.focus()
+        messagingController.focus()
         webView.isHidden = false
         dispatchOnMainQueueAfterDelayInSeconds(0.5) { [weak self] in
             
@@ -274,7 +279,7 @@ class SectionEditorViewController: UIViewController {
     }
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
-        _messagingController.setWikitext(wikitext, completionHandler: completionHandler)
+        messagingController.setWikitext(wikitext, completionHandler: completionHandler)
     }
     
     private func loadWikitext() {
@@ -352,13 +357,13 @@ extension SectionEditorViewController: UIScrollViewDelegate {
             return
         }
         previousAdjustedContentInset = newAdjustedContentInset
-        _messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
+        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
     }
 }
 
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
-        _messagingController.getWikitext { [weak self] (result, error) in
+        messagingController.getWikitext { [weak self] (result, error) in
             guard let self = self else { return }
             if let error = error {
                 assertionFailure(error.localizedDescription)
@@ -389,11 +394,11 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
-        _messagingController.undo()
+        messagingController.undo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
-        _messagingController.redo()
+        messagingController.redo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
@@ -504,7 +509,7 @@ extension SectionEditorViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.backgroundColor = theme.colors.paperBackground
         webView.backgroundColor = theme.colors.paperBackground
-        _messagingController.applyTheme(theme: theme)
+        messagingController.applyTheme(theme: theme)
         inputViewsController.apply(theme: theme)
         navigationItemController.apply(theme: theme)
         apply(presentationTheme: theme)
@@ -541,11 +546,11 @@ extension SectionEditorViewController: ReadingThemesControlsPresenting {
 
 extension SectionEditorViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
-        _messagingController.scaleBodyText(newSize: String(textSize))
+        messagingController.scaleBodyText(newSize: String(textSize))
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        _messagingController.toggleSyntaxColors()
+        messagingController.toggleSyntaxColors()
     }
 }
 
@@ -565,7 +570,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
     }
 }
 
-//Helpers for unit testing
+//MARK: Helpers for testing
 extension SectionEditorViewController {
     func openFindAndReplaceForTesting() {
         
@@ -576,12 +581,21 @@ extension SectionEditorViewController {
         inputViewsController.textFormattingProvidingDidTapFindInPage()
     }
     
-    func webViewForTesting() -> WKWebView {
+    var webViewForTesting: WKWebView {
         
         #if !(TEST)
         assertionFailure("This is only meant to be used within the testing target.")
         #endif
         
         return webView
+    }
+    
+    var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
+        
+        #if !(TEST)
+        assertionFailure("This is only meant to be used within the testing target.")
+        #endif
+        
+        return inputViewsController.findAndReplaceViewForTesting
     }
 }

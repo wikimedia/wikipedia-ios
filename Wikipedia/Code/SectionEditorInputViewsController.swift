@@ -9,23 +9,22 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
-    let findAndReplaceView: FindAndReplaceKeyboardBar?
+    private let findAndReplaceView: FindAndReplaceKeyboardBar? = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
     private var isRangeSelected = false
 
-    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate, findAndReplaceView: FindAndReplaceKeyboardBar = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()) {
+    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
         self.messagingController = messagingController
-        self.findAndReplaceView = findAndReplaceView
 
         super.init()
 
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
-        self.findAndReplaceView?.delegate = self
-        self.findAndReplaceView?.displayDelegate = findAndReplaceDisplayDelegate
-        self.findAndReplaceView?.isShowingReplace = true
+        findAndReplaceView?.delegate = self
+        findAndReplaceView?.displayDelegate = findAndReplaceDisplayDelegate
+        findAndReplaceView?.isShowingReplace = true
 
         messagingController.findInPageDelegate = self
 
@@ -348,5 +347,17 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
         case .replaceAll:
             messagingController.replaceAll(text: replaceText)
         }
+    }
+}
+
+//MARK: Helpers for testing
+extension SectionEditorInputViewsController {
+    var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
+        
+        #if !(TEST)
+        assertionFailure("This is only meant to be used within the testing target.")
+        #endif
+        
+        return findAndReplaceView
     }
 }

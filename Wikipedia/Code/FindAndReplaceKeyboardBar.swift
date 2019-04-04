@@ -377,7 +377,7 @@ private extension FindAndReplaceKeyboardBar {
     }
 }
 
-//Helpers for unit tests
+//MARK: Helpers for testing
 extension FindAndReplaceKeyboardBar {
     func setFindTextForTesting(_ text: String) {
         
@@ -417,7 +417,7 @@ extension FindAndReplaceKeyboardBar {
         tappedReplace()
     }
     
-    func currentMatchLabelTextForTesting() -> String? {
+    var matchLabelTextForTesting: String? {
         
         #if !(TEST)
         assertionFailure("This is only meant to be used within the testing target.")
