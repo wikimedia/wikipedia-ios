@@ -481,7 +481,10 @@ static uint64_t bundleHash() {
 }
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
-    [_viewContext mergeChangesFromContextDidSaveNotification:note];
+    NSManagedObjectContext *moc = _viewContext;
+    [moc performBlock:^{
+        [moc mergeChangesFromContextDidSaveNotification:note];
+    }];
 }
 
 - (NSManagedObjectContext *)feedImportContext {
