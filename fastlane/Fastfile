@@ -197,9 +197,8 @@ platform :ios do
     
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -allowProvisioningUpdates WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
     sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
+    sh "zip \"#{build_dir}/#{product_name}.xcarchive.zip\" \"#{build_dir}/#{product_name}.xcarchive\""
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
-    #sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
-    #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
   
   desc "updates version, builds, and pushes to TestFlight"
@@ -304,6 +303,7 @@ platform :ios do
         version: version,
         build_number: build_number,
         ipa_path: ipa_path,
+        output_directory: build_dir
       )
     end
     
@@ -361,13 +361,15 @@ platform :ios do
     version = options[:version]
     build_number = options[:build_number]  || latest_testflight_build_number(app_identifier: app_identifier)
     ipa_path = options[:ipa_path]
+    output_directory = options[:output_directory] || "build"
     
-    raise "Missing parameters" unless app_identifier && version && build_number && ipa_path
+    raise "Missing parameters" unless app_identifier && version && build_number && ipa_path && output_directory
     
     download_dsyms(
       build_number: build_number.to_s,
       version: version.to_s,
-      app_identifier: app_identifier
+      app_identifier: app_identifier,
+      output_directory: output_directory
     ) # Download dSYM files from iTC
   end
   
