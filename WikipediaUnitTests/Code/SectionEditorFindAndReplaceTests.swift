@@ -106,11 +106,9 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
          wait(for: [findExpectation], timeout: 5)
         
-        if let matchText = findAndReplaceView.matchLabelTextForTesting {
-            XCTAssertEqual(matchText, "1 / 7", "Unexpected match label value")
-        } else {
-            XCTFail("Missing match label text")
-        }
+        let matchPlacement = findAndReplaceView.matchPlacementForTesting
+        XCTAssertEqual(matchPlacement.index, 1, "Unexpected match placement index")
+        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
     }
     
     func testNoFindResultsUpdateToMatchLabel() {
@@ -129,11 +127,9 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         wait(for: [findExpectation], timeout: 5)
         
-        if let matchText = findAndReplaceView.matchLabelTextForTesting {
-            XCTAssertEqual(matchText, "0 / 0", "Unexpected match label value")
-        } else {
-            XCTFail("Missing match label text")
-        }
+        let matchPlacement = findAndReplaceView.matchPlacementForTesting
+        XCTAssertEqual(matchPlacement.index,0, "Unexpected match placement index")
+        XCTAssertEqual(matchPlacement.total, 0, "Unexpected match placement total")
     }
     
     func testFindResultsStartingFromMidArticleUpdateToMatchLabel() {
@@ -173,11 +169,9 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         wait(for: [findExpectation], timeout: 5)
         
         //confirm match index later in the article (i.e. not 1)
-        if let matchText = findAndReplaceView.matchLabelTextForTesting {
-            XCTAssertEqual(matchText, "2 / 7", "Unexpected match label value")
-        } else {
-            XCTFail("Missing match label text")
-        }
+        let matchPlacement = findAndReplaceView.matchPlacementForTesting
+        XCTAssertEqual(matchPlacement.index, 2, "Unexpected match placement index")
+        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
     }
     
     func testFindNextIncrementsMatchLabel() {
@@ -196,12 +190,10 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         wait(for: [findExpectation], timeout: 5)
         
-        //confirm label is set to first match
-        if let matchText = findAndReplaceView.matchLabelTextForTesting {
-            XCTAssertEqual(matchText, "1 / 7", "Unexpected match label value")
-        } else {
-            XCTFail("Missing match label text")
-        }
+        //confirm match placement is set to first match
+        var matchPlacement = findAndReplaceView.matchPlacementForTesting
+        XCTAssertEqual(matchPlacement.index, 1, "Unexpected match placement index")
+        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
         
         //tap next
         let nextExpectation = expectation(description: "Waiting for tapped next message callback")
@@ -215,12 +207,10 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         wait(for: [nextExpectation], timeout: 5)
         
-        //confirm current match label increments
-        if let matchText = findAndReplaceView.matchLabelTextForTesting {
-            XCTAssertEqual(matchText, "2 / 7", "Unexpected match label value")
-        } else {
-            XCTFail("Missing match label text")
-        }
+        //confirm match placement increments
+        matchPlacement = findAndReplaceView.matchPlacementForTesting
+        XCTAssertEqual(matchPlacement.index, 2, "Unexpected match placement index")
+        XCTAssertEqual(matchPlacement.total, 7, "Unexpected match placement total")
     }
     
     func testFindNextIncreasesSearchStateCursor() {
@@ -395,12 +385,10 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         XCTAssertEqual(self.replacedText, replaceText, "Expected replaced text from web land to equal replace text from find & replace view")
         
-        //confirm index has incremented and total decremented
-        if let matchText = findAndReplaceView.matchLabelTextForTesting {
-            XCTAssertEqual(matchText, "1 / 6", "Unexpected match label value")
-        } else {
-            XCTFail("Missing match label text")
-        }
+        //confirm total decremented
+        let matchPlacement = findAndReplaceView.matchPlacementForTesting
+        XCTAssertEqual(matchPlacement.index, 1, "Unexpected match placement index")
+        XCTAssertEqual(matchPlacement.total, 6, "Unexpected match placement total")
     }
 }
 
