@@ -1,5 +1,5 @@
 //
-//  SectionEditorFindAndReplaceIntegrationTests.swift
+//  SectionEditorFindAndReplaceTests.swift
 //  WikipediaUnitTests
 //
 //  Created by Toni Sevener on 4/2/19.
@@ -14,7 +14,7 @@ private struct Location {
     let ch: Int
 }
 
-class SectionEditorFindAndReplaceIntegrationTests: XCTestCase {
+class SectionEditorFindAndReplaceTests: XCTestCase {
     
     private var sectionEditorViewController: SectionEditorViewController!
     private var focusedSectionEditorExpectation: XCTestExpectation!
@@ -50,7 +50,7 @@ class SectionEditorFindAndReplaceIntegrationTests: XCTestCase {
         
         stubRequest("POST", url.absoluteString as NSString)
         
-        stubRequest("GET", regex)
+        let _ = stubRequest("GET", regex)
             .andReturn(200)?
             .withHeaders(["Content-Type": "application/json"])?
             .withBody(json as NSData)
@@ -389,14 +389,14 @@ class SectionEditorFindAndReplaceIntegrationTests: XCTestCase {
         
         //confirm index has incremented and total decremented
         if let currentMatchText = findAndReplaceView.currentMatchLabelTextForTesting() {
-            XCTAssertEqual(currentMatchText, "2 / 6")
+            XCTAssertEqual(currentMatchText, "1 / 6")
         } else {
             XCTFail("Current match label should be set by now")
         }
     }
 }
 
-extension SectionEditorFindAndReplaceIntegrationTests: SectionEditorViewControllerDelegate {
+extension SectionEditorFindAndReplaceTests: SectionEditorViewControllerDelegate {
     func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool) {
         //no-op
     }
@@ -406,17 +406,7 @@ extension SectionEditorFindAndReplaceIntegrationTests: SectionEditorViewControll
     }
 }
 
-private class MockSectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController {
-    
-    var receivedMessageBlock: ((_ message: WKScriptMessage) -> Void)?
-    
-    override func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        super.userContentController(userContentController, didReceive: message)
-        receivedMessageBlock?(message)
-    }
-}
-
-extension SectionEditorFindAndReplaceIntegrationTests: WKScriptMessageHandler {
+extension SectionEditorFindAndReplaceTests: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
         switch (message.name, message.body) {
@@ -440,6 +430,14 @@ extension SectionEditorFindAndReplaceIntegrationTests: WKScriptMessageHandler {
             XCTFail("Unexpected testing message body")
         }
     }
+}
+
+private class MockSectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController {
     
+    var receivedMessageBlock: ((_ message: WKScriptMessage) -> Void)?
     
+    override func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        super.userContentController(userContentController, didReceive: message)
+        receivedMessageBlock?(message)
+    }
 }
