@@ -470,7 +470,7 @@ static uint64_t bundleHash() {
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    backgroundContext.parentContext = _viewContext;
+    backgroundContext.persistentStoreCoordinator = _persistentStoreCoordinator;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
@@ -481,20 +481,14 @@ static uint64_t bundleHash() {
 }
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
-    NSManagedObjectContext *moc = _viewContext;
-    [moc performBlockAndWait:^{
-        NSError *mainContextSaveError = nil;
-        if ([moc hasChanges] && ![moc save:&mainContextSaveError]) {
-            DDLogError(@"Error saving main context: %@", mainContextSaveError);
-        }
-    }];
+    [_viewContext mergeChangesFromContextDidSaveNotification:note];
 }
 
 - (NSManagedObjectContext *)feedImportContext {
     WMFAssertMainThread(@"feedImportContext must be created on the main thread");
     if (!_feedImportContext) {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _feedImportContext.parentContext = _viewContext;
+        _feedImportContext.persistentStoreCoordinator = _persistentStoreCoordinator;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
