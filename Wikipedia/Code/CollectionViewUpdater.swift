@@ -70,8 +70,10 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         sectionCounts = fetchSectionCounts()
         
         guard isGranularUpdatingEnabled else {
+            self.fetchedResultsController.delegate = nil
             collectionView.reloadData()
             delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
+            self.fetchedResultsController.delegate = self
             return
         }
         
@@ -121,11 +123,14 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 break
             }
         }
-        
+
+
         let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
         guard !forceReload, sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
+            self.fetchedResultsController.delegate = nil
             collectionView.reloadData()
             delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
+            self.fetchedResultsController.delegate = self
             return
         }
         
