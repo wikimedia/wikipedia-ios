@@ -8,3 +8,7 @@
 #import <CocoaLumberjackSwift/CocoaLumberjackSwift.h>
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "XCTestCase+WMFBundleConvenience.h"
+#import "NSBundle+TestAssets.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "MWKSection.h"

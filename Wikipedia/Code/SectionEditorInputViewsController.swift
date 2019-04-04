@@ -9,22 +9,23 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
-    let findAndReplaceView = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
+    let findAndReplaceView: FindAndReplaceKeyboardBar?
 
     private var isRangeSelected = false
 
-    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
+    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate, findAndReplaceView: FindAndReplaceKeyboardBar = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()) {
         self.webView = webView
         self.messagingController = messagingController
+        self.findAndReplaceView = findAndReplaceView
 
         super.init()
 
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
-        findAndReplaceView?.delegate = self
-        findAndReplaceView?.displayDelegate = findAndReplaceDisplayDelegate
-        findAndReplaceView?.isShowingReplace = true
+        self.findAndReplaceView?.delegate = self
+        self.findAndReplaceView?.displayDelegate = findAndReplaceDisplayDelegate
+        self.findAndReplaceView?.isShowingReplace = true
 
         messagingController.findInPageDelegate = self
 

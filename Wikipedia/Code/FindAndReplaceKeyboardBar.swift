@@ -376,3 +376,53 @@ private extension FindAndReplaceKeyboardBar {
         }
     }
 }
+
+//Helpers for unit tests
+extension FindAndReplaceKeyboardBar {
+    func setFindTextForTesting(_ text: String) {
+        
+        #if !(TEST)
+        assertionFailure("This is only meant to be used within the testing target.")
+        #endif
+        
+        findTextField.text = text
+        textFieldDidChange(findTextField)
+    }
+    
+    func setReplaceTextForTesting(_ text: String) {
+        
+        #if !(TEST)
+        assertionFailure("This is only meant to be used within the testing target.")
+        #endif
+        
+        replaceTextField.text = text
+        textFieldDidChange(replaceTextField)
+    }
+    
+    func tapNextForTesting() {
+        
+        #if !(TEST)
+        assertionFailure("This is only meant to be used within the testing target.")
+        #endif
+        
+        tappedNext()
+    }
+    
+    func tapReplaceForTesting() {
+        
+        #if !(TEST)
+        assertionFailure("This is only meant to be used within the testing target.")
+        #endif
+        
+        tappedReplace()
+    }
+    
+    func currentMatchLabelTextForTesting() -> String? {
+        
+        #if !(TEST)
+        assertionFailure("This is only meant to be used within the testing target.")
+        #endif
+        
+        return currentMatchLabel.text
+    }
+}
