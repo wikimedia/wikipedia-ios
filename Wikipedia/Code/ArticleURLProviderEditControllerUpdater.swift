@@ -26,7 +26,9 @@ class ArticleURLProviderEditControllerUpdater: NSObject {
             let collectionView = collectionView,
             let editController = editController,
             let articleURLProvider = articleURLProvider,
-            let databaseKey = (notification.object as? WMFArticle)?.key
+            let article = notification.object as? WMFArticle,
+            article.hasChangedValuesForCurrentEventThatAffectSavedState,
+            let databaseKey = article.key
         else {
             return
         }
