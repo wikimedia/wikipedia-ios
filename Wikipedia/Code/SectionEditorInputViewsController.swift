@@ -350,14 +350,11 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     }
 }
 
+#if (TEST)
 //MARK: Helpers for testing
 extension SectionEditorInputViewsController {
     var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         return findAndReplaceView
     }
 }
+#endif

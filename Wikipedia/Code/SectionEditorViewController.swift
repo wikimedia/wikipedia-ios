@@ -570,32 +570,19 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
     }
 }
 
+#if (TEST)
 //MARK: Helpers for testing
 extension SectionEditorViewController {
     func openFindAndReplaceForTesting() {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         inputViewsController.textFormattingProvidingDidTapFindInPage()
     }
     
     var webViewForTesting: WKWebView {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         return webView
     }
     
     var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         return inputViewsController.findAndReplaceViewForTesting
     }
 }
+#endif

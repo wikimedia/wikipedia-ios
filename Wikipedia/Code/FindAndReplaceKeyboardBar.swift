@@ -387,52 +387,29 @@ private extension FindAndReplaceKeyboardBar {
     }
 }
 
+#if (TEST)
 //MARK: Helpers for testing
 extension FindAndReplaceKeyboardBar {
     func setFindTextForTesting(_ text: String) {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         findTextField.text = text
         textFieldDidChange(findTextField)
     }
     
     func setReplaceTextForTesting(_ text: String) {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         replaceTextField.text = text
         textFieldDidChange(replaceTextField)
     }
     
     func tapNextForTesting() {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         tappedNext()
     }
     
     func tapReplaceForTesting() {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         tappedReplace()
     }
     
     var matchPlacementForTesting: FindMatchPlacement {
-        
-        #if !(TEST)
-        assertionFailure("This is only meant to be used within the testing target.")
-        #endif
-        
         return matchPlacement
     }
 }
+#endif
