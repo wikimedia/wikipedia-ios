@@ -282,6 +282,8 @@
 			<string>%1$d года назад</string>
 			<key>many</key>
 			<string>%1$d лет назад</string>
+			<key>one</key>
+			<string>%1$d год назад</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>
