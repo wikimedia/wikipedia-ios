@@ -55,3 +55,9 @@ body {
 .cm-mw-skipformatting {
     background-color: unset !important;
 }
+
+.cm-searching-replaced {
+  color: #000 !important;
+  background-color: #d0e4fc !important;
+  border-radius: 2px;
+}

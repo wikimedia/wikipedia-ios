@@ -114,11 +114,14 @@ import Foundation
         }
         
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
-        
+
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         
         var urls: [URL] = []
         for obj in articlesToDelete {
+            guard obj.isFault else { // only delete articles that are faults. prevents deletion of articles that are being actively viewed. repro steps: open disambiguation pages view -> exit app -> re-enter app
+                continue
+            }
             moc.delete(obj)
             guard let url = obj.url else {
                 continue

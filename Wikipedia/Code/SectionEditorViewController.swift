@@ -541,7 +541,7 @@ extension SectionEditorViewController: FocusNavigationViewDelegate {
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerScrollDelegate {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint) {
-        guard inputViewsController.inputAccessoryViewType != .findInPage else {
+        guard presentedViewController == nil else {
             return
         }
         webView.scrollView.setContentOffset(newContentOffset, animated: true)

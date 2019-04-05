@@ -379,7 +379,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 return
             }
             do {
-                var summaryResponses: [String: [String: Any]] = [:]
+                var summaryResponses: [String: ArticleSummary] = [:]
                 for i in 1...countOfEntriesToCreate {
                     taskGroup.enter()
                     randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
@@ -720,11 +720,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         guard !readingListEntries.isEmpty else {
             return
         }
+        let summaryFetcher = ArticleSummaryFetcher(session: apiController.session, configuration: Configuration.current)
         let group = WMFTaskGroup()
         let semaphore = DispatchSemaphore(value: 1)
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<String> = []
-        var articleSummariesByArticleKey: [String: [String: Any]] = [:]
+        var articleSummariesByArticleKey: [String: ArticleSummary] = [:]
         var entryCount = 0
         var articlesByKey: [String: WMFArticle] = [:]
         for remoteEntry in readingListEntries {
@@ -745,7 +746,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     articlesByKey[articleKey] = article
                 } else {
                     group.enter()
-                    apiController.session.fetchSummary(for: articleURL, completionHandler: { (result, response, error) in
+                    summaryFetcher.fetchSummary(for: articleURL, completion: { (result, response, error) in
                         guard let result = result else {
                             group.leave()
                             return
