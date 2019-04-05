@@ -213,6 +213,7 @@
 "edit-superscript-remove-accessibility-label" = "移除上標格式";
 "edit-template-accessibility-label" = "添加模板語法";
 "edit-template-remove-accessibility-label" = "移除模板語法";
+"edit-text-clear-formatting" = "清除格式";
 "edit-text-formatting-accessibility-label" = "顯示文字格式選單";
 "edit-text-formatting-table-view-title" = "文字格式";
 "edit-text-size-table-view-title" = "文字大小";

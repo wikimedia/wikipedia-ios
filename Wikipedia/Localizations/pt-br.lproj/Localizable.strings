@@ -222,6 +222,7 @@
 "edit-superscript-remove-accessibility-label" = "Remover formatação sobrescrita";
 "edit-template-accessibility-label" = "Adicionar sintaxe da predefinição";
 "edit-template-remove-accessibility-label" = "Remover a sintaxe da predefinição";
+"edit-text-clear-formatting" = "Limpar formatação";
 "edit-text-formatting-accessibility-label" = "Mostrar menu de formatação de texto";
 "edit-text-formatting-table-view-title" = "Formatação de texto";
 "edit-text-size-table-view-title" = "Tamanho do texto";
