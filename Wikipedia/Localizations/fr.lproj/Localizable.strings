@@ -219,6 +219,7 @@
 "edit-superscript-remove-accessibility-label" = "Supprimer la mise en forme d’exposant";
 "edit-template-accessibility-label" = "Ajouter une syntaxe de modèle";
 "edit-template-remove-accessibility-label" = "Supprimer la syntaxe de modèle";
+"edit-text-clear-formatting" = "Effacer la mise en forme";
 "edit-text-formatting-accessibility-label" = "Afficher le menu de mise en forme du texte";
 "edit-text-formatting-table-view-title" = "Formatage du texte";
 "edit-text-size-table-view-title" = "Taille du texte";

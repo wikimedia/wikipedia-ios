@@ -66,6 +66,38 @@
 			<string>%1$d acontecementos históricos</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Editado hai %1$d días</string>
+			<key>zero</key>
+			<string>Editado hoxe</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Dispoñible noutra lingua</string>
+			<key>other</key>
+			<string>Dispoñible noutras %1$d linguas</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +114,22 @@
 			<string>%1$d artigos</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Superou o límite de %1$d artigo por conta.</string>
+			<key>other</key>
+			<string>Superou o límite de %1$d artigos por conta.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +144,22 @@
 			<string>O artigo non pode ser engadido a esta lista. Chegou ó límite de %2$d artigos por lista de lectura para %3$@</string>
 			<key>other</key>
 			<string>Os artigos non poden ser engadidos a esta lista. Chegou ó límite de %2$d artigos por lista de lectura para %3$@</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Sobrepasou o límite de %1$d lista de lectura por conta.</string>
+			<key>other</key>
+			<string>Sobrepasou o límite de %1$d listas de lectura por conta.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -156,8 +220,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Onte</string>
 			<key>other</key>
 			<string>Hai %1$d días</string>
 			<key>zero</key>
@@ -210,12 +272,26 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>O último ano</string>
 			<key>other</key>
 			<string>hai %1$d anos</string>
 			<key>zero</key>
 			<string>Este ano</string>
+		</dict>
+	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d instancia substituída</string>
+			<key>other</key>
+			<string>%1$d instancias substituídas</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>

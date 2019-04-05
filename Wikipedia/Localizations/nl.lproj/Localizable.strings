@@ -176,6 +176,7 @@
 "dim-images" = "Afbeeldingen dimmen";
 "edit-bold-accessibility-label" = "Vetgedrukte opmaak toevoegen";
 "edit-bold-remove-accessibility-label" = "Vetgedrukte opmaak verwijderen";
+"edit-clear-formatting-accessibility-label" = "Opmaak verwijderen";
 "edit-decrease-indent-depth-accessibility-label" = "Inspringing verkleinen";
 "edit-direction-down-accessibility-label" = "Cursor naar beneden verplaatsen";
 "edit-direction-left-accessibility-label" = "Cursor naar links verplaatsen";

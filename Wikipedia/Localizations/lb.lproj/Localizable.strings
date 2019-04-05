@@ -199,6 +199,7 @@
 "field-username-title" = "Benotzernumm";
 "find-clear-button-accessibility" = "Sichen eidelmaachen";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "Sichen an Ersetzen";
 "forgot-password-button-title" = "Zrécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";

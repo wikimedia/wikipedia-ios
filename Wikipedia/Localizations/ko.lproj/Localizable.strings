@@ -203,6 +203,7 @@
 "edit-summary-learn-more-text" = "더 알아보기";
 "edit-summary-placeholder-text" = "어떻게 문서를 개선했습니까?";
 "edit-template-remove-accessibility-label" = "틀 문법 제거";
+"edit-text-clear-formatting" = "서식 지우기";
 "edit-text-formatting-table-view-title" = "텍스트 서식 지정";
 "edit-text-size-table-view-title" = "텍스트 크기";
 "edit-underline-accessibility-label" = "밑줄 추가";

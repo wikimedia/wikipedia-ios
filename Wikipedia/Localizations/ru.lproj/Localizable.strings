@@ -93,7 +93,7 @@
 "action-redo" = "Повторить";
 "action-remove" = "Удалить";
 "action-replace" = "Заменить";
-"action-replace-all" = "Заменить всё";
+"action-replace-all" = "Заменить все";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
@@ -202,6 +202,7 @@
 "edit-link-accessibility-label" = "Добавить ссылку";
 "edit-link-remove-accessibility-label" = "Убрать ссылку";
 "edit-menu-item" = "Редактировать";
+"edit-menu-item-could-not-find-selection-alert-message" = "Это произошло, скорее всего, из-за длины подсвеченного текста или из-за того, что выбранный текст не является редактируемым (например, заголовок статьи, заголовок инфотаблички)";
 "edit-menu-item-could-not-find-selection-alert-title" = "Выбранный текст не найден";
 "edit-minor-learn-more-text" = "Узнать подробнее о малых правках";
 "edit-minor-text" = "Это малая правка";
@@ -229,6 +230,7 @@
 "edit-superscript-remove-accessibility-label" = "Убрать надстрочное начертание";
 "edit-template-accessibility-label" = "Добавить шаблон";
 "edit-template-remove-accessibility-label" = "Убрать шаблон";
+"edit-text-clear-formatting" = "Очистить форматирование";
 "edit-text-formatting-accessibility-label" = "Показать меню форматирования";
 "edit-text-formatting-table-view-title" = "Форматирование текста";
 "edit-text-size-table-view-title" = "Размер шрифта";
@@ -607,9 +609,9 @@
 "replace-button-accessibility" = "Выполнение операции \"$1\".";
 "replace-buttons-replace-accessibility" = "Заменить одно вхождение";
 "replace-buttons-replace-all-accessibility" = "Заменить все вхождения";
-"replace-clear-button-accessibility" = "Очистить поиск";
+"replace-clear-button-accessibility" = "Очистить замену";
 "replace-infolabel-method-replace" = "Заменить";
-"replace-infolabel-method-replace-all" = "Заменить всё";
+"replace-infolabel-method-replace-all" = "Заменить все";
 "replace-method-button-accessibility" = "Текущий режим — \"$1\". Нажмите, чтобы сменить режим замен.";
 "replace-replace-all-results-count" = "{{PLURAL:$1|выполнена 1 замена|выполнены $1 замены|выполнены $1 замен}}";
 "replace-textfield-accessibility" = "Заменить";

@@ -90,6 +90,7 @@
 		41FCAA3821C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3921C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3A21C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
+		670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */; };
 		671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */; };
 		672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67861A14223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
@@ -3404,6 +3405,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
+		670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorFindAndReplaceTests.swift; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
 		672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBarButtonItem.swift; sourceTree = "<group>"; };
 		67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAndReplaceKeyboardBar.swift; sourceTree = "<group>"; };
@@ -7377,6 +7379,7 @@
 				B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */,
 				B09AD9C91FE071E90034DA09 /* WMFArticleElementTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
+				670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -9993,6 +9996,7 @@
 				B0E808F91C0D184B0065EBC0 /* MWKTitleTests.m in Sources */,
 				B0E809031C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
+				670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */,
 				B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */,
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
 				B0E808D31C0D17A60065EBC0 /* MWKHistoryEntry+MWKRandom.m in Sources */,

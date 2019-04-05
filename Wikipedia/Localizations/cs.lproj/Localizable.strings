@@ -219,6 +219,7 @@
 "edit-superscript-remove-accessibility-label" = "Odebrat formátování horní index";
 "edit-template-accessibility-label" = "Přidat syntaxi šablona";
 "edit-template-remove-accessibility-label" = "Odebrat syntaxi šablona";
+"edit-text-clear-formatting" = "Vymazat formátování";
 "edit-text-formatting-accessibility-label" = "Zobrazit text formátovacího menu";
 "edit-text-formatting-table-view-title" = "Formátování textu";
 "edit-text-size-table-view-title" = "Velikost textu";

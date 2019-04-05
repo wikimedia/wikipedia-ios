@@ -169,6 +169,7 @@
 "edit-summary-placeholder-text" = "Come hai migliorato la voce?";
 "edit-superscript-remove-accessibility-label" = "Rimuovi la formattazione dell'apice";
 "edit-template-accessibility-label" = "Aggiungi sintassi per template";
+"edit-text-clear-formatting" = "Pulisci formattazione";
 "edit-text-formatting-accessibility-label" = "Mostra il menu di formattazione del testo";
 "edit-text-formatting-table-view-title" = "Formattazione del testo";
 "edit-text-size-table-view-title" = "Dimensione del testo";

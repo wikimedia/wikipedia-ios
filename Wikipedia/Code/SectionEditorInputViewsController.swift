@@ -9,7 +9,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
-    let findAndReplaceView = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
+    private let findAndReplaceView: FindAndReplaceKeyboardBar? = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
     private var isRangeSelected = false
 
@@ -349,3 +349,12 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
         }
     }
 }
+
+#if (TEST)
+//MARK: Helpers for testing
+extension SectionEditorInputViewsController {
+    var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
+        return findAndReplaceView
+    }
+}
+#endif
