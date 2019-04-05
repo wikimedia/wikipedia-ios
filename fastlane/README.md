@@ -155,7 +155,7 @@ Runs tests, version, tag, and push to the beta branch
 ```
 fastlane ios dsyms
 ```
-Download dSYMs from iTunes Connect and upload them to HockeyApp
+Download dSYMs from iTunes Connect
 ### ios dsyms_alpha
 ```
 fastlane ios dsyms_alpha
