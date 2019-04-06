@@ -455,6 +455,7 @@ extension ReadingListEntryCollectionViewController: CollectionViewUpdaterDelegat
                 continue
             }
             configure(cell: cell, for: entry, at: indexPath, layoutOnly: false)
+            editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
