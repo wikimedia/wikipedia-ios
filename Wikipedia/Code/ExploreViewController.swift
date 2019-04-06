@@ -475,7 +475,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.undoType = group.undoType
         cell.apply(theme: theme)
         cell.delegate = self
-        cardVC.editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         if group.undoType == .contentGroupKind {
             indexPathsForCollapsedCellsThatCanReappear.insert(indexPath)
         }
