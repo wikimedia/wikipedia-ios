@@ -1,9 +1,8 @@
 import UIKit
 
-class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
+class ArticleURLListViewController: ArticleCollectionViewController {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
-    private var updater: ArticleURLProviderEditControllerUpdater?
 
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
@@ -51,7 +50,6 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.reloadData()
-        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
 

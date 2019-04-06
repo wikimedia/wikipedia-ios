@@ -10,7 +10,6 @@ class ReadingListDetailViewController: ViewController {
     
     let readingListEntryCollectionViewController: ReadingListEntryCollectionViewController
     
-    var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
@@ -95,7 +94,6 @@ class ReadingListDetailViewController: ViewController {
         }
         
         wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
-        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: readingListEntryCollectionViewController, collectionView: readingListEntryCollectionViewController.collectionView, editController: readingListEntryCollectionViewController.editController)
     }
     
     private func addExtendedView() {
