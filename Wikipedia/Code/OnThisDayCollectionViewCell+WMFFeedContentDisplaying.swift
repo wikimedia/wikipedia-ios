@@ -14,7 +14,10 @@ extension OnThisDayCollectionViewCell {
         
         if let eventYear = onThisDayEvent.year {
             let yearsSinceEvent = currentYear - eventYear.intValue
-            subTitleLabel.text = String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(forSiteURL: articleSiteURL), yearsSinceEvent)
+            let language = articleSiteURL?.wmf_language
+            // String.localizedStringWithFormat uses the current locale for plural rules causing incorrect pluralization if the user is looking at content in a language different than their system default language
+            let locale = NSLocale.wmf_locale(for: language)
+            subTitleLabel.text = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)
         } else {
             subTitleLabel.text = nil
         }
