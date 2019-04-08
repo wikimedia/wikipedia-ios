@@ -209,6 +209,7 @@
 "edit-superscript-remove-accessibility-label" = "Remover formatação de sobrescrito";
 "edit-template-accessibility-label" = "Acrescentar sintaxe para predefinição";
 "edit-template-remove-accessibility-label" = "Remover sintaxe de predefinição";
+"edit-text-clear-formatting" = "Limpar formatação";
 "edit-text-formatting-accessibility-label" = "Mostrar menu de formatação de texto";
 "edit-text-formatting-table-view-title" = "Formatação de texto";
 "edit-text-size-table-view-title" = "Tamanho do texto";
