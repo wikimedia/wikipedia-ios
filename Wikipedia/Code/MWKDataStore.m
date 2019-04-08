@@ -482,7 +482,7 @@ static uint64_t bundleHash() {
         notificationName = WMFBackgroundContextDidSave;
     }
     [moc performBlockAndWait:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFBackgroundContextDidSave object:note.object userInfo:note.userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:note.object userInfo:note.userInfo];
         [self handleCrossProcessChangesFromContextDidSaveNotification:note];
         dispatch_semaphore_signal(semaphore);
     }];
