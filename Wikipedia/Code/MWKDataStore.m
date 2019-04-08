@@ -295,12 +295,7 @@ static uint64_t bundleHash() {
     return archiveableUserInfo;
 }
 
-- (void)viewContextDidSave:(NSNotification *)note {
-    NSManagedObjectContext *moc = self.viewContext;
-    if (!moc) {
-        return;
-    }
-
+- (void)handleCrossProcessChangesFromContextDidSaveNotification:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     if (!userInfo) {
         return;
