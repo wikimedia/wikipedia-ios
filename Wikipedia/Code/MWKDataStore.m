@@ -482,6 +482,7 @@ static uint64_t bundleHash() {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     backgroundContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+    backgroundContext.automaticallyMergesChangesFromParent = YES;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
@@ -496,6 +497,7 @@ static uint64_t bundleHash() {
     if (!_feedImportContext) {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+        _feedImportContext.automaticallyMergesChangesFromParent = YES;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
