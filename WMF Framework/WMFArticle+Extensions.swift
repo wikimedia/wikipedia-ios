@@ -27,7 +27,11 @@ extension WMFArticle {
         let previewKeys: Set<String> = ["savedDate", "isDownloaded"]
         return hasChangedValuesForCurrentEventForKeys(previewKeys)
     }
-    
+
+    @objc public var hasChangedValuesForCurrentEventThatAffectSavedState: Bool {
+        let previewKeys: Set<String> = ["savedDate"]
+        return hasChangedValuesForCurrentEventForKeys(previewKeys)
+    }
     
     public var hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews: Bool {
         let previewKeys: Set<String> = ["wikidataDescription", "snippet", "imageURLString", "isDownloaded"]
