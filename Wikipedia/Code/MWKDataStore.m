@@ -464,6 +464,14 @@ static uint64_t bundleHash() {
 
 #pragma mark - Background Contexts
 
+- (void)backgroundContextDidSave:(NSNotification *)note {
+    NSNotificationName notificationName = note.object == _feedImportContext ? WMFFeedImportContextDidSave : WMFBackgroundContextDidSave;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:note.object userInfo:note.userInfo];
+        [self handleCrossProcessChangesFromContextDidSaveNotification:note];
+    });
+}
+
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
