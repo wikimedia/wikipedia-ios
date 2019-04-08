@@ -332,12 +332,14 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 continue;
             }
             NSDictionary *newExploreFeedPreferences = (NSDictionary *)keyValue.value;
-            if (self.exploreFeedPreferences == newExploreFeedPreferences) {
-                return;
-            }
-            self.exploreFeedPreferences = newExploreFeedPreferences;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.exploreFeedPreferences == newExploreFeedPreferences) {
+                    return;
+                }
+                self.exploreFeedPreferences = newExploreFeedPreferences;
+                [NSNotificationCenter.defaultCenter postNotificationName:WMFExploreFeedPreferencesDidSaveNotification object:self.exploreFeedPreferences];
+            });
             self.cachedCountOfVisibleContentGroupKinds = nil;
-            [NSNotificationCenter.defaultCenter postNotificationName:WMFExploreFeedPreferencesDidSaveNotification object:self.exploreFeedPreferences];
         }
     }
 }

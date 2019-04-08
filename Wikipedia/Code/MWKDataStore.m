@@ -472,10 +472,9 @@ static uint64_t bundleHash() {
 }
 
 - (void)feedImportContextDidSave:(NSNotification *)note {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFFeedImportContextDidSave object:note.object userInfo:note.userInfo];
-        [self handleCrossProcessChangesFromContextDidSaveNotification:note];
-    });
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFFeedImportContextDidSave object:note.object userInfo:note.userInfo];
+    [self handleCrossProcessChangesFromContextDidSaveNotification:note];
+}
 }
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
