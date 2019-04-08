@@ -465,9 +465,15 @@ static uint64_t bundleHash() {
 #pragma mark - Background Contexts
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
-    NSNotificationName notificationName = note.object == _feedImportContext ? WMFFeedImportContextDidSave : WMFBackgroundContextDidSave;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:note.object userInfo:note.userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFBackgroundContextDidSave object:note.object userInfo:note.userInfo];
+        [self handleCrossProcessChangesFromContextDidSaveNotification:note];
+    });
+}
+
+- (void)feedImportContextDidSave:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFFeedImportContextDidSave object:note.object userInfo:note.userInfo];
         [self handleCrossProcessChangesFromContextDidSaveNotification:note];
     });
 }
@@ -491,7 +497,7 @@ static uint64_t bundleHash() {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.persistentStoreCoordinator = _persistentStoreCoordinator;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
