@@ -818,17 +818,16 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     @objc func articleDidChange(_ note: Notification) {
         guard
             let article = note.object as? WMFArticle,
-            article.hasChangedValuesForCurrentEventThatAffectPreviews,
             let articleKey = article.key
         else {
             return
         }
-        
-        guard layoutCache.invalidateArticleKey(articleKey) else {
+
+        if article.hasChangedValuesForCurrentEventThatAffectPreviews, layoutCache.invalidateArticleKey(articleKey) {
+            collectionView.collectionViewLayout.invalidateLayout()
+        } else if !article.hasChangedValuesForCurrentEventThatAffectSavedState {
             return
         }
-        
-        collectionView.collectionViewLayout.invalidateLayout()
 
         let visibleIndexPathsWithChanges = collectionView.indexPathsForVisibleItems.filter { (indexPath) -> Bool in
             guard let contentGroup = group(at: indexPath) else {

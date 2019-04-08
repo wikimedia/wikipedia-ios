@@ -72,6 +72,7 @@
 "action-read" = "Llegeix";
 "action-redo" = "Refés";
 "action-remove" = "Suprimeix";
+"action-replace" = "Reemplaça";
 "action-replace-all" = "Reemplaça-ho tot";
 "action-save" = "Desa";
 "action-saved" = "Desat";
@@ -179,6 +180,7 @@
 "edit-italic-remove-accessibility-label" = "Suprimeix format en cursiva";
 "edit-link-accessibility-label" = "Afegeix sintaxi d'enllaç";
 "edit-link-remove-accessibility-label" = "Suprimeix sintaxi d'enllaç";
+"edit-menu-item" = "Edita";
 "edit-menu-item-could-not-find-selection-alert-title" = "No s’ha pogut trobar el text que heu seleccionat";
 "edit-minor-learn-more-text" = "Més informació sobre les modificacions menors";
 "edit-minor-text" = "Aquesta és una modificació menor";
@@ -342,8 +344,13 @@
 "field-token-title" = "Codi de verificació";
 "field-username-placeholder" = "introduïu un nom d'usuari";
 "field-username-title" = "Nom d'usuari";
+"find-clear-button-accessibility" = "Neteja la cerca";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Resultat de cerca següent";
+"find-previous-button-accessibility" = "Resultat de cerca anterior";
 "find-replace-header" = "Cerca i reemplaça";
+"find-replace-header-close-accessibility" = "Tanca cerca i reemplaça";
+"find-textfield-accessibility" = "Cerca";
 "forgot-password-button-title" = "Restableix";
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
 "forgot-password-instructions" = "Omple un dels camps a continuació per a rebre instruccions de reinicialització de contrasenya per correu electrònic";
@@ -561,12 +568,15 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema clar";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sèpia";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Ressaltat de la sintaxi";
 "reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
+"reading-themes-controls-syntax-highlighting" = "Ressaltat de la sintaxi";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|1=Ahir|Fa $1 dies}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ara mateix|Fa $1 minut|Fa $1 minuts}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|1=L'any passat|Fa $1 anys}}";
+"replace-clear-button-accessibility" = "Neteja el reemplaçament";
 "replace-infolabel-method-replace" = "Reemplaça";
 "replace-infolabel-method-replace-all" = "Reemplaça-ho tot";
 "replace-textfield-accessibility" = "Reemplaça";

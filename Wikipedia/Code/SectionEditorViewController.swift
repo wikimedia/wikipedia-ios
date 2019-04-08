@@ -1,6 +1,7 @@
 @objc(WMFSectionEditorViewControllerDelegate)
 protocol SectionEditorViewControllerDelegate: class {
     func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, withChanges didChange: Bool)
+    func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController)
 }
 
 @objc(WMFSectionEditorViewController)
@@ -46,8 +47,22 @@ class SectionEditorViewController: UIViewController {
             setWikitextToWebViewIfReady()
         }
     }
-
+    
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.messagingController  = SectionEditorWebViewMessagingController()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    init(messagingController: SectionEditorWebViewMessagingController = SectionEditorWebViewMessagingController()) {
+        self.messagingController = messagingController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +141,7 @@ class SectionEditorViewController: UIViewController {
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
-        messagingController = SectionEditorWebViewMessagingController()
+
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
         messagingController.alertDelegate = self
@@ -154,6 +169,7 @@ class SectionEditorViewController: UIViewController {
         webView.scrollView.keyboardDismissMode = .interactive
         
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
+        
         webView.inputViewsSource = inputViewsController
         
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -248,11 +264,17 @@ class SectionEditorViewController: UIViewController {
         messagingController.focus()
         webView.isHidden = false
         dispatchOnMainQueueAfterDelayInSeconds(0.5) { [weak self] in
-            guard let didFocusWebViewCompletion = self?.didFocusWebViewCompletion else {
+            
+            guard let self = self else { return }
+            
+            self.delegate?.sectionEditorDidFinishLoadingWikitext(self)
+            
+            guard let didFocusWebViewCompletion = self.didFocusWebViewCompletion else {
                 return
             }
+            
             didFocusWebViewCompletion()
-            self?.didFocusWebViewCompletion = nil
+            self.didFocusWebViewCompletion = nil
         }
     }
     
@@ -547,3 +569,20 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
         webView.scrollView.setContentOffset(newContentOffset, animated: true)
     }
 }
+
+#if (TEST)
+//MARK: Helpers for testing
+extension SectionEditorViewController {
+    func openFindAndReplaceForTesting() {
+        inputViewsController.textFormattingProvidingDidTapFindInPage()
+    }
+    
+    var webViewForTesting: WKWebView {
+        return webView
+    }
+    
+    var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
+        return inputViewsController.findAndReplaceViewForTesting
+    }
+}
+#endif

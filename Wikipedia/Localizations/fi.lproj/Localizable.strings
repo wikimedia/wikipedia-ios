@@ -163,13 +163,26 @@
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "dim-images" = "Dim kuvat";
+"edit-bold-accessibility-label" = "Lisää lihavoitu muotoilu";
+"edit-bold-remove-accessibility-label" = "Poista lihavoitu muotoilu";
+"edit-clear-formatting-accessibility-label" = "Poista muotoilu";
+"edit-comment-accessibility-label" = "Lisää kommenttisyntaksi";
+"edit-comment-remove-accessibility-label" = "Poista kommenttisyntaksi";
 "edit-direction-down-accessibility-label" = "Liikuta kursoria alaspäin";
 "edit-direction-left-accessibility-label" = "Liikuta kursoria vasemmalle";
 "edit-direction-right-accessibility-label" = "Liikuta kursoria oikealle";
 "edit-direction-up-accessibility-label" = "Liikuta kursoria ylös";
+"edit-italic-accessibility-label" = "Lisää kursivoitu muotoilu";
+"edit-italic-remove-accessibility-label" = "Poista kursivoitu muotoilu";
+"edit-link-accessibility-label" = "Lisää linkkisyntaksi";
+"edit-link-remove-accessibility-label" = "Poista linkkisyntaksi";
 "edit-menu-item" = "Muokkaa";
+"edit-minor-text" = "Tämä on pieni muutos";
+"edit-published" = "Muokkaus julkaistu";
 "edit-published-button-title" = "Valmis";
 "edit-published-subtitle" = "Teit juuri Wikipediasta paremman kaikille";
+"edit-strikethrough-accessibility-label" = "Lisää yliviivaus";
+"edit-strikethrough-remove-accessibility-label" = "Poista yliviivaus";
 "edit-style-table-view-title" = "Tyyli";
 "edit-summary-add-summary-text" = "Lisää muokkausyhteenveto";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
@@ -178,6 +191,9 @@
 "edit-summary-learn-more-text" = "Lisätietoja";
 "edit-text-formatting-table-view-title" = "Tekstin muotoilu";
 "edit-text-size-table-view-title" = "Tekstin koko";
+"edit-underline-accessibility-label" = "Lisää alleviivaus";
+"edit-underline-remove-accessibility-label" = "Poista alleviivaus";
+"edit-watch-list-learn-more-text" = "Lue lisää tarkkailulistoista";
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-title" = "Äänesi on tärkeä";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
@@ -383,6 +399,7 @@
 "no-email-account-alert" = "Ole hyvä ja asenna sähköpostitili laitteeseesi ja yritä uudelleen.";
 "no-internet-connection" = "Ei Internet-yhteyttä";
 "no-internet-connection-article-reload" = "Uudempi versio tästä artikkelista saattaa olla saatavilla, mutta sitä ei voida ladata ilman yhteyttä Internetiin";
+"no-internet-connection-article-reload-button" = "Palaa viimeksi tallennettuun versioon";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
@@ -460,8 +477,7 @@
 "reading-list-deleted-accessibility-notification" = "Lukulista poistettu";
 "reading-list-do-not-keep-button-title" = "Ei, poista artikkelit laitteesta";
 "reading-list-entry-limit-exceeded-message" = "Laske tällä listalla olevien artikkelien määrää (maksimi $1) jatkaaksesi synkronointia kaikilla artikkeleilla.";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "Olet ylittänyt tunnuskohtaisen rajoituksen, joka on $1 artikkelia tunnusta kohden.";
+"reading-list-entry-limit-exceeded-title" = "Olet ylittänyt tunnuskohtaisen rajoituksen, joka on {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} tunnusta kohden.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikkelia|Artikkeleita}} ei voitu lisätä listaan. Olet kohdannut $2 artikkelin rajan listassa \"$3\"";
 "reading-list-exists-with-same-name" = "Lukulistan nimi on jo käytössä";
 "reading-list-generic-error" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä.";
@@ -474,8 +490,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Lajittelemattomien artikkeleiden maksimimäärä on 5000. Lajittele olemassaolevat artikkelit listoihin jatkaaksesi lajittelemattomien artikkeleiden synkronointia.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Lajittelemattomien artikkeleiden raja kohdattu";
 "reading-list-list-limit-exceeded-message" = "Tätä lukulistaa tai siinä olevia artikkeleita ei synkronoida; siinä olevien listojen määrää tulee vähentää (raja $1), jotta synkronointia voidaan jatkaa.";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "Olet ylittänyt tunnuskohtaisen rajoituksen, joka on $1 listaa tunnusta kohden.";
+"reading-list-list-limit-exceeded-title" = "Olet ylittänyt tunnuskohtaisen rajoituksen, joka on {{PLURAL:$1|$1 lukulista|$1 lukulistaa}} tunnusta kohden.";
 "reading-list-list-limit-reached" = "Olet ylittänyt $1 listan tunnuskohtaisen rajoituksen";
 "reading-list-login-button-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelisi";
 "reading-list-login-or-create-account-button-title" = "Kirjaudu sisään tai luo tunnus";
@@ -531,8 +546,13 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tänä vuonna|1=Viime vuonna|$1 vuotta sitten}}";
+"replace-button-accessibility" = "Suorita $1.";
+"replace-buttons-replace-accessibility" = "Korvaa yksittäinen instanssi";
+"replace-buttons-replace-all-accessibility" = "Korvaa kaikki instanssit";
+"replace-clear-button-accessibility" = "Tyhjennä korvaus";
 "replace-infolabel-method-replace" = "Korvaa";
 "replace-infolabel-method-replace-all" = "Korvaa kaikki";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 kohde korvattu|$1 kohdetta korvattu}}";
 "replace-textfield-accessibility" = "Korvaa";
 "replace-textfield-placeholder" = "Korvaa seuraavalla...";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";

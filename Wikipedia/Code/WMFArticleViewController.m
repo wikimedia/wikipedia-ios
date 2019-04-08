@@ -1926,6 +1926,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
+- (void)sectionEditorDidFinishLoadingWikitext:(WMFSectionEditorViewController *)sectionEditor {
+    //no-op
+}
+
 #pragma mark - Article link and image peeking via WKUIDelegate
 
 - (BOOL)webView:(WKWebView *)webView shouldPreviewElement:(WKPreviewElementInfo *)elementInfo {
