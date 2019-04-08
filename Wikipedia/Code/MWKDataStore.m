@@ -10,6 +10,8 @@
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
 NSString *const WMFArticleDeletedNotification = @"WMFArticleDeletedNotification";
 NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey = @"WMFArticleDeletedNotificationUserInfoArticleKeyKey";
+NSString *const WMFBackgroundContextDidSave = @"WMFBackgroundContextDidSave";
+NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 

@@ -35,6 +35,8 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
 extern NSString *const WMFArticleUpdatedNotification;
 extern NSString *const WMFArticleDeletedNotification;
 extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // User info key for the article key
+extern NSString *const WMFBackgroundContextDidSave;
+extern NSString *const WMFFeedImportContextDidSave;
 
 @interface MWKDataStore : NSObject
 
