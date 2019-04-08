@@ -12,7 +12,7 @@ struct ExploreSaveButtonUserInfo {
     let midnightUTCDate: Date?
 }
 
-class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
+class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
     
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
@@ -45,9 +45,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     var collectionView: UICollectionView {
         return view as! UICollectionView
     }
-    
-    var updater: ArticleURLProviderEditControllerUpdater?
-    
+
     var theme: Theme = Theme.standard
     
     var dataStore: MWKDataStore!
@@ -75,7 +73,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
-        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
