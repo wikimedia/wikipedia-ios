@@ -605,7 +605,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|1=Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|few=$1 года назад|many=$1 лет назад}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|one=$1 год назад|few=$1 года назад|many=$1 лет назад}}";
 "replace-button-accessibility" = "Выполнение операции \"$1\".";
 "replace-buttons-replace-accessibility" = "Заменить одно вхождение";
 "replace-buttons-replace-all-accessibility" = "Заменить все вхождения";
