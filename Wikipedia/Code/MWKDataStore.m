@@ -467,8 +467,11 @@ static uint64_t bundleHash() {
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     backgroundContext.persistentStoreCoordinator = _persistentStoreCoordinator;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
     [backgroundContext performBlock:^{
         mocBlock(backgroundContext);
+        [nc removeObserver:self name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
     }];
 }
 
@@ -478,6 +481,7 @@ static uint64_t bundleHash() {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.persistentStoreCoordinator = _persistentStoreCoordinator;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
