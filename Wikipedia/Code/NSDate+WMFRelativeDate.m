@@ -6,8 +6,8 @@
 
 @implementation WMFLocalizedDateFormatStrings
 
-+ (NSString *)yearsAgoForSiteURL:(nullable NSURL *)siteURL {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", siteURL.wmf_language, nil, @"{{PLURAL:%1$d|0=This year|1=Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year. %1$d will be replaced with the number of years ago.");
++ (NSString *)yearsAgoForWikiLanguage:(nullable NSString *)language {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", language, nil, @"{{PLURAL:%1$d|0=This year|1=Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year. %1$d will be replaced with the number of years ago.");
 }
 
 + (NSString *)daysAgo {
