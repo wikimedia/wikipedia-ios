@@ -8,6 +8,6 @@ binary "https://www.mapbox.com/ios-sdk/Mapbox-iOS-SDK.json" ~> 3.5
 github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
-github "facebook/ios-snapshot-test-case" ~> 2.1.4
+github "uber/ios-snapshot-test-case" ~> 6.0.0
 
 github "wikimedia/wikipedia-ios-codemirror" "master"

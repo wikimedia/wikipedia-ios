@@ -9,21 +9,21 @@ public typealias QuadKeyPrecision = UInt16 // The precision of a QuadKey ( 1 = d
 public typealias QuadKeyDegrees = Double // A latitude or longitude in degrees
 
 public extension QuadKeyPrecision {
-    public static let maxPrecision: QuadKeyPrecision = 32
+    static let maxPrecision: QuadKeyPrecision = 32
     
-    public var deltaLatitude: QuadKeyDegrees {
+    var deltaLatitude: QuadKeyDegrees {
         get {
             return QuadKeyDegrees.latitudeRangeLength/QuadKeyDegrees(1 << QuadKey(self))
         }
     }
     
-    public var deltaLongitude: QuadKeyDegrees {
+    var deltaLongitude: QuadKeyDegrees {
         get {
             return QuadKeyDegrees.longitudeRangeLength/QuadKeyDegrees(1 << QuadKey(self))
         }
     }
     
-    public init(deltaLatitude: QuadKeyDegrees) {
+    init(deltaLatitude: QuadKeyDegrees) {
         var delta = deltaLatitude
         if delta.isInfinite || delta > QuadKeyDegrees.latitudeRangeLength {
             delta = QuadKeyDegrees.latitudeRangeLength
@@ -34,7 +34,7 @@ public extension QuadKeyPrecision {
         self.init(precision)
     }
     
-    public init(deltaLongitude: QuadKeyDegrees) {
+    init(deltaLongitude: QuadKeyDegrees) {
         var delta = deltaLongitude
         if delta.isInfinite || delta > QuadKeyDegrees.longitudeRangeLength {
             delta = QuadKeyDegrees.longitudeRangeLength
@@ -59,54 +59,54 @@ public extension QuadKeyDegrees {
     static let latitudeToPartConstant: QuadKeyDegrees =  QuadKeyDegrees(QuadKeyPart.max) / latitudeRangeLength
     static let longitudeToPartConstant: QuadKeyDegrees =  QuadKeyDegrees(QuadKeyPart.max) / longitudeRangeLength
     
-    public init(latitudePart: QuadKeyPart, precision: QuadKeyPrecision) {
+    init(latitudePart: QuadKeyPart, precision: QuadKeyPrecision) {
         self.init(QuadKeyDegrees.latitudeRangeLength*QuadKeyDegrees(latitudePart)/QuadKeyDegrees(QuadKeyPart.max(atPrecision: precision)) - QuadKeyDegrees.latitudeMax)
     }
     
-    public init(longitudePart: QuadKeyPart, precision: QuadKeyPrecision) {
+    init(longitudePart: QuadKeyPart, precision: QuadKeyPrecision) {
         self.init(QuadKeyDegrees.longitudeRangeLength*QuadKeyDegrees(longitudePart)/QuadKeyDegrees(QuadKeyPart.max(atPrecision: precision)) - QuadKeyDegrees.longitudeMax)
     }
     
-    public init(latitudePart: QuadKeyPart) {
+    init(latitudePart: QuadKeyPart) {
         self.init(QuadKeyDegrees(latitudePart)*QuadKeyDegrees.partToLatitudeConstant - QuadKeyDegrees.latitudeMax)
     }
     
-    public init(longitudePart: QuadKeyPart) {
+    init(longitudePart: QuadKeyPart) {
         self.init(QuadKeyDegrees(longitudePart)*QuadKeyDegrees.partToLongitudeConstant - QuadKeyDegrees.longitudeMax)
     }
     
-    public var latitudePart: QuadKeyPart {
+    var latitudePart: QuadKeyPart {
         get {
             return QuadKeyPart(latitude: self)
         }
     }
     
-    public var longitudePart: QuadKeyPart {
+    var longitudePart: QuadKeyPart {
         get {
             return QuadKeyPart(longitude: self)
         }
     }
     
-    public func latitudePart(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
+    func latitudePart(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
         return QuadKeyPart(latitude: self, precision: precision)
     }
     
-    public func longitudePart(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
+    func longitudePart(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
         return QuadKeyPart(longitude: self, precision: precision)
     }
     
-    public static func max(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {
+    static func max(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {
         return a > b ? a : b
     }
     
-    public static func min(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {
+    static func min(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {
         return a < b ? a : b
     }
 }
 
 public extension QuadKeyPart {
     
-    public init(latitude: QuadKeyDegrees) {
+    init(latitude: QuadKeyDegrees) {
         guard latitude.isFinite else {
             self.init(QuadKeyPart(0))
             return
@@ -116,7 +116,7 @@ public extension QuadKeyPart {
         self.init(QuadKeyPart(partInDegrees.rounded()))
     }
     
-    public init(longitude: QuadKeyDegrees) {
+    init(longitude: QuadKeyDegrees) {
         guard longitude.isFinite else {
             self.init(QuadKeyPart(0))
             return
@@ -126,46 +126,46 @@ public extension QuadKeyPart {
         self.init(QuadKeyPart(partInDegrees.rounded()))
     }
     
-    public init(latitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
+    init(latitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
         let fullPart = QuadKeyPart(latitude: latitude)
         let part = fullPart >> QuadKeyPart(QuadKeyPrecision.maxPrecision - precision)
         self.init(part)
     }
     
-    public init(longitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
+    init(longitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
         let fullPart = QuadKeyPart(longitude: longitude)
         let part = fullPart >> QuadKeyPart(QuadKeyPrecision.maxPrecision - precision)
         self.init(part)
     }
     
-    public static func max(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
+    static func max(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
         let one: QuadKey = QuadKey(1)
         let precisionAsQuadKey: QuadKey = QuadKey(precision)
         let oneShiftedByPrecision: QuadKey = one << precisionAsQuadKey
         return QuadKeyPart(oneShiftedByPrecision - one)
     }
     
-    public var latitude: QuadKeyDegrees {
+    var latitude: QuadKeyDegrees {
         get {
             return QuadKeyDegrees(latitudePart: self)
         }
     }
     
-    public var longitude: QuadKeyDegrees {
+    var longitude: QuadKeyDegrees {
         get {
             return QuadKeyDegrees(longitudePart: self)
         }
     }
     
-    public func latitude(atPrecision precision: QuadKeyPrecision) -> QuadKeyDegrees {
+    func latitude(atPrecision precision: QuadKeyPrecision) -> QuadKeyDegrees {
         return QuadKeyDegrees(latitudePart: self, precision: precision)
     }
     
-    public func longitude(atPrecision precision: QuadKeyPrecision) -> QuadKeyDegrees {
+    func longitude(atPrecision precision: QuadKeyPrecision) -> QuadKeyDegrees {
         return QuadKeyDegrees(longitudePart: self, precision: precision)
     }
     
-    public var bitmaskString: String {
+    var bitmaskString: String {
         var string = ""
         var value = self
         for _ in 1...32 {
@@ -180,15 +180,15 @@ public extension QuadKey {
     static let unsignedConversionConstant: UInt64 = UInt64(bitPattern: Int64.min)
     static let signedConversionConstant: Int64 = Int64.min
     
-    public init(latitude: QuadKeyDegrees, longitude: QuadKeyDegrees) {
+    init(latitude: QuadKeyDegrees, longitude: QuadKeyDegrees) {
         self.init(latitudePart: QuadKeyPart(latitude: latitude), longitudePart: QuadKeyPart(longitude: longitude), precision: QuadKeyPrecision.maxPrecision)
     }
 
-    public init(latitude: QuadKeyDegrees, longitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
+    init(latitude: QuadKeyDegrees, longitude: QuadKeyDegrees, precision: QuadKeyPrecision) {
         self.init(latitudePart: QuadKeyPart(latitude: latitude, precision: precision), longitudePart: QuadKeyPart(longitude: longitude, precision: precision), precision: precision)
     }
     
-    public init(latitudePart: QuadKeyPart, longitudePart: QuadKeyPart, precision: QuadKeyPrecision) {
+    init(latitudePart: QuadKeyPart, longitudePart: QuadKeyPart, precision: QuadKeyPrecision) {
         var quadKey: QuadKey = 0
         let max: QuadKey = QuadKey(precision) - 1
         let quadKeyLongitudePart = QuadKey(longitudePart)
@@ -209,7 +209,7 @@ public extension QuadKey {
         self.init(quadKey)
     }
     
-    public init(int64: Int64) {
+    init(int64: Int64) {
         if int64 >= 0 {
             self.init(UInt64(int64) + QuadKey.unsignedConversionConstant)
         } else {
@@ -218,12 +218,12 @@ public extension QuadKey {
         }
     }
     
-    public func adjusted(downBy precision: QuadKeyPrecision) -> QuadKey {
+    func adjusted(downBy precision: QuadKeyPrecision) -> QuadKey {
         let shift = QuadKey(2*precision)
         return self >> shift
     }
     
-    public var bitmaskString: String {
+    var bitmaskString: String {
         var string = ""
         var value = self
         for _ in 1...64 {
@@ -233,25 +233,25 @@ public extension QuadKey {
         return string
     }
     
-    public func coordinate(precision: QuadKeyPrecision) -> QuadKeyCoordinate {
+    func coordinate(precision: QuadKeyPrecision) -> QuadKeyCoordinate {
         return QuadKeyCoordinate(quadKey: self, precision: precision)
     }
     
-    public var coordinate: QuadKeyCoordinate {
+    var coordinate: QuadKeyCoordinate {
         return coordinate(precision: QuadKeyPrecision.maxPrecision)
     }
     
-    public var longitude: QuadKeyDegrees {
+    var longitude: QuadKeyDegrees {
         return coordinate.longitude
     }
     
-    public var latitude: QuadKeyDegrees {
+    var latitude: QuadKeyDegrees {
         return coordinate.latitude
     }
 }
 
 public extension Int64 {
-    public init(quadKey: QuadKey) {
+    init(quadKey: QuadKey) {
         if quadKey < QuadKey.unsignedConversionConstant {
             self.init(Int64(quadKey) + QuadKey.signedConversionConstant)
         } else {

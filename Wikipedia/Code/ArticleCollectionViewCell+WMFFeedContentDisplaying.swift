@@ -2,7 +2,7 @@ import Foundation
 
 public extension ArticleCollectionViewCell {
     @objc(configureWithArticle:displayType:index:theme:layoutOnly:)
-    public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
+    func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
         
         let imageWidthToRequest = displayType.imageWidthCompatibleWithTraitCollection(traitCollection)
@@ -77,7 +77,7 @@ public extension ArticleCollectionViewCell {
 }
 
 public extension ArticleRightAlignedImageCollectionViewCell {
-    @objc public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    @objc func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         if shouldShowSeparators {
             self.topSeparator.isHidden = index != 0
             self.bottomSeparator.isHidden = false
@@ -90,20 +90,20 @@ public extension ArticleRightAlignedImageCollectionViewCell {
 }
 
 public extension RankedArticleCollectionViewCell {
-    public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         rankView.rank = index + 1
         let percent = CGFloat(index + 1) / CGFloat(5)
         rankView.rankColor = theme.colors.rankGradient.color(at: percent)
         super.configure(article: article, displayType: displayType, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, layoutOnly: layoutOnly)
     }
     
-    public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
         configure(article: article, displayType: displayType, index: index, shouldShowSeparators: false, theme: theme, layoutOnly: layoutOnly)
     }
 }
 
 public extension ArticleFullWidthImageCollectionViewCell {
-    public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
         switch displayType {
         case .random:
             fallthrough

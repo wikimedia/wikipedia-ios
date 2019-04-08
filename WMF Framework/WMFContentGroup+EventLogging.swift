@@ -1,5 +1,5 @@
 @objc public extension WMFContentGroup {
-    public var eventLoggingLabel: EventLoggingLabel? {
+    var eventLoggingLabel: EventLoggingLabel? {
         switch contentGroupKind {
         case .featuredArticle:
             return .featuredArticle

@@ -63,7 +63,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     }
     
     func scrollToInitialEvent() {
-        guard let event = initialEvent, let eventIndex = events.index(of: event), events.indices.contains(eventIndex) else {
+        guard let event = initialEvent, let eventIndex = events.firstIndex(of: event), events.indices.contains(eventIndex) else {
             return
         }
         let sectionIndex = eventIndex + 1 // index + 1 because section 0 is the header

@@ -19,7 +19,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     @objc var completionBlock: (() -> Void)?
     
     func showNextWelcomePage(_ sender: AnyObject){
-        guard let sender = sender as? UIViewController, let index = pageControllers.index(of: sender), index != pageControllers.count - 1 else {
+        guard let sender = sender as? UIViewController, let index = pageControllers.firstIndex(of: sender), index != pageControllers.count - 1 else {
             dismiss(animated: true, completion:completionBlock)
             return
         }
@@ -163,21 +163,21 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let viewControllers = viewControllers, let currentVC = viewControllers.first, let presentationIndex = pageControllers.index(of: currentVC) else {
+        guard let viewControllers = viewControllers, let currentVC = viewControllers.first, let presentationIndex = pageControllers.firstIndex(of: currentVC) else {
             return 0
         }
         return presentationIndex
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = pageControllers.index(of: viewController) else {
+        guard let index = pageControllers.firstIndex(of: viewController) else {
             return nil
         }
         return index >= pageControllers.count - 1 ? nil : pageControllers[index + 1]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = pageControllers.index(of: viewController) else {
+        guard let index = pageControllers.firstIndex(of: viewController) else {
             return nil
         }
         return index == 0 ? nil : pageControllers[index - 1]
@@ -190,7 +190,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
 
     func hideButtons(for vc: UIViewController){
-        let isLastPage = pageControllers.index(of: vc) == pageControllers.count - 1
+        let isLastPage = pageControllers.firstIndex(of: vc) == pageControllers.count - 1
         let newAlpha:CGFloat = isLastPage ? 0.0 : 1.0
         let alphaChanged = pageControl?.alpha != newAlpha
         nextButton.isEnabled = !isLastPage // Gray out the next button when transitioning to last page (per design)
