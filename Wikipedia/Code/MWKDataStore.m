@@ -258,7 +258,6 @@ static uint64_t bundleHash() {
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
     self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     self.viewContext.automaticallyMergesChangesFromParent = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 }
 
