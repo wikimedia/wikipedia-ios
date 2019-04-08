@@ -65,7 +65,7 @@ public class ActionsView: SizeThatFitsView, Themeable {
     
     fileprivate var activatedIndex = NSNotFound
     func expand(_ action: Action) {
-        guard let index = actions.index(of: action) else {
+        guard let index = actions.firstIndex(of: action) else {
             return
         }
         bringSubviewToFront(buttons[index])

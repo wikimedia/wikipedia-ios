@@ -149,7 +149,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: SearchLanguageButton) {
-        guard let buttonIndex = languageButtons.index(of: sender), languageBarLanguages().indices.contains(buttonIndex) else {
+        guard let buttonIndex = languageButtons.firstIndex(of: sender), languageBarLanguages().indices.contains(buttonIndex) else {
             assertionFailure("Language button not found for language")
             return
         }
@@ -167,7 +167,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
         // If the selected language will not be displayed because we only display max 3 languages, move it to index 2
-        if(languageBarLanguages().index(of: language) == nil){
+        if(languageBarLanguages().firstIndex(of: language) == nil){
             MWKLanguageLinkController.sharedInstance().reorderPreferredLanguage(language, to: 2)
         }
         
@@ -186,7 +186,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     @objc func preferredLanguagesDidChange(_ notification: Notification) {
         if let selectedLang = currentlySelectedSearchLanguage {
             // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
-            if(languageBarLanguages().index(of: selectedLang) == nil){
+            if(languageBarLanguages().firstIndex(of: selectedLang) == nil){
                 // ...so select first lang if the selected lang has been moved down out of the top 3.
                 currentlySelectedSearchLanguage = languageBarLanguages().first
                 // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because

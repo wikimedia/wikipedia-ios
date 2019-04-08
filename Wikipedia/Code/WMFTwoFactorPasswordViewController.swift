@@ -103,7 +103,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     fileprivate func makeNextTextFieldFirstResponder(currentTextField: ThemeableTextField, direction: WMFTwoFactorNextFirstResponderDirection) {
-        guard let index = oathTokenFields.index(of: currentTextField) else {
+        guard let index = oathTokenFields.firstIndex(of: currentTextField) else {
             return
         }
         let nextIndex = index + direction.rawValue

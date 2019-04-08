@@ -133,8 +133,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     public var undoType: WMFContentGroupUndoType = .none {
         didSet {
             switch undoType {
-            case .none:
-                isCollapsed = false
             case .contentGroup:
                 undoTitle = WMFLocalizedString("explore-feed-preferences-card-hidden-title", value: "Card hidden", comment: "Title for button that appears in place of feed card hidden by user via the overflow button")
                 isCollapsed = true
@@ -144,6 +142,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 }
                 undoTitle = String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-feed-cards-hidden-title", value: "All %@ cards hidden", comment: "Title for cell that appears in place of feed card hidden by user via the overflow button - %@ is replaced with feed card type"), title)
                 isCollapsed = true
+            default:
+               isCollapsed = false
             }
         }
     }
