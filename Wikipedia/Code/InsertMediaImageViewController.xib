@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InsertMediaImageViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="z0h-TJ-sas" id="uRf-IO-AeO"/>
+                <outlet property="label" destination="Dii-kN-Fsi" id="l7c-JL-5sy"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z0h-TJ-sas">
+                    <rect key="frame" x="57.5" y="336" width="299" height="224"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dii-kN-Fsi">
+                    <rect key="frame" x="188.5" y="592" width="37.5" height="18"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstItem="z0h-TJ-sas" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="1:3" id="0IH-Dz-4ND"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dii-kN-Fsi" secondAttribute="trailing" constant="16" id="8Up-1r-GMs"/>
+                <constraint firstItem="Dii-kN-Fsi" firstAttribute="top" secondItem="z0h-TJ-sas" secondAttribute="bottom" constant="32" id="BVI-T1-DzN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Dii-kN-Fsi" secondAttribute="bottom" constant="32" id="I2H-eP-a3c"/>
+                <constraint firstItem="Dii-kN-Fsi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Rou-pO-Hjq"/>
+                <constraint firstItem="z0h-TJ-sas" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="1:4" id="aB1-l0-6Bp"/>
+                <constraint firstItem="z0h-TJ-sas" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="eWs-EC-LbR"/>
+                <constraint firstItem="z0h-TJ-sas" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="f80-bq-cny"/>
+                <constraint firstItem="Dii-kN-Fsi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ubT-gJ-Ldn"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>
