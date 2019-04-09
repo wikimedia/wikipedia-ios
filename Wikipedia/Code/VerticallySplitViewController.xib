@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerticallySplitViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomView" destination="Bu3-su-0Ns" id="4oH-kl-pdB"/>
+                <outlet property="topView" destination="9qP-S4-qEh" id="gfV-lb-OMC"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cXE-2d-ldM">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qP-S4-qEh">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="280.5"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu3-su-0Ns">
+                            <rect key="frame" x="0.0" y="280.5" width="414" height="537.5"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Bu3-su-0Ns" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="6:10" id="3hf-Nm-bg8"/>
+                <constraint firstItem="cXE-2d-ldM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BrR-MK-bdl"/>
+                <constraint firstItem="cXE-2d-ldM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Tqs-XP-UNG"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cXE-2d-ldM" secondAttribute="bottom" id="enc-g2-CAH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cXE-2d-ldM" secondAttribute="trailing" id="iel-Is-Ped"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>
