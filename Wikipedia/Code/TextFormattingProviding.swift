@@ -51,5 +51,5 @@ protocol TextFormattingDelegate: class {
     func textFormattingProvidingDidTapTextStyleFormatting()
     func textFormattingProvidingDidTapClearFormatting()
 
-    func textFormattingProvidingDidTapInsertMedia()
+    func textFormattingProvidingDidTapMediaInsert()
 }

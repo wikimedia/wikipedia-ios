@@ -72,7 +72,7 @@ class DefaultEditToolbarView: EditToolbarView {
     }
 
     @IBAction private func insertMedia(_ sender: UIButton) {
-        delegate?.textFormattingProvidingDidTapInsertMedia()
+        delegate?.textFormattingProvidingDidTapMediaInsert()
     }
 
     private enum ActionsType: CGFloat {

@@ -164,6 +164,10 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 // MARK: TextFormattingDelegate
 
 extension SectionEditorInputViewsController: TextFormattingDelegate {
+    func textFormattingProvidingDidTapMediaInsert() {
+        //
+    }
+
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {
         messagingController.setTextSize(newSize: newSize.rawValue)
     }
