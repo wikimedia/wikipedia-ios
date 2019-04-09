@@ -73,7 +73,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     _dataStore = dataStore;
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateExploreFeedPreferencesFromDidSaveNotification:) name:WMFFeedImportContextDidSave object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateExploreFeedPreferencesFromDidSaveNotification:) name:WMFViewContextDidSave object:nil];
 }
 
 - (NSDictionary *)exploreFeedPreferences {
