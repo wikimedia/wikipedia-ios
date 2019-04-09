@@ -823,7 +823,9 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return
         }
 
+        var needsReload = false
         if article.hasChangedValuesForCurrentEventThatAffectPreviews, layoutCache.invalidateArticleKey(articleKey) {
+            needsReload = true
             collectionView.collectionViewLayout.invalidateLayout()
         } else if !article.hasChangedValuesForCurrentEventThatAffectSavedState {
             return
@@ -844,7 +846,11 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
                 continue
             }
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+            if needsReload {
+                configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+            } else if let cardVC = cell.cardContent as? ExploreCardViewController {
+                cardVC.savedStateDidChangeForArticleWithKey(articleKey)
+            }
         }
     }
     
