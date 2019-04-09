@@ -674,7 +674,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if ([self isGlobal:contentGroup.contentGroupKind]) {
             NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
             BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
-            contentGroup.isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
+            BOOL isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
+            if (isVisible != contentGroup.isVisible) {
+                contentGroup.isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
+            }
         } else {
             NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
@@ -682,8 +685,11 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 continue;
             }
             if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
-                contentGroup.isVisible = !contentGroup.wasDismissed;
-            } else {
+                BOOL isVisible = !contentGroup.wasDismissed;
+                if (isVisible != contentGroup.isVisible) {
+                    contentGroup.isVisible = isVisible;
+                }
+            } else if (contentGroup.isVisible == YES) {
                 contentGroup.isVisible = NO;
             }
         }
