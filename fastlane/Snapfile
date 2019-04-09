@@ -58,8 +58,8 @@ launch_arguments(["-FASTLANE_SNAPSHOT YES"])
 # Re-install so every test can start from our Welcome screens.
 reinstall_app true
 
-# One retry.
-number_of_retries 1
+# Don't retry.
+number_of_retries 0
 
 # Don't clean or it'll take one billion years when running the full device/lang matrix.
 clean false
