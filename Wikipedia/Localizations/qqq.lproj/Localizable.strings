@@ -378,6 +378,7 @@
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "info-box-title" = "The title of infoboxes – in collapsed and expanded form";
+"insert-media-placeholder-label-text" = "Text for placeholder label visible when no file was selected or uploaded";
 "languages-settings-title" = "Title for the 'Languages' section in Settings";
 "languages-title" = "Title for language picker\n{{Identical|Language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
