@@ -168,6 +168,7 @@
 "dim-images" = "تغییر نور تصاویر";
 "edit-bold-accessibility-label" = "پررنگ کردن متن";
 "edit-bold-remove-accessibility-label" = "کم‌رنگ کردن متن";
+"edit-clear-formatting-accessibility-label" = "حذف قالب‌بندی";
 "edit-comment-accessibility-label" = "افزودن ساختار نظر";
 "edit-comment-remove-accessibility-label" = "حذف ساختار نظر";
 "edit-decrease-indent-depth-accessibility-label" = "کاهش عمق تورفتگی";
@@ -208,6 +209,7 @@
 "edit-superscript-remove-accessibility-label" = "حذف ساختار کد ویژه";
 "edit-template-accessibility-label" = "افزودن ساختار الگو";
 "edit-template-remove-accessibility-label" = "حذف ساختار الگو";
+"edit-text-clear-formatting" = "پاک کردن قالب‌بندی";
 "edit-text-formatting-accessibility-label" = "نمایش منوِ قالب‌بندی متن";
 "edit-text-formatting-table-view-title" = "قالب‌بندی متن";
 "edit-text-size-table-view-title" = "اندازه متن";
@@ -503,6 +505,7 @@
 "reading-lists-default-list-title" = "ذخیره‌شده";
 "reading-lists-delete-reading-list-alert-message" = "این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در {{PLURAL:$1|این فهرست|این فهرست‌ها}} دخیره شده، به صورت دخیره‌ نشده خواهد ماند.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فهرستt|فهرست‌ها}} حذف شود؟";
+"reading-lists-sort-saved-articles" = "مرتب‌سازی مقاله‌های ذخیره‌شده";
 "reading-themes-controls-accessibility-black-theme-button" = "تِم سیاه";
 "reading-themes-controls-accessibility-brightness-slider" = "لغزندهٔ درخشندگی";
 "reading-themes-controls-accessibility-dark-theme-button" = "پوسته تیره";
@@ -516,6 +519,8 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=این سال|سال پیش|$1 سال پیش}}";
+"replace-buttons-replace-accessibility" = "جایگزینی یک مورد";
+"replace-buttons-replace-all-accessibility" = "جایگزینی همهٔ موارد";
 "replace-clear-button-accessibility" = "پاک کردن عبارت جایگزینی";
 "replace-infolabel-method-replace" = "جایگزینی";
 "replace-infolabel-method-replace-all" = "جایگزینی در کلّ صفحه";
@@ -570,6 +575,7 @@
 "settings-primary-language" = "ابتدایی";
 // Fuzzy
 "settings-primary-language-details" = "اولین زبان موجود در این فهرست به عنوان زبان اصلی اپلیکیشن است. تغییر این زبان محتوای روزانه (مانند مقالات برگزیدهٔ روز) که در زمان مرور دیده می‌شوند، را تغییر می‌دهد.";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "آیا همهٔ مقاله‌های ذخیره‌شده حذف شوند؟";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "حذف";
 "settings-storage-and-syncing-erase-saved-articles-title" = "پاک کردن مقالات ذخیره شده";
 "settings-storage-and-syncing-show-default-reading-list-title" = "نمایش فهرست مطالعه ذخیره شده";
