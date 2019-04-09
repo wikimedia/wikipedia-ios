@@ -68,6 +68,8 @@
 "action-move-to-reading-list" = "Flyt til læseliste";
 "action-read" = "Læs";
 "action-remove" = "Fjern";
+"action-replace" = "Erstat";
+"action-replace-all" = "Erstat alle";
 "action-save" = "Gem";
 "action-saved" = "Gemt";
 "action-saved-accessibility" = "Gemt. Aktiver for at fortryde.";
@@ -142,7 +144,9 @@
 "description-welcome-concise-title" = "Gør det kort";
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
 "dim-images" = "Mørklæg billeder";
+"edit-clear-formatting-accessibility-label" = "Fjern formatering";
 "edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
+"edit-menu-item" = "Rediger";
 "edit-minor-learn-more-text" = "Lær mere om mindre ændringer";
 "edit-minor-text" = "Dette er en mindre ændring";
 "edit-published-button-title" = "Udført";
@@ -236,6 +240,7 @@
 "field-username-placeholder" = "indtast brugernavn";
 "field-username-title" = "Brugernavn";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "Find og erstat";
 "find-textfield-accessibility" = "Find";
 "forgot-password-button-title" = "Nulstil";
 "forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";
@@ -435,6 +440,7 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|1=Sidste år|$1 år siden}}";
+"replace-buttons-replace-all-accessibility" = "Erstat alle instanser";
 "replace-infolabel-method-replace" = "Erstat";
 "replace-infolabel-method-replace-all" = "Erstat alle";
 "replace-textfield-accessibility" = "Erstat";
