@@ -887,7 +887,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 FeedFunnel.shared.logFeedCardDismissed(for: FeedFunnelContext(group))
                 group.undoType = .contentGroupKind
                 self.wantsDeleteInsertOnNextItemUpdate = true
-                self.needsReloadVisibleCells = true
                 self.save()
             })
         }
@@ -907,9 +906,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         FeedFunnel.shared.logFeedCardRetained(for: FeedFunnelContext(group))
         if group.undoType == .contentGroupKind {
-            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
-                self.needsReloadVisibleCells = true
-            }
+            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false)
         }
         group.undoType = .none
         wantsDeleteInsertOnNextItemUpdate = true
