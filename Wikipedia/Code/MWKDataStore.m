@@ -150,7 +150,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (instancetype)init {
     self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL]];
-    _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
     return self;
 }
 
@@ -166,6 +165,7 @@ static uint64_t bundleHash() {
 - (instancetype)initWithContainerURL:(NSURL *)containerURL {
     self = [super init];
     if (self) {
+        _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
         BOOL sitesWasADirectory = false;
