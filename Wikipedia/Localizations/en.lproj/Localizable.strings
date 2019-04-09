@@ -161,6 +161,7 @@
 "edit-italic-remove-accessibility-label" = "Remove italic formatting";
 "edit-link-accessibility-label" = "Add link syntax";
 "edit-link-remove-accessibility-label" = "Remove link syntax";
+"edit-media-insert-accessibility-label" = "Insert media";
 "edit-menu-item" = "Edit";
 "edit-menu-item-could-not-find-selection-alert-message" = "This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted";
 "edit-menu-item-could-not-find-selection-alert-title" = "The text that you selected could not be located";

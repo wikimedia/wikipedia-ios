@@ -161,6 +161,7 @@
 "edit-italic-remove-accessibility-label" = "Accessibility label for italic button";
 "edit-link-accessibility-label" = "Accessibility label for the button that adds link syntax to the current selection";
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
+"edit-media-insert-accessibility-label" = "Accessibility label for media insertion button";
 "edit-menu-item" = "Button label for text selection 'Edit' menu item";
 "edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
