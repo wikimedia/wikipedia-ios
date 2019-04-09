@@ -385,7 +385,14 @@
     }
         
     const applyTheme = (themeName) => {
-      document.body.className = `cm-mw-${themeName}`  
+      var elements = document.body.className.split(" ")
+      const themeClass = `cm-mw-${themeName}`
+      if (elements.length > 0) {
+        elements[0] = themeClass
+      } else {
+        elements.push(themeClass)
+      }
+      document.body.className = elements.join(" ")
     }
   
     const toggleSyntaxColors = () => {
