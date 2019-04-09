@@ -670,14 +670,12 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
         }
+        BOOL isVisible;
         NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
         if ([self isGlobal:contentGroup.contentGroupKind]) {
             NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
             BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
-            BOOL isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
-            if (isVisible != contentGroup.isVisible) {
-                contentGroup.isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
-            }
+            isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
         } else {
             NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
@@ -685,13 +683,13 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 continue;
             }
             if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
-                BOOL isVisible = !contentGroup.wasDismissed;
-                if (isVisible != contentGroup.isVisible) {
-                    contentGroup.isVisible = isVisible;
-                }
-            } else if (contentGroup.isVisible == YES) {
-                contentGroup.isVisible = NO;
+                isVisible = !contentGroup.wasDismissed;
+            } else {
+                isVisible = NO;
             }
+        }
+        if (isVisible != contentGroup.isVisible) {
+            contentGroup.isVisible = isVisible;
         }
     }
 }
