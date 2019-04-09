@@ -519,4 +519,8 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             set(newValue, forKey: UserDefaults.Key.didShowEditingOnboarding)
         }
     }
+    
+    @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
+        return bool(forKey: "FASTLANE_SNAPSHOT")
+    }
 }
