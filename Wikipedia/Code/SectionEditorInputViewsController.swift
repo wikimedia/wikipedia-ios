@@ -2,6 +2,10 @@ protocol SectionEditorInputViewsSource: class {
     var inputViewController: UIInputViewController? { get }
 }
 
+protocol SectionEditorInputViewsControllerDelegate: AnyObject {
+    func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
+}
+
 class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource, Themeable {
     let webView: SectionEditorWebView
     let messagingController: SectionEditorWebViewMessagingController
@@ -12,6 +16,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     private let findAndReplaceView: FindAndReplaceKeyboardBar? = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
     private var isRangeSelected = false
+
+    weak var delegate: SectionEditorInputViewsControllerDelegate?
 
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
@@ -165,7 +171,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 
 extension SectionEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapMediaInsert() {
-        //
+        delegate?.sectionEditorInputViewsControllerDidTapMediaInsert(self)
     }
 
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {

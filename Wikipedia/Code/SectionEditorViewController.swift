@@ -169,6 +169,7 @@ class SectionEditorViewController: UIViewController {
         webView.scrollView.keyboardDismissMode = .interactive
         
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
+        inputViewsController.delegate = self
         
         webView.inputViewsSource = inputViewsController
         
@@ -567,6 +568,12 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
             return
         }
         webView.scrollView.setContentOffset(newContentOffset, animated: true)
+    }
+}
+
+extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
+    func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+        //
     }
 }
 
