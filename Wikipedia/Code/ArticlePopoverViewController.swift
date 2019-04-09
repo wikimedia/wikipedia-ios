@@ -108,7 +108,7 @@ class ArticlePopoverViewController: UIViewController {
             accessibilityTitles.append(distance)
         }
         
-        let customElement = UIAccessibilityElement(accessibilityContainer: view)
+        let customElement = UIAccessibilityElement(accessibilityContainer: view as Any)
         if let screenCoordinateSpace = view.window?.screen.coordinateSpace {
             customElement.accessibilityFrame = view.convert(view.bounds, to: screenCoordinateSpace)
         } else {

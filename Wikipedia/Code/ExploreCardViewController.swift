@@ -12,7 +12,7 @@ struct ExploreSaveButtonUserInfo {
     let midnightUTCDate: Date?
 }
 
-class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
+class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
     
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
@@ -45,9 +45,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     var collectionView: UICollectionView {
         return view as! UICollectionView
     }
-    
-    var updater: ArticleURLProviderEditControllerUpdater?
-    
+
     var theme: Theme = Theme.standard
     
     var dataStore: MWKDataStore!
@@ -75,7 +73,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
-        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -173,14 +170,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return NewsExploreCollectionViewCell.identifier
         case .event:
             return OnThisDayExploreCollectionViewCell.identifier
-        case .continueReading:
-            fallthrough
-        case .relatedPagesSourceArticle:
-            fallthrough
-        case .random:
-            fallthrough
-        case .pageWithPreview:
-            return ArticleFullWidthImageExploreCollectionViewCell.identifier
         case .photo:
             return ImageCollectionViewCell.identifier
         case .pageWithLocation:
@@ -191,6 +180,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return ArticleRightAlignedImageExploreCollectionViewCell.identifier
         case .announcement, .notification, .theme, .readingList:
             return AnnouncementCollectionViewCell.identifier
+        default:
+            return ArticleFullWidthImageExploreCollectionViewCell.identifier
         }
     }
     
@@ -350,8 +341,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         switch displayType {
-        case .ranked, .page, .continueReading, .mainPage, .random, .pageWithPreview, .relatedPagesSourceArticle, .relatedPages, .compactList:
-            configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .pageWithLocation, .pageWithLocationPlaceholder:
             configureLocationCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .photo:
@@ -362,6 +351,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             configureOnThisDayCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         case .theme, .notification, .announcement, .readingList:
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
+        default:
+            configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         }
         cell.layoutMargins = layout.itemLayoutMargins
     }

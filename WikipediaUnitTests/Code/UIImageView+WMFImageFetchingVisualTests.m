@@ -21,7 +21,6 @@
     [super setUp];
 
     self.recordMode = WMFIsVisualTestRecordModeEnabled;
-    self.deviceAgnostic = YES;
 
     [[LSNocilla sharedInstance] start];
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 160)];

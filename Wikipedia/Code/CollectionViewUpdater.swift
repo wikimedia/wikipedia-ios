@@ -200,6 +200,8 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                         assert(false, "unhandled update")
                         DDLogDebug("WMFBU unhandled update: \(objectChange)")
                     }
+                @unknown default:
+                    break
                 }
             }
             

@@ -3,7 +3,7 @@ import SystemConfiguration
 
 public extension UIColor {
     @objc(initWithHexInteger:alpha:)
-    public convenience init(_ hex: Int, alpha: CGFloat) {
+    convenience init(_ hex: Int, alpha: CGFloat) {
         let r = CGFloat((hex & 0xFF0000) >> 16) / 255.0
         let g = CGFloat((hex & 0xFF00) >> 8) / 255.0
         let b = CGFloat(hex & 0xFF) / 255.0
@@ -11,17 +11,17 @@ public extension UIColor {
     }
     
     @objc(initWithHexInteger:)
-    public convenience init(_ hex: Int) {
+    convenience init(_ hex: Int) {
         self.init(hex, alpha: 1)
     }
     
-    @objc public class func wmf_colorWithHex(_ hex: Int) -> UIColor {
+    @objc class func wmf_colorWithHex(_ hex: Int) -> UIColor {
         return UIColor(hex)
     }
 
     // `initWithHexString:alpha:` should almost never be used. `initWithHexInteger:alpha:` is preferred.
     @objc(initWithHexString:alpha:)
-    public convenience init(_ hexString: String, alpha: CGFloat = 1.0) {
+    convenience init(_ hexString: String, alpha: CGFloat = 1.0) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt32()
         guard hex.count == 6, Scanner(string: hex).scanHexInt32(&int) && int != UINT32_MAX else {
@@ -78,31 +78,31 @@ public extension UIColor {
     fileprivate static let blue50At10PercentAlpha = UIColor(0x3366CC, alpha:0.1)
     fileprivate static let blue50At25PercentAlpha = UIColor(0x3366CC, alpha:0.25)
 
-    @objc public static let wmf_darkGray = UIColor(0x4D4D4B)
-    @objc public static let wmf_lightGray = UIColor(0x9AA0A7)
-    @objc public static let wmf_gray = UIColor.base70
-    @objc public static let wmf_lighterGray = UIColor.base80
-    @objc public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
+    @objc static let wmf_darkGray = UIColor(0x4D4D4B)
+    @objc static let wmf_lightGray = UIColor(0x9AA0A7)
+    @objc static let wmf_gray = UIColor.base70
+    @objc static let wmf_lighterGray = UIColor.base80
+    @objc static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
 
-    @objc public static let wmf_darkBlue = UIColor.blue10
-    @objc public static let wmf_blue = UIColor.blue50
-    @objc public static let wmf_lightBlue = UIColor.lightBlue
+    @objc static let wmf_darkBlue = UIColor.blue10
+    @objc static let wmf_blue = UIColor.blue50
+    @objc static let wmf_lightBlue = UIColor.lightBlue
 
-    @objc public static let wmf_green = UIColor.green50
-    @objc public static let wmf_lightGreen = UIColor(0xD5FDF4)
+    @objc static let wmf_green = UIColor.green50
+    @objc static let wmf_lightGreen = UIColor(0xD5FDF4)
 
-    @objc public static let wmf_red = UIColor.red50
-    @objc public static let wmf_lightRed = UIColor(0xFFE7E6)
+    @objc static let wmf_red = UIColor.red50
+    @objc static let wmf_lightRed = UIColor(0xFFE7E6)
     
-    @objc public static let wmf_yellow = UIColor.yellow50
-    @objc public static let wmf_lightYellow = UIColor(0xFEF6E7)
+    @objc static let wmf_yellow = UIColor.yellow50
+    @objc static let wmf_lightYellow = UIColor(0xFEF6E7)
     
-    @objc public static let wmf_orange = UIColor(0xFF5B00)
+    @objc static let wmf_orange = UIColor(0xFF5B00)
     
-    @objc public static let wmf_purple = UIColor(0x7F4AB3)
-    @objc public static let wmf_lightPurple = UIColor(0xF3E6FF)
+    @objc static let wmf_purple = UIColor(0x7F4AB3)
+    @objc static let wmf_lightPurple = UIColor(0xF3E6FF)
 
-    @objc public func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
+    @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -117,7 +117,7 @@ public extension UIColor {
         return hexString
     }
     
-    @objc public var wmf_hexString: String {
+    @objc var wmf_hexString: String {
         return wmf_hexStringIncludingAlpha(false)
     }
 }

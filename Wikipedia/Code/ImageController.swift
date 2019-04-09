@@ -438,6 +438,8 @@ open class ImageController : NSObject {
             case .leftMirrored: return .leftMirrored
             case .right:  return .right
             case .rightMirrored: return .rightMirrored
+        @unknown default:
+            return .up
         }
     }
     

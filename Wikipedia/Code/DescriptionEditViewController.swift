@@ -127,7 +127,7 @@ import UIKit
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.secondaryText,
-            .font : licenseLabel.font // Grab font so we get font updated for current dynamic type size
+            .font : licenseLabel.font as Any // Grab font so we get font updated for current dynamic type size
         ]
         let linkAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.link
@@ -140,7 +140,7 @@ import UIKit
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.secondaryText,
-            .font : loginLabel.font // Grab font so we get font updated for current dynamic type size
+            .font : loginLabel.font as Any // Grab font so we get font updated for current dynamic type size
         ]
         let linkAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.link
