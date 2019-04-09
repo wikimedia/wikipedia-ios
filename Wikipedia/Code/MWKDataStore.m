@@ -25,7 +25,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @interface MWKDataStore () {
-    dispatch_semaphore_t _managedObjectContextDidSaveSemaphore;
+    dispatch_semaphore_t _handleCrossProcessChangesSemaphore;
 }
 
 @property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
@@ -150,7 +150,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (instancetype)init {
     self = [self initWithContainerURL:[[NSFileManager defaultManager] wmf_containerURL]];
-    _managedObjectContextDidSaveSemaphore = dispatch_semaphore_create(1);
+    _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
     return self;
 }
 
@@ -302,6 +302,7 @@ static uint64_t bundleHash() {
 }
 
 - (void)handleCrossProcessChangesFromContextDidSaveNotification:(NSNotification *)note {
+    dispatch_semaphore_wait(_handleCrossProcessChangesSemaphore, DISPATCH_TIME_FOREVER);
     NSDictionary *userInfo = note.userInfo;
     if (!userInfo) {
         return;
@@ -319,6 +320,7 @@ static uint64_t bundleHash() {
     const char *name = [self.crossProcessNotificationChannelName UTF8String];
     notify_set_state(_crossProcessNotificationToken, state);
     notify_post(name);
+    dispatch_semaphore_signal(_handleCrossProcessChangesSemaphore);
 }
 
 - (void)viewContextDidChange:(NSNotification *)note {
@@ -470,8 +472,6 @@ static uint64_t bundleHash() {
 #pragma mark - Background Contexts
 
 - (void)managedObjectContextDidSave:(NSNotification *)note {
-    dispatch_semaphore_t semaphore = _managedObjectContextDidSaveSemaphore;
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     NSManagedObjectContext *moc = note.object;
     NSNotificationName notificationName;
     if (moc == _viewContext) {
@@ -481,11 +481,8 @@ static uint64_t bundleHash() {
     } else {
         notificationName = WMFBackgroundContextDidSave;
     }
-    [moc performBlockAndWait:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:note.object userInfo:note.userInfo];
-        [self handleCrossProcessChangesFromContextDidSaveNotification:note];
-        dispatch_semaphore_signal(semaphore);
-    }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:note.object userInfo:note.userInfo];
+    [self handleCrossProcessChangesFromContextDidSaveNotification:note];
 }
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
