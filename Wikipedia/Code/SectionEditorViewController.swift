@@ -577,6 +577,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         let bottomViewController = TabbedViewController(nibName: "TabbedViewController", bundle: nil)
         let verticallySplitViewController = VerticallySplitViewController(topViewController: topViewController, bottomViewController: bottomViewController)
         verticallySplitViewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(dismissMediaInsert))
+        verticallySplitViewController.title = WMFLocalizedString("insert-media-title", value: "Insert media", comment: "Title for the view in charge of inserting media into an article")
         let navigationController = WMFThemeableNavigationController(rootViewController: verticallySplitViewController, theme: theme)
         present(navigationController, animated: true)
     }
