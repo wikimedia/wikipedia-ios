@@ -48,7 +48,7 @@ final class TabbedViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Hello"
+        navigationBar.displayType = .hidden
         navigationBar.addUnderNavigationBarView(tabsView)
     }
 
