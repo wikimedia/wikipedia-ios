@@ -32,7 +32,7 @@ final class TabbedViewController: ViewController {
             underlineButton.setTitle(viewController.title, for: .normal)
             underlineButton.underlineHeight = 2
             underlineButton.useDefaultFont = false
-            underlineButton.titleLabel?.font = UIFont.wmf_font(.body)
+            underlineButton.titleLabel?.font = UIFont.wmf_font(.callout)
             underlineButton.tag = index
             underlineButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
             underlineButton.addTarget(self, action: #selector(didSelectViewController(_:)), for: .touchUpInside)
