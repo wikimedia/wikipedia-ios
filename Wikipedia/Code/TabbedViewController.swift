@@ -1,14 +1,26 @@
 import UIKit
 
-class TabbedViewController: UIViewController {
-    private var theme = Theme.standard
+final fileprivate class TabsView: UIView, Themeable {
+    let buttons: [UIButton]
+
+    required init(buttons: [UIButton]) {
+        self.buttons = buttons
+        super.init(frame: .zero)
+        let stackView = UIStackView(arrangedSubviews: buttons)
+        wmf_addSubviewWithConstraintsToEdges(stackView)
+        print("")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func apply(theme: Theme) {
+        backgroundColor = UIColor.purple
+        buttons.forEach { $0.tintColor = theme.colors.link }
+    }
 }
 
-extension TabbedViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
 final class TabbedViewController: ViewController {
     private let viewControllers: [UIViewController & Themeable]
 
