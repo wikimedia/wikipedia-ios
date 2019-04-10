@@ -30,8 +30,11 @@ final class TabbedViewController: ViewController {
         for (index, viewController) in viewControllers.enumerated() {
             let underlineButton = UnderlineButton()
             underlineButton.setTitle(viewController.title, for: .normal)
-            underlineButton.sizeToFit()
+            underlineButton.underlineHeight = 2
+            underlineButton.useDefaultFont = false
+            underlineButton.titleLabel?.font = UIFont.wmf_font(.body)
             underlineButton.tag = index
+            underlineButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
             underlineButton.addTarget(self, action: #selector(didSelectViewController(_:)), for: .touchUpInside)
             underlineButtons.append(underlineButton)
         }
