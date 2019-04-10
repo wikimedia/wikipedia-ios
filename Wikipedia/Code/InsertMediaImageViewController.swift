@@ -19,10 +19,10 @@ class InsertMediaImageViewController: UIViewController {
 
 extension InsertMediaImageViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.baseBackground
     }
 }

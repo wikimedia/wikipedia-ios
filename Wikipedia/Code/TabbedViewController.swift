@@ -6,10 +6,10 @@ class TabbedViewController: UIViewController {
 
 extension TabbedViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
     }
 }
