@@ -32,16 +32,29 @@
                             <rect key="frame" x="0.0" y="280.5" width="414" height="537.5"/>
                         </view>
                     </subviews>
+                    <variation key="heightClass=compact-widthClass=regular" axis="horizontal"/>
                 </stackView>
             </subviews>
             <constraints>
                 <constraint firstItem="Bu3-su-0Ns" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="6:10" id="3hf-Nm-bg8"/>
                 <constraint firstItem="cXE-2d-ldM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BrR-MK-bdl"/>
+                <constraint firstItem="Bu3-su-0Ns" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="6:10" id="Dbd-fY-yFc"/>
                 <constraint firstItem="cXE-2d-ldM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Tqs-XP-UNG"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cXE-2d-ldM" secondAttribute="bottom" id="enc-g2-CAH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cXE-2d-ldM" secondAttribute="trailing" id="iel-Is-Ped"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Dbd-fY-yFc"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=regular">
+                <mask key="constraints">
+                    <exclude reference="3hf-Nm-bg8"/>
+                    <include reference="Dbd-fY-yFc"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>
