@@ -15,6 +15,11 @@ class InsertMediaImageViewController: UIViewController {
         super.viewDidLoad()
         label.text = WMFLocalizedString("insert-media-placeholder-label-text", value: "Select or upload a file", comment: "Text for placeholder label visible when no file was selected or uploaded")
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        label.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
+    }
 }
 
 extension InsertMediaImageViewController: Themeable {
