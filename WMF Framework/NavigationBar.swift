@@ -2,7 +2,9 @@
     case backVisible
     case largeTitle
     case modal
+    case hidden
 }
+
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
@@ -182,6 +184,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
     var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
+    var underBarViewTopBottomConstraint: NSLayoutConstraint!
     
     override open func setup() {
         super.setup()
@@ -243,6 +246,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         underBarViewTopBarBottomConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+        underBarViewTopBottomConstraint = topAnchor.constraint(equalTo: underBarView.topAnchor)
         
         let underBarViewLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
         let underBarViewTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
@@ -269,9 +273,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         shadowTopExtendedViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
         shadowTopUnderBarViewBottomConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
-        
 
-        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
+        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewTopBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
         addConstraints(updatedConstraints)
         
         updateTitleBarConstraints()
@@ -395,9 +398,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     private func updateTitleBarConstraints() {
         let isUsingTitleBarInsteadOfNavigationBar = displayType == .largeTitle
         underBarViewTopTitleBarBottomConstraint.isActive = isUsingTitleBarInsteadOfNavigationBar
-        underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar
-        bar.isHidden = isUsingTitleBarInsteadOfNavigationBar
-        titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar
+        underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar && displayType != .hidden
+        underBarViewTopBottomConstraint.isActive = displayType == .hidden
+        bar.isHidden = isUsingTitleBarInsteadOfNavigationBar || displayType == .hidden
+        titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar || displayType == .hidden
         updateBarTopSpacing()
         setNeedsUpdateConstraints()
     }
