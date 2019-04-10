@@ -16,8 +16,10 @@ final fileprivate class TabsView: UIView, Themeable {
     }
 
     func apply(theme: Theme) {
-        backgroundColor = UIColor.purple
-        buttons.forEach { $0.tintColor = theme.colors.link }
+        for button in buttons {
+            button.setTitleColor(theme.colors.secondaryText, for: .normal)
+            button.tintColor = theme.colors.link
+        }
     }
 }
 
