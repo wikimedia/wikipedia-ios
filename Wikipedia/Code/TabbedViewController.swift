@@ -7,7 +7,7 @@ final fileprivate class TabsView: UIView, Themeable {
         self.buttons = buttons
         super.init(frame: .zero)
         let stackView = UIStackView(arrangedSubviews: buttons)
-        wmf_addSubview(stackView, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12))
+        wmf_addSubview(stackView, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 16, left: 12, bottom: 0, right: 12))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +34,7 @@ final class TabbedViewController: ViewController {
             underlineButton.useDefaultFont = false
             underlineButton.titleLabel?.font = UIFont.wmf_font(.body)
             underlineButton.tag = index
-            underlineButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
+            underlineButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
             underlineButton.addTarget(self, action: #selector(didSelectViewController(_:)), for: .touchUpInside)
             underlineButtons.append(underlineButton)
         }
