@@ -18,7 +18,7 @@ class InsertMediaImageViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        label.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
+        label.font = UIFont.wmf_font(.semiboldHeadline, compatibleWithTraitCollection: traitCollection)
     }
 }
 
@@ -28,6 +28,7 @@ extension InsertMediaImageViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
+        label.textColor = theme.colors.overlayText
         view.backgroundColor = theme.colors.baseBackground
     }
 }
