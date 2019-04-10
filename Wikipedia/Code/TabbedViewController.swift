@@ -1,17 +1,25 @@
 import UIKit
 
 final fileprivate class TabsView: UIView, Themeable {
-    let buttons: [UIButton]
+    private let buttons: [UIButton]
 
     required init(buttons: [UIButton]) {
         self.buttons = buttons
         super.init(frame: .zero)
         let stackView = UIStackView(arrangedSubviews: buttons)
+        stackView.distribution = .fillEqually
         wmf_addSubview(stackView, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 16, left: 12, bottom: 0, right: 12))
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func deselectButton(at index: Int) {
+        guard index < buttons.count else {
+            return
+        }
+        buttons[index].isSelected = false
     }
 
     func apply(theme: Theme) {
@@ -24,11 +32,13 @@ final fileprivate class TabsView: UIView, Themeable {
 
 final class TabbedViewController: ViewController {
     private let viewControllers: [UIViewController & Themeable]
+    private var selectedIndex: Int?
 
     private lazy var tabsView: TabsView = {
         var underlineButtons = [UnderlineButton]()
         for (index, viewController) in viewControllers.enumerated() {
             let underlineButton = UnderlineButton()
+            assert(viewController.title != nil, "View controller should have a title, otherwise button will be empty")
             underlineButton.setTitle(viewController.title, for: .normal)
             underlineButton.underlineHeight = 2
             underlineButton.useDefaultFont = false
@@ -57,7 +67,11 @@ final class TabbedViewController: ViewController {
     }
 
     @objc private func didSelectViewController(_ sender: UIButton) {
-        print("")
+        if let selectedIndex = selectedIndex {
+            tabsView.deselectButton(at: selectedIndex)
+        }
+        selectedIndex = sender.tag
+        sender.isSelected = true
     }
 
     // MARK: Themeable
