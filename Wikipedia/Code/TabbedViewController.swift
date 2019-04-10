@@ -7,8 +7,7 @@ final fileprivate class TabsView: UIView, Themeable {
         self.buttons = buttons
         super.init(frame: .zero)
         let stackView = UIStackView(arrangedSubviews: buttons)
-        wmf_addSubviewWithConstraintsToEdges(stackView)
-        print("")
+        wmf_addSubview(stackView, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12))
     }
 
     required init?(coder aDecoder: NSCoder) {
