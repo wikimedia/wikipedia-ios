@@ -503,11 +503,6 @@
 		7AC4B70F225D2E170040F0D4 /* TabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */; };
 		7AC4B710225D2E170040F0D4 /* TabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */; };
 		7AC4B711225D2E170040F0D4 /* TabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */; };
-		7AC4B712225D2E170040F0D4 /* TabbedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AC4B70C225D2E170040F0D4 /* TabbedViewController.xib */; };
-		7AC4B713225D2E170040F0D4 /* TabbedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AC4B70C225D2E170040F0D4 /* TabbedViewController.xib */; };
-		7AC4B714225D2E170040F0D4 /* TabbedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AC4B70C225D2E170040F0D4 /* TabbedViewController.xib */; };
-		7AC4B715225D2E170040F0D4 /* TabbedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AC4B70C225D2E170040F0D4 /* TabbedViewController.xib */; };
-		7AC4B716225D2E170040F0D4 /* TabbedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AC4B70C225D2E170040F0D4 /* TabbedViewController.xib */; };
 		7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
@@ -3529,7 +3524,6 @@
 		7AC4B6FF225D2D2E0040F0D4 /* InsertMediaImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageViewController.swift; sourceTree = "<group>"; };
 		7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaImageViewController.xib; sourceTree = "<group>"; };
 		7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedViewController.swift; sourceTree = "<group>"; };
-		7AC4B70C225D2E170040F0D4 /* TabbedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabbedViewController.xib; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
 		7AD5D452223874F600C01164 /* RelatedSearchFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedSearchFetcher.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
@@ -6174,7 +6168,6 @@
 				7AC4B6FF225D2D2E0040F0D4 /* InsertMediaImageViewController.swift */,
 				7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */,
 				7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */,
-				7AC4B70C225D2E170040F0D4 /* TabbedViewController.xib */,
 				7AC4B6F4225D273E0040F0D4 /* VerticallySplitViewController.xib */,
 			);
 			name = "Media Wizard";
@@ -9247,7 +9240,6 @@
 				D8D92B621DF22E1700B95311 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3621B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */,
-				7AC4B712225D2E170040F0D4 /* TabbedViewController.xib in Resources */,
 				D8D92B671DF22E1700B95311 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D84692E11D5E1E3F000A7058 /* WMFTableOfContentsHeader.xib in Resources */,
 				B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
@@ -9324,7 +9316,6 @@
 				7A25368021B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				7AE1FE3A21B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D80ED3E41EE57F4800CE8C50 /* WMFTableOfContentsCell.xib in Resources */,
-				7AC4B716225D2E170040F0D4 /* TabbedViewController.xib in Resources */,
 				83E52BBD1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				D80ED3E51EE57F4800CE8C50 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				BA4524211F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
@@ -9498,7 +9489,6 @@
 				7AE1FE3921B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D8A42BEE1E815A9C00D8E281 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8A42BF11E815A9C00D8E281 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
-				7AC4B715225D2E170040F0D4 /* TabbedViewController.xib in Resources */,
 				D8A42BF41E815A9C00D8E281 /* WMFTableOfContentsHeader.xib in Resources */,
 				D8A42BF71E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C61FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
@@ -9602,7 +9592,6 @@
 				7AE1FE3721B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D8CE26751E698E2400DAE2E0 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8CE26781E698E2400DAE2E0 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
-				7AC4B713225D2E170040F0D4 /* TabbedViewController.xib in Resources */,
 				D8CE267B1E698E2400DAE2E0 /* WMFTableOfContentsHeader.xib in Resources */,
 				D8CE267E1E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C41FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
@@ -9706,7 +9695,6 @@
 				7AE1FE3821B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D8EC3F751E9BDA35006712EB /* WMFSettingsTableViewCell.xib in Resources */,
 				D8EC3F781E9BDA35006712EB /* NotificationBackgroundWarningIcon@2x.png in Resources */,
-				7AC4B714225D2E170040F0D4 /* TabbedViewController.xib in Resources */,
 				D8EC3F7B1E9BDA35006712EB /* WMFTableOfContentsHeader.xib in Resources */,
 				D8EC3F7E1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C51FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
