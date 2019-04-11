@@ -147,6 +147,11 @@
 		7A0CD24221DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0CD23F21DFA34000066F68 /* TextFormattingToolbarView.swift */; };
 		7A0CD24321DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0CD23F21DFA34000066F68 /* TextFormattingToolbarView.swift */; };
 		7A0CD24421DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0CD23F21DFA34000066F68 /* TextFormattingToolbarView.swift */; };
+		7A0D4D43225EAC2300774A5A /* UploadMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */; };
+		7A0D4D44225EAC2300774A5A /* UploadMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */; };
+		7A0D4D45225EAC2300774A5A /* UploadMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */; };
+		7A0D4D46225EAC2300774A5A /* UploadMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */; };
+		7A0D4D47225EAC2300774A5A /* UploadMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */; };
 		7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
@@ -3451,6 +3456,7 @@
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
 		7A0CD23F21DFA34000066F68 /* TextFormattingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingToolbarView.swift; sourceTree = "<group>"; };
+		7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMediaViewController.swift; sourceTree = "<group>"; };
 		7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
 		7A0F2588217221D10028871B /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsAlertController.swift; sourceTree = "<group>"; };
@@ -6027,6 +6033,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		7A0D4D41225EABFC00774A5A /* Insert */ = {
+			isa = PBXGroup;
+			children = (
+				7AC4B6FF225D2D2E0040F0D4 /* InsertMediaImageViewController.swift */,
+				7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */,
+				7A9F2775225E3462002119B3 /* InsertMediaSearchCollectionViewController.swift */,
+			);
+			name = Insert;
+			sourceTree = "<group>";
+		};
 		7A0DE4F120CEEBE40032AB57 /* Explore Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -6171,10 +6187,9 @@
 			isa = PBXGroup;
 			children = (
 				7AC4B6F3225D273E0040F0D4 /* VerticallySplitViewController.swift */,
-				7AC4B6FF225D2D2E0040F0D4 /* InsertMediaImageViewController.swift */,
-				7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */,
+				7A0D4D41225EABFC00774A5A /* Insert */,
 				7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */,
-				7A9F2775225E3462002119B3 /* InsertMediaSearchCollectionViewController.swift */,
+				7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */,
 				7AC4B6F4225D273E0040F0D4 /* VerticallySplitViewController.xib */,
 			);
 			name = "Media Wizard";
@@ -10311,6 +10326,7 @@
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
 				83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				D8E27BA11F82B38100F9D2B3 /* RMessageView.m in Sources */,
+				7A0D4D43225EAC2300774A5A /* UploadMediaViewController.swift in Sources */,
 				B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */,
 				7ABAD6B420338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				B066F0D51E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift in Sources */,
@@ -10782,6 +10798,7 @@
 				D818FEBF21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				7AE1D33D1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D80ED37C1EE57F4800CE8C50 /* WMFURLSchemeHandler.m in Sources */,
+				7A0D4D47225EAC2300774A5A /* UploadMediaViewController.swift in Sources */,
 				D80ED37E1EE57F4800CE8C50 /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				D80ED3801EE57F4800CE8C50 /* WMFForgotPasswordViewController.swift in Sources */,
 				7AF56C3921DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
@@ -11363,6 +11380,7 @@
 				D8A42AE61E815A9C00D8E281 /* WMFAccountCreator.swift in Sources */,
 				D8A42AE71E815A9C00D8E281 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D8A42AE91E815A9C00D8E281 /* WeakScriptMessageDelegate.swift in Sources */,
+				7A0D4D46225EAC2300774A5A /* UploadMediaViewController.swift in Sources */,
 				D8E27BA41F82B38200F9D2B3 /* RMessageView.m in Sources */,
 				83FBE9721F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				7ABAD6B720338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
@@ -11842,6 +11860,7 @@
 				D818FEBC21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
+				7A0D4D44225EAC2300774A5A /* UploadMediaViewController.swift in Sources */,
 				D8CE25E41E698E2400DAE2E0 /* WMFHelpViewController.m in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
 				7AF56C3621DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
@@ -12203,6 +12222,7 @@
 				D818FEBD21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
 				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
+				7A0D4D45225EAC2300774A5A /* UploadMediaViewController.swift in Sources */,
 				D8EC3EE31E9BDA35006712EB /* WMFHelpViewController.m in Sources */,
 				830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				7AF56C3721DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,

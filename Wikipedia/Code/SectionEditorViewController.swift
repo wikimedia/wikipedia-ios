@@ -574,7 +574,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
         let topViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
-        let tabbedViewController = TabbedViewController(viewControllers: [InsertMediaSearchCollectionViewController()])
+        let tabbedViewController = TabbedViewController(viewControllers: [InsertMediaSearchCollectionViewController(), UploadMediaViewController()])
         let bottomViewController = WMFThemeableNavigationController(rootViewController: tabbedViewController)
         bottomViewController.isNavigationBarHidden = true
         let verticallySplitViewController = VerticallySplitViewController(topViewController: topViewController, bottomViewController: bottomViewController)
