@@ -13,20 +13,21 @@ final class MediaWizardController: NSObject {
     }()
 
     private lazy var nextButton: UIBarButtonItem = {
-        return UIBarButtonItem(title: CommonStrings.nextTitle, style: .plain, target: self, action: #selector(goToMediaSettings(_:)))
+        return UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(goToMediaSettings(_:)))
     }()
 
     func prepare(with theme: Theme) {
-        let topViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
+        let insertMediaViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
         let tabbedViewController = TabbedViewController(viewControllers: [InsertMediaSearchCollectionViewController(), UploadMediaViewController()])
-        let bottomViewController = WMFThemeableNavigationController(rootViewController: tabbedViewController)
-        bottomViewController.isNavigationBarHidden = true
-
-        let verticallySplitViewController = VerticallySplitViewController(topViewController: topViewController, bottomViewController: bottomViewController)
-        verticallySplitViewController.navigationItem.rightBarButtonItem = nextButton
-        verticallySplitViewController.navigationItem.leftBarButtonItem = closeButton
+        let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
+        tabbedNavigationController.isNavigationBarHidden = true
+        let verticallySplitViewController = VerticallySplitViewController(topViewController: insertMediaViewController, bottomViewController: tabbedNavigationController)
         verticallySplitViewController.title = WMFLocalizedString("insert-media-title", value: "Insert media", comment: "Title for the view in charge of inserting media into an article")
-
+        closeButton.tintColor = theme.colors.chromeText
+        nextButton.tintColor = theme.colors.link
+        nextButton.isEnabled = false
+        verticallySplitViewController.navigationItem.leftBarButtonItem = closeButton
+        verticallySplitViewController.navigationItem.rightBarButtonItem = nextButton
         let navigationController = WMFThemeableNavigationController(rootViewController: verticallySplitViewController, theme: theme)
         delegate?.mediaWizardController(self, didPrepareViewController: navigationController)
     }
