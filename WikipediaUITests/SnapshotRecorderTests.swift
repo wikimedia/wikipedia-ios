@@ -42,7 +42,7 @@ class WikipediaUITests: XCTestCase {
         */
         
         
-        setupSnapshot(app)
+        setupSnapshot(app, waitForAnimations: false)
         
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         app.launch()
@@ -351,6 +351,7 @@ class WikipediaUITests: XCTestCase {
                     self.app.wmf_scrollDown()
                     self.wmf_snapshot("AboutTheApp3")
 
+                    self.app.wmf_scrollToTop()
                     self.app.webViews.element(boundBy: 0).wmf_waitUntilExists(timeout: 1.0)?.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.1, items:
                         [
                             // Libraries used
