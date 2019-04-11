@@ -18,6 +18,8 @@ class SectionEditorViewController: UIViewController {
     private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
+
+    private var mediaWizardController: MediaWizardController?
     
     lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
@@ -573,9 +575,9 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        let mediaWizardController = MediaWizardController()
-        mediaWizardController.delegate = self
-        mediaWizardController.prepare(with: theme)
+        mediaWizardController = MediaWizardController()
+        mediaWizardController?.delegate = self
+        mediaWizardController?.prepare(with: theme)
     }
 }
 
@@ -585,6 +587,7 @@ extension SectionEditorViewController: MediaWizardControllerDelegate {
     }
 
     func mediaWizardController(_ mediaWizardController: MediaWizardController, didTapCloseButton button: UIBarButtonItem) {
+        self.mediaWizardController = nil
         dismiss(animated: true)
     }
 }
