@@ -55,6 +55,7 @@ final fileprivate class SearchView: UIView, Themeable {
 
 final class TabbedViewController: ViewController {
     private let viewControllers: [UIViewController & Themeable]
+    private let extendedViews: [UIView]?
     private var selectedIndex = 0
 
     private lazy var tabsView: TabsView = {
@@ -77,12 +78,9 @@ final class TabbedViewController: ViewController {
         return TabsView(buttons: underlineButtons)
     }()
 
-    private lazy var searchView: SearchView = {
-        return SearchView(searchBarDelegate: self)
-    }()
-
-    init(viewControllers: [UIViewController & Themeable]) {
+    init(viewControllers: [UIViewController & Themeable], extendedViews: [UIView]? = nil) {
         self.viewControllers = viewControllers
+        self.extendedViews = extendedViews
         super.init()
     }
 
@@ -94,7 +92,6 @@ final class TabbedViewController: ViewController {
         super.viewDidLoad()
         navigationBar.displayType = .hidden
         navigationBar.addUnderNavigationBarView(tabsView)
-        navigationBar.addExtendedNavigationBarView(searchView)
 
         guard let selectedViewController = viewController(at: 0) else {
             return
