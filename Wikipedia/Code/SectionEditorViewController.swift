@@ -573,24 +573,19 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        let topViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
-        let tabbedViewController = TabbedViewController(viewControllers: [InsertMediaSearchCollectionViewController(), UploadMediaViewController()])
-        let bottomViewController = WMFThemeableNavigationController(rootViewController: tabbedViewController)
-        bottomViewController.isNavigationBarHidden = true
-        let verticallySplitViewController = VerticallySplitViewController(topViewController: topViewController, bottomViewController: bottomViewController)
-        verticallySplitViewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(dismissMediaInsert))
-        verticallySplitViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: CommonStrings.nextTitle, style: .plain, target: self, action: #selector(goToMediaSettings))
-        verticallySplitViewController.title = WMFLocalizedString("insert-media-title", value: "Insert media", comment: "Title for the view in charge of inserting media into an article")
-        let navigationController = WMFThemeableNavigationController(rootViewController: verticallySplitViewController, theme: theme)
-        present(navigationController, animated: true)
+        let mediaWizardController = MediaWizardController()
+        mediaWizardController.delegate = self
+        mediaWizardController.prepare(with: theme)
+    }
+}
+
+extension SectionEditorViewController: MediaWizardControllerDelegate {
+    func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareViewController viewController: UIViewController) {
+        present(viewController, animated: true)
     }
 
-    @objc private func dismissMediaInsert() {
+    func mediaWizardController(_ mediaWizardController: MediaWizardController, didTapCloseButton button: UIBarButtonItem) {
         dismiss(animated: true)
-    }
-
-    @objc private func goToMediaSettings() {
-
     }
 }
 

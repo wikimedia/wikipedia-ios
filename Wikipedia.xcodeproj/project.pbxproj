@@ -375,6 +375,11 @@
 		7A707984223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */; };
 		7A707985223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */; };
 		7A707986223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */; };
+		7A710922225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardCoordinator.swift */; };
+		7A710923225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardCoordinator.swift */; };
+		7A710924225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardCoordinator.swift */; };
+		7A710925225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardCoordinator.swift */; };
+		7A710926225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardCoordinator.swift */; };
 		7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
 		7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
 		7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
@@ -3504,6 +3509,7 @@
 		7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingInputViewController.swift; sourceTree = "<group>"; };
 		7A70797B223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePanelLabelContentViewController.swift; sourceTree = "<group>"; };
 		7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomePanelLabelContentViewController.xib; sourceTree = "<group>"; };
+		7A710921225F7AEB00D62581 /* MediaWizardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWizardCoordinator.swift; sourceTree = "<group>"; };
 		7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorNavigationItemController.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
@@ -6191,6 +6197,7 @@
 				7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */,
 				7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */,
 				7AC4B6F4225D273E0040F0D4 /* VerticallySplitViewController.xib */,
+				7A710921225F7AEB00D62581 /* MediaWizardCoordinator.swift */,
 			);
 			name = "Media Wizard";
 			sourceTree = "<group>";
@@ -10401,6 +10408,7 @@
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				D818D3861ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
+				7A710922225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */,
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				7A48EA0E21B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
@@ -10639,6 +10647,7 @@
 				B0408C592127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				BA4524281F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C61F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
+				7A710926225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */,
 				D80ED2F71EE57F4800CE8C50 /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				83FBE9731F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				B07F823F203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
@@ -11455,6 +11464,7 @@
 				B0845E1420618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D818D38E1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7AFEB3F81FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
+				7A710925225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */,
 				D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */,
 				D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
@@ -11701,6 +11711,7 @@
 				B0408C562127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8CE255E1E698E2400DAE2E0 /* WMFArticleContainerViewController+TOC.swift in Sources */,
+				7A710923225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */,
 				D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				B07F823C203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
@@ -12063,6 +12074,7 @@
 				B0408C572127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				D8EC3E491E9BDA35006712EB /* WMFArticleTextActivitySource.m in Sources */,
 				D8EC3E4C1E9BDA35006712EB /* String?+WMFExtras.swift in Sources */,
+				7A710924225F7AEB00D62581 /* MediaWizardCoordinator.swift in Sources */,
 				D8EC3E4F1E9BDA35006712EB /* WMFPasswordResetter.swift in Sources */,
 				BA4524261F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */,
