@@ -17,11 +17,17 @@ final class MediaWizardController: NSObject {
     }()
 
     func prepare(with theme: Theme) {
-        let insertMediaViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
-        let tabbedViewController = TabbedViewController(viewControllers: [InsertMediaSearchCollectionViewController(), UploadMediaViewController()])
+        let insertMediaImageViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
+        let insertMediaSearchCollectionViewController = InsertMediaSearchCollectionViewController()
+
+        let searchView = SearchView(searchBarDelegate: insertMediaSearchCollectionViewController)
+        searchView.apply(theme: theme)
+
+        let tabbedViewController = TabbedViewController(viewControllers: [insertMediaSearchCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
         tabbedNavigationController.isNavigationBarHidden = true
-        let verticallySplitViewController = VerticallySplitViewController(topViewController: insertMediaViewController, bottomViewController: tabbedNavigationController)
+
+        let verticallySplitViewController = VerticallySplitViewController(topViewController: insertMediaImageViewController, bottomViewController: tabbedNavigationController)
         verticallySplitViewController.title = WMFLocalizedString("insert-media-title", value: "Insert media", comment: "Title for the view in charge of inserting media into an article")
         closeButton.tintColor = theme.colors.chromeText
         nextButton.tintColor = theme.colors.link
@@ -38,5 +44,28 @@ final class MediaWizardController: NSObject {
 
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
 
+    }
+}
+
+final fileprivate class SearchView: UIView, Themeable {
+    private let searchBar: UISearchBar
+
+    init(searchBarDelegate: UISearchBarDelegate) {
+        searchBar = UISearchBar()
+        searchBar.placeholder = CommonStrings.searchTitle
+        searchBar.delegate = searchBarDelegate
+        searchBar.returnKeyType = .search
+        searchBar.searchBarStyle = .minimal
+        searchBar.showsCancelButton = false
+        super.init(frame: .zero)
+        wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func apply(theme: Theme) {
+        searchBar.apply(theme: theme)
     }
 }
