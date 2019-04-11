@@ -3,6 +3,8 @@
 - details: https://docs.fastlane.tools/actions/snapshot/
 - run the `bundle exec fastlane snapshot` command to kick off the `testRecordAppScreenshots()` screenshot taking test (when debugging `wmf_localizedString:key:` sometimes I needed to re-run this command before things behaved as expected, probably due to how `SnapshotHelper.swift` interacts with simulators & builds)
 - see `/fastlane/snapfile` to configure (langs, simulators, other parameters, etc)
+- note that for now all languages in `/fastlane/snapfile` are commented out: Jenkins passes specific languages/devices via arguments:
+  ie: `bundle exec fastlane snapshot --skip_open_summary --languages "en,de" --devices "iPhone 5s,iPhone 6"`
 
 
 ## Steps for capturing new screenshots:

@@ -24,7 +24,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
-#if TEST
+#if UI_TEST
         if UserDefaults.standard.wmf_isFastlaneSnapshotInProgress() {
             collectionView.decelerationRate = .fast
         }
