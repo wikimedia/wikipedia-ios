@@ -139,10 +139,12 @@
 "description-help-tips-example-title-one" = "maleri af Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "Jordens højeste bjerg";
 "description-help-tips-for-example" = "For eksempel:";
+"description-help-tips-title" = "Tips til at skabe beskrivelser";
 "description-published-button-title" = "Udført";
 "description-published-title" = "Beskrivelse offentliggjort!";
 "description-welcome-concise-title" = "Gør det kort";
 "description-welcome-descriptions-title" = "Titelbeskrivelser";
+"description-welcome-start-editing-button" = "Start med at redigere";
 "dim-images" = "Mørklæg billeder";
 "edit-clear-formatting-accessibility-label" = "Fjern formatering";
 "edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
@@ -180,6 +182,7 @@
 "error-unknown" = "Der opstod en ukendt fejl";
 "explore-another-random" = "En anden tilfældig artikel";
 "explore-because-you-read" = "Fordi du læste";
+"explore-because-you-read-footer" = "Yderligere relaterede artikler";
 "explore-continue-reading-heading" = "Fortsæt læsning";
 "explore-enable-location-title" = "Udforsk artikler i nærheden af din nuværende placering";
 "explore-featured-article-heading" = "Fremhævet artikel";
