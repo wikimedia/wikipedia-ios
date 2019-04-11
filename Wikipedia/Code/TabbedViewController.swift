@@ -32,7 +32,7 @@ final fileprivate class TabsView: UIView, Themeable {
 
 final class TabbedViewController: ViewController {
     private let viewControllers: [UIViewController & Themeable]
-    private var selectedIndex: Int?
+    private var selectedIndex = 0
 
     private lazy var tabsView: TabsView = {
         var underlineButtons = [UnderlineButton]()
@@ -44,6 +44,9 @@ final class TabbedViewController: ViewController {
             underlineButton.useDefaultFont = false
             underlineButton.titleLabel?.font = UIFont.wmf_font(.callout)
             underlineButton.tag = index
+            if index == selectedIndex {
+                underlineButton.isSelected = true
+            }
             underlineButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
             underlineButton.addTarget(self, action: #selector(didSelectViewController(_:)), for: .touchUpInside)
             underlineButtons.append(underlineButton)
@@ -64,6 +67,12 @@ final class TabbedViewController: ViewController {
         super.viewDidLoad()
         navigationBar.displayType = .hidden
         navigationBar.addUnderNavigationBarView(tabsView)
+
+        guard let selectedViewController = viewController(at: 0) else {
+            return
+        }
+        wmf_add(childController: selectedViewController, andConstrainToEdgesOfContainerView: view)
+    }
     }
 
     @objc private func didSelectViewController(_ sender: UIButton) {
