@@ -83,11 +83,21 @@ final class TabbedViewController: ViewController {
     }
 
     @objc private func didSelectViewController(_ sender: UIButton) {
-        if let selectedIndex = selectedIndex {
-            tabsView.deselectButton(at: selectedIndex)
-        }
-        selectedIndex = sender.tag
+        tabsView.deselectButton(at: selectedIndex)
         sender.isSelected = true
+        selectedIndex = sender.tag
+
+        for child in children {
+            child.view.removeFromSuperview()
+            child.willMove(toParent: nil)
+            child.removeFromParent()
+        }
+
+        guard let selectedViewController = viewController(at: sender.tag) else {
+            return
+        }
+
+        wmf_add(childController: selectedViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
     }
 
     // MARK: Themeable
