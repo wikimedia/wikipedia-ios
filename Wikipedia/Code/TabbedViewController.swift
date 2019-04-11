@@ -73,6 +73,13 @@ final class TabbedViewController: ViewController {
         }
         wmf_add(childController: selectedViewController, andConstrainToEdgesOfContainerView: view)
     }
+
+    private func viewController(at index: Int) -> (UIViewController & Themeable)? {
+        guard index < viewControllers.count else {
+            assertionFailure("Index \(index) is out of bounds, index should be less than \(viewControllers.count)")
+            return nil
+        }
+        return viewControllers[index]
     }
 
     @objc private func didSelectViewController(_ sender: UIButton) {
