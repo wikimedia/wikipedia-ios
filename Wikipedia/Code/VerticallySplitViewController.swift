@@ -35,6 +35,10 @@ extension VerticallySplitViewController: Themeable {
         }
         topViewController.apply(theme: theme)
         bottomViewController.apply(theme: theme)
-        view.backgroundColor = bottomViewController.view.backgroundColor
+        if let navigationController = bottomViewController as? UINavigationController {
+            view.backgroundColor = navigationController.topViewController?.view.backgroundColor
+        } else {
+            view.backgroundColor = bottomViewController.view.backgroundColor
+        }
     }
 }
