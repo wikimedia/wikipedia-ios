@@ -93,18 +93,7 @@ final class TabbedViewController: ViewController {
         navigationBar.displayType = .hidden
         navigationBar.addUnderNavigationBarView(tabsView)
 
-        guard let selectedViewController = viewController(at: 0) else {
-            return
-        }
-        wmf_add(childController: selectedViewController, andConstrainToEdgesOfContainerView: view)
-    }
-
-    private func viewController(at index: Int) -> (UIViewController & Themeable)? {
-        guard index < viewControllers.count else {
-            assertionFailure("Index \(index) is out of bounds, index should be less than \(viewControllers.count)")
-            return nil
-        }
-        return viewControllers[index]
+        showViewControllerWithExtendedView(at: selectedIndex)
     }
 
     @objc private func didSelectViewController(_ sender: UIButton) {
@@ -118,10 +107,20 @@ final class TabbedViewController: ViewController {
             child.removeFromParent()
         }
 
-        guard let selectedViewController = viewController(at: sender.tag) else {
+        showViewControllerWithExtendedView(at: selectedIndex)
+    }
+
+    private func showViewControllerWithExtendedView(at index: Int) {
+        guard let selectedViewController = viewControllers[safeIndex: index] else {
             return
         }
         wmf_add(childController: selectedViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+
+        navigationBar.removeExtendedNavigationBarView()
+        guard let extendedView = extendedViews?[safeIndex: index] else {
+            return
+        }
+        navigationBar.addExtendedNavigationBarView(extendedView)
     }
 
     // MARK: Themeable
