@@ -3,7 +3,7 @@ import UIKit
 final fileprivate class TabsView: UIView, Themeable {
     private let buttons: [UIButton]
 
-    required init(buttons: [UIButton]) {
+    init(buttons: [UIButton]) {
         self.buttons = buttons
         super.init(frame: .zero)
         let stackView = UIStackView(arrangedSubviews: buttons)
@@ -27,6 +27,29 @@ final fileprivate class TabsView: UIView, Themeable {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
             button.tintColor = theme.colors.link
         }
+    }
+}
+
+final fileprivate class SearchView: UIView, Themeable {
+    private let searchBar: UISearchBar
+
+    init(searchBarDelegate: UISearchBarDelegate) {
+        searchBar = UISearchBar()
+        searchBar.placeholder = CommonStrings.searchTitle
+        searchBar.delegate = searchBarDelegate
+        searchBar.returnKeyType = .search
+        searchBar.searchBarStyle = .minimal
+        searchBar.showsCancelButton = false
+        super.init(frame: .zero)
+        wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func apply(theme: Theme) {
+
     }
 }
 
@@ -54,6 +77,10 @@ final class TabbedViewController: ViewController {
         return TabsView(buttons: underlineButtons)
     }()
 
+    private lazy var searchView: SearchView = {
+        return SearchView(searchBarDelegate: self)
+    }()
+
     init(viewControllers: [UIViewController & Themeable]) {
         self.viewControllers = viewControllers
         super.init()
@@ -67,6 +94,7 @@ final class TabbedViewController: ViewController {
         super.viewDidLoad()
         navigationBar.displayType = .hidden
         navigationBar.addUnderNavigationBarView(tabsView)
+        navigationBar.addExtendedNavigationBarView(searchView)
 
         guard let selectedViewController = viewController(at: 0) else {
             return
@@ -96,7 +124,6 @@ final class TabbedViewController: ViewController {
         guard let selectedViewController = viewController(at: sender.tag) else {
             return
         }
-
         wmf_add(childController: selectedViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
     }
 
@@ -107,4 +134,8 @@ final class TabbedViewController: ViewController {
         view.backgroundColor = theme.colors.paperBackground
         tabsView.apply(theme: theme)
     }
+}
+
+extension TabbedViewController: UISearchBarDelegate {
+
 }
