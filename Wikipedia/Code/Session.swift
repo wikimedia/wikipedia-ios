@@ -28,7 +28,13 @@ import Foundation
             case json
             case form
         }
-
+    }
+    
+    struct Callback {
+        let response: ((URLSessionTask, URLResponse) -> Void)?
+        let data: ((Data) -> Void)?
+        let success: (() -> Void)
+        let failure: ((URLSessionTask, Error) -> Void)
     }
     
     public var xWMFUUID: String? = nil // event logging uuid, set if enabled, nil if disabled
@@ -71,6 +77,16 @@ import Foundation
         return URLSession(configuration: Session.defaultConfiguration)
     }()
     
+    private static let sessionDelegate: SessionDelegate = {
+        return SessionDelegate()
+    }()
+    
+    //session set up with SessionDelegate to allow receipt of data in chunks
+    //https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1411528-urlsession?language=objc
+    private static let chunkingUrlSession: URLSession = {
+        return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
+    }()
+    
     private let configuration: Configuration
     
     public required init(configuration: Configuration) {
@@ -80,6 +96,8 @@ import Foundation
     @objc public static let shared = Session(configuration: Configuration.current)
     
     public let defaultURLSession = Session.urlSession
+    public let chunkingUrlSession = Session.chunkingUrlSession
+    private let sessionDelegate = Session.sessionDelegate
     
     public let wifiOnlyURLSession: URLSession = {
         var config = Session.defaultConfiguration
@@ -181,6 +199,22 @@ import Foundation
             return nil
         }
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
+    }
+    
+    //todo: will have a cleaner call once SchemeHandler is converted to swift
+    @objc func chunkingDataTask(with request: URLRequest, response: ((URLSessionTask, URLResponse) -> Swift.Void)?, data: ((Data) -> Swift.Void)?, success: @escaping () -> Void, failure: @escaping (URLSessionTask, Error) -> Void) -> URLSessionDataTask {
+        let callback = Session.Callback(response: { callbackTask, callbackResponse in
+            response?(callbackTask, callbackResponse)
+        }, data: { callbackData in
+            data?(callbackData)
+        }, success: {
+            success()
+        }) { callbackTask, callbackError in
+            failure(callbackTask, callbackError)
+        }
+        let task = chunkingUrlSession.dataTask(with: request)
+        sessionDelegate.addCallback(callback: callback, for: task)
+        return task
     }
     
     public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
@@ -302,6 +336,8 @@ import Foundation
         task.resume()
     }
     
+    
+    
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
             self.handleResponse(response)
@@ -368,5 +404,64 @@ public enum RequestError: LocalizedError {
         default:
             return CommonStrings.genericErrorDescription
         }
+    }
+}
+
+class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
+    let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
+    let delegateQueue: OperationQueue
+    var callbacks: [Int: Session.Callback] = [:]
+    
+    override init() {
+        delegateQueue = OperationQueue()
+        delegateQueue.underlyingQueue = delegateDispatchQueue
+    }
+    
+    func addCallback(callback: Session.Callback, for task: URLSessionTask) {
+        delegateDispatchQueue.async(flags: .barrier) {
+            self.callbacks[task.taskIdentifier] = callback
+        }
+    }
+    
+    func removeDataCallback(for task: URLSessionTask) {
+        delegateDispatchQueue.async(flags: .barrier) {
+            self.callbacks.removeValue(forKey: task.taskIdentifier)
+        }
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        defer {
+            completionHandler(.allow)
+        }
+        guard let callback = callbacks[dataTask.taskIdentifier]?.response else {
+            return
+        }
+        callback(dataTask, response)
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        guard let callback = callbacks[dataTask.taskIdentifier]?.data else {
+            return
+        }
+        callback(data)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        defer {
+            removeDataCallback(for: task)
+        }
+        
+        guard let callback = callbacks[task.taskIdentifier] else {
+            return
+        }
+        
+        if let error = error as NSError? {
+            if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
+                callback.failure(task, error)
+            }
+            return
+        }
+        
+        callback.success()
     }
 }
