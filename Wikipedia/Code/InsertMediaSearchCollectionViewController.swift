@@ -15,3 +15,7 @@ class InsertMediaSearchCollectionViewController: ColumnarCollectionViewControlle
         collectionView.backgroundColor = UIColor.orange
     }
 }
+
+extension InsertMediaSearchCollectionViewController: UISearchBarDelegate {
+    
+}
