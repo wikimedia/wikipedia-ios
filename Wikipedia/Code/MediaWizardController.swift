@@ -6,6 +6,8 @@ protocol MediaWizardControllerDelegate: AnyObject {
 final class MediaWizardController: NSObject {
     weak var delegate: MediaWizardControllerDelegate?
 
+    private let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
+
     private lazy var closeButton: UIBarButtonItem = {
         let closeButton = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(delegateCloseButtonTap(_:)))
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
