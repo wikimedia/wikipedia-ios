@@ -207,6 +207,7 @@
 "edit-superscript-remove-accessibility-label" = "הסרת עיצוב כתב עילי";
 "edit-template-accessibility-label" = "הוספת עיצוב תבנית";
 "edit-template-remove-accessibility-label" = "הסרת עיצוב תבנית";
+"edit-text-clear-formatting" = "ניקוי העיצוב";
 "edit-text-formatting-accessibility-label" = "הצגת תפריט עיצוב טקסט";
 "edit-text-formatting-table-view-title" = "עיצוב טקסט";
 "edit-text-size-table-view-title" = "גודל טקסט";
