@@ -74,17 +74,11 @@ import Foundation
     }
     
     @objc public static let urlSession: URLSession = {
-        return URLSession(configuration: Session.defaultConfiguration)
+        return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
     }()
     
     private static let sessionDelegate: SessionDelegate = {
         return SessionDelegate()
-    }()
-    
-    //session set up with SessionDelegate to allow receipt of data in chunks
-    //https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1411528-urlsession?language=objc
-    private static let chunkingUrlSession: URLSession = {
-        return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
     }()
     
     private let configuration: Configuration
@@ -96,7 +90,6 @@ import Foundation
     @objc public static let shared = Session(configuration: Configuration.current)
     
     public let defaultURLSession = Session.urlSession
-    public let chunkingUrlSession = Session.chunkingUrlSession
     private let sessionDelegate = Session.sessionDelegate
     
     public let wifiOnlyURLSession: URLSession = {
@@ -202,7 +195,9 @@ import Foundation
     }
     
     //todo: will have a cleaner call once SchemeHandler is converted to swift
-    @objc func chunkingDataTask(with request: URLRequest, response: ((URLSessionTask, URLResponse) -> Swift.Void)?, data: ((Data) -> Swift.Void)?, success: @escaping () -> Void, failure: @escaping (URLSessionTask, Error) -> Void) -> URLSessionDataTask {
+    //this method allows for progressive data callbacks
+    @objc func dataTask(with request: URLRequest, response: ((URLSessionTask, URLResponse) -> Swift.Void)?, data: ((Data) -> Swift.Void)?, success: @escaping () -> Void, failure: @escaping (URLSessionTask, Error) -> Void) -> URLSessionDataTask {
+        
         let callback = Session.Callback(response: { callbackTask, callbackResponse in
             response?(callbackTask, callbackResponse)
         }, data: { callbackData in
@@ -212,7 +207,7 @@ import Foundation
         }) { callbackTask, callbackError in
             failure(callbackTask, callbackError)
         }
-        let task = chunkingUrlSession.dataTask(with: request)
+        let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task
     }

@@ -109,7 +109,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     
-    NSURLSessionDataTask *APIRequestTask = [self.session chunkingDataTaskWith:request response:^(NSURLSessionTask * _Nonnull sessionTask, NSURLResponse * _Nonnull response) {
+    NSURLSessionDataTask *APIRequestTask = [self.session dataTaskWith:request response:^(NSURLSessionTask * _Nonnull sessionTask, NSURLResponse * _Nonnull response) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (![self isTaskActive:task]) {
                 return;
@@ -200,7 +200,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [self finishTask:task withCachedResponse:cachedResponse];
     } else {
         
-        NSURLSessionDataTask *downloadTask = [self.session chunkingDataTaskWith:request response:^(NSURLSessionTask * _Nonnull sessionTask, NSURLResponse * _Nonnull response) {
+        NSURLSessionDataTask *downloadTask = [self.session dataTaskWith:request response:^(NSURLSessionTask * _Nonnull sessionTask, NSURLResponse * _Nonnull response) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (![self isTaskActive:task]) {
