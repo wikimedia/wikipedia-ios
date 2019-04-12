@@ -45,6 +45,23 @@ final class MediaWizardController: NSObject {
         delegate?.mediaWizardController(self, didPrepareViewController: navigationController)
     }
 
+    private func prepareSearchResults(for articleTitle: String?) {
+        fetcher.fetchFiles(forSearchTerm: "bat", resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: { error in
+            print("")
+        }) { results in
+            guard
+                let results = results.results,
+                !results.isEmpty
+            else {
+                assertionFailure()
+                return
+            }
+            DispatchQueue.main.async {
+                self.searchResultsCollectionViewController.results = results
+            }
+        }
+    }
+
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
         delegate?.mediaWizardController(self, didTapCloseButton: sender)
     }
