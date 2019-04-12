@@ -79,6 +79,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
+#if UI_TEST
+    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
+        self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
+    }
+#endif
 }
 
 - (void)dealloc {

@@ -4,42 +4,44 @@
 
 # A list of devices you want to take the screenshots from.
 devices([
-  "iPhone 5s",
-  "iPhone 6",
-  "iPhone 6 Plus",
-  "iPhone X",
-  "iPad Air",
-  "iPad Pro (12.9-inch)"
+  # "iPhone 5s",
+  # "iPhone 6",
+  # "iPhone 6 Plus",
+  # "iPhone X",
+  # "iPad Air",
+  # "iPad Pro (12.9-inch)"
 ])
 
 # A list of localizations you want to take the screenshots from.
 # For supported langs see: https://docs.fastlane.tools/actions/snapshot/#available-language-codes 
 # TODO: investigate getting an RTL lang added to this list.
 languages([
-  "en-US",
-  "de-DE",
-  "es-ES",
-  "fr-FR",
-  "it",
-  "ja",
-  "nl-NL",
-  "pt-PT",
-  "ru",
-  "sv",
-  "zh-Hans",
-  "da",
-  "el",
-  "fi",
-  "id",
-  "ko",
-  "ms",
-  "th",
-  "tr",
-  "vi"
+  # "en-US",
+  # "de-DE",
+  # "es-ES",
+  # "fr-FR",
+  # "it",
+  # "ja",
+  # "nl-NL",
+  # "pt-PT",
+  # "ru",
+  # "sv",
+  # "zh-Hans",
+  # "da",
+  # "el",
+  # "fi",
+  # "id",
+  # "ko",
+  # "ms",
+  # "th",
+  # "tr",
+  # "vi"
 ])
 
 # The name of the scheme which contains the UI Tests.
 scheme "WikipediaUITests"
+
+configuration "UITest"
 
 # Where should the resulting screenshots be stored?
 output_directory "./WikipediaUITests/Snapshots/"
@@ -58,8 +60,8 @@ launch_arguments(["-FASTLANE_SNAPSHOT YES"])
 # Re-install so every test can start from our Welcome screens.
 reinstall_app true
 
-# One retry.
-number_of_retries 1
+# Don't retry.
+number_of_retries 0
 
 # Don't clean or it'll take one billion years when running the full device/lang matrix.
 clean false
