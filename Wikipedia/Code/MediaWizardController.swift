@@ -19,14 +19,18 @@ final class MediaWizardController: NSObject {
         return UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(goToMediaSettings(_:)))
     }()
 
-    func prepare(with theme: Theme) {
-        let insertMediaImageViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
-        let insertMediaSearchCollectionViewController = InsertMediaSearchCollectionViewController()
+    func prepare(for articleTitle: String?,with theme: Theme) {
+        prepareSearchResults(for: articleTitle)
+        prepareUI(with: theme)
+    }
 
-        let searchView = SearchView(searchBarDelegate: insertMediaSearchCollectionViewController)
+    private func prepareUI(with theme: Theme) {
+        let insertMediaImageViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
+
+        let searchView = SearchView(searchBarDelegate: searchResultsCollectionViewController)
         searchView.apply(theme: theme)
 
-        let tabbedViewController = TabbedViewController(viewControllers: [insertMediaSearchCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
+        let tabbedViewController = TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
         tabbedNavigationController.isNavigationBarHidden = true
 
