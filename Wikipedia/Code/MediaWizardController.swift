@@ -4,6 +4,7 @@ protocol MediaWizardControllerDelegate: AnyObject {
 }
 
 final class MediaWizardController: NSObject {
+    private let fetcher = WMFSearchFetcher()
     weak var delegate: MediaWizardControllerDelegate?
 
     private let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
