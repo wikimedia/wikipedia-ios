@@ -577,7 +577,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
         mediaWizardController = MediaWizardController()
         mediaWizardController?.delegate = self
-        mediaWizardController?.prepare(with: theme)
+        mediaWizardController?.prepare(for: section?.titleText, with: theme)
     }
 }
 
