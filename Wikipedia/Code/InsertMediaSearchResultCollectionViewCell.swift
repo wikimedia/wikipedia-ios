@@ -3,21 +3,11 @@ import UIKit
 class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
-    private var imageViewDimension: CGFloat = 70
     private var spacing: CGFloat = 8
 
-    var title: String? {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-
-    var imageURL: URL? {
-        didSet {
-            backgroundColor = UIColor.purple
-            setNeedsLayout()
-        }
-    }
+    private var title: String?
+    private var imageURL: URL?
+    private var imageViewDimension: CGFloat = 0
 
     override func setup() {
         super.setup()
@@ -37,6 +27,13 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         super.reset()
         imageView.wmf_reset()
         titleLabel.text = nil
+    }
+
+    func configure(imageURL: URL?, imageViewDimension: CGFloat, title: String?) {
+        self.imageURL = imageURL
+        self.imageViewDimension = imageViewDimension
+        self.title = title
+        setNeedsLayout()
     }
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
