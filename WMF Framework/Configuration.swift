@@ -131,6 +131,12 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
 
+    @objc(commonsAPIURLComponentsWithQueryParameters:)
+    public func commonsAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
+        let builder = mediaWikiAPIURLComponentsBuilderForHost("commons.\(Domain.wikimedia)")
+        return builder.components(queryParameters: queryParameters)
+    }
+
     @objc public static let current: Configuration = {
         switch Stage.current {
         case .local:
