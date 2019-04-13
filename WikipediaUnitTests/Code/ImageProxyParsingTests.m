@@ -1,10 +1,11 @@
 #import <XCTest/XCTest.h>
 #import "MWKTestCase.h"
 #import "WMFURLSchemeHandler.h"
+#import "Wikipedia-Swift.h"
 
 @interface ImageSchemeParsingTests : MWKTestCase
 @property (nonatomic, copy) NSString *galleryAttribute;
-@property (nonatomic, strong) WMFURLSchemeHandler *schemeHandler;
+@property (nonatomic, strong) SchemeHandler *schemeHandler;
 @property (nonatomic) NSUInteger imageSize;
 @end
 
@@ -13,7 +14,7 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    self.schemeHandler = [WMFURLSchemeHandler shared];
+    self.schemeHandler = [SchemeHandler shared];
     self.imageSize = 640;
     self.galleryAttribute = @"data-image-gallery=\"true\"";
 }

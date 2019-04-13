@@ -628,8 +628,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         self.wkUserContentControllerTestingConfigurationBlock(userContentController);
     }
 #endif
-    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared]
-                          forURLScheme:WMFURLSchemeHandlerScheme];
+    SchemeHandler *schemeHandler = [SchemeHandler shared];
+    [configuration setURLSchemeHandler:schemeHandler
+                          forURLScheme:schemeHandler.scheme];
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
@@ -852,8 +853,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
-    WMFURLSchemeHandler *handler = [WMFURLSchemeHandler shared];
-    [handler cacheSectionDataForArticle:self.article];
+    SchemeHandler *handler = [SchemeHandler shared];
+    [handler cacheSectionDataFor:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 

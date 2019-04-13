@@ -194,16 +194,16 @@ extension WKWebView {
         guard
             let url = article.url,
             let host = url.host,
-            let appSchemeURL = WMFURLSchemeHandler.shared().appSchemeURL(forWikipediaAPIHost: host),
-            let apiURL = WMFURLSchemeHandler.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
+            let appSchemeUrl = SchemeHandler.APIHandler.appSchemeUrl(for: host, fragment: nil),
+            let apiUrl = SchemeHandler.ArticleSectionHandler.appSchemeUrl(for: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
             else {
                 assertionFailure("Expected url, appSchemeURL and encodedTitle")
                 return
         }
 
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
-        let appSchemeURLString = appSchemeURL.absoluteString
-        let apiURLString = apiURL.absoluteString
+        let appSchemeURLString = appSchemeUrl.absoluteString
+        let apiURLString = apiUrl.absoluteString
         let title = (article.url as NSURL).wmf_title ?? ""
 
         let articleContentLoadedCallbackJS = """

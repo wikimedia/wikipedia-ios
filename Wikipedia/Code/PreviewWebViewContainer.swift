@@ -32,7 +32,8 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = controller
         configuration.applicationNameForUserAgent = "WikipediaApp"
-        configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
+        let schemeHandler = SchemeHandler.shared
+        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
 
         let newWebView = WKWebView(frame: CGRect.zero, configuration: configuration)
         newWebView.isOpaque = false

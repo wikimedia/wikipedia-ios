@@ -30,11 +30,18 @@ import Foundation
         }
     }
     
-    struct Callback {
+    public struct Callback {
         let response: ((URLSessionTask, URLResponse) -> Void)?
         let data: ((Data) -> Void)?
         let success: (() -> Void)
         let failure: ((URLSessionTask, Error) -> Void)
+        
+        public init(response: ((URLSessionTask, URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (URLSessionTask, Error) -> Void) {
+            self.response = response
+            self.data = data
+            self.success = success
+            self.failure = failure
+        }
     }
     
     public var xWMFUUID: String? = nil // event logging uuid, set if enabled, nil if disabled
@@ -196,6 +203,12 @@ import Foundation
     
     //todo: will have a cleaner call once SchemeHandler is converted to swift
     //this method allows for progressive data callbacks
+    public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask {
+        let task = defaultURLSession.dataTask(with: request)
+        sessionDelegate.addCallback(callback: callback, for: task)
+        return task
+    }
+    
     @objc func dataTask(with request: URLRequest, response: ((URLSessionTask, URLResponse) -> Swift.Void)?, data: ((Data) -> Swift.Void)?, success: @escaping () -> Void, failure: @escaping (URLSessionTask, Error) -> Void) -> URLSessionDataTask {
         
         let callback = Session.Callback(response: { callbackTask, callbackResponse in
@@ -387,11 +400,13 @@ import Foundation
     }
 }
 
-public enum RequestError: LocalizedError {
+public enum RequestError: Int, LocalizedError {
     case unknown
     case invalidParameters
     case unexpectedResponse
     case noNewData
+    case timeout = 504
+    
     public var errorDescription: String? {
         switch self {
         case .unexpectedResponse:
@@ -399,6 +414,10 @@ public enum RequestError: LocalizedError {
         default:
             return CommonStrings.genericErrorDescription
         }
+    }
+    
+    public static func from(code: Int) -> RequestError? {
+        return self.init(rawValue: code)
     }
 }
 

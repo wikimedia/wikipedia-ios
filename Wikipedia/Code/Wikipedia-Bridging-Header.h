@@ -26,6 +26,7 @@
 #import "PreviewHtmlFetcher.h"
 
 #import "WikiTextSectionUploader.h"
+#import "WMFArticleJSONCompilationHelper.h"
 
 // Model
 #import "MWKLicense.h"
