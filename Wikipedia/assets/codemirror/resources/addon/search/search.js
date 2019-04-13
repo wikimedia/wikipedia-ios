@@ -121,14 +121,7 @@
 
     function clearFocusedMatches(cm) {
       const focusClassName = "cm-searching-focus";
-      const focusedElements = document.getElementsByClassName(focusClassName);
-      const focusedMatchID = getSearchState(cm).focusedMatchID;
-
-      while (focusedElements.length > 0) {
-        var element = focusedElements[0];
-        element.classList.remove(focusClassName);
-        if (element.id === focusedMatchID) element.id = "";
-      }
+      Array.from(document.getElementsByClassName(focusClassName)).forEach(element => setFocusOnMatchElement(element, false))
     }
 
     function markReplacedText(cm, cursor) {
@@ -204,13 +197,23 @@
       state.initialFocusedMatchIndex = -1;
     }
 
+    function setFocusOnMatchElement(element, enable, id = null) {
+      const focusClassName = "cm-searching-focus"
+      if (enable) {
+        element.classList.add(focusClassName)
+        element.id = id
+      } else {
+        element.classList.remove(focusClassName)
+        element.removeAttribute('id')  
+      }
+    }
+
     function focusOnMatchAtIndex(matches, index, id) {
       if (matches.length == 0) return null;
       const focusClassName = "cm-searching-focus";
       const match = matches[index];
       if (!match) return null;
-      match.classList.add(focusClassName);
-      match.id = id;
+      setFocusOnMatchElement(match, true, id)
       return match
     }
 
