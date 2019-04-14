@@ -47,21 +47,26 @@ final class MediaWizardController: NSObject {
 
     private func prepareSearchResults(for articleTitle: String?) {
         guard let articleTitle = articleTitle else {
-            // set empty state
             return
         }
-        fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: { error in
-            print("")
-        }) { results in
-            guard
-                let results = results.results,
-                !results.isEmpty
-            else {
-                assertionFailure()
-                return
-            }
+        let failure = { (error: Error) in
             DispatchQueue.main.async {
-                self.searchResultsCollectionViewController.results = results
+                self.searchResultsCollectionViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                self.searchResultsCollectionViewController.results = []
+            }
+        }
+        let success = { (results: WMFSearchResults) in
+            DispatchQueue.main.async {
+                self.searchResultsCollectionViewController.results = results.results ?? []
+            }
+        }
+        fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
+            DispatchQueue.main.async {
+                self.searchResultsCollectionViewController.results = results.results ?? []
+            }
+            // Kick off image info fetch right away
+            if let resultsArray = results.results, resultsArray.count < 12 {
+                self.fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
             }
         }
     }
