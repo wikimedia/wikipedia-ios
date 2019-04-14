@@ -3,9 +3,22 @@ import UIKit
 class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var centerYConstraint: NSLayoutConstraint?
 
     private var theme = Theme.standard
-    private var display = Display.empty
+    private var display = Display.empty {
+        didSet {
+            switch display {
+            case .empty:
+                centerYConstraint?.isActive = true
+                label.isHidden = false
+            case .selected:
+                centerYConstraint?.isActive = false
+                label.isHidden = true
+                imageView.backgroundColor = view.backgroundColor
+            }
+        }
+    }
 
     private enum Display {
         case empty, selected
@@ -35,8 +48,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
             assertionFailure(error.localizedDescription)
         }) {
-            self.imageView.backgroundColor = self.view.backgroundColor
-            self.label.isHidden = true
+            self.display = .selected
         }
     }
 }
