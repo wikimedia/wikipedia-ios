@@ -7,6 +7,8 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     private var imageURL: URL?
     private var imageViewDimension: CGFloat = 0
 
+    private var spacing: CGFloat = 8
+
     override func setup() {
         super.setup()
         imageView.accessibilityIgnoresInvertColors = true
@@ -57,7 +59,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
             imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
                 self.imageView.image = UIImage(named: "media-wizard/placeholder")
             }, success: {})
-            origin.y += imageView.frame.height
+            origin.y += imageView.frame.layoutHeight(with: spacing)
         }
 
         let semanticContentAttribute: UISemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight

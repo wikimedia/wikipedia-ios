@@ -6,7 +6,7 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         minimumInteritemSpacing = 8
-        minimumLineSpacing = 8
+        minimumLineSpacing = 32
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -56,6 +56,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         super.init()
         collectionView.dataSource = self
         collectionView.delegate = self
+        scrollView = collectionView
         title = CommonStrings.searchTitle
     }
 
@@ -70,8 +71,6 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         // TODO: Fix insets
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12)
-        collectionView.contentInsetAdjustmentBehavior = .never
-        scrollView = collectionView
         apply(theme: theme)
     }
 
