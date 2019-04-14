@@ -75,7 +75,6 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(InsertMediaSearchResultCollectionViewCell.self, forCellWithReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier)
-        // TODO: Fix insets
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12)
         apply(theme: theme)
