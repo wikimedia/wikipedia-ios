@@ -91,6 +91,7 @@ final class TabbedViewController: ViewController {
         guard let selectedViewController = viewControllers[safeIndex: index] else {
             return
         }
+        selectedViewController.apply(theme: theme)
         wmf_add(childController: selectedViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
 
         navigationBar.removeExtendedNavigationBarView()
