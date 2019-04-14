@@ -6,8 +6,9 @@ class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var overlayView: UIView!
 
     @IBOutlet private weak var centerYConstraint: NSLayoutConstraint?
-    @IBOutlet private weak var infoViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var infoViewBottomConstraint: NSLayoutConstraint!
+
+    @IBOutlet private weak var infoView: UIView!
+    @IBOutlet private weak var infoTitleLabel: UILabel!
 
     private var theme = Theme.standard
     private var display = Display.empty {
@@ -18,10 +19,10 @@ class InsertMediaImageViewController: UIViewController {
                 label.isHidden = false
             case .selected where oldValue == .empty:
                 label.isHidden = true
-                imageView.backgroundColor = view.backgroundColor
-                self.centerYConstraint?.isActive = false
-                self.infoViewTopConstraint.isActive = false
-                self.infoViewBottomConstraint.isActive = true
+                centerYConstraint?.isActive = false
+                overlayView.isHidden = false
+                infoView.isHidden = false
+                fallthrough
             case .selected:
                 imageView.backgroundColor = view.backgroundColor
             }
@@ -40,6 +41,7 @@ class InsertMediaImageViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         label.font = UIFont.wmf_font(.semiboldHeadline, compatibleWithTraitCollection: traitCollection)
+        infoTitleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 }
 
@@ -57,6 +59,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
             assertionFailure(error.localizedDescription)
         }) {
             self.display = .selected
+            self.infoTitleLabel.text = imageInfoResult?.imageDescription
         }
     }
 }
@@ -71,5 +74,6 @@ extension InsertMediaImageViewController: Themeable {
         view.backgroundColor = theme.colors.baseBackground
         imageView.backgroundColor = view.backgroundColor
         overlayView.backgroundColor = theme.colors.paperBackground
+        infoTitleLabel.textColor = theme.colors.primaryText
     }
 }
