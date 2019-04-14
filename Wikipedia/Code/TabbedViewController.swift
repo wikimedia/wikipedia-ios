@@ -68,8 +68,9 @@ final class TabbedViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.displayType = .hidden
+        navigationBar.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(tabsView)
-
+        navigationBar.isExtendedViewHidingEnabled = true
         showViewControllerWithExtendedView(at: selectedIndex)
     }
 
