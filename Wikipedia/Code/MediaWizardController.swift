@@ -56,24 +56,40 @@ final class MediaWizardController: NSObject {
         let failure = { (error: Error) in
             DispatchQueue.main.async {
                 self.searchResultsCollectionViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
-                self.searchResultsCollectionViewController.results = []
+                self.searchResultsCollectionViewController.searchResults = []
                 progressController.stop()
             }
         }
         let success = { (results: WMFSearchResults) in
+            if let names = results.results?.compactMap({ $0.displayTitle }) {
+                self.imageInfoFetcher.fetchImageInfo(forCommonsFiles: names, failure: { error in
+                    assertionFailure()
+                }, success: { result in
+                    guard let imageInfoResults = result as? [MWKImageInfo] else {
+                        assertionFailure()
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self.searchResultsCollectionViewController.imageInfoResults = imageInfoResults
+                        progressController.finish()
+                    }
+                })
+            } else {
+                DispatchQueue.main.async {
+                    progressController.finish()
+                }
+            }
             DispatchQueue.main.async {
-                self.searchResultsCollectionViewController.results = results.results ?? []
-                progressController.finish()
+                self.searchResultsCollectionViewController.searchResults = results.results ?? []
             }
         }
         searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
-            // Kick off image info fetch right away
             if let resultsArray = results.results {
                 if resultsArray.isEmpty {
                     self.searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else if resultsArray.count < 12 {
                     DispatchQueue.main.async {
-                        self.searchResultsCollectionViewController.results = resultsArray
+                        self.searchResultsCollectionViewController.searchResults = resultsArray
                     }
                     self.searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 }
