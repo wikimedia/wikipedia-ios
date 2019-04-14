@@ -9,11 +9,17 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
     private var spacing: CGFloat = 8
 
+    private let selectedImageView = UIImageView()
+    private var selectedImageViewDimension: CGFloat = 0
+    private var selectedImage = UIImage(named: "selected")
+
     override func setup() {
         super.setup()
         imageView.accessibilityIgnoresInvertColors = true
         imageView.contentMode = .scaleAspectFit
         contentView.addSubview(imageView)
+        selectedImageView.contentMode = .scaleAspectFit
+        contentView.addSubview(selectedImageView)
         captionLabel.numberOfLines = 1
         contentView.addSubview(captionLabel)
     }
@@ -32,6 +38,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     func configure(imageURL: URL?, imageViewDimension: CGFloat, title: String?) {
         self.imageURL = imageURL
         self.imageViewDimension = imageViewDimension
+        selectedImageViewDimension = imageViewDimension / 6
         captionLabel.text = title
         setNeedsLayout()
     }
@@ -59,8 +66,12 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
             imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
                 self.imageView.image = UIImage(named: "media-wizard/placeholder")
             }, success: {})
+            selectedImageView.frame = CGRect(x: imageView.frame.maxX - selectedImageViewDimension, y: imageView.frame.maxY - selectedImageViewDimension, width: selectedImageViewDimension, height: selectedImageViewDimension)
+            selectedImageView.image = selectedImage
             origin.y += imageView.frame.layoutHeight(with: spacing)
         }
+
+        selectedImageView.isHidden = !isSelected
 
         let semanticContentAttribute: UISemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
 
@@ -77,6 +88,8 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
 extension InsertMediaSearchResultCollectionViewCell: Themeable {
     func apply(theme: Theme) {
+        selectedImage = theme.isDark ? UIImage(named: "selected-dark") : UIImage(named: "selected")
+        selectedImageView.tintColor = theme.colors.link
         captionLabel.textColor = theme.colors.primaryText
         labelBackgroundColor = theme.colors.paperBackground
     }
