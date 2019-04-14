@@ -73,7 +73,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     func reload() {
         collectionView.reloadData()
-        // TODO: updateEmptyState()
+        updateEmptyState()
     }
 
     private func configure(_ cell: InsertMediaSearchResultCollectionViewCell, at indexPath: IndexPath) {
@@ -87,6 +87,53 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+    }
+
+    // MARK: - Empty State
+
+    var emptyViewType: WMFEmptyViewType = .noSearchResults
+
+    final var isEmpty = true
+    final var showingEmptyViewType: WMFEmptyViewType?
+    final func updateEmptyState() {
+        let sectionCount = numberOfSections(in: collectionView)
+
+        var isCurrentlyEmpty = true
+        for sectionIndex in 0..<sectionCount {
+            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
+                isCurrentlyEmpty = false
+                break
+            }
+        }
+
+        guard isCurrentlyEmpty != isEmpty || showingEmptyViewType != emptyViewType else {
+            return
+        }
+
+        isEmpty = isCurrentlyEmpty
+
+        isEmptyDidChange()
+    }
+
+    private var emptyViewFrame: CGRect {
+        let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
+        let frame = view.bounds.inset(by: insets)
+        return frame
+    }
+
+    open func isEmptyDidChange() {
+        if isEmpty {
+            wmf_showEmptyView(of: emptyViewType, action: nil, theme: theme, frame: emptyViewFrame)
+            showingEmptyViewType = emptyViewType
+        } else {
+            wmf_hideEmptyView()
+            showingEmptyViewType = nil
+        }
+    }
+
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        wmf_setEmptyViewFrame(emptyViewFrame)
     }
 }
 
