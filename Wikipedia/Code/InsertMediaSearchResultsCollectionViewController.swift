@@ -34,9 +34,9 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
     }
 }
 
-class InsertMediaSearchResultsCollectionViewController: UICollectionViewController {
+class InsertMediaSearchResultsCollectionViewController: ViewController {
     private let flowLayout: FlowLayout
-    private var theme = Theme.standard
+    private let collectionView: UICollectionView
     private let itemDimension: CGFloat = 100
 
     var results = [MWKSearchResult]() {
@@ -46,9 +46,12 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
         }
     }
 
-    init() {
+    override init() {
         flowLayout = FlowLayout()
-        super.init(collectionViewLayout: flowLayout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        super.init()
+        collectionView.dataSource = self
+        collectionView.delegate = self
         title = CommonStrings.searchTitle
     }
 
@@ -60,8 +63,11 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(InsertMediaSearchResultCollectionViewCell.self, forCellWithReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier)
-        // TODO: Make this VC a ViewController so that it can work with the nav bar
-        collectionView.contentInset = UIEdgeInsets(top: 120, left: 12, bottom: 0, right: 12)
+        // TODO: Fix insets
+        view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+        //collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12)
+        collectionView.contentInsetAdjustmentBehavior = .never
+        scrollView = collectionView
         apply(theme: theme)
     }
 
@@ -74,18 +80,26 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
         let result = results[indexPath.item]
         cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, title: result.displayTitle)
     }
+
+    // MARK: Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        collectionView.backgroundColor = theme.colors.paperBackground
+    }
 }
 
-extension InsertMediaSearchResultsCollectionViewController {
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return results.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier, for: indexPath)
         guard let searchResultCell = cell as? InsertMediaSearchResultCollectionViewCell else {
             return cell
@@ -95,17 +109,10 @@ extension InsertMediaSearchResultsCollectionViewController {
     }
 }
 
-extension InsertMediaSearchResultsCollectionViewController: UISearchBarDelegate {
-    
+extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDelegate {
+
 }
 
-extension InsertMediaSearchResultsCollectionViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        collectionView.backgroundColor = theme.colors.paperBackground
-    }
+extension InsertMediaSearchResultsCollectionViewController: UISearchBarDelegate {
+    
 }
