@@ -21,13 +21,13 @@ final class MediaWizardController: NSObject {
 
     func prepare(for articleTitle: String?,with theme: Theme) {
         prepareSearchResults(for: articleTitle)
-        prepareUI(with: theme)
+        prepareUI(with: theme, placeholder: articleTitle)
     }
 
-    private func prepareUI(with theme: Theme) {
+    private func prepareUI(with theme: Theme, placeholder: String?) {
         let insertMediaImageViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
 
-        let searchView = SearchView(searchBarDelegate: searchResultsCollectionViewController)
+        let searchView = SearchView(searchBarDelegate: searchResultsCollectionViewController, placeholder: placeholder)
         searchView.apply(theme: theme)
 
         let tabbedViewController = TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
@@ -46,7 +46,11 @@ final class MediaWizardController: NSObject {
     }
 
     private func prepareSearchResults(for articleTitle: String?) {
-        fetcher.fetchFiles(forSearchTerm: "bat", resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: { error in
+        guard let articleTitle = articleTitle else {
+            // set empty state
+            return
+        }
+        fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: { error in
             print("")
         }) { results in
             guard
@@ -74,9 +78,9 @@ final class MediaWizardController: NSObject {
 final fileprivate class SearchView: UIView, Themeable {
     private let searchBar: UISearchBar
 
-    init(searchBarDelegate: UISearchBarDelegate) {
+    init(searchBarDelegate: UISearchBarDelegate, placeholder: String?) {
         searchBar = UISearchBar()
-        searchBar.placeholder = CommonStrings.searchTitle
+        searchBar.placeholder = placeholder ?? CommonStrings.searchTitle
         searchBar.delegate = searchBarDelegate
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
