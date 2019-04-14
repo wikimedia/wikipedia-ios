@@ -28,7 +28,8 @@ final class MediaWizardController: NSObject {
 
     private func prepareUI(with theme: Theme, placeholder: String?) {
         let insertMediaImageViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
-
+        searchResultsCollectionViewController.delegate = insertMediaImageViewController
+        
         let searchView = SearchView(searchBarDelegate: searchResultsCollectionViewController, placeholder: placeholder)
         searchView.apply(theme: theme)
 
