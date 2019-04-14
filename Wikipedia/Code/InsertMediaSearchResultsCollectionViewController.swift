@@ -65,7 +65,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         collectionView.register(InsertMediaSearchResultCollectionViewCell.self, forCellWithReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier)
         // TODO: Fix insets
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
-        //collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12)
         collectionView.contentInsetAdjustmentBehavior = .never
         scrollView = collectionView
         apply(theme: theme)
