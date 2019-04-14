@@ -23,13 +23,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cXE-2d-ldM">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qP-S4-qEh">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="280.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="358.5"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu3-su-0Ns">
-                            <rect key="frame" x="0.0" y="280.5" width="414" height="537.5"/>
+                            <rect key="frame" x="0.0" y="358.5" width="414" height="537.5"/>
                         </view>
                     </subviews>
                     <variation key="heightClass=compact-widthClass=regular" axis="horizontal"/>
@@ -37,11 +37,11 @@
             </subviews>
             <constraints>
                 <constraint firstItem="Bu3-su-0Ns" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="6:10" id="3hf-Nm-bg8"/>
-                <constraint firstItem="cXE-2d-ldM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BrR-MK-bdl"/>
+                <constraint firstItem="cXE-2d-ldM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BrR-MK-bdl"/>
                 <constraint firstItem="Bu3-su-0Ns" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="6:10" id="Dbd-fY-yFc"/>
-                <constraint firstItem="cXE-2d-ldM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Tqs-XP-UNG"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cXE-2d-ldM" secondAttribute="bottom" id="enc-g2-CAH"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cXE-2d-ldM" secondAttribute="trailing" id="iel-Is-Ped"/>
+                <constraint firstItem="cXE-2d-ldM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Tqs-XP-UNG"/>
+                <constraint firstAttribute="bottom" secondItem="cXE-2d-ldM" secondAttribute="bottom" id="enc-g2-CAH"/>
+                <constraint firstAttribute="trailing" secondItem="cXE-2d-ldM" secondAttribute="trailing" id="iel-Is-Ped"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <variation key="default">
