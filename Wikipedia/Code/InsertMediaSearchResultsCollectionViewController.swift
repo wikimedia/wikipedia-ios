@@ -46,6 +46,10 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         }
     }
 
+    lazy var fakeProgressController: FakeProgressController = {
+        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
+    }()
+
     override init() {
         flowLayout = FlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)

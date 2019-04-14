@@ -49,23 +49,33 @@ final class MediaWizardController: NSObject {
         guard let articleTitle = articleTitle else {
             return
         }
+        let progressController = searchResultsCollectionViewController.fakeProgressController
+        progressController.start()
         let failure = { (error: Error) in
             DispatchQueue.main.async {
                 self.searchResultsCollectionViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.searchResultsCollectionViewController.results = []
+                progressController.stop()
             }
         }
         let success = { (results: WMFSearchResults) in
             DispatchQueue.main.async {
                 self.searchResultsCollectionViewController.results = results.results ?? []
+                progressController.finish()
             }
         }
         fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
-            DispatchQueue.main.async {
-                self.searchResultsCollectionViewController.results = results.results ?? []
-            }
             // Kick off image info fetch right away
-            if let resultsArray = results.results, resultsArray.count < 12 {
+            if let resultsArray = results.results {
+                if resultsArray.isEmpty {
+                    self.fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                } else if resultsArray.count < 12 {
+                    DispatchQueue.main.async {
+                        self.searchResultsCollectionViewController.results = resultsArray
+                    }
+                    self.fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                }
+            } else {
                 self.fetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
             }
         }
