@@ -43,6 +43,13 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         setNeedsLayout()
     }
 
+    override var isSelected: Bool {
+        didSet {
+            updateSelectedOrHighlighted()
+            selectedImageView.isHidden = !isSelected
+        }
+    }
+
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         guard let imageURL = imageURL else {
             return .zero
