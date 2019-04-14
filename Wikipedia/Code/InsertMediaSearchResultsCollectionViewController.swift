@@ -39,7 +39,14 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     private let collectionView: UICollectionView
     private let itemDimension: CGFloat = 100
 
-    var results = [MWKSearchResult]() {
+    var searchResults = [MWKSearchResult]() {
+        didSet {
+            assert(Thread.isMainThread)
+            reload()
+        }
+    }
+
+    var imageInfoResults = [MWKImageInfo]() {
         didSet {
             assert(Thread.isMainThread)
             reload()
@@ -80,8 +87,9 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     }
 
     private func configure(_ cell: InsertMediaSearchResultCollectionViewCell, at indexPath: IndexPath) {
-        let result = results[indexPath.item]
-        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, title: result.displayTitle)
+        let result = searchResults[indexPath.item]
+        let imageInfo = imageInfoResults[safeIndex: indexPath.item]
+        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, title: imageInfo?.imageDescription)
     }
 
     // MARK: Themeable
@@ -146,7 +154,7 @@ extension InsertMediaSearchResultsCollectionViewController: UICollectionViewData
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return results.count
+        return searchResults.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -165,4 +173,13 @@ extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDele
 
 extension InsertMediaSearchResultsCollectionViewController: UISearchBarDelegate {
     
+}
+
+private extension Array {
+    subscript(safeIndex index: Int) -> Element? {
+        guard index >= 0, index < endIndex else {
+            return nil
+        }
+        return self[index]
+    }
 }
