@@ -34,10 +34,16 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
     }
 }
 
+protocol InsertMediaSearchResultsCollectionViewControllerDelegate: AnyObject {
+    func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: MWKSearchResult, imageInfoResult: MWKImageInfo?)
+}
+
 class InsertMediaSearchResultsCollectionViewController: ViewController {
     private let flowLayout: FlowLayout
     private let collectionView: UICollectionView
     private let itemDimension: CGFloat = 100
+
+    weak var delegate: InsertMediaSearchResultsCollectionViewControllerDelegate?
 
     var searchResults = [MWKSearchResult]() {
         didSet {
@@ -167,7 +173,11 @@ extension InsertMediaSearchResultsCollectionViewController: UICollectionViewData
 }
 
 extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let searchResult = searchResults[indexPath.item]
+        let imageInfoResult = imageInfoResults[safeIndex: indexPath.item]
+        delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult, imageInfoResult: imageInfoResult)
+    }
 }
 
 extension InsertMediaSearchResultsCollectionViewController: UISearchBarDelegate {
