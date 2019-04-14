@@ -22,6 +22,25 @@ class InsertMediaImageViewController: UIViewController {
     }
 }
 
+extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionViewControllerDelegate {
+    func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: MWKSearchResult, imageInfoResult: MWKImageInfo?) {
+        guard let thumbnailURL = searchResult.thumbnailURL ?? imageInfoResult?.imageThumbURL else {
+            assertionFailure()
+            return
+        }
+        guard let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(thumbnailURL.absoluteString, Int(view.bounds.width))) else {
+            return
+        }
+
+        imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
+            assertionFailure(error.localizedDescription)
+        }) {
+            self.imageView.backgroundColor = self.view.backgroundColor
+            self.label.isHidden = true
+        }
+    }
+}
+
 extension InsertMediaImageViewController: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
@@ -30,5 +49,6 @@ extension InsertMediaImageViewController: Themeable {
         }
         label.textColor = theme.colors.overlayText
         view.backgroundColor = theme.colors.baseBackground
+        imageView.backgroundColor = view.backgroundColor
     }
 }
