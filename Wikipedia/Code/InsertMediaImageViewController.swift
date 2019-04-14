@@ -3,7 +3,11 @@ import UIKit
 class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var overlayView: UIView!
+
     @IBOutlet private weak var centerYConstraint: NSLayoutConstraint?
+    @IBOutlet private weak var infoViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var infoViewBottomConstraint: NSLayoutConstraint!
 
     private var theme = Theme.standard
     private var display = Display.empty {
@@ -12,9 +16,13 @@ class InsertMediaImageViewController: UIViewController {
             case .empty:
                 centerYConstraint?.isActive = true
                 label.isHidden = false
-            case .selected:
-                centerYConstraint?.isActive = false
+            case .selected where oldValue == .empty:
                 label.isHidden = true
+                imageView.backgroundColor = view.backgroundColor
+                self.centerYConstraint?.isActive = false
+                self.infoViewTopConstraint.isActive = false
+                self.infoViewBottomConstraint.isActive = true
+            case .selected:
                 imageView.backgroundColor = view.backgroundColor
             }
         }
@@ -62,5 +70,6 @@ extension InsertMediaImageViewController: Themeable {
         label.textColor = theme.colors.overlayText
         view.backgroundColor = theme.colors.baseBackground
         imageView.backgroundColor = view.backgroundColor
+        overlayView.backgroundColor = theme.colors.paperBackground
     }
 }
