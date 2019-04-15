@@ -25,13 +25,13 @@ extension SchemeHandler {
         static let articleKeyQueryItemName = "articleKey"
         static let imageWidthQueryItemName = "imageWidth"
         
-        static func appSchemeUrl(for articleUrl: URL, targetImageWidth: Int) -> URL? {
-            guard let key = articleUrl.wmf_articleDatabaseKey,
+        static func appSchemeURL(for articleURL: URL, targetImageWidth: Int) -> URL? {
+            guard let key = articleURL.wmf_articleDatabaseKey,
                 let basePath = basePath else {
                     return nil
             }
             
-            var components = baseUrlComponents
+            var components = baseURLComponents
             components.path = NSString.path(withComponents: ["/", basePath])
             
             let articleKeyQueryItem = URLQueryItem(name: articleKeyQueryItemName, value: key)
@@ -41,8 +41,8 @@ extension SchemeHandler {
             return components.url
         }
         
-        func handle(pathComponents: [String], requestUrl: URL, completion: (URLResponse?, Data?, Error?) -> Void) {
-            guard let articleKey = (requestUrl as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.articleKeyQueryItemName) else {
+        func handle(pathComponents: [String], requestURL: URL, completion: (URLResponse?, Data?, Error?) -> Void) {
+            guard let articleKey = (requestURL as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.articleKeyQueryItemName) else {
                 completion(nil, nil, SchemeHandlerError.invalidParameters)
                 return
             }
@@ -52,7 +52,7 @@ extension SchemeHandler {
                 return
             }
             
-            guard let imageWidthString = (requestUrl as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.imageWidthQueryItemName),
+            guard let imageWidthString = (requestURL as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.imageWidthQueryItemName),
                 (imageWidthString as NSString).integerValue > 0 else {
                     completion(nil, nil, SchemeHandlerError.invalidParameters)
                     return
@@ -64,7 +64,7 @@ extension SchemeHandler {
                 return
             }
             
-            let response = HTTPURLResponse(url: requestUrl, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json; charset=utf-8"])
+            let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json; charset=utf-8"])
             completion(response, json, nil)
         }
     }

@@ -194,8 +194,8 @@ extension WKWebView {
         guard
             let url = article.url,
             let host = url.host,
-            let appSchemeUrl = SchemeHandler.APIHandler.appSchemeUrl(for: host, fragment: nil),
-            let apiUrl = SchemeHandler.ArticleSectionHandler.appSchemeUrl(for: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
+            let appSchemeUrl = SchemeHandler.APIHandler.appSchemeURL(for: host, fragment: nil),
+            let apiUrl = SchemeHandler.ArticleSectionHandler.appSchemeURL(for: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
             else {
                 assertionFailure("Expected url, appSchemeURL and encodedTitle")
                 return

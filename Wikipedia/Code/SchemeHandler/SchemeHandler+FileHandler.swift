@@ -17,7 +17,7 @@ extension SchemeHandler {
             self.cacheDelegate = cacheDelegate
         }
         
-        func handle(pathComponents: [String], requestUrl: URL, completion: (URLResponse?, Data?, Error?) -> Void) {
+        func handle(pathComponents: [String], requestURL: URL, completion: (URLResponse?, Data?, Error?) -> Void) {
             
             guard pathComponents.count >= 2 else {
                 completion(nil, nil, SchemeHandlerError.invalidParameters)
@@ -27,7 +27,7 @@ extension SchemeHandler {
             let localPathComponents = pathComponents[2..<(pathComponents.count)]
             let relativePath = NSString.path(withComponents: Array(localPathComponents))
             
-            let notFoundResponse = HTTPURLResponse(url: requestUrl, statusCode: 404, httpVersion: nil, headerFields: nil)
+            let notFoundResponse = HTTPURLResponse(url: requestURL, statusCode: 404, httpVersion: nil, headerFields: nil)
             
             guard !relativePath.contains("..") else {
                 if let notFoundResponse = notFoundResponse {
@@ -43,11 +43,11 @@ extension SchemeHandler {
             
             let hostedFolderPath = WikipediaAppUtils.assetsPath()
             let fullPath = (hostedFolderPath as NSString).appendingPathComponent(relativePath)
-            let localFileUrl = NSURL.init(fileURLWithPath: fullPath)
+            let localFileURL = NSURL.init(fileURLWithPath: fullPath)
             
             let resourceValueForKey: (URLResourceKey) -> NSNumber? = { key in
                 var value: AnyObject? = nil
-                try? localFileUrl.getResourceValue(&value, forKey: key)
+                try? localFileURL.getResourceValue(&value, forKey: key)
                 return value as? NSNumber
             }
             
@@ -58,16 +58,16 @@ extension SchemeHandler {
                 return
             }
             
-            let data = try? Data(contentsOf: localFileUrl as URL)
+            let data = try? Data(contentsOf: localFileURL as URL)
             var headerFields = [String: String](minimumCapacity: 1)
             let types = ["css": "text/css; charset=utf-8",
                          "html": "text/html; charset=utf-8",
                          "js": "application/javascript; charset=utf-8"
             ]
-            if let pathExtension = localFileUrl.pathExtension {
+            if let pathExtension = localFileURL.pathExtension {
                 headerFields["Content-Type"] = types[pathExtension]
             }
-            if let response = HTTPURLResponse(url: requestUrl, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
+            if let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
                 cacheDelegate?.cacheResponse(response, data: data, path: relativePath)
                 completion(response, data, nil)
             } else {

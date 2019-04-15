@@ -13,25 +13,25 @@ extension SchemeHandler {
             self.session = session
         }
         
-        func urlForPathComponents(_ pathComponents: [String], requestUrl: URL) -> URL? {
+        func urlForPathComponents(_ pathComponents: [String], requestURL: URL) -> URL? {
             guard pathComponents.count == 5 else {
                 assertionFailure("Expected 5 components when using APIProxy base path")
                 return nil
             }
             
-            guard var apiProxyUrlComponents = URLComponents(url: requestUrl, resolvingAgainstBaseURL: false) else {
+            guard var apiProxyURLComponents = URLComponents(url: requestURL, resolvingAgainstBaseURL: false) else {
                 return nil
             }
             
             // APIURL is APIProxyURL with components[3] as the host, components[4..5] as the path.
-            apiProxyUrlComponents.path = NSString.path(withComponents: [pathComponents[3], pathComponents[4]])
-            apiProxyUrlComponents.host = pathComponents[2]
-            apiProxyUrlComponents.scheme = "https"
+            apiProxyURLComponents.path = NSString.path(withComponents: [pathComponents[3], pathComponents[4]])
+            apiProxyURLComponents.host = pathComponents[2]
+            apiProxyURLComponents.scheme = "https"
             
-            return apiProxyUrlComponents.url
+            return apiProxyURLComponents.url
         }
         
-        func dataTaskForUrl(_ url: URL, callback: Session.Callback) -> URLSessionTask {
+        func dataTaskForURL(_ url: URL, callback: Session.Callback) -> URLSessionTask {
             
             var request = URLRequest(url: url)
             request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")

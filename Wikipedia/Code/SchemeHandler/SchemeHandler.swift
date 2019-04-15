@@ -101,34 +101,34 @@ extension SchemeHandler: WKURLSchemeHandler {
         
         switch baseComponent {
         case FileHandler.basePath:
-            fileHandler.handle(pathComponents: pathComponents, requestUrl: requestURL, completion: localCompletionBlock)
+            fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
             
         case ArticleSectionHandler.basePath:
-            articleSectionHandler.handle(pathComponents: pathComponents, requestUrl: requestURL, completion: localCompletionBlock)
+            articleSectionHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
         case APIHandler.basePath:
             
-            guard let apiUrl = apiHandler.urlForPathComponents(pathComponents, requestUrl: requestURL) else {
+            guard let apiURL = apiHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
                 return
             }
             
-            kickOffDataTask(handler: apiHandler, url: apiUrl, urlSchemeTask: urlSchemeTask)
+            kickOffDataTask(handler: apiHandler, url: apiURL, urlSchemeTask: urlSchemeTask)
            
         default:
             
-            guard let defaultUrl = defaultHandler.urlForPathComponents(pathComponents, requestUrl: requestURL) else {
+            guard let defaultURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
                 return
             }
             
-            if let cachedResponse = defaultHandler.cachedResponseForUrl(defaultUrl) {
+            if let cachedResponse = defaultHandler.cachedResponseForURL(defaultURL) {
                 urlSchemeTask.didReceive(cachedResponse.response)
                 urlSchemeTask.didReceive(cachedResponse.data)
                 urlSchemeTask.didFinish()
                 return
             }
             
-            kickOffDataTask(handler: defaultHandler, url: defaultUrl, urlSchemeTask: urlSchemeTask)
+            kickOffDataTask(handler: defaultHandler, url: defaultURL, urlSchemeTask: urlSchemeTask)
         }
     }
     
@@ -165,7 +165,7 @@ private extension SchemeHandler {
             urlSchemeTask.didFailWithError(error)
         }
         
-        let dataTask = handler.dataTaskForUrl(url, callback: callback)
+        let dataTask = handler.dataTaskForURL(url, callback: callback)
         self.queue.async(flags: .barrier) {
             self.tasks[urlSchemeTask.request] = dataTask
         }

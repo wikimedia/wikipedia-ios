@@ -182,7 +182,7 @@ class SectionEditorViewController: UIViewController {
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
         
-        if let url = SchemeHandler.FileHandler.appSchemeUrl(for: "codemirror/codemirror-index.html", fragment: "top") {
+        if let url = SchemeHandler.FileHandler.appSchemeURL(for: "codemirror/codemirror-index.html", fragment: "top") {
             let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
             webView.load(request)
             

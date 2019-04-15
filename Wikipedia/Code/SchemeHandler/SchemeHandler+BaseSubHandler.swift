@@ -7,20 +7,20 @@ extension SchemeHandler {
             fatalError("Subclasses must implement basePath)")
         }
         
-        static var baseUrlComponents: URLComponents {
+        static var baseURLComponents: URLComponents {
             var components = URLComponents()
             components.scheme = WMFURLSchemeHandlerScheme
             components.host = "host"
             return components
         }
         
-        static func appSchemeUrl(for path: String, fragment: String?) -> URL? {
+        static func appSchemeURL(for path: String, fragment: String?) -> URL? {
             
             guard let basePath = basePath else {
                 return nil
             }
             
-            var components = baseUrlComponents
+            var components = baseURLComponents
             components.path = NSString.path(withComponents: ["/", basePath, path])
             components.fragment = fragment
             return components.url

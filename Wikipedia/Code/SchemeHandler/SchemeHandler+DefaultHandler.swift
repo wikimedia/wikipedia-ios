@@ -13,17 +13,17 @@ extension SchemeHandler {
             return nil
         }
         
-        func urlForPathComponents(_ pathComponents: [String], requestUrl: URL) -> URL? {
-            return (requestUrl as NSURL).wmf_originalURLFromAppScheme()
+        func urlForPathComponents(_ pathComponents: [String], requestURL: URL) -> URL? {
+            return (requestURL as NSURL).wmf_originalURLFromAppScheme()
         }
         
-        func cachedResponseForUrl(_ url: URL) -> CachedURLResponse? {
+        func cachedResponseForURL(_ url: URL) -> CachedURLResponse? {
             let request = NSURLRequest(url: url)
             let urlCache = URLCache.shared
             return urlCache.cachedResponse(for: request as URLRequest)
         }
         
-        func dataTaskForUrl(_ url: URL, callback: Session.Callback) -> URLSessionTask {
+        func dataTaskForURL(_ url: URL, callback: Session.Callback) -> URLSessionTask {
             let request = URLRequest(url: url)
             let task = session.dataTask(with: request as URLRequest, callback: callback)
             return task
