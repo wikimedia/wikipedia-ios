@@ -3,12 +3,15 @@ import UIKit
 class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var overlayView: UIView!
 
     @IBOutlet private weak var centerYConstraint: NSLayoutConstraint?
 
+    @IBOutlet private weak var overlayView: UIView!
     @IBOutlet private weak var infoView: UIView!
     @IBOutlet private weak var infoTitleLabel: UILabel!
+    @IBOutlet private weak var infoLicenseImageView: UIImageView!
+    @IBOutlet private weak var infoLicenseTitleLabel: UILabel!
+    @IBOutlet private weak var infoMoreButton: UIButton!
 
     private var theme = Theme.standard
     private var display = Display.empty {
@@ -42,6 +45,7 @@ class InsertMediaImageViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         label.font = UIFont.wmf_font(.semiboldHeadline, compatibleWithTraitCollection: traitCollection)
         infoTitleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        infoLicenseTitleLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
 }
 
@@ -60,6 +64,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
         }) {
             self.display = .selected
             self.infoTitleLabel.text = imageInfoResult?.imageDescription
+            self.infoLicenseTitleLabel.text = imageInfoResult?.license?.shortDescription
         }
     }
 }
@@ -75,5 +80,8 @@ extension InsertMediaImageViewController: Themeable {
         imageView.backgroundColor = view.backgroundColor
         overlayView.backgroundColor = theme.colors.paperBackground
         infoTitleLabel.textColor = theme.colors.primaryText
+        infoLicenseImageView.tintColor = theme.colors.primaryText
+        infoLicenseTitleLabel.textColor = theme.colors.primaryText
+        infoMoreButton.tintColor = theme.colors.link
     }
 }
