@@ -63,16 +63,6 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         }
     }
 
-    func setImageInfo(_ imageInfo: MWKImageInfo?, for searchResult: InsertMediaSearchResult, at index: Int) {
-        assert(Thread.isMainThread)
-        searchResult.imageInfo = imageInfo
-        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-    }
-
-    lazy var fakeProgressController: FakeProgressController = {
-        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
-    }()
-
     override init() {
         flowLayout = FlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -103,7 +93,13 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     private func configure(_ cell: InsertMediaSearchResultCollectionViewCell, at indexPath: IndexPath) {
         let result = searchResults[indexPath.item]
-        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, title: result.imageInfo?.imageDescription)
+        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, caption: result.imageInfo?.imageDescription)
+    }
+
+    func setImageInfo(_ imageInfo: MWKImageInfo?, for searchResult: InsertMediaSearchResult, at index: Int) {
+        assert(Thread.isMainThread)
+        searchResult.imageInfo = imageInfo
+        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
 
     // MARK: Themeable
