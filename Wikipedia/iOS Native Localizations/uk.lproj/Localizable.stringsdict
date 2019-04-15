@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Додати %1$d статтю у список читання</string>
+			<string>Додати %1$d статтю до читального списку</string>
 			<key>other</key>
-			<string>Додати %1$d статей у список читання</string>
+			<string>Додати %1$d статей до читального списку</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Перенести  %1$d статтю до списку читання</string>
+			<string>Перенести  %1$d статтю до читального списку</string>
 			<key>other</key>
-			<string>Перенести  %1$d статей до списку читання</string>
+			<string>Перенести  %1$d статей до читального списку</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -129,9 +129,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Стаття не може бути додана до цього списку. Ви перевищили ліміт у %2$d статей на список читання для %3$@</string>
+			<string>Стаття не може бути додана до цього списку. Ви перевищили ліміт у %2$d статей для читального списку %3$@</string>
 			<key>other</key>
-			<string>Статті не можуть бути додані до цього списку. Ви перевищили ліміт у %2$d статей на список читання для %3$@</string>
+			<string>Статті не можуть бути додані до цього списку. Ви перевищили ліміт у %2$d статей для читального списку %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -145,9 +145,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ви перевищили ліміт у %1$d список для читання для облікового запису.</string>
+			<string>Ви перевищили ліміт у %1$d читальний список для облікового запису.</string>
 			<key>other</key>
-			<string>Ви перевищили ліміт у %1$d списків для читання для облікового запису.</string>
+			<string>Ви перевищили ліміт у %1$d читальних списків для облікового запису.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -161,9 +161,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d список для читання</string>
+			<string>%1$d читальний список</string>
 			<key>other</key>
-			<string>%1$d списків для читання</string>
+			<string>%1$d читальних списків</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -209,9 +209,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d днів назад</string>
+			<string>%1$d день назад</string>
 			<key>other</key>
-			<string>%1$d дні назад</string>
+			<string>%1$d днів назад</string>
 			<key>zero</key>
 			<string>Сьогодні</string>
 		</dict>
@@ -299,9 +299,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Незбереження цієї статті видалить її з усіх пов'язаних списків для читання</string>
+			<string>Незбереження цієї статті видалить її з усіх пов'язаних читальних списків</string>
 			<key>other</key>
-			<string>Незбереження цих статей видалить їх з усіх пов'язаних списків для читання</string>
+			<string>Незбереження цих статей видалить їх з усіх пов'язаних читальних списків</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>

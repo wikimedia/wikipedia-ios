@@ -59,6 +59,21 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         self.collectionView.dataSource = self
     }
     
+    public func savedStateDidChangeForArticleWithKey(_ changedArticleKey: String) {
+        for i in 0..<numberOfItems {
+            let indexPath = IndexPath(item: i, section: 0)
+            guard
+                let articleURL = articleURL(at: indexPath),
+                let articleKey = articleURL.wmf_articleDatabaseKey,
+                changedArticleKey == articleKey,
+                let cell = collectionView.cellForItem(at: indexPath)
+            else {
+                continue
+            }
+            editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: false)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.isScrollEnabled = false
