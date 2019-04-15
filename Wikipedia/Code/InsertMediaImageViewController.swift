@@ -18,6 +18,8 @@ final class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var infoLicenseTitleLabel: UILabel!
     @IBOutlet private weak var infoMoreButton: UIButton!
 
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+
     weak var delegate: InsertMediaImageViewControllerDelegate?
 
     private var moreInfoURL: URL? {
@@ -47,17 +49,39 @@ final class InsertMediaImageViewController: UIViewController {
         }
         present(SFSafariViewController(url: url), animated: true)
     }
+
+    @objc private func startActivityIndicator() {
+        cancelPreviousActivityIndicatorSelectors()
+        imageView.image = nil
+        activityIndicatorView.startAnimating()
+    }
+
+    @objc private func stopActivityIndicator() {
+        cancelPreviousActivityIndicatorSelectors()
+        activityIndicatorView.stopAnimating()
+    }
+
+    @objc private func cancelPreviousActivityIndicatorSelectors() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(startActivityIndicator), object: nil)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(stopActivityIndicator), object: nil)
+    }
 }
 
 extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionViewControllerDelegate {
     func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult) {
+        perform(#selector(startActivityIndicator), with: nil, afterDelay: 0.3)
+
         guard let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(searchResult.thumbnailURL.absoluteString, Int(view.bounds.width))) else {
+            stopActivityIndicator()
+            assertionFailure()
             return
         }
 
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
+            self.stopActivityIndicator()
             assertionFailure(error.localizedDescription)
         }) {
+            self.stopActivityIndicator()
             self.imageView.contentMode = .scaleAspectFill
             self.moreInfoURL = searchResult.imageInfo?.filePageURL
             self.label.isHidden = true
@@ -110,5 +134,6 @@ extension InsertMediaImageViewController: Themeable {
         infoTitleLabel.textColor = theme.colors.primaryText
         infoLicenseTitleLabel.textColor = theme.colors.primaryText
         infoMoreButton.tintColor = theme.colors.link
+        activityIndicatorView.style = theme.isDark ? .white : .gray
     }
 }

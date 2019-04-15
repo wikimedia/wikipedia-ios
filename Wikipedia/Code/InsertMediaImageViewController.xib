@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InsertMediaImageViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicatorView" destination="bAr-1A-alx" id="MYc-OA-6hp"/>
                 <outlet property="centerYConstraint" destination="z5h-CG-bhx" id="LK4-7e-oko"/>
                 <outlet property="imageView" destination="z0h-TJ-sas" id="uRf-IO-AeO"/>
                 <outlet property="infoLicenseTitleLabel" destination="R6F-yY-qU0" id="Gbu-tr-rLy"/>
@@ -110,13 +111,18 @@
                         <constraint firstItem="e4b-qg-SLe" firstAttribute="leading" secondItem="2vb-pv-Yyb" secondAttribute="leading" constant="12" id="uuk-IC-J7v"/>
                     </constraints>
                 </view>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bAr-1A-alx">
+                    <rect key="frame" x="197" y="438" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2vb-pv-Yyb" secondAttribute="bottom" id="9C3-pB-SDM"/>
                 <constraint firstItem="Y9e-j0-U7v" firstAttribute="top" secondItem="2vb-pv-Yyb" secondAttribute="top" id="BKG-DQ-eRC"/>
+                <constraint firstItem="bAr-1A-alx" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Ceq-Te-Q78"/>
                 <constraint firstItem="Y9e-j0-U7v" firstAttribute="bottom" secondItem="2vb-pv-Yyb" secondAttribute="bottom" id="DNM-SK-cdI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5tU-Yh-2O4" secondAttribute="bottom" id="KNc-Ei-2iq"/>
                 <constraint firstItem="2vb-pv-Yyb" firstAttribute="height" relation="lessThanOrEqual" secondItem="z0h-TJ-sas" secondAttribute="height" multiplier="0.5" id="KYe-pL-piN"/>
+                <constraint firstItem="bAr-1A-alx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Md1-sP-IFd"/>
                 <constraint firstItem="5tU-Yh-2O4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NuU-db-toF"/>
                 <constraint firstItem="5tU-Yh-2O4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bGb-zS-Vaq"/>
                 <constraint firstItem="Y9e-j0-U7v" firstAttribute="leading" secondItem="2vb-pv-Yyb" secondAttribute="leading" id="bTd-eg-iOT"/>
