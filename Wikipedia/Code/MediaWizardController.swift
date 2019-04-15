@@ -4,9 +4,10 @@ protocol MediaWizardControllerDelegate: AnyObject {
 }
 
 final class MediaWizardController: NSObject {
-    private let searchFetcher = WMFSearchFetcher()
-    private let imageInfoFetcher = MWKImageInfoFetcher()
+    private let articleTitle: String?
     private let siteURL: URL?
+    private let searchFetcher: WMFSearchFetcher
+    private let imageInfoFetcher: MWKImageInfoFetcher
 
     weak var delegate: MediaWizardControllerDelegate?
 
@@ -22,30 +23,31 @@ final class MediaWizardController: NSObject {
         return UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(goToMediaSettings(_:)))
     }()
 
-    private lazy var progressController: FakeProgressController = {
-        return FakeProgressController(progress: searchResultsCollectionViewController.navigationBar, delegate: searchResultsCollectionViewController.navigationBar)
+    private lazy var tabbedViewController: TabbedViewController = {
+        let searchView = SearchView(searchBarDelegate: self, placeholder: articleTitle)
+        return TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
     }()
 
-    init(siteURL: URL?) {
+    init(articleTitle: String?, siteURL: URL?) {
+        self.articleTitle = articleTitle
         self.siteURL = siteURL ?? Configuration.current.commonsAPIURLComponents(with: nil).url
+        self.searchFetcher = WMFSearchFetcher()
+        self.imageInfoFetcher = MWKImageInfoFetcher()
         super.init()
     }
 
-    func prepare(for articleTitle: String?, with theme: Theme) {
+    func prepare(with theme: Theme) {
         if let articleTitle = articleTitle {
             search(for: articleTitle)
         }
-        prepareUI(with: theme, placeholder: articleTitle)
+        prepareUI(with: theme)
     }
 
-    private func prepareUI(with theme: Theme, placeholder: String?) {
+    private func prepareUI(with theme: Theme) {
         let insertMediaImageViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
         insertMediaImageViewController.delegate = self
         searchResultsCollectionViewController.delegate = insertMediaImageViewController
-        
-        let searchView = SearchView(searchBarDelegate: self, placeholder: placeholder)
 
-        let tabbedViewController = TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
         tabbedNavigationController.isNavigationBarHidden = true
 
@@ -61,7 +63,7 @@ final class MediaWizardController: NSObject {
     }
 
     private func search(for searchTerm: String) {
-        progressController.start()
+        tabbedViewController.progressController.start()
         let failure = { (error: Error) in
             let nserror = error as NSError
             guard nserror.code != NSURLErrorCancelled else {
@@ -70,7 +72,7 @@ final class MediaWizardController: NSObject {
             DispatchQueue.main.async {
                 self.searchResultsCollectionViewController.emptyViewType = nserror.wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.searchResultsCollectionViewController.searchResults = []
-                self.progressController.stop()
+                self.tabbedViewController.progressController.stop()
             }
         }
         let searchResults: (WMFSearchResults) -> [InsertMediaSearchResult] = { (results: WMFSearchResults) in
@@ -92,7 +94,7 @@ final class MediaWizardController: NSObject {
             if !searchTerm.wmf_hasNonWhitespaceText {
                 DispatchQueue.main.async {
                     self.searchResultsCollectionViewController.emptyViewType = .none
-                    self.progressController.stop()
+                    self.tabbedViewController.progressController.stop()
                 }
             }
             DispatchQueue.main.async {
@@ -107,7 +109,7 @@ final class MediaWizardController: NSObject {
                 }, success: { result in
                     DispatchQueue.main.async {
                         if index == searchResults.endIndex - 1 {
-                            self.progressController.finish()
+                            self.tabbedViewController.progressController.finish()
                         }
                         self.searchResultsCollectionViewController.setImageInfo(result as? MWKImageInfo, for: searchResult, at: index)
                     }
