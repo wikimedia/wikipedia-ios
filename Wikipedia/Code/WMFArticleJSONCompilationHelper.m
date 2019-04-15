@@ -8,6 +8,34 @@
 #import <WMF/MWKSectionList.h>
 
 @implementation WMFArticleJSONCompilationHelper
+
++ (nullable NSData *)jsonDataForArticle: (MWKArticle *)article withImageWidth: (NSInteger)imageWidth {
+    MWKSectionList *sections = article.sections;
+    NSInteger count = sections.count;
+    NSMutableArray *sectionJSONs = [NSMutableArray arrayWithCapacity:count];
+    NSURL *baseURL = article.url;
+    for (MWKSection *section in sections) {
+        NSString *sectionHTML = [self stringByReplacingImageURLsWithAppSchemeURLsInHTMLString:section.text withBaseURL:baseURL targetImageWidth:imageWidth];
+        if (!sectionHTML) {
+            continue;
+        }
+        NSMutableDictionary *sectionJSON = [NSMutableDictionary dictionaryWithCapacity:5];
+        sectionJSON[@"id"] = @(section.sectionId);
+        sectionJSON[@"line"] = section.line;
+        sectionJSON[@"level"] = section.level;
+        sectionJSON[@"anchor"] = section.anchor;
+        sectionJSON[@"text"] = sectionHTML;
+        [sectionJSONs addObject:sectionJSON];
+    }
+    NSMutableDictionary *responseJSON = [NSMutableDictionary dictionaryWithCapacity:1];
+    NSMutableDictionary *mobileviewJSON = [NSMutableDictionary dictionaryWithCapacity:1];
+    mobileviewJSON[@"sections"] = sectionJSONs;
+    responseJSON[@"mobileview"] = mobileviewJSON;
+    NSError *JSONError = nil;
+    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:responseJSON options:0 error:&JSONError];
+    return JSONData;
+}
+
 + (NSString *)stringByReplacingImageURLsWithAppSchemeURLsInHTMLString:(NSString *)HTMLString withBaseURL:(nullable NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
     
     //defensively copy
@@ -71,33 +99,6 @@
     }
     
     return newImageTagContents;
-}
-
-+ (nullable NSData *)jsonDataForArticle: (MWKArticle *)article withImageWidth: (NSInteger)imageWidth {
-    MWKSectionList *sections = article.sections;
-    NSInteger count = sections.count;
-    NSMutableArray *sectionJSONs = [NSMutableArray arrayWithCapacity:count];
-    NSURL *baseURL = article.url;
-    for (MWKSection *section in sections) {
-        NSString *sectionHTML = [self stringByReplacingImageURLsWithAppSchemeURLsInHTMLString:section.text withBaseURL:baseURL targetImageWidth:imageWidth];
-        if (!sectionHTML) {
-            continue;
-        }
-        NSMutableDictionary *sectionJSON = [NSMutableDictionary dictionaryWithCapacity:5];
-        sectionJSON[@"id"] = @(section.sectionId);
-        sectionJSON[@"line"] = section.line;
-        sectionJSON[@"level"] = section.level;
-        sectionJSON[@"anchor"] = section.anchor;
-        sectionJSON[@"text"] = sectionHTML;
-        [sectionJSONs addObject:sectionJSON];
-    }
-    NSMutableDictionary *responseJSON = [NSMutableDictionary dictionaryWithCapacity:1];
-    NSMutableDictionary *mobileviewJSON = [NSMutableDictionary dictionaryWithCapacity:1];
-    mobileviewJSON[@"sections"] = sectionJSONs;
-    responseJSON[@"mobileview"] = mobileviewJSON;
-    NSError *JSONError = nil;
-    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:responseJSON options:0 error:&JSONError];
-    return JSONData;
 }
 
 @end
