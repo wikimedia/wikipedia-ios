@@ -32,6 +32,10 @@ final class InsertMediaImageViewController: UIViewController {
 
     private var theme = Theme.standard
 
+    static func fromNib() -> InsertMediaImageViewController {
+        return InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = WMFLocalizedString("insert-media-placeholder-label-text", value: "Select or upload a file", comment: "Text for placeholder label visible when no file was selected or uploaded")
