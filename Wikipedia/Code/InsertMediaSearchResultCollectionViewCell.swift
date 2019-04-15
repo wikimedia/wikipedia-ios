@@ -70,9 +70,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
         if (apply) {
             imageView.frame = CGRect(x: origin.x, y: origin.y, width: imageViewDimension, height: imageViewDimension)
-            imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
-                self.imageView.image = UIImage(named: "media-wizard/placeholder")
-            }, success: {})
+            imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: {_ in }, success: {})
             selectedImageView.frame = CGRect(x: imageView.frame.maxX - selectedImageViewDimension, y: imageView.frame.maxY - selectedImageViewDimension, width: selectedImageViewDimension, height: selectedImageViewDimension)
             selectedImageView.image = selectedImage
             origin.y += imageView.frame.layoutHeight(with: spacing)
