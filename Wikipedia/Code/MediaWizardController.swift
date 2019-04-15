@@ -9,6 +9,8 @@ final class MediaWizardController: NSObject {
     private let searchFetcher: WMFSearchFetcher
     private let imageInfoFetcher: MWKImageInfoFetcher
 
+    private var theme: Theme
+
     weak var delegate: MediaWizardControllerDelegate?
 
     private lazy var closeButton: UIBarButtonItem = {
@@ -34,27 +36,9 @@ final class MediaWizardController: NSObject {
         return TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
     }()
 
-    init(articleTitle: String?, siteURL: URL?) {
-        self.articleTitle = articleTitle
-        self.siteURL = siteURL ?? Configuration.current.commonsAPIURLComponents(with: nil).url
-        self.searchFetcher = WMFSearchFetcher()
-        self.imageInfoFetcher = MWKImageInfoFetcher()
-        super.init()
-    }
-
-    func prepare(with theme: Theme) {
-        if let articleTitle = articleTitle {
-            search(for: articleTitle)
-        }
-        prepareUI(with: theme)
-    }
-
-    private func prepareUI(with theme: Theme) {
-        searchResultsCollectionViewController.delegate = imageViewController
-
+    private lazy var verticallySplitViewController: VerticallySplitViewController = {
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
         tabbedNavigationController.isNavigationBarHidden = true
-
         let verticallySplitViewController = VerticallySplitViewController(topViewController: imageViewController, bottomViewController: tabbedNavigationController)
         verticallySplitViewController.title = WMFLocalizedString("insert-media-title", value: "Insert media", comment: "Title for the view in charge of inserting media into an article")
         closeButton.tintColor = theme.colors.chromeText
@@ -62,8 +46,31 @@ final class MediaWizardController: NSObject {
         nextButton.isEnabled = false
         verticallySplitViewController.navigationItem.leftBarButtonItem = closeButton
         verticallySplitViewController.navigationItem.rightBarButtonItem = nextButton
-        
-        let navigationController = WMFThemeableNavigationController(rootViewController: verticallySplitViewController, theme: theme)
+        return verticallySplitViewController
+    }()
+
+    private lazy var navigationController: UINavigationController = {
+        return WMFThemeableNavigationController(rootViewController: verticallySplitViewController, theme: theme)
+    }()
+
+    init(theme: Theme, articleTitle: String?, siteURL: URL?) {
+        self.theme = theme
+        self.articleTitle = articleTitle
+        self.siteURL = siteURL ?? Configuration.current.commonsAPIURLComponents(with: nil).url
+        self.searchFetcher = WMFSearchFetcher()
+        self.imageInfoFetcher = MWKImageInfoFetcher()
+        super.init()
+    }
+
+    func prepare() {
+        if let articleTitle = articleTitle {
+            search(for: articleTitle)
+        }
+        prepareUI()
+    }
+
+    private func prepareUI() {
+        searchResultsCollectionViewController.delegate = imageViewController
         delegate?.mediaWizardController(self, didPrepareViewController: navigationController)
     }
 
@@ -156,7 +163,16 @@ final class MediaWizardController: NSObject {
     }
 
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
-        
+        let settingsViewController = InsertMediaSettingsViewController.fromNib()
+        settingsViewController.title = "Media settings"
+        let insertButton = UIBarButtonItem(title: "Insert", style: .done, target: self, action: #selector(insertMedia(_:)))
+        insertButton.tintColor = theme.colors.link
+        settingsViewController.navigationItem.rightBarButtonItem = insertButton
+        navigationController.pushViewController(settingsViewController, animated: true)
+    }
+
+    @objc private func insertMedia(_ sender: UIBarButtonItem) {
+
     }
 }
 
