@@ -326,8 +326,6 @@ import Foundation
         task.resume()
     }
     
-    
-    
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
             self.handleResponse(response)
