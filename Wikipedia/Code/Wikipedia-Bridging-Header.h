@@ -13,7 +13,6 @@
 #import "WMFSearchResults.h"
 #import "MWKSearchRedirectMapping.h"
 #import "WMFSearchFetcher.h"
-#import "WMFURLSchemeHandler.h"
 
 #import "WMFArticleTextActivitySource.h"
 

@@ -9,7 +9,7 @@ extension SchemeHandler {
         
         static var baseUrlComponents: URLComponents {
             var components = URLComponents()
-            components.scheme = SchemeHandler.defaultScheme
+            components.scheme = WMFURLSchemeHandlerScheme
             components.host = "host"
             return components
         }

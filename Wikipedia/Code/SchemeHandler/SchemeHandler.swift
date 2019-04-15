@@ -23,8 +23,7 @@ final class SchemeHandler: NSObject {
     private let apiHandler: APIHandler
     private let defaultHandler: DefaultHandler
     
-    @objc public static let shared = SchemeHandler(scheme: SchemeHandler.defaultScheme, session: Session.shared)
-    @objc static let defaultScheme = "wmfapp"
+    @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
     
     required init(scheme: String, session: Session) {
         self.scheme = scheme

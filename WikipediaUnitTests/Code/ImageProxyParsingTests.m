@@ -1,6 +1,5 @@
 #import <XCTest/XCTest.h>
 #import "MWKTestCase.h"
-#import "WMFURLSchemeHandler.h"
 #import "Wikipedia-Swift.h"
 
 @interface ImageSchemeParsingTests : MWKTestCase
