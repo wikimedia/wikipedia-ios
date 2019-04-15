@@ -6,6 +6,7 @@ protocol InsertMediaImageViewControllerDelegate: AnyObject {
 }
 
 final class InsertMediaImageViewController: UIViewController {
+    @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
 
@@ -52,12 +53,13 @@ final class InsertMediaImageViewController: UIViewController {
 
     @objc private func startActivityIndicator() {
         cancelPreviousActivityIndicatorSelectors()
-        imageView.image = nil
+        contentView.isHidden = true
         activityIndicatorView.startAnimating()
     }
 
     @objc private func stopActivityIndicator() {
         cancelPreviousActivityIndicatorSelectors()
+        contentView.isHidden = false
         activityIndicatorView.stopAnimating()
     }
 
