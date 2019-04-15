@@ -63,8 +63,12 @@ final class MediaWizardController: NSObject {
     private func search(for searchTerm: String) {
         progressController.start()
         let failure = { (error: Error) in
+            let nserror = error as NSError
+            guard nserror.code != NSURLErrorCancelled else {
+                return
+            }
             DispatchQueue.main.async {
-                self.searchResultsCollectionViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                self.searchResultsCollectionViewController.emptyViewType = nserror.wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.searchResultsCollectionViewController.searchResults = []
                 self.progressController.stop()
             }
