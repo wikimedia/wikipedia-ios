@@ -71,15 +71,14 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
     func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult) {
         perform(#selector(startActivityIndicator), with: nil, afterDelay: 0.3)
 
-        guard let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(searchResult.thumbnailURL.absoluteString, Int(view.bounds.width))) else {
+        guard let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(searchResult.thumbnailURL.absoluteString, Int(view.bounds.width))) ?? searchResult.imageInfo?.canonicalFileURL else {
             stopActivityIndicator()
-            assertionFailure()
             return
         }
 
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
             self.stopActivityIndicator()
-            assertionFailure(error.localizedDescription)
+            assertionFailure("Failed to set image from url: \(imageURL), error: \(error.localizedDescription)")
         }) {
             self.stopActivityIndicator()
             self.imageView.contentMode = .scaleAspectFill
