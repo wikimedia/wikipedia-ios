@@ -6061,9 +6061,8 @@
 			isa = PBXGroup;
 			children = (
 				7AC4B6FF225D2D2E0040F0D4 /* InsertMediaImageViewController.swift */,
-				7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */,
-				7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */,
 				7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */,
+				7AF8CEDD226527DC000B7676 /* Settings */,
 				7A5A0541225FBDD300BBEAC1 /* Search */,
 			);
 			name = Insert;
@@ -6221,12 +6220,12 @@
 		7AC6B6AC225CE5DD00C285CB /* Media Wizard */ = {
 			isa = PBXGroup;
 			children = (
-				7AC4B6F3225D273E0040F0D4 /* VerticallySplitViewController.swift */,
-				7A0D4D41225EABFC00774A5A /* Insert */,
-				7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */,
-				7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */,
-				7AC4B6F4225D273E0040F0D4 /* VerticallySplitViewController.xib */,
 				7A710921225F7AEB00D62581 /* MediaWizardController.swift */,
+				7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */,
+				7AC4B6F3225D273E0040F0D4 /* VerticallySplitViewController.swift */,
+				7AC4B6F4225D273E0040F0D4 /* VerticallySplitViewController.xib */,
+				7A0D4D41225EABFC00774A5A /* Insert */,
+				7AF8CEDE2265281F000B7676 /* Upload */,
 			);
 			name = "Media Wizard";
 			sourceTree = "<group>";
@@ -6284,6 +6283,23 @@
 				7ABE17172239B8EE006BA309 /* WelcomeContainerViewController.xib */,
 			);
 			name = Welcome;
+			sourceTree = "<group>";
+		};
+		7AF8CEDD226527DC000B7676 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */,
+				7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		7AF8CEDE2265281F000B7676 /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				7A0D4D42225EAC2300774A5A /* UploadMediaViewController.swift */,
+			);
+			name = Upload;
 			sourceTree = "<group>";
 		};
 		83023C1720E6581A00EC7592 /* Transitions */ = {
