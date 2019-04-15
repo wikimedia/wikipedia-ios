@@ -189,6 +189,7 @@
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-learn-more-text" = "Lisätietoja";
+"edit-text-clear-formatting" = "Tyhjennä muotoilu";
 "edit-text-formatting-table-view-title" = "Tekstin muotoilu";
 "edit-text-size-table-view-title" = "Tekstin koko";
 "edit-underline-accessibility-label" = "Lisää alleviivaus";
@@ -196,6 +197,7 @@
 "edit-watch-list-learn-more-text" = "Lue lisää tarkkailulistoista";
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-title" = "Äänesi on tärkeä";
+"editing-welcome-impartial-tone-title" = "Kirjoita puolueettomaan sävyyn";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
