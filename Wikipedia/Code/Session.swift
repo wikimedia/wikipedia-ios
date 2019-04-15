@@ -201,25 +201,7 @@ import Foundation
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
-    //todo: will have a cleaner call once SchemeHandler is converted to swift
-    //this method allows for progressive data callbacks
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask {
-        let task = defaultURLSession.dataTask(with: request)
-        sessionDelegate.addCallback(callback: callback, for: task)
-        return task
-    }
-    
-    @objc func dataTask(with request: URLRequest, response: ((URLSessionTask, URLResponse) -> Swift.Void)?, data: ((Data) -> Swift.Void)?, success: @escaping () -> Void, failure: @escaping (URLSessionTask, Error) -> Void) -> URLSessionDataTask {
-        
-        let callback = Session.Callback(response: { callbackTask, callbackResponse in
-            response?(callbackTask, callbackResponse)
-        }, data: { callbackData in
-            data?(callbackData)
-        }, success: {
-            success()
-        }) { callbackTask, callbackError in
-            failure(callbackTask, callbackError)
-        }
         let task = defaultURLSession.dataTask(with: request)
         sessionDelegate.addCallback(callback: callback, for: task)
         return task

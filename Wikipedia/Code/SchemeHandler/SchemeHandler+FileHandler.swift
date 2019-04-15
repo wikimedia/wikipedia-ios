@@ -2,7 +2,7 @@ import Foundation
 
 protocol FileHandlerCacheDelegate: class {
     func cachedResponse(for path: String) -> CachedURLResponse?
-    func cacheResponse(_ response: URLResponse, data: Data?, for path: String)
+    func cacheResponse(_ response: URLResponse, data: Data?, path: String)
 }
 
 extension SchemeHandler {
@@ -18,8 +18,13 @@ extension SchemeHandler {
         }
         
         func handle(pathComponents: [String], requestUrl: URL, completion: (URLResponse?, Data?, Error?) -> Void) {
-            //todo: defensive checks around this
-            let localPathComponents = pathComponents[2..<(pathComponents.count - 2)]
+            
+            guard pathComponents.count >= 2 else {
+                completion(nil, nil, SchemeHandlerError.invalidParameters)
+                return
+            }
+            
+            let localPathComponents = pathComponents[2..<(pathComponents.count)]
             let relativePath = NSString.path(withComponents: Array(localPathComponents))
             
             let notFoundResponse = HTTPURLResponse(url: requestUrl, statusCode: 404, httpVersion: nil, headerFields: nil)
@@ -54,7 +59,7 @@ extension SchemeHandler {
             }
             
             let data = try? Data(contentsOf: localFileUrl as URL)
-            var headerFields = Dictionary<String, String>.init(minimumCapacity: 1)
+            var headerFields = [String: String](minimumCapacity: 1)
             let types = ["css": "text/css; charset=utf-8",
                          "html": "text/html; charset=utf-8",
                          "js": "application/javascript; charset=utf-8"
@@ -63,11 +68,10 @@ extension SchemeHandler {
                 headerFields["Content-Type"] = types[pathExtension]
             }
             if let response = HTTPURLResponse(url: requestUrl, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
-                cacheDelegate?.cacheResponse(response, data: data, for: relativePath)
+                cacheDelegate?.cacheResponse(response, data: data, path: relativePath)
                 completion(response, data, nil)
             } else {
                 completion(nil, nil, SchemeHandlerError.createHTTPURLResponseFailure)
-                return
             }
         }
     }

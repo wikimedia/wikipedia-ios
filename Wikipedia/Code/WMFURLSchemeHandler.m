@@ -109,57 +109,13 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     
-    NSURLSessionDataTask *APIRequestTask = [self.session dataTaskWith:request response:^(NSURLSessionTask * _Nonnull sessionTask, NSURLResponse * _Nonnull response) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (![self isTaskActive:task]) {
-                return;
-            }
-            
-            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                if (httpResponse.statusCode != 200) {
-                    [sessionTask cancel];
-                    //todo: get rid of this error when we move to swift
-                    NSError *error = [NSError errorWithDomain:@"Scheme Handler Error" code:1 userInfo:nil];
-                    [task didFailWithError:error];
-                } else {
-                    [task didReceiveResponse:response];
-                }
-            }
-        });
-    } data:^(NSData * _Nonnull data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (![self isTaskActive:task]) {
-                return;
-            }
-            
-            [task didReceiveData:data];
-        });
-    } success:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (![self isTaskActive:task]) {
-                return;
-            }
-            
-            [task didFinish];
-            
-            [self.activeTasks removeObject:task];
-        });
-    } failure:^(NSURLSessionTask * _Nonnull sessionTask, NSError * _Nonnull error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (![self isTaskActive:task]) {
-                return;
-            }
-            
-            [sessionTask cancel];
-            [task didFailWithError:error];
-            
-            [self.activeTasks removeObject:task];
-        });
-    }];
-    
-    APIRequestTask.priority = NSURLSessionTaskPriorityLow;
-    [APIRequestTask resume];
+//    NSURLSessionDataTask *APIRequestTask = [self.session dataTaskWithRequest:request
+//                                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//                                                               [self finishTask:task withProxiedResponse:response data:data error:error];
+//                                                           }];
+//    
+//    APIRequestTask.priority = NSURLSessionTaskPriorityLow;
+//    [APIRequestTask resume];
 }
 
 - (void)handleFileRequestForRelativePath:(NSString *)relativePath requestURL:(NSURL *)requestURL task:(id<WKURLSchemeTask>)task {
@@ -200,59 +156,12 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [self finishTask:task withCachedResponse:cachedResponse];
     } else {
         
-        NSURLSessionDataTask *downloadTask = [self.session dataTaskWith:request response:^(NSURLSessionTask * _Nonnull sessionTask, NSURLResponse * _Nonnull response) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (![self isTaskActive:task]) {
-                    return;
-                }
-                
-                if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                    if (httpResponse.statusCode != 200) {
-                        [sessionTask cancel];
-                        //todo: get rid of this error when we move to swift
-                        NSError *error = [NSError errorWithDomain:@"Scheme Handler Error" code:1 userInfo:nil];
-                        [task didFailWithError:error];
-                    } else {
-                        [task didReceiveResponse:response];
-                    }
-                }
-            });
-        } data:^(NSData * _Nonnull data) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (![self isTaskActive:task]) {
-                    return;
-                }
-                
-                [task didReceiveData:data];
-            });
-        } success:^{
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (![self isTaskActive:task]) {
-                    return;
-                }
-                
-                [task didFinish];
-                
-                [self.activeTasks removeObject:task];
-            });
-        } failure:^(NSURLSessionTask * _Nonnull sessionTask, NSError * _Nonnull error) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (![self isTaskActive:task]) {
-                    return;
-                }
-                
-                [sessionTask cancel];
-                [task didFailWithError:error];
-                
-                [self.activeTasks removeObject:task];
-            });
-        }];
-        
-        [downloadTask resume];
+//        NSURLSessionDataTask *downloadTask = [self.session dataTaskWithRequest:request
+//                                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//                                                                 [self finishTask:task withProxiedResponse:response data:data error:error];
+//                                                             }];
+//
+//        [downloadTask resume];
     }
 }
 

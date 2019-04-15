@@ -3,10 +3,6 @@ import Foundation
 extension SchemeHandler {
     class BaseSubHandler {
         
-        init() {
-            fatalError("Abstract base class - must subclass")
-        }
-        
         class var basePath: String? {
             fatalError("Subclasses must implement basePath)")
         }

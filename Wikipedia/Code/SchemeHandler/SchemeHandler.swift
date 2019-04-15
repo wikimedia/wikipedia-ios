@@ -4,53 +4,52 @@ import WebKit
 enum SchemeHandlerError: Error {
     case invalidParameters
     case createHTTPURLResponseFailure
-    case handlerValidationFailure
+    case unexpectedResponse
     
-    var localizedDescription: String {
-        return NSLocalizedString("An unexpected error has occurred.", comment: "¯\\_(ツ)_/¯")
+    public var errorDescription: String? {
+         return CommonStrings.genericErrorDescription
     }
 }
 
-class SchemeHandler: NSObject {
+final class SchemeHandler: NSObject {
     @objc let scheme: String
-    let session: Session
-    var tasks: [URLRequest: URLSessionTask] = [:]
-    var queue: DispatchQueue = DispatchQueue(label: "SchemeHandlerQueue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
+    private let session: Session
+    private var tasks: [URLRequest: URLSessionTask] = [:]
+    private var queue: DispatchQueue = DispatchQueue(label: "SchemeHandlerQueue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
     
-    private let schemeHandlerCache: SchemeHandlerCache
+    private let cache: SchemeHandlerCache
     private let fileHandler: FileHandler
     private let articleSectionHandler: ArticleSectionHandler
     private let apiHandler: APIHandler
     private let defaultHandler: DefaultHandler
     
-    //todo: take out singletons?
     @objc public static let shared = SchemeHandler(scheme: SchemeHandler.defaultScheme, session: Session.shared)
     @objc static let defaultScheme = "wmfapp"
     
     required init(scheme: String, session: Session) {
         self.scheme = scheme
         self.session = session
-        let schemeHandlerCache = SchemeHandlerCache()
-        self.schemeHandlerCache = schemeHandlerCache
-        self.fileHandler = FileHandler(cacheDelegate: schemeHandlerCache)
-        self.articleSectionHandler = ArticleSectionHandler(cacheDelegate: schemeHandlerCache)
+        let cache = SchemeHandlerCache()
+        self.cache = cache
+        self.fileHandler = FileHandler(cacheDelegate: cache)
+        self.articleSectionHandler = ArticleSectionHandler(cacheDelegate: cache)
         self.apiHandler = APIHandler(session: session)
         self.defaultHandler = DefaultHandler(session: session)
     }
    
     func setResponseData(data: Data?, contentType: String?, path: String, requestURL: URL) {
-        var headerFields = Dictionary<String, String>.init(minimumCapacity: 1)
+        var headerFields = [String: String](minimumCapacity: 1)
         if let contentType = contentType {
             headerFields["Content-Type"] = contentType
         }
         if let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: headerFields) {
-            schemeHandlerCache.cacheResponse(response, data: data, for: path)
+            cache.cacheResponse(response, data: data, path: path)
         }
     }
     
-    //todo: better objc name
-    @objc func cacheSectionData(for article: MWKArticle) {
-        schemeHandlerCache.cacheSectionData(for: article)
+    @objc(cacheSectionDataForArticle:)
+    func cacheSectionData(for article: MWKArticle) {
+        cache.cacheSectionData(for: article)
     }
 }
 
@@ -72,19 +71,17 @@ extension SchemeHandler: WKURLSchemeHandler {
         components.scheme =  "https"
         #endif
         guard let pathComponents = (components.path as NSString?)?.pathComponents,
-            pathComponents.count >= 2,
-            let url = components.url else { //todo: understand when we should pass in url vs requestURL
+            pathComponents.count >= 2 else {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
         }
         
         let baseComponent = pathComponents[1]
         
-        //------local resource dry closures
         let localCompletionBlock: (URLResponse?, Data?, Error?) -> Void = { (response, data, error) in
             
             if response == nil && error == nil {
-                urlSchemeTask.didFailWithError(SchemeHandlerError.handlerValidationFailure)
+                urlSchemeTask.didFailWithError(SchemeHandlerError.unexpectedResponse)
                 return
             }
             
@@ -103,22 +100,54 @@ extension SchemeHandler: WKURLSchemeHandler {
             urlSchemeTask.didFinish()
         }
         
-        //------remote resource dry closures
-        
-        let evaluationBlock: (((error: Error?, task: URLSessionTask?)) -> Void) = { (evaluation) in
-            //todo: handle if both error and task are nil
-            if let error = evaluation.error {
-                urlSchemeTask.didFailWithError(error)
+        switch baseComponent {
+        case FileHandler.basePath:
+            fileHandler.handle(pathComponents: pathComponents, requestUrl: requestURL, completion: localCompletionBlock)
+            
+        case ArticleSectionHandler.basePath:
+            articleSectionHandler.handle(pathComponents: pathComponents, requestUrl: requestURL, completion: localCompletionBlock)
+        case APIHandler.basePath:
+            
+            guard let apiUrl = apiHandler.urlForPathComponents(pathComponents, requestUrl: requestURL) else {
+                urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
                 return
             }
             
-            if let task = evaluation.task {
-                self.queue.async(flags: .barrier) {
-                    self.tasks[urlSchemeTask.request] = task
-                }
-                task.resume()
+            kickOffDataTask(handler: apiHandler, url: apiUrl, urlSchemeTask: urlSchemeTask)
+           
+        default:
+            
+            guard let defaultUrl = defaultHandler.urlForPathComponents(pathComponents, requestUrl: requestURL) else {
+                urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
+                return
             }
+            
+            if let cachedResponse = defaultHandler.cachedResponseForUrl(defaultUrl) {
+                urlSchemeTask.didReceive(cachedResponse.response)
+                urlSchemeTask.didReceive(cachedResponse.data)
+                urlSchemeTask.didFinish()
+                return
+            }
+            
+            kickOffDataTask(handler: defaultHandler, url: defaultUrl, urlSchemeTask: urlSchemeTask)
         }
+    }
+    
+    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
+        queue.async(flags: .barrier) {
+            guard let task = self.tasks[urlSchemeTask.request] else {
+                return
+            }
+            if task.state == .running {
+                task.cancel()
+            }
+            self.tasks.removeValue(forKey: urlSchemeTask.request)
+        }
+    }
+}
+
+private extension SchemeHandler {
+    func kickOffDataTask(handler: RemoteSubHandler, url: URL, urlSchemeTask: WKURLSchemeTask) {
         
         let callback = Session.Callback(response: { task, response in
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
@@ -137,40 +166,10 @@ extension SchemeHandler: WKURLSchemeHandler {
             urlSchemeTask.didFailWithError(error)
         }
         
-        switch baseComponent {
-        case FileHandler.basePath:
-            fileHandler.handle(pathComponents: pathComponents, requestUrl: requestURL, completion: localCompletionBlock)
-            
-        case ArticleSectionHandler.basePath:
-            articleSectionHandler.handle(pathComponents: pathComponents, requestUrl: requestURL, completion: localCompletionBlock)
-        case APIHandler.basePath:
-            let evaluation = apiHandler.dataTaskForPathComponents(pathComponents, requestUrl: requestURL, callback: callback)
-            
-            evaluationBlock(evaluation)
-           
-        default:
-            
-            let evaluation = defaultHandler.dataTaskForPathComponents(pathComponents, requestUrl: requestURL, cachedCompletionHandler: { (response, data) in
-                urlSchemeTask.didReceive(response)
-                urlSchemeTask.didReceive(data)
-                urlSchemeTask.didFinish()
-            }, callback: callback)
-            
-            evaluationBlock(evaluation)
+        let dataTask = handler.dataTaskForUrl(url, callback: callback)
+        self.queue.async(flags: .barrier) {
+            self.tasks[urlSchemeTask.request] = dataTask
         }
-    }
-    
-    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
-        queue.async(flags: .barrier) {
-            guard let task = self.tasks[urlSchemeTask.request] else {
-                return
-            }
-            if task.state == .running {
-                task.cancel()
-            }
-            self.tasks.removeValue(forKey: urlSchemeTask.request)
-        }
+        dataTask.resume()
     }
 }
-
-
