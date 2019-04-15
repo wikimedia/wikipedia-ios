@@ -85,6 +85,12 @@ final class MediaWizardController: NSObject {
         }
         let success = { (results: WMFSearchResults) in
             let searchResults = searchResults(results)
+            if !searchTerm.wmf_hasNonWhitespaceText {
+                DispatchQueue.main.async {
+                    self.searchResultsCollectionViewController.emptyViewType = .none
+                    self.progressController.stop()
+                }
+            }
             DispatchQueue.main.async {
                 self.searchResultsCollectionViewController.searchResults = searchResults
             }
