@@ -44,6 +44,28 @@ final class InsertMediaImageViewController: UIViewController {
 }
 
 extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionViewControllerDelegate {
+    func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult) {
+        guard let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(searchResult.thumbnailURL.absoluteString, Int(view.bounds.width))) else {
+            return
+        }
+
+        imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
+            assertionFailure(error.localizedDescription)
+        }) {
+            self.moreInfoURL = searchResult.imageInfo?.filePageURL
+            self.label.isHidden = true
+            self.centerYConstraint?.isActive = false
+            self.overlayView.isHidden = false
+            self.infoView.isHidden = false
+            self.imageView.backgroundColor = self.view.backgroundColor
+            self.infoTitleLabel.text = searchResult.imageInfo?.imageDescription
+            self.resetLicenseView()
+            if let license = searchResult.imageInfo?.license {
+                self.configureLicenseView(with: license)
+            }
+        }
+    }
+
     func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: MWKSearchResult, imageInfoResult: MWKImageInfo?) {
         guard let thumbnailURL = searchResult.thumbnailURL ?? imageInfoResult?.imageThumbURL else {
             assertionFailure()

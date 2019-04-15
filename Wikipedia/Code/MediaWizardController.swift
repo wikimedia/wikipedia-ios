@@ -21,8 +21,8 @@ final class MediaWizardController: NSObject {
         return UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(goToMediaSettings(_:)))
     }()
 
-    func prepare(for articleTitle: String?,with theme: Theme) {
-        prepareSearchResults(for: articleTitle)
+    func prepare(for articleTitle: String?, from siteURL: URL?, with theme: Theme) {
+        prepareSearchResults(for: articleTitle, from: siteURL)
         prepareUI(with: theme, placeholder: articleTitle)
     }
 
@@ -48,11 +48,11 @@ final class MediaWizardController: NSObject {
         delegate?.mediaWizardController(self, didPrepareViewController: navigationController)
     }
 
-    private func prepareSearchResults(for article: MWKArticle?) {
+    private func prepareSearchResults(for articleTitle: String?, from siteURL: URL?) {
         guard
-            let article = article,
-            let articleTitle = article.displaytitle
+            let articleTitle = articleTitle
         else {
+            assertionFailure()
             return
         }
         let progressController = searchResultsCollectionViewController.fakeProgressController
@@ -64,28 +64,56 @@ final class MediaWizardController: NSObject {
                 progressController.stop()
             }
         }
+        let searchResults: (WMFSearchResults) -> [InsertMediaSearchResult] = { (results: WMFSearchResults) in
+            guard let results = results.results else {
+                return []
+            }
+            return results.compactMap { (result: MWKSearchResult) in
+                guard
+                    let displayTitle = result.displayTitle,
+                    let thumbnailURL = result.thumbnailURL
+                else {
+                    return nil
+                }
+                return InsertMediaSearchResult(displayTitle: displayTitle, thumbnailURL: thumbnailURL)
+            }
+        }
         let success = { (results: WMFSearchResults) in
-            if let names = results.results?.compactMap({ $0.displayTitle }) {
-                self.imageInfoFetcher.fetchImageInfo(forCommonsFiles: names, failure: { error in
+            let searchResults = searchResults(results)
+            DispatchQueue.main.async {
+                self.searchResultsCollectionViewController.searchResults = searchResults
+            }
+            for (index, searchResult) in searchResults.enumerated() {
+                guard searchResult.imageInfo == nil else {
+                    continue
+                }
+                let url = siteURL ?? Configuration.current.commonsAPIURLComponents(with: nil).url
+                self.imageInfoFetcher.fetchGalleryInfo(forImage: searchResult.displayTitle, fromSiteURL: url, failure: { error in
                     assertionFailure()
                 }, success: { result in
-                    guard let imageInfoResults = result as? [MWKImageInfo] else {
-                        assertionFailure()
-                        return
-                    }
                     DispatchQueue.main.async {
-                        self.searchResultsCollectionViewController.imageInfoResults = imageInfoResults
-                        progressController.finish()
+                        self.searchResultsCollectionViewController.setImageInfo(result as? MWKImageInfo, for: searchResult, at: index)
                     }
                 })
-            } else {
-                DispatchQueue.main.async {
-                    progressController.finish()
-                }
             }
-            DispatchQueue.main.async {
-                self.searchResultsCollectionViewController.searchResults = results.results ?? []
-            }
+//            if let names = results.results?.compactMap({ $0.displayTitle }) {
+//                self.imageInfoFetcher.fetchGalleryInfo(forImageFiles: names, fromSiteURL: siteURL, success: { result in
+//                    guard let imageInfoResults = result as? [MWKImageInfo] else {
+//                        assertionFailure()
+//                        return
+//                    }
+//                    DispatchQueue.main.async {
+//                        self.searchResultsCollectionViewController.imageInfoResults = imageInfoResults
+//                        progressController.finish()
+//                    }
+//                }, failure: { error in
+//                    assertionFailure(error!.localizedDescription)
+//                })
+//            } else {
+//                DispatchQueue.main.async {
+//                    progressController.finish()
+//                }
+//            }
         }
         searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
             if let resultsArray = results.results {
@@ -93,7 +121,7 @@ final class MediaWizardController: NSObject {
                     self.searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else if resultsArray.count < 12 {
                     DispatchQueue.main.async {
-                        self.searchResultsCollectionViewController.searchResults = resultsArray
+                        self.searchResultsCollectionViewController.searchResults = searchResults(results)
                     }
                     self.searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 }

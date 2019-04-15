@@ -35,7 +35,18 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
 }
 
 protocol InsertMediaSearchResultsCollectionViewControllerDelegate: AnyObject {
-    func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: MWKSearchResult, imageInfoResult: MWKImageInfo?)
+    func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult)
+}
+
+final class InsertMediaSearchResult {
+    let displayTitle: String
+    let thumbnailURL: URL
+    var imageInfo: MWKImageInfo?
+
+    init(displayTitle: String, thumbnailURL: URL) {
+        self.displayTitle = displayTitle
+        self.thumbnailURL = thumbnailURL
+    }
 }
 
 class InsertMediaSearchResultsCollectionViewController: ViewController {
@@ -45,18 +56,17 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     weak var delegate: InsertMediaSearchResultsCollectionViewControllerDelegate?
 
-    var searchResults = [MWKSearchResult]() {
+    var searchResults = [InsertMediaSearchResult]() {
         didSet {
             assert(Thread.isMainThread)
             reload()
         }
     }
 
-    var imageInfoResults = [MWKImageInfo]() {
-        didSet {
-            assert(Thread.isMainThread)
-            reload()
-        }
+    func setImageInfo(_ imageInfo: MWKImageInfo?, for searchResult: InsertMediaSearchResult, at index: Int) {
+        assert(Thread.isMainThread)
+        searchResult.imageInfo = imageInfo
+        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
 
     lazy var fakeProgressController: FakeProgressController = {
@@ -93,8 +103,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     private func configure(_ cell: InsertMediaSearchResultCollectionViewCell, at indexPath: IndexPath) {
         let result = searchResults[indexPath.item]
-        let imageInfo = imageInfoResults[safeIndex: indexPath.item]
-        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, title: imageInfo?.imageDescription)
+        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, title: result.imageInfo?.imageDescription)
     }
 
     // MARK: Themeable
@@ -175,8 +184,7 @@ extension InsertMediaSearchResultsCollectionViewController: UICollectionViewData
 extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let searchResult = searchResults[indexPath.item]
-        let imageInfoResult = imageInfoResults[safeIndex: indexPath.item]
-        delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult, imageInfoResult: imageInfoResult)
+        delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult)
     }
 }
 
