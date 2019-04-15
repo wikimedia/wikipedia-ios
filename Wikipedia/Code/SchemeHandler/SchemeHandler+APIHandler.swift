@@ -24,7 +24,7 @@ extension SchemeHandler {
             }
             
             // APIURL is APIProxyURL with components[3] as the host, components[4..5] as the path.
-            apiProxyURLComponents.path = NSString.path(withComponents: [pathComponents[3], pathComponents[4]])
+            apiProxyURLComponents.path = NSString.path(withComponents: ["/", pathComponents[3], pathComponents[4]])
             apiProxyURLComponents.host = pathComponents[2]
             apiProxyURLComponents.scheme = "https"
             
