@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InsertMediaSettingsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="imageTitleLabel" destination="meN-9y-qpb" id="Yrg-C1-ePT"/>
+                <outlet property="imageView" destination="NcF-jR-1aP" id="zAn-N2-z3m"/>
+                <outlet property="uploadedImageLabel" destination="JKA-de-JXv" id="wwo-2M-dFn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,6 +34,49 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AsP-ik-eXA" userLabel="Image View">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NcF-jR-1aP">
+                                                    <rect key="frame" x="8" y="8" width="124" height="124"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="NcF-jR-1aP" secondAttribute="height" multiplier="1:1" id="eSh-DC-qgq"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BH5-gw-MZf">
+                                                    <rect key="frame" x="140" y="-36" width="266" height="41"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploaded image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKA-de-JXv">
+                                                            <rect key="frame" x="0.0" y="0.0" width="266" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yellow leaves in Brooklyn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="meN-9y-qpb">
+                                                            <rect key="frame" x="0.0" y="20.5" width="266" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3J-ft-z1L" userLabel="Separator View">
+                                                    <rect key="frame" x="0.0" y="894" width="414" height="1"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="zA9-fh-hcu"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="BH5-gw-MZf" secondAttribute="trailing" constant="8" id="1qR-9K-3vZ"/>
+                                                <constraint firstItem="h3J-ft-z1L" firstAttribute="leading" secondItem="AsP-ik-eXA" secondAttribute="leading" id="COa-MT-DXc"/>
+                                                <constraint firstItem="NcF-jR-1aP" firstAttribute="leading" secondItem="AsP-ik-eXA" secondAttribute="leading" constant="8" id="Crr-12-q77"/>
+                                                <constraint firstAttribute="trailing" secondItem="h3J-ft-z1L" secondAttribute="trailing" id="SMx-0s-J8e"/>
+                                                <constraint firstAttribute="bottom" secondItem="h3J-ft-z1L" secondAttribute="bottom" constant="1" id="VJn-mJ-pch"/>
+                                                <constraint firstItem="BH5-gw-MZf" firstAttribute="topMargin" secondItem="NcF-jR-1aP" secondAttribute="top" id="XTx-Um-O3i"/>
+                                                <constraint firstItem="NcF-jR-1aP" firstAttribute="top" secondItem="AsP-ik-eXA" secondAttribute="top" constant="8" id="aYr-2i-rI0"/>
+                                                <constraint firstItem="BH5-gw-MZf" firstAttribute="leading" secondItem="NcF-jR-1aP" secondAttribute="trailing" constant="8" id="zx4-cR-Pgf"/>
+                                                <constraint firstItem="NcF-jR-1aP" firstAttribute="width" secondItem="AsP-ik-eXA" secondAttribute="width" multiplier="3:10" id="zxg-Kd-Lp3"/>
+                                            </constraints>
                                         </view>
                                     </subviews>
                                 </stackView>
@@ -52,6 +98,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="BzX-sb-JBg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="4sT-ff-OXG"/>
                 <constraint firstItem="BzX-sb-JBg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Z08-xk-l51"/>
