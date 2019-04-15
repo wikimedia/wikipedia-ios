@@ -100,12 +100,24 @@ final class MediaWizardController: NSObject {
             DispatchQueue.main.async {
                 self.searchResultsCollectionViewController.searchResults = searchResults
             }
+            var cancelledImageInfoFetch = false
             for (index, searchResult) in searchResults.enumerated() {
+                guard !cancelledImageInfoFetch else {
+                    DispatchQueue.main.async {
+                        self.tabbedViewController.progressController.stop()
+                    }
+                    return
+                }
                 guard searchResult.imageInfo == nil else {
                     continue
                 }
                 self.imageInfoFetcher.fetchGalleryInfo(forImage: searchResult.displayTitle, fromSiteURL: self.siteURL, failure: { error in
-                    assertionFailure()
+                    let nserror = error as NSError
+                    if nserror.code == NSURLErrorCancelled {
+                        cancelledImageInfoFetch = true
+                    } else {
+                        assertionFailure(error.localizedDescription)
+                    }
                 }, success: { result in
                     DispatchQueue.main.async {
                         if index == searchResults.endIndex - 1 {
