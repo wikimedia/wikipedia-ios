@@ -48,8 +48,11 @@ final class MediaWizardController: NSObject {
         delegate?.mediaWizardController(self, didPrepareViewController: navigationController)
     }
 
-    private func prepareSearchResults(for articleTitle: String?) {
-        guard let articleTitle = articleTitle else {
+    private func prepareSearchResults(for article: MWKArticle?) {
+        guard
+            let article = article,
+            let articleTitle = article.displaytitle
+        else {
             return
         }
         let progressController = searchResultsCollectionViewController.fakeProgressController
