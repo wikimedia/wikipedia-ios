@@ -32,6 +32,7 @@ final class MediaWizardController: NSObject {
 
     private func prepareUI(with theme: Theme, placeholder: String?) {
         let insertMediaImageViewController = InsertMediaImageViewController(nibName: "InsertMediaImageViewController", bundle: nil)
+        insertMediaImageViewController.delegate = self
         searchResultsCollectionViewController.delegate = insertMediaImageViewController
         
         let searchView = SearchView(searchBarDelegate: searchResultsCollectionViewController, placeholder: placeholder)
@@ -147,5 +148,11 @@ final fileprivate class SearchView: UIView, Themeable {
 
     func apply(theme: Theme) {
         searchBar.apply(theme: theme)
+    }
+}
+
+extension MediaWizardController: InsertMediaImageViewControllerDelegate {
+    func insertMediaImageViewController(_ insertMediaImageViewController: InsertMediaImageViewController, didSetSelectedImage image: UIImage?, from searchResult: InsertMediaSearchResult) {
+        nextButton.isEnabled = true
     }
 }

@@ -1,6 +1,10 @@
 import UIKit
 import SafariServices
 
+protocol InsertMediaImageViewControllerDelegate: AnyObject {
+    func insertMediaImageViewController(_ insertMediaImageViewController: InsertMediaImageViewController, didSetSelectedImage image: UIImage?, from searchResult: InsertMediaSearchResult)
+}
+
 final class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
@@ -13,6 +17,8 @@ final class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var infoLicensesStackView: UIStackView!
     @IBOutlet private weak var infoLicenseTitleLabel: UILabel!
     @IBOutlet private weak var infoMoreButton: UIButton!
+
+    weak var delegate: InsertMediaImageViewControllerDelegate?
 
     private var moreInfoURL: URL? {
         didSet {
@@ -64,6 +70,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
             if let license = searchResult.imageInfo?.license {
                 self.configureLicenseView(with: license)
             }
+            self.delegate?.insertMediaImageViewController(self, didSetSelectedImage: self.imageView.image, from: searchResult)
         }
     }
 
