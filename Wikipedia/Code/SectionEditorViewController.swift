@@ -575,9 +575,9 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        mediaWizardController = MediaWizardController()
+        mediaWizardController = MediaWizardController(siteURL: section?.article?.url.wmf_site)
         mediaWizardController?.delegate = self
-        mediaWizardController?.prepare(for: section?.titleText, from: section?.article?.url.wmf_site, with: theme)
+        mediaWizardController?.prepare(for: section?.titleText, with: theme)
     }
 }
 

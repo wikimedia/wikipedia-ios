@@ -6,6 +6,7 @@ protocol MediaWizardControllerDelegate: AnyObject {
 final class MediaWizardController: NSObject {
     private let searchFetcher = WMFSearchFetcher()
     private let imageInfoFetcher = MWKImageInfoFetcher()
+    private let siteURL: URL?
 
     weak var delegate: MediaWizardControllerDelegate?
 
@@ -25,8 +26,15 @@ final class MediaWizardController: NSObject {
         return FakeProgressController(progress: searchResultsCollectionViewController.navigationBar, delegate: searchResultsCollectionViewController.navigationBar)
     }()
 
-    func prepare(for articleTitle: String?, from siteURL: URL?, with theme: Theme) {
-        prepareSearchResults(for: articleTitle, from: siteURL)
+    init(siteURL: URL?) {
+        self.siteURL = siteURL ?? Configuration.current.commonsAPIURLComponents(with: nil).url
+        super.init()
+    }
+
+    func prepare(for articleTitle: String?, with theme: Theme) {
+        if let articleTitle = articleTitle {
+            search(for: articleTitle)
+        }
         prepareUI(with: theme, placeholder: articleTitle)
     }
 
@@ -35,7 +43,7 @@ final class MediaWizardController: NSObject {
         insertMediaImageViewController.delegate = self
         searchResultsCollectionViewController.delegate = insertMediaImageViewController
         
-        let searchView = SearchView(searchBarDelegate: searchResultsCollectionViewController, placeholder: placeholder)
+        let searchView = SearchView(searchBarDelegate: self, placeholder: placeholder)
 
         let tabbedViewController = TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
@@ -52,13 +60,7 @@ final class MediaWizardController: NSObject {
         delegate?.mediaWizardController(self, didPrepareViewController: navigationController)
     }
 
-    private func prepareSearchResults(for articleTitle: String?, from siteURL: URL?) {
-        guard
-            let articleTitle = articleTitle
-        else {
-            return
-        }
-        progressController.delay = 0
+    private func search(for searchTerm: String) {
         progressController.start()
         let failure = { (error: Error) in
             DispatchQueue.main.async {
@@ -90,8 +92,7 @@ final class MediaWizardController: NSObject {
                 guard searchResult.imageInfo == nil else {
                     continue
                 }
-                let url = siteURL ?? Configuration.current.commonsAPIURLComponents(with: nil).url
-                self.imageInfoFetcher.fetchGalleryInfo(forImage: searchResult.displayTitle, fromSiteURL: url, failure: { error in
+                self.imageInfoFetcher.fetchGalleryInfo(forImage: searchResult.displayTitle, fromSiteURL: self.siteURL, failure: { error in
                     assertionFailure()
                 }, success: { result in
                     DispatchQueue.main.async {
@@ -103,18 +104,20 @@ final class MediaWizardController: NSObject {
                 })
             }
         }
-        searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
+        searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
             if let resultsArray = results.results {
                 if resultsArray.isEmpty {
-                    self.searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else if resultsArray.count < 12 {
                     DispatchQueue.main.async {
                         self.searchResultsCollectionViewController.searchResults = searchResults(results)
                     }
-                    self.searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                } else {
+                    success(results)
                 }
             } else {
-                self.searchFetcher.fetchFiles(forSearchTerm: articleTitle, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
             }
         }
     }
@@ -154,5 +157,11 @@ final fileprivate class SearchView: UIView, Themeable {
 extension MediaWizardController: InsertMediaImageViewControllerDelegate {
     func insertMediaImageViewController(_ insertMediaImageViewController: InsertMediaImageViewController, didSetSelectedImage image: UIImage?, from searchResult: InsertMediaSearchResult) {
         nextButton.isEnabled = true
+    }
+}
+
+extension MediaWizardController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        search(for: searchText)
     }
 }
