@@ -1,6 +1,7 @@
 import UIKit
+import SafariServices
 
-class InsertMediaImageViewController: UIViewController {
+final class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
 
@@ -9,32 +10,17 @@ class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var overlayView: UIView!
     @IBOutlet private weak var infoView: UIView!
     @IBOutlet private weak var infoTitleLabel: UILabel!
-    @IBOutlet private weak var infoLicenseImageView: UIImageView!
+    @IBOutlet private weak var infoLicensesStackView: UIStackView!
     @IBOutlet private weak var infoLicenseTitleLabel: UILabel!
     @IBOutlet private weak var infoMoreButton: UIButton!
 
-    private var theme = Theme.standard
-    private var display = Display.empty {
+    private var moreInfoURL: URL? {
         didSet {
-            switch display {
-            case .empty:
-                centerYConstraint?.isActive = true
-                label.isHidden = false
-            case .selected where oldValue == .empty:
-                label.isHidden = true
-                centerYConstraint?.isActive = false
-                overlayView.isHidden = false
-                infoView.isHidden = false
-                fallthrough
-            case .selected:
-                imageView.backgroundColor = view.backgroundColor
-            }
+            infoMoreButton.isHidden = moreInfoURL == nil
         }
     }
 
-    private enum Display {
-        case empty, selected
-    }
+    private var theme = Theme.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +32,14 @@ class InsertMediaImageViewController: UIViewController {
         label.font = UIFont.wmf_font(.semiboldHeadline, compatibleWithTraitCollection: traitCollection)
         infoTitleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         infoLicenseTitleLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
+    }
+
+    @IBAction private func showMoreInfo(_ sender: UIButton) {
+        guard let url = moreInfoURL else {
+            assertionFailure()
+            return
+        }
+        present(SFSafariViewController(url: url), animated: true)
     }
 }
 
@@ -62,9 +56,39 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
             assertionFailure(error.localizedDescription)
         }) {
-            self.display = .selected
+            self.moreInfoURL = imageInfoResult?.filePageURL
+            self.label.isHidden = true
+            self.centerYConstraint?.isActive = false
+            self.overlayView.isHidden = false
+            self.infoView.isHidden = false
+            self.imageView.backgroundColor = self.view.backgroundColor
             self.infoTitleLabel.text = imageInfoResult?.imageDescription
-            self.infoLicenseTitleLabel.text = imageInfoResult?.license?.shortDescription
+            self.resetLicenseView()
+            if let license = imageInfoResult?.license {
+                self.configureLicenseView(with: license)
+            }
+        }
+    }
+
+    private func configureLicenseView(with license: MWKLicense) {
+        if let codes = license.code?.split(separator: "-") {
+            for code in codes {
+                guard let image = UIImage(named: "license-\(code)") else {
+                    continue
+                }
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFit
+                imageView.tintColor = theme.colors.primaryText
+                infoLicensesStackView.addArrangedSubview(imageView)
+            }
+        }
+        infoLicenseTitleLabel.text = license.shortDescription
+    }
+
+    private func resetLicenseView() {
+        for subview in infoLicensesStackView.arrangedSubviews {
+            infoLicensesStackView.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
         }
     }
 }
@@ -80,7 +104,6 @@ extension InsertMediaImageViewController: Themeable {
         imageView.backgroundColor = view.backgroundColor
         overlayView.backgroundColor = theme.colors.paperBackground
         infoTitleLabel.textColor = theme.colors.primaryText
-        infoLicenseImageView.tintColor = theme.colors.primaryText
         infoLicenseTitleLabel.textColor = theme.colors.primaryText
         infoMoreButton.tintColor = theme.colors.link
     }
