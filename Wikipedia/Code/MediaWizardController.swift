@@ -31,7 +31,6 @@ final class MediaWizardController: NSObject {
         searchResultsCollectionViewController.delegate = insertMediaImageViewController
         
         let searchView = SearchView(searchBarDelegate: searchResultsCollectionViewController, placeholder: placeholder)
-        searchView.apply(theme: theme)
 
         let tabbedViewController = TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)

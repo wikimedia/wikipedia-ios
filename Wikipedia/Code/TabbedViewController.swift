@@ -32,7 +32,7 @@ final fileprivate class TabsView: UIView, Themeable {
 
 final class TabbedViewController: ViewController {
     private let viewControllers: [UIViewController & Themeable]
-    private let extendedViews: [UIView]?
+    private let extendedViews: [UIView & Themeable]?
     private var selectedIndex = 0
 
     private lazy var tabsView: TabsView = {
@@ -55,7 +55,7 @@ final class TabbedViewController: ViewController {
         return TabsView(buttons: underlineButtons)
     }()
 
-    init(viewControllers: [UIViewController & Themeable], extendedViews: [UIView]? = nil) {
+    init(viewControllers: [UIViewController & Themeable], extendedViews: [UIView & Themeable]? = nil) {
         self.viewControllers = viewControllers
         self.extendedViews = extendedViews
         super.init()
@@ -99,6 +99,7 @@ final class TabbedViewController: ViewController {
         guard let extendedView = extendedViews?[safeIndex: index] else {
             return
         }
+        extendedView.apply(theme: theme)
         navigationBar.addExtendedNavigationBarView(extendedView)
     }
 
