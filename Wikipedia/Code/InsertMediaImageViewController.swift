@@ -99,6 +99,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
 
     private func configureLicenseView(with license: MWKLicense) {
         if let codes = license.code?.split(separator: "-") {
+            infoLicensesStackView.isHidden = false
             for code in codes {
                 guard let image = UIImage(named: "license-\(code)") else {
                     continue
@@ -108,6 +109,8 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
                 imageView.tintColor = theme.colors.primaryText
                 infoLicensesStackView.addArrangedSubview(imageView)
             }
+        } else {
+            infoLicensesStackView.isHidden = true
         }
         infoLicenseTitleLabel.text = license.shortDescription
     }
