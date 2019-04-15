@@ -52,7 +52,6 @@ final class MediaWizardController: NSObject {
         guard
             let articleTitle = articleTitle
         else {
-            assertionFailure()
             return
         }
         let progressController = searchResultsCollectionViewController.fakeProgressController
