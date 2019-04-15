@@ -168,6 +168,8 @@ extension MediaWizardController: InsertMediaImageViewControllerDelegate {
 
 extension MediaWizardController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchFetcher.cancelAllFetches()
+        imageInfoFetcher.cancelAllFetches()
         search(for: searchText)
     }
 }
