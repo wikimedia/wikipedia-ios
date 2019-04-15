@@ -10,7 +10,8 @@ final class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
 
-    @IBOutlet private weak var centerYConstraint: NSLayoutConstraint?
+    @IBOutlet private weak var stackViewCenterYConstraint: NSLayoutConstraint?
+    @IBOutlet private weak var imageViewTopConstraint: NSLayoutConstraint?
 
     @IBOutlet private weak var overlayView: UIView!
     @IBOutlet private weak var infoView: UIView!
@@ -83,10 +84,10 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
             assertionFailure("Failed to set image from url: \(imageURL), error: \(error.localizedDescription)")
         }) {
             self.stopActivityIndicator()
-            self.imageView.contentMode = .scaleAspectFill
             self.moreInfoURL = searchResult.imageInfo?.filePageURL
             self.label.isHidden = true
-            self.centerYConstraint?.isActive = false
+            self.stackViewCenterYConstraint?.isActive = false
+            self.imageViewTopConstraint?.isActive = true
             self.overlayView.isHidden = false
             self.infoView.isHidden = false
             self.imageView.backgroundColor = self.view.backgroundColor

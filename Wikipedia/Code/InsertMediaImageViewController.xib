@@ -13,9 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InsertMediaImageViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicatorView" destination="bAr-1A-alx" id="MYc-OA-6hp"/>
-                <outlet property="centerYConstraint" destination="cT4-XP-clW" id="HKQ-dz-COa"/>
                 <outlet property="contentView" destination="fIL-Oe-y73" id="nl4-yx-kzy"/>
                 <outlet property="imageView" destination="z0h-TJ-sas" id="uRf-IO-AeO"/>
+                <outlet property="imageViewTopConstraint" destination="9ns-Py-lIf" id="hJz-53-8y9"/>
                 <outlet property="infoLicenseTitleLabel" destination="R6F-yY-qU0" id="Gbu-tr-rLy"/>
                 <outlet property="infoLicensesStackView" destination="h59-8r-2dJ" id="AmY-Qa-mVB"/>
                 <outlet property="infoMoreButton" destination="FbJ-0h-awz" id="vqA-KZ-5sx"/>
@@ -23,6 +23,7 @@
                 <outlet property="infoView" destination="2vb-pv-Yyb" id="Ni3-A8-s3K"/>
                 <outlet property="label" destination="Dii-kN-Fsi" id="l7c-JL-5sy"/>
                 <outlet property="overlayView" destination="Y9e-j0-U7v" id="AGS-ZG-F0l"/>
+                <outlet property="stackViewCenterYConstraint" destination="cT4-XP-clW" id="PMc-g1-Eez"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -37,7 +38,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5tU-Yh-2O4">
                             <rect key="frame" x="138" y="331.5" width="138" height="155"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="media-wizard/placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="z0h-TJ-sas">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="media-wizard/placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="z0h-TJ-sas">
                                     <rect key="frame" x="0.0" y="0.0" width="138" height="121.00000000000003"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dii-kN-Fsi">
@@ -139,6 +140,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fIL-Oe-y73" secondAttribute="trailing" id="3LC-xd-b4m"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="z0h-TJ-sas" secondAttribute="top" id="9ns-Py-lIf"/>
                 <constraint firstItem="fIL-Oe-y73" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="AY5-vf-vZk"/>
                 <constraint firstItem="bAr-1A-alx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Md1-sP-IFd"/>
                 <constraint firstItem="fIL-Oe-y73" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="QYs-zC-PLg"/>
@@ -146,6 +148,11 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fIL-Oe-y73" secondAttribute="bottom" id="fDD-ON-JML"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="9ns-Py-lIf"/>
+                </mask>
+            </variation>
         </view>
     </objects>
     <resources>
