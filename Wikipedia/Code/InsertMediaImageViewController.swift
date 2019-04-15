@@ -66,32 +66,6 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
         }
     }
 
-    func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: MWKSearchResult, imageInfoResult: MWKImageInfo?) {
-        guard let thumbnailURL = searchResult.thumbnailURL ?? imageInfoResult?.imageThumbURL else {
-            assertionFailure()
-            return
-        }
-        guard let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(thumbnailURL.absoluteString, Int(view.bounds.width))) else {
-            return
-        }
-
-        imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
-            assertionFailure(error.localizedDescription)
-        }) {
-            self.moreInfoURL = imageInfoResult?.filePageURL
-            self.label.isHidden = true
-            self.centerYConstraint?.isActive = false
-            self.overlayView.isHidden = false
-            self.infoView.isHidden = false
-            self.imageView.backgroundColor = self.view.backgroundColor
-            self.infoTitleLabel.text = imageInfoResult?.imageDescription
-            self.resetLicenseView()
-            if let license = imageInfoResult?.license {
-                self.configureLicenseView(with: license)
-            }
-        }
-    }
-
     private func configureLicenseView(with license: MWKLicense) {
         if let codes = license.code?.split(separator: "-") {
             for code in codes {
