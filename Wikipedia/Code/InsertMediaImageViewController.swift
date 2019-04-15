@@ -52,6 +52,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
             assertionFailure(error.localizedDescription)
         }) {
+            self.imageView.contentMode = .scaleAspectFill
             self.moreInfoURL = searchResult.imageInfo?.filePageURL
             self.label.isHidden = true
             self.centerYConstraint?.isActive = false
