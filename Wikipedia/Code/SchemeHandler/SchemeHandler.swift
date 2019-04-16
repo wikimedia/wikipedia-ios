@@ -113,19 +113,20 @@ extension SchemeHandler: WKURLSchemeHandler {
         
         switch baseComponent {
         case FileHandler.basePath:
-            self.fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
+            fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
         case ArticleSectionHandler.basePath:
-            self.articleSectionHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
+            articleSectionHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
         case APIHandler.basePath:
-            guard let apiURL = self.apiHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
+            guard let apiURL = apiHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
                  urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
+                removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 return
             }
-            self.kickOffDataTask(handler: self.apiHandler, url: apiURL, urlSchemeTask: urlSchemeTask)
+            kickOffDataTask(handler: apiHandler, url: apiURL, urlSchemeTask: urlSchemeTask)
         default:
-            guard let defaultURL = self.defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
+            guard let defaultURL = defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
-                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 return
             }
             DispatchQueue.global(qos: .userInitiated).async {
@@ -150,7 +151,7 @@ extension SchemeHandler: WKURLSchemeHandler {
         
         removeSchemeTask(urlSchemeTask: urlSchemeTask)
         
-        guard let task = self.activeSessionTasks[urlSchemeTask.request] else {
+        guard let task = activeSessionTasks[urlSchemeTask.request] else {
             return
         }
         
@@ -169,7 +170,7 @@ extension SchemeHandler: WKURLSchemeHandler {
 
 private extension SchemeHandler {
     func kickOffDataTask(handler: RemoteSubHandler, url: URL, urlSchemeTask: WKURLSchemeTask) {
-        guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
+        guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
             return
         }
         
@@ -215,7 +216,7 @@ private extension SchemeHandler {
         }
         
         let dataTask = handler.dataTaskForURL(url, callback: callback)
-        self.addSessionTask(request: urlSchemeTask.request, dataTask: dataTask)
+        addSessionTask(request: urlSchemeTask.request, dataTask: dataTask)
         dataTask.resume()
     }
     
