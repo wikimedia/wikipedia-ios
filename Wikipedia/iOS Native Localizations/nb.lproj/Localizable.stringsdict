@@ -2,6 +2,54 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Legg til %1$d artikkel i leselisten</string>
+			<key>other</key>
+			<string>Legg til %1$d artikler i leselisten</string>
+		</dict>
+	</dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>artikkel slettet</string>
+			<key>other</key>
+			<string>artikler slettet</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Flytt %1$d artikkel til leselisten</string>
+			<key>other</key>
+			<string>Flytt %1$d artikler til leselisten</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +130,22 @@
 			<string>Du har overskredet grensen på %1$d artikler per konto.</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Artikkelen kunne ikke legges til i listen. Du har nådd grensen på %2$d artikler per leseliste for %3$@</string>
+			<key>other</key>
+			<string>Artiklene kunne ikke legges til i listen. Du har nådd grensen på %2$d artikler per leseliste for %3$@</string>
+		</dict>
+	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +160,54 @@
 			<string>Du har overskredet grensen på %1$d leseliste per konto.</string>
 			<key>other</key>
 			<string>Du har overskredet grensen på %1$d leselister per konto.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d leseliste</string>
+			<key>other</key>
+			<string>%1$d leselister</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Handlingen kan ikke angres. Artikler som kun er lagret i denne listen vil bli fjernet.</string>
+			<key>other</key>
+			<string>Handlingen kan ikke angres. Artikler som kun er lagret i disse listene vil bli fjernet.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Slett listen?</string>
+			<key>other</key>
+			<string>Slett listene?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -164,6 +276,54 @@
 			<string>For %1$d år siden</string>
 			<key>zero</key>
 			<string>I år</string>
+		</dict>
+	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d forekomst erstattet</string>
+			<key>other</key>
+			<string>%1$d forekomster erstattet</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Fjerning av denne artikkelen vil fjerne den fra alle leselister du måtte ha den i</string>
+			<key>other</key>
+			<string>Fjerning av disse artiklene vil fjerne dem fra alle leselister du måtte ha den i</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Fjern artikkelen?</string>
+			<key>other</key>
+			<string>Fjern artiklene?</string>
 		</dict>
 	</dict>
 </dict>
