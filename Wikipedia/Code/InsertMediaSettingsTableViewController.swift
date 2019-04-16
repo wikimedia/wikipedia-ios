@@ -15,7 +15,11 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         return imageView
     }()
 
-    private lazy var buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
+    private lazy var buttonView: InsertMediaSettingsButtonView = {
+        let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
+        buttonView.buttonTitle = "Advanced settings >"
+        return buttonView
+    }()
 
     private struct TextViewModel {
         let headerText: String

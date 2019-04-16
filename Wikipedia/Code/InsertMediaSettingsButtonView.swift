@@ -4,6 +4,12 @@ class InsertMediaSettingsButtonView: UIView {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var button: UIButton!
 
+    var buttonTitle: String? {
+        didSet {
+            button.setTitle(buttonTitle, for: .normal)
+        }
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         button.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
