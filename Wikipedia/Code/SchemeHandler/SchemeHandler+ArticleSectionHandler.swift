@@ -18,9 +18,6 @@ extension SchemeHandler {
         override class var basePath: String? {
             return "articleSectionData"
         }
-        private var basePath: String? {
-            return ArticleSectionHandler.basePath
-        }
         
         static let articleKeyQueryItemName = "articleKey"
         static let imageWidthQueryItemName = "imageWidth"
