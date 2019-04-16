@@ -147,13 +147,14 @@ extension SchemeHandler: WKURLSchemeHandler {
     
     func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
         assert(Thread.isMainThread)
+        
+        removeSchemeTask(urlSchemeTask: urlSchemeTask)
+        
         guard let task = self.activeSessionTasks[urlSchemeTask.request] else {
             return
         }
         
-        //remove before cancelling to prevent any other callbacks
         removeSessionTask(request: urlSchemeTask.request)
-        removeSchemeTask(urlSchemeTask: urlSchemeTask)
         
         if task.state == .running {
             task.cancel()
