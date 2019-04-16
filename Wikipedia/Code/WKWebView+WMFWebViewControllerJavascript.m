@@ -1,7 +1,6 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 @import WMF;
 #import "Wikipedia-Swift.h"
-#import "WMFURLSchemeHandler.h"
 #import <WMF/NSURL+WMFLinkParsing.h>
 
 // Some dialects have complex characters, so we use 2 instead of 10
