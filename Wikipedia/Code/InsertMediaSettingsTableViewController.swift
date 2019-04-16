@@ -15,6 +15,8 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         return imageView
     }()
 
+    private lazy var buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
+
     private struct TextViewModel {
         let headerText: String
         let textFieldPlaceholderText: String
@@ -40,7 +42,9 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(InsertMediaSettingsTextTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaSettingsTextTableViewCell.identifier)
+        tableView.separatorStyle = .none
         tableView.tableHeaderView = imageView
+        tableView.tableFooterView = buttonView
         apply(theme: theme)
     }
 
@@ -77,6 +81,7 @@ extension InsertMediaSettingsTableViewController {
         cell.headerText = viewModel.headerText
         cell.textFieldPlaceholderText = viewModel.textFieldPlaceholderText
         cell.footerText = viewModel.footerText
+        cell.apply(theme: theme)
         return cell
     }
 }
@@ -89,6 +94,8 @@ extension InsertMediaSettingsTableViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
+        view.backgroundColor = theme.colors.paperBackground
         imageView.apply(theme: theme)
+        buttonView.apply(theme: theme)
     }
 }

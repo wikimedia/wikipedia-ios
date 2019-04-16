@@ -22,10 +22,21 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
             footerLabel.text = footerText
         }
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        headerLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        footerLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        textField.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+    }
 }
 
 extension InsertMediaSettingsTextTableViewCell: Themeable {
     func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        headerLabel.textColor = theme.colors.secondaryText
+        footerLabel.textColor = theme.colors.secondaryText
+        textField.apply(theme: theme)
     }
 }
 

@@ -471,6 +471,16 @@
 		7A9524D222665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
 		7A9524D322665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
 		7A9524D422665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
+		7A9524D722669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */; };
+		7A9524D822669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */; };
+		7A9524D922669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */; };
+		7A9524DA22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */; };
+		7A9524DB22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */; };
+		7A9524DC22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
+		7A9524DD22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
+		7A9524DE22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
+		7A9524DF22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
+		7A9524E022669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
 		7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */; };
 		7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */; };
 		7A998AC11FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */; };
@@ -3622,6 +3632,8 @@
 		7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingCustomViewTableViewCell.swift; sourceTree = "<group>"; };
 		7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsImageView.swift; sourceTree = "<group>"; };
 		7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsImageView.xib; sourceTree = "<group>"; };
+		7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsButtonView.swift; sourceTree = "<group>"; };
+		7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsButtonView.xib; sourceTree = "<group>"; };
 		7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
@@ -6401,6 +6413,8 @@
 				7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */,
 				7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */,
 				7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */,
+				7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */,
+				7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */,
 				7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */,
 			);
 			name = Settings;
@@ -9371,6 +9385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */,
+				7A9524DC22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				BA4524291F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8E27BB41F82B5DB00F9D2B3 /* RMessageView.xib in Resources */,
 				B0E806961C0CEA7B0065EBC0 /* AboutViewController.plist in Resources */,
@@ -9493,6 +9508,7 @@
 				83836ED51F615E5B007D1A05 /* ShareViewController.xib in Resources */,
 				D80ED3D71EE57F4800CE8C50 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D80ED3D81EE57F4800CE8C50 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
+				7A9524E022669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				D80ED3D91EE57F4800CE8C50 /* NotificationBackgroundErrorIcon.png in Resources */,
 				D80ED3DA1EE57F4800CE8C50 /* WMFLanguageCell.xib in Resources */,
 				D80ED3DD1EE57F4800CE8C50 /* InfoPlist.strings in Resources */,
@@ -9628,6 +9644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8A42BB61E815A9C00D8E281 /* WMFCaptchaViewController.storyboard in Resources */,
+				7A9524DF22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				D8E27BB71F82B5DC00F9D2B3 /* RMessageView.xib in Resources */,
 				D8A42BBB1E815A9C00D8E281 /* AboutViewController.plist in Resources */,
 				D8A42BBC1E815A9C00D8E281 /* NotificationBackgroundMessage.png in Resources */,
@@ -9735,6 +9752,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CE263D1E698E2400DAE2E0 /* WMFCaptchaViewController.storyboard in Resources */,
+				7A9524DD22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				D8E27BB51F82B5DB00F9D2B3 /* RMessageView.xib in Resources */,
 				D8CE26421E698E2400DAE2E0 /* AboutViewController.plist in Resources */,
 				D8CE26431E698E2400DAE2E0 /* NotificationBackgroundMessage.png in Resources */,
@@ -9842,6 +9860,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8EC3F3D1E9BDA35006712EB /* WMFCaptchaViewController.storyboard in Resources */,
+				7A9524DE22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				D8E27BB61F82B5DC00F9D2B3 /* RMessageView.xib in Resources */,
 				D8EC3F421E9BDA35006712EB /* AboutViewController.plist in Resources */,
 				D8EC3F431E9BDA35006712EB /* NotificationBackgroundMessage.png in Resources */,
@@ -10431,6 +10450,7 @@
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
 				7A2BB1D421F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				B01E3AF921F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
+				7A9524D722669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				7A6ED52120ADBF950001849F /* LoginFunnel.swift in Sources */,
 				B0016CC321362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
@@ -10754,6 +10774,7 @@
 				D80ED28F1EE57F4800CE8C50 /* PreviewHtmlFetcher.m in Sources */,
 				7A741DCE207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				7A20AE0C2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
+				7A9524DB22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				8351CE7C20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				D8E27BA51F82B38300F9D2B3 /* RMessageView.m in Sources */,
 				D80ED2931EE57F4800CE8C50 /* WMFDatabaseHouseKeeper.swift in Sources */,
@@ -11515,6 +11536,7 @@
 				B0421AA5206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				7A2BB1D721F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				B01E3AFC21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
+				7A9524DA22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				67861A1A223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
@@ -11846,6 +11868,7 @@
 				7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8CE24FF1E698E2400DAE2E0 /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8CE25001E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.m in Sources */,
+				7A9524D822669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				D8CE25011E698E2400DAE2E0 /* PreviewHtmlFetcher.m in Sources */,
 				8351CE7920D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				7A20AE092057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
@@ -12223,6 +12246,7 @@
 				D8EC3DF41E9BDA35006712EB /* WebViewController+WMFReferencePopover.m in Sources */,
 				7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
+				7A9524D922669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				83023C2120E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,
