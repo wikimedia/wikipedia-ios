@@ -22,11 +22,6 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
             footerLabel.text = footerText
         }
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        backgroundColor = UIColor.black
-    }
 }
 
 extension InsertMediaSettingsTextTableViewCell: Themeable {

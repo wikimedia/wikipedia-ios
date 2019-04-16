@@ -35,17 +35,27 @@
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOQ-XF-FMC" userLabel="Separator View">
+                    <rect key="frame" x="0.0" y="141.66666666666666" width="374" height="0.33333333333334281"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="Uzp-1M-s1J"/>
+                    </constraints>
+                </view>
             </subviews>
             <constraints>
                 <constraint firstItem="Bz6-Hh-8a4" firstAttribute="leading" secondItem="Kx7-Dd-yct" secondAttribute="trailing" constant="12" id="7MM-yp-vKF"/>
                 <constraint firstItem="Kx7-Dd-yct" firstAttribute="leading" secondItem="xPE-QP-X0o" secondAttribute="leading" constant="12" id="8cj-Uq-Xvk"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Kx7-Dd-yct" secondAttribute="bottom" constant="12" id="BOu-3q-fSE"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vGh-X1-weJ" secondAttribute="bottom" constant="12" id="CtW-5R-kXR"/>
+                <constraint firstAttribute="bottom" secondItem="IOQ-XF-FMC" secondAttribute="bottom" id="BDP-Ch-q8o"/>
+                <constraint firstItem="IOQ-XF-FMC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kx7-Dd-yct" secondAttribute="bottom" constant="12" id="BOu-3q-fSE"/>
+                <constraint firstItem="IOQ-XF-FMC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vGh-X1-weJ" secondAttribute="bottom" constant="12" id="CtW-5R-kXR"/>
                 <constraint firstItem="Kx7-Dd-yct" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="EkL-ic-CTI"/>
                 <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" id="Fot-mO-4n1"/>
                 <constraint firstItem="Bz6-Hh-8a4" firstAttribute="top" secondItem="Kx7-Dd-yct" secondAttribute="top" id="MAy-bq-qES"/>
                 <constraint firstItem="vGh-X1-weJ" firstAttribute="top" secondItem="Bz6-Hh-8a4" secondAttribute="bottom" constant="8" id="c0O-WO-dJY"/>
+                <constraint firstAttribute="trailing" secondItem="IOQ-XF-FMC" secondAttribute="trailing" id="r4w-zy-g7E"/>
                 <constraint firstItem="vGh-X1-weJ" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" id="tea-lt-ioX"/>
+                <constraint firstItem="IOQ-XF-FMC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wUs-yh-AtG"/>
                 <constraint firstItem="vGh-X1-weJ" firstAttribute="leading" secondItem="Bz6-Hh-8a4" secondAttribute="leading" id="ymb-yi-3jY"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -53,6 +63,7 @@
             <connections>
                 <outlet property="headingLabel" destination="Bz6-Hh-8a4" id="zTc-Ey-E7b"/>
                 <outlet property="imageView" destination="Kx7-Dd-yct" id="C6V-vh-zp9"/>
+                <outlet property="separatorView" destination="IOQ-XF-FMC" id="9ON-EP-QDZ"/>
                 <outlet property="titleLabel" destination="vGh-X1-weJ" id="QK2-oB-ugK"/>
             </connections>
             <point key="canvasLocation" x="31.884057971014496" y="-210.26785714285714"/>

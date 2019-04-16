@@ -4,6 +4,7 @@ class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var headingLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var separatorView: UIView!
 
     var image: UIImage? {
         didSet {
@@ -41,5 +42,6 @@ extension InsertMediaSettingsImageView: Themeable {
         backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
         titleLabel.textColor = theme.colors.link
+        separatorView.backgroundColor = theme.colors.border
     }
 }
