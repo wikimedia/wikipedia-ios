@@ -2,11 +2,6 @@
 #import <WMF/NSURL+WMFQueryParameters.h>
 
 NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
-NSString *const WMFSchemeHandlerArticleSectionDataBasePath = @"articleSectionData";
-NSString *const WMFSchemeHandlerArticleKeyQueryItem = @"articleKey";
-NSString *const WMFSchemeHandlerImageWidthQueryItem = @"imageWidth";
-NSString *const WMFAppSchemeFileBasePath = @"fileProxy";
-NSString *const WMFAppSchemeAPIBasePath = @"APIProxy";
 
 @implementation NSURL (WMFSchemeHandler)
 

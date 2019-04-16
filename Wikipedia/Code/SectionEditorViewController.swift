@@ -139,8 +139,8 @@ class SectionEditorViewController: UIViewController {
         }
         
         let configuration = WKWebViewConfiguration()
-        let schemeHandler = WMFURLSchemeHandler.shared()
-        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
+        let schemeHandler = SchemeHandler.shared
+        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         let textSizeAdjustment = UserDefaults.wmf.wmf_articleFontSizeMultiplier().intValue
         let contentController = WKUserContentController()
 
@@ -185,15 +185,16 @@ class SectionEditorViewController: UIViewController {
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
         
-        let url = schemeHandler.appSchemeURL(forRelativeFilePath: "codemirror/codemirror-index.html", fragment: "top")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
-        webView.load(request)
-        
-        messagingController.webView = webView
-        
-        menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
-        webView.menuItemsDataSource = menuItemsController
-        webView.menuItemsDelegate = menuItemsController
+        if let url = SchemeHandler.FileHandler.appSchemeURL(for: "codemirror/codemirror-index.html", fragment: "top") {
+            let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
+            webView.load(request)
+            
+            messagingController.webView = webView
+            
+            menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
+            webView.menuItemsDataSource = menuItemsController
+            webView.menuItemsDelegate = menuItemsController
+        }
     }
 
     @objc var shouldFocusWebView = true {

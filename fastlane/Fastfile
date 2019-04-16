@@ -195,10 +195,12 @@ platform :ios do
     project_name = options[:project] || product_name
     scheme_name = options[:scheme] || product_name
     app_see_api_key = ENV['WMF_APP_SEE_API_KEY'] || ''
+    version = options[:version] || ''
+    number = options[:number] || ''
     
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -allowProvisioningUpdates WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
     sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
-    sh "zip -r \"#{build_dir}/#{product_name}.xcarchive.zip\" \"#{build_dir}/#{product_name}.xcarchive\""
+    sh "zip -rq \"#{build_dir}/#{product_name}_#{version}_(#{number}).xcarchive.zip\" \"#{build_dir}/#{product_name}.xcarchive\""
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
   end
   
@@ -281,7 +283,9 @@ platform :ios do
 
     build(
       product_name: product_name,
-      project: "Wikipedia"
+      project: "Wikipedia",
+      number: build_number,
+      version: version
     )
     
     tag(

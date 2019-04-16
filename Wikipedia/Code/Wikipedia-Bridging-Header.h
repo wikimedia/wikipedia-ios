@@ -13,7 +13,6 @@
 #import "WMFSearchResults.h"
 #import "MWKSearchRedirectMapping.h"
 #import "WMFSearchFetcher.h"
-#import "WMFURLSchemeHandler.h"
 
 #import "WMFArticleTextActivitySource.h"
 
@@ -27,6 +26,7 @@
 #import "MWKImageInfoFetcher.h"
 
 #import "WikiTextSectionUploader.h"
+#import "WMFArticleJSONCompilationHelper.h"
 
 // Model
 #import "MWKLicense.h"

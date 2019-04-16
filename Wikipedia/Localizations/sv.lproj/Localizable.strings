@@ -211,6 +211,7 @@
 "edit-superscript-remove-accessibility-label" = "Ta bort upphöjd formatering";
 "edit-template-accessibility-label" = "Lägg till mallsyntax";
 "edit-template-remove-accessibility-label" = "Ta bort mallsyntax";
+"edit-text-clear-formatting" = "Rensa formatering";
 "edit-text-formatting-accessibility-label" = "Visa menyn för textformattering";
 "edit-text-formatting-table-view-title" = "Textformatering";
 "edit-text-size-table-view-title" = "Textstorlek";

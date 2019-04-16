@@ -116,7 +116,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
                          NSDictionary *query = [result objectForKey:@"query"];
                          if (!query) {
-                             success([[WMFSearchResults alloc] init]);
+                             WMFSearchResults *returnResults = previousResults == nil ? [[WMFSearchResults alloc] init] : previousResults;
+                             success(returnResults);
                              return;
                          }
 
