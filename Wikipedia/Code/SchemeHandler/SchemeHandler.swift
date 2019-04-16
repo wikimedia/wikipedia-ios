@@ -156,7 +156,12 @@ extension SchemeHandler: WKURLSchemeHandler {
         
         removeSessionTask(request: urlSchemeTask.request)
         
-        if task.state == .running {
+        switch task.state {
+        case .canceling:
+            fallthrough
+        case .completed:
+            break
+        default:
             task.cancel()
         }
     }
