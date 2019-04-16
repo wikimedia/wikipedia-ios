@@ -163,7 +163,10 @@ final class MediaWizardController: NSObject {
     }
 
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
-        let image = imageViewController.image!
+        guard let image = imageViewController.selectedImage else {
+            assertionFailure("Image should be set by now")
+            return
+        }
         let settingsViewController = InsertMediaSettingsViewController(image: image)
         settingsViewController.title = "Media settings"
         let insertButton = UIBarButtonItem(title: "Insert", style: .done, target: self, action: #selector(insertMedia(_:)))

@@ -22,6 +22,8 @@ class InsertMediaSelectedImageView: UIView {
         return imageView.image
     }
 
+    var imageInfo: MWKImageInfo?
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         titleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
@@ -32,6 +34,7 @@ class InsertMediaSelectedImageView: UIView {
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
             completion(error)
         }) {
+            self.imageInfo = imageInfo
             self.imageView.backgroundColor = self.backgroundColor
             self.configureInfoView(with: imageInfo, theme: theme)
             completion(nil)

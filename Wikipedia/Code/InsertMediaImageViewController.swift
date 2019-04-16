@@ -12,6 +12,14 @@ final class InsertMediaImageViewController: UIViewController {
     private let emptyView = InsertMediaImageEmptyView.wmf_viewFromClassNib()!
     private let selectedImageView = InsertMediaSelectedImageView.wmf_viewFromClassNib()!
 
+    var selectedImage: UIImage? {
+        return selectedImageView.image
+    }
+
+    var selectedImageInfo: MWKImageInfo? {
+        return selectedImageView.imageInfo
+    }
+
     weak var delegate: InsertMediaImageViewControllerDelegate?
 
     private var theme = Theme.standard
@@ -64,7 +72,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
                 }
                 self.contentView.wmf_addSubviewWithConstraintsToEdges(self.selectedImageView)
             }
-            self.delegate?.insertMediaImageViewController(self, didSetSelectedImage: self.selectedImageView.image, from: searchResult)
+            self.delegate?.insertMediaImageViewController(self, didSetSelectedImage: self.selectedImage, from: searchResult)
         }
     }
 }
