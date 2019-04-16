@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InsertMediaSettingsTextTableViewCell" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="366" height="94"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hrh-jK-GsF">
+                    <rect key="frame" x="0.0" y="0.0" width="366" height="94"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkn-Sw-fPQ">
+                            <rect key="frame" x="0.0" y="0.0" width="366" height="31.5"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kwQ-mH-iQ5" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="0.0" y="31.5" width="366" height="31"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label that shows next to the item for all readers" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UD4-J2-DXZ">
+                            <rect key="frame" x="0.0" y="62.5" width="366" height="31.5"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="hrh-jK-GsF" secondAttribute="bottom" id="Sjc-3g-hFu"/>
+                <constraint firstItem="hrh-jK-GsF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mvO-hO-f7X"/>
+                <constraint firstAttribute="trailing" secondItem="hrh-jK-GsF" secondAttribute="trailing" id="qOK-p4-sGg"/>
+                <constraint firstItem="hrh-jK-GsF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yl3-wR-Yw7"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="footerLabel" destination="UD4-J2-DXZ" id="7sh-NP-jBM"/>
+                <outlet property="headerLabel" destination="mkn-Sw-fPQ" id="U0g-nK-jqG"/>
+                <outlet property="textField" destination="kwQ-mH-iQ5" id="2bo-v5-9or"/>
+            </connections>
+            <point key="canvasLocation" x="27.199999999999999" y="-225.78710644677662"/>
+        </view>
+    </objects>
+</document>

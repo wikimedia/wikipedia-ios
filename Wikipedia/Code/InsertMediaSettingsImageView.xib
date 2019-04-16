@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InsertMediaSettingsImageView" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="366" height="114"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kx7-Dd-yct">
+                    <rect key="frame" x="12" y="12" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Kx7-Dd-yct" secondAttribute="height" multiplier="1:1" id="WIg-mb-JUA"/>
+                        <constraint firstAttribute="width" constant="100" id="jMa-Do-67b"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploaded image" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bz6-Hh-8a4">
+                    <rect key="frame" x="124" y="12" width="242" height="15.666666666666664"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yellow leaves in Brooklyn" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGh-X1-weJ">
+                    <rect key="frame" x="124" y="35.666666666666664" width="242" height="20.333333333333336"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Bz6-Hh-8a4" firstAttribute="leading" secondItem="Kx7-Dd-yct" secondAttribute="trailing" constant="12" id="7MM-yp-vKF"/>
+                <constraint firstItem="Kx7-Dd-yct" firstAttribute="leading" secondItem="xPE-QP-X0o" secondAttribute="leading" constant="12" id="8cj-Uq-Xvk"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Kx7-Dd-yct" secondAttribute="bottom" id="BOu-3q-fSE"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vGh-X1-weJ" secondAttribute="bottom" id="CtW-5R-kXR"/>
+                <constraint firstItem="Kx7-Dd-yct" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="EkL-ic-CTI"/>
+                <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" id="Fot-mO-4n1"/>
+                <constraint firstItem="Bz6-Hh-8a4" firstAttribute="top" secondItem="Kx7-Dd-yct" secondAttribute="top" id="MAy-bq-qES"/>
+                <constraint firstItem="vGh-X1-weJ" firstAttribute="top" secondItem="Bz6-Hh-8a4" secondAttribute="bottom" constant="8" id="c0O-WO-dJY"/>
+                <constraint firstItem="vGh-X1-weJ" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" id="tea-lt-ioX"/>
+                <constraint firstItem="vGh-X1-weJ" firstAttribute="leading" secondItem="Bz6-Hh-8a4" secondAttribute="leading" id="ymb-yi-3jY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="xPE-QP-X0o"/>
+            <connections>
+                <outlet property="headingLabel" destination="Bz6-Hh-8a4" id="zTc-Ey-E7b"/>
+                <outlet property="imageView" destination="Kx7-Dd-yct" id="C6V-vh-zp9"/>
+                <outlet property="titleLabel" destination="vGh-X1-weJ" id="QK2-oB-ugK"/>
+            </connections>
+            <point key="canvasLocation" x="26.086956521739133" y="-219.64285714285714"/>
+        </view>
+    </objects>
+</document>

@@ -461,6 +461,16 @@
 		7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
 		7A82898F21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
 		7A82899021B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
+		7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
+		7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
+		7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
+		7A9524CE22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
+		7A9524CF22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
+		7A9524D022665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
+		7A9524D122665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
+		7A9524D222665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
+		7A9524D322665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
+		7A9524D422665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */; };
 		7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */; };
 		7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */; };
 		7A998AC11FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */; };
@@ -478,6 +488,21 @@
 		7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
 		7A9A612121124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
 		7A9A612221124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
+		7A9F060D2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
+		7A9F060E2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
+		7A9F060F2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
+		7A9F06102266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
+		7A9F06112266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
+		7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
+		7A9F061A2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
+		7A9F061B2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
+		7A9F061C2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
+		7A9F061D2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
+		7A9F061E2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */; };
+		7A9F061F2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */; };
+		7A9F06202266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */; };
+		7A9F06212266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */; };
+		7A9F06222266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */; };
 		7A9F2776225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */; };
 		7A9F2777225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */; };
 		7A9F2778225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */; };
@@ -678,16 +703,6 @@
 		7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7462102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
-		7AF8CED32264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */; };
-		7AF8CED42264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */; };
-		7AF8CED52264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */; };
-		7AF8CED62264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */; };
-		7AF8CED72264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */; };
-		7AF8CED82264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */; };
-		7AF8CED92264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */; };
-		7AF8CEDA2264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */; };
-		7AF8CEDB2264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */; };
-		7AF8CEDC2264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */; };
 		7AF8CEE122653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
 		7AF8CEE222653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
 		7AF8CEE322653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
@@ -3605,11 +3620,16 @@
 		7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorViewController.swift; sourceTree = "<group>"; };
 		7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingCustomViewTableViewCell.swift; sourceTree = "<group>"; };
+		7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsImageView.swift; sourceTree = "<group>"; };
+		7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsImageView.xib; sourceTree = "<group>"; };
 		7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
 		7A9A611721124CF500403154 /* CreateNewReadingListButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewReadingListButtonView.xib; sourceTree = "<group>"; };
 		7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewReadingListButtonView.swift; sourceTree = "<group>"; };
+		7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsTableViewController.swift; sourceTree = "<group>"; };
+		7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsTextTableViewCell.swift; sourceTree = "<group>"; };
+		7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsTextTableViewCell.xib; sourceTree = "<group>"; };
 		7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
 		7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingProvidingTableViewController.swift; sourceTree = "<group>"; };
 		7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailUnderBarViewController.swift; sourceTree = "<group>"; };
@@ -3654,8 +3674,6 @@
 		7AF56C3421DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorWebViewMessagingController.swift; sourceTree = "<group>"; };
 		7AF6F76522395BEB00949393 /* EditingWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingWelcomeViewController.swift; sourceTree = "<group>"; };
 		7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsViewController.swift; sourceTree = "<group>"; };
-		7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsViewController.swift; sourceTree = "<group>"; };
-		7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsViewController.xib; sourceTree = "<group>"; };
 		7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageEmptyView.swift; sourceTree = "<group>"; };
 		7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaImageEmptyView.xib; sourceTree = "<group>"; };
 		7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSelectedImageView.swift; sourceTree = "<group>"; };
@@ -6379,8 +6397,11 @@
 		7AF8CEDD226527DC000B7676 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				7AF8CED12264F6E6000B7676 /* InsertMediaSettingsViewController.swift */,
-				7AF8CED22264F6E6000B7676 /* InsertMediaSettingsViewController.xib */,
+				7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */,
+				7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */,
+				7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */,
+				7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */,
+				7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -9403,6 +9424,7 @@
 				83023C0B20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				BA7683C31F30C56300A487AA /* ImageDimmingExampleViewController.xib in Resources */,
 				7AF8CEE622653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
+				7A9F061E2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */,
 				7AF4B71B215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8D92B621DF22E1700B95311 /* NotificationBackgroundSuccessIcon.png in Resources */,
@@ -9415,7 +9437,6 @@
 				D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */,
 				B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				67E06919223B32DF008550AC /* FocusNavigationView.xib in Resources */,
-				7AF8CED82264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */,
 				D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */,
 				D8C4D3D31FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */,
@@ -9431,6 +9452,7 @@
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
+				7A9524D022665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
 				7ABE171D2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				B0267CE91E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard in Resources */,
 				B0E804111C0CDE480065EBC0 /* PageHistoryViewController.storyboard in Resources */,
@@ -9489,6 +9511,7 @@
 				D80ED3E51EE57F4800CE8C50 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				BA4524211F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				7ADF499021B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
+				7A9524D422665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
 				B0B423711EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8E27BB81F82B5DD00F9D2B3 /* RMessageView.xib in Resources */,
 				7ABE172D2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
@@ -9525,6 +9548,7 @@
 				D80ED3FF1EE57F4800CE8C50 /* WMFSettingsTableViewCell.xib in Resources */,
 				7ABE17212239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				D80ED4021EE57F4800CE8C50 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
+				7A9F06222266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				D80ED4031EE57F4800CE8C50 /* WMFTableOfContentsHeader.xib in Resources */,
 				D80ED4051EE57F4800CE8C50 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				D80ED4071EE57F4800CE8C50 /* TSMessagesDefaultDesign.json in Resources */,
@@ -9549,7 +9573,6 @@
 				D80ED41E1EE57F4800CE8C50 /* WebViewController.storyboard in Resources */,
 				B01EA0822022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D80ED41F1EE57F4800CE8C50 /* NotificationButtonBackground.png in Resources */,
-				7AF8CEDC2264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */,
 				D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */,
 				D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */,
 				B0524AFA2144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -9658,6 +9681,7 @@
 				D8A42BEA1E815A9C00D8E281 /* Places.storyboard in Resources */,
 				D8A42BEC1E815A9C00D8E281 /* WMFAccountCreationViewController.storyboard in Resources */,
 				7AF8CEE922653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
+				7A9F06212266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				7AF4B71E215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8A42BED1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3921B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
@@ -9670,7 +9694,6 @@
 				D8A42BFA1E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8A42BFC1E815A9C00D8E281 /* ArticlePopoverViewController.xib in Resources */,
 				67861A1E223C13990044F69D /* FocusNavigationView.xib in Resources */,
-				7AF8CEDB2264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */,
 				D8C4D3D61FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				67861A16223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8A42BFD1E815A9C00D8E281 /* Launch Screen.storyboard in Resources */,
@@ -9686,6 +9709,7 @@
 				D8E27BB01F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0812022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */,
+				7A9524D322665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
 				7ABE17202239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				D8A42C0D1E815A9C00D8E281 /* WMFForgotPasswordViewController.storyboard in Resources */,
 				D8A42C0E1E815A9C00D8E281 /* PageHistoryViewController.storyboard in Resources */,
@@ -9764,6 +9788,7 @@
 				D8CE26711E698E2400DAE2E0 /* Places.storyboard in Resources */,
 				D8CE26731E698E2400DAE2E0 /* WMFAccountCreationViewController.storyboard in Resources */,
 				7AF8CEE722653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
+				7A9F061F2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				7AF4B71C215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8CE26741E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3721B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
@@ -9776,7 +9801,6 @@
 				D8CE26811E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8CE26831E698E2400DAE2E0 /* ArticlePopoverViewController.xib in Resources */,
 				67861A1C223C13990044F69D /* FocusNavigationView.xib in Resources */,
-				7AF8CED92264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */,
 				D8C4D3D41FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				67861A14223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8CE26841E698E2400DAE2E0 /* Launch Screen.storyboard in Resources */,
@@ -9792,6 +9816,7 @@
 				D8E27BAE1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
+				7A9524D122665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
 				7ABE171E2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				D8CE26941E698E2400DAE2E0 /* WMFForgotPasswordViewController.storyboard in Resources */,
 				D8CE26951E698E2400DAE2E0 /* PageHistoryViewController.storyboard in Resources */,
@@ -9870,6 +9895,7 @@
 				D8EC3F711E9BDA35006712EB /* Places.storyboard in Resources */,
 				D8EC3F731E9BDA35006712EB /* WMFAccountCreationViewController.storyboard in Resources */,
 				7AF8CEE822653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
+				7A9F06202266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				7AF4B71D215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8EC3F741E9BDA35006712EB /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3821B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
@@ -9882,7 +9908,6 @@
 				D8EC3F811E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8EC3F831E9BDA35006712EB /* ArticlePopoverViewController.xib in Resources */,
 				67861A1D223C13990044F69D /* FocusNavigationView.xib in Resources */,
-				7AF8CEDA2264F6E6000B7676 /* InsertMediaSettingsViewController.xib in Resources */,
 				D8C4D3D51FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				67861A15223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8EC3F841E9BDA35006712EB /* Launch Screen.storyboard in Resources */,
@@ -9898,6 +9923,7 @@
 				D8E27BAF1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
+				7A9524D222665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
 				7ABE171F2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				D8EC3F941E9BDA35006712EB /* WMFForgotPasswordViewController.storyboard in Resources */,
 				D8EC3F951E9BDA35006712EB /* PageHistoryViewController.storyboard in Resources */,
@@ -10500,7 +10526,6 @@
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A611E21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
-				7AF8CED32264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */,
 				7ABE17242239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */,
 				BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */,
@@ -10533,6 +10558,7 @@
 				83F26B2A220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				7AC4B70D225D2E170040F0D4 /* TabbedViewController.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
+				7A9F060D2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
@@ -10570,6 +10596,7 @@
 				D818D3861ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				7A710922225F7AEB00D62581 /* MediaWizardController.swift in Sources */,
+				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				7A48EA0E21B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
@@ -10651,6 +10678,7 @@
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
 				B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
+				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
@@ -10832,6 +10860,7 @@
 				D80ED3011EE57F4800CE8C50 /* ArticleLocationCellUpdating.swift in Sources */,
 				D80ED3031EE57F4800CE8C50 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D80ED3041EE57F4800CE8C50 /* NewsCollectionViewHeader.swift in Sources */,
+				7A9524CF22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B73214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				D80ED3051EE57F4800CE8C50 /* WMFSuggestedPagesFunnel.m in Sources */,
 				7A6F560921AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
@@ -10924,6 +10953,7 @@
 				D80ED3581EE57F4800CE8C50 /* EditFunnel.m in Sources */,
 				7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D80ED3591EE57F4800CE8C50 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
+				7A9F06112266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
 				7A27E85621B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				D80ED35A1EE57F4800CE8C50 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				7AF49F84204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
@@ -10986,6 +11016,7 @@
 				830D71D31F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				7A610CC1220A582A00C266AE /* HintController.swift in Sources */,
 				7A2BB1D821F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
+				7A9F061D2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				D80ED3811EE57F4800CE8C50 /* WMFImageGalleryViewController.m in Sources */,
 				B0845E1520618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0CD9DF21F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
@@ -11023,7 +11054,6 @@
 				67059DB92260D61B009811AA /* SchemeHandler.swift in Sources */,
 				D80ED3991EE57F4800CE8C50 /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				D80ED39B1EE57F4800CE8C50 /* WMFAlertManager.swift in Sources */,
-				7AF8CED72264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */,
 				D80ED39C1EE57F4800CE8C50 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D88C701C1EE595E90022A26A /* MapView.swift in Sources */,
 				D80ED39E1EE57F4800CE8C50 /* WMFLoginFunnel.m in Sources */,
@@ -11581,7 +11611,6 @@
 				7A9A612121124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				7A35CB8A1FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				D8A42AF11E815A9C00D8E281 /* MWKLanguageLinkFetcher.m in Sources */,
-				7AF8CED62264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */,
 				D8A42AF21E815A9C00D8E281 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				7ABE17272239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
@@ -11613,6 +11642,7 @@
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
+				7A9F06102266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
 				7AC4B710225D2E170040F0D4 /* TabbedViewController.swift in Sources */,
 				D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				83F26B2D220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
@@ -11650,6 +11680,7 @@
 				D818D38E1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7AFEB3F81FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				7A710925225F7AEB00D62581 /* MediaWizardController.swift in Sources */,
+				7A9524CE22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */,
 				D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
@@ -11731,6 +11762,7 @@
 				D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */,
 				8367A28220D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
+				7A9F061C2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				67DB11232261820500F789B0 /* SchemeHandler+FileHandler.swift in Sources */,
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
@@ -11920,6 +11952,7 @@
 				D8CE256A1E698E2400DAE2E0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				D8CE256B1E698E2400DAE2E0 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D8CE256C1E698E2400DAE2E0 /* WMFAccountCreator.swift in Sources */,
+				7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				7A6F560621AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
@@ -12012,6 +12045,7 @@
 				B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */,
 				7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
+				7A9F060E2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
 				7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				B010E1A91E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
@@ -12074,6 +12108,7 @@
 				7AF56C3621DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				7A610CBE220A582A00C266AE /* HintController.swift in Sources */,
 				7A2BB1D521F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
+				7A9F061A2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				D8CE25EA1E698E2400DAE2E0 /* WMFForgotPasswordViewController.swift in Sources */,
 				830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
@@ -12111,7 +12146,6 @@
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				D8CE26071E698E2400DAE2E0 /* WMFAlertManager.swift in Sources */,
-				7AF8CED42264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */,
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D8CE260A1E698E2400DAE2E0 /* WMFLoginFunnel.m in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
@@ -12295,6 +12329,7 @@
 				D8EC3E561E9BDA35006712EB /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				7AFA21BD20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
+				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,
 				7A6F560721AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
@@ -12387,6 +12422,7 @@
 				D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */,
 				7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D8EC3EBB1E9BDA35006712EB /* WMFAuthLinkLabel.swift in Sources */,
+				7A9F060F2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
 				7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				BAA0D91E1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
@@ -12449,6 +12485,7 @@
 				7AF56C3721DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				7A610CBF220A582A00C266AE /* HintController.swift in Sources */,
+				7A9F061B2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				7A2BB1D621F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
@@ -12486,7 +12523,6 @@
 				67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */,
 				834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D8EC3F041E9BDA35006712EB /* MKCoordinateRegion+Dimensions.swift in Sources */,
-				7AF8CED52264F6E6000B7676 /* InsertMediaSettingsViewController.swift in Sources */,
 				D8EC3F061E9BDA35006712EB /* WMFAlertManager.swift in Sources */,
 				D8EC3F071E9BDA35006712EB /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				7AEBAD472102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
