@@ -3,7 +3,7 @@ import SystemConfiguration
 
 public extension UIColor {
     @objc(initWithHexInteger:alpha:)
-    public convenience init(_ hex: Int, alpha: CGFloat) {
+    convenience init(_ hex: Int, alpha: CGFloat) {
         let r = CGFloat((hex & 0xFF0000) >> 16) / 255.0
         let g = CGFloat((hex & 0xFF00) >> 8) / 255.0
         let b = CGFloat(hex & 0xFF) / 255.0
@@ -11,17 +11,17 @@ public extension UIColor {
     }
     
     @objc(initWithHexInteger:)
-    public convenience init(_ hex: Int) {
+    convenience init(_ hex: Int) {
         self.init(hex, alpha: 1)
     }
     
-    @objc public class func wmf_colorWithHex(_ hex: Int) -> UIColor {
+    @objc class func wmf_colorWithHex(_ hex: Int) -> UIColor {
         return UIColor(hex)
     }
 
     // `initWithHexString:alpha:` should almost never be used. `initWithHexInteger:alpha:` is preferred.
     @objc(initWithHexString:alpha:)
-    public convenience init(_ hexString: String, alpha: CGFloat = 1.0) {
+    convenience init(_ hexString: String, alpha: CGFloat = 1.0) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt32()
         guard hex.count == 6, Scanner(string: hex).scanHexInt32(&int) && int != UINT32_MAX else {
@@ -78,31 +78,31 @@ public extension UIColor {
     fileprivate static let blue50At10PercentAlpha = UIColor(0x3366CC, alpha:0.1)
     fileprivate static let blue50At25PercentAlpha = UIColor(0x3366CC, alpha:0.25)
 
-    @objc public static let wmf_darkGray = UIColor(0x4D4D4B)
-    @objc public static let wmf_lightGray = UIColor(0x9AA0A7)
-    @objc public static let wmf_gray = UIColor.base70
-    @objc public static let wmf_lighterGray = UIColor.base80
-    @objc public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
+    @objc static let wmf_darkGray = UIColor(0x4D4D4B)
+    @objc static let wmf_lightGray = UIColor(0x9AA0A7)
+    @objc static let wmf_gray = UIColor.base70
+    @objc static let wmf_lighterGray = UIColor.base80
+    @objc static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
 
-    @objc public static let wmf_darkBlue = UIColor.blue10
-    @objc public static let wmf_blue = UIColor.blue50
-    @objc public static let wmf_lightBlue = UIColor.lightBlue
+    @objc static let wmf_darkBlue = UIColor.blue10
+    @objc static let wmf_blue = UIColor.blue50
+    @objc static let wmf_lightBlue = UIColor.lightBlue
 
-    @objc public static let wmf_green = UIColor.green50
-    @objc public static let wmf_lightGreen = UIColor(0xD5FDF4)
+    @objc static let wmf_green = UIColor.green50
+    @objc static let wmf_lightGreen = UIColor(0xD5FDF4)
 
-    @objc public static let wmf_red = UIColor.red50
-    @objc public static let wmf_lightRed = UIColor(0xFFE7E6)
+    @objc static let wmf_red = UIColor.red50
+    @objc static let wmf_lightRed = UIColor(0xFFE7E6)
     
-    @objc public static let wmf_yellow = UIColor.yellow50
-    @objc public static let wmf_lightYellow = UIColor(0xFEF6E7)
+    @objc static let wmf_yellow = UIColor.yellow50
+    @objc static let wmf_lightYellow = UIColor(0xFEF6E7)
     
-    @objc public static let wmf_orange = UIColor(0xFF5B00)
+    @objc static let wmf_orange = UIColor(0xFF5B00)
     
-    @objc public static let wmf_purple = UIColor(0x7F4AB3)
-    @objc public static let wmf_lightPurple = UIColor(0xF3E6FF)
+    @objc static let wmf_purple = UIColor(0x7F4AB3)
+    @objc static let wmf_lightPurple = UIColor(0xF3E6FF)
 
-    @objc public func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
+    @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -117,7 +117,7 @@ public extension UIColor {
         return hexString
     }
     
-    @objc public var wmf_hexString: String {
+    @objc var wmf_hexString: String {
         return wmf_hexStringIncludingAlpha(false)
     }
 }
@@ -125,15 +125,15 @@ public extension UIColor {
 @objc(WMFColors)
 public class Colors: NSObject {
     
-    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .base80, shadow: .base80, chromeShadow: .defaultShadow, cardBackground: .base100, selectedCardBackground: .base90, cardBorder: .wmf_lightestGray, cardShadow: .base10, cardButtonBackground: .wmf_lightestGray, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .blue50, tagBackground: .blue50At10PercentAlpha, tagSelectedBackground: .blue50At25PercentAlpha, rankGradientStart: .blue50, rankGradientEnd: .green50, distanceBorder: .base50, descriptionBackground: .yellow50, descriptionWarning: .osage, inputAccessoryButtonTint: .base20)
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .base30, chromeText: .base10, link: .blue50, accent: .green50, border: .base80, shadow: .base80, chromeShadow: .defaultShadow, cardBackground: .base100, selectedCardBackground: .base90, cardBorder: .wmf_lightestGray, cardShadow: .base10, cardButtonBackground: .wmf_lightestGray, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .blue50, tagBackground: .blue50At10PercentAlpha, tagSelectedBackground: .blue50At25PercentAlpha, rankGradientStart: .blue50, rankGradientEnd: .green50, distanceBorder: .base50, descriptionBackground: .yellow50, descriptionWarning: .osage, inputAccessoryButtonTint: .base20, pageIndicator: .lightBlue, pageIndicatorCurrent: .blue50)
 
-    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft,  chromeShadow: .base20, cardBackground: .papyrus, selectedCardBackground: .amate, cardBorder: .sand, cardShadow: .clear,  cardButtonBackground: .amate, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .blue50, rankGradientEnd: .blue50, distanceBorder: .masi, descriptionBackground: .osage, descriptionWarning: .osage, inputAccessoryButtonTint: .base20)
+    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .masi, chromeText: .base10, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft,  chromeShadow: .base20, cardBackground: .papyrus, selectedCardBackground: .amate, cardBorder: .sand, cardShadow: .clear,  cardButtonBackground: .amate, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .blue50, rankGradientEnd: .blue50, distanceBorder: .masi, descriptionBackground: .osage, descriptionWarning: .osage, inputAccessoryButtonTint: .base20, pageIndicator: .lightBlue, pageIndicatorCurrent: .blue50)
     
-    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesosphere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .clear, hintBackground: .pitchBlack, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardBackground: .exosphere, selectedCardBackground: .base10, cardBorder: .thermosphere, cardShadow: .clear, cardButtonBackground: .mesosphere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .stratosphere, rankGradientEnd: .green50, distanceBorder: .base70, descriptionBackground: .stratosphere, descriptionWarning: .yellow50, inputAccessoryButtonTint: .base90)
+    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesosphere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .clear, hintBackground: .pitchBlack, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardBackground: .exosphere, selectedCardBackground: .base10, cardBorder: .thermosphere, cardShadow: .clear, cardButtonBackground: .mesosphere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .stratosphere, rankGradientEnd: .green50, distanceBorder: .base70, descriptionBackground: .stratosphere, descriptionWarning: .yellow50, inputAccessoryButtonTint: .base90, pageIndicator: .lightBlue, pageIndicatorCurrent: .stratosphere)
 
-    fileprivate static let black = Colors(baseBackground: .pitchBlack, midBackground: .base10, paperBackground: .black, chromeBackground: .base10, popoverBackground: .base10, subCellBackground: .base10, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .white20PercentAlpha, hintBackground: .thermosphere, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardBackground: .base10, selectedCardBackground: .pitchBlack, cardBorder: .exosphere, cardShadow: .clear, cardButtonBackground: .thermosphere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .stratosphere, rankGradientEnd: .green50, distanceBorder: .base70, descriptionBackground: .stratosphere, descriptionWarning: .yellow50, inputAccessoryButtonTint: .base90)
+    fileprivate static let black = Colors(baseBackground: .pitchBlack, midBackground: .base10, paperBackground: .black, chromeBackground: .base10, popoverBackground: .base10, subCellBackground: .base10, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .white20PercentAlpha, hintBackground: .thermosphere, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardBackground: .base10, selectedCardBackground: .pitchBlack, cardBorder: .exosphere, cardShadow: .clear, cardButtonBackground: .thermosphere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .stratosphere, rankGradientEnd: .green50, distanceBorder: .base70, descriptionBackground: .stratosphere, descriptionWarning: .yellow50, inputAccessoryButtonTint: .base90, pageIndicator: .lightBlue, pageIndicatorCurrent: .stratosphere)
     
-    fileprivate static let widget = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear,  popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 1.0, alpha: 0.4), batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .clear, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base10, tertiaryText: .base20, disabledText: .base30, disabledLink: .lightBlue, chromeText: .base10, link: .accent10, accent: .green50, border: UIColor(white: 0, alpha: 0.15) , shadow: .base80, chromeShadow: .base80, cardBackground: .black, selectedCardBackground: .base10, cardBorder: .clear, cardShadow: .black, cardButtonBackground: .black, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .clear, tagBackground: .clear, tagSelectedBackground: .clear, rankGradientStart: .accent10, rankGradientEnd: .green50, distanceBorder: .base50, descriptionBackground: .osage, descriptionWarning: .osage, inputAccessoryButtonTint: .base90)
+    fileprivate static let widget = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear,  popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 1.0, alpha: 0.4), batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .clear, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base10, tertiaryText: .base20, disabledText: .base30, disabledLink: .base70, chromeText: .base10, link: .accent10, accent: .green50, border: UIColor(white: 0, alpha: 0.15) , shadow: .base80, chromeShadow: .base80, cardBackground: .black, selectedCardBackground: .base10, cardBorder: .clear, cardShadow: .black, cardButtonBackground: .black, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .clear, tagBackground: .clear, tagSelectedBackground: .clear, rankGradientStart: .accent10, rankGradientEnd: .green50, distanceBorder: .base50, descriptionBackground: .osage, descriptionWarning: .osage, inputAccessoryButtonTint: .base90, pageIndicator: .lightBlue, pageIndicatorCurrent: .accent10)
     
     @objc public let baseBackground: UIColor
     @objc public let midBackground: UIColor
@@ -195,6 +195,9 @@ public class Colors: NSObject {
     @objc public let descriptionBackground: UIColor
     @objc public let descriptionWarning: UIColor
     
+    @objc public let pageIndicator: UIColor
+    @objc public let pageIndicatorCurrent: UIColor
+    
     @objc public var refreshControlTint: UIColor {
         return secondaryText
     }
@@ -211,7 +214,7 @@ public class Colors: NSObject {
     }
     
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryButtonTint: UIColor) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
@@ -273,6 +276,9 @@ public class Colors: NSObject {
         self.descriptionWarning = descriptionWarning
         
         self.inputAccessoryButtonTint = inputAccessoryButtonTint
+        
+        self.pageIndicator = pageIndicator
+        self.pageIndicatorCurrent = pageIndicatorCurrent
     }
 }
 

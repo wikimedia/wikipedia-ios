@@ -19,9 +19,11 @@
 // Author: Luzcaru
 // Author: Macofe
 // Author: MadriCR
+// Author: Marcelo9987
 // Author: MarcoAurelio
 // Author: Mcervera
 // Author: Mgpena
+// Author: Mynor Archila
 // Author: Nemo bis
 // Author: Pginer
 // Author: RicardoSGZ
@@ -87,11 +89,14 @@
 "action-read" = "Leer";
 "action-redo" = "Rehacer";
 "action-remove" = "Quitar";
+"action-replace" = "Reemplazar";
+"action-replace-all" = "Reemplazar todo";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-saved-accessibility" = "Guardado. Actívalo para borrarlo.";
 "action-saved-accessibility-notification" = "Artículo guardado para después";
 "action-share" = "Compartir";
+"action-share-accessibility" = "Compartir";
 "action-sort" = "Ordenar";
 "action-undo" = "Deshacer";
 "action-unsave" = "No guardar";
@@ -192,6 +197,7 @@
 "edit-italic-remove-accessibility-label" = "\nQuitar cursivas";
 "edit-link-accessibility-label" = "\nAñadir enlace";
 "edit-link-remove-accessibility-label" = "\nQuitar enlace";
+"edit-menu-item" = "Editar";
 "edit-minor-learn-more-text" = "Más información sobre las ediciones etiquetadas";
 "edit-minor-text" = "Esta es una edición menor";
 "edit-ordered-list-accessibility-label" = "Convertir esta línea en una lista ordenada";
@@ -228,6 +234,8 @@
 "edit-unordered-list-remove-accessibility-label" = "\nBorrar lista desordenada de esta línea";
 "edit-watch-list-learn-more-text" = "\nAprende más acerca de las listas de seguimiento";
 "edit-watch-this-page-text" = "Vigilar esta página";
+"editing-welcome-be-bold-subtitle" = "Sé valiente, mas no imprudente, al actualizar artículos. No te mortifiques si cometes errores: todas las versiones anteriores de las páginas se guardan, de modo que la comunidad puede corregir fácilmente cualquier equivocación.";
+"editing-welcome-be-bold-title" = "Tu voz es importante";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas internet";
@@ -352,7 +360,8 @@
 "field-token-title" = "Código de verificación";
 "field-username-placeholder" = "escribe el nombre de usuario";
 "field-username-title" = "Nombre de usuario";
-"find-in-page-number-matches" = "$1/$2";
+"find-infolabel-number-matches" = "$1/$2";
+"find-replace-header" = "Buscar y reemplazar";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Se envió un correo electrónico con instrucciones para restablecer tu contraseña";
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
@@ -408,7 +417,7 @@
 "main-menu-account-logout-are-you-sure" = "¿Confirmas que quieres salir de la sesión?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
-"main-menu-debug-tweaks" = "Ajustes de desarrollador";
+"main-menu-debug-tweaks" = "Configuración del desarrollador";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidad y términos";
 "main-menu-nearby" = "Cercanos";
@@ -576,6 +585,10 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-years-ago" = "\n{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
+"replace-infolabel-method-replace" = "Reemplazar";
+"replace-infolabel-method-replace-all" = "Reemplazar todo";
+"replace-textfield-accessibility" = "Reemplazar";
+"replace-textfield-placeholder" = "Reemplazar por…";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "reverted-edit-back-to-article-button-title" = "Volver al artículo";
 "reverted-edit-notification-body" = "La edición que hiciste del artículo $1 ha sido rechazada por $2";
@@ -641,7 +654,7 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "Mostrar lista de lectura Guardados";
 "settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos";
 "settings-support" = "Apoya a Wikipedia";
-"settings-title" = "Ajustes";
+"settings-title" = "Configuración";
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
 "share-building" = "Construyendo una tarjeta comparte-un-hecho…";

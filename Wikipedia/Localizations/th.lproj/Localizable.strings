@@ -6,6 +6,7 @@
 // Author: CodeNameBOSS
 // Author: Horus
 // Author: Nemo bis
+// Author: Patsagorn Y.
 // Author: Pon44695
 
 "about-content-license" = "สัญญาอนุญาตเนื้อหา";
@@ -32,15 +33,13 @@
 "about-wikimedia-foundation" = "มูลนิธิวิกิมีเดีย";
 "about-wikipedia" = "วิกิพีเดีย";
 "abuse-filter-disallow-heading" = "คุณไม่สามารถเผยแพร่การแก้ไขนี้";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "ตัวกรองอัตโนมัติได้ระบุว่าการแก้ไขนี้อาจเป็นการแก้ไขที่ไม่สร้างสรรค์หรือเป็นการพยายามก่อกวน";
-// Fuzzy
-"abuse-filter-warning-blanking" = "บทความว่างเปล่าหรือสแปม";
+"abuse-filter-disallow-unconstructive" = "ตัวกรองอัตโนมัติระบุว่าการแก้ไขนี้อาจเป็นการแก้ไขที่อาจไม่สร้างสรรค์หรือเป็นความพยายามก่อกวน กรุณากลับไปดูและเปลี่ยนแปลงการแก้ไขของคุณ";
+"abuse-filter-warning-blanking" = "ลบหลายส่วนหรือทั้งบทความ";
 "abuse-filter-warning-caps" = "ข้อความตัวพิมพ์ใหญ่ทั้งหมด";
 "abuse-filter-warning-heading" = "การแก้ไขนี้ดูเหมือนว่าเป็นการแก้ไขที่ไม่สร้างสรรค์ คุณแน่ใจหรือว่าคุณต้องการเผยแพร่การแก้ไขนี้?";
 "abuse-filter-warning-irrelevant" = "แหล่งข้อมูลอื่นหรือรูปภาพไม่สัมพันธ์กัน";
-// Fuzzy
-"abuse-filter-warning-repeat" = "การพิมพ์ตัวอักษรซ้ำ";
+"abuse-filter-warning-repeat" = "อักขระซ้ำ";
+"abuse-filter-warning-spam" = "เพิ่มสแปมเข้าบทความ";
 "abuse-filter-warning-subheading" = "การแก้ไขของคุณอาจประกอบด้วย:";
 "account-creation-captcha-cannot-see-image" = "มองไม่เห็นรูปภาพงั้นหรือ? $1";
 "account-creation-captcha-obtaining" = "กำลังดึง CAPTCHA ใหม่...";
@@ -58,19 +57,21 @@
 "action-add-to-reading-list" = "เพิ่มลงในรายการอ่าน";
 "action-add-to-reading-list-short" = "เพิ่มลงในรายการ";
 "action-cancel" = "ยกเลิก";
-// Fuzzy
 "action-find-in-page" = "ค้นหาในหน้า";
 "action-move-to" = "ย้ายลงใน…";
 "action-move-to-reading-list" = "ย้ายลงในรายการอ่าน";
 "action-read" = "อ่าน";
+"action-redo" = "ทำซ้ำ";
 "action-remove" = "ลบออก";
+"action-replace" = "แทนที่";
+"action-replace-all" = "แทนที่ทั้งหมด";
 "action-save" = "บันทึก";
 "action-saved" = "บันทึกแล้ว";
 "action-saved-accessibility" = "บันทึกแล้ว เปิดใช้งานเพื่อเลิกบันทึก";
 "action-saved-accessibility-notification" = "บันทึกบทความไว้อ่านภายหลังแล้ว";
 "action-share" = "แบ่งปัน";
+"action-share-accessibility" = "แบ่งปัน";
 "action-sort" = "เรียงลำดับ";
-// Fuzzy
 "action-undo" = "เลิกทำ";
 "action-unsave" = "เลิกบันทึก";
 "action-unsaved-accessibility-notification" = "เลิกบันทึกบทความแล้ว";
@@ -84,7 +85,6 @@
 "appearance-settings-adjust-text-sizing" = "ปรับขนาดข้อความบทความ";
 "appearance-settings-expand-tables" = "ขยายตาราง";
 "appearance-settings-expand-tables-footer" = "ตั้งค่าให้เปิดตารางทั้งหมดในบทความทั้งหมดตามค่าเริ่มต้น รวมถึงข้อมูลเบื้องต้น อ้างอิง หมายเหตุ และแหล่งข้อมูลอื่น";
-// Fuzzy
 "appearance-settings-image-dimming-footer" = "ลดความทึบแสงของภาพเมื่อใช้ธีมมืด";
 "appearance-settings-reading-themes" = "ธีมการอ่าน";
 "appearance-settings-set-automatic-table-opening" = "การตั้งค่าตาราง";
@@ -156,6 +156,9 @@
 "description-welcome-promise-title" = "ฉันสัญญาว่าจะไม่ใช้คุณลักษณะนี้ในทางที่ผิด";
 "description-welcome-start-editing-button" = "เริ่มแก้ไข";
 "dim-images" = "ลดแสงรูปภาพ";
+"edit-bold-accessibility-label" = "เพิ่มการจัดรูปแบบตัวเส้นหนา";
+"edit-bold-remove-accessibility-label" = "ลบการจัดรูปแบบตัวเส้นหนา";
+"edit-clear-formatting-accessibility-label" = "ลบการจัดรูปแบบ";
 "edit-style-table-view-title" = "รูปแบบ";
 "edit-summary-choice-fixed-grammar" = "แก้ไขไวยากรณ์";
 "edit-summary-choice-fixed-typos" = "แก้ไขความผิดพลาดการพิมพ์";
@@ -249,7 +252,7 @@
 "field-token-title" = "รหัสการยืนยัน";
 "field-username-placeholder" = "ป้อนชื่อผู้ใช้";
 "field-username-title" = "ชื่อผู้ใช้";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "รีเซ็ต";
 "history-clear-all" = "ล้าง";
 "history-clear-cancel" = "ยกเลิก";

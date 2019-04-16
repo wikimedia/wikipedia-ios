@@ -61,11 +61,14 @@
 "action-read" = "Прочитај";
 "action-redo" = "Повтори";
 "action-remove" = "Отстрани";
+"action-replace" = "Замени";
+"action-replace-all" = "Замени сè";
 "action-save" = "Зачувај";
 "action-saved" = "Зачувано";
 "action-saved-accessibility" = "Зачувано. Активирајте за да го избришете.";
 "action-saved-accessibility-notification" = "Статијата е зачувана за подоцна";
 "action-share" = "Сподели";
+"action-share-accessibility" = "Сподели";
 "action-sort" = "Подреди";
 "action-undo" = "Врати";
 "action-unsave" = "Тргни";
@@ -153,6 +156,7 @@
 "dim-images" = "Пригушени слики";
 "edit-bold-accessibility-label" = "Стави задебелено форматирање";
 "edit-bold-remove-accessibility-label" = "Отстрани задебелено форматирање";
+"edit-clear-formatting-accessibility-label" = "Отстрани форматирање";
 "edit-comment-accessibility-label" = "Стави синтакса за коментар";
 "edit-comment-remove-accessibility-label" = "Отстрани синтакса за коментар";
 "edit-decrease-indent-depth-accessibility-label" = "Намали отстап";
@@ -166,6 +170,9 @@
 "edit-italic-remove-accessibility-label" = "Отстрани закосено форматирање";
 "edit-link-accessibility-label" = "Стави синтакса за врска";
 "edit-link-remove-accessibility-label" = "Отстрани синтакса за врска";
+"edit-menu-item" = "Уреди";
+"edit-menu-item-could-not-find-selection-alert-message" = "Ова може да се случува бидејќи текстот што го избравте не е уредлив (на пр. наслов на статија или наслови ви инфокутија), или пак поради големината на означениот текст.";
+"edit-menu-item-could-not-find-selection-alert-title" = "Не можев да го пронајдам избраниот текст";
 "edit-minor-learn-more-text" = "Дознајте повеќе за ситните уредувања";
 "edit-minor-text" = "Ова е ситно уредување";
 "edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
@@ -192,6 +199,7 @@
 "edit-superscript-remove-accessibility-label" = "Отстрани форматирање за горен индекс";
 "edit-template-accessibility-label" = "Стави синтакса за шаблон";
 "edit-template-remove-accessibility-label" = "Отстрани синтакса за шаблон";
+"edit-text-clear-formatting" = "Отстрани форматирање";
 "edit-text-formatting-accessibility-label" = "Прикажи мени за форматирање на текстот";
 "edit-text-formatting-table-view-title" = "Форматирање на текстот";
 "edit-text-size-table-view-title" = "Големина на текстот";
@@ -202,6 +210,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Отстрани неподреден список од тековниот ред";
 "edit-watch-list-learn-more-text" = "Дознајте повеќе за набљудуваните";
 "edit-watch-this-page-text" = "Набљудувај ја страницава";
+"editing-welcome-be-bold-subtitle" = "Бидете смели кога ги уредувате статиите, но не си допуштајте немарност. Нека не ве обесхрабрува тоа што може да направите грешка: секоја претходна верзија на статијата стои зачувана, што значи дека заедницата лесно може да го исправи згрешеното.";
+"editing-welcome-be-bold-title" = "Вашиот глас е важен";
+"editing-welcome-citations-subtitle" = "Сите содржини мора да бидат проверливи. Кога се ставаат нови информации во статиите, уредниците мора да вметнат навод до меродавен извор кој недвосмислено оди во прилог на кажаното.";
+"editing-welcome-citations-title" = "Наведувајте меродавни извори";
+"editing-welcome-impartial-tone-subtitle" = "Се стремиме статиите да се напишани со непристрасен тон. Кога уредувате, настојувајте да ги претставувате нештата праведно, како што се изложени во меродавните извори.";
+"editing-welcome-impartial-tone-title" = "Пишувајте со непристрасен тон";
+"editing-welcome-set-knowledge-free-subtitle" = "Со цел да го направиме светското знаење пристапно за секого, ќе треба да учествувате во неовото создавање со читање и уредување на темите кои највеќе ви значат.";
+"editing-welcome-set-knowledge-free-title" = "Да го ослободиме знаењето";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
@@ -327,7 +343,13 @@
 "field-token-title" = "Потврден код";
 "field-username-placeholder" = "внесете корисничко име:";
 "field-username-title" = "Корисничко име";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Исчисти најдено";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Следна најдена ставка";
+"find-previous-button-accessibility" = "Претходна најдена ставка";
+"find-replace-header" = "Најди и замени";
+"find-replace-header-close-accessibility" = "Затвори најди и замени";
+"find-textfield-accessibility" = "Најди";
 "forgot-password-button-title" = "Задај нова лозинка";
 "forgot-password-email-sent" = "На е-пошта ви се испратени напатствија за задавање на нова лозинка";
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
@@ -420,8 +442,7 @@
 "page-edit-history" = "Цела историја на уредувања";
 "page-history-title" = "Историја на статијата";
 "page-issues" = "Проблеми со страницата";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Изменето денес|Изменето вчера|Изменето пред $1 дена}}";
+"page-last-edited" = "{{PLURAL:$1|0=Изменето денес|1=Изменето вчера|Изменето пред $1 дена}}";
 "page-location" = "Погл. на карта";
 "page-protected-autoconfirmed" = "Оваа страница е полузаштитена.";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
@@ -546,14 +567,24 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Темен изглед";
 "reading-themes-controls-accessibility-light-theme-button" = "Светол изглед";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Сипин изглед";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Истакнување на синтакса";
 "reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
+"reading-themes-controls-syntax-highlighting" = "Истакнување на синтакса";
 "reference-title" = "Навод $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=денес|вчера|пред $1 дена}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=денес|1=вчера|пред $1 дена}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|Лани|Пред $1 години}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|1=Лани|Пред $1 години}}";
+"replace-button-accessibility" = "Изврши $1.";
+"replace-buttons-replace-accessibility" = "Замена на еден примерок";
+"replace-buttons-replace-all-accessibility" = "Замена на сите примероци";
+"replace-clear-button-accessibility" = "Исчисти заменето";
+"replace-infolabel-method-replace" = "Замени";
+"replace-infolabel-method-replace-all" = "Замени сè";
+"replace-method-button-accessibility" = "Начин на замена. Задајте $1. Изберете за да смените.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|Заменета $1 ставка|Заменети $1 ставки}}";
+"replace-textfield-accessibility" = "Замени";
+"replace-textfield-placeholder" = "Замени со...";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "reverted-edit-back-to-article-button-title" = "Назад на статијата";
 "reverted-edit-notification-body" = "Вашето уредување на статијата $1 беше отповикано од $2";

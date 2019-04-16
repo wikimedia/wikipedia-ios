@@ -71,6 +71,13 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     NSLog(@"\n\nSimulator container directory:\n\t%@\n\n",
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
+
+#if UI_TEST
+    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
+        [UIView setAnimationsEnabled:NO];
+    }
+#endif
+
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
 

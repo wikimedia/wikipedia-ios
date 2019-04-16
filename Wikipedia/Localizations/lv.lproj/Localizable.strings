@@ -28,6 +28,7 @@
 "action-move-to" = "Pārvietot uz...";
 "action-read" = "Lasīt";
 "action-remove" = "Noņemt";
+"action-replace-all" = "Aizvietot visus";
 "action-save" = "Saglabāt";
 "action-saved" = "Saglabāts";
 "action-share" = "Dalīties";
@@ -54,6 +55,7 @@
 "close-button-accessibility-label" = "Aizvērt";
 "edit-direction-left-accessibility-label" = "Pārvietot kursoru pa kreisi";
 "edit-direction-right-accessibility-label" = "Pārvietot kursoru pa labi";
+"edit-menu-item" = "Labot";
 "edit-minor-text" = "Šis ir maznozīmīgs labojums";
 "edit-published" = "Labojums publicēts";
 "edit-published-button-title" = "Gatavs";
@@ -62,6 +64,7 @@
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-linked-words" = "Pievienotas saites";
 "edit-summary-learn-more-text" = "Uzzināt vairāk";
+"edit-text-clear-formatting" = "Notīrīt formatējamu";
 "edit-watch-this-page-text" = "Uzraudzīt šo lapu";
 "empty-no-search-results-message" = "Nav atrasts neviens rezultāts";
 "explore-another-random" = "Vēl viens nejaušs raksts";
@@ -85,6 +88,7 @@
 "field-token-title" = "Verifikācijas kods";
 "field-username-placeholder" = "ievadi lietotājvārdu";
 "field-username-title" = "Lietotājvārds";
+"find-replace-header" = "Atrast un aizvietot";
 "forgot-password-button-title" = "Atiestatīt";
 "forgot-password-title" = "Atiestatīt paroli";
 "forgot-password-username-or-email-title" = "Vai";
@@ -143,6 +147,10 @@
 // Fuzzy
 "reading-lists-default-list-title" = "Grāmatzīmes";
 "reference-title" = "Atsauce $1";
+"replace-infolabel-method-replace" = "Aizvietot";
+"replace-infolabel-method-replace-all" = "Aizvietot visus";
+"replace-textfield-accessibility" = "Aizvietot";
+"replace-textfield-placeholder" = "Aizvietot ar...";
 "reverted-edit-back-to-article-button-title" = "Atpakaļ uz rakstu";
 "reverted-edit-notification-read-more-action-title" = "Lasīt vairāk";
 "reverted-edit-thanks-for-editing-title" = "Paldies par Vikipēdijas labošanu!";

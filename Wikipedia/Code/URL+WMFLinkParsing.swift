@@ -5,12 +5,18 @@ extension CharacterSet {
         return NSCharacterSet.wmf_URLArticleTitlePathComponentAllowed()
     }
 
-    static var wmf_urlQueryAllowed: CharacterSet {
-        return NSCharacterSet.wmf_URLQueryAllowed()
-    }
+    static let urlQueryComponentAllowed: CharacterSet = {
+        var characterSet = CharacterSet.urlQueryAllowed
+        characterSet.remove(charactersIn: "+&=")
+        return characterSet
+    }()
 }
 
 extension URL {
+    public var wmf_percentEscapedTitle: String? {
+        return wmf_titleWithUnderscores?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed)
+    }
+    
     public var wmf_language: String? {
         return (self as NSURL).wmf_language
     }

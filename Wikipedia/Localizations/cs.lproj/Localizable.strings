@@ -22,6 +22,7 @@
 // Author: Nemo bis
 // Author: Niedzielski
 // Author: Patriccck
+// Author: Tsevener
 // Author: Vojtěch Dostál
 // Author: Walter Klosse
 // Author: Zbyso23
@@ -80,11 +81,14 @@
 "action-read" = "Číst";
 "action-redo" = "Znovu";
 "action-remove" = "Odebrat";
+"action-replace" = "Nahradit";
+"action-replace-all" = "Nahradit vše";
 "action-save" = "Uložit";
 "action-saved" = "Uloženo";
 "action-saved-accessibility" = "Uloženo. Aktivujte pro odstranění z uložených.";
 "action-saved-accessibility-notification" = "Článek byl uložen pro pozdější čtení";
 "action-share" = "Sdílet";
+"action-share-accessibility" = "Sdílet";
 "action-sort" = "Seřadit";
 "action-undo" = "Zpět";
 "action-unsave" = "Zrušit uložení";
@@ -130,12 +134,12 @@
 "cancel" = "Storno";
 "cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Zavřít";
-"compass-direction" = "na $1. hodině";
+"compass-direction" = "ve $1 hodiny";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
 "description-add-link-title" = "Přidat popis článku";
 "description-add-title" = "Přidat popis";
-"description-edit-for-article" = "Popis článku pro $1";
+"description-edit-for-article" = "Popis článku pro článek $1";
 "description-edit-learn-more" = "Více informací";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
@@ -172,6 +176,7 @@
 "dim-images" = "Ztmavení obrázků";
 "edit-bold-accessibility-label" = "Přidat tučné formátování";
 "edit-bold-remove-accessibility-label" = "Odebrat tučné formátování";
+"edit-clear-formatting-accessibility-label" = "Odstranit formátování";
 "edit-comment-accessibility-label" = "Přidat syntaxi komentář";
 "edit-comment-remove-accessibility-label" = "Odebrat syntaxi komentář";
 "edit-decrease-indent-depth-accessibility-label" = "Snížení hloubky odsazení";
@@ -185,6 +190,9 @@
 "edit-italic-remove-accessibility-label" = "Odebrat formátování kurzíva";
 "edit-link-accessibility-label" = "Přidat syntaxi odkaz";
 "edit-link-remove-accessibility-label" = "Odebrat syntaxi odkaz";
+"edit-menu-item" = "Editovat";
+"edit-menu-item-could-not-find-selection-alert-message" = "To může být způsobeno tím, že vybraný text není editovatelný (např. název článku nebo název infoboxu) nebo z důvodu délky zvýrazněného textu.";
+"edit-menu-item-could-not-find-selection-alert-title" = "Vybraný text nelze nalézt";
 "edit-minor-learn-more-text" = "Informace o malých editacích";
 "edit-minor-text" = "Malá editace";
 "edit-ordered-list-accessibility-label" = "Změnit aktuální řádek na číslovaný seznam";
@@ -211,6 +219,7 @@
 "edit-superscript-remove-accessibility-label" = "Odebrat formátování horní index";
 "edit-template-accessibility-label" = "Přidat syntaxi šablona";
 "edit-template-remove-accessibility-label" = "Odebrat syntaxi šablona";
+"edit-text-clear-formatting" = "Vymazat formátování";
 "edit-text-formatting-accessibility-label" = "Zobrazit text formátovacího menu";
 "edit-text-formatting-table-view-title" = "Formátování textu";
 "edit-text-size-table-view-title" = "Velikost textu";
@@ -221,6 +230,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Odebrat nečíslovaný seznam z aktuálního řádku";
 "edit-watch-list-learn-more-text" = "Informace o sledovaných stránkách";
 "edit-watch-this-page-text" = "Sledovat tuto stránku";
+"editing-welcome-be-bold-subtitle" = "Buďte smělí, ale ne bezohlední při aktualizaci článků. Nedělejte si starosti s menšími chybami: každá předchozí verze stránky je uložena, takže chyby mohou být snadno napraveny naší komunitou.";
+"editing-welcome-be-bold-title" = "Váš hlas je důležitý";
+"editing-welcome-citations-subtitle" = "Veškerý obsah musí být ověřitelný. Při přidávání nových informací do článku by měli wikipedisté poskytnout citaci na spolehlivý zdroj.";
+"editing-welcome-citations-title" = "Citujte ověřitelné zdroje";
+"editing-welcome-impartial-tone-subtitle" = "Usilujeme o to, aby byly články psány nestranně. Při editacích si klademe za cíl vytvořit spravedlivou reprezentaci světa, jak jej popisují spolehlivé zdroje.";
+"editing-welcome-impartial-tone-title" = "Pište nestranně, nepropagujte";
+"editing-welcome-set-knowledge-free-subtitle" = "Abychom měli všichni přístup ke znalostem světa, potřebujeme, abyste se podíleli na jeho tvorbě čtením, editováním a přispěním k tématům, která jsou pro vás nejdůležitější a zajímají vás.";
+"editing-welcome-set-knowledge-free-title" = "Zdarma vytvářejte vědomosti";
 "empty-no-article-message" = "Omlouváme se, nepovedlo se načíst článek.";
 "empty-no-feed-action-message" = "Stále ještě můžete číst uložené stránky";
 "empty-no-feed-message" = "Když jste připojeni k internetu, tak můžete číst doporučené články.";
@@ -243,11 +260,11 @@
 "explore-detail-back-button-title" = "Zpět do kanálu Objevit";
 "explore-enable-location-title" = "Objevte články poblíž vaší aktuální polohy";
 "explore-featured-article-heading" = "Doporučený článek";
-"explore-featured-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipedie";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipedie";
 "explore-feed-customize-accessibility-title" = "Přizpůsobit";
 "explore-feed-language-settings" = "Nastavení jazyků pro kanál Objevit";
-"explore-feed-preferences-additional-languages-footer-text" = "Další jazyky lze přidat na obrazovce „Mé jazyky“.";
+"explore-feed-preferences-additional-languages-footer-text" = "Další jazyky lze přidat na obrazovce „Moje jazyky“.";
 "explore-feed-preferences-card-hidden-title" = "Karta skryta";
 "explore-feed-preferences-continue-reading-description" = "Rychlý odkaz zpět na čtení otevřeného článku";
 "explore-feed-preferences-customize-explore-feed" = "Přizpůsobení kanálu Objevit";
@@ -258,7 +275,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Vypnout";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ve všech jazycích";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnout";
-"explore-feed-preferences-feed-card-visibility-languages-count" = "V $1";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "V $1 jazycích";
 "explore-feed-preferences-feed-cards-hidden-title" = "Všech %@ karet je skrytých";
 "explore-feed-preferences-global-card-footer-text" = "V této kartě nelze zvolit jazyk, vypnutím této karty bude odstraněna z vašeho kanálu Objevit.";
 "explore-feed-preferences-global-cards-description" = "Bez možnosti zvolit jazyk";
@@ -305,8 +322,8 @@
 "explore-main-page-heading" = "Dnes na Wikipedii";
 "explore-most-read-footer" = "Všechny nejčtenější články";
 "explore-most-read-generic-heading" = "Nejčtenější";
-"explore-most-read-more-list-title-for-date" = "Nejlepší na $1";
-"explore-most-read-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
+"explore-most-read-more-list-title-for-date" = "Nejlepší dne $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "Wikipedie v jazyce $1";
 "explore-most-read-sub-heading-on-wikipedia" = "Na Wikipedii";
 "explore-nearby-heading" = "Místa v blízkosti";
 "explore-nearby-placeholder-heading" = "Místa";
@@ -346,7 +363,13 @@
 "field-token-title" = "Ověřovací kód";
 "field-username-placeholder" = "zadejte uživatelské jméno";
 "field-username-title" = "Uživatelské jméno";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Vymazat";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Další výskyt";
+"find-previous-button-accessibility" = "Předchozí výskyt";
+"find-replace-header" = "Najít a nahradit";
+"find-replace-header-close-accessibility" = "Zavřít najít a nahradit";
+"find-textfield-accessibility" = "Najít";
 "forgot-password-button-title" = "Vynulovat";
 "forgot-password-email-sent" = "Email s instrukcemi pro obnovení hesla byl odeslán";
 "forgot-password-instructions" = "Vyplňte jedno z níže uvedených polí a obdržíte pokyny pro obnovení hesla prostřednictvím e-mailu";
@@ -360,7 +383,7 @@
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na kanál Objevit";
 "home-button-history-accessibility-label" = "Wikipedie, zpět do Historie";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
-"home-more-like-footer" = "Více podobných článku $1";
+"home-more-like-footer" = "Více podobných článku jako $1";
 "home-nearby-footer" = "Více míst z vašeho okolí";
 "home-nearby-location-footer" = "Další místa v okolí $1";
 "home-news-footer" = "Více Aktuálních událostí";
@@ -378,7 +401,7 @@
 "in-the-news-notification-read-now-action-title" = "Přečíst";
 "in-the-news-notification-save-for-later-action-title" = "Uložit na později";
 "in-the-news-notification-share-action-title" = "Sdílet…";
-"in-the-news-sub-title-from-language-wikipedia" = "Na Wikipedii v jazyce $1";
+"in-the-news-sub-title-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedie";
 "in-the-news-title" = "Aktuality";
 "info-box-close-text" = "Zavřít";
@@ -401,7 +424,7 @@
 "main-menu-account-logout" = "Odhlásit se";
 "main-menu-account-logout-are-you-sure" = "Opravdu se chcete odhlásít?";
 "main-menu-account-logout-cancel" = "Storno";
-"main-menu-account-title-logged-in" = "Přihlášen jako: $1";
+"main-menu-account-title-logged-in" = "{{GENDER:$1|Jste přihlášen|Jste přihlášena}} účtem $1";
 "main-menu-debug-tweaks" = "Nastavení pro vývojáře";
 "main-menu-heading-debug" = "Debugovat";
 "main-menu-heading-legal" = "Ochrana soukromí a podmínky užívání";
@@ -429,8 +452,8 @@
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tis.";
-"on-this-day-detail-header-date-range" = "mezi $1 a $2";
-"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|$1 historické události}}";
+"on-this-day-detail-header-date-range" = "mezi $1 až $2";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|$1 historické události|$1 historických událostí}}";
 "on-this-day-footer" = "Další historické události tento den";
 "on-this-day-footer-with-event-count" = "$1 dalších historických událostí v tento den";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
@@ -482,7 +505,7 @@
 "places-search-your-current-location" = "Vaše současná poloha";
 "places-title" = "Místa";
 "places-unknown-distance" = "neznámá vzdálenost";
-"potd-description-prefix" = "Obrázek dne pro $1";
+"potd-description-prefix" = "Obrázek dne $1";
 "potd-empty-error-description" = "Nepodařilo se načíst obrázek dne pro $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
@@ -503,8 +526,8 @@
 "reading-list-deleted-accessibility-notification" = "Seznam k přečtení byl odstraněn";
 "reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
 "reading-list-entry-limit-exceeded-message" = "Zmenšete počet článků v tomto seznamu na $1, abyste obnovili synchronizaci všech článků v tomto seznamu.";
-"reading-list-entry-limit-exceeded-title" = "Překročili jste maximální limit {{PLURAL:$1|$1 článek|$1 články|$1 článků}} na účet.";
-"reading-list-entry-limit-reached" = "{{PLURAL:$1|Článek|Články|Článků}} nelze do tohoto seznamu přidat. Dosáhli jste limitu $2 článků pro seznam k přečtení $3";
+"reading-list-entry-limit-exceeded-title" = "Překročili jste maximální limit {{PLURAL:$1|$1 článku|$1 článků}} na účet.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Článek|Články}} nelze do tohoto seznamu přidat. Dosáhli jste limitu $2 článků pro seznam k přečtení $3";
 "reading-list-exists-with-same-name" = "Toto jméno seznamu již má jiný seznam k přečtení";
 "reading-list-generic-error" = "Nastala neočekávaná chyba při aktualizaci vašich seznamu k přečtení.";
 "reading-list-keep-button-title" = "Ano, zanechat články v zařízení";
@@ -538,7 +561,7 @@
 "reading-list-unable-to-delete" = "Nastala neočekávaná chyba při odstraňování vašeho seznamu k přečtení. Zkuste to prosím později znovu.";
 "reading-list-unable-to-remove-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu k přečtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-update" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu k přečtení. Zkuste prosím později znovu.";
-"reading-list-with-provided-name-not-found" = "Seznam k přečtení s názvem $1 nebyl nalezen. Ujistěte se prosím, že jste vyhledali správné jméno.";
+"reading-list-with-provided-name-not-found" = "Seznam k přečtení s názvem „$1“ nebyl nalezen. Ujistěte se prosím, že jste vyhledali správné jméno.";
 "reading-lists-article-added-confirmation" = "Článek přidán do „$1“";
 "reading-lists-article-api-failure" = "Nelze synchronizovat článek";
 "reading-lists-article-not-synced" = "Nesynchronizováno";
@@ -564,12 +587,24 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Tmavý vzhled";
 "reading-themes-controls-accessibility-light-theme-button" = "Světlý vzhled";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Vzhled sépie";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Zvýraznění syntaxe";
 "reading-themes-controls-accessibility-text-size-slider" = "Posuvník velikosti textu";
+"reading-themes-controls-syntax-highlighting" = "Zvýraznění syntaxe";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|1=Včera|2=Předevčírem|Před $1 dny}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Před $1 hodinou|Před $1 hodinami}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Právě teď|Před $1 minutou|Před $1 minutami}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Loni|2=Předloni|Před $1 lety}}";
+"replace-button-accessibility" = "Provést $1.";
+"replace-buttons-replace-accessibility" = "Nahradit v jednom případě";
+"replace-buttons-replace-all-accessibility" = "Nahradit všude";
+"replace-clear-button-accessibility" = "Vymazat nahradit";
+"replace-infolabel-method-replace" = "Nahradit";
+"replace-infolabel-method-replace-all" = "Nahradit vše";
+"replace-method-button-accessibility" = "Způsob nahrazení. Nastavit na $1.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka změněna|$1 položky změněny|$1 položek změněno}}";
+"replace-textfield-accessibility" = "Nahradit";
+"replace-textfield-placeholder" = "Nahradit za...";
 "request-feedback-on-error" = "V aplikaci došlo k chybě, o které by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "reverted-edit-back-to-article-button-title" = "Zpět do článku";
 "reverted-edit-notification-body" = "Vaše editace článku $1 byla revertována wikipedistou $2";
@@ -586,7 +621,7 @@
 "saved-reading-lists-title" = "Seznamy k přečtení";
 "saved-search-default-text" = "Hledat uložené články";
 "saved-title" = "Uložené";
-"saved-unsave-article-and-remove-from-reading-lists-message" = "Zruší uložení {{PLURAL:$1|tohoto článku a odstraní jej|těchto článků a odstraní je}} ze všech seznamů k přečtení, kterých se nachází";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Zruší uložení {{PLURAL:$1|tohoto článku a odstraní jej|těchto článků a odstraní je}} ze všech seznamů k přečtení, ve kterých se nachází";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Zrušit uložení {{PLURAL:$1|článku|článků}}?";
 "search-button-accessibility-label" = "Hledat na Wikipedii";
 "search-clear-title" = "Odebrat";
@@ -599,7 +634,7 @@
 "search-recent-clear-delete-all" = "Smazat vše";
 "search-recent-empty" = "Zatím žádné vyhledávání";
 "search-recent-title" = "Poslední hledání";
-"search-result-redirected-from" = "Přesměrováno z: $1";
+"search-result-redirected-from" = "Přesměrováno z „$1“";
 "search-title" = "Hledání";
 "settings-appearance" = "Nastavení čtení";
 "settings-clear-cache" = "Vymažte data uložená v cache";
@@ -711,4 +746,4 @@
 "wikitext-upload-save-anonymously-warning" = "Jako autor editace bude uvedena IP adresa vašeho zařízení. Pokud kliknete na $1, budete mít více možností ochránit své soukromí.";
 "wikitext-upload-save-sign-in" = "Přihlásit se";
 "wikitext-upload-save-terms-and-licenses" = "Zveřejněním změn souhlasíte s $1Podmínkami užití$2 a neodvolatelně souhlasíte s tím, že uvolníte svůj příspěvek pod licencemi $3CC BY-SA 3.0 License$4 a $5GFDL$6. Souhlasíte s tím, že hypertextový odkaz nebo URL je dostatečným uvedením vašeho autorství podle licence Creative Commons.";
-"wikitext-upload-save-terms-name" = "Podmínky užití";
+"wikitext-upload-save-terms-name" = "Podmínkami užití";

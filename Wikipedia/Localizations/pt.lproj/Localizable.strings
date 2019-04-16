@@ -71,11 +71,14 @@
 "action-read" = "Ler";
 "action-redo" = "Refazer";
 "action-remove" = "Remover";
+"action-replace" = "Substituir";
+"action-replace-all" = "Substituir todas";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-saved-accessibility" = "Guardado. Ativar para não guardar.";
 "action-saved-accessibility-notification" = "Artigo guardado para mais tarde";
 "action-share" = "Partilhar";
+"action-share-accessibility" = "Partilhar";
 "action-sort" = "Ordenar";
 "action-undo" = "Desfazer";
 "action-unsave" = "Não guardar";
@@ -163,6 +166,7 @@
 "dim-images" = "Atenuar imagens";
 "edit-bold-accessibility-label" = "Acrescentar formatação para negrito";
 "edit-bold-remove-accessibility-label" = "Remover formatação de negrito";
+"edit-clear-formatting-accessibility-label" = "Remover formatação";
 "edit-comment-accessibility-label" = "Acrescentar sintaxe para comentário";
 "edit-comment-remove-accessibility-label" = "Remover sintaxe de comentário";
 "edit-decrease-indent-depth-accessibility-label" = "Reduzir profundidade da indentação";
@@ -176,6 +180,9 @@
 "edit-italic-remove-accessibility-label" = "Remover formatação de itálico";
 "edit-link-accessibility-label" = "Acrescentar sintaxe para hiperligação";
 "edit-link-remove-accessibility-label" = "Remover sintaxe de hiperligação";
+"edit-menu-item" = "Editar";
+"edit-menu-item-could-not-find-selection-alert-message" = "Isto pode ocorrer porque o texto que selecionou não é editável (por exemplo, o título do artigo ou títulos de caixas informativas) ou devido ao comprimento do texto destacado.";
+"edit-menu-item-could-not-find-selection-alert-title" = "Não foi possível localizar o texto que selecionou";
 "edit-minor-learn-more-text" = "Saiba mais sobre as edições menores";
 "edit-minor-text" = "Esta é uma edição menor";
 "edit-ordered-list-accessibility-label" = "Tornar a linha corrente numa lista ordenada";
@@ -202,6 +209,7 @@
 "edit-superscript-remove-accessibility-label" = "Remover formatação de sobrescrito";
 "edit-template-accessibility-label" = "Acrescentar sintaxe para predefinição";
 "edit-template-remove-accessibility-label" = "Remover sintaxe de predefinição";
+"edit-text-clear-formatting" = "Limpar formatação";
 "edit-text-formatting-accessibility-label" = "Mostrar menu de formatação de texto";
 "edit-text-formatting-table-view-title" = "Formatação de texto";
 "edit-text-size-table-view-title" = "Tamanho do texto";
@@ -212,6 +220,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Remover lista não ordenada da linha corrente";
 "edit-watch-list-learn-more-text" = "Saiba mais sobre listas de páginas vigiadas";
 "edit-watch-this-page-text" = "Vigiar esta página";
+"editing-welcome-be-bold-subtitle" = "Seja corajoso, mas não descuidado, na atualização de artigos. Não tenha receio de cometer erros: todas as versões anteriores das páginas são gravadas, portanto os erros podem ser facilmente corrigidos pela nossa comunidade.";
+"editing-welcome-be-bold-title" = "A sua voz é importante";
+"editing-welcome-citations-subtitle" = "Todo o conteúdo deve ser verificável. Ao adicionar informação nova a um artigo, os editores devem fornecer uma citação de uma fonte fiável que sustenha diretamente essa contribuição.";
+"editing-welcome-citations-title" = "Citar fontes fiáveis";
+"editing-welcome-impartial-tone-subtitle" = "Esforçamo-nos para que os artigos estejam redigidos de forma imparcial. Ao editar, tente dar uma imagem justa do mundo tal como as fontes fiáveis o descrevem.";
+"editing-welcome-impartial-tone-title" = "Escreva de forma imparcial";
+"editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos acesso ao conhecimento mundial, precisamos que participe na sua criação, lendo, editando e contribuindo nos assuntos que mais lhe interessam.";
+"editing-welcome-set-knowledge-free-title" = "Libertar o conhecimento";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Pode sempre ler as páginas guardadas";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados quando tiver acesso à Internet";
@@ -337,7 +353,13 @@
 "field-token-title" = "Código de verificação:";
 "field-username-placeholder" = "introduza o nome de utilizador";
 "field-username-title" = "Nome de utilizador";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Limpar localizar";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Próximo resultado localizado";
+"find-previous-button-accessibility" = "Resultado localizado anterior";
+"find-replace-header" = "Localizar e substituir";
+"find-replace-header-close-accessibility" = "Fechar localizar e substituir";
+"find-textfield-accessibility" = "Localizar";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviada uma mensagem eletrónica com instruções de redefinição da palavra-passe";
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição da palavra-passe por correio eletrónico";
@@ -430,8 +452,7 @@
 "page-edit-history" = "Histórico completo";
 "page-history-title" = "Histórico do artigo";
 "page-issues" = "Problemas da página";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|Editado ontem|Editado há $1 dias}}";
+"page-last-edited" = "{{PLURAL:$1|0=Editado hoje|1=Editado ontem|Editado há $1 dias}}";
 "page-location" = "Ver num mapa";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-can-not-edit" = "Não tem permissão para editar esta página";
@@ -556,15 +577,25 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sépia";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Realce sintático";
 "reading-themes-controls-accessibility-text-size-slider" = "Controlo do tamanho do texto";
+"reading-themes-controls-syntax-highlighting" = "Realce sintático";
 "reference-title" = "Referência $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Hoje|Ontem|Há $1 dias}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hoje|1=Ontem|Há $1 dias}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Há $1 hora|Há $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Há $1 minuto|Há $1 minutos}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|No ano passado|Há $1 anos}}";
-"request-feedback-on-error" = "A aplicação encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um correio eletrónico com os detalhes do erro.";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|1=No ano passado|Há $1 anos}}";
+"replace-button-accessibility" = "Executar $1.";
+"replace-buttons-replace-accessibility" = "Substituir a instância";
+"replace-buttons-replace-all-accessibility" = "Substituir todas as instâncias";
+"replace-clear-button-accessibility" = "Limpar substituir";
+"replace-infolabel-method-replace" = "Substituir";
+"replace-infolabel-method-replace-all" = "Substituir todas";
+"replace-method-button-accessibility" = "Método de substituição. Definido com o valor $1. Selecionar para alterar.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 instância substituída|$1 instâncias substituídas}}";
+"replace-textfield-accessibility" = "Substituir";
+"replace-textfield-placeholder" = "Substituir por...";
+"request-feedback-on-error" = "Surgiu um problema na aplicação, sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um correio eletrónico com os detalhes do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
 "reverted-edit-notification-body" = "A sua edição do artigo $1 foi revertida por $2";
 "reverted-edit-notification-read-more-action-title" = "Ler mais";

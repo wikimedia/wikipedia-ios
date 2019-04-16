@@ -1,7 +1,7 @@
 import UIKit
 
 public extension UIView {
-    @objc public func wmf_addBottomShadow(with theme: Theme) {
+    @objc func wmf_addBottomShadow(with theme: Theme) {
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
   
         guard let bgColor = backgroundColor else {

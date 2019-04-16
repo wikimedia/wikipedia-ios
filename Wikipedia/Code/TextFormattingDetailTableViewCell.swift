@@ -1,5 +1,5 @@
 class TextFormattingDetailTableViewCell: TextFormattingTableViewCell {
-    func configure(with title: String, detailText: String) {
+    func configure(with title: String, detailText: String?) {
         textLabel?.text = title
         detailTextLabel?.text = detailText
     }

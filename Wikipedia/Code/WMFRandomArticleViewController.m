@@ -1,9 +1,9 @@
 #import "WMFRandomArticleViewController.h"
-#import <WMF/WMFRandomArticleFetcher.h>
 #import <WMF/MWKSearchResult.h>
 #import "Wikipedia-Swift.h"
 #import "WMFRandomDiceButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import <WMF/WMF-Swift.h>
 #if WMF_TWEAKS_ENABLED
 #import <WMF/MWKDataStore.h>
 #import <WMF/MWKSavedPageList.h>
@@ -130,12 +130,11 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 - (void)loadAndShowAnotherRandomArticle:(id)sender {
     [self configureViewsForRandomArticleLoading:YES animated:YES];
     NSURL *siteURL = self.articleURL.wmf_siteURL;
-    [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, MWKSearchResult * _Nullable result) {
+    [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, NSURL * _Nullable articleURL, WMFArticleSummary * _Nullable summary) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (error || !result) {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            if (error || !articleURL) {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error ?: [WMFFetcher unexpectedResponseError] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
             } else {
-                NSURL *articleURL = [result articleURLForSiteURL:siteURL];
                 WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED
                 randomArticleVC.permaRandomMode = NO;

@@ -131,7 +131,7 @@
 "field-token-title" = "உறுதிப்படுத்தல் குறியீடு";
 "field-username-placeholder" = "பயனர் பெயரொன்றை இடுக";
 "field-username-title" = "பயனர் பெயர்";
-"find-in-page-number-matches" = "$2 இல் $1";
+"find-infolabel-number-matches" = "$2 இல் $1";
 "forgot-password-button-title" = "மீட்டமை";
 "forgot-password-title" = "கடவுச்சொலை மீளமை";
 "forgot-password-username-or-email-title" = "அல்லது";
@@ -200,8 +200,7 @@
 "page-edit-history" = "முழு தொகுப்பு வரலாறு";
 "page-history-title" = "கட்டுரை வரலாறு";
 "page-issues" = "பக்க சிக்கல்கள்";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=இன்று தொகுக்கப்பட்டது|நேற்று தொகுக்கப்பட்டது|$1 நாட்களுக்கு முன் தொகுக்கப்பட்டது}}";
+"page-last-edited" = "{{PLURAL:$1|0=இன்று தொகுக்கப்பட்டது|1=நேற்று தொகுக்கப்பட்டது|$1 நாட்களுக்கு முன் தொகுக்கப்பட்டது}}";
 "page-location" = "நிலப்படத்தில் காட்டுக";
 "page-protected-autoconfirmed" = "இந்த பக்கம் அரைப் பாதுகாக்கபட்டுள்ளது.";
 "page-protected-can-not-edit" = "உங்களுக்கு இந்த பக்கத்தை தொகுக்கும் உரிமைகள் இல்லை";
@@ -244,12 +243,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "பழுப்பு தோற்றம்";
 "reading-themes-controls-accessibility-text-size-slider" = "உரை அளவு வழுப்பான்";
 "reference-title" = "மேற்கோள்கள் $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=இன்று|நேற்று|$1 நாட்களுக்கு முன்}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=இன்று|1=நேற்று|$1 நாட்களுக்கு முன்}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=அண்மையில்|$1 மணிக்கு முன்பு|$1 மணி நேரத்திற்கு முன்பு}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=இப்பொழுது|$1 நிமிடத்திற்கு முன்பு|$1 நிமிடங்களுக்கு முன்பு}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=இந்த வருடம்|சென்ற வருடம்|$1 வருடங்களுக்கு முன்பு}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=இந்த வருடம்|1=சென்ற வருடம்|$1 வருடங்களுக்கு முன்பு}}";
 "saved-title" = "சேமிக்கப்பட்டது";
 "search-button-accessibility-label" = "விக்கிப்பீடியாவில் தேடவும்";
 "search-did-you-mean" = "தாங்கள் கருதியது $1?";

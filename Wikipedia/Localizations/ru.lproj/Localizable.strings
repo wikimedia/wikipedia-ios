@@ -5,6 +5,7 @@
 // Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Dicto23456
+// Author: Diralik
 // Author: Dyaydyasasha2015
 // Author: Facenapalm
 // Author: Happy13241
@@ -15,6 +16,7 @@
 // Author: Irus
 // Author: JackLantern
 // Author: Jackie
+// Author: JoeWalshWMF
 // Author: Kaganer
 // Author: Kareyac
 // Author: Kopcap94
@@ -91,11 +93,14 @@
 "action-read" = "Читать";
 "action-redo" = "Повторить";
 "action-remove" = "Удалить";
+"action-replace" = "Заменить";
+"action-replace-all" = "Заменить все";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
 "action-saved-accessibility-notification" = "Статья сохранена на потом.";
 "action-share" = "Поделиться";
+"action-share-accessibility" = "Поделиться";
 "action-sort" = "Сортировать";
 "action-undo" = "Отменить";
 "action-unsave" = "Не сохранено";
@@ -183,6 +188,7 @@
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
+"edit-clear-formatting-accessibility-label" = "Очистить форматирование";
 "edit-comment-accessibility-label" = "Добавить комментарий";
 "edit-comment-remove-accessibility-label" = "Убрать комментарий";
 "edit-decrease-indent-depth-accessibility-label" = "Уменьшить отступ";
@@ -196,6 +202,9 @@
 "edit-italic-remove-accessibility-label" = "Убрать наклонное начертание";
 "edit-link-accessibility-label" = "Добавить ссылку";
 "edit-link-remove-accessibility-label" = "Убрать ссылку";
+"edit-menu-item" = "Редактировать";
+"edit-menu-item-could-not-find-selection-alert-message" = "Это произошло, скорее всего, из-за длины подсвеченного текста или из-за того, что выбранный текст не является редактируемым (например, заголовок статьи, заголовок инфотаблички)";
+"edit-menu-item-could-not-find-selection-alert-title" = "Выбранный текст не найден";
 "edit-minor-learn-more-text" = "Узнать подробнее о малых правках";
 "edit-minor-text" = "Это малая правка";
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
@@ -222,6 +231,7 @@
 "edit-superscript-remove-accessibility-label" = "Убрать надстрочное начертание";
 "edit-template-accessibility-label" = "Добавить шаблон";
 "edit-template-remove-accessibility-label" = "Убрать шаблон";
+"edit-text-clear-formatting" = "Очистить форматирование";
 "edit-text-formatting-accessibility-label" = "Показать меню форматирования";
 "edit-text-formatting-table-view-title" = "Форматирование текста";
 "edit-text-size-table-view-title" = "Размер шрифта";
@@ -232,6 +242,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Убрать ненумерованный список";
 "edit-watch-list-learn-more-text" = "Узнайте больше о списках наблюдения";
 "edit-watch-this-page-text" = "Следить за этой страницей";
+"editing-welcome-be-bold-subtitle" = "Делайте правки смело, но обдуманно. Не расстраивайтесь из-за ошибок — после каждой правки версия статьи сохраняется, поэтому ошибка может быть легко исправлена участниками википедии.";
+"editing-welcome-be-bold-title" = "Ваш голос важен";
+"editing-welcome-citations-subtitle" = "Вся информация должна быть проверяема. Добавляя новую информацию в статью участники википедии должны указать ссылку на надёжный источник этой информации.";
+"editing-welcome-citations-title" = "Используйте проверенные источники";
+"editing-welcome-impartial-tone-subtitle" = "Мы стремимся, чтобы статьи были написаны беспристрастно. При редактировании постарайтесь составить достоверное представление о мире, как его описывают надёжные источники.";
+"editing-welcome-impartial-tone-title" = "Пишите непредвзято";
+"editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
+"editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
 "empty-no-article-message" = "К сожалению, не удалось загрузить статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
@@ -357,7 +375,13 @@
 "field-token-title" = "Код подтверждения";
 "field-username-placeholder" = "введите имя пользователя";
 "field-username-title" = "Имя участника";
-"find-in-page-number-matches" = "$1 из $2";
+"find-clear-button-accessibility" = "Очистить поиск";
+"find-infolabel-number-matches" = "$1 из $2";
+"find-next-button-accessibility" = "Следующее вхождение";
+"find-previous-button-accessibility" = "Предыдущее вхождение";
+"find-replace-header" = "Поиск и замена";
+"find-replace-header-close-accessibility" = "Закрыть диалог поиска и замены";
+"find-textfield-accessibility" = "Найти";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
@@ -397,7 +421,7 @@
 "languages-settings-title" = "Языки";
 "languages-title" = "Изменить язык";
 "languages-wikipedia" = "Языки Википедии";
-"license-footer-name" = "CC-BY-SA 3.0";
+"license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Содержимое доступно по лицензии $1";
 "logged-out-continue-without-logging-in-button-title" = "Продолжить без входа";
 "logged-out-log-back-in-button-title" = "Войдите повторно в свою учётную запись";
@@ -450,7 +474,7 @@
 "page-edit-history" = "Полная история редактирования";
 "page-history-title" = "История страницы";
 "page-issues" = "Вопросы по странице";
-"page-last-edited" = "{{PLURAL:$1|0=Отредактировано сегодня|1=Отредактировано вчера|few=Отредактировано $1 дня назад|many=Отредактировано $1 дней назад}}";
+"page-last-edited" = "{{PLURAL:$1|0=Изменено сегодня|1=Изменено вчера|few=Изменено $1 дня назад|many=Изменено $1 дней назад}}";
 "page-location" = "Посмотреть на карте";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
@@ -511,7 +535,7 @@
 "reading-list-create-new-list-description" = "Описание";
 "reading-list-create-new-list-reading-list-name" = "Название списка для чтения";
 "reading-list-create-new-list-title" = "Создать новый список";
-"reading-list-deleted-accessibility-notification" = "Список чтения удален";
+"reading-list-deleted-accessibility-notification" = "Список чтения удалён";
 "reading-list-do-not-keep-button-title" = "Нет, удалять статьи с устройства";
 "reading-list-entry-limit-exceeded-message" = "Пожалуйста уменьшите число статей в этом списке до $1, чтобы возобновить их синхронизацию.";
 "reading-list-entry-limit-exceeded-title" = "Вы превысили лимит в {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} на учётную запись.";
@@ -575,12 +599,24 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
 "reading-themes-controls-accessibility-light-theme-button" = "Светлая тема";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Сепия";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Подсветка синтаксиса";
 "reading-themes-controls-accessibility-text-size-slider" = "Ползунок размера текста";
+"reading-themes-controls-syntax-highlighting" = "Подсветка синтаксиса";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|1=Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
-"relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|few=$1 года назад|many=$1 лет назад}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|one=$1 год назад|few=$1 года назад|many=$1 лет назад}}";
+"replace-button-accessibility" = "Выполнение операции \"$1\".";
+"replace-buttons-replace-accessibility" = "Заменить одно вхождение";
+"replace-buttons-replace-all-accessibility" = "Заменить все вхождения";
+"replace-clear-button-accessibility" = "Очистить замену";
+"replace-infolabel-method-replace" = "Заменить";
+"replace-infolabel-method-replace-all" = "Заменить все";
+"replace-method-button-accessibility" = "Текущий режим — \"$1\". Нажмите, чтобы сменить режим замен.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|выполнена 1 замена|выполнены $1 замены|выполнены $1 замен}}";
+"replace-textfield-accessibility" = "Заменить";
+"replace-textfield-placeholder" = "Заменить на…";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "reverted-edit-back-to-article-button-title" = "Назад к статье";
 "reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";

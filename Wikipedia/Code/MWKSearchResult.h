@@ -26,10 +26,6 @@
 
 @property (nullable, nonatomic, copy) NSArray<NSNumber *> *viewCounts;
 
-@property (nonatomic, assign, readonly) BOOL isDisambiguation;
-
-@property (nonatomic, assign, readonly) BOOL isList;
-
 - (nullable NSURL *)articleURLForSiteURL:(nullable NSURL *)siteURL;
 
 /**
@@ -49,8 +45,7 @@
                                    extract:(nullable NSString *)extract
                               thumbnailURL:(nullable NSURL *)thumbnailURL
                                      index:(nullable NSNumber *)index
-                          isDisambiguation:(BOOL)isDisambiguation
-                                    isList:(BOOL)isList
-                            titleNamespace:(nullable NSNumber *)titleNamespace;
+                            titleNamespace:(nullable NSNumber *)titleNamespace
+                                  location:(nullable CLLocation *)location;
 
 @end

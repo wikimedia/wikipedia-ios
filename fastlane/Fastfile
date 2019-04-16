@@ -6,16 +6,16 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone X', os: '12.1'},
+  {device: 'iPhone X', os: '12.2'},
   {device: 'iPad Air 2', os: '11.4'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone X', os: '12.1', scheme: "WikipediaRTL"}
+  {device: 'iPhone X', os: '12.2', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
-  {device: 'iPhone X', os: '12.1', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone X', os: '12.2', scheme: "Beta Cluster Tests"}
 ]
 
 def get_devices_by_scheme_from_options(options)
@@ -86,6 +86,7 @@ platform :ios do
 
   desc "Runs unit tests, generates JUnit reports."
   lane :verify do |options|
+    reset_simulator_contents
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
@@ -197,9 +198,8 @@ platform :ios do
     
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -allowProvisioningUpdates WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
     sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
+    sh "zip -rjq \"#{build_dir}/#{product_name}.xcarchive.zip\" \"#{build_dir}/#{product_name}.xcarchive\""
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
-    #sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
-    #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
   
   desc "updates version, builds, and pushes to TestFlight"
@@ -208,7 +208,6 @@ platform :ios do
       product_name: "Wikipedia",
       app_identifier: "org.wikimedia.wikipedia",
       tag_prefix: "betas",
-      hockey_app_id: "5d80da08a6761e5c6456736af7ebad88",
       build: options[:build]
     )
   end
@@ -219,7 +218,6 @@ platform :ios do
       product_name: "Alpha",
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
       tag_prefix: "alphas",
-      hockey_app_id: "2295c3698bbd0b050f257772dd2bdbb2",
       build: options[:build]
     )
   end
@@ -230,7 +228,6 @@ platform :ios do
       product_name: "Beta Cluster",
       app_identifier: "org.wikimedia.wikipedia.tfbeta",
       tag_prefix: "beta_clusters",
-      hockey_app_id: "c7ab1c41a3eb4b7581a0057624730467",
       build: options[:build]
     )
   end
@@ -241,7 +238,6 @@ platform :ios do
       product_name: "Beta",
       app_identifier: "org.wikimedia.wikipedia.tfbeta",
       tag_prefix: "beta_app",
-      hockey_app_id: "c7ab1c41a3eb4b7581a0057624730467",
       build: options[:build]
     )
   end
@@ -265,7 +261,6 @@ platform :ios do
   lane :push do |options|
     build_dir = "build"
     product_name = options[:product_name] || "Wikipedia"
-    hockey_app_id = options[:hockey_app_id] || "5d80da08a6761e5c6456736af7ebad88"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
     wait_for_build_processing = options[:wait_for_build_processing] || true
     ipa_path = "#{build_dir}/#{product_name}.ipa"
@@ -309,7 +304,7 @@ platform :ios do
         version: version,
         build_number: build_number,
         ipa_path: ipa_path,
-        hockey_app_id: hockey_app_id
+        output_directory: build_dir
       )
     end
     
@@ -361,76 +356,56 @@ platform :ios do
   end
   
   
-    # This lane requires HOCKEY_PRODUCTION environment variable to be set or a hockey_api_token param
-    # 0. bundle exec fastlane push_beta hockey_api_token:THE_API_KEY
-    # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
-    # 2. Use a .env file
-  desc "Download dSYMs from iTunes Connect and upload them to HockeyApp"
+  desc "Download dSYMs from iTunes Connect"
   lane :dsyms do |options|
     app_identifier = options[:app_identifier]
     version = options[:version]
     build_number = options[:build_number]  || latest_testflight_build_number(app_identifier: app_identifier)
-    hockey_app_id = options[:hockey_app_id]
-    hockey_api_token = options[:hockey_api_token] || ENV["HOCKEY_PRODUCTION"]
     ipa_path = options[:ipa_path]
+    output_directory = options[:output_directory] || "build"
     
-    raise "Missing parameters" unless app_identifier && version && build_number && hockey_app_id && ipa_path && hockey_api_token
+    raise "Missing parameters" unless app_identifier && version && build_number && ipa_path && output_directory
     
     download_dsyms(
       build_number: build_number.to_s,
       version: version.to_s,
-      app_identifier: app_identifier
+      app_identifier: app_identifier,
+      output_directory: output_directory
     ) # Download dSYM files from iTC
-
-    hockey(
-      public_identifier: hockey_app_id,
-      api_token: hockey_api_token,
-      notify: '0', # Means do not notify
-      status: '1', # Means do not make available for download
-      dsym: "#{app_identifier}-#{version}-#{build_number}.dSYM.zip",
-      ipa: ipa_path
-    )
-    clean_build_artifacts
   end
   
   lane :dsyms_alpha do |options|
     app_identifier = "org.wikimedia.wikipedia.tfalpha"
-    hockey_app_id = "2295c3698bbd0b050f257772dd2bdbb2"
     ipa_path = "build/Wikipedia Alpha.ipa"
     version = options[:version] || get_version_number_from_options(options)
     dsyms(
       app_identifier: app_identifier,
       version: version,
       build_number: options[:build_number],
-      hockey_app_id: hockey_app_id,
       ipa_path: ipa_path
     )
   end
   
   lane :dsyms_beta do |options|
     app_identifier = "org.wikimedia.wikipedia"
-    hockey_app_id = "5d80da08a6761e5c6456736af7ebad88"
     ipa_path = "build/Wikipedia.ipa"
     version = options[:version] || get_version_number_from_options(options)
     dsyms(
       app_identifier: app_identifier,
       version: version,
       build_number: options[:build_number] || options[:build],
-      hockey_app_id: hockey_app_id,
       ipa_path: ipa_path
     )
   end
   
   lane :dsyms_beta_app do |options|
     app_identifier = "org.wikimedia.wikipedia.tfbeta"
-    hockey_app_id = "c7ab1c41a3eb4b7581a0057624730467"
     ipa_path = "build/Wikipedia.ipa"
     version = options[:version] || get_version_number_from_options(options)
     dsyms(
       app_identifier: app_identifier,
       version: version,
       build_number: options[:build_number] || options[:build],
-      hockey_app_id: hockey_app_id,
       ipa_path: ipa_path
     )
   end

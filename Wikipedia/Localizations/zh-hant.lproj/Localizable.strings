@@ -75,11 +75,14 @@
 "action-read" = "閱讀";
 "action-redo" = "重做";
 "action-remove" = "移除";
+"action-replace" = "取代";
+"action-replace-all" = "全部取代";
 "action-save" = "儲存";
 "action-saved" = "已儲存";
 "action-saved-accessibility" = "已儲存。啟用來取消儲存。";
 "action-saved-accessibility-notification" = "條目已儲存供日後使用";
 "action-share" = "分享";
+"action-share-accessibility" = "分享";
 "action-sort" = "排序";
 "action-undo" = "還原";
 "action-unsave" = "未儲存";
@@ -88,7 +91,7 @@
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科,參考,wiki,百科全書,訊息,知識,研究,資訊,探索,學習";
-"app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。\n在地化、性能改進、並修正程式錯誤。";
+"app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
 "app-store-short-description" = "下載維基百科應用程式來探索您附近的地點，同步條目以離線閱讀，並自訂化您的閱讀體驗。";
 "app-store-subtitle" = "自由的百科全書";
 "appearance-settings-adjust-text-sizing" = "調整條目文字大小";
@@ -112,7 +115,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back-button-accessibility-label" = "返回";
-"back-button-popover-title" = "點擊返回";
+"back-button-popover-title" = "輕觸返回";
 "button-next" = "下一步";
 "button-ok" = "確定";
 "button-publish" = "發佈";
@@ -167,6 +170,7 @@
 "dim-images" = "調暗圖片";
 "edit-bold-accessibility-label" = "添加粗體格式";
 "edit-bold-remove-accessibility-label" = "移除粗體格式";
+"edit-clear-formatting-accessibility-label" = "移除格式";
 "edit-comment-accessibility-label" = "添加註釋語法";
 "edit-comment-remove-accessibility-label" = "移除註釋語法";
 "edit-decrease-indent-depth-accessibility-label" = "減少縮排深度";
@@ -180,6 +184,9 @@
 "edit-italic-remove-accessibility-label" = "移除斜體格式";
 "edit-link-accessibility-label" = "添加連結語法";
 "edit-link-remove-accessibility-label" = "移除連結語法";
+"edit-menu-item" = "編輯";
+"edit-menu-item-could-not-find-selection-alert-message" = "這可能是因為您所選擇的文字無法編輯（例如：條目標題或是資訊框標題），或是因為文字長度有被反白到";
+"edit-menu-item-could-not-find-selection-alert-title" = "您所選擇的文字無法載入";
 "edit-minor-learn-more-text" = "了解更多關於小修改";
 "edit-minor-text" = "這是一個小修改";
 "edit-ordered-list-accessibility-label" = "建立目前列的有序清單";
@@ -206,6 +213,7 @@
 "edit-superscript-remove-accessibility-label" = "移除上標格式";
 "edit-template-accessibility-label" = "添加模板語法";
 "edit-template-remove-accessibility-label" = "移除模板語法";
+"edit-text-clear-formatting" = "清除格式";
 "edit-text-formatting-accessibility-label" = "顯示文字格式選單";
 "edit-text-formatting-table-view-title" = "文字格式";
 "edit-text-size-table-view-title" = "文字大小";
@@ -216,6 +224,14 @@
 "edit-unordered-list-remove-accessibility-label" = "從目前列來移除無排序清單";
 "edit-watch-list-learn-more-text" = "了解更多關於監視清單";
 "edit-watch-this-page-text" = "監視此頁面";
+"editing-welcome-be-bold-subtitle" = "更新條目內容要大膽而不魯莽。不必因為犯過錯而苦惱：條目上任何發佈過的版本都會被保留下來，可讓我們的社群容易糾正錯誤。";
+"editing-welcome-be-bold-title" = "您的想法很重要";
+"editing-welcome-citations-subtitle" = "所有的內容都必須是可查證的。當添加新資訊到條目時，編者應提供能直接證實此貢獻之可靠來源的內文引用。";
+"editing-welcome-citations-title" = "引用可靠的來源";
+"editing-welcome-impartial-tone-subtitle" = "我們力求以客觀語氣來編寫條目。在進行編輯時，旨在如同以可靠來源描述來對外公正呈現。";
+"editing-welcome-impartial-tone-title" = "以客觀語氣編寫";
+"editing-welcome-set-knowledge-free-subtitle" = "為了讓任何人能取用世界上的知識，我們需要您透過閱讀、編輯、貢獻您最感興趣的主題來參與創建。";
+"editing-welcome-set-knowledge-free-title" = "讓知識能自由取得";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";
 "empty-no-feed-message" = "在有網路時，您可以看到推薦的條目";
@@ -300,7 +316,7 @@
 "explore-main-page-heading" = "維基百科今日";
 "explore-most-read-footer" = "所有被最多閱讀的條目";
 "explore-most-read-generic-heading" = "最多閱讀";
-"explore-most-read-more-list-title-for-date" = "$1 熱門";
+"explore-most-read-more-list-title-for-date" = "在 $1 的熱門條目";
 "explore-most-read-sub-heading-on-language-wikipedia" = "在$1維基百科";
 "explore-most-read-sub-heading-on-wikipedia" = "在維基百科";
 "explore-nearby-heading" = "位置接近";
@@ -341,7 +357,13 @@
 "field-token-title" = "驗證代碼";
 "field-username-placeholder" = "輸入使用者名稱";
 "field-username-title" = "使用者名稱";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "清除尋找";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "下一個尋找結果";
+"find-previous-button-accessibility" = "前一個尋找結果";
+"find-replace-header" = "尋找與取代";
+"find-replace-header-close-accessibility" = "關閉尋找與取代";
+"find-textfield-accessibility" = "尋找";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電子郵件已寄出";
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";
@@ -402,7 +424,7 @@
 "main-menu-heading-legal" = "隱私與條款";
 "main-menu-nearby" = "附近";
 "main-menu-privacy-policy" = "隱私政策";
-"main-menu-rate-app" = "付費應用程式";
+"main-menu-rate-app" = "評分應用程式";
 "main-menu-terms-of-use" = "使用條款";
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "維基百科零計劃常見問題";
@@ -434,8 +456,7 @@
 "page-edit-history" = "完整編輯歷史";
 "page-history-title" = "條目歷史";
 "page-issues" = "頁面問題";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=今日編輯|昨日編輯|$1 日前編輯}}";
+"page-last-edited" = "{{PLURAL:$1|0=今日編輯|1=昨日編輯|$1 日前編輯}}";
 "page-location" = "在地圖上檢視";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
@@ -560,14 +581,24 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "陰暗主題";
 "reading-themes-controls-accessibility-light-theme-button" = "明亮主題";
 "reading-themes-controls-accessibility-sepia-theme-button" = "深褐主題";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "語法突顯";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
+"reading-themes-controls-syntax-highlighting" = "語法突顯";
 "reference-title" = "參考資料 $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1 天前}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=今天|1=昨天|$1 天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1 年前}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=今年|1=去年|$1 年前}}";
+"replace-button-accessibility" = "實行$1。";
+"replace-buttons-replace-accessibility" = "取代單一實體";
+"replace-buttons-replace-all-accessibility" = "取代所有實體";
+"replace-clear-button-accessibility" = "清除取代";
+"replace-infolabel-method-replace" = "取代";
+"replace-infolabel-method-replace-all" = "全部取代";
+"replace-method-button-accessibility" = "取代方法。設定成$1。選擇來更改。";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 個項目已取代}}";
+"replace-textfield-accessibility" = "取代";
+"replace-textfield-placeholder" = "取代為：";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "reverted-edit-back-to-article-button-title" = "返回條目";
 "reverted-edit-notification-body" = "您在條目$1所做的編輯被$2給回退";
@@ -635,7 +666,7 @@
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
-"share-article-name-on-wikipedia" = " \"$1\"  在 @Wikipedia：";
+"share-article-name-on-wikipedia" = "\"$1\"在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
 "share-custom-menu-item" = "分享...";
 "share-default-format" = "「$1」來自於「$2」：$3";
@@ -695,7 +726,7 @@
 "welcome-send-data-sub-title" = "透過讓我們了解您是如何使用，來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
 "welcome-volunteer-send-usage-reports" = "傳送使用情況報告";
 "wikitext-download-failed" = "無法取得最新的版本。";
-"wikitext-downloading" = "讀取內容中…";
+"wikitext-downloading" = "載入內容中…";
 "wikitext-preview-changes" = "取得您的變更預覽中...";
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";
 "wikitext-preview-link-preview-description" = "此連結引至「$1」";

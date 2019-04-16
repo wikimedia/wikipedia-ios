@@ -62,7 +62,7 @@
 "account-creation-captcha-title" = "اختبار التحقق البشري";
 "account-creation-create-account" = "أنشئ حسابك";
 "account-creation-have-account" = "لديك حساب بالفعل؟ $1";
-"account-creation-log-in" = "ادخل.";
+"account-creation-log-in" = "دخول.";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة سر، وتأكيد كلمة السر لإنشاء حساب.";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
@@ -71,18 +71,21 @@
 "action-add-to" = "أضف إلى…";
 "action-add-to-reading-list" = "أضف إلى قائمة القراءة";
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
-"action-cancel" = "ألغِ";
+"action-cancel" = "إلغاء";
 "action-find-in-page" = "البحث في الصفحة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
 "action-read" = "اقرأ";
 "action-redo" = "إعادة";
 "action-remove" = "إزالة";
+"action-replace" = "استبدال";
+"action-replace-all" = "استبدل الكل";
 "action-save" = "حفظ";
 "action-saved" = "محفوظة";
 "action-saved-accessibility" = "تم الحفظ، تفعيل لعدم الحفظ.";
 "action-saved-accessibility-notification" = "المقالة المحفوظة لوقت لاحق";
 "action-share" = "شارك";
+"action-share-accessibility" = "مشاركة";
 "action-sort" = "ترتيب";
 "action-undo" = "رجوع";
 "action-unsave" = "إلغاء الحفظ";
@@ -170,6 +173,7 @@
 "dim-images" = "صور باهتة";
 "edit-bold-accessibility-label" = "أضف تنسيقا عريضا";
 "edit-bold-remove-accessibility-label" = "إزالة التنسيق العريض";
+"edit-clear-formatting-accessibility-label" = "إزالة التهيئة";
 "edit-comment-accessibility-label" = "إضافة بناء جملة التعليقات";
 "edit-comment-remove-accessibility-label" = "إزالة صيغة التعليق";
 "edit-decrease-indent-depth-accessibility-label" = "إنقاص عمق المسافة البادئة";
@@ -183,6 +187,9 @@
 "edit-italic-remove-accessibility-label" = "إزالة التنسيق المائل";
 "edit-link-accessibility-label" = "إضافة صيغة الوصلة";
 "edit-link-remove-accessibility-label" = "إزالة صيغة الوصلة";
+"edit-menu-item" = "تعديل";
+"edit-menu-item-could-not-find-selection-alert-message" = "قد يكون هذا لأن النص الذي حددته غير قابل للتحرير (على سبيل المثال، عنوان مقالة أو عناوين صندوق معلومات) أو بسبب طول النص الذي تم تمييزه";
+"edit-menu-item-could-not-find-selection-alert-title" = "تعذر تحديد موقع النص الذي حددته";
 "edit-minor-learn-more-text" = "معرفة المزيد عن التعديلات الطفيفة";
 "edit-minor-text" = "هذا تعديل طفيف";
 "edit-ordered-list-accessibility-label" = "جعل الخط الحالي قائمة مرتبة";
@@ -209,6 +216,7 @@
 "edit-superscript-remove-accessibility-label" = "إزالة التنسيق المرتفع";
 "edit-template-accessibility-label" = "أضف صيغة القالب";
 "edit-template-remove-accessibility-label" = "إزالة صيغة القالب";
+"edit-text-clear-formatting" = "إلغاء التهيئة";
 "edit-text-formatting-accessibility-label" = "إظهار قائمة تنسيق النص";
 "edit-text-formatting-table-view-title" = "تنسيق النص";
 "edit-text-size-table-view-title" = "حجم الخط";
@@ -219,6 +227,14 @@
 "edit-unordered-list-remove-accessibility-label" = "إزالة قائمة غير مرتبة من الخط الحالي";
 "edit-watch-list-learn-more-text" = "تعرف على المزيد حول قوائم المراقبة";
 "edit-watch-this-page-text" = "راقب هذه الصفحة";
+"editing-welcome-be-bold-subtitle" = "كن جريئا ولكن ليس متهورا في تحديث المقالات، لا تتعب من ارتكاب الأخطاء: يتم حفظ كل إصدار سابق من الصفحة؛ لذلك يمكن أن يصحح مجتمعنا الأخطاء بسهولة.";
+"editing-welcome-be-bold-title" = "صوتك مهم";
+"editing-welcome-citations-subtitle" = "يجب أن يكون كل المحتوى قابلا للتحقق، عند إضافة معلومات جديدة إلى مقال، يجب على المحررين تقديم استشهاد مضمن لمصدر موثوق يدعم المساهمة بشكل مباشر.";
+"editing-welcome-citations-title" = "استشهد بمصادر موثوقة";
+"editing-welcome-impartial-tone-subtitle" = "نحن نسعى جاهدين لكتابة المقالات بأسلوب محايد، عند التحرير، تهدف إلى تقديم تمثيل عادل للعالم كمصادر موثوقة تصفه.";
+"editing-welcome-impartial-tone-title" = "اكتب بنبرة محايدة";
+"editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
+"editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
 "empty-no-article-message" = "عذرا , غير قادر على تحميل الموضوع";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-feed-message" = "يمكنك مشاهدة مواضيعك المفضلة عندما تتصل بالانترنت";
@@ -344,7 +360,13 @@
 "field-token-title" = "رمز التحقق";
 "field-username-placeholder" = "أدخل اسم المستخدم";
 "field-username-title" = "اسم المستخدم";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "إفراغ أوجد";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "نتيجة أوجد التالية";
+"find-previous-button-accessibility" = "نتيجة أوجد السابقة";
+"find-replace-header" = "ابحث واستبدل";
+"find-replace-header-close-accessibility" = "إغلاق أوجد واستبدل";
+"find-textfield-accessibility" = "ابحث";
 "forgot-password-button-title" = "أعد الضبط";
 "forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";
 "forgot-password-instructions" = "أدخل أحد الحقول أدناه لتستقبل تعليمات إعادة ضبط كلمة السر عبر البريد الإلكتروني";
@@ -437,8 +459,7 @@
 "page-edit-history" = "تاريخ التعديل الكامل";
 "page-history-title" = "تاريخ المقالة";
 "page-issues" = "مشاكل في الصفحة";
-// Fuzzy
-"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|أمس|منذ $1 أيام}}";
+"page-last-edited" = "عُدِّلت {{PLURAL:$1|0=اليوم|1=أمس|منذ $1 أيام}}";
 "page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
@@ -563,14 +584,24 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "الموضوع الداكن";
 "reading-themes-controls-accessibility-light-theme-button" = "موضوع فاتح";
 "reading-themes-controls-accessibility-sepia-theme-button" = "موضوع بني داكن";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "تسليط الضوء على التركيب";
 "reading-themes-controls-accessibility-text-size-slider" = "شريط تمرير حجم النص";
+"reading-themes-controls-syntax-highlighting" = "تسليط الضوء على التركيب";
 "reference-title" = "$1 مرجع";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|أمس|قبل $1 أيام}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=مؤخرا|قبل $1 ساعة|قبل $1 ساعات}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=الآن فقط|منذ $1 دقيقة|منذ $1 دقائق}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|العام الماضي|منذ $1 سنوات}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|1=العام الماضي|منذ $1 سنوات}}";
+"replace-button-accessibility" = "أداء $1.";
+"replace-buttons-replace-accessibility" = "استبدال مثيل واحد";
+"replace-buttons-replace-all-accessibility" = "استبدال جميع الحالات";
+"replace-clear-button-accessibility" = "إفراغ استبدل";
+"replace-infolabel-method-replace" = "استبدال";
+"replace-infolabel-method-replace-all" = "استبدل الكل";
+"replace-method-button-accessibility" = "استبدال الطريقة، تعيين إلى $1، حدد للتغيير.";
+"replace-replace-all-results-count" = "تم استبدال {{PLURAL:$1|$1 عنصر|$1 عناصر}}";
+"replace-textfield-accessibility" = "استبدال";
+"replace-textfield-placeholder" = "استبدل بـ…";
 "request-feedback-on-error" = "واجه التطبيق مشكلة والتي يود مطورينا أن يتعرفوا على المزيد عنها. يرجى النقر هنا كي ترسل لينا رسالة بريد إلكتروني تبين لنا فيها تفاصيل الخطأ.";
 "reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
 "reverted-edit-notification-body" = "تم إرجاع التعديل الذي تم إجراؤه بمقالة $1 بواسطة $2";

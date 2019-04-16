@@ -1,10 +1,13 @@
 class ContextualHighlightEditToolbarView: EditToolbarView {
-    @IBOutlet weak var stackView: UIStackView!
-    
+    @IBOutlet private weak var stackView: UIStackView!
+    @IBOutlet private weak var showMoreButton: TextFormattingButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+
+        showMoreButton.tintColorKeyPath = \Theme.colors.link
     }
 
     @IBAction private func toggleBoldSelection(_ sender: UIButton) {
@@ -19,10 +22,6 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         delegate?.textFormattingProvidingDidTapTextStyleFormatting()
     }
 
-    @IBAction private func removeSelectionFormatting(_ sender: UIButton) {
-        //
-    }
-
     @IBAction private func toggleReferenceSelection(_ sender: UIButton) {
         delegate?.textFormattingProvidingDidTapReference()
     }
@@ -31,12 +30,12 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         delegate?.textFormattingProvidingDidTapLink()
     }
 
-    @IBAction private func toggleUnorderedListSelection(_ sender: UIButton) {
-        delegate?.textFormattingProvidingDidTapUnorderedList()
+    @IBAction private func toggleTemplate(sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapTemplate()
     }
 
-    @IBAction private func toggleOrderedListSelection(_ sender: UIButton) {
-        delegate?.textFormattingProvidingDidTapOrderedList()
+    @IBAction private func clearFormatting(sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapClearFormatting()
     }
 
     @IBAction private func formatText(_ sender: UIButton) {

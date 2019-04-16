@@ -64,18 +64,20 @@
 "action-add-to-reading-list" = "Pridať do zoznamu na prečítanie";
 "action-add-to-reading-list-short" = "Pridať do zoznamu";
 "action-cancel" = "Zrušiť";
-// Fuzzy
 "action-find-in-page" = "Nájsť na stránke";
 "action-move-to" = "Presunúť do…";
 "action-move-to-reading-list" = "Presunúť do zoznamu na prečítanie";
 "action-read" = "Čítať";
+"action-redo" = "Znova";
 "action-remove" = "Odstrániť";
+"action-replace" = "Nahradiť";
+"action-replace-all" = "Nahradiť všetky";
 "action-save" = "Uložiť";
 "action-saved" = "Uložené";
 "action-saved-accessibility-notification" = "Článok bol uložený na neskôr";
 "action-share" = "Zdieľať";
+"action-share-accessibility" = "Zdieľať";
 "action-sort" = "Zoradiť";
-// Fuzzy
 "action-undo" = "Vrátiť";
 "action-unsave" = "Zrušiť uloženie";
 "action-unsaved-accessibility-notification" = "Článok neuložený";
@@ -203,7 +205,7 @@
 "field-token-title" = "Overovací kód";
 "field-username-placeholder" = "zadajte užívateľské meno";
 "field-username-title" = "Používateľské meno";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Obnoviť";
 "forgot-password-email-sent" = "Poslali sme vám e-mail s inštrukciami na obnovu hesla";
 "forgot-password-instructions" = "Ak chcete dostať inštrukcie na obnovenie hesla e-mailom, vyplňte jedno z polí nižšie";

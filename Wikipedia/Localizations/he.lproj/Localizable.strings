@@ -69,11 +69,14 @@
 "action-read" = "קריאה";
 "action-redo" = "ביצוע חוזר";
 "action-remove" = "הסרה";
+"action-replace" = "החלפה";
+"action-replace-all" = "להחליף הכול";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
 "action-saved-accessibility-notification" = "ערכים שנשמרו לאחר־כך";
 "action-share" = "שיתוף";
+"action-share-accessibility" = "שיתוף";
 "action-sort" = "מיון";
 "action-undo" = "ביטול";
 "action-unsave" = "ביטול שמירה";
@@ -161,6 +164,7 @@
 "dim-images" = "עמעום תמונות";
 "edit-bold-accessibility-label" = "הוספת עיצוב בולט";
 "edit-bold-remove-accessibility-label" = "הסרת עיצוב בולט";
+"edit-clear-formatting-accessibility-label" = "הסרת עיצוב";
 "edit-comment-accessibility-label" = "הוספת תחביר הערה";
 "edit-comment-remove-accessibility-label" = "הסרת תחביר הערה";
 "edit-decrease-indent-depth-accessibility-label" = "הורדת עומק הזחה";
@@ -174,6 +178,9 @@
 "edit-italic-remove-accessibility-label" = "הסרת עיצוב נטוי";
 "edit-link-accessibility-label" = "הוספת תחביר קישור";
 "edit-link-remove-accessibility-label" = "הסרת תחביר קישור";
+"edit-menu-item" = "עריכה";
+"edit-menu-item-could-not-find-selection-alert-message" = "ייתכן שזה קרה כיוון שהטקסט שבחרת אינו זמין לעריכה (למשל: כותרת ערך או תיבות מידע) או עקב אורך הטקסט שסומן";
+"edit-menu-item-could-not-find-selection-alert-title" = "לא ניתן לאתר את הטקסט שבחרת";
 "edit-minor-learn-more-text" = "מידע נוסף על עריכות משניות";
 "edit-minor-text" = "זוהי עריכה משנית";
 "edit-ordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימה ממוספרת";
@@ -200,6 +207,7 @@
 "edit-superscript-remove-accessibility-label" = "הסרת עיצוב כתב עילי";
 "edit-template-accessibility-label" = "הוספת עיצוב תבנית";
 "edit-template-remove-accessibility-label" = "הסרת עיצוב תבנית";
+"edit-text-clear-formatting" = "ניקוי העיצוב";
 "edit-text-formatting-accessibility-label" = "הצגת תפריט עיצוב טקסט";
 "edit-text-formatting-table-view-title" = "עיצוב טקסט";
 "edit-text-size-table-view-title" = "גודל טקסט";
@@ -210,6 +218,14 @@
 "edit-unordered-list-remove-accessibility-label" = "הסרת רשימת תבליטים מהשורה הנוכחית";
 "edit-watch-list-learn-more-text" = "מידע נוסף על רשימות מעקב";
 "edit-watch-this-page-text" = "מעקב אחר דף זה";
+"editing-welcome-be-bold-subtitle" = "היו נועזים, אבל לא פזיזים מדי בעדכון ערכים. אל תפחדו יותר מדי מטעויות: כל הגרסאות הקודמות של הדף נשמרות, ושגיאות יכולות להיות מתוקנות בקלות על־ידי הקהילה שלנו.";
+"editing-welcome-be-bold-title" = "הקול שלך עושה הבדל";
+"editing-welcome-citations-subtitle" = "כל התוכן צריך להיות בר־בדיקה. בעת הוספת מידע חדש לערך, עורכים צריכים לספק ציטוט למקור אמין שמאשר את תרומת התוכן.";
+"editing-welcome-citations-title" = "לצטט מקורות מהימנים";
+"editing-welcome-impartial-tone-subtitle" = "אנחנו שואפים לכך שערכים ייכתבו בנימה חסרת פניות. בעת עריכה, יש להשתדל לייצוג הוגן של העולם כפי שהוא מתואר במקורות אמינים.";
+"editing-welcome-impartial-tone-title" = "כתבו בנימה חסרת פניות";
+"editing-welcome-set-knowledge-free-subtitle" = "כדי להעניק לכולם גישה למידע עולמי, אנו רוצים לבקש ממך לקחת חלק בקריאה, עריכה ותרומה לנושאים שהכי נוגעים ללבך.";
+"editing-welcome-set-knowledge-free-title" = "להוציא את הידע לחופשי";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
@@ -335,7 +351,13 @@
 "field-token-title" = "קוד אימות";
 "field-username-placeholder" = "נא להזין שם משתמש";
 "field-username-title" = "שם משתמש";
-"find-in-page-number-matches" = "$1 מתוך $2";
+"find-clear-button-accessibility" = "איפוס החיפוש";
+"find-infolabel-number-matches" = "$1 מתוך $2";
+"find-next-button-accessibility" = "תוצאת החיפוש הבאה";
+"find-previous-button-accessibility" = "תוצאת החיפוש הקודמת";
+"find-replace-header" = "חיפוש והחלפה";
+"find-replace-header-close-accessibility" = "סגירת החיפוש וההחלפה";
+"find-textfield-accessibility" = "חיפוש";
 "forgot-password-button-title" = "אתחול";
 "forgot-password-email-sent" = "נשלח מכתב עם הוראות אתחול ססמה";
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הססמה בדוא\"ל";
@@ -428,7 +450,6 @@
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-title" = "היסטוריית הערך";
 "page-issues" = "בעיות בדף";
-// Fuzzy
 "page-last-edited" = "{{PLURAL:$1|0=נערך היום|נערך אתמול|נערך שלשום|נערך לפני $1 ימים}}";
 "page-location" = "הצגה על מפה";
 "page-protected-autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";
@@ -554,14 +575,24 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "ערכת נושא כהה";
 "reading-themes-controls-accessibility-light-theme-button" = "ערכת נושא בהירה";
 "reading-themes-controls-accessibility-sepia-theme-button" = "ערכת נושא ספיה";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "הדגשת תחביר";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
+"reading-themes-controls-syntax-highlighting" = "הדגשת תחביר";
 "reference-title" = "הערה $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|3=לפני יומיים|לפני $1 ימים}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|לפני $1 ימים}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=השנה|בשנה שעברה|לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=השנה|1=בשנה שעברה|2=לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
+"replace-button-accessibility" = "ביצוע $1.";
+"replace-buttons-replace-accessibility" = "החלפת מופע בודד";
+"replace-buttons-replace-all-accessibility" = "להחליף את כל המופעים";
+"replace-clear-button-accessibility" = "איפוס ההחלפה";
+"replace-infolabel-method-replace" = "החלפה";
+"replace-infolabel-method-replace-all" = "להחליף הכול";
+"replace-method-button-accessibility" = "שיטת החלפה. הגדרה לכדי $1. יש לבחור כדי להחליף.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|פריט אחד הוחלף|$1 פריטים הוחלפו}}";
+"replace-textfield-accessibility" = "החלפה";
+"replace-textfield-placeholder" = "החלפה ב…";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
 "reverted-edit-notification-body" = "העריכה שעשית לערך $1 שוחזרה על־ידי $2";

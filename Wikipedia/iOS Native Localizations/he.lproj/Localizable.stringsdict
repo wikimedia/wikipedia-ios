@@ -271,11 +271,27 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>בשנה שעברה</string>
+			<string>לפני %1$d שנה</string>
 			<key>other</key>
 			<string>לפני %1$d שנים</string>
 			<key>zero</key>
 			<string>השנה</string>
+		</dict>
+	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>פריט אחד הוחלף</string>
+			<key>other</key>
+			<string>%1$d פריטים הוחלפו</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>

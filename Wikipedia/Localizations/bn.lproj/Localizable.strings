@@ -62,7 +62,6 @@
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
 "account-creation-title" = "নতুন অ্যাকাউন্ট তৈরি করুন";
 "action-cancel" = "বাতিল";
-// Fuzzy
 "action-find-in-page" = "পাতায় খুঁজুন";
 "action-move-to" = "স্থানান্তর করুন...";
 "action-read" = "পড়ুন";
@@ -73,8 +72,7 @@
 "action-share" = "বণ্টন";
 "action-unsave" = "অসংরক্ষিত";
 "action-update" = "হালনাগাদ করুন";
-// Fuzzy
-"add-articles-to-reading-list" = "পড়ার তালিকায় $1 যোগ করুন";
+"add-articles-to-reading-list" = "পড়ার তালিকায় {{PLURAL:$1|$1টি নিবন্ধ}} যোগ করুন";
 "announcements-dismiss" = "খারিজ";
 "app-store-subtitle" = "একটি মুক্ত বিশ্বকোষ";
 "appearance-settings-adjust-text-sizing" = "নিবন্ধের পাঠ্যের আকার সমন্বয় করুন";
@@ -84,8 +82,7 @@
 "appearance-settings-theme-options" = "থিমের বিকল্প";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
 "article-delete" = "অপসারণ";
-// Fuzzy
-"article-deleted-accessibility-notification" = "নিবন্ধ অপসারিত হয়েছে";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|নিবন্ধ}} অপসারিত হয়েছে";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
@@ -186,7 +183,7 @@
 "field-token-title" = "যাচাইকরণ কোড";
 "field-username-placeholder" = "ব্যবহারকারী নাম লিখুন";
 "field-username-title" = "ব্যবহারকারী নাম";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "পুন:স্থাপন";
 "forgot-password-email-sent" = "পাসওয়ার্ড পুনঃনির্ধারণ করার নির্দেশাবলী সহ একটি ইমেল প্রেরণ করা হয়েছে";
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";

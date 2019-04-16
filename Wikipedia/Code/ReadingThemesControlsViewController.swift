@@ -1,15 +1,17 @@
 import UIKit
 
-@objc public protocol WMFReadingThemesControlsViewControllerDelegate {
+protocol WMFReadingThemesControlsViewControllerDelegate: class {
     
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
+    func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController)
 }
 
 @objc(WMFReadingThemesControlsViewController)
-open class ReadingThemesControlsViewController: UIViewController {
+class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
+    @objc static let nibName = "ReadingThemesControlsViewController"
     
     var theme = Theme.standard
     
@@ -36,9 +38,20 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet var stackView: UIStackView!
     
-    var visible = false
+    @IBOutlet var lastSeparator: UIView!
+    @IBOutlet var syntaxHighlightingContainerView: UIView!
+    @IBOutlet var syntaxHighlightingLabel: UILabel!
+    @IBOutlet var syntaxHighlightingSwitch: UISwitch!
     
-    @objc open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
+    var visible = false
+    var showsSyntaxHighlighting: Bool = false {
+        didSet {
+            evaluateShowsSyntaxHighlightingState()
+            updatePreferredContentSize()
+        }
+    }
+    
+    open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +84,15 @@ open class ReadingThemesControlsViewController: UIViewController {
             slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
         }
         
+        syntaxHighlightingLabel.text = WMFLocalizedString("reading-themes-controls-syntax-highlighting", value: "Syntax Highlighting", comment: "Text for syntax highlighting label in the Reading Themes Controls popover")
+        syntaxHighlightingLabel.isAccessibilityElement = false
+        syntaxHighlightingSwitch.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-syntax-highlighting-switch", value: "Syntax Highlighting", comment: "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover")
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: UIScreen.brightnessDidChangeNotification, object: nil)
         
-        preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        evaluateShowsSyntaxHighlightingState()
+        evaluateSyntaxHighlightingSelectedState()
+        updatePreferredContentSize()
     }
     
     deinit {
@@ -105,7 +124,7 @@ open class ReadingThemesControlsViewController: UIViewController {
             for slideView in textSizeSliderViews {
                 slideView.isHidden = newValue
             }
-            preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            updatePreferredContentSize()
         }
         get {
             return textSizeSliderViews.first?.isHidden ?? false
@@ -134,6 +153,11 @@ open class ReadingThemesControlsViewController: UIViewController {
         apply(theme: currentTheme)
     }
     
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        syntaxHighlightingLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+    }
+    
     @objc func screenBrightnessChangedInApp(notification: Notification){
         brightnessSlider.value = Float(UIScreen.main.brightness)
     }
@@ -144,6 +168,19 @@ open class ReadingThemesControlsViewController: UIViewController {
     fileprivate func logBrightnessChange() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_logBrightnessChange), object: nil)
         self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [RunLoop.Mode.default])
+    }
+    
+    fileprivate func updatePreferredContentSize() {
+        preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
+    
+    fileprivate func evaluateShowsSyntaxHighlightingState() {
+        lastSeparator.isHidden = !showsSyntaxHighlighting
+        syntaxHighlightingContainerView.isHidden = !showsSyntaxHighlighting
+    }
+    
+    fileprivate func evaluateSyntaxHighlightingSelectedState() {
+        syntaxHighlightingSwitch.isOn = UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled
     }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
@@ -177,12 +214,17 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBAction func blackThemeButtonPressed(_ sender: Any) {
         userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
     }
+    @IBAction func syntaxHighlightingSwitched(_ sender: UISwitch) {
+        delegate?.toggleSyntaxHighlighting(self)
+        UserDefaults.wmf.wmf_IsSyntaxHighlightingEnabled = sender.isOn
+    }
 }
 
 // MARK: - Themeable
 
 extension ReadingThemesControlsViewController: Themeable {
     public func apply(theme: Theme) {
+        
         self.theme = theme
         
         view.backgroundColor = theme.colors.popoverBackground
@@ -218,6 +260,8 @@ extension ReadingThemesControlsViewController: Themeable {
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
         tSmallImageView.tintColor = theme.colors.secondaryText
         tLargeImageView.tintColor = theme.colors.secondaryText
+        
+        syntaxHighlightingLabel.textColor = theme.colors.primaryText
         
         view.tintColor = theme.colors.link
     }

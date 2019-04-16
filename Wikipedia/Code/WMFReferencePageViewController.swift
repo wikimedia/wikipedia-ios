@@ -100,21 +100,21 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let viewControllers = pageViewController.viewControllers, let currentVC = viewControllers.first, let presentationIndex = pageControllers.index(of: currentVC) else {
+        guard let viewControllers = pageViewController.viewControllers, let currentVC = viewControllers.first, let presentationIndex = pageControllers.firstIndex(of: currentVC) else {
             return 0
         }
         return presentationIndex
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = pageControllers.index(of: viewController) else {
+        guard let index = pageControllers.firstIndex(of: viewController) else {
             return nil
         }
         return index >= pageControllers.count - 1 ? nil : pageControllers[index + 1]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = pageControllers.index(of: viewController) else {
+        guard let index = pageControllers.firstIndex(of: viewController) else {
             return nil
         }
         return index == 0 ? nil : pageControllers[index - 1]

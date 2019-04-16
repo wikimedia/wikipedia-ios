@@ -56,7 +56,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             @"coprop": @"type|dim",
             @"piprop": @"thumbnail",
             //@"pilicense": @"any",
-            @"ppprop": @"displaytitle|disambiguation",
+            @"ppprop": @"displaytitle",
             @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
             @"pilimit": numResults,
             //@"rrvlimit": @(1),
@@ -80,7 +80,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             @"action": @"query",
             @"prop": @"description|pageprops|pageimages|revisions|coordinates",
             @"coprop": @"type|dim",
-            @"ppprop": @"displaytitle|disambiguation",
+            @"ppprop": @"displaytitle",
             @"generator": @"search",
             @"gsrsearch": searchTerm,
             @"gsrnamespace": @0,
@@ -111,7 +111,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
                          NSDictionary *query = [result objectForKey:@"query"];
                          if (!query) {
-                             success([[WMFSearchResults alloc] init]);
+                             WMFSearchResults *returnResults = previousResults == nil ? [[WMFSearchResults alloc] init] : previousResults;
+                             success(returnResults);
                              return;
                          }
 

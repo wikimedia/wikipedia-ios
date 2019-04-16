@@ -12,7 +12,6 @@
 - (void)setUp {
     [super setUp];
     self.recordMode = WMFIsVisualTestRecordModeEnabled;
-    self.deviceAgnostic = YES;
     self.cell = [WMFSettingsTableViewCell wmf_viewFromClassNib];
     [self configureCell:self.cell];
 }

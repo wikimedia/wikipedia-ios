@@ -61,11 +61,14 @@
 "action-read" = "Lesa";
 "action-redo" = "Endurtaka";
 "action-remove" = "Fjarlægja";
+"action-replace" = "Skipta út";
+"action-replace-all" = "Skipta öllu út";
 "action-save" = "Vista";
 "action-saved" = "Vistað";
 "action-saved-accessibility" = "Vistað. Virkjaðu til að taka úr vistun.";
 "action-saved-accessibility-notification" = "Grein vistuð til síðari tíma";
 "action-share" = "Deila";
+"action-share-accessibility" = "Deila";
 "action-sort" = "Raða";
 "action-undo" = "Afturkalla";
 "action-unsave" = "Taka úr vistun";
@@ -153,6 +156,9 @@
 "dim-images" = "Dekkja myndir";
 "edit-bold-accessibility-label" = "Bættu við feitletrun";
 "edit-bold-remove-accessibility-label" = "Fjarlægðu feitletrun";
+"edit-clear-formatting-accessibility-label" = "Fjarlægja sniðmótun";
+"edit-comment-accessibility-label" = "Bæta við málskipan fyrir athugasemd";
+"edit-comment-remove-accessibility-label" = "Fjarlægja málskipan fyrir athugasemd";
 "edit-decrease-indent-depth-accessibility-label" = "Minnkaðu inndrátt";
 "edit-direction-down-accessibility-label" = "Færðu bendil niður";
 "edit-direction-left-accessibility-label" = "Færðu bendil til vinstri";
@@ -162,6 +168,11 @@
 "edit-indent-accessibility-label" = "Dragðu inn núverandi línu";
 "edit-italic-accessibility-label" = "Bættu við skáletrun";
 "edit-italic-remove-accessibility-label" = "Fjarlægðu skáletrun";
+"edit-link-accessibility-label" = "Bæta við málskipan fyrir tengil";
+"edit-link-remove-accessibility-label" = "Fjarlægja málskipan fyrir tengil";
+"edit-menu-item" = "Breyta";
+"edit-menu-item-could-not-find-selection-alert-message" = "Þetta gæti verið af því að textinn sem þú valdir sé ekki breytanlegur (t.d. titill greinar eða upplýsingareitur) nú eða vegna lengdar textans sem var valinn.";
+"edit-menu-item-could-not-find-selection-alert-title" = "Ekki tókst að staðsetja textann sem þú valdir";
 "edit-minor-learn-more-text" = "Fræðast meira um minniháttar breytingar";
 "edit-minor-text" = "Þetta er minniháttar breyting";
 "edit-ordered-list-accessibility-label" = "Gerðu núverandi línu að röðuðum lista";
@@ -169,6 +180,10 @@
 "edit-published" = "Breyta útgefnu";
 "edit-published-button-title" = "Lokið";
 "edit-published-subtitle" = "Þú varst að gera Wikipedia betri fyrir alla";
+"edit-reference-accessibility-label" = "Bæta við málskipan fyrir tilvísun";
+"edit-reference-remove-accessibility-label" = "Fjarlægja málskipan fyrir tilvísun";
+"edit-signature-accessibility-label" = "Bæta við málskipan fyrir undirskrift";
+"edit-signature-remove-accessibility-label" = "Fjarlægja málskipan fyrir undirskrift";
 "edit-strikethrough-accessibility-label" = "Bættu við gegnumstrikun";
 "edit-strikethrough-remove-accessibility-label" = "Fjarlægðu gegnumstrikun";
 "edit-style-table-view-title" = "Stíll";
@@ -182,6 +197,9 @@
 "edit-summary-placeholder-text" = "Hvernig bættir þú greinina?";
 "edit-superscript-accessibility-label" = "Bættu við háleturstíl";
 "edit-superscript-remove-accessibility-label" = "Fjarlægðu háleturstíl";
+"edit-template-accessibility-label" = "Bæta við málskipan fyrir sniðmát";
+"edit-template-remove-accessibility-label" = "Fjarlægja málskipan fyrir sniðmát";
+"edit-text-clear-formatting" = "Hreinsa sniðmótun";
 "edit-text-formatting-accessibility-label" = "Birta valmynd fyrir snið texta";
 "edit-text-formatting-table-view-title" = "Sníðing texta";
 "edit-text-size-table-view-title" = "Stærð texta";
@@ -192,6 +210,14 @@
 "edit-unordered-list-remove-accessibility-label" = "Fjarlægðu óraðaðan lista úr núverandi línu";
 "edit-watch-list-learn-more-text" = "Fræðast meira um vöktunarlista";
 "edit-watch-this-page-text" = "Vakta þessa síðu";
+"editing-welcome-be-bold-subtitle" = "Verum áræðin en ekki fífldjörf í að uppfæra greinar. Ekki kvelja þig yfir mistökum; allar fyrri útgáfur hverrar síðu eru geymdar, þannig að einfalt er að leiðrétta hlutina.";
+"editing-welcome-be-bold-title" = "Rödd þín er mikilvæg";
+"editing-welcome-citations-subtitle" = "Allt efni verður að vera hægt að sannreyna. Þegar nýjum upplýsingum er bætt í grein, þurfa ritstjórar að setja inn tilvísanir í áreiðanlegar heimildir sem styðja beint við framlagið.";
+"editing-welcome-citations-title" = "Vísaðu í áreiðanlegar heimildir";
+"editing-welcome-impartial-tone-subtitle" = "Við leitumst eftir fremsta megni við að greinar séu skrifaðar í hlutlausum tóni. Við ritun ætti að gefa breiða og upplýsandi mynd af hlutunum eins og þeir eru samkvæmt áreiðanlegum heimildum.";
+"editing-welcome-impartial-tone-title" = "Skrifaðu í hlutlausum tón";
+"editing-welcome-set-knowledge-free-subtitle" = "Til þess að gefa öllum aðgang að þeirri þekkingu sem fyrirfinnst í heiminum, þurfum við að fá þig til að taka þátt í þessu með okkur, með því að lesa, skrifa, breyta og laga þau efni sem þú hefur virkilegan áhuga á.";
+"editing-welcome-set-knowledge-free-title" = "Slepptu þekkingunni lausri";
 "empty-no-article-message" = "Því miður, gat ekki hlaðið greininni inn";
 "empty-no-feed-action-message" = "Þú getur lesið vistaðar síður á meðan";
 "empty-no-feed-message" = "Þú getur séð þær greinar sem mælt er með fyrir þig þegar þú ert með virka nettengingu";
@@ -317,7 +343,13 @@
 "field-token-title" = "Staðfestingarkóði";
 "field-username-placeholder" = "settu inn notandanafn";
 "field-username-title" = "Notandanafn";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Hreinsa leit";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Næsta leitarniðurstaða";
+"find-previous-button-accessibility" = "Fyrri leitarniðurstaða";
+"find-replace-header" = "Finna og skipta út";
+"find-replace-header-close-accessibility" = "Loka 'Finna og skipta út'";
+"find-textfield-accessibility" = "Finna";
 "forgot-password-button-title" = "Endurstilla";
 "forgot-password-email-sent" = "Tölvupóstur var sendur með leiðbeiningum varðandi endurstillingu lykilorðs";
 "forgot-password-instructions" = "Fylltu í einn af reitunum hér fyrir neðan til að fá tölvupóst með leiðbeiningum varðandi endurstillingu lykilorðs";
@@ -344,7 +376,7 @@
 "icon-shortcut-nearby-title" = "Greinar í nágrenninu";
 "icon-shortcut-random-title" = "Handahófsvalin grein";
 "icon-shortcut-search-title" = "Leita á Wikipedia";
-"image-gallery-unknown-owner" = "Óþekkur höfundur.";
+"image-gallery-unknown-owner" = "Óþekktur höfundur.";
 "in-the-news-currently-trending" = "Núna í umræðunni";
 "in-the-news-notification-read-now-action-title" = "Lesa núna";
 "in-the-news-notification-save-for-later-action-title" = "Vista til síðari tíma";
@@ -410,8 +442,7 @@
 "page-edit-history" = "Öll breytingaskráin";
 "page-history-title" = "Breytingaskrá greinar";
 "page-issues" = "Vandamál varðandi síðu";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Breytt í dag|Breytt í gær|Breytt fyrir $1 dögum síðan}}";
+"page-last-edited" = "{{PLURAL:$1|0=Breytt í dag|1=Breytt í gær|Breytt fyrir $1 dögum síðan}}";
 "page-location" = "Skoða á korti";
 "page-protected-autoconfirmed" = "Þessi síða er varin að hluta til.";
 "page-protected-can-not-edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";
@@ -536,14 +567,24 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Dökkt þema";
 "reading-themes-controls-accessibility-light-theme-button" = "Ljóst þema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepía þema";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Áherslulitun á málskipan";
 "reading-themes-controls-accessibility-text-size-slider" = "Sleði fyrir textastærð";
+"reading-themes-controls-syntax-highlighting" = "Áherslulitun á málskipan";
 "reference-title" = "Tilvísun $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Í dag|Í gær|Fyrir $1 dögum síðan}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Í dag|1=Í gær|Fyrir $1 dögum síðan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Fyrir stuttu|Fyrir $1 klukkutíma síðan|Fyrir $1 klukkutímum síðan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Rétt í þessu|Fyrir $1 mínútu síðan|Fyrir $1 mínútum síðan}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Á þessu ári|Á síðasta ári|Fyrir $1 ári síðan}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Á þessu ári|1=Á síðasta ári|Fyrir $1 ári síðan}}";
+"replace-button-accessibility" = "Framkvæma $1.";
+"replace-buttons-replace-accessibility" = "Skipta út einu tilviki";
+"replace-buttons-replace-all-accessibility" = "Skipta út öllum tilvikum";
+"replace-clear-button-accessibility" = "Hreinsa útskiptingu";
+"replace-infolabel-method-replace" = "Skipta út";
+"replace-infolabel-method-replace-all" = "Skipta öllu út";
+"replace-method-button-accessibility" = "Aðferð við útskiptingu. Stillt á $1. Veldu til að breyta.";
+"replace-replace-all-results-count" = "{{PLURAL:$1|$1 atriði skipt út|$1 atriðum skipt út}}";
+"replace-textfield-accessibility" = "Skipta út";
+"replace-textfield-placeholder" = "Skipta út með…";
 "request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "reverted-edit-back-to-article-button-title" = "Til baka í grein";
 "reverted-edit-notification-body" = "Breyting þín á greininni $1 var tekin aftur af $2";

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeContainerViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomContainerView" destination="rgT-3l-nhO" id="XhX-vK-HbU"/>
+                <outlet property="topContainerView" destination="KgU-qJ-TmJ" id="526-fd-3Pq"/>
+                <outlet property="view" destination="7M8-99-dh4" id="NCB-ZR-Tbv"/>
+            </connections>
+        </placeholder>
+        <view contentMode="scaleToFill" id="7M8-99-dh4">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dMs-Cs-puZ">
+                    <rect key="frame" x="0.0" y="128" width="414" height="768"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dub-mg-qOR" userLabel="Top View">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
+                            <subviews>
+                                <containerView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgU-qJ-TmJ" userLabel="Foreground Container View">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
+                                </containerView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="KgU-qJ-TmJ" secondAttribute="bottom" id="1Hh-cL-Tpl"/>
+                                <constraint firstItem="KgU-qJ-TmJ" firstAttribute="top" secondItem="Dub-mg-qOR" secondAttribute="top" id="6uW-ZN-y8H"/>
+                                <constraint firstItem="KgU-qJ-TmJ" firstAttribute="leading" secondItem="Dub-mg-qOR" secondAttribute="leading" id="GJC-qi-tbw"/>
+                                <constraint firstAttribute="trailing" secondItem="KgU-qJ-TmJ" secondAttribute="trailing" id="m03-qE-4kE"/>
+                            </constraints>
+                            <variation key="heightClass=compact-widthClass=compact">
+                                <mask key="constraints">
+                                    <include reference="GJC-qi-tbw"/>
+                                    <include reference="m03-qE-4kE"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=regular">
+                                <mask key="constraints">
+                                    <include reference="GJC-qi-tbw"/>
+                                    <include reference="m03-qE-4kE"/>
+                                </mask>
+                            </variation>
+                        </view>
+                        <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgT-3l-nhO" userLabel="Bottom Container View">
+                            <rect key="frame" x="0.0" y="448" width="414" height="320"/>
+                            <constraints>
+                                <constraint firstAttribute="width" priority="999" constant="250" id="Jpk-pf-nMF"/>
+                                <constraint firstAttribute="height" priority="999" constant="320" id="UyW-ou-JaW"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="Jpk-pf-nMF"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact">
+                                <mask key="constraints">
+                                    <include reference="Jpk-pf-nMF"/>
+                                    <exclude reference="UyW-ou-JaW"/>
+                                </mask>
+                            </variation>
+                        </containerView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Dub-mg-qOR" firstAttribute="centerY" secondItem="dMs-Cs-puZ" secondAttribute="centerY" priority="999" id="SfO-da-JDm"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="SfO-da-JDm"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact" axis="horizontal" spacing="20">
+                        <mask key="constraints">
+                            <include reference="SfO-da-JDm"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact-widthClass=compact" spacing="10"/>
+                    <variation key="heightClass=regular-widthClass=regular" spacing="25"/>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Dub-mg-qOR" firstAttribute="width" secondItem="7M8-99-dh4" secondAttribute="width" multiplier="0.9" id="5kg-g9-xeB"/>
+                <constraint firstItem="JZ4-ja-FOA" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dMs-Cs-puZ" secondAttribute="trailing" id="6x0-Ih-xGh"/>
+                <constraint firstItem="dMs-Cs-puZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JZ4-ja-FOA" secondAttribute="top" constant="10" id="APm-88-9dP"/>
+                <constraint firstItem="dMs-Cs-puZ" firstAttribute="width" secondItem="7M8-99-dh4" secondAttribute="width" priority="999" id="AQT-W0-Uw8"/>
+                <constraint firstAttribute="bottom" secondItem="dMs-Cs-puZ" secondAttribute="bottom" id="Sej-DO-JER"/>
+                <constraint firstItem="dMs-Cs-puZ" firstAttribute="centerY" secondItem="7M8-99-dh4" secondAttribute="centerY" priority="999" id="TZL-Bc-Arq"/>
+                <constraint firstItem="Dub-mg-qOR" firstAttribute="height" relation="lessThanOrEqual" secondItem="7M8-99-dh4" secondAttribute="height" multiplier="0.5" id="Yf0-cF-nl5"/>
+                <constraint firstItem="Dub-mg-qOR" firstAttribute="centerY" secondItem="JZ4-ja-FOA" secondAttribute="centerY" id="hJQ-MX-lbh">
+                    <variation key="heightClass=regular-widthClass=regular" constant="-100"/>
+                </constraint>
+                <constraint firstItem="dMs-Cs-puZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JZ4-ja-FOA" secondAttribute="leading" id="kTs-1N-B5U"/>
+                <constraint firstItem="Dub-mg-qOR" firstAttribute="height" secondItem="7M8-99-dh4" secondAttribute="height" multiplier="0.3" id="rHl-uO-RQy"/>
+                <constraint firstItem="dMs-Cs-puZ" firstAttribute="centerX" secondItem="7M8-99-dh4" secondAttribute="centerX" priority="999" id="xmT-yg-OL3"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="JZ4-ja-FOA"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5kg-g9-xeB"/>
+                    <exclude reference="hJQ-MX-lbh"/>
+                    <exclude reference="rHl-uO-RQy"/>
+                    <exclude reference="AQT-W0-Uw8"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact">
+                <mask key="constraints">
+                    <exclude reference="Yf0-cF-nl5"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=compact">
+                <mask key="constraints">
+                    <include reference="AQT-W0-Uw8"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=regular">
+                <mask key="constraints">
+                    <exclude reference="5kg-g9-xeB"/>
+                    <include reference="AQT-W0-Uw8"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="constraints">
+                    <include reference="AQT-W0-Uw8"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=regular">
+                <mask key="constraints">
+                    <include reference="5kg-g9-xeB"/>
+                    <exclude reference="Yf0-cF-nl5"/>
+                    <include reference="hJQ-MX-lbh"/>
+                    <include reference="rHl-uO-RQy"/>
+                    <include reference="APm-88-9dP"/>
+                    <include reference="Sej-DO-JER"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="785" y="403"/>
+        </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+</document>

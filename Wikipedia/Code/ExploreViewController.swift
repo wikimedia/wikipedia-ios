@@ -24,6 +24,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
+#if UI_TEST
+        if UserDefaults.standard.wmf_isFastlaneSnapshotInProgress() {
+            collectionView.decelerationRate = .fast
+        }
+#endif
     }
 
     deinit {
@@ -818,17 +823,18 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     @objc func articleDidChange(_ note: Notification) {
         guard
             let article = note.object as? WMFArticle,
-            article.hasChangedValuesForCurrentEventThatAffectPreviews,
             let articleKey = article.key
         else {
             return
         }
-        
-        guard layoutCache.invalidateArticleKey(articleKey) else {
+
+        var needsReload = false
+        if article.hasChangedValuesForCurrentEventThatAffectPreviews, layoutCache.invalidateArticleKey(articleKey) {
+            needsReload = true
+            collectionView.collectionViewLayout.invalidateLayout()
+        } else if !article.hasChangedValuesForCurrentEventThatAffectSavedState {
             return
         }
-        
-        collectionView.collectionViewLayout.invalidateLayout()
 
         let visibleIndexPathsWithChanges = collectionView.indexPathsForVisibleItems.filter { (indexPath) -> Bool in
             guard let contentGroup = group(at: indexPath) else {
@@ -845,7 +851,11 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
                 continue
             }
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+            if needsReload {
+                configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+            } else if let cardVC = cell.cardContent as? ExploreCardViewController {
+                cardVC.savedStateDidChangeForArticleWithKey(articleKey)
+            }
         }
     }
     
@@ -888,7 +898,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 FeedFunnel.shared.logFeedCardDismissed(for: FeedFunnelContext(group))
                 group.undoType = .contentGroupKind
                 self.wantsDeleteInsertOnNextItemUpdate = true
-                self.needsReloadVisibleCells = true
                 self.save()
             })
         }
@@ -908,9 +917,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         FeedFunnel.shared.logFeedCardRetained(for: FeedFunnelContext(group))
         if group.undoType == .contentGroupKind {
-            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
-                self.needsReloadVisibleCells = true
-            }
+            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false)
         }
         group.undoType = .none
         wantsDeleteInsertOnNextItemUpdate = true

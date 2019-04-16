@@ -372,35 +372,23 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         let countOfEntriesToCreate = moc.wmf_numberValue(forKey: "WMFCountOfEntriesToCreate")?.int64Value ?? 10
         
-        let randomArticleFetcher = WMFRandomArticleFetcher()
+        let randomArticleFetcher = RandomArticleFetcher()
         let taskGroup = WMFTaskGroup()
         try moc.wmf_batchProcessObjects { (list: ReadingList) in
             guard !list.isDefault else {
                 return
             }
             do {
-                var results: [MWKSearchResult] = []
+                var summaryResponses: [String: ArticleSummary] = [:]
                 for i in 1...countOfEntriesToCreate {
                     taskGroup.enter()
-                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result) in
-                        if let result = result {
-                            results.append(result)
+                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
+                        if let key = result?.wmf_articleDatabaseKey, let summary = summary {
+                           summaryResponses[key] = summary
                         }
                         taskGroup.leave()
                     })
                     if i % 16 == 0 || i == countOfEntriesToCreate {
-                        taskGroup.wait()
-                        guard !isCancelled  else {
-                            throw ReadingListsOperationError.cancelled
-                        }
-                        let articleURLs = results.compactMap { $0.articleURL(forSiteURL: siteURL) }
-                        taskGroup.enter()
-                        var summaryResponses: [String: [String: Any]] = [:]
-                        apiController.session.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
-                            // workaround this method not being async
-                            summaryResponses = actualSummaryResponses
-                            taskGroup.leave()
-                        })
                         taskGroup.wait()
                         guard !isCancelled  else {
                             throw ReadingListsOperationError.cancelled
@@ -411,7 +399,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             try readingListsController.add(articles: articles, to: defaultReadingList, in: moc)
                         }
                         try moc.save()
-                        results.removeAll(keepingCapacity: true)
+                        summaryResponses.removeAll(keepingCapacity: true)
                     }
                 }
             } catch let error {
@@ -732,11 +720,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         guard !readingListEntries.isEmpty else {
             return
         }
+        let summaryFetcher = ArticleSummaryFetcher(session: apiController.session, configuration: Configuration.current)
         let group = WMFTaskGroup()
         let semaphore = DispatchSemaphore(value: 1)
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<String> = []
-        var articleSummariesByArticleKey: [String: [String: Any]] = [:]
+        var articleSummariesByArticleKey: [String: ArticleSummary] = [:]
         var entryCount = 0
         var articlesByKey: [String: WMFArticle] = [:]
         for remoteEntry in readingListEntries {
@@ -757,7 +746,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     articlesByKey[articleKey] = article
                 } else {
                     group.enter()
-                    apiController.session.fetchSummary(for: articleURL, completionHandler: { (result, response, error) in
+                    summaryFetcher.fetchSummary(for: articleURL, completion: { (result, response, error) in
                         guard let result = result else {
                             group.leave()
                             return

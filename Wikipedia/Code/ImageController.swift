@@ -421,7 +421,29 @@ open class ImageController : NSObject {
         memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
     }
     
-    fileprivate func createImage(data: Data, mimeType: String?) -> Image? {
+    private func getUIImageOrientation(from imageSource: CGImageSource, options: CFDictionary) -> UIImage.Orientation? {
+        guard
+            let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, options) as? [String: Any],
+            let orientationRawValue = properties[kCGImagePropertyOrientation as String] as? UInt32,
+            let cgOrientation = CGImagePropertyOrientation(rawValue: orientationRawValue)
+        else {
+            return nil
+        }
+        switch cgOrientation {
+            case .up: return .up
+            case .upMirrored: return .upMirrored
+            case .down: return .down
+            case .downMirrored: return .downMirrored
+            case .left: return .left
+            case .leftMirrored: return .leftMirrored
+            case .right:  return .right
+            case .rightMirrored: return .rightMirrored
+        @unknown default:
+            return .up
+        }
+    }
+    
+    private func createImage(data: Data, mimeType: String?) -> Image? {
         if mimeType == "image/gif", let animatedImage = FLAnimatedImage.wmf_animatedImage(with: data), let staticImage = animatedImage.wmf_staticImage {
             return Image(staticImage: staticImage, animatedImage: animatedImage)
         }
@@ -432,7 +454,12 @@ open class ImageController : NSObject {
         guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, options) else {
             return nil
         }
-        let image = UIImage(cgImage: cgImage)
+        let image: UIImage
+        if let orientation = getUIImageOrientation(from: source, options: options) {
+            image = UIImage(cgImage: cgImage, scale: 1, orientation: orientation)
+        } else {
+            image = UIImage(cgImage: cgImage)
+        }
         return Image(staticImage: image, animatedImage: nil)
     }
     

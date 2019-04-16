@@ -8,6 +8,7 @@
 // Author: Muhammad Shuaib
 // Author: Nemo bis
 // Author: Obaid Raza
+// Author: Sajidkhan
 // Author: Saqib
 // Author: Sohaib
 // Author: Zainab Meher
@@ -108,7 +109,7 @@
 "button-saved-remove" = "محفوظات سے حذف کریں";
 "button-skip" = "آگے بڑھیں";
 "cancel" = "منسوخ";
-"cc-zero" = "کریئیٹیو کامنز CC0";
+"cc-zero" = "کریئیٹیو کام\n CC0";
 "close-button-accessibility-label" = "بند";
 "compass-direction" = "$1 بجے پر";
 "continue-reading-empty-description" = "مطالعہ کے لیے مزید مضامین تلاش کریں";
@@ -141,11 +142,11 @@
 "edit-bold-accessibility-label" = "جِلی فارمیٹنگ شامل کریں۔";
 "edit-bold-remove-accessibility-label" = "جِلی فارمیٹنگ ہٹائیں";
 "edit-published" = "ترمیم شائع ہوگئی";
-"edit-published-button-title" = "تکمیل";
+"edit-published-button-title" = "مکمل شدہ";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
 "edit-summary-choice-linked-words" = "روابط شامل کیے";
-"edit-summary-placeholder-text" = "اس صفحہ میں آپ نے کیا درستی کی؟";
+"edit-summary-placeholder-text" = "اس مضمون میں آپ نے کیا درستی کی؟";
 "empty-no-article-message" = "معاف کیجیے، مضمون کو لوڈ نہیں کیا جاسکا";
 "empty-no-feed-action-message" = "آپ اب بھی اپنے محفوظ کردہ صفحات پڑھ سکتے ہیں";
 "empty-no-feed-message" = "آپ اپنے سفارش کردہ مضامین کو اس وقت دیکھ سکتے ہیں جب آپ کے پاس انٹرنیٹ ہو۔";
@@ -211,7 +212,7 @@
 "field-token-title" = "توثیقی کوڈ";
 "field-username-placeholder" = "صارف نام درج کریں";
 "field-username-title" = "صارف نام";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
 "forgot-password-username-or-email-title" = "یا";
@@ -352,10 +353,10 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "متائیں";
 "settings-support" = "ویکیپیڈیا سے تعاون کریں";
 "settings-title" = "ترجیحات";
-"share-a-fact-made-with" = "شائع شدہ بتوسط ویکیپیڈیا ایپ";
+"share-a-fact-made-with" = "وکیپیڈیا ایپ کے ساتھ تشکیل دے دیا گیا";
 "share-article-name-on-wikipedia" = "@Wikipedia پر \"$1\":";
-"share-building" = "اشتراک حقائق کارڈ زیر تخلیق…";
-"share-custom-menu-item" = "شیئر۔۔۔";
+"share-building" = "اشتراک-حقائق کارڈ زیر تخلیق…";
+"share-custom-menu-item" = "بانٹیں";
 "share-email-format" = "«$1»\n\nاز «$2»\n\n$3";
 "share-menu-item" = "شیئر…";
 "share-message-format" = "«$1» $2";

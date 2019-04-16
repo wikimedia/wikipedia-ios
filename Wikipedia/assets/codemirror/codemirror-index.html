@@ -9,16 +9,24 @@
   <script src="resources/mode/mediawiki/mediawiki.js"></script>
   <link rel="stylesheet" type="text/css" href="resources/mode/mediawiki/mediawiki.css">
   <link rel="stylesheet" type="text/css" href="codemirror-common.css">
-  <link rel="stylesheet" id="codemirror-theme" type="text/css" href="">
-
+  <link rel="stylesheet" type="text/css" href="codemirror-light.css">
+  <link rel="stylesheet" type="text/css" href="codemirror-sepia.css">
+  <link rel="stylesheet" type="text/css" href="codemirror-dark.css">
+  <link rel="stylesheet" type="text/css" href="codemirror-black.css">
+  <link rel="stylesheet" type="text/css" href="codemirror-syntax-highlighting-off.css">
   <script src="resources/addon/search/search.js"></script>
   <script src="resources/addon/search/searchcursor.js"></script>
   <script src="resources/addon/search/match-highlighter.js"></script>
+
+  <script src="codemirror-editTextSelection.js"></script>
+  <script src="codemirror-range-determination-bundle.js"></script>
+
 </head>
 
 
-<body>
+<body class="cm-mw-light">
   <script>    
+
     let editor
 
     const rangesIntersect = (range1, range2) => {
@@ -348,7 +356,15 @@
         buttonsToDisable.push(buttonPayload('redo'))
       }
 
+      if (shouldDisableClearFormattingButton(doc)) {
+        buttonsToDisable.push(buttonPayload('clearFormatting'))
+      }
+
       return buttonsToDisable
+    }
+
+    const shouldDisableClearFormattingButton = (doc) => {
+      return !RangeHelper.rangeClearFormatting.canClearFormatting(editor)
     }
 
     const sendNativeMessages = (doc) => {
@@ -369,7 +385,27 @@
     }
         
     const applyTheme = (themeName) => {
-      document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
+      var elements = document.body.className.split(" ")
+      const themeClass = `cm-mw-${themeName}`
+      if (elements.length > 0) {
+        elements[0] = themeClass
+      } else {
+        elements.push(themeClass)
+      }
+      document.body.className = elements.join(" ")
+    }
+  
+    const toggleSyntaxColors = () => {
+      var elements = document.body.className.split(" ")
+      if (elements.length == 1) {
+        document.body.className = elements[0] + " cm-mw-off"
+      } else {
+        document.body.className = elements[0]
+      }
+    }
+  
+    const scaleBodyText = (textSizeAdjustment) => {
+      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
     }
     
     let cursorActivityScrollTimer
@@ -379,20 +415,25 @@
       if (callback) {
         callback()
       }
-      editor.on('cursorActivity', (doc) => {
-        sendNativeMessages(doc)
-
-        clearTimeout(cursorActivityScrollTimer)
-        cursorActivityScrollTimer = setTimeout(() => {
-          scrollCursorIntoViewIfNeeded()        
-        }, 25)
-
-      })
+      editor.on('cursorActivity', notifyNativeAboutChangesAndScrollIfNeeded)
     }
-    
-    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, callback) => {
+
+    const notifyNativeAboutChangesAndScrollIfNeeded = (doc) => {
+      if (!doc.isReplacing) {
+          sendNativeMessages(doc)
+          clearTimeout(cursorActivityScrollTimer)
+          cursorActivityScrollTimer = setTimeout(() => {
+            scrollCursorIntoViewIfNeeded()        
+          }, 25)
+        }
+    }
+
+    const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
       applyTheme(themeName)
-      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+      if (!isSyntaxHighlighted) {
+          toggleSyntaxColors()
+      }
+      scaleBodyText(textSizeAdjustment)
       let xhr = new XMLHttpRequest()
       let url = `config/codemirror-config-${language}.json`
       xhr.open('GET', url, true)
@@ -629,8 +670,9 @@
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
-    wmf.setup = (language, direction, themeName, textSizeAdjustment, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, callback)
+    wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
+    wmf.highlightAndScrollToWikitextForSelectedAndAdjacentText = highlightAndScrollToWikitextForSelectedAndAdjacentText
 
     const italicMarkup = "''"
     const boldMarkup = "'''"
@@ -728,12 +770,12 @@
       editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`, 'around')
     }
 
-    const verticalOffsetNeededToScrollCursorIntoView = () => {
-      const fromTopOfWebView = cursorOffsetFromTopOfWebView()
+    const verticalOffsetNeededToScrollRangeIntoView = (from, to) => {
+      const fromTopOfWebView = locationOffsetFromTopOfWebView(from)
       if (fromTopOfWebView < 0) {
         return fromTopOfWebView
       }
-      const fromTopOfKeyboard = cursorOffsetFromTopOfKeyboard()
+      const fromTopOfKeyboard = locationOffsetFromTopOfKeyboard(to)
       if (fromTopOfKeyboard > 0) {
         return fromTopOfKeyboard
       }
@@ -742,20 +784,27 @@
 
     let adjustedContentInset = {top: 0, left: 0, bottom: 0, right: 0}
     const webViewHeightNotCoveredByKeyboard = () => document.documentElement.clientHeight - adjustedContentInset.bottom
-    const cursorOffsetFromTopOfWebView = () => editor.cursorCoords(true, 'window').top
-    const cursorOffsetFromTopOfKeyboard = () => editor.cursorCoords(false, 'window').bottom - webViewHeightNotCoveredByKeyboard()
+    const locationOffsetFromTopOfWebView = (location) => editor.charCoords(location, 'window').top
+    const locationOffsetFromTopOfKeyboard = (location) => editor.charCoords(location, 'window').bottom - webViewHeightNotCoveredByKeyboard()
 
     const scrollCursorIntoViewIfNeeded = () => {
-      if (getSelectionRange(editor).isRangeSelected) {
-        return
-      }
-      const offset = verticalOffsetNeededToScrollCursorIntoView()
+      scrollRangeIntoViewIfNeeded(editor.getCursor('from'), editor.getCursor('to'))
+    }
+
+    const scrollRangeIntoViewIfNeeded = (from, to) => {
+      const offset = verticalOffsetNeededToScrollRangeIntoView(from, to)
       if (offset === 0) {
         return
       }
       // WKWebView doesn't currently support `window.scrollTo` with `behavior: smooth`,
       // so let native land do the scrolling.
       window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
+    }
+
+    const presentReplaceAllCount = () => {
+      var replaceAllCount = editor.state.replaceAllCount;
+      window.webkit.messageHandlers.replaceAllCountMessage.postMessage(replaceAllCount);
+      editor.state.replaceAllCount = null;
     }
 
     let resizeTimer
@@ -795,7 +844,46 @@
       focus: () => {
         editor.focus()
       },
-      undo: () => editor.undo(),
+      focusWithoutScroll: () => {
+        const scrollY = window.scrollY
+        editor.focus()
+        window.scrollTo(window.scrollX, scrollY)
+      },
+      selectLastSelection: () => {
+          const from = editor.getCursor('from')
+          const to = editor.getCursor('to')
+          editor.setSelection(from, to, {scroll: false})
+      },
+      selectLastFocusedMatch: () => {
+        const state = editor.state.search
+        if (!state) {
+          return
+        }
+        const from = state.posFrom
+        const to = state.posTo
+        if (!from || !to) {
+          return
+        }
+        editor.setSelection(from, to, {scroll: false})
+      },
+      undo: () => {
+        editor.undo()
+
+        // Hack to fix cursor *appearing* to be above actual line after undo.  
+        requestAnimationFrame(() => {
+          const from = editor.getCursor('from')
+          const to = editor.getCursor('to')
+          const wasRangeSelected = (from.line !== to.line) || (to.ch - from.ch) > 0
+
+          editor.setCursor(from.line + 1)
+          editor.setCursor(from)
+          if (wasRangeSelected) {
+            editor.setSelection(from, to)
+          }
+        })
+        
+       notifyNativeAboutChangesAndScrollIfNeeded(editor)
+      },
       redo: () => editor.redo(),
       cursorUp: () => editor.execCommand('goLineUp'),
       cursorDown: () => editor.execCommand('goLineDown'),
@@ -928,6 +1016,19 @@
         editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
         editor.refresh()
       },
+      lineNumbers: () => {
+          editor.setOption('lineNumbers', editor.getOption('lineNumbers') == true ? false : true)
+          editor.refresh()
+      },
+      theme: (theme) => {
+          applyTheme(theme)
+      },
+      syntaxColors: () => {
+          toggleSyntaxColors()
+      },
+      scaleBodyText: (textSizeAdjustment) => {
+          scaleBodyText(textSizeAdjustment)
+      },
       find: (text) => {
         editor.state.query = text
         editor.execCommand('find')
@@ -935,6 +1036,20 @@
       findNext: () => editor.execCommand('findNext'),
       findPrevious: () => editor.execCommand('findPrev'),
       clearSearch: () => editor.execCommand('clearSearch'),
+      replaceAll: (text) => {
+        editor.state.replaceText = text
+        editor.execCommand('replaceAllWithoutDialogs')
+        presentReplaceAllCount()
+        editor.state.replaceText = null
+        editor.state.replaceAllNum = null
+      },
+      replaceSingle: (text) => {
+          editor.state.replaceText = text
+          editor.execCommand('replaceSingleWithoutDialogs')
+      },
+      clearFormatting: () => {
+        RangeHelper.rangeClearFormatting.clearFormatting(editor)
+      }
     }
 
     // TODO: Import js/elementLocation ?

@@ -25,8 +25,7 @@
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
 "abuse-filter-disallow-heading" = "Dir däerft dës Ännerung net verëffentlechen";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "En automatiséierte Filter huet dës Ännerung als méiglecherweis net konstruktiv respektiv als Vandalismus-Versuch indentifizéiert.";
+"abuse-filter-disallow-unconstructive" = "En automatiséierte Filter huet dës Ännerung als méiglecherweis net konstruktiv respektiv als Vandalismus-Versuch identifizéiert. Gitt w.e.g. zréck an ännert Är Ännerung.";
 "abuse-filter-warning-blanking" = "Abschnitter oder komplett Artikele läschen";
 // Fuzzy
 "abuse-filter-warning-caps" = "Mat GROUSSE BUSCHTAWEN tippen";
@@ -51,17 +50,18 @@
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
 "action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
 "action-cancel" = "Ofbriechen";
-// Fuzzy
 "action-find-in-page" = "Op der Säit sichen";
 "action-move-to" = "Réckelen op...";
 "action-read" = "Liesen";
 "action-remove" = "Ewechhuelen";
+"action-replace" = "Ersetzen";
+"action-replace-all" = "All ersetzen";
 "action-save" = "Späicheren";
 "action-saved" = "Gespäichert";
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
 "action-share" = "Deelen";
+"action-share-accessibility" = "Deelen";
 "action-sort" = "Zortéieren";
-// Fuzzy
 "action-undo" = "Réckgängeg maachen";
 "action-unsave" = "Läschen";
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
@@ -107,6 +107,7 @@
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
 "edit-indent-accessibility-label" = "Déi Aktuell Linn eraréckelen";
+"edit-menu-item" = "Änneren";
 "edit-minor-learn-more-text" = "Méi iwwer kleng Ännerunge gewuer ginn";
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
 "edit-published" = "Ännerung verëffentlecht";
@@ -122,6 +123,7 @@
 "edit-summary-placeholder-text" = "Wéi hutt Dir den Artikel verbessert?";
 "edit-watch-list-learn-more-text" = "Méi iwwer Iwwerwaachungslëschte gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
+"editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
@@ -195,7 +197,9 @@
 "field-token-title" = "Verificatiouns-Code";
 "field-username-placeholder" = "Benotzernumm aginn";
 "field-username-title" = "Benotzernumm";
-"find-in-page-number-matches" = "$1 / $2";
+"find-clear-button-accessibility" = "Sichen eidelmaachen";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "Sichen an Ersetzen";
 "forgot-password-button-title" = "Zrécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
@@ -279,8 +283,7 @@
 "page-edit-history" = "All Versioune vun der Säit";
 "page-history-title" = "Versioune vum Artikel";
 "page-issues" = "Problemer mat der Säit";
-// Fuzzy
-"page-last-edited" = "Viru(n) $1 Deeg geännert";
+"page-last-edited" = "{{PLURAL:$1|0=Haut today|1=Gëschter|Viru(n) $1 Deeg}} geännert";
 "page-location" = "Op enger Kaart weisen";
 "page-protected-autoconfirmed" = "Dës Säit ass hallef gespaart.";
 "page-protected-can-not-edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
@@ -368,6 +371,11 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
+"replace-buttons-replace-all-accessibility" = "All Instanzen ersetzen";
+"replace-infolabel-method-replace" = "Ersetzen";
+"replace-infolabel-method-replace-all" = "All ersetzen";
+"replace-textfield-accessibility" = "Ersetzen";
+"replace-textfield-placeholder" = "Ersetzen duerch...";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "reverted-edit-back-to-article-button-title" = "Zréck op den Artikel";
 "reverted-edit-notification-read-more-action-title" = "Liest méi";

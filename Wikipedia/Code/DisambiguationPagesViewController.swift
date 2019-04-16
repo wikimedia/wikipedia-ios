@@ -2,31 +2,31 @@ import UIKit
 import WMF
 
 @objc(WMFDisambiguationPagesViewController)
-class DisambiguationPagesViewController: ArticleURLListViewController {
+class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
     
-    let titlesSearchFetcher = WMFArticlePreviewFetcher()
     let siteURL: URL
-    var results: [MWKSearchResult] = []
-    
+    let articleURLs: [URL]
     @objc var resultLimit: Int = 10
     
     @objc(initWithURLs:siteURL:dataStore:theme:)
     required init(with URLs: [URL], siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.siteURL = siteURL
-        super.init(articleURLs: URLs, dataStore: dataStore, theme: theme)
+        self.articleURLs = URLs
+        super.init()
+        self.dataStore = dataStore
+        self.theme = theme
+        self.title = WMFLocalizedString("page-similar-titles", value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) is not allowed")
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
-        fatalError("init(articleURLs:dataStore:contentGroup:theme:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = WMFLocalizedString("page-similar-titles", value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
+
+    override func setupFetchedResultsController(with dataStore: MWKDataStore) {
+        let request = WMFArticle.fetchRequest()
+        request.predicate = NSPredicate(format: "key IN %@", articleURLs.compactMap { $0.wmf_articleDatabaseKey })
+        request.sortDescriptors = [NSSortDescriptor(key: "key", ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,36 +34,29 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
         fetch()
     }
     
-    var didFetch = false
+    lazy var fakeProgressController: FakeProgressController = {
+        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
+    }()
+    
     func fetch() {
-        titlesSearchFetcher.fetchArticlePreviewResults(forArticleURLs: articleURLs, siteURL: siteURL, completion: { (results) in
-            DispatchQueue.main.async {
-                self.results = results
-                self.collectionView.reloadData()
-            }
-        }) { (error) in
-            DispatchQueue.main.async {
+        fakeProgressController.start()
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: articleURLs) { (_, error) in
+            self.fakeProgressController.finish()
+            if let error = error {
                 self.wmf_showAlertWithError(error as NSError)
+                return
             }
         }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return results.count
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.configureForCompactList(at: indexPath.item)
-        let articleURL = self.articleURL(at: indexPath)
-        let searchResult = results[indexPath.item]
-        cell.titleLabel.text = articleURL?.wmf_title
-        cell.descriptionLabel.text = (searchResult.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
-        if layoutOnly {
-            cell.isImageViewHidden = searchResult.thumbnailURL != nil
-        } else {
-            cell.imageURL = searchResult.thumbnailURL
-        }
-        cell.apply(theme: theme)
+        super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+        cell.topSeparator.isHidden = indexPath.item != 0
+        cell.bottomSeparator.isHidden = false
+    }
+    
+    override func canDelete(at indexPath: IndexPath) -> Bool {
+        return false
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {

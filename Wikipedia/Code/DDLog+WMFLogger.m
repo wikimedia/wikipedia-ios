@@ -15,7 +15,7 @@
     [self wmf_addWMFFormattedLogger:[DDTTYLogger sharedInstance]];
 #endif
     // always add ASLLogger
-    [self wmf_addWMFFormattedLogger:[DDASLLogger sharedInstance]];
+    [self wmf_addWMFFormattedLogger:[DDOSLogger sharedInstance]];
 
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;

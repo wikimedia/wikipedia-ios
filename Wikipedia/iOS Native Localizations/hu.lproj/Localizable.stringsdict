@@ -66,6 +66,22 @@
 			<string>%1$d történelmi esemény</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Szerkesztve %1$d napja</string>
+			<key>zero</key>
+			<string>Szerkesztve ma</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -77,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>A szócikket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket a %3$@ olvasólistában.</string>
+			<string>A szócikket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket %3$@ olvasólistában.</string>
 			<key>other</key>
-			<string>A szócikkeket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket a %3$@ olvasólistában.</string>
+			<string>A szócikkeket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket %3$@ olvasólistában.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -108,8 +124,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Tegnap</string>
 			<key>other</key>
 			<string>%1$d napja</string>
 			<key>zero</key>
@@ -162,12 +176,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Tavaly</string>
 			<key>other</key>
 			<string>%1$d évvel ezelőtt</string>
 			<key>zero</key>
-			<string>Ez évben</string>
+			<string>Idén</string>
 		</dict>
 	</dict>
 </dict>

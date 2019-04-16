@@ -55,9 +55,10 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
                 WKUserScript.init(source: sectionAppearanceJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
             )
         }
-
+        
+        let theme = Theme.standard
+        vc.apply(theme)
         UIApplication.shared.keyWindow?.rootViewController = vc
-
         return vc
     }()
 

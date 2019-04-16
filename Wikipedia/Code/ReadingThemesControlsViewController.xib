@@ -15,12 +15,16 @@
                 <outlet property="blackThemeButton" destination="73S-3R-kf2" id="20K-xS-1LK"/>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
+                <outlet property="lastSeparator" destination="Avb-i2-HSA" id="KoQ-Pj-OqP"/>
                 <outlet property="lightThemeButton" destination="qZ3-3K-fnR" id="29j-20-f8V"/>
                 <outlet property="maxBrightnessImageView" destination="EEq-pY-jEm" id="ePK-A2-XNc"/>
                 <outlet property="minBrightnessImageView" destination="CRe-Dn-C3q" id="0aI-KZ-wFe"/>
                 <outlet property="sepiaThemeButton" destination="x0K-vq-CgH" id="n57-Po-a7M"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
                 <outlet property="stackView" destination="KZU-5g-iSy" id="R0I-tr-o0b"/>
+                <outlet property="syntaxHighlightingContainerView" destination="Kkd-Mq-to7" id="As0-Cm-8eU"/>
+                <outlet property="syntaxHighlightingLabel" destination="uMd-Oo-cjP" id="ZwQ-aN-SM0"/>
+                <outlet property="syntaxHighlightingSwitch" destination="I3z-iR-C3C" id="pAk-Vm-O90"/>
                 <outlet property="tLargeImageView" destination="Ycr-G6-Fi3" id="5nX-hh-UCh"/>
                 <outlet property="tSmallImageView" destination="vkB-ph-elW" id="zTO-Cg-lOB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
@@ -29,6 +33,7 @@
                 <outletCollection property="textSizeSliderViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="sj5-O6-6fO"/>
                 <outletCollection property="textSizeSliderViews" destination="vzF-dw-OTG" collectionClass="NSMutableArray" id="Idy-T2-2cy"/>
                 <outletCollection property="textSizeSliderViews" destination="wIV-PE-rcx" collectionClass="NSMutableArray" id="FYN-nL-R8f"/>
+                <outletCollection property="separatorViews" destination="Avb-i2-HSA" collectionClass="NSMutableArray" id="4WT-wg-92Z"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -40,7 +45,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KZU-5g-iSy">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="240"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="292"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzF-dw-OTG">
                                     <rect key="frame" x="0.0" y="0.0" width="290" height="32"/>
@@ -256,6 +261,38 @@
                                         <constraint firstAttribute="trailing" secondItem="56n-xZ-69v" secondAttribute="trailing" constant="17" id="m0h-MT-JGM"/>
                                     </constraints>
                                 </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Avb-i2-HSA" userLabel="Separator 3">
+                                    <rect key="frame" x="0.0" y="240" width="290" height="0.0"/>
+                                    <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="999" constant="1" id="1me-Am-mAC"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kkd-Mq-to7">
+                                    <rect key="frame" x="0.0" y="240" width="290" height="52"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Syntax Highlighting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMd-Oo-cjP">
+                                            <rect key="frame" x="10" y="15" width="211" height="27"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I3z-iR-C3C">
+                                            <rect key="frame" x="231" y="13" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="syntaxHighlightingSwitched:" destination="-1" eventType="valueChanged" id="BRB-hP-lRd"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="I3z-iR-C3C" firstAttribute="centerY" secondItem="uMd-Oo-cjP" secondAttribute="centerY" id="Dtb-Af-JJz"/>
+                                        <constraint firstAttribute="trailing" secondItem="I3z-iR-C3C" secondAttribute="trailing" constant="10" id="GQn-y0-VCJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="uMd-Oo-cjP" secondAttribute="bottom" constant="10" id="K6G-3Z-Zlj"/>
+                                        <constraint firstItem="uMd-Oo-cjP" firstAttribute="top" secondItem="Kkd-Mq-to7" secondAttribute="top" constant="15" id="UHF-I7-HCT"/>
+                                        <constraint firstItem="uMd-Oo-cjP" firstAttribute="leading" secondItem="Kkd-Mq-to7" secondAttribute="leading" constant="10" id="f3D-J5-XfV"/>
+                                        <constraint firstItem="I3z-iR-C3C" firstAttribute="leading" secondItem="uMd-Oo-cjP" secondAttribute="trailing" constant="10" id="wh0-By-rar"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                         </stackView>
                     </subviews>
@@ -276,7 +313,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="464" y="376"/>
+            <point key="canvasLocation" x="463.85869565217394" y="375.36231884057975"/>
         </view>
     </objects>
     <resources>

@@ -15,6 +15,7 @@
 @class WMFReadingListsController;
 @class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
+@class WMFArticleSummaryController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,6 +35,9 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
 extern NSString *const WMFArticleUpdatedNotification;
 extern NSString *const WMFArticleDeletedNotification;
 extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // User info key for the article key
+extern NSString *const WMFBackgroundContextDidSave;
+extern NSString *const WMFFeedImportContextDidSave;
+extern NSString *const WMFViewContextDidSave;
 
 @interface MWKDataStore : NSObject
 
@@ -61,6 +65,7 @@ extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // Us
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
 @property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
+@property (readonly, strong, nonatomic) WMFArticleSummaryController *articleSummaryController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;

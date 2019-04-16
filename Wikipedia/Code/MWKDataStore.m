@@ -10,6 +10,9 @@
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
 NSString *const WMFArticleDeletedNotification = @"WMFArticleDeletedNotification";
 NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey = @"WMFArticleDeletedNotificationUserInfoArticleKeyKey";
+NSString *const WMFBackgroundContextDidSave = @"WMFBackgroundContextDidSave";
+NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
+NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 
@@ -21,7 +24,9 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
-@interface MWKDataStore ()
+@interface MWKDataStore () {
+    dispatch_semaphore_t _handleCrossProcessChangesSemaphore;
+}
 
 @property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
@@ -32,6 +37,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
 @property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
+@property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -159,6 +165,7 @@ static uint64_t bundleHash() {
 - (instancetype)initWithContainerURL:(NSURL *)containerURL {
     self = [super init];
     if (self) {
+        _handleCrossProcessChangesSemaphore = dispatch_semaphore_create(1);
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
         BOOL sitesWasADirectory = false;
@@ -177,6 +184,8 @@ static uint64_t bundleHash() {
         self.articleLocationController = [ArticleLocationController new];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
     }
     return self;
 }
@@ -254,7 +263,8 @@ static uint64_t bundleHash() {
     self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
     self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+    self.viewContext.automaticallyMergesChangesFromParent = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 }
 
@@ -291,12 +301,8 @@ static uint64_t bundleHash() {
     return archiveableUserInfo;
 }
 
-- (void)viewContextDidSave:(NSNotification *)note {
-    NSManagedObjectContext *moc = self.viewContext;
-    if (!moc) {
-        return;
-    }
-
+- (void)handleCrossProcessChangesFromContextDidSaveNotification:(NSNotification *)note {
+    dispatch_semaphore_wait(_handleCrossProcessChangesSemaphore, DISPATCH_TIME_FOREVER);
     NSDictionary *userInfo = note.userInfo;
     if (!userInfo) {
         return;
@@ -314,6 +320,7 @@ static uint64_t bundleHash() {
     const char *name = [self.crossProcessNotificationChannelName UTF8String];
     notify_set_state(_crossProcessNotificationToken, state);
     notify_post(name);
+    dispatch_semaphore_signal(_handleCrossProcessChangesSemaphore);
 }
 
 - (void)viewContextDidChange:(NSNotification *)note {
@@ -464,26 +471,31 @@ static uint64_t bundleHash() {
 
 #pragma mark - Background Contexts
 
+- (void)managedObjectContextDidSave:(NSNotification *)note {
+    NSManagedObjectContext *moc = note.object;
+    NSNotificationName notificationName;
+    if (moc == _viewContext) {
+        notificationName = WMFViewContextDidSave;
+    } else if (moc == _feedImportContext) {
+        notificationName = WMFFeedImportContextDidSave;
+    } else {
+        notificationName = WMFBackgroundContextDidSave;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:note.object userInfo:note.userInfo];
+    [self handleCrossProcessChangesFromContextDidSaveNotification:note];
+}
+
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    backgroundContext.parentContext = _viewContext;
+    backgroundContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+    backgroundContext.automaticallyMergesChangesFromParent = YES;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
+    [nc addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
     [backgroundContext performBlock:^{
         mocBlock(backgroundContext);
         [nc removeObserver:self name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
-    }];
-}
-
-- (void)backgroundContextDidSave:(NSNotification *)note {
-    NSManagedObjectContext *moc = _viewContext;
-    [moc performBlockAndWait:^{
-        NSError *mainContextSaveError = nil;
-        if ([moc hasChanges] && ![moc save:&mainContextSaveError]) {
-            DDLogError(@"Error saving main context: %@", mainContextSaveError);
-        }
     }];
 }
 
@@ -491,9 +503,10 @@ static uint64_t bundleHash() {
     WMFAssertMainThread(@"feedImportContext must be created on the main thread");
     if (!_feedImportContext) {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _feedImportContext.parentContext = _viewContext;
+        _feedImportContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+        _feedImportContext.automaticallyMergesChangesFromParent = YES;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
@@ -920,7 +933,7 @@ static uint64_t bundleHash() {
     }
     [moc reset];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 
     return didSave;

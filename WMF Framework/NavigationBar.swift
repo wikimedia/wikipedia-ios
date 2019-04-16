@@ -68,7 +68,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
         if displayType == .backVisible {
-            if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.index(of: vc), index > 0 {
+            if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.firstIndex(of: vc), index > 0 {
                 items.append(nc.viewControllers[index - 1].navigationItem)
             }
         }
@@ -155,6 +155,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             barButtonItem = item
         }
         barButtonItem.isEnabled = item.isEnabled
+        barButtonItem.isAccessibilityElement = item.isAccessibilityElement
+        barButtonItem.accessibilityLabel = item.accessibilityLabel
         return barButtonItem
     }
     

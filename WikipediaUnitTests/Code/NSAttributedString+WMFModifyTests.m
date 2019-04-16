@@ -12,7 +12,6 @@
 - (void)setUp {
     [super setUp];
     self.recordMode = WMFIsVisualTestRecordModeEnabled;
-    self.deviceAgnostic = YES;
 }
 
 - (NSAttributedString *)getTestAttrStr {

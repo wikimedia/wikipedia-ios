@@ -22,6 +22,7 @@
 // Author: Tonylianlong
 // Author: Wxyveronica
 // Author: Yfdyh000
+// Author: 佛壁灯
 // Author: 夢蝶葬花
 // Author: 水獭很懒
 // Author: 王庭茂
@@ -74,7 +75,6 @@
 "action-add-to-reading-list" = "添加至阅读列表";
 "action-add-to-reading-list-short" = "添加至列表";
 "action-cancel" = "取消";
-// Fuzzy
 "action-find-in-page" = "在页面中查找";
 "action-move-to" = "移动至…";
 "action-move-to-reading-list" = "移动至阅读列表";
@@ -87,7 +87,6 @@
 "action-saved-accessibility-notification" = "条目已保存供稍后使用";
 "action-share" = "分享";
 "action-sort" = "排序";
-// Fuzzy
 "action-undo" = "撤销";
 "action-unsave" = "未保存";
 "action-unsaved-accessibility-notification" = "条目未保存";
@@ -172,15 +171,57 @@
 "description-welcome-promise-title" = "通过开始，我保证不滥用这个特性。";
 "description-welcome-start-editing-button" = "开始编辑";
 "dim-images" = "使图片变暗";
+"edit-bold-accessibility-label" = "添加加粗格式";
+"edit-bold-remove-accessibility-label" = "移除加粗格式";
+"edit-comment-accessibility-label" = "添加评论语法";
+"edit-comment-remove-accessibility-label" = "移除评论语法";
+"edit-decrease-indent-depth-accessibility-label" = "减少缩进深度";
+"edit-direction-down-accessibility-label" = "向下移动光标";
+"edit-direction-left-accessibility-label" = "向左移动光标";
+"edit-direction-right-accessibility-label" = "向右移动光标";
+"edit-direction-up-accessibility-label" = "向上移动光标";
+"edit-increase-indent-depth-accessibility-label" = "增加缩进深度";
+"edit-indent-accessibility-label" = "缩进当前行";
+"edit-italic-accessibility-label" = "添加斜体格式";
+"edit-italic-remove-accessibility-label" = "移除斜体格式";
+"edit-link-accessibility-label" = "添加链接语法";
+"edit-link-remove-accessibility-label" = "移除链接语法";
+"edit-minor-learn-more-text" = "了解更多关于小编辑的信息";
+"edit-minor-text" = "标记为小编辑";
+"edit-ordered-list-accessibility-label" = "创建当前行的有序列表";
+"edit-ordered-list-remove-accessibility-label" = "从当前行中移除有序列表";
+"edit-published" = "已发布编辑";
+"edit-published-button-title" = "完成";
+"edit-published-subtitle" = "您刚刚使得维基百科变得更好";
+"edit-reference-accessibility-label" = "添加参考语法";
+"edit-reference-remove-accessibility-label" = "移除参考语法";
+"edit-signature-accessibility-label" = "添加签名语法";
+"edit-signature-remove-accessibility-label" = "移除签名语法";
+"edit-strikethrough-accessibility-label" = "添加删除线";
+"edit-strikethrough-remove-accessibility-label" = "移除删除线";
 "edit-style-table-view-title" = "样式";
+"edit-subscript-accessibility-label" = "添加下标格式";
+"edit-subscript-remove-accessibility-label" = "移除下标格式";
 "edit-summary-add-summary-text" = "添加编辑摘要";
 "edit-summary-choice-fixed-grammar" = "已确定语法";
 "edit-summary-choice-fixed-typos" = "修正笔误";
 "edit-summary-choice-linked-words" = "已添加链接";
 "edit-summary-learn-more-text" = "了解更多";
 "edit-summary-placeholder-text" = "您如何改进条目的？";
+"edit-superscript-accessibility-label" = "添加上标格式";
+"edit-superscript-remove-accessibility-label" = "移除下标格式";
+"edit-template-accessibility-label" = "添加模板语法";
+"edit-template-remove-accessibility-label" = "移除模板语法";
+"edit-text-formatting-accessibility-label" = "显示文本格式菜单";
 "edit-text-formatting-table-view-title" = "文本格式";
 "edit-text-size-table-view-title" = "文字大小";
+"edit-text-style-accessibility-label" = "显示文本样式菜单";
+"edit-underline-accessibility-label" = "添加下划线";
+"edit-underline-remove-accessibility-label" = "移除下划线";
+"edit-unordered-list-accessibility-label" = "创建当前行的无序列表";
+"edit-unordered-list-remove-accessibility-label" = "从当前行中移除无序列表";
+"edit-watch-list-learn-more-text" = "了解更多有关监视列表的信息";
+"edit-watch-this-page-text" = "监视本页";
 "empty-no-article-message" = "对不起，无法加载条目";
 "empty-no-feed-action-message" = "您仍然可以阅读保存的页面";
 "empty-no-feed-message" = "当您有网络连接时，您可以查看您推荐的条目";
@@ -306,7 +347,7 @@
 "field-token-title" = "验证码";
 "field-username-placeholder" = "输入用户名";
 "field-username-title" = "用户名";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "重置";
 "forgot-password-email-sent" = "已发送一封带有密码重置说明的电子邮件";
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
@@ -383,6 +424,9 @@
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
 "new-password-title" = "设置您的密码";
 "no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";
+"no-internet-connection" = "无互联网连接";
+"no-internet-connection-article-reload" = "此条目的新版本可用，但由于无互联网连接而无法加载";
+"no-internet-connection-article-reload-button" = "返回至最近保存的版本";
 "number-billions" = "$1十亿";
 "number-millions" = "$1百万";
 "number-thousands" = "$1千";
@@ -396,15 +440,13 @@
 "page-edit-history" = "完整编辑历史";
 "page-history-title" = "条目历史";
 "page-issues" = "页面问题";
-// Fuzzy
-"page-last-edited" = "编辑于$1天前";
+"page-last-edited" = "{{PLURAL:$1|0=编辑于今天|1=编辑于昨天|编辑于 $1 天前}}";
 "page-location" = "在地图上查看";
 "page-protected-autoconfirmed" = "此页面已半保护。";
 "page-protected-can-not-edit" = "您没有权限编辑此页";
 "page-protected-can-not-edit-title" = "此页面受到保护";
 "page-protected-other" = "此页面已获以下保护：$1";
 "page-protected-sysop" = "此页面已全保护。";
-// Fuzzy
 "page-read-in-other-languages" = "在$1种其他语言中可用";
 "page-similar-titles" = "相似页面";
 "page-talk-page" = "查看讨论页";
@@ -462,8 +504,7 @@
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-do-not-keep-button-title" = "否，从设备中删除条目";
 "reading-list-entry-limit-exceeded-message" = "请减少您在此列表中的条目数至$1以恢复同步所有此列表的条目。";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "您已超过每账户$1个条目限制。";
+"reading-list-entry-limit-exceeded-title" = "您已超过每账户$1个条目的限制。";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|条目}}不能添加到此列表。您已超过每个$3的阅读列表$2个条目限制";
 "reading-list-exists-with-same-name" = "阅读列表名称已被使用";
 "reading-list-generic-error" = "更新您的阅读列表时发生意外错误。";
@@ -476,8 +517,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "限制5000个未分类条目。请将您的现有条目排序成列表以继续同步未分类条目。";
 "reading-list-limit-hit-for-unsorted-articles-title" = "未分类条目的限制触发";
 "reading-list-list-limit-exceeded-message" = "此阅读列表（及保存至此的条目）将不会同步，请减少您的列表数量至$1以恢复同步此列表。";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "您已超过每账户$1个阅读列表限制。";
+"reading-list-list-limit-exceeded-title" = "您已超过每账户$1个阅读列表的限制。";
 "reading-list-list-limit-reached" = "您已超过每账户$1个阅读列表限制";
 "reading-list-login-button-title" = "登录以同步您保存的条目";
 "reading-list-login-or-create-account-button-title" = "登录或创建账户";
@@ -527,12 +567,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "棕黑主题";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑块";
 "reference-title" = "参考文献$1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1天前}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1 天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1小时前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=刚刚|$1分钟前}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1年前}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1 年前}}";
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "reverted-edit-back-to-article-button-title" = "返回到文章";
 "reverted-edit-notification-body" = "你对文章“$1”的编辑已由 $2 还原";
@@ -670,6 +708,8 @@
 "wikitext-upload-captcha-needed" = "需要验证码确认。";
 "wikitext-upload-result-unknown" = "无法确定wikitext上传结果。";
 "wikitext-upload-save" = "正在发布...";
+"wikitext-upload-save-anonymously-or-login" = "编者将显示为您设备的 IP 地址。若您$1登录$2则可获得隐私保护。";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
 "wikitext-upload-save-sign-in" = "登录";
+"wikitext-upload-save-terms-and-licenses" = "发布更改即代表您同意$1使用条款$2及以$3CC BY-SA 3.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接即代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";

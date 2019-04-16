@@ -83,13 +83,13 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Отредактировано %1$d дня назад</string>
+			<string>Изменено %1$d дня назад</string>
 			<key>many</key>
-			<string>Отредактировано %1$d дней назад</string>
+			<string>Изменено %1$d дней назад</string>
 			<key>other</key>
-			<string>Отредактировано %1$d дней назад</string>
+			<string>Изменено %1$d дней назад</string>
 			<key>zero</key>
-			<string>Отредактировано сегодня</string>
+			<string>Изменено сегодня</string>
 		</dict>
 	</dict>
 	<key>page-read-in-other-languages</key>
@@ -282,10 +282,30 @@
 			<string>%1$d года назад</string>
 			<key>many</key>
 			<string>%1$d лет назад</string>
+			<key>one</key>
+			<string>%1$d год назад</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>
 			<string>Этот год</string>
+		</dict>
+	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>выполнены %1$d замены</string>
+			<key>one</key>
+			<string>выполнена 1 замена</string>
+			<key>other</key>
+			<string>выполнены %1$d замен</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>

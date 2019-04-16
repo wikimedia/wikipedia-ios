@@ -61,12 +61,16 @@
 "action-move-to" = "ရွှေ့ပြောင်းရန်...";
 "action-move-to-reading-list" = "စာဖတ်စာရင်းသို့ ရွေ့ပြောင်းရန်";
 "action-read" = "ဖတ်ရန်";
+"action-redo" = "ရှေ့သို့ ပြန်ပြင်ရန်";
 "action-remove" = "ဖယ်ရှားရန်";
+"action-replace" = "အစားထိုးရန်";
+"action-replace-all" = "အကုန်လုံး အစားထိုးရန်";
 "action-save" = "သိမ်းရန်";
 "action-saved" = "သိမ်းဆည်းပြီး";
 "action-saved-accessibility" = "သိမ်းပြီးပြီ။ မသိမ်းတော့ရန် အတည်ပြုပါ။";
 "action-saved-accessibility-notification" = "နောင်အတွက် ဆောင်းပါးသိမ်းဆည်း";
 "action-share" = "မျှဝေ";
+"action-share-accessibility" = "မျှဝေ";
 "action-sort" = "စီစဉ်ရန်";
 // Fuzzy
 "action-undo" = "နောက်ပြန် ပြန်ပြင်ရန်";
@@ -114,7 +118,7 @@
 "description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "မိတ်ဆက် တည်းဖြတ်ရန်";
-"description-edit-pencil-title" = "ခေါင်းစဥ်ဖော်ပြချက် တည်းဖြတ်ရန်";
+"description-edit-pencil-title" = "ခေါင်းစဉ်ဖော်ပြချက် တည်းဖြတ်ရန်";
 "description-edit-placeholder-title" = "ဖော်ပြချက်တိုများသည် အကောင်းဆုံးဖြစ်သည်";
 "description-edit-publish" = "ဖော်ပြချက် လွှင့်တင်ရန်";
 "description-edit-title" = "ဖော်ပြချက် တည်းဖြတ်ရန်";
@@ -124,6 +128,7 @@
 "description-help-tips-example-description-two" = "ဧဝရတ်တောင်ဆောင်းပါး ခေါင်းစဉ်ဖော်ပြချက်";
 "description-help-tips-example-title-two" = "ကမ္ဘာ့အမြင့်ဆုံးတောင်";
 "description-help-tips-for-example" = "နမူနာအားဖြင့်";
+"description-help-tips-title" = "ဖော်ပြချက်များ ဖန်တီးရန် နည်းလမ်းများ";
 "description-help-title" = "ခေါင်းစဉ်ဖော်ပြချက် အကူအညီ";
 "description-help-wikidata-guide" = "ခေါင်းစဉ်ဖော်ပြချက်ရေးသားခြင်းအတွက် ဝီကီဒေတာအကူအညီ";
 "description-published-button-title" = "ပြီးပါပြီ";
@@ -133,9 +138,15 @@
 "description-welcome-descriptions-title" = "ခေါင်းစဉ် ဖော်ပြချက်များ";
 "description-welcome-start-editing-button" = "စတင် တည်းဖြတ်ခြင်း";
 "dim-images" = "ရုပ်ပုံများကို မှိန်ထားရန်";
+"edit-menu-item" = "ပြင်ဆင်";
+"edit-minor-text" = "အရေးမကြီးသော ​ပြင်​ဆင်​မှု ​ဖြစ်​သည်​";
+"edit-published-button-title" = "ပြီးပြီ";
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
 "edit-summary-choice-fixed-typos" = "စာလုံးပေါင်း ပြင်ခဲ့သည်";
 "edit-summary-choice-linked-words" = "လင့်ခ်များပေါင်းထည့်ခဲ့သည်";
+"edit-summary-learn-more-text" = "ပိုမို လေ့လာရန်";
+"edit-summary-placeholder-text" = "စာမျက်နှာကို တိုးတက်ကောင်းမွန်အောင် သင်မည်သို့ လုပ်ခဲ့သနည်း?";
+"edit-watch-this-page-text" = "ဤစာမျက်နှာကို စောင့်ကြည့်ရန်";
 "empty-no-article-message" = "စိတ်မကောင်းပါ၊ ဆောင်းပါးကို ဝန်မဆွဲတင်နိုင်ပါ";
 "empty-no-feed-action-message" = "သိမ်းထားသော စာမျက်နှာများကို ဖတ်နိုင်ပါသေးသည်";
 "empty-no-feed-message" = "အင်တာနက်ရရှိချိန်တွင် သင့်ကိုအကြံပြုထောက်ခံထားသော ဆောင်းပါးများကို မြင်တွေ့နိုင်သည်";
@@ -228,7 +239,9 @@
 "field-token-title" = "အတည်ပြုကုဒ်";
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
-"find-in-page-number-matches" = "$1 / $2";
+"find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "ရှာဖွေပြီး အစားထိုးရန်";
+"find-textfield-accessibility" = "ရှာပါ";
 "forgot-password-button-title" = "ပြန်စရန်";
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
 "forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";
@@ -267,6 +280,7 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "အကြောင်းအရာများကို အခြားမှတ်ချက်မရှိပါက $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
 "logged-out-continue-without-logging-in-button-title" = "လော့ဂ်အင်မဝင်ဘဲ ဆက်သုံးမည်";
+"logged-out-log-back-in-button-title" = "သင်၏အကောင့်သို့ ပြန်သွားရန်";
 "logged-out-title" = "သင် အကောင့်မှ ထွက်သွားပြီးဖြစ်သည်";
 "login-forgot-password" = "စကားဝှက် မေ့နေသလား။";
 "login-join-wikipedia" = "ဝီကီပီဒီးယားသို့ ပူးပေါင်းပါ";
@@ -297,6 +311,7 @@
 "new-password-instructions" = "ယာယီစကားဝှက်ဖြင့် ဝင်ထားပါသည်၊ အပြီးသတ်ရန် စကားဝှက်အသစ်တစ်ခု ဆောင်ရွက်ပါ";
 "new-password-title" = "သင်၏ စကားဝှက်ကို ရိုက်ထည့်ပါ";
 "no-email-account-alert" = "သင်၏ စက်ပစ္စည်းတွင် အီးမေးလ်လိပ်စာတစ်ခု ထည့်သွင်း၍ ထပ်မံကြိုးစားပါ။";
+"no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1ထောင်";
@@ -410,6 +425,9 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယခုလေးတင်|$1 မိနစ်အကြာက|$1 မိနစ်အကြာက}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|ယခင်နှစ်|$1 နှစ်အကြာက}}";
+"replace-infolabel-method-replace" = "အစားထိုးရန်";
+"replace-infolabel-method-replace-all" = "အကုန်လုံး အစားထိုးရန်";
+"replace-textfield-accessibility" = "အစားထိုးရန်";
 "reverted-edit-back-to-article-button-title" = "ဆောင်းပါးသို့ ပြန်သွားရန်";
 "reverted-edit-notification-read-more-action-title" = "ပိုမို ဖတ်ရန်";
 "reverted-edit-thanks-for-editing-title" = "ဝီကီပီဒီးယား တည်းဖြတ်မှုအတွက် ကျေးဇူးတင်ပါသည်";
@@ -513,6 +531,7 @@
 "wikitext-preview-changes-none" = "နမူနာပြရန် ပြောင်းလဲမှု ပြုလုပ်ထားခြင်း မရှိပါ။";
 "wikitext-preview-link-preview-description" = "ဤလင့်ခ်သည် '$1' သို့ ဦးတည်သည်";
 "wikitext-preview-link-preview-title" = "လင့်ခ် အကြိုမြင်ကွင်း";
+"wikitext-preview-save-changes-title" = "ပြောင်းလဲမှုများကို သိမ်းရန်";
 "wikitext-upload-captcha-error" = "CAPTCHA အတည်ပြုခြင်း အမှား။";
 "wikitext-upload-captcha-needed" = "CAPTCHA အတည်ပြုချက် လိုအပ်သည်။";
 "wikitext-upload-result-unknown" = "ဝီကီစာသားတင်မှုရလဒ်အား ဆုံးဖြတ်နိုင်ခြင်း မရှိပါ။";

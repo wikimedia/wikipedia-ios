@@ -129,13 +129,24 @@ import Foundation
         return request(with: requestURL, method: .get)
     }
 
-    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
+    public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:]) -> URLRequest? {
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
-        request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
-        request.setValue(NSLocale.wmf_acceptLanguageHeaderForPreferredLanguages, forHTTPHeaderField: "Accept-Language")
+        let defaultHeaders = [
+            "Accept": "application/json; charset=utf-8",
+            "Accept-Encoding": "gzip",
+            "User-Agent": WikipediaAppUtils.versionedUserAgent(),
+            "Accept-Language": NSLocale.wmf_acceptLanguageHeaderForPreferredLanguages
+        ]
+        for (key, value) in defaultHeaders {
+            guard headers[key] == nil else {
+                continue
+            }
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        for (key, value) in headers {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
         if let xWMFUUID = xWMFUUID {
             request.setValue(xWMFUUID, forHTTPHeaderField: "X-WMF-UUID")
         }
@@ -172,14 +183,17 @@ import Foundation
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
-    public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+    public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let url = url else {
             return nil
         }
         guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
-        return defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
+        
+        let task = defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
+        task.priority = priority
+        return task
     }
     
     /**
@@ -262,8 +276,8 @@ import Foundation
      - response: The URLResponse
      - error: Any network or parsing error
      */
-    public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) {
-        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+    public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) {
+        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers, priority: priority, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, response, error)
@@ -340,56 +354,6 @@ import Foundation
         task.resume()
         return task
     }
-    
-    @discardableResult public func apiTask(with articleURL: URL, path: [String], completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
-            // don't call the completion as this is just a method to get the task
-            return nil
-        }
-        let builder = configuration.mobileAppsServicesAPIURLComponentsBuilderForHost(siteURL.host)
-        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_articleTitlePathComponentAllowed) ?? title
-        let components = builder.components(byAppending: path + [encodedTitle])
-        guard let summaryURL = components.url else {
-            // don't call the completion as this is just a method to get the task
-            return nil
-        }
-        
-        guard var request = self.request(with: summaryURL) else {
-            return nil
-        }
-        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
-        request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
-        return jsonDictionaryTask(with: request, completionHandler: completionHandler)
-    }
-    
-    @objc(fetchAPIPath:withArticleURL:priority:completionHandler:)
-    public func fetchAPI(path: [String], with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
-        guard let task = apiTask(with: articleURL, path: path, completionHandler: completionHandler) else {
-            completionHandler(nil, nil, RequestError.invalidParameters)
-            return
-        }
-        task.priority = priority
-        task.resume()
-    }
-    
-    @objc(fetchMediaForArticleURL:priority:completionHandler:)
-    public func fetchMedia(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
-        return fetchAPI(path: ["page", "media"], with: articleURL, completionHandler: completionHandler)
-    }
-    
-    @objc(fetchSummaryForArticleURL:priority:completionHandler:)
-    public func fetchSummary(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
-        return fetchAPI(path: ["page", "summary"], with: articleURL, completionHandler: completionHandler)
-    }
-    
-    public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: [String: Any]]) -> Void) {
-        articleURLs.asyncMapToDictionary(block: { (articleURL, asyncMapCompletion) in
-            fetchSummary(for: articleURL, priority: priority, completionHandler: { (responseObject, response, error) in
-                asyncMapCompletion(articleURL.wmf_articleDatabaseKey, responseObject)
-            })
-        }, completion: completion)
-    }
-    
 }
 
 public enum RequestError: LocalizedError {
@@ -402,7 +366,7 @@ public enum RequestError: LocalizedError {
         case .unexpectedResponse:
             return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
         default:
-            return WMFLocalizedString("fetcher-error-generic", value: "Something went wrong. Please try again later.", comment: "Error shown to the user for generic errors with no clear recovery steps for the user.")
+            return CommonStrings.genericErrorDescription
         }
     }
 }

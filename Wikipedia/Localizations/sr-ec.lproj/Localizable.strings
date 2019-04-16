@@ -38,15 +38,15 @@
 "about-translators-details" = "Превели добровољци сајта $1";
 "about-wikimedia-foundation" = "Задужбина Викимедија";
 "about-wikipedia" = "Википедија";
-"abuse-filter-disallow-heading" = "Не можете да објавите ову измену.";
-"abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је означио ову измену као потенцијално неконструктивну или као покушај вандализма. Молимо вас да се вратите и промените вашу измену.";
+"abuse-filter-disallow-heading" = "Не можете да објавите ову измену";
+"abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је утврдио да је ова измена  потенцијално неконструктивна или покушај вандализма. Вратите се и промените вашу измену.";
 "abuse-filter-warning-blanking" = "Брисање одељака или целих чланака";
 "abuse-filter-warning-caps" = "Текст великим словима";
 "abuse-filter-warning-heading" = "Ово личи на неконструктивну измену. Желите ли заиста да је објавите?";
 "abuse-filter-warning-irrelevant" = "Ирелевантни спољашњи линкови или слике";
 "abuse-filter-warning-repeat" = "Понављајући знакови";
 "abuse-filter-warning-spam" = "Додавање непожељног садржаја у чланке";
-"abuse-filter-warning-subheading" = "Ваша измена може садржати:";
+"abuse-filter-warning-subheading" = "Ваша измена можда садржи:";
 "account-creation-captcha-cannot-see-image" = "Не видите слику? $1";
 "account-creation-captcha-obtaining" = "Преузимам нову CAPTCHA слику…";
 "account-creation-captcha-request-account" = "Захтевајте налог.";
@@ -70,6 +70,7 @@
 "action-read" = "Прочитај";
 "action-redo" = "Понови";
 "action-remove" = "Уклони";
+"action-replace-all" = "Замени све";
 "action-save" = "Сачувај";
 "action-saved" = "Сачувано";
 "action-saved-accessibility" = "Сачувано. Активирајте да бисте уклонили.";
@@ -162,6 +163,7 @@
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "dim-images" = "Затамни слике";
+"edit-menu-item" = "Уреди";
 "edit-minor-learn-more-text" = "Сазнајте више о мањим изменама";
 "edit-minor-text" = "Ова измена је мања";
 "edit-published" = "Измена је објављена";
@@ -299,7 +301,8 @@
 "field-token-title" = "Кôд за верификацију";
 "field-username-placeholder" = "унесите корисничко име";
 "field-username-title" = "Корисничко име";
-"find-in-page-number-matches" = "$1/$2";
+"find-infolabel-number-matches" = "$1/$2";
+"find-textfield-accessibility" = "Пронађи";
 "forgot-password-button-title" = "Ресетуј";
 "forgot-password-email-sent" = "Имејл са упутством за ресетовање лозинке је послат";
 "forgot-password-instructions" = "Попуните једно од поља испод да бисте примили упутство за ресетовање лозинке путем имејла";
@@ -390,8 +393,7 @@
 "page-edit-history" = "Целокупна историја измена";
 "page-history-title" = "Историја чланка";
 "page-issues" = "Проблеми са страницом";
-// Fuzzy
-"page-last-edited" = "{{PLURAL:$1|0=Измењено данас|Измењено јуче|Измењено пре $1 дана}}";
+"page-last-edited" = "{{PLURAL:$1|0=Уређено данас|1=Уређено јуче|Уређено пре $1 дана}}";
 "page-location" = "Прикажи на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
@@ -524,6 +526,10 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=управо сад|пре један минут|пре $1 минута}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=ове године|прошле године|пре $1 године|пре $1 година}}";
+"replace-infolabel-method-replace" = "Замени";
+"replace-infolabel-method-replace-all" = "Замени све";
+"replace-textfield-accessibility" = "Замени";
+"replace-textfield-placeholder" = "Замени са…";
 "request-feedback-on-error" = "Апликација је наишла на проблем о ком би наши програмери желели да знају више. Додирните овде да бисте нам послали имејл са детаљима о грешци.";
 "reverted-edit-back-to-article-button-title" = "Назад на чланак";
 "reverted-edit-notification-body" = "Измена коју сте направили на чланку $1 је враћена од стране $2";
