@@ -23,6 +23,7 @@
 // Author: MarcoAurelio
 // Author: Mcervera
 // Author: Mgpena
+// Author: Mynor Archila
 // Author: Nemo bis
 // Author: Pginer
 // Author: RicardoSGZ
@@ -88,11 +89,14 @@
 "action-read" = "Leer";
 "action-redo" = "Rehacer";
 "action-remove" = "Quitar";
+"action-replace" = "Reemplazar";
+"action-replace-all" = "Reemplazar todo";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-saved-accessibility" = "Guardado. Actívalo para borrarlo.";
 "action-saved-accessibility-notification" = "Artículo guardado para después";
 "action-share" = "Compartir";
+"action-share-accessibility" = "Compartir";
 "action-sort" = "Ordenar";
 "action-undo" = "Deshacer";
 "action-unsave" = "No guardar";

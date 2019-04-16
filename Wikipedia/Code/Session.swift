@@ -28,7 +28,20 @@ import Foundation
             case json
             case form
         }
-
+    }
+    
+    public struct Callback {
+        let response: ((URLResponse) -> Void)?
+        let data: ((Data) -> Void)?
+        let success: (() -> Void)
+        let failure: ((Error) -> Void)
+        
+        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+            self.response = response
+            self.data = data
+            self.success = success
+            self.failure = failure
+        }
     }
     
     public var xWMFUUID: String? = nil // event logging uuid, set if enabled, nil if disabled
@@ -68,7 +81,11 @@ import Foundation
     }
     
     @objc public static let urlSession: URLSession = {
-        return URLSession(configuration: Session.defaultConfiguration)
+        return URLSession(configuration: Session.defaultConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
+    }()
+    
+    private static let sessionDelegate: SessionDelegate = {
+        return SessionDelegate()
     }()
     
     private let configuration: Configuration
@@ -80,6 +97,7 @@ import Foundation
     @objc public static let shared = Session(configuration: Configuration.current)
     
     public let defaultURLSession = Session.urlSession
+    private let sessionDelegate = Session.sessionDelegate
     
     public let wifiOnlyURLSession: URLSession = {
         var config = Session.defaultConfiguration
@@ -181,6 +199,12 @@ import Foundation
             return nil
         }
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
+    }
+    
+    public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask {
+        let task = defaultURLSession.dataTask(with: request)
+        sessionDelegate.addCallback(callback: callback, for: task)
+        return task
     }
     
     public func dataTask(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
@@ -356,11 +380,13 @@ import Foundation
     }
 }
 
-public enum RequestError: LocalizedError {
+public enum RequestError: Int, LocalizedError {
     case unknown
     case invalidParameters
     case unexpectedResponse
     case noNewData
+    case timeout = 504
+    
     public var errorDescription: String? {
         switch self {
         case .unexpectedResponse:
@@ -368,5 +394,68 @@ public enum RequestError: LocalizedError {
         default:
             return CommonStrings.genericErrorDescription
         }
+    }
+    
+    public static func from(code: Int) -> RequestError? {
+        return self.init(rawValue: code)
+    }
+}
+
+class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
+    let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
+    let delegateQueue: OperationQueue
+    var callbacks: [Int: Session.Callback] = [:]
+    
+    override init() {
+        delegateQueue = OperationQueue()
+        delegateQueue.underlyingQueue = delegateDispatchQueue
+    }
+    
+    func addCallback(callback: Session.Callback, for task: URLSessionTask) {
+        delegateDispatchQueue.async(flags: .barrier) {
+            self.callbacks[task.taskIdentifier] = callback
+        }
+    }
+    
+    func removeDataCallback(for task: URLSessionTask) {
+        delegateDispatchQueue.async(flags: .barrier) {
+            self.callbacks.removeValue(forKey: task.taskIdentifier)
+        }
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        defer {
+            completionHandler(.allow)
+        }
+        guard let callback = callbacks[dataTask.taskIdentifier]?.response else {
+            return
+        }
+        callback(response)
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        guard let callback = callbacks[dataTask.taskIdentifier]?.data else {
+            return
+        }
+        callback(data)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        defer {
+            removeDataCallback(for: task)
+        }
+        
+        guard let callback = callbacks[task.taskIdentifier] else {
+            return
+        }
+        
+        if let error = error as NSError? {
+            if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
+                callback.failure(error)
+            }
+            return
+        }
+        
+        callback.success()
     }
 }
