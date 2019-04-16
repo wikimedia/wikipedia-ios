@@ -31,12 +31,12 @@ import Foundation
     }
     
     public struct Callback {
-        let response: ((URLSessionTask, URLResponse) -> Void)?
+        let response: ((URLResponse) -> Void)?
         let data: ((Data) -> Void)?
         let success: (() -> Void)
-        let failure: ((URLSessionTask, Error) -> Void)
+        let failure: ((Error) -> Void)
         
-        public init(response: ((URLSessionTask, URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (URLSessionTask, Error) -> Void) {
+        public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
             self.response = response
             self.data = data
             self.success = success
@@ -430,7 +430,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         guard let callback = callbacks[dataTask.taskIdentifier]?.response else {
             return
         }
-        callback(dataTask, response)
+        callback(response)
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
@@ -451,7 +451,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         
         if let error = error as NSError? {
             if error.domain != NSURLErrorDomain || error.code != NSURLErrorCancelled {
-                callback.failure(task, error)
+                callback.failure(error)
             }
             return
         }

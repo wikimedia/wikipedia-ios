@@ -16,7 +16,6 @@ final class SchemeHandler: NSObject {
     private let session: Session
     private var activeSessionTasks: [URLRequest: URLSessionTask] = [:]
     private var activeSchemeTasks = NSMutableSet(array: [])
-    var taskQueue: DispatchQueue = DispatchQueue(label: "SchemeHandlerTaskQueue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
     
     private let cache: SchemeHandlerCache
     private let fileHandler: FileHandler
@@ -56,7 +55,6 @@ final class SchemeHandler: NSObject {
 extension SchemeHandler: WKURLSchemeHandler {
     
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
-        
         assert(Thread.isMainThread)
         
         var request = urlSchemeTask.request
@@ -82,28 +80,23 @@ extension SchemeHandler: WKURLSchemeHandler {
         let baseComponent = pathComponents[1]
         
         let localCompletionBlock: (URLResponse?, Data?, Error?) -> Void = { (response, data, error) in
-            
-            guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                return
-            }
-            
-            if response == nil && error == nil {
-                DispatchQueue.main.async {
-                    urlSchemeTask.didFailWithError(SchemeHandlerError.unexpectedResponse)
-                }
-                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                return
-            }
-            
-            if let error = error {
-                DispatchQueue.main.async {
-                    urlSchemeTask.didFailWithError(error)
-                }
-                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                return
-            }
-        
             DispatchQueue.main.async {
+                guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
+                    return
+                }
+                
+                if response == nil && error == nil {
+                    urlSchemeTask.didFailWithError(SchemeHandlerError.unexpectedResponse)
+                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                    return
+                }
+                
+                if let error = error {
+                    urlSchemeTask.didFailWithError(error)
+                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                    return
+                }
+            
                 if let response = response {
                     urlSchemeTask.didReceive(response)
                 }
@@ -112,171 +105,136 @@ extension SchemeHandler: WKURLSchemeHandler {
                     urlSchemeTask.didReceive(data)
                 }
                 urlSchemeTask.didFinish()
+                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
             }
-            self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
         }
         
         addSchemeTask(urlSchemeTask: urlSchemeTask)
         
-        DispatchQueue.global(qos: .userInitiated).async {
-        
-            switch baseComponent {
-            case FileHandler.basePath:
-                self.fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
-            case ArticleSectionHandler.basePath:
-                self.articleSectionHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
-            case APIHandler.basePath:
-                
-                guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                    return
-                }
-                
-                guard let apiURL = self.apiHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
-                    DispatchQueue.main.async {
-                        urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
-                    }
-                    
-                    return
-                }
-                
-                self.kickOffDataTask(handler: self.apiHandler, url: apiURL, urlSchemeTask: urlSchemeTask)
-               
-            default:
-                
-                guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                    return
-                }
-                
-                guard let defaultURL = self.defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
-                    DispatchQueue.main.async {
-                        urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
-                    }
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-                    return
-                }
-                
+        switch baseComponent {
+        case FileHandler.basePath:
+            self.fileHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
+        case ArticleSectionHandler.basePath:
+            self.articleSectionHandler.handle(pathComponents: pathComponents, requestURL: requestURL, completion: localCompletionBlock)
+        case APIHandler.basePath:
+            guard let apiURL = self.apiHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
+                 urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
+                return
+            }
+            self.kickOffDataTask(handler: self.apiHandler, url: apiURL, urlSchemeTask: urlSchemeTask)
+        default:
+            guard let defaultURL = self.defaultHandler.urlForPathComponents(pathComponents, requestURL: requestURL) else {
+                urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
+                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                return
+            }
+            DispatchQueue.global(qos: .userInitiated).async {
                 if let cachedResponse = self.defaultHandler.cachedResponseForURL(defaultURL) {
                     DispatchQueue.main.async {
                         urlSchemeTask.didReceive(cachedResponse.response)
                         urlSchemeTask.didReceive(cachedResponse.data)
                         urlSchemeTask.didFinish()
+                        self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                     }
-                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
                     return
                 }
-                
-                self.kickOffDataTask(handler: self.defaultHandler, url: defaultURL, urlSchemeTask: urlSchemeTask)
+                DispatchQueue.main.async {
+                    self.kickOffDataTask(handler: self.defaultHandler, url: defaultURL, urlSchemeTask: urlSchemeTask)
+                }
             }
         }
     }
     
     func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
-        taskQueue.async(flags: .barrier) {
-            guard let task = self.activeSessionTasks[urlSchemeTask.request] else {
-                return
-            }
-            if task.state == .running {
-                task.cancel()
-            }
-            self.activeSessionTasks.removeValue(forKey: urlSchemeTask.request)
-            self.activeSchemeTasks.remove(urlSchemeTask)
+        assert(Thread.isMainThread)
+        guard let task = self.activeSessionTasks[urlSchemeTask.request] else {
+            return
+        }
+        
+        //remove before cancelling to prevent any other callbacks
+        removeSessionTask(request: urlSchemeTask.request)
+        removeSchemeTask(urlSchemeTask: urlSchemeTask)
+        
+        if task.state == .running {
+            task.cancel()
         }
     }
 }
 
 private extension SchemeHandler {
     func kickOffDataTask(handler: RemoteSubHandler, url: URL, urlSchemeTask: WKURLSchemeTask) {
+        guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
+            return
+        }
         
-        let callback = Session.Callback(response: { task, response in
-                
-            guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
-                task.cancel()
-                self.removeSessionTask(request: urlSchemeTask.request)
-                DispatchQueue.main.async {
-                    urlSchemeTask.didFailWithError(error)
+        let callback = Session.Callback(response: {  response in
+            DispatchQueue.main.async {
+                guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
+                    return
                 }
-                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-            } else {
-                DispatchQueue.main.async {
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    let error = RequestError.from(code: httpResponse.statusCode) ?? .unknown
+                    self.removeSessionTask(request: urlSchemeTask.request)
+                    urlSchemeTask.didFailWithError(error)
+                    self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+                } else {
                     urlSchemeTask.didReceive(response)
                 }
             }
         }, data: { data in
-            
-            guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                return
-            }
             DispatchQueue.main.async {
-                urlSchemeTask.didReceive(data)
-            }
-        }, success: {
-            
-            guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                urlSchemeTask.didFinish()
-            }
-            self.removeSessionTask(request: urlSchemeTask.request)
-            self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-            
-        }) { task, error in
-                
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                
-                task.cancel()
-                self.removeSessionTask(request: urlSchemeTask.request)
-                DispatchQueue.main.async {
-                    urlSchemeTask.didFailWithError(error)
-                }
-                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
-        }
-            guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
-                return
+                urlSchemeTask.didReceive(data)
             }
-            
-            let dataTask = handler.dataTaskForURL(url, callback: callback)
-            self.addSessionTask(request: urlSchemeTask.request, dataTask: dataTask)
-            dataTask.resume()
+        }, success: {
+            DispatchQueue.main.async {
+                guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
+                    return
+                }
+                urlSchemeTask.didFinish()
+                self.removeSessionTask(request: urlSchemeTask.request)
+                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+            }
+        }) { error in
+            DispatchQueue.main.async {
+                guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
+                    return
+                }
+                self.removeSessionTask(request: urlSchemeTask.request)
+                urlSchemeTask.didFailWithError(error)
+                self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
+            }
+        }
+        
+        let dataTask = handler.dataTaskForURL(url, callback: callback)
+        self.addSessionTask(request: urlSchemeTask.request, dataTask: dataTask)
+        dataTask.resume()
     }
     
     func schemeTaskIsActive(urlSchemeTask: WKURLSchemeTask) -> Bool {
-        var isActive = false
-        taskQueue.sync {
-            isActive = self.activeSchemeTasks.contains(urlSchemeTask)
-        }
-        return isActive
+        assert(Thread.isMainThread)
+        return activeSchemeTasks.contains(urlSchemeTask)
     }
     
     func removeSchemeTask(urlSchemeTask: WKURLSchemeTask) {
-        taskQueue.async(flags: .barrier) {
-            self.activeSchemeTasks.remove(urlSchemeTask)
-        }
+        assert(Thread.isMainThread)
+        activeSchemeTasks.remove(urlSchemeTask)
     }
     
     func removeSessionTask(request: URLRequest) {
-        taskQueue.async(flags: .barrier) {
-            self.activeSessionTasks.removeValue(forKey: request)
-        }
+        assert(Thread.isMainThread)
+        activeSessionTasks.removeValue(forKey: request)
     }
     
     func addSchemeTask(urlSchemeTask: WKURLSchemeTask) {
-        taskQueue.async(flags: .barrier) {
-            self.activeSchemeTasks.add(urlSchemeTask)
-        }
+        assert(Thread.isMainThread)
+        activeSchemeTasks.add(urlSchemeTask)
     }
     
     func addSessionTask(request: URLRequest, dataTask: URLSessionTask) {
-        taskQueue.async(flags: .barrier) {
-            self.activeSessionTasks[request] = dataTask
-        }
+        assert(Thread.isMainThread)
+        activeSessionTasks[request] = dataTask
     }
 }

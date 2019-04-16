@@ -41,31 +41,33 @@ extension SchemeHandler {
             return components.url
         }
         
-        func handle(pathComponents: [String], requestURL: URL, completion: (URLResponse?, Data?, Error?) -> Void) {
-            guard let articleKey = (requestURL as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.articleKeyQueryItemName) else {
-                completion(nil, nil, SchemeHandlerError.invalidParameters)
-                return
-            }
-            
-            guard let article = cacheDelegate?.article(for: articleKey) else {
-                completion(nil, nil, SchemeHandlerError.invalidParameters)
-                return
-            }
-            
-            guard let imageWidthString = (requestURL as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.imageWidthQueryItemName),
-                (imageWidthString as NSString).integerValue > 0 else {
+        func handle(pathComponents: [String], requestURL: URL, completion: @escaping (URLResponse?, Data?, Error?) -> Void) {
+            DispatchQueue.global(qos: .userInitiated).async {
+                guard let articleKey = (requestURL as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.articleKeyQueryItemName) else {
                     completion(nil, nil, SchemeHandlerError.invalidParameters)
                     return
+                }
+                
+                guard let article = self.cacheDelegate?.article(for: articleKey) else {
+                    completion(nil, nil, SchemeHandlerError.invalidParameters)
+                    return
+                }
+                
+                guard let imageWidthString = (requestURL as NSURL).wmf_value(forQueryKey: ArticleSectionHandler.imageWidthQueryItemName),
+                    (imageWidthString as NSString).integerValue > 0 else {
+                        completion(nil, nil, SchemeHandlerError.invalidParameters)
+                        return
+                }
+                
+                let imageWidth = (imageWidthString as NSString).integerValue
+                guard let json = WMFArticleJSONCompilationHelper.jsonData(for: article, withImageWidth: imageWidth) else {
+                    completion(nil, nil, SchemeHandlerError.invalidParameters)
+                    return
+                }
+                
+                let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json; charset=utf-8"])
+                completion(response, json, nil)
             }
-            
-            let imageWidth = (imageWidthString as NSString).integerValue
-            guard let json = WMFArticleJSONCompilationHelper.jsonData(for: article, withImageWidth: imageWidth) else {
-                completion(nil, nil, SchemeHandlerError.invalidParameters)
-                return
-            }
-            
-            let response = HTTPURLResponse(url: requestURL, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json; charset=utf-8"])
-            completion(response, json, nil)
         }
     }
 }
