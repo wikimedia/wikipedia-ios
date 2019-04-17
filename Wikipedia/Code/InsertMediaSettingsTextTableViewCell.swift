@@ -11,28 +11,17 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         }
     }
 
-    var textViewPlaceholderText: String? {
-        didSet {
-            textView.placeholder = textViewPlaceholderText
-        }
-    }
-
-    var textViewTag: Int = 0 {
-        didSet {
-            textView.tag = textViewTag
-        }
-    }
-
-    var textViewDelegate: UITextViewDelegate? {
-        didSet {
-            textView._delegate = textViewDelegate
-        }
-    }
-
     var footerText: String? {
         didSet {
             footerLabel.text = footerText
         }
+    }
+
+    func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, tag: Int) -> UITextView {
+        textView._delegate = delegate
+        textView.placeholder = placeholder
+        textView.tag = tag
+        return textView
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

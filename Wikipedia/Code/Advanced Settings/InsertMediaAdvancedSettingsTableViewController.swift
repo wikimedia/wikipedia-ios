@@ -3,6 +3,10 @@ import UIKit
 class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
     private let theme: Theme
 
+    var advancedSettings: InsertMediaSettings.Advanced {
+        return InsertMediaSettings.Advanced()
+    }
+
     struct ViewModel {
         let title: String
         let detailText: String?
@@ -37,6 +41,7 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
+        title = "Advanced settings"
         apply(theme: theme)
     }
 

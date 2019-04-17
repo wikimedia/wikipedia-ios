@@ -1,12 +1,65 @@
 import UIKit
 
+typealias InsertMediaSettings = InsertMediaSettingsTableViewController.Settings
+
 class InsertMediaSettingsTableViewController: UITableViewController {
     private let image: UIImage
     private let imageInfo: MWKImageInfo
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
+    private var textViewsGroupedByType = [TextViewType: UITextView]()
 
     private var theme = Theme.standard
+
+    struct Settings {
+        let caption: String?
+        let alternativeText: String?
+        let advanced: Advanced?
+
+        struct Advanced {
+            let wrapTextAroundImage: Bool
+            let imagePosition: ImagePosition
+            let imageType: ImageType
+            let imageSize: ImageSize
+
+            enum ImagePosition {
+                case right
+                case left
+                case center
+                case none
+            }
+
+            enum ImageType {
+                case thumbnail
+                case border
+                case frameless
+                case frame
+            }
+
+            enum ImageSize {
+                case upright
+            }
+
+            init(wrapTextAroundImage: Bool = false, imagePosition: ImagePosition = .right, imageType: ImageType = .thumbnail, imageSize: ImageSize = .upright) {
+                self.wrapTextAroundImage = wrapTextAroundImage
+                self.imagePosition = imagePosition
+                self.imageType = imageType
+                self.imageSize = imageSize
+            }
+        }
+
+        init(caption: String?, alternativeText: String?, advanced: Advanced = Advanced()) {
+            self.caption = caption
+            self.alternativeText = alternativeText
+            self.advanced = advanced
+        }
+    }
+
+    var settings: Settings? {
+        let captionTextView = textViewsGroupedByType[.caption]
+        let alternativeTextTextView = textViewsGroupedByType[.alternativeText]
+        return Settings(caption: captionTextView?.text, alternativeText: alternativeTextTextView?.text, advanced: insertMediaAdvancedSettingsTableViewController.advancedSettings)
+    }
 
     private lazy var imageView: InsertMediaSettingsImageView = {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
@@ -17,6 +70,10 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         return imageView
     }()
 
+    private lazy var insertMediaAdvancedSettingsTableViewController: InsertMediaAdvancedSettingsTableViewController = {
+        return InsertMediaAdvancedSettingsTableViewController(theme: theme)
+    }()
+
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
         let isRTL = view.traitCollection.layoutDirection == .rightToLeft
@@ -24,21 +81,41 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         let buttonTitleWithChevron = view.traitCollection.layoutDirection == .rightToLeft ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
         buttonView.buttonAction = { _ in
-            self.navigationController?.pushViewController(InsertMediaAdvancedSettingsTableViewController(theme: self.theme), animated: true)
+            self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsTableViewController, animated: true)
         }
         buttonView.autoresizingMask = []
         return buttonView
     }()
 
     private struct TextViewModel {
+        let type: TextViewType
         let headerText: String
-        let textViewPlaceholderText: String
+        let placeholder: String
         let footerText: String
+
+        init(type: TextViewType) {
+            self.type = type
+            switch type {
+            case .caption:
+                headerText = "Caption"
+                placeholder = "How does this image relate to the article?"
+                footerText = "Label that shows next to the item for all readers"
+            case .alternativeText:
+                headerText = "Alternative text"
+                placeholder = "Describe this image"
+                footerText = "Text description for readers who cannot see the image"
+            }
+        }
+    }
+
+    private enum TextViewType: Int, Hashable {
+        case caption
+        case alternativeText
     }
 
     private lazy var viewModels: [TextViewModel] = {
-        let captionViewModel = TextViewModel(headerText: "Caption", textViewPlaceholderText: "How does this image relate to the article?", footerText: "Label that shows next to the item for all readers")
-        let alternativeTextViewModel = TextViewModel(headerText: "Alternative text", textViewPlaceholderText: "Describe this image", footerText: "Text description for readers who cannot see the image")
+        let captionViewModel = TextViewModel(type: .caption)
+        let alternativeTextViewModel = TextViewModel(type: .alternativeText)
         return [captionViewModel, alternativeTextViewModel]
     }()
 
@@ -101,10 +178,8 @@ extension InsertMediaSettingsTableViewController {
         }
         let viewModel = viewModels[indexPath.row]
         cell.headerText = viewModel.headerText
-        cell.textViewPlaceholderText = viewModel.textViewPlaceholderText
+        textViewsGroupedByType[viewModel.type] = cell.textViewConfigured(with: self, placeholder: viewModel.placeholder, tag: indexPath.row)
         cell.footerText = viewModel.footerText
-        cell.textViewDelegate = self
-        cell.textViewTag = indexPath.row
         cell.selectionStyle = .none
         cell.apply(theme: theme)
         return cell
