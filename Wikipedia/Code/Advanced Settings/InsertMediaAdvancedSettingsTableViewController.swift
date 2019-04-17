@@ -28,12 +28,13 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
 
     init(theme: Theme) {
         self.theme = theme
-        super.init(style: .grouped)
+        super.init(style: .plain)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorInset = .zero
+        tableView.tableFooterView = UIView()
         apply(theme: theme)
     }
 
@@ -67,6 +68,10 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
 
 extension InsertMediaAdvancedSettingsTableViewController: Themeable {
     func apply(theme: Theme) {
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.paperBackground
+        tableView.separatorColor = theme.colors.border
     }
 }
