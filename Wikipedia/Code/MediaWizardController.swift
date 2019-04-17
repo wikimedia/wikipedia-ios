@@ -1,6 +1,7 @@
 protocol MediaWizardControllerDelegate: AnyObject {
     func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareViewController viewController: UIViewController)
     func mediaWizardController(_ mediaWizardController: MediaWizardController, didTapCloseButton button: UIBarButtonItem)
+    func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareWikitextToInsert wikitext: String)
 }
 
 final class MediaWizardController: NSObject {
@@ -183,7 +184,36 @@ final class MediaWizardController: NSObject {
     }
 
     @objc private func insertMedia(_ sender: UIBarButtonItem) {
-
+        guard let mediaSettingsTableViewController = navigationController.topViewController as? InsertMediaSettingsTableViewController else {
+            assertionFailure()
+            return
+        }
+        let searchResult = mediaSettingsTableViewController.searchResult
+        let wikitext: String
+        switch mediaSettingsTableViewController.settings {
+        case nil:
+            wikitext = "[[\(searchResult.fileTitle)]]"
+        case let mediaSettings?:
+            switch (mediaSettings.caption, mediaSettings.alternativeText) {
+            case (let caption?, let alternativeText?):
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | alt= \(alternativeText) |
+                \(caption)]]
+                """
+            case (let caption?, nil):
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(caption)]]
+                """
+            case (nil, let alternativeText?):
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | alt= \(alternativeText)]]
+                """
+            default:
+                assertionFailure()
+                wikitext = "[[\(searchResult.fileTitle)]]"
+            }
+        }
+        delegate?.mediaWizardController(self, didPrepareWikitextToInsert: wikitext)
     }
 }
 
