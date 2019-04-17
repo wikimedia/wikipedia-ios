@@ -62,6 +62,7 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
         cell.accessoryType = viewModel.accessoryType
         cell.detailTextLabel?.textAlignment = .right
         cell.detailTextLabel?.text = viewModel.detailText
+        cell.selectionStyle = viewModel.selectionStyle
         return cell
     }
 }
