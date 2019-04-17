@@ -101,7 +101,6 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     func setImageInfo(_ imageInfo: MWKImageInfo?, for searchResult: InsertMediaSearchResult, at index: Int) {
         assert(Thread.isMainThread)
         searchResult.imageInfo = imageInfo
-        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
 
     // MARK: Themeable
