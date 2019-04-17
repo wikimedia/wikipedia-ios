@@ -68,7 +68,7 @@ extension ThemeableTextView: UITextViewDelegate {
 extension ThemeableTextView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-        //backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
         placeholderLabel.backgroundColor = .clear
         placeholderLabel.textColor = theme.colors.tertiaryText
         textColor = theme.colors.primaryText
