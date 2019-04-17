@@ -3,13 +3,13 @@ import UIKit
 class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var footerLabel: UILabel!
-    @IBOutlet private weak var textView: UITextView!
 
     var textViewDelegate: UITextViewDelegate? {
         didSet {
             textView.delegate = textViewDelegate
         }
     }
+    @IBOutlet private weak var textView: ThemeableTextView!
 
     var headerText: String? {
         didSet {
@@ -42,7 +42,7 @@ extension InsertMediaSettingsTextTableViewCell: Themeable {
         backgroundColor = theme.colors.paperBackground
         headerLabel.textColor = theme.colors.secondaryText
         footerLabel.textColor = theme.colors.secondaryText
-        //textField.apply(theme: theme)
+        textView.apply(theme: theme)
     }
 }
 
