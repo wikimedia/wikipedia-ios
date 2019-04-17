@@ -90,6 +90,7 @@ extension InsertMediaSettingsTableViewController {
         cell.textFieldPlaceholderText = viewModel.textFieldPlaceholderText
         cell.footerText = viewModel.footerText
         cell.textViewDelegate = self
+        cell.selectionStyle = .none
         cell.apply(theme: theme)
         return cell
     }
