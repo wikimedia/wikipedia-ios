@@ -4,7 +4,7 @@ typealias InsertMediaSettings = InsertMediaSettingsTableViewController.Settings
 
 class InsertMediaSettingsTableViewController: UITableViewController {
     private let image: UIImage
-    private let searchResult: InsertMediaSearchResult
+    let searchResult: InsertMediaSearchResult
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
@@ -14,7 +14,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     struct Settings {
         let caption: String?
         let alternativeText: String?
-        let advanced: Advanced?
+        let advanced: Advanced
 
         struct Advanced {
             let wrapTextAroundImage: Bool
@@ -29,14 +29,14 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                 case none
             }
 
-            enum ImageType {
-                case thumbnail
+            enum ImageType: String {
+                case thumbnail = "thumb"
                 case border
                 case frameless
                 case frame
             }
 
-            enum ImageSize {
+            enum ImageSize: String {
                 case upright
             }
 
