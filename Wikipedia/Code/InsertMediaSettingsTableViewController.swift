@@ -3,6 +3,7 @@ import UIKit
 class InsertMediaSettingsTableViewController: UITableViewController {
     private let image: UIImage
     private let imageInfo: MWKImageInfo
+    private var textViewHeightDelta: CGFloat = 0
 
     private var theme = Theme.standard
 
@@ -88,8 +89,29 @@ extension InsertMediaSettingsTableViewController {
         cell.headerText = viewModel.headerText
         cell.textFieldPlaceholderText = viewModel.textFieldPlaceholderText
         cell.footerText = viewModel.footerText
+        cell.textViewDelegate = self
         cell.apply(theme: theme)
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let cell = tableView.visibleCells[safeIndex: indexPath.row] as? InsertMediaSettingsTextTableViewCell else {
+            return UITableView.automaticDimension
+        }
+        return cell.frame.size.height + textViewHeightDelta
+    }
+}
+
+extension InsertMediaSettingsTableViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        UIView.setAnimationsEnabled(false)
+        let oldSize = textView.frame.size
+        let newSize = textView.sizeThatFits(textView.frame.size)
+        textViewHeightDelta = newSize.height - oldSize.height
+        textView.frame.size = newSize
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
     }
 }
 
@@ -104,5 +126,14 @@ extension InsertMediaSettingsTableViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         imageView.apply(theme: theme)
         buttonView.apply(theme: theme)
+    }
+}
+
+private extension Array {
+    subscript(safeIndex index: Int) -> Element? {
+        guard index >= 0, index < endIndex else {
+            return nil
+        }
+        return self[index]
     }
 }

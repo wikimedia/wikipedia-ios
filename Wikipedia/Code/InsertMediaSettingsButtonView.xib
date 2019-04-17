@@ -24,14 +24,14 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kG-VA-g9G">
-                    <rect key="frame" x="12" y="12.5" width="330" height="48.5"/>
+                    <rect key="frame" x="12" y="12.5" width="330" height="44.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
                     <state key="normal" title="Advanced settings"/>
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="Lr7-GY-Xmw" firstAttribute="bottom" secondItem="5kG-VA-g9G" secondAttribute="bottom" id="6FJ-yC-zCC"/>
+                <constraint firstItem="Lr7-GY-Xmw" firstAttribute="bottom" secondItem="5kG-VA-g9G" secondAttribute="bottomMargin" constant="12" id="6FJ-yC-zCC"/>
                 <constraint firstItem="Ixc-Bu-aNR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JUC-eA-ieV"/>
                 <constraint firstItem="5kG-VA-g9G" firstAttribute="leading" secondItem="Lr7-GY-Xmw" secondAttribute="leading" constant="12" id="L7p-wu-69I"/>
                 <constraint firstItem="Lr7-GY-Xmw" firstAttribute="trailing" secondItem="5kG-VA-g9G" secondAttribute="trailing" constant="12" id="PSl-mP-t5T"/>

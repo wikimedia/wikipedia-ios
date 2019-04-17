@@ -25,12 +25,13 @@
                             <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kwQ-mH-iQ5" customClass="WMFThemeableTextField">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aAC-ZM-LAc">
                             <rect key="frame" x="0.0" y="28.5" width="322" height="17"/>
-                            <nil key="textColor"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
-                        </textField>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label that shows next to the item for all readers" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UD4-J2-DXZ">
                             <rect key="frame" x="0.0" y="57.5" width="322" height="16.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
@@ -51,7 +52,7 @@
             <connections>
                 <outlet property="footerLabel" destination="UD4-J2-DXZ" id="7sh-NP-jBM"/>
                 <outlet property="headerLabel" destination="mkn-Sw-fPQ" id="U0g-nK-jqG"/>
-                <outlet property="textField" destination="kwQ-mH-iQ5" id="2bo-v5-9or"/>
+                <outlet property="textView" destination="aAC-ZM-LAc" id="77u-P4-g8N"/>
             </connections>
             <point key="canvasLocation" x="27.199999999999999" y="-216.79160419790108"/>
         </view>
