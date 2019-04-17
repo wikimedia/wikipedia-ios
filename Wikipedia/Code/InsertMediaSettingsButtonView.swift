@@ -10,9 +10,15 @@ class InsertMediaSettingsButtonView: UIView {
         }
     }
 
+    var buttonAction: ((UIButton) -> Void)?
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         button.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+    }
+
+    @IBAction private func delegateButtonAction(_ sender: UIButton) {
+        buttonAction?(sender)
     }
 }
 
