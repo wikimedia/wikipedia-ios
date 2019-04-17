@@ -4,7 +4,7 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
     private let theme: Theme
 
     var advancedSettings: InsertMediaSettings.Advanced {
-        return InsertMediaSettings.Advanced()
+        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn)
     }
 
     struct ViewModel {
@@ -23,8 +23,9 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
         }
     }
 
+    private lazy var textWrappingSwitch = UISwitch()
+
     private lazy var viewModels: [ViewModel] = {
-        let textWrappingSwitch = UISwitch()
         let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
         let imagePositionViewModel = ViewModel(title: "Image position", detailText: "Right")
         let imageTypeViewModel = ViewModel(title: "Image type", detailText: "Thumbnail")
