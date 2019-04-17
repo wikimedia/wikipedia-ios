@@ -8,18 +8,20 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
         let detailText: String?
         let accessoryView: UIView?
         let accessoryType: UITableViewCell.AccessoryType
+        let selectionStyle: UITableViewCell.SelectionStyle
 
-        init(title: String, detailText: String? = nil, accessoryView: UIView? = nil, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator) {
+        init(title: String, detailText: String? = nil, accessoryView: UIView? = nil, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator, selectionStyle: UITableViewCell.SelectionStyle = .default) {
             self.title = title
             self.detailText = detailText
             self.accessoryView = accessoryView
             self.accessoryType = accessoryType
+            self.selectionStyle = selectionStyle
         }
     }
 
     private lazy var viewModels: [ViewModel] = {
         let textWrappingSwitch = UISwitch()
-        let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none)
+        let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
         let imagePositionViewModel = ViewModel(title: "Image position", detailText: "Right")
         let imageTypeViewModel = ViewModel(title: "Image type", detailText: "Thumbnail")
         let imageSizeViewModel = ViewModel(title: "Image size", detailText: "Default")
