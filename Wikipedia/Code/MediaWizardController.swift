@@ -168,12 +168,12 @@ final class MediaWizardController: NSObject {
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
         guard
             let image = imageViewController.selectedImage,
-            let imageInfo = imageViewController.selectedImageInfo
+            let selectedSearchResult = imageViewController.selectedSearchResult
         else {
             assertionFailure()
             return
         }
-        let settingsViewController = InsertMediaSettingsTableViewController(image: image, imageInfo: imageInfo)
+        let settingsViewController = InsertMediaSettingsTableViewController(image: image, searchResult: selectedSearchResult)
         settingsViewController.title = "Media settings"
         let insertButton = UIBarButtonItem(title: "Insert", style: .done, target: self, action: #selector(insertMedia(_:)))
         insertButton.tintColor = theme.colors.link

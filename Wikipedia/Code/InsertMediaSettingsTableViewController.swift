@@ -4,7 +4,7 @@ typealias InsertMediaSettings = InsertMediaSettingsTableViewController.Settings
 
 class InsertMediaSettingsTableViewController: UITableViewController {
     private let image: UIImage
-    private let imageInfo: MWKImageInfo
+    private let searchResult: InsertMediaSearchResult
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
@@ -65,7 +65,8 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
         imageView.heading = "Uploaded image"
-        imageView.title = imageInfo.imageDescription
+        
+        imageView.title = searchResult.displayTitle
         imageView.autoresizingMask = []
         return imageView
     }()
@@ -119,9 +120,9 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, imageInfo: MWKImageInfo) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult) {
         self.image = image
-        self.imageInfo = imageInfo
+        self.searchResult = searchResult
         super.init(style: .grouped)
     }
 

@@ -16,8 +16,8 @@ final class InsertMediaImageViewController: UIViewController {
         return selectedImageView.image
     }
 
-    var selectedImageInfo: MWKImageInfo? {
-        return selectedImageView.imageInfo
+    var selectedSearchResult: InsertMediaSearchResult? {
+        return selectedImageView.searchResult
     }
 
     weak var delegate: InsertMediaImageViewControllerDelegate?
@@ -59,7 +59,7 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
             stopActivityIndicator()
             return
         }
-        selectedImageView.configure(with: imageURL, imageInfo: searchResult.imageInfo, theme: theme) { error in
+        selectedImageView.configure(with: imageURL, searchResult: searchResult, theme: theme) { error in
             guard error == nil else {
                 self.stopActivityIndicator()
                 return

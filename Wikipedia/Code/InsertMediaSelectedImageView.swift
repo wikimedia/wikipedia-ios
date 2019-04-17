@@ -22,7 +22,7 @@ class InsertMediaSelectedImageView: UIView {
         return imageView.image
     }
 
-    var imageInfo: MWKImageInfo?
+    var searchResult: InsertMediaSearchResult?
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -30,23 +30,23 @@ class InsertMediaSelectedImageView: UIView {
         licenseLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
 
-    public func configure(with imageURL: URL, imageInfo: MWKImageInfo?, theme: Theme, completion: @escaping (Error?) -> Void) {
+    public func configure(with imageURL: URL, searchResult: InsertMediaSearchResult, theme: Theme, completion: @escaping (Error?) -> Void) {
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
             completion(error)
         }) {
-            self.imageInfo = imageInfo
+            self.searchResult = searchResult
             self.imageView.backgroundColor = self.backgroundColor
-            self.configureInfoView(with: imageInfo, theme: theme)
+            self.configureInfoView(with: searchResult, theme: theme)
             completion(nil)
         }
     }
 
-    private func configureInfoView(with imageInfo: MWKImageInfo?, theme: Theme) {
-        titleLabel.text = imageInfo?.imageDescription
-        moreInformationURL = imageInfo?.filePageURL
+    private func configureInfoView(with searchResult: InsertMediaSearchResult, theme: Theme) {
+        titleLabel.text = searchResult.displayTitle
+        moreInformationURL = searchResult.imageInfo?.filePageURL
         reset(licensesStackView)
 
-        if let codes = imageInfo?.license?.code?.split(separator: "-") {
+        if let codes = searchResult.imageInfo?.license?.code?.split(separator: "-") {
             licensesStackView.isHidden = false
             for code in codes {
                 guard let image = UIImage(named: "license-\(code)") else {
@@ -60,7 +60,7 @@ class InsertMediaSelectedImageView: UIView {
         } else {
             licensesStackView.isHidden = true
         }
-        licenseLabel.text = imageInfo?.license?.shortDescription
+        licenseLabel.text = searchResult.imageInfo?.license?.shortDescription
     }
 
     private func reset(_ stackView: UIStackView) {
