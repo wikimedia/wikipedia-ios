@@ -23,6 +23,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         let buttonTitleWithoutChevron = "Advanced settings"
         let buttonTitleWithChevron = view.traitCollection.layoutDirection == .rightToLeft ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
+        buttonView.autoresizingMask = []
         return buttonView
     }()
 
