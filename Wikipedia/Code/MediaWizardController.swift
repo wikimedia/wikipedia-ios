@@ -93,12 +93,15 @@ final class MediaWizardController: NSObject {
             }
             return results.compactMap { (result: MWKSearchResult) in
                 guard
-                    let displayTitle = result.displayTitle,
+                    let fileTitle = result.displayTitle,
                     let thumbnailURL = result.thumbnailURL
                 else {
                     return nil
                 }
-                return InsertMediaSearchResult(displayTitle: displayTitle, thumbnailURL: thumbnailURL)
+                let startIndex = fileTitle.index(fileTitle.startIndex, offsetBy: 5)
+                let endIndex = fileTitle.index(fileTitle.endIndex, offsetBy: -5)
+                let displayTitle = String(fileTitle[startIndex...endIndex])
+                return InsertMediaSearchResult(fileTitle: fileTitle, displayTitle: displayTitle, thumbnailURL: thumbnailURL)
             }
         }
         let success = { (results: WMFSearchResults) in
@@ -123,7 +126,7 @@ final class MediaWizardController: NSObject {
                 guard searchResult.imageInfo == nil else {
                     continue
                 }
-                self.imageInfoFetcher.fetchGalleryInfo(forImage: searchResult.displayTitle, fromSiteURL: self.siteURL, failure: { error in
+                self.imageInfoFetcher.fetchGalleryInfo(forImage: searchResult.fileTitle, fromSiteURL: self.siteURL, failure: { error in
                     let nserror = error as NSError
                     if nserror.code == NSURLErrorCancelled {
                         cancelledImageInfoFetch = true
