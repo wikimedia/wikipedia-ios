@@ -95,7 +95,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     private func configure(_ cell: InsertMediaSearchResultCollectionViewCell, at indexPath: IndexPath) {
         let result = searchResults[indexPath.item]
-        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, caption: result.imageInfo?.imageDescription)
+        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, caption: result.displayTitle)
     }
 
     func setImageInfo(_ imageInfo: MWKImageInfo?, for searchResult: InsertMediaSearchResult, at index: Int) {
