@@ -69,6 +69,15 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         headerView.frame.size.height = height
         tableView.tableHeaderView = headerView
     }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: traitCollection, with: coordinator)
+        UIView.performWithoutAnimation {
+            self.textViewHeightDelta = nil
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+        }
+    }
 }
 
 // MARK: - Table view data source
