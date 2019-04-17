@@ -105,11 +105,11 @@ extension InsertMediaSettingsTableViewController {
 
 extension InsertMediaSettingsTableViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        UIView.setAnimationsEnabled(false)
         let oldSize = textView.frame.size
         let newSize = textView.sizeThatFits(textView.frame.size)
+        UIView.setAnimationsEnabled(false)
         textViewHeightDelta = newSize.height - oldSize.height
-        textView.frame.size = newSize
+        textView.frame.size.height = newSize.height
         tableView.beginUpdates()
         tableView.endUpdates()
         UIView.setAnimationsEnabled(true)
