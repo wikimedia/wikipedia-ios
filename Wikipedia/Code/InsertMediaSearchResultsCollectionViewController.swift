@@ -39,11 +39,13 @@ protocol InsertMediaSearchResultsCollectionViewControllerDelegate: AnyObject {
 }
 
 final class InsertMediaSearchResult {
+    let fileTitle: String
     let displayTitle: String
     let thumbnailURL: URL
     var imageInfo: MWKImageInfo?
 
-    init(displayTitle: String, thumbnailURL: URL) {
+    init(fileTitle: String, displayTitle: String, thumbnailURL: URL) {
+        self.fileTitle = fileTitle
         self.displayTitle = displayTitle
         self.thumbnailURL = thumbnailURL
     }
