@@ -3,7 +3,8 @@ import UIKit
 class InsertMediaSettingsTableViewController: UITableViewController {
     private let image: UIImage
     private let imageInfo: MWKImageInfo
-    private var textViewHeightDelta: CGFloat = 0
+
+    private var textViewHeightDeltasGroupedByRows = [Int: CGFloat]()
 
     private var theme = Theme.standard
 
@@ -27,13 +28,13 @@ class InsertMediaSettingsTableViewController: UITableViewController {
 
     private struct TextViewModel {
         let headerText: String
-        let textFieldPlaceholderText: String
+        let textViewPlaceholderText: String
         let footerText: String
     }
 
     private lazy var viewModels: [TextViewModel] = {
-        let captionViewModel = TextViewModel(headerText: "Caption", textFieldPlaceholderText: "How does this image relate to the article?", footerText: "Label that shows next to the item for all readers")
-        let alternativeTextViewModel = TextViewModel(headerText: "Alternative text", textFieldPlaceholderText: "Describe this image", footerText: "Text description for readers who cannot see the image")
+        let captionViewModel = TextViewModel(headerText: "Caption", textViewPlaceholderText: "How does this image relate to the article?", footerText: "Label that shows next to the item for all readers")
+        let alternativeTextViewModel = TextViewModel(headerText: "Alternative text", textViewPlaceholderText: "Describe this image", footerText: "Text description for readers who cannot see the image")
         return [captionViewModel, alternativeTextViewModel]
     }()
 
@@ -87,16 +88,20 @@ extension InsertMediaSettingsTableViewController {
         }
         let viewModel = viewModels[indexPath.row]
         cell.headerText = viewModel.headerText
-        cell.textFieldPlaceholderText = viewModel.textFieldPlaceholderText
+        cell.textViewPlaceholderText = viewModel.textViewPlaceholderText
         cell.footerText = viewModel.footerText
         cell.textViewDelegate = self
+        cell.textViewTag = indexPath.row
         cell.selectionStyle = .none
         cell.apply(theme: theme)
         return cell
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let cell = tableView.visibleCells[safeIndex: indexPath.row] as? InsertMediaSettingsTextTableViewCell else {
+        guard
+            let cell = tableView.visibleCells[safeIndex: indexPath.row] as? InsertMediaSettingsTextTableViewCell,
+            let textViewHeightDelta = textViewHeightDeltasGroupedByRows[indexPath.row]
+        else {
             return UITableView.automaticDimension
         }
         return cell.frame.size.height + textViewHeightDelta
@@ -105,11 +110,14 @@ extension InsertMediaSettingsTableViewController {
 
 extension InsertMediaSettingsTableViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        let oldSize = textView.frame.size
-        let newSize = textView.sizeThatFits(textView.frame.size)
+        let oldHeight = textView.frame.size.height
+        let newHeight = textView.sizeThatFits(textView.frame.size).height
+        guard oldHeight != newHeight else {
+            return
+        }
         UIView.setAnimationsEnabled(false)
-        textViewHeightDelta = newSize.height - oldSize.height
-        textView.frame.size.height = newSize.height
+        textViewHeightDeltasGroupedByRows[textView.tag] = newHeight - oldHeight
+        textView.frame.size.height = newHeight
         tableView.beginUpdates()
         tableView.endUpdates()
         UIView.setAnimationsEnabled(true)

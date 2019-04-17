@@ -1,20 +1,40 @@
 class ThemeableTextView: UITextView {
     private var placeholderLabel = UILabel()
     private var theme = Theme.standard
+    public var usesPlaceholder = true
     public var isUnderlined = true
 
-    private func setup() {
-        delegate = self
-        addSubview(placeholderLabel)
-        let placeholderLabelX: CGFloat
-        if let selectedTextRange = selectedTextRange {
-            let caretPosition = caretRect(for: selectedTextRange.start)
-            placeholderLabelX = caretPosition.maxX
-        } else {
-            placeholderLabelX = 0
+    var _delegate: UITextViewDelegate? {
+        didSet {
+            if !usesPlaceholder {
+                delegate = _delegate
+            }
         }
-        placeholderLabel.frame.origin = CGPoint(x: placeholderLabelX, y: (font?.pointSize)! / 2)
-        placeholderLabel.isHidden = !text.isEmpty
+    }
+
+    override var delegate: UITextViewDelegate? {
+        didSet {
+            if usesPlaceholder {
+                assert(delegate === self, "ThemeableTextView must be its own delegate to manage placeholder")
+            }
+        }
+    }
+
+    private func setup() {
+        if usesPlaceholder {
+            delegate = self
+            placeholderLabel.numberOfLines = 0
+            addSubview(placeholderLabel)
+            let placeholderLabelX: CGFloat
+            if let selectedTextRange = selectedTextRange {
+                let caretPosition = caretRect(for: selectedTextRange.start)
+                placeholderLabelX = caretPosition.maxX
+            } else {
+                placeholderLabelX = 0
+            }
+            placeholderLabel.frame.origin = CGPoint(x: placeholderLabelX, y: (font?.pointSize)! / 2)
+            placeholderLabel.isHidden = !text.isEmpty
+        }
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -24,8 +44,10 @@ class ThemeableTextView: UITextView {
 
     var placeholder: String? {
         didSet {
-            placeholderLabel.text = placeholder
-            placeholderLabel.sizeToFit()
+            if usesPlaceholder {
+                placeholderLabel.text = placeholder
+                placeholderLabel.sizeToFit()
+            }
         }
     }
 
@@ -39,6 +61,7 @@ class ThemeableTextView: UITextView {
 extension ThemeableTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !text.isEmpty
+        _delegate?.textViewDidChange?(textView)
     }
 }
 

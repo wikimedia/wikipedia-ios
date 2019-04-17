@@ -3,12 +3,6 @@ import UIKit
 class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var footerLabel: UILabel!
-
-    var textViewDelegate: UITextViewDelegate? {
-        didSet {
-            textView.delegate = textViewDelegate
-        }
-    }
     @IBOutlet private weak var textView: ThemeableTextView!
 
     var headerText: String? {
@@ -17,9 +11,21 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         }
     }
 
-    var textFieldPlaceholderText: String? {
+    var textViewPlaceholderText: String? {
         didSet {
-            textView.text = textFieldPlaceholderText
+            textView.placeholder = textViewPlaceholderText
+        }
+    }
+
+    var textViewTag: Int = 0 {
+        didSet {
+            textView.tag = textViewTag
+        }
+    }
+
+    var textViewDelegate: UITextViewDelegate? {
+        didSet {
+            textView._delegate = textViewDelegate
         }
     }
 
