@@ -33,6 +33,7 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorInset = .zero
         apply(theme: theme)
     }
 
