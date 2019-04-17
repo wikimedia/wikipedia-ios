@@ -24,13 +24,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploaded image" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bz6-Hh-8a4">
-                    <rect key="frame" x="124" y="12" width="250" height="15.666666666666664"/>
+                    <rect key="frame" x="124" y="12" width="238" height="15.666666666666664"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yellow leaves in Brooklyn" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGh-X1-weJ">
-                    <rect key="frame" x="124" y="35.666666666666664" width="250" height="20.333333333333336"/>
+                    <rect key="frame" x="124" y="35.666666666666664" width="238" height="20.333333333333336"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                 <constraint firstItem="14T-il-gWI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kx7-Dd-yct" secondAttribute="bottom" constant="12" id="BOu-3q-fSE"/>
                 <constraint firstItem="14T-il-gWI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vGh-X1-weJ" secondAttribute="bottom" constant="12" id="CtW-5R-kXR"/>
                 <constraint firstItem="Kx7-Dd-yct" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="EkL-ic-CTI"/>
-                <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" id="Fot-mO-4n1"/>
+                <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" constant="12" id="Fot-mO-4n1"/>
                 <constraint firstAttribute="trailing" secondItem="14T-il-gWI" secondAttribute="trailing" id="Lsg-ci-8dH"/>
                 <constraint firstItem="Bz6-Hh-8a4" firstAttribute="top" secondItem="Kx7-Dd-yct" secondAttribute="top" id="MAy-bq-qES"/>
                 <constraint firstItem="vGh-X1-weJ" firstAttribute="top" secondItem="Bz6-Hh-8a4" secondAttribute="bottom" constant="8" id="c0O-WO-dJY"/>
