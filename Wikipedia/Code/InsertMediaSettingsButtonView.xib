@@ -28,6 +28,9 @@
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
                     <state key="normal" title="Advanced settings"/>
+                    <connections>
+                        <action selector="delegateButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="IJ5-vA-DT3"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
