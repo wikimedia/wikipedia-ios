@@ -26,10 +26,8 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kG-VA-g9G">
                     <rect key="frame" x="12" y="12.5" width="330" height="48.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                    <state key="normal" title="Advanced settings &gt;"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="imageIsRightAligned" value="YES"/>
-                    </userDefinedRuntimeAttributes>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                    <state key="normal" title="Advanced settings"/>
                 </button>
             </subviews>
             <constraints>
@@ -44,7 +42,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Lr7-GY-Xmw"/>
             <connections>
-                <outlet property="button" destination="5kG-VA-g9G" id="vbh-J5-tuD"/>
+                <outlet property="button" destination="5kG-VA-g9G" id="0eU-yI-hqH"/>
                 <outlet property="separatorView" destination="Ixc-Bu-aNR" id="St6-8d-RG3"/>
             </connections>
             <point key="canvasLocation" x="17.600000000000001" y="-240.62968515742131"/>

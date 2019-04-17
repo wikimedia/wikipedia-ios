@@ -10,14 +10,17 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
         imageView.heading = "Uploaded image"
-        imageView.title = "Yellow leaves in Brooklyn"
+        imageView.title = imageInfo.imageDescription
         imageView.autoresizingMask = []
         return imageView
     }()
 
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
-        buttonView.buttonTitle = "Advanced settings >"
+        let isRTL = view.traitCollection.layoutDirection == .rightToLeft
+        let buttonTitleWithoutChevron = "Advanced settings"
+        let buttonTitleWithChevron = view.traitCollection.layoutDirection == .rightToLeft ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
+        buttonView.buttonTitle = buttonTitleWithChevron
         return buttonView
     }()
 

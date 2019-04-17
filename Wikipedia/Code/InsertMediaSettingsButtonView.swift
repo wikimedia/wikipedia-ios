@@ -1,8 +1,8 @@
 import UIKit
 
 class InsertMediaSettingsButtonView: UIView {
-    @IBOutlet weak var separatorView: UIView!
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet private weak var separatorView: UIView!
+    @IBOutlet private weak var button: UIButton!
 
     var buttonTitle: String? {
         didSet {
