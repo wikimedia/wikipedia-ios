@@ -17,10 +17,6 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         return imageView
     }()
 
-    private lazy var advancedSettingsTableViewController: UITableViewController = {
-        return UITableViewController()
-    }()
-
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
         let isRTL = view.traitCollection.layoutDirection == .rightToLeft
@@ -28,7 +24,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
         let buttonTitleWithChevron = view.traitCollection.layoutDirection == .rightToLeft ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
         buttonView.buttonAction = { _ in
-            self.navigationController?.pushViewController(self.advancedSettingsTableViewController, animated: true)
+            self.navigationController?.pushViewController(InsertMediaAdvancedSettingsTableViewController(theme: self.theme), animated: true)
         }
         buttonView.autoresizingMask = []
         return buttonView
