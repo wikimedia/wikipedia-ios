@@ -126,12 +126,12 @@ extension InsertMediaSettingsTableViewController: UITextViewDelegate {
         guard oldHeight != newHeight else {
             return
         }
-        UIView.setAnimationsEnabled(false)
         textViewHeightDelta = (newHeight - oldHeight, textView.tag)
-        textView.frame.size.height = newHeight
-        tableView.beginUpdates()
-        tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
+        UIView.performWithoutAnimation {
+            textView.frame.size.height = newHeight
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
     }
 }
 
