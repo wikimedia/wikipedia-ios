@@ -615,6 +615,15 @@ div.pagelib_collapse_table_container {
     width: 100% !important
 }
 
+/* Fix for upstream CSS landscape tablet layout interfering with collapsible table width. */
+@media all and (min-width:720px) {
+  table.infobox {
+    margin: initial;
+    max-width: initial;
+    float: initial;
+  }
+}
+
 .pagelib_dim_images img {
   opacity: 0.65;
 }
@@ -1368,6 +1377,11 @@ html[dir='rtl'] .pagelib_footer_readmore_page_image,
 /* Center text beneath images now that images are centered. */
 .thumbinner, .gallerytext {
   text-align: center;
+}
+.content .thumb.tright,
+.content .thumb.tleft,
+.content figure.mw-default-size {
+  float: none;
 }
 
 /* Parsoid: center text beneath images now that images are centered. */
