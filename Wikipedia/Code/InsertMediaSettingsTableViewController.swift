@@ -4,7 +4,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     private let image: UIImage
     private let imageInfo: MWKImageInfo
 
-    private var textViewHeightDeltasGroupedByRows = [Int: CGFloat]()
+    private var textViewHeightDelta: (value: CGFloat, row: Int)?
 
     private var theme = Theme.standard
 
@@ -100,11 +100,12 @@ extension InsertMediaSettingsTableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard
             let cell = tableView.visibleCells[safeIndex: indexPath.row] as? InsertMediaSettingsTextTableViewCell,
-            let textViewHeightDelta = textViewHeightDeltasGroupedByRows[indexPath.row]
+            let textViewHeightDelta = textViewHeightDelta,
+            textViewHeightDelta.row == indexPath.row
         else {
             return UITableView.automaticDimension
         }
-        return cell.frame.size.height + textViewHeightDelta
+        return cell.frame.size.height + textViewHeightDelta.value
     }
 }
 
@@ -116,7 +117,7 @@ extension InsertMediaSettingsTableViewController: UITextViewDelegate {
             return
         }
         UIView.setAnimationsEnabled(false)
-        textViewHeightDeltasGroupedByRows[textView.tag] = newHeight - oldHeight
+        textViewHeightDelta = (newHeight - oldHeight, textView.tag)
         textView.frame.size.height = newHeight
         tableView.beginUpdates()
         tableView.endUpdates()
