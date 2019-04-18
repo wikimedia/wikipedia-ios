@@ -32,18 +32,30 @@ class InsertMediaImageInfoView: UIView {
         if let codes = searchResult.imageInfo?.license?.code?.split(separator: "-") {
             licenseStackView.isHidden = false
             for code in codes {
-                guard let image = UIImage(named: "license-\(code)") else {
+                guard let imageView = licenseImageView(withImageNamed: "license-\(code)", theme: theme) else {
                     continue
                 }
-                let imageView = UIImageView(image: image)
-                imageView.contentMode = .scaleAspectFit
-                imageView.tintColor = theme.colors.primaryText
                 licenseStackView.addArrangedSubview(imageView)
             }
-        } else {
-            licenseStackView.isHidden = true
+        }
+        if licenseStackView.arrangedSubviews.isEmpty {
+            if let imageView = licenseImageView(withImageNamed: "license-generic", theme: theme) {
+                licenseStackView.addArrangedSubview(imageView)
+            } else {
+                licenseStackView.isHidden = true
+            }
         }
         licenseLabel.text = searchResult.imageInfo?.license?.shortDescription
+    }
+
+    private func licenseImageView(withImageNamed imageName: String, theme: Theme) -> UIImageView? {
+        guard let image = UIImage(named: imageName) else {
+            return nil
+        }
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = theme.colors.primaryText
+        return imageView
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
