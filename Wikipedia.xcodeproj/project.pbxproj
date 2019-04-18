@@ -466,6 +466,16 @@
 		7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
 		7A82898F21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
 		7A82899021B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
+		7A8422472268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */; };
+		7A8422482268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */; };
+		7A8422492268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */; };
+		7A84224A2268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */; };
+		7A84224B2268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */; };
+		7A84224C2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
+		7A84224D2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
+		7A84224E2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
+		7A84224F2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
+		7A8422502268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
 		7A84225E2268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
 		7A84225F2268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
 		7A8422602268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
@@ -3651,6 +3661,8 @@
 		7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorViewController.swift; sourceTree = "<group>"; };
 		7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingCustomViewTableViewCell.swift; sourceTree = "<group>"; };
+		7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageInfoView.swift; sourceTree = "<group>"; };
+		7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaImageInfoView.xib; sourceTree = "<group>"; };
 		7A84225D2268E1AF0074648E /* AlignedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedImageView.swift; sourceTree = "<group>"; };
 		7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsImageView.swift; sourceTree = "<group>"; };
 		7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsImageView.xib; sourceTree = "<group>"; };
@@ -6205,7 +6217,9 @@
 				7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */,
 				7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */,
 				7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */,
+				7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */,
 				7A84225D2268E1AF0074648E /* AlignedImageView.swift */,
+				7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */,
 				7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */,
 				7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */,
 				7AF8CEDD226527DC000B7676 /* Settings */,
@@ -9450,6 +9464,7 @@
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				83E52BB91F681F940045E776 /* ShareAFactViewController.xib in Resources */,
+				7A84224C2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8533ED91ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */,
 				7AC4B6FA225D273E0040F0D4 /* VerticallySplitViewController.xib in Resources */,
@@ -9556,6 +9571,7 @@
 				D80ED3E21EE57F4800CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				B0C17B9721FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8421B5C203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
+				7A8422502268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				7A25368021B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				7AE1FE3A21B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D80ED3E41EE57F4800CE8C50 /* WMFTableOfContentsCell.xib in Resources */,
@@ -9709,6 +9725,7 @@
 				B0EFCD751EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDC1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				83E52BBC1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
+				7A84224F2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8A42BD71E815A9C00D8E281 /* WMFEmptyView.xib in Resources */,
 				D8A42BD81E815A9C00D8E281 /* NotificationBackgroundMessage@2x.png in Resources */,
 				7AC4B6FD225D273E0040F0D4 /* VerticallySplitViewController.xib in Resources */,
@@ -9817,6 +9834,7 @@
 				B0EFCD731EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDA1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				83E52BBA1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
+				7A84224D2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8CE265E1E698E2400DAE2E0 /* WMFEmptyView.xib in Resources */,
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
 				7AC4B6FB225D273E0040F0D4 /* VerticallySplitViewController.xib in Resources */,
@@ -9925,6 +9943,7 @@
 				B0EFCD741EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDB1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				83E52BBB1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
+				7A84224E2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8EC3F5E1E9BDA35006712EB /* WMFEmptyView.xib in Resources */,
 				D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */,
 				7AC4B6FC225D273E0040F0D4 /* VerticallySplitViewController.xib in Resources */,
@@ -10452,6 +10471,7 @@
 				D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */,
 				BA8203E21F15B4CC00925E93 /* ShareActivityController.swift in Sources */,
 				D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */,
+				7A8422472268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				7AFC79F821B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				B09B03EB1CE0FB2600009083 /* WMFPageHistoryRevision.m in Sources */,
 				B025D8C91EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
@@ -11095,6 +11115,7 @@
 				83FBE9791F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				83836ED01F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				D84DAA1A1EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
+				7A84224B2268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				D80ED3891EE57F4800CE8C50 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D80ED38A1EE57F4800CE8C50 /* WMFTableOfContentsItem.swift in Sources */,
 				D80ED38B1EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.m in Sources */,
@@ -11546,6 +11567,7 @@
 				7A6ED52020ADBF950001849F /* LoginFunnel.swift in Sources */,
 				D8A42A7C1E815A9C00D8E281 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
+				7A84224A2268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				7AFC79FB21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				D8A42A7E1E815A9C00D8E281 /* PlaceSearch.swift in Sources */,
 				D8A42A7F1E815A9C00D8E281 /* NotificationSettingsViewController.swift in Sources */,
@@ -12197,6 +12219,7 @@
 				D8CE25F41E698E2400DAE2E0 /* WMFSettingsViewController.m in Sources */,
 				D8CE25F61E698E2400DAE2E0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
+				7A8422482268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				83836ECD1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				D84DAA171EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				D8CE25F71E698E2400DAE2E0 /* WMFTableOfContentsItem.swift in Sources */,
@@ -12579,6 +12602,7 @@
 				83836ECE1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				D8EC3EF21E9BDA35006712EB /* NSAttributedString+WMFModify.m in Sources */,
 				D8EC3EF31E9BDA35006712EB /* WMFSettingsViewController.m in Sources */,
+				7A8422492268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				D8EC3EF51E9BDA35006712EB /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D8EC3EF61E9BDA35006712EB /* WMFTableOfContentsItem.swift in Sources */,
 				D8EC3EF71E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.m in Sources */,
