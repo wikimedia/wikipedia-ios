@@ -379,17 +379,7 @@
       });
     }
   
-    let timeout = null
-    CodeMirror.commands.find = cm => {
-      if (timeout !== null) {
-        clearTimeout(timeout)
-      }
-      timeout = setTimeout(() => {
-        clearSearch(cm)
-        doSearch(cm)      
-      }, 400)
-    }
-    
+    CodeMirror.commands.find = function(cm) {clearSearch(cm); doSearch(cm);};
     CodeMirror.commands.findNext = function(cm) {clearFocusedMatches(cm); doSearch(cm, false, {next: true});};
     CodeMirror.commands.findPrev = function(cm) {clearFocusedMatches(cm); doSearch(cm, true, {prev: true});};
     CodeMirror.commands.clearSearch = clearSearch;
