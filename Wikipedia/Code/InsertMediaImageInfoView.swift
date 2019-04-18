@@ -5,7 +5,7 @@ class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var licenseLabel: UILabel!
     @IBOutlet private weak var licenseStackView: UIStackView!
-    @IBOutlet private weak var moreInformationButton: UIButton!
+    @IBOutlet private weak var moreInformationButton: AlignedImageButton!
 
     var moreInformationAction: ((URL) -> Void)?
 
@@ -15,7 +15,7 @@ class InsertMediaImageInfoView: UIView {
         }
     }
 
-    func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, theme: Theme) {
+    func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, showLicenseName: Bool = true, theme: Theme) {
         titleLabel.text = searchResult.displayTitle
         moreInformationURL = searchResult.imageInfo?.filePageURL
         if showImageDescription, let imageDescription = searchResult.imageInfo?.imageDescription {
@@ -45,7 +45,11 @@ class InsertMediaImageInfoView: UIView {
                 licenseStackView.isHidden = true
             }
         }
-        licenseLabel.text = searchResult.imageInfo?.license?.shortDescription
+        if showLicenseName {
+            licenseLabel.text = searchResult.imageInfo?.license?.shortDescription
+        } else {
+            licenseLabel.isHidden = true
+        }
     }
 
     private func licenseImageView(withImageNamed imageName: String, theme: Theme) -> UIImageView? {
@@ -62,6 +66,7 @@ class InsertMediaImageInfoView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         titleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         licenseLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
+        moreInformationButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 
     @IBAction private func showMoreInformation(_ sender: UIButton) {
@@ -79,5 +84,6 @@ extension InsertMediaImageInfoView: Themeable {
         descriptionLabel.textColor = theme.colors.primaryText
         licenseLabel.textColor = theme.colors.primaryText
         moreInformationButton.tintColor = theme.colors.link
+        moreInformationButton.setTitleColor(theme.colors.link, for: .normal)
     }
 }

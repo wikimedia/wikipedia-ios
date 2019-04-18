@@ -31,11 +31,11 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YL-8I-B18">
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2YL-8I-B18">
                             <rect key="frame" x="0.0" y="216" width="359" height="16"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NiH-z3-XBT">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="16"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="179.5" height="16"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2W-Fe-5kb">
                                             <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
@@ -59,13 +59,17 @@
                                         <constraint firstAttribute="bottom" secondItem="s2W-Fe-5kb" secondAttribute="bottom" id="saW-zL-fj6"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49a-sU-vMB">
-                                    <rect key="frame" x="343" y="0.0" width="16" height="16"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49a-sU-vMB" customClass="WMFAlignedImageButton">
+                                    <rect key="frame" x="179.5" y="0.0" width="179.5" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="APt-rJ-PFB"/>
-                                        <constraint firstAttribute="width" constant="16" id="PHi-CI-Vd3"/>
                                     </constraints>
-                                    <state key="normal" image="description-info"/>
+                                    <state key="normal" title="More information" image="description-info">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="imageIsRightAligned" value="NO"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="showMoreInformation:" destination="iN0-l3-epB" eventType="touchUpInside" id="x6u-jF-NlM"/>
                                     </connections>
