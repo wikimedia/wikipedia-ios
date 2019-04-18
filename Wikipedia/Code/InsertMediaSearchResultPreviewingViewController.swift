@@ -26,7 +26,7 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { _ in }) {
             self.activityIndicator.stopAnimating()
         }
-        imageInfoView.configure(with: searchResult, theme: theme)
+        imageInfoView.configure(with: searchResult, showLicenseName: false, theme: theme)
         imageInfoView.apply(theme: theme)
         imageInfoViewContainer.wmf_addSubviewWithConstraintsToEdges(imageInfoView)
         apply(theme: theme)
