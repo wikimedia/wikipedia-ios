@@ -54,8 +54,7 @@ final class InsertMediaImageViewController: UIViewController {
 extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionViewControllerDelegate {
     func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult) {
         perform(#selector(startActivityIndicator), with: nil, afterDelay: 0.3)
-        let imageURLWithNewSize = URL(string: WMFChangeImageSourceURLSizePrefix(searchResult.thumbnailURL.absoluteString, Int(view.bounds.width)))
-        guard let imageURL = imageURLWithNewSize ?? searchResult.imageInfo?.canonicalFileURL else {
+        guard let imageURL = searchResult.imageURL(for: view.bounds.width) else {
             stopActivityIndicator()
             return
         }
