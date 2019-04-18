@@ -249,11 +249,14 @@
       return tagRanges.filter(isTagRangeComplete)
     }
 
+    var lastLineTokensCount = 0
+
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
       const lineTokens = enrichedLineTokens(doc, selectionRange.line)
-      
+      lastLineTokensCount = lineTokens.length
+
       let result = []
 
 
@@ -360,10 +363,8 @@
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
 
-      if (selectedButtons) {
-          if (selectedButtons.length > 0) {
-              buttonsToDisable.push(buttonPayload('media'))
-          }
+      if (lastLineTokensCount > 0) {
+        buttonsToDisable.push(buttonPayload('media'))
       }
 
       return buttonsToDisable
@@ -1057,7 +1058,7 @@
         RangeHelper.rangeClearFormatting.clearFormatting(editor)
       },
       replaceSelection: (text) => {
-          editor.replaceSelection(text)
+        editor.replaceSelection(text)
       }
     }
 
