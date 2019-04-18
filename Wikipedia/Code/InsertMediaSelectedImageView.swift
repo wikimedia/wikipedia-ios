@@ -1,7 +1,7 @@
 import UIKit
 
 class InsertMediaSelectedImageView: UIView {
-    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var imageView: AlignedImageView!
 
     @IBOutlet private weak var overlayView: UIView!
 
