@@ -36,7 +36,7 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
         let selectImageAction = UIPreviewAction(title: "Select image", style: .default, handler: { (_, _) in
             //
         })
-        let cancelAction = UIPreviewAction.init(title: CommonStrings.cancelActionTitle, style: .default) { (_, _) in }
+        let cancelAction = UIPreviewAction(title: CommonStrings.cancelActionTitle, style: .default) { (_, _) in }
         return [selectImageAction, cancelAction]
     }
 }
