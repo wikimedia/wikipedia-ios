@@ -49,6 +49,14 @@ final class InsertMediaSearchResult {
         self.displayTitle = displayTitle
         self.thumbnailURL = thumbnailURL
     }
+
+    func imageURL(for width: CGFloat) -> URL? {
+        guard width > 0 else {
+            assertionFailure("width must be greater than 0")
+            return nil
+        }
+        return URL(string: WMFChangeImageSourceURLSizePrefix(thumbnailURL.absoluteString, Int(width))) ?? imageInfo?.canonicalFileURL
+    }
 }
 
 class InsertMediaSearchResultsCollectionViewController: ViewController {
