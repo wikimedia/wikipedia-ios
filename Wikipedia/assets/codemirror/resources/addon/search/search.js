@@ -105,9 +105,9 @@
       }
     }
   
-    function doSearch(cm, rev, focus) {
+    function doSearch(cm, rev) {
       var state = getSearchState(cm);
-      if (state.query) return findNext(cm, rev, focus);
+      if (state.query) return findNext(cm, rev);
       var q = cm.getSelection() || state.lastQuery;
       if (q instanceof RegExp && q.source == "x^") q = null
       const query = cm.state.query;
@@ -116,7 +116,6 @@
         state.posFrom = state.posTo = cm.getCursor();
         findNext(cm, rev);
       });
-      focusOnMatch(state, null, false)
     }
 
     function clearFocusedMatches(cm) {
@@ -239,7 +238,6 @@
         if (!cursor.find(rev)) return;
       }
       state.posFrom = cursor.from(); state.posTo = cursor.to();
-      if (focus) focusOnMatch(state, focus, false)
     });}
   
     function clearSearch(cm) {cm.operation(function() {
@@ -382,16 +380,16 @@
     CodeMirror.commands.findNext = function(cm) { 
       cm.operation(function () { 
         clearFocusedMatches(cm); 
-        doSearch(cm, false, {next: true});
+        doSearch(cm, false);
       }); 
-      focusOnMatch(getSearchState(cm), null, false); 
+      focusOnMatch(getSearchState(cm), {next: true}, false); 
     };
     CodeMirror.commands.findPrev = function(cm) {
       cm.operation(function () { 
         clearFocusedMatches(cm); 
-        doSearch(cm, false, {prev: true});
+        doSearch(cm, false);
       }); 
-      focusOnMatch(getSearchState(cm), null, false);
+      focusOnMatch(getSearchState(cm), {prev: true}, false);
     };
     CodeMirror.commands.clearSearch = clearSearch;
     CodeMirror.commands.replace = replace;
