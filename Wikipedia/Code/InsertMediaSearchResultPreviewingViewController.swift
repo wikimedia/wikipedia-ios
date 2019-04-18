@@ -36,6 +36,13 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
         super.viewWillAppear(animated)
 //        preferredContentSize = view.systemLayoutSizeFitting(CGSize(width: view.bounds.size.width, height: UIView.layoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
     }
+    override var previewActionItems: [UIPreviewActionItem] {
+        let selectImageAction = UIPreviewAction(title: "Select image", style: .default, handler: { (_, _) in
+            //
+        })
+        let cancelAction = UIPreviewAction.init(title: CommonStrings.cancelActionTitle, style: .default) { (_, _) in }
+        return [selectImageAction, cancelAction]
+    }
 }
 
 extension InsertMediaSearchResultPreviewingViewController: Themeable {
