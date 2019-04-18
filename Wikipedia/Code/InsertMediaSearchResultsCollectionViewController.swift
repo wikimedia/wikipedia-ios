@@ -193,6 +193,28 @@ extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDele
     }
 }
 
-extension InsertMediaSearchResultsCollectionViewController: UISearchBarDelegate {
-    
+extension InsertMediaSearchResultsCollectionViewController {
+    final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
+        let translatedLocation = view.convert(location, to: collectionView)
+        guard
+            let indexPath = collectionView.indexPathForItem(at: translatedLocation),
+            let cell = collectionView.cellForItem(at: indexPath)
+        else {
+            return nil
+        }
+        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
+        return indexPath
+    }
+
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let searchResult = searchResults[safeIndex: indexPath.item],
+            let imageURL = searchResult.imageURL(for: view.bounds.width)
+        else {
+            return nil
+        }
+
+        return InsertMediaSearchResultPreviewingViewController(imageURL: imageURL, searchResult: searchResult)
+    }
 }
