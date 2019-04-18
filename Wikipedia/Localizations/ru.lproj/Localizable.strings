@@ -131,7 +131,7 @@
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
-"article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
+"article-unable-to-load-section" = "Не удаётся скачать этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Нажмите, чтоб вернуться назад";
 "button-next" = "Далее";
@@ -250,7 +250,7 @@
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
-"empty-no-article-message" = "К сожалению, не удалось загрузить статью";
+"empty-no-article-message" = "К сожалению, не удалось скачать статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
 "empty-no-history-message" = "Отслеживайте здесь прочитанные вами статьи.";
@@ -459,7 +459,7 @@
 "new-password-title" = "Установите пароль";
 "no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учётную запись электронной почты и попробуйте ещё раз.";
 "no-internet-connection" = "Нет подключения к интернету";
-"no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её загрузить, требуется подключение к интернету";
+"no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её скачать, требуется подключение к интернету";
 "no-internet-connection-article-reload-button" = "Вернуться к последней сохранённой версии";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1М";
