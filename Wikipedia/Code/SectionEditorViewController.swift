@@ -595,7 +595,7 @@ extension SectionEditorViewController: MediaWizardControllerDelegate {
     func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareWikitextToInsert wikitext: String) {
         self.mediaWizardController = nil
         dismiss(animated: true)
-        print(wikitext)
+        messagingController.replaceSelection(text: wikitext)
     }
 }
 
