@@ -32,10 +32,6 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
         apply(theme: theme)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        preferredContentSize = view.systemLayoutSizeFitting(CGSize(width: view.bounds.size.width, height: UIView.layoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
-    }
     override var previewActionItems: [UIPreviewActionItem] {
         let selectImageAction = UIPreviewAction(title: "Select image", style: .default, handler: { (_, _) in
             //
