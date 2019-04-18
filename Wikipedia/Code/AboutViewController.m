@@ -124,7 +124,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)viewDidLoad {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    [config setURLSchemeHandler:[WMFURLSchemeHandler shared] forURLScheme:WMFURLSchemeHandlerScheme];
+    SchemeHandler *schemeHandler = [SchemeHandler shared];
+    [config setURLSchemeHandler:schemeHandler forURLScheme:schemeHandler.scheme];
     WKWebView *wv = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     [super viewDidLoad];
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];

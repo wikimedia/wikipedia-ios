@@ -15,11 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 
 extern NSString *const WMFURLSchemeHandlerScheme;
-extern NSString *const WMFAppSchemeFileBasePath;
-extern NSString *const WMFAppSchemeAPIBasePath;
-extern NSString *const WMFSchemeHandlerArticleSectionDataBasePath;
-extern NSString *const WMFSchemeHandlerArticleKeyQueryItem;
-extern NSString *const WMFSchemeHandlerImageWidthQueryItem;
 
 @interface NSURL (WMFSchemeHandler)
 

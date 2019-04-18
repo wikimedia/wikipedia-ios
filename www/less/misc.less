@@ -28,6 +28,11 @@ span.IPA + small {
   .content p {
       line-height: inherit;
   }
+  /* Fix for upstream CSS preventing landscape tablet margin adjustments from taking effect properly */
+  .content {
+    width: initial;
+    max-width: initial;
+  }
 }
 
 .content_block {
