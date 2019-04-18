@@ -466,6 +466,11 @@
 		7A82898E21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
 		7A82898F21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
 		7A82899021B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */; };
+		7A84225E2268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
+		7A84225F2268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
+		7A8422602268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
+		7A8422612268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
+		7A8422622268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
 		7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
 		7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
 		7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
@@ -3646,6 +3651,7 @@
 		7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorViewController.swift; sourceTree = "<group>"; };
 		7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingCustomViewTableViewCell.swift; sourceTree = "<group>"; };
+		7A84225D2268E1AF0074648E /* AlignedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedImageView.swift; sourceTree = "<group>"; };
 		7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsImageView.swift; sourceTree = "<group>"; };
 		7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsImageView.xib; sourceTree = "<group>"; };
 		7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsButtonView.swift; sourceTree = "<group>"; };
@@ -6199,6 +6205,7 @@
 				7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */,
 				7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */,
 				7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */,
+				7A84225D2268E1AF0074648E /* AlignedImageView.swift */,
 				7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */,
 				7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */,
 				7AF8CEDD226527DC000B7676 /* Settings */,
@@ -10640,6 +10647,7 @@
 				B0D3E70C214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
 				B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
+				7A84225E2268E1AF0074648E /* AlignedImageView.swift in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
 				67DB11032261213C00F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */,
 				7AFEB3F51FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
@@ -11012,6 +11020,7 @@
 				7A27E85621B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				D80ED35A1EE57F4800CE8C50 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				7AF49F84204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
+				7A8422622268E1AF0074648E /* AlignedImageView.swift in Sources */,
 				D80ED35D1EE57F4800CE8C50 /* PageHistoryResultCell.m in Sources */,
 				B01E3AFD21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				BAA0D9201F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
@@ -11732,6 +11741,7 @@
 				D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				D8A42B3F1E815A9C00D8E281 /* PageHistoryResultCell.m in Sources */,
 				D8A42B411E815A9C00D8E281 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
+				7A8422612268E1AF0074648E /* AlignedImageView.swift in Sources */,
 				B0D3E70F214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				D8A42B421E815A9C00D8E281 /* WMFRevisionQueryResults.m in Sources */,
 				D8A42B431E815A9C00D8E281 /* WMFAppViewController.m in Sources */,
@@ -12112,6 +12122,7 @@
 				7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				B010E1A91E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
+				7A84225F2268E1AF0074648E /* AlignedImageView.swift in Sources */,
 				D8CE25BE1E698E2400DAE2E0 /* EditFunnel.m in Sources */,
 				B01E3AFA21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				D8CE25BF1E698E2400DAE2E0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
@@ -12493,6 +12504,7 @@
 				7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				BAA0D91E1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
+				7A8422602268E1AF0074648E /* AlignedImageView.swift in Sources */,
 				D8EC3EBC1E9BDA35006712EB /* EditFunnel.m in Sources */,
 				B01E3AFB21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				D8421B55203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
