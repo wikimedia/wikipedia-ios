@@ -111,11 +111,12 @@
       var q = cm.getSelection() || state.lastQuery;
       if (q instanceof RegExp && q.source == "x^") q = null
       const query = cm.state.query;
-      if (query && !state.query) {
+      if (query && !state.query) cm.operation(function () {
         startSearch(cm, state, query);
         state.posFrom = state.posTo = cm.getCursor();
         findNext(cm, rev);
-      }
+      });
+      focusOnMatch(state, null, false)
     }
 
     function clearFocusedMatches(cm) {
@@ -228,7 +229,7 @@
       document.body.scrollTop = scrollTop;
     } 
   
-    function findNext(cm, rev, focus) {
+    function findNext(cm, rev, focus) {cm.operation(function() {
       var state = getSearchState(cm);
       var cursor = getSearchCursor(cm, state.query, rev ? state.posFrom : state.posTo);
       if (!cursor.find(rev)) {
@@ -239,9 +240,9 @@
       }
       state.posFrom = cursor.from(); state.posTo = cursor.to();
       if (focus) focusOnMatch(state, focus, false)
-    }
+    });}
   
-    function clearSearch(cm) {
+    function clearSearch(cm) {cm.operation(function() {
       var state = getSearchState(cm);
       state.lastQuery = state.query;
       if (!state.query) return;
@@ -252,7 +253,7 @@
       state.query = state.queryText = null;
       cm.removeOverlay(state.overlay);
       if (state.annotate) { state.annotate.clear(); state.annotate = null; }
-    }
+    });}
   
     function replaceAll(cm, query, text) {
       var count = 0;
