@@ -21,6 +21,9 @@ class ThemeableTextView: UITextView {
     }
 
     private func setup() {
+        var inset = textContainerInset
+        inset.left = -3
+        textContainerInset = inset
         if usesPlaceholder {
             delegate = self
             placeholderLabel.numberOfLines = 0
