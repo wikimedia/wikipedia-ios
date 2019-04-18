@@ -476,6 +476,16 @@
 		7A84224E2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
 		7A84224F2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
 		7A8422502268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */; };
+		7A8422532268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */; };
+		7A8422542268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */; };
+		7A8422552268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */; };
+		7A8422562268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */; };
+		7A8422572268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */; };
+		7A8422582268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
+		7A8422592268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
+		7A84225A2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
+		7A84225B2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
+		7A84225C2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
 		7A84225E2268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
 		7A84225F2268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
 		7A8422602268E1AF0074648E /* AlignedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84225D2268E1AF0074648E /* AlignedImageView.swift */; };
@@ -3663,6 +3673,8 @@
 		7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingCustomViewTableViewCell.swift; sourceTree = "<group>"; };
 		7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageInfoView.swift; sourceTree = "<group>"; };
 		7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaImageInfoView.xib; sourceTree = "<group>"; };
+		7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultPreviewingViewController.swift; sourceTree = "<group>"; };
+		7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSearchResultPreviewingViewController.xib; sourceTree = "<group>"; };
 		7A84225D2268E1AF0074648E /* AlignedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedImageView.swift; sourceTree = "<group>"; };
 		7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsImageView.swift; sourceTree = "<group>"; };
 		7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsImageView.xib; sourceTree = "<group>"; };
@@ -6300,6 +6312,8 @@
 			isa = PBXGroup;
 			children = (
 				7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */,
+				7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */,
+				7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */,
 				7A5A0542225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift */,
 			);
 			name = Search;
@@ -9446,6 +9460,7 @@
 				D8D92B601DF22E1700B95311 /* NotificationBackgroundSuccess.png in Resources */,
 				7A9A611821124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EB212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
+				7A8422582268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				D8D92B5D1DF22E1700B95311 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236D1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
@@ -9592,6 +9607,7 @@
 				B0845E202061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				7A16C4EF212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				D80ED3EC1EE57F4800CE8C50 /* NotificationBackgroundWarningIcon.png in Resources */,
+				7A84225C2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				BA45242D1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				7A6F560321AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				D80ED3ED1EE57F4800CE8C50 /* WMFLoginViewController.storyboard in Resources */,
@@ -9707,6 +9723,7 @@
 				D8A42BC31E815A9C00D8E281 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				7A9A611B21124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EE212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
+				7A84225B2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				D8A42BC51E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B423701EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8A42BC61E815A9C00D8E281 /* NotificationBackgroundErrorIcon.png in Resources */,
@@ -9816,6 +9833,7 @@
 				D8CE264A1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				7A9A611921124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EC212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
+				7A8422592268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				D8CE264C1E698E2400DAE2E0 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236E1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8CE264D1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon.png in Resources */,
@@ -9925,6 +9943,7 @@
 				D8EC3F4A1E9BDA35006712EB /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				7A9A611A21124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4ED212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
+				7A84225A2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */,
 				D8EC3F4C1E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236F1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8EC3F4D1E9BDA35006712EB /* NotificationBackgroundErrorIcon.png in Resources */,
@@ -10612,6 +10631,7 @@
 				83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0370E161FA404B0002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
+				7A8422532268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				B0BCF0B9202537D800986F72 /* Panels.swift in Sources */,
 				D8E27BA61F82B38500F9D2B3 /* RMessage.m in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
@@ -11073,6 +11093,7 @@
 				B01E3B0321F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D80ED36B1EE57F4800CE8C50 /* WMFArticleFetcher.m in Sources */,
 				7A6ED50B20ADBF950001849F /* SessionsFunnel.swift in Sources */,
+				7A8422572268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				7AF56C3321DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				D80ED36C1EE57F4800CE8C50 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D80ED36D1EE57F4800CE8C50 /* NewsViewController.swift in Sources */,
@@ -11708,6 +11729,7 @@
 				D8A42AF51E815A9C00D8E281 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476D20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				D8A42AF91E815A9C00D8E281 /* ToCInteractionFunnel.m in Sources */,
+				7A8422562268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				D8A42AFC1E815A9C00D8E281 /* WMFCompassView.m in Sources */,
 				B0370E191FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				D8A42AFD1E815A9C00D8E281 /* WMFWelcomeIntroductionViewController.swift in Sources */,
@@ -12177,6 +12199,7 @@
 				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */,
 				7A6ED50E20ADBF950001849F /* SessionsFunnel.swift in Sources */,
+				7A8422542268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				7AF56C3021DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				D8CE25D11E698E2400DAE2E0 /* WMFSearchButton.m in Sources */,
 				D8CE25D21E698E2400DAE2E0 /* WMFArticleFetcher.m in Sources */,
@@ -12560,6 +12583,7 @@
 				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8EC3ECF1E9BDA35006712EB /* WMFSearchButton.m in Sources */,
+				7A8422552268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				7AF56C3121DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				D8EC3ED01E9BDA35006712EB /* WMFArticleFetcher.m in Sources */,
 				D8EC3ED11E9BDA35006712EB /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
