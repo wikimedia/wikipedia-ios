@@ -89,6 +89,7 @@ final class MediaWizardController: NSObject {
             }
         }
         let searchResults: (WMFSearchResults) -> [InsertMediaSearchResult] = { (results: WMFSearchResults) in
+            assert(!Thread.isMainThread)
             guard let results = results.results else {
                 return []
             }
@@ -251,5 +252,9 @@ extension MediaWizardController: UISearchBarDelegate {
         searchFetcher.cancelAllFetches()
         imageInfoFetcher.cancelAllFetches()
         search(for: searchText)
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
