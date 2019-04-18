@@ -22,14 +22,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bE6-x0-aJs" customClass="AlignedImageView" customModule="Wikipedia" customModuleProvider="target">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bE6-x0-aJs">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="alignTop" value="YES"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="alignLeft" value="NO"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="alignRight" value="NO"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="alignBottom" value="NO"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Yv-ma-aQY">
                     <rect key="frame" x="0.0" y="717" width="414" height="179"/>
@@ -45,7 +39,7 @@
                 <constraint firstItem="3Yv-ma-aQY" firstAttribute="height" secondItem="bE6-x0-aJs" secondAttribute="height" multiplier="0.2" placeholder="YES" id="JLl-WQ-vA6"/>
                 <constraint firstItem="3Yv-ma-aQY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OJi-24-idg"/>
                 <constraint firstItem="bE6-x0-aJs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PDX-5h-aey"/>
-                <constraint firstAttribute="bottom" secondItem="bE6-x0-aJs" secondAttribute="bottom" id="beF-Bh-SOX"/>
+                <constraint firstItem="3Yv-ma-aQY" firstAttribute="bottom" secondItem="bE6-x0-aJs" secondAttribute="bottom" id="beF-Bh-SOX"/>
                 <constraint firstAttribute="bottom" secondItem="3Yv-ma-aQY" secondAttribute="bottom" id="eLH-qA-0jq"/>
                 <constraint firstAttribute="trailing" secondItem="3Yv-ma-aQY" secondAttribute="trailing" id="sEV-r6-ZgX"/>
                 <constraint firstAttribute="trailing" secondItem="bE6-x0-aJs" secondAttribute="trailing" id="xCI-46-loj"/>

@@ -1,7 +1,7 @@
 import UIKit
 
 class InsertMediaSearchResultPreviewingViewController: UIViewController {
-    @IBOutlet private weak var imageView: AlignedImageView!
+    @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var imageInfoViewContainer: UIView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
