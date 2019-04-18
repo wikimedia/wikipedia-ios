@@ -228,7 +228,7 @@
       document.body.scrollTop = scrollTop;
     } 
   
-    function findNext(cm, rev, focus) {cm.operation(function() {
+    function findNext(cm, rev) {cm.operation(function() {
       var state = getSearchState(cm);
       var cursor = getSearchCursor(cm, state.query, rev ? state.posFrom : state.posTo);
       if (!cursor.find(rev)) {
