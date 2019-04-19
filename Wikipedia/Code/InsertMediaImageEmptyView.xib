@@ -17,13 +17,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="oHy-vJ-Unn">
-                    <rect key="frame" x="8" y="55.666666666666657" width="359" height="137"/>
+                    <rect key="frame" x="8" y="99" width="359" height="50"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="media-wizard/placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="vkW-hc-AsN">
-                            <rect key="frame" x="110.66666666666669" y="0.0" width="138" height="103.00000000000003"/>
+                            <rect key="frame" x="171.66666666666666" y="0.0" width="16" height="16"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hke-I8-WQq">
-                            <rect key="frame" x="161" y="119" width="37.333333333333343" height="18"/>
+                            <rect key="frame" x="161" y="32" width="37.333333333333343" height="18"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
