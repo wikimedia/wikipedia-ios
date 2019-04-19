@@ -30,6 +30,13 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         footerLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         textView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        headerLabel.text = nil
+        footerLabel.text = nil
+        textView.reset()
+    }
 }
 
 extension InsertMediaSettingsTextTableViewCell: Themeable {

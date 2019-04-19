@@ -31,6 +31,8 @@ class ThemeableTextView: UITextView {
             placeholderLabel.frame.origin = placeholderLabelOrigin
             placeholderLabel.isHidden = !text.isEmpty
         }
+    public func reset() {
+        placeholderLabel.text = nil
     }
 
     private var placeholderLabelOrigin: CGPoint {
