@@ -70,6 +70,7 @@ class InsertMediaSelectedImageView: SetupView {
             self.searchResult = searchResult
             self.imageView.backgroundColor = self.backgroundColor
             self.imageInfoView.configure(with: searchResult, showImageDescription: false, showLicenseName: true, showMoreInformationButtonTitle: false, theme: theme)
+            self.imageInfoView.moreInformationAction = self.moreInformationAction
             self.adjustImageInfoContainerViewBottomConstraint()
             completion(nil)
         }
