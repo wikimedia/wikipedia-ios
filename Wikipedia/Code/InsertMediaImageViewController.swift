@@ -10,7 +10,7 @@ final class InsertMediaImageViewController: UIViewController {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     private let emptyView = InsertMediaImageEmptyView.wmf_viewFromClassNib()!
-    private let selectedImageView = InsertMediaSelectedImageView.wmf_viewFromClassNib()!
+    private let selectedImageView = InsertMediaSelectedImageView()
 
     var selectedImage: UIImage? {
         return selectedImageView.image
