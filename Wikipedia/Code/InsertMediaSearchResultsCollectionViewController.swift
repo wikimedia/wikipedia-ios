@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 fileprivate class FlowLayout: UICollectionViewFlowLayout {
     private var oldBoundsWidth: CGFloat = 0
@@ -218,6 +219,9 @@ extension InsertMediaSearchResultsCollectionViewController {
         previewingViewController.selectImageAction = {
             self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
             self.delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult)
+        }
+        previewingViewController.moreInformationAction = { url in
+            self.present(SFSafariViewController(url: url), animated: true)
         }
         return previewingViewController
     }

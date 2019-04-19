@@ -8,6 +8,7 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
     private lazy var imageInfoView = InsertMediaImageInfoView.wmf_viewFromClassNib()!
 
     var selectImageAction: (() -> Void)?
+    var moreInformationAction: ((URL) -> Void)?
 
     private let searchResult: InsertMediaSearchResult
     private let imageURL: URL
@@ -29,6 +30,7 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
             self.activityIndicator.stopAnimating()
         }
         imageInfoView.configure(with: searchResult, showLicenseName: false, theme: theme)
+        imageInfoView.moreInformationAction = moreInformationAction
         imageInfoView.apply(theme: theme)
         imageInfoViewContainer.wmf_addSubviewWithConstraintsToEdges(imageInfoView)
         apply(theme: theme)
