@@ -1,7 +1,9 @@
 final class InsertMediaImageTypeSettingsTableViewController: UITableViewController {
     private var theme = Theme.standard
 
-    var selectedImageType: InsertMediaSettings.Advanced.ImageType {
+    typealias ImageType = InsertMediaSettings.Advanced.ImageType
+
+    var selectedImageType: ImageType {
         guard let selectedIndexPath = selectedIndexPath else {
             return .thumbnail
         }
@@ -9,11 +11,11 @@ final class InsertMediaImageTypeSettingsTableViewController: UITableViewControll
     }
 
     struct ViewModel {
-        let imageType: InsertMediaSettings.Advanced.ImageType
+        let imageType: ImageType
         let title: String
         let isSelected: Bool
 
-        init(imageType: InsertMediaSettings.Advanced.ImageType, isSelected: Bool = false) {
+        init(imageType: ImageType, isSelected: Bool = false) {
             self.imageType = imageType
             self.title = imageType.displayTitle
             self.isSelected = isSelected

@@ -1,7 +1,9 @@
 final class InsertMediaImagePositionSettingsTableViewController: UITableViewController {
     private var theme = Theme.standard
 
-    var selectedImagePosition: InsertMediaSettings.Advanced.ImagePosition {
+    typealias ImagePosition = InsertMediaSettings.Advanced.ImagePosition
+
+    var selectedImagePosition: ImagePosition {
         guard let selectedIndexPath = selectedIndexPath else {
             return .right
         }
@@ -9,11 +11,11 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
     }
 
     struct ViewModel {
-        let imagePosition: InsertMediaSettings.Advanced.ImagePosition
+        let imagePosition: ImagePosition
         let title: String
         let isSelected: Bool
 
-        init(imagePosition: InsertMediaSettings.Advanced.ImagePosition, isSelected: Bool = false) {
+        init(imagePosition: ImagePosition, isSelected: Bool = false) {
             self.imagePosition = imagePosition
             self.title = imagePosition.displayTitle
             self.isSelected = isSelected
