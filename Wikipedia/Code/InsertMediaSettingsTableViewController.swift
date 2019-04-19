@@ -243,7 +243,7 @@ extension InsertMediaSettingsTableViewController {
 extension InsertMediaSettingsTableViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let oldHeight = textView.frame.size.height
-        let newHeight = textView.sizeThatFits(textView.frame.size).height
+        let newHeight = textView.systemLayoutSizeFitting(textView.frame.size).height
         guard oldHeight != newHeight else {
             return
         }
