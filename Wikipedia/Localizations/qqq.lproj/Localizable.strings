@@ -378,6 +378,8 @@
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "info-box-title" = "The title of infoboxes – in collapsed and expanded form";
+"insert-action-title" = "Title for insert action";
+"insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-placeholder-label-text" = "Text for placeholder label visible when no file was selected or uploaded";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
 "languages-settings-title" = "Title for the 'Languages' section in Settings";

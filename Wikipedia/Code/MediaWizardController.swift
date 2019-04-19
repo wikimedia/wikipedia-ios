@@ -178,8 +178,8 @@ final class MediaWizardController: NSObject {
             return
         }
         let settingsViewController = InsertMediaSettingsTableViewController(image: image, searchResult: selectedSearchResult)
-        settingsViewController.title = "Media settings"
-        let insertButton = UIBarButtonItem(title: "Insert", style: .done, target: self, action: #selector(insertMedia(_:)))
+        settingsViewController.title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
+        let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia(_:)))
         insertButton.tintColor = theme.colors.link
         settingsViewController.navigationItem.rightBarButtonItem = insertButton
         settingsViewController.apply(theme: theme)

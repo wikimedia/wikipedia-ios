@@ -106,7 +106,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     private lazy var imageView: InsertMediaSettingsImageView = {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
-        imageView.heading = "Uploaded image"
+        imageView.heading = "Uploaded image Uploaded image Uploaded image Uploaded image Uploaded image Uploaded image"
         
         imageView.title = searchResult.displayTitle
         imageView.autoresizingMask = []
@@ -140,13 +140,13 @@ class InsertMediaSettingsTableViewController: UITableViewController {
             self.type = type
             switch type {
             case .caption:
-                headerText = "Caption"
-                placeholder = "How does this image relate to the article?"
-                footerText = "Label that shows next to the item for all readers"
+                headerText = "Caption Caption Caption Caption Caption Caption Caption Caption"
+                placeholder = "How does this image relate to the article? How does this image relate to the article? How does this image relate to the article? How does this image relate to the article?"
+                footerText = "Label that shows next to the item for all readers Label that shows next to the item for all readers Label that shows next to the item for all readers Label that shows next to the item for all readers"
             case .alternativeText:
-                headerText = "Alternative text"
-                placeholder = "Describe this image"
-                footerText = "Text description for readers who cannot see the image"
+                headerText = "Alternative text Alternative text Alternative text Alternative text Alternative text Alternative text"
+                placeholder = "Describe this image Describe this image Describe this image Describe this image Describe this image Describe this image"
+                footerText = "Text description for readers who cannot see the image Text description for readers who cannot see the image Text description for readers who cannot see the image Text description for readers who cannot see the image"
             }
         }
     }
