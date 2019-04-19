@@ -225,7 +225,8 @@ final fileprivate class SearchView: UIView, Themeable {
         searchBar = UISearchBar()
         searchBar.placeholder = placeholder ?? CommonStrings.searchTitle
         searchBar.delegate = searchBarDelegate
-        searchBar.returnKeyType = .search
+        searchBar.returnKeyType = .done
+        searchBar.enablesReturnKeyAutomatically = false
         searchBar.searchBarStyle = .minimal
         searchBar.showsCancelButton = false
         super.init(frame: .zero)
