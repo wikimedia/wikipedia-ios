@@ -28,19 +28,19 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
     private lazy var textWrappingSwitch = UISwitch()
     private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController()
 
-    private lazy var viewModels: [ViewModel] = {
+    private var viewModels: [ViewModel] {
         let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
-        let imagePositionViewModel = ViewModel(title: "Image position", detailText: "Right") {
+        let imagePositionViewModel = ViewModel(title: "Image position", detailText: imagePositionSettingsTableViewController.selectedImagePosition.displayTitle) {
             self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
         }
         let imageTypeViewModel = ViewModel(title: "Image type", detailText: "Thumbnail") {
-            self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+            //self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
         }
         let imageSizeViewModel = ViewModel(title: "Image size", detailText: "Default") {
-            self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+            //self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
-    }()
+    }
 
     init(theme: Theme) {
         self.theme = theme
@@ -57,6 +57,19 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private var isFirstAppearance = true
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        defer {
+            isFirstAppearance = false
+        }
+        guard !isFirstAppearance else {
+            return
+        }
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
