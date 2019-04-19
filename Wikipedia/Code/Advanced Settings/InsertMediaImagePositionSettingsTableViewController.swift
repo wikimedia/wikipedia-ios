@@ -33,8 +33,24 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.separatorInset = .zero
+        autolayoutTableViewFooter = InsertMediaLabelTableFooterView(text: "You can make this media item appear inline with the text of the page instead of floating. You should only do this rarely, as it will break up the flow of the text if you uncheck this box.")
         title = "Image position"
         apply(theme: theme)
+    }
+
+    private var autolayoutTableViewFooter: UIView? {
+        set {
+            tableView.tableFooterView = newValue
+            guard let footer = newValue else { return }
+            footer.setNeedsLayout()
+            footer.layoutIfNeeded()
+            footer.frame.size =
+                footer.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            tableView.tableFooterView = footer
+        }
+        get {
+            return tableView.tableFooterView
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,5 +104,6 @@ extension InsertMediaImagePositionSettingsTableViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
         tableView.separatorColor = theme.colors.border
+        (autolayoutTableViewFooter as? Themeable)?.apply(theme: theme)
     }
 }

@@ -460,6 +460,11 @@
 		7A71567522697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */; };
 		7A71567622697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */; };
 		7A71567722697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */; };
+		7A71567922699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
+		7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
+		7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
+		7A71567C22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
+		7A71567D22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
 		7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
 		7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
 		7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
@@ -3687,6 +3692,7 @@
 		7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageSizeSettingsTableViewController.swift; sourceTree = "<group>"; };
 		7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaCustomImageSizeSettingTableViewCell.swift; sourceTree = "<group>"; };
 		7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaCustomImageSizeSettingTableViewCell.xib; sourceTree = "<group>"; };
+		7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaLabelTableFooterView.swift; sourceTree = "<group>"; };
 		7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorNavigationItemController.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
@@ -6411,6 +6417,7 @@
 			children = (
 				7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsTableViewController.swift */,
 				7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */,
+				7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */,
 				7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */,
 				7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */,
 				7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */,
@@ -10730,6 +10737,7 @@
 				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
+				7A71567922699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				7A48EA0E21B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
 				7A1469BD220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
@@ -10868,6 +10876,7 @@
 				7A29A5D21F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				7A715665226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
 				D80ED27F1EE57F4800CE8C50 /* WikidataFetcher.swift in Sources */,
+				7A71567D22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D80ED2801EE57F4800CE8C50 /* UIButton+WMFButton.m in Sources */,
 				D80ED2811EE57F4800CE8C50 /* WMFTableOfContentsAnimator.swift in Sources */,
 				D82E956E1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
@@ -11836,6 +11845,7 @@
 				7A9524CE22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */,
 				D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */,
+				7A71567C22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				B08624331F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				7A48EA1121B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
@@ -11982,6 +11992,7 @@
 				7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
+				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher.swift in Sources */,
 				D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */,
 				D8CE24F31E698E2400DAE2E0 /* WMFTableOfContentsAnimator.swift in Sources */,
@@ -12370,6 +12381,7 @@
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
+				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher.swift in Sources */,
 				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
 				D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
