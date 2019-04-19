@@ -83,8 +83,8 @@
             <constraints>
                 <constraint firstItem="XYv-PB-v5Y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="Jxb-Mb-YN7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XYv-PB-v5Y" secondAttribute="bottom" constant="18" id="RFN-QT-Lg6"/>
-                <constraint firstItem="XYv-PB-v5Y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="bnK-Nf-j0h"/>
-                <constraint firstAttribute="trailing" secondItem="XYv-PB-v5Y" secondAttribute="trailing" constant="12" id="gqI-SQ-T4l"/>
+                <constraint firstItem="XYv-PB-v5Y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="bnK-Nf-j0h"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XYv-PB-v5Y" secondAttribute="trailing" constant="12" id="gqI-SQ-T4l"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
