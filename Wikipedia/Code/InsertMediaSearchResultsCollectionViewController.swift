@@ -214,7 +214,11 @@ extension InsertMediaSearchResultsCollectionViewController {
         else {
             return nil
         }
-
-        return InsertMediaSearchResultPreviewingViewController(imageURL: imageURL, searchResult: searchResult)
+        let previewingViewController = InsertMediaSearchResultPreviewingViewController(imageURL: imageURL, searchResult: searchResult)
+        previewingViewController.selectImageAction = {
+            self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+            self.delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult)
+        }
+        return previewingViewController
     }
 }

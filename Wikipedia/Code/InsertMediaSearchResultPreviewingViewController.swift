@@ -7,6 +7,8 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
 
     private lazy var imageInfoView = InsertMediaImageInfoView.wmf_viewFromClassNib()!
 
+    var selectImageAction: (() -> Void)?
+
     private let searchResult: InsertMediaSearchResult
     private let imageURL: URL
     private var theme = Theme.standard
@@ -33,8 +35,8 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
     }
 
     override var previewActionItems: [UIPreviewActionItem] {
-        let selectImageAction = UIPreviewAction(title: "Select image", style: .default, handler: { (_, _) in
-            //
+        let selectImageAction = UIPreviewAction(title: "Select image", style: .default, handler: { [weak self] (_, _) in
+            self?.selectImageAction?()
         })
         let cancelAction = UIPreviewAction(title: CommonStrings.cancelActionTitle, style: .default) { (_, _) in }
         return [selectImageAction, cancelAction]
