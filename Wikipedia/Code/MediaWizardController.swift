@@ -196,16 +196,16 @@ final class MediaWizardController: NSObject {
             wikitext = "[[\(searchResult.fileTitle)]]"
         case let mediaSettings?:
             switch (mediaSettings.caption, mediaSettings.alternativeText) {
-            case (let caption?, let alternativeText?):
+            case (let caption?, let alternativeText?) where caption.wmf_hasNonWhitespaceText && alternativeText.wmf_hasNonWhitespaceText:
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) |
                 \(caption)]]
                 """
-            case (let caption?, nil):
+            case (let caption?, nil) where caption.wmf_hasNonWhitespaceText:
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
                 """
-            case (nil, let alternativeText?):
+            case (nil, let alternativeText?) where alternativeText.wmf_hasNonWhitespaceText:
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
                 """
