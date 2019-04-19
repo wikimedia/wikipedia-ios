@@ -768,11 +768,6 @@
 		7AF8CEEF22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */; };
 		7AF8CEF022653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */; };
 		7AF8CEF122653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */; };
-		7AF8CEF222653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */; };
-		7AF8CEF322653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */; };
-		7AF8CEF422653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */; };
-		7AF8CEF522653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */; };
-		7AF8CEF622653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */; };
 		7AFA21BB20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */; };
 		7AFA21BC20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */; };
 		7AFA21BD20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */; };
@@ -3737,7 +3732,6 @@
 		7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageEmptyView.swift; sourceTree = "<group>"; };
 		7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaImageEmptyView.xib; sourceTree = "<group>"; };
 		7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSelectedImageView.swift; sourceTree = "<group>"; };
-		7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSelectedImageView.xib; sourceTree = "<group>"; };
 		7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintViewController.swift; sourceTree = "<group>"; };
 		7AFA21BA20110D7900E957E7 /* HintViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HintViewController.xib; sourceTree = "<group>"; };
 		7AFC79F721B0367700BB0C50 /* TextFormattingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingTableViewController.swift; sourceTree = "<group>"; };
@@ -6228,7 +6222,6 @@
 				7AC4B6FF225D2D2E0040F0D4 /* InsertMediaImageViewController.swift */,
 				7AC4B700225D2D2E0040F0D4 /* InsertMediaImageViewController.xib */,
 				7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */,
-				7AF8CEEC22653406000B7676 /* InsertMediaSelectedImageView.xib */,
 				7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */,
 				7A84225D2268E1AF0074648E /* AlignedImageView.swift */,
 				7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */,
@@ -9473,7 +9466,6 @@
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */,
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
-				7AF8CEF222653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */,
 				D8421B58203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
@@ -9622,7 +9614,6 @@
 				D80ED3F61EE57F4800CE8C50 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D80ED3F71EE57F4800CE8C50 /* WMFChangePasswordViewController.storyboard in Resources */,
 				D80ED3F91EE57F4800CE8C50 /* NotificationBackgroundError.png in Resources */,
-				7AF8CEF622653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */,
 				D80ED3FA1EE57F4800CE8C50 /* WMFReferencePanels.storyboard in Resources */,
 				D80ED3FB1EE57F4800CE8C50 /* Places.storyboard in Resources */,
 				83023C0F20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
@@ -9736,7 +9727,6 @@
 				D8A42BCE1E815A9C00D8E281 /* PageHistoryResultPrototypeView.xib in Resources */,
 				D80ED2631EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8A42BD11E815A9C00D8E281 /* WMFTableOfContentsCell.xib in Resources */,
-				7AF8CEF522653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */,
 				D8421B5B203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				D8A42BD21E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0EFCD751EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
@@ -9846,7 +9836,6 @@
 				D8CE26551E698E2400DAE2E0 /* PageHistoryResultPrototypeView.xib in Resources */,
 				D80ED2611EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8CE26581E698E2400DAE2E0 /* WMFTableOfContentsCell.xib in Resources */,
-				7AF8CEF322653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */,
 				D8421B59203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				D8CE26591E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0EFCD731EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
@@ -9956,7 +9945,6 @@
 				D8EC3F551E9BDA35006712EB /* PageHistoryResultPrototypeView.xib in Resources */,
 				D80ED2621EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8EC3F581E9BDA35006712EB /* WMFTableOfContentsCell.xib in Resources */,
-				7AF8CEF422653406000B7676 /* InsertMediaSelectedImageView.xib in Resources */,
 				D8421B5A203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				D8EC3F591E9BDA35006712EB /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0EFCD741EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
