@@ -38,7 +38,7 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         let imageTypeViewModel = ViewModel(title: "Image type", detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) {
             self.navigationController?.pushViewController(self.imageTypeSettingsTableViewController, animated: true)
         }
-        let imageSizeViewModel = ViewModel(title: "Image size", detailText: "Default") {
+        let imageSizeViewModel = ViewModel(title: "Image size", detailText: imageSizeSettingsTableViewController.selectedImageSize.displayTitle) {
            self.navigationController?.pushViewController(self.imageSizeSettingsTableViewController, animated: false)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
