@@ -107,6 +107,7 @@ final class MediaWizardController: NSObject {
             }
         }
         let success = { (results: WMFSearchResults) in
+            assert(!Thread.isMainThread)
             let searchResults = searchResults(results)
             if !searchTerm.wmf_hasNonWhitespaceText {
                 DispatchQueue.main.async {
@@ -150,8 +151,9 @@ final class MediaWizardController: NSObject {
                 if resultsArray.isEmpty {
                     self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else if resultsArray.count < 12 {
+                    let searchResults = searchResults(results)
                     DispatchQueue.main.async {
-                        self.searchResultsCollectionViewController.searchResults = searchResults(results)
+                        self.searchResultsCollectionViewController.searchResults = searchResults
                     }
                     self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else {
