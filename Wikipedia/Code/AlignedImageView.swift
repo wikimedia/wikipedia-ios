@@ -6,15 +6,7 @@
 class AlignedImageView: UIImageView {
     public struct AlignmentMask: OptionSet {
         let rawValue: Int16
-        public static let center = AlignmentMask(rawValue: 0)
-        public static let left = AlignmentMask(rawValue: 1)
-        public static let right = AlignmentMask(rawValue: 2)
         public static let top = AlignmentMask(rawValue: 4)
-        public static let bottom = AlignmentMask(rawValue: 8)
-        public static let topLeft: AlignmentMask = [top, left]
-        public static let topRight: AlignmentMask = [top, right]
-        public static let bottomLeft: AlignmentMask = [bottom, left]
-        public static let bottomRight: AlignmentMask = [bottom, right]
     }
 
     /**
@@ -22,7 +14,7 @@ class AlignedImageView: UIImageView {
 
      Changes to this property can be animated.
      */
-    open var alignment: AlignmentMask = .center {
+    open var alignment: AlignmentMask = .top {
         didSet {
             guard alignment != oldValue else { return }
             updateLayout()
@@ -63,48 +55,6 @@ class AlignedImageView: UIImageView {
         }
     }
 
-    /**
-     The option to align the content to the left.
-
-     It is available in Interface Builder and should not be set programmatically. Use `alignment` property if you want to set alignment outside Interface Builder.
-     */
-    @IBInspectable open var alignLeft: Bool {
-        set {
-            setInspectableProperty(newValue, alignment: .left)
-        }
-        get {
-            return getInspectableProperty(.left)
-        }
-    }
-
-    /**
-     The option to align the content to the right.
-
-     It is available in Interface Builder and should not be set programmatically. Use `alignment` property if you want to set alignment outside Interface Builder.
-     */
-    @IBInspectable open var alignRight: Bool {
-        set {
-            setInspectableProperty(newValue, alignment: .right)
-        }
-        get {
-            return getInspectableProperty(.right)
-        }
-    }
-
-    /**
-     The option to align the content to the bottom.
-
-     It is available in Interface Builder and should not be set programmatically. Use `alignment` property if you want to set alignment outside Interface Builder.
-     */
-    @IBInspectable open var alignBottom: Bool {
-        set {
-            setInspectableProperty(newValue, alignment: .bottom)
-        }
-        get {
-            return getInspectableProperty(.bottom)
-        }
-    }
-
     open override var isHighlighted: Bool {
         set {
             super.isHighlighted = newValue
@@ -126,7 +76,9 @@ class AlignedImageView: UIImageView {
     private var realContentSize: CGSize {
         var size = bounds.size
 
-        guard let image = image else { return size }
+        guard let image = image else {
+            return size
+        }
 
         let scaleX = size.width / image.size.width
         let scaleY = size.height / image.size.height
@@ -135,14 +87,11 @@ class AlignedImageView: UIImageView {
         case .scaleAspectFill:
             let scale = max(scaleX, scaleY)
             size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-
         case .scaleAspectFit:
             let scale = min(scaleX, scaleY)
             size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-
         case .scaleToFill:
             size = CGSize(width: image.size.width * scaleX, height: image.size.height * scaleY)
-
         default:
             size = image.size
         }
@@ -201,16 +150,8 @@ class AlignedImageView: UIImageView {
         let realSize = realContentSize
         var realFrame = CGRect(origin: CGPoint(x: (bounds.size.width - realSize.width) / 2.0, y: (bounds.size.height - realSize.height) / 2.0), size: realSize)
 
-        if alignment.contains(.left) {
-            realFrame.origin.x = 0.0
-        } else if alignment.contains(.right) {
-            realFrame.origin.x = bounds.maxX - realFrame.size.width
-        }
-
         if alignment.contains(.top) {
             realFrame.origin.y = 0.0
-        } else if alignment.contains(.bottom) {
-            realFrame.origin.y = bounds.maxY - realFrame.size.height
         }
 
         realImageView?.frame = realFrame.integral
