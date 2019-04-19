@@ -118,21 +118,20 @@
       });
     }
 
-    function clearFocusedMatches(cm) {
-      const focusClassName = "cm-searching-focus";
-      const focusedElements = document.getElementsByClassName(focusClassName);
-      const focusedMatchID = getSearchState(cm).focusedMatchID;
+    const ClassNames = {
+      searching: 'cm-searching',
+      searchingFocus: 'cm-searching-focus',
+      searchingReplaced: 'cm-searching-replaced',
+      searchingFocusIdPrefix: 'cm-searching-focus-id-'
+    }
 
-      while (focusedElements.length > 0) {
-        var element = focusedElements[0];
-        element.classList.remove(focusClassName);
-        if (element.id === focusedMatchID) element.id = "";
-      }
+    function clearFocusedMatches(cm) {
+      Array.from(document.getElementsByClassName(ClassNames.searchingFocus)).forEach(element => setFocusOnMatchElement(element, false))
     }
 
     function markReplacedText(cm, cursor) {
       const state = getSearchState(cm);
-      const marker = cm.markText(cursor.from(), cursor.to(), { className: 'cm-searching-replaced' })
+      const marker = cm.markText(cursor.from(), cursor.to(), { className: ClassNames.searchingReplaced })
       if (state.replacedMarkers) {
         state.replacedMarkers.push(marker);
       } else {
@@ -148,7 +147,7 @@
     }
 
     function focusOnMatch(state, focus, forceIncrement) {
-      const matches = document.getElementsByClassName("cm-searching");
+      const matches = document.getElementsByClassName(ClassNames.searching);
       const matchesCount = matches.length;
       
       var focusedMatchIndex;
@@ -179,7 +178,7 @@
         }
       }
 
-      const focusedMatchID = `cm-searching-focus-id-${focusedMatchIndex}`;
+      const focusedMatchID = `${ClassNames.searchingFocusIdPrefix}${focusedMatchIndex}`;
       const focusedMatch = focusOnMatchAtIndex(matches, focusedMatchIndex, focusedMatchID);
 
       state.matchesCount = matchesCount;
@@ -203,13 +202,21 @@
       state.initialFocusedMatchIndex = -1;
     }
 
+    function setFocusOnMatchElement(element, enable, id = null) {
+      if (enable) {
+        element.classList.add(ClassNames.searchingFocus)
+        element.id = id
+      } else {
+        element.classList.remove(ClassNames.searchingFocus)
+        element.removeAttribute('id')  
+      }
+    }
+
     function focusOnMatchAtIndex(matches, index, id) {
       if (matches.length == 0) return null;
-      const focusClassName = "cm-searching-focus";
       const match = matches[index];
       if (!match) return null;
-      match.classList.add(focusClassName);
-      match.id = id;
+      setFocusOnMatchElement(match, true, id)
       return match
     }
 
