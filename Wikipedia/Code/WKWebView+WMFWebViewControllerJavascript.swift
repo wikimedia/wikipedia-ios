@@ -194,8 +194,8 @@ extension WKWebView {
         guard
             let url = article.url,
             let host = url.host,
-            let appSchemeURL = WMFURLSchemeHandler.shared().appSchemeURL(forWikipediaAPIHost: host),
-            let apiURL = WMFURLSchemeHandler.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
+            let appSchemeURL = SchemeHandler.APIHandler.appSchemeURL(for: host, fragment: nil),
+            let apiURL = SchemeHandler.ArticleSectionHandler.appSchemeURL(for: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
             else {
                 assertionFailure("Expected url, appSchemeURL and encodedTitle")
                 return
