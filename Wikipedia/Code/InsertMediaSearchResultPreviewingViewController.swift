@@ -29,8 +29,7 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { _ in }) {
             self.activityIndicator.stopAnimating()
         }
-        imageInfoView.configure(with: searchResult, showLicenseName: false, theme: theme)
-        imageInfoView.moreInformationAction = moreInformationAction
+        imageInfoView.configure(with: searchResult, showLicenseName: false, showMoreInformationButton: false, theme: theme)
         imageInfoView.apply(theme: theme)
         imageInfoViewContainer.wmf_addSubviewWithConstraintsToEdges(imageInfoView)
         apply(theme: theme)
@@ -40,8 +39,14 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
         let selectImageAction = UIPreviewAction(title: "Select image", style: .default, handler: { [weak self] (_, _) in
             self?.selectImageAction?()
         })
+        let moreInformationAction = UIPreviewAction(title: "More information", style: .default, handler: { [weak self] (_, _) in
+            guard let url = self?.searchResult.imageInfo?.filePageURL else {
+                return
+            }
+            self?.moreInformationAction?(url)
+        })
         let cancelAction = UIPreviewAction(title: CommonStrings.cancelActionTitle, style: .default) { (_, _) in }
-        return [selectImageAction, cancelAction]
+        return [selectImageAction, moreInformationAction, cancelAction]
     }
 }
 

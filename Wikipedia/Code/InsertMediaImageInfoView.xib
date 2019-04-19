@@ -31,7 +31,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2YL-8I-B18">
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YL-8I-B18">
                             <rect key="frame" x="0.0" y="202" width="351" height="16"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NiH-z3-XBT">
@@ -64,12 +64,9 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="APt-rJ-PFB"/>
                                     </constraints>
-                                    <state key="normal" title="More information" image="description-info">
+                                    <state key="normal" image="description-info">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="imageIsRightAligned" value="NO"/>
-                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="showMoreInformation:" destination="iN0-l3-epB" eventType="touchUpInside" id="x6u-jF-NlM"/>
                                     </connections>
