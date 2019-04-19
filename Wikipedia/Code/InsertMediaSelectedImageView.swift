@@ -55,7 +55,7 @@ class InsertMediaSelectedImageView: SetupView {
         }
         let imageHeight = AVMakeRect(aspectRatio: image.size, insideRect: imageView.frame).height
         let spaceBetweenImageAndInfoView = frame.size.height - imageHeight - imageInfoContainerView.frame.height
-        if spaceBetweenImageAndInfoView >= imageInfoContainerView.frame.height {
+        if spaceBetweenImageAndInfoView >= imageInfoContainerView.frame.height || imageInfoContainerView.frame.height - spaceBetweenImageAndInfoView <= spaceBetweenImageAndInfoView {
             imageInfoContainerViewBottomConstraint?.constant = 0 - spaceBetweenImageAndInfoView * 0.5
         } else {
             imageInfoContainerViewBottomConstraint?.constant = 0
