@@ -32,7 +32,7 @@ class InsertMediaSettingsImageView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        headingLabel.preferredMaxLayoutWidth = titleLabel.bounds.width
+        headingLabel.preferredMaxLayoutWidth = headingLabel.bounds.width
         titleLabel.preferredMaxLayoutWidth = titleLabel.bounds.width
     }
 }
