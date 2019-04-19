@@ -3,7 +3,7 @@ import UIKit
 class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var textFieldLabel: UILabel!
-    @IBOutlet private weak var textField: ThemeableTextField!
+    @IBOutlet weak var textField: ThemeableTextField!
 
     private var theme = Theme.standard
 

@@ -7,22 +7,51 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
 
     typealias ImageSize = InsertMediaSettings.Advanced.ImageSize
 
-//    var selectedImageSize: ImageSize {
-//        guard let selectedIndexPath = selectedIndexPath else {
-//            return .default
-//        }
-//        return viewModels[selectedIndexPath.row].imageSize
-//    }
+    var selectedImageSize: ImageSize {
+        guard
+            customSwitch.isOn,
+            let widthString = textFieldsGroupedByMeasure[.width]?.text,
+            let width = Int(widthString),
+            let heightString = textFieldsGroupedByMeasure[.height]?.text,
+            let height = Int(heightString)
+        else {
+            return .default
+        }
+        return .custom(width: width, height: height)
+    }
 
-    struct TitleCellViewModel: ViewModel {
+    private var textFieldsGroupedByMeasure = [Measure: UITextField]()
+
+    private struct ImageSizeViewModel: ViewModel {
         let title: String
         let accessoryView: UIView
     }
 
-    struct TextFieldCellViewModel: ViewModel {
+    private enum Measure: Hashable {
+        case width, height
+
+        var displayTitle: String {
+            switch self {
+            case .width:
+                return "Width"
+            case .height:
+                return "Height"
+            }
+        }
+    }
+
+    private struct MeasureViewModel: ViewModel {
+        let measure: Measure
         let title: String
-        let textFieldText: String
-        let textFieldLabelText: String
+        let defaultValue: String
+        let unitName: String
+
+        init(measure: Measure, defaultValue: String, unitName: String) {
+            self.measure = measure
+            self.title = measure.displayTitle
+            self.defaultValue = defaultValue
+            self.unitName = unitName
+        }
     }
 
     private lazy var customSwitch: UISwitch = {
@@ -36,11 +65,9 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
     }
 
     private lazy var viewModels: [ViewModel] = {
-        let customViewModel = TitleCellViewModel(title: ImageSize.custom(width: 220, height: 124).displayTitle, accessoryView: customSwitch)
-        let tf = UITextField()
-        tf.placeholder = "220 px"
-        let widthViewModel = TextFieldCellViewModel(title: "Width", textFieldText: "220", textFieldLabelText: "px")
-        let heightViewModel = TextFieldCellViewModel(title: "Height", textFieldText: "124", textFieldLabelText: "px")
+        let customViewModel = ImageSizeViewModel(title: "Custom", accessoryView: customSwitch)
+        let widthViewModel = MeasureViewModel(measure: .width, defaultValue: "220", unitName: "px")
+        let heightViewModel = MeasureViewModel(measure: .height, defaultValue: "124", unitName: "px")
         return [customViewModel, widthViewModel, heightViewModel]
     }()
 
@@ -65,19 +92,20 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let viewModel = viewModels[indexPath.row]
         switch viewModel {
-        case let titleCellViewModel as TitleCellViewModel:
+        case let imageSizeViewModel as ImageSizeViewModel:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier, for: indexPath)
-            cell.textLabel?.text = titleCellViewModel.title
-            cell.accessoryView = titleCellViewModel.accessoryView
+            cell.textLabel?.text = imageSizeViewModel.title
+            cell.accessoryView = imageSizeViewModel.accessoryView
             cell.selectionStyle = .none
             return cell
-        case let textFieldCellViewModel as TextFieldCellViewModel:
+        case let measureViewModel as MeasureViewModel:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: InsertMediaCustomImageSizeSettingTableViewCell.identifier, for: indexPath) as? InsertMediaCustomImageSizeSettingTableViewCell else {
                 return UITableViewCell()
             }
-            cell.configure(title: textFieldCellViewModel.title, textFieldLabelText: textFieldCellViewModel.textFieldLabelText, textFieldText: textFieldCellViewModel.textFieldText, theme: theme)
+            cell.configure(title: measureViewModel.title, textFieldLabelText: measureViewModel.unitName, textFieldText: measureViewModel.defaultValue, theme: theme)
             cell.selectionStyle = .none
             cell.isUserInteractionEnabled = customSwitch.isOn
+            textFieldsGroupedByMeasure[measureViewModel.measure] = cell.textField
             return cell
         default:
             return UITableViewCell()

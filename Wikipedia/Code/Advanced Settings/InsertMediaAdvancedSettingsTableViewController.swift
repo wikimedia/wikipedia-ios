@@ -4,7 +4,7 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
     private let theme: Theme
 
     var advancedSettings: InsertMediaSettings.Advanced {
-        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition, imageType: imageTypeSettingsTableViewController.selectedImageType)
+        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition, imageType: imageTypeSettingsTableViewController.selectedImageType, imageSize: imageSizeSettingsTableViewController.selectedImageSize)
     }
 
     struct ViewModel {
