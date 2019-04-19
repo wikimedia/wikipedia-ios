@@ -22,7 +22,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
             let imageType: ImageType
             let imageSize: ImageSize
 
-            enum ImagePosition {
+            enum ImagePosition: String {
                 case right
                 case left
                 case center
