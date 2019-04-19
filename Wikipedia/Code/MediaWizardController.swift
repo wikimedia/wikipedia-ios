@@ -210,8 +210,9 @@ final class MediaWizardController: NSObject {
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
                 """
             default:
-                assertionFailure()
-                wikitext = "[[\(searchResult.fileTitle)]]"
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
+                """
             }
         }
         delegate?.mediaWizardController(self, didPrepareWikitextToInsert: wikitext)
