@@ -26,6 +26,17 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                 case right
                 case left
                 case center
+
+                var displayTitle: String {
+                    switch self {
+                    case .right:
+                        return "Right"
+                    case .left:
+                        return "Left"
+                    case .center:
+                        return "Center"
+                    }
+                }
             }
 
             enum ImageType: String {
