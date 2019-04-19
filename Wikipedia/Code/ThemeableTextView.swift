@@ -28,16 +28,20 @@ class ThemeableTextView: UITextView {
             delegate = self
             placeholderLabel.numberOfLines = 0
             addSubview(placeholderLabel)
-            let placeholderLabelX: CGFloat
-            if let selectedTextRange = selectedTextRange {
-                let caretPosition = caretRect(for: selectedTextRange.start)
-                placeholderLabelX = caretPosition.maxX
-            } else {
-                placeholderLabelX = 0
-            }
-            placeholderLabel.frame.origin = CGPoint(x: placeholderLabelX, y: (font?.pointSize)! / 2)
+            placeholderLabel.frame.origin = placeholderLabelOrigin
             placeholderLabel.isHidden = !text.isEmpty
         }
+    }
+
+    private var placeholderLabelOrigin: CGPoint {
+        let placeholderLabelX: CGFloat
+        if let selectedTextRange = selectedTextRange {
+            let caretPosition = caretRect(for: selectedTextRange.start)
+            placeholderLabelX = caretPosition.maxX
+        } else {
+            placeholderLabelX = 0
+        }
+        return CGPoint(x: placeholderLabelX, y: 0)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -49,7 +53,7 @@ class ThemeableTextView: UITextView {
         didSet {
             if usesPlaceholder {
                 placeholderLabel.text = placeholder
-                placeholderLabel.sizeToFit()
+                placeholderLabel.frame.size = placeholderLabel.sizeThatFits(frame.size)
             }
         }
     }
@@ -58,6 +62,30 @@ class ThemeableTextView: UITextView {
         super.traitCollectionDidChange(previousTraitCollection)
         font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         placeholderLabel.font = font
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard !placeholderLabel.isHidden else {
+            return
+        }
+        let placeholderLabelHeight = placeholderLabel.sizeThatFits(CGSize(width: frame.width, height: UIView.noIntrinsicMetric)).height
+        if frame.size.height != placeholderLabelHeight {
+            frame.size.height = placeholderLabelHeight + textContainerInset.top + textContainerInset.bottom
+        }
+        let placeholderLabelSize = CGSize(width: frame.size.width, height: frame.size.height)
+        if placeholderLabel.frame.size != placeholderLabelSize {
+            placeholderLabel.frame.size = placeholderLabelSize
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        guard !placeholderLabel.isHidden else {
+            return super.intrinsicContentSize
+        }
+        let placeholderLabelHeight = placeholderLabel.sizeThatFits(CGSize(width: frame.width, height: UIView.noIntrinsicMetric)).height
+        let heightPlusInset = placeholderLabelHeight + textContainerInset.top + textContainerInset.bottom
+        return CGSize(width: super.intrinsicContentSize.width, height: heightPlusInset)
     }
 }
 
