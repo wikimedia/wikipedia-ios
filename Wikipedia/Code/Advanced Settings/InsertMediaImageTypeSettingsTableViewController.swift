@@ -1,3 +1,44 @@
+final fileprivate class FooterView: SetupView, Themeable {
+    private let label = UILabel()
+    private let separator = UIView()
+
+    override func setup() {
+        super.setup()
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(separator)
+        let separatorLeadingConstraint = separator.leadingAnchor.constraint(equalTo: leadingAnchor)
+        let separatorTrailingConstraint = separator.trailingAnchor.constraint(equalTo: trailingAnchor)
+        let separatorTopConstraint = separator.topAnchor.constraint(equalTo: topAnchor)
+        let separatorHeightConstraint = separator.heightAnchor.constraint(equalToConstant: 0.5)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "You can set how the media item appears on the page. This should be the thumbnail format to be consistent with other pages in almost all cases."
+        addSubview(label)
+        let labelLeadingConstraint = label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15)
+        let labelTrailingConstraint = label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15)
+        let labelBottomConstraint = label.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 15)
+        let labelTopConstraint = label.topAnchor.constraint(equalTo: topAnchor, constant: 12)
+        NSLayoutConstraint.activate([separatorLeadingConstraint, separatorTrailingConstraint, separatorTopConstraint, separatorHeightConstraint, labelLeadingConstraint, labelTrailingConstraint, labelBottomConstraint, labelTopConstraint])
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        label.font  = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+    }
+
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        label.backgroundColor = backgroundColor
+        label.textColor = theme.colors.secondaryText
+        separator.backgroundColor = theme.colors.border
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        label.preferredMaxLayoutWidth = label.bounds.width
+    }
+}
+
 final class InsertMediaImageTypeSettingsTableViewController: UITableViewController {
     private var theme = Theme.standard
 
