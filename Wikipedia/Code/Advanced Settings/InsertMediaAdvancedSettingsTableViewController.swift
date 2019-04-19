@@ -4,7 +4,7 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
     private let theme: Theme
 
     var advancedSettings: InsertMediaSettings.Advanced {
-        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition)
+        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition, imageType: imageTypeSettingsTableViewController.selectedImageType)
     }
 
     struct ViewModel {
@@ -27,17 +27,19 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
 
     private lazy var textWrappingSwitch = UISwitch()
     private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController()
+    private lazy var imageTypeSettingsTableViewController = InsertMediaImageTypeSettingsTableViewController()
+    private lazy var imageSizeSettingsTableViewController = InsertMediaImageSizeSettingsTableViewController()
 
     private var viewModels: [ViewModel] {
         let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
         let imagePositionViewModel = ViewModel(title: "Image position", detailText: imagePositionSettingsTableViewController.selectedImagePosition.displayTitle) {
             self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
         }
-        let imageTypeViewModel = ViewModel(title: "Image type", detailText: "Thumbnail") {
-            //self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+        let imageTypeViewModel = ViewModel(title: "Image type", detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) {
+            self.navigationController?.pushViewController(self.imageTypeSettingsTableViewController, animated: true)
         }
         let imageSizeViewModel = ViewModel(title: "Image size", detailText: "Default") {
-            //self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+           self.navigationController?.pushViewController(self.imageSizeSettingsTableViewController, animated: false)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
     }

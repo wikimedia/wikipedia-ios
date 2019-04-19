@@ -1,37 +1,38 @@
-final class InsertMediaImagePositionSettingsTableViewController: UITableViewController {
+final class InsertMediaImageTypeSettingsTableViewController: UITableViewController {
     private var theme = Theme.standard
 
-    var selectedImagePosition: InsertMediaSettings.Advanced.ImagePosition {
+    var selectedImageType: InsertMediaSettings.Advanced.ImageType {
         guard let selectedIndexPath = selectedIndexPath else {
-            return .right
+            return .thumbnail
         }
-        return viewModels[selectedIndexPath.row].imagePosition
+        return viewModels[selectedIndexPath.row].imageType
     }
 
     struct ViewModel {
-        let imagePosition: InsertMediaSettings.Advanced.ImagePosition
+        let imageType: InsertMediaSettings.Advanced.ImageType
         let title: String
         let isSelected: Bool
 
-        init(imagePosition: InsertMediaSettings.Advanced.ImagePosition, isSelected: Bool = false) {
-            self.imagePosition = imagePosition
-            self.title = imagePosition.displayTitle
+        init(imageType: InsertMediaSettings.Advanced.ImageType, isSelected: Bool = false) {
+            self.imageType = imageType
+            self.title = imageType.displayTitle
             self.isSelected = isSelected
         }
     }
 
     private lazy var viewModels: [ViewModel] = {
-        let rightViewModel = ViewModel(imagePosition: .right, isSelected: true)
-        let leftViewModel = ViewModel(imagePosition: .left)
-        let centerViewModel = ViewModel(imagePosition: .center)
-        return [rightViewModel, leftViewModel, centerViewModel]
+        let thumbnailViewModel = ViewModel(imageType: .thumbnail, isSelected: true)
+        let framelessViewModel = ViewModel(imageType: .frameless)
+        let frameViewModel = ViewModel(imageType: .frame)
+        let basicViewModel = ViewModel(imageType: .basic)
+        return [thumbnailViewModel, framelessViewModel, frameViewModel, basicViewModel]
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.separatorInset = .zero
-        title = "Image position"
+        title = "Image type"
         apply(theme: theme)
     }
 
@@ -63,8 +64,8 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         guard
             let selectedIndexPath = selectedIndexPath,
             let selectedCell = tableView.cellForRow(at: selectedIndexPath)
-        else {
-            return indexPath
+            else {
+                return indexPath
         }
         selectedCell.accessoryType = .none
         return indexPath
@@ -79,7 +80,7 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
 
 // MARK: - Themeable
 
-extension InsertMediaImagePositionSettingsTableViewController: Themeable {
+extension InsertMediaImageTypeSettingsTableViewController: Themeable {
     func apply(theme: Theme) {
         guard viewIfLoaded != nil else {
             return
@@ -88,3 +89,4 @@ extension InsertMediaImagePositionSettingsTableViewController: Themeable {
         tableView.separatorColor = theme.colors.border
     }
 }
+

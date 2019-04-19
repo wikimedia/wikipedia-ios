@@ -41,16 +41,48 @@ class InsertMediaSettingsTableViewController: UITableViewController {
 
             enum ImageType: String {
                 case thumbnail = "thumb"
-                case border
                 case frameless
                 case frame
+                case basic
+
+                var displayTitle: String {
+                    switch self {
+                    case .thumbnail:
+                        return "Thumbnail"
+                    case .frameless:
+                        return "Frameless"
+                    case .frame:
+                        return "Frame"
+                    case .basic:
+                        return "Basic"
+                    }
+                }
             }
 
-            enum ImageSize: String {
-                case upright
+            enum ImageSize {
+                case `default`
+                case custom(width: Int, height: Int)
+
+                var displayTitle: String {
+                    switch self {
+                    case .default:
+                        return "Default"
+                    case .custom:
+                        return "Custom"
+                    }
+                }
+
+                var rawValue: String {
+                    switch self {
+                    case .default:
+                        return "upright"
+                    case .custom(let width, let height):
+                        return "\(width)x\(height)px"
+                    }
+                }
             }
 
-            init(wrapTextAroundImage: Bool = false, imagePosition: ImagePosition = .right, imageType: ImageType = .thumbnail, imageSize: ImageSize = .upright) {
+            init(wrapTextAroundImage: Bool = false, imagePosition: ImagePosition = .right, imageType: ImageType = .thumbnail, imageSize: ImageSize = .default) {
                 self.wrapTextAroundImage = wrapTextAroundImage
                 self.imagePosition = imagePosition
                 self.imageType = imageType
