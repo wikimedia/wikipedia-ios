@@ -15,7 +15,7 @@ class InsertMediaImageInfoView: UIView {
         }
     }
 
-    func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, showLicenseName: Bool = true, theme: Theme) {
+    func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, showLicenseName: Bool = true, showMoreInformationButtonTitle: Bool = true, theme: Theme) {
         titleLabel.text = searchResult.displayTitle
         moreInformationURL = searchResult.imageInfo?.filePageURL
         if showImageDescription, let imageDescription = searchResult.imageInfo?.imageDescription {
@@ -24,6 +24,10 @@ class InsertMediaImageInfoView: UIView {
         } else {
             descriptionLabel.isHidden = true
         }
+        
+        let moreInformationButtonTitle = showMoreInformationButtonTitle ? "More information" : nil
+        moreInformationButton.setTitle(moreInformationButtonTitle, for: .normal)
+
         for subview in licenseStackView.arrangedSubviews {
             licenseStackView.removeArrangedSubview(subview)
             subview.removeFromSuperview()
@@ -50,6 +54,7 @@ class InsertMediaImageInfoView: UIView {
         } else {
             licenseLabel.isHidden = true
         }
+        setNeedsLayout()
     }
 
     private func licenseImageView(withImageNamed imageName: String, theme: Theme) -> UIImageView? {
