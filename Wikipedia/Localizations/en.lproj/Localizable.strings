@@ -42,6 +42,7 @@
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-title" = "Create a new account";
+"account-talk-page-title" = "Your talk page";
 "action-add-to" = "Add to…";
 "action-add-to-reading-list" = "Add to reading list";
 "action-add-to-reading-list-short" = "Add to list";
@@ -607,6 +608,7 @@
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
+"settings-account" = "Account";
 "settings-appearance" = "Reading preferences";
 "settings-clear-cache" = "Clear cached data";
 "settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";

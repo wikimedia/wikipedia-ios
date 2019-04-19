@@ -316,7 +316,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)showLoginOrLogout {
     NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
     if (userName) {
-        [self showLogoutActionSheet];
+        WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
+        [accountVC applyTheme:self.theme];
+        [self.navigationController pushViewController:accountVC animated:YES];
     } else {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];

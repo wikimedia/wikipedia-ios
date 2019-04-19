@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Talk Page Discussion List View Controller-->
+        <scene sceneID="Slf-LO-iR1">
+            <objects>
+                <viewController storyboardIdentifier="TalkPageDiscussionListViewController" id="UPy-PA-Xmb" customClass="TalkPageDiscussionListViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uco-T5-qB3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="mKH-pt-ag1"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="d7S-ty-P0J"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pbk-Nn-S1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1218.840579710145" y="904.6875"/>
+        </scene>
+        <!--Talk Page Discussion New View Controller-->
+        <scene sceneID="gJp-Ge-qXy">
+            <objects>
+                <viewController storyboardIdentifier="TalkPageDiscussionNewViewController" id="E65-7i-reG" customClass="TalkPageDiscussionNewViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="j9Z-Z5-UX0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNv-6j-TRU">
+                                <rect key="frame" x="184" y="433" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="tappedPublish:" destination="E65-7i-reG" eventType="touchUpInside" id="c6r-U5-42F"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wNv-6j-TRU" firstAttribute="centerX" secondItem="j9Z-Z5-UX0" secondAttribute="centerX" id="08Z-nX-Pxy"/>
+                            <constraint firstItem="wNv-6j-TRU" firstAttribute="centerY" secondItem="j9Z-Z5-UX0" secondAttribute="centerY" id="W2i-lb-EGp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="chi-cA-jKQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ngS-KS-emY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2429" y="905"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="hJH-dm-bll">
+            <objects>
+                <viewController storyboardIdentifier="TalkPageContainerViewController" id="bKG-um-UaO" customClass="TalkPageContainerViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lKp-cl-89f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dye-5C-LXM">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <connections>
+                                    <segue destination="UPy-PA-Xmb" kind="embed" identifier="discussionListEmbedSegue" id="c8g-eg-Ry5"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Dye-5C-LXM" firstAttribute="trailing" secondItem="y3H-2j-jQG" secondAttribute="trailing" id="Cok-ua-auT"/>
+                            <constraint firstItem="Dye-5C-LXM" firstAttribute="bottom" secondItem="y3H-2j-jQG" secondAttribute="bottom" id="Orb-ic-9tF"/>
+                            <constraint firstItem="Dye-5C-LXM" firstAttribute="leading" secondItem="y3H-2j-jQG" secondAttribute="leading" id="i63-th-aeX"/>
+                            <constraint firstItem="Dye-5C-LXM" firstAttribute="top" secondItem="lKp-cl-89f" secondAttribute="top" id="y95-BW-eqo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="y3H-2j-jQG"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="oAB-hc-D2T">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GYK-fx-PjG">
+                            <connections>
+                                <action selector="tappedAddButton:" destination="bKG-um-UaO" id="lmS-0i-e9c"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KAL-2Q-xaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1071.0144927536232" y="202.90178571428569"/>
+        </scene>
+        <!--Talk Page Reply Container View Controller-->
+        <scene sceneID="sIX-Ft-e7o">
+            <objects>
+                <viewController storyboardIdentifier="TalkPageReplyContainerViewController" id="pl1-8I-KLl" customClass="TalkPageReplyContainerViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BIW-qp-Pel">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4X-RC-55B">
+                                <rect key="frame" x="0.0" y="44" width="414" height="404"/>
+                                <connections>
+                                    <segue destination="QDk-qy-Vx2" kind="embed" id="KbD-dL-CCU"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2r-EH-uQK">
+                                <rect key="frame" x="0.0" y="448" width="414" height="414"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="414" id="nHC-yI-4V9"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="qtH-NY-4Se" kind="embed" id="4VK-xN-UwR"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="k4X-RC-55B" firstAttribute="trailing" secondItem="KuO-MH-Bd2" secondAttribute="trailing" id="6x9-4J-Obe"/>
+                            <constraint firstItem="k4X-RC-55B" firstAttribute="leading" secondItem="KuO-MH-Bd2" secondAttribute="leading" id="Iom-U0-uKl"/>
+                            <constraint firstItem="Z2r-EH-uQK" firstAttribute="leading" secondItem="KuO-MH-Bd2" secondAttribute="leading" id="R8W-Bj-0b1"/>
+                            <constraint firstItem="Z2r-EH-uQK" firstAttribute="top" secondItem="k4X-RC-55B" secondAttribute="bottom" id="S91-G0-kIk"/>
+                            <constraint firstItem="Z2r-EH-uQK" firstAttribute="bottom" secondItem="KuO-MH-Bd2" secondAttribute="bottom" id="YNa-oZ-eGc"/>
+                            <constraint firstItem="k4X-RC-55B" firstAttribute="top" secondItem="KuO-MH-Bd2" secondAttribute="top" id="baD-bE-FsU"/>
+                            <constraint firstItem="Z2r-EH-uQK" firstAttribute="trailing" secondItem="KuO-MH-Bd2" secondAttribute="trailing" id="zi0-EM-xPH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KuO-MH-Bd2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-2n-ehf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2224.6376811594205" y="172.76785714285714"/>
+        </scene>
+        <!--Talk Page Reply List View Controller-->
+        <scene sceneID="Rxt-xF-11j">
+            <objects>
+                <viewController storyboardIdentifier="TalkPageReplyListViewController" id="QDk-qy-Vx2" customClass="TalkPageReplyListViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ulE-0t-csD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="404"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="szN-YI-OX2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="326"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TalkPageReplyCell" id="siU-C1-DSD">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="siU-C1-DSD" id="Pea-2G-XoP">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="szN-YI-OX2" firstAttribute="top" secondItem="fmO-TO-gKB" secondAttribute="top" id="qIK-h2-K1L"/>
+                            <constraint firstItem="szN-YI-OX2" firstAttribute="bottom" secondItem="fmO-TO-gKB" secondAttribute="bottom" id="tnI-8I-sVb"/>
+                            <constraint firstItem="szN-YI-OX2" firstAttribute="trailing" secondItem="fmO-TO-gKB" secondAttribute="trailing" id="x4B-LJ-oXH"/>
+                            <constraint firstItem="szN-YI-OX2" firstAttribute="leading" secondItem="fmO-TO-gKB" secondAttribute="leading" id="z50-qX-Rni"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fmO-TO-gKB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="34D-dE-HRE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2980" y="-21"/>
+        </scene>
+        <!--Talk Page Reply New View Controller-->
+        <scene sceneID="X4s-q3-ZxX">
+            <objects>
+                <viewController storyboardIdentifier="TalkPageReplyNewViewController" id="qtH-NY-4Se" customClass="TalkPageReplyNewViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZLS-cq-IH1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reply New VC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-Ry-yuE">
+                                <rect key="frame" x="152.5" y="196.5" width="109" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="VRJ-Ry-yuE" firstAttribute="centerX" secondItem="ZLS-cq-IH1" secondAttribute="centerX" id="15D-Io-F7c"/>
+                            <constraint firstItem="VRJ-Ry-yuE" firstAttribute="centerY" secondItem="ZLS-cq-IH1" secondAttribute="centerY" id="t2s-a6-Fsv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kG1-MT-BFS"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JOY-lI-bZU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3012" y="308"/>
+        </scene>
+    </scenes>
+</document>
