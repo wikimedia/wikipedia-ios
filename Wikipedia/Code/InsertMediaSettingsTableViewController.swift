@@ -26,7 +26,6 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                 case right
                 case left
                 case center
-                case none
             }
 
             enum ImageType: String {

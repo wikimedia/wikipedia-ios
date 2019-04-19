@@ -435,6 +435,11 @@
 		7A710924225F7AEB00D62581 /* MediaWizardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardController.swift */; };
 		7A710925225F7AEB00D62581 /* MediaWizardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardController.swift */; };
 		7A710926225F7AEB00D62581 /* MediaWizardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A710921225F7AEB00D62581 /* MediaWizardController.swift */; };
+		7A71565B226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
+		7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
+		7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
+		7A71565E226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
+		7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
 		7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
 		7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
 		7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
@@ -3657,6 +3662,7 @@
 		7A70797B223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePanelLabelContentViewController.swift; sourceTree = "<group>"; };
 		7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomePanelLabelContentViewController.xib; sourceTree = "<group>"; };
 		7A710921225F7AEB00D62581 /* MediaWizardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWizardController.swift; sourceTree = "<group>"; };
+		7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImagePositionSettingsTableViewController.swift; sourceTree = "<group>"; };
 		7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorNavigationItemController.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
@@ -6380,6 +6386,7 @@
 			isa = PBXGroup;
 			children = (
 				7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsTableViewController.swift */,
+				7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */,
 			);
 			path = "Advanced Settings";
 			sourceTree = "<group>";
@@ -10589,6 +10596,7 @@
 				B0E804D61C0CE0B40065EBC0 /* NSObject+WMFExtras.m in Sources */,
 				7A6ED51C20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */,
+				7A71565B226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
 				D818D3AB1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				7AFA21BB20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
@@ -10926,6 +10934,7 @@
 				D80ED2E51EE57F4800CE8C50 /* ProtectedEditAttemptFunnel.m in Sources */,
 				7A1469C1220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D80ED2E61EE57F4800CE8C50 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
+				7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
 				D80ED2E81EE57F4800CE8C50 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				D80ED2E91EE57F4800CE8C50 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D80ED2EA1EE57F4800CE8C50 /* WMFArticleTextActivitySource.m in Sources */,
@@ -11687,6 +11696,7 @@
 				D8A42AE31E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8A42AE41E815A9C00D8E281 /* WMFSuggestedPagesFunnel.m in Sources */,
 				6780DF462264350800D9069D /* RemoteSubHandler.swift in Sources */,
+				7A71565E226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
 				7A6ED51120ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				8304D7C31F60131900A0CDD6 /* WMFWebView.m in Sources */,
 				67E069142239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
@@ -12032,6 +12042,7 @@
 				D8CE254D1E698E2400DAE2E0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				7A1469BE220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
+				7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
 				D8CE25501E698E2400DAE2E0 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				D8CE25511E698E2400DAE2E0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
@@ -12416,6 +12427,7 @@
 				7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				7A1469BF220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */,
+				7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
 				D818D3AD1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8EC3E421E9BDA35006712EB /* WMFTableOfContentsViewController.swift in Sources */,

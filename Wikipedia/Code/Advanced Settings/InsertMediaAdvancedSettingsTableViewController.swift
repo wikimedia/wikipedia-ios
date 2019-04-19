@@ -1,10 +1,10 @@
 import UIKit
 
-class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
+final class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
     private let theme: Theme
 
     var advancedSettings: InsertMediaSettings.Advanced {
-        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn)
+        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition)
     }
 
     struct ViewModel {
@@ -13,23 +13,32 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
         let accessoryView: UIView?
         let accessoryType: UITableViewCell.AccessoryType
         let selectionStyle: UITableViewCell.SelectionStyle
+        let onSelection: (() -> Void)?
 
-        init(title: String, detailText: String? = nil, accessoryView: UIView? = nil, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator, selectionStyle: UITableViewCell.SelectionStyle = .default) {
+        init(title: String, detailText: String? = nil, accessoryView: UIView? = nil, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator, selectionStyle: UITableViewCell.SelectionStyle = .default, onSelection: (() -> Void)? = nil ) {
             self.title = title
             self.detailText = detailText
             self.accessoryView = accessoryView
             self.accessoryType = accessoryType
             self.selectionStyle = selectionStyle
+            self.onSelection = onSelection
         }
     }
 
     private lazy var textWrappingSwitch = UISwitch()
+    private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController()
 
     private lazy var viewModels: [ViewModel] = {
         let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
-        let imagePositionViewModel = ViewModel(title: "Image position", detailText: "Right")
-        let imageTypeViewModel = ViewModel(title: "Image type", detailText: "Thumbnail")
-        let imageSizeViewModel = ViewModel(title: "Image size", detailText: "Default")
+        let imagePositionViewModel = ViewModel(title: "Image position", detailText: "Right") {
+            self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+        }
+        let imageTypeViewModel = ViewModel(title: "Image type", detailText: "Thumbnail") {
+            self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+        }
+        let imageSizeViewModel = ViewModel(title: "Image size", detailText: "Default") {
+            self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+        }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
     }()
 
@@ -70,6 +79,11 @@ class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
         cell.detailTextLabel?.text = viewModel.detailText
         cell.selectionStyle = viewModel.selectionStyle
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewModel = viewModels[indexPath.row]
+        viewModel.onSelection?()
     }
 }
 
