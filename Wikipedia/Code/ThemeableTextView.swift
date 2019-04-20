@@ -66,14 +66,6 @@ class ThemeableTextView: UITextView {
         guard !placeholderLabel.isHidden else {
             return
         }
-        let placeholderLabelHeight = placeholderLabel.sizeThatFits(CGSize(width: frame.width, height: UIView.noIntrinsicMetric)).height
-        if frame.size.height != placeholderLabelHeight {
-            frame.size.height = placeholderLabelHeight + textContainerInset.top + textContainerInset.bottom
-        }
-        let placeholderLabelSize = CGSize(width: frame.size.width, height: frame.size.height)
-        if placeholderLabel.frame.size != placeholderLabelSize {
-            placeholderLabel.frame.size = placeholderLabelSize
-        }
         placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width
     }
 
