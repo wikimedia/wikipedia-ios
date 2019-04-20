@@ -59,6 +59,9 @@ class ThemeableTextView: UITextView {
         super.traitCollectionDidChange(previousTraitCollection)
         font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         placeholderLabel.font = font
+        if !placeholderLabel.isHidden {
+            invalidateIntrinsicContentSize()
+        }
     }
 
     override func layoutSubviews() {
