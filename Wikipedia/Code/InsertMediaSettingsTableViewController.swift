@@ -195,7 +195,10 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     }
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: traitCollection, with: coordinator)
+        super.willTransition(to: newCollection, with: coordinator)
+        guard textViewHeightDelta != nil else {
+            return
+        }
         UIView.performWithoutAnimation {
             self.textViewHeightDelta = nil
             self.tableView.beginUpdates()
