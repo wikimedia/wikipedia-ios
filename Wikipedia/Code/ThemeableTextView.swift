@@ -50,7 +50,7 @@ class ThemeableTextView: UITextView {
         didSet {
             if usesPlaceholder {
                 placeholderLabel.text = placeholder
-                placeholderLabel.frame.size = placeholderLabel.sizeThatFits(frame.size)
+                placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width
             }
         }
     }
