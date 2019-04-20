@@ -79,6 +79,7 @@ class ThemeableTextView: UITextView {
         if placeholderLabel.frame.size != placeholderLabelSize {
             placeholderLabel.frame.size = placeholderLabelSize
         }
+        placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width
     }
 
     override var intrinsicContentSize: CGSize {
