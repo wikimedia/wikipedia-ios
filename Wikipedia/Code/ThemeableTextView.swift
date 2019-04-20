@@ -20,30 +20,25 @@ class ThemeableTextView: UITextView {
         }
     }
 
-    private func setup() {
-        var inset = textContainerInset
-        inset.left = -3
-        textContainerInset = inset
-        if usesPlaceholder {
-            delegate = self
-            placeholderLabel.numberOfLines = 0
-            addSubview(placeholderLabel)
-            placeholderLabel.frame.origin = placeholderLabelOrigin
-            placeholderLabel.isHidden = !text.isEmpty
-        }
     public func reset() {
         placeholderLabel.text = nil
     }
 
-    private var placeholderLabelOrigin: CGPoint {
-        let placeholderLabelX: CGFloat
+    private func setup() {
+        let leftInset: CGFloat
         if let selectedTextRange = selectedTextRange {
             let caretPosition = caretRect(for: selectedTextRange.start)
-            placeholderLabelX = caretPosition.maxX
+            leftInset = 0 - caretPosition.minX
         } else {
-            placeholderLabelX = 0
+            leftInset = 0
         }
-        return CGPoint(x: placeholderLabelX, y: 0)
+        textContainerInset.left = leftInset
+        if usesPlaceholder {
+            placeholderLabel.numberOfLines = 0
+            placeholderLabel.clipsToBounds = true
+            delegate = self
+            wmf_addSubview(placeholderLabel, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: textContainerInset.top, left: 0 - textContainerInset.left, bottom: textContainerInset.bottom, right: textContainerInset.right))
+        }
     }
 
     required public init?(coder aDecoder: NSCoder) {
