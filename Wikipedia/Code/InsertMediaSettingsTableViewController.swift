@@ -30,11 +30,11 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                 var displayTitle: String {
                     switch self {
                     case .right:
-                        return "Right"
+                        return WMFLocalizedString("insert-media-image-position-setting-right", value: "Right", comment: "Title for image position setting that positions image on the right")
                     case .left:
-                        return "Left"
+                        return WMFLocalizedString("insert-media-image-position-setting-left", value: "Left", comment: "Title for image position setting that positions image on the left")
                     case .center:
-                        return "Center"
+                        return WMFLocalizedString("insert-media-image-position-setting-center", value: "Center", comment: "Title for image position setting that positions image in the center")
                     }
                 }
             }
@@ -48,13 +48,13 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                 var displayTitle: String {
                     switch self {
                     case .thumbnail:
-                        return "Thumbnail"
+                        return WMFLocalizedString("insert-media-image-type-setting-thumbnail", value: "Thumbnail", comment: "Title for image type setting that formats image as thumbnail")
                     case .frameless:
-                        return "Frameless"
+                        return WMFLocalizedString("insert-media-image-type-setting-frameless", value: "Frameless", comment: "Title for image type setting that formats image as frameless")
                     case .frame:
-                        return "Frame"
+                        return WMFLocalizedString("insert-media-image-type-setting-frame", value: "Frame", comment: "Title for image type setting that formats image as framed")
                     case .basic:
-                        return "Basic"
+                        return WMFLocalizedString("insert-media-image-type-setting-basic", value: "Basic", comment: "Title for image type setting that formats image as basic")
                     }
                 }
             }
@@ -66,9 +66,9 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                 var displayTitle: String {
                     switch self {
                     case .default:
-                        return "Default"
+                        return WMFLocalizedString("insert-media-image-size-setting-default", value: "Default", comment: "Title for image size setting that sizes image using default size")
                     case .custom:
-                        return "Custom"
+                        return WMFLocalizedString("insert-media-image-size-setting-custom", value: "Custom", comment: "Title for image size setting that sizes image using custom size")
                     }
                 }
 
@@ -106,8 +106,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     private lazy var imageView: InsertMediaSettingsImageView = {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
-        imageView.heading = "Uploaded image Uploaded image Uploaded image Uploaded image Uploaded image Uploaded image"
-        
+        imageView.heading = WMFLocalizedString("insert-media-uploaded-image-title", value: "Uploaded image", comment: "Title that appears next to an image in media settings")
         imageView.title = searchResult.displayTitle
         imageView.autoresizingMask = []
         return imageView
@@ -120,7 +119,7 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
         let isRTL = view.traitCollection.layoutDirection == .rightToLeft
-        let buttonTitleWithoutChevron = "Advanced settings"
+        let buttonTitleWithoutChevron = WMFLocalizedString("insert-media-advanced-settings-button-title", value: "Advanced settings", comment: "Title for advanced settings button")
         let buttonTitleWithChevron = view.traitCollection.layoutDirection == .rightToLeft ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
         buttonView.buttonAction = { _ in
@@ -140,13 +139,13 @@ class InsertMediaSettingsTableViewController: UITableViewController {
             self.type = type
             switch type {
             case .caption:
-                headerText = "Caption Caption Caption Caption Caption Caption Caption Caption"
-                placeholder = "How does this image relate to the article? How does this image relate to the article? How does this image relate to the article? How does this image relate to the article?"
-                footerText = "Label that shows next to the item for all readers Label that shows next to the item for all readers Label that shows next to the item for all readers Label that shows next to the item for all readers"
+                headerText = WMFLocalizedString("insert-media-caption-title", value: "Caption", comment: "Title for setting that allows users to add image captions")
+                placeholder = WMFLocalizedString("insert-media-caption-caption-placeholder", value: "How does this image relate to the article?", comment: "Placeholder text for setting that allows users to add image captions")
+                footerText = WMFLocalizedString("insert-media-caption-description", value: "Label that shows next to the item for all readers", comment: "Description for setting that allows users to add image captions")
             case .alternativeText:
-                headerText = "Alternative text Alternative text Alternative text Alternative text Alternative text Alternative text"
-                placeholder = "Describe this image Describe this image Describe this image Describe this image Describe this image Describe this image"
-                footerText = "Text description for readers who cannot see the image Text description for readers who cannot see the image Text description for readers who cannot see the image Text description for readers who cannot see the image"
+                headerText = WMFLocalizedString("insert-media-alternative-text-title", value: "Alternative text", comment: "Title for setting that allows users to add image alternative text")
+                placeholder = WMFLocalizedString("insert-media-alternative-text-placeholder", value: "Describe this image", comment: "Placeholder text for setting that allows users to add image alternative text")
+                footerText = WMFLocalizedString("insert-media-alternative-text-description", value: "Text description for readers who cannot see the image", comment: "Description for setting that allows users to add image alternative text")
             }
         }
     }
