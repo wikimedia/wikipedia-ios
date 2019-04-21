@@ -41,7 +41,7 @@ final class TabbedViewController: ViewController {
             let underlineButton = UnderlineButton()
             assert(viewController.title != nil, "View controller should have a title, otherwise button will be empty")
             underlineButton.setTitle(viewController.title, for: .normal)
-            underlineButton.underlineHeight = 2
+            underlineButton.underlineHeight = 0.5
             underlineButton.useDefaultFont = false
             underlineButton.titleLabel?.font = UIFont.wmf_font(.callout)
             underlineButton.tag = index
