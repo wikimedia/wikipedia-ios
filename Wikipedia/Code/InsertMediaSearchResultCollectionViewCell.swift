@@ -55,22 +55,21 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
             return super.sizeThatFits(size, apply: apply)
         }
 
-        let size = super.sizeThatFits(size, apply: apply)
-
-        let isRTL = traitCollection.layoutDirection == .rightToLeft
-        let x: CGFloat
-        if isRTL {
-            x = size.width
-        } else {
-            x = 0
+        guard let scaledImageURL = WMFParseSizePrefixFromSourceURL(imageURL) < Int(imageViewDimension) ? URL(string: WMFChangeImageSourceURLSizePrefix(imageURL.absoluteString, Int(imageViewDimension))) : imageURL else {
+            return super.sizeThatFits(size, apply: apply)
         }
 
-        var origin = CGPoint(x: x, y: 0)
-        let height = max(origin.y, imageViewDimension)
+        let size = super.sizeThatFits(size, apply: apply)
+
+        var origin = CGPoint(x: 0, y: 0)
+        let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
+        let height = max(origin.y, minHeight)
 
         if (apply) {
             imageView.frame = CGRect(x: origin.x, y: origin.y, width: imageViewDimension, height: imageViewDimension)
-            imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: {_ in }, success: {})
+            imageView.wmf_setImage(with: scaledImageURL, detectFaces: true, onGPU: true, failure: {_ in }, success: {
+                self.imageView.backgroundColor = self.backgroundColor
+            })
             selectedImageView.frame = CGRect(x: imageView.frame.maxX - selectedImageViewDimension, y: imageView.frame.maxY - selectedImageViewDimension, width: selectedImageViewDimension, height: selectedImageViewDimension)
             selectedImageView.image = selectedImage
             origin.y += imageView.frame.layoutHeight(with: spacing)
@@ -78,7 +77,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
         selectedImageView.isHidden = !isSelected
 
-        let semanticContentAttribute: UISemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
+        let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
 
         if captionLabel.wmf_hasAnyNonWhitespaceText {
             let captionLabelFrame = captionLabel.wmf_preferredFrame(at: origin, maximumWidth: imageViewDimension, alignedBy: semanticContentAttribute, apply: apply)
