@@ -38,7 +38,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     func configure(imageURL: URL?, imageViewDimension: CGFloat, caption: String?) {
         self.imageURL = imageURL
         self.imageViewDimension = imageViewDimension
-        selectedImageViewDimension = imageViewDimension / 6
+        selectedImageViewDimension = min(35, imageViewDimension * 0.2)
         captionLabel.text = caption
         setNeedsLayout()
     }
