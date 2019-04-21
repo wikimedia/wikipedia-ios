@@ -24,6 +24,7 @@ class InsertMediaSelectedImageView: SetupView {
 
         imageInfoContainerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageInfoContainerView)
+        imageInfoContainerView.alpha = 0.8
         let leadingConstraint = imageInfoContainerView.leadingAnchor.constraint(equalTo: leadingAnchor)
         let trailingConstraint = imageInfoContainerView.trailingAnchor.constraint(equalTo: trailingAnchor)
         let bottomConstraint = imageInfoContainerView.bottomAnchor.constraint(equalTo: bottomAnchor)
@@ -69,8 +70,8 @@ class InsertMediaSelectedImageView: SetupView {
         }) {
             self.searchResult = searchResult
             self.imageView.backgroundColor = self.backgroundColor
-            self.imageInfoView.configure(with: searchResult, showImageDescription: false, showLicenseName: true, showMoreInformationButton: true, theme: theme)
             self.imageInfoView.moreInformationAction = self.moreInformationAction
+            self.imageInfoView.configure(with: searchResult, showImageDescription: false, showLicenseName: true, showMoreInformationButton: true, theme: theme)
             self.adjustImageInfoContainerViewBottomConstraint()
             completion(nil)
         }
@@ -80,6 +81,7 @@ class InsertMediaSelectedImageView: SetupView {
 extension InsertMediaSelectedImageView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.baseBackground
-        imageView.backgroundColor = UIColor.red
+        imageInfoContainerView.backgroundColor = backgroundColor
+        imageView.backgroundColor = backgroundColor
     }
 }
