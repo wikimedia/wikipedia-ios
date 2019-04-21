@@ -25,7 +25,7 @@ final fileprivate class TabsView: UIView, Themeable {
     func apply(theme: Theme) {
         for button in buttons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
-            button.tintColor = theme.colors.link
+            button.tintColor = button.isEnabled ? theme.colors.link : theme.colors.border
         }
     }
 }
@@ -51,6 +51,7 @@ final class TabbedViewController: ViewController {
             underlineButton.tag = index
             if index == selectedIndex {
                 underlineButton.isSelected = true
+                underlineButton.isEnabled = false
             }
             underlineButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
             underlineButton.addTarget(self, action: #selector(didSelectViewController(_:)), for: .touchUpInside)
