@@ -228,7 +228,7 @@ extension InsertMediaSettingsTableViewController {
         }
         let viewModel = viewModels[indexPath.row]
         cell.headerText = viewModel.headerText
-        textViewsGroupedByType[viewModel.type] = cell.textViewConfigured(with: self, placeholder: viewModel.placeholder, tag: indexPath.row)
+        textViewsGroupedByType[viewModel.type] = cell.textViewConfigured(with: self, placeholder: viewModel.placeholder, placeholderDelegate: self, tag: indexPath.row)
         cell.footerText = viewModel.footerText
         cell.selectionStyle = .none
         cell.apply(theme: theme)
