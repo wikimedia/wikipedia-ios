@@ -34,7 +34,7 @@ final class MediaWizardController: NSObject {
 
     private lazy var tabbedViewController: TabbedViewController = {
         let searchView = SearchView(searchBarDelegate: self, placeholder: articleTitle)
-        return TabbedViewController(viewControllers: [searchResultsCollectionViewController, UploadMediaViewController()], extendedViews: [searchView])
+        return TabbedViewController(viewControllers: [searchResultsCollectionViewController], extendedViews: [searchView])
     }()
 
     private lazy var verticallySplitViewController: VerticallySplitViewController = {
