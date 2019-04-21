@@ -4,7 +4,7 @@ final class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var licenseLabel: UILabel!
-    @IBOutlet private weak var licenseStackView: UIStackView!
+    @IBOutlet private weak var licenseView: LicenseView!
     @IBOutlet private weak var moreInformationButton: UIButton!
 
     var moreInformationAction: ((URL) -> Void)?
@@ -28,27 +28,8 @@ final class InsertMediaImageInfoView: UIView {
 
         moreInformationButton.isHidden = !showMoreInformationButton
 
-        for subview in licenseStackView.arrangedSubviews {
-            licenseStackView.removeArrangedSubview(subview)
-            subview.removeFromSuperview()
-        }
-
-        if let codes = searchResult.imageInfo?.license?.code?.split(separator: "-") {
-            licenseStackView.isHidden = false
-            for code in codes {
-                guard let imageView = licenseImageView(withImageNamed: "license-\(code)", theme: theme) else {
-                    continue
-                }
-                licenseStackView.addArrangedSubview(imageView)
-            }
-        }
-        if licenseStackView.arrangedSubviews.isEmpty {
-            if let imageView = licenseImageView(withImageNamed: "license-generic", theme: theme) {
-                licenseStackView.addArrangedSubview(imageView)
-            } else {
-                licenseStackView.isHidden = true
-            }
-        }
+        licenseView.licenseCodes = searchResult.imageInfo?.license?.code?.split(separator: "-").compactMap { String($0) } ?? []
+        licenseView.isHidden = licenseView.licenseCodes.isEmpty
         if showLicenseName {
             licenseLabel.text = searchResult.imageInfo?.license?.shortDescription
         } else {
@@ -57,16 +38,6 @@ final class InsertMediaImageInfoView: UIView {
         setNeedsLayout()
         self.keepBackgroundClear = keepBackgroundClear
         apply(theme: theme)
-    }
-
-    private func licenseImageView(withImageNamed imageName: String, theme: Theme) -> UIImageView? {
-        guard let image = UIImage(named: imageName) else {
-            return nil
-        }
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = theme.colors.primaryText
-        return imageView
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -91,5 +62,6 @@ extension InsertMediaImageInfoView: Themeable {
         licenseLabel.textColor = theme.colors.primaryText
         moreInformationButton.tintColor = theme.colors.link
         moreInformationButton.backgroundColor = backgroundColor
+        licenseView.arrangedSubviews.forEach { $0.tintColor = theme.colors.primaryText }
     }
 }
