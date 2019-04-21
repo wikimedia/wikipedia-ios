@@ -23,7 +23,7 @@
                         <constraint firstAttribute="height" constant="0.5" id="Mh3-mG-Lqh"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kG-VA-g9G">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kG-VA-g9G">
                     <rect key="frame" x="12" y="12.5" width="330" height="44.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
