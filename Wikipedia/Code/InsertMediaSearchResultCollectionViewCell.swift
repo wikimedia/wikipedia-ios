@@ -93,9 +93,10 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
 extension InsertMediaSearchResultCollectionViewCell: Themeable {
     func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        imageView.backgroundColor = backgroundColor
         selectedImage = theme.isDark ? UIImage(named: "selected-dark") : UIImage(named: "selected")
         selectedImageView.tintColor = theme.colors.link
         captionLabel.textColor = theme.colors.primaryText
-        labelBackgroundColor = theme.colors.paperBackground
     }
 }
