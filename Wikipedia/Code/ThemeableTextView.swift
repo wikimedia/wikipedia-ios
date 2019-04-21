@@ -1,91 +1,114 @@
-class ThemeableTextView: UITextView {
-    private var placeholderLabel = UILabel()
-    private var theme = Theme.standard
-    public var usesPlaceholder = true
-    public var isUnderlined = true
+protocol ThemeableTextViewPlaceholderDelegate: AnyObject {
+    func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool)
+}
 
-    var _delegate: UITextViewDelegate? {
-        didSet {
-            if !usesPlaceholder {
-                delegate = _delegate
-            }
-        }
-    }
+class ThemeableTextView: UITextView {
+    private var theme = Theme.standard
+    public var isUnderlined = true
+    var firstTimeEditing = true
+
+    weak var _delegate: UITextViewDelegate?
+    weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?
 
     override var delegate: UITextViewDelegate? {
         didSet {
-            if usesPlaceholder {
+            if placeholder != nil {
                 assert(delegate === self, "ThemeableTextView must be its own delegate to manage placeholder")
             }
         }
     }
 
     public func reset() {
-        placeholderLabel.text = nil
-    }
-
-    private func setup() {
-        let leftInset: CGFloat
-        if let selectedTextRange = selectedTextRange {
-            let caretPosition = caretRect(for: selectedTextRange.start)
-            leftInset = 0 - caretPosition.minX
-        } else {
-            leftInset = 0
-        }
-        textContainerInset.left = leftInset
-        if usesPlaceholder {
-            placeholderLabel.numberOfLines = 0
-            placeholderLabel.clipsToBounds = true
-            delegate = self
-            wmf_addSubview(placeholderLabel, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: textContainerInset.top, left: 0 - textContainerInset.left, bottom: textContainerInset.bottom, right: textContainerInset.right))
-        }
-    }
-
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        placeholder = nil
     }
 
     var placeholder: String? {
         didSet {
-            if usesPlaceholder {
-                placeholderLabel.text = placeholder
-                placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width
+            isShowingPlaceholder = placeholder != nil
+        }
+    }
+
+    public private(set) var isShowingPlaceholder: Bool = true {
+        didSet {
+            if isShowingPlaceholder {
+                text = placeholder
+                textColor = theme.colors.tertiaryText
+            } else {
+                textColor = theme.colors.primaryText
             }
         }
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        placeholderLabel.font = font
-        if !placeholderLabel.isHidden {
-            invalidateIntrinsicContentSize()
+    override var text: String! {
+        get {
+            return isShowingPlaceholder ? "" : super.text
+        }
+        set {
+            super.text = newValue
         }
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard !placeholderLabel.isHidden else {
-            return
-        }
-        placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        setup()
     }
 
-    override var intrinsicContentSize: CGSize {
-        guard !placeholderLabel.isHidden else {
-            return super.intrinsicContentSize
-        }
-        let width = superview?.bounds.width ?? textContainer.size.width // 😭
-        let height = placeholderLabel.sizeThatFits(CGSize(width: width, height: UIView.noIntrinsicMetric)).height
-        return CGSize(width: super.intrinsicContentSize.width, height: height + textContainerInset.top + textContainerInset.bottom)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+
+    private func setup() {
+        delegate = self
     }
 }
 
 extension ThemeableTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel.isHidden = !text.isEmpty
         _delegate?.textViewDidChange?(textView)
+    }
+
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if firstTimeEditing {
+            if textView.text.isEmpty, !isShowingPlaceholder {
+                isShowingPlaceholder = true
+                placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: false)
+            } else if isShowingPlaceholder {
+                textView.text = nil
+                isShowingPlaceholder = false
+                placeholderDelegate?.themeableTextViewPlaceholderDidHide(self, isPlaceholderHidden: true)
+            }
+        }
+        firstTimeEditing = false
+        return _delegate?.textViewShouldBeginEditing?(textView) ?? true
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        _delegate?.textViewDidEndEditing?(textView)
+    }
+
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return _delegate?.textViewShouldEndEditing?(textView) ?? true
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        _delegate?.textViewDidBeginEditing?(textView)
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return _delegate?.textView?(textView, shouldChangeTextIn: range, replacementText: text) ?? true
+    }
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        _delegate?.textViewDidChangeSelection?(textView)
+    }
+
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        return _delegate?.textView?(textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? true
+    }
+
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        return _delegate?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
     }
 }
 
@@ -93,9 +116,7 @@ extension ThemeableTextView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         backgroundColor = theme.colors.paperBackground
-        placeholderLabel.backgroundColor = .clear
-        placeholderLabel.textColor = theme.colors.tertiaryText
-        textColor = theme.colors.primaryText
+        textColor = isShowingPlaceholder ? theme.colors.tertiaryText : theme.colors.primaryText
         keyboardAppearance = theme.keyboardAppearance
         if isUnderlined {
             layer.masksToBounds = false
