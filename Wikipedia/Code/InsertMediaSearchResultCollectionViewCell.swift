@@ -52,7 +52,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         guard let imageURL = imageURL else {
-            return .zero
+            return super.sizeThatFits(size, apply: apply)
         }
 
         let size = super.sizeThatFits(size, apply: apply)
