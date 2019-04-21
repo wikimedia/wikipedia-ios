@@ -47,6 +47,7 @@ final class MediaWizardController: NSObject {
         nextButton.isEnabled = false
         verticallySplitViewController.navigationItem.leftBarButtonItem = closeButton
         verticallySplitViewController.navigationItem.rightBarButtonItem = nextButton
+        verticallySplitViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.searchTitle, style: .plain, target: nil, action: nil)
         return verticallySplitViewController
     }()
 
