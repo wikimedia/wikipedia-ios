@@ -75,11 +75,14 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                 var rawValue: String {
                     switch self {
                     case .default:
-                        return "upright"
+                        return "\(ImageSize.defaultWidth)x\(ImageSize.defaultHeight)px"
                     case .custom(let width, let height):
                         return "\(width)x\(height)px"
                     }
                 }
+
+                static var defaultWidth = 220
+                static var defaultHeight = 124
             }
 
             init(wrapTextAroundImage: Bool = false, imagePosition: ImagePosition = .right, imageType: ImageType = .thumbnail, imageSize: ImageSize = .default) {
