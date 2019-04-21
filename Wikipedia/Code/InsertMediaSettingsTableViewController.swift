@@ -123,9 +123,9 @@ class InsertMediaSettingsTableViewController: UITableViewController {
 
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
-        let isRTL = view.traitCollection.layoutDirection == .rightToLeft
+        let isRTL = UIApplication.shared.wmf_isRTL
         let buttonTitleWithoutChevron = WMFLocalizedString("insert-media-advanced-settings-button-title", value: "Advanced settings", comment: "Title for advanced settings button")
-        let buttonTitleWithChevron = view.traitCollection.layoutDirection == .rightToLeft ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
+        let buttonTitleWithChevron = isRTL ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
         buttonView.buttonAction = { _ in
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsTableViewController, animated: true)
