@@ -177,7 +177,7 @@ final class MediaWizardController: NSObject {
             let image = imageViewController.selectedImage,
             let selectedSearchResult = imageViewController.selectedSearchResult
         else {
-            assertionFailure()
+            assertionFailure("Selected image and search result should be set by now")
             return
         }
         let settingsViewController = InsertMediaSettingsTableViewController(image: image, searchResult: selectedSearchResult)
