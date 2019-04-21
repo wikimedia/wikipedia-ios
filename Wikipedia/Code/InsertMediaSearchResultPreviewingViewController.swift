@@ -27,6 +27,7 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { _ in }) {
+            self.imageView.backgroundColor = self.view.backgroundColor
             self.activityIndicator.stopAnimating()
         }
         imageInfoView.configure(with: searchResult, showLicenseName: false, showMoreInformationButton: false, theme: theme)
@@ -57,6 +58,8 @@ extension InsertMediaSearchResultPreviewingViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
+        imageView.backgroundColor = view.backgroundColor
         activityIndicator.style = theme.isDark ? .white : .gray
+        imageInfoView.apply(theme: theme)
     }
 }
