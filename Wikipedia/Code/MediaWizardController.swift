@@ -65,7 +65,7 @@ final class MediaWizardController: NSObject {
 
     func prepare() {
         if let articleTitle = articleTitle {
-            search(for: articleTitle)
+            search(for: articleTitle, isFirstSearch: true)
         }
         prepareUI()
     }
