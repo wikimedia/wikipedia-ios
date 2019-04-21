@@ -3,7 +3,7 @@ fileprivate protocol ViewModel {
 }
 
 final class InsertMediaImageSizeSettingsTableViewController: UITableViewController {
-    private var theme = Theme.standard
+    private let theme: Theme
 
     typealias ImageSize = InsertMediaSettings.Advanced.ImageSize
 
@@ -64,10 +64,19 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
         tableView.reloadData()
     }
 
+    init(theme: Theme) {
+        self.theme = theme
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     private lazy var viewModels: [ViewModel] = {
         let customViewModel = ImageSizeViewModel(title: "Custom", accessoryView: customSwitch)
-        let widthViewModel = MeasureViewModel(measure: .width, defaultValue: "220", unitName: "px")
-        let heightViewModel = MeasureViewModel(measure: .height, defaultValue: "124", unitName: "px")
+        let widthViewModel = MeasureViewModel(measure: .width, defaultValue: "\(ImageSize.defaultWidth)", unitName: "px")
+        let heightViewModel = MeasureViewModel(measure: .height, defaultValue: "\(ImageSize.defaultHeight)", unitName: "px")
         return [customViewModel, widthViewModel, heightViewModel]
     }()
 
@@ -97,6 +106,7 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
             cell.textLabel?.text = imageSizeViewModel.title
             cell.accessoryView = imageSizeViewModel.accessoryView
             cell.selectionStyle = .none
+            apply(theme: theme, to: cell)
             return cell
         case let measureViewModel as MeasureViewModel:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: InsertMediaCustomImageSizeSettingTableViewCell.identifier, for: indexPath) as? InsertMediaCustomImageSizeSettingTableViewCell else {
@@ -106,10 +116,20 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
             cell.selectionStyle = .none
             cell.isUserInteractionEnabled = customSwitch.isOn
             textFieldsGroupedByMeasure[measureViewModel.measure] = cell.textField
+            cell.apply(theme: theme)
             return cell
         default:
             return UITableViewCell()
         }
+    }
+
+    private func apply(theme: Theme, to cell: UITableViewCell) {
+        cell.backgroundColor = theme.colors.paperBackground
+        cell.contentView.backgroundColor = theme.colors.paperBackground
+        cell.textLabel?.textColor = theme.colors.primaryText
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = theme.colors.midBackground
+        cell.selectedBackgroundView = selectedBackgroundView
     }
 }
 
