@@ -15,6 +15,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
     override func setup() {
         super.setup()
+        isAccessibilityElement = true
         imageView.accessibilityIgnoresInvertColors = true
         imageView.contentMode = .scaleAspectFit
         contentView.addSubview(imageView)
@@ -22,6 +23,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         contentView.addSubview(selectedImageView)
         captionLabel.numberOfLines = 1
         contentView.addSubview(captionLabel)
+        captionLabel.isAccessibilityElement = true
     }
 
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -40,6 +42,7 @@ class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         self.imageViewDimension = imageViewDimension
         selectedImageViewDimension = min(35, imageViewDimension * 0.2)
         captionLabel.text = caption
+        accessibilityValue = caption
         setNeedsLayout()
     }
 
