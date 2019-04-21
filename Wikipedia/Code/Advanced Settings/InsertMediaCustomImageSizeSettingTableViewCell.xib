@@ -28,7 +28,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="bottom" text="220" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kzl-R4-Cqv" customClass="ThemeableTextField">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="bottom" text="220" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kzl-R4-Cqv" customClass="WMFThemeableTextField">
                     <rect key="frame" x="288.5" y="15" width="30" height="52"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -51,7 +51,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="textField" destination="Kzl-R4-Cqv" id="tPb-gf-UCL"/>
+                <outlet property="textField" destination="Kzl-R4-Cqv" id="c9F-s6-Lu0"/>
                 <outlet property="textFieldLabel" destination="RWE-7Y-d1a" id="laR-hH-0Os"/>
                 <outlet property="titleLabel" destination="E8l-Z0-vZk" id="1Je-hR-evQ"/>
             </connections>
