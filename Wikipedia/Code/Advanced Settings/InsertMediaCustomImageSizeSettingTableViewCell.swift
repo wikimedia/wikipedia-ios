@@ -11,6 +11,8 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
         titleLabel.text = title
         textFieldLabel.text = textFieldLabelText
         textField.text = textFieldText
+        textField.isUnderlined = false
+        textField.rightView = nil
         apply(theme: theme)
     }
 
@@ -35,6 +37,10 @@ extension InsertMediaCustomImageSizeSettingTableViewCell: Themeable {
         let textColor = isUserInteractionEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         titleLabel.textColor = textColor
         textFieldLabel.textColor = textColor
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = theme.colors.midBackground
+        self.selectedBackgroundView = selectedBackgroundView
+        textField.apply(theme: theme)
         textField.textColor = textColor
     }
 }
