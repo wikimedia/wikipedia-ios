@@ -100,7 +100,9 @@ class InsertMediaSettingsTableViewController: UITableViewController {
     var settings: Settings? {
         let captionTextView = textViewsGroupedByType[.caption]
         let alternativeTextTextView = textViewsGroupedByType[.alternativeText]
-        return Settings(caption: captionTextView?.text, alternativeText: alternativeTextTextView?.text, advanced: insertMediaAdvancedSettingsTableViewController.advancedSettings)
+        let caption = captionTextView?.text.wmf_hasNonWhitespaceText ?? false ? captionTextView?.text : nil
+        let alternativeText = alternativeTextTextView?.text.wmf_hasNonWhitespaceText ?? false ? alternativeTextTextView?.text : nil
+        return Settings(caption: caption, alternativeText: alternativeText, advanced: insertMediaAdvancedSettingsTableViewController.advancedSettings)
     }
 
     private lazy var imageView: InsertMediaSettingsImageView = {
