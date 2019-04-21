@@ -245,10 +245,15 @@ extension InsertMediaSettingsTableViewController {
         }
         return cell.frame.size.height + textViewHeightDelta.value
     }
+    
 }
 
 extension InsertMediaSettingsTableViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
+        updateTextViewHeight(textView)
+    }
+
+    private func updateTextViewHeight(_ textView: UITextView) {
         let oldHeight = textView.frame.size.height
         let newHeight = textView.systemLayoutSizeFitting(textView.frame.size).height
         guard oldHeight != newHeight else {
@@ -260,6 +265,12 @@ extension InsertMediaSettingsTableViewController: UITextViewDelegate {
             tableView.beginUpdates()
             tableView.endUpdates()
         }
+    }
+}
+
+extension InsertMediaSettingsTableViewController: ThemeableTextViewPlaceholderDelegate {
+    func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
+        updateTextViewHeight(themeableTextView)
     }
 }
 
