@@ -17,9 +17,10 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         }
     }
 
-    func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, tag: Int) -> UITextView {
+    func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, placeholderDelegate: ThemeableTextViewPlaceholderDelegate, tag: Int) -> UITextView {
         textView._delegate = delegate
-        textView.placeholder = placeholder
+        textView.placeholderDelegate = placeholderDelegate
+        textView.placeholder = placeholder!
         textView.tag = tag
         return textView
     }
