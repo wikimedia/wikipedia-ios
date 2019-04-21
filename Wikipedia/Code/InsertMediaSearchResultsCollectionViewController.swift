@@ -63,7 +63,6 @@ final class InsertMediaSearchResult {
 class InsertMediaSearchResultsCollectionViewController: ViewController {
     private let flowLayout: FlowLayout
     private let collectionView: UICollectionView
-    private let itemDimension: CGFloat = 100
 
     weak var delegate: InsertMediaSearchResultsCollectionViewControllerDelegate?
 
@@ -93,7 +92,8 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         super.viewDidLoad()
         collectionView.register(InsertMediaSearchResultCollectionViewCell.self, forCellWithReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier)
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12)
+        additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: flowLayout.minimumLineSpacing, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         apply(theme: theme)
     }
 
@@ -104,7 +104,8 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     private func configure(_ cell: InsertMediaSearchResultCollectionViewCell, at indexPath: IndexPath) {
         let result = searchResults[indexPath.item]
-        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: itemDimension, caption: result.displayTitle)
+        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: flowLayout.itemSize.width, caption: result.displayTitle)
+        cell.apply(theme: theme)
     }
 
     func setImageInfo(_ imageInfo: MWKImageInfo?, for searchResult: InsertMediaSearchResult, at index: Int) {
@@ -223,6 +224,7 @@ extension InsertMediaSearchResultsCollectionViewController {
         previewingViewController.moreInformationAction = { url in
             self.present(SFSafariViewController(url: url), animated: true)
         }
+        previewingViewController.apply(theme: theme)
         return previewingViewController
     }
 }
