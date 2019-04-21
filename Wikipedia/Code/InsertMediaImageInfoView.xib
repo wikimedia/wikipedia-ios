@@ -89,7 +89,7 @@
             <connections>
                 <outlet property="descriptionLabel" destination="J6i-Tu-inn" id="qew-Md-Ppc"/>
                 <outlet property="licenseLabel" destination="1D0-Ni-yXU" id="jiB-ce-Pw2"/>
-                <outlet property="licenseView" destination="1D0-Ni-yXU" id="EAr-Ig-6Ku"/>
+                <outlet property="licenseView" destination="s2W-Fe-5kb" id="Es5-Im-CnZ"/>
                 <outlet property="moreInformationButton" destination="49a-sU-vMB" id="ZeJ-Aa-bto"/>
                 <outlet property="titleLabel" destination="ZZJ-TG-IzS" id="oFj-Zl-6ff"/>
             </connections>
