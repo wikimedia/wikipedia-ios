@@ -75,17 +75,37 @@ final class MediaWizardController: NSObject {
         delegate?.mediaWizardController(self, didPrepareViewController: navigationController)
     }
 
-    private func search(for searchTerm: String) {
-        tabbedViewController.progressController.start()
+    func didCancelSearch() {
+        if let articleTitle = articleTitle {
+            search(for: articleTitle)
+        }
+    }
+
+    private func search(for searchTerm: String, isFirstSearch: Bool = false) {
+        guard searchTerm.wmf_hasNonWhitespaceText else {
+            didCancelSearch()
+            return
+        }
+        if !isFirstSearch {
+            tabbedViewController.progressController.delay = 0
+            tabbedViewController.progressController.start()
+        } else {
+            tabbedViewController.progressController.delay = 1.0
+        }
         let failure = { (error: Error) in
-            let nserror = error as NSError
-            guard nserror.code != NSURLErrorCancelled else {
-                return
-            }
             DispatchQueue.main.async {
-                self.searchResultsCollectionViewController.emptyViewType = nserror.wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
-                self.searchResultsCollectionViewController.searchResults = []
                 self.tabbedViewController.progressController.stop()
+                let emptyViewType: WMFEmptyViewType
+                let nserror = error as NSError
+                if nserror.wmf_isNetworkConnectionError() {
+                    emptyViewType = .noInternetConnection
+                } else if nserror.domain == NSURLErrorDomain, nserror.code == NSURLErrorCancelled {
+                    emptyViewType = .none
+                } else {
+                    emptyViewType = .noSearchResults
+                }
+                self.searchResultsCollectionViewController.emptyViewType = emptyViewType
+                self.searchResultsCollectionViewController.searchResults = []
             }
         }
         let searchResults: (WMFSearchResults) -> [InsertMediaSearchResult] = { (results: WMFSearchResults) in
@@ -109,38 +129,20 @@ final class MediaWizardController: NSObject {
         let success = { (results: WMFSearchResults) in
             assert(!Thread.isMainThread)
             let searchResults = searchResults(results)
-            if !searchTerm.wmf_hasNonWhitespaceText {
-                DispatchQueue.main.async {
-                    self.searchResultsCollectionViewController.emptyViewType = .none
-                    self.tabbedViewController.progressController.stop()
-                }
-            }
+            print("count non main: \(searchResults.count)")
             DispatchQueue.main.async {
+                self.tabbedViewController.progressController.finish()
+                print("count main: \(searchResults.count)")
+                self.searchResultsCollectionViewController.emptyViewType = .noSearchResults
                 self.searchResultsCollectionViewController.searchResults = searchResults
             }
-            var cancelledImageInfoFetch = false
             for (index, searchResult) in searchResults.enumerated() {
-                guard !cancelledImageInfoFetch else {
-                    DispatchQueue.main.async {
-                        self.tabbedViewController.progressController.stop()
-                    }
-                    return
-                }
                 guard searchResult.imageInfo == nil else {
                     continue
                 }
                 self.imageInfoFetcher.fetchGalleryInfo(forImage: searchResult.fileTitle, fromSiteURL: self.siteURL, failure: { error in
-                    let nserror = error as NSError
-                    if nserror.code == NSURLErrorCancelled {
-                        cancelledImageInfoFetch = true
-                    } else {
-                        assertionFailure(error.localizedDescription)
-                    }
                 }, success: { result in
                     DispatchQueue.main.async {
-                        if index == searchResults.endIndex - 1 {
-                            self.tabbedViewController.progressController.finish()
-                        }
                         self.searchResultsCollectionViewController.setImageInfo(result as? MWKImageInfo, for: searchResult, at: index)
                     }
                 })
