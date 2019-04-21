@@ -37,6 +37,9 @@ final class MediaWizardController: NSObject {
         return TabbedViewController(viewControllers: [searchResultsCollectionViewController], extendedViews: [searchView])
     }()
 
+    private lazy var progressController: FakeProgressController = {
+        return FakeProgressController(progress: tabbedViewController.navigationBar, delegate: tabbedViewController.navigationBar)
+    }()
     private lazy var verticallySplitViewController: VerticallySplitViewController = {
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
         tabbedNavigationController.isNavigationBarHidden = true
@@ -88,14 +91,14 @@ final class MediaWizardController: NSObject {
             return
         }
         if !isFirstSearch {
-            tabbedViewController.progressController.delay = 0
-            tabbedViewController.progressController.start()
+            progressController.delay = 0
+            progressController.start()
         } else {
-            tabbedViewController.progressController.delay = 1.0
+            progressController.delay = 1.0
         }
         let failure = { (error: Error) in
             DispatchQueue.main.async {
-                self.tabbedViewController.progressController.stop()
+                self.progressController.stop()
                 let emptyViewType: WMFEmptyViewType
                 let nserror = error as NSError
                 if nserror.wmf_isNetworkConnectionError() {
@@ -131,7 +134,7 @@ final class MediaWizardController: NSObject {
             assert(!Thread.isMainThread)
             let searchResults = searchResults(results)
             DispatchQueue.main.async {
-                self.tabbedViewController.progressController.finish()
+                self.progressController.finish()
                 self.searchResultsCollectionViewController.emptyViewType = .noSearchResults
                 self.searchResultsCollectionViewController.searchResults = searchResults
             }

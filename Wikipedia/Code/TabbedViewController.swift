@@ -35,10 +35,6 @@ final class TabbedViewController: ViewController {
     private let extendedViews: [UIView & Themeable]?
     private var selectedIndex = 0
 
-    lazy var progressController: FakeProgressController = {
-        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
-    }()
-
     private lazy var tabsView: TabsView = {
         var underlineButtons = [UnderlineButton]()
         for (index, viewController) in viewControllers.enumerated() {
