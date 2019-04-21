@@ -8,6 +8,7 @@ class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var moreInformationButton: UIButton!
 
     var moreInformationAction: ((URL) -> Void)?
+    private var keepBackgroundClear = false
 
     private var moreInformationURL: URL? {
         didSet {
@@ -15,7 +16,7 @@ class InsertMediaImageInfoView: UIView {
         }
     }
 
-    func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, showLicenseName: Bool = true, showMoreInformationButton: Bool = true, theme: Theme) {
+    func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, showLicenseName: Bool = true, showMoreInformationButton: Bool = true, keepBackgroundClear: Bool = false, theme: Theme) {
         titleLabel.text = searchResult.displayTitle
         moreInformationURL = searchResult.imageInfo?.filePageURL
         if showImageDescription, let imageDescription = searchResult.imageInfo?.imageDescription {
@@ -54,6 +55,8 @@ class InsertMediaImageInfoView: UIView {
             licenseLabel.isHidden = true
         }
         setNeedsLayout()
+        self.keepBackgroundClear = keepBackgroundClear
+        apply(theme: theme)
     }
 
     private func licenseImageView(withImageNamed imageName: String, theme: Theme) -> UIImageView? {
@@ -82,10 +85,11 @@ class InsertMediaImageInfoView: UIView {
 
 extension InsertMediaImageInfoView: Themeable {
     func apply(theme: Theme) {
-        backgroundColor = theme.colors.paperBackground
+        backgroundColor = keepBackgroundClear ? .clear : theme.colors.paperBackground
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.primaryText
         licenseLabel.textColor = theme.colors.primaryText
         moreInformationButton.tintColor = theme.colors.link
+        moreInformationButton.backgroundColor = backgroundColor
     }
 }
