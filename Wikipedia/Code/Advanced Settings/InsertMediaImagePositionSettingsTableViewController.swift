@@ -1,5 +1,5 @@
 final class InsertMediaImagePositionSettingsTableViewController: UITableViewController {
-    private var theme = Theme.standard
+    private let theme: Theme
 
     typealias ImagePosition = InsertMediaSettings.Advanced.ImagePosition
 
@@ -28,6 +28,15 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         let centerViewModel = ViewModel(imagePosition: .center)
         return [rightViewModel, leftViewModel, centerViewModel]
     }()
+
+    init(theme: Theme) {
+        self.theme = theme
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +81,17 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         } else {
             cell.accessoryType = .none
         }
+        apply(theme: theme, to: cell)
         return cell
+    }
+
+    private func apply(theme: Theme, to cell: UITableViewCell) {
+        cell.backgroundColor = theme.colors.paperBackground
+        cell.contentView.backgroundColor = theme.colors.paperBackground
+        cell.textLabel?.textColor = theme.colors.primaryText
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = theme.colors.midBackground
+        cell.selectedBackgroundView = selectedBackgroundView
     }
 
     private var selectedIndexPath: IndexPath?
