@@ -5,7 +5,7 @@ protocol ThemeableTextViewPlaceholderDelegate: AnyObject {
 class ThemeableTextView: UITextView {
     private var theme = Theme.standard
     public var isUnderlined = true
-    var firstTimeEditing = true
+    private var firstTimeEditing = true
 
     weak var _delegate: UITextViewDelegate?
     weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?

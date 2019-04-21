@@ -2,7 +2,7 @@ import UIKit
 
 typealias InsertMediaSettings = InsertMediaSettingsTableViewController.Settings
 
-class InsertMediaSettingsTableViewController: UITableViewController {
+final class InsertMediaSettingsTableViewController: UITableViewController {
     private let image: UIImage
     let searchResult: InsertMediaSearchResult
 
@@ -37,6 +37,10 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                         return WMFLocalizedString("insert-media-image-position-setting-center", value: "Center", comment: "Title for image position setting that positions image in the center")
                     }
                 }
+
+                static var displayTitle: String {
+                    return WMFLocalizedString("insert-media-image-position-settings-title", value: "Image position", comment: "Display ritle for image position setting")
+                }
             }
 
             enum ImageType: String {
@@ -57,6 +61,10 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                         return WMFLocalizedString("insert-media-image-type-setting-basic", value: "Basic", comment: "Title for image type setting that formats image as basic")
                     }
                 }
+
+                static var displayTitle: String {
+                    return WMFLocalizedString("insert-media-image-type-settings-title", value: "Image type", comment: "Display ritle for image type setting")
+                }
             }
 
             enum ImageSize {
@@ -70,6 +78,10 @@ class InsertMediaSettingsTableViewController: UITableViewController {
                     case .custom:
                         return WMFLocalizedString("insert-media-image-size-setting-custom", value: "Custom", comment: "Title for image size setting that sizes image using custom size")
                     }
+                }
+
+                static var displayTitle: String {
+                    return WMFLocalizedString("insert-media-image-size-settings-title", value: "Image size", comment: "Display ritle for image size setting")
                 }
 
                 var rawValue: String {

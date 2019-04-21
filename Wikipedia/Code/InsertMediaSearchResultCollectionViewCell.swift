@@ -1,6 +1,6 @@
 import UIKit
 
-class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
+final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     private let imageView = UIImageView()
     private let captionLabel = UILabel()
 

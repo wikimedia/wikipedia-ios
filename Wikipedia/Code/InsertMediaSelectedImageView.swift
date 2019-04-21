@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-class InsertMediaSelectedImageView: SetupView {
+final class InsertMediaSelectedImageView: SetupView {
     private let imageView = AlignedImageView()
     private let imageInfoView = InsertMediaImageInfoView.wmf_viewFromClassNib()!
     private let imageInfoContainerView = UIView()

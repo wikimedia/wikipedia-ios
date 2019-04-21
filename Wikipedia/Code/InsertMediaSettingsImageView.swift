@@ -1,6 +1,6 @@
 import UIKit
 
-class InsertMediaSettingsImageView: UIView {
+final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var headingLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!

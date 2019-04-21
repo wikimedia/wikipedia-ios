@@ -43,8 +43,8 @@ final class InsertMediaImageTypeSettingsTableViewController: UITableViewControll
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.separatorInset = .zero
-        autolayoutTableViewFooter = InsertMediaLabelTableFooterView(text: "You can set how the media item appears on the page. This should be the thumbnail format to be consistent with other pages in almost all cases.")
-        title = "Image type"
+        autolayoutTableViewFooter = InsertMediaLabelTableFooterView(text: WMFLocalizedString("insert-media-image-type-settings-footer-title", value: "You can set how the media item appears on the page. This should be the thumbnail format to be consistent with other pages in almost all cases.", comment: "Footer for "))
+        title = ImageType.displayTitle
         apply(theme: theme)
     }
 

@@ -41,7 +41,7 @@ final class MediaWizardController: NSObject {
         let tabbedNavigationController = WMFThemeableNavigationController(rootViewController: tabbedViewController, theme: theme)
         tabbedNavigationController.isNavigationBarHidden = true
         let verticallySplitViewController = VerticallySplitViewController(topViewController: imageViewController, bottomViewController: tabbedNavigationController)
-        verticallySplitViewController.title = WMFLocalizedString("insert-media-title", value: "Insert media", comment: "Title for the view in charge of inserting media into an article")
+        verticallySplitViewController.title = CommonStrings.insertMediaTitle
         closeButton.tintColor = theme.colors.chromeText
         nextButton.tintColor = theme.colors.link
         nextButton.isEnabled = false
@@ -130,10 +130,8 @@ final class MediaWizardController: NSObject {
         let success = { (results: WMFSearchResults) in
             assert(!Thread.isMainThread)
             let searchResults = searchResults(results)
-            print("count non main: \(searchResults.count)")
             DispatchQueue.main.async {
                 self.tabbedViewController.progressController.finish()
-                print("count main: \(searchResults.count)")
                 self.searchResultsCollectionViewController.emptyViewType = .noSearchResults
                 self.searchResultsCollectionViewController.searchResults = searchResults
             }

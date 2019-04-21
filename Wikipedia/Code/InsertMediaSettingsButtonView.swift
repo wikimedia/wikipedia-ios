@@ -1,6 +1,6 @@
 import UIKit
 
-class InsertMediaSettingsButtonView: UIView {
+final class InsertMediaSettingsButtonView: UIView {
     @IBOutlet private weak var separatorView: UIView!
     @IBOutlet private weak var button: UIButton!
 

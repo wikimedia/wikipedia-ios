@@ -1,6 +1,6 @@
 import UIKit
 
-class InsertMediaImageEmptyView: UIView {
+final class InsertMediaImageEmptyView: UIView {
     @IBOutlet private weak var label: UILabel!
 
     override func awakeFromNib() {

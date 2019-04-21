@@ -1,6 +1,6 @@
 import UIKit
 
-class InsertMediaSearchResultPreviewingViewController: UIViewController {
+final class InsertMediaSearchResultPreviewingViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var imageInfoViewContainer: UIView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
@@ -37,10 +37,10 @@ class InsertMediaSearchResultPreviewingViewController: UIViewController {
     }
 
     override var previewActionItems: [UIPreviewActionItem] {
-        let selectImageAction = UIPreviewAction(title: "Select image", style: .default, handler: { [weak self] (_, _) in
+        let selectImageAction = UIPreviewAction(title: WMFLocalizedString("insert-media-image-preview-select-image-action-title", value: "Select image", comment: "Title for preview action that results in image selection"), style: .default, handler: { [weak self] (_, _) in
             self?.selectImageAction?()
         })
-        let moreInformationAction = UIPreviewAction(title: "More information", style: .default, handler: { [weak self] (_, _) in
+        let moreInformationAction = UIPreviewAction(title: WMFLocalizedString("insert-media-image-preview-more-information-action-title", value: "More information", comment: "Title for preview action that results in presenting more information"), style: .default, handler: { [weak self] (_, _) in
             guard let url = self?.searchResult.imageInfo?.filePageURL else {
                 return
             }

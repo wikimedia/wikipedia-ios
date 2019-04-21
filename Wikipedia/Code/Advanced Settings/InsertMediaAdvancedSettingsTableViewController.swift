@@ -32,13 +32,13 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
 
     private var viewModels: [ViewModel] {
         let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
-        let imagePositionViewModel = ViewModel(title: "Image position", detailText: imagePositionSettingsTableViewController.selectedImagePosition.displayTitle) {
+        let imagePositionViewModel = ViewModel(title: InsertMediaSettings.Advanced.ImagePosition.displayTitle, detailText: imagePositionSettingsTableViewController.selectedImagePosition.displayTitle) {
             self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
         }
-        let imageTypeViewModel = ViewModel(title: "Image type", detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) {
+        let imageTypeViewModel = ViewModel(title: InsertMediaSettings.Advanced.ImageType.displayTitle, detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) {
             self.navigationController?.pushViewController(self.imageTypeSettingsTableViewController, animated: true)
         }
-        let imageSizeViewModel = ViewModel(title: "Image size", detailText: imageSizeSettingsTableViewController.selectedImageSize.displayTitle) {
+        let imageSizeViewModel = ViewModel(title: InsertMediaSettings.Advanced.ImageSize.displayTitle, detailText: imageSizeSettingsTableViewController.selectedImageSize.displayTitle) {
            self.navigationController?.pushViewController(self.imageSizeSettingsTableViewController, animated: false)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]

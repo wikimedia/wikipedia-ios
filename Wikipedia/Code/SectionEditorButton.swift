@@ -91,7 +91,7 @@ struct SectionEditorButton {
             case .clearFormatting:
                 return nil
             case .media:
-                return WMFLocalizedString("edit-media-insert-accessibility-label", value: "Insert media", comment: "Accessibility label for media insertion button")
+                return CommonStrings.insertMediaTitle
             }
         }
         

@@ -161,7 +161,6 @@
 "edit-italic-remove-accessibility-label" = "Accessibility label for italic button";
 "edit-link-accessibility-label" = "Accessibility label for the button that adds link syntax to the current selection";
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
-"edit-media-insert-accessibility-label" = "Accessibility label for media insertion button";
 "edit-menu-item" = "Button label for text selection 'Edit' menu item";
 "edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
@@ -389,12 +388,17 @@
 "insert-media-image-position-setting-center" = "Title for image position setting that positions image in the center";
 "insert-media-image-position-setting-left" = "Title for image position setting that positions image on the left";
 "insert-media-image-position-setting-right" = "Title for image position setting that positions image on the right";
+"insert-media-image-position-settings-title" = "Display ritle for image position setting";
+"insert-media-image-preview-more-information-action-title" = "Title for preview action that results in presenting more information";
+"insert-media-image-preview-select-image-action-title" = "Title for preview action that results in image selection";
 "insert-media-image-size-setting-custom" = "Title for image size setting that sizes image using custom size";
 "insert-media-image-size-setting-default" = "Title for image size setting that sizes image using default size";
+"insert-media-image-size-settings-title" = "Display ritle for image size setting";
 "insert-media-image-type-setting-basic" = "Title for image type setting that formats image as basic";
 "insert-media-image-type-setting-frame" = "Title for image type setting that formats image as framed";
 "insert-media-image-type-setting-frameless" = "Title for image type setting that formats image as frameless";
 "insert-media-image-type-setting-thumbnail" = "Title for image type setting that formats image as thumbnail";
+"insert-media-image-type-settings-title" = "Display ritle for image type setting";
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-placeholder-label-text" = "Text for placeholder label visible when no file was selected or uploaded";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";

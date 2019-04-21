@@ -33,9 +33,9 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
         var displayTitle: String {
             switch self {
             case .width:
-                return "Width"
+                return WMFLocalizedString("insert-media-image-size-settings-measure-width", value: "Width", comment: "Display title for the measurement of image from side to side")
             case .height:
-                return "Height"
+                return WMFLocalizedString("insert-media-image-size-settings-measure-height", value: "Height", comment: "Display title for the measurement of image from top to base")
             }
         }
     }
@@ -86,7 +86,7 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
         tableView.register(InsertMediaCustomImageSizeSettingTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaCustomImageSizeSettingTableViewCell.identifier)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
-        title = "Image size"
+        title = ImageSize.displayTitle
         apply(theme: theme)
     }
 

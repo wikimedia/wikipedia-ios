@@ -42,8 +42,8 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.separatorInset = .zero
-        autolayoutTableViewFooter = InsertMediaLabelTableFooterView(text: "You can make this media item appear inline with the text of the page instead of floating. You should only do this rarely, as it will break up the flow of the text if you uncheck this box.")
-        title = "Image position"
+        autolayoutTableViewFooter = InsertMediaLabelTableFooterView(text: WMFLocalizedString("insert-media-image-position-settings-footer-title", value: "You can make this media item appear inline with the text of the page instead of floating. You should only do this rarely, as it will break up the flow of the text if you uncheck this box.", comment: "Title for image position settings footer"))
+        title = ImagePosition.displayTitle
         apply(theme: theme)
     }
 

@@ -61,8 +61,10 @@ final class InsertMediaSearchResult {
 }
 
 class InsertMediaSearchResultsCollectionViewController: ViewController {
-    private let flowLayout: FlowLayout
     private let collectionView: UICollectionView
+    private var flowLayout: FlowLayout {
+        return collectionView.collectionViewLayout as! FlowLayout
+    }
 
     weak var delegate: InsertMediaSearchResultsCollectionViewControllerDelegate?
 
@@ -74,15 +76,13 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     }
 
     override init() {
-        flowLayout = FlowLayout()
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: FlowLayout())
         super.init()
         collectionView.dataSource = self
         collectionView.delegate = self
         scrollView = collectionView
         title = CommonStrings.searchTitle
     }
-
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

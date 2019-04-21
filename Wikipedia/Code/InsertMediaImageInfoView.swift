@@ -1,6 +1,6 @@
 import UIKit
 
-class InsertMediaImageInfoView: UIView {
+final class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var licenseLabel: UILabel!
