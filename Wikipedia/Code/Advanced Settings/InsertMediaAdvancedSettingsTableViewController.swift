@@ -26,9 +26,9 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
     }
 
     private lazy var textWrappingSwitch = UISwitch()
-    private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController()
-    private lazy var imageTypeSettingsTableViewController = InsertMediaImageTypeSettingsTableViewController()
-    private lazy var imageSizeSettingsTableViewController = InsertMediaImageSizeSettingsTableViewController()
+    private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController(theme: theme)
+    private lazy var imageTypeSettingsTableViewController = InsertMediaImageTypeSettingsTableViewController(theme: theme)
+    private lazy var imageSizeSettingsTableViewController = InsertMediaImageSizeSettingsTableViewController(theme: theme)
 
     private var viewModels: [ViewModel] {
         let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
@@ -93,7 +93,18 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         cell.detailTextLabel?.textAlignment = .right
         cell.detailTextLabel?.text = viewModel.detailText
         cell.selectionStyle = viewModel.selectionStyle
+        apply(theme: theme, to: cell)
         return cell
+    }
+
+    private func apply(theme: Theme, to cell: UITableViewCell) {
+        cell.backgroundColor = theme.colors.paperBackground
+        cell.contentView.backgroundColor = theme.colors.paperBackground
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = theme.colors.midBackground
+        cell.selectedBackgroundView = selectedBackgroundView
+        cell.textLabel?.textColor = theme.colors.primaryText
+        cell.detailTextLabel?.textColor = theme.colors.secondaryText
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
