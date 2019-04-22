@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina5_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,12 +19,12 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-N3-43n">
-                    <rect key="frame" x="12" y="284" width="390" height="328"/>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-N3-43n">
+                    <rect key="frame" x="56" y="242" width="700" height="328"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="328" id="tg4-vm-hVM"/>
                     </constraints>
@@ -35,8 +35,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sce-E4-ZEM">
-                    <rect key="frame" x="12" y="624" width="390" height="42"/>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sce-E4-ZEM">
+                    <rect key="frame" x="56" y="582" width="700" height="42"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="contentEdgeInsets" minX="24" minY="12" maxX="24" maxY="12"/>
                     <state key="normal" title="Button"/>
@@ -47,6 +47,7 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3964041096" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="LBy-N3-43n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="12" id="2Z2-1W-2AN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Sce-E4-ZEM" secondAttribute="bottom" constant="12" id="6jk-3B-FgB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" constant="12" id="Jas-YA-j5n"/>
                 <constraint firstItem="Sce-E4-ZEM" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" id="Mvd-m2-nIg"/>
