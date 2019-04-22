@@ -99,6 +99,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[NSUserDefaults wmf] wmf_setAppBecomeActiveDate:[NSDate date]];
+    NSUserDefaults.wmf.shouldShowLastReadArticleOnResume = [self shouldShowLastReadArticleOnResume];
     [self resumeAppIfNecessary];
 }
 
@@ -113,6 +114,14 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
         [self.appViewController hideSplashScreenAndResumeApp];
         self.appNeedsResume = false;
     }
+}
+
+- (BOOL)shouldShowLastReadArticleOnResume {
+    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
+    NSDate *becomeActiveDate = [[NSUserDefaults wmf] wmf_appBecomeActiveDate];
+    NSDate *cutoffDate = [[NSCalendar wmf_utcGregorianCalendar] nextDateAfterDate:resignActiveDate matchingHour:5 minute:0 second:0 options:NSCalendarMatchStrictly];
+    BOOL isBeforeCutoffDate = [becomeActiveDate compare:cutoffDate] == NSOrderedAscending;
+    return isBeforeCutoffDate;
 }
 
 #pragma mark - NSUserActivity Handling
