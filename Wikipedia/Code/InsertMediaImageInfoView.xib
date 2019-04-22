@@ -37,7 +37,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NiH-z3-XBT">
                                     <rect key="frame" x="0.0" y="0.0" width="331" height="20"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2W-Fe-5kb">
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2W-Fe-5kb" customClass="WMFLicenseView">
                                             <rect key="frame" x="0.0" y="0.0" width="16" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="16" placeholder="YES" id="9y1-Ha-m41"/>
