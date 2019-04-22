@@ -28,6 +28,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion;
 
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
+- (void)updateContinueReading:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 // Preferences
 
