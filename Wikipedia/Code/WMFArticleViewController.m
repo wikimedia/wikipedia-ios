@@ -2060,7 +2060,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (url && [url wmf_isPeekable]) {
         if ([url wmf_isWikiResource]) {
             WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
-            [articleViewController wmf_addPeekableChildViewControllerFor:url dataStore:self.dataStore theme:self.theme];
+            [articleViewController wmf_addPeekableChildViewControllerFor:url dataStore:self.dataStore theme:self.theme containerView:self.view];
             return articleViewController;
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
