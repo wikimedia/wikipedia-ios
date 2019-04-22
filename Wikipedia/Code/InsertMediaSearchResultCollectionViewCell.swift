@@ -71,7 +71,7 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         if (apply) {
             imageView.frame = CGRect(x: origin.x, y: origin.y, width: imageViewDimension, height: imageViewDimension)
             imageView.wmf_setImage(with: scaledImageURL, detectFaces: true, onGPU: true, failure: {_ in }, success: {
-                self.imageView.backgroundColor = self.backgroundColor
+                self.imageView.backgroundColor = .clear
             })
             selectedImageView.frame = CGRect(x: imageView.frame.maxX - selectedImageViewDimension, y: imageView.frame.maxY - selectedImageViewDimension, width: selectedImageViewDimension, height: selectedImageViewDimension)
             selectedImageView.image = selectedImage
@@ -96,7 +96,7 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 extension InsertMediaSearchResultCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
-        imageView.backgroundColor = backgroundColor
+        imageView.backgroundColor = .clear
         selectedImage = theme.isDark ? UIImage(named: "selected-dark") : UIImage(named: "selected")
         selectedImageView.tintColor = theme.colors.link
         captionLabel.textColor = theme.colors.primaryText

@@ -24,6 +24,11 @@ final class InsertMediaSettingsImageView: UIView {
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        imageView.accessibilityIgnoresInvertColors = true
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         headingLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)

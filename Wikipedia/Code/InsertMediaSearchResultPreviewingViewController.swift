@@ -26,6 +26,7 @@ final class InsertMediaSearchResultPreviewingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.accessibilityIgnoresInvertColors = true
         imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { _ in }) {
             self.imageView.backgroundColor = self.view.backgroundColor
             self.activityIndicator.stopAnimating()
