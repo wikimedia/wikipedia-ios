@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="landscape">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,19 +14,18 @@
             <connections>
                 <outlet property="button" destination="Sce-E4-ZEM" id="poG-0c-bFU"/>
                 <outlet property="containerView" destination="LBy-N3-43n" id="9ar-tz-xOX"/>
-                <outlet property="containerViewHeightConstraint" destination="tg4-vm-hVM" id="pQm-wQ-iA3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-N3-43n">
-                    <rect key="frame" x="56" y="242" width="700" height="328"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-N3-43n">
+                    <rect key="frame" x="12" y="242" width="351" height="328"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="328" id="tg4-vm-hVM"/>
+                        <constraint firstAttribute="height" constant="328" placeholder="YES" id="tg4-vm-hVM"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
@@ -35,8 +34,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sce-E4-ZEM">
-                    <rect key="frame" x="56" y="582" width="700" height="42"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sce-E4-ZEM">
+                    <rect key="frame" x="12" y="582" width="351" height="42"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="contentEdgeInsets" minX="24" minY="12" maxX="24" maxY="12"/>
                     <state key="normal" title="Button"/>

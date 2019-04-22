@@ -2,7 +2,7 @@ import UIKit
 
 class EditPreviewInternalLinkViewController: UIViewController {
     @IBOutlet private weak var containerView: UIView!
-    @IBOutlet private weak var containerViewHeightConstraint: NSLayoutConstraint!
+    private var containerViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet private weak var button: UIButton!
 
     private let articleURL: URL
@@ -33,7 +33,17 @@ class EditPreviewInternalLinkViewController: UIViewController {
     }
 
     override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
-        containerViewHeightConstraint.constant = container.preferredContentSize.height
+        updateContainerViewHeightConstraint(container.preferredContentSize.height)
+    }
+
+    private func updateContainerViewHeightConstraint(_ constant: CGFloat) {
+        if let containerViewHeightConstraint = containerViewHeightConstraint {
+            containerViewHeightConstraint.constant = constant
+        } else {
+            containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: constant)
+            containerViewHeightConstraint?.priority = .defaultLow
+            containerViewHeightConstraint?.isActive = true
+        }
     }
 
     @IBAction private func dismissAnimated(_ sender: UIButton) {
