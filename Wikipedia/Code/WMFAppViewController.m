@@ -1628,7 +1628,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if ([[navigationController viewControllers] count] == 1) {
+    if (!self.isWaitingToResumeApp && [[navigationController viewControllers] count] == 1) {
         [[NSUserDefaults wmf] wmf_setOpenArticleURL:nil];
     }
 
