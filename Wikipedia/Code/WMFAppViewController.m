@@ -1486,6 +1486,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Last Read Article
 
 - (BOOL)shouldShowLastReadArticleOnLaunch {
+    if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
+        return NO;
+    }
+
     NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
     if (!lastRead) {
         return NO;
