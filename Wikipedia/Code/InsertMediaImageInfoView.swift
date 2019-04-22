@@ -62,6 +62,6 @@ extension InsertMediaImageInfoView: Themeable {
         licenseLabel.textColor = theme.colors.primaryText
         moreInformationButton.tintColor = theme.colors.link
         moreInformationButton.backgroundColor = backgroundColor
-        licenseView.arrangedSubviews.forEach { $0.tintColor = theme.colors.primaryText }
+        licenseView.tintColor = theme.colors.primaryText
     }
 }
