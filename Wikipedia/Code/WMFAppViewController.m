@@ -901,9 +901,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                    completion:^{
                                                    }];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
-        [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
+        [self.dataStore.feedContentController updateContentSource:[WMFNearbyContentSource class] force:NO completion:NULL];
     } else if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
-        [self.dataStore.feedContentController updateContinueReading:YES completion:NULL];
+        [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
