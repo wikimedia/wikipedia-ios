@@ -30,10 +30,17 @@ final class MediaWizardController: NSObject {
         return imageViewController
     }()
 
-    private let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
+    private lazy var searchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController = {
+        let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
+        searchResultsCollectionViewController.scrollDelegate = self
+        return searchResultsCollectionViewController
+    }()
+
+    private lazy var searchView: SearchView = {
+        return SearchView(searchBarDelegate: self, placeholder: articleTitle)
+    }()
 
     private lazy var tabbedViewController: TabbedViewController = {
-        let searchView = SearchView(searchBarDelegate: self, placeholder: articleTitle)
         return TabbedViewController(viewControllers: [searchResultsCollectionViewController], extendedViews: [searchView])
     }()
 
@@ -226,7 +233,7 @@ final class MediaWizardController: NSObject {
 }
 
 final fileprivate class SearchView: UIView, Themeable {
-    private let searchBar: UISearchBar
+    let searchBar: UISearchBar
 
     init(searchBarDelegate: UISearchBarDelegate, placeholder: String?) {
         searchBar = UISearchBar()
@@ -252,6 +259,12 @@ final fileprivate class SearchView: UIView, Themeable {
 extension MediaWizardController: InsertMediaImageViewControllerDelegate {
     func insertMediaImageViewController(_ insertMediaImageViewController: InsertMediaImageViewController, didSetSelectedImage image: UIImage?, from searchResult: InsertMediaSearchResult) {
         nextButton.isEnabled = true
+    }
+}
+
+extension MediaWizardController: InsertMediaSearchResultsCollectionViewControllerScrollDelegate {
+    func insertMediaSearchResultsCollectionViewControllerScrollViewDidScroll(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollView: UIScrollView) {
+        searchView.searchBar.resignFirstResponder()
     }
 }
 

@@ -40,6 +40,10 @@ protocol InsertMediaSearchResultsCollectionViewControllerDelegate: AnyObject {
     func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult)
 }
 
+protocol InsertMediaSearchResultsCollectionViewControllerScrollDelegate: AnyObject {
+    func insertMediaSearchResultsCollectionViewControllerScrollViewDidScroll(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollView: UIScrollView)
+}
+
 final class InsertMediaSearchResult {
     let fileTitle: String
     let displayTitle: String
@@ -68,6 +72,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     }
 
     weak var delegate: InsertMediaSearchResultsCollectionViewControllerDelegate?
+    weak var scrollDelegate: InsertMediaSearchResultsCollectionViewControllerScrollDelegate?
 
     var searchResults = [InsertMediaSearchResult]() {
         didSet {
@@ -112,6 +117,11 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     func setImageInfo(_ imageInfo: MWKImageInfo?, for searchResult: InsertMediaSearchResult, at index: Int) {
         assert(Thread.isMainThread)
         searchResult.imageInfo = imageInfo
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        scrollDelegate?.insertMediaSearchResultsCollectionViewControllerScrollViewDidScroll(self, scrollView: scrollView)
     }
 
     // MARK: Themeable
