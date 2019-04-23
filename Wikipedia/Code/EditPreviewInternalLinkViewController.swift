@@ -3,6 +3,7 @@ import UIKit
 class EditPreviewInternalLinkViewController: UIViewController {
     @IBOutlet private weak var containerView: UIView!
     private var containerViewHeightConstraint: NSLayoutConstraint?
+    private var containerViewWidthConstraint: NSLayoutConstraint?
     @IBOutlet private weak var button: UIButton!
 
     private let articleURL: URL
@@ -38,6 +39,13 @@ class EditPreviewInternalLinkViewController: UIViewController {
         } else {
             containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: container.preferredContentSize.height)
             containerViewHeightConstraint?.isActive = true
+        }
+        let width = containerView.systemLayoutSizeFitting(view.bounds.size).width
+        if let containerViewWidthConstraint = containerViewWidthConstraint {
+            containerViewWidthConstraint.constant = width
+        } else {
+            containerViewWidthConstraint = containerView.widthAnchor.constraint(equalToConstant: width)
+            containerViewWidthConstraint?.isActive = true
         }
     }
 

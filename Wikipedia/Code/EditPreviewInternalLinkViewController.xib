@@ -29,7 +29,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-N3-43n">
-                                    <rect key="frame" x="12" y="242" width="351" height="328"/>
+                                    <rect key="frame" x="140.66666666666666" y="242" width="94" height="328"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="328" placeholder="YES" id="tg4-vm-hVM">
                                             <variation key="heightClass=compact" constant="100"/>
@@ -43,7 +43,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sce-E4-ZEM">
-                                    <rect key="frame" x="12" y="582" width="351" height="42"/>
+                                    <rect key="frame" x="140.66666666666666" y="582" width="94" height="42"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="contentEdgeInsets" minX="24" minY="12" maxX="24" maxY="12"/>
                                     <state key="normal" title="Button"/>
@@ -55,12 +55,12 @@
                             <constraints>
                                 <constraint firstItem="Sce-E4-ZEM" firstAttribute="leading" secondItem="LBy-N3-43n" secondAttribute="leading" id="0ia-Tb-5cn"/>
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="centerX" secondItem="lP8-IR-vmI" secondAttribute="centerX" id="HWz-iP-BMQ"/>
-                                <constraint firstItem="LBy-N3-43n" firstAttribute="leading" secondItem="0Qr-og-G0P" secondAttribute="leading" constant="12" id="I8i-9j-PBn"/>
+                                <constraint firstItem="LBy-N3-43n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0Qr-og-G0P" secondAttribute="leading" constant="12" id="I8i-9j-PBn"/>
                                 <constraint firstItem="Sce-E4-ZEM" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" id="RDd-hc-D5b"/>
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="centerY" secondItem="lP8-IR-vmI" secondAttribute="centerY" id="VOb-BY-w6e"/>
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0Qr-og-G0P" secondAttribute="top" constant="12" id="Zv5-nZ-JQD"/>
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="bottom" secondItem="Sce-E4-ZEM" secondAttribute="top" constant="-12" id="aKb-nf-tUW"/>
-                                <constraint firstItem="0Qr-og-G0P" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" constant="12" id="akW-Ep-5zv"/>
+                                <constraint firstItem="0Qr-og-G0P" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LBy-N3-43n" secondAttribute="trailing" constant="12" id="akW-Ep-5zv"/>
                                 <constraint firstItem="0Qr-og-G0P" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Sce-E4-ZEM" secondAttribute="bottom" constant="12" id="dVL-Ji-r8x"/>
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="0Qr-og-G0P"/>
