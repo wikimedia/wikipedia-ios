@@ -52,7 +52,7 @@ extension EditPreviewInternalLinkViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        button.backgroundColor = theme.colors.baseBackground
+        button.backgroundColor = theme.colors.midBackground
         button.tintColor = theme.colors.link
     }
 }
