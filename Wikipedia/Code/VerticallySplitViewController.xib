@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerticallySplitViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="bottomView" destination="Bu3-su-0Ns" id="4oH-kl-pdB"/>
+                <outlet property="bottomViewHeightConstraint" destination="3hf-Nm-bg8" id="AsJ-LD-foN"/>
                 <outlet property="topView" destination="9qP-S4-qEh" id="gfV-lb-OMC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

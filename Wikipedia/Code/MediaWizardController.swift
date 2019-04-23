@@ -278,4 +278,12 @@ extension MediaWizardController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        verticallySplitViewController.extendBottomViewToFullHeight(multiplier: 0.8)
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        verticallySplitViewController.collapseBottomViewToOriginialHeight()
+    }
 }
