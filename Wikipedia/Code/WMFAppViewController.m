@@ -900,10 +900,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                 userInitiated:NO
                                                    completion:^{
                                                    }];
-    } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
-        [self.dataStore.feedContentController updateContentSource:[WMFNearbyContentSource class] force:NO completion:NULL];
-    } else if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
-        [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
+    } else {
+        if (locationAuthorized != [defaults wmf_locationAuthorized]) {
+            [self.dataStore.feedContentController updateContentSource:[WMFNearbyContentSource class] force:NO completion:NULL];
+        }
+        if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
+            [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
+        }
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
