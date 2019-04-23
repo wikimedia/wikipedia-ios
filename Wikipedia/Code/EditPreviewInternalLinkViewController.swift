@@ -33,15 +33,10 @@ class EditPreviewInternalLinkViewController: UIViewController {
     }
 
     override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
-        updateContainerViewHeightConstraint(container.preferredContentSize.height)
-    }
-
-    private func updateContainerViewHeightConstraint(_ constant: CGFloat) {
         if let containerViewHeightConstraint = containerViewHeightConstraint {
             containerViewHeightConstraint.constant = constant
         } else {
             containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: constant)
-            containerViewHeightConstraint?.priority = .defaultLow
             containerViewHeightConstraint?.isActive = true
         }
     }
