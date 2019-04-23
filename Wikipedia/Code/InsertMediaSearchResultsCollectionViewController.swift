@@ -29,8 +29,9 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
         guard let collectionView = collectionView else {
             return
         }
-
-        let dimension = (collectionView.bounds.width / 3) - minimumInteritemSpacing * 2
+        sectionInset.left = collectionView.scrollIndicatorInsets.left
+        sectionInset.right = collectionView.scrollIndicatorInsets.right
+        let dimension = (collectionView.bounds.width / 3) - minimumInteritemSpacing * 2 - sectionInset.left - sectionInset.right
         itemSize = CGSize(width: dimension, height: dimension)
     }
 }
@@ -166,6 +167,9 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     override func scrollViewInsetsDidChange() {
         super.scrollViewInsetsDidChange()
         wmf_setEmptyViewFrame(emptyViewFrame)
+        let context = UICollectionViewFlowLayoutInvalidationContext()
+        context.invalidateFlowLayoutAttributes = true
+        flowLayout.invalidateLayout(with: context)
     }
 }
 
