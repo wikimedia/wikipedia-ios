@@ -3,8 +3,10 @@ import UIKit
 final class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
     private let theme: Theme
 
-    var advancedSettings: InsertMediaSettings.Advanced {
-        return InsertMediaSettings.Advanced(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition, imageType: imageTypeSettingsTableViewController.selectedImageType, imageSize: imageSizeSettingsTableViewController.selectedImageSize)
+    typealias AdvancedSettings = InsertMediaSettings.Advanced
+
+    var advancedSettings: AdvancedSettings {
+        return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn), imageType: imageTypeSettingsTableViewController.selectedImageType, imageSize: imageSizeSettingsTableViewController.selectedImageSize)
     }
 
     struct ViewModel {
@@ -12,33 +14,41 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         let detailText: String?
         let accessoryView: UIView?
         let accessoryType: UITableViewCell.AccessoryType
+        let isEnabled: Bool
         let selectionStyle: UITableViewCell.SelectionStyle
         let onSelection: (() -> Void)?
 
-        init(title: String, detailText: String? = nil, accessoryView: UIView? = nil, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator, selectionStyle: UITableViewCell.SelectionStyle = .default, onSelection: (() -> Void)? = nil ) {
+        init(title: String, detailText: String? = nil, accessoryView: UIView? = nil, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, onSelection: (() -> Void)? = nil) {
             self.title = title
             self.detailText = detailText
             self.accessoryView = accessoryView
             self.accessoryType = accessoryType
+            self.isEnabled = isEnabled
             self.selectionStyle = selectionStyle
             self.onSelection = onSelection
         }
     }
 
-    private lazy var textWrappingSwitch = UISwitch()
+    private lazy var textWrappingSwitch: UISwitch = {
+        let textWrappingSwitch = UISwitch()
+        textWrappingSwitch.isOn = true
+        textWrappingSwitch.addTarget(self, action: #selector(toggleImagePositionEnabledState(_:)), for: .valueChanged)
+        return textWrappingSwitch
+    }()
+
     private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController(theme: theme)
     private lazy var imageTypeSettingsTableViewController = InsertMediaImageTypeSettingsTableViewController(theme: theme)
     private lazy var imageSizeSettingsTableViewController = InsertMediaImageSizeSettingsTableViewController(theme: theme)
-
+    
     private var viewModels: [ViewModel] {
-        let textWrappingViewModel = ViewModel(title: "Wrap text around image", accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
-        let imagePositionViewModel = ViewModel(title: InsertMediaSettings.Advanced.ImagePosition.displayTitle, detailText: imagePositionSettingsTableViewController.selectedImagePosition.displayTitle) {
+        let textWrappingViewModel = ViewModel(title: WMFLocalizedString("insert-media-image-text-wrapping-setting", value: "Wrap text around image", comment: "Title for image setting that wraps text around image"), accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
+        let imagePositionViewModel = ViewModel(title: AdvancedSettings.ImagePosition.displayTitle, detailText: imagePositionSettingsTableViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn).displayTitle, isEnabled: textWrappingSwitch.isOn) {
             self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
         }
-        let imageTypeViewModel = ViewModel(title: InsertMediaSettings.Advanced.ImageType.displayTitle, detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) {
+        let imageTypeViewModel = ViewModel(title: AdvancedSettings.ImageType.displayTitle, detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) {
             self.navigationController?.pushViewController(self.imageTypeSettingsTableViewController, animated: true)
         }
-        let imageSizeViewModel = ViewModel(title: InsertMediaSettings.Advanced.ImageSize.displayTitle, detailText: imageSizeSettingsTableViewController.selectedImageSize.displayTitle) {
+        let imageSizeViewModel = ViewModel(title: AdvancedSettings.ImageSize.displayTitle, detailText: imageSizeSettingsTableViewController.selectedImageSize.displayTitle) {
            self.navigationController?.pushViewController(self.imageSizeSettingsTableViewController, animated: false)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
@@ -47,6 +57,10 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
     init(theme: Theme) {
         self.theme = theme
         super.init(style: .plain)
+    }
+
+    @objc private func toggleImagePositionEnabledState(_ sender: UISwitch) {
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
     }
 
     override func viewDidLoad() {
@@ -90,9 +104,10 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         cell.textLabel?.text = viewModel.title
         cell.accessoryView = viewModel.accessoryView
         cell.accessoryType = viewModel.accessoryType
+        cell.isUserInteractionEnabled = viewModel.isEnabled
         cell.detailTextLabel?.textAlignment = .right
         cell.detailTextLabel?.text = viewModel.detailText
-        cell.selectionStyle = viewModel.selectionStyle
+        cell.selectionStyle = cell.isUserInteractionEnabled ? viewModel.selectionStyle : .none
         apply(theme: theme, to: cell)
         return cell
     }
@@ -103,7 +118,7 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         let selectedBackgroundView = UIView()
         selectedBackgroundView.backgroundColor = theme.colors.midBackground
         cell.selectedBackgroundView = selectedBackgroundView
-        cell.textLabel?.textColor = theme.colors.primaryText
+        cell.textLabel?.textColor = cell.isUserInteractionEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         cell.detailTextLabel?.textColor = theme.colors.secondaryText
     }
 

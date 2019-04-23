@@ -26,6 +26,7 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
                 case right
                 case left
                 case center
+                case none
 
                 var displayTitle: String {
                     switch self {
@@ -35,6 +36,8 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
                         return WMFLocalizedString("insert-media-image-position-setting-left", value: "Left", comment: "Title for image position setting that positions image on the left")
                     case .center:
                         return WMFLocalizedString("insert-media-image-position-setting-center", value: "Center", comment: "Title for image position setting that positions image in the center")
+                    case .none:
+                        return WMFLocalizedString("insert-media-image-position-setting-none", value: "None", comment: "Title for image position setting that doesn't set image's position")
                     }
                 }
 

@@ -387,6 +387,7 @@
 "insert-media-caption-title" = "Title for setting that allows users to add image captions";
 "insert-media-image-position-setting-center" = "Title for image position setting that positions image in the center";
 "insert-media-image-position-setting-left" = "Title for image position setting that positions image on the left";
+"insert-media-image-position-setting-none" = "Title for image position setting that doesn't set image's position";
 "insert-media-image-position-setting-right" = "Title for image position setting that positions image on the right";
 "insert-media-image-position-settings-title" = "Display ritle for image position setting";
 "insert-media-image-preview-more-information-action-title" = "Title for preview action that results in presenting more information";

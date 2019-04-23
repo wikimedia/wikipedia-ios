@@ -3,7 +3,10 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
 
     typealias ImagePosition = InsertMediaSettings.Advanced.ImagePosition
 
-    var selectedImagePosition: ImagePosition {
+    func selectedImagePosition(isTextWrappingEnabled: Bool) -> ImagePosition {
+        guard isTextWrappingEnabled else {
+            return .none
+        }
         guard let selectedIndexPath = selectedIndexPath else {
             return .right
         }

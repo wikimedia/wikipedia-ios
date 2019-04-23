@@ -387,6 +387,7 @@
 "insert-media-caption-title" = "Caption";
 "insert-media-image-position-setting-center" = "Center";
 "insert-media-image-position-setting-left" = "Left";
+"insert-media-image-position-setting-none" = "None";
 "insert-media-image-position-setting-right" = "Right";
 "insert-media-image-position-settings-title" = "Image position";
 "insert-media-image-preview-more-information-action-title" = "More information";
