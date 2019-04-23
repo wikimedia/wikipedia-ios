@@ -70,7 +70,7 @@ final class TabbedViewController: ViewController {
         super.viewDidLoad()
         navigationBar.displayType = .hidden
         navigationBar.isBarHidingEnabled = false
-        navigationBar.addUnderNavigationBarView(tabsView)
+        //navigationBar.addUnderNavigationBarView(tabsView)
         navigationBar.isExtendedViewHidingEnabled = true
         showViewControllerWithExtendedView(at: selectedIndex)
     }
@@ -109,6 +109,6 @@ final class TabbedViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        tabsView.apply(theme: theme)
+        //tabsView.apply(theme: theme)
     }
 }
