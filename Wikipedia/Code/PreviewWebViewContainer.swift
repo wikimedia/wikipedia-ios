@@ -7,7 +7,7 @@ import WMF
 }
 
 @objc protocol WMFPreviewAnchorTapAlertDelegate: class {
-    func wmf_showAlert(forTappedAnchorHref href: String)
+    func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL, exists: Bool, isExternal: Bool)
 }
 
 class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
@@ -44,11 +44,18 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
     }()
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        guard let path = navigationAction.request.url?.path, navigationAction.navigationType == .linkActivated else {
+        guard let url = navigationAction.request.url, navigationAction.navigationType == .linkActivated else {
             decisionHandler(WKNavigationActionPolicy.allow)
             return
         }
-        previewAnchorTapAlertDelegate.wmf_showAlert(forTappedAnchorHref: path)
+        let exists: Bool
+        if let query = url.query {
+            exists = !query.contains("redlink=1")
+        } else {
+            exists = true
+        }
+        let isExternal = url.host != "wikipedia.org"
+        previewAnchorTapAlertDelegate.previewWebViewContainer(self, didTapLink: url, exists: exists, isExternal: isExternal)
         decisionHandler(WKNavigationActionPolicy.cancel)
     }
 

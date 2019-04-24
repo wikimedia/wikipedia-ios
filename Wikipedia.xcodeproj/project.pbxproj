@@ -436,6 +436,16 @@
 		7A7AC84821B6B89B003B849B /* SectionEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */; };
 		7A7AC84921B6B89B003B849B /* SectionEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */; };
 		7A7AC84A21B6B89B003B849B /* SectionEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */; };
+		7A827659226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A827657226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift */; };
+		7A82765A226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A827657226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift */; };
+		7A82765B226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A827657226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift */; };
+		7A82765C226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A827657226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift */; };
+		7A82765D226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A827657226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift */; };
+		7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A827658226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib */; };
+		7A82765F226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A827658226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib */; };
+		7A827660226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A827658226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib */; };
+		7A827661226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A827658226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib */; };
+		7A827662226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A827658226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib */; };
 		7A82896821B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */; };
 		7A82896921B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */; };
 		7A82896A21B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */; };
@@ -3525,6 +3535,8 @@
 		7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLoggingStandardEventProviding.swift; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
 		7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorViewController.swift; sourceTree = "<group>"; };
+		7A827657226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreviewInternalLinkViewController.swift; sourceTree = "<group>"; };
+		7A827658226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditPreviewInternalLinkViewController.xib; sourceTree = "<group>"; };
 		7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingCustomViewTableViewCell.swift; sourceTree = "<group>"; };
 		7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -5258,6 +5270,8 @@
 			isa = PBXGroup;
 			children = (
 				B01E3AFE21F98BFF0015B715 /* EditPreviewViewController.swift */,
+				7A827657226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift */,
+				7A827658226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib */,
 				B0C64A9021F2801300C4CF3F /* EditPreviewViewController.storyboard */,
 				B01E3AF821F986750015B715 /* PreviewWebViewContainer.swift */,
 			);
@@ -9229,6 +9243,7 @@
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8421B58203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
+				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				83E52BB91F681F940045E776 /* ShareAFactViewController.xib in Resources */,
@@ -9317,6 +9332,7 @@
 				B0D3E715214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D80ED3D51EE57F4800CE8C50 /* WMFRandomDiceButtonRoll.js in Resources */,
 				B0C64A9A21F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
+				7A827662226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				D80ED3D61EE57F4800CE8C50 /* NotificationBackgroundSuccess.png in Resources */,
 				83836ED51F615E5B007D1A05 /* ShareViewController.xib in Resources */,
 				D80ED3D71EE57F4800CE8C50 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
@@ -9474,6 +9490,7 @@
 				D8A42BD11E815A9C00D8E281 /* WMFTableOfContentsCell.xib in Resources */,
 				D8421B5B203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				D8A42BD21E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
+				7A827661226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0EFCD751EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDC1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				83E52BBC1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
@@ -9575,6 +9592,7 @@
 				D8CE26581E698E2400DAE2E0 /* WMFTableOfContentsCell.xib in Resources */,
 				D8421B59203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				D8CE26591E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
+				7A82765F226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0EFCD731EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDA1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				83E52BBA1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
@@ -9676,6 +9694,7 @@
 				D8EC3F581E9BDA35006712EB /* WMFTableOfContentsCell.xib in Resources */,
 				D8421B5A203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				D8EC3F591E9BDA35006712EB /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
+				7A827660226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0EFCD741EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDB1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				83E52BBB1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
@@ -10277,6 +10296,7 @@
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
 				83A642752226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				B0C7A07A1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
+				7A827659226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
@@ -10817,6 +10837,7 @@
 				D80ED38B1EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0CD9DF81F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B068EDE4206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
+				7A82765D226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				83EE476E20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0BCF0BD202537D800986F72 /* Panels.swift in Sources */,
 				7A6ED51020ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
@@ -11337,6 +11358,7 @@
 				D8B166881FD97A0500097D8B /* ViewController.swift in Sources */,
 				D8A42AC41E815A9C00D8E281 /* WMFTableOfContentsViewController.swift in Sources */,
 				83A642782226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
+				7A82765C226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				D8A42AC61E815A9C00D8E281 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0C7A07B1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8A42AC71E815A9C00D8E281 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
@@ -11885,6 +11907,7 @@
 				D8CE25F71E698E2400DAE2E0 /* WMFTableOfContentsItem.swift in Sources */,
 				D8CE25F81E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0CD9DE31F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
+				7A82765A226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE1206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0BCF0BA202537D800986F72 /* Panels.swift in Sources */,
@@ -12250,6 +12273,7 @@
 				D8EC3EF71E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0CD9DEA1F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D8EC3EFA1E9BDA35006712EB /* UIApplication+SystemSettings.swift in Sources */,
+				7A82765B226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE2206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				83EE476C20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0BCF0BB202537D800986F72 /* Panels.swift in Sources */,
