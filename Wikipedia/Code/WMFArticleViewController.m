@@ -347,15 +347,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (WMFReadingThemesControlsViewController *)readingThemesViewController {
     if (!_readingThemesViewController) {
-        _readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName: [WMFReadingThemesControlsViewController nibName] bundle:nil];
+        _readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:[WMFReadingThemesControlsViewController nibName] bundle:nil];
     }
-    
+
     return _readingThemesViewController;
 }
 
 - (WMFReadingThemesControlsArticlePresenter *)readingThemesControlsPresenter {
     if (!_readingThemesControlsPresenter) {
-        _readingThemesControlsPresenter = [[WMFReadingThemesControlsArticlePresenter alloc] initWithReadingThemesControlsViewController: self.readingThemesViewController wkWebView: self.webViewController.webView readingThemesControlsToolbarItem: self.readingThemesControlsToolbarItem];
+        _readingThemesControlsPresenter = [[WMFReadingThemesControlsArticlePresenter alloc] initWithReadingThemesControlsViewController:self.readingThemesViewController wkWebView:self.webViewController.webView readingThemesControlsToolbarItem:self.readingThemesControlsToolbarItem];
     }
     return _readingThemesControlsPresenter;
 }
@@ -561,16 +561,16 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (IconBarButtonItem *)hideTableOfContentsToolbarItem {
     if (!_hideTableOfContentsToolbarItem) {
         _hideTableOfContentsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"toc" target: self action: @selector(hideTableOfContents:) for: UIControlEventTouchUpInside];
-        
-         if ([_hideTableOfContentsToolbarItem.customView isKindOfClass:[UIButton class]]) {
-             UIButton *button = (UIButton *)_hideTableOfContentsToolbarItem.customView;
-             button.layer.cornerRadius = 5;
-             button.layer.masksToBounds = YES;
-         }
-        
+
+        if ([_hideTableOfContentsToolbarItem.customView isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)_hideTableOfContentsToolbarItem.customView;
+            button.layer.cornerRadius = 5;
+            button.layer.masksToBounds = YES;
+        }
+
         _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
-        
-         [_hideTableOfContentsToolbarItem applyTheme:self.theme];
+
+        [_hideTableOfContentsToolbarItem applyTheme:self.theme];
     }
     return _hideTableOfContentsToolbarItem;
 }
@@ -581,7 +581,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleSaveButtonLongPressGestureRecognizer:)];
         if ([_saveToolbarItem.customView isKindOfClass:[UIButton class]]) {
             UIButton *button = (UIButton *)_saveToolbarItem.customView;
-             [button addGestureRecognizer:longPress];
+            [button addGestureRecognizer:longPress];
         }
         [_saveToolbarItem applyTheme:self.theme];
     }
@@ -620,7 +620,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [CATransaction setCompletionBlock:^{
         [self.webViewController showFindInPage];
     }];
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
     [CATransaction commit];
 }
 
@@ -635,7 +635,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
     [self presentViewControllerEmbeddedInNavigationController:languagesVC];
@@ -755,7 +755,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)titleBarButtonPressed {
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -831,7 +831,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
 
     [self cancelWIconPopoverDisplay];
 }
@@ -1083,7 +1083,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showTableOfContents:(id)sender {
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
 
     if (self.tableOfContentsViewController == nil) {
         return;
@@ -1382,7 +1382,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)shareArticle {
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
 
     [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
         if (text.length > 0) {
@@ -1445,7 +1445,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)toggleSave:(id)sender event:(UIEvent *)event {
     UIImpactFeedbackGenerator *feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
     [feedbackGenerator impactOccurred];
-    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom: self];
+    [self.readingThemesControlsPresenter objCDismissReadingThemesPopoverIfActiveFrom:self];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && articleToUnsave.userCreatedReadingListsCount > 0) {
         WMFReadingListsAlertController *readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
@@ -1528,7 +1528,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
-        [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+        if (!self.restoreScrollPosition) {
+            [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+        }
     }
 
     [self.delegate articleControllerDidLoadArticle:self];
@@ -1583,7 +1585,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)webViewController:(WebViewController *)controller didTapEditMenuItemInMenuController:(UIMenuController *)menuController {
     @weakify(self);
-    [self.webViewController.webView wmf_getSelectedTextEditInfoWithCompletionHandler:^(SelectedTextEditInfo* selectedTextEditInfo, NSError *error) {
+    [self.webViewController.webView wmf_getSelectedTextEditInfoWithCompletionHandler:^(SelectedTextEditInfo *selectedTextEditInfo, NSError *error) {
         @strongify(self);
         if (error) {
             return;
@@ -1814,9 +1816,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(self);
     void (^showIntro)(void) = ^{
         @strongify(self);
-        WMFEditingWelcomeViewController *editingWelcomeViewController = [[WMFEditingWelcomeViewController alloc] initWithTheme:self.theme completion:^{
-            sectionEditVC.shouldFocusWebView = YES;
-        }];
+        WMFEditingWelcomeViewController *editingWelcomeViewController = [[WMFEditingWelcomeViewController alloc] initWithTheme:self.theme
+                                                                                                                    completion:^{
+                                                                                                                        sectionEditVC.shouldFocusWebView = YES;
+                                                                                                                    }];
         [editingWelcomeViewController applyTheme:self.theme];
         [navigationController presentViewController:editingWelcomeViewController
                                            animated:YES
@@ -1875,13 +1878,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                               navVC.view.alpha = 1;
                           }];
     };
-    [self presentViewController:navVC animated:!needsIntro completion:^{
-        if (needsIntro) {
-            showIntro();
-        } else {
-            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
-        }
-    }];
+    [self presentViewController:navVC
+                       animated:!needsIntro
+                     completion:^{
+                         if (needsIntro) {
+                             showIntro();
+                         } else {
+                             [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+                         }
+                     }];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
@@ -2277,7 +2282,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 #pragma mark - KVO
 
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context {
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
     if (context == &kvo_WMFArticleViewController_articleFetcherPromise_progress) {
         double progress = self.articleFetcherPromise.progress.fractionCompleted;
         dispatch_async(dispatch_get_main_queue(), ^{
