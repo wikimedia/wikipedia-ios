@@ -314,7 +314,6 @@
 "fetcher-error-unexpected-response" = "The app received an unexpected response from the server. Please try again later.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passwords do not match";
-"field-alert-password-invalid" = "Invalid password";
 "field-alert-token-invalid" = "Invalid code";
 "field-alert-username-unavailable" = "Username not available";
 "field-backup-token-title" = "Backup code";
