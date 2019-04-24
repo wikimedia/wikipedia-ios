@@ -192,7 +192,11 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first
         collectionView.reloadData()
+        if let selectedIndexPath = selectedIndexPath {
+            collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .centeredVertically)
+        }
     }
 }
 
