@@ -33,6 +33,8 @@
         }
     } else if ([language isEqualToString:@"sr"]) {
         bundleName = @"sr-ec";
+    } else if ([language isEqualToString:@"no"]) {
+        bundleName = @"nb";
     }
     return bundleName;
 }
