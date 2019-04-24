@@ -3,7 +3,7 @@ public class NetworkTalkPage: Codable {
     var url: URL! //todo: does this have to be ! if not codable property
     let name: String
     let discussions: [NetworkDiscussion]
-    let revisionId: Int64 //todo: unit test this?
+    let revisionId: Int64
     
     private enum CodingKeys: String, CodingKey {
         case name
@@ -19,7 +19,7 @@ public class NetworkDiscussion: Codable {
 
 public class NetworkDiscussionItem: Codable {
     let text: String
-    let depth: Int16 //todo: unit test this?
+    let depth: Int16
     let unalteredText: String
 }
 

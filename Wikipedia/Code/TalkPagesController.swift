@@ -19,7 +19,7 @@ public class TalkPageController {
             completion?(nil, RequestError.invalidParameters)
             return
         }
-        //todo: better host
+
         fetcher.fetchTalkPage(for: name, host: host) { (talkPage, error) in
             
             guard let talkPage = talkPage else {

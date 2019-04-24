@@ -47,7 +47,7 @@ extension NSManagedObjectContext {
             }
         }
         
-        existingTalkPage.discussions = NSOrderedSet(array: newDiscussions) //todo: what happens to the old records?
+        existingTalkPage.discussions = NSOrderedSet(array: newDiscussions)
         
         try self.save()
         return existingTalkPage
