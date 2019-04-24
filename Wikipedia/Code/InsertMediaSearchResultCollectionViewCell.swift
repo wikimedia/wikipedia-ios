@@ -5,12 +5,10 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     private let captionLabel = UILabel()
 
     private var imageURL: URL?
-    private var imageViewDimension: CGFloat = 0
 
     private var spacing: CGFloat = 8
 
     private let selectedImageView = UIImageView()
-    private var selectedImageViewDimension: CGFloat = 0
     private var selectedImage = UIImage(named: "selected")
 
     override func setup() {
@@ -37,10 +35,8 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         captionLabel.text = nil
     }
 
-    func configure(imageURL: URL?, imageViewDimension: CGFloat, caption: String?) {
+    func configure(imageURL: URL?, caption: String?) {
         self.imageURL = imageURL
-        self.imageViewDimension = imageViewDimension
-        selectedImageViewDimension = min(35, imageViewDimension * 0.2)
         captionLabel.text = caption
         accessibilityValue = caption
         setNeedsLayout()
@@ -58,6 +54,9 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
             return super.sizeThatFits(size, apply: apply)
         }
 
+        let imageViewDimension = size.width
+        let selectedImageViewDimension = min(35, imageViewDimension * 0.2)
+        
         guard let scaledImageURL = WMFParseSizePrefixFromSourceURL(imageURL) < Int(imageViewDimension) ? URL(string: WMFChangeImageSourceURLSizePrefix(imageURL.absoluteString, Int(imageViewDimension))) : imageURL else {
             return super.sizeThatFits(size, apply: apply)
         }

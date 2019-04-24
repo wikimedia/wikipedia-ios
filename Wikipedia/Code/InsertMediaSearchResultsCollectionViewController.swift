@@ -2,35 +2,35 @@ import UIKit
 import SafariServices
 
 fileprivate class FlowLayout: UICollectionViewFlowLayout {
-    private var oldBoundsWidth: CGFloat = 0
-
     override init() {
         super.init()
         minimumInteritemSpacing = 8
         minimumLineSpacing = 32
+        sectionInsetReference = .fromContentInset
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        defer {
-            oldBoundsWidth = newBounds.width
+    
+    override func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
+        let superContext = super.invalidationContext(forBoundsChange: newBounds)
+        guard let context = superContext as? UICollectionViewFlowLayoutInvalidationContext else {
+            return superContext
         }
-        return super.shouldInvalidateLayout(forBoundsChange: newBounds) || newBounds.width != oldBoundsWidth
+        context.invalidateFlowLayoutDelegateMetrics = true
+        return context
     }
 
     override func invalidateLayout(with context: UICollectionViewLayoutInvalidationContext) {
         defer {
             super.invalidateLayout(with: context)
         }
-
         guard let collectionView = collectionView else {
             return
         }
         let countOfColumns: CGFloat = 3
-        sectionInset = UIEdgeInsets(top: 0, left: collectionView.layoutMargins.left, bottom: 0, right: collectionView.layoutMargins.right)
+        sectionInset = UIEdgeInsets(top: 0, left: minimumInteritemSpacing + collectionView.layoutMargins.left - collectionView.contentInset.left, bottom: 0, right: collectionView.layoutMargins.right  - collectionView.contentInset.right + minimumInteritemSpacing)
         let availableWidth = collectionView.bounds.width - minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - sectionInset.left - sectionInset.right
         let dimension = floor(availableWidth / countOfColumns)
         itemSize = CGSize(width: dimension, height: dimension)
@@ -118,7 +118,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
 
     private func configure(_ cell: InsertMediaSearchResultCollectionViewCell, at indexPath: IndexPath) {
         let result = searchResults[indexPath.item]
-        cell.configure(imageURL: result.thumbnailURL, imageViewDimension: flowLayout.itemSize.width, caption: result.displayTitle)
+        cell.configure(imageURL: result.thumbnailURL, caption: result.displayTitle)
         cell.apply(theme: theme)
     }
 
@@ -185,18 +185,6 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     override func scrollViewInsetsDidChange() {
         super.scrollViewInsetsDidChange()
         wmf_setEmptyViewFrame(emptyViewFrame)
-        let context = UICollectionViewFlowLayoutInvalidationContext()
-        context.invalidateFlowLayoutAttributes = true
-        flowLayout.invalidateLayout(with: context)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first
-        collectionView.reloadData()
-        if let selectedIndexPath = selectedIndexPath {
-            collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .centeredVertically)
-        }
     }
 }
 
