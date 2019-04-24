@@ -23,6 +23,7 @@
 #import "WikiTextSectionFetcher.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "PreviewHtmlFetcher.h"
+#import "MWKImageInfoFetcher.h"
 
 #import "WikiTextSectionUploader.h"
 #import "WMFArticleJSONCompilationHelper.h"

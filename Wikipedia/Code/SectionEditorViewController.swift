@@ -18,6 +18,8 @@ class SectionEditorViewController: UIViewController {
     private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
+
+    private var mediaWizardController: MediaWizardController?
     
     lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
@@ -157,9 +159,11 @@ class SectionEditorViewController: UIViewController {
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
-        
+
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
+        
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.didSetWikitextMessage)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -169,6 +173,7 @@ class SectionEditorViewController: UIViewController {
         webView.scrollView.keyboardDismissMode = .interactive
         
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController, findAndReplaceDisplayDelegate: self)
+        inputViewsController.delegate = self
         
         webView.inputViewsSource = inputViewsController
         
@@ -262,12 +267,10 @@ class SectionEditorViewController: UIViewController {
         guard didSetWikitextToWebView else {
             return
         }
-        messagingController.focus()
         webView.isHidden = false
-        dispatchOnMainQueueAfterDelayInSeconds(0.5) { [weak self] in
-            
-            guard let self = self else { return }
-            
+        webView.becomeFirstResponder()
+        messagingController.focus {
+            assert(Thread.isMainThread)
             self.delegate?.sectionEditorDidFinishLoadingWikitext(self)
             
             guard let didFocusWebViewCompletion = self.didFocusWebViewCompletion else {
@@ -568,6 +571,31 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
             return
         }
         webView.scrollView.setContentOffset(newContentOffset, animated: true)
+    }
+}
+
+extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
+    func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+        mediaWizardController = MediaWizardController(theme: theme, articleTitle: section?.titleText, siteURL: section?.article?.url.wmf_site)
+        mediaWizardController?.delegate = self
+        mediaWizardController?.prepare()
+    }
+}
+
+extension SectionEditorViewController: MediaWizardControllerDelegate {
+    func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareViewController viewController: UIViewController) {
+        present(viewController, animated: true)
+    }
+
+    func mediaWizardController(_ mediaWizardController: MediaWizardController, didTapCloseButton button: UIBarButtonItem) {
+        self.mediaWizardController = nil
+        dismiss(animated: true)
+    }
+
+    func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareWikitextToInsert wikitext: String) {
+        self.mediaWizardController = nil
+        dismiss(animated: true)
+        messagingController.replaceSelection(text: wikitext)
     }
 }
 
