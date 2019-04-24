@@ -189,6 +189,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     self = [super init];
     if (self) {
+        self.restoreScrollPosition = [url fragment] != nil;
         self.theme = theme;
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
@@ -215,17 +216,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
         self.editFunnel = [[EditFunnel alloc] init];
-    }
-    return self;
-}
-
-- (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore
-             restoreScrollPosition:(BOOL)restoreScrollPosition
-                             theme:(WMFTheme *)theme {
-    self = [self initWithArticleURL:url dataStore:dataStore theme:theme];
-    if (self) {
-        self.restoreScrollPosition = restoreScrollPosition;
     }
     return self;
 }
@@ -1538,9 +1528,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
-        if (!self.restoreScrollPosition) {
-            [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
-        }
+        [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
     }
 
     [self.delegate articleControllerDidLoadArticle:self];
