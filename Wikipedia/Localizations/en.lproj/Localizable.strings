@@ -393,6 +393,7 @@
 "insert-media-image-preview-select-image-action-title" = "Select image";
 "insert-media-image-size-setting-custom" = "Custom";
 "insert-media-image-size-setting-default" = "Default";
+"insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Image size";
 "insert-media-image-type-setting-basic" = "Basic";
 "insert-media-image-type-setting-frame" = "Frame";

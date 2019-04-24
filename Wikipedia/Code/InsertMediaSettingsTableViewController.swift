@@ -96,6 +96,8 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
                     }
                 }
 
+                static var unitName = WMFLocalizedString("insert-media-image-size-settings-px-unit-name", value: "px", comment: "Image size unit name, abbreviation for 'pixels'")
+
                 static var defaultWidth = 220
                 static var defaultHeight = 124
             }
