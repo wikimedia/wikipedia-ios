@@ -168,6 +168,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
 @property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
+@property (nonatomic, assign) BOOL restoreScrollPosition;
+
 @end
 
 @implementation WMFArticleViewController
@@ -213,6 +215,17 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
         self.editFunnel = [[EditFunnel alloc] init];
+    }
+    return self;
+}
+
+- (instancetype)initWithArticleURL:(NSURL *)url
+                         dataStore:(MWKDataStore *)dataStore
+             restoreScrollPosition:(BOOL)restoreScrollPosition
+                             theme:(WMFTheme *)theme {
+    self = [self initWithArticleURL:url dataStore:dataStore theme:theme];
+    if (self) {
+        self.restoreScrollPosition = restoreScrollPosition;
     }
     return self;
 }
@@ -1525,7 +1538,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
-        [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+        if (!self.restoreScrollPosition) {
+            [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+        }
     }
 
     [self.delegate articleControllerDidLoadArticle:self];
@@ -1626,7 +1641,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || self.restoreScrollPosition) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
