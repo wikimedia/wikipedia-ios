@@ -97,12 +97,12 @@ final class MediaWizardController: NSObject {
             didCancelSearch()
             return
         }
-        if !isFirstSearch {
+        if isFirstSearch {
             progressController.delay = 0
-            progressController.start()
         } else {
             progressController.delay = 1.0
         }
+        progressController.start()
         let failure = { (error: Error) in
             DispatchQueue.main.async {
                 self.progressController.stop()
