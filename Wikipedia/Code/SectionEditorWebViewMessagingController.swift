@@ -25,7 +25,10 @@ enum WebViewMessagingError: LocalizedError {
         return CommonStrings.genericErrorDescription
     }
 }
-    
+
+enum CompletionType {
+    case wikitext
+}
 
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
@@ -35,12 +38,17 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     weak var scrollDelegate: SectionEditorWebViewMessagingControllerScrollDelegate?
 
     weak var webView: WKWebView!
+    
+    var completions: [CompletionType: (Error?) -> Void] = [:]
 
     // MARK: - Receiving messages
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
-
+        case (Message.Name.didSetWikitextMessage, let result as [String: Any]):
+            assert(Thread.isMainThread)
+            completions[.wikitext]?(result["error"] != nil ? WebViewMessagingError.generic : nil)
+            completions.removeValue(forKey: .wikitext)
         case (Message.Name.replaceAllCountMessage, let count as Int):
             alertDelegate?.sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(self, replacedCount: count)
         case (Message.Name.smoothScrollToYOffsetMessage, let yOffset as CGFloat):
@@ -132,12 +140,16 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     }
 
     func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        assert(Thread.isMainThread)
         let escapedWikitext = wikitext.wmf_stringBySanitizingForBacktickDelimitedJavascript()
-        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
-            guard let completionHandler = completionHandler else {
+        completions[.wikitext] = completionHandler
+        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`, () => {  window.webkit.messageHandlers.didSetWikitextMessage.postMessage({}); });") { (_, error) in
+            guard let error = error, let completionHandler = completionHandler else {
                 return
             }
             completionHandler(error)
+            assert(Thread.isMainThread)
+            self.completions.removeValue(forKey: .wikitext)
         }
     }
 
@@ -217,8 +229,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         return "window.wmf.commands.\(commandType.rawValue)(\(argument ?? ""));"
     }
 
-    private func execCommand(for commandType: CodeMirrorCommandType, argument: Any? = nil) {
-        webView.evaluateJavaScript(commandJS(for: commandType, argument: argument), completionHandler: nil)
+    private func execCommand(for commandType: CodeMirrorCommandType, argument: Any? = nil, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript(commandJS(for: commandType, argument: argument), completionHandler: completionHandler)
     }
 
     func toggleBoldSelection() {
@@ -304,8 +316,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .comment)
     }
 
-    func focus() {
-        execCommand(for: .focus)
+    func focus(_ completion: (() -> Void)? = nil) {
+        execCommand(for: .focus) { (_, _) in
+            completion?()
+        }
     }
 
     func focusWithoutScroll() {
@@ -405,6 +419,7 @@ extension SectionEditorWebViewMessagingController {
             static let findInPageFocusedMatchID = "findInPageFocusedMatchID"
             static let smoothScrollToYOffsetMessage = "smoothScrollToYOffsetMessage"
             static let replaceAllCountMessage = "replaceAllCountMessage"
+            static let didSetWikitextMessage = "didSetWikitextMessage"
         }
         struct Body {
             struct Key {
