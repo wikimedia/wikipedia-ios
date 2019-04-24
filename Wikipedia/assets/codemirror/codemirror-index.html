@@ -669,7 +669,17 @@
     const wmf = {}
     
     wmf.getWikitext = () => editor.getValue()
-    wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
+    wmf.setWikitext = (wikitext, completion) => {
+      editor.startOperation()
+      editor.setValue(wikitext)
+      editor.endOperation()
+      if (!completion) {
+        return
+      }
+      requestAnimationFrame(() => {
+        completion()
+      })
+    }
     wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
     wmf.highlightAndScrollToWikitextForSelectedAndAdjacentText = highlightAndScrollToWikitextForSelectedAndAdjacentText
