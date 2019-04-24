@@ -12,7 +12,7 @@ class ThemeableTextView: UITextView {
 
     override var delegate: UITextViewDelegate? {
         didSet {
-            if placeholder != nil {
+            if delegate != nil, placeholder != nil {
                 assert(delegate === self, "ThemeableTextView must be its own delegate to manage placeholder")
             }
         }
