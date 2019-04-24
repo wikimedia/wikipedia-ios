@@ -36,16 +36,14 @@ class VerticallySplitViewController: UIViewController {
         } else {
             constant = 0
         }
-        bottomViewHeightConstraint?.constant = constant
         UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
+            self.view.transform = CGAffineTransform(translationX: 0, y: 0 - constant)
         }
     }
 
     func collapseBottomViewToOriginialHeight() {
-        bottomViewHeightConstraint?.constant = 0
         UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
+            self.view.transform = CGAffineTransform.identity
         }
     }
 }
