@@ -705,6 +705,10 @@
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-changes-none" = "Alert text shown if no changes were made to be previewed.";
+"wikitext-preview-link-external-preview-description" = "Description for external link preview popup. $1$@ is the external url.";
+"wikitext-preview-link-external-preview-title" = "Title for external link preview popup";
+"wikitext-preview-link-not-found-preview-description" = "Description for nonexistent link preview popup";
+"wikitext-preview-link-not-found-preview-title" = "Title for nonexistent link preview popup";
 "wikitext-preview-link-preview-description" = "Description of the link URL. $1 is the URL.";
 "wikitext-preview-link-preview-title" = "Title for link preview popup";
 "wikitext-preview-save-changes-title" = "Title for edit preview screens";
