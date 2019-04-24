@@ -264,6 +264,9 @@ extension MediaWizardController: InsertMediaImageViewControllerDelegate {
 
 extension MediaWizardController: InsertMediaSearchResultsCollectionViewControllerScrollDelegate {
     func insertMediaSearchResultsCollectionViewControllerScrollViewDidScroll(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollView: UIScrollView) {
+        guard scrollView.contentOffset.y != insertMediaSearchResultsCollectionViewController.originalContentOffsetY else {
+            return
+        }
         searchView.searchBar.resignFirstResponder()
     }
 }
@@ -280,7 +283,7 @@ extension MediaWizardController: UISearchBarDelegate {
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        verticallySplitViewController.extendBottomViewToFullHeight(multiplier: 0.8)
+        verticallySplitViewController.extendBottomViewToFullHeight(multiplier: 0.85)
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

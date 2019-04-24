@@ -75,6 +75,8 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     weak var delegate: InsertMediaSearchResultsCollectionViewControllerDelegate?
     weak var scrollDelegate: InsertMediaSearchResultsCollectionViewControllerScrollDelegate?
 
+    var originalContentOffsetY: CGFloat = 0
+
     var searchResults = [InsertMediaSearchResult]() {
         didSet {
             assert(Thread.isMainThread)
@@ -102,6 +104,11 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: flowLayout.minimumLineSpacing, right: 0)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         apply(theme: theme)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        originalContentOffsetY = collectionView.contentOffset.y
     }
 
     func reload() {
