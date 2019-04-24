@@ -314,7 +314,6 @@
 "fetcher-error-unexpected-response" = "Error shown to the user for unexpected server responses.";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";
 "field-alert-password-confirm-mismatch" = "Alert shown if password confirmation did not match password";
-"field-alert-password-invalid" = "Alert shown if password is not correct";
 "field-alert-token-invalid" = "Alert shown if token is not correct";
 "field-alert-username-unavailable" = "Alert shown if new username is not available";
 "field-backup-token-title" = "Title for backup token field";
