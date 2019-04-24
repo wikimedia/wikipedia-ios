@@ -74,7 +74,8 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
     }
 
     private lazy var viewModels: [ViewModel] = {
-        let customViewModel = ImageSizeViewModel(title: "Custom", accessoryView: customSwitch)
+        let customImageSize = ImageSize.custom(width: ImageSize.defaultWidth, height: ImageSize.defaultHeight)
+        let customViewModel = ImageSizeViewModel(title: customImageSize.displayTitle, accessoryView: customSwitch)
         let widthViewModel = MeasureViewModel(measure: .width, defaultValue: "\(ImageSize.defaultWidth)", unitName: "px")
         let heightViewModel = MeasureViewModel(measure: .height, defaultValue: "\(ImageSize.defaultHeight)", unitName: "px")
         return [customViewModel, widthViewModel, heightViewModel]
