@@ -71,6 +71,10 @@ class DefaultEditToolbarView: EditToolbarView {
         delegate?.textFormattingProvidingDidTapFindInPage()
     }
 
+    @IBAction private func insertMedia(_ sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapMediaInsert()
+    }
+
     private enum ActionsType: CGFloat {
         case `default`
         case secondary

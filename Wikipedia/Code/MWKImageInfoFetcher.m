@@ -204,4 +204,11 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
                                                      }];
 }
 
+- (void)fetchImageInfoForCommonsFiles:(NSArray *)filenames
+                                failure:(WMFErrorHandler)failure
+                                success:(WMFSuccessIdHandler)success {
+    NSURL *commonsURL = [self.configuration commonsAPIURLComponentsWithQueryParameters:nil].URL;
+    [self fetchGalleryInfoForImageFiles:filenames fromSiteURL:commonsURL success:success failure:failure];
+}
+
 @end
