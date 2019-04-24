@@ -69,6 +69,23 @@
             <fetchIndexElement property="articleKey" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
+    <entity name="TalkPage" representedClassName="TalkPage" syncable="YES" codeGenerationType="class">
+        <attribute name="key" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="revisionId" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="discussions" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="TalkPageDiscussion" inverseName="talkPage" inverseEntity="TalkPageDiscussion" syncable="YES"/>
+    </entity>
+    <entity name="TalkPageDiscussion" representedClassName="TalkPageDiscussion" syncable="YES" codeGenerationType="class">
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="items" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="TalkPageDiscussionItem" inverseName="discussion" inverseEntity="TalkPageDiscussionItem" syncable="YES"/>
+        <relationship name="talkPage" maxCount="1" deletionRule="Deny" destinationEntity="TalkPage" inverseName="discussions" inverseEntity="TalkPage" syncable="YES"/>
+    </entity>
+    <entity name="TalkPageDiscussionItem" representedClassName="TalkPageDiscussionItem" syncable="YES" codeGenerationType="class">
+        <attribute name="depth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="text" attributeType="String" syncable="YES"/>
+        <attribute name="unalteredText" attributeType="String" syncable="YES"/>
+        <relationship name="discussion" maxCount="1" deletionRule="Deny" destinationEntity="TalkPageDiscussion" inverseName="items" inverseEntity="TalkPageDiscussion" syncable="YES"/>
+    </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="displayTitleHTMLString" optional="YES" attributeType="String" syncable="YES"/>
@@ -182,6 +199,9 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
+        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="105"/>
+        <element name="TalkPageDiscussion" positionX="-36" positionY="144" width="128" height="90"/>
+        <element name="TalkPageDiscussionItem" positionX="-27" positionY="153" width="128" height="105"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="480"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="345"/>

@@ -33,6 +33,10 @@ extension URL {
         return (self as NSURL).wmf_articleDatabaseKey
     }
     
+    public var wmf_talkPageDatabaseKey: String? {
+        return (self as NSURL).wmf_talkPageDatabaseKey
+    }
+    
     public var wmf_site: URL? {
         return (self as NSURL).wmf_site
     }

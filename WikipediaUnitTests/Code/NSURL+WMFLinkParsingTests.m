@@ -53,5 +53,19 @@
     XCTAssert([[[NSURL URLWithString:testPathWithQueryAndFragment] wmf_pathWithoutWikiPrefix] isEqualToString:testPath]);
 }
 
+- (void)testTalkPageDatabaseKeyEN {
+    NSString *urlString = @"https://en.wikipedia.org/api/rest_v1/page/talk/Username";
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSString *talkPageDatabaseKey = [url wmf_talkPageDatabaseKey];
+    XCTAssertTrue([talkPageDatabaseKey isEqualToString: urlString]);
+    //todo: flesh this out. how do we handle sub paths after username/, query items after that, underscores for spaces, url percent encoding, etc.
+}
+
+- (void)testTalkPageDatabaseKeyES {
+    NSString *urlString = @"https://es.wikipedia.org/api/rest_v1/page/talk/Username";
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSString *talkPageDatabaseKey = [url wmf_talkPageDatabaseKey];
+    XCTAssertTrue([talkPageDatabaseKey isEqualToString: urlString]);
+}
 
 @end

@@ -272,8 +272,22 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return components.URL;
 }
 
+- (NSURL *)wmf_talkPageDatabaseKeyURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    components.path = [components.path stringByRemovingPercentEncoding];
+    components.fragment = nil;
+    components.query = nil;
+    components.scheme = @"https";
+    return components.URL;
+}
+
 - (NSString *)wmf_articleDatabaseKey {
     return self.wmf_articleDatabaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
+}
+
+- (NSString *)wmf_talkPageDatabaseKey {
+    return self.wmf_talkPageDatabaseKeyURL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
 - (NSString *)wmf_title {

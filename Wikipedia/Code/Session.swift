@@ -257,10 +257,9 @@ import Foundation
                 completionHandler(nil, nil, response, error)
                 return
             }
-            let decoder = JSONDecoder()
             let handleErrorResponse = {
                 do {
-                    let errorResult: E = try decoder.decode(E.self, from: data)
+                    let errorResult: E = try self.jsonDecodeData(data: data)
                     completionHandler(nil, errorResult, response, nil)
                 } catch let errorResultParsingError {
                     completionHandler(nil, nil, response, errorResultParsingError)
@@ -275,7 +274,7 @@ import Foundation
 //                DDLogDebug("codable response:\n\(String(describing:response?.url)):\n\(String(describing: stringData))")
 //            #endif
             do {
-                let result: T = try decoder.decode(T.self, from: data)
+                let result: T = try self.jsonDecodeData(data: data)
                 completionHandler(result, nil, response, error)
             } catch let resultParsingError {
                 DDLogError("Error parsing codable response: \(resultParsingError)")
@@ -312,8 +311,7 @@ import Foundation
                 return
             }
             do {
-                let decoder = JSONDecoder()
-                let result: T = try decoder.decode(T.self, from: data)
+                let result: T = try self.jsonDecodeData(data: data)
                 completionHandler(result, response, error)
             } catch let resultParsingError {
                 DDLogError("Error parsing codable response: \(resultParsingError)")
@@ -344,6 +342,12 @@ import Foundation
                 completionHandler(nil, response as? HTTPURLResponse, error)
             }
         })
+    }
+    
+    func jsonDecodeData<T: Decodable>(data: Data) throws -> T {
+        let decoder = JSONDecoder()
+        let result: T = try decoder.decode(T.self, from: data)
+        return result
     }
 
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
