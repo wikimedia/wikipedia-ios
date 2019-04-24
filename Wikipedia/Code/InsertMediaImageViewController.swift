@@ -66,8 +66,8 @@ extension InsertMediaImageViewController: InsertMediaSearchResultsCollectionView
             self.stopActivityIndicator()
             if self.selectedImageView.superview == nil {
                 self.emptyView.removeFromSuperview()
-                self.selectedImageView.moreInformationAction = { url in
-                    self.present(SFSafariViewController(url: url), animated: true)
+                self.selectedImageView.moreInformationAction = { [weak self] url in
+                    self?.present(SFSafariViewController(url: url), animated: true)
                 }
                 self.contentView.wmf_addSubviewWithConstraintsToEdges(self.selectedImageView)
             }
