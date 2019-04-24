@@ -13,17 +13,13 @@ setup: ##Install all required dependencies to build & run the app
 web: ##Make web assets
 web: css grunt
 
-PROD_CSS_PREFIX="https://en.wikipedia.org/w"
-BETA_CSS_PREFIX="https://beta.wmflabs.org/w"
-LOCAL_CSS_PREFIX="http://127.0.0.1:8080/w"
+PROD_CSS_PREFIX="https://meta.wikimedia.org/api/rest_v1"
+LOCAL_CSS_PREFIX="http://localhost:6927/meta.wikipedia.org/v1"
 
-# Switch to LOCAL_CSS_PREFIX when testing CSS changes in a local MW instance (in vagrant),
-# or to BETA_CSS_PREFIX when testing CSS changes which have been staged to beta but not
-# yet deployed to production.
 CSS_PREFIX=$(PROD_CSS_PREFIX)
 WEB_ASSETS_DIR = "Wikipedia/assets"
 
-CSS_ORIGIN = $(CSS_PREFIX)/load.php?only=styles&target=mobile&skin=minerva&modules=skins.minerva.base.styles|skins.minerva.content.styles|ext.math.styles|ext.pygments|mobile.app
+CSS_ORIGIN = $(CSS_PREFIX)/data/css/mobile/base
 
 define get_css_module
 curl -s -L -o
