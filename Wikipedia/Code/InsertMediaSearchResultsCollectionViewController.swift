@@ -29,9 +29,10 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
         guard let collectionView = collectionView else {
             return
         }
-        sectionInset.left = collectionView.scrollIndicatorInsets.left
-        sectionInset.right = collectionView.scrollIndicatorInsets.right
-        let dimension = (collectionView.bounds.width / 3) - minimumInteritemSpacing * 2 - sectionInset.left - sectionInset.right
+        let countOfColumns: CGFloat = 3
+        sectionInset = UIEdgeInsets(top: 0, left: collectionView.layoutMargins.left, bottom: 0, right: collectionView.layoutMargins.right)
+        let availableWidth = collectionView.bounds.width - minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - sectionInset.left - sectionInset.right
+        let dimension = floor(availableWidth / countOfColumns)
         itemSize = CGSize(width: dimension, height: dimension)
     }
 }
@@ -180,6 +181,11 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         let context = UICollectionViewFlowLayoutInvalidationContext()
         context.invalidateFlowLayoutAttributes = true
         flowLayout.invalidateLayout(with: context)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        collectionView.reloadData()
     }
 }
 
