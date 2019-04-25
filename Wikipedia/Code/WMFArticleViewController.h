@@ -43,11 +43,6 @@ extern NSString *const WMFEditPublishedNotification;
                          dataStore:(MWKDataStore *)dataStore
                              theme:(WMFTheme *)theme;
 
-//- (instancetype)initWithArticleURL:(NSURL *)url
-//                         dataStore:(MWKDataStore *)dataStore
-//             restoreScrollPosition:(BOOL)restoreScrollPosition
-//                             theme:(WMFTheme *)theme;
-
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
