@@ -142,9 +142,11 @@ class SectionEditorViewController: UIViewController {
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
-        
+
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
+        
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.didSetWikitextMessage)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
@@ -245,10 +247,13 @@ class SectionEditorViewController: UIViewController {
         guard didSetWikitextToWebView else {
             return
         }
-        messagingController.focus()
         webView.isHidden = false
-        dispatchOnMainQueueAfterDelayInSeconds(0.5) { [weak self] in
-            guard let didFocusWebViewCompletion = self?.didFocusWebViewCompletion else {
+        webView.becomeFirstResponder()
+        messagingController.focus {
+            assert(Thread.isMainThread)
+            self.delegate?.sectionEditorDidFinishLoadingWikitext(self)
+            
+            guard let didFocusWebViewCompletion = self.didFocusWebViewCompletion else {
                 return
             }
             didFocusWebViewCompletion()
