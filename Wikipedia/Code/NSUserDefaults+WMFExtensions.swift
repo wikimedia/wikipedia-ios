@@ -1,5 +1,6 @@
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
+let WMFShouldShowLastReadArticleOnResume = "WMFShouldShowLastReadArticleOnResume"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -105,6 +106,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             self.set(date, forKey: WMFAppResignActiveDateKey)
         }else{
             self.removeObject(forKey: WMFAppResignActiveDateKey)
+        }
+    }
+
+    @objc var shouldShowLastReadArticleOnResume: Bool {
+        get {
+            return bool(forKey: WMFShouldShowLastReadArticleOnResume)
+        }
+        set {
+            set(newValue, forKey: WMFShouldShowLastReadArticleOnResume)
         }
     }
 
