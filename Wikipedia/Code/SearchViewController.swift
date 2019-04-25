@@ -84,7 +84,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     var siteURL: URL? {
-        return searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+        return searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
     @objc func search() {
