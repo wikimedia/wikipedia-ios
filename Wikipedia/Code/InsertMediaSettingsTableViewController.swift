@@ -96,6 +96,8 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
                     }
                 }
 
+                static var unitName = WMFLocalizedString("insert-media-image-size-settings-px-unit-name", value: "px", comment: "Image size unit name, abbreviation for 'pixels'")
+
                 static var defaultWidth = 220
                 static var defaultHeight = 124
             }
@@ -142,7 +144,10 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
         let buttonTitleWithoutChevron = WMFLocalizedString("insert-media-advanced-settings-button-title", value: "Advanced settings", comment: "Title for advanced settings button")
         let buttonTitleWithChevron = isRTL ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
-        buttonView.buttonAction = { _ in
+        buttonView.buttonAction = { [weak self] _ in
+            guard let self = self else {
+                return
+            }
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsTableViewController, animated: true)
         }
         buttonView.autoresizingMask = []
