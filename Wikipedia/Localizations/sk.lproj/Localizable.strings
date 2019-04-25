@@ -185,7 +185,6 @@
 "feed-news-notification-text" = "Posielať oznámení, ktoré majú byť oznámené Wikipédiou, keď články sú trendy v aktualitách.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Heslá sa nezhodujú";
-"field-alert-password-invalid" = "Neplatné heslo";
 "field-alert-token-invalid" = "Neplatný kód";
 "field-alert-username-unavailable" = "Používateľské meno nie je k dispozícii";
 "field-backup-token-title" = "Záložný kód";

@@ -181,7 +181,6 @@
 "fetcher-error-generic" = "Ana masalah. Mangga jajal manèh mengko.";
 "field-alert-captcha-invalid" = "CAPTCHA ora trep";
 "field-alert-password-confirm-mismatch" = "Tembung wadiné ora mathuk";
-"field-alert-password-invalid" = "Tembung wadi ora trep";
 "field-alert-token-invalid" = "Kodhe ora trep";
 "field-alert-username-unavailable" = "Jeneng panganggo ora ana";
 "field-backup-token-title" = "Kodhe sèrep";

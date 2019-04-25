@@ -332,7 +332,6 @@
 "fetcher-error-unexpected-response" = "Appen mottok en uventet respons fra serveren. Prøv igjen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passordene er ikke like";
-"field-alert-password-invalid" = "Ugyldig passord";
 "field-alert-token-invalid" = "Ugyldig kode";
 "field-alert-username-unavailable" = "Brukernavnet er ikke tilgjengelig";
 "field-backup-token-title" = "Reservekode";

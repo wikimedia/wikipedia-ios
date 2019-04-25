@@ -335,7 +335,6 @@
 "fetcher-error-unexpected-response" = "Appen fick ett oväntat svar från servern. Försök igen senare.";
 "field-alert-captcha-invalid" = "Ogiltig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lösenorden stämmer inte överens";
-"field-alert-password-invalid" = "Ogiltigt lösenord";
 "field-alert-token-invalid" = "Ogiltig kod";
 "field-alert-username-unavailable" = "Användarnamn inte tillgängligt";
 "field-backup-token-title" = "Reservkod";
