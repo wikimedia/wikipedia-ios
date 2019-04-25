@@ -251,13 +251,11 @@ class SectionEditorViewController: UIViewController {
         webView.becomeFirstResponder()
         messagingController.focus {
             assert(Thread.isMainThread)
-            self.delegate?.sectionEditorDidFinishLoadingWikitext(self)
-            
             guard let didFocusWebViewCompletion = self.didFocusWebViewCompletion else {
                 return
             }
             didFocusWebViewCompletion()
-            self?.didFocusWebViewCompletion = nil
+            self.didFocusWebViewCompletion = nil
         }
     }
     
