@@ -80,6 +80,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
+    NSUserDefaults.wmf.shouldShowLastReadArticleOnResume = [self shouldShowLastReadArticleOnResume];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];
@@ -99,7 +100,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[NSUserDefaults wmf] wmf_setAppBecomeActiveDate:[NSDate date]];
-    NSUserDefaults.wmf.shouldShowLastReadArticleOnResume = [self shouldShowLastReadArticleOnResume];
     [self resumeAppIfNecessary];
 }
 
