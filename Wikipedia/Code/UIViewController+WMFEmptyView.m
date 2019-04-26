@@ -70,6 +70,10 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     }
 }
 
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame; {
+    [self wmf_showEmptyViewOfType:type action:nil theme:theme frame:frame];
+}
+
 - (void)wmf_hideEmptyView {
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView *)self.view setScrollEnabled:YES];
