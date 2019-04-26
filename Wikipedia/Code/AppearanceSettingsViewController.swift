@@ -198,7 +198,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         } else if let spacerViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsSpacerViewItem {
             return spacerViewItem.spacing
         }
-        return UITableView.automaticDimension
+        return tableView.rowHeight
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
