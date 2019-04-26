@@ -76,6 +76,7 @@ final class InsertMediaImageSizeSettingsViewController: ViewController {
         scrollView = tableView
         super.viewDidLoad()
         tableView.dataSource = self
+        view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.register(InsertMediaCustomImageSizeSettingTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaCustomImageSizeSettingTableViewCell.identifier)
         tableView.separatorInset = .zero
