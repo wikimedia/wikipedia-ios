@@ -238,6 +238,11 @@
 		7A1C4991227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C498E227254EC00230ED2 /* InsertMediaSearchViewController.swift */; };
 		7A1C4992227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C498E227254EC00230ED2 /* InsertMediaSearchViewController.swift */; };
 		7A1C4993227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C498E227254EC00230ED2 /* InsertMediaSearchViewController.swift */; };
+		7A1C4995227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */; };
+		7A1C4996227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */; };
+		7A1C4997227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */; };
+		7A1C4998227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */; };
+		7A1C4999227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */; };
 		7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
 		7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
 		7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
@@ -3654,6 +3659,7 @@
 		7A196F5921BF199500D9E4B5 /* SectionEditorWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorWebView.swift; sourceTree = "<group>"; };
 		7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
 		7A1C498E227254EC00230ED2 /* InsertMediaSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchViewController.swift; sourceTree = "<group>"; };
+		7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSelectedImageViewController.swift; sourceTree = "<group>"; };
 		7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintController.swift; sourceTree = "<group>"; };
 		7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Identifier.swift"; sourceTree = "<group>"; };
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
@@ -6268,6 +6274,7 @@
 				7A1C498E227254EC00230ED2 /* InsertMediaSearchViewController.swift */,
 				7AC4B700225D2D2E0040F0D4 /* InsertMediaExtendedViewController.xib */,
 				7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */,
+				7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */,
 				7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */,
 				7A84225D2268E1AF0074648E /* AlignedImageView.swift */,
 				7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */,
@@ -10764,6 +10771,7 @@
 				7A6ED51720ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				B03F8A89205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
+				7A1C4995227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				7A71566E22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
 				D858C7B6210B91CD0039E0C9 /* PassthroughView.swift in Sources */,
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
@@ -10896,6 +10904,7 @@
 				7A19C64C20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				D80ED28B1EE57F4800CE8C50 /* WebViewController+WMFReferencePopover.m in Sources */,
 				7AC4B711225D2E170040F0D4 /* TabbedViewController.swift in Sources */,
+				7A1C4999227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				7A3EE1582267DC3800709CF6 /* Array+SafeIndex.swift in Sources */,
 				D80ED28C1EE57F4800CE8C50 /* UIViewController+WMFAlerts.swift in Sources */,
 				D80ED28D1EE57F4800CE8C50 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -11873,6 +11882,7 @@
 				D8A42B531E815A9C00D8E281 /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8A42B541E815A9C00D8E281 /* WMFRandomDiceButton.m in Sources */,
 				D8A42B5A1E815A9C00D8E281 /* TableOfContentsReadMoreItem.swift in Sources */,
+				7A1C4998227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				7A71567122697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
 				D8A42B5B1E815A9C00D8E281 /* WMFFirstRandomViewController.m in Sources */,
 				D8A42B5D1E815A9C00D8E281 /* ArticlePopoverViewController.swift in Sources */,
@@ -12013,6 +12023,7 @@
 				7A19C64920DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				D8CE24FB1E698E2400DAE2E0 /* WMFWelcomePanelViewController.swift in Sources */,
 				7AC4B70E225D2E170040F0D4 /* TabbedViewController.swift in Sources */,
+				7A1C4996227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				7A3EE1552267DC3800709CF6 /* Array+SafeIndex.swift in Sources */,
 				D8533ED61ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				D8CE24FD1E698E2400DAE2E0 /* WebViewController+WMFReferencePopover.m in Sources */,
@@ -12402,6 +12413,7 @@
 				B04C809C1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				7A19C64A20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				7AC4B70F225D2E170040F0D4 /* TabbedViewController.swift in Sources */,
+				7A1C4997227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				7A3EE1562267DC3800709CF6 /* Array+SafeIndex.swift in Sources */,
 				D8EC3DEF1E9BDA35006712EB /* UIApplication+RTL.swift in Sources */,
 				D8EC3DF21E9BDA35006712EB /* WMFWelcomePanelViewController.swift in Sources */,
