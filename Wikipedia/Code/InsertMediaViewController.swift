@@ -39,7 +39,6 @@ final class InsertMediaViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView = searchResultsCollectionViewController.collectionView
         navigationController?.isNavigationBarHidden = true
         title = CommonStrings.insertMediaTitle
         navigationItem.leftBarButtonItem = closeButton
@@ -52,6 +51,8 @@ final class InsertMediaViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedViewController.view)
         extendedViewController.didMove(toParent: self)
         wmf_add(childController: searchResultsCollectionViewController, andConstrainToEdgesOfContainerView: view)
+        additionalSafeAreaInsets = searchResultsCollectionViewController.additionalSafeAreaInsets
+        scrollView = searchResultsCollectionViewController.collectionView
     }
 
     private var extendedViewHeightConstraint: NSLayoutConstraint?
