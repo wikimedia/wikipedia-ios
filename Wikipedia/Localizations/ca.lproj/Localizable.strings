@@ -334,7 +334,6 @@
 "fetcher-error-unexpected-response" = "L'aplicació ha rebut una resposta no esperada del servidor. Torneu-ho a provar més tard.";
 "field-alert-captcha-invalid" = "CAPTCHA incorrecte";
 "field-alert-password-confirm-mismatch" = "Les contrasenyes no coincideixen";
-"field-alert-password-invalid" = "Paraula de pas incorrecta";
 "field-alert-token-invalid" = "El codi no és vàlid";
 "field-alert-username-unavailable" = "El nom d'usuari no és disponible";
 "field-backup-token-title" = "Codi de còpia de seguretat";

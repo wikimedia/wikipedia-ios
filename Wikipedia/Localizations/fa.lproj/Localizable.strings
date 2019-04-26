@@ -290,7 +290,6 @@
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
 "field-alert-password-confirm-mismatch" = "گذرواژه‌ها مطابقت ندارند";
-"field-alert-password-invalid" = "گذرواژه نامعتبر";
 "field-alert-token-invalid" = "کد نادرست";
 "field-alert-username-unavailable" = "نام کاربری موجود نیست";
 "field-backup-token-title" = "کد پشتیبانی";

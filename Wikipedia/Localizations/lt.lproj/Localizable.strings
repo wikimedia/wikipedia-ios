@@ -97,7 +97,6 @@
 "feed-news-notification-button-text" = "Įjungti pranešimus";
 "field-alert-captcha-invalid" = "Neteisingas CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Slaptažodžiai nesutampa";
-"field-alert-password-invalid" = "Neteisingas slaptažodis";
 "field-alert-token-invalid" = "Netinkamas kodas";
 "field-alert-username-unavailable" = "Vartotojo vardas negalimas";
 "field-captcha-placeholder" = "CAPTCHA tekstas";

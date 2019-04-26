@@ -135,7 +135,6 @@
 "feed-news-notification-text" = "Hurungkeun iber nu bakal dibéwarakan ku Wikipédia nalika artikel nu keur trén di kajadian kiwari.";
 "field-alert-captcha-invalid" = "CAPTCHA salah";
 "field-alert-password-confirm-mismatch" = "Kecap sandi teu akur";
-"field-alert-password-invalid" = "Kecap sandi salah";
 "field-alert-token-invalid" = "Kodeu salah";
 "field-alert-username-unavailable" = "Sandiasma teu sayaga";
 "field-backup-token-title" = "Kodeu cadangan";

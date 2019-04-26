@@ -184,7 +184,6 @@
 "feed-news-notification-text" = "Bremañ e c'hallit resev kemennadennoù diwar-benn pennadoù Wikipedia diouzh ar c'hiz er c'heleier.";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
 "field-alert-password-confirm-mismatch" = "Ar gerioù-tremen ne glotont ket an eil gant egile";
-"field-alert-password-invalid" = "N'eo ket mat ar ger-tremen-mañ";
 "field-alert-token-invalid" = "Kod direizh";
 "field-alert-username-unavailable" = "Ne c'haller ket kaout an anv implijer-mañ";
 "field-backup-token-title" = "Kod saveteiñ";

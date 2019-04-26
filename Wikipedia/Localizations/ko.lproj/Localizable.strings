@@ -316,7 +316,6 @@
 "fetcher-error-unexpected-response" = "앱은 서버로부터 예기치 않은 응답을 받았습니다. 나중에 다시 시도해 주십시오.";
 "field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
 "field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
-"field-alert-password-invalid" = "유효하지 않은 비밀번호";
 "field-alert-token-invalid" = "유효하지 않은 코드입니다";
 "field-alert-username-unavailable" = "사용자 이름을 사용할 수 없습니다";
 "field-backup-token-title" = "백업 코드";

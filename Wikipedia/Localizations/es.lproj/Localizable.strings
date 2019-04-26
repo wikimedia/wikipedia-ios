@@ -340,7 +340,6 @@
 "fetcher-error-unexpected-response" = "La app recibió una respuesta inesperada del servidor. Por favor, prueba de nuevo más tarde.";
 "field-alert-captcha-invalid" = "El CAPTCHA no es válido";
 "field-alert-password-confirm-mismatch" = "Las contraseñas no coinciden";
-"field-alert-password-invalid" = "La contraseña no es válida";
 "field-alert-token-invalid" = "Código no válido";
 "field-alert-username-unavailable" = "El nombre de usuario no está disponible";
 "field-backup-token-title" = "Código de respaldo";
