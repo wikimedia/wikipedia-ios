@@ -79,9 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable WMFArticle *)mostRecentEntry {
-    NSFetchRequest *request = self.historyListFetchRequest;
-    request.fetchLimit = 1;
-    return [[self.dataStore.viewContext executeFetchRequest:request error:nil] firstObject];
+    return [self mostRecentEntryInManagedObjectContext:self.dataStore.viewContext];
 }
 
 - (nullable WMFArticle *)mostRecentEntryInManagedObjectContext:(NSManagedObjectContext *)context {
