@@ -14,7 +14,8 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNoHistory,
     WMFEmptyViewTypeNoReadingLists,
     WMFEmptyViewTypeNoSavedPagesInReadingList,
-    WMFEmptyViewTypeNoInternetConnection
+    WMFEmptyViewTypeNoInternetConnection,
+    WMFEmptyViewTypeNoSelectedImageToInsert
 };
 
 @protocol WMFEmptyViewContainer

@@ -42,6 +42,8 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
             break;
         case WMFEmptyViewTypeNoInternetConnection:
             view = [WMFEmptyView noInternetConnectionEmptyView];
+        case WMFEmptyViewTypeNoSelectedImageToInsert:
+            view = [WMFEmptyView noSelectedImageToInsertEmptyView];
             break;
         default:
             return;

@@ -137,6 +137,18 @@
     return view;
 }
 
++ (instancetype)noSelectedImageToInsertEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"insert-media/blank"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-insert-media-title", nil, nil, @"Select or upload a file", @"Text for placeholder label visible when no file was selected or uploaded");
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
 - (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nonnull SEL)action {
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];

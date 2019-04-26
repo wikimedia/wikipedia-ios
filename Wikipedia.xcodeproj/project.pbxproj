@@ -783,8 +783,6 @@
 		7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7462102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
-		7AF8CEE122653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
-		7AF8CEE222653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
 		7AF8CEE322653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
 		7AF8CEE422653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
 		7AF8CEE522653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
@@ -3765,8 +3763,6 @@
 		7AF56C3421DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorWebViewMessagingController.swift; sourceTree = "<group>"; };
 		7AF6F76522395BEB00949393 /* EditingWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingWelcomeViewController.swift; sourceTree = "<group>"; };
 		7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsViewController.swift; sourceTree = "<group>"; };
-		7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageEmptyView.swift; sourceTree = "<group>"; };
-		7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaImageEmptyView.xib; sourceTree = "<group>"; };
 		7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSelectedImageView.swift; sourceTree = "<group>"; };
 		7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintViewController.swift; sourceTree = "<group>"; };
 		7AFA21BA20110D7900E957E7 /* HintViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HintViewController.xib; sourceTree = "<group>"; };
@@ -6262,8 +6258,6 @@
 				7A8422452268BBE70074648E /* InsertMediaImageInfoView.swift */,
 				7A84225D2268E1AF0074648E /* AlignedImageView.swift */,
 				7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */,
-				7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */,
-				7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */,
 				7AF8CEDD226527DC000B7676 /* Settings */,
 				7A5A0541225FBDD300BBEAC1 /* Search */,
 			);
@@ -9538,7 +9532,6 @@
 				D87234041E1FF18100751E83 /* Places.storyboard in Resources */,
 				83023C0B20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				BA7683C31F30C56300A487AA /* ImageDimmingExampleViewController.xib in Resources */,
-				7AF8CEE622653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
 				7A9F061E2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */,
 				7AF4B71B215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
@@ -9687,7 +9680,6 @@
 				7A9A611C21124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				83AE1C891F34BB66004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				67861A1F223C13990044F69D /* FocusNavigationView.xib in Resources */,
-				7AF8CEEA22653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
 				D80ED41C1EE57F4800CE8C50 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D80ED41E1EE57F4800CE8C50 /* WebViewController.storyboard in Resources */,
 				B01EA0822022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9803,7 +9795,6 @@
 				83023C0E20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D8A42BEA1E815A9C00D8E281 /* Places.storyboard in Resources */,
 				D8A42BEC1E815A9C00D8E281 /* WMFAccountCreationViewController.storyboard in Resources */,
-				7AF8CEE922653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
 				7A9F06212266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				7AF4B71E215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8A42BED1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon.png in Resources */,
@@ -9914,7 +9905,6 @@
 				83023C0C20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D8CE26711E698E2400DAE2E0 /* Places.storyboard in Resources */,
 				D8CE26731E698E2400DAE2E0 /* WMFAccountCreationViewController.storyboard in Resources */,
-				7AF8CEE722653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
 				7A9F061F2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				7AF4B71C215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8CE26741E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon.png in Resources */,
@@ -10025,7 +10015,6 @@
 				83023C0D20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D8EC3F711E9BDA35006712EB /* Places.storyboard in Resources */,
 				D8EC3F731E9BDA35006712EB /* WMFAccountCreationViewController.storyboard in Resources */,
-				7AF8CEE822653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */,
 				7A9F06202266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				7AF4B71D215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8EC3F741E9BDA35006712EB /* NotificationBackgroundSuccessIcon.png in Resources */,
@@ -10824,7 +10813,6 @@
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
-				7AF8CEE122653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */,
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
@@ -11930,7 +11918,6 @@
 				67DB11232261820500F789B0 /* SchemeHandler+FileHandler.swift in Sources */,
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
-				7AF8CEE422653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
 				7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				7A2432C11FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
@@ -12328,7 +12315,6 @@
 				D8CE260C1E698E2400DAE2E0 /* MapUtilities.swift in Sources */,
 				D8CE260E1E698E2400DAE2E0 /* WKWebView+ElementLocation.m in Sources */,
 				D8CE260F1E698E2400DAE2E0 /* WMFImageInfoController.m in Sources */,
-				7AF8CEE222653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */,
 				D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
 				7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
@@ -12716,7 +12702,6 @@
 				D8EC3F0B1E9BDA35006712EB /* MapUtilities.swift in Sources */,
 				D8EC3F0D1E9BDA35006712EB /* WKWebView+ElementLocation.m in Sources */,
 				D8EC3F0E1E9BDA35006712EB /* WMFImageInfoController.m in Sources */,
-				7AF8CEE322653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */,
 				D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBB21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
 				7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
