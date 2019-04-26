@@ -227,7 +227,7 @@ extension StorageAndSyncingSettingsViewController {
         return cell
     }
     
-    @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = getItem(at: indexPath)
         switch item.type {
@@ -255,7 +255,7 @@ extension StorageAndSyncingSettingsViewController {
 // MARK: UITableViewDelegate
 
 extension StorageAndSyncingSettingsViewController {
-    @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier) as? WMFTableHeaderFooterLabelView else {
             return nil
         }
@@ -267,7 +267,7 @@ extension StorageAndSyncingSettingsViewController {
         return footer
     }
     
-    @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
             return 0
         }
