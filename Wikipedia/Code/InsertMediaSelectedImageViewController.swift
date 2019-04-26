@@ -20,8 +20,16 @@ final class InsertMediaSelectedImageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        wmf_showEmptyView(of: .noSelectedImageToInsert, theme: theme, frame: view.bounds)
         apply(theme: theme)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if image == nil {
+            wmf_showEmptyView(of: .noSelectedImageToInsert, theme: theme, frame: view.bounds)
+        } else {
+            wmf_hideEmptyView()
+        }
     }
 
     @objc private func startActivityIndicator() {

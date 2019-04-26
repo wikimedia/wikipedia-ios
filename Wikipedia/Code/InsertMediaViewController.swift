@@ -124,6 +124,7 @@ final class InsertMediaViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         extendedViewController.apply(theme: theme)
+        searchResultsCollectionViewController.apply(theme: theme)
         closeButton.tintColor = theme.colors.primaryText
         nextButton.tintColor = theme.colors.link
     }
