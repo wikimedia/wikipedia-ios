@@ -24,7 +24,6 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIL-Oe-y73">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="824"/>
-                    <color key="backgroundColor" red="0.98977058809999996" green="1" blue="0.17201744050000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="824" id="frP-2W-bip"/>
                     </constraints>
@@ -39,11 +38,11 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="fIL-Oe-y73" secondAttribute="trailing" id="3LC-xd-b4m"/>
                 <constraint firstItem="fIL-Oe-y73" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="AY5-vf-vZk"/>
-                <constraint firstItem="WHz-t0-AZ3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Oas-td-CtH"/>
+                <constraint firstItem="WHz-t0-AZ3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Oas-td-CtH"/>
                 <constraint firstItem="fIL-Oe-y73" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="QYs-zC-PLg"/>
                 <constraint firstItem="WHz-t0-AZ3" firstAttribute="top" secondItem="fIL-Oe-y73" secondAttribute="bottom" id="XHD-rW-vu6"/>
                 <constraint firstAttribute="bottom" secondItem="WHz-t0-AZ3" secondAttribute="bottom" id="ozF-RM-xyt"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WHz-t0-AZ3" secondAttribute="trailing" id="xUq-1c-EEs"/>
+                <constraint firstAttribute="trailing" secondItem="WHz-t0-AZ3" secondAttribute="trailing" id="xUq-1c-EEs"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="105.80357142857143"/>
