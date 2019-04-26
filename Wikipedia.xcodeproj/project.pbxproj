@@ -798,14 +798,6 @@
 		7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7462102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
-		7AF8CEE322653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
-		7AF8CEE422653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
-		7AF8CEE522653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEDF22653276000B7676 /* InsertMediaImageEmptyView.swift */; };
-		7AF8CEE622653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */; };
-		7AF8CEE722653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */; };
-		7AF8CEE822653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */; };
-		7AF8CEE922653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */; };
-		7AF8CEEA22653276000B7676 /* InsertMediaImageEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF8CEE022653276000B7676 /* InsertMediaImageEmptyView.xib */; };
 		7AF8CEED22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */; };
 		7AF8CEEE22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */; };
 		7AF8CEEF22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8CEEB22653406000B7676 /* InsertMediaSelectedImageView.swift */; };
@@ -11229,7 +11221,6 @@
 				D80ED3A01EE57F4800CE8C50 /* MapUtilities.swift in Sources */,
 				D80ED3A21EE57F4800CE8C50 /* WKWebView+ElementLocation.m in Sources */,
 				D80ED3A31EE57F4800CE8C50 /* WMFImageInfoController.m in Sources */,
-				7AF8CEE522653276000B7676 /* InsertMediaImageEmptyView.swift in Sources */,
 				D80ED3A41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBD21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
 				7A73B48621E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
