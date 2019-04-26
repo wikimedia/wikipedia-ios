@@ -583,6 +583,11 @@
 		7AA96D5E21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
 		7AA96D5F21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
 		7AA96D6021B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
+		7AB7DEC8227203A600DD61A2 /* InsertMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */; };
+		7AB7DEC9227203A600DD61A2 /* InsertMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */; };
+		7AB7DECA227203A600DD61A2 /* InsertMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */; };
+		7AB7DECB227203A600DD61A2 /* InsertMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */; };
+		7AB7DECC227203A600DD61A2 /* InsertMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */; };
 		7AB809D022675B2300BFAB7C /* ThemeableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */; };
 		7AB809D122675B2300BFAB7C /* ThemeableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */; };
 		7AB809D222675B2300BFAB7C /* ThemeableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */; };
@@ -3719,6 +3724,7 @@
 		7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsTextTableViewCell.xib; sourceTree = "<group>"; };
 		7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
 		7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingProvidingTableViewController.swift; sourceTree = "<group>"; };
+		7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaViewController.swift; sourceTree = "<group>"; };
 		7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
 		7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaAdvancedSettingsTableViewController.swift; sourceTree = "<group>"; };
 		7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailUnderBarViewController.swift; sourceTree = "<group>"; };
@@ -6434,6 +6440,7 @@
 			children = (
 				7AC4B70B225D2E170040F0D4 /* TabbedViewController.swift */,
 				7AC4B6F3225D273E0040F0D4 /* VerticallySplitViewController.swift */,
+				7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */,
 				7AC4B6F4225D273E0040F0D4 /* VerticallySplitViewController.xib */,
 				7A0D4D41225EABFC00774A5A /* Insert */,
 				7AF8CEDE2265281F000B7676 /* Upload */,
@@ -10766,6 +10773,7 @@
 				67DB111422613FD800F789B0 /* SchemeHandler+DefaultHandler.swift in Sources */,
 				7AF49F80204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */,
+				7AB7DEC8227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				7A16C4E6212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				7A2FE55C20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				B0E805451C0CE0DC0065EBC0 /* UIImage+WMFFocalImageDrawing.m in Sources */,
@@ -11161,6 +11169,7 @@
 				B0CD9DF21F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0F9299D1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				67DB11272261820600F789B0 /* SchemeHandlerCache.swift in Sources */,
+				7AB7DECC227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D80ED3851EE57F4800CE8C50 /* WMFAccountCreationViewController.swift in Sources */,
 				D80ED3861EE57F4800CE8C50 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				D80ED3871EE57F4800CE8C50 /* NSAttributedString+WMFModify.m in Sources */,
@@ -11871,6 +11880,7 @@
 				D8A42B691E815A9C00D8E281 /* WMFImageGalleryViewController.m in Sources */,
 				D80ED25F1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				D8A42B6D1E815A9C00D8E281 /* WMFAccountCreationViewController.swift in Sources */,
+				7AB7DECB227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D8A42B6E1E815A9C00D8E281 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				7A16C4E9212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				7AF49F83204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
@@ -12274,6 +12284,7 @@
 				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D8CE25EC1E698E2400DAE2E0 /* WMFImageGalleryViewController.m in Sources */,
 				67DB11152261820400F789B0 /* SchemeHandlerCache.swift in Sources */,
+				7AB7DEC9227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				B0CD9DDD1F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0F929A01F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D8CE25F01E698E2400DAE2E0 /* WMFAccountCreationViewController.swift in Sources */,
@@ -12661,6 +12672,7 @@
 				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0F9299C1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				67DB111B2261820500F789B0 /* SchemeHandlerCache.swift in Sources */,
+				7AB7DECA227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D8EC3EE91E9BDA35006712EB /* WMFForgotPasswordViewController.swift in Sources */,
 				D8EC3EEB1E9BDA35006712EB /* WMFImageGalleryViewController.m in Sources */,
 				D8EC3EEF1E9BDA35006712EB /* WMFAccountCreationViewController.swift in Sources */,
