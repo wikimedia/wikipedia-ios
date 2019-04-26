@@ -568,11 +568,11 @@
 		7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
 		7A9A612121124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
 		7A9A612221124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
-		7A9F060D2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
-		7A9F060E2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
-		7A9F060F2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
-		7A9F06102266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
-		7A9F06112266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */; };
+		7A9F060D2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsViewController.swift */; };
+		7A9F060E2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsViewController.swift */; };
+		7A9F060F2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsViewController.swift */; };
+		7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsViewController.swift */; };
+		7A9F06112266425700856321 /* InsertMediaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F060B2266425700856321 /* InsertMediaSettingsViewController.swift */; };
 		7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
 		7A9F061A2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
 		7A9F061B2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */; };
@@ -3723,7 +3723,7 @@
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
 		7A9A611721124CF500403154 /* CreateNewReadingListButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewReadingListButtonView.xib; sourceTree = "<group>"; };
 		7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewReadingListButtonView.swift; sourceTree = "<group>"; };
-		7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsTableViewController.swift; sourceTree = "<group>"; };
+		7A9F060B2266425700856321 /* InsertMediaSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsViewController.swift; sourceTree = "<group>"; };
 		7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsTextTableViewCell.swift; sourceTree = "<group>"; };
 		7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsTextTableViewCell.xib; sourceTree = "<group>"; };
 		7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -6512,7 +6512,7 @@
 		7AF8CEDD226527DC000B7676 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				7A9F060B2266425700856321 /* InsertMediaSettingsTableViewController.swift */,
+				7A9F060B2266425700856321 /* InsertMediaSettingsViewController.swift */,
 				7AB809E122679F9A00BFAB7C /* Advanced Settings */,
 				7A9F06172266432200856321 /* InsertMediaSettingsTextTableViewCell.swift */,
 				7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */,
@@ -10701,7 +10701,7 @@
 				83F26B2A220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				7AC4B70D225D2E170040F0D4 /* TabbedViewController.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
-				7A9F060D2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
+				7A9F060D2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
@@ -11107,7 +11107,7 @@
 				D80ED3581EE57F4800CE8C50 /* EditFunnel.m in Sources */,
 				7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D80ED3591EE57F4800CE8C50 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
-				7A9F06112266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
+				7A9F06112266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7A27E85621B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				D80ED35A1EE57F4800CE8C50 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				7AF49F84204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
@@ -11811,7 +11811,7 @@
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
-				7A9F06102266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
+				7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7AC4B710225D2E170040F0D4 /* TabbedViewController.swift in Sources */,
 				D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				83F26B2D220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
@@ -12225,7 +12225,7 @@
 				B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */,
 				7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
-				7A9F060E2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
+				7A9F060E2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				B010E1A91E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
@@ -12615,7 +12615,7 @@
 				D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */,
 				7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D8EC3EBB1E9BDA35006712EB /* WMFAuthLinkLabel.swift in Sources */,
-				7A9F060F2266425700856321 /* InsertMediaSettingsTableViewController.swift in Sources */,
+				7A9F060F2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				BAA0D91E1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
