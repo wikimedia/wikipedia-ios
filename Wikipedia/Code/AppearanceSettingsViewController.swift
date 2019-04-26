@@ -217,10 +217,6 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         return indexPath
     }
     
-    @objc public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-
-    }
-    
     @objc public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currentAppTheme = UserDefaults.wmf.wmf_appTheme
         
