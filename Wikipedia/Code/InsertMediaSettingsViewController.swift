@@ -196,10 +196,10 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     override func viewDidLoad() {
+        scrollView = tableView
         super.viewDidLoad()
         tableView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
-        scrollView = tableView
         tableView.register(InsertMediaSettingsTextTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaSettingsTextTableViewCell.identifier)
         tableView.separatorStyle = .none
         tableView.tableHeaderView = imageView
