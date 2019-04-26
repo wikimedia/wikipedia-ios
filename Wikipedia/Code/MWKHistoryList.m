@@ -84,6 +84,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.dataStore.viewContext executeFetchRequest:request error:nil] firstObject];
 }
 
+- (nullable WMFArticle *)mostRecentEntryInManagedObjectContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *request = self.historyListFetchRequest;
+    request.fetchLimit = 1;
+    return [[context executeFetchRequest:request error:nil] firstObject];
+}
+
 - (nullable WMFArticle *)entryForURL:(NSURL *)url {
     NSString *key = [url wmf_articleDatabaseKey];
     if (!key) {

@@ -34,16 +34,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    NSURL __block *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
-    if (!lastRead) {
-        WMFTaskGroup *group = [[WMFTaskGroup alloc] init];
-        [group enter];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            lastRead = self.userDataStore.historyList.mostRecentEntry.URL;
-            [group leave];
-        });
-        [group wait];
-    }
+    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL] ?: [self.userDataStore.historyList mostRecentEntryInManagedObjectContext:moc].URL;
 
     if (!lastRead) {
         completion();
