@@ -46,18 +46,21 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
             guard let self = self else {
                 return
             }
+            self.imagePositionSettingsViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.imagePositionSettingsViewController, animated: true)
         }
         let imageTypeViewModel = ViewModel(title: AdvancedSettings.ImageType.displayTitle, detailText: imageTypeSettingsViewController.selectedImageType.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
+            self.imageTypeSettingsViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.imageTypeSettingsViewController, animated: true)
         }
         let imageSizeViewModel = ViewModel(title: AdvancedSettings.ImageSize.displayTitle, detailText: imageSizeSettingsViewController.selectedImageSize.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
+            self.imageSizeSettingsViewController.apply(theme: self.theme)
            self.navigationController?.pushViewController(self.imageSizeSettingsViewController, animated: false)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
