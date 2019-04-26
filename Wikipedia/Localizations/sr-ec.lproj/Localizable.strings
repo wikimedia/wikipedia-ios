@@ -281,7 +281,6 @@
 "feed-news-notification-text" = "Омогућите обавештења да бисте сазнали када чланци постану тренутни у вестима.";
 "field-alert-captcha-invalid" = "Неважећа CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
-"field-alert-password-invalid" = "Неважећа лозинка";
 "field-alert-token-invalid" = "Неважећи кôд";
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни кôд";

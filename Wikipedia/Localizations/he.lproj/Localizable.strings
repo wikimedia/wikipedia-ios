@@ -331,7 +331,6 @@
 "fetcher-error-unexpected-response" = "היישום הזה קיבל תגובה בלתי־צפויה מהשרת. נא לנסות שוב מאוחר יותר.";
 "field-alert-captcha-invalid" = "קוד אימות בלתי־תקין";
 "field-alert-password-confirm-mismatch" = "הססמאות אינן תואמות";
-"field-alert-password-invalid" = "ססמה בלתי־תקינה";
 "field-alert-token-invalid" = "קוד בלתי־תקין";
 "field-alert-username-unavailable" = "שם המשתמש אינו זמין";
 "field-backup-token-title" = "קוד גיבוי";

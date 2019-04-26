@@ -192,7 +192,6 @@
 "feed-news-notification-button-text" = "اطلاع ناموں کو فعال کریں";
 "field-alert-captcha-invalid" = "غیر موافق کیپچا";
 "field-alert-password-confirm-mismatch" = "دونوں پاس ورڈ یکساں نہیں ہیں";
-"field-alert-password-invalid" = "نادرست پاس ورڈ";
 "field-alert-token-invalid" = "نادرست کوڈ";
 "field-alert-username-unavailable" = "یہ صارف نام دستیاب نہیں ہے";
 "field-backup-token-title" = "احتیاطی کوڈ";

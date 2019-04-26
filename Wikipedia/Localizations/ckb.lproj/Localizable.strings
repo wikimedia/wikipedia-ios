@@ -141,7 +141,6 @@
 "feed-news-notification-text" = "لەمەوبەدوا ھۆشدارت پێ دەگات لەبارەی وتارەکانی ویکیپیدیا و ھەواڵە بەناوبانگەکان.";
 "field-alert-captcha-invalid" = "کاپچای ھەڵە";
 "field-alert-password-confirm-mismatch" = "تێپەڕوشەکان ھەماھەنگ نین";
-"field-alert-password-invalid" = "تێپەڕوشەکەت ھەڵەیە";
 "field-alert-token-invalid" = "کۆدەکە ھەڵەیە";
 "field-alert-username-unavailable" = "ناوی بەکارھێنەر بەردەست نییە";
 "field-backup-token-title" = "کۆدی باک-ئەپ";

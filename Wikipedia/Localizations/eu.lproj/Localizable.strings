@@ -213,7 +213,6 @@
 "feed-news-notification-text" = "Jakinarazpenak gaitu, Wikipediak jakinarazteko gehien irakurritako artikuluak agertzen zaizkizunean.";
 "field-alert-captcha-invalid" = "CAPTCHA baliogabetuta";
 "field-alert-password-confirm-mismatch" = "Pasahitzak ez datoz bat.";
-"field-alert-password-invalid" = "Pasahitz okerra";
 "field-alert-token-invalid" = "Kode okerra";
 "field-alert-username-unavailable" = "Erabiltzaile-izena ez dago erabilgarri";
 "field-backup-token-title" = "Babeskopia kodea";
