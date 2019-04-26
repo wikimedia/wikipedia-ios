@@ -209,6 +209,7 @@
 "editing-welcome-impartial-tone-title" = "Write in an impartial tone";
 "editing-welcome-set-knowledge-free-subtitle" = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.";
 "editing-welcome-set-knowledge-free-title" = "Set knowledge free";
+"empty-insert-media-title" = "Select or upload a file";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
@@ -401,7 +402,6 @@
 "insert-media-image-type-setting-thumbnail" = "Thumbnail";
 "insert-media-image-type-settings-title" = "Image type";
 "insert-media-media-settings-title" = "Media settings";
-"insert-media-placeholder-label-text" = "Select or upload a file";
 "insert-media-title" = "Insert media";
 "insert-media-uploaded-image-title" = "Uploaded image";
 "languages-settings-title" = "Languages";
