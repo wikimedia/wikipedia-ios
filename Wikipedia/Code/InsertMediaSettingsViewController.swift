@@ -121,7 +121,7 @@ final class InsertMediaSettingsViewController: ViewController {
         let alternativeTextTextView = textViewsGroupedByType[.alternativeText]
         let caption = captionTextView?.text.wmf_hasNonWhitespaceText ?? false ? captionTextView?.text : nil
         let alternativeText = alternativeTextTextView?.text.wmf_hasNonWhitespaceText ?? false ? alternativeTextTextView?.text : nil
-        return Settings(caption: caption, alternativeText: alternativeText, advanced: insertMediaAdvancedSettingsTableViewController.advancedSettings)
+        return Settings(caption: caption, alternativeText: alternativeText, advanced: insertMediaAdvancedSettingsViewController.advancedSettings)
     }
 
     private lazy var imageView: InsertMediaSettingsImageView = {
@@ -133,9 +133,7 @@ final class InsertMediaSettingsViewController: ViewController {
         return imageView
     }()
 
-    private lazy var insertMediaAdvancedSettingsTableViewController: InsertMediaAdvancedSettingsTableViewController = {
-        return InsertMediaAdvancedSettingsTableViewController(theme: theme)
-    }()
+    private lazy var insertMediaAdvancedSettingsViewController = InsertMediaAdvancedSettingsViewController()
 
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
@@ -147,7 +145,7 @@ final class InsertMediaSettingsViewController: ViewController {
             guard let self = self else {
                 return
             }
-            self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsTableViewController, animated: true)
+            self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
         buttonView.autoresizingMask = []
         return buttonView

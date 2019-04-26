@@ -1,7 +1,7 @@
 import UIKit
 
-final class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
-    private let theme: Theme
+final class InsertMediaAdvancedSettingsViewController: ViewController {
+    private let tableView = UITableView(frame: .zero)
 
     typealias AdvancedSettings = InsertMediaSettings.Advanced
 
@@ -63,28 +63,21 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
     }
 
-    init(theme: Theme) {
-        self.theme = theme
-        super.init(style: .plain)
-    }
-
     @objc private func toggleImagePositionEnabledState(_ sender: UISwitch) {
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
     }
 
     override func viewDidLoad() {
+        scrollView = tableView
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
         title = "Advanced settings"
         apply(theme: theme)
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private var isFirstAppearance = true
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -97,17 +90,28 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         tableView.reloadData()
     }
 
-    // MARK: - Table view data source
+    // MARK: - Themeable
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        tableView.separatorColor = theme.colors.border
+    }
+
+}
+
+// MARK: - Table view data source
+
+extension InsertMediaAdvancedSettingsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier) ?? UITableViewCell(style: .value1, reuseIdentifier: UITableViewCell.identifier)
         let viewModel = viewModels[indexPath.row]
         cell.textLabel?.text = viewModel.title
@@ -130,21 +134,13 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         cell.textLabel?.textColor = cell.isUserInteractionEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         cell.detailTextLabel?.textColor = theme.colors.secondaryText
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewModel = viewModels[indexPath.row]
-        viewModel.onSelection?()
-    }
 }
 
-// MARK: - Themeable
+// MARK: - Table view delegate
 
-extension InsertMediaAdvancedSettingsTableViewController: Themeable {
-    func apply(theme: Theme) {
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        tableView.separatorColor = theme.colors.border
+extension InsertMediaAdvancedSettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewModel = viewModels[indexPath.row]
+        viewModel.onSelection?()
     }
 }
