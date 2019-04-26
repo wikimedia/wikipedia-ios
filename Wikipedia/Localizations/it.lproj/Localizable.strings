@@ -220,7 +220,6 @@
 "fetcher-error-generic" = "Qualcosa è andato storto. Riprova più tardi.";
 "field-alert-captcha-invalid" = "CAPTCHA non valido";
 "field-alert-password-confirm-mismatch" = "Le password non corrispondono";
-"field-alert-password-invalid" = "Password non valida";
 "field-alert-token-invalid" = "Codice non valido";
 "field-alert-username-unavailable" = "Nome utente non disponibile";
 "field-captcha-placeholder" = "Testo CAPTCHA";

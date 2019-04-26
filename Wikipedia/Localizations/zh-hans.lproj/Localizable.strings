@@ -327,7 +327,6 @@
 "fetcher-error-unexpected-response" = "应用从服务器收到了一个意外的响应代码，请稍后重试。";
 "field-alert-captcha-invalid" = "无效验证码";
 "field-alert-password-confirm-mismatch" = "密码不匹配";
-"field-alert-password-invalid" = "无效密码";
 "field-alert-token-invalid" = "无效代码";
 "field-alert-username-unavailable" = "用户名不可用";
 "field-backup-token-title" = "备份代码";

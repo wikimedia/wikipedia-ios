@@ -107,7 +107,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Uit Wikipedia in $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "field-alert-password-confirm-mismatch" = "Wagwoorde stem nie ooreen nie";
-"field-alert-password-invalid" = "Ongeldige wagwoord";
 "field-alert-token-invalid" = "Ongeldige kode";
 "field-alert-username-unavailable" = "Gebruikersnaam onbeskikbaar";
 "field-backup-token-title" = "Rugsteunkode";

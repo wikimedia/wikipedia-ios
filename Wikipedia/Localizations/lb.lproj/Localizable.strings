@@ -177,7 +177,6 @@
 "feed-news-notification-text" = "Notifikatiounen vu Wikipedia aschalte wann Artikelen an den Neiegkeeten opdauchen.";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
 "field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
-"field-alert-password-invalid" = "Net valabelt Passwuert";
 "field-alert-token-invalid" = "Net valabele Code";
 "field-alert-username-unavailable" = "Benotzernumm net disponibel";
 "field-backup-token-title" = "Backup-Code";

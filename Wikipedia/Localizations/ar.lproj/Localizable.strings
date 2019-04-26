@@ -340,7 +340,6 @@
 "fetcher-error-unexpected-response" = "تلقى التطبيق استجابة غير متوقعة من الخادم، الرجاء معاودة المحاولة في وقت لاحق.";
 "field-alert-captcha-invalid" = "تحقق بشري خاطئ";
 "field-alert-password-confirm-mismatch" = "كلمتا السر لا تتطابقان";
-"field-alert-password-invalid" = "كلمة سر خاطئة";
 "field-alert-token-invalid" = "رمز خاطئ";
 "field-alert-username-unavailable" = "اسم المستخدم غير متاح";
 "field-backup-token-title" = "رمز احتياطي";

@@ -171,7 +171,6 @@
 "feed-news-notification-button-text" = "Włącz powiadomienia";
 "field-alert-captcha-invalid" = "Niepoprawna CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Hasła nie są takie same";
-"field-alert-password-invalid" = "Nieprawidłowe hasło";
 "field-alert-token-invalid" = "Nieprawidłowy kod";
 "field-alert-username-unavailable" = "Niedostępna nazwa użytkownika";
 "field-backup-token-title" = "Kod kopii zapasowej";
