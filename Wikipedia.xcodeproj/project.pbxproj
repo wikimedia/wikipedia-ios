@@ -435,21 +435,21 @@
 		7A707984223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */; };
 		7A707985223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */; };
 		7A707986223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */; };
-		7A71565B226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
-		7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
-		7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
-		7A71565E226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
-		7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */; };
-		7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */; };
-		7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */; };
-		7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */; };
-		7A715664226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */; };
-		7A715665226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */; };
-		7A715667226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */; };
-		7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */; };
-		7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */; };
-		7A71566A226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */; };
-		7A71566B226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */; };
+		7A71565B226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift */; };
+		7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift */; };
+		7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift */; };
+		7A71565E226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift */; };
+		7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift */; };
+		7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift */; };
+		7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift */; };
+		7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift */; };
+		7A715664226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift */; };
+		7A715665226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift */; };
+		7A715667226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift */; };
+		7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift */; };
+		7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift */; };
+		7A71566A226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift */; };
+		7A71566B226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift */; };
 		7A71566E22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */; };
 		7A71566F22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */; };
 		7A71567022697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */; };
@@ -3692,9 +3692,9 @@
 		7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingInputViewController.swift; sourceTree = "<group>"; };
 		7A70797B223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePanelLabelContentViewController.swift; sourceTree = "<group>"; };
 		7A70797C223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomePanelLabelContentViewController.xib; sourceTree = "<group>"; };
-		7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImagePositionSettingsTableViewController.swift; sourceTree = "<group>"; };
-		7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageTypeSettingsTableViewController.swift; sourceTree = "<group>"; };
-		7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageSizeSettingsTableViewController.swift; sourceTree = "<group>"; };
+		7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImagePositionSettingsViewController.swift; sourceTree = "<group>"; };
+		7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageTypeSettingsViewController.swift; sourceTree = "<group>"; };
+		7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaImageSizeSettingsViewController.swift; sourceTree = "<group>"; };
 		7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaCustomImageSizeSettingTableViewCell.swift; sourceTree = "<group>"; };
 		7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaCustomImageSizeSettingTableViewCell.xib; sourceTree = "<group>"; };
 		7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaLabelTableFooterView.swift; sourceTree = "<group>"; };
@@ -6423,12 +6423,12 @@
 			isa = PBXGroup;
 			children = (
 				7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift */,
-				7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift */,
+				7A715660226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift */,
 				7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */,
-				7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift */,
+				7A715666226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift */,
 				7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */,
 				7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */,
-				7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift */,
+				7A71565A226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift */,
 			);
 			path = "Advanced Settings";
 			sourceTree = "<group>";
@@ -10497,7 +10497,7 @@
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				67DB110A22613F2700F789B0 /* SchemeHandlerCache.swift in Sources */,
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
-				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
+				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
@@ -10539,7 +10539,7 @@
 				67DB111222613FBF00F789B0 /* SchemeHandler+ArticleSectionHandler.swift in Sources */,
 				0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */,
 				7AE99B2821CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
-				7A715667226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */,
+				7A715667226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */,
 				B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */,
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
@@ -10645,7 +10645,7 @@
 				B0E804D61C0CE0B40065EBC0 /* NSObject+WMFExtras.m in Sources */,
 				7A6ED51C20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */,
-				7A71565B226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
+				7A71565B226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D818D3AB1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				7AFA21BB20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
@@ -10880,7 +10880,7 @@
 				D80ED27C1EE57F4800CE8C50 /* WMFAuthButton.swift in Sources */,
 				D80ED27D1EE57F4800CE8C50 /* WMFReferencePanelViewController.swift in Sources */,
 				7A29A5D21F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				7A715665226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
+				7A715665226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D80ED27F1EE57F4800CE8C50 /* WikidataFetcher.swift in Sources */,
 				7A71567D22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D80ED2801EE57F4800CE8C50 /* UIButton+WMFButton.m in Sources */,
@@ -10938,7 +10938,7 @@
 				D80ED2B21EE57F4800CE8C50 /* ColumnarCollectionViewController.swift in Sources */,
 				D80ED2B41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				B0524AF52144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
-				7A71566B226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */,
+				7A71566B226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D80ED2B51EE57F4800CE8C50 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				7ADF498B21B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D80ED2B61EE57F4800CE8C50 /* PageHistoryViewController.m in Sources */,
@@ -10988,7 +10988,7 @@
 				D80ED2E51EE57F4800CE8C50 /* ProtectedEditAttemptFunnel.m in Sources */,
 				7A1469C1220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D80ED2E61EE57F4800CE8C50 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
-				7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
+				7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D80ED2E81EE57F4800CE8C50 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				D80ED2E91EE57F4800CE8C50 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D80ED2EA1EE57F4800CE8C50 /* WMFArticleTextActivitySource.m in Sources */,
@@ -11607,7 +11607,7 @@
 				7A20AE0B2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				67DB11212261820500F789B0 /* SchemeHandlerCache.swift in Sources */,
 				D8A42A651E815A9C00D8E281 /* WMFReferencePanelViewController.swift in Sources */,
-				7A715664226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
+				7A715664226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				67DB11222261820500F789B0 /* SchemeHandler+BaseSubHandler.swift in Sources */,
 				7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				D8A42A681E815A9C00D8E281 /* WikidataFetcher.swift in Sources */,
@@ -11649,7 +11649,7 @@
 				67DB11252261820500F789B0 /* SchemeHandler+ArticleSectionHandler.swift in Sources */,
 				D8A42A801E815A9C00D8E281 /* PlaceSearchSuggestionController.swift in Sources */,
 				7AE99B2B21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
-				7A71566A226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */,
+				7A71566A226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				B025D8CC1EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D8A42A821E815A9C00D8E281 /* WMFPageHistoryRevision.m in Sources */,
 				D8A42A891E815A9C00D8E281 /* WMFEmptyView.m in Sources */,
@@ -11755,7 +11755,7 @@
 				D8A42AE31E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8A42AE41E815A9C00D8E281 /* WMFSuggestedPagesFunnel.m in Sources */,
 				6780DF462264350800D9069D /* RemoteSubHandler.swift in Sources */,
-				7A71565E226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
+				7A71565E226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				7A6ED51120ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				8304D7C31F60131900A0CDD6 /* WMFWebView.m in Sources */,
 				67E069142239B33E008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
@@ -11998,7 +11998,7 @@
 				B0C7A07D1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */,
 				7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
+				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher.swift in Sources */,
@@ -12056,7 +12056,7 @@
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				B0524AF22144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
-				7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */,
+				7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				7ADF498821B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
@@ -12106,7 +12106,7 @@
 				D8CE254D1E698E2400DAE2E0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				7A1469BE220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
-				7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
+				7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D8CE25501E698E2400DAE2E0 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				D8CE25511E698E2400DAE2E0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
@@ -12388,7 +12388,7 @@
 				83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				B0C7A0791F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsTableViewController.swift in Sources */,
+				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher.swift in Sources */,
@@ -12446,7 +12446,7 @@
 				7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8EC3E101E9BDA35006712EB /* WMFSearchFetcher.m in Sources */,
 				B0524AF32144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
-				7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsTableViewController.swift in Sources */,
+				7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
 				7ADF498921B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8EC3E171E9BDA35006712EB /* MWKTitleLanguageController.m in Sources */,
@@ -12496,7 +12496,7 @@
 				7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				7A1469BF220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */,
-				7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsTableViewController.swift in Sources */,
+				7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D818D3AD1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8EC3E421E9BDA35006712EB /* WMFTableOfContentsViewController.swift in Sources */,

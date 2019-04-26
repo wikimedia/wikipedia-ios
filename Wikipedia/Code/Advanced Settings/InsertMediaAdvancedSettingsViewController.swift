@@ -1,12 +1,12 @@
 import UIKit
 
 final class InsertMediaAdvancedSettingsViewController: ViewController {
-    private let tableView = UITableView(frame: .zero)
+    private let tableView = UITableView()
 
     typealias AdvancedSettings = InsertMediaSettings.Advanced
 
     var advancedSettings: AdvancedSettings {
-        return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn), imageType: imageTypeSettingsTableViewController.selectedImageType, imageSize: imageSizeSettingsTableViewController.selectedImageSize)
+        return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn), imageType: imageTypeSettingsViewController.selectedImageType, imageSize: imageSizeSettingsViewController.selectedImageSize)
     }
 
     struct ViewModel {
@@ -36,29 +36,29 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
         return textWrappingSwitch
     }()
 
-    private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController(theme: theme)
-    private lazy var imageTypeSettingsTableViewController = InsertMediaImageTypeSettingsTableViewController(theme: theme)
-    private lazy var imageSizeSettingsTableViewController = InsertMediaImageSizeSettingsTableViewController(theme: theme)
+    private lazy var imagePositionSettingsViewController = InsertMediaImagePositionSettingsViewController()
+    private lazy var imageTypeSettingsViewController = InsertMediaImageTypeSettingsViewController()
+    private lazy var imageSizeSettingsViewController = InsertMediaImageSizeSettingsViewController()
     
     private var viewModels: [ViewModel] {
         let textWrappingViewModel = ViewModel(title: WMFLocalizedString("insert-media-image-text-wrapping-setting", value: "Wrap text around image", comment: "Title for image setting that wraps text around image"), accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
-        let imagePositionViewModel = ViewModel(title: AdvancedSettings.ImagePosition.displayTitle, detailText: imagePositionSettingsTableViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn).displayTitle, isEnabled: textWrappingSwitch.isOn) { [weak self] in
+        let imagePositionViewModel = ViewModel(title: AdvancedSettings.ImagePosition.displayTitle, detailText: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn).displayTitle, isEnabled: textWrappingSwitch.isOn) { [weak self] in
             guard let self = self else {
                 return
             }
-            self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+            self.navigationController?.pushViewController(self.imagePositionSettingsViewController, animated: true)
         }
-        let imageTypeViewModel = ViewModel(title: AdvancedSettings.ImageType.displayTitle, detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) { [weak self] in
+        let imageTypeViewModel = ViewModel(title: AdvancedSettings.ImageType.displayTitle, detailText: imageTypeSettingsViewController.selectedImageType.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
-            self.navigationController?.pushViewController(self.imageTypeSettingsTableViewController, animated: true)
+            self.navigationController?.pushViewController(self.imageTypeSettingsViewController, animated: true)
         }
-        let imageSizeViewModel = ViewModel(title: AdvancedSettings.ImageSize.displayTitle, detailText: imageSizeSettingsTableViewController.selectedImageSize.displayTitle) { [weak self] in
+        let imageSizeViewModel = ViewModel(title: AdvancedSettings.ImageSize.displayTitle, detailText: imageSizeSettingsViewController.selectedImageSize.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
-           self.navigationController?.pushViewController(self.imageSizeSettingsTableViewController, animated: false)
+           self.navigationController?.pushViewController(self.imageSizeSettingsViewController, animated: false)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
     }

@@ -1,5 +1,6 @@
-final class InsertMediaImagePositionSettingsTableViewController: UITableViewController {
-    private let theme: Theme
+final class InsertMediaImagePositionSettingsViewController: ViewController {
+    private let tableView = UITableView()
+    private var selectedIndexPath: IndexPath?
 
     typealias ImagePosition = InsertMediaSettings.Advanced.ImagePosition
 
@@ -32,17 +33,12 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         return [rightViewModel, leftViewModel, centerViewModel]
     }()
 
-    init(theme: Theme) {
-        self.theme = theme
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
+        scrollView = tableView
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
@@ -50,15 +46,34 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         apply(theme: theme)
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    private func apply(theme: Theme, to cell: UITableViewCell) {
+        cell.backgroundColor = theme.colors.paperBackground
+        cell.contentView.backgroundColor = theme.colors.paperBackground
+        cell.textLabel?.textColor = theme.colors.primaryText
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = theme.colors.midBackground
+        cell.selectedBackgroundView = selectedBackgroundView
+    }
+
+    // MARK: - Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        tableView.separatorColor = theme.colors.border
+    }
+}
+
+extension InsertMediaImagePositionSettingsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier, for: indexPath)
         let viewModel = viewModels[indexPath.row]
         cell.textLabel?.text = viewModel.title
@@ -72,44 +87,23 @@ final class InsertMediaImagePositionSettingsTableViewController: UITableViewCont
         apply(theme: theme, to: cell)
         return cell
     }
+}
 
-    private func apply(theme: Theme, to cell: UITableViewCell) {
-        cell.backgroundColor = theme.colors.paperBackground
-        cell.contentView.backgroundColor = theme.colors.paperBackground
-        cell.textLabel?.textColor = theme.colors.primaryText
-        let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = theme.colors.midBackground
-        cell.selectedBackgroundView = selectedBackgroundView
-    }
-
-    private var selectedIndexPath: IndexPath?
-
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+extension InsertMediaImagePositionSettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         guard
             let selectedIndexPath = selectedIndexPath,
             let selectedCell = tableView.cellForRow(at: selectedIndexPath)
-        else {
-            return indexPath
+            else {
+                return indexPath
         }
         selectedCell.accessoryType = .none
         return indexPath
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: indexPath)
         selectedCell?.accessoryType = .checkmark
         selectedIndexPath = indexPath
-    }
-}
-
-// MARK: - Themeable
-
-extension InsertMediaImagePositionSettingsTableViewController: Themeable {
-    func apply(theme: Theme) {
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        tableView.separatorColor = theme.colors.border
     }
 }
