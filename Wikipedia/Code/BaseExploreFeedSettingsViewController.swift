@@ -244,12 +244,12 @@ extension BaseExploreFeedSettingsViewController {
         return sections.count
     }
 
-    override  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = getSection(at: section)
         return section.items.count
     }
 
-    override  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
@@ -268,12 +268,12 @@ extension BaseExploreFeedSettingsViewController {
 // MARK: - UITableViewDelegate
 
 extension BaseExploreFeedSettingsViewController {
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let section = getSection(at: section)
         return section.headerTitle
     }
 
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier) as? WMFTableHeaderFooterLabelView else {
             return nil
         }
@@ -286,7 +286,7 @@ extension BaseExploreFeedSettingsViewController {
         return footer
     }
 
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
             return 0
         }
