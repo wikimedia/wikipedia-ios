@@ -1,10 +1,3 @@
-//
-//  TalkPageFetcherTests.swift
-//  Wikipedia
-//
-//  Created by Toni Sevener on 4/19/19.
-//  Copyright © 2019 Wikimedia Foundation. All rights reserved.
-//
 
 import XCTest
 @testable import Wikipedia
@@ -34,11 +27,18 @@ class TalkPageFetcherTests: XCTestCase {
         let fetcher = TalkPageFetcher(session: mockSession, configuration: Configuration.current)
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
-        fetcher.fetchTalkPage(for: "Username", host: Configuration.Domain.englishWikipedia) { (talkPage, error) in
+        
+        fetcher.fetchTalkPage(for: "Username", host: Configuration.Domain.englishWikipedia, revisionID: 5) { (result) in
+            
             fetchExpectation.fulfill()
-            XCTAssertNotNil(talkPage)
-            XCTAssertEqual(talkPage?.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/Username")
-            XCTAssertNil(error)
+
+            switch result {
+            case .success(let talkPage):
+                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/Username")
+                XCTAssertEqual(talkPage.revisionId, 5)
+            case .failure:
+                XCTFail("Expected Success")
+            }
         }
         wait(for: [fetchExpectation], timeout: 5)
     }

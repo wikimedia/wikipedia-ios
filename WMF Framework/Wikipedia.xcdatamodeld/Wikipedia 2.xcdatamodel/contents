@@ -72,7 +72,7 @@
     <entity name="TalkPage" representedClassName="TalkPage" syncable="YES" codeGenerationType="class">
         <attribute name="key" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="revisionId" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="revisionId" attributeType="Integer 64" minValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="discussions" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="TalkPageDiscussion" inverseName="talkPage" inverseEntity="TalkPageDiscussion" syncable="YES"/>
     </entity>
     <entity name="TalkPageDiscussion" representedClassName="TalkPageDiscussion" syncable="YES" codeGenerationType="class">

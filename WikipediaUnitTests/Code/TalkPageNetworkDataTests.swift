@@ -1,10 +1,3 @@
-//
-//  TalkPageNetworkDataTests.swift
-//  WikipediaUnitTests
-//
-//  Created by Toni Sevener on 4/19/19.
-//  Copyright © 2019 Wikimedia Foundation. All rights reserved.
-//
 
 import XCTest
 @testable import Wikipedia
@@ -22,7 +15,6 @@ class TalkPageNetworkDataTests: XCTestCase {
         do {
             let result: NetworkTalkPage = try session.jsonDecodeData(data: json)
             XCTAssertEqual(result.name, "Pixiu")
-            XCTAssertEqual(result.revisionId, 0)
             XCTAssertEqual(result.discussions.count, 1, "Unexpected discussion count")
             XCTAssertEqual(result.discussions[0].title, "Would you please help me expand the Puppy cat article?", "Unexpected discussion title")
             XCTAssertEqual(result.discussions[0].items.count, 2, "Unexpected discussion items count")
