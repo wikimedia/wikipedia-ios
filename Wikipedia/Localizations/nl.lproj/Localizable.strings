@@ -315,7 +315,6 @@
 "fetcher-error-unexpected-response" = "De toepassing heeft een onverwacht antwoord van de server ontvangen. Probeer het later opnieuw.";
 "field-alert-captcha-invalid" = "Ongeldige CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Wachtwoorden komen niet overeen";
-"field-alert-password-invalid" = "Ongeldig wachtwoord";
 "field-alert-token-invalid" = "Ongeldige code";
 "field-alert-username-unavailable" = "Gebruikersnaam niet beschikbaar";
 "field-backup-token-title" = "Back-upcode";

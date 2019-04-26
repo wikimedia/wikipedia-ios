@@ -233,7 +233,6 @@
 "feed-news-notification-text" = "Engedélyezd az értesítéseket, hogy a Wikipédia jelezze a hírekben felkapott szócikkeket.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
 "field-alert-password-confirm-mismatch" = "A jelszavak nem egyeznek";
-"field-alert-password-invalid" = "Érvénytelen jelszó";
 "field-alert-token-invalid" = "Érvénytelen kód";
 "field-alert-username-unavailable" = "A felhasználónév nem érhető el";
 "field-backup-token-title" = "Visszaállítási kód";

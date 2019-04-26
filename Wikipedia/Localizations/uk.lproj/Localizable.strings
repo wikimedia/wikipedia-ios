@@ -335,7 +335,6 @@
 "fetcher-error-unexpected-response" = "Від сервера отримана непередбачена відповідь. Будь ласка, спробуйте пізніше.";
 "field-alert-captcha-invalid" = "Недійсна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Паролі не збігаються";
-"field-alert-password-invalid" = "Недійсний пароль";
 "field-alert-token-invalid" = "Недійсний код";
 "field-alert-username-unavailable" = "Ім'я користувача недоступне";
 "field-backup-token-title" = "Резервний код";

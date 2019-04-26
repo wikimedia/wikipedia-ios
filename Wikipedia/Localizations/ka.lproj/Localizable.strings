@@ -92,7 +92,6 @@
 "explore-potd-heading" = "დღის სურათი";
 "explore-random-article-heading" = "შემთხვევითი სტატია";
 "field-alert-captcha-invalid" = "არასწორი CAPTCHA";
-"field-alert-password-invalid" = "არასწორი პაროლი";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "ელ. ფოსტა";
 "field-email-title-optional" = "ელ. ფოსტა (არასავალდებულო)";

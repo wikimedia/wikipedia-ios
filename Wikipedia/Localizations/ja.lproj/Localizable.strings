@@ -335,7 +335,6 @@
 "fetcher-error-unexpected-response" = "サーバから異常な応答がありました。しばらくしてから再度、操作してください。";
 "field-alert-captcha-invalid" = "CAPTCHAが無効です";
 "field-alert-password-confirm-mismatch" = "パスワードが一致していません";
-"field-alert-password-invalid" = "無効なパスワード";
 "field-alert-token-invalid" = "無効なコード";
 "field-alert-username-unavailable" = "ユーザー名は利用できません";
 "field-backup-token-title" = "バックアップコード";

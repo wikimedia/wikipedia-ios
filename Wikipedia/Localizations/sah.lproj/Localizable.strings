@@ -151,7 +151,6 @@
 "feed-news-notification-text" = "Ыстатыйа туһунан сонуннарга элбэхтик ахтылыннаҕына Бикипиэдьийэ миэхэ биллэрдин.";
 "field-alert-captcha-invalid" = "Сыыһа CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Аһарыктарыҥ сөп түбэспэтилэр";
-"field-alert-password-invalid" = "Аһарыгыҥ сыыһа";
 "field-alert-token-invalid" = "Куодуҥ сыыһа";
 "field-alert-username-unavailable" = "Маннык аат сатаммат";
 "field-backup-token-title" = "Код үкчү киэбин оҥоруу";

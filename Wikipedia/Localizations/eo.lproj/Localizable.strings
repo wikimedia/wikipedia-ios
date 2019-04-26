@@ -272,7 +272,6 @@
 "feed-news-notification-text" = "Ŝalti sciigojn por esti sciigita de Vikipedio kiam artikoloj estas popularaj en la novaĵoj.";
 "field-alert-captcha-invalid" = "Nevalida CAPTCHA";
 "field-alert-password-confirm-mismatch" = "La pasvortoj ne kongruas";
-"field-alert-password-invalid" = "Nevalida pasvorto";
 "field-alert-token-invalid" = "Nevalida kodo";
 "field-alert-username-unavailable" = "Uzantnomo ne disponebla";
 "field-backup-token-title" = "Rezerva kodo";

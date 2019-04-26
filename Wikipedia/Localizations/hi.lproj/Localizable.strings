@@ -160,7 +160,6 @@
 "feed-news-notification-text" = "जब समाचारों में लेख रुझान पर हों, तब विकिपीडिया द्वारा सक्षम सूचनाएं अधिसूचित होनी चाहिए।";
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स मैच नहीं हो रहे";
-"field-alert-password-invalid" = "अमान्य पासवर्ड";
 "field-alert-token-invalid" = "अमान्य कोड";
 "field-alert-username-unavailable" = "यह सदस्य नाम उपलब्ध नहीं";
 "field-backup-token-title" = "बैकअप कोड";

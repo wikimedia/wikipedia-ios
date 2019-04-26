@@ -355,7 +355,6 @@
 "fetcher-error-unexpected-response" = "От сервера получен непредвиденный ответ. Пожалуйста, попробуйте позже.";
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
-"field-alert-password-invalid" = "Неверный пароль";
 "field-alert-token-invalid" = "Неверный код";
 "field-alert-username-unavailable" = "Имя пользователя не доступно";
 "field-backup-token-title" = "Сделать резервную копию кода";
