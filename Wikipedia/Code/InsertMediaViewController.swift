@@ -39,6 +39,7 @@ final class InsertMediaViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView = searchResultsCollectionViewController.collectionView
         navigationController?.isNavigationBarHidden = true
         title = CommonStrings.insertMediaTitle
         navigationItem.leftBarButtonItem = closeButton

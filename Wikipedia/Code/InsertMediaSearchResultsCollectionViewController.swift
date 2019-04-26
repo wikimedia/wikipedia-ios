@@ -67,7 +67,7 @@ final class InsertMediaSearchResult {
 }
 
 class InsertMediaSearchResultsCollectionViewController: ViewController {
-    private let collectionView: UICollectionView
+    let collectionView: UICollectionView
     private var flowLayout: FlowLayout {
         return collectionView.collectionViewLayout as! FlowLayout
     }
