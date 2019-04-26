@@ -270,7 +270,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 // MARK: - UITableViewDelegate
 
 extension ExploreFeedSettingsViewController {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard displayType == .multipleLanguages else {
             return
         }
