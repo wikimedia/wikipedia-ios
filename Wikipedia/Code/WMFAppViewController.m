@@ -900,8 +900,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                 userInitiated:NO
                                                    completion:^{
                                                    }];
-    } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
-        [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
+    } else {
+        if (locationAuthorized != [defaults wmf_locationAuthorized]) {
+            [self.dataStore.feedContentController updateContentSource:[WMFNearbyContentSource class] force:NO completion:NULL];
+        }
+        if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
+            [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
+        }
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
@@ -1486,6 +1491,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Last Read Article
 
 - (BOOL)shouldShowLastReadArticleOnLaunch {
+    if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
+        return NO;
+    }
+
     NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
     if (!lastRead) {
         return NO;
@@ -1628,7 +1637,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if ([[navigationController viewControllers] count] == 1) {
+    if (!self.isWaitingToResumeApp && [[navigationController viewControllers] count] == 1) {
         [[NSUserDefaults wmf] wmf_setOpenArticleURL:nil];
     }
 

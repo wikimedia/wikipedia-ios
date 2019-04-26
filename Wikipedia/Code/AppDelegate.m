@@ -80,6 +80,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
+    NSUserDefaults.wmf.shouldShowLastReadArticleOnResume = [self shouldShowLastReadArticleOnResume];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];
@@ -113,6 +114,17 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
         [self.appViewController hideSplashScreenAndResumeApp];
         self.appNeedsResume = false;
     }
+}
+
+- (BOOL)shouldShowLastReadArticleOnResume {
+    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
+    if (!resignActiveDate) {
+        return NO;
+    }
+    NSDate *becomeActiveDate = [[NSUserDefaults wmf] wmf_appBecomeActiveDate];
+    NSDate *cutoffDate = [[NSCalendar wmf_utcGregorianCalendar] nextDateAfterDate:resignActiveDate matchingHour:5 minute:0 second:0 options:NSCalendarMatchStrictly];
+    BOOL isBeforeCutoffDate = [becomeActiveDate compare:cutoffDate] == NSOrderedAscending;
+    return isBeforeCutoffDate;
 }
 
 #pragma mark - NSUserActivity Handling

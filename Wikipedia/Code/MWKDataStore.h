@@ -50,6 +50,8 @@ extern NSString *const WMFViewContextDidSave;
 
 - (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
 
+@property (readonly, strong, nonatomic) NSURL *containerURL;
+
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 - (BOOL)migrateToCoreData:(NSError **)error;
 - (void)performCoreDataMigrations:(dispatch_block_t)completion;

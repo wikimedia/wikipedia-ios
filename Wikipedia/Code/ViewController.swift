@@ -250,7 +250,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
         }
-        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
+        let contentInset = UIEdgeInsets(top: top, left: scrollView.contentInset.left, bottom: bottom, right: scrollView.contentInset.right)
         if scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled) {
             scrollViewInsetsDidChange()
         }

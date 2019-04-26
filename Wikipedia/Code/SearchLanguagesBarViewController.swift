@@ -8,6 +8,7 @@ class SearchLanguageButton: UnderlineButton {
     override func setup() {
         super.setup()
         titleLabel?.numberOfLines = 1
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
     }
 }
 
