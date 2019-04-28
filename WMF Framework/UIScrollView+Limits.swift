@@ -18,8 +18,7 @@ extension UIScrollView {
     }
 
     public var wmf_isAtTop: Bool {
-        // https://openradar.appspot.com/32547794
-        return contentOffset.y <= wmf_topOffsetY || (contentOffset.y - wmf_topOffsetY) < 1
+        return contentOffset.y <= wmf_topOffsetY
     }
 
     fileprivate var wmf_isAtBottom: Bool {
