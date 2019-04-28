@@ -134,6 +134,37 @@ final class InsertMediaViewController: ViewController {
         super.scrollViewInsetsDidChange()
         searchResultsCollectionViewController.scrollViewInsetsDidChange()
     }
+
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        if oldKeyboardFrame == nil, newKeyboardFrame != nil { // showing
+            isKeyboardShowing = true
+            setExtendedViewPercentHidden(0.5)
+        } else if
+            isKeyboardShowing,
+            let oldKeyboardFrame = oldKeyboardFrame,
+            let newKeyboardFrame = newKeyboardFrame,
+            newKeyboardFrame.origin.y > oldKeyboardFrame.origin.y { // hiding
+            isKeyboardShowing = false
+            setExtendedViewPercentHidden(0)
+        }
+    }
+
+    private var isKeyboardShowing = false
+
+    private func setExtendedViewPercentHidden(_ extendedViewPercentHidden: CGFloat) {
+        navigationBar.isExtendedViewFadingEnabled = false
+        UIView.animate(withDuration: 0.3, animations: {
+            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: 0, animated: true) {
+                self.useNavigationBarVisibleHeightForScrollViewInsets = true
+                self.navigationBar.isExtendedViewHidingEnabled = false
+                self.updateScrollViewInsets(preserveAnimation: true)
+            }
+        }, completion: { _ in
+            self.useNavigationBarVisibleHeightForScrollViewInsets = false
+            self.navigationBar.isExtendedViewFadingEnabled = true
+            self.navigationBar.isExtendedViewHidingEnabled = true
+        })
+    }
 }
 
 extension InsertMediaViewController: InsertMediaSearchViewControllerDelegate {
