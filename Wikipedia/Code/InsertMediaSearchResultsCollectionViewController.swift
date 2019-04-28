@@ -42,7 +42,13 @@ protocol InsertMediaSearchResultsCollectionViewControllerDelegate: AnyObject {
 }
 
 protocol InsertMediaSearchResultsCollectionViewControllerScrollDelegate: AnyObject {
-    func insertMediaSearchResultsCollectionViewControllerScrollViewDidScroll(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollView: UIScrollView)
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidScroll scrollView: UIScrollView)
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewWillBeginDragging scrollView: UIScrollView)
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewWillEndDragging scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidEndDecelerating scrollView: UIScrollView)
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidEndScrollingAnimation scrollView: UIScrollView)
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewShouldScrollToTop scrollView: UIScrollView) -> Bool
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidScrollToTop scrollView: UIScrollView)
 }
 
 final class InsertMediaSearchResult {
@@ -66,16 +72,14 @@ final class InsertMediaSearchResult {
     }
 }
 
-class InsertMediaSearchResultsCollectionViewController: ViewController {
-    let collectionView: UICollectionView
+class InsertMediaSearchResultsCollectionViewController: UICollectionViewController {
+    private var theme = Theme.standard
     private var flowLayout: FlowLayout {
         return collectionView.collectionViewLayout as! FlowLayout
     }
 
     weak var delegate: InsertMediaSearchResultsCollectionViewControllerDelegate?
     weak var scrollDelegate: InsertMediaSearchResultsCollectionViewControllerScrollDelegate?
-
-    var originalContentOffsetY: CGFloat = 0
 
     var searchResults = [InsertMediaSearchResult]() {
         didSet {
@@ -84,12 +88,9 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         }
     }
 
-    override init() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: FlowLayout())
-        super.init()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        scrollView = collectionView
+    init() {
+        super.init(collectionViewLayout: FlowLayout())
+        collectionView.contentInsetAdjustmentBehavior = .never
         title = CommonStrings.searchTitle
     }
 
@@ -100,15 +101,8 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(InsertMediaSearchResultCollectionViewCell.self, forCellWithReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier)
-        view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: flowLayout.minimumLineSpacing, right: 0)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         apply(theme: theme)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        originalContentOffsetY = collectionView.contentOffset.y
     }
 
     func reload() {
@@ -127,15 +121,13 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         searchResult.imageInfo = imageInfo
     }
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-        scrollDelegate?.insertMediaSearchResultsCollectionViewControllerScrollViewDidScroll(self, scrollView: scrollView)
-    }
-
     // MARK: Themeable
 
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
     }
@@ -167,7 +159,7 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
     }
 
     private var emptyViewFrame: CGRect {
-        let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
+        let insets = collectionView?.contentInset ?? UIEdgeInsets.zero
         let frame = view.bounds.inset(by: insets)
         return frame
     }
@@ -182,22 +174,51 @@ class InsertMediaSearchResultsCollectionViewController: ViewController {
         }
     }
 
-    override func scrollViewInsetsDidChange() {
-        super.scrollViewInsetsDidChange()
+    func scrollViewInsetsDidChange() {
         wmf_setEmptyViewFrame(emptyViewFrame)
+    }
+
+    // MARK: Scroll view delegate
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollDelegate?.insertMediaSearchResultsCollectionViewController(self, scrollViewDidScroll: scrollView)
+    }
+
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        scrollDelegate?.insertMediaSearchResultsCollectionViewController(self, scrollViewWillBeginDragging: scrollView)
+    }
+
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        scrollDelegate?.insertMediaSearchResultsCollectionViewController(self, scrollViewWillEndDragging: scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollDelegate?.insertMediaSearchResultsCollectionViewController(self, scrollViewDidEndDecelerating: scrollView)
+    }
+
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        scrollDelegate?.insertMediaSearchResultsCollectionViewController(self, scrollViewDidEndScrollingAnimation: scrollView)
+    }
+
+    override func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        return scrollDelegate?.insertMediaSearchResultsCollectionViewController(self, scrollViewShouldScrollToTop: scrollView) ?? true
+    }
+
+    override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        scrollDelegate?.insertMediaSearchResultsCollectionViewController(self, scrollViewDidScrollToTop: scrollView)
     }
 }
 
-extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension InsertMediaSearchResultsCollectionViewController {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchResults.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier, for: indexPath)
         guard let searchResultCell = cell as? InsertMediaSearchResultCollectionViewCell else {
             return cell
@@ -207,8 +228,8 @@ extension InsertMediaSearchResultsCollectionViewController: UICollectionViewData
     }
 }
 
-extension InsertMediaSearchResultsCollectionViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension InsertMediaSearchResultsCollectionViewController {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let searchResult = searchResults[indexPath.item]
         delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult)
     }
@@ -227,7 +248,7 @@ extension InsertMediaSearchResultsCollectionViewController {
         return indexPath
     }
 
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard
             let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
             let searchResult = searchResults[safeIndex: indexPath.item],
