@@ -138,13 +138,14 @@ final class InsertMediaSettingsViewController: ViewController {
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
         let isRTL = UIApplication.shared.wmf_isRTL
-        let buttonTitleWithoutChevron = WMFLocalizedString("insert-media-advanced-settings-button-title", value: "Advanced settings", comment: "Title for advanced settings button")
+        let buttonTitleWithoutChevron = InsertMediaAdvancedSettingsViewController.title
         let buttonTitleWithChevron = isRTL ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
         buttonView.buttonAction = { [weak self] _ in
             guard let self = self else {
                 return
             }
+            self.insertMediaAdvancedSettingsViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
         buttonView.autoresizingMask = []

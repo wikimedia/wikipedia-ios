@@ -378,7 +378,6 @@
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "info-box-title" = "The title of infoboxes – in collapsed and expanded form";
 "insert-action-title" = "Title for insert action";
-"insert-media-advanced-settings-button-title" = "Title for advanced settings button";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
 "insert-media-alternative-text-placeholder" = "Placeholder text for setting that allows users to add image alternative text";
 "insert-media-alternative-text-title" = "Title for setting that allows users to add image alternative text";

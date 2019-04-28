@@ -1,6 +1,7 @@
 import UIKit
 
 final class InsertMediaAdvancedSettingsViewController: ViewController {
+    static let title = WMFLocalizedString("advanced-settings-title", value: "Advanced settings", comment: "Title for advanced settings screen")
     private let tableView = UITableView()
 
     typealias AdvancedSettings = InsertMediaSettings.Advanced
@@ -78,7 +79,7 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
-        title = "Advanced settings"
+        title = InsertMediaAdvancedSettingsViewController.title
         apply(theme: theme)
     }
 
