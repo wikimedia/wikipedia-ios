@@ -144,21 +144,28 @@ final class InsertMediaViewController: ViewController {
 
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         if oldKeyboardFrame == nil, newKeyboardFrame != nil { // showing
-            isKeyboardShowing = true
-            setUnderBarViewPercentHidden(1)
+            setUnderBarViewPercentHidden(1) {
+                self.isKeyboardShowing = true
+            }
         } else if
             isKeyboardShowing,
             let oldKeyboardFrame = oldKeyboardFrame,
             let newKeyboardFrame = newKeyboardFrame,
             newKeyboardFrame.origin.y > oldKeyboardFrame.origin.y { // hiding
-            isKeyboardShowing = false
-            setUnderBarViewPercentHidden(0)
+            if let scrollView = scrollView, scrollView.isDragging {
+                updateScrollViewInsets(preserveAnimation: true)
+                isKeyboardShowing = false
+            } else {
+                setUnderBarViewPercentHidden(0) {
+                    self.isKeyboardShowing = false
+                }
+            }
         }
     }
 
     private var isKeyboardShowing = false
 
-    private func setUnderBarViewPercentHidden(_ underBarViewPercentHidden: CGFloat) {
+    private func setUnderBarViewPercentHidden(_ underBarViewPercentHidden: CGFloat, completion: @escaping () -> Void) {
         UIView.animate(withDuration: 0.3, animations: {
             self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true) {
                 self.useNavigationBarVisibleHeightForScrollViewInsets = true
@@ -168,6 +175,7 @@ final class InsertMediaViewController: ViewController {
         }, completion: { _ in
             self.useNavigationBarVisibleHeightForScrollViewInsets = false
             self.navigationBar.isUnderBarViewHidingEnabled = true
+            completion()
         })
     }
 }
