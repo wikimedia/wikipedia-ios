@@ -22,7 +22,11 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         return NavigationBarHider()
     }()
 
-    var keyboardFrame: CGRect?
+    var keyboardFrame: CGRect? {
+        didSet {
+            keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
+        }
+    }
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
     
@@ -274,12 +278,14 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             let windowFrame = window.convert(endFrame, from: nil)
             keyboardFrame = window.convert(windowFrame, to: view)
         }
+    }
+
+    open func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         updateScrollViewInsets()
     }
         
     @objc func keyboardDidHide(_ notification: Notification) {
         keyboardFrame = nil
-        updateScrollViewInsets()
     }
     
     // MARK: - Scrolling
