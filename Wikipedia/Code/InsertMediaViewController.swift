@@ -63,6 +63,13 @@ final class InsertMediaViewController: ViewController {
         scrollView = searchResultsCollectionViewController.collectionView
     }
 
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        if isKeyboardShowing {
+            setUnderBarViewPercentHidden(navigationBar.underBarViewPercentHidden)
+        }
+    }
+
     private var selectedImageViewHeightConstraint: NSLayoutConstraint?
 
     override func viewWillAppear(_ animated: Bool) {
@@ -165,7 +172,7 @@ final class InsertMediaViewController: ViewController {
 
     private var isKeyboardShowing = false
 
-    private func setUnderBarViewPercentHidden(_ underBarViewPercentHidden: CGFloat, completion: @escaping () -> Void) {
+    private func setUnderBarViewPercentHidden(_ underBarViewPercentHidden: CGFloat, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.3, animations: {
             self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true) {
                 self.useNavigationBarVisibleHeightForScrollViewInsets = true
@@ -175,7 +182,7 @@ final class InsertMediaViewController: ViewController {
         }, completion: { _ in
             self.useNavigationBarVisibleHeightForScrollViewInsets = false
             self.navigationBar.isUnderBarViewHidingEnabled = true
-            completion()
+            completion?()
         })
     }
 }
