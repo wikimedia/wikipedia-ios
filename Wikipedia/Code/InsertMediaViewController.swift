@@ -19,6 +19,7 @@ final class InsertMediaViewController: ViewController {
         searchViewController.progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
         searchViewController.delegate = self
         searchViewController.searchBarDelegate = self
+        searchResultsCollectionViewController.scrollDelegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -158,6 +159,39 @@ extension InsertMediaViewController: InsertMediaSearchViewControllerDelegate {
 extension InsertMediaViewController: InsertMediaSelectedImageViewControllerDelegate {
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, didSetSelectedImage selectedImage: UIImage?, from searchResult: InsertMediaSearchResult) {
         nextButton.isEnabled = true
+    }
+}
+
+extension InsertMediaViewController: InsertMediaSearchResultsCollectionViewControllerScrollDelegate {
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidScroll scrollView: UIScrollView) {
+        if isKeyboardShowing, scrollView.isDragging {
+            searchViewController.searchBar.resignFirstResponder()
+        }
+        scrollViewDidScroll(scrollView)
+    }
+
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewWillBeginDragging scrollView: UIScrollView) {
+        scrollViewWillBeginDragging(scrollView)
+    }
+
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewWillEndDragging scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidEndDecelerating scrollView: UIScrollView) {
+        scrollViewDidEndDecelerating(scrollView)
+    }
+
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidEndScrollingAnimation scrollView: UIScrollView) {
+        scrollViewDidEndScrollingAnimation(scrollView)
+    }
+
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewShouldScrollToTop scrollView: UIScrollView) -> Bool {
+        return scrollViewShouldScrollToTop(scrollView)
+    }
+
+    func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidScrollToTop scrollView: UIScrollView) {
+        scrollViewDidScrollToTop(scrollView)
     }
 }
 
