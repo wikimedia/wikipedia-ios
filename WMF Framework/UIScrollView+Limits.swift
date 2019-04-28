@@ -25,18 +25,22 @@ extension UIScrollView {
         return contentOffset.y >= wmf_bottomOffsetY
     }
 
-    @objc public func wmf_setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true) -> Bool {
+    @objc public func wmf_setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true, preserveAnimation: Bool = false) -> Bool {
         guard updatedContentInset != contentInset || updatedScrollIndicatorInsets != scrollIndicatorInsets else {
             return false
         }
         let wasAtTop = wmf_isAtTop
         let wasAtBottom = wmf_isAtBottom
         scrollIndicatorInsets = updatedScrollIndicatorInsets
-        
-        let wereAnimationsEnabled = UIView.areAnimationsEnabled
-        UIView.setAnimationsEnabled(false)
-        contentInset = updatedContentInset
-        UIView.setAnimationsEnabled(wereAnimationsEnabled)
+
+        if preserveAnimation {
+            contentInset = updatedContentInset
+        } else {
+            let wereAnimationsEnabled = UIView.areAnimationsEnabled
+            UIView.setAnimationsEnabled(false)
+            contentInset = updatedContentInset
+            UIView.setAnimationsEnabled(wereAnimationsEnabled)
+        }
         
         guard preserveContentOffset else {
             return true
