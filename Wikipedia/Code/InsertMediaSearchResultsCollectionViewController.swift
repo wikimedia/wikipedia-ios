@@ -102,6 +102,7 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
         super.viewDidLoad()
         collectionView.register(InsertMediaSearchResultCollectionViewCell.self, forCellWithReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier)
         additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: flowLayout.minimumLineSpacing, right: 0)
+        registerForPreviewing(with: self, sourceView: collectionView)
         apply(theme: theme)
     }
 
@@ -235,11 +236,14 @@ extension InsertMediaSearchResultsCollectionViewController {
     }
 }
 
-extension InsertMediaSearchResultsCollectionViewController {
+extension InsertMediaSearchResultsCollectionViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        //
+    }
+
     final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
-        let translatedLocation = view.convert(location, to: collectionView)
         guard
-            let indexPath = collectionView.indexPathForItem(at: translatedLocation),
+            let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath)
         else {
             return nil
