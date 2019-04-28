@@ -19,8 +19,6 @@ class SectionEditorViewController: UIViewController {
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
 
-    private var insertMediaViewController: InsertMediaViewController?
-    
     lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
@@ -576,10 +574,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        insertMediaViewController = InsertMediaViewController(articleTitle: section?.titleText, siteURL: section?.article?.url.wmf_site)
-        guard let insertMediaViewController = insertMediaViewController else {
-            return
-        }
+        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.titleText, siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
         present(navigationController, animated: true)
@@ -588,12 +583,10 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
 
 extension SectionEditorViewController: InsertMediaViewControllerDelegate {
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
-        self.insertMediaViewController = nil
         dismiss(animated: true)
     }
 
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
-        self.insertMediaViewController = nil
         dismiss(animated: true)
         messagingController.replaceSelection(text: wikitext)
     }
