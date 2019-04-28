@@ -129,6 +129,11 @@ final class InsertMediaViewController: ViewController {
         closeButton.tintColor = theme.colors.primaryText
         nextButton.tintColor = theme.colors.link
     }
+
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        searchResultsCollectionViewController.scrollViewInsetsDidChange()
+    }
 }
 
 extension InsertMediaViewController: InsertMediaSearchViewControllerDelegate {
