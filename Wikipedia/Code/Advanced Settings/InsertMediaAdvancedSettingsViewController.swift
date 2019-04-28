@@ -47,24 +47,26 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
             guard let self = self else {
                 return
             }
-            self.imagePositionSettingsViewController.apply(theme: self.theme)
-            self.navigationController?.pushViewController(self.imagePositionSettingsViewController, animated: true)
+            self.push(self.imagePositionSettingsViewController)
         }
         let imageTypeViewModel = ViewModel(title: AdvancedSettings.ImageType.displayTitle, detailText: imageTypeSettingsViewController.selectedImageType.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
-            self.imageTypeSettingsViewController.apply(theme: self.theme)
-            self.navigationController?.pushViewController(self.imageTypeSettingsViewController, animated: true)
+            self.push(self.imageTypeSettingsViewController)
         }
         let imageSizeViewModel = ViewModel(title: AdvancedSettings.ImageSize.displayTitle, detailText: imageSizeSettingsViewController.selectedImageSize.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
-            self.imageSizeSettingsViewController.apply(theme: self.theme)
-           self.navigationController?.pushViewController(self.imageSizeSettingsViewController, animated: false)
+            self.push(self.imageSizeSettingsViewController)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
+    }
+
+    private func push(_ viewController: UIViewController & Themeable) {
+        viewController.apply(theme: theme)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     @objc private func toggleImagePositionEnabledState(_ sender: UISwitch) {
