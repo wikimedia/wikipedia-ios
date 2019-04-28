@@ -73,6 +73,7 @@ final class InsertMediaImageTypeSettingsViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = view.backgroundColor
         tableView.separatorColor = theme.colors.border
         (autolayoutTableViewFooter as? Themeable)?.apply(theme: theme)
     }

@@ -99,6 +99,7 @@ final class InsertMediaImageSizeSettingsViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = view.backgroundColor
         tableView.separatorColor = theme.colors.border
     }
 }
