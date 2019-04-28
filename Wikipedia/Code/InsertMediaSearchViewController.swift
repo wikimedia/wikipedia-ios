@@ -5,7 +5,7 @@ protocol InsertMediaSearchViewControllerDelegate: InsertMediaViewController {
 }
 
 final class InsertMediaSearchViewController: UIViewController {
-    private let searchBar = UISearchBar()
+    let searchBar = UISearchBar()
 
     private let articleTitle: String?
     private let siteURL: URL?
@@ -38,6 +38,7 @@ final class InsertMediaSearchViewController: UIViewController {
         searchBar.placeholder = articleTitle ?? CommonStrings.searchTitle
         searchBar.returnKeyType = .done
         searchBar.searchBarStyle = .minimal
+        searchBar.enablesReturnKeyAutomatically = false
         searchBar.delegate = searchBarDelegate
         view.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
         apply(theme: theme)
