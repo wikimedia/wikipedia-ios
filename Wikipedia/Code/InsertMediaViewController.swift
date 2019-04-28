@@ -4,7 +4,7 @@ protocol InsertMediaViewControllerDelegate: AnyObject {
 }
 
 final class InsertMediaViewController: ViewController {
-    private let extendedViewController: InsertMediaExtendedViewController
+    private let selectedImageViewController = InsertMediaSelectedImageViewController()
     private let searchViewController: InsertMediaSearchViewController
     private let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
 
@@ -12,10 +12,9 @@ final class InsertMediaViewController: ViewController {
 
     init(articleTitle: String?, siteURL: URL?) {
         searchViewController = InsertMediaSearchViewController(articleTitle: articleTitle, siteURL: siteURL)
-        extendedViewController = InsertMediaExtendedViewController(searchViewController: searchViewController)
-        searchResultsCollectionViewController.delegate = extendedViewController.selectedImageViewController
+        searchResultsCollectionViewController.delegate = selectedImageViewController
         super.init()
-        extendedViewController.selectedImageViewController.delegate = self
+        selectedImageViewController.delegate = self
         searchViewController.progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
         searchViewController.delegate = self
         searchViewController.searchBarDelegate = self
@@ -47,30 +46,38 @@ final class InsertMediaViewController: ViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
         navigationBar.displayType = .modal
         navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.isExtendedViewHidingEnabled = true
-        addChild(extendedViewController)
-        navigationBar.addExtendedNavigationBarView(extendedViewController.view)
-        extendedViewController.didMove(toParent: self)
+
+        addChild(selectedImageViewController)
+        navigationBar.addUnderNavigationBarView(selectedImageViewController.view)
+        selectedImageViewController.didMove(toParent: self)
+
+        addChild(searchViewController)
+        navigationBar.addExtendedNavigationBarView(searchViewController.view)
+        searchViewController.didMove(toParent: self)
+
         wmf_add(childController: searchResultsCollectionViewController, andConstrainToEdgesOfContainerView: view)
+
         additionalSafeAreaInsets = searchResultsCollectionViewController.additionalSafeAreaInsets
         scrollView = searchResultsCollectionViewController.collectionView
     }
 
-    private var extendedViewHeightConstraint: NSLayoutConstraint?
+    private var selectedImageViewHeightConstraint: NSLayoutConstraint?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if extendedViewHeightConstraint == nil {
-            extendedViewHeightConstraint = extendedViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
-            extendedViewHeightConstraint?.isActive = true
+        if selectedImageViewHeightConstraint == nil {
+            selectedImageViewHeightConstraint = selectedImageViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+            selectedImageViewHeightConstraint?.isActive = true
         }
     }
 
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
         guard
             let navigationController = navigationController,
-            let image = extendedViewController.selectedImage,
-            let selectedSearchResult = extendedViewController.selectedSearchResult
+            let image = selectedImageViewController.image,
+            let selectedSearchResult = selectedImageViewController.searchResult
         else {
             assertionFailure("Selected image and search result should be set by now")
             return
@@ -124,7 +131,7 @@ final class InsertMediaViewController: ViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        extendedViewController.apply(theme: theme)
+        selectedImageViewController.apply(theme: theme)
         searchResultsCollectionViewController.apply(theme: theme)
         closeButton.tintColor = theme.colors.primaryText
         nextButton.tintColor = theme.colors.link
@@ -138,31 +145,29 @@ final class InsertMediaViewController: ViewController {
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         if oldKeyboardFrame == nil, newKeyboardFrame != nil { // showing
             isKeyboardShowing = true
-            setExtendedViewPercentHidden(0.5)
+            setUnderBarViewPercentHidden(1)
         } else if
             isKeyboardShowing,
             let oldKeyboardFrame = oldKeyboardFrame,
             let newKeyboardFrame = newKeyboardFrame,
             newKeyboardFrame.origin.y > oldKeyboardFrame.origin.y { // hiding
             isKeyboardShowing = false
-            setExtendedViewPercentHidden(0)
+            setUnderBarViewPercentHidden(0)
         }
     }
 
     private var isKeyboardShowing = false
 
-    private func setExtendedViewPercentHidden(_ extendedViewPercentHidden: CGFloat) {
-        navigationBar.isExtendedViewFadingEnabled = false
+    private func setUnderBarViewPercentHidden(_ underBarViewPercentHidden: CGFloat) {
         UIView.animate(withDuration: 0.3, animations: {
-            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: 0, animated: true) {
+            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true) {
                 self.useNavigationBarVisibleHeightForScrollViewInsets = true
-                self.navigationBar.isExtendedViewHidingEnabled = false
+                self.navigationBar.isUnderBarViewHidingEnabled = false
                 self.updateScrollViewInsets(preserveAnimation: true)
             }
         }, completion: { _ in
             self.useNavigationBarVisibleHeightForScrollViewInsets = false
-            self.navigationBar.isExtendedViewFadingEnabled = true
-            self.navigationBar.isExtendedViewHidingEnabled = true
+            self.navigationBar.isUnderBarViewHidingEnabled = true
         })
     }
 }
