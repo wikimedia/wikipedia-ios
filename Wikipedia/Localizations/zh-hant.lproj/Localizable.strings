@@ -337,7 +337,6 @@
 "fetcher-error-unexpected-response" = "應用程式收到來自伺服器的異常回應。請稍後重試。";
 "field-alert-captcha-invalid" = "無效驗證碼";
 "field-alert-password-confirm-mismatch" = "密碼不符合";
-"field-alert-password-invalid" = "無效密碼";
 "field-alert-token-invalid" = "無效代碼";
 "field-alert-username-unavailable" = "使用者名稱不可用";
 "field-backup-token-title" = "備份代碼";

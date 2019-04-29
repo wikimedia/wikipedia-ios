@@ -208,7 +208,6 @@
 "feed-news-notification-text" = "Activa los avisos pa recibir avisos de Wikipedia cuando los artículos seyan tendencia nes noticies.";
 "field-alert-captcha-invalid" = "CAPTCHA inválidu";
 "field-alert-password-confirm-mismatch" = "Les contraseñes nun casen";
-"field-alert-password-invalid" = "Contraseña inválida";
 "field-alert-token-invalid" = "Códigu inválidu";
 "field-alert-username-unavailable" = "El nome d'usuariu nun ta disponible";
 "field-backup-token-title" = "Códigu de respaldu";

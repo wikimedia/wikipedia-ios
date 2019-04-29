@@ -188,7 +188,6 @@
 "feed-news-notification-text" = "Ενεργοποίηση της ειδοποίησης ειδοποίησεων από την Βικιπαίδεια όταν τα λήμματα είναι στις ειδήσεις.";
 "field-alert-captcha-invalid" = "Μη έγκυρο CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Οι κωδικοί πρόσβασης δεν αντιστοιχούν.";
-"field-alert-password-invalid" = "Άκυρος κωδικός πρόσβασης.";
 "field-alert-token-invalid" = "Μη έγκυρος κωδικός";
 "field-alert-username-unavailable" = "Όνομα χρήστη μη διαθέσιμο";
 "field-backup-token-title" = "Κωδικός αντίγραφου ασφαλείας";

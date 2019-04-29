@@ -173,7 +173,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    // keep @objc on UITableViewDelegate methods otherwise they aren't called on release builds
+    @objc public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let item = sections[indexPath.section].items[indexPath.item]
         guard let customViewItem = item as? AppearanceSettingsCustomViewItem else {
             return
@@ -192,7 +193,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    @objc public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let customViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem {
             return customViewItem.viewController.view.frame.height
         } else if let spacerViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsSpacerViewItem {
@@ -201,7 +202,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         return tableView.rowHeight
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @objc public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem else {
             return
         }
@@ -209,18 +210,14 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         tableView.reloadData()
     }
     
-    public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    @objc public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         guard sections[indexPath.section].items[indexPath.item] is AppearanceSettingsCheckmarkItem else {
             return nil
         }
         return indexPath
     }
     
-    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-
-    }
-    
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    @objc public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currentAppTheme = UserDefaults.wmf.wmf_appTheme
         
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
@@ -256,11 +253,11 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
     }
     
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    @objc public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].headerTitle
     }
     
-    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    @objc public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sections[section].footerText
     }
 

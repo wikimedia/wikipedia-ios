@@ -308,7 +308,6 @@
 "fetcher-error-unexpected-response" = "Aplikasi ini menerima sambutan yang tidak dijangka daripada pelayan. Sila cuba sebentar lagi.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sah";
 "field-alert-password-confirm-mismatch" = "Kata laluan tidak sepadan";
-"field-alert-password-invalid" = "Kata laluan tidak sah";
 "field-alert-token-invalid" = "Kod tidak sah";
 "field-alert-username-unavailable" = "Nama pengguna tidak tersedia";
 "field-backup-token-title" = "Kod sandaran";

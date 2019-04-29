@@ -345,7 +345,6 @@
 "fetcher-error-unexpected-response" = "Uygulama, sunucudan beklenmeyen bir cevap aldı. Lütfen daha sonra tekrar deneyin.";
 "field-alert-captcha-invalid" = "Geçersiz CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Parolalar eşleşmiyor";
-"field-alert-password-invalid" = "Geçersiz parola";
 "field-alert-token-invalid" = "Geçersiz kod";
 "field-alert-username-unavailable" = "Kullanıcı adı kullanılamaz";
 "field-backup-token-title" = "Yedek kod";
