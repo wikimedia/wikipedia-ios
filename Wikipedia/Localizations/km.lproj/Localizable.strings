@@ -154,7 +154,6 @@
 "feed-news-notification-text" = "បើកប្រើសារជូនដំណឹងដើម្បីអោយវិគីភីឌាជូនដំណឹងមក ពេលដែលអត្ថបទមានការពេញនិយមនៅលើសារព័ត៌មាន។";
 "field-alert-captcha-invalid" = "CAPTCHA មិនត្រឹមត្រូវ";
 "field-alert-password-confirm-mismatch" = "ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ";
-"field-alert-password-invalid" = "ពាក្យសម្ងាត់មិនត្រឹមត្រូវ";
 "field-alert-token-invalid" = "លេខកូដមិនត្រឹមត្រូវ";
 "field-alert-username-unavailable" = "ឈ្មោះអ្នកប្រើប្រាស់ប្រើមិនបាន";
 "field-backup-token-title" = "លេខកូដបម្រុង";

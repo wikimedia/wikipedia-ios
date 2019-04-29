@@ -92,7 +92,7 @@
 "appearance-settings-adjust-text-sizing" = "Tilpass tekststørrelsen i artikler";
 "appearance-settings-expand-tables" = "Utvid tabeller";
 "appearance-settings-expand-tables-footer" = "Setter alle tabeller i alle artikler til å være åpne som standard, inkludert raske fakta, referanser, merknader og eksterne lenker.";
-"appearance-settings-image-dimming-footer" = "Senk gjennomsiktigheten til bilder i den mørke og svarte drakten";
+"appearance-settings-image-dimming-footer" = "Reduser lysstyrken til bilder i den mørke og svarte drakten";
 "appearance-settings-reading-themes" = "Lesedrakter";
 "appearance-settings-set-automatic-table-opening" = "Tabellinnstillinger";
 "appearance-settings-text-sizing-example-text" = "Dra glidebryteren for å endre tekststørrelsen i artikler. Bruker systemets tekststørrelse for å endre størrelsen på andre tekstfelter i appen.";
@@ -302,7 +302,7 @@
 "explore-feed-preferences-turn-off-explore-tab-message" = "Utforskingsfanen kan skrus på igjen fra innstillingene";
 "explore-feed-preferences-turn-off-explore-tab-title" = "Skru av utforskingsfanen?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Ved å skru av utforskingsfanen vil fanen bli erstattet av en innstillingsfane.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Gjennom å velge å vise utforskingskort skrur du på utforskingsfanen";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ved å vise utforskingskort skrur du på utforskingsfanen.";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Skru på utforsking";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Dette vil erstatte innstillingsfanen med en utforskingsfane. Du finner innstillinger på toppen av utforskingsfanen ved å trykke på tannhjulikonet.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Skru på utforskingsfanen?";
@@ -332,7 +332,6 @@
 "fetcher-error-unexpected-response" = "Appen mottok en uventet respons fra serveren. Prøv igjen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passordene er ikke like";
-"field-alert-password-invalid" = "Ugyldig passord";
 "field-alert-token-invalid" = "Ugyldig kode";
 "field-alert-username-unavailable" = "Brukernavnet er ikke tilgjengelig";
 "field-backup-token-title" = "Reservekode";
@@ -643,7 +642,7 @@
 "settings-notifications-trending" = "Populære aktuelle hendelser";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første språket i denne lista brukes som primærspråk for appen.";
-"settings-search-footer-text" = "Still inn appen til å vise en søkefane i stedet for en utforskingsfane";
+"settings-search-footer-text" = "Still inn appen til å starte i søkefanen i stedet for utforskingsfanen";
 "settings-search-open-app-on-search" = "Start appen i søkefanen";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillat at Wikimedia lagrer de lagrede artiklene og leselistene dine i brukerkontoen din når du logger inn og synkroniserer.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser lagrede artikler og lister";
@@ -657,7 +656,7 @@
 "settings-storage-and-syncing-server-sync-title" = "Oppdater synkroniserte leselister";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Vis standardleselisten «Lagret» som en egen liste i leselistevisningen. Denne listen vises på Android-enheter.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Vis standardleselisten «Lagret»";
-"settings-storage-and-syncing-title" = "Lagring og synkronisering av artikler";
+"settings-storage-and-syncing-title" = "Lagring og synkronisering";
 "settings-support" = "Støtt Wikipedia";
 "settings-title" = "Innstillinger";
 "share-a-fact-made-with" = "Laget med Wikipedia-appen";
@@ -690,7 +689,7 @@
 "top-read-header-with-language" = "Wikipedia på $1";
 "top-read-see-more" = "Se flere populære artikler";
 "two-factor-login-continue" = "Fortsett innlogging";
-"two-factor-login-instructions" = "Fyll inn bekreftelseskoden for totrinns pålogging";
+"two-factor-login-instructions" = "Fyll inn bekreftelseskoden for totrinnspålogging";
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";

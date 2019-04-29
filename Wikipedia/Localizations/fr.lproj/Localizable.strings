@@ -343,7 +343,6 @@
 "fetcher-error-unexpected-response" = "L'application a reçu une réponse inattendue du serveur. Veuillez réessayer ultérieurement.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
 "field-alert-password-confirm-mismatch" = "Les mots de passe ne correspondent pas";
-"field-alert-password-invalid" = "Mot de passe non valide";
 "field-alert-token-invalid" = "Code non valide";
 "field-alert-username-unavailable" = "Nom d’utilisateur non disponible";
 "field-backup-token-title" = "Code de sauvegarde";

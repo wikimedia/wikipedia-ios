@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: GBeecham
 // Author: Kwekubo
+// Author: Smirkybec
 // Author: Tem
 
 "about-content-license" = "Ceadúnas inneachair";
@@ -204,7 +205,6 @@
 "feed-news-notification-button-text" = "Cas air fógraí";
 "field-alert-captcha-invalid" = "CAPTCHA neamhbhailí";
 "field-alert-password-confirm-mismatch" = "Níl na pasfhocail ag teacht le chéile";
-"field-alert-password-invalid" = "Pasfhocal neamhbhailí";
 "field-alert-token-invalid" = "Cód neamhbhailí";
 "field-alert-username-unavailable" = "Níl ainm úsáideora ar fáil";
 "field-backup-token-title" = "Cód cúltaca";
@@ -259,6 +259,9 @@
 "in-the-news-title" = "Sa nuacht";
 "info-box-close-text" = "Dún";
 "info-box-title" = "Fíricí Gasta";
+"insert-action-title" = "Ionsáigh";
+"insert-media-image-preview-more-information-action-title" = "Tuilleadh eolais";
+"insert-media-image-size-setting-default" = "Réamhshocrú";
 "languages-settings-title" = "Teangacha";
 "languages-title" = "Athraigh teanga";
 "languages-wikipedia" = "Teangacha Vicipéide";

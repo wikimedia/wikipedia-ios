@@ -123,7 +123,6 @@
 "feed-news-notification-button-text" = "जानकारीहरू बन्द गर्नुहोस्";
 "field-alert-captcha-invalid" = "अमान्य CAPTCHA";
 "field-alert-password-confirm-mismatch" = "पासवर्डहरू मिलेनन्";
-"field-alert-password-invalid" = "अमान्य पासवर्ड";
 "field-alert-token-invalid" = "अमान्य कोड";
 "field-alert-username-unavailable" = "प्रयोगकर्ता नाम उपलब्ध छैन";
 "field-backup-token-title" = "जगेडा कोड";

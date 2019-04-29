@@ -299,7 +299,6 @@
 "fetcher-error-generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
-"field-alert-password-invalid" = "Salasana ei kelpaa";
 "field-alert-token-invalid" = "Koodi ei kelpaa";
 "field-alert-username-unavailable" = "Käyttäjänimi ei ole saatavilla";
 "field-backup-token-title" = "Varmuuskopiointikoodi";

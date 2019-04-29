@@ -132,7 +132,6 @@
 "feed-news-notification-text" = "Rmed ilɣa yettwaznen sɣur Wikipedia ticki imagraden skanayen talɣa n isallen.";
 "field-alert-captcha-invalid" = "Yir CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Awalen uffiren ur menṭaḍen ara";
-"field-alert-password-invalid" = "Yir awal uffir";
 "field-alert-token-invalid" = "Yir tangalt";
 "field-alert-username-unavailable" = "Ulac isem n useqdac";
 "field-backup-token-title" = "Tangalt n tririt";

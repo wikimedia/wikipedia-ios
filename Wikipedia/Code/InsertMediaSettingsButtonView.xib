@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InsertMediaSettingsButtonView" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="354" height="61"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ixc-Bu-aNR">
+                    <rect key="frame" x="0.0" y="0.0" width="354" height="0.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="Mh3-mG-Lqh"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kG-VA-g9G">
+                    <rect key="frame" x="12" y="12.5" width="330" height="44.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                    <state key="normal" title="Advanced settings"/>
+                    <connections>
+                        <action selector="delegateButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="IJ5-vA-DT3"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Lr7-GY-Xmw" firstAttribute="bottom" secondItem="5kG-VA-g9G" secondAttribute="bottomMargin" constant="12" id="6FJ-yC-zCC"/>
+                <constraint firstItem="Ixc-Bu-aNR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JUC-eA-ieV"/>
+                <constraint firstItem="5kG-VA-g9G" firstAttribute="leading" secondItem="Lr7-GY-Xmw" secondAttribute="leading" constant="12" id="L7p-wu-69I"/>
+                <constraint firstItem="Lr7-GY-Xmw" firstAttribute="trailing" secondItem="5kG-VA-g9G" secondAttribute="trailing" constant="12" id="PSl-mP-t5T"/>
+                <constraint firstItem="Ixc-Bu-aNR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RQO-VR-Twd"/>
+                <constraint firstItem="5kG-VA-g9G" firstAttribute="top" secondItem="Ixc-Bu-aNR" secondAttribute="bottom" constant="12" id="i8W-Df-GQB"/>
+                <constraint firstAttribute="trailing" secondItem="Ixc-Bu-aNR" secondAttribute="trailing" id="pbm-Ei-yUq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Lr7-GY-Xmw"/>
+            <connections>
+                <outlet property="button" destination="5kG-VA-g9G" id="0eU-yI-hqH"/>
+                <outlet property="separatorView" destination="Ixc-Bu-aNR" id="St6-8d-RG3"/>
+            </connections>
+            <point key="canvasLocation" x="17.600000000000001" y="-240.62968515742131"/>
+        </view>
+    </objects>
+</document>

@@ -53,11 +53,9 @@
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "자동화된 필터가 이 편집을 잠재적으로 비생산적이거나 훼손 시도를 한 것으로 식별합니다.";
 "abuse-filter-warning-blanking" = "문서 전체 혹은 문단을 지움";
-// Fuzzy
-"abuse-filter-warning-caps" = "모두 대문자로 입력";
+"abuse-filter-warning-caps" = "모두 대문자";
 "abuse-filter-warning-heading" = "비생산적인 편집인 것 같습니다. 그래도 게시하겠습니까?";
 "abuse-filter-warning-irrelevant" = "관련 없는 외부 링크나 그림";
-// Fuzzy
 "abuse-filter-warning-repeat" = "글자 반복";
 "abuse-filter-warning-subheading" = "당신의 편집은 다음을 포함할 수 있습니다:";
 "account-creation-captcha-cannot-see-image" = "사진이 보이지 않습니까? $1";
@@ -76,7 +74,6 @@
 "action-add-to-reading-list" = "읽기 목록에 추가";
 "action-add-to-reading-list-short" = "목록에 추가";
 "action-cancel" = "취소";
-// Fuzzy
 "action-find-in-page" = "문서에서 찾기";
 "action-move-to" = "이동...";
 "action-move-to-reading-list" = "읽기 목록으로 이동";
@@ -92,7 +89,6 @@
 "action-share" = "공유";
 "action-share-accessibility" = "공유";
 "action-sort" = "정렬";
-// Fuzzy
 "action-undo" = "실행 취소";
 "action-unsave" = "저장하지 않음";
 "action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
@@ -180,6 +176,10 @@
 "edit-bold-accessibility-label" = "굵은 서식 추가";
 "edit-bold-remove-accessibility-label" = "굵은 서식 제거";
 "edit-clear-formatting-accessibility-label" = "서식 제거";
+"edit-direction-down-accessibility-label" = "커서를 아래로 이동";
+"edit-direction-left-accessibility-label" = "커서를 왼쪽으로 이동";
+"edit-direction-right-accessibility-label" = "커서를 오른쪽으로 이동";
+"edit-direction-up-accessibility-label" = "커서를 위로 이동";
 "edit-italic-accessibility-label" = "기울임 서식 추가";
 "edit-link-accessibility-label" = "링크 문법 추가";
 "edit-link-remove-accessibility-label" = "링크 문법 제거";
@@ -202,6 +202,7 @@
 "edit-summary-choice-linked-words" = "링크를 추가";
 "edit-summary-learn-more-text" = "더 알아보기";
 "edit-summary-placeholder-text" = "어떻게 문서를 개선했습니까?";
+"edit-template-accessibility-label" = "틀 문법 추가";
 "edit-template-remove-accessibility-label" = "틀 문법 제거";
 "edit-text-clear-formatting" = "서식 지우기";
 "edit-text-formatting-table-view-title" = "텍스트 서식 지정";
@@ -315,7 +316,6 @@
 "fetcher-error-unexpected-response" = "앱은 서버로부터 예기치 않은 응답을 받았습니다. 나중에 다시 시도해 주십시오.";
 "field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
 "field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
-"field-alert-password-invalid" = "유효하지 않은 비밀번호";
 "field-alert-token-invalid" = "유효하지 않은 코드입니다";
 "field-alert-username-unavailable" = "사용자 이름을 사용할 수 없습니다";
 "field-backup-token-title" = "백업 코드";
@@ -417,6 +417,8 @@
 "new-password-title" = "비밀번호 설정";
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "no-internet-connection" = "인터넷 연결 없음";
+"no-internet-connection-article-reload" = "이 문서의 더 새로운 판을 볼 수 있으나 인터넷에 연결되지 않으면 불러올 수 없습니다";
+"no-internet-connection-article-reload-button" = "마지막으로 저장한 판으로 돌아가기";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -563,6 +565,7 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=올해|1=지난해|$1년 전}}";
+"replace-button-accessibility" = "$1을(를) 수행합니다.";
 "replace-buttons-replace-all-accessibility" = "모든 인스턴스 바꾸기";
 "replace-infolabel-method-replace" = "바꾸기";
 "replace-infolabel-method-replace-all" = "모두 바꾸기";

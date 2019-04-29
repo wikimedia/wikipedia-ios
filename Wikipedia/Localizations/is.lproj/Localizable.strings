@@ -323,7 +323,6 @@
 "fetcher-error-unexpected-response" = "Forritið fékk óvænt svar frá þjóninum. Prófaðu aftur síðar.";
 "field-alert-captcha-invalid" = "Ógilt CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lykilorðin stemma ekki";
-"field-alert-password-invalid" = "Ógilt lykilorð";
 "field-alert-token-invalid" = "Ógildur kóði";
 "field-alert-username-unavailable" = "Notandanafnið er ekki tiltækt";
 "field-backup-token-title" = "Öryggiskóði";
