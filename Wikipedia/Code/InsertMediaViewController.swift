@@ -63,13 +63,6 @@ final class InsertMediaViewController: ViewController {
         scrollView = searchResultsCollectionViewController.collectionView
     }
 
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        if isKeyboardShowing {
-            setUnderBarViewPercentHidden(navigationBar.underBarViewPercentHidden)
-        }
-    }
-
     private var selectedImageViewHeightConstraint: NSLayoutConstraint?
 
     override func viewWillAppear(_ animated: Bool) {
@@ -139,6 +132,7 @@ final class InsertMediaViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         selectedImageViewController.apply(theme: theme)
+        searchViewController.apply(theme: theme)
         searchResultsCollectionViewController.apply(theme: theme)
         closeButton.tintColor = theme.colors.primaryText
         nextButton.tintColor = theme.colors.link
@@ -160,11 +154,15 @@ final class InsertMediaViewController: ViewController {
             let newKeyboardFrame = newKeyboardFrame,
             newKeyboardFrame.origin.y > oldKeyboardFrame.origin.y { // hiding
             if let scrollView = scrollView, scrollView.isDragging {
+                navigationBar.isUnderBarViewHidingEnabled = true
+                useNavigationBarVisibleHeightForScrollViewInsets = false
                 updateScrollViewInsets(preserveAnimation: true)
                 isKeyboardShowing = false
             } else {
                 setUnderBarViewPercentHidden(0) {
                     self.isKeyboardShowing = false
+                    self.navigationBar.isUnderBarViewHidingEnabled = true
+                    self.useNavigationBarVisibleHeightForScrollViewInsets = false
                 }
             }
         }
@@ -180,8 +178,6 @@ final class InsertMediaViewController: ViewController {
                 self.updateScrollViewInsets(preserveAnimation: true)
             }
         }, completion: { _ in
-            self.useNavigationBarVisibleHeightForScrollViewInsets = false
-            self.navigationBar.isUnderBarViewHidingEnabled = true
             completion?()
         })
     }
