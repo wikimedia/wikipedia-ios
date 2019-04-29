@@ -214,6 +214,17 @@
 "in-the-news-title" = "W wiadomościach";
 "info-box-close-text" = "Zamknij";
 "info-box-title" = "Szybkie fakty";
+"insert-media-advanced-settings-button-title" = "Zaawansowane ustawienia";
+"insert-media-alternative-text-placeholder" = "Opisz ten obraz";
+"insert-media-caption-description" = "Etykieta wyświetlana obok elementu dla wszystkich czytelników";
+"insert-media-caption-title" = "Podpis";
+"insert-media-image-position-settings-title" = "Pozycja obrazu";
+"insert-media-image-preview-more-information-action-title" = "Więcej informacji";
+"insert-media-image-preview-select-image-action-title" = "Wybierz obraz";
+"insert-media-image-size-settings-px-unit-name" = "px";
+"insert-media-image-size-settings-title" = "Rozmiar obrazu";
+"insert-media-placeholder-label-text" = "Wybierz lub prześlij plik";
+"insert-media-uploaded-image-title" = "Przesłany obraz";
 "languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";
 "languages-wikipedia" = "Języki Wikipedii";
@@ -385,6 +396,8 @@
 "wikitext-downloading" = "Wczytywanie treści...";
 "wikitext-preview-changes" = "Uzyskiwanie podglądu wprowadzonych zmian...";
 "wikitext-preview-changes-none" = "Nie wprowadzono żadnych zmian, które można było by zobaczyć.";
+"wikitext-preview-link-external-preview-title" = "Link zewnętrzny";
+"wikitext-preview-link-not-found-preview-description" = "Na Wikipedii nie ma artykułu o dokładnie takiej nazwie";
 "wikitext-preview-link-preview-description" = "Ten link prowadzi do '$1'";
 "wikitext-preview-link-preview-title" = "Podgląd linku";
 "wikitext-upload-captcha-error" = "Błąd weryfikacji CAPTCHA.";

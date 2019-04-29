@@ -396,6 +396,13 @@
 "in-the-news-title" = "Actualitat";
 "info-box-close-text" = "Tanca";
 "info-box-title" = "Dades ràpides";
+"insert-media-alternative-text-title" = "Text alternatiu";
+"insert-media-caption-title" = "Peu d’imatge";
+"insert-media-image-position-setting-left" = "Esquerra";
+"insert-media-image-position-setting-none" = "Cap";
+"insert-media-image-position-setting-right" = "Dreta";
+"insert-media-image-position-settings-title" = "Posició de la imatge";
+"insert-media-image-type-settings-title" = "Tipus d’imatge";
 "languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
 "languages-wikipedia" = "Llengües de la Viquipèdia";
@@ -725,6 +732,7 @@
 "wikitext-downloading" = "S'està carregant el contingut...";
 "wikitext-preview-changes" = "S'està recuperant una vista prèvia dels canvis...";
 "wikitext-preview-changes-none" = "No s'ha fet cap canvi per previsualitzar.";
+"wikitext-preview-link-not-found-preview-description" = "La Viquipèdia no té cap article amb aquest nom exacte";
 "wikitext-preview-link-preview-description" = "L'enllaç porta a «$1»";
 "wikitext-preview-link-preview-title" = "Previsualització de l'enllaç";
 "wikitext-preview-save-changes-title" = "Desa els canvis";

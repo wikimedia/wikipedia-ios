@@ -372,6 +372,10 @@
 "in-the-news-title" = "Actueel";
 "info-box-close-text" = "Sluiten";
 "info-box-title" = "Snelle feiten";
+"insert-action-title" = "Invoegen";
+"insert-media-image-size-setting-default" = "Standaard";
+"insert-media-image-size-settings-title" = "Afbeeldingsgrootte";
+"insert-media-uploaded-image-title" = "Geplaatste afbeelding";
 "languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
 "languages-wikipedia" = "Wikipedia-talen";
@@ -694,6 +698,7 @@
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
+"wikitext-preview-link-external-preview-title" = "Uitwendige koppeling";
 "wikitext-preview-link-preview-description" = "Deze link leidt naar '$1'";
 "wikitext-preview-link-preview-title" = "Linkvoorvertoning";
 "wikitext-preview-save-changes-title" = "Wijzigingen opslaan";
