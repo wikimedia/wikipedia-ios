@@ -21,6 +21,7 @@ final class InsertMediaSelectedImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
+        view.addCenteredSubview(activityIndicator)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,32 +33,32 @@ final class InsertMediaSelectedImageViewController: UIViewController {
         }
     }
 
-    @objc private func startActivityIndicator() {
+    private func startActivityIndicator() {
+        wmf_hideEmptyView()
         cancelPreviousActivityIndicatorSelectors()
-        view.isHidden = true
+        selectedView.isHidden = true
+        perform(#selector(_startActivityIndicator), with: nil, afterDelay: 0.3)
+    }
+    
+    @objc private func _startActivityIndicator() {
         activityIndicator.startAnimating()
     }
 
     @objc private func stopActivityIndicator() {
         cancelPreviousActivityIndicatorSelectors()
-        view.isHidden = false
+        selectedView.isHidden = false
         activityIndicator.stopAnimating()
     }
 
     @objc private func cancelPreviousActivityIndicatorSelectors() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(startActivityIndicator), object: nil)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_startActivityIndicator), object: nil)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(stopActivityIndicator), object: nil)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        activityIndicator.center = view.center
     }
 }
 
 extension InsertMediaSelectedImageViewController: InsertMediaSearchResultsCollectionViewControllerDelegate {
     func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult) {
-        perform(#selector(startActivityIndicator), with: nil, afterDelay: 0.3)
+        startActivityIndicator()
         guard let imageURL = searchResult.imageURL(for: view.bounds.width) else {
             stopActivityIndicator()
             return
@@ -69,7 +70,6 @@ extension InsertMediaSelectedImageViewController: InsertMediaSearchResultsCollec
             }
             self.stopActivityIndicator()
             if self.selectedView.superview == nil {
-                self.wmf_hideEmptyView()
                 self.selectedView.moreInformationAction = { [weak self] url in
                     self?.present(SFSafariViewController(url: url), animated: true)
                 }
