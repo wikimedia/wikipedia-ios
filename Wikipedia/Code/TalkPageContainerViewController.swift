@@ -60,7 +60,7 @@ fileprivate class MockArticleRevisionFetcher: WMFArticleRevisionFetcher {
 
 class TalkPageContainerViewController: ViewController {
     
-    private var discussionListViewController: TalkPageDiscussionListViewController!
+    private var discussionListViewController: TalkPageDiscussionListViewController?
     var name: String!
     var host: String = "en.wikipedia.org" //todo: smart host
     var dataStore: MWKDataStore!
@@ -70,8 +70,6 @@ class TalkPageContainerViewController: ViewController {
     private let articleRevisionFetcher = MockArticleRevisionFetcher()
     
     private var talkPageController: TalkPageController!
-    
-    private let discussionListEmbedSegue = "discussionListEmbedSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,22 +84,19 @@ class TalkPageContainerViewController: ViewController {
         talkPageController.fetchTalkPage { [weak self] (result) in
             switch result {
             case .success(let talkPage):
-                self?.discussionListViewController.talkPage = talkPage
+                self?.setupDiscussionListViewControllerIfNeeded(with: talkPage)
             case .failure(let error):
                 print("error! \(error)")
             }
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == discussionListEmbedSegue,
-            let listVC = segue.destination as? TalkPageDiscussionListViewController else {
-            return
+    private func setupDiscussionListViewControllerIfNeeded(with talkPage: TalkPage) {
+        if discussionListViewController == nil {
+            discussionListViewController = TalkPageDiscussionListViewController(dataStore: dataStore, talkPage: talkPage)
+            wmf_add(childController: discussionListViewController, andConstrainToEdgesOfContainerView: view)
+            discussionListViewController?.delegate = self
         }
-        
-        discussionListViewController = listVC
-        discussionListViewController.dataStore = dataStore
-        discussionListViewController.delegate = self
     }
     
     @IBAction func tappedAddButton(_ sender: UIBarButtonItem) {

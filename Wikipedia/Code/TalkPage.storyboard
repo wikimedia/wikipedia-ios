@@ -10,22 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Talk Page Discussion List View Controller-->
-        <scene sceneID="Slf-LO-iR1">
-            <objects>
-                <viewController storyboardIdentifier="TalkPageDiscussionListViewController" id="UPy-PA-Xmb" customClass="TalkPageDiscussionListViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uco-T5-qB3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="mKH-pt-ag1"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="d7S-ty-P0J"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pbk-Nn-S1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1218.840579710145" y="904.6875"/>
-        </scene>
         <!--Talk Page Discussion New View Controller-->
         <scene sceneID="gJp-Ge-qXy">
             <objects>
@@ -64,9 +48,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dye-5C-LXM">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <connections>
-                                    <segue destination="UPy-PA-Xmb" kind="embed" identifier="discussionListEmbedSegue" id="c8g-eg-Ry5"/>
-                                </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,9 +81,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4X-RC-55B">
                                 <rect key="frame" x="0.0" y="44" width="414" height="718"/>
-                                <connections>
-                                    <segue destination="QDk-qy-Vx2" kind="embed" identifier="replyListEmbedSegue" id="KbD-dL-CCU"/>
-                                </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2r-EH-uQK">
                                 <rect key="frame" x="0.0" y="762" width="414" height="100"/>
@@ -126,25 +104,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KuO-MH-Bd2"/>
                     </view>
+                    <connections>
+                        <outlet property="replyListContainerView" destination="k4X-RC-55B" id="XAK-Ar-T64"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-2n-ehf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2224.6376811594205" y="172.76785714285714"/>
-        </scene>
-        <!--Talk Page Reply List View Controller-->
-        <scene sceneID="Rxt-xF-11j">
-            <objects>
-                <viewController storyboardIdentifier="TalkPageReplyListViewController" id="QDk-qy-Vx2" customClass="TalkPageReplyListViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ulE-0t-csD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="718"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="fmO-TO-gKB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="34D-dE-HRE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2980" y="-21"/>
         </scene>
         <!--Talk Page Reply New View Controller-->
         <scene sceneID="X4s-q3-ZxX">

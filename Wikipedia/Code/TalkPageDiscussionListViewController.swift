@@ -8,27 +8,35 @@ protocol TalkPageDiscussionListDelegate: class {
 class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     
     weak var delegate: TalkPageDiscussionListDelegate?
-    var dataStore: MWKDataStore!
-    var talkPage: TalkPage! {
-        didSet {
-            setupFetchedResultsController(with: dataStore)
-            if let fetchedResultsController = fetchedResultsController {
-                collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-                collectionViewUpdater?.delegate = self
-                collectionViewUpdater?.performFetch()
-            }
-        }
-    }
     
-    private var fetchedResultsController: NSFetchedResultsController<TalkPageDiscussion>?
-    private var collectionViewUpdater: CollectionViewUpdater<TalkPageDiscussion>?
+    private var dataStore: MWKDataStore
+    private var talkPage: TalkPage
+    
+    private var fetchedResultsController: NSFetchedResultsController<TalkPageDiscussion>!
+    private var collectionViewUpdater: CollectionViewUpdater<TalkPageDiscussion>!
     
     private let reuseIdentifier = "DiscussionListItemCollectionViewCell"
+    
+    required init(dataStore: MWKDataStore, talkPage: TalkPage) {
+        self.dataStore = dataStore
+        self.talkPage = talkPage
+        
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         layoutManager.register(DiscussionListItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        
+        setupFetchedResultsController(with: dataStore)
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater?.delegate = self
+        collectionViewUpdater?.performFetch()
     }
     
     private func setupFetchedResultsController(with dataStore: MWKDataStore) {
@@ -40,16 +48,14 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let fetchedResultsController = fetchedResultsController,
-            let sectionsCount = fetchedResultsController.sections?.count else {
+        guard let sectionsCount = fetchedResultsController.sections?.count else {
             return 0
         }
         return sectionsCount
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let fetchedResultsController = fetchedResultsController,
-            let sections = fetchedResultsController.sections,
+        guard let sections = fetchedResultsController.sections,
             section < sections.count else {
             return 0
         }
@@ -58,8 +64,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let fetchedResultsController = fetchedResultsController,
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? DiscussionListItemCollectionViewCell,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? DiscussionListItemCollectionViewCell,
             let title = fetchedResultsController.object(at: indexPath).title else {
                 return UICollectionViewCell()
         }
@@ -74,10 +79,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let discussion = fetchedResultsController?.object(at: indexPath) else {
-            return
-        }
-        
+        let discussion = fetchedResultsController.object(at: indexPath)
         delegate?.tappedDiscussion(discussion, viewController: self)
     }
 }
@@ -85,8 +87,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
 extension TalkPageDiscussionListViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let fetchedResultsController = fetchedResultsController,
-                let cell = collectionView.cellForItem(at: indexPath) as? DiscussionListItemCollectionViewCell,
+            guard let cell = collectionView.cellForItem(at: indexPath) as? DiscussionListItemCollectionViewCell,
                 let title = fetchedResultsController.object(at: indexPath).title else {
                 continue
             }

@@ -3,25 +3,24 @@ import UIKit
 
 class TalkPageReplyContainerViewController: ViewController {
     
+    @IBOutlet private var replyListContainerView: UIView!
+    
     var discussion: TalkPageDiscussion!
     var dataStore: MWKDataStore!
     
-    private var replyListViewController: TalkPageReplyListViewController!
-    private let replyListEmbedSegue = "replyListEmbedSegue"
+    private var replyListViewController: TalkPageReplyListViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let replyListViewController = segue.destination as? TalkPageReplyListViewController,
-            segue.identifier == replyListEmbedSegue {
-            self.replyListViewController = replyListViewController
-            replyListViewController.dataStore = dataStore
-            replyListViewController.discussion = discussion
+        
+        guard discussion != nil,
+            dataStore != nil else {
+                assertionFailure("TalkPageReplyContainerViewController needs dataStore and discussion to function.")
+                return
         }
+
+        replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, discussion: discussion)
+        wmf_add(childController: replyListViewController, andConstrainToEdgesOfContainerView: replyListContainerView)
     }
 
 }
