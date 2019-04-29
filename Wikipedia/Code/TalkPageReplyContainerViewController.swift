@@ -2,22 +2,26 @@
 import UIKit
 
 class TalkPageReplyContainerViewController: ViewController {
+    
+    var discussion: TalkPageDiscussion!
+    var dataStore: MWKDataStore!
+    
+    private var replyListViewController: TalkPageReplyListViewController!
+    private let replyListEmbedSegue = "replyListEmbedSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let replyListViewController = segue.destination as? TalkPageReplyListViewController,
+            segue.identifier == replyListEmbedSegue {
+            self.replyListViewController = replyListViewController
+            replyListViewController.dataStore = dataStore
+            replyListViewController.discussion = discussion
+        }
     }
-    */
 
 }

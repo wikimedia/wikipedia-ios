@@ -54,7 +54,7 @@
             </objects>
             <point key="canvasLocation" x="2429" y="905"/>
         </scene>
-        <!--Title-->
+        <!--Talk Page Container View Controller-->
         <scene sceneID="hJH-dm-bll">
             <objects>
                 <viewController storyboardIdentifier="TalkPageContainerViewController" id="bKG-um-UaO" customClass="TalkPageContainerViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
@@ -78,7 +78,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="y3H-2j-jQG"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="oAB-hc-D2T">
+                    <navigationItem key="navigationItem" id="oAB-hc-D2T">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="GYK-fx-PjG">
                             <connections>
                                 <action selector="tappedAddButton:" destination="bKG-um-UaO" id="lmS-0i-e9c"/>
@@ -99,15 +99,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4X-RC-55B">
-                                <rect key="frame" x="0.0" y="44" width="414" height="404"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="718"/>
                                 <connections>
-                                    <segue destination="QDk-qy-Vx2" kind="embed" id="KbD-dL-CCU"/>
+                                    <segue destination="QDk-qy-Vx2" kind="embed" identifier="replyListEmbedSegue" id="KbD-dL-CCU"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2r-EH-uQK">
-                                <rect key="frame" x="0.0" y="448" width="414" height="414"/>
+                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="414" id="nHC-yI-4V9"/>
+                                    <constraint firstAttribute="height" constant="100" id="nHC-yI-4V9"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="qtH-NY-4Se" kind="embed" id="4VK-xN-UwR"/>
@@ -136,31 +136,9 @@
             <objects>
                 <viewController storyboardIdentifier="TalkPageReplyListViewController" id="QDk-qy-Vx2" customClass="TalkPageReplyListViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ulE-0t-csD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="404"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="718"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="szN-YI-OX2">
-                                <rect key="frame" x="0.0" y="44" width="414" height="326"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TalkPageReplyCell" id="siU-C1-DSD">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="siU-C1-DSD" id="Pea-2G-XoP">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="szN-YI-OX2" firstAttribute="top" secondItem="fmO-TO-gKB" secondAttribute="top" id="qIK-h2-K1L"/>
-                            <constraint firstItem="szN-YI-OX2" firstAttribute="bottom" secondItem="fmO-TO-gKB" secondAttribute="bottom" id="tnI-8I-sVb"/>
-                            <constraint firstItem="szN-YI-OX2" firstAttribute="trailing" secondItem="fmO-TO-gKB" secondAttribute="trailing" id="x4B-LJ-oXH"/>
-                            <constraint firstItem="szN-YI-OX2" firstAttribute="leading" secondItem="fmO-TO-gKB" secondAttribute="leading" id="z50-qX-Rni"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="fmO-TO-gKB"/>
                     </view>
                 </viewController>
@@ -173,20 +151,18 @@
             <objects>
                 <viewController storyboardIdentifier="TalkPageReplyNewViewController" id="qtH-NY-4Se" customClass="TalkPageReplyNewViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZLS-cq-IH1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reply New VC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-Ry-yuE">
-                                <rect key="frame" x="152.5" y="196.5" width="109" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSK-ap-npq">
+                                <rect key="frame" x="126" y="35" width="162" height="30"/>
+                                <state key="normal" title="Reply to this discussion"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="VRJ-Ry-yuE" firstAttribute="centerX" secondItem="ZLS-cq-IH1" secondAttribute="centerX" id="15D-Io-F7c"/>
-                            <constraint firstItem="VRJ-Ry-yuE" firstAttribute="centerY" secondItem="ZLS-cq-IH1" secondAttribute="centerY" id="t2s-a6-Fsv"/>
+                            <constraint firstItem="dSK-ap-npq" firstAttribute="centerX" secondItem="ZLS-cq-IH1" secondAttribute="centerX" id="B6Q-xa-bL3"/>
+                            <constraint firstItem="dSK-ap-npq" firstAttribute="centerY" secondItem="ZLS-cq-IH1" secondAttribute="centerY" id="uX3-bw-gWY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kG1-MT-BFS"/>
                     </view>

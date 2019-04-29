@@ -317,6 +317,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
     if (userName) {
         WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
+        accountVC.dataStore = self.dataStore;
         [accountVC applyTheme:self.theme];
         [self.navigationController pushViewController:accountVC animated:YES];
     } else {

@@ -4,6 +4,7 @@ import UIKit
 @objc(WMFAccountViewController)
 class AccountViewController: SubSettingsViewController {
     
+    @objc var dataStore: MWKDataStore!
     private let cellIdentifier = "TableViewCell"
 
     override func viewDidLoad() {
@@ -28,7 +29,8 @@ class AccountViewController: SubSettingsViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let talkPageContainerVC = TalkPageContainerViewController.wmf_viewControllerFromTalkPageStoryboard()
-        talkPageContainerVC.talkPageName = WMFAuthenticationManager.sharedInstance.loggedInUsername;
+        talkPageContainerVC.name = WMFAuthenticationManager.sharedInstance.loggedInUsername
+        talkPageContainerVC.dataStore = self.dataStore
         self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
     }
 }

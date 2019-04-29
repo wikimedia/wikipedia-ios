@@ -116,6 +116,12 @@
 		6734116722739CCC005B31DA /* TalkPageLocalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */; };
 		6734116822739CCC005B31DA /* TalkPageLocalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */; };
 		6734116A22739FD6005B31DA /* TalkPageLocalHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116922739FD6005B31DA /* TalkPageLocalHandlerTests.swift */; };
+		6734116E2276A4C1005B31DA /* TalkPage.json in Resources */ = {isa = PBXBuildFile; fileRef = 6734116D2276A4C1005B31DA /* TalkPage.json */; };
+		6734117022773122005B31DA /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
+		6754E44922773587005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
+		6754E44A22773587005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
+		6754E44B22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
+		6754E44C22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF442264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF452264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
@@ -3518,6 +3524,8 @@
 		6734115122700C47005B31DA /* TalkPageTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTestHelpers.swift; sourceTree = "<group>"; };
 		6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageLocalHandler.swift; sourceTree = "<group>"; };
 		6734116922739FD6005B31DA /* TalkPageLocalHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageLocalHandlerTests.swift; sourceTree = "<group>"; };
+		6734116D2276A4C1005B31DA /* TalkPage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TalkPage.json; path = WikipediaUnitTests/Fixtures/TalkPage.json; sourceTree = SOURCE_ROOT; };
+		6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyListItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		6780DF422264265400D9069D /* RemoteSubHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSubHandler.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
@@ -6141,6 +6149,7 @@
 			isa = PBXGroup;
 			children = (
 				67E8B0732268DA8B00537BC9 /* DiscussionListItemCollectionViewCell.swift */,
+				6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -6168,6 +6177,7 @@
 		67F73E6B2267B77C0079DEEF /* Talk Pages */ = {
 			isa = PBXGroup;
 			children = (
+				6734116D2276A4C1005B31DA /* TalkPage.json */,
 				67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */,
 				6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */,
 				67E8B0782268F8F100537BC9 /* Views */,
@@ -9445,6 +9455,7 @@
 				D8D92B691DF22E1700B95311 /* NotificationButtonBackground@2x.png in Resources */,
 				67F73E7B2267B9D60079DEEF /* TalkPage.storyboard in Resources */,
 				7AEC985E219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */,
+				6734116E2276A4C1005B31DA /* TalkPage.json in Resources */,
 				7A707982223AB69000A2BDFC /* WelcomePanelLabelContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10644,6 +10655,7 @@
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
+				6734117022773122005B31DA /* ReplyListItemCollectionViewCell.swift in Sources */,
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
@@ -11004,6 +11016,7 @@
 				B0B4236C1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D80ED3911EE57F4800CE8C50 /* WMFArticleRevision.m in Sources */,
 				D80ED3921EE57F4800CE8C50 /* ArticleLocationCollectionViewController.swift in Sources */,
+				6754E44C22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */,
 				D80ED3931EE57F4800CE8C50 /* ArticlePlaceView.swift in Sources */,
 				7A707981223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
 				D80ED3941EE57F4800CE8C50 /* WMFCaptchaViewController.swift in Sources */,
@@ -11728,6 +11741,7 @@
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
+				6754E44B22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */,
 				7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				7A2432C11FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
@@ -12096,6 +12110,7 @@
 				B0BCF0AC2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
 				B0B423691EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8CE25FE1E698E2400DAE2E0 /* WMFArticleRevision.m in Sources */,
+				6754E44A22773587005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */,
 				D8CE25FF1E698E2400DAE2E0 /* ArticlePlaceView.swift in Sources */,
 				7A70797E223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
 				D8CE26001E698E2400DAE2E0 /* WMFCaptchaViewController.swift in Sources */,
@@ -12473,6 +12488,7 @@
 				B0BCF0AD2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
 				D8EC3EFE1E9BDA35006712EB /* ArticlePlaceView.swift in Sources */,
 				D8EC3EFF1E9BDA35006712EB /* WMFCaptchaViewController.swift in Sources */,
+				6754E44922773587005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */,
 				D8EC3F001E9BDA35006712EB /* DDLog+WMFLogger.m in Sources */,
 				7A70797F223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
 				D818D3881ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,

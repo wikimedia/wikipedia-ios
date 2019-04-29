@@ -1,10 +1,9 @@
 
 import UIKit
 
-class DiscussionListItemCollectionViewCell: CollectionViewCell {
-    
+class ReplyListItemCollectionViewCell: CollectionViewCell {
     private let titleLabel = UILabel()
-
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         //todo: proper sizing
