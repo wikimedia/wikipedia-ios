@@ -73,6 +73,18 @@ final class InsertMediaViewController: ViewController {
         }
     }
 
+    private var isDisappearing = false
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        isDisappearing = true
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isDisappearing = false
+    }
+
     private var isTransitioningToNewCollection = false
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -166,6 +178,7 @@ final class InsertMediaViewController: ViewController {
             }
         } else if
             isKeyboardShowing,
+            !isDisappearing,
             let oldKeyboardFrame = oldKeyboardFrame,
             let newKeyboardFrame = newKeyboardFrame,
             newKeyboardFrame.origin.y > oldKeyboardFrame.origin.y { // hiding
