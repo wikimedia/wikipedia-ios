@@ -73,6 +73,18 @@ final class InsertMediaViewController: ViewController {
         }
     }
 
+    private var isTransitioningToNewCollection = false
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        isTransitioningToNewCollection = true
+        super.willTransition(to: newCollection, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            //
+        }) { _ in
+            self.isTransitioningToNewCollection = false
+        }
+    }
+
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
         guard
             let navigationController = navigationController,
@@ -144,7 +156,10 @@ final class InsertMediaViewController: ViewController {
     }
 
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-        if oldKeyboardFrame == nil, newKeyboardFrame != nil { // showing
+        guard !isTransitioningToNewCollection else {
+            super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+            return
+        }
             setUnderBarViewPercentHidden(1) {
                 self.isKeyboardShowing = true
             }
