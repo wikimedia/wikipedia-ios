@@ -158,7 +158,7 @@
 + (instancetype)noSelectedImageToInsertEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"insert-media/blank"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-insert-media-title", nil, nil, @"Select or upload a file", @"Text for placeholder label visible when no file was selected or uploaded");
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-insert-media-title", nil, nil, @"Select a file", @"Text for placeholder label visible when no file was selected or uploaded");
     view.titleLabelTextColorKeyPath = @"colors.secondaryText";
     view.backgroundColorKeyPath = @"colors.baseBackground";
 
