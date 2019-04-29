@@ -86,7 +86,6 @@ class TalkPageLocalHandler {
                 let discussionItem = TalkPageDiscussionItem(entity: entityDesc, insertInto: dataStore.viewContext)
                 discussionItem.depth = networkItem.depth
                 discussionItem.text = networkItem.text
-                discussionItem.unalteredText = networkItem.unalteredText
                 discussionItem.discussion = discussion
             }
             

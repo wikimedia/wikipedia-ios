@@ -19,7 +19,6 @@ class NetworkDiscussion: Codable {
 class NetworkDiscussionItem: Codable {
     let text: String
     let depth: Int16
-    let unalteredText: String
 }
 
 import Foundation

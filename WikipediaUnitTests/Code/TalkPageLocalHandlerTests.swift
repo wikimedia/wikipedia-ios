@@ -62,7 +62,6 @@ class TalkPageLocalHandlerTests: XCTestCase {
             if let firstDiscussionItem = firstDiscussion.items?[0] as? TalkPageDiscussionItem {
                 XCTAssertEqual(firstDiscussionItem.text, "Hi Pixiu! Glad we were able to meet at the Bay Area Puppercat Edit-a-thon last week. I noticed that the <a href=\'https://en.wikipedia.org/wiki/Puppy_cat\'>Puppy cat</a> could use some more information about ragdolls, do you think that this might be something you\'d be interested in contributing to? <a href=\'https://en.wikipedia.org/wiki/User:Fruzia\'>Fruzia</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Fruzia\'>talk</a>) 23:08. 20 March 2019 (UTC)", "Unexpected discussion item text")
                 XCTAssertEqual(firstDiscussionItem.depth, 0, "Unexpected discussion item depth")
-                XCTAssertEqual(firstDiscussionItem.unalteredText, "<table><tr><td>Insert bonkers template here</td></tr></table> Hi Pixiu! Glad we were able to meet at the Bay Area Puppercat Edit-a-thon last week. I noticed that the <a href=\'https://en.wikipedia.org/wiki/Puppy_cat\'>Puppy cat</a> could use some more information about ragdolls, do you think that this might be something you\'d be interested in contributing to? <a href=\'https://en.wikipedia.org/wiki/User:Fruzia\'>Fruzia</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Fruzia\'>talk</a>) 23:08. 20 March 2019 (UTC)", "Unexpected discussion item unalteredText")
             } else {
                 XCTFail("Unexpected first discussion item type")
             }
@@ -70,7 +69,6 @@ class TalkPageLocalHandlerTests: XCTestCase {
             if let secondDiscussionItem = firstDiscussion.items?[1] as? TalkPageDiscussionItem {
                 XCTAssertEqual(secondDiscussionItem.text, "Hi Fruzia, thanks for reaching out! I\'ll go and take a look at the article and see what I can contribute with the resources I have at paw <a href=\'https://en.wikipedia.org/wiki/User:Pixiu\'>Pixiu</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Pixiu\'>talk</a>) 08:09. 21 March 2019 (UTC)", "Unexpected discussion item text")
                 XCTAssertEqual(secondDiscussionItem.depth, 1, "Unexpected discussion item depth")
-                XCTAssertEqual(secondDiscussionItem.unalteredText, "Hi Fruzia, thanks for reaching out! I\'ll go and take a look at the article and see what I can contribute with the resources I have at paw. <img src=\'https://upload.wikimedia.org/wikipedia/commons/c/c0/A_cat%27s_paw_2%2C_ubt.JPG\' /> <a href=\'https://en.wikipedia.org/wiki/User:Pixiu\'>Pixiu</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Pixiu\'>talk</a>) 08:09. 21 March 2019 (UTC)", "Unexpected discussion item unalteredText")
             } else {
                 XCTFail("Unexpected second discussion item type")
             }
