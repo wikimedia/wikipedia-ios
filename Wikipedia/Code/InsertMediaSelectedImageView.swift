@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 
 final class InsertMediaSelectedImageView: SetupView {
-    private let imageView = AlignedImageView()
+    private let imageView = UIImageView()
     private let imageInfoView = InsertMediaImageInfoView.wmf_viewFromClassNib()!
     private let imageInfoContainerView = UIView()
     private var imageInfoContainerViewBottomConstraint: NSLayoutConstraint?
@@ -18,7 +18,6 @@ final class InsertMediaSelectedImageView: SetupView {
     override func setup() {
         super.setup()
         imageView.accessibilityIgnoresInvertColors = true
-        imageView.alignment = [.top]
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         wmf_addSubviewWithConstraintsToEdges(imageView)
@@ -50,7 +49,6 @@ final class InsertMediaSelectedImageView: SetupView {
 
     private func adjustImageInfoContainerViewBottomConstraint() {
         guard
-            imageView.alignment == .top,
             let image = image
         else {
             return
@@ -66,7 +64,7 @@ final class InsertMediaSelectedImageView: SetupView {
 
     public func configure(with imageURL: URL, searchResult: InsertMediaSearchResult, theme: Theme, completion: @escaping (Error?) -> Void) {
         imageView.image = nil
-        imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
+        imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: true, failure: { error in
             completion(error)
         }) {
             self.searchResult = searchResult
