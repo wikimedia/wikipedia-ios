@@ -153,18 +153,10 @@ final class InsertMediaViewController: ViewController {
             let oldKeyboardFrame = oldKeyboardFrame,
             let newKeyboardFrame = newKeyboardFrame,
             newKeyboardFrame.origin.y > oldKeyboardFrame.origin.y { // hiding
-            if let scrollView = scrollView, scrollView.isDragging {
-                navigationBar.isUnderBarViewHidingEnabled = true
-                useNavigationBarVisibleHeightForScrollViewInsets = false
-                updateScrollViewInsets(preserveAnimation: true)
-                isKeyboardShowing = false
-            } else {
-                setUnderBarViewPercentHidden(0) {
-                    self.isKeyboardShowing = false
-                    self.navigationBar.isUnderBarViewHidingEnabled = true
-                    self.useNavigationBarVisibleHeightForScrollViewInsets = false
-                }
-            }
+            navigationBar.isUnderBarViewHidingEnabled = true
+            useNavigationBarVisibleHeightForScrollViewInsets = false
+            updateScrollViewInsets(preserveAnimation: true)
+            isKeyboardShowing = false
         }
     }
 
