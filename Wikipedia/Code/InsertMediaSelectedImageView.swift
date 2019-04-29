@@ -42,26 +42,6 @@ final class InsertMediaSelectedImageView: SetupView {
         imageInfoContainerView.wmf_addSubviewWithConstraintsToEdges(imageInfoView)
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.adjustImageInfoContainerViewBottomConstraint()
-    }
-
-    private func adjustImageInfoContainerViewBottomConstraint() {
-        guard
-            let image = image
-        else {
-            return
-        }
-        let imageHeight = AVMakeRect(aspectRatio: image.size, insideRect: imageView.frame).height
-        let spaceBetweenImageAndInfoView = frame.size.height - imageHeight - imageInfoContainerView.frame.height
-        if spaceBetweenImageAndInfoView >= imageInfoContainerView.frame.height || imageInfoContainerView.frame.height - spaceBetweenImageAndInfoView <= spaceBetweenImageAndInfoView {
-            imageInfoContainerViewBottomConstraint?.constant = 0 - spaceBetweenImageAndInfoView * 0.5
-        } else {
-            imageInfoContainerViewBottomConstraint?.constant = 0
-        }
-    }
-
     public func configure(with imageURL: URL, searchResult: InsertMediaSearchResult, theme: Theme, completion: @escaping (Error?) -> Void) {
         imageView.image = nil
         imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: true, failure: { error in
@@ -71,7 +51,6 @@ final class InsertMediaSelectedImageView: SetupView {
             self.imageView.backgroundColor = .clear
             self.imageInfoView.moreInformationAction = self.moreInformationAction
             self.imageInfoView.configure(with: searchResult, showImageDescription: false, showLicenseName: true, showMoreInformationButton: true, theme: theme)
-            self.adjustImageInfoContainerViewBottomConstraint()
             completion(nil)
         }
     }
