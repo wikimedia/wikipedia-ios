@@ -323,7 +323,6 @@
 "fetcher-error-unexpected-response" = "Прилогот прими неочекуван одговор од опслужувачот. Обидете се повторно.";
 "field-alert-captcha-invalid" = "Неважечка CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинките не се совпаѓаат";
-"field-alert-password-invalid" = "Неважечка лозинка";
 "field-alert-token-invalid" = "Неважечки код";
 "field-alert-username-unavailable" = "Корисничкото име е недостапно";
 "field-backup-token-title" = "Резервен код";

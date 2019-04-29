@@ -322,7 +322,6 @@
 "fetcher-error-unexpected-response" = "Aplikasi menerima respons yang tidak terduga dari server. Silakan coba lagi nanti.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sesuai";
 "field-alert-password-confirm-mismatch" = "Kata sandi tidak cocok";
-"field-alert-password-invalid" = "Kata sandi salah";
 "field-alert-token-invalid" = "Kode salah";
 "field-alert-username-unavailable" = "Nama pengguna tidak tersedia";
 "field-backup-token-title" = "Kode cadangan";

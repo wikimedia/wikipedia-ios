@@ -343,7 +343,6 @@
 "fetcher-error-unexpected-response" = "Aplikace přijala neočekávanou odpověď ze serveru. Prosím zkuste to znovu později.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Hesla se neshodují";
-"field-alert-password-invalid" = "Nesprávné heslo";
 "field-alert-token-invalid" = "Neplatný kód";
 "field-alert-username-unavailable" = "Uživatelské jméno není k dispozici";
 "field-backup-token-title" = "Záložní kód";

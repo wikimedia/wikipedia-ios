@@ -163,7 +163,6 @@
 "fetcher-error-generic" = "কিছু একটায় ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
 "field-alert-password-confirm-mismatch" = "পাসওয়ার্ড মিলেনি";
-"field-alert-password-invalid" = "পাসওয়ার্ড সঠিক নয়";
 "field-alert-token-invalid" = "কোড সঠিক নয়";
 "field-alert-username-unavailable" = "ব্যবহারকারীর নাম উপলব্ধ নয়";
 "field-backup-token-title" = "ব্যাকআপ কোড";

@@ -122,7 +122,6 @@
 "feed-news-notification-text" = "Sad možete primati obavještenja o člancima na Wikipediji koji su aktualni na vijestima.";
 "field-alert-captcha-invalid" = "Neispravna CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lozinke se ne poklapaju";
-"field-alert-password-invalid" = "Neispravna lozinka";
 "field-alert-token-invalid" = "Neispravni kôd";
 "field-alert-username-unavailable" = "Korisničko ime nije dostupno";
 "field-backup-token-title" = "Rezervni kôd";

@@ -223,7 +223,6 @@
 "fetcher-error-generic" = "Noget gik galt. Prøv venligst igen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Adgangskoderne stemmer ikke overens";
-"field-alert-password-invalid" = "Ugyldig adgangskode";
 "field-alert-token-invalid" = "Ugyldig kode";
 "field-alert-username-unavailable" = "Brugernavn ikke tilgængeligt";
 "field-backup-token-title" = "Reservekode";

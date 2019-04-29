@@ -232,7 +232,6 @@
 "feed-news-notification-text" = "ให้วิกิพีเดียแจ้งเตือนเมื่อมีเรื่องจากข่าวที่กำลังมาแรง";
 "field-alert-captcha-invalid" = "CAPTCHA ไม่ถูกต้อง";
 "field-alert-password-confirm-mismatch" = "รหัสผ่านไม่ตรงกัน";
-"field-alert-password-invalid" = "รหัสผ่านไม่ถูกต้อง";
 "field-alert-token-invalid" = "รหัสไม่ถูกต้อง";
 "field-alert-username-unavailable" = "ชื่อผู้ใช้ไม่พร้อมใช้งาน";
 "field-backup-token-title" = "รหัสการสำรองข้อมูล";
