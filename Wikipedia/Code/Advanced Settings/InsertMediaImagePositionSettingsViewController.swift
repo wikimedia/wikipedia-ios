@@ -36,6 +36,7 @@ final class InsertMediaImagePositionSettingsViewController: ViewController {
     override func viewDidLoad() {
         scrollView = tableView
         super.viewDidLoad()
+        navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)

@@ -75,6 +75,7 @@ final class InsertMediaImageSizeSettingsViewController: ViewController {
     override func viewDidLoad() {
         scrollView = tableView
         super.viewDidLoad()
+        navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)

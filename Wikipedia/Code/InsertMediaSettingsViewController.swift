@@ -197,6 +197,7 @@ final class InsertMediaSettingsViewController: ViewController {
     override func viewDidLoad() {
         scrollView = tableView
         super.viewDidLoad()
+        navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(InsertMediaSettingsTextTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaSettingsTextTableViewCell.identifier)
