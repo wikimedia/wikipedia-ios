@@ -160,6 +160,7 @@ final class InsertMediaViewController: ViewController {
             super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
             return
         }
+        if oldKeyboardFrame == nil, newKeyboardFrame != nil { // showing
             setUnderBarViewPercentHidden(1) {
                 self.isKeyboardShowing = true
             }
