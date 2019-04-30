@@ -23,7 +23,6 @@ class TalkPageLocalHandler {
     }
     
     func updateExistingTalkPage(existingTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage) -> TalkPage? {
-        existingTalkPage.name = networkTalkPage.name
         existingTalkPage.revisionId = networkTalkPage.revisionId
         
         guard let newDiscussions: [TalkPageDiscussion] = createTalkPageDiscussions(with: networkTalkPage) else {
@@ -53,7 +52,6 @@ class TalkPageLocalHandler {
         
         let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: dataStore.viewContext)
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
-        talkPage.name = networkTalkPage.name
         talkPage.revisionId = networkTalkPage.revisionId
         
         guard let discussions = createTalkPageDiscussions(with: networkTalkPage) else {
@@ -75,7 +73,7 @@ class TalkPageLocalHandler {
             }
             
             let discussion = TalkPageDiscussion(entity: entityDesc, insertInto: dataStore.viewContext)
-            discussion.title = networkDiscussion.title
+            discussion.title = networkDiscussion.text
             
             for networkItem in networkDiscussion.items {
                 

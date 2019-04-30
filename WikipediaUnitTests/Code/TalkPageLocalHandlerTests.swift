@@ -52,7 +52,6 @@ class TalkPageLocalHandlerTests: XCTestCase {
         XCTAssertNotNil(dbTalkPage.key)
         XCTAssertEqual(dbTalkPage.key, keyedUrlString, "Unexpected key")
         XCTAssertEqual(dbTalkPage.revisionId, 1, "Unexpected revisionId")
-        XCTAssertEqual(dbTalkPage.name, "Pixiu", "Unexpected name")
         XCTAssertEqual(dbTalkPage.discussions?.count, 1, "Unexpected discussion count")
         
         if let firstDiscussion = dbTalkPage.discussions?[0] as? TalkPageDiscussion {

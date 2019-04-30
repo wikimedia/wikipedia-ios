@@ -38,39 +38,6 @@
             </objects>
             <point key="canvasLocation" x="2429" y="905"/>
         </scene>
-        <!--Talk Page Container View Controller-->
-        <scene sceneID="hJH-dm-bll">
-            <objects>
-                <viewController storyboardIdentifier="TalkPageContainerViewController" id="bKG-um-UaO" customClass="TalkPageContainerViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lKp-cl-89f">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dye-5C-LXM">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Dye-5C-LXM" firstAttribute="trailing" secondItem="y3H-2j-jQG" secondAttribute="trailing" id="Cok-ua-auT"/>
-                            <constraint firstItem="Dye-5C-LXM" firstAttribute="bottom" secondItem="y3H-2j-jQG" secondAttribute="bottom" id="Orb-ic-9tF"/>
-                            <constraint firstItem="Dye-5C-LXM" firstAttribute="leading" secondItem="y3H-2j-jQG" secondAttribute="leading" id="i63-th-aeX"/>
-                            <constraint firstItem="Dye-5C-LXM" firstAttribute="top" secondItem="lKp-cl-89f" secondAttribute="top" id="y95-BW-eqo"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="y3H-2j-jQG"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="oAB-hc-D2T">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GYK-fx-PjG">
-                            <connections>
-                                <action selector="tappedAddButton:" destination="bKG-um-UaO" id="lmS-0i-e9c"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KAL-2Q-xaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1071.0144927536232" y="202.90178571428569"/>
-        </scene>
         <!--Talk Page Reply Container View Controller-->
         <scene sceneID="sIX-Ft-e7o">
             <objects>

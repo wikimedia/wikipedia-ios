@@ -1,18 +1,18 @@
 
-class NetworkTalkPage: Codable {
-    var url: URL! //todo: does this have to be ! if not codable property
-    let name: String
+class NetworkTalkPage {
+    var url: URL
     let discussions: [NetworkDiscussion]
-    var revisionId: Int64! //todo: does this have to be ! if not codable property
+    var revisionId: Int64
     
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case discussions
+    init(url: URL, discussions: [NetworkDiscussion], revisionId: Int64) {
+        self.url = url
+        self.discussions = discussions
+        self.revisionId = revisionId
     }
 }
 
 class NetworkDiscussion: Codable {
-    let title: String
+    let text: String
     let items: [NetworkDiscussionItem]
 }
 
@@ -23,43 +23,34 @@ class NetworkDiscussionItem: Codable {
 
 import Foundation
 
+enum TalkPageType {
+    case user
+    case article
+}
+
 class TalkPageFetcher: Fetcher {
     
-    func taskURL(for name: String, host: String) -> URL? {
-        
-        //todo: better escaping, or should this happen server-side? See wmf_articleTitlePathComponentAllowed
-        guard let escapedName = (name as NSString).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
-            return nil
-        }
-        
-        let pathComponents = ["page", "talk", escapedName]
-        
-        guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
-            return nil
-        }
-        
-        return taskURL
+    func taskURL(for name: String, host: String, type: TalkPageType) -> URL? {
+        return taskURL(for: name, host: host, revisionID: nil, type: type)
     }
     
-    func fetchTalkPage(for name: String, host: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
-        guard let taskURL = taskURL(for: name, host: host) else {
+    func fetchTalkPage(for name: String, host: String, revisionID: Int64, type: TalkPageType, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+        guard let taskURLWithRevID = taskURL(for: name, host: host, revisionID: revisionID, type: type),
+        let taskURLWithoutRevID = taskURL(for: name, host: host, revisionID: nil, type: type) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
-        
-        //todo: append revisionID
     
         //todo: track tasks/cancel
-        session.jsonDecodableTask(with: taskURL) { (talkPage: NetworkTalkPage?, response: URLResponse?, error: Error?) in
+        session.jsonDecodableTask(with: taskURLWithRevID) { (discussions: [NetworkDiscussion]?, response: URLResponse?, error: Error?) in
             
-            guard !(talkPage == nil && error == nil) else {
+            guard !(discussions == nil && error == nil) else {
                 completion(.failure(RequestError.unexpectedResponse))
                 return
             }
             
-            if let talkPage = talkPage {
-                talkPage.url = taskURL
-                talkPage.revisionId = revisionID
+            if let discussions = discussions {
+                let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: discussions, revisionId: revisionID)
                 completion(.success(talkPage))
             }
             
@@ -67,5 +58,36 @@ class TalkPageFetcher: Fetcher {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func title(for name: String, type: TalkPageType) -> String? {
+        
+        let underscoredName = name.replacingOccurrences(of: " ", with: "_")
+        //todo: better name handling, or should this happen server-side? See wmf_articleTitlePathComponentAllowed
+        guard let percentEncodedName = (underscoredName as NSString).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
+            return nil
+        }
+        
+        let prefix = type == .user ? "User_talk" : "Talk"
+        
+        return "\(prefix):\(percentEncodedName)"
+    }
+    
+    private func taskURL(for name: String, host: String, revisionID: Int64?, type: TalkPageType) -> URL? {
+        
+        guard let title = title(for: name, type: type) else {
+            return nil
+        }
+        
+        var pathComponents = ["page", "talk", title]
+        if let revisionID = revisionID {
+            pathComponents.append(String(revisionID))
+        }
+        
+        guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
+            return nil
+        }
+        
+        return taskURL
     }
 }

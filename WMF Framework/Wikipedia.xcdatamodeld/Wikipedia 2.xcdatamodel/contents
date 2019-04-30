@@ -71,7 +71,6 @@
     </entity>
     <entity name="TalkPage" representedClassName="TalkPage" syncable="YES" codeGenerationType="class">
         <attribute name="key" attributeType="String" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="revisionId" attributeType="Integer 64" minValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="discussions" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="TalkPageDiscussion" inverseName="talkPage" inverseEntity="TalkPageDiscussion" syncable="YES"/>
     </entity>
@@ -198,7 +197,7 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
-        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="105"/>
+        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="90"/>
         <element name="TalkPageDiscussion" positionX="-36" positionY="144" width="128" height="90"/>
         <element name="TalkPageDiscussionItem" positionX="-27" positionY="153" width="128" height="90"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="480"/>

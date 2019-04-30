@@ -23,7 +23,7 @@
 
 + (WMFSettingsMenuItem *)itemForType:(WMFSettingsMenuItemType)type {
     switch (type) {
-        case WMFSettingsMenuItemType_Login: {
+        case WMFSettingsMenuItemType_LoginAccount: {
             NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
             
             NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in.\n{{Identical|Log in}}");

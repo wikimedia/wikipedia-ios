@@ -11,7 +11,7 @@ fileprivate class MockSession: Session {
             return
         }
         do {
-            let result: NetworkTalkPage = try jsonDecodeData(data: json)
+            let result: [NetworkDiscussion] = try jsonDecodeData(data: json)
             completionHandler(result as? T, nil, nil)
         } catch (let error) {
             XCTFail("Talk Page json failed to decode \(error)")
@@ -28,13 +28,13 @@ class TalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        fetcher.fetchTalkPage(for: "Username", host: Configuration.Domain.englishWikipedia, revisionID: 5) { (result) in
+        fetcher.fetchTalkPage(for: "Username", host: Configuration.Domain.englishWikipedia, revisionID: 5, type: .user) { (result) in
             
             fetchExpectation.fulfill()
 
             switch result {
             case .success(let talkPage):
-                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/Username")
+                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
                 XCTAssertEqual(talkPage.revisionId, 5)
             case .failure:
                 XCTFail("Expected Success")

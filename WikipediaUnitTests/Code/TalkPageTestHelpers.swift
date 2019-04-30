@@ -12,10 +12,9 @@ class TalkPageTestHelpers {
             return nil
         }
         do {
-            let result: NetworkTalkPage = try session.jsonDecodeData(data: json)
-            result.url = URL(string: urlString)
-            result.revisionId = revisionId
-            return result
+            let result: [NetworkDiscussion] = try session.jsonDecodeData(data: json)
+            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, discussions: result, revisionId: revisionId)
+            return talkPage
         } catch {
             return nil
         }

@@ -265,7 +265,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     } else {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                            resultLimit:1
-                                                    endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue
+                                                    endingWithRevision:cachedArticle.revisionId
                                                                failure:failure
                                                                success:^(id _Nonnull results) {
                                                                    dispatch_async(dispatch_get_main_queue(), ^{
