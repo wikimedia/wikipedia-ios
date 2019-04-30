@@ -34,6 +34,15 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return .search
     }
     
+    override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
+        guard let title = results[indexPath.item].title,
+            results[indexPath.item].titleNamespace?.intValue ?? 0 == 3 else {
+                return nil
+        }
+        
+        return title
+    }
+    
     override func isExternalURL(at indexPath: IndexPath) -> Bool {
         return results[indexPath.item].titleNamespace?.intValue ?? 0 != 0
     }

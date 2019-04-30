@@ -33,6 +33,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
+    open func userTalkPageTitle(at indexPath: IndexPath) -> String? {
+        return nil
+    }
+    
     open func isExternalURL(at indexPath: IndexPath) -> Bool {
         return false
     }
@@ -170,6 +174,14 @@ extension ArticleCollectionViewController {
             return
         }
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
+        
+        if let userTalkPageTitle = userTalkPageTitle(at: indexPath) {
+            //todo: smart host
+            let talkPageContainer = TalkPageContainerViewController(title: userTalkPageTitle, host: "en.wikipedia.org", titleIncludesPrefix: true, type: .user, dataStore: dataStore)
+            wmf_push(talkPageContainer, animated: true)
+            return
+        }
+        
         guard !isExternalURL(at: indexPath) else {
             wmf_openExternalUrl(articleURL)
             return

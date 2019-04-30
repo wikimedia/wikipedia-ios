@@ -28,10 +28,40 @@ class TalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        fetcher.fetchTalkPage(for: "Username", host: Configuration.Domain.englishWikipedia, revisionID: 5, type: .user) { (result) in
+        guard let title = TalkPageType.user.urlTitle(for: "Username", titleIncludesPrefix: false) else {
+            XCTFail("Failure generating title")
+            return
+        }
+        
+        fetcher.fetchTalkPage(for: title, host: Configuration.Domain.englishWikipedia, revisionID: 5) { (result) in
             
             fetchExpectation.fulfill()
 
+            switch result {
+            case .success(let talkPage):
+                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
+                XCTAssertEqual(talkPage.revisionId, 5)
+            case .failure:
+                XCTFail("Expected Success")
+            }
+        }
+        wait(for: [fetchExpectation], timeout: 5)
+    }
+    
+    func testTalkPageFetchWithPrefixTitleReturnsTalkPage() {
+        let fetcher = TalkPageFetcher(session: mockSession, configuration: Configuration.current)
+        
+        let fetchExpectation = expectation(description: "Waiting for fetch callback")
+        
+        guard let title = TalkPageType.user.urlTitle(for: "User talk:Username", titleIncludesPrefix: true) else {
+            XCTFail("Failure generating title")
+            return
+        }
+        
+        fetcher.fetchTalkPage(for: title, host: Configuration.Domain.englishWikipedia, revisionID: 5) { (result) in
+            
+            fetchExpectation.fulfill()
+            
             switch result {
             case .success(let talkPage):
                 XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")

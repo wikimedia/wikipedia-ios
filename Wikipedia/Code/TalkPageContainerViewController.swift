@@ -4,18 +4,20 @@ import UIKit
 class TalkPageContainerViewController: ViewController {
     
     private var discussionListViewController: TalkPageDiscussionListViewController?
-    var name: String!
-    var host: String = "en.wikipedia.org" //todo: smart host
-    var type: TalkPageType!
-    var dataStore: MWKDataStore!
+    let talkPageTitle: String
+    let host: String
+    let titleIncludesPrefix: Bool
+    let type: TalkPageType
+    let dataStore: MWKDataStore!
     
     private var talkPageController: TalkPageController!
     
-    required init(name: String, host: String, dataStore: MWKDataStore, type: TalkPageType) {
-        self.name = name
+    required init(title: String, host: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
+        self.talkPageTitle = title
         self.host = host
-        self.dataStore = dataStore
+        self.titleIncludesPrefix = titleIncludesPrefix
         self.type = type
+        self.dataStore = dataStore
         super.init()
     }
     
@@ -32,7 +34,7 @@ class TalkPageContainerViewController: ViewController {
     
     private func fetch() {
         //todo: loading/error/empty states
-        talkPageController = TalkPageController(dataStore: dataStore, name: name, host: host, type: type)
+        talkPageController = TalkPageController(dataStore: dataStore, title: talkPageTitle, host: host, titleIncludesPrefix: titleIncludesPrefix, type: type)
         talkPageController.fetchTalkPage { [weak self] (result) in
             switch result {
             case .success(let talkPage):

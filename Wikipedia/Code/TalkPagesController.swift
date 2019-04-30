@@ -10,17 +10,19 @@ enum TalkPageError: Error {
     case fetchRevisionIDFailure
     case talkPageDatabaseKeyCreationFailure
     case revisionUrlCreationFailure
+    case talkPageTitleCreationFailure
 }
 
 class TalkPageController {
     let talkPageFetcher: TalkPageFetcher
     let localHandler: TalkPageLocalHandler
     let articleRevisionFetcher: WMFArticleRevisionFetcher
-    let name: String
+    let title: String
     let host: String
+    let titleIncludesPrefix: Bool
     let type: TalkPageType
     
-    required init(talkPageFetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), localHandler: TalkPageLocalHandler? = nil, dataStore: MWKDataStore, name: String, host: String, type: TalkPageType) {
+    required init(talkPageFetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), localHandler: TalkPageLocalHandler? = nil, dataStore: MWKDataStore, title: String, host: String, titleIncludesPrefix: Bool, type: TalkPageType) {
         self.talkPageFetcher = talkPageFetcher
         self.articleRevisionFetcher = articleRevisionFetcher
         
@@ -30,13 +32,15 @@ class TalkPageController {
             self.localHandler = TalkPageLocalHandler(dataStore: dataStore)
         }
         
-        self.name = name
+        self.title = title
         self.host = host
+        self.titleIncludesPrefix = titleIncludesPrefix
         self.type = type
     }
     
     func fetchTalkPage(completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
-        guard let taskURL = talkPageFetcher.taskURL(for: name, host: host, type: type) else {
+        guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix),
+            let taskURL = talkPageFetcher.taskURL(for: title, host: host) else {
             completion?(.failure(TalkPageError.createTaskURLFailure))
             return
         }
@@ -77,9 +81,7 @@ class TalkPageController {
             }
         }
         
-        
-        guard let title = talkPageFetcher.title(for: name, type: type),
-            let revisionURL = Configuration.current.mediaWikiAPIURLForWikiLanguage("en", with: nil).url?.wmf_URL(withTitle: title) else {
+        guard let revisionURL = Configuration.current.mediaWikiAPIURLForWikiLanguage("en", with: nil).url?.wmf_URL(withTitle: title) else {
             completion?(.failure(TalkPageError.revisionUrlCreationFailure))
                 return
         }
@@ -95,8 +97,12 @@ class TalkPageController {
     }
     
     private func fetchAndUpdate(existingLocalTalkPage: TalkPage?, revisionID: Int64, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
-    
-        talkPageFetcher.fetchTalkPage(for: name, host: host, revisionID: revisionID, type: type) { (result) in
+        
+        guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
+            completion?(.failure(TalkPageError.talkPageTitleCreationFailure))
+            return
+        }
+        talkPageFetcher.fetchTalkPage(for: title, host: host, revisionID: revisionID) { (result) in
             
             DispatchQueue.main.async {
                 self.localHandler.dataStore.viewContext.perform {

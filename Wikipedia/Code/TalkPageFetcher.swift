@@ -26,17 +26,41 @@ import Foundation
 enum TalkPageType {
     case user
     case article
+    
+    var prefix: String {
+        switch self {
+        case .user:
+            return "User talk:"
+        case .article:
+            return "Talk:"
+        }
+    }
+    
+    func urlTitle(for title: String, titleIncludesPrefix: Bool) -> String? {
+        if !titleIncludesPrefix {
+            
+            let underscoredTitle = title.replacingOccurrences(of: " ", with: "_")
+            let underscoredPrefix = prefix.replacingOccurrences(of: " ", with: "_")
+            guard let percentEncodedTitle = (underscoredTitle as NSString).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
+                return nil
+            }
+            
+            return underscoredPrefix + percentEncodedTitle
+        } else {
+            return title.replacingOccurrences(of: " ", with: "_")
+        }
+    }
 }
 
 class TalkPageFetcher: Fetcher {
     
-    func taskURL(for name: String, host: String, type: TalkPageType) -> URL? {
-        return taskURL(for: name, host: host, revisionID: nil, type: type)
+    func taskURL(for title: String, host: String) -> URL? {
+        return taskURL(for: title, host: host, revisionID: nil)
     }
     
-    func fetchTalkPage(for name: String, host: String, revisionID: Int64, type: TalkPageType, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
-        guard let taskURLWithRevID = taskURL(for: name, host: host, revisionID: revisionID, type: type),
-        let taskURLWithoutRevID = taskURL(for: name, host: host, revisionID: nil, type: type) else {
+    func fetchTalkPage(for title: String, host: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+        guard let taskURLWithRevID = taskURL(for: title, host: host, revisionID: revisionID),
+            let taskURLWithoutRevID = taskURL(for: title, host: host, revisionID: nil) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
@@ -60,25 +84,9 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func title(for name: String, type: TalkPageType) -> String? {
+    private func taskURL(for title: String, host: String, revisionID: Int64?) -> URL? {
         
-        let underscoredName = name.replacingOccurrences(of: " ", with: "_")
-        //todo: better name handling, or should this happen server-side? See wmf_articleTitlePathComponentAllowed
-        guard let percentEncodedName = (underscoredName as NSString).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
-            return nil
-        }
-        
-        let prefix = type == .user ? "User_talk" : "Talk"
-        
-        return "\(prefix):\(percentEncodedName)"
-    }
-    
-    private func taskURL(for name: String, host: String, revisionID: Int64?, type: TalkPageType) -> URL? {
-        
-        guard let title = title(for: name, type: type) else {
-            return nil
-        }
-        
+        //note: assuming here title has already been percent endcoded & escaped
         var pathComponents = ["page", "talk", title]
         if let revisionID = revisionID {
             pathComponents.append(String(revisionID))
