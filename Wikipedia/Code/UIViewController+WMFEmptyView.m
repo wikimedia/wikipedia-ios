@@ -42,6 +42,8 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
             break;
         case WMFEmptyViewTypeNoInternetConnection:
             view = [WMFEmptyView noInternetConnectionEmptyView];
+        case WMFEmptyViewTypeNoSelectedImageToInsert:
+            view = [WMFEmptyView noSelectedImageToInsertEmptyView];
             break;
         default:
             return;
@@ -66,6 +68,10 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     } else {
         [self.view addSubview:view];
     }
+}
+
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame; {
+    [self wmf_showEmptyViewOfType:type action:nil theme:theme frame:frame];
 }
 
 - (void)wmf_hideEmptyView {

@@ -1,15 +1,14 @@
 import UIKit
 
-typealias InsertMediaSettings = InsertMediaSettingsTableViewController.Settings
+typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
-final class InsertMediaSettingsTableViewController: UITableViewController {
+final class InsertMediaSettingsViewController: ViewController {
+    private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
     let searchResult: InsertMediaSearchResult
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
-
-    private var theme = Theme.standard
 
     struct Settings {
         let caption: String?
@@ -122,7 +121,7 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
         let alternativeTextTextView = textViewsGroupedByType[.alternativeText]
         let caption = captionTextView?.text.wmf_hasNonWhitespaceText ?? false ? captionTextView?.text : nil
         let alternativeText = alternativeTextTextView?.text.wmf_hasNonWhitespaceText ?? false ? alternativeTextTextView?.text : nil
-        return Settings(caption: caption, alternativeText: alternativeText, advanced: insertMediaAdvancedSettingsTableViewController.advancedSettings)
+        return Settings(caption: caption, alternativeText: alternativeText, advanced: insertMediaAdvancedSettingsViewController.advancedSettings)
     }
 
     private lazy var imageView: InsertMediaSettingsImageView = {
@@ -134,21 +133,20 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
         return imageView
     }()
 
-    private lazy var insertMediaAdvancedSettingsTableViewController: InsertMediaAdvancedSettingsTableViewController = {
-        return InsertMediaAdvancedSettingsTableViewController(theme: theme)
-    }()
+    private lazy var insertMediaAdvancedSettingsViewController = InsertMediaAdvancedSettingsViewController()
 
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
         let isRTL = UIApplication.shared.wmf_isRTL
-        let buttonTitleWithoutChevron = WMFLocalizedString("insert-media-advanced-settings-button-title", value: "Advanced settings", comment: "Title for advanced settings button")
+        let buttonTitleWithoutChevron = InsertMediaAdvancedSettingsViewController.title
         let buttonTitleWithChevron = isRTL ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
         buttonView.buttonTitle = buttonTitleWithChevron
         buttonView.buttonAction = { [weak self] _ in
             guard let self = self else {
                 return
             }
-            self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsTableViewController, animated: true)
+            self.insertMediaAdvancedSettingsViewController.apply(theme: self.theme)
+            self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
         buttonView.autoresizingMask = []
         return buttonView
@@ -189,7 +187,7 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
     init(image: UIImage, searchResult: InsertMediaSearchResult) {
         self.image = image
         self.searchResult = searchResult
-        super.init(style: .grouped)
+        super.init()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -197,7 +195,11 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+        scrollView = tableView
         super.viewDidLoad()
+        navigationBar.isBarHidingEnabled = false
+        tableView.dataSource = self
+        view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(InsertMediaSettingsTextTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaSettingsTextTableViewCell.identifier)
         tableView.separatorStyle = .none
         tableView.tableHeaderView = imageView
@@ -229,20 +231,30 @@ final class InsertMediaSettingsTableViewController: UITableViewController {
             self.tableView.endUpdates()
         }
     }
+
+    // MARK: - Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = view.backgroundColor
+        imageView.apply(theme: theme)
+        buttonView.apply(theme: theme)
+    }
 }
 
 // MARK: - Table view data source
 
-extension InsertMediaSettingsTableViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
+extension InsertMediaSettingsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: InsertMediaSettingsTextTableViewCell.identifier, for: indexPath) as? InsertMediaSettingsTextTableViewCell else {
             return UITableViewCell()
         }
@@ -255,7 +267,7 @@ extension InsertMediaSettingsTableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard
             let cell = tableView.visibleCells[safeIndex: indexPath.row] as? InsertMediaSettingsTextTableViewCell,
             let textViewHeightDelta = textViewHeightDelta,
@@ -268,7 +280,7 @@ extension InsertMediaSettingsTableViewController {
     
 }
 
-extension InsertMediaSettingsTableViewController: UITextViewDelegate {
+extension InsertMediaSettingsViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         updateTextViewHeight(textView)
     }
@@ -288,22 +300,8 @@ extension InsertMediaSettingsTableViewController: UITextViewDelegate {
     }
 }
 
-extension InsertMediaSettingsTableViewController: ThemeableTextViewPlaceholderDelegate {
+extension InsertMediaSettingsViewController: ThemeableTextViewPlaceholderDelegate {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
         updateTextViewHeight(themeableTextView)
-    }
-}
-
-// MARK: - Themeable
-
-extension InsertMediaSettingsTableViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        imageView.apply(theme: theme)
-        buttonView.apply(theme: theme)
     }
 }
