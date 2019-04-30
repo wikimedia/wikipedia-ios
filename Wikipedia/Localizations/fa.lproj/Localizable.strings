@@ -352,6 +352,11 @@
 "in-the-news-title" = "در اخبار";
 "info-box-close-text" = "بستن";
 "info-box-title" = "اطلاعات اجمالی";
+"insert-media-image-position-setting-center" = "مرکز";
+"insert-media-image-position-setting-left" = "چپ";
+"insert-media-image-position-setting-none" = "هیچ کدام";
+"insert-media-image-position-setting-right" = "راست";
+"insert-media-image-size-settings-px-unit-name" = "پیکسل";
 "languages-settings-title" = "زبان‌ها";
 "languages-title" = "تغییر زبان";
 "languages-wikipedia" = "زبان ویکی‌پدیا";
