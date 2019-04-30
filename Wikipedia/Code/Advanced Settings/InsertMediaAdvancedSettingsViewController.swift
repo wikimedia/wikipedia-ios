@@ -1,12 +1,13 @@
 import UIKit
 
-final class InsertMediaAdvancedSettingsTableViewController: UITableViewController {
-    private let theme: Theme
+final class InsertMediaAdvancedSettingsViewController: ViewController {
+    static let title = WMFLocalizedString("advanced-settings-title", value: "Advanced settings", comment: "Title for advanced settings screen")
+    private let tableView = UITableView()
 
     typealias AdvancedSettings = InsertMediaSettings.Advanced
 
     var advancedSettings: AdvancedSettings {
-        return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsTableViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn), imageType: imageTypeSettingsTableViewController.selectedImageType, imageSize: imageSizeSettingsTableViewController.selectedImageSize)
+        return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn), imageType: imageTypeSettingsViewController.selectedImageType, imageSize: imageSizeSettingsViewController.selectedImageSize)
     }
 
     struct ViewModel {
@@ -36,36 +37,36 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         return textWrappingSwitch
     }()
 
-    private lazy var imagePositionSettingsTableViewController = InsertMediaImagePositionSettingsTableViewController(theme: theme)
-    private lazy var imageTypeSettingsTableViewController = InsertMediaImageTypeSettingsTableViewController(theme: theme)
-    private lazy var imageSizeSettingsTableViewController = InsertMediaImageSizeSettingsTableViewController(theme: theme)
+    private lazy var imagePositionSettingsViewController = InsertMediaImagePositionSettingsViewController()
+    private lazy var imageTypeSettingsViewController = InsertMediaImageTypeSettingsViewController()
+    private lazy var imageSizeSettingsViewController = InsertMediaImageSizeSettingsViewController()
     
     private var viewModels: [ViewModel] {
         let textWrappingViewModel = ViewModel(title: WMFLocalizedString("insert-media-image-text-wrapping-setting", value: "Wrap text around image", comment: "Title for image setting that wraps text around image"), accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
-        let imagePositionViewModel = ViewModel(title: AdvancedSettings.ImagePosition.displayTitle, detailText: imagePositionSettingsTableViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn).displayTitle, isEnabled: textWrappingSwitch.isOn) { [weak self] in
+        let imagePositionViewModel = ViewModel(title: AdvancedSettings.ImagePosition.displayTitle, detailText: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn).displayTitle, isEnabled: textWrappingSwitch.isOn) { [weak self] in
             guard let self = self else {
                 return
             }
-            self.navigationController?.pushViewController(self.imagePositionSettingsTableViewController, animated: true)
+            self.push(self.imagePositionSettingsViewController)
         }
-        let imageTypeViewModel = ViewModel(title: AdvancedSettings.ImageType.displayTitle, detailText: imageTypeSettingsTableViewController.selectedImageType.displayTitle) { [weak self] in
+        let imageTypeViewModel = ViewModel(title: AdvancedSettings.ImageType.displayTitle, detailText: imageTypeSettingsViewController.selectedImageType.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
-            self.navigationController?.pushViewController(self.imageTypeSettingsTableViewController, animated: true)
+            self.push(self.imageTypeSettingsViewController)
         }
-        let imageSizeViewModel = ViewModel(title: AdvancedSettings.ImageSize.displayTitle, detailText: imageSizeSettingsTableViewController.selectedImageSize.displayTitle) { [weak self] in
+        let imageSizeViewModel = ViewModel(title: AdvancedSettings.ImageSize.displayTitle, detailText: imageSizeSettingsViewController.selectedImageSize.displayTitle) { [weak self] in
             guard let self = self else {
                 return
             }
-           self.navigationController?.pushViewController(self.imageSizeSettingsTableViewController, animated: false)
+            self.push(self.imageSizeSettingsViewController)
         }
         return [textWrappingViewModel, imagePositionViewModel, imageTypeViewModel, imageSizeViewModel]
     }
 
-    init(theme: Theme) {
-        self.theme = theme
-        super.init(style: .plain)
+    private func push(_ viewController: UIViewController & Themeable) {
+        viewController.apply(theme: theme)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     @objc private func toggleImagePositionEnabledState(_ sender: UISwitch) {
@@ -73,18 +74,17 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
     }
 
     override func viewDidLoad() {
+        scrollView = tableView
         super.viewDidLoad()
+        navigationBar.isBarHidingEnabled = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
-        title = "Advanced settings"
+        title = InsertMediaAdvancedSettingsViewController.title
         apply(theme: theme)
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private var isFirstAppearance = true
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -97,17 +97,29 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         tableView.reloadData()
     }
 
-    // MARK: - Table view data source
+    // MARK: - Themeable
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = view.backgroundColor
+        tableView.separatorColor = theme.colors.border
+    }
+
+}
+
+// MARK: - Table view data source
+
+extension InsertMediaAdvancedSettingsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier) ?? UITableViewCell(style: .value1, reuseIdentifier: UITableViewCell.identifier)
         let viewModel = viewModels[indexPath.row]
         cell.textLabel?.text = viewModel.title
@@ -130,21 +142,13 @@ final class InsertMediaAdvancedSettingsTableViewController: UITableViewControlle
         cell.textLabel?.textColor = cell.isUserInteractionEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         cell.detailTextLabel?.textColor = theme.colors.secondaryText
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewModel = viewModels[indexPath.row]
-        viewModel.onSelection?()
-    }
 }
 
-// MARK: - Themeable
+// MARK: - Table view delegate
 
-extension InsertMediaAdvancedSettingsTableViewController: Themeable {
-    func apply(theme: Theme) {
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        tableView.separatorColor = theme.colors.border
+extension InsertMediaAdvancedSettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewModel = viewModels[indexPath.row]
+        viewModel.onSelection?()
     }
 }

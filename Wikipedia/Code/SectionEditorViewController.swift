@@ -19,8 +19,6 @@ class SectionEditorViewController: UIViewController {
     private var menuItemsController: SectionEditorMenuItemsController!
     private var navigationItemController: SectionEditorNavigationItemController!
 
-    private var mediaWizardController: MediaWizardController?
-    
     lazy var readingThemesControlsViewController: ReadingThemesControlsViewController = {
         return ReadingThemesControlsViewController.init(nibName: ReadingThemesControlsViewController.nibName, bundle: nil)
     }()
@@ -576,24 +574,19 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        mediaWizardController = MediaWizardController(theme: theme, articleTitle: section?.titleText, siteURL: section?.article?.url.wmf_site)
-        mediaWizardController?.delegate = self
-        mediaWizardController?.prepare()
+        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.titleText, siteURL: section?.article?.url.wmf_site)
+        insertMediaViewController.delegate = self
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
+        present(navigationController, animated: true)
     }
 }
 
-extension SectionEditorViewController: MediaWizardControllerDelegate {
-    func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareViewController viewController: UIViewController) {
-        present(viewController, animated: true)
-    }
-
-    func mediaWizardController(_ mediaWizardController: MediaWizardController, didTapCloseButton button: UIBarButtonItem) {
-        self.mediaWizardController = nil
+extension SectionEditorViewController: InsertMediaViewControllerDelegate {
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
         dismiss(animated: true)
     }
 
-    func mediaWizardController(_ mediaWizardController: MediaWizardController, didPrepareWikitextToInsert wikitext: String) {
-        self.mediaWizardController = nil
+    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
         dismiss(animated: true)
         messagingController.replaceSelection(text: wikitext)
     }

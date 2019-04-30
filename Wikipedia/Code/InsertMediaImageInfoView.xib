@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,23 +16,23 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="248"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="XYv-PB-v5Y">
-                    <rect key="frame" x="12" y="12" width="351" height="228"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="XYv-PB-v5Y">
+                    <rect key="frame" x="12" y="56" width="351" height="150"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZJ-TG-IzS">
-                            <rect key="frame" x="0.0" y="0.0" width="351" height="20.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="351" height="20.333333333333332"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6i-Tu-inn">
-                            <rect key="frame" x="0.0" y="104" width="351" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6i-Tu-inn">
+                            <rect key="frame" x="0.0" y="32.333333333333321" width="351" height="85.666666666666686"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YL-8I-B18">
-                            <rect key="frame" x="0.0" y="208" width="351" height="20"/>
+                            <rect key="frame" x="0.0" y="130" width="351" height="20"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NiH-z3-XBT">
                                     <rect key="frame" x="0.0" y="0.0" width="331" height="20"/>
@@ -43,8 +43,8 @@
                                                 <constraint firstAttribute="width" constant="16" placeholder="YES" id="9y1-Ha-m41"/>
                                             </constraints>
                                         </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1D0-Ni-yXU">
-                                            <rect key="frame" x="24" y="0.0" width="42" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1D0-Ni-yXU">
+                                            <rect key="frame" x="23.999999999999996" y="0.0" width="41.666666666666657" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -76,11 +76,16 @@
                         </stackView>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="ZTW-tL-eUf"/>
+                    <variation key="heightClass=compact" spacing="1"/>
                 </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="XYv-PB-v5Y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="Jxb-Mb-YN7"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XYv-PB-v5Y" secondAttribute="bottom" constant="8" id="RFN-QT-Lg6"/>
+                <constraint firstItem="XYv-PB-v5Y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="Jxb-Mb-YN7">
+                    <variation key="heightClass=compact" constant="6"/>
+                </constraint>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XYv-PB-v5Y" secondAttribute="bottom" constant="8" id="RFN-QT-Lg6">
+                    <variation key="heightClass=compact" constant="4"/>
+                </constraint>
                 <constraint firstItem="XYv-PB-v5Y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="bnK-Nf-j0h"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XYv-PB-v5Y" secondAttribute="trailing" constant="12" id="gqI-SQ-T4l"/>
             </constraints>

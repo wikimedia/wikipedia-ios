@@ -2,8 +2,8 @@ fileprivate protocol ViewModel {
     var title: String { get }
 }
 
-final class InsertMediaImageSizeSettingsTableViewController: UITableViewController {
-    private let theme: Theme
+final class InsertMediaImageSizeSettingsViewController: ViewController {
+    private let tableView = UITableView()
 
     typealias ImageSize = InsertMediaSettings.Advanced.ImageSize
 
@@ -64,15 +64,6 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
         tableView.reloadData()
     }
 
-    init(theme: Theme) {
-        self.theme = theme
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     private lazy var viewModels: [ViewModel] = {
         let customImageSize = ImageSize.custom(width: ImageSize.defaultWidth, height: ImageSize.defaultHeight)
         let customViewModel = ImageSizeViewModel(title: customImageSize.displayTitle, accessoryView: customSwitch)
@@ -82,7 +73,11 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
     }()
 
     override func viewDidLoad() {
+        scrollView = tableView
         super.viewDidLoad()
+        navigationBar.isBarHidingEnabled = false
+        tableView.dataSource = self
+        view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.register(InsertMediaCustomImageSizeSettingTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaCustomImageSizeSettingTableViewCell.identifier)
         tableView.separatorInset = .zero
@@ -91,15 +86,35 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
         apply(theme: theme)
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    private func apply(theme: Theme, to cell: UITableViewCell) {
+        cell.backgroundColor = theme.colors.paperBackground
+        cell.contentView.backgroundColor = theme.colors.paperBackground
+        cell.textLabel?.textColor = theme.colors.primaryText
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = theme.colors.midBackground
+        cell.selectedBackgroundView = selectedBackgroundView
+    }
+
+    // MARK: - Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = view.backgroundColor
+        tableView.separatorColor = theme.colors.border
+    }
+}
+
+extension InsertMediaImageSizeSettingsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let viewModel = viewModels[indexPath.row]
         switch viewModel {
         case let imageSizeViewModel as ImageSizeViewModel:
@@ -122,26 +137,5 @@ final class InsertMediaImageSizeSettingsTableViewController: UITableViewControll
         default:
             return UITableViewCell()
         }
-    }
-
-    private func apply(theme: Theme, to cell: UITableViewCell) {
-        cell.backgroundColor = theme.colors.paperBackground
-        cell.contentView.backgroundColor = theme.colors.paperBackground
-        cell.textLabel?.textColor = theme.colors.primaryText
-        let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = theme.colors.midBackground
-        cell.selectedBackgroundView = selectedBackgroundView
-    }
-}
-
-// MARK: - Themeable
-
-extension InsertMediaImageSizeSettingsTableViewController: Themeable {
-    func apply(theme: Theme) {
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        tableView.separatorColor = theme.colors.border
     }
 }

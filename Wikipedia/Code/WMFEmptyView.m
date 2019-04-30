@@ -14,6 +14,8 @@
 @property (strong, nonatomic) IBOutlet WMFAlignedImageButton *button;
 @property (strong, nonatomic) CAShapeLayer *actionLineLayer;
 @property (nonatomic, strong) WMFTheme *theme;
+@property (nonatomic, strong) NSString *backgroundColorKeyPath;
+@property (nonatomic, strong) NSString *titleLabelTextColorKeyPath;
 
 @end
 
@@ -26,6 +28,22 @@
     }
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:self.theme];
+}
+
+- (NSString *)backgroundColorKeyPath {
+    if (!_backgroundColorKeyPath) {
+        return @"colors.paperBackground";
+    } else {
+        return _backgroundColorKeyPath;
+    }
+}
+
+- (NSString *)titleLabelTextColorKeyPath {
+    if (!_titleLabelTextColorKeyPath) {
+        return @"colors.primaryText";
+    } else {
+        return _titleLabelTextColorKeyPath;
+    }
 }
 
 + (instancetype)emptyView {
@@ -137,6 +155,20 @@
     return view;
 }
 
++ (instancetype)noSelectedImageToInsertEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"insert-media/blank"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-insert-media-title", nil, nil, @"Select a file", @"Text for placeholder label visible when no file was selected or uploaded");
+    view.titleLabelTextColorKeyPath = @"colors.secondaryText";
+    view.backgroundColorKeyPath = @"colors.baseBackground";
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
 - (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nonnull SEL)action {
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];
@@ -192,12 +224,12 @@
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.imageView.tintColor = theme.colors.tertiaryText;
-    self.titleLabel.textColor = theme.colors.primaryText;
+    self.titleLabel.textColor = [theme valueForKeyPath:self.titleLabelTextColorKeyPath];
     self.messageLabel.textColor = theme.colors.secondaryText;
     self.actionLabel.textColor = theme.colors.secondaryText;
     self.button.tintColor = theme.colors.link;
     self.button.backgroundColor = theme.colors.cardButtonBackground;
-    self.backgroundColor = theme.colors.paperBackground;
+    self.backgroundColor = [theme valueForKeyPath:self.backgroundColorKeyPath];
     [self setNeedsLayout];
 }
 

@@ -1,4 +1,5 @@
 @import Foundation;
+#import <CoreData/CoreData.h>
 
 @class MWKDataStore;
 @class WMFArticle;
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)numberOfItems;
 
 - (nullable WMFArticle *)mostRecentEntry;
+- (nullable WMFArticle *)mostRecentEntryInManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url;
 

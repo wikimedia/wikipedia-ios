@@ -78,7 +78,7 @@ extension SearchSettingsViewController {
 }
 
 extension SearchSettingsViewController {
-    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    @objc public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return getSection(at: section).footerTitle
     }
 }
