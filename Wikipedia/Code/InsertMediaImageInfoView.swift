@@ -6,6 +6,7 @@ final class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var licenseLabel: UILabel!
     @IBOutlet private weak var licenseView: LicenseView!
     @IBOutlet private weak var moreInformationButton: UIButton!
+    @IBOutlet private weak var tapGestureRecognizer: UITapGestureRecognizer!
 
     var moreInformationAction: ((URL) -> Void)?
     private var keepBackgroundClear = false
@@ -47,7 +48,7 @@ final class InsertMediaImageInfoView: UIView {
         licenseLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
 
-    @IBAction private func showMoreInformation(_ sender: UIButton) {
+    @IBAction private func showMoreInformation(_ sender: Any) {
         guard let url = moreInformationURL else {
             return
         }

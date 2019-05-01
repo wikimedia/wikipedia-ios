@@ -79,6 +79,7 @@
                     <variation key="heightClass=compact" spacing="1"/>
                 </stackView>
             </subviews>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="XYv-PB-v5Y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="Jxb-Mb-YN7">
                     <variation key="heightClass=compact" constant="6"/>
@@ -97,9 +98,15 @@
                 <outlet property="licenseView" destination="s2W-Fe-5kb" id="Es5-Im-CnZ"/>
                 <outlet property="moreInformationButton" destination="49a-sU-vMB" id="ZeJ-Aa-bto"/>
                 <outlet property="titleLabel" destination="ZZJ-TG-IzS" id="oFj-Zl-6ff"/>
+                <outletCollection property="gestureRecognizers" destination="bdS-nS-JIx" appends="YES" id="JTy-bH-Jgg"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>
+        <tapGestureRecognizer id="bdS-nS-JIx">
+            <connections>
+                <action selector="showMoreInformation:" destination="iN0-l3-epB" id="WrQ-hF-nR3"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="description-info" width="18" height="18"/>
