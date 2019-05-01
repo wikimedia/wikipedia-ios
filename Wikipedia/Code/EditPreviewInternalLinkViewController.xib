@@ -15,6 +15,7 @@
                 <outlet property="button" destination="Sce-E4-ZEM" id="poG-0c-bFU"/>
                 <outlet property="containerView" destination="LBy-N3-43n" id="9ar-tz-xOX"/>
                 <outlet property="tapGestureRecignizer" destination="NwK-NY-AW1" id="YmP-cs-COA"/>
+                <outlet property="tapView" destination="lP8-IR-vmI" id="Ky4-vL-OUy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -90,7 +91,7 @@
                                 </mask>
                             </variation>
                             <connections>
-                                <outletCollection property="gestureRecognizers" destination="NwK-NY-AW1" appends="YES" id="jjR-Pw-yzR"/>
+                                <outletCollection property="gestureRecognizers" destination="NwK-NY-AW1" appends="YES" id="U02-ck-e4A"/>
                             </connections>
                         </view>
                     </subviews>
