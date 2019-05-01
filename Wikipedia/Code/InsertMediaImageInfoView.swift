@@ -6,7 +6,6 @@ final class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var licenseLabel: UILabel!
     @IBOutlet private weak var licenseView: LicenseView!
     @IBOutlet private weak var moreInformationButton: UIButton!
-    @IBOutlet private weak var tapGestureRecognizer: UITapGestureRecognizer!
 
     var moreInformationAction: ((URL) -> Void)?
     private var keepBackgroundClear = false
