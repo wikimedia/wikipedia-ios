@@ -49,6 +49,7 @@ final class InsertMediaImageInfoView: UIView {
 
     @IBAction private func showMoreInformation(_ sender: Any) {
         guard let url = moreInformationURL else {
+            assertionFailure("moreInformationURL should be set by now")
             return
         }
         moreInformationAction?(url)
