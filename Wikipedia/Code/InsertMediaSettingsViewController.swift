@@ -204,7 +204,6 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.separatorStyle = .none
         tableView.tableHeaderView = imageView
         tableView.tableFooterView = buttonView
-        apply(theme: theme)
     }
 
     override func viewDidLayoutSubviews() {
@@ -236,6 +235,9 @@ final class InsertMediaSettingsViewController: ViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = view.backgroundColor
         imageView.apply(theme: theme)
