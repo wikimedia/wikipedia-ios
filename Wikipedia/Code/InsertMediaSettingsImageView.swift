@@ -45,7 +45,7 @@ extension InsertMediaSettingsImageView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
-        titleButton.tintColor = theme.colors.link
+        titleButton.setTitleColor(theme.colors.link, for: .normal)
         separatorView.backgroundColor = theme.colors.border
     }
 }
