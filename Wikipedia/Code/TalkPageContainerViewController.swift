@@ -28,7 +28,7 @@ class TalkPageContainerViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        navigationBar.isBarHidingEnabled = false
         fetch()
     }
     
@@ -48,6 +48,7 @@ class TalkPageContainerViewController: ViewController {
     private func setupDiscussionListViewControllerIfNeeded(with talkPage: TalkPage) {
         if discussionListViewController == nil {
             discussionListViewController = TalkPageDiscussionListViewController(dataStore: dataStore, talkPage: talkPage)
+            discussionListViewController?.apply(theme: theme)
             wmf_add(childController: discussionListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             discussionListViewController?.delegate = self
         }
@@ -72,6 +73,7 @@ extension TalkPageContainerViewController: TalkPageDiscussionListDelegate {
         let replyVC = TalkPageReplyContainerViewController.wmf_viewControllerFromTalkPageStoryboard()
         replyVC.dataStore = dataStore
         replyVC.discussion = discussion
+        replyVC.apply(theme: theme)
         navigationController?.pushViewController(replyVC, animated: true)
     }
 }

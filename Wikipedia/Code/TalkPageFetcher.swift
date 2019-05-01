@@ -73,8 +73,10 @@ class TalkPageFetcher: Fetcher {
                 return
             }
             
-            if let discussions = discussions {
-                let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: discussions, revisionId: revisionID)
+            let filteredDiscussions = discussions?.filter { $0.text.count > 0 }
+            
+            if let filteredDiscussions = filteredDiscussions {
+                let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: filteredDiscussions, revisionId: revisionID)
                 completion(.success(talkPage))
             }
             

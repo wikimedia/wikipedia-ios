@@ -15,6 +15,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     private var fetchedResultsController: NSFetchedResultsController<TalkPageDiscussion>!
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageDiscussion>!
     
+    private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private let reuseIdentifier = "DiscussionListItemCollectionViewCell"
     
     required init(dataStore: MWKDataStore, talkPage: TalkPage) {
@@ -39,12 +40,9 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
         collectionViewUpdater?.performFetch()
     }
     
-    private func setupFetchedResultsController(with dataStore: MWKDataStore) {
-
-        let request: NSFetchRequest<TalkPageDiscussion> = TalkPageDiscussion.fetchRequest()
-        request.predicate = NSPredicate(format: "talkPage == %@",  talkPage)
-        request.sortDescriptors = [NSSortDescriptor(key: "talkPage", ascending: true)] //todo: I am forced to use this, does this keep original ordering?
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        cellLayoutEstimate = nil
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -64,18 +62,34 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? DiscussionListItemCollectionViewCell,
-            let title = fetchedResultsController.object(at: indexPath).title else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? DiscussionListItemCollectionViewCell else {
                 return UICollectionViewCell()
         }
         
-        cell.configure(title: title)
+        configure(cell: cell, at: indexPath)
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        
+        // The layout estimate can be re-used in this case because label is one line, meaning the cell
+        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
+        if let estimate = cellLayoutEstimate {
+            return estimate
+        }
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 54)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? DiscussionListItemCollectionViewCell else {
+            return estimate
+        }
+        configure(cell: placeholderCell, at: indexPath)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
         return estimate
+    }
+    
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -84,15 +98,34 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     }
 }
 
+private extension TalkPageDiscussionListViewController {
+    func setupFetchedResultsController(with dataStore: MWKDataStore) {
+        
+        let request: NSFetchRequest<TalkPageDiscussion> = TalkPageDiscussion.fetchRequest()
+        request.predicate = NSPredicate(format: "talkPage == %@",  talkPage)
+        request.sortDescriptors = [NSSortDescriptor(key: "talkPage", ascending: true)] //todo: I am forced to use this, does this keep original ordering?
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+    }
+    
+    func configure(cell: DiscussionListItemCollectionViewCell, at indexPath: IndexPath) {
+        guard let title = fetchedResultsController.object(at: indexPath).title else {
+            return
+        }
+        
+        cell.configure(title: title)
+        cell.layoutMargins = layout.itemLayoutMargins
+        cell.apply(theme: theme)
+    }
+}
+
 extension TalkPageDiscussionListViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? DiscussionListItemCollectionViewCell,
-                let title = fetchedResultsController.object(at: indexPath).title else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? DiscussionListItemCollectionViewCell else {
                 continue
             }
             
-            cell.configure(title: title)
+            configure(cell: cell, at: indexPath)
         }
     }
     

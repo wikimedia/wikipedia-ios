@@ -53,6 +53,7 @@ class AccountViewController: SubSettingsViewController {
             //todo: smart host
             if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername {
                 let talkPageContainerVC = TalkPageContainerViewController(title: username, host: "en.wikipedia.org", titleIncludesPrefix: false, type: .user, dataStore: dataStore)
+                talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }
         default:
