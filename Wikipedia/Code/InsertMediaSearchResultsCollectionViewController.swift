@@ -5,7 +5,7 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         minimumInteritemSpacing = 12
-        minimumLineSpacing = 32
+        minimumLineSpacing = 38
         sectionInsetReference = .fromContentInset
     }
 
