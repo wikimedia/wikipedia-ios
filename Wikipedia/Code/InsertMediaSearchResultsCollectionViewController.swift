@@ -88,6 +88,16 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
         }
     }
 
+    var selectedImage: UIImage? {
+        guard
+            let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
+            let cell = collectionView.cellForItem(at: selectedIndexPath) as? InsertMediaSearchResultCollectionViewCell
+        else {
+            return nil
+        }
+        return cell.imageView.image
+    }
+
     init() {
         super.init(collectionViewLayout: FlowLayout())
         collectionView.contentInsetAdjustmentBehavior = .never

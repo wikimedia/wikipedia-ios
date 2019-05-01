@@ -1,7 +1,7 @@
 import UIKit
 
 final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
-    private let imageView = UIImageView()
+    let imageView = UIImageView()
     private let captionLabel = UILabel()
 
     private var imageURL: URL?
