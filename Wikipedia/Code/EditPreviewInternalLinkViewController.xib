@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="button" destination="Sce-E4-ZEM" id="poG-0c-bFU"/>
                 <outlet property="containerView" destination="LBy-N3-43n" id="9ar-tz-xOX"/>
+                <outlet property="tapGestureRecignizer" destination="NwK-NY-AW1" id="YmP-cs-COA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,6 +53,7 @@
                                     </connections>
                                 </button>
                             </subviews>
+                            <gestureRecognizers/>
                             <constraints>
                                 <constraint firstItem="Sce-E4-ZEM" firstAttribute="leading" secondItem="LBy-N3-43n" secondAttribute="leading" id="0ia-Tb-5cn"/>
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="centerX" secondItem="lP8-IR-vmI" secondAttribute="centerX" priority="999" id="HWz-iP-BMQ"/>
@@ -87,6 +89,9 @@
                                     <exclude reference="cRo-gZ-Roi"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="NwK-NY-AW1" appends="YES" id="jjR-Pw-yzR"/>
+                            </connections>
                         </view>
                     </subviews>
                     <constraints>
@@ -131,5 +136,6 @@
                 </mask>
             </variation>
         </view>
+        <tapGestureRecognizer id="NwK-NY-AW1"/>
     </objects>
 </document>

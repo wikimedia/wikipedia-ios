@@ -4,6 +4,7 @@ class EditPreviewInternalLinkViewController: UIViewController {
     @IBOutlet private weak var containerView: UIView!
     private var containerViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet private weak var button: UIButton!
+    @IBOutlet private weak var tapGestureRecignizer: UITapGestureRecognizer!
 
     private let articleURL: URL
     private let dataStore: MWKDataStore
@@ -29,6 +30,7 @@ class EditPreviewInternalLinkViewController: UIViewController {
         button.layer.cornerRadius = 8
         button.setTitle(CommonStrings.okTitle, for: .normal)
         wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme, containerView: containerView)
+        tapGestureRecignizer.addTarget(self, action: #selector(dismissAnimated(_:)))
         apply(theme: theme)
     }
 
