@@ -126,7 +126,6 @@ extension InsertMediaAdvancedSettingsViewController: UITableViewDataSource {
         cell.accessoryType = viewModel.accessoryType
         cell.isUserInteractionEnabled = viewModel.isEnabled
         cell.detailTextLabel?.textAlignment = .right
-        cell.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         cell.detailTextLabel?.text = viewModel.detailText
         cell.selectionStyle = cell.isUserInteractionEnabled ? viewModel.selectionStyle : .none
         apply(theme: theme, to: cell)
@@ -141,6 +140,10 @@ extension InsertMediaAdvancedSettingsViewController: UITableViewDataSource {
         cell.selectedBackgroundView = selectedBackgroundView
         cell.textLabel?.textColor = cell.isUserInteractionEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         cell.detailTextLabel?.textColor = theme.colors.secondaryText
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }
 
