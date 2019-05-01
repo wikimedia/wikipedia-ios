@@ -105,7 +105,6 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorColor = theme.colors.border
     }
-
 }
 
 // MARK: - Table view data source
@@ -127,6 +126,7 @@ extension InsertMediaAdvancedSettingsViewController: UITableViewDataSource {
         cell.accessoryType = viewModel.accessoryType
         cell.isUserInteractionEnabled = viewModel.isEnabled
         cell.detailTextLabel?.textAlignment = .right
+        cell.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         cell.detailTextLabel?.text = viewModel.detailText
         cell.selectionStyle = cell.isUserInteractionEnabled ? viewModel.selectionStyle : .none
         apply(theme: theme, to: cell)
