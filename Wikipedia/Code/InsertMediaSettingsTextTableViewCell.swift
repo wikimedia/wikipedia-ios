@@ -21,6 +21,7 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         textView._delegate = delegate
         textView.placeholderDelegate = placeholderDelegate
         textView.placeholder = placeholder!
+        textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag
         return textView
     }
