@@ -27,7 +27,7 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        headerLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        headerLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         footerLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         textView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }

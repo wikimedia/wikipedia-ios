@@ -31,7 +31,7 @@ final class InsertMediaSettingsImageView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        headingLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
 
