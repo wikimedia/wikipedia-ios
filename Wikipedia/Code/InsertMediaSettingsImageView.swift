@@ -24,6 +24,9 @@ final class InsertMediaSettingsImageView: UIView {
         }
     }
 
+    var titleURL: URL?
+    var titleAction: ((URL) -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.accessibilityIgnoresInvertColors = true
@@ -38,6 +41,14 @@ final class InsertMediaSettingsImageView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         headingLabel.preferredMaxLayoutWidth = headingLabel.bounds.width
+    }
+
+    @IBAction private func performTitleAction(_ sender: UIButton) {
+        guard let url = titleURL else {
+            assertionFailure("titleURL should be set by now")
+            return
+        }
+        titleAction?(url)
     }
 }
 
