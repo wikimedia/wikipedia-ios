@@ -3,7 +3,7 @@ import UIKit
 final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var headingLabel: UILabel!
-    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var titleButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private weak var separatorView: UIView!
 
     var image: UIImage? {
@@ -20,7 +20,7 @@ final class InsertMediaSettingsImageView: UIView {
 
     var title: String? {
         didSet {
-            titleLabel.text = title
+            titleButton.setTitle(title, for: .normal)
         }
     }
 
@@ -32,13 +32,12 @@ final class InsertMediaSettingsImageView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         headingLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        titleButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         headingLabel.preferredMaxLayoutWidth = headingLabel.bounds.width
-        titleLabel.preferredMaxLayoutWidth = titleLabel.bounds.width
     }
 }
 
@@ -46,7 +45,7 @@ extension InsertMediaSettingsImageView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
-        titleLabel.textColor = theme.colors.link
+        titleButton.tintColor = theme.colors.link
         separatorView.backgroundColor = theme.colors.border
     }
 }
