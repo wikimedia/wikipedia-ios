@@ -46,6 +46,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
                 return
             }
             let internalLinkViewController = EditPreviewInternalLinkViewController(articleURL: articleURL, dataStore: dataStore)
+            internalLinkViewController.preferredContentSize = CGSize(width: 10, height: 10)
             internalLinkViewController.modalPresentationStyle = .overCurrentContext
             internalLinkViewController.modalTransitionStyle = .crossDissolve
             internalLinkViewController.apply(theme: theme)
