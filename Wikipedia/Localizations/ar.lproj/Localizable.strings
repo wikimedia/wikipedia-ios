@@ -235,6 +235,7 @@
 "editing-welcome-impartial-tone-title" = "اكتب بنبرة محايدة";
 "editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
 "editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
+"empty-insert-media-title" = "حدد ملفا";
 "empty-no-article-message" = "عذرا , غير قادر على تحميل الموضوع";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-feed-message" = "يمكنك مشاهدة مواضيعك المفضلة عندما تتصل بالانترنت";
@@ -403,7 +404,6 @@
 "info-box-close-text" = "إغلاق";
 "info-box-title" = "معلومات سريعة";
 "insert-action-title" = "إدراج";
-"insert-media-advanced-settings-button-title" = "إعدادات متقدمة";
 "insert-media-alternative-text-description" = "وصف النص للقراء الذين لا يستطيعون رؤية الصورة";
 "insert-media-alternative-text-placeholder" = "صف هذه الصورة";
 "insert-media-alternative-text-title" = "نص بديل";
@@ -427,7 +427,6 @@
 "insert-media-image-type-setting-thumbnail" = "تصغير";
 "insert-media-image-type-settings-title" = "نوع الصورة";
 "insert-media-media-settings-title" = "إعدادات الوسائط";
-"insert-media-placeholder-label-text" = "حدد أو ارفع ملفا";
 "insert-media-title" = "إدراج وسائط";
 "insert-media-uploaded-image-title" = "تم رفع الصورة";
 "languages-settings-title" = "لغات";

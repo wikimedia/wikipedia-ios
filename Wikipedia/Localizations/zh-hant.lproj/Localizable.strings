@@ -232,6 +232,7 @@
 "editing-welcome-impartial-tone-title" = "以客觀語氣編寫";
 "editing-welcome-set-knowledge-free-subtitle" = "為了讓任何人能取用世界上的知識，我們需要您透過閱讀、編輯、貢獻您最感興趣的主題來參與創建。";
 "editing-welcome-set-knowledge-free-title" = "讓知識能自由取得";
+"empty-insert-media-title" = "選擇檔案";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";
 "empty-no-feed-message" = "在有網路時，您可以看到推薦的條目";
@@ -400,7 +401,6 @@
 "info-box-close-text" = "關閉";
 "info-box-title" = "快速預覽";
 "insert-action-title" = "插入";
-"insert-media-advanced-settings-button-title" = "進階設定";
 "insert-media-alternative-text-description" = "圖片沒辦法正常顯示給讀者查看時用的文字描述";
 "insert-media-alternative-text-placeholder" = "描述此圖片";
 "insert-media-alternative-text-title" = "替代文字";
@@ -424,7 +424,6 @@
 "insert-media-image-type-setting-thumbnail" = "縮圖";
 "insert-media-image-type-settings-title" = "圖片類型";
 "insert-media-media-settings-title" = "媒體設定";
-"insert-media-placeholder-label-text" = "選擇或上傳檔案";
 "insert-media-title" = "插入媒體";
 "insert-media-uploaded-image-title" = "已上傳圖片";
 "languages-settings-title" = "語言";

@@ -218,6 +218,7 @@
 "editing-welcome-impartial-tone-title" = "Пишувајте со непристрасен тон";
 "editing-welcome-set-knowledge-free-subtitle" = "Со цел да го направиме светското знаење пристапно за секого, ќе треба да учествувате во неовото создавање со читање и уредување на темите кои највеќе ви значат.";
 "editing-welcome-set-knowledge-free-title" = "Да го ослободиме знаењето";
+"empty-insert-media-title" = "Изберете податотека";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
@@ -386,7 +387,6 @@
 "info-box-close-text" = "Затвори";
 "info-box-title" = "Кратки факти";
 "insert-action-title" = "Вметни";
-"insert-media-advanced-settings-button-title" = "Напредни нагодувања";
 "insert-media-alternative-text-description" = "Писмен опис за читателите кои не можат да ја видат сликата";
 "insert-media-alternative-text-placeholder" = "Опишете ја сликава";
 "insert-media-alternative-text-title" = "Алтернативен текст";
@@ -410,7 +410,6 @@
 "insert-media-image-type-setting-thumbnail" = "Минијатура";
 "insert-media-image-type-settings-title" = "Тип на слика";
 "insert-media-media-settings-title" = "Поставки за слики и снимки";
-"insert-media-placeholder-label-text" = "Изберете или подигнете податотека";
 "insert-media-title" = "Вметнување на слика или снимка";
 "insert-media-uploaded-image-title" = "Подигни слика";
 "languages-settings-title" = "Јазици";

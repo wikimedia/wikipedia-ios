@@ -238,6 +238,7 @@
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Voir l’arbre de connaissance";
+"empty-insert-media-title" = "Sélectionner un fichier";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
@@ -406,7 +407,6 @@
 "info-box-close-text" = "Fermer";
 "info-box-title" = "Faits en bref";
 "insert-action-title" = "Insérer";
-"insert-media-advanced-settings-button-title" = "Paramètres avancés";
 "insert-media-alternative-text-description" = "Description textuelle pour les lecteurs qui ne peuvent voir l’image";
 "insert-media-alternative-text-placeholder" = "Décrire cette image";
 "insert-media-alternative-text-title" = "Texte alternatif";
@@ -430,7 +430,6 @@
 "insert-media-image-type-setting-thumbnail" = "Vignette";
 "insert-media-image-type-settings-title" = "Type d’image";
 "insert-media-media-settings-title" = "Paramètres du média";
-"insert-media-placeholder-label-text" = "Sélectionner ou téléverser un fichier";
 "insert-media-title" = "Insérer le média";
 "insert-media-uploaded-image-title" = "Image téléversée";
 "languages-settings-title" = "Langues";

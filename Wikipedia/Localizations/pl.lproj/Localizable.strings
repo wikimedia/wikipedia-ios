@@ -1,5 +1,6 @@
 // Messages for Polish (polski)
 // Exported from translatewiki.net
+// Author: Abijeet Patro
 // Author: Alan ffm
 // Author: Alchemik
 // Author: Anwar2
@@ -127,6 +128,8 @@
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
+// Fuzzy
+"empty-insert-media-title" = "Wybierz lub prześlij plik";
 "empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
 "empty-no-feed-action-message" = "Nadal możesz czytać zapisane strony";
 "empty-no-history-title" = "Nie ma historii do pokazania";
@@ -214,7 +217,6 @@
 "in-the-news-title" = "W wiadomościach";
 "info-box-close-text" = "Zamknij";
 "info-box-title" = "Szybkie fakty";
-"insert-media-advanced-settings-button-title" = "Zaawansowane ustawienia";
 "insert-media-alternative-text-placeholder" = "Opisz ten obraz";
 "insert-media-caption-description" = "Etykieta wyświetlana obok elementu dla wszystkich czytelników";
 "insert-media-caption-title" = "Podpis";
@@ -223,7 +225,6 @@
 "insert-media-image-preview-select-image-action-title" = "Wybierz obraz";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Rozmiar obrazu";
-"insert-media-placeholder-label-text" = "Wybierz lub prześlij plik";
 "insert-media-uploaded-image-title" = "Przesłany obraz";
 "languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";

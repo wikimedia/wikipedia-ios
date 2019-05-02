@@ -223,6 +223,7 @@
 "editing-welcome-impartial-tone-title" = "In einem neutralen Ton schreiben";
 "editing-welcome-set-knowledge-free-subtitle" = "Um jedem den Zugang auf das Wissen der Welt zu geben, brauchen wir deine Teilnahme an seiner Erstellung durch Lesen, Bearbeiten und Beitragen an den Themen, die dir am Wichtigsten sind.";
 "editing-welcome-set-knowledge-free-title" = "Wissen frei aufsetzen";
+"empty-insert-media-title" = "Eine Datei auswählen";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
@@ -391,7 +392,6 @@
 "info-box-close-text" = "Schließen";
 "info-box-title" = "Schnelle Fakten";
 "insert-action-title" = "Einfügen";
-"insert-media-advanced-settings-button-title" = "Erweiterte Einstellungen";
 "insert-media-alternative-text-description" = "Textbeschreibung für Leser, die das Bild nicht sehen können.";
 "insert-media-alternative-text-placeholder" = "Beschreibe dieses Bild";
 "insert-media-alternative-text-title" = "Alternativer Text";
@@ -415,7 +415,6 @@
 "insert-media-image-type-setting-thumbnail" = "Vorschaubild";
 "insert-media-image-type-settings-title" = "Bildtyp";
 "insert-media-media-settings-title" = "Medieneinstellungen";
-"insert-media-placeholder-label-text" = "Eine Datei auswählen oder hochladen";
 "insert-media-title" = "Medium einfügen";
 "insert-media-uploaded-image-title" = "Hochgeladenes Bild";
 "languages-settings-title" = "Sprachen";
