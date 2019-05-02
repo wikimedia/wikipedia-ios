@@ -14,7 +14,8 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNoHistory,
     WMFEmptyViewTypeNoReadingLists,
     WMFEmptyViewTypeNoSavedPagesInReadingList,
-    WMFEmptyViewTypeNoInternetConnection
+    WMFEmptyViewTypeNoInternetConnection,
+    WMFEmptyViewTypeNoSelectedImageToInsert
 };
 
 @protocol WMFEmptyViewContainer
@@ -26,6 +27,7 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
 @interface UIViewController (WMFEmptyView)
 
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type action:(nullable SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame;
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame;
 - (void)wmf_setEmptyViewFrame:(CGRect)frame;
 - (void)wmf_hideEmptyView;
 - (BOOL)wmf_isShowingEmptyView;

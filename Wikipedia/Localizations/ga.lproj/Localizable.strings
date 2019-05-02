@@ -29,10 +29,8 @@
 "about-wikipedia" = "Vicipéid";
 // Fuzzy
 "abuse-filter-warning-blanking" = "Ailt a fholmhú nó turscar a sheoladh";
-// Fuzzy
-"abuse-filter-warning-caps" = "Scríobh i gCEANNLITREACHA";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Carachtair a ath-chlóóóóscriobh";
+"abuse-filter-warning-caps" = "Scríobh i gceannlitreacha";
+"abuse-filter-warning-repeat" = "Carachtair a athscríobh i ndiaidh a chéile";
 "account-creation-captcha-cannot-see-image" = "Nach bhfuil tú in ann an íomhá a fhéachaint? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA nua a fháil...";
 "account-creation-captcha-request-account" = "Déan iarratas ar cuntas.";
@@ -49,7 +47,6 @@
 "action-add-to-reading-list" = "Cuir ar liosta léitheoireachta";
 "action-add-to-reading-list-short" = "Cuir ar liosta";
 "action-cancel" = "Cealaigh";
-// Fuzzy
 "action-find-in-page" = "Aimsigh sa leathanach";
 "action-move-to" = "Bog chuig...";
 "action-move-to-reading-list" = "Bog chuig liosta léitheoireachta";

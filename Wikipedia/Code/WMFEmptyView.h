@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nonnull SEL)action;
 + (instancetype)noHistoryEmptyView;
 + (instancetype)noInternetConnectionEmptyView;
++ (instancetype)noSelectedImageToInsertEmptyView;
 
 NS_ASSUME_NONNULL_END
 

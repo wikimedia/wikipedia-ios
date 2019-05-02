@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 
 final class InsertMediaSelectedImageView: SetupView {
-    private let imageView = AlignedImageView()
+    private let imageView = UIImageView()
     private let imageInfoView = InsertMediaImageInfoView.wmf_viewFromClassNib()!
     private let imageInfoContainerView = UIView()
     private var imageInfoContainerViewBottomConstraint: NSLayoutConstraint?
@@ -18,7 +18,6 @@ final class InsertMediaSelectedImageView: SetupView {
     override func setup() {
         super.setup()
         imageView.accessibilityIgnoresInvertColors = true
-        imageView.alignment = [.top]
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         wmf_addSubviewWithConstraintsToEdges(imageView)
@@ -43,37 +42,15 @@ final class InsertMediaSelectedImageView: SetupView {
         imageInfoContainerView.wmf_addSubviewWithConstraintsToEdges(imageInfoView)
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.adjustImageInfoContainerViewBottomConstraint()
-    }
-
-    private func adjustImageInfoContainerViewBottomConstraint() {
-        guard
-            imageView.alignment == .top,
-            let image = image
-        else {
-            return
-        }
-        let imageHeight = AVMakeRect(aspectRatio: image.size, insideRect: imageView.frame).height
-        let spaceBetweenImageAndInfoView = frame.size.height - imageHeight - imageInfoContainerView.frame.height
-        if spaceBetweenImageAndInfoView >= imageInfoContainerView.frame.height || imageInfoContainerView.frame.height - spaceBetweenImageAndInfoView <= spaceBetweenImageAndInfoView {
-            imageInfoContainerViewBottomConstraint?.constant = 0 - spaceBetweenImageAndInfoView * 0.5
-        } else {
-            imageInfoContainerViewBottomConstraint?.constant = 0
-        }
-    }
-
     public func configure(with imageURL: URL, searchResult: InsertMediaSearchResult, theme: Theme, completion: @escaping (Error?) -> Void) {
         imageView.image = nil
-        imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { error in
+        imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: true, failure: { error in
             completion(error)
         }) {
             self.searchResult = searchResult
             self.imageView.backgroundColor = .clear
             self.imageInfoView.moreInformationAction = self.moreInformationAction
             self.imageInfoView.configure(with: searchResult, showImageDescription: false, showLicenseName: true, showMoreInformationButton: true, theme: theme)
-            self.adjustImageInfoContainerViewBottomConstraint()
             completion(nil)
         }
     }
