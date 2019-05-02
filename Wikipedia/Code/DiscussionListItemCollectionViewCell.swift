@@ -43,7 +43,6 @@ class DiscussionListItemCollectionViewCell: CollectionViewCell {
     func configure(title: String) {
         titleLabel.text = title
         updateFonts(with: traitCollection)
-        setNeedsLayout()
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {

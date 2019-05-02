@@ -54,7 +54,8 @@ class DiscussionListItemHeader: SizeThatFitsReusableView {
         }
         
         infoLabel.text = NSString.localizedStringWithFormat(languageWikiFormat as NSString, languageWiki) as String
-        setNeedsLayout()
+        
+        updateFonts(with: traitCollection)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
