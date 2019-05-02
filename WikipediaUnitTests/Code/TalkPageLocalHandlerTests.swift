@@ -158,7 +158,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //get updated talk page
-        guard let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, talkPageString: "TalkPageUpdated", revisionId: 1) else {
+        guard let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .updated, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }

@@ -5,13 +5,8 @@ import XCTest
 
 fileprivate class MockSession: Session {
     override public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) {
-        //todo: better bundle pulling
-        guard let json = Bundle(identifier: "org.wikimedia.WikipediaUnitTests")?.wmf_data(fromContentsOfFile: "TalkPage", ofType: "json") else {
-            XCTFail("Failure pulling local talk page json")
-            return
-        }
         do {
-            let result: [NetworkDiscussion] = try jsonDecodeData(data: json)
+            let result: [NetworkDiscussion] = try jsonDecodeData(data: TalkPageTestHelpers.TalkPageJSONType.original.json)
             completionHandler(result as? T, nil, nil)
         } catch (let error) {
             XCTFail("Talk Page json failed to decode \(error)")
