@@ -33,6 +33,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
         
         layoutManager.register(DiscussionListItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(DiscussionListItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscussionListItemHeader.identifier, addPlaceholder: true)
         
         setupFetchedResultsController(with: dataStore)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
@@ -96,6 +97,34 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
         let discussion = fetchedResultsController.object(at: indexPath)
         delegate?.tappedDiscussion(discussion, viewController: self)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader,
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DiscussionListItemHeader.identifier, for: indexPath) as? DiscussionListItemHeader else {
+                return UICollectionReusableView()
+        }
+        
+        configure(header: header)
+        return header
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscussionListItemHeader.identifier) as? DiscussionListItemHeader else {
+            return estimate
+        }
+     
+        configure(header: header)
+        estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        collectionView.backgroundColor = theme.colors.baseBackground
+    }
 }
 
 private extension TalkPageDiscussionListViewController {
@@ -115,6 +144,18 @@ private extension TalkPageDiscussionListViewController {
         cell.configure(title: title)
         cell.layoutMargins = layout.itemLayoutMargins
         cell.apply(theme: theme)
+    }
+    
+    func configure(header: DiscussionListItemHeader) {
+        
+        guard let displayTitle = talkPage.displayTitle,
+            let languageCode = talkPage.languageCode else {
+                return
+        }
+        
+        header.configure(title: displayTitle, languageCode: languageCode)
+        header.layoutMargins = layout.itemLayoutMargins
+        header.apply(theme: theme)
     }
 }
 

@@ -176,8 +176,8 @@ extension ArticleCollectionViewController {
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
         
         if let userTalkPageTitle = userTalkPageTitle(at: indexPath) {
-            //todo: smart host
-            let talkPageContainer = TalkPageContainerViewController(title: userTalkPageTitle, host: "en.wikipedia.org", titleIncludesPrefix: true, type: .user, dataStore: dataStore)
+            //todo: smart host & language code
+            let talkPageContainer = TalkPageContainerViewController(title: userTalkPageTitle, host: "en.wikipedia.org", languageCode: "en", titleIncludesPrefix: true, type: .user, dataStore: dataStore)
             wmf_push(talkPageContainer, animated: true)
             return
         }

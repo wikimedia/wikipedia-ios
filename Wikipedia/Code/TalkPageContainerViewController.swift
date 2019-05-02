@@ -6,15 +6,17 @@ class TalkPageContainerViewController: ViewController {
     private var discussionListViewController: TalkPageDiscussionListViewController?
     let talkPageTitle: String
     let host: String
+    let languageCode: String
     let titleIncludesPrefix: Bool
     let type: TalkPageType
     let dataStore: MWKDataStore!
     
     private var talkPageController: TalkPageController!
     
-    required init(title: String, host: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
+    required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
         self.host = host
+        self.languageCode = languageCode
         self.titleIncludesPrefix = titleIncludesPrefix
         self.type = type
         self.dataStore = dataStore
@@ -28,13 +30,22 @@ class TalkPageContainerViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationBar.isBarHidingEnabled = false
         fetch()
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
+        navigationItem.rightBarButtonItem = addButton
+        navigationBar.updateNavigationItems()
+    }
+    
+    @objc func tappedAdd(_ sender: UIBarButtonItem) {
+        let discussionNewVC = TalkPageDiscussionNewViewController.wmf_viewControllerFromTalkPageStoryboard()
+        discussionNewVC.delegate = self
+        navigationController?.pushViewController(discussionNewVC, animated: true)
     }
     
     private func fetch() {
         //todo: loading/error/empty states
-        talkPageController = TalkPageController(dataStore: dataStore, title: talkPageTitle, host: host, titleIncludesPrefix: titleIncludesPrefix, type: type)
+        talkPageController = TalkPageController(dataStore: dataStore, title: talkPageTitle, host: host, languageCode: languageCode, titleIncludesPrefix: titleIncludesPrefix, type: type)
         talkPageController.fetchTalkPage { [weak self] (result) in
             switch result {
             case .success(let talkPage):
@@ -54,12 +65,10 @@ class TalkPageContainerViewController: ViewController {
         }
     }
     
-    @IBAction func tappedAddButton(_ sender: UIBarButtonItem) {
-        let discussionNewVC = TalkPageDiscussionNewViewController.wmf_viewControllerFromTalkPageStoryboard()
-        discussionNewVC.delegate = self
-        navigationController?.pushViewController(discussionNewVC, animated: true)
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
     }
-
 }
 
 extension TalkPageContainerViewController: TalkPageDiscussionNewDelegate {
@@ -69,6 +78,7 @@ extension TalkPageContainerViewController: TalkPageDiscussionNewDelegate {
 }
 
 extension TalkPageContainerViewController: TalkPageDiscussionListDelegate {
+    
     func tappedDiscussion(_ discussion: TalkPageDiscussion, viewController: TalkPageDiscussionListViewController) {
         let replyVC = TalkPageReplyContainerViewController.wmf_viewControllerFromTalkPageStoryboard()
         replyVC.dataStore = dataStore

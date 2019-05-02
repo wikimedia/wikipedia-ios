@@ -40,6 +40,9 @@ class AccountViewController: SubSettingsViewController {
             break
         }
         
+        cell.backgroundColor = theme.colors.paperBackground
+        cell.textLabel?.textColor = theme.colors.primaryText
+        
         return cell
     }
     
@@ -50,9 +53,9 @@ class AccountViewController: SubSettingsViewController {
             showLogoutAlert()
         case 1:
             
-            //todo: smart host
+            //todo: smart host & language code
             if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername {
-                let talkPageContainerVC = TalkPageContainerViewController(title: username, host: "en.wikipedia.org", titleIncludesPrefix: false, type: .user, dataStore: dataStore)
+                let talkPageContainerVC = TalkPageContainerViewController(title: username, host: "en.wikipedia.org", languageCode: "en", titleIncludesPrefix: false, type: .user, dataStore: dataStore)
                 talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }
@@ -75,6 +78,10 @@ class AccountViewController: SubSettingsViewController {
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = theme.colors.baseBackground
+    }
 }
-
-

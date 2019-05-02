@@ -33,7 +33,7 @@ class TalkPageFetcherTests: XCTestCase {
             return
         }
         
-        fetcher.fetchTalkPage(for: title, host: Configuration.Domain.englishWikipedia, revisionID: 5) { (result) in
+        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", host: Configuration.Domain.englishWikipedia, languageCode: "en", revisionID: 5) { (result) in
             
             fetchExpectation.fulfill()
 
@@ -58,7 +58,7 @@ class TalkPageFetcherTests: XCTestCase {
             return
         }
         
-        fetcher.fetchTalkPage(for: title, host: Configuration.Domain.englishWikipedia, revisionID: 5) { (result) in
+        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", host: Configuration.Domain.englishWikipedia, languageCode: "en", revisionID: 5) { (result) in
             
             fetchExpectation.fulfill()
             

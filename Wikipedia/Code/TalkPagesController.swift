@@ -19,10 +19,11 @@ class TalkPageController {
     let articleRevisionFetcher: WMFArticleRevisionFetcher
     let title: String
     let host: String
+    let languageCode: String
     let titleIncludesPrefix: Bool
     let type: TalkPageType
     
-    required init(talkPageFetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), localHandler: TalkPageLocalHandler? = nil, dataStore: MWKDataStore, title: String, host: String, titleIncludesPrefix: Bool, type: TalkPageType) {
+    required init(talkPageFetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), localHandler: TalkPageLocalHandler? = nil, dataStore: MWKDataStore, title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType) {
         self.talkPageFetcher = talkPageFetcher
         self.articleRevisionFetcher = articleRevisionFetcher
         
@@ -34,13 +35,14 @@ class TalkPageController {
         
         self.title = title
         self.host = host
+        self.languageCode = languageCode
         self.titleIncludesPrefix = titleIncludesPrefix
         self.type = type
     }
     
     func fetchTalkPage(completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
-        guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix),
-            let taskURL = talkPageFetcher.taskURL(for: title, host: host) else {
+        guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix),
+            let taskURL = talkPageFetcher.taskURL(for: urlTitle, host: host) else {
             completion?(.failure(TalkPageError.createTaskURLFailure))
             return
         }
@@ -81,7 +83,7 @@ class TalkPageController {
             }
         }
         
-        guard let revisionURL = Configuration.current.mediaWikiAPIURLForWikiLanguage("en", with: nil).url?.wmf_URL(withTitle: title) else {
+        guard let revisionURL = Configuration.current.mediaWikiAPIURLForWikiLanguage(languageCode, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
             completion?(.failure(TalkPageError.revisionUrlCreationFailure))
                 return
         }
@@ -98,11 +100,12 @@ class TalkPageController {
     
     private func fetchAndUpdate(existingLocalTalkPage: TalkPage?, revisionID: Int64, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
         
-        guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
+        guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
             completion?(.failure(TalkPageError.talkPageTitleCreationFailure))
             return
         }
-        talkPageFetcher.fetchTalkPage(for: title, host: host, revisionID: revisionID) { (result) in
+        let displayTitle = TalkPageType.user.displayTitle(for: title, titleIncludesPrefix: titleIncludesPrefix)
+        talkPageFetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, host: host, languageCode: languageCode, revisionID: revisionID) { (result) in
             
             DispatchQueue.main.async {
                 self.localHandler.dataStore.viewContext.perform {

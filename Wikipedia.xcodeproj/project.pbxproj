@@ -121,6 +121,7 @@
 		6754E44A22773587005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		6754E44B22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		6754E44C22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
+		675A7CFE227A3F7C0034D9D9 /* DiscussionListItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A7CFD227A3F7C0034D9D9 /* DiscussionListItemHeader.swift */; };
 		6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF442264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF452264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
@@ -3694,6 +3695,7 @@
 		6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageLocalHandler.swift; sourceTree = "<group>"; };
 		6734116922739FD6005B31DA /* TalkPageLocalHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageLocalHandlerTests.swift; sourceTree = "<group>"; };
 		6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyListItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		675A7CFD227A3F7C0034D9D9 /* DiscussionListItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionListItemHeader.swift; sourceTree = "<group>"; };
 		6780DF422264265400D9069D /* RemoteSubHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSubHandler.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
@@ -6354,6 +6356,7 @@
 			children = (
 				67E8B0732268DA8B00537BC9 /* DiscussionListItemCollectionViewCell.swift */,
 				6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */,
+				675A7CFD227A3F7C0034D9D9 /* DiscussionListItemHeader.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -10853,6 +10856,7 @@
 				83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				B0370E161FA404B0002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
+				675A7CFE227A3F7C0034D9D9 /* DiscussionListItemHeader.swift in Sources */,
 				7A8422532268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				B0BCF0B9202537D800986F72 /* Panels.swift in Sources */,
 				D8E27BA61F82B38500F9D2B3 /* RMessage.m in Sources */,

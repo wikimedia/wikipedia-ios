@@ -693,6 +693,8 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
+"talk-page-info-active-conversations" = "Active conversations on $1";
+"talk-page-title-user-talk" = "User Talk";
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
 "theme-default-display-name" = "Default";

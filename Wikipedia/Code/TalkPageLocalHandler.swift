@@ -53,6 +53,8 @@ class TalkPageLocalHandler {
         let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: dataStore.viewContext)
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
         talkPage.revisionId = networkTalkPage.revisionId
+        talkPage.languageCode = networkTalkPage.languageCode
+        talkPage.displayTitle = networkTalkPage.displayTitle
         
         guard let discussions = createTalkPageDiscussions(with: networkTalkPage) else {
             return nil

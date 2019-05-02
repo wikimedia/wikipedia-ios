@@ -1,13 +1,17 @@
 
 class NetworkTalkPage {
-    var url: URL
+    let url: URL
     let discussions: [NetworkDiscussion]
-    var revisionId: Int64
+    let revisionId: Int64
+    let displayTitle: String
+    let languageCode: String
     
-    init(url: URL, discussions: [NetworkDiscussion], revisionId: Int64) {
+    init(url: URL, discussions: [NetworkDiscussion], revisionId: Int64, displayTitle: String, languageCode: String) {
         self.url = url
         self.discussions = discussions
         self.revisionId = revisionId
+        self.displayTitle = displayTitle
+        self.languageCode = languageCode
     }
 }
 
@@ -50,17 +54,26 @@ enum TalkPageType {
             return title.replacingOccurrences(of: " ", with: "_")
         }
     }
+    
+    func displayTitle(for title: String, titleIncludesPrefix: Bool) -> String {
+        if !titleIncludesPrefix {
+            return title
+        }
+        
+        //todo: There will be some language issues with this
+        return title.replacingOccurrences(of: prefix, with: "")
+    }
 }
 
 class TalkPageFetcher: Fetcher {
     
-    func taskURL(for title: String, host: String) -> URL? {
-        return taskURL(for: title, host: host, revisionID: nil)
+    func taskURL(for urlTitle: String, host: String) -> URL? {
+        return taskURL(for: urlTitle, host: host, revisionID: nil)
     }
     
-    func fetchTalkPage(for title: String, host: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
-        guard let taskURLWithRevID = taskURL(for: title, host: host, revisionID: revisionID),
-            let taskURLWithoutRevID = taskURL(for: title, host: host, revisionID: nil) else {
+    func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+        guard let taskURLWithRevID = taskURL(for: urlTitle, host: host, revisionID: revisionID),
+            let taskURLWithoutRevID = taskURL(for: urlTitle, host: host, revisionID: nil) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
@@ -76,7 +89,7 @@ class TalkPageFetcher: Fetcher {
             let filteredDiscussions = discussions?.filter { $0.text.count > 0 }
             
             if let filteredDiscussions = filteredDiscussions {
-                let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: filteredDiscussions, revisionId: revisionID)
+                let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: filteredDiscussions, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode)
                 completion(.success(talkPage))
             }
             
@@ -86,10 +99,10 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    private func taskURL(for title: String, host: String, revisionID: Int64?) -> URL? {
+    private func taskURL(for urlTitle: String, host: String, revisionID: Int64?) -> URL? {
         
-        //note: assuming here title has already been percent endcoded & escaped
-        var pathComponents = ["page", "talk", title]
+        //note: assuming here urlTitle has already been percent endcoded & escaped
+        var pathComponents = ["page", "talk", urlTitle]
         if let revisionID = revisionID {
             pathComponents.append(String(revisionID))
         }
