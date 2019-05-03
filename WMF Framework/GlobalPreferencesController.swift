@@ -180,7 +180,10 @@ class GlobalPreferencesController: NSObject {
                 let localKey = prefix + key
                 let existingPref = existingPrefsByKey[localKey]
                 existingPrefsByKey.removeValue(forKey: localKey) // remove so we can delete whatever is left in existingPrefsByKey
-                let serverValue = prefs[key] as? String
+                var serverValue = prefs[key] as? String
+                if serverValue == nil, let serverNumberValue = prefs[key] as? NSNumber { // standardize on numbers as strings - fancysig has 0 (number) for false and "1" (string) for true
+                    serverValue = "\(serverNumberValue)"
+                }
                 let pref = existingPref ?? WMFKeyValue(context: moc)
                 if localKey != pref.key {
                     pref.key = localKey
