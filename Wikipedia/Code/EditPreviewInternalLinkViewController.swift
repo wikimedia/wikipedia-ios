@@ -4,6 +4,8 @@ class EditPreviewInternalLinkViewController: UIViewController {
     @IBOutlet private weak var containerView: UIView!
     private var containerViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet private weak var button: UIButton!
+    @IBOutlet private weak var tapView: UIView!
+    @IBOutlet private weak var tapGestureRecignizer: UITapGestureRecognizer!
 
     private let articleURL: URL
     private let dataStore: MWKDataStore
@@ -21,7 +23,7 @@ class EditPreviewInternalLinkViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        button.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = UIFont.wmf_font(.title3, compatibleWithTraitCollection: traitCollection)
     }
 
     override func viewDidLoad() {
@@ -29,6 +31,8 @@ class EditPreviewInternalLinkViewController: UIViewController {
         button.layer.cornerRadius = 8
         button.setTitle(CommonStrings.okTitle, for: .normal)
         wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme, containerView: containerView)
+        tapGestureRecignizer.delegate = self
+        tapGestureRecignizer.addTarget(self, action: #selector(dismissAnimated(_:)))
         apply(theme: theme)
     }
 
@@ -43,6 +47,12 @@ class EditPreviewInternalLinkViewController: UIViewController {
 
     @IBAction private func dismissAnimated(_ sender: UIButton) {
         dismiss(animated: true)
+    }
+}
+
+extension EditPreviewInternalLinkViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view == tapView
     }
 }
 
