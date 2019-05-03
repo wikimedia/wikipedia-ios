@@ -12,8 +12,7 @@ class NetworkTalkPage {
         self.revisionId = revisionId
         self.displayTitle = displayTitle
         self.languageCode = languageCode
-    }
-}
+    }}
 
 class NetworkDiscussion: Codable {
     let text: String

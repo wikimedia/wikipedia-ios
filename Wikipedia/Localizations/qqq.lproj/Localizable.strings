@@ -692,8 +692,10 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
+"talk-page-discussion-title" = "This header label is displayed at the top of a talk page discussion thread.";
 "talk-page-info-active-conversations" = "This information label is displayed at the top of a talk page discussion list. $1 is replaced by the language wiki they are using ('English Wikipedia').";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page discussion list. It represents the kind of talk page the user is viewing.";
+"talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page discussion thread.";
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";
 "theme-default-display-name" = "Default theme name presented to the user";

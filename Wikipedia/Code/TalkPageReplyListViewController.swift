@@ -1,16 +1,21 @@
 
 import UIKit
 
+protocol TalkPageReplyListViewControllerDelegate: class {
+    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
+}
+
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
-    
-    private var discussion: TalkPageDiscussion
-    private var dataStore: MWKDataStore!
+    private let discussion: TalkPageDiscussion
+    private let dataStore: MWKDataStore
     
     private var fetchedResultsController: NSFetchedResultsController<TalkPageDiscussionItem>!
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageDiscussionItem>!
     
     private let reuseIdentifier = "ReplyListItemCollectionViewCell"
+    
+    weak var delegate: TalkPageReplyListViewControllerDelegate?
     
     required init(dataStore: MWKDataStore, discussion: TalkPageDiscussion) {
         self.dataStore = dataStore
@@ -27,19 +32,12 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
 
         layoutManager.register(ReplyListItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
         
         setupFetchedResultsController(with: dataStore)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         collectionViewUpdater?.performFetch()
-    }
-    
-    private func setupFetchedResultsController(with dataStore: MWKDataStore) {
-        
-        let request: NSFetchRequest<TalkPageDiscussionItem> = TalkPageDiscussionItem.fetchRequest()
-        request.predicate = NSPredicate(format: "discussion == %@",  discussion)
-        request.sortDescriptors = [NSSortDescriptor(key: "discussion", ascending: true)] //todo: I am forced to use this, does this keep original ordering?
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -59,20 +57,56 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ReplyListItemCollectionViewCell,
-            let title = fetchedResultsController.object(at: indexPath).text else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ReplyListItemCollectionViewCell else {
                 return UICollectionViewCell()
         }
         
-        cell.configure(title: title)
+        configure(cell: cell, at: indexPath)
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 54)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReplyListItemCollectionViewCell else {
+            return estimate
+        }
+        configure(cell: placeholderCell, at: indexPath)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader,
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView else {
+                return UICollectionReusableView()
+        }
+        
+        configure(header: header)
+        return header
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier) as? TalkPageHeaderView else {
+            return estimate
+        }
+        
+        configure(header: header)
+        estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
         return estimate
     }
 
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+    }
 }
 
 extension TalkPageReplyListViewController: CollectionViewUpdaterDelegate {
@@ -89,5 +123,51 @@ extension TalkPageReplyListViewController: CollectionViewUpdaterDelegate {
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
         //no-op
+    }
+}
+
+private extension TalkPageReplyListViewController {
+    
+    func setupFetchedResultsController(with dataStore: MWKDataStore) {
+        
+        let request: NSFetchRequest<TalkPageDiscussionItem> = TalkPageDiscussionItem.fetchRequest()
+        request.predicate = NSPredicate(format: "discussion == %@",  discussion)
+        request.sortDescriptors = [NSSortDescriptor(key: "discussion", ascending: true)] //todo: I am forced to use this, does this keep original ordering?
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+    }
+    
+    func configure(header: TalkPageHeaderView) {
+        
+        guard let title = discussion.title else {
+                return
+        }
+        
+        let headerText = WMFLocalizedString("talk-page-discussion-title", value: "Discussion", comment: "This header label is displayed at the top of a talk page discussion thread.").localizedUppercase
+        
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil)
+        
+        header.configure(viewModel: viewModel)
+        header.layoutMargins = layout.itemLayoutMargins
+        header.apply(theme: theme)
+    }
+    
+    func configure(cell: ReplyListItemCollectionViewCell, at indexPath: IndexPath) {
+        let item = fetchedResultsController.object(at: indexPath)
+        guard let title = item.text,
+        item.depth >= 0 else {
+            return
+        }
+        
+        cell.delegate = self
+        cell.configure(title: title, depth: UInt(item.depth))
+        cell.layoutMargins = layout.itemLayoutMargins
+        cell.apply(theme: theme)
+    }
+}
+
+extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelegate {
+    func tappedLink(_ url: URL, cell: ReplyListItemCollectionViewCell) {
+        
+        delegate?.tappedLink(url, viewController: self)
     }
 }

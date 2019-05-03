@@ -12,23 +12,17 @@ class TalkPageDiscussionNewViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
+        navigationItem.rightBarButtonItem = publishButton
+        navigationBar.updateNavigationItems()
     }
     
-    @IBAction func tappedPublish(_ sender: UIButton) {
+    @objc func tappedPublish(_ sender: UIBarButtonItem) {
         delegate?.addDiscussion(viewController: self)
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
     }
-    */
-
 }

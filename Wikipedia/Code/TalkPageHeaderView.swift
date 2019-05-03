@@ -1,17 +1,31 @@
 
 import UIKit
 
-class DiscussionListItemHeader: SizeThatFitsReusableView {
-    private let talkLabel = UILabel()
+class TalkPageHeaderView: SizeThatFitsReusableView {
+    
+    struct ViewModel {
+        let header: String
+        let title: String
+        let info: String?
+    }
+    
+    private let headerLabel = UILabel()
     private let titleLabel = UILabel()
     private let infoLabel = UILabel()
     private let dividerView = UIView(frame: .zero)
     
+    private var viewModel: ViewModel?
+    
+    private var hasInfoText: Bool {
+        return viewModel?.info != nil
+    }
+    
     override func setup() {
         super.setup()
-        addSubview(talkLabel)
+        infoLabel.numberOfLines = 0
+        titleLabel.numberOfLines = 0
+        addSubview(headerLabel)
         addSubview(titleLabel)
-        addSubview(infoLabel)
         addSubview(dividerView)
     }
     
@@ -22,15 +36,19 @@ class DiscussionListItemHeader: SizeThatFitsReusableView {
         let labelMaximumWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
-        let talkFrame = talkLabel.wmf_preferredFrame(at: talkOrigin, maximumWidth: labelMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+        let headerFrame = headerLabel.wmf_preferredFrame(at: talkOrigin, maximumWidth: labelMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
         
-        let titleOrigin = CGPoint(x: adjustedMargins.left, y: talkFrame.maxY + 15)
+        let titleOrigin = CGPoint(x: adjustedMargins.left, y: headerFrame.maxY + 15)
         let titleFrame = titleLabel.wmf_preferredFrame(at: titleOrigin, maximumWidth: labelMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
         
-        let infoOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + 10)
-        let infoFrame = infoLabel.wmf_preferredFrame(at: infoOrigin, maximumWidth: labelMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
-        
-        let finalHeight = infoFrame.maxY + adjustedMargins.bottom
+        var finalHeight: CGFloat
+        if hasInfoText {
+            let infoOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + 10)
+            let infoFrame = infoLabel.wmf_preferredFrame(at: infoOrigin, maximumWidth: labelMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+            finalHeight = infoFrame.maxY + adjustedMargins.bottom
+        } else {
+            finalHeight = titleFrame.maxY + adjustedMargins.bottom
+        }
         
         if (apply) {
             dividerView.frame = CGRect(x: 0, y: finalHeight - 1, width: size.width, height: 1)
@@ -39,28 +57,24 @@ class DiscussionListItemHeader: SizeThatFitsReusableView {
         return CGSize(width: size.width, height: finalHeight)
     }
     
-    func configure(title: String, languageCode: String) {
-        talkLabel.text = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page discussion list. It represents the kind of talk page the user is viewing.").localizedUppercase
-        titleLabel.text = title
+    func configure(viewModel: ViewModel) {
         
-        let languageWikiFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@", comment: "This information label is displayed at the top of a talk page discussion list. %1$@ is replaced by the language wiki they are using ('English Wikipedia').")
+        self.viewModel = viewModel
         
-        //todo: fix language wiki text
-        var languageWiki: String
-        if languageCode == "en" {
-            languageWiki = "English Wikipedia"
-        } else {
-            languageWiki = ""
+        if hasInfoText && infoLabel.superview == nil {
+            addSubview(infoLabel)
+            infoLabel.text = viewModel.info
         }
         
-        infoLabel.text = NSString.localizedStringWithFormat(languageWikiFormat as NSString, languageWiki) as String
+        headerLabel.text = viewModel.header
+        titleLabel.text = viewModel.title
         
         updateFonts(with: traitCollection)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        talkLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        headerLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = UIFont.wmf_font(DynamicTextStyle.boldTitle2, compatibleWithTraitCollection: traitCollection)
         infoLabel.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
     }
@@ -68,9 +82,9 @@ class DiscussionListItemHeader: SizeThatFitsReusableView {
     
 }
 
-extension DiscussionListItemHeader: Themeable {
+extension TalkPageHeaderView: Themeable {
     func apply(theme: Theme) {
-        talkLabel.textColor = theme.colors.secondaryText
+        headerLabel.textColor = theme.colors.secondaryText
         titleLabel.textColor = theme.colors.primaryText
         infoLabel.textColor = theme.colors.secondaryText
         dividerView.backgroundColor = theme.colors.border

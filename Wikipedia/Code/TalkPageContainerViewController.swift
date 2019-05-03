@@ -38,8 +38,9 @@ class TalkPageContainerViewController: ViewController {
     }
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
-        let discussionNewVC = TalkPageDiscussionNewViewController.wmf_viewControllerFromTalkPageStoryboard()
+        let discussionNewVC = TalkPageDiscussionNewViewController()
         discussionNewVC.delegate = self
+        discussionNewVC.apply(theme: theme)
         navigationController?.pushViewController(discussionNewVC, animated: true)
     }
     
@@ -80,10 +81,30 @@ extension TalkPageContainerViewController: TalkPageDiscussionNewDelegate {
 extension TalkPageContainerViewController: TalkPageDiscussionListDelegate {
     
     func tappedDiscussion(_ discussion: TalkPageDiscussion, viewController: TalkPageDiscussionListViewController) {
-        let replyVC = TalkPageReplyContainerViewController.wmf_viewControllerFromTalkPageStoryboard()
-        replyVC.dataStore = dataStore
-        replyVC.discussion = discussion
+        let replyVC = TalkPageReplyContainerViewController(discussion: discussion, dataStore: dataStore)
+        replyVC.delegate = self
         replyVC.apply(theme: theme)
         navigationController?.pushViewController(replyVC, animated: true)
+    }
+}
+
+extension TalkPageContainerViewController: TalkPageReplyContainerViewControllerDelegate {
+    func tappedLink(_ url: URL, viewController: TalkPageReplyContainerViewController) {
+
+        let lastPathComponent = url.lastPathComponent
+        
+        //todo: fix for other languages
+        let prefix = TalkPageType.user.prefix
+        let underscoredPrefix = prefix.replacingOccurrences(of: " ", with: "_")
+        let title = lastPathComponent.replacingOccurrences(of: underscoredPrefix, with: "")
+        if lastPathComponent.contains(underscoredPrefix) && languageCode == "en" {
+            let talkPageContainerVC = TalkPageContainerViewController(title: title, host: host, languageCode: languageCode, titleIncludesPrefix: false, type: .user, dataStore: dataStore)
+            talkPageContainerVC.apply(theme: theme)
+            navigationController?.pushViewController(talkPageContainerVC, animated: true)
+        }
+        
+        //todo: else if User: prefix, show their wikitext editing page in a web view. Ensure edits there cause talk page to refresh when coming back.
+        //else if no host, try prepending language wiki to components and navigate (openUrl, is it okay that this kicks them out of the app?)
+        //else if it's a full url (i.e. a different host), send them to safari
     }
 }

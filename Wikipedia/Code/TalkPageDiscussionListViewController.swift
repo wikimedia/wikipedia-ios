@@ -33,7 +33,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
         
         layoutManager.register(DiscussionListItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        layoutManager.register(DiscussionListItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscussionListItemHeader.identifier, addPlaceholder: true)
+        layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
         
         setupFetchedResultsController(with: dataStore)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
@@ -100,7 +100,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DiscussionListItemHeader.identifier, for: indexPath) as? DiscussionListItemHeader else {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView else {
                 return UICollectionReusableView()
         }
         
@@ -111,7 +111,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscussionListItemHeader.identifier) as? DiscussionListItemHeader else {
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier) as? TalkPageHeaderView else {
             return estimate
         }
      
@@ -146,14 +146,30 @@ private extension TalkPageDiscussionListViewController {
         cell.apply(theme: theme)
     }
     
-    func configure(header: DiscussionListItemHeader) {
+    func configure(header: TalkPageHeaderView) {
         
         guard let displayTitle = talkPage.displayTitle,
             let languageCode = talkPage.languageCode else {
                 return
         }
         
-        header.configure(title: displayTitle, languageCode: languageCode)
+        let headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page discussion list. It represents the kind of talk page the user is viewing.").localizedUppercase
+        let titleText = displayTitle
+        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@", comment: "This information label is displayed at the top of a talk page discussion list. %1$@ is replaced by the language wiki they are using ('English Wikipedia').")
+        
+        //todo: fix for other languages
+        var languageWikiText: String
+        if languageCode == "en" {
+            languageWikiText = "English Wikipedia"
+        } else {
+            languageWikiText = ""
+        }
+        
+        let infoText = NSString.localizedStringWithFormat(languageTextFormat as NSString, languageWikiText) as String
+        
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: titleText, info: infoText)
+        
+        header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
         header.apply(theme: theme)
     }
