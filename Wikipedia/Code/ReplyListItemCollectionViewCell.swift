@@ -17,7 +17,7 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
         let isRTL = semanticContentAttribute == .forceRightToLeft
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top + 4, left: layoutMargins.left + 5, bottom: layoutMargins.bottom + 4, right: layoutMargins.right + 5)
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left + 5, bottom: layoutMargins.bottom, right: layoutMargins.right + 5)
         
         var depthIndicatorOrigin: CGPoint?
         if depth > 0 {
@@ -49,6 +49,7 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         }
         
         let titleTextViewFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: titleMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+        
         let finalHeight = adjustedMargins.top + titleTextViewFrame.size.height + adjustedMargins.bottom
         
         if let depthIndicatorOrigin = depthIndicatorOrigin,
@@ -67,6 +68,7 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
         
+        //todo: we seem to be losing <b> tags (possibly more). Need to look into this.
         let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: font, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim()
         titleTextView.attributedText = attributedString
         setNeedsLayout()

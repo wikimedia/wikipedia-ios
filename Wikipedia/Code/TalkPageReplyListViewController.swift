@@ -33,6 +33,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
 
         layoutManager.register(ReplyListItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
+        layoutManager.register(ReplyButtonFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReplyButtonFooterView.identifier, addPlaceholder: true)
         
         setupFetchedResultsController(with: dataStore)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
@@ -81,13 +82,19 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView else {
-                return UICollectionReusableView()
+        if kind == UICollectionView.elementKindSectionHeader,
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView {
+                configure(header: header)
+                return header
         }
         
-        configure(header: header)
-        return header
+        if kind == UICollectionView.elementKindSectionFooter,
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ReplyButtonFooterView.identifier, for: indexPath) as? ReplyButtonFooterView {
+            configure(footer: footer)
+            return footer
+        }
+        
+        return UICollectionReusableView()
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -99,6 +106,17 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         configure(header: header)
         estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        guard let footer = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReplyButtonFooterView.identifier) as? ReplyButtonFooterView else {
+            return estimate
+        }
+        configure(footer: footer)
+        estimate.height = footer.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }
@@ -149,6 +167,11 @@ private extension TalkPageReplyListViewController {
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
         header.apply(theme: theme)
+    }
+    
+    func configure(footer: ReplyButtonFooterView) {
+        footer.layoutMargins = layout.itemLayoutMargins
+        footer.apply(theme: theme)
     }
     
     func configure(cell: ReplyListItemCollectionViewCell, at indexPath: IndexPath) {

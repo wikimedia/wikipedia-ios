@@ -123,6 +123,7 @@
 		6754E44B22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		6754E44C22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		675A7CFE227A3F7C0034D9D9 /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */; };
+		676070A2227CE60800A81F09 /* ReplyButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* ReplyButtonFooterView.swift */; };
 		6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF442264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF452264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
@@ -3658,6 +3659,7 @@
 		6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyListItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
+		676070A1227CE60800A81F09 /* ReplyButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyButtonFooterView.swift; sourceTree = "<group>"; };
 		6780DF422264265400D9069D /* RemoteSubHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSubHandler.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
@@ -6310,6 +6312,7 @@
 				67E8B0732268DA8B00537BC9 /* DiscussionListItemCollectionViewCell.swift */,
 				6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */,
 				675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */,
+				676070A1227CE60800A81F09 /* ReplyButtonFooterView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -10620,6 +10623,7 @@
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				7A23CECF211A24FC00441A79 /* FeedFunnel.swift in Sources */,
 				7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
+				676070A2227CE60800A81F09 /* ReplyButtonFooterView.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				67E8B0762268DE4B00537BC9 /* TalkPageContainerViewController.swift in Sources */,
 				7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */,

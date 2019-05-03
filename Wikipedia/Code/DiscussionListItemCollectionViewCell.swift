@@ -42,6 +42,7 @@ class DiscussionListItemCollectionViewCell: CollectionViewCell {
     }
     
     func configure(title: String) {
+        //todo: we need to support <b> and <i> tags here
         titleLabel.text = title
         updateFonts(with: traitCollection)
     }
