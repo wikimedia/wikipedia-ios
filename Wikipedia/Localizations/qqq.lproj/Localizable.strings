@@ -42,6 +42,7 @@
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";
 "account-creation-title" = "Title for account creation interface";
+"account-group-title" = "Title for account group on account settings screen.";
 "account-talk-page-title" = "Title for button and page letting user view their account page.";
 "action-add-to" = "Title of the action that adds the selection to something else.";
 "action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
@@ -419,7 +420,7 @@
 "login-title" = "Title for log in interface";
 "main-menu-about" = "Button for showing information about the app.";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
-"main-menu-account-logout" = "Button text for logging out. The username of the user who is currently logged in is displayed after the message, e.g. Log out ExampleUserName.\n{{Identical|Log out}}";
+"main-menu-account-logout" = "Button text for logging out.";
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
 "main-menu-account-logout-cancel" = "Button text for hiding the log out menu.\n{{Identical|Cancel}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in. $1 will be replaced with current username.";

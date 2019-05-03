@@ -23,7 +23,7 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         if depth > 0 {
             var depthIndicatorX = isRTL ? size.width - adjustedMargins.right : adjustedMargins.left
             
-            let depthAdjustmentMultiplier = CGFloat(12) //todo: may want to shift this higher or lower depending on screen size
+            let depthAdjustmentMultiplier = CGFloat(12) //todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
             if isRTL {
                 depthIndicatorX -= (CGFloat(depth) - 1) * depthAdjustmentMultiplier
             } else {
@@ -31,9 +31,8 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
             }
             
             depthIndicatorOrigin = CGPoint(x: depthIndicatorX, y: adjustedMargins.top)
-            
         }
-        
+
         var titleX: CGFloat
         if isRTL {
             titleX = adjustedMargins.left
@@ -44,7 +43,7 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         let titleOrigin = CGPoint(x: titleX, y: adjustedMargins.top)
         var titleMaximumWidth: CGFloat
         if isRTL {
-            titleMaximumWidth = depthIndicatorOrigin == nil ? adjustedMargins.right - titleOrigin.x : depthIndicatorOrigin!.x - adjustedMargins.left
+            titleMaximumWidth = depthIndicatorOrigin == nil ? size.width - adjustedMargins.right - titleOrigin.x : depthIndicatorOrigin!.x - adjustedMargins.left
         } else {
             titleMaximumWidth = (size.width - adjustedMargins.right) - titleOrigin.x
         }
@@ -70,6 +69,7 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         
         let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: font, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim()
         titleTextView.attributedText = attributedString
+        setNeedsLayout()
     }
     
     override func reset() {
@@ -77,6 +77,7 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         titleTextView.attributedText = nil
         depth = 0
         depthMarker.isHidden = true
+        depthMarker.frame = .zero
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {

@@ -15,8 +15,9 @@ class DiscussionListItemCollectionViewCell: CollectionViewCell {
         
         let adjustedMargins = UIEdgeInsets(top: layoutMargins.top + 4, left: layoutMargins.left + 5, bottom: layoutMargins.bottom + 4, right: layoutMargins.right + 5)
         
-        let unreadIndicatorX = !isRTL ? adjustedMargins.left : size.width - adjustedMargins.right
         let unreadIndicatorSideLength = CGFloat(11)
+        let unreadIndicatorX = !isRTL ? adjustedMargins.left : size.width - adjustedMargins.right - unreadIndicatorSideLength
+       
         let chevronSize = CGSize(width: 8, height: 14)
         let chevronX = !isRTL ? size.width - adjustedMargins.right - chevronSize.width : adjustedMargins.left
         
