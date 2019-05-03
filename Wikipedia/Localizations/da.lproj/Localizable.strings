@@ -167,6 +167,7 @@
 "edit-text-size-table-view-title" = "Tekst størrelse";
 "edit-watch-list-learn-more-text" = "Lær mere om overvågningslister";
 "edit-watch-this-page-text" = "Overvåg denne side";
+"empty-insert-media-title" = "Vælg en fil";
 "empty-no-article-message" = "Beklager, kunne ikke indlæse artiklen";
 "empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
@@ -287,6 +288,7 @@
 "insert-media-image-position-setting-none" = "Ingen";
 "insert-media-image-position-setting-right" = "Højre";
 "insert-media-image-preview-more-information-action-title" = "Flere oplysninger";
+"insert-media-image-preview-select-image-action-title" = "Vælg billede";
 "insert-media-image-size-settings-title" = "Billedestørrelse";
 "insert-media-image-type-settings-title" = "Billedetype";
 "languages-settings-title" = "Sprog";

@@ -250,6 +250,7 @@
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
+"empty-insert-media-title" = "Выберите файл";
 "empty-no-article-message" = "К сожалению, не удалось скачать статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
@@ -418,7 +419,6 @@
 "info-box-close-text" = "Закрыть";
 "info-box-title" = "Краткие факты";
 "insert-action-title" = "Вставить";
-"insert-media-advanced-settings-button-title" = "Дополнительные настройки";
 "insert-media-alternative-text-description" = "Текстовое описание для читателей, которые не могут увидеть изображения";
 "insert-media-alternative-text-placeholder" = "Опишите это изображение";
 "insert-media-alternative-text-title" = "Альтернативный текст";
@@ -442,7 +442,6 @@
 "insert-media-image-type-setting-thumbnail" = "миниатюра";
 "insert-media-image-type-settings-title" = "Тип изображения";
 "insert-media-media-settings-title" = "Параметры медиафайла";
-"insert-media-placeholder-label-text" = "Выберите файл или загрузите его";
 "insert-media-title" = "Вставить медиа-файл";
 "insert-media-uploaded-image-title" = "Загруженное изображение";
 "languages-settings-title" = "Языки";
