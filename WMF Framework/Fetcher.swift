@@ -198,8 +198,3 @@ public class Token: NSObject {
         self.isAuthorized = value != "+\\"
     }
 }
-
-public enum Result<Success, Error> {
-    case success(Success)
-    case failure(Error)
-}
