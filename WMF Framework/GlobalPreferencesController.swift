@@ -65,7 +65,7 @@ class GlobalPreferencesController: NSObject {
     private var semaphore = DispatchSemaphore(value: 1)
     private weak var dataStore: MWKDataStore? = nil
     private var fetchers: [String: GlobalPreferencesFetcher] = [:]
-    private let languages: [String]
+    private var languages: [String] = []
     private let session: Session
     private let configuration: Configuration
     
