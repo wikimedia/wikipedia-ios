@@ -12,11 +12,21 @@ class NetworkTalkPage {
         self.revisionId = revisionId
         self.displayTitle = displayTitle
         self.languageCode = languageCode
-    }}
+    }
+}
+
+class NetworkBase: Codable {
+    let topics: [NetworkDiscussion]
+}
 
 class NetworkDiscussion: Codable {
     let text: String
     let items: [NetworkDiscussionItem]
+    
+    enum CodingKeys: String, CodingKey {
+        case text
+        case items = "replies"
+    }
 }
 
 class NetworkDiscussionItem: Codable {
@@ -78,23 +88,22 @@ class TalkPageFetcher: Fetcher {
         }
     
         //todo: track tasks/cancel
-        session.jsonDecodableTask(with: taskURLWithRevID) { (discussions: [NetworkDiscussion]?, response: URLResponse?, error: Error?) in
+        session.jsonDecodableTask(with: taskURLWithRevID) { (networkBase: NetworkBase?, response: URLResponse?, error: Error?) in
+
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             
-            guard !(discussions == nil && error == nil) else {
+            guard let networkBase = networkBase else {
                 completion(.failure(RequestError.unexpectedResponse))
                 return
             }
             
-            let filteredDiscussions = discussions?.filter { $0.text.count > 0 }
+            let filteredDiscussions = networkBase.topics.filter { $0.text.count > 0 }
             
-            if let filteredDiscussions = filteredDiscussions {
-                let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: filteredDiscussions, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode)
-                completion(.success(talkPage))
-            }
-            
-            if let error = error {
-                completion(.failure(error))
-            }
+            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: filteredDiscussions, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode)
+            completion(.success(talkPage))
         }
     }
     

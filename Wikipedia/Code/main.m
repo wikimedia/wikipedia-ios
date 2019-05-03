@@ -44,6 +44,6 @@ int main(int argc, char *argv[]) {
             delegateClass = NSStringFromClass([WMFDummyAppDelegate class]);
         }
 #endif
-        return UIApplicationMain(argc, argv, nil, delegateClass);
+            return UIApplicationMain(argc, argv, nil, delegateClass);
     }
 }

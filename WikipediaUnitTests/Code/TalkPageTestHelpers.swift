@@ -13,10 +13,10 @@ class TalkPageTestHelpers {
             switch self {
             case .original:
                 return """
-                [
+                {"topics": [
                 {
                     "text": "Would you please help me expand the Puppy cat article?",
-                    "items": [
+                    "replies": [
                     {
                     "text": "Hi Pixiu! Glad we were able to meet at the Bay Area Puppercat Edit-a-thon last week. I noticed that the <a href='https://en.wikipedia.org/wiki/Puppy_cat'>Puppy cat</a> could use some more information about ragdolls, do you think that this might be something you'd be interested in contributing to? <a href='https://en.wikipedia.org/wiki/User:Fruzia'>Fruzia</a> (<a href='https://en.wikipedia.org/wiki/User_talk:Fruzia'>talk</a>) 23:08. 20 March 2019 (UTC)",
                     "depth": 0
@@ -26,15 +26,15 @@ class TalkPageTestHelpers {
                     }
                     ]
                 }
-                ]
+                ]}
                 """.data(using: .utf8)!
                 
             case .updated:
                 return """
-                    [
+                    {"topics": [
                         {
                             "text": "Would you please help me expand the Puppy cat article?",
-                            "items": [
+                            "replies": [
                                 {
                                     "text": "Hi Pixiu! Glad we were able to meet at the Bay Area Puppercat Edit-a-thon last week. I noticed that the <a href='https://en.wikipedia.org/wiki/Puppy_cat'>Puppy cat</a> could use some more information about ragdolls, do you think that this might be something you'd be interested in contributing to? <a href='https://en.wikipedia.org/wiki/User:Fruzia'>Fruzia</a> (<a href='https://en.wikipedia.org/wiki/User_talk:Fruzia'>talk</a>) 23:08. 20 March 2019 (UTC)",
                                     "depth": 0
@@ -47,7 +47,7 @@ class TalkPageTestHelpers {
                                 }
                             ]
                         }
-                    ]
+                    ]}
                 """.data(using: .utf8)!
             }
         }
@@ -56,8 +56,8 @@ class TalkPageTestHelpers {
     static func networkTalkPage(for urlString: String, jsonType: TalkPageJSONType = .original, revisionId: Int64) -> NetworkTalkPage? {
         let session = Session.shared
         do {
-            let result: [NetworkDiscussion] = try session.jsonDecodeData(data: jsonType.json)
-            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, discussions: result, revisionId: revisionId, displayTitle: "Username", languageCode: "en")
+            let result: NetworkBase = try session.jsonDecodeData(data: jsonType.json)
+            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, discussions: result.topics, revisionId: revisionId, displayTitle: "Username", languageCode: "en")
             return talkPage
         } catch {
             return nil
