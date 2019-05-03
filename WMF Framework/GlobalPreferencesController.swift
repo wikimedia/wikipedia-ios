@@ -65,6 +65,7 @@ class GlobalPreferencesController: NSObject {
     private var semaphore = DispatchSemaphore(value: 1)
     private weak var dataStore: MWKDataStore? = nil
     private var fetchers: [String: GlobalPreferencesFetcher] = [:]
+    private let languages: [String]
     private let session: Session
     private let configuration: Configuration
     
@@ -74,7 +75,7 @@ class GlobalPreferencesController: NSObject {
             semaphore.signal()
         }
         fetchers.removeAll()
-        let languages = MWKLanguageLinkController.sharedInstance().preferredLanguages.map { $0.languageCode }
+        languages = MWKLanguageLinkController.sharedInstance().preferredLanguages.map { $0.languageCode }
         for language in languages {
             fetchers[language] = GlobalPreferencesFetcher(session: session, configuration: configuration, wikiLanguage: language)
         }
@@ -208,7 +209,8 @@ class GlobalPreferencesController: NSObject {
     
     private func importPreferences(prefs: [String: Any], for wikiLanguage: String, intoManagedObjectContext moc: NSManagedObjectContext) -> Bool {
         var newData = false
-        if let globalPrefs = prefs["preferences"] as? [String: Any] {
+        // only import global prefs from the first language, they should be the same everywhere
+        if languages.first == wikiLanguage, let globalPrefs = prefs["preferences"] as? [String: Any] {
             let newGlobal = importPreferences(prefs: globalPrefs, with: "gp:global:", intoManagedObjectContext: moc)
             if newGlobal {
                 newData = true
