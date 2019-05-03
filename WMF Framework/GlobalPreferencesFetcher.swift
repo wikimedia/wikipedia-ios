@@ -3,6 +3,11 @@ import Foundation
 class GlobalPreferencesFetcher: Fetcher {
     private let siteURL: URL
 
+    init(session: Session, configuration: Configuration, wikiLanguage: String) {
+        siteURL = configuration.mediaWikiAPIURLForWikiLanguage(wikiLanguage).url!
+        super.init(session: session, configuration: configuration)
+    }
+    
     required init(session: Session, configuration: Configuration) {
         siteURL = configuration.mediaWikiAPIURLComponentsBuilder().components().url!
         super.init(session: session, configuration: configuration)
@@ -52,14 +57,12 @@ class GlobalPreferencesFetcher: Fetcher {
             }
             guard
                 let query = result["query"] as? [String: Any],
-                let globalpreferences = query["globalpreferences"] as? [String: Any],
-                let preferences = globalpreferences["preferences"] as? [String: Any]
+                let globalpreferences = query["globalpreferences"] as? [String: Any]
             else {
                 completion(.failure(RequestError.unexpectedResponse))
                 return
             }
-            
-            completion(.success(preferences))
+            completion(.success(globalpreferences))
         }
     }
 }

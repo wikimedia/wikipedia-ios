@@ -120,7 +120,7 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
     
-    public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
+    public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         guard let wikiLanguage = wikiLanguage else {
             return mediaWikiAPIURForHost(nil, with: queryParameters)
         }
