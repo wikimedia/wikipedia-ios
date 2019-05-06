@@ -19,6 +19,7 @@
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
 // Author: Romaine
+// Author: Rots61
 // Author: SPQRobin
 // Author: Siebrand
 // Author: Sjoerddebruin
@@ -210,6 +211,7 @@
 "edit-underline-remove-accessibility-label" = "Onderstrepen verwijderen";
 "edit-watch-list-learn-more-text" = "Meer over kijklijsten";
 "edit-watch-this-page-text" = "Deze pagina volgen";
+"empty-insert-media-title" = "Selecteer een bestand";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
@@ -373,6 +375,7 @@
 "info-box-close-text" = "Sluiten";
 "info-box-title" = "Snelle feiten";
 "insert-action-title" = "Invoegen";
+"insert-media-image-position-setting-left" = "Links";
 "insert-media-image-size-setting-default" = "Standaard";
 "insert-media-image-size-settings-title" = "Afbeeldingsgrootte";
 "insert-media-uploaded-image-title" = "Geplaatste afbeelding";
