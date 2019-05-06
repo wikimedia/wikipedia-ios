@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
-@property (nonatomic, readonly, nullable) NSString *displayTitle;
+@property (nonatomic, copy, nonnull) NSString *displayTitleHTML;
 
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
 
