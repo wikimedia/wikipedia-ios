@@ -16,7 +16,7 @@
 }
 
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations" // this is the only section of code where the "deprecated" but not really deprecated displayTitleHTMLString should be used
 
 - (void)setDisplayTitleHTML:(NSString *)displayTitleHTML {
     self.displayTitleHTMLString = displayTitleHTML;
