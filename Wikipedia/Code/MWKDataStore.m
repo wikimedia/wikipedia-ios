@@ -34,6 +34,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
 @property (nonatomic, strong) WMFReadingListsController *readingListsController;
+@property (nonatomic, strong) WMFGlobalPreferencesController *globalPreferencesController;
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
 @property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
@@ -177,6 +178,7 @@ static uint64_t bundleHash() {
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
         [self setupHistoryAndSavedPageLists];
+        self.globalPreferencesController = [[WMFGlobalPreferencesController alloc] initWithDataStore:self session:[WMFSession shared] configuration:[WMFConfiguration current]];
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
         self.feedContentController.dataStore = self;
         self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
