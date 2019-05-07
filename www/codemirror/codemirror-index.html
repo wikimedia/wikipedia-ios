@@ -358,8 +358,10 @@
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
 
-      const tokenType = doc.getTokenTypeAt(doc.getCursor())
-      if ((tokenType && tokenType.length > 0) || selectedButtons.length > 0) {
+      const cursorPosition = doc.getCursor()
+      const token = doc.getTokenAt(cursorPosition)
+      const isAtLineEnd = doc.getLine(cursorPosition.line).length === cursorPosition.ch
+      if (((token.type && token.type.length > 0) || selectedButtons.length > 0) && !isAtLineEnd) {
         buttonsToDisable.push(buttonPayload('media'))
       }
 
