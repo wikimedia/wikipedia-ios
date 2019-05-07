@@ -593,7 +593,9 @@ extension SectionEditorViewController: InsertMediaViewControllerDelegate {
                 self.messagingController.replaceSelection(text: wikitext)
                 return
             }
-            if lineInfo.isAtLineEnd {
+            if !lineInfo.hasLineTokens && lineInfo.isAtLineEnd {
+                self.messagingController.replaceSelection(text: wikitext)
+            } else if lineInfo.isAtLineEnd {
                 self.messagingController.newlineAndIndent()
                 self.messagingController.replaceSelection(text: wikitext)
             } else if lineInfo.hasLineTokens {
