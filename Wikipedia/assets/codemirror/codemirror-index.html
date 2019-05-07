@@ -358,7 +358,9 @@
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
 
-      if (selectedButtons.length > 0) {
+      const tokenType = doc.getTokenTypeAt(doc.getCursor())
+      var shouldDisableMedia
+      if (tokenType && tokenType.length > 0) {
         buttonsToDisable.push(buttonPayload('media'))
       }
 
