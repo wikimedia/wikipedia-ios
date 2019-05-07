@@ -249,16 +249,11 @@
       return tagRanges.filter(isTagRangeComplete)
     }
 
-    var lastLineTokensCount = 0
-
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
       const lineTokens = enrichedLineTokens(doc, selectionRange.line)
-      lastLineTokensCount = lineTokens.length
-
       let result = []
-
 
       // Determine which html tag buttons are selected.
       
@@ -363,7 +358,7 @@
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
 
-      if (lastLineTokensCount > 0) {
+      if (selectedButtons.length > 0) {
         buttonsToDisable.push(buttonPayload('media'))
       }
 
