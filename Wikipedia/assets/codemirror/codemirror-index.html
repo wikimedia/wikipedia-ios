@@ -1065,9 +1065,15 @@
       clearFormatting: () => {
         RangeHelper.rangeClearFormatting.clearFormatting(editor)
       },
-      replaceSelection: (text) => {
-        editor.replaceSelection(text)
-      }
+      replaceSelection: (text) => editor.replaceSelection(text),
+      lineInfo: () => {
+        const cursorPosition = editor.getCursor('anchor')
+        return {
+          hasLineTokens: editor.getLineTokens(cursorPosition.line).length > 0,
+          isAtLineEnd: editor.getLine(cursorPosition.line).length === cursorPosition.ch
+        }
+      },
+      newlineAndIndent: () => editor.execCommand('newlineAndIndent')
     }
 
     // TODO: Import js/elementLocation ?
