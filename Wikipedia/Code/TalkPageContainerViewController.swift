@@ -41,6 +41,7 @@ class TalkPageContainerViewController: ViewController {
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
         
         guard let talkPage = talkPage else {
+
             assertionFailure("TalkPage is not populated yet.")
             return
         }

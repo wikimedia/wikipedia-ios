@@ -16,7 +16,7 @@ class TalkPageUpdateViewController: ViewController {
     private let talkPage: TalkPage
     let updateType: UpdateType
     
-    @IBOutlet private var titleTextField: ThemeableTextField!
+    @IBOutlet private var subjectTextField: ThemeableTextField!
     @IBOutlet private var bodyTextView: ThemeableTextView!
     @IBOutlet private var finePrintTextView: UITextView!
     
@@ -34,11 +34,14 @@ class TalkPageUpdateViewController: ViewController {
     
     @IBOutlet private var bodyContainerViewHeightConstraint: NSLayoutConstraint!
     private var singleLineBodyHeight: CGFloat?
-    private var oldBodyContainerHeight: CGFloat?
-    private var keyboardIsUp = false
+    private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
+    
+    private var publishButton: UIBarButtonItem!
+    
+    private let bodyPlaceholder = WMFLocalizedString("talk-page-new-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new discussion body field for talk pages.")
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.") //todo: gfd or gfdl?
+        let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.") //todo: gfd or gfdl?
         
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
@@ -67,7 +70,7 @@ class TalkPageUpdateViewController: ViewController {
     
     override func viewDidLoad() {
         scrollView = talkPageScrollView
-        talkPageScrollView.keyboardDismissMode = .interactive
+        
         super.viewDidLoad()
 
        commonSetup()
@@ -85,21 +88,33 @@ class TalkPageUpdateViewController: ViewController {
     }
     
     private func commonSetup() {
-        let publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
+        publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
+        publishButton.isEnabled = false
         navigationItem.rightBarButtonItem = publishButton
         navigationBar.updateNavigationItems()
         navigationBar.isBarHidingEnabled = false
         
-        titleTextField.isUnderlined = false
+        subjectTextField.isUnderlined = false
         bodyTextView.isUnderlined = false
+        bodyTextView.placeholderDelegate = self
+        
+        talkPageScrollView.keyboardDismissMode = .interactive
+        backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedBackground(_:)))
+        view.addGestureRecognizer(backgroundTapGestureRecognizer)
+    }
+    
+    @objc private func tappedBackground(_ tapGestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     private func newDiscussionSetup() {
         title = WMFLocalizedString("talk-page-new-discussion-title", value: "New discussion", comment: "Title of page when composing a new discussion topic on talk pages.")
         
-        titleTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new discussion subject field for talk pages.")
+        subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new discussion subject field for talk pages.")
         
         calculateSingleLineBodyHeightIfNeeded()
+        
+        subjectTextField.addTarget(self, action: #selector(evaluatePublishButtonState), for: .editingChanged)
     }
     
     private func newReplySetup() {
@@ -110,8 +125,8 @@ class TalkPageUpdateViewController: ViewController {
     
     private func calculateSingleLineBodyHeightIfNeeded() {
         if singleLineBodyHeight == nil {
-            bodyTextView.text = nil
-            bodyTextView.placeholder = "&nbsp;"
+            let oldText = bodyTextView.text
+            bodyTextView.text = "&nbsp;"
             bodyContainerViewHeightConstraint.isActive = false
             bodyTextView.setNeedsLayout()
             bodyTextView.layoutIfNeeded()
@@ -120,7 +135,15 @@ class TalkPageUpdateViewController: ViewController {
             bodyContainerVerticalPaddingConstraints.forEach { newHeight += $0.constant  }
             singleLineBodyHeight = newHeight
             
-            bodyTextView.placeholder = WMFLocalizedString("talk-page-new-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new discussion body field for talk pages.")
+            if let oldText = oldText, oldText.count > 0 {
+                bodyTextView.text = oldText
+                bodyTextView.placeholder = nil
+            } else if bodyTextView.isShowingPlaceholder {
+                bodyTextView.placeholder = bodyPlaceholder
+            } else {
+                bodyTextView.text = nil
+            }
+            
             bodyContainerViewHeightConstraint.isActive = true
             view.setNeedsLayout()
         }
@@ -129,7 +152,6 @@ class TalkPageUpdateViewController: ViewController {
     private func setBodyHeightIfNeeded() {
         
         guard keyboardFrame == nil else {
-           
             return
         }
         
@@ -138,12 +160,20 @@ class TalkPageUpdateViewController: ViewController {
             return
         }
         
-        var newHeight = talkPageScrollView.frame.height - bodyContainerOrigin.y
-        newHeight = newHeight - finePrintContainerView.frame.height - secondDivView.frame.height
+        //first get the size bodyTextView wants to be without a height limit (bodyTextView.contentSize.height doesn't seem reliable here)
+        bodyContainerViewHeightConstraint.isActive = false
+        bodyTextView.setNeedsLayout()
+        bodyTextView.layoutIfNeeded()
+        var contentFittingBodyContainerHeight = bodyTextView.frame.height
+        bodyContainerVerticalPaddingConstraints.forEach { contentFittingBodyContainerHeight += $0.constant  }
+        
+        var availableVerticalScreenSpace = talkPageScrollView.frame.height - bodyContainerOrigin.y
+        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - secondDivView.frame.height
+        
 
-        if bodyContainerViewHeightConstraint.constant != newHeight {
-            if newHeight > singleLineBodyHeight {
-                bodyContainerViewHeightConstraint.constant = newHeight
+        if bodyContainerViewHeightConstraint.constant != availableVerticalScreenSpace {
+            if availableVerticalScreenSpace > singleLineBodyHeight && availableVerticalScreenSpace >= contentFittingBodyContainerHeight {
+                bodyContainerViewHeightConstraint.constant = availableVerticalScreenSpace
                 bodyContainerViewHeightConstraint.isActive = true
             } else {
                 bodyContainerViewHeightConstraint.isActive = false
@@ -151,10 +181,19 @@ class TalkPageUpdateViewController: ViewController {
         }
     }
     
+    @objc private func evaluatePublishButtonState() {
+        switch updateType {
+        case .newDiscussion:
+            publishButton.isEnabled = (subjectTextField.text?.count ?? 0) > 0 && (bodyTextView.text?.count ?? 0) > 0
+        case .newReply:
+            publishButton.isEnabled = (bodyTextView.text?.count ?? 0) > 0
+        }
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        titleTextField.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        subjectTextField.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         bodyTextView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
         
@@ -174,8 +213,18 @@ class TalkPageUpdateViewController: ViewController {
         finePrintTextView.backgroundColor = theme.colors.paperBackground
         finePrintTextView.textColor = theme.colors.secondaryText
         
-        titleTextField.apply(theme: theme)
+        subjectTextField.apply(theme: theme)
         bodyTextView.apply(theme: theme)
         super.apply(theme: theme)
+    }
+}
+
+extension TalkPageUpdateViewController: ThemeableTextViewPlaceholderDelegate {
+    func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
+        //no-op
+    }
+    
+    func themeableTextViewDidChange(_ themeableTextView: UITextView) {
+        evaluatePublishButtonState()
     }
 }

@@ -20,8 +20,8 @@
                 <outlet property="firstDivView" destination="R6M-6e-GoT" id="0eN-Rc-5kg"/>
                 <outlet property="secondDivView" destination="OQC-Pb-IB6" id="jPl-pt-HCJ"/>
                 <outlet property="subjectContainerView" destination="thm-2U-JE9" id="Pte-ER-WRh"/>
+                <outlet property="subjectTextField" destination="tey-7u-fS8" id="kiY-Qo-6HP"/>
                 <outlet property="talkPageScrollView" destination="iuD-YN-OrL" id="Ion-dN-hra"/>
-                <outlet property="titleTextField" destination="tey-7u-fS8" id="0ab-7a-bPi"/>
                 <outlet property="view" destination="aQX-ak-cfR" id="VWE-ux-SVt"/>
                 <outletCollection property="divViews" destination="OQC-Pb-IB6" collectionClass="NSMutableArray" id="iXM-30-EPC"/>
                 <outletCollection property="divViews" destination="R6M-6e-GoT" collectionClass="NSMutableArray" id="N7o-B1-C3J"/>
@@ -86,11 +86,6 @@
                                         <constraint firstAttribute="bottom" secondItem="dNc-rx-jAZ" secondAttribute="bottom" constant="20" symbolic="YES" id="uI3-L2-AsT"/>
                                         <constraint firstAttribute="height" constant="565" id="wsY-91-S0m"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="wsY-91-S0m"/>
-                                        </mask>
-                                    </variation>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQC-Pb-IB6">
                                     <rect key="frame" x="0.0" y="636" width="414" height="1"/>
