@@ -574,7 +574,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.titleText, siteURL: section?.article?.url.wmf_site)
+        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle, siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
         present(navigationController, animated: true)
