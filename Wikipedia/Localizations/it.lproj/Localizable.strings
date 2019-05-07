@@ -87,6 +87,7 @@
 "action-saved-accessibility-notification" = "Voce salvata per dopo";
 "action-share" = "Condividi";
 "action-share-accessibility" = "Condividi";
+"action-sort" = "Ordina";
 "action-undo" = "Annulla";
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
@@ -126,7 +127,11 @@
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
 "description-add-link-title" = "Aggiungi una descrizione del titolo";
 "description-add-title" = "Aggiungi descrizione";
+"description-edit-for-article" = "Descrizione del titolo per $1";
 "description-edit-learn-more" = "Ulteriori informazioni";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Modificando la descrizione del titolo, accetto le $1 e di rilasciare irrevocabilmente i miei contributi in base alla licenza $2.";
+"description-edit-pencil-introduction" = "Modifica introduzione";
 "description-edit-pencil-title" = "Modifica descrizione del titolo";
 "description-edit-placeholder-title" = "Descrizioni brevi sono le migliori";
 "description-edit-publish" = "Pubblica descrizione";
@@ -141,9 +146,11 @@
 "description-published-subtitle" = "Hai appena reso Wikipedia migliore per tutti";
 "description-published-title" = "Descrizione pubblicata!";
 "description-welcome-concise-sub-title" = "Idealmente una riga, da due a dodici parole";
+"description-welcome-descriptions-title" = "Descrizioni del titolo";
 "description-welcome-start-editing-button" = "Inizia a modificare";
 "edit-bold-accessibility-label" = "Aggiungi la formattazione in grassetto";
 "edit-bold-remove-accessibility-label" = "Rimuovi la formattazione in grassetto";
+"edit-clear-formatting-accessibility-label" = "Rimuovi formattazione";
 "edit-comment-accessibility-label" = "Aggiungi sintassi per commento";
 "edit-direction-left-accessibility-label" = "Sposta il cursore a sinistra";
 "edit-direction-right-accessibility-label" = "Sposta il cursore a destra";
@@ -179,6 +186,7 @@
 "edit-unordered-list-remove-accessibility-label" = "Rimuovi l'elenco puntato dalla riga attuale";
 "edit-watch-list-learn-more-text" = "Ulteriori informazioni sugli osservati speciali";
 "edit-watch-this-page-text" = "Aggiungi agli osservati speciali";
+"empty-insert-media-title" = "Seleziona un file";
 "empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
 "empty-no-feed-action-message" = "Puoi ancora leggere le pagine salvate";
 "empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";
@@ -273,7 +281,6 @@
 "info-box-close-text" = "Chiudi";
 "info-box-title" = "Fatti in breve";
 "insert-action-title" = "Inserisci";
-"insert-media-advanced-settings-button-title" = "Impostazioni avanzate";
 "insert-media-alternative-text-description" = "Descrizione testuale per utenti che non riescono a vedere l'immagine";
 "insert-media-alternative-text-placeholder" = "Descrivi questa immagine";
 "insert-media-alternative-text-title" = "Testo alternativo";
@@ -297,7 +304,6 @@
 "insert-media-image-type-setting-thumbnail" = "Miniatura";
 "insert-media-image-type-settings-title" = "Tipo immagine";
 "insert-media-media-settings-title" = "Impostazioni file multimediali";
-"insert-media-placeholder-label-text" = "Seleziona o carica un file";
 "insert-media-title" = "Inserisci un file multimediale";
 "insert-media-uploaded-image-title" = "Immagine caricata";
 "languages-settings-title" = "Lingue";
@@ -474,6 +480,8 @@
 "share-open-in-maps" = "Apri in Maps";
 "share-social-format" = "“$1” tramite Wikipedia: $2";
 "share-social-mention-format" = "“$1” tramite @Wikipedia: $2";
+"sort-by-recently-added-action" = "Aggiunti di recente";
+"sort-by-title-action" = "Titolo";
 "status-saved-for-later" = "Salvato per dopo";
 "status-saving-for-later" = "Salvataggio per dopo...";
 "table-of-contents-button-label" = "Indice";
@@ -481,6 +489,7 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "table-title-other" = "Ulteriori informazioni";
+"theme-black-display-name" = "Nero";
 "theme-dark-display-name" = "Scuro";
 "theme-default-display-name" = "Predefinito";
 "theme-sepia-display-name" = "Seppia";

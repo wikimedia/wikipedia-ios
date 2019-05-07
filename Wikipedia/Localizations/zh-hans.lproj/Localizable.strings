@@ -383,6 +383,13 @@
 "in-the-news-title" = "新闻动态";
 "info-box-close-text" = "关闭";
 "info-box-title" = "快速预览";
+"insert-media-caption-description" = "显示在所有读者的项目旁边的标签。";
+"insert-media-image-position-setting-center" = "中心";
+"insert-media-image-position-setting-none" = "无";
+"insert-media-image-position-setting-right" = "对";
+"insert-media-image-preview-select-image-action-title" = "选择图像";
+"insert-media-image-type-setting-basic" = "基本的";
+"insert-media-uploaded-image-title" = "上传图像";
 "languages-settings-title" = "语言";
 "languages-title" = "更改语言";
 "languages-wikipedia" = "维基百科语言";

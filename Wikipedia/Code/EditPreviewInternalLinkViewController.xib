@@ -14,6 +14,8 @@
             <connections>
                 <outlet property="button" destination="Sce-E4-ZEM" id="poG-0c-bFU"/>
                 <outlet property="containerView" destination="LBy-N3-43n" id="9ar-tz-xOX"/>
+                <outlet property="tapGestureRecignizer" destination="NwK-NY-AW1" id="YmP-cs-COA"/>
+                <outlet property="tapView" destination="lP8-IR-vmI" id="Ky4-vL-OUy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,7 +31,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-N3-43n">
-                                    <rect key="frame" x="12" y="284" width="390" height="328"/>
+                                    <rect key="frame" x="16" y="284" width="382" height="328"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="328" placeholder="YES" id="tg4-vm-hVM">
                                             <variation key="heightClass=compact" constant="100"/>
@@ -43,15 +45,16 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sce-E4-ZEM">
-                                    <rect key="frame" x="12" y="624" width="390" height="42"/>
+                                    <rect key="frame" x="16" y="624" width="382" height="48"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <inset key="contentEdgeInsets" minX="24" minY="12" maxX="24" maxY="12"/>
+                                    <inset key="contentEdgeInsets" minX="24" minY="15" maxX="24" maxY="15"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
                                         <action selector="dismissAnimated:" destination="-1" eventType="touchUpInside" id="dRw-nP-Rnz"/>
                                     </connections>
                                 </button>
                             </subviews>
+                            <gestureRecognizers/>
                             <constraints>
                                 <constraint firstItem="Sce-E4-ZEM" firstAttribute="leading" secondItem="LBy-N3-43n" secondAttribute="leading" id="0ia-Tb-5cn"/>
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="centerX" secondItem="lP8-IR-vmI" secondAttribute="centerX" priority="999" id="HWz-iP-BMQ"/>
@@ -59,9 +62,9 @@
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="centerY" secondItem="lP8-IR-vmI" secondAttribute="centerY" priority="999" id="VOb-BY-w6e"/>
                                 <constraint firstItem="LBy-N3-43n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0Qr-og-G0P" secondAttribute="top" constant="12" id="Zv5-nZ-JQD"/>
                                 <constraint firstItem="Sce-E4-ZEM" firstAttribute="top" secondItem="LBy-N3-43n" secondAttribute="bottom" constant="12" id="aKb-nf-tUW"/>
-                                <constraint firstItem="LBy-N3-43n" firstAttribute="leading" secondItem="0Qr-og-G0P" secondAttribute="leading" constant="12" id="cRo-gZ-Roi"/>
+                                <constraint firstItem="LBy-N3-43n" firstAttribute="leading" secondItem="0Qr-og-G0P" secondAttribute="leading" constant="16" id="cRo-gZ-Roi"/>
                                 <constraint firstItem="0Qr-og-G0P" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Sce-E4-ZEM" secondAttribute="bottom" constant="12" id="dVL-Ji-r8x"/>
-                                <constraint firstItem="0Qr-og-G0P" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" constant="12" id="z80-nG-fHu"/>
+                                <constraint firstItem="0Qr-og-G0P" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" constant="16" id="z80-nG-fHu"/>
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="0Qr-og-G0P"/>
                             <variation key="heightClass=compact">
@@ -87,6 +90,9 @@
                                     <exclude reference="cRo-gZ-Roi"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="NwK-NY-AW1" appends="YES" id="U02-ck-e4A"/>
+                            </connections>
                         </view>
                     </subviews>
                     <constraints>
@@ -131,5 +137,6 @@
                 </mask>
             </variation>
         </view>
+        <tapGestureRecognizer id="NwK-NY-AW1"/>
     </objects>
 </document>
