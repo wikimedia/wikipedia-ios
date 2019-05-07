@@ -15,6 +15,20 @@
     return [NSURL URLWithString:key];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations" // this is the only section of code where the "deprecated" but not really deprecated displayTitleHTMLString should be used
+
+- (void)setDisplayTitleHTML:(NSString *)displayTitleHTML {
+    self.displayTitleHTMLString = displayTitleHTML;
+    self.displayTitle = displayTitleHTML.wmf_stringByRemovingHTML;
+}
+
+- (NSString *)displayTitleHTML {
+    return self.displayTitleHTMLString ?: self.displayTitle ?: self.URL.wmf_title ?: @"";
+}
+
+#pragma clang diagnostic pop
+
 - (nullable NSURL *)thumbnailURL {
     NSString *thumbnailURLString = self.thumbnailURLString;
     if (!thumbnailURLString) {
