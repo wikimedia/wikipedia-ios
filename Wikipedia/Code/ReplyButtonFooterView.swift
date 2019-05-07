@@ -1,9 +1,14 @@
 
 import UIKit
 
+protocol ReplyButtonFooterViewDelegate: class {
+    func tappedReply(from view: ReplyButtonFooterView)
+}
+
 class ReplyButtonFooterView: SizeThatFitsReusableView {
     private let replyButton = ActionButton(frame: .zero)
     private let dividerView = UIView(frame: .zero)
+    weak var delegate: ReplyButtonFooterViewDelegate?
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
@@ -28,6 +33,10 @@ class ReplyButtonFooterView: SizeThatFitsReusableView {
         return CGSize(width: size.width, height: finalHeight)
     }
     
+    @objc private func tappedReply() {
+        delegate?.tappedReply(from: self)
+    }
+    
     override func updateFonts(with traitCollection: UITraitCollection) {
         replyButton.updateFonts(with: traitCollection)
     }
@@ -35,6 +44,7 @@ class ReplyButtonFooterView: SizeThatFitsReusableView {
     override func setup() {
         
         replyButton.setTitle(WMFLocalizedString("talk-pages-reply-button-title", value: "Reply to this discussion", comment: "Text displayed in a reply button for replying to a talk page discussion thread."), for: .normal)
+        replyButton.addTarget(self, action: #selector(tappedReply), for: .touchUpInside)
         addSubview(replyButton)
         addSubview(dividerView)
         super.setup()

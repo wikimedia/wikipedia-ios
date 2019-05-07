@@ -10,6 +10,7 @@ class TalkPageContainerViewController: ViewController {
     let titleIncludesPrefix: Bool
     let type: TalkPageType
     let dataStore: MWKDataStore!
+    private var talkPage: TalkPage?
     
     private var talkPageController: TalkPageController!
     
@@ -38,7 +39,13 @@ class TalkPageContainerViewController: ViewController {
     }
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
-        let discussionNewVC = TalkPageDiscussionNewViewController()
+        
+        guard let talkPage = talkPage else {
+            assertionFailure("TalkPage is not populated yet.")
+            return
+        }
+        
+        let discussionNewVC = TalkPageUpdateViewController.init(talkPage: talkPage, type: .newDiscussion)
         discussionNewVC.delegate = self
         discussionNewVC.apply(theme: theme)
         navigationController?.pushViewController(discussionNewVC, animated: true)
@@ -48,9 +55,15 @@ class TalkPageContainerViewController: ViewController {
         //todo: loading/error/empty states
         talkPageController = TalkPageController(dataStore: dataStore, title: talkPageTitle, host: host, languageCode: languageCode, titleIncludesPrefix: titleIncludesPrefix, type: type)
         talkPageController.fetchTalkPage { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
             switch result {
             case .success(let talkPage):
-                self?.setupDiscussionListViewControllerIfNeeded(with: talkPage)
+                self.talkPage = talkPage
+                self.setupDiscussionListViewControllerIfNeeded(with: talkPage)
             case .failure(let error):
                 print("error! \(error)")
             }
@@ -72,25 +85,31 @@ class TalkPageContainerViewController: ViewController {
     }
 }
 
-extension TalkPageContainerViewController: TalkPageDiscussionNewDelegate {
-    func addDiscussion(viewController: TalkPageDiscussionNewViewController) {
-        navigationController?.popViewController(animated: true)
+extension TalkPageContainerViewController: TalkPageUpdateDelegate {
+    func tappedPublish(viewController: TalkPageUpdateViewController) {
+        switch viewController.updateType {
+        case .newDiscussion:
+            navigationController?.popViewController(animated: true)
+        case .newReply:
+            dismiss(animated: true, completion: nil)
+        }
+        
     }
 }
 
 extension TalkPageContainerViewController: TalkPageDiscussionListDelegate {
     
     func tappedDiscussion(_ discussion: TalkPageDiscussion, viewController: TalkPageDiscussionListViewController) {
-        let replyVC = TalkPageReplyContainerViewController(discussion: discussion, dataStore: dataStore)
+        
+        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, discussion: discussion)
         replyVC.delegate = self
         replyVC.apply(theme: theme)
         navigationController?.pushViewController(replyVC, animated: true)
     }
 }
 
-extension TalkPageContainerViewController: TalkPageReplyContainerViewControllerDelegate {
-    func tappedLink(_ url: URL, viewController: TalkPageReplyContainerViewController) {
-
+extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelegate {
+    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
         let lastPathComponent = url.lastPathComponent
         
         //todo: fix for other languages
@@ -106,5 +125,19 @@ extension TalkPageContainerViewController: TalkPageReplyContainerViewControllerD
         //todo: else if User: prefix, show their wikitext editing page in a web view. Ensure edits there cause talk page to refresh when coming back.
         //else if no host, try prepending language wiki to components and navigate (openUrl, is it okay that this kicks them out of the app?)
         //else if it's a full url (i.e. a different host), send them to safari
+    }
+    
+    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController) {
+        
+        guard let talkPage = talkPage else {
+            assertionFailure("TalkPage is not populated yet.")
+            return
+        }
+        
+        let replyNewViewController = TalkPageUpdateViewController.init(talkPage: talkPage, type: .newReply(discussion: discussion))
+        replyNewViewController.delegate = self
+        replyNewViewController.apply(theme: theme)
+        let navVC = WMFThemeableNavigationController.init(rootViewController: replyNewViewController, theme: theme)
+        present(navVC, animated: true, completion: nil)
     }
 }

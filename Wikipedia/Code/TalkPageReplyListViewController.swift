@@ -3,6 +3,7 @@ import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
+    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -170,6 +171,7 @@ private extension TalkPageReplyListViewController {
     }
     
     func configure(footer: ReplyButtonFooterView) {
+        footer.delegate = self
         footer.layoutMargins = layout.itemLayoutMargins
         footer.apply(theme: theme)
     }
@@ -192,5 +194,11 @@ extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelega
     func tappedLink(_ url: URL, cell: ReplyListItemCollectionViewCell) {
         
         delegate?.tappedLink(url, viewController: self)
+    }
+}
+
+extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
+    func tappedReply(from view: ReplyButtonFooterView) {
+        delegate?.tappedReply(to: discussion, viewController: self)
     }
 }
