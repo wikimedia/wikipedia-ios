@@ -141,10 +141,6 @@ extension InsertMediaAdvancedSettingsViewController: UITableViewDataSource {
         cell.textLabel?.textColor = cell.isUserInteractionEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         cell.detailTextLabel?.textColor = theme.colors.secondaryText
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
 }
 
 // MARK: - Table view delegate
