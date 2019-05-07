@@ -359,8 +359,7 @@
       }
 
       const tokenType = doc.getTokenTypeAt(doc.getCursor())
-      var shouldDisableMedia
-      if (tokenType && tokenType.length > 0) {
+      if ((tokenType && tokenType.length > 0) || selectedButtons.length > 0) {
         buttonsToDisable.push(buttonPayload('media'))
       }
 
