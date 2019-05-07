@@ -588,7 +588,22 @@ extension SectionEditorViewController: InsertMediaViewControllerDelegate {
 
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
         dismiss(animated: true)
-        messagingController.replaceSelection(text: wikitext)
+        messagingController.getLineInfo { lineInfo in
+            guard let lineInfo = lineInfo else {
+                self.messagingController.replaceSelection(text: wikitext)
+                return
+            }
+            if lineInfo.isAtLineEnd {
+                self.messagingController.newlineAndIndent()
+                self.messagingController.replaceSelection(text: wikitext)
+            } else if lineInfo.hasLineTokens {
+                self.messagingController.newlineAndIndent()
+                self.messagingController.replaceSelection(text: wikitext)
+                self.messagingController.newlineAndIndent()
+            } else {
+                self.messagingController.replaceSelection(text: wikitext)
+            }
+        }
     }
 }
 
