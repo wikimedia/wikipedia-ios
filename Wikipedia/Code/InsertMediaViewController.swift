@@ -230,6 +230,10 @@ extension InsertMediaViewController: InsertMediaSearchViewControllerDelegate {
 }
 
 extension InsertMediaViewController: InsertMediaSelectedImageViewControllerDelegate {
+    func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, willSetSelectedImageFrom searchResult: InsertMediaSearchResult) {
+        nextButton.isEnabled = false
+    }
+
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, didSetSelectedImage selectedImage: UIImage?, from searchResult: InsertMediaSearchResult) {
         nextButton.isEnabled = true
     }
