@@ -65,6 +65,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     @objc var areRecentSearchesEnabled: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
+
+    var shouldShowCancelButton: Bool = true
     
     var nonSearchAlpha: CGFloat = 1 {
         didSet {
@@ -293,7 +295,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
             self.resultsViewController.view.alpha = visible ? 1 : 0
-            self.searchBar.setShowsCancelButton(visible, animated: animated)
+            if self.shouldShowCancelButton {
+                self.searchBar.setShowsCancelButton(visible, animated: animated)
+            }
             self.view.layoutIfNeeded()
         }
         guard animated else {

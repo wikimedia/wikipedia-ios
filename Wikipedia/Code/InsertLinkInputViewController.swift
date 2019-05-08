@@ -24,6 +24,7 @@ class InsertLinkInputViewController: UIInputViewController {
         searchViewController.shouldBecomeFirstResponder = true
         #warning("Inject dataStore")
         searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
+        searchViewController.shouldShowCancelButton = false
         return searchViewController
     }()
 
