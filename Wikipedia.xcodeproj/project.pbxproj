@@ -6380,7 +6380,6 @@
 		7A7857E3219F196C00ED1579 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */,
 				7AC6B6AC225CE5DD00C285CB /* Media Wizard */,
 				7A27E85021B1971D001B2D21 /* Text Formatting */,
 				7AEC9863219F5D9C00BEF62B /* Toolbar */,
@@ -7264,6 +7263,7 @@
 		BC45D5A11C33042B007C72F3 /* Editing */ = {
 			isa = PBXGroup;
 			children = (
+				7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */,
 				7AF6F74C2239383100949393 /* Welcome */,
 				7A7857E3219F196C00ED1579 /* Tools */,
 				044BD6B218849AD000FFE4BE /* SectionEditor */,
