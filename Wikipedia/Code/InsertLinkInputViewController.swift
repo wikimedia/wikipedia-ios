@@ -29,6 +29,7 @@ class InsertLinkInputViewController: UIInputViewController {
         searchViewController.shouldShowCancelButton = false
         searchViewController.delegate = self
         searchViewController.delegatesSelection = true
+        searchViewController.showLanguageBar = false
         return searchViewController
     }()
 
@@ -56,7 +57,10 @@ class InsertLinkInputViewController: UIInputViewController {
 
 extension InsertLinkInputViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
-        //
+        guard let title = articleURL.wmf_title else {
+            return
+        }
+        
     }
 }
 

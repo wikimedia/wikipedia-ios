@@ -73,6 +73,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
     }
 
+    var showLanguageBar: Bool?
+
     var nonSearchAlpha: CGFloat = 1 {
         didSet {
             collectionView.alpha = nonSearchAlpha
@@ -183,9 +185,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         self.searchLanguageBarViewController = searchLanguageBarViewController
         return searchLanguageBarViewController
     }
-    
+
     private func updateLanguageBarVisibility() {
-        let showLanguageBar = UserDefaults.wmf.wmf_showSearchLanguageBar()
+        let showLanguageBar = self.showLanguageBar ?? UserDefaults.wmf.wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
             addChild(searchLanguageBarViewController)
