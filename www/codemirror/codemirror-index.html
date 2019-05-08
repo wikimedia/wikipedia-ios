@@ -511,34 +511,51 @@
       }
       const lineIndex = fromPos.line
       const line = editor.getLine(lineIndex)
-	  
       var lastOpenMatchBeforeSelection = {distance: -1}
       var firstOpenMatchAfterSelection = {distance: -1}
       var firstOpenMatchWithinSelection = {distance: -1}
+	    var openMatchEncompassingStartOfSelection = {}
+      var openMatchEncompassingEndOfSelection = {}
       line.replace(new RegExp(openingMarkup, 'g'), (match, index) => {
-        if (index + match.length <= fromPos.ch) {
-          lastOpenMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
+        const endIndex = index + match.length
+        if (index <= fromPos.ch && endIndex >= fromPos.ch) {
+          openMatchEncompassingStartOfSelection = {match: match, offset: index - fromPos.ch}
         }
-        if (index >= fromPos.ch && index + match.length <= toPos.ch && firstOpenMatchWithinSelection.distance === -1) {
+        if (endIndex <= fromPos.ch) {
+          lastOpenMatchBeforeSelection = {match: match, distance: fromPos.ch - endIndex}
+        }
+        if (index >= fromPos.ch && endIndex <= toPos.ch && firstOpenMatchWithinSelection.distance === -1) {
           firstOpenMatchWithinSelection = {match: match, distance: index - fromPos.ch}
         }
         if (index >= toPos.ch && firstOpenMatchAfterSelection.distance === -1) {
           firstOpenMatchAfterSelection = {match: match, distance: index - toPos.ch}	
+        }
+        if (index <= toPos.ch && endIndex >= toPos.ch) {
+          openMatchEncompassingEndOfSelection = {match: match, offset: index - toPos.ch}
         }
       })
 	  
       var lastCloseMatchBeforeSelection = {distance: -1}
       var firstCloseMatchAfterSelection = {distance: -1}
       var firstCloseMatchWithinSelection = {distance: -1}
+	    var closeMatchEncompassingStartOfSelection = {}
+      var closeMatchEncompassingEndOfSelection = {}
       line.replace(new RegExp(closingMarkup, 'g'), (match, index) => {
-        if (index + match.length <= fromPos.ch) {
-          lastCloseMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
+        const endIndex = index + match.length
+        if (index <= fromPos.ch && endIndex >= fromPos.ch) {
+          closeMatchEncompassingStartOfSelection = {match: match, offset: index - fromPos.ch}
         }
-        if (index >= fromPos.ch && index + match.length <= toPos.ch && firstCloseMatchWithinSelection.distance === -1) {
-          firstCloseMatchWithinSelection = {match: match, distance: toPos.ch - index - match.length}
+        if (endIndex <= fromPos.ch) {
+          lastCloseMatchBeforeSelection = {match: match, distance: fromPos.ch - endIndex}
+        }
+        if (index >= fromPos.ch && endIndex <= toPos.ch && firstCloseMatchWithinSelection.distance === -1) {
+          firstCloseMatchWithinSelection = {match: match, distance: toPos.ch - endIndex}
         }
         if (index >= toPos.ch && firstCloseMatchAfterSelection.distance === -1) {
           firstCloseMatchAfterSelection = {match: match, distance: index - toPos.ch}	
+        }
+        if (index <= toPos.ch && endIndex >= toPos.ch) {
+          closeMatchEncompassingEndOfSelection = {match: match, offset: index - toPos.ch}
         }
       })
       const isWrapped = lastOpenMatchBeforeSelection.distance !== -1 && (lastCloseMatchBeforeSelection.distance === -1 || lastOpenMatchBeforeSelection.distance < lastCloseMatchBeforeSelection.distance) // exclude equal distances to rule out self-contained tags, for example <ref name=blah/>
@@ -554,7 +571,15 @@
         priorCloseMatch: lastCloseMatchBeforeSelection.match,
         nextOpenMatch: firstOpenMatchAfterSelection.match,
         openWithinDistance: firstOpenMatchWithinSelection.distance,
-        closeWithinDistance: firstCloseMatchWithinSelection.distance
+        closeWithinDistance: firstCloseMatchWithinSelection.distance,
+        openMatchEncompassingStartOffset: openMatchEncompassingStartOfSelection.offset,
+        openMatchEncompassingStart: openMatchEncompassingStartOfSelection.match,
+        openMatchEncompassingEndOffset: openMatchEncompassingEndOfSelection.offset,
+        openMatchEncompassingEnd: openMatchEncompassingEndOfSelection.match,
+        closeMatchEncompassingStartOffset: closeMatchEncompassingStartOfSelection.offset,
+        closeMatchEncompassingStart: closeMatchEncompassingStartOfSelection.match,
+        closeMatchEncompassingEndOffset: closeMatchEncompassingEndOfSelection.offset,
+        closeMatchEncompassingEnd: closeMatchEncompassingEndOfSelection.match
       }
     }
     
