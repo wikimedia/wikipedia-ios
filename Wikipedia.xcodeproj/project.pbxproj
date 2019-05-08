@@ -6350,14 +6350,6 @@
 			name = "Text Formatting";
 			sourceTree = "<group>";
 		};
-		7A27EDA02279EFB70010CB24 /* Link Wizard */ = {
-			isa = PBXGroup;
-			children = (
-				7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */,
-			);
-			name = "Link Wizard";
-			sourceTree = "<group>";
-		};
 		7A5A0541225FBDD300BBEAC1 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -6388,7 +6380,7 @@
 		7A7857E3219F196C00ED1579 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				7A27EDA02279EFB70010CB24 /* Link Wizard */,
+				7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */,
 				7AC6B6AC225CE5DD00C285CB /* Media Wizard */,
 				7A27E85021B1971D001B2D21 /* Text Formatting */,
 				7AEC9863219F5D9C00BEF62B /* Toolbar */,
