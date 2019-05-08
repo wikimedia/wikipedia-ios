@@ -67,7 +67,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     @objc var shouldBecomeFirstResponder: Bool = false
 
     var shouldShowCancelButton: Bool = true
-    
+    var delegatesSelection: Bool = false {
+        didSet {
+            resultsViewController.delegatesSelection = delegatesSelection
+        }
+    }
+
     var nonSearchAlpha: CGFloat = 1 {
         didSet {
             collectionView.alpha = nonSearchAlpha
@@ -547,7 +552,12 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
         funnel.logSearchResultTap(at: indexPath.item, source: source)
+        #warning("Confirm if last search should be saved for Link Wiz")
         saveLastSearch()
+        guard delegatesSelection else {
+            return
+        }
+        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
     }
 }
 

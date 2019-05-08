@@ -27,6 +27,8 @@ class InsertLinkInputViewController: UIInputViewController {
         #warning("Inject dataStore")
         searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
         searchViewController.shouldShowCancelButton = false
+        searchViewController.delegate = self
+        searchViewController.delegatesSelection = true
         return searchViewController
     }()
 
@@ -49,6 +51,12 @@ class InsertLinkInputViewController: UIInputViewController {
         let view = View()
         view.translatesAutoresizingMaskIntoConstraints = false
         self.view = view
+    }
+}
+
+extension InsertLinkInputViewController: ArticleCollectionViewControllerDelegate {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
+        //
     }
 }
 
