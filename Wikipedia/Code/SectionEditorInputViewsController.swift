@@ -73,7 +73,14 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         findAndReplaceView?.replaceType = type
     }
 
-    var inputViewType: TextFormattingInputViewController.InputViewType?
+    var inputViewType: InputViewType?
+
+    enum InputViewType {
+        case textFormatting
+        case textStyle
+        case linkInsert
+    }
+
     var suppressMenus: Bool = false {
         didSet {
             if suppressMenus {

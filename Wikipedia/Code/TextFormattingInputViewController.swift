@@ -21,17 +21,14 @@ class TextFormattingInputViewController: UIInputViewController {
 
     var selectedTextStyleType: TextStyleType?
     var selectedTextSizeType: TextSizeType?
-
-    enum InputViewType {
-        case textFormatting
-        case textStyle
-    }
     
     required init?(coder: NSCoder) {
         textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
         textFormattingTableViewController = TextFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
         super.init(coder: coder)
     }
+
+    typealias InputViewType = SectionEditorInputViewsController.InputViewType
 
     var inputViewType = InputViewType.textFormatting {
         didSet {
@@ -51,6 +48,9 @@ class TextFormattingInputViewController: UIInputViewController {
             viewController = textFormattingTableViewController
         case .textStyle:
             viewController = textStyleFormattingTableViewController
+        default:
+            assertionFailure("Unexpected input view type")
+            viewController = textFormattingTableViewController
         }
         return viewController
     }
@@ -98,7 +98,6 @@ class TextFormattingInputViewController: UIInputViewController {
         textFormattingTableViewController.disableButton(button: button)
         textStyleFormattingTableViewController.disableButton(button: button)
     }
-
 }
 
 extension TextFormattingInputViewController: Themeable {
