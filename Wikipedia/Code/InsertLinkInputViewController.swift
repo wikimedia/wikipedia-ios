@@ -8,7 +8,15 @@ fileprivate class View: UIView {
 
 class InsertLinkInputViewController: UIInputViewController {
     typealias Link = SectionEditorWebViewMessagingController.Link
-    var link: Link?
+    var link: Link? {
+        didSet {
+            guard let link = link else {
+                return
+            }
+            searchViewController.searchTerm = link.page
+            searchViewController.search()
+        }
+    }
 
     private lazy var searchViewController: SearchViewController = {
         let searchViewController = SearchViewController()
