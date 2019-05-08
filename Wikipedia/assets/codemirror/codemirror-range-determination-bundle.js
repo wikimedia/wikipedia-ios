@@ -1,26 +1,14 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const ItemRange = require('./codemirror-range-objects').ItemRange
-const ItemLocation = require('./codemirror-range-objects').ItemLocation
-
 const getItemRangeFromSelection = require('./codemirror-range-utilities').getItemRangeFromSelection
+const buttonNamesInCurrentSelectionRange = require('./codemirror-range-utilities').buttonNamesInCurrentSelectionRange
 const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilities').getMarkupItemsIntersectingSelection
-const getButtonNamesFromMarkupItems = require('./codemirror-range-utilities').getButtonNamesFromMarkupItems
 const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
 
-const buttonNamesInSelectionRange = (codeMirror, selectionRange) => {
-  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
-  const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
-  const buttonNames = getButtonNamesFromMarkupItems(markupItemsIntersectingSelection)
-  return buttonNames
-}
-
 const canClearFormatting = (codeMirror) => {
-  let selectionRange = getItemRangeFromSelection(codeMirror)
-  if (selectionRange.isZeroLength()) {
+  const buttonNames = buttonNamesInCurrentSelectionRange(codeMirror)
+  if (buttonNames.length == 0) {
     return false
   }
-
-  const buttonNames = buttonNamesInSelectionRange(codeMirror, selectionRange)
   if (buttonNames.includes('reference') || buttonNames.includes('template')) {
     return false
   }
@@ -254,7 +242,7 @@ const pruneWhitespaceOnlyMarkupItems = (codeMirror) => {
 
 exports.clearFormatting = clearFormatting
 exports.canClearFormatting = canClearFormatting
-},{"./codemirror-range-determination":5,"./codemirror-range-objects":7,"./codemirror-range-utilities":9}],2:[function(require,module,exports){
+},{"./codemirror-range-determination":5,"./codemirror-range-utilities":9}],2:[function(require,module,exports){
 const markupItemsForLineTokens = require('./codemirror-range-determination').markupItemsForLineTokens
 
 // Uncomment the chunk below to add debugging buttons to top of article wikitext editor.
@@ -803,6 +791,7 @@ exports.symmetricDifference = symmetricDifference
 },{}],9:[function(require,module,exports){
 const ItemRange = require('./codemirror-range-objects').ItemRange
 const ItemLocation = require('./codemirror-range-objects').ItemLocation
+const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
 
 const getItemRangeFromSelection = (codeMirror) => {
   const fromCursor = codeMirror.getCursor('from')
@@ -825,6 +814,21 @@ const getMarkupItemsIntersectingSelection = (codeMirror, markupItems, selectionR
 
 const getButtonNamesFromMarkupItems = (markupItems) => markupItems.map(item => item.buttonName)
 
+const buttonNamesInSelectionRange = (codeMirror, selectionRange) => {
+  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
+  const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
+  const buttonNames = getButtonNamesFromMarkupItems(markupItemsIntersectingSelection)
+  return buttonNames
+}
+
+const buttonNamesInCurrentSelectionRange = codeMirror => {
+  let selectionRange = getItemRangeFromSelection(codeMirror)
+  if (selectionRange.isZeroLength()) {
+    return []
+  }
+  return buttonNamesInSelectionRange(codeMirror, selectionRange)
+}
+
 /*
 TODO: add generic (non-regex or otherwise string aware) functional methods here for: 
 - unwrapping existing markup item (i.e. turning off something like bold)
@@ -836,5 +840,6 @@ TODO: add generic (non-regex or otherwise string aware) functional methods here 
 exports.getItemRangeFromSelection = getItemRangeFromSelection
 exports.getMarkupItemsIntersectingSelection = getMarkupItemsIntersectingSelection
 exports.getButtonNamesFromMarkupItems = getButtonNamesFromMarkupItems
+exports.buttonNamesInCurrentSelectionRange = buttonNamesInCurrentSelectionRange
 
-},{"./codemirror-range-objects":7}]},{},[1,2,3,4,5,6,7,8,9]);
+},{"./codemirror-range-determination":5,"./codemirror-range-objects":7}]},{},[1,2,3,4,5,6,7,8,9]);

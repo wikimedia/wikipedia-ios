@@ -1,25 +1,13 @@
-const ItemRange = require('./codemirror-range-objects').ItemRange
-const ItemLocation = require('./codemirror-range-objects').ItemLocation
-
 const getItemRangeFromSelection = require('./codemirror-range-utilities').getItemRangeFromSelection
+const buttonNamesInCurrentSelectionRange = require('./codemirror-range-utilities').buttonNamesInCurrentSelectionRange
 const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilities').getMarkupItemsIntersectingSelection
-const getButtonNamesFromMarkupItems = require('./codemirror-range-utilities').getButtonNamesFromMarkupItems
 const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
 
-const buttonNamesInSelectionRange = (codeMirror, selectionRange) => {
-  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
-  const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
-  const buttonNames = getButtonNamesFromMarkupItems(markupItemsIntersectingSelection)
-  return buttonNames
-}
-
 const canClearFormatting = (codeMirror) => {
-  let selectionRange = getItemRangeFromSelection(codeMirror)
-  if (selectionRange.isZeroLength()) {
+  const buttonNames = buttonNamesInCurrentSelectionRange(codeMirror)
+  if (buttonNames.length == 0) {
     return false
   }
-
-  const buttonNames = buttonNamesInSelectionRange(codeMirror, selectionRange)
   if (buttonNames.includes('reference') || buttonNames.includes('template')) {
     return false
   }
