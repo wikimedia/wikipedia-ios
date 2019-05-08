@@ -7,6 +7,8 @@ fileprivate class View: UIView {
 }
 
 class InsertLinkInputViewController: UIInputViewController {
+    private var theme = Theme.standard
+
     typealias Link = SectionEditorWebViewMessagingController.Link
     var link: Link? {
         didSet {
@@ -33,11 +35,30 @@ class InsertLinkInputViewController: UIInputViewController {
         let navigationController = UINavigationController(rootViewController: searchViewController)
         navigationController.isNavigationBarHidden = true
         wmf_add(childController: navigationController, andConstrainToEdgesOfContainerView: view)
+        addTopShadow()
+        apply(theme: theme)
+    }
+
+    private func addTopShadow() {
+        view.layer.shadowOffset = CGSize(width: 0, height: -2)
+        view.layer.shadowRadius = 10
+        view.layer.shadowOpacity = 1.0
     }
 
     override func loadView() {
         let view = View()
         view.translatesAutoresizingMaskIntoConstraints = false
         self.view = view
+    }
+}
+
+extension InsertLinkInputViewController: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.inputAccessoryBackground
+        view.layer.shadowColor = theme.colors.shadow.cgColor
     }
 }
