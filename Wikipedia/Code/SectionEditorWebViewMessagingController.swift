@@ -224,6 +224,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case selectLastSelection
         case clearFormatting
         case replaceSelection
+
+        case getLink
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -252,6 +254,34 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func toggleAnchorSelection() {
         execCommand(for: .anchor)
+    }
+
+    struct Link {
+        let page: String
+        let label: String?
+
+        init?(page: String?, label: String?) {
+            guard let page = page else {
+                return nil
+            }
+            self.page = page
+            self.label = label
+        }
+    }
+
+    func getLink(completion: @escaping (Link?) -> Void) {
+        execCommand(for: .getLink) { result, error in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            guard let link = result as? [String: Any] else {
+                return
+            }
+            let page = link["link"] as? String
+            let label = link["label"] as? String
+            completion(Link(page: page, label: label))
+        }
     }
 
     func toggleIndentSelection() {
