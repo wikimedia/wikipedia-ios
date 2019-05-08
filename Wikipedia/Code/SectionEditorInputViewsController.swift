@@ -162,7 +162,10 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     func resetFormattingAndStyleSubmenus() {
-        guard inputViewType != nil else {
+        guard
+            inputViewType != nil,
+            inputViewType != .linkInsert
+        else {
             return
         }
         inputViewType = nil
