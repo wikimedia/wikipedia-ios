@@ -91,12 +91,22 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     var inputViewController: UIInputViewController? {
-        guard let inputViewType = inputViewType,
-        !suppressMenus else {
+        guard
+            let inputViewType = inputViewType,
+            !suppressMenus
+        else {
             return nil
         }
-        textFormattingInputViewController.inputViewType = inputViewType
-        return textFormattingInputViewController
+        switch inputViewType {
+        case .textStyle:
+            fallthrough
+        case .textFormatting:
+            textFormattingInputViewController.inputViewType = inputViewType
+            return textFormattingInputViewController
+        case .linkInsert:
+            assert(insertLinkInputViewController.link != nil)
+            return insertLinkInputViewController
+        }
     }
 
     enum InputAccessoryViewType {
