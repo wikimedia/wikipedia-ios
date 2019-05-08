@@ -14,6 +14,8 @@ class TalkPageContainerViewController: ViewController {
     
     private var talkPageController: TalkPageController!
     
+    let replyTransitioningDelegate = ReplyTransitioningDelegate()
+    
     required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
         self.host = host
@@ -138,7 +140,9 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         let replyNewViewController = TalkPageUpdateViewController.init(talkPage: talkPage, type: .newReply(discussion: discussion))
         replyNewViewController.delegate = self
         replyNewViewController.apply(theme: theme)
-        let navVC = WMFThemeableNavigationController.init(rootViewController: replyNewViewController, theme: theme)
-        present(navVC, animated: true, completion: nil)
+
+        replyNewViewController.modalPresentationStyle = .custom
+        replyNewViewController.transitioningDelegate = replyTransitioningDelegate
+        viewController.present(replyNewViewController, animated: true, completion: nil)
     }
 }

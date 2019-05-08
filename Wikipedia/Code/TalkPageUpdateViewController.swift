@@ -38,6 +38,9 @@ class TalkPageUpdateViewController: ViewController {
     
     private var publishButton: UIBarButtonItem!
     
+    var swipeInteractionController: ReplySwipeInteractionController?
+    weak var replyPresentationController: ReplyPresentationController?
+    
     private let bodyPlaceholder = WMFLocalizedString("talk-page-new-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new discussion body field for talk pages.")
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
@@ -80,6 +83,8 @@ class TalkPageUpdateViewController: ViewController {
         case .newReply:
             newReplySetup()
         }
+        
+        swipeInteractionController = ReplySwipeInteractionController(viewController: self)
     }
     
     override func viewDidLayoutSubviews() {

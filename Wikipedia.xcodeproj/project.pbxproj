@@ -118,6 +118,22 @@
 		6734116A22739FD6005B31DA /* TalkPageLocalHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116922739FD6005B31DA /* TalkPageLocalHandlerTests.swift */; };
 		6734117022773122005B31DA /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		6734F052227B634900BDDB94 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734F051227B634900BDDB94 /* ActionButton.swift */; };
+		673DDC852282326C00BDB789 /* ReplyAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC842282326C00BDB789 /* ReplyAnimators.swift */; };
+		673DDC862282327800BDB789 /* ReplyAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC842282326C00BDB789 /* ReplyAnimators.swift */; };
+		673DDC872282327800BDB789 /* ReplyAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC842282326C00BDB789 /* ReplyAnimators.swift */; };
+		673DDC882282327900BDB789 /* ReplyAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC842282326C00BDB789 /* ReplyAnimators.swift */; };
+		673DDC892282327900BDB789 /* ReplyAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC842282326C00BDB789 /* ReplyAnimators.swift */; };
+		673DDC8C22826E0000BDB789 /* ReplyPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8B22826E0000BDB789 /* ReplyPresentationController.swift */; };
+		673DDC8E2282755500BDB789 /* ReplySwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8D2282755500BDB789 /* ReplySwipeInteractionController.swift */; };
+		673DDC90228281F900BDB789 /* ReplyTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8F228281F900BDB789 /* ReplyTransitioningDelegate.swift */; };
+		673DDC912282842D00BDB789 /* ReplySwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8D2282755500BDB789 /* ReplySwipeInteractionController.swift */; };
+		673DDC922282842D00BDB789 /* ReplySwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8D2282755500BDB789 /* ReplySwipeInteractionController.swift */; };
+		673DDC932282842D00BDB789 /* ReplySwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8D2282755500BDB789 /* ReplySwipeInteractionController.swift */; };
+		673DDC942282842E00BDB789 /* ReplySwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8D2282755500BDB789 /* ReplySwipeInteractionController.swift */; };
+		673DDC952282843000BDB789 /* ReplyTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8F228281F900BDB789 /* ReplyTransitioningDelegate.swift */; };
+		673DDC962282843000BDB789 /* ReplyTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8F228281F900BDB789 /* ReplyTransitioningDelegate.swift */; };
+		673DDC972282843100BDB789 /* ReplyTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8F228281F900BDB789 /* ReplyTransitioningDelegate.swift */; };
+		673DDC982282843100BDB789 /* ReplyTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DDC8F228281F900BDB789 /* ReplyTransitioningDelegate.swift */; };
 		6754E44922773587005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		6754E44A22773587005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
 		6754E44B22773588005EEAD1 /* ReplyListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */; };
@@ -3653,6 +3669,10 @@
 		6734116922739FD6005B31DA /* TalkPageLocalHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageLocalHandlerTests.swift; sourceTree = "<group>"; };
 		6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyListItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		673DDC842282326C00BDB789 /* ReplyAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyAnimators.swift; sourceTree = "<group>"; };
+		673DDC8B22826E0000BDB789 /* ReplyPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPresentationController.swift; sourceTree = "<group>"; };
+		673DDC8D2282755500BDB789 /* ReplySwipeInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplySwipeInteractionController.swift; sourceTree = "<group>"; };
+		673DDC8F228281F900BDB789 /* ReplyTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyTransitioningDelegate.swift; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* ReplyButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyButtonFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageUpdateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageUpdateViewController.xib; sourceTree = "<group>"; };
@@ -6272,6 +6292,17 @@
 			name = "Reading Themes Controls";
 			sourceTree = "<group>";
 		};
+		673DDC8A22826DF000BDB789 /* Custom Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				673DDC842282326C00BDB789 /* ReplyAnimators.swift */,
+				673DDC8B22826E0000BDB789 /* ReplyPresentationController.swift */,
+				673DDC8D2282755500BDB789 /* ReplySwipeInteractionController.swift */,
+				673DDC8F228281F900BDB789 /* ReplyTransitioningDelegate.swift */,
+			);
+			name = "Custom Presentation";
+			sourceTree = "<group>";
+		};
 		67DB110822613EF700F789B0 /* SchemeHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -6333,6 +6364,7 @@
 		67F73E6B2267B77C0079DEEF /* Talk Pages */ = {
 			isa = PBXGroup;
 			children = (
+				673DDC8A22826DF000BDB789 /* Custom Presentation */,
 				67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */,
 				6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */,
 				67E8B0782268F8F100537BC9 /* Views */,
@@ -10607,6 +10639,7 @@
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
+				673DDC8C22826E0000BDB789 /* ReplyPresentationController.swift in Sources */,
 				67F73E792267B9510079DEEF /* TalkPageUpdateViewController.swift in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
@@ -10762,6 +10795,7 @@
 				B04C809A1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
 				83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
+				673DDC852282326C00BDB789 /* ReplyAnimators.swift in Sources */,
 				D8E27BA11F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */,
 				7ABAD6B420338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
@@ -10810,6 +10844,7 @@
 				B0E8054B1C0CE0DC0065EBC0 /* UILabel+WMFStyling.m in Sources */,
 				83F26B2A220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
+				673DDC8E2282755500BDB789 /* ReplySwipeInteractionController.swift in Sources */,
 				7A9F060D2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
@@ -10866,6 +10901,7 @@
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
+				673DDC90228281F900BDB789 /* ReplyTransitioningDelegate.swift in Sources */,
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
 				7A6ED51720ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
@@ -10982,6 +11018,7 @@
 				D80ED2771EE57F4800CE8C50 /* WMFCaptchaResetter.swift in Sources */,
 				D80ED27A1EE57F4800CE8C50 /* PlacesViewController.swift in Sources */,
 				B0CD9DF31F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				673DDC982282843100BDB789 /* ReplyTransitioningDelegate.swift in Sources */,
 				D87676A321E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				7ABE171C2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				D858C7BA210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
@@ -10991,6 +11028,7 @@
 				D80ED27C1EE57F4800CE8C50 /* WMFAuthButton.swift in Sources */,
 				D80ED27D1EE57F4800CE8C50 /* WMFReferencePanelViewController.swift in Sources */,
 				7A29A5D21F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
+				673DDC942282842E00BDB789 /* ReplySwipeInteractionController.swift in Sources */,
 				7A715665226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D80ED27F1EE57F4800CE8C50 /* WikidataFetcher.swift in Sources */,
 				7A71567D22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
@@ -11189,6 +11227,7 @@
 				D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */,
 				B0D4917321F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D80ED33A1EE57F4800CE8C50 /* UILabel+WMFStyling.m in Sources */,
+				673DDC892282327900BDB789 /* ReplyAnimators.swift in Sources */,
 				D8C4D3DC1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B03F8A8D205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D80ED33B1EE57F4800CE8C50 /* UIViewController+WMFScrollToTop.swift in Sources */,
@@ -11819,6 +11858,7 @@
 				B0CD9DEF1F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				B0016CBC21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
 				D8A42AAF1E815A9C00D8E281 /* SavedPagesFunnel.m in Sources */,
+				673DDC882282327900BDB789 /* ReplyAnimators.swift in Sources */,
 				D8A42AB11E815A9C00D8E281 /* WMFChange.m in Sources */,
 				7A4B333F2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */,
@@ -11962,6 +12002,7 @@
 				D8A42B411E815A9C00D8E281 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				B0D3E70F214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				D8A42B421E815A9C00D8E281 /* WMFRevisionQueryResults.m in Sources */,
+				673DDC972282843100BDB789 /* ReplyTransitioningDelegate.swift in Sources */,
 				D8A42B431E815A9C00D8E281 /* WMFAppViewController.m in Sources */,
 				D8C4D3DB1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B0845E1420618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
@@ -12020,6 +12061,7 @@
 				7A707980223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
 				D84DAA191EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				B0524AF42144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
+				673DDC932282842D00BDB789 /* ReplySwipeInteractionController.swift in Sources */,
 				D8A42B711E815A9C00D8E281 /* WMFSettingsViewController.m in Sources */,
 				D8A42B731E815A9C00D8E281 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D8A42B741E815A9C00D8E281 /* WMFTableOfContentsItem.swift in Sources */,
@@ -12112,6 +12154,7 @@
 				B0EFCD6E1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				673DDC952282843000BDB789 /* ReplyTransitioningDelegate.swift in Sources */,
 				D87676A021E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				7ABE17192239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
@@ -12121,6 +12164,7 @@
 				B0C7A07D1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */,
 				7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
+				673DDC912282842D00BDB789 /* ReplySwipeInteractionController.swift in Sources */,
 				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
@@ -12319,6 +12363,7 @@
 				7A4B333D2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				B0D4917021F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D8C4D3D91FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
+				673DDC862282327800BDB789 /* ReplyAnimators.swift in Sources */,
 				B03F8A8A205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8CE259C1E698E2400DAE2E0 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */,
@@ -12508,6 +12553,7 @@
 				7A82896A21B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
+				673DDC962282843000BDB789 /* ReplyTransitioningDelegate.swift in Sources */,
 				D87676A121E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				7ABE171A2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				B0CD9DE51F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
@@ -12517,6 +12563,7 @@
 				83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				B0C7A0791F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
+				673DDC922282842D00BDB789 /* ReplySwipeInteractionController.swift in Sources */,
 				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
@@ -12715,6 +12762,7 @@
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B0D4917121F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				83023C0820E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
+				673DDC872282327800BDB789 /* ReplyAnimators.swift in Sources */,
 				B03F8A8B205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */,
 				D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */,
