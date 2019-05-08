@@ -76,7 +76,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     @objc var searchTerm: String? {
         set {
-            searchBar.text = searchTerm
+            searchBar.text = newValue
         }
         get {
             return searchBar.text
