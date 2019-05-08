@@ -33,6 +33,12 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         updateView(with: article)
     }
     
+    public func updatePreferredContentSize(for contentWidth: CGFloat) {
+        var updatedContentSize = expandedArticleView.sizeThatFits(CGSize(width: contentWidth, height: UIView.noIntrinsicMetric), apply: true)
+        updatedContentSize.width = contentWidth // extra protection to ensure this stays == width
+        preferredContentSize = updatedContentSize
+    }
+    
     fileprivate func updateView(with article: WMFArticle) {
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
         expandedArticleView.isSaveButtonHidden = true
@@ -43,10 +49,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.isHidden = false
 
         activityIndicatorView.stopAnimating()
-        
-        let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UIView.layoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
-        self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
-        self.parent?.preferredContentSize = self.preferredContentSize
+        view.setNeedsLayout()
     }
     
     override func viewDidLoad() {
@@ -70,6 +73,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         super.viewDidLayoutSubviews()
         expandedArticleView.frame = view.bounds
         activityIndicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        updatePreferredContentSize(for: view.bounds.width)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

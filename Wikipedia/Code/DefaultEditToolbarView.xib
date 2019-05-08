@@ -76,7 +76,7 @@
                                                                 </button>
                                                                 <button opaque="NO" tag="31" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nk-YM-OBo" userLabel="Media Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                                                     <rect key="frame" x="96.333333333333343" y="11" width="1.3333333333333286" height="22"/>
-                                                                    <state key="normal" image="media-wizard/insert-media-icon"/>
+                                                                    <state key="normal" image="insert-media/toolbar-icon"/>
                                                                     <connections>
                                                                         <action selector="insertMedia:" destination="iN0-l3-epB" eventType="touchUpInside" id="Y1W-Cl-5S5"/>
                                                                     </connections>
@@ -357,7 +357,7 @@
         <image name="directionRight" width="11" height="18"/>
         <image name="directionUp" width="19" height="12"/>
         <image name="find-in-page" width="19" height="25"/>
-        <image name="media-wizard/insert-media-icon" width="20" height="20"/>
+        <image name="insert-media/toolbar-icon" width="20" height="20"/>
         <image name="text-formatting" width="27" height="18"/>
         <image name="text-formatting-add-citation" width="14" height="18"/>
         <image name="text-formatting-curly-brackets" width="18" height="16"/>

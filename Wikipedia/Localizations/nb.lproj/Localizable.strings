@@ -457,7 +457,7 @@
 "page-protected-can-not-edit-title" = "Denne siden er beskyttet";
 "page-protected-other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
 "page-protected-sysop" = "Denne siden er beskyttet.";
-"page-read-in-other-languages" = "Tilgjengelig på {{PLURAL:$1|$1 annet språk|$1andre språk}}";
+"page-read-in-other-languages" = "Tilgjengelig på {{PLURAL:$1|$1 annet språk|$1 andre språk}}";
 "page-similar-titles" = "Lignende sider";
 "page-talk-page" = "Vis diskusjonsside";
 "pictured" = "bildet";

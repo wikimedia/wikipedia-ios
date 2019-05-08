@@ -19,6 +19,14 @@ import UIKit
         wmf_addSubview(subview, withConstraintsToEdgesWithInsets: insets, priority: priority, belowSubview: belowSubview)
     }
     
+    func addCenteredSubview(_ subview: UIView) {
+        addSubview(subview)
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        let centerXConstraint = centerXAnchor.constraint(equalTo: subview.centerXAnchor)
+        let centerYConstraint = centerYAnchor.constraint(equalTo: subview.centerYAnchor)
+        NSLayoutConstraint.activate([centerXConstraint, centerYConstraint])
+    }
+    
     @objc func wmf_addSubviewWithConstraintsToEdges(_ subview: UIView) {
         wmf_addSubview(subview, withConstraintsToEdgesWithInsets: .zero)
     }

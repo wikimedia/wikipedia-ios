@@ -18,7 +18,7 @@ class Footer {
   }
   addContainer() {
     if (requirements.footerContainer.isContainerAttached(document) === false) {
-      document.querySelector('body').appendChild(requirements.footerContainer.containerFragment(document))
+      document.body.appendChild(requirements.footerContainer.containerFragment(document))
       window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
     }
   }
