@@ -20,6 +20,9 @@ class InsertLinkInputViewController: UIInputViewController {
         }
     }
 
+    // use a delegate if there's more than 1 method
+    var insertLink: ((String, String?) -> Void)?
+
     private lazy var searchViewController: SearchViewController = {
         let searchViewController = SearchViewController()
         searchViewController.areRecentSearchesEnabled = false
@@ -60,7 +63,7 @@ extension InsertLinkInputViewController: ArticleCollectionViewControllerDelegate
         guard let title = articleURL.wmf_title else {
             return
         }
-        
+        insertLink?(title, nil)
     }
 }
 

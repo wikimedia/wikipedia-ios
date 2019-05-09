@@ -11,7 +11,13 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let messagingController: SectionEditorWebViewMessagingController
 
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-    private lazy var insertLinkInputViewController = InsertLinkInputViewController()
+    private lazy var insertLinkInputViewController: InsertLinkInputViewController = {
+        let insertLinkInputViewController = InsertLinkInputViewController()
+        insertLinkInputViewController.insertLink = { page, label in
+            self.messagingController.insertLink(page: page, label: label)
+        }
+        return insertLinkInputViewController
+    }()
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
     private let findAndReplaceView: FindAndReplaceKeyboardBar? = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
