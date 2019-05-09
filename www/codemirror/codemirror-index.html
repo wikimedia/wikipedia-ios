@@ -713,19 +713,30 @@
       }
     }
 
-    const linkFromTextBetweenAnchorMarkup = text => {
+    const linkFromTextBetweenAnchorMarkup = (text, pagePosition) => {
       if (!text) {
         return null
       }
-      const textSplitByPipe = text.split("|")
-      if (textSplitByPipe.length == 1) { // no label
-        return new Link(textSplitByPipe[0], null, true)
-      } else if (textSplitByPipe.length == 2) { // label
-      return new Link(textSplitByPipe[0], textSplitByPipe[1], true)
-      } else { // unhandled
-        console.error(`Error getting link text; got ${textSplitByPipe}`)
+      if (!pagePosition) {
+        console.warn("Mising pagePosition in linkFromTextBetweenAnchorMarkup; pagePosition must be defined to construct a new Link")
         return null
       }
+      const textSplitByPipe = text.split("|")
+      if (textSplitByPipe.length == 0 || textSplitByPipe.length > 2) {
+        return null
+      }
+      
+      const page = textSplitByPipe[0]
+      const label = textSplitByPipe[1]
+      
+      let labelPosition
+        if (label) {
+          const line = pagePosition.line
+          const from = {line: line, ch: pagePosition.ch + page.length + 1}
+          const to = {line: line, ch: from.ch + label.length}
+          labelPosition = new LinkElementPosition(from, to)
+        }
+        return new Link(page, label, true, pagePosition, labelPosition)
     }
 
     const linkFromWord = () => {
