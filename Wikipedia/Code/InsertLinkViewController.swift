@@ -77,5 +77,6 @@ extension InsertLinkViewController: Themeable {
         }
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
+        closeButton.tintColor = theme.colors.primaryText
     }
 }
