@@ -6,7 +6,7 @@ fileprivate class View: UIView {
     }
 }
 
-class InsertLinkInputViewController: UIInputViewController {
+class InsertLinkViewController: UIViewController {
     private var theme = Theme.standard
 
     typealias Link = SectionEditorWebViewMessagingController.Link

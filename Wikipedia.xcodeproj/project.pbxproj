@@ -285,11 +285,11 @@
 		7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
 		7A27E85521B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
 		7A27E85621B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
-		7A27EDA22279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */; };
-		7A27EDA32279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */; };
-		7A27EDA42279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */; };
-		7A27EDA52279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */; };
-		7A27EDA62279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */; };
+		7A27EDA22279F5270010CB24 /* InsertLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */; };
+		7A27EDA32279F5270010CB24 /* InsertLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */; };
+		7A27EDA42279F5270010CB24 /* InsertLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */; };
+		7A27EDA52279F5270010CB24 /* InsertLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */; };
+		7A27EDA62279F5270010CB24 /* InsertLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */; };
 		7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
@@ -3645,7 +3645,7 @@
 		7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteNotifications.xcdatamodel; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFormattingTableViewController.swift; sourceTree = "<group>"; };
-		7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertLinkInputViewController.swift; sourceTree = "<group>"; };
+		7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertLinkViewController.swift; sourceTree = "<group>"; };
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
@@ -6449,7 +6449,7 @@
 		7AE98F14228339C4005944E4 /* Links */ = {
 			isa = PBXGroup;
 			children = (
-				7A27EDA12279F5270010CB24 /* InsertLinkInputViewController.swift */,
+				7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */,
 			);
 			name = Links;
 			sourceTree = "<group>";
@@ -10461,7 +10461,7 @@
 				B0E8059A1C0CE2E40065EBC0 /* WMFSearchFunnel.m in Sources */,
 				41FCAA3621C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				0EC0447F1C797DC20033D773 /* WMFImageURLActivitySource.swift in Sources */,
-				7A27EDA22279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */,
+				7A27EDA22279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
 				B0CD9DDB1F70997300051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				830D71CF1F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0EFCD6D1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
@@ -10848,7 +10848,7 @@
 				D80ED2701EE57F4800CE8C50 /* WMFImageURLActivitySource.swift in Sources */,
 				D80ED2751EE57F4800CE8C50 /* LibrariesUsed.swift in Sources */,
 				B04AE85021C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
-				7A27EDA62279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */,
+				7A27EDA62279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
 				B0524B79214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				B0D3E710214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				B0F4761F21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
@@ -11570,7 +11570,7 @@
 				D8A42A581E815A9C00D8E281 /* WMFSearchFunnel.m in Sources */,
 				41FCAA3921C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				D8A42A591E815A9C00D8E281 /* WMFImageURLActivitySource.swift in Sources */,
-				7A27EDA52279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */,
+				7A27EDA52279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
 				B0CD9DF01F70997500051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				830D71D21F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
@@ -11965,7 +11965,7 @@
 				D8CE24E31E698E2400DAE2E0 /* WMFImageURLActivitySource.swift in Sources */,
 				D8B3D7671EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				B04AE84D21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
-				7A27EDA32279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */,
+				7A27EDA32279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
 				B0524B76214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				B0D3E70D214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				B0F4761C21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
@@ -12353,7 +12353,7 @@
 				D8EC3DD91E9BDA35006712EB /* WMFSearchFunnel.m in Sources */,
 				D8EC3DDA1E9BDA35006712EB /* WMFImageURLActivitySource.swift in Sources */,
 				D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
-				7A27EDA42279F5270010CB24 /* InsertLinkInputViewController.swift in Sources */,
+				7A27EDA42279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
 				B04AE84E21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0524B77214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				B0D3E70E214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
