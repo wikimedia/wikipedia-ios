@@ -558,7 +558,7 @@
           closeMatchEncompassingEndOfSelection = {match: match, offset: index - toPos.ch}
         }
       })
-      const isWrapped = lastOpenMatchBeforeSelection.distance !== -1 && (lastCloseMatchBeforeSelection.distance === -1 || lastOpenMatchBeforeSelection.distance < lastCloseMatchBeforeSelection.distance) // exclude equal distances to rule out self-contained tags, for example <ref name=blah/>
+      const isWrapped = lastOpenMatchBeforeSelection.distance !== -1 && (lastCloseMatchBeforeSelection.distance !== -1 || lastOpenMatchBeforeSelection.distance < lastCloseMatchBeforeSelection.distance) // exclude equal distances to rule out self-contained tags, for example <ref name=blah/>
       return {
         isWrapped: isWrapped,
         selectionLength: toPos.ch - fromPos.ch,
