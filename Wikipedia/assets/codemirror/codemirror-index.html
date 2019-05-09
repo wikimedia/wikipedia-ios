@@ -1334,6 +1334,7 @@
               // TODO - adding label to an existing link with no label
             } else { // modifying existing link
               const position = link.pagePosition
+              editor.replaceRange(page, link.pagePosition.from, link.pagePosition.to)
             }
           }
         }
