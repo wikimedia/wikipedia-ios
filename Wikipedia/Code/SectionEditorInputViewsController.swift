@@ -4,6 +4,7 @@ protocol SectionEditorInputViewsSource: class {
 
 protocol SectionEditorInputViewsControllerDelegate: AnyObject {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
+    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
 }
 
 class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource, Themeable {

@@ -579,6 +579,15 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
         present(navigationController, animated: true)
     }
+
+    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+        let insertLinkViewController = InsertLinkViewController()
+        insertLinkViewController.insertLink = { page, label in
+            self.messagingController.insertLink(page: page, label: label)
+        }
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: theme)
+        present(navigationController, animated: true)
+    }
 }
 
 extension SectionEditorViewController: InsertMediaViewControllerDelegate {
