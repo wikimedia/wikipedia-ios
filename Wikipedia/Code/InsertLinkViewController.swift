@@ -4,12 +4,17 @@ fileprivate class View: UIView {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: 400)
     }
+protocol InsertLinkViewControllerDelegate: AnyObject {
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem)
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?)
 }
 
 class InsertLinkViewController: UIViewController {
+    weak var delegate: InsertLinkViewControllerDelegate?
     private var theme = Theme.standard
 
     typealias Link = SectionEditorWebViewMessagingController.Link
+
     var link: Link? {
         didSet {
             guard let link = link else {
@@ -20,8 +25,11 @@ class InsertLinkViewController: UIViewController {
         }
     }
 
-    // use a delegate if there's more than 1 method
-    var insertLink: ((String, String?) -> Void)?
+    private lazy var closeButton: UIBarButtonItem = {
+        let closeButton = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(delegateCloseButtonTap(_:)))
+        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        return closeButton
+    }()
 
     private lazy var searchViewController: SearchViewController = {
         let searchViewController = SearchViewController()
@@ -55,7 +63,10 @@ class InsertLinkViewController: UIViewController {
         let view = View()
         view.translatesAutoresizingMaskIntoConstraints = false
         self.view = view
+    @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
+        delegate?.insertLinkViewController(self, didTapCloseButton: sender)
     }
+
 }
 
 extension InsertLinkViewController: ArticleCollectionViewControllerDelegate {
@@ -63,7 +74,7 @@ extension InsertLinkViewController: ArticleCollectionViewControllerDelegate {
         guard let title = articleURL.wmf_title else {
             return
         }
-        insertLink?(title, nil)
+        delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
     }
 }
 
