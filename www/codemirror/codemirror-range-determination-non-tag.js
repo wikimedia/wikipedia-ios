@@ -27,8 +27,8 @@ const tokenTypes = (token) => {
 }
 
 const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
-  const soughtBoundaryTokenTypes = new Set(['mw-apostrophes-bold', 'mw-apostrophes-italic', 'mw-link-bracket', 'mw-section-header', 'mw-template-bracket', 'mw-template-argument-name'])  
-  const soughtTokenTypes = new Set(['mw-template-argument-name'])  
+  const soughtBoundaryTokenTypes = new Set(['mw-apostrophes-bold', 'mw-apostrophes-italic', 'mw-link-bracket', 'mw-section-header', 'mw-template-bracket'])  
+  const soughtTokenTypes = new Set(['mw-template-bracket', 'mw-template-name', 'mw-template-argument-name'])
 
   let trackedTypes = new Set()
   let outputMarkupItems = []
