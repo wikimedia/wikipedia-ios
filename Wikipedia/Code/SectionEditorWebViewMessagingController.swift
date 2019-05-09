@@ -224,6 +224,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case selectLastSelection
         case clearFormatting
         case replaceSelection
+        case lineInfo
+        case newlineAndIndent
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -409,6 +411,37 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func replaceSelection(text: String) {
         let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
         execCommand(for: .replaceSelection, argument: "`\(escapedText)`")
+    }
+
+    struct LineInfo {
+        let hasLineTokens: Bool
+        let isAtLineEnd: Bool
+    }
+
+    func getLineInfo(_ completion: @escaping (LineInfo?) -> Void) {
+        execCommand(for: .lineInfo) { result, error in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            guard let result = result as? [String: Bool] else {
+                completion(nil)
+                return
+            }
+            guard
+                let hasLineTokens = result["hasLineTokens"],
+                let isAtLineEnd = result["isAtLineEnd"]
+                else {
+                    assertionFailure("Unexpected result structure")
+                    completion(nil)
+                    return
+            }
+            completion(LineInfo(hasLineTokens: hasLineTokens, isAtLineEnd: isAtLineEnd))
+        }
+    }
+
+    func newlineAndIndent() {
+        execCommand(for: .newlineAndIndent)
     }
 }
 

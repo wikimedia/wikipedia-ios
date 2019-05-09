@@ -21,13 +21,14 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         textView._delegate = delegate
         textView.placeholderDelegate = placeholderDelegate
         textView.placeholder = placeholder!
+        textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag
         return textView
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        headerLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        headerLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         footerLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         textView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }

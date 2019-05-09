@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
@@ -129,6 +130,10 @@ final class InsertMediaSettingsViewController: ViewController {
         imageView.image = image
         imageView.heading = WMFLocalizedString("insert-media-uploaded-image-title", value: "Uploaded image", comment: "Title that appears next to an image in media settings")
         imageView.title = searchResult.displayTitle
+        imageView.titleURL = searchResult.imageInfo?.filePageURL
+        imageView.titleAction = { [weak self] url in
+            self?.present(SFSafariViewController(url: url), animated: true)
+        }
         imageView.autoresizingMask = []
         return imageView
     }()
@@ -204,7 +209,6 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.separatorStyle = .none
         tableView.tableHeaderView = imageView
         tableView.tableFooterView = buttonView
-        apply(theme: theme)
     }
 
     override func viewDidLayoutSubviews() {
@@ -236,6 +240,9 @@ final class InsertMediaSettingsViewController: ViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = view.backgroundColor
         imageView.apply(theme: theme)
