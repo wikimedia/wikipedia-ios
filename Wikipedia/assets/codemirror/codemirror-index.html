@@ -816,51 +816,7 @@
           if (tokenType.length === 0) {
             return linkFromWord()
           } else {
-            if (tokenType.includes('mw-link-ground')) {
-              if (tokenType.includes('mw-link-bracket')) { // in bracket
-                const isOpenAnchorMarkup = token.string === '[['
-                const isCloseAnchorMarkup = token.string === ']]'
-                if (isOpenAnchorMarkup) {
-                  const from = {line: cursorPosition.line, ch: token.end}
-                  const line = editor.getLine(from.line)
-
-                  var firstCloseMatchAfterSelection = { distance: -1 }
-                  line.replace(new RegExp(closeAnchorRegex, 'g'), (match, index) => {
-                    if (index >= from.ch && firstCloseMatchAfterSelection.distance === -1) {
-                      firstCloseMatchAfterSelection = { match: match, distance: index - from.ch }
-                    }
-                  })
-                  if (firstCloseMatchAfterSelection.distance === -1) {
-                    return null
-                  }
-                  const to = {line: from.line, ch: from.ch + firstCloseMatchAfterSelection.distance}
-                  const maybedPipedText = editor.getRange(from, to)
-                  return linkFromTextBetweenAnchorMarkup(maybedPipedText, new LinkElementPosition(from, to))
-                } else if (isCloseAnchorMarkup) {
-                  const to = {line: cursorPosition.line, ch: token.start}
-                  const line = editor.getLine(to.line)
-
-                  var lastOpenMatchBeforeSelection = { distance: -1 }
-                  line.replace(new RegExp(openAnchorRegex, 'g'), (match, index) => {
-                    if (index + match.length <= to.ch) {
-                      lastOpenMatchBeforeSelection = { match: match, distance: to.ch - index - match.length }
-                    }
-                  })
-                  if (lastOpenMatchBeforeSelection.distance === - 1) {
-                    return null
-                  }
-                  const from = { line: to.line, ch: to.ch - lastOpenMatchBeforeSelection.distance }
-                  const maybedPipedText = editor.getRange(from, to)
-                  return linkFromTextBetweenAnchorMarkup(maybedPipedText, new LinkElementPosition(from, to))
-                } else {
-                  return linkFromSelectionWrapInfo()
-                }
-              } else {
-                return linkFromSelectionWrapInfo()
-              }
-            } else {
-              return linkFromSelectionWrapInfo()
-            }
+            return linkFromSelectionWrapInfo()
           }
         } else if (token.string.trim().length === 0) {
           return linkFromSelectionWrapInfo()
@@ -1331,18 +1287,18 @@
         
         if (link.hasMarkup) { // existing link
           if (link.label) {
-            if (label) { // modifying an exsiting label
+            if (label) { // modify an exsiting label
               const pageWithLabel = `${page}|${label}`
               editor.replaceRange(pageWithLabel, link.pagePosition.from, link.pagePosition.to) 
-            } else { // modifying an existing link with a label
+            } else { // modify an existing link with a label
               const pageWithExistingLabel = `${page}|${link.label}`
               editor.replaceRange(pageWithExistingLabel, link.pagePosition.from, link.pagePosition.to)
             }
           } else {
-            if (label) { // adding a label to an existing link with no label
+            if (label) { // add a label to an existing link with no label
               const pageWithLabel = `${page}|${label}`
               editor.replaceRange(pageWithLabel, link.pagePosition.from, link.pagePosition.to)
-            } else { // modifying existing link
+            } else { // modify existing link
               editor.replaceRange(page, link.pagePosition.from, link.pagePosition.to)
             }
           }
