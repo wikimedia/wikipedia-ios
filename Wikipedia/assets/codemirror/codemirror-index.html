@@ -695,9 +695,9 @@
       }
     }
 
-    class Link {
+    class InternalLink {
       /**
-      * Link constructor.
+      * InternalLink constructor.
       * @param {!string} page
       * @param {?string} label
       * @param {!boolean} hasMarkup
@@ -714,11 +714,11 @@
     class ExternalLink {
       /**
       * ExternalLink constructor.
-      * @param {!Link} link
+      * @param {!InternalLink} internalLink
       */
-      constructor(link) {
-        this.page = link.page
-        this.label = link.label
+      constructor(internalLink) {
+        this.page = internalLink.page
+        this.label = internalLink.label
       }
     }
 
@@ -738,13 +738,13 @@
       const page = textSplitByPipe[0]
       const label = textSplitByPipe[1]
       
-      return new Link(page, label, true, pagePosition)
+      return new InternalLink(page, label, true, pagePosition)
     }
 
     const linkFromWord = () => {
       const word = editor.findWordAt(editor.getCursor())
       const text = editor.getRange(word.anchor, word.head)
-      return new Link(text, null, false, new LinkElementPosition(word.anchor, word.head))
+      return new InternalLink(text, null, false, new LinkElementPosition(word.anchor, word.head))
     }
 
     const linkFromSelectionWrapInfo = () => {
@@ -800,7 +800,7 @@
       }
     }
 
-    const link = () => {
+    const getInternalLink = () => {
       const selection = editor.getSelection()
       if (selection.length === 0) {
         // get only token type if more isn't needed
@@ -865,7 +865,7 @@
       } else {
         const buttonNames = RangeHelper.rangeUtilities.buttonNamesInCurrentSelectionRange(editor)
         if (buttonNames.length === 0) {
-          return new Link(selection, null, false)
+          return new InternalLink(selection, null, false)
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
           return linkFromSelectionWrapInfo()
         } else {
@@ -910,7 +910,7 @@
       }
     }
 
-    const state = {} // local state object to avoid relying on cm
+    const stateStore = {} // local state object to avoid relying on cm
     
     const wmf = {}
     
@@ -1309,16 +1309,21 @@
       replaceSelection: (text) => {
         editor.replaceSelection(text)
       },
-      getLink: () => {
-        // refactor
-        const internalLink = link() // internal link
-        state.link = internalLink
-        return new ExternalLink(internalLink) // external link
+      getLink: (keepInStateStore = true) => {
+        const internalLink = getInternalLink()
+        if (keepInStateStore) {
+          stateStore.internalLink = internalLink
+        }
+        return new ExternalLink(internalLink)
       },
       insertLink: (page, label) => {
-        const link = state.link
+        const link = stateStore.internalLink
+        if (!link) {
+          console.warn("Attempting to insert link with no link in stateStore")
+          return
+        }
         const position = link.pagePosition
-
+        
         if (link.hasMarkup) { // existing link
           if (link.label) {
             if (label) { // modifying an exsiting label
@@ -1345,6 +1350,8 @@
             editor.replaceRange(newPage, link.pagePosition.from, link.pagePosition.to)
           }
         }
+
+        delete stateStore.internalLink
       }
     }
 
