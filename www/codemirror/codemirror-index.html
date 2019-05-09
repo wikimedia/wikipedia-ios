@@ -702,14 +702,12 @@
       * @param {?string} label
       * @param {!boolean} hasMarkup
       * @param {!LinkElementPosition} pagePosition
-      * @param {!LinkElementPosition} labelPosition
       */
-      constructor(page, label, hasMarkup, pagePosition, labelPosition) {
+      constructor(page, label, hasMarkup, pagePosition) {
         this.page = page
         this.label = label
         this.hasMarkup = hasMarkup
         this.pagePosition = pagePosition
-        this.labelPosition = labelPosition
       }
     }
 
@@ -740,14 +738,7 @@
       const page = textSplitByPipe[0]
       const label = textSplitByPipe[1]
       
-      let labelPosition
-        if (label) {
-          const line = pagePosition.line
-          const from = {line: line, ch: pagePosition.ch + page.length + 1}
-          const to = {line: line, ch: from.ch + label.length}
-          labelPosition = new LinkElementPosition(from, to)
-        }
-        return new Link(page, label, true, pagePosition, labelPosition)
+      return new Link(page, label, true, pagePosition)
     }
 
     const linkFromWord = () => {
