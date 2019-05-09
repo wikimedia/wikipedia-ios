@@ -80,13 +80,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         findAndReplaceView?.replaceType = type
     }
 
-    var inputViewType: InputViewType?
-
-    enum InputViewType {
-        case textFormatting
-        case textStyle
-        case linkInsert
-    }
+    var inputViewType: TextFormattingInputViewController.InputViewType?
 
     var suppressMenus: Bool = false {
         didSet {
@@ -109,9 +103,6 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         case .textFormatting:
             textFormattingInputViewController.inputViewType = inputViewType
             return textFormattingInputViewController
-        case .linkInsert:
-            assert(insertLinkInputViewController.link != nil)
-            return insertLinkInputViewController
         }
     }
 
@@ -169,8 +160,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 
     func resetFormattingAndStyleSubmenus() {
         guard
-            inputViewType != nil,
-            inputViewType != .linkInsert
+            inputViewType != nil
         else {
             return
         }

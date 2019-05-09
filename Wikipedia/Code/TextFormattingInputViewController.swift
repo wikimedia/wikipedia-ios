@@ -28,7 +28,10 @@ class TextFormattingInputViewController: UIInputViewController {
         super.init(coder: coder)
     }
 
-    typealias InputViewType = SectionEditorInputViewsController.InputViewType
+    enum InputViewType {
+        case textFormatting
+        case textStyle
+    }
 
     var inputViewType = InputViewType.textFormatting {
         didSet {
@@ -48,9 +51,6 @@ class TextFormattingInputViewController: UIInputViewController {
             viewController = textFormattingTableViewController
         case .textStyle:
             viewController = textStyleFormattingTableViewController
-        default:
-            assertionFailure("Unexpected input view type")
-            viewController = textFormattingTableViewController
         }
         return viewController
     }
