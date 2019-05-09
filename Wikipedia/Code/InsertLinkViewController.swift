@@ -1,14 +1,9 @@
 import UIKit
 
-fileprivate class View: UIView {
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: bounds.width, height: 400)
-    }
 protocol InsertLinkViewControllerDelegate: AnyObject {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem)
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?)
 }
-
 class InsertLinkViewController: UIViewController {
     weak var delegate: InsertLinkViewControllerDelegate?
     private var theme = Theme.standard
@@ -59,10 +54,6 @@ class InsertLinkViewController: UIViewController {
         view.layer.shadowOpacity = 1.0
     }
 
-    override func loadView() {
-        let view = View()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        self.view = view
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
         delegate?.insertLinkViewController(self, didTapCloseButton: sender)
     }
