@@ -260,15 +260,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapLink() {
-        messagingController.getLink { link in
-            guard let link = link else {
-                print("TODO: No link")
-                return
-            }
-            self.insertLinkInputViewController.link = link
-            self.inputViewType = .linkInsert
-            self.inputAccessoryViewType = nil
-        }
+        delegate?.sectionEditorInputViewsControllerDidTapLinkInsert(self)
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {
