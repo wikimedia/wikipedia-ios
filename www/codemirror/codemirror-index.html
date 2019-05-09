@@ -1326,12 +1326,22 @@
       },
       insertLink: (page, label) => {
         const link = state.link
-        if (link.hasMarkup) {
+        if (link.hasMarkup) { // existing link
           if (link.label) {
-            // TODO
+            if (label) { // modifying an exsiting label
+              const position = link.pagePosition
+              const pageWithLabel = `${page}|${label}`
+              editor.replaceRange(pageWithLabel, link.pagePosition.from, link.pagePosition.to) 
+            } else { // modifying an existing link with a label
+              const position = link.pagePosition
+              const pageWithExistingLabel = `${page}|${link.label}`
+              editor.replaceRange(pageWithExistingLabel, link.pagePosition.from, link.pagePosition.to)
+            }
           } else {
-            if (label) {
-              // TODO - adding label to an existing link with no label
+            if (label) { // adding a label to an existing link with no label
+              const position = link.pagePosition
+              const pageWithLabel = `${page}|${label}`
+              editor.replaceRange(pageWithLabel, link.pagePosition.from, link.pagePosition.to)
             } else { // modifying existing link
               const position = link.pagePosition
               editor.replaceRange(page, link.pagePosition.from, link.pagePosition.to)
