@@ -753,7 +753,7 @@
     const linkFromWord = () => {
       const word = editor.findWordAt(editor.getCursor())
       const text = editor.getRange(word.anchor, word.head)
-      return new Link(text, null, false)
+      return new Link(text, null, false, new LinkElementPosition(word.anchor, word.head))
     }
 
     const linkFromSelectionWrapInfo = () => {
