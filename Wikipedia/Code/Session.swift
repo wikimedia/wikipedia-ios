@@ -389,6 +389,7 @@ public enum RequestError: Int, LocalizedError {
     case invalidParameters
     case unexpectedResponse
     case noNewData
+    case notAuthorized
     case timeout = 504
     
     public var errorDescription: String? {

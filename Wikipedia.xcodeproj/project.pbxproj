@@ -1029,6 +1029,9 @@
 		83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C891F34BB66004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
+		83B2547E227C7EDD00FF9D0B /* GlobalPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B2547D227C7EDD00FF9D0B /* GlobalPreferencesController.swift */; };
+		83B25481227C7F0200FF9D0B /* GlobalPreferencesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B25480227C7F0200FF9D0B /* GlobalPreferencesFetcher.swift */; };
+		83B25483227CA62500FF9D0B /* WMFKeyValue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B25482227CA62500FF9D0B /* WMFKeyValue+Extensions.swift */; };
 		83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
@@ -3897,6 +3900,9 @@
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
+		83B2547D227C7EDD00FF9D0B /* GlobalPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalPreferencesController.swift; sourceTree = "<group>"; };
+		83B25480227C7F0200FF9D0B /* GlobalPreferencesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalPreferencesFetcher.swift; sourceTree = "<group>"; };
+		83B25482227CA62500FF9D0B /* WMFKeyValue+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFKeyValue+Extensions.swift"; sourceTree = "<group>"; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFFIFOCache.h; sourceTree = "<group>"; };
@@ -6671,6 +6677,15 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
+		83B2547F227C7EE300FF9D0B /* Global Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				83B2547D227C7EDD00FF9D0B /* GlobalPreferencesController.swift */,
+				83B25480227C7F0200FF9D0B /* GlobalPreferencesFetcher.swift */,
+			);
+			name = "Global Preferences";
+			sourceTree = "<group>";
+		};
 		83D3FC11223A8BB70048384B /* Fetchers */ = {
 			isa = PBXGroup;
 			children = (
@@ -8296,6 +8311,7 @@
 				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
 				83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */,
 				83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */,
+				83B2547F227C7EE300FF9D0B /* Global Preferences */,
 				83D3FC11223A8BB70048384B /* Fetchers */,
 				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
@@ -8594,6 +8610,7 @@
 				D8987E011E325C7A00E75DA6 /* WMFKeyValue+CoreDataClass.m */,
 				D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */,
 				D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */,
+				83B25482227CA62500FF9D0B /* WMFKeyValue+Extensions.swift */,
 				D85BD2441F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h */,
 				D85BD2451F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m */,
 				D84448541DDCE49D00425630 /* WMFContentGroup+CoreDataClass.h */,
@@ -11547,6 +11564,7 @@
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
 				D89D44091D74D4D700F7862E /* NSDictionary+WMFCommonParams.m in Sources */,
 				D85CEFD71DDE2C000084A4E8 /* WMFArticlePreview.m in Sources */,
+				83B2547E227C7EDD00FF9D0B /* GlobalPreferencesController.swift in Sources */,
 				8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */,
 				D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */,
 				D8DC16EF1D6F6DEC00D6D9FB /* MWKTitle.m in Sources */,
@@ -11596,6 +11614,7 @@
 				D8FA18F21E1BDA35009675C3 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
 				7A4941E0216FE96400038D0F /* MWKArticle+Description.swift in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
+				83B25483227CA62500FF9D0B /* WMFKeyValue+Extensions.swift in Sources */,
 				D84C35F11F323CCA00895FA1 /* CollectionViewCell.swift in Sources */,
 				D8FA18F41E1BDA35009675C3 /* UIImage+WMFNormalization.m in Sources */,
 				D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */,
@@ -11627,6 +11646,7 @@
 				D84C35F61F323CF000895FA1 /* AlignedImageButton.swift in Sources */,
 				D84C361A1F32403D00895FA1 /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */,
+				83B25481227C7F0200FF9D0B /* GlobalPreferencesFetcher.swift in Sources */,
 				7AEF527120ADD74D00DDF791 /* WMFCaptcha.swift in Sources */,
 				D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */,
 				D844D9961D6CB5970042D692 /* MWKProtectionStatus.m in Sources */,
