@@ -31,6 +31,9 @@ class MarkupItem {
     if (type == 'mw-template-bracket') {
       return 'template-bracket'
     }
+    if (type == 'mw-template-delimiter') {
+      return 'template-delimiter'
+    }
     if (type === 'mw-apostrophes-italic') {
       return 'italic'
     }

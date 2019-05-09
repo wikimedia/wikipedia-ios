@@ -21,7 +21,7 @@ const canClearFormatting = (codeMirror) => {
   }
 
   const buttonNames = buttonNamesInSelectionRange(codeMirror, selectionRange)
-  if (buttonNames.includes('reference') || buttonNames.includes('template') || buttonNames.includes('template-argument') || buttonNames.includes('template-name') || buttonNames.includes('template-bracket')) {
+  if (buttonNames.includes('reference') || buttonNames.includes('template') || buttonNames.includes('template-argument') || buttonNames.includes('template-name') || buttonNames.includes('template-bracket') || buttonNames.includes('template-delimiter')) {
     return false
   }
   
@@ -406,7 +406,7 @@ const tokenTypes = (token) => {
 
 const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
   const soughtBoundaryTokenTypes = new Set(['mw-apostrophes-bold', 'mw-apostrophes-italic', 'mw-link-bracket', 'mw-section-header', 'mw-template-bracket'])  
-  const soughtTokenTypes = new Set(['mw-template-bracket', 'mw-template-name', 'mw-template-argument-name'])
+  const soughtTokenTypes = new Set(['mw-template-bracket', 'mw-template-name', 'mw-template-argument-name', 'mw-template-delimiter'])
 
   let trackedTypes = new Set()
   let outputMarkupItems = []
@@ -664,6 +664,9 @@ class MarkupItem {
     }
     if (type == 'mw-template-bracket') {
       return 'template-bracket'
+    }
+    if (type == 'mw-template-delimiter') {
+      return 'template-delimiter'
     }
     if (type === 'mw-apostrophes-italic') {
       return 'italic'
