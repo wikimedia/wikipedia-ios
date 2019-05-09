@@ -752,57 +752,49 @@
       const markupLength = 2
 
       if (info.openDistance === 0 && info.closeDistance === 0) {
-        return linkFromTextBetweenAnchorMarkup(editor.getSelection())
-      } else if (info.selectionLength === 0 && (info.openDistance === -1 || info.openDistance > 0) && info.nextOpenDistance === 0) { // in front of link
-        const fromCh = anchor.ch + markupLength
-        const from = { line: anchor.line, ch: fromCh }
-        const toCh = head.ch + info.closeDistance
-        const to = { line: head.line, ch: toCh }
-
-        const maybedPipedText = editor.getRange(from, to)
-        return linkFromTextBetweenAnchorMarkup(maybedPipedText)
-      } else if (info.openDistance !== -1 && info.priorCloseDistance === 0) { // end of link
-        const fromCh = anchor.ch - info.openDistance
-        const from = { line: anchor.line, ch: fromCh }
-        const toCh = head.ch - markupLength
-        const to = { line: head.line, ch: toCh }
-
-        const maybedPipedText = editor.getRange(from, to)
-        return linkFromTextBetweenAnchorMarkup(maybedPipedText)
-      } else if (info.openDistance === 0 && info.closeDistance !== -1) { // next to opening bracket, inside
-        const fromCh = anchor.ch - info.openDistance
-        const from = { line: anchor.line, ch: fromCh }
-        const toCh = head.ch + info.closeDistance
-        const to = { line: head.line, ch: toCh }
-
-        const maybedPipedText = editor.getRange(from, to)
-        return linkFromTextBetweenAnchorMarkup(maybedPipedText)
-      } else if (info.closeDistance === 0 && info.openDistance !== -1) { // next to closing bracket, inside
-        const fromCh = anchor.ch - info.openDistance
-        const from = { line: anchor.line, ch: fromCh }
-        const toCh = head.ch + info.closeDistance
-        const to = { line: head.line, ch: toCh }
-
-        const maybedPipedText = editor.getRange(from, to)
-        return linkFromTextBetweenAnchorMarkup(maybedPipedText)
-      } else if (info.openWithinDistance === 0 && info.closeWithinDistance === 0) {
-        const fromCh = anchor.ch + markupLength
-        const from = { line: anchor.line, ch: fromCh }
-        const toCh = head.ch - markupLength
-        const to = { line: head.line, ch: toCh }
-
-        const maybedPipedText = editor.getRange(from, to)
-        return linkFromTextBetweenAnchorMarkup(maybedPipedText)
-      } else if (info.isWrapped && info.closeDistance !== -1 && info.openDistance !== -1) {
-        const fromCh = anchor.ch - info.openDistance
-        const from = { line: anchor.line, ch: fromCh }
-        const toCh = head.ch + info.closeDistance
-        const to = { line: head.line, ch: toCh }
-
-        const maybedPipedText = editor.getRange(from, to)
-        return linkFromTextBetweenAnchorMarkup(maybedPipedText)
+        return linkFromTextBetweenAnchorMarkup(editor.getSelection(), new LinkElementPosition(anchor, head))
       } else {
-        return null
+        let from;
+        let to;
+
+        if (info.selectionLength === 0 && (info.openDistance === -1 || info.openDistance > 0) && info.nextOpenDistance === 0) { // in front of link
+          const fromCh = anchor.ch + markupLength
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch + info.closeDistance
+          to = { line: head.line, ch: toCh }
+        } else if (info.openDistance !== -1 && info.priorCloseDistance === 0) { // end of link
+          const fromCh = anchor.ch - info.openDistance
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch - markupLength
+          to = { line: head.line, ch: toCh }
+        } else if (info.openDistance === 0 && info.closeDistance !== -1) { // next to opening bracket, inside
+          const fromCh = anchor.ch - info.openDistance
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch + info.closeDistance
+          to = { line: head.line, ch: toCh }
+        } else if (info.closeDistance === 0 && info.openDistance !== -1) { // next to closing bracket, inside
+          const fromCh = anchor.ch - info.openDistance
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch + info.closeDistance
+          to = { line: head.line, ch: toCh }
+        } else if (info.openWithinDistance === 0 && info.closeWithinDistance === 0) {
+          const fromCh = anchor.ch + markupLength
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch - markupLength
+          to = { line: head.line, ch: toCh }
+        } else if (info.isWrapped && info.closeDistance !== -1 && info.openDistance !== -1) {
+          const fromCh = anchor.ch - info.openDistance
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch + info.closeDistance
+          to = { line: head.line, ch: toCh }
+        }
+
+        if (from && to) {
+          const maybedPipedText = editor.getRange(from, to)
+          return linkFromTextBetweenAnchorMarkup(maybedPipedText, new LinkElementPosition(from, to))
+        } else {
+          return null
+        }
       }
     }
 
@@ -836,7 +828,7 @@
                   }
                   const to = {line: from.line, ch: from.ch + firstCloseMatchAfterSelection.distance}
                   const maybedPipedText = editor.getRange(from, to)
-                  return linkFromTextBetweenAnchorMarkup(maybedPipedText)
+                  return linkFromTextBetweenAnchorMarkup(maybedPipedText, new LinkElementPosition(from, to))
                 } else if (isCloseAnchorMarkup) {
                   const to = {line: cursorPosition.line, ch: token.start}
                   const line = editor.getLine(to.line)
@@ -852,7 +844,7 @@
                   }
                   const from = { line: to.line, ch: to.ch - lastOpenMatchBeforeSelection.distance }
                   const maybedPipedText = editor.getRange(from, to)
-                  return linkFromTextBetweenAnchorMarkup(maybedPipedText)
+                  return linkFromTextBetweenAnchorMarkup(maybedPipedText, new LinkElementPosition(from, to))
                 } else {
                   return linkFromSelectionWrapInfo()
                 }
