@@ -581,12 +581,18 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
     }
 
     func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        let insertLinkViewController = InsertLinkViewController()
-        insertLinkViewController.insertLink = { page, label in
-            self.messagingController.insertLink(page: page, label: label)
+        messagingController.getLink { link in
+            guard let link = link else {
+                print("TODO: No link")
+                return
+            }
+            let insertLinkViewController = InsertLinkViewController()
+            insertLinkViewController.insertLink = { page, label in
+                self.messagingController.insertLink(page: page, label: label)
+            }
+            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+            self.present(navigationController, animated: true)
         }
-        let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: theme)
-        present(navigationController, animated: true)
     }
 }
 
