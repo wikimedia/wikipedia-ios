@@ -797,8 +797,8 @@
         }
 
         if (from && to) {
-          const maybedPipedText = editor.getRange(from, to)
-          return linkFromTextBetweenAnchorMarkup(maybedPipedText, new LinkElementPosition(from, to))
+          const maybePipedText = editor.getRange(from, to)
+          return linkFromTextBetweenAnchorMarkup(maybePipedText, new LinkElementPosition(from, to))
         } else {
           return null
         }
