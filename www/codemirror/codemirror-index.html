@@ -713,6 +713,17 @@
       }
     }
 
+    class ExternalLink {
+      /**
+      * ExternalLink constructor.
+      * @param {!Link} link
+      */
+      constructor(link) {
+        this.page = link.page
+        this.label = link.label
+      }
+    }
+
     const linkFromTextBetweenAnchorMarkup = (text, pagePosition) => {
       if (!text) {
         return null
