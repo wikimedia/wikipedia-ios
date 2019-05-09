@@ -690,12 +690,14 @@
       const textSplitByPipe = text.split("|")
       if (textSplitByPipe.length == 1) { // no label
         return {
-          link: textSplitByPipe[0]
+          page: textSplitByPipe[0],
+          isExistingLink: true
         }
       } else if (textSplitByPipe.length == 2) { // label
         return {
-          link: textSplitByPipe[0],
-          label: textSplitByPipe[1]
+          page: textSplitByPipe[0],
+          label: textSplitByPipe[1],
+          isExistingLink: true
         }
       } else { // unhandled
         console.error(`Error getting link text; got ${textSplitByPipe}`)
@@ -707,7 +709,8 @@
       const word = editor.findWordAt(editor.getCursor())
       const text = editor.getRange(word.anchor, word.head)
       return {
-        link: text
+        page: text,
+        isExistingLink: false
       }
     }
 
@@ -838,7 +841,8 @@
         const buttonNames = RangeHelper.rangeUtilities.buttonNamesInCurrentSelectionRange(editor)
         if (buttonNames.length === 0) {
           return {
-            link: selection
+            page: selection,
+            isExistingLink: false
           }
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
           return linkFromSelectionWrapInfo()

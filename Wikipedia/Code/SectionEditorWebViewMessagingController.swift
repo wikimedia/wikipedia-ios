@@ -278,7 +278,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
             guard let link = result as? [String: Any] else {
                 return
             }
-            let page = link["link"] as? String
+            let page = link["page"] as? String
             let label = link["label"] as? String
             completion(Link(page: page, label: label))
         }
