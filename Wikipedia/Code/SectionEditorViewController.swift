@@ -586,6 +586,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 return
             }
             let insertLinkViewController = InsertLinkViewController()
+            insertLinkViewController.link = link
             insertLinkViewController.delegate = self
             let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
             self.present(navigationController, animated: true)
