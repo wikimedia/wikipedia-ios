@@ -43,7 +43,14 @@ class TalkPageUpdateViewController: ViewController {
     
     private var fakePublishButton: UIButton?
     
-    private let bodyPlaceholder = WMFLocalizedString("talk-page-new-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new discussion body field for talk pages.")
+    private var bodyPlaceholder: String {
+        switch updateType {
+        case .newDiscussion:
+            return WMFLocalizedString("talk-page-new-discussion-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new discussion body field for talk pages.")
+        case .newReply:
+            return WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
+        }
+    }
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
         let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.") //todo: gfd or gfdl?

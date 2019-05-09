@@ -695,8 +695,9 @@
 "table-title-other" = "More information";
 "talk-page-discussion-title" = "Discussion";
 "talk-page-info-active-conversations" = "Active conversations on $1";
-"talk-page-new-body-placeholder-text" = "Compose new discussion";
+"talk-page-new-discussion-body-placeholder-text" = "Compose new discussion";
 "talk-page-new-discussion-title" = "New discussion";
+"talk-page-new-reply-body-placeholder-text" = "Compose response";
 "talk-page-new-subject-placeholder-text" = "Subject";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
 "talk-page-reply-body-placeholder-text" = "Compose response";
