@@ -787,7 +787,7 @@
           from = { line: anchor.line, ch: fromCh }
           const toCh = fromCh + info.openDistance + info.closeMatchEncompassingStartOffset
           to = { line: head.line, ch: toCh }
-        } else if (info.isWrapped && info.closeDistance !== -1 && info.openDistance !== -1) {
+        } else if (info.isWrapped && info.closeDistance !== -1 && info.openDistance !== -1 && info.nextOpenDistance >= info.closeDistance) {
           const fromCh = anchor.ch - info.openDistance
           from = { line: anchor.line, ch: fromCh }
           const toCh = head.ch + info.closeDistance
