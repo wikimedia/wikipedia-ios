@@ -662,9 +662,6 @@ class MarkupItem {
     if (type === 'mw-template-name') {
       return 'template-name'
     }
-    if (type == 'mw-template-bracket') {
-      return 'template-bracket'
-    }
     if (type == 'mw-template-delimiter') {
       return 'template-delimiter'
     }
