@@ -41,7 +41,9 @@ class InsertLinkViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let navigationController = UINavigationController(rootViewController: searchViewController)
+        title = "Insert link"
+        navigationItem.rightBarButtonItem = closeButton
+        let navigationController = WMFThemeableNavigationController(rootViewController: searchViewController)
         navigationController.isNavigationBarHidden = true
         wmf_add(childController: navigationController, andConstrainToEdgesOfContainerView: view)
         addTopShadow()
