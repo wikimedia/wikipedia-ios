@@ -601,6 +601,7 @@ extension SectionEditorViewController: InsertLinkViewControllerDelegate {
 
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
         messagingController.insertLink(page: page, label: label)
+        dismiss(animated: true)
     }
 }
 
