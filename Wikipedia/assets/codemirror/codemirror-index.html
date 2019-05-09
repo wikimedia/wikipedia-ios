@@ -683,22 +683,23 @@
       }
     }
 
+    class Link {
+      constructor(page, label, hasMarkup) {
+        this.page = page
+        this.label = label
+        this.hasMarkup = hasMarkup
+      }
+    }
+
     const linkFromTextBetweenAnchorMarkup = text => {
       if (!text) {
         return null
       }
       const textSplitByPipe = text.split("|")
       if (textSplitByPipe.length == 1) { // no label
-        return {
-          page: textSplitByPipe[0],
-          isExistingLink: true
-        }
+        return new Link(textSplitByPipe[0], null, true)
       } else if (textSplitByPipe.length == 2) { // label
-        return {
-          page: textSplitByPipe[0],
-          label: textSplitByPipe[1],
-          isExistingLink: true
-        }
+      return new Link(textSplitByPipe[0], textSplitByPipe[1], true)
       } else { // unhandled
         console.error(`Error getting link text; got ${textSplitByPipe}`)
         return null
@@ -708,10 +709,7 @@
     const linkFromWord = () => {
       const word = editor.findWordAt(editor.getCursor())
       const text = editor.getRange(word.anchor, word.head)
-      return {
-        page: text,
-        isExistingLink: false
-      }
+      return new Link(text, null, false)
     }
 
     const linkFromSelectionWrapInfo = () => {
@@ -840,10 +838,7 @@
       } else {
         const buttonNames = RangeHelper.rangeUtilities.buttonNamesInCurrentSelectionRange(editor)
         if (buttonNames.length === 0) {
-          return {
-            page: selection,
-            isExistingLink: false
-          }
+          return new Link(selection, null, false)
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
           return linkFromSelectionWrapInfo()
         } else {
