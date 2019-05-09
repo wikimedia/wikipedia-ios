@@ -2,24 +2,57 @@
 import Foundation
 import UIKit
 
+protocol ReplyDismissDelegate: class {
+    func willDismiss()
+    func cancelDismiss()
+}
+
 final class ReplyPresentationController: UIPresentationController {
     
-    let backgroundView: UIView = UIView(frame: .zero)
-    private var tapGestureRecognizer: UITapGestureRecognizer!
+    var topChromeHeight: CGFloat
+    var navigationBarHeight: CGFloat
+    var spacing: CGFloat {
+        get {
+            return topChromeHeight + navigationBarHeight
+        }
+    }
+    private var originalContainerViewBounds: CGRect?
+    weak var dismissDelegate: ReplyDismissDelegate?
     
-    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+    init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, topChromeHeight: CGFloat, navigationBarHeight: CGFloat) {
+        
+        self.topChromeHeight = topChromeHeight
+        self.navigationBarHeight = navigationBarHeight
         
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
-        
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismiss))
-        
-        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        backgroundView.isUserInteractionEnabled = true
-        backgroundView.addGestureRecognizer(tapGestureRecognizer)
-        backgroundView.backgroundColor = .clear
     }
     
+    func containerViewFrame() -> CGRect {
+        
+        guard let originalContainerViewBounds = originalContainerViewBounds else {
+            return .zero
+        }
+        
+        let containerBounds = originalContainerViewBounds
+        
+        return CGRect(origin: CGPoint(x: 0, y: spacing), size: CGSize(width: containerBounds.width, height: containerBounds.height - spacing))
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        guard let originalContainerViewBounds = originalContainerViewBounds else {
+            return
+        }
+        
+        self.originalContainerViewBounds = CGRect(x: originalContainerViewBounds.minY, y: originalContainerViewBounds.minX, width: size.width, height: size.height)
+        
+        if let presentingView = presentingViewController.view {
+            coordinator.animate(alongsideTransition: nil) { (context) in
+                presentingView.frame = CGRect(x: 0, y: -size.height + self.spacing + 35, width: size.width, height: size.height)
+            }
+        }
+    }
     
     override var frameOfPresentedViewInContainerView: CGRect {
         
@@ -27,39 +60,22 @@ final class ReplyPresentationController: UIPresentationController {
             return .zero
         }
         
-        return CGRect(origin: CGPoint(x: 0, y: containerView.frame.height / 2), size: CGSize(width: containerView.frame.width, height: containerView.frame.height / 2))
+        return CGRect(x: 0, y: 0, width: containerView.bounds.width, height: containerView.bounds.height)
     }
     
     override func dismissalTransitionWillBegin() {
-        
-        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
-            self.backgroundView.alpha = 0
-        }, completion: { (UIViewControllerTransitionCoordinatorContext) in
-            self.backgroundView.removeFromSuperview()
-        })
-    }
-    
-    override func presentationTransitionWillBegin() {
-        
-        backgroundView.alpha = 0
-        containerView?.addSubview(backgroundView)
-        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
-            self.backgroundView.alpha = 1
-        }, completion: nil)
+        super.dismissalTransitionWillBegin()
+        dismissDelegate?.willDismiss()
     }
     
     override func containerViewDidLayoutSubviews() {
         super.containerViewDidLayoutSubviews()
         
-        presentedView?.frame = frameOfPresentedViewInContainerView
-        
-        if let containerView = containerView {
-            backgroundView.frame = containerView.bounds
+        if originalContainerViewBounds == nil {
+            originalContainerViewBounds = containerView?.bounds
         }
+
+        containerView?.frame = containerViewFrame()
+        presentedView?.frame = frameOfPresentedViewInContainerView
     }
-    
-    @objc func dismiss() {
-        self.presentedViewController.dismiss(animated: true, completion: nil)
-    }
-    
 }

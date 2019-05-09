@@ -7,10 +7,11 @@ class ReplySwipeInteractionController: UIPercentDrivenInteractiveTransition {
     
     private var shouldCompleteTransition = false
     private weak var viewController: UIViewController!
+    weak var dismissDelegate: ReplyDismissDelegate?
     
-    weak var backgroundView: UIView! {
+    weak var scrollView: UIScrollView! {
         didSet {
-            prepareGestureRecognizer(in: backgroundView)
+            prepareGestureRecognizer(in: scrollView)
         }
     }
     
@@ -19,18 +20,15 @@ class ReplySwipeInteractionController: UIPercentDrivenInteractiveTransition {
         self.viewController = viewController
     }
     
-    private func prepareGestureRecognizer(in view: UIView) {
-        let gesture = UIScreenEdgePanGestureRecognizer(target: self,
-                                                       action: #selector(handleGesture(_:)))
-        gesture.delegate = self
-        gesture.edges = .left
-        view.addGestureRecognizer(gesture)
+    private func prepareGestureRecognizer(in scrollView: UIScrollView) {
+        scrollView.panGestureRecognizer.addTarget(self, action: #selector(handleGesture(_:)))
+        
     }
     
-    @objc func handleGesture(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
+    @objc func handleGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
 
         let translation = gestureRecognizer.translation(in: gestureRecognizer.view!.superview!)
-        var progress = (translation.x / 200)
+        var progress = (translation.y / 200)
         progress = CGFloat(fminf(fmaxf(Float(progress), 0.0), 1.0))
         
         switch gestureRecognizer.state {
@@ -50,18 +48,14 @@ class ReplySwipeInteractionController: UIPercentDrivenInteractiveTransition {
         case .ended:
             interactionInProgress = false
             if shouldCompleteTransition {
+                dismissDelegate?.willDismiss()
                 finish()
             } else {
+                dismissDelegate?.cancelDismiss()
                 cancel()
             }
         default:
             break
         }
-    }
-}
-
-extension ReplySwipeInteractionController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }

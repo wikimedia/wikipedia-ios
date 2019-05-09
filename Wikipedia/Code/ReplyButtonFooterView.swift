@@ -2,7 +2,8 @@
 import UIKit
 
 protocol ReplyButtonFooterViewDelegate: class {
-    func tappedReply(from view: ReplyButtonFooterView)
+    func tappedReply(from view: ReplyButtonFooterView, additionalPresentationAnimations:
+        (() -> Void)?, additionalDismissalAnimations: (() -> Void)?)
 }
 
 class ReplyButtonFooterView: SizeThatFitsReusableView {
@@ -34,7 +35,17 @@ class ReplyButtonFooterView: SizeThatFitsReusableView {
     }
     
     @objc private func tappedReply() {
-        delegate?.tappedReply(from: self)
+        
+        let divViewOffset = CGFloat(35)
+        delegate?.tappedReply(from: self, additionalPresentationAnimations: {
+            let oldFrame = self.dividerView.frame
+            self.dividerView.frame.origin = CGPoint(x: oldFrame.minX, y: oldFrame.minY - divViewOffset)
+            self.replyButton.alpha = 0
+        }, additionalDismissalAnimations: {
+            let oldFrame = self.dividerView.frame
+            self.dividerView.frame.origin = CGPoint(x: oldFrame.minX, y: oldFrame.minY + divViewOffset)
+            self.replyButton.alpha = 1
+        })
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {

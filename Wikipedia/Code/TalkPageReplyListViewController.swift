@@ -3,7 +3,7 @@ import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
-    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController)
+    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController, lastSeenView: UIView, additionalPresentationAnimations: (() -> Void)?, additionalDismissalAnimations: (() -> Void)?)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -17,6 +17,14 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private let reuseIdentifier = "ReplyListItemCollectionViewCell"
     
     weak var delegate: TalkPageReplyListViewControllerDelegate?
+    
+    private var disableScrolling = false {
+        didSet {
+            disableScrollingOffset = disableScrolling == true ? collectionView.contentOffset : nil
+            collectionView.showsVerticalScrollIndicator = disableScrolling ? false : true
+        }
+    }
+    private var disableScrollingOffset: CGPoint?
     
     required init(dataStore: MWKDataStore, discussion: TalkPageDiscussion) {
         self.dataStore = dataStore
@@ -55,6 +63,18 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 return 0
         }
         return sections[section].numberOfObjects
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if let disableScrollingOffset = disableScrollingOffset,
+            disableScrolling {
+            collectionView.setContentOffset(disableScrollingOffset, animated: false)
+        } else {
+            super.scrollViewDidScroll(scrollView)
+        }
+        
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -198,7 +218,32 @@ extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelega
 }
 
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
-    func tappedReply(from view: ReplyButtonFooterView) {
-        delegate?.tappedReply(to: discussion, viewController: self)
+    func tappedReply(from view: ReplyButtonFooterView, additionalPresentationAnimations:
+        (() -> Void)?, additionalDismissalAnimations: (() -> Void)?) {
+        
+        if let sections = fetchedResultsController.sections {
+            let lastSectionIndex = sections.count - 1
+            let lastSection = sections[lastSectionIndex]
+            let lastItemIndex = lastSection.numberOfObjects - 1
+            let indexPath = IndexPath(item: lastItemIndex, section: lastSectionIndex)
+            
+            if let lastCell = collectionView.cellForItem(at: indexPath) as? ReplyListItemCollectionViewCell {
+                disableScrolling = true
+                delegate?.tappedReply(to: discussion, viewController: self, lastSeenView: lastCell, additionalPresentationAnimations: additionalPresentationAnimations, additionalDismissalAnimations: additionalDismissalAnimations)
+                return
+            }
+        }
+        
+        assertionFailure("Reply Footer Delegate validation failure")
+    }
+}
+
+extension TalkPageReplyListViewController: ReplyDismissDelegate {
+    func willDismiss() {
+        disableScrolling = false
+    }
+    
+    func cancelDismiss() {
+        disableScrolling = true
     }
 }

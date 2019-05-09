@@ -13,8 +13,7 @@ class TalkPageContainerViewController: ViewController {
     private var talkPage: TalkPage?
     
     private var talkPageController: TalkPageController!
-    
-    let replyTransitioningDelegate = ReplyTransitioningDelegate()
+    private var replyTransitioningDelegate: ReplyTransitioningDelegate!
     
     required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
@@ -38,6 +37,16 @@ class TalkPageContainerViewController: ViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
         navigationItem.rightBarButtonItem = addButton
         navigationBar.updateNavigationItems()
+        
+        replyTransitioningDelegate = ReplyTransitioningDelegate()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        replyTransitioningDelegate.topChromeHeight = 75
+        replyTransitioningDelegate.navigationBarHeight = navigationBar.frame.height
+        replyTransitioningDelegate.topChromeExtraOffset = 5
     }
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
@@ -122,7 +131,14 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         if lastPathComponent.contains(underscoredPrefix) && languageCode == "en" {
             let talkPageContainerVC = TalkPageContainerViewController(title: title, host: host, languageCode: languageCode, titleIncludesPrefix: false, type: .user, dataStore: dataStore)
             talkPageContainerVC.apply(theme: theme)
-            navigationController?.pushViewController(talkPageContainerVC, animated: true)
+            if presentedViewController != nil {
+                viewController.willDismiss()
+                dismiss(animated: true) {
+                    self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
+                }
+            } else {
+                navigationController?.pushViewController(talkPageContainerVC, animated: true)
+            }
         }
         
         //todo: else if User: prefix, show their wikitext editing page in a web view. Ensure edits there cause talk page to refresh when coming back.
@@ -130,7 +146,7 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         //else if it's a full url (i.e. a different host), send them to safari
     }
     
-    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController) {
+    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController, lastSeenView: UIView, additionalPresentationAnimations: (() -> Void)?, additionalDismissalAnimations: (() -> Void)?) {
         
         guard let talkPage = talkPage else {
             assertionFailure("TalkPage is not populated yet.")
@@ -140,9 +156,15 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         let replyNewViewController = TalkPageUpdateViewController.init(talkPage: talkPage, type: .newReply(discussion: discussion))
         replyNewViewController.delegate = self
         replyNewViewController.apply(theme: theme)
-
+        
         replyNewViewController.modalPresentationStyle = .custom
+        replyTransitioningDelegate.lastSeenView = lastSeenView
+        replyTransitioningDelegate.additionalPresentationAnimations = additionalPresentationAnimations
+        replyTransitioningDelegate.additionalDismissalAnimations = additionalDismissalAnimations
         replyNewViewController.transitioningDelegate = replyTransitioningDelegate
-        viewController.present(replyNewViewController, animated: true, completion: nil)
+        viewController.present(replyNewViewController, animated: true) {
+            replyNewViewController.swipeInteractionController?.scrollView = viewController.collectionView
+            replyNewViewController.swipeInteractionController?.dismissDelegate = viewController
+        }
     }
 }

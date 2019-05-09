@@ -41,6 +41,8 @@ class TalkPageUpdateViewController: ViewController {
     var swipeInteractionController: ReplySwipeInteractionController?
     weak var replyPresentationController: ReplyPresentationController?
     
+    private var fakePublishButton: UIButton?
+    
     private let bodyPlaceholder = WMFLocalizedString("talk-page-new-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new discussion body field for talk pages.")
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
@@ -64,6 +66,7 @@ class TalkPageUpdateViewController: ViewController {
     init(talkPage: TalkPage, type: UpdateType) {
         self.talkPage = talkPage
         self.updateType = type
+        
         super.init()
     }
     
@@ -90,6 +93,12 @@ class TalkPageUpdateViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setBodyHeightIfNeeded()
+        switch updateType {
+        case .newReply:
+            fakePublishButton?.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.height - 200, width: 100, height: 50)
+        default:
+            break
+        }
     }
     
     private func commonSetup() {
@@ -126,6 +135,18 @@ class TalkPageUpdateViewController: ViewController {
         bodyTextView.placeholder = WMFLocalizedString("talk-page-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in reply field for talk pages.")
         subjectContainerView.isHidden = true
         firstDivView.isHidden = true
+        
+        //insert fake publish. will remove
+        fakePublishButton = UIButton(type: .system)
+        fakePublishButton?.setTitle("Publish", for: .normal)
+        fakePublishButton?.tintColor = theme.colors.link
+        fakePublishButton?.addTarget(self, action: #selector(tappedFakePublish), for: .touchUpInside)
+        fakePublishButton?.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.height - 500, width: 100, height: 50)
+        view.addSubview(fakePublishButton!)
+    }
+
+    @objc func tappedFakePublish() {
+        print("published")
     }
     
     private func calculateSingleLineBodyHeightIfNeeded() {
