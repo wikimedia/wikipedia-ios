@@ -1318,7 +1318,12 @@
       replaceSelection: (text) => {
         editor.replaceSelection(text)
       },
-      getLink: () => link()
+      getLink: () => {
+        // refactor
+        const internalLink = link() // internal link
+        state.link = internalLink
+        return new ExternalLink(internalLink) // external link
+      }
     }
 
     // TODO: Import js/elementLocation ?
