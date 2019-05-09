@@ -20,7 +20,7 @@ const canClearFormatting = (codeMirror) => {
   }
 
   const buttonNames = buttonNamesInSelectionRange(codeMirror, selectionRange)
-  if (buttonNames.includes('reference') || buttonNames.includes('template')) {
+  if (buttonNames.includes('reference') || buttonNames.includes('template') || buttonNames.includes('template-argument')) {
     return false
   }
   

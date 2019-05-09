@@ -25,12 +25,11 @@
 
 
 <body class="cm-mw-light">
-  <script>    
-
+  <script>        
     let editor
 
     const rangesIntersect = (range1, range2) => {
-      if (range1.start ===  range1.end) {
+      if (range1.start === range1.end) { // treat a zero length range inside of another range as intersecting
         return range1.start > range2.start && range1.start < range2.end
       } else if (range2.start === range2.end) {
         return range2.start > range1.start && range2.start < range1.end
@@ -359,11 +358,10 @@
       if (shouldDisableClearFormattingButton(doc)) {
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
-
-      const cursorPosition = doc.getCursor()
-      const token = doc.getTokenAt(cursorPosition)
-      const isAtLineEnd = doc.getLine(cursorPosition.line).length === cursorPosition.ch
-      if (((token.type && token.type.length > 0) || selectedButtons.length > 0) && !isAtLineEnd) {
+      const selectionRange = RangeHelper.getItemRangeFromSelection(editor)
+      const allMarkupItems = RangeHelper.markupItemsForItemRangeLines(editor, selectionRange)
+      const markupItems = RangeHelper.getMarkupItemsIntersectingSelection(editor, allMarkupItems, selectionRange)
+      if (markupItems.length !== 0) {
         buttonsToDisable.push(buttonPayload('media'))
       }
 
