@@ -587,12 +587,20 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 return
             }
             let insertLinkViewController = InsertLinkViewController()
-            insertLinkViewController.insertLink = { page, label in
-                self.messagingController.insertLink(page: page, label: label)
-            }
+            insertLinkViewController.delegate = self
             let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
             self.present(navigationController, animated: true)
         }
+    }
+}
+
+extension SectionEditorViewController: InsertLinkViewControllerDelegate {
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
+        messagingController.insertLink(page: page, label: label)
     }
 }
 
