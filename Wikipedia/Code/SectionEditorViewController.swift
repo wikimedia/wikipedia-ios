@@ -574,7 +574,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.titleText, siteURL: section?.article?.url.wmf_site)
+        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle, siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
         present(navigationController, animated: true)
@@ -588,7 +588,24 @@ extension SectionEditorViewController: InsertMediaViewControllerDelegate {
 
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
         dismiss(animated: true)
-        messagingController.replaceSelection(text: wikitext)
+        messagingController.getLineInfo { lineInfo in
+            guard let lineInfo = lineInfo else {
+                self.messagingController.replaceSelection(text: wikitext)
+                return
+            }
+            if !lineInfo.hasLineTokens && lineInfo.isAtLineEnd {
+                self.messagingController.replaceSelection(text: wikitext)
+            } else if lineInfo.isAtLineEnd {
+                self.messagingController.newlineAndIndent()
+                self.messagingController.replaceSelection(text: wikitext)
+            } else if lineInfo.hasLineTokens {
+                self.messagingController.newlineAndIndent()
+                self.messagingController.replaceSelection(text: wikitext)
+                self.messagingController.newlineAndIndent()
+            } else {
+                self.messagingController.replaceSelection(text: wikitext)
+            }
+        }
     }
 }
 

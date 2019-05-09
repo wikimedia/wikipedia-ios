@@ -1,7 +1,7 @@
 import UIKit
 
 final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
-    private let imageView = UIImageView()
+    let imageView = UIImageView()
     private let captionLabel = UILabel()
 
     private var imageURL: URL?
@@ -69,7 +69,7 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
         if (apply) {
             imageView.frame = CGRect(x: origin.x, y: origin.y, width: imageViewDimension, height: imageViewDimension)
-            imageView.wmf_setImage(with: scaledImageURL, detectFaces: true, onGPU: true, failure: {_ in }, success: {
+            imageView.wmf_setImage(with: scaledImageURL, detectFaces: false, onGPU: true, failure: {_ in }, success: {
                 self.imageView.backgroundColor = .clear
             })
             selectedImageView.frame = CGRect(x: imageView.frame.maxX - selectedImageViewDimension, y: imageView.frame.maxY - selectedImageViewDimension, width: selectedImageViewDimension, height: selectedImageViewDimension)

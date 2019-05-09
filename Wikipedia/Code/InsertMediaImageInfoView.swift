@@ -47,8 +47,9 @@ final class InsertMediaImageInfoView: UIView {
         licenseLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
 
-    @IBAction private func showMoreInformation(_ sender: UIButton) {
+    @IBAction private func showMoreInformation(_ sender: Any) {
         guard let url = moreInformationURL else {
+            assertionFailure("moreInformationURL should be set by now")
             return
         }
         moreInformationAction?(url)

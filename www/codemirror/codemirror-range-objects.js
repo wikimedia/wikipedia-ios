@@ -22,6 +22,15 @@ class MarkupItem {
     if (type === 'mw-template-bracket') {
       return 'template'
     }
+    if (type === 'mw-template-argument-name') {
+      return 'template-argument'
+    }
+    if (type === 'mw-template-name') {
+      return 'template-name'
+    }
+    if (type == 'mw-template-delimiter') {
+      return 'template-delimiter'
+    }
     if (type === 'mw-apostrophes-italic') {
       return 'italic'
     }
