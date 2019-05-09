@@ -1323,6 +1323,21 @@
         const internalLink = link() // internal link
         state.link = internalLink
         return new ExternalLink(internalLink) // external link
+      },
+      insertLink: (page, label) => {
+        const link = state.link
+        if (link.hasMarkup) {
+          if (link.label) {
+            // TODO
+          } else {
+            if (label) {
+              // TODO - adding label to an existing link with no label
+            } else { // modifying existing link
+              const position = link.pagePosition
+              editor.replaceRange(page, link.pagePosition.from, link.pagePosition.to)
+            }
+          }
+        }
       }
     }
 
