@@ -1276,6 +1276,9 @@
       newlineAndIndent: () => editor.execCommand('newlineAndIndent'),
       getLink: (keepInStateStore = true) => {
         const internalLink = getInternalLink()
+        if (!internalLink) {
+          return null
+        }
         if (keepInStateStore) {
           stateStore.internalLink = internalLink
         }
