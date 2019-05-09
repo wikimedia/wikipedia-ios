@@ -683,11 +683,33 @@
       }
     }
 
+    class LinkElementPosition {
+      /**
+      * LinkElementPosition construtor.
+      * @param {!{line: number, ch: number}} from
+      * @param {!{line: number, ch: number}} to
+      */
+      constructor(from, to) {
+        this.from = from
+        this.to = to
+      }
+    }
+
     class Link {
-      constructor(page, label, hasMarkup) {
+      /**
+      * Link constructor.
+      * @param {!string} page
+      * @param {?string} label
+      * @param {!boolean} hasMarkup
+      * @param {!LinkElementPosition} pagePosition
+      * @param {!LinkElementPosition} labelPosition
+      */
+      constructor(page, label, hasMarkup, pagePosition, labelPosition) {
         this.page = page
         this.label = label
         this.hasMarkup = hasMarkup
+        this.pagePosition = pagePosition
+        this.labelPosition = labelPosition
       }
     }
 
