@@ -754,35 +754,29 @@
         let from;
         let to;
 
-        if (info.selectionLength === 0 && (info.openDistance === -1 || info.openDistance > 0) && info.nextOpenDistance === 0) { // in front of link
-          const fromCh = anchor.ch + markupLength
+        if (info.openMatchEncompassingStartOffset !== undefined && (info.closeMatchEncompassingEndOffset || info.closeDistance !== -1)) {
+          let fromCh
+          if (info.openMatchEncompassingStartOffset === 0) {
+            fromCh = anchor.ch + markupLength
+          } else if (info.openMatchEncompassingStartOffset + markupLength === 0) {
+            fromCh = anchor.ch
+          } else {
+            fromCh = anchor.ch - info.openMatchEncompassingStartOffset
+          }
           from = { line: anchor.line, ch: fromCh }
-          const toCh = head.ch + info.closeDistance
+          const toCh = head.ch + (info.closeMatchEncompassingEndOffset || info.closeDistance)
           to = { line: head.line, ch: toCh }
-        } else if (info.openDistance !== -1 && info.priorCloseDistance === 0) { // end of link
-          const fromCh = anchor.ch - info.openDistance
+        } else if (info.closeMatchEncompassingEndOffset !== undefined && (info.openMatchEncompassingStartOffset || info.openDistance !== -1)) {
+          const fromCh = anchor.ch - (info.openMatchEncompassingStartOffset || info.openDistance)
           from = { line: anchor.line, ch: fromCh }
-          const toCh = head.ch - markupLength
-          to = { line: head.line, ch: toCh }
-        } else if ((info.openDistance === 0 && info.closeDistance !== -1) || (info.closeDistance === 0 && info.openDistance !== -1))  { // next to markup, inside
-          const fromCh = anchor.ch - info.openDistance
-          from = { line: anchor.line, ch: fromCh }
-          const toCh = head.ch + info.closeDistance
-          to = { line: head.line, ch: toCh }
-        } else if (info.openWithinDistance === 0 && info.closeWithinDistance === 0) {
-          const fromCh = anchor.ch + markupLength
-          from = { line: anchor.line, ch: fromCh }
-          const toCh = head.ch - markupLength
-          to = { line: head.line, ch: toCh }
-        } else if (info.openMatchEncompassingStartOffset) { // in opening markup
-          const fromCh = anchor.ch - info.openMatchEncompassingStartOffset
-          from = { line: anchor.line, ch: fromCh }
-          const toCh = fromCh + info.closeDistance + info.openMatchEncompassingStartOffset
-          to = { line: head.line, ch: toCh }
-        } else if (info.closeMatchEncompassingStartOffset) {
-          const fromCh = anchor.ch - info.openDistance
-          from = { line: anchor.line, ch: fromCh }
-          const toCh = fromCh + info.openDistance + info.closeMatchEncompassingStartOffset
+          let toCh
+          if (info.closeMatchEncompassingEndOffset === 0) {
+            toCh = head.ch
+          } else if (info.closeMatchEncompassingEndOffset + markupLength === 0) {
+            toCh = head.ch - markupLength
+          } else {
+            toCh = head.ch + info.closeMatchEncompassingEndOffset
+          }
           to = { line: head.line, ch: toCh }
         } else if (info.isWrapped && info.closeDistance !== -1 && info.openDistance !== -1 && info.nextOpenDistance >= info.closeDistance) {
           const fromCh = anchor.ch - info.openDistance
