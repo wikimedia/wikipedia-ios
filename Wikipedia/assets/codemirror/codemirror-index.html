@@ -508,7 +508,6 @@
       const line = editor.getLine(lineIndex)
       var lastOpenMatchBeforeSelection = {distance: -1}
       var firstOpenMatchAfterSelection = {distance: -1}
-      var firstOpenMatchWithinSelection = {distance: -1}
 	    var openMatchEncompassingStartOfSelection = {}
       var openMatchEncompassingEndOfSelection = {}
       line.replace(new RegExp(openingMarkup, 'g'), (match, index) => {
@@ -518,9 +517,6 @@
         }
         if (endIndex <= fromPos.ch) {
           lastOpenMatchBeforeSelection = {match: match, distance: fromPos.ch - endIndex}
-        }
-        if (index >= fromPos.ch && endIndex <= toPos.ch && firstOpenMatchWithinSelection.distance === -1) {
-          firstOpenMatchWithinSelection = {match: match, distance: index - fromPos.ch}
         }
         if (index >= toPos.ch && firstOpenMatchAfterSelection.distance === -1) {
           firstOpenMatchAfterSelection = {match: match, distance: index - toPos.ch}	
@@ -532,7 +528,6 @@
 	  
       var lastCloseMatchBeforeSelection = {distance: -1}
       var firstCloseMatchAfterSelection = {distance: -1}
-      var firstCloseMatchWithinSelection = {distance: -1}
 	    var closeMatchEncompassingStartOfSelection = {}
       var closeMatchEncompassingEndOfSelection = {}
       line.replace(new RegExp(closingMarkup, 'g'), (match, index) => {
@@ -542,9 +537,6 @@
         }
         if (endIndex <= fromPos.ch) {
           lastCloseMatchBeforeSelection = {match: match, distance: fromPos.ch - endIndex}
-        }
-        if (index >= fromPos.ch && endIndex <= toPos.ch && firstCloseMatchWithinSelection.distance === -1) {
-          firstCloseMatchWithinSelection = {match: match, distance: toPos.ch - endIndex}
         }
         if (index >= toPos.ch && firstCloseMatchAfterSelection.distance === -1) {
           firstCloseMatchAfterSelection = {match: match, distance: index - toPos.ch}	
@@ -565,8 +557,6 @@
         nextOpenDistance: firstOpenMatchAfterSelection.distance,
         priorCloseMatch: lastCloseMatchBeforeSelection.match,
         nextOpenMatch: firstOpenMatchAfterSelection.match,
-        openWithinDistance: firstOpenMatchWithinSelection.distance,
-        closeWithinDistance: firstCloseMatchWithinSelection.distance,
         openMatchEncompassingStartOffset: openMatchEncompassingStartOfSelection.offset,
         openMatchEncompassingStart: openMatchEncompassingStartOfSelection.match,
         openMatchEncompassingEndOffset: openMatchEncompassingEndOfSelection.offset,
