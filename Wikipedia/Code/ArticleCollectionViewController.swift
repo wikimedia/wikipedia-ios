@@ -177,7 +177,7 @@ extension ArticleCollectionViewController {
         
         if let userTalkPageTitle = userTalkPageTitle(at: indexPath) {
             //todo: smart host & language code
-            let talkPageContainer = TalkPageContainerViewController(title: userTalkPageTitle, host: "en.wikipedia.org", languageCode: "en", titleIncludesPrefix: true, type: .user, dataStore: dataStore)
+            let talkPageContainer = TalkPageContainerViewController(title: userTalkPageTitle, host: "test.wikipedia.org", languageCode: "test", titleIncludesPrefix: true, type: .user, dataStore: dataStore)
             talkPageContainer.apply(theme: theme)
             wmf_push(talkPageContainer, animated: true)
             return
