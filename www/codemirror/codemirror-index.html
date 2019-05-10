@@ -796,24 +796,18 @@
 
     const getInternalLink = () => {
       const selection = editor.getSelection()
+      // pass markupItems from disable
+      const selectionRange = RangeHelper.getItemRangeFromSelection(editor)
+      const allMarkupItems = RangeHelper.markupItemsForItemRangeLines(editor, selectionRange)
+      const markupItems = RangeHelper.getMarkupItemsIntersectingSelection(editor, allMarkupItems, selectionRange)
+      const buttonNames = RangeHelper.rangeUtilities.getButtonNamesFromMarkupItems(markupItems)
       if (selection.length === 0) {
-        // get only token type if more isn't needed
-        const cursorPosition = editor.getCursor()
-        const token = editor.getTokenAt(cursorPosition)
-        const tokenType = token.type
-        if (tokenType) {
-          if (tokenType.length === 0) {
-            return linkFromWord()
-          } else {
-            return linkFromSelectionWrapInfo()
-          }
-        } else if (token.string.trim().length === 0) {
+        if (buttonNames.includes("link")) {
           return linkFromSelectionWrapInfo()
-        } else {
+        } else if (buttonNames.length === 0) {
           return linkFromWord()
         }
       } else {
-        const buttonNames = RangeHelper.rangeUtilities.buttonNamesInCurrentSelectionRange(editor)
         if (buttonNames.length === 0) {
           return new InternalLink(selection, null, false)
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
