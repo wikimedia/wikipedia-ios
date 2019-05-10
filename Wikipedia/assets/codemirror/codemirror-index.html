@@ -362,7 +362,7 @@
         buttonsToDisable.push(buttonPayload('media'))
       }
 
-      if (!getInternalLink()) {
+      if (!getInternalLink(markupItems)) {
         buttonsToDisable.push(buttonPayload('link'))
       }
 
@@ -798,28 +798,25 @@
       }
     }
 
-    const getInternalLink = () => {
+    const getInternalLink = (markupItems, keepInStateStore = true) => {
       const selection = editor.getSelection()
-      // pass markupItems from disable
-      const selectionRange = RangeHelper.getItemRangeFromSelection(editor)
-      const allMarkupItems = RangeHelper.markupItemsForItemRangeLines(editor, selectionRange)
-      const markupItems = RangeHelper.getMarkupItemsIntersectingSelection(editor, allMarkupItems, selectionRange)
       const buttonNames = RangeHelper.rangeUtilities.getButtonNamesFromMarkupItems(markupItems)
+      let link
       if (selection.length === 0) {
         if (buttonNames.includes("link")) {
-          return linkFromSelectionWrapInfo()
+          link = linkFromSelectionWrapInfo()
         } else if (buttonNames.length === 0) {
-          return linkFromWord()
+          link = linkFromWord()
         }
       } else {
         if (buttonNames.length === 0) {
-          return new InternalLink(selection, null, false)
+          link = new InternalLink(selection, null, false)
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
-          return linkFromSelectionWrapInfo()
-        } else {
-          return null
+          link = linkFromSelectionWrapInfo()
         }
       }
+      stateStore.internalLink = link
+      return link
     }
     
     const toggleMarkup = (button, openingMarkup, closingMarkup, defaultOpeningMarkup, defaultClosingMarkup) => {
@@ -1266,16 +1263,7 @@
         }
       },
       newlineAndIndent: () => editor.execCommand('newlineAndIndent'),
-      getLink: (keepInStateStore = true) => {
-        const internalLink = getInternalLink()
-        if (!internalLink) {
-          return null
-        }
-        if (keepInStateStore) {
-          stateStore.internalLink = internalLink
-        }
-        return new ExternalLink(internalLink)
-      },
+      getLink: () => stateStore.internalLink,
       insertLink: (page, label) => {
         const link = stateStore.internalLink
         if (!link) {
@@ -1310,8 +1298,6 @@
             editor.replaceRange(newPage, link.pagePosition.from, link.pagePosition.to)
           }
         }
-
-        delete stateStore.internalLink
       }
     }
 
