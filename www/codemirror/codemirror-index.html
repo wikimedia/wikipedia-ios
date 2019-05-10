@@ -362,6 +362,10 @@
         buttonsToDisable.push(buttonPayload('media'))
       }
 
+      if (!getInternalLink()) {
+        buttonsToDisable.push(buttonPayload('link'))
+      }
+
       return buttonsToDisable
     }
 
