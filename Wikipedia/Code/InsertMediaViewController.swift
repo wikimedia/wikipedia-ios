@@ -100,8 +100,8 @@ final class InsertMediaViewController: ViewController {
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
         guard
             let navigationController = navigationController,
-            let image = selectedImageViewController.image,
-            let selectedSearchResult = selectedImageViewController.searchResult
+            let selectedSearchResult = selectedImageViewController.searchResult,
+            let image = selectedImageViewController.image ?? searchResultsCollectionViewController.selectedImage
         else {
             assertionFailure("Selected image and search result should be set by now")
             return
@@ -230,6 +230,10 @@ extension InsertMediaViewController: InsertMediaSearchViewControllerDelegate {
 }
 
 extension InsertMediaViewController: InsertMediaSelectedImageViewControllerDelegate {
+    func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, willSetSelectedImageFrom searchResult: InsertMediaSearchResult) {
+        nextButton.isEnabled = false
+    }
+
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, didSetSelectedImage selectedImage: UIImage?, from searchResult: InsertMediaSearchResult) {
         nextButton.isEnabled = true
     }

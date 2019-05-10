@@ -2,6 +2,7 @@ import SafariServices
 
 protocol InsertMediaSelectedImageViewControllerDelegate: AnyObject {
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, didSetSelectedImage selectedImage: UIImage?, from searchResult: InsertMediaSearchResult)
+    func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, willSetSelectedImageFrom searchResult: InsertMediaSearchResult)
 }
 
 final class InsertMediaSelectedImageViewController: UIViewController {
@@ -58,6 +59,7 @@ final class InsertMediaSelectedImageViewController: UIViewController {
 
 extension InsertMediaSelectedImageViewController: InsertMediaSearchResultsCollectionViewControllerDelegate {
     func insertMediaSearchResultsCollectionViewControllerDidSelect(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, searchResult: InsertMediaSearchResult) {
+        delegate?.insertMediaSelectedImageViewController(self, willSetSelectedImageFrom: searchResult)
         startActivityIndicator()
         guard let imageURL = searchResult.imageURL(for: view.bounds.width) else {
             stopActivityIndicator()

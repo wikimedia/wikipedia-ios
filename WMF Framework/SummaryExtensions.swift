@@ -11,7 +11,7 @@ extension WMFArticle {
         }
        
         wikidataDescription = summary.articleDescription
-        displayTitleHTMLString = summary.displayTitle
+        displayTitleHTML = summary.displayTitle ?? summary.title ?? ""
         snippet = summary.extract?.wmf_summaryFromText()
     
         if let summaryCoordinate = summary.coordinates {

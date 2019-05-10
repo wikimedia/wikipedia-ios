@@ -25,16 +25,17 @@
 
 
 <body class="cm-mw-light">
-  <script>    
-
+  <script>        
     let editor
 
     const rangesIntersect = (range1, range2) => {
-      if (range1.start > range2.start + (range2.end - range2.start)) return false
-        if (range2.start > range1.start + (range1.end - range1.start)) return false
-          const isSelected = ((Math.abs(range1.start - range1.end) > 0) && (Math.abs(range2.start - range2.end) > 0))
-          if ((range1.start === range2.end) || (range1.end === range2.start) && isSelected) return false
-            return true
+      if (range1.start === range1.end) { // treat a zero length range inside of another range as intersecting
+        return range1.start > range2.start && range1.start < range2.end
+      } else if (range2.start === range2.end) {
+        return range2.start > range1.start && range2.start < range1.end
+      } else {
+        return Math.max(range1.start, range2.start) < Math.min(range1.end, range2.end)
+      }
     }
 
     const getSelectionRange = (doc) => {
@@ -249,16 +250,11 @@
       return tagRanges.filter(isTagRangeComplete)
     }
 
-    var lastLineTokensCount = 0
-
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
       const lineTokens = enrichedLineTokens(doc, selectionRange.line)
-      lastLineTokensCount = lineTokens.length
-
       let result = []
-
 
       // Determine which html tag buttons are selected.
       
@@ -362,8 +358,10 @@
       if (shouldDisableClearFormattingButton(doc)) {
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
-
-      if (lastLineTokensCount > 0) {
+      const selectionRange = RangeHelper.getItemRangeFromSelection(editor)
+      const allMarkupItems = RangeHelper.markupItemsForItemRangeLines(editor, selectionRange)
+      const markupItems = RangeHelper.getMarkupItemsIntersectingSelection(editor, allMarkupItems, selectionRange)
+      if (markupItems.length !== 0) {
         buttonsToDisable.push(buttonPayload('media'))
       }
 
@@ -412,7 +410,7 @@
     }
   
     const scaleBodyText = (textSizeAdjustment) => {
-      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+      document.body.style['font-size'] = (textSizeAdjustment/100.0) + 'em'
     }
     
     let cursorActivityScrollTimer
@@ -1067,9 +1065,15 @@
       clearFormatting: () => {
         RangeHelper.rangeClearFormatting.clearFormatting(editor)
       },
-      replaceSelection: (text) => {
-        editor.replaceSelection(text)
-      }
+      replaceSelection: (text) => editor.replaceSelection(text),
+      lineInfo: () => {
+        const cursorPosition = editor.getCursor('anchor')
+        return {
+          hasLineTokens: editor.getLineTokens(cursorPosition.line).length > 0,
+          isAtLineEnd: editor.getLine(cursorPosition.line).length === cursorPosition.ch
+        }
+      },
+      newlineAndIndent: () => editor.execCommand('newlineAndIndent')
     }
 
     // TODO: Import js/elementLocation ?
