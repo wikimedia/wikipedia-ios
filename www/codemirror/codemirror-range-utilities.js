@@ -1,6 +1,5 @@
 const ItemRange = require('./codemirror-range-objects').ItemRange
 const ItemLocation = require('./codemirror-range-objects').ItemLocation
-const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
 
 const getItemRangeFromSelection = (codeMirror) => {
   const fromCursor = codeMirror.getCursor('from')
@@ -23,21 +22,6 @@ const getMarkupItemsIntersectingSelection = (codeMirror, markupItems, selectionR
 
 const getButtonNamesFromMarkupItems = (markupItems) => markupItems.map(item => item.buttonName)
 
-const buttonNamesInSelectionRange = (codeMirror, selectionRange) => {
-  const markupItems = markupItemsForItemRangeLines(codeMirror, selectionRange)
-  const markupItemsIntersectingSelection = getMarkupItemsIntersectingSelection(codeMirror, markupItems, selectionRange)
-  const buttonNames = getButtonNamesFromMarkupItems(markupItemsIntersectingSelection)
-  return buttonNames
-}
-
-const buttonNamesInCurrentSelectionRange = codeMirror => {
-  let selectionRange = getItemRangeFromSelection(codeMirror)
-  if (selectionRange.isZeroLength()) {
-    return []
-  }
-  return buttonNamesInSelectionRange(codeMirror, selectionRange)
-}
-
 /*
 TODO: add generic (non-regex or otherwise string aware) functional methods here for: 
 - unwrapping existing markup item (i.e. turning off something like bold)
@@ -49,4 +33,3 @@ TODO: add generic (non-regex or otherwise string aware) functional methods here 
 exports.getItemRangeFromSelection = getItemRangeFromSelection
 exports.getMarkupItemsIntersectingSelection = getMarkupItemsIntersectingSelection
 exports.getButtonNamesFromMarkupItems = getButtonNamesFromMarkupItems
-exports.buttonNamesInCurrentSelectionRange = buttonNamesInCurrentSelectionRange
