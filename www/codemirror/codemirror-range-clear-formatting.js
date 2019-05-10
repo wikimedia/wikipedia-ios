@@ -1,14 +1,13 @@
 const getItemRangeFromSelection = require('./codemirror-range-utilities').getItemRangeFromSelection
 const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilities').getMarkupItemsIntersectingSelection
 const markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
+const buttonNamesInCurrentSelectionRange = require('./codemirror-range-utilities').buttonNamesInCurrentSelectionRange
 
 const canClearFormatting = (codeMirror) => {
-  let selectionRange = getItemRangeFromSelection(codeMirror)
-  if (selectionRange.isZeroLength()) {
+  const buttonNames = buttonNamesInCurrentSelectionRange(codeMirror)
+  if (buttonNames.length == 0) {
     return false
   }
-
-  const buttonNames = buttonNamesInSelectionRange(codeMirror, selectionRange)
   if (buttonNames.includes('reference') || buttonNames.includes('template') || buttonNames.includes('template-argument') || buttonNames.includes('template-name') || buttonNames.includes('template-delimiter')) {
     return false
   }
