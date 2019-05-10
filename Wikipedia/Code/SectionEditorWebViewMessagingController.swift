@@ -185,7 +185,6 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case italic
         case reference
         case template
-        case anchor
         case indent
         case signature
         case orderedList
@@ -252,10 +251,6 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
     func toggleTemplateSelection() {
         execCommand(for: .template)
-    }
-
-    func toggleAnchorSelection() {
-        execCommand(for: .anchor)
     }
 
     struct Link {

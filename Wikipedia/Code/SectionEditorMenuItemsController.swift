@@ -74,7 +74,7 @@ extension SectionEditorMenuItemsController: SectionEditorMenuItemsDelegate {
     }
 
     func sectionEditorWebViewDidTapLink(_ sectionEditorWebView: SectionEditorWebView) {
-        messagingController.toggleAnchorSelection()
+        #warning("Use new link")
     }
 
     func sectionEditorWebViewDidTapTemplate(_ sectionEditorWebView: SectionEditorWebView) {
