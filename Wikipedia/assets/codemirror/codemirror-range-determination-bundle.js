@@ -856,4 +856,5 @@ TODO: add generic (non-regex or otherwise string aware) functional methods here 
 exports.getItemRangeFromSelection = getItemRangeFromSelection
 exports.getMarkupItemsIntersectingSelection = getMarkupItemsIntersectingSelection
 exports.getButtonNamesFromMarkupItems = getButtonNamesFromMarkupItems
+
 },{"./codemirror-range-objects":7}]},{},[1,2,3,4,5,6,7,8,9]);
