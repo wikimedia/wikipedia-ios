@@ -148,9 +148,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     func resetFormattingAndStyleSubmenus() {
-        guard
-            inputViewType != nil
-        else {
+        guard inputViewType != nil else {
             return
         }
         inputViewType = nil
