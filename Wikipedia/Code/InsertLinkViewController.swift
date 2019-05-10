@@ -4,6 +4,7 @@ protocol InsertLinkViewControllerDelegate: AnyObject {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem)
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?)
 }
+
 class InsertLinkViewController: UIViewController {
     weak var delegate: InsertLinkViewControllerDelegate?
     private var theme = Theme.standard
