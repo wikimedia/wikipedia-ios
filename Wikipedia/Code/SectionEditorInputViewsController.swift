@@ -91,13 +91,8 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         else {
             return nil
         }
-        switch inputViewType {
-        case .textStyle:
-            fallthrough
-        case .textFormatting:
-            textFormattingInputViewController.inputViewType = inputViewType
-            return textFormattingInputViewController
-        }
+        textFormattingInputViewController.inputViewType = inputViewType
+        return textFormattingInputViewController
     }
 
     enum InputAccessoryViewType {
