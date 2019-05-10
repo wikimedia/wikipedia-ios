@@ -4,8 +4,8 @@ import SafariServices
 fileprivate class FlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
-        minimumInteritemSpacing = 8
-        minimumLineSpacing = 32
+        minimumInteritemSpacing = 12
+        minimumLineSpacing = 38
         sectionInsetReference = .fromContentInset
     }
 
@@ -30,7 +30,7 @@ fileprivate class FlowLayout: UICollectionViewFlowLayout {
             return
         }
         let countOfColumns: CGFloat = 3
-        sectionInset = UIEdgeInsets(top: 0, left: minimumInteritemSpacing + collectionView.layoutMargins.left - collectionView.contentInset.left, bottom: 0, right: collectionView.layoutMargins.right  - collectionView.contentInset.right + minimumInteritemSpacing)
+        sectionInset = UIEdgeInsets(top: 12, left: minimumInteritemSpacing + collectionView.layoutMargins.left - collectionView.contentInset.left, bottom: 0, right: collectionView.layoutMargins.right  - collectionView.contentInset.right + minimumInteritemSpacing)
         let availableWidth = collectionView.bounds.width - minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - sectionInset.left - sectionInset.right
         let dimension = floor(availableWidth / countOfColumns)
         itemSize = CGSize(width: dimension, height: dimension)
@@ -86,6 +86,16 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
             assert(Thread.isMainThread)
             reload()
         }
+    }
+
+    var selectedImage: UIImage? {
+        guard
+            let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
+            let cell = collectionView.cellForItem(at: selectedIndexPath) as? InsertMediaSearchResultCollectionViewCell
+        else {
+            return nil
+        }
+        return cell.imageView.image
     }
 
     init() {

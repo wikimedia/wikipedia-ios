@@ -105,7 +105,6 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorColor = theme.colors.border
     }
-
 }
 
 // MARK: - Table view data source

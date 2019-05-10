@@ -3,7 +3,7 @@ import UIKit
 final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var headingLabel: UILabel!
-    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var titleButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private weak var separatorView: UIView!
 
     var image: UIImage? {
@@ -20,9 +20,12 @@ final class InsertMediaSettingsImageView: UIView {
 
     var title: String? {
         didSet {
-            titleLabel.text = title
+            titleButton.setTitle(title, for: .normal)
         }
     }
+
+    var titleURL: URL?
+    var titleAction: ((URL) -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,14 +34,21 @@ final class InsertMediaSettingsImageView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        headingLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        titleButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         headingLabel.preferredMaxLayoutWidth = headingLabel.bounds.width
-        titleLabel.preferredMaxLayoutWidth = titleLabel.bounds.width
+    }
+
+    @IBAction private func performTitleAction(_ sender: UIButton) {
+        guard let url = titleURL else {
+            assertionFailure("titleURL should be set by now")
+            return
+        }
+        titleAction?(url)
     }
 }
 
@@ -46,7 +56,7 @@ extension InsertMediaSettingsImageView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
-        titleLabel.textColor = theme.colors.link
+        titleButton.setTitleColor(theme.colors.link, for: .normal)
         separatorView.backgroundColor = theme.colors.border
     }
 }
