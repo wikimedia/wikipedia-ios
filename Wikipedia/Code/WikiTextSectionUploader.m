@@ -4,6 +4,55 @@
 
 @implementation WikiTextSectionUploader
 
+- (void)addSectionWithSummary:(NSString *)summary
+                text:(NSString *)text
+         forArticleURL:(NSURL *)articleURL
+            completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
+    
+    NSString *title = articleURL.wmf_title;
+    if (!title) {
+        completion(nil, [WMFFetcher invalidParametersError]);
+        return;
+    }
+    
+    NSMutableDictionary *params =
+    @{
+      @"action": @"edit",
+      @"text": text,
+      @"summary": summary,
+      @"section": @"new",
+      @"title": articleURL.wmf_title,
+      @"format": @"json"
+      }
+    .mutableCopy;
+    
+    [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
+}
+
+- (void)appendToSection:(NSString *)section
+                         text:(NSString *)text
+                forArticleURL:(NSURL *)articleURL
+                   completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
+    
+    NSString *title = articleURL.wmf_title;
+    if (!title) {
+        completion(nil, [WMFFetcher invalidParametersError]);
+        return;
+    }
+    
+    NSMutableDictionary *params =
+    @{
+      @"action": @"edit",
+      @"appendtext": text,
+      @"section": section,
+      @"title": articleURL.wmf_title,
+      @"format": @"json"
+      }
+    .mutableCopy;
+    
+    [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
+}
+
 - (void)uploadWikiText:(nullable NSString *)wikiText
          forArticleURL:(NSURL *)articleURL
                section:(NSString *)section
@@ -46,10 +95,15 @@
         params[@"captchaid"] = captchaId;
         params[@"captchaword"] = captchaWord;
     }
+    
+    [self updateWithArticleURL:articleURL parameters:params captchaWord:captchaWord completion:completion];
+}
+
+- (void)updateWithArticleURL: (NSURL *)articleURL parameters: (NSDictionary<NSString *, NSString *> *)parameters captchaWord: (nullable NSString *)captchaWord completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
     
-    [self performMediaWikiAPIPOSTWithCSRFTokenForURL:articleURL withBodyParameters:params completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
+    [self performMediaWikiAPIPOSTWithCSRFTokenForURL:articleURL withBodyParameters:parameters completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         if (networkError) {

@@ -14,6 +14,7 @@ class TalkPageContainerViewController: ViewController {
     
     private var talkPageController: TalkPageController!
     private var replyTransitioningDelegate: ReplyTransitioningDelegate!
+    private var listVC: TalkPageReplyListViewController?
     
     required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
@@ -98,14 +99,38 @@ class TalkPageContainerViewController: ViewController {
 }
 
 extension TalkPageContainerViewController: TalkPageUpdateDelegate {
-    func tappedPublish(viewController: TalkPageUpdateViewController) {
+    func tappedPublish(updateType: TalkPageUpdateViewController.UpdateType, subject: String?, body: String, viewController: TalkPageUpdateViewController) {
+        
         switch viewController.updateType {
         case .newDiscussion:
             navigationController?.popViewController(animated: true)
-        case .newReply:
+            
+            guard let subject = subject,
+            let talkPage = talkPage else {
+                return
+            }
+            
+            talkPageController.addDiscussion(to: talkPage, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { (result) in
+                switch result {
+                case .success:
+                    print("made it")
+                case .failure:
+                    print("failure")
+                }
+            }
+        case .newReply(let discussion):
+            listVC?.willDismiss()
             dismiss(animated: true, completion: nil)
+            
+            talkPageController.addReply(to: discussion, title: talkPageTitle, host: host, languageCode: languageCode, body: body) { (result) in
+                switch result {
+                case .success:
+                    print("made it")
+                case .failure:
+                    print("failure")
+                }
+            }
         }
-        
     }
 }
 
@@ -128,7 +153,7 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         let prefix = TalkPageType.user.prefix
         let underscoredPrefix = prefix.replacingOccurrences(of: " ", with: "_")
         let title = lastPathComponent.replacingOccurrences(of: underscoredPrefix, with: "")
-        if lastPathComponent.contains(underscoredPrefix) && languageCode == "en" {
+        if lastPathComponent.contains(underscoredPrefix) && languageCode == "test" {
             let talkPageContainerVC = TalkPageContainerViewController(title: title, host: host, languageCode: languageCode, titleIncludesPrefix: false, type: .user, dataStore: dataStore)
             talkPageContainerVC.apply(theme: theme)
             if presentedViewController != nil {
@@ -152,6 +177,8 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
             assertionFailure("TalkPage is not populated yet.")
             return
         }
+        
+        listVC = viewController
         
         let replyNewViewController = TalkPageUpdateViewController.init(talkPage: talkPage, type: .newReply(discussion: discussion))
         replyNewViewController.delegate = self

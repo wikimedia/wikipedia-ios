@@ -15,6 +15,7 @@ class TalkPageTestHelpers {
                 return """
                 {"topics": [
                 {
+                    "id": 0,
                     "text": "Would you please help me expand the Puppy cat article?",
                     "replies": [
                     {
@@ -33,6 +34,7 @@ class TalkPageTestHelpers {
                 return """
                     {"topics": [
                         {
+                            "id": 0,
                             "text": "Would you please help me expand the Puppy cat article?",
                             "replies": [
                                 {

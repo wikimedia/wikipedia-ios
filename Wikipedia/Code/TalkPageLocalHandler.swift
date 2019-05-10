@@ -76,6 +76,7 @@ class TalkPageLocalHandler {
             
             let discussion = TalkPageDiscussion(entity: entityDesc, insertInto: dataStore.viewContext)
             discussion.title = networkDiscussion.text
+            discussion.sectionID = Int64(networkDiscussion.sectionID)
             
             for networkItem in networkDiscussion.items {
                 

@@ -22,10 +22,12 @@ class NetworkBase: Codable {
 class NetworkDiscussion: Codable {
     let text: String
     let items: [NetworkDiscussionItem]
+    let sectionID: Int
     
     enum CodingKeys: String, CodingKey {
         case text
         case items = "replies"
+        case sectionID = "id"
     }
 }
 
@@ -51,16 +53,16 @@ enum TalkPageType {
     
     func urlTitle(for title: String, titleIncludesPrefix: Bool) -> String? {
         if !titleIncludesPrefix {
-            
-            let underscoredTitle = title.replacingOccurrences(of: " ", with: "_")
-            let underscoredPrefix = prefix.replacingOccurrences(of: " ", with: "_")
-            guard let percentEncodedTitle = (underscoredTitle as NSString).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
+
+            guard let underscoredTitle = title.wmf_denormalizedPageTitle(),
+                let underscoredPrefix = prefix.wmf_denormalizedPageTitle(),
+                let percentEncodedTitle = underscoredTitle.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
                 return nil
             }
             
             return underscoredPrefix + percentEncodedTitle
         } else {
-            return title.replacingOccurrences(of: " ", with: "_")
+            return title.wmf_denormalizedPageTitle()
         }
     }
     
@@ -75,6 +77,52 @@ enum TalkPageType {
 }
 
 class TalkPageFetcher: Fetcher {
+    
+    private let sectionUploader = WikiTextSectionUploader()
+    
+    func addDiscussion(to title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+        
+        guard let url = articleURL(for: title, host: host) else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        
+        sectionUploader.addSection(withSummary: subject, text: body, forArticleURL: url) { (result, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let result = result else {
+                completion(.failure(RequestError.unexpectedResponse))
+                return
+            }
+            
+            completion(.success(result))
+        }
+    }
+    
+    func addReply(to discussion: TalkPageDiscussion, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+        
+        guard let url = articleURL(for: title, host: host) else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        //todo: should sectionID in CoreData be string?
+        sectionUploader.append(toSection: String(discussion.sectionID), text: body, forArticleURL: url) { (result, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let result = result else {
+                completion(.failure(RequestError.unexpectedResponse))
+                return
+            }
+            
+            completion(.success(result))
+        }
+    }
     
     func taskURL(for urlTitle: String, host: String) -> URL? {
         return taskURL(for: urlTitle, host: host, revisionID: nil)
@@ -120,5 +168,12 @@ class TalkPageFetcher: Fetcher {
         }
         
         return taskURL
+    }
+    
+    private func articleURL(for urlTitle: String, host: String) -> URL? {
+        
+        //note: assuming here urlTitle has already been percent endcoded, prefixed & escaped
+        let components = configuration.articleURLForHost(host, appending: [urlTitle])
+        return components.url
     }
 }

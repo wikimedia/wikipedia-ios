@@ -98,7 +98,7 @@ class AccountViewController: SubSettingsViewController {
             
             //todo: smart host & language code
             if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername {
-                let talkPageContainerVC = TalkPageContainerViewController(title: username, host: "en.wikipedia.org", languageCode: "en", titleIncludesPrefix: false, type: .user, dataStore: dataStore)
+                let talkPageContainerVC = TalkPageContainerViewController(title: username, host: "test.wikipedia.org", languageCode: "test", titleIncludesPrefix: false, type: .user, dataStore: dataStore)
                 talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }

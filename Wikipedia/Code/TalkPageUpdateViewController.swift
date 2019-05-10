@@ -2,7 +2,7 @@
 import UIKit
 
 protocol TalkPageUpdateDelegate: class {
-    func tappedPublish(viewController: TalkPageUpdateViewController)
+    func tappedPublish(updateType: TalkPageUpdateViewController.UpdateType, subject: String?, body: String, viewController: TalkPageUpdateViewController)
 }
 
 class TalkPageUpdateViewController: ViewController {
@@ -153,7 +153,11 @@ class TalkPageUpdateViewController: ViewController {
     }
 
     @objc func tappedFakePublish() {
-        print("published")
+        guard let bodyText = bodyTextView.text else {
+            return
+        }
+        
+        delegate?.tappedPublish(updateType: updateType, subject: nil, body: bodyText, viewController: self)
     }
     
     private func calculateSingleLineBodyHeightIfNeeded() {
@@ -235,7 +239,12 @@ class TalkPageUpdateViewController: ViewController {
     }
     
     @objc func tappedPublish(_ sender: UIBarButtonItem) {
-        delegate?.tappedPublish(viewController: self)
+        guard let subjectText = subjectTextField.text,
+            let bodyText = bodyTextView.text else {
+                return
+        }
+        
+        delegate?.tappedPublish(updateType: .newDiscussion, subject: subjectText, body: bodyText, viewController: self)
     }
     
     override func apply(theme: Theme) {

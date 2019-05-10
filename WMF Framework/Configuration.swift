@@ -36,6 +36,7 @@ public class Configuration: NSObject {
     
     struct Path {
         static let wikiResource = "/wiki/"
+        static let wikiResourceComponent = ["wiki"]
         static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
     }
@@ -98,6 +99,13 @@ public class Configuration: NSObject {
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
+    
+    func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
+        var components = URLComponents()
+        components.host = host
+        components.scheme = Scheme.https
+        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.wikiResourceComponent)
+    }
 
     @objc(wikipediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
     public func wikipediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
@@ -118,6 +126,11 @@ public class Configuration: NSObject {
             return builder.components()
         }
         return builder.components(queryParameters: queryParameters)
+    }
+    
+    public func articleURLForHost(_ host: String, appending pathComponents: [String]) -> URLComponents {
+        let builder = articleURLComponentsBuilder(for: host)
+        return builder.components(byAppending: pathComponents)
     }
     
     public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
