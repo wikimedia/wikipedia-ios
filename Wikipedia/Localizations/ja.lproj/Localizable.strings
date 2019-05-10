@@ -240,6 +240,7 @@
 "editing-welcome-be-bold-title" = "あなたの声は重要です";
 "editing-welcome-citations-subtitle" = "内容はすべて検証可能である必要があります。記事に新しい情報を追加するとき、編集者は、その編集の直接の根拠となる情報源を行中に示す必要があります。";
 "editing-welcome-citations-title" = "信頼できる情報源を参照する";
+"editing-welcome-impartial-tone-subtitle" = "私たちは記事が偏りのない筆致で書かれるように尽力しています。編集する際には、信頼できる情報源がそう書いているように、公平な表現の世界になるように目指してください。";
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
@@ -416,6 +417,7 @@
 "insert-media-alternative-text-placeholder" = "この画像を説明する";
 "insert-media-alternative-text-title" = "代替テキスト";
 "insert-media-caption-caption-placeholder" = "この画像は記事にどのように関連していますか？";
+"insert-media-caption-description" = "すべての読者に向けた、アイテムの隣のラベル";
 "insert-media-caption-title" = "キャプション";
 "insert-media-image-position-setting-center" = "中央揃え";
 "insert-media-image-position-setting-left" = "左寄せ";
