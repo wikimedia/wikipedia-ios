@@ -31,7 +31,6 @@ class InsertLinkViewController: UIViewController {
         let searchViewController = SearchViewController()
         searchViewController.areRecentSearchesEnabled = false
         searchViewController.shouldBecomeFirstResponder = true
-        #warning("Inject dataStore")
         searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
         searchViewController.shouldShowCancelButton = false
         searchViewController.delegate = self
