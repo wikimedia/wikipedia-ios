@@ -362,7 +362,7 @@
         buttonsToDisable.push(buttonPayload('media'))
       }
 
-      if (!getInternalLink(markupItems)) {
+      if (!getLink(markupItems)) {
         buttonsToDisable.push(buttonPayload('link'))
       }
 
@@ -694,9 +694,9 @@
       }
     }
 
-    class InternalLink {
+    class Link {
       /**
-      * InternalLink constructor.
+      * Link constructor.
       * @param {!string} page
       * @param {?string} label
       * @param {!boolean} hasMarkup
@@ -707,17 +707,6 @@
         this.label = label
         this.hasMarkup = hasMarkup
         this.pagePosition = pagePosition
-      }
-    }
-
-    class ExternalLink {
-      /**
-      * ExternalLink constructor.
-      * @param {!InternalLink} internalLink
-      */
-      constructor(internalLink) {
-        this.page = internalLink.page
-        this.label = internalLink.label
       }
     }
 
@@ -737,13 +726,13 @@
       const page = textSplitByPipe[0]
       const label = textSplitByPipe[1]
       
-      return new InternalLink(page, label, true, pagePosition)
+      return new Link(page, label, true, pagePosition)
     }
 
     const linkFromWord = () => {
       const word = editor.findWordAt(editor.getCursor())
       const text = editor.getRange(word.anchor, word.head)
-      return new InternalLink(text, null, false, new LinkElementPosition(word.anchor, word.head))
+      return new Link(text, null, false, new LinkElementPosition(word.anchor, word.head))
     }
 
     const linkFromSelectionWrapInfo = () => {
@@ -798,7 +787,7 @@
       }
     }
 
-    const getInternalLink = (markupItems, keepInStateStore = true) => {
+    const getLink = (markupItems, keepInStateStore = true) => {
       const selection = editor.getSelection()
       const buttonNames = RangeHelper.rangeUtilities.getButtonNamesFromMarkupItems(markupItems)
       let link
@@ -810,12 +799,12 @@
         }
       } else {
         if (buttonNames.length === 0) {
-          link = new InternalLink(selection, null, false)
+          link = new Link(selection, null, false)
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
           link = linkFromSelectionWrapInfo()
         }
       }
-      stateStore.internalLink = link
+      stateStore.link = link
       return link
     }
     
@@ -1260,9 +1249,9 @@
         }
       },
       newlineAndIndent: () => editor.execCommand('newlineAndIndent'),
-      getLink: () => stateStore.internalLink,
+      getLink: () => stateStore.link,
       insertLink: (page, label) => {
-        const link = stateStore.internalLink
+        const link = stateStore.link
         if (!link) {
           console.warn("Attempting to insert link with no link in stateStore")
           return
