@@ -585,11 +585,15 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 print("TODO: No link")
                 return
             }
-            let insertLinkViewController = InsertLinkViewController()
-            insertLinkViewController.link = link
-            insertLinkViewController.delegate = self
-            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
-            self.present(navigationController, animated: true)
+            if link.exists {
+
+            } else {
+                let insertLinkViewController = InsertLinkViewController()
+                insertLinkViewController.link = link
+                insertLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+                self.present(navigationController, animated: true)
+            }
         }
     }
 }

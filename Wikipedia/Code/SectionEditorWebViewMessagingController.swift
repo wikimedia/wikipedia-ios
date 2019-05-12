@@ -256,14 +256,20 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     struct Link {
         let page: String
         let label: String?
+        let exists: Bool
 
-        init?(page: String?, label: String?) {
+        init?(page: String?, label: String?, exists: Bool?) {
             guard let page = page else {
                 assertionFailure("Attempting to create a Link without a page")
                 return nil
             }
+            guard let exists = exists else {
+                assertionFailure("Attempting to create a Link without information about whether it's an existing link")
+                return nil
+            }
             self.page = page
             self.label = label
+            self.exists = exists
         }
 
         var hasLabel: Bool {
@@ -282,7 +288,8 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
             }
             let page = link["page"] as? String
             let label = link["label"] as? String
-            completion(Link(page: page, label: label))
+            let exists = link["hasMarkup"] as? Bool
+            completion(Link(page: page, label: label, exists: exists))
         }
     }
 
