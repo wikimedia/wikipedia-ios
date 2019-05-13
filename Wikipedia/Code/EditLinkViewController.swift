@@ -69,7 +69,6 @@ class EditLinkViewController: UIInputViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchArticle()
-
     }
 
     private func fetchArticle() {
