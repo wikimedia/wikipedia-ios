@@ -586,7 +586,10 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 return
             }
             if link.exists {
-
+                let editLinkViewController = EditLinkViewController(nibName: "EditLinkViewController", bundle: nil)
+                editLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+                self.present(navigationController, animated: true)
             } else {
                 let insertLinkViewController = InsertLinkViewController()
                 insertLinkViewController.link = link
@@ -595,6 +598,20 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 self.present(navigationController, animated: true)
             }
         }
+    }
+}
+
+extension SectionEditorViewController: EditLinkViewControllerDelegate {
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        //
+    }
+
+    func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
+        //
     }
 }
 
