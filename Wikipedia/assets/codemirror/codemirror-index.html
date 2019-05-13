@@ -1294,6 +1294,25 @@
             editor.replaceRange(newPage, link.pagePosition.from, link.pagePosition.to)
           }
         }
+      },
+      removeLink: () => {
+        const link = stateStore.link
+        if (!link) {
+          console.warn("Attempting to remove link with no link in stateStore")
+          return
+        }
+        const linkPosition = link.linkPosition
+        if (!linkPosition) {
+          console.warn("Attempting to remove link with no linkPosition")
+          return
+        }
+        const openingMarkupPosition = new LinkElementPosition({line: linkPosition.from.line, ch: linkPosition.from.ch}, {line: linkPosition.from.line, ch: linkPosition.from.ch + 2})
+        const closingMarkupPosition = new LinkElementPosition({line: linkPosition.to.line, ch: linkPosition.to.ch - 4}, {line: linkPosition.to.line, ch: linkPosition.to.ch - 2})
+        const removeMarkup = () => {
+          editor.replaceRange("", openingMarkupPosition.from, openingMarkupPosition.to)
+          editor.replaceRange("", closingMarkupPosition.from, closingMarkupPosition.to)
+        }
+        editor.operation(removeMarkup)
       }
     }
 
