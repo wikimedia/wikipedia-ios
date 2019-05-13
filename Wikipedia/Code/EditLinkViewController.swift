@@ -12,7 +12,7 @@ class EditLinkViewController: ViewController {
     typealias Link = SectionEditorWebViewMessagingController.Link
     private let link: Link
     private let siteURL: URL
-    private let articleURL: URL
+    private var articleURL: URL
 
     private let articleCell = ArticleRightAlignedImageCollectionViewCell()
     // pass dataStore from SectionEditor
@@ -140,10 +140,12 @@ class EditLinkViewController: ViewController {
         searchViewController.areRecentSearchesEnabled = false
         searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
         searchViewController.shouldShowCancelButton = false
-        //searchViewController.delegate = self
+        searchViewController.delegate = self
         searchViewController.delegatesSelection = true
         searchViewController.showLanguageBar = false
         searchViewController.navigationItem.title = title
+        searchViewController.searchTerm = articleURL.wmf_title
+        searchViewController.search()
         navigationController?.pushViewController(searchViewController, animated: true)
     }
 
@@ -164,5 +166,11 @@ class EditLinkViewController: ViewController {
         doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
         linkTargetContainerViewActivityIndicatorView.style = theme.isDark ? .white : .gray
+    }
+}
+
+extension EditLinkViewController: ArticleCollectionViewControllerDelegate {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
+        self.articleURL = articleURL
     }
 }
