@@ -84,30 +84,30 @@
                                     <rect key="frame" x="0.0" y="637.5" width="414" height="179.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e65-0S-QsW" userLabel="Link Target Stack View">
-                                            <rect key="frame" x="15" y="15" width="384" height="149.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="179.5"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMj-P0-PsU" userLabel="Link Target Label View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="384" height="89.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="119.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link target" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ye-Mi-pQC">
-                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="89.5"/>
+                                                            <rect key="frame" x="15" y="15" width="384" height="104.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="8Ye-Mi-pQC" firstAttribute="leading" secondItem="RMj-P0-PsU" secondAttribute="leading" id="L9N-Rj-fLe"/>
+                                                        <constraint firstItem="8Ye-Mi-pQC" firstAttribute="leading" secondItem="RMj-P0-PsU" secondAttribute="leading" constant="15" id="L9N-Rj-fLe"/>
                                                         <constraint firstAttribute="bottom" secondItem="8Ye-Mi-pQC" secondAttribute="bottom" id="M58-E2-7F8"/>
-                                                        <constraint firstAttribute="trailing" secondItem="8Ye-Mi-pQC" secondAttribute="trailing" id="VSt-er-Yxb"/>
-                                                        <constraint firstItem="8Ye-Mi-pQC" firstAttribute="top" secondItem="RMj-P0-PsU" secondAttribute="top" id="f8S-Zi-THd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8Ye-Mi-pQC" secondAttribute="trailing" constant="15" id="VSt-er-Yxb"/>
+                                                        <constraint firstItem="8Ye-Mi-pQC" firstAttribute="top" secondItem="RMj-P0-PsU" secondAttribute="top" constant="15" id="f8S-Zi-THd"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ir-HM-Hne" userLabel="Container View">
-                                                    <rect key="frame" x="0.0" y="89.5" width="384" height="60"/>
+                                                    <rect key="frame" x="0.0" y="119.5" width="414" height="60"/>
                                                     <subviews>
                                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Z0L-Qp-ciJ">
-                                                            <rect key="frame" x="182" y="20" width="20" height="20"/>
+                                                            <rect key="frame" x="197" y="20" width="20" height="20"/>
                                                         </activityIndicatorView>
                                                     </subviews>
                                                     <constraints>
@@ -120,10 +120,10 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="e65-0S-QsW" firstAttribute="top" secondItem="gek-IY-dP7" secondAttribute="top" constant="15" id="2Ta-rr-5Tp"/>
-                                        <constraint firstAttribute="bottom" secondItem="e65-0S-QsW" secondAttribute="bottom" constant="15" id="H0G-Ch-SzB"/>
-                                        <constraint firstAttribute="trailing" secondItem="e65-0S-QsW" secondAttribute="trailing" constant="15" id="qkF-ov-APZ"/>
-                                        <constraint firstItem="e65-0S-QsW" firstAttribute="leading" secondItem="gek-IY-dP7" secondAttribute="leading" constant="15" id="wYO-NP-eUA"/>
+                                        <constraint firstItem="e65-0S-QsW" firstAttribute="top" secondItem="gek-IY-dP7" secondAttribute="top" id="2Ta-rr-5Tp"/>
+                                        <constraint firstAttribute="bottom" secondItem="e65-0S-QsW" secondAttribute="bottom" id="H0G-Ch-SzB"/>
+                                        <constraint firstAttribute="trailing" secondItem="e65-0S-QsW" secondAttribute="trailing" id="qkF-ov-APZ"/>
+                                        <constraint firstItem="e65-0S-QsW" firstAttribute="leading" secondItem="gek-IY-dP7" secondAttribute="leading" id="wYO-NP-eUA"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hzg-5Y-8CN" userLabel="Separator View">
