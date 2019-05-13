@@ -59,6 +59,7 @@ class EditLinkViewController: UIInputViewController {
         title = "Edit link"
         navigationItem.leftBarButtonItem = closeButton
         navigationItem.rightBarButtonItem = doneButton
+        displayTextView.textContainer.lineFragmentPadding = 0
         displayTextView.text = link.label
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
