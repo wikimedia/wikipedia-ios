@@ -133,16 +133,19 @@ class EditLinkViewController: ViewController {
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
         let searchViewController = SearchViewController()
-        searchViewController.areRecentSearchesEnabled = false
+        searchViewController.shouldSetTitleViewWhenRecentSearchesAreDisabled = false
+        searchViewController.shouldSetSearchVisible = false
         searchViewController.shouldBecomeFirstResponder = true
+        searchViewController.displayType = .backVisible
+        searchViewController.areRecentSearchesEnabled = false
         searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
         searchViewController.shouldShowCancelButton = false
         //searchViewController.delegate = self
         searchViewController.delegatesSelection = true
         searchViewController.showLanguageBar = false
-        self.navigationController?.pushViewController(searchViewController, animated: true)
+        searchViewController.navigationItem.title = title
+        navigationController?.pushViewController(searchViewController, animated: true)
     }
-}
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
