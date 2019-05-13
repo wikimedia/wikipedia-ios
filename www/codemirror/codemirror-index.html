@@ -701,21 +701,27 @@
       * @param {?string} label
       * @param {!boolean} hasMarkup
       * @param {!LinkElementPosition} pagePosition
+      * @param {!LinkElementPosition} linkPosition
       */
-      constructor(page, label, hasMarkup, pagePosition) {
+      constructor(page, label, hasMarkup, pagePosition, linkPosition) {
         this.page = page
         this.label = label
         this.hasMarkup = hasMarkup
         this.pagePosition = pagePosition
+        this.linkPosition = linkPosition
       }
     }
 
-    const linkFromTextBetweenAnchorMarkup = (text, pagePosition) => {
+    const linkFromTextBetweenAnchorMarkup = (text, pagePosition, linkPosition) => {
       if (!text) {
         return null
       }
       if (!pagePosition) {
         console.warn("Mising pagePosition in linkFromTextBetweenAnchorMarkup; pagePosition must be defined to construct a new Link")
+        return null
+      }
+      if (!linkPosition) {
+        console.warn("Mising linkPosition in linkFromTextBetweenAnchorMarkup; linkPosition must be defined to construct a new Link")
         return null
       }
       const textSplitByPipe = text.split("|")
@@ -726,7 +732,7 @@
       const page = textSplitByPipe[0]
       const label = textSplitByPipe[1]
       
-      return new Link(page, label, true, pagePosition)
+      return new Link(page, label, true, pagePosition, linkPosition)
     }
 
     const linkFromWord = () => {
@@ -742,7 +748,9 @@
       const markupLength = 2
 
       if (info.openDistance === 0 && info.closeDistance === 0) {
-        return linkFromTextBetweenAnchorMarkup(editor.getSelection(), new LinkElementPosition(anchor, head))
+        const pagePosition = new LinkElementPosition(anchor, head)
+        const linkPosition = new LinkElementPosition({line: from.line, ch: from.ch - markupLength}, {line: to.line, ch: to.ch + markupLength})
+        return linkFromTextBetweenAnchorMarkup(editor.getSelection(), pagePosition, linkPosition)
       } else {
         let from;
         let to;
@@ -780,7 +788,9 @@
 
         if (from && to) {
           const maybePipedText = editor.getRange(from, to)
-          return linkFromTextBetweenAnchorMarkup(maybePipedText, new LinkElementPosition(from, to))
+          const pagePosition = new LinkElementPosition(from, to)
+          const linkPosition = new LinkElementPosition({line: from.line, ch: from.ch - markupLength}, {line: to.line, ch: to.ch + markupLength})
+          return linkFromTextBetweenAnchorMarkup(maybePipedText, pagePosition, linkPosition)
         } else {
           return null
         }
