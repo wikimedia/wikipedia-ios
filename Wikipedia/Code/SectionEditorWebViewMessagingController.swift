@@ -227,6 +227,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case newlineAndIndent
         case getLink
         case insertOrEditLink
+        case removeLink
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -304,6 +305,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         let labelOrNull = label.flatMap { "\"\($0)\"" } ?? "null"
         let argument = "\"\(page)\", \(labelOrNull)".wmf_stringBySanitizingForBacktickDelimitedJavascript()
         execCommand(for: .insertOrEditLink, argument: argument)
+    }
+
+    func removeLink() {
+        execCommand(for: .removeLink)
     }
 
     func toggleIndentSelection() {
