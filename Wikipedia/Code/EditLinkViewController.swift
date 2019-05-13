@@ -65,6 +65,36 @@ class EditLinkViewController: UIInputViewController {
         apply(theme: theme)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchArticle()
+
+    }
+
+    private func fetchArticle() {
+        guard let article = dataStore.fetchArticle(with: articleURL) else {
+            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [articleURL]) { (articles, _) in
+                guard let first = articles.first else {
+                    return
+                }
+                self.updateView(with: first)
+            }
+            return
+        }
+        updateView(with: article)
+    }
+
+    private func updateView(with article: WMFArticle) {
+        articleCell.configure(article: article, displayType: .compactList, index: 0, theme: theme, layoutOnly: false)
+        articleCell.topSeparator.isHidden = true
+        articleCell.extractLabel?.numberOfLines = 5
+        articleCell.frame = view.bounds
+        articleCell.isHidden = false
+
+        linkTargetContainerViewActivityIndicatorView.stopAnimating()
+        view.setNeedsLayout()
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         displayTextLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
