@@ -193,6 +193,7 @@ class SectionEditorViewController: UIViewController {
             messagingController.webView = webView
             
             menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
+            menuItemsController.delegate = self
             webView.menuItemsDataSource = menuItemsController
             webView.menuItemsDelegate = menuItemsController
         }
@@ -580,7 +581,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         present(insertMediaViewController, animated: true)
     }
 
-    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+    func showLinkWizard() {
         guard let dataStore = dataStore else {
             return
         }
@@ -606,6 +607,16 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
             }
         }
     }
+
+    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+        showLinkWizard()
+    }
+}
+
+extension SectionEditorViewController: SectionEditorMenuItemsControllerDelegate {
+    func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController) {
+        showLinkWizard()
+    }
 }
 
 extension SectionEditorViewController: EditLinkViewControllerDelegate {
@@ -614,7 +625,6 @@ extension SectionEditorViewController: EditLinkViewControllerDelegate {
     }
 
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
-        #warning("Update naming to be consistent; displayText vs label, page vs linkTarget")
         messagingController.insertOrEditLink(page: linkTarget, label: displayText)
         dismiss(animated: true)
     }

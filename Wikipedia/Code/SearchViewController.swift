@@ -560,7 +560,6 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
         funnel.logSearchResultTap(at: indexPath.item, source: source)
-        #warning("Confirm if last search should be saved for Link Wiz")
         saveLastSearch()
         guard delegatesSelection else {
             return

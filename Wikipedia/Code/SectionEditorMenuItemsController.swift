@@ -11,6 +11,10 @@ protocol SectionEditorMenuItemsDelegate: class {
     func sectionEditorWebViewDidTapTemplate(_ sectionEditorWebView: SectionEditorWebView)
 }
 
+protocol SectionEditorMenuItemsControllerDelegate: AnyObject {
+    func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController)
+}
+
 class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSource {
     let messagingController: SectionEditorWebViewMessagingController
 
@@ -19,6 +23,8 @@ class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSour
         super.init()
         setEditMenuItems()
     }
+
+    weak var delegate: SectionEditorMenuItemsControllerDelegate?
 
     // Keep original menu items
     // so that we can bring them back
@@ -74,7 +80,7 @@ extension SectionEditorMenuItemsController: SectionEditorMenuItemsDelegate {
     }
 
     func sectionEditorWebViewDidTapLink(_ sectionEditorWebView: SectionEditorWebView) {
-        #warning("Use new link")
+        delegate?.sectionEditorMenuItemsControllerDidTapLink(self)
     }
 
     func sectionEditorWebViewDidTapTemplate(_ sectionEditorWebView: SectionEditorWebView) {
