@@ -592,6 +592,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 }
                 editLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+                navigationController.isNavigationBarHidden = true
                 self.present(navigationController, animated: true)
             } else {
                 let insertLinkViewController = InsertLinkViewController()

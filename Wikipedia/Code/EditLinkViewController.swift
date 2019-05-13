@@ -6,7 +6,7 @@ protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController)
 }
 
-class EditLinkViewController: UIInputViewController {
+class EditLinkViewController: ViewController {
     weak var delegate: EditLinkViewControllerDelegate?
 
     typealias Link = SectionEditorWebViewMessagingController.Link
@@ -14,13 +14,12 @@ class EditLinkViewController: UIInputViewController {
     private let siteURL: URL
     private let articleURL: URL
 
-    private var theme = Theme.standard
-
     private let articleCell = ArticleRightAlignedImageCollectionViewCell()
     // pass dataStore from SectionEditor
     private let dataStore = SessionSingleton.sharedInstance()!.dataStore!
 
     @IBOutlet private weak var contentView: UIView!
+    @IBOutlet private weak var contentViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var displayTextLabel: UILabel!
     @IBOutlet private weak var displayTextView: UITextView!
     @IBOutlet private weak var linkTargetLabel: UILabel!
@@ -56,9 +55,11 @@ class EditLinkViewController: UIInputViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBar.displayType = .modal
         title = "Edit link"
         navigationItem.leftBarButtonItem = closeButton
         navigationItem.rightBarButtonItem = doneButton
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
         var textContainerInset = displayTextView.textContainerInset
         textContainerInset.top = 15
         displayTextView.textContainerInset = textContainerInset
@@ -110,6 +111,11 @@ class EditLinkViewController: UIInputViewController {
         delegate?.editLinkViewController(self, didTapCloseButton: sender)
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contentViewTopConstraint.constant = navigationBar.visibleHeight
+    }
+
     @objc private func finishEditing(_ sender: UIBarButtonItem) {
         let displayText = displayTextView.text
         // get link target from article cell
@@ -138,8 +144,8 @@ class EditLinkViewController: UIInputViewController {
     }
 }
 
-extension EditLinkViewController: Themeable {
-    func apply(theme: Theme) {
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         self.theme = theme
         guard viewIfLoaded != nil else {
             return
