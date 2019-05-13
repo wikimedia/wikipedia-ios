@@ -16,6 +16,10 @@ class EditLinkViewController: UIInputViewController {
 
     private var theme = Theme.standard
 
+    private let articleCell = ArticleRightAlignedImageCollectionViewCell()
+    // pass dataStore from SectionEditor
+    private let dataStore = SessionSingleton.sharedInstance()!.dataStore!
+
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var displayTextLabel: UILabel!
     @IBOutlet private weak var displayTextView: UITextView!
