@@ -5,9 +5,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.displayType = .largeTitle
+        navigationBar.displayType = displayType
         title = CommonStrings.searchTitle
-        if !areRecentSearchesEnabled {
+        if !areRecentSearchesEnabled, shouldSetTitleViewWhenRecentSearchesAreDisabled {
             navigationItem.titleView = UIView()
         }
         navigationBar.isTitleShrinkingEnabled = true
@@ -65,6 +65,10 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     @objc var areRecentSearchesEnabled: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
+
+    var displayType: NavigationBarDisplayType = .largeTitle
+    var shouldSetSearchVisible: Bool = true
+    var shouldSetTitleViewWhenRecentSearchesAreDisabled: Bool = true
 
     var shouldShowCancelButton: Bool = true
     var delegatesSelection: Bool = false {
@@ -356,7 +360,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         guard !isAnimatingSearchBarState else {
             return false
         }
-        setSearchVisible(true, animated: shouldAnimateSearchBar)
+        if shouldSetSearchVisible {
+            setSearchVisible(true, animated: shouldAnimateSearchBar)
+        }
         return true
     }
 
@@ -373,7 +379,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         
         if didClickSearchButton {
             didClickSearchButton = false
-        } else {
+        } else if shouldSetSearchVisible {
             setSearchVisible(false, animated: shouldAnimateSearchBar)
         }
         
