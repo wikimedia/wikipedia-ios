@@ -615,7 +615,8 @@ extension SectionEditorViewController: EditLinkViewControllerDelegate {
     }
 
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
-        //
+        messagingController.removeLink()
+        dismiss(animated: true)
     }
 }
 
