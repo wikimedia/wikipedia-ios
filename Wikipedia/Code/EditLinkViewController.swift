@@ -8,6 +8,12 @@ protocol EditLinkViewControllerDelegate: AnyObject {
 
 class EditLinkViewController: UIInputViewController {
     weak var delegate: EditLinkViewControllerDelegate?
+
+    typealias Link = SectionEditorWebViewMessagingController.Link
+    private let link: Link
+    private let siteURL: URL
+    private let articleURL: URL
+
     private var theme = Theme.standard
 
     @IBOutlet private weak var contentView: UIView!
@@ -26,6 +32,22 @@ class EditLinkViewController: UIInputViewController {
     }()
 
     private lazy var doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(finishEditing(_:)))
+    init?(link: Link, siteURL: URL?) {
+        guard
+            let siteURL = siteURL,
+            let articleURL = link.articleURL(for: siteURL)
+        else {
+            return nil
+        }
+        self.link = link
+        self.siteURL = siteURL
+        self.articleURL = articleURL
+        super.init(nibName: "EditLinkViewController", bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

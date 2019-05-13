@@ -586,7 +586,10 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 return
             }
             if link.exists {
-                let editLinkViewController = EditLinkViewController(nibName: "EditLinkViewController", bundle: nil)
+                let siteURL = self.section?.article?.url.wmf_site ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL) else {
+                    return
+                }
                 editLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
                 self.present(navigationController, animated: true)
