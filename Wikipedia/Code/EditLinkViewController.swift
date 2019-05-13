@@ -31,7 +31,8 @@ class EditLinkViewController: UIInputViewController {
         return closeButton
     }()
 
-    private lazy var doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(finishEditing(_:)))
+    private lazy var doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(finishEditing(_:)))
+
     init?(link: Link, siteURL: URL?) {
         guard
             let siteURL = siteURL,
