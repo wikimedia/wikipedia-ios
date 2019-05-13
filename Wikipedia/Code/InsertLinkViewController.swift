@@ -46,20 +46,12 @@ class InsertLinkViewController: UIViewController {
         let navigationController = WMFThemeableNavigationController(rootViewController: searchViewController)
         navigationController.isNavigationBarHidden = true
         wmf_add(childController: navigationController, andConstrainToEdgesOfContainerView: view)
-        addTopShadow()
         apply(theme: theme)
-    }
-
-    private func addTopShadow() {
-        view.layer.shadowOffset = CGSize(width: 0, height: -2)
-        view.layer.shadowRadius = 10
-        view.layer.shadowOpacity = 1.0
     }
 
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
         delegate?.insertLinkViewController(self, didTapCloseButton: sender)
     }
-
 }
 
 extension InsertLinkViewController: ArticleCollectionViewControllerDelegate {
