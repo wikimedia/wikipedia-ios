@@ -15,6 +15,7 @@ class EditLinkViewController: UIInputViewController {
     @IBOutlet private weak var displayTextView: UITextView!
     @IBOutlet private weak var linkTargetLabel: UILabel!
     @IBOutlet private weak var linkTargetContainerView: UIView!
+    @IBOutlet private weak var linkTargetContainerViewActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var removeLinkButton: UIButton!
     @IBOutlet private var separatorViews: [UIView] = []
 
@@ -74,5 +75,6 @@ extension EditLinkViewController: Themeable {
         closeButton.tintColor = theme.colors.primaryText
         doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
+        linkTargetContainerViewActivityIndicatorView.style = theme.isDark ? .white : .gray
     }
 }
