@@ -126,6 +126,15 @@ class EditLinkViewController: UIInputViewController {
     }
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
+        let searchViewController = SearchViewController()
+        searchViewController.areRecentSearchesEnabled = false
+        searchViewController.shouldBecomeFirstResponder = true
+        searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
+        searchViewController.shouldShowCancelButton = false
+        //searchViewController.delegate = self
+        searchViewController.delegatesSelection = true
+        searchViewController.showLanguageBar = false
+        self.navigationController?.pushViewController(searchViewController, animated: true)
     }
 }
 
