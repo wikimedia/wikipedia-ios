@@ -1263,7 +1263,7 @@
       insertOrEditLink: (page, label) => {
         const link = stateStore.link
         if (!link) {
-          console.warn("Attempting to insert link with no link in stateStore")
+          console.warn("Attempting to insert or edit link with no link in stateStore")
           return
         }
         const position = link.pagePosition
