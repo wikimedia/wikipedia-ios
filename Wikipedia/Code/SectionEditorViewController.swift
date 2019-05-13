@@ -10,7 +10,8 @@ class SectionEditorViewController: UIViewController {
     
     @objc var section: MWKSection?
     @objc var selectedTextEditInfo: SelectedTextEditInfo?
-    
+    @objc var dataStore: MWKDataStore?
+
     private var webView: SectionEditorWebView!
     private let sectionFetcher = WikiTextSectionFetcher()
     
@@ -580,6 +581,9 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
     }
 
     func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+        guard let dataStore = dataStore else {
+            return
+        }
         messagingController.getLink { link in
             guard let link = link else {
                 print("TODO: No link")
@@ -587,7 +591,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
             }
             if link.exists {
                 let siteURL = self.section?.article?.url.wmf_site ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
-                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL) else {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore) else {
                     return
                 }
                 editLinkViewController.delegate = self
@@ -595,8 +599,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 navigationController.isNavigationBarHidden = true
                 self.present(navigationController, animated: true)
             } else {
-                let insertLinkViewController = InsertLinkViewController()
-                insertLinkViewController.link = link
+                let insertLinkViewController = InsertLinkViewController(link: link, dataStore: dataStore)
                 insertLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
                 self.present(navigationController, animated: true)
@@ -611,12 +614,17 @@ extension SectionEditorViewController: EditLinkViewControllerDelegate {
     }
 
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        #warning("Update naming to be consistent; displayText vs label, page vs linkTarget")
         messagingController.insertOrEditLink(page: linkTarget, label: displayText)
         dismiss(animated: true)
     }
 
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
         messagingController.removeLink()
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
         dismiss(animated: true)
     }
 }

@@ -3,6 +3,7 @@ import UIKit
 protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem)
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String)
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL)
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController)
 }
 
@@ -15,16 +16,16 @@ class EditLinkViewController: ViewController {
     private var articleURL: URL
 
     private let articleCell = ArticleRightAlignedImageCollectionViewCell()
-    // pass dataStore from SectionEditor
-    private let dataStore = SessionSingleton.sharedInstance()!.dataStore!
+    private let dataStore: MWKDataStore
 
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var contentViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var displayTextLabel: UILabel!
     @IBOutlet private weak var displayTextView: UITextView!
+    @IBOutlet private weak var displayTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var linkTargetLabel: UILabel!
     @IBOutlet private weak var linkTargetContainerView: UIView!
-    @IBOutlet private weak var linkTargetContainerViewActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var removeLinkButton: UIButton!
     @IBOutlet private var separatorViews: [UIView] = []
 
@@ -36,7 +37,7 @@ class EditLinkViewController: ViewController {
 
     private lazy var doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(finishEditing(_:)))
 
-    init?(link: Link, siteURL: URL?) {
+    init?(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
         guard
             let siteURL = siteURL,
             let articleURL = link.articleURL(for: siteURL)
@@ -46,6 +47,7 @@ class EditLinkViewController: ViewController {
         self.link = link
         self.siteURL = siteURL
         self.articleURL = articleURL
+        self.dataStore = dataStore
         super.init(nibName: "EditLinkViewController", bundle: nil)
     }
 
@@ -92,10 +94,10 @@ class EditLinkViewController: ViewController {
         articleCell.configure(article: article, displayType: .compactList, index: 0, theme: theme, layoutOnly: false)
         articleCell.topSeparator.isHidden = true
         articleCell.extractLabel?.numberOfLines = 5
-        articleCell.frame = view.bounds
+        articleCell.frame = linkTargetContainerView.bounds
         articleCell.isHidden = false
 
-        linkTargetContainerViewActivityIndicatorView.stopAnimating()
+        activityIndicatorView.stopAnimating()
         view.setNeedsLayout()
     }
 
@@ -114,14 +116,14 @@ class EditLinkViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         contentViewTopConstraint.constant = navigationBar.visibleHeight
+        displayTextViewHeightConstraint.constant = displayTextView.sizeThatFits(CGSize(width: displayTextView.bounds.width, height: UIView.noIntrinsicMetric)).height
     }
 
     @objc private func finishEditing(_ sender: UIBarButtonItem) {
         let displayText = displayTextView.text
-        // get link target from article cell
         guard let linkTarget = articleURL.wmf_title else {
             assertionFailure("Failed to extract article title from url: \(articleURL)")
-            // TODO Handle
+            delegate?.editLinkViewController(self, didFailToExtractArticleTitleFromArticleURL: articleURL)
             return
         }
         delegate?.editLinkViewController(self, didFinishEditingLink: displayText, linkTarget: linkTarget)
@@ -146,6 +148,7 @@ class EditLinkViewController: ViewController {
         searchViewController.navigationItem.title = title
         searchViewController.searchTerm = articleURL.wmf_title
         searchViewController.search()
+        searchViewController.apply(theme: theme)
         navigationController?.pushViewController(searchViewController, animated: true)
     }
 
@@ -165,7 +168,7 @@ class EditLinkViewController: ViewController {
         closeButton.tintColor = theme.colors.primaryText
         doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
-        linkTargetContainerViewActivityIndicatorView.style = theme.isDark ? .white : .gray
+        activityIndicatorView.style = theme.isDark ? .white : .gray
     }
 }
 

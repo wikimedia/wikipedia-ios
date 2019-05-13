@@ -8,17 +8,18 @@ protocol InsertLinkViewControllerDelegate: AnyObject {
 class InsertLinkViewController: UIViewController {
     weak var delegate: InsertLinkViewControllerDelegate?
     private var theme = Theme.standard
-
+    private let dataStore: MWKDataStore
     typealias Link = SectionEditorWebViewMessagingController.Link
+    private let link: Link
 
-    var link: Link? {
-        didSet {
-            guard let link = link else {
-                return
-            }
-            searchViewController.searchTerm = link.page
-            searchViewController.search()
-        }
+    init(link: Link, dataStore: MWKDataStore) {
+        self.link = link
+        self.dataStore = dataStore
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private lazy var closeButton: UIBarButtonItem = {
@@ -29,6 +30,8 @@ class InsertLinkViewController: UIViewController {
 
     private lazy var searchViewController: SearchViewController = {
         let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.searchTerm = link.page
         searchViewController.areRecentSearchesEnabled = false
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.dataStore = SessionSingleton.sharedInstance()?.dataStore
@@ -36,6 +39,7 @@ class InsertLinkViewController: UIViewController {
         searchViewController.delegate = self
         searchViewController.delegatesSelection = true
         searchViewController.showLanguageBar = false
+        searchViewController.search()
         return searchViewController
     }()
 
@@ -72,5 +76,6 @@ extension InsertLinkViewController: Themeable {
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
         closeButton.tintColor = theme.colors.primaryText
+        searchViewController.apply(theme: theme)
     }
 }
