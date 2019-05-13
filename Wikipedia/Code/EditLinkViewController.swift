@@ -24,12 +24,7 @@ class EditLinkViewController: UIInputViewController {
         return closeButton
     }()
 
-    private lazy var doneButton: UIBarButtonItem = {
-        // move "Done" to CommonStrings
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(finishEditing(_:)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return closeButton
-    }()
+    private lazy var doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(finishEditing(_:)))
 
     override func viewDidLoad() {
         super.viewDidLoad()
