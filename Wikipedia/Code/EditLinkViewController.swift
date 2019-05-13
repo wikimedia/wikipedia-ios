@@ -110,7 +110,11 @@ class EditLinkViewController: UIInputViewController {
     @objc private func finishEditing(_ sender: UIBarButtonItem) {
         let displayText = displayTextView.text
         // get link target from article cell
-        let linkTarget = "TEST"
+        guard let linkTarget = articleURL.wmf_title else {
+            assertionFailure("Failed to extract article title from url: \(articleURL)")
+            // TODO Handle
+            return
+        }
         delegate?.editLinkViewController(self, didFinishEditingLink: displayText, linkTarget: linkTarget)
     }
 
