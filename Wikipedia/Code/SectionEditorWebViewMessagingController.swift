@@ -275,6 +275,13 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         var hasLabel: Bool {
             return label != nil
         }
+
+        func articleURL(for siteURL: URL) -> URL? {
+            guard exists else {
+                return nil
+            }
+            return siteURL.wmf_URL(withTitle: page)
+        }
     }
 
     func getLink(completion: @escaping (Link?) -> Void) {
