@@ -124,6 +124,9 @@ class EditLinkViewController: UIInputViewController {
     @IBAction private func removeLink(_ sender: UIButton) {
         delegate?.editLinkViewControllerDidRemoveLink(self)
     }
+
+    @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
+    }
 }
 
 extension EditLinkViewController: Themeable {

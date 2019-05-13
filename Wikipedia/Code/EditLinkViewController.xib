@@ -119,12 +119,16 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
+                                    <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstItem="e65-0S-QsW" firstAttribute="top" secondItem="gek-IY-dP7" secondAttribute="top" id="2Ta-rr-5Tp"/>
                                         <constraint firstAttribute="bottom" secondItem="e65-0S-QsW" secondAttribute="bottom" id="H0G-Ch-SzB"/>
                                         <constraint firstAttribute="trailing" secondItem="e65-0S-QsW" secondAttribute="trailing" id="qkF-ov-APZ"/>
                                         <constraint firstItem="e65-0S-QsW" firstAttribute="leading" secondItem="gek-IY-dP7" secondAttribute="leading" id="wYO-NP-eUA"/>
                                     </constraints>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="N2o-0y-Yue" appends="YES" id="Zs2-Da-7pz"/>
+                                    </connections>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hzg-5Y-8CN" userLabel="Separator View">
                                     <rect key="frame" x="0.0" y="817" width="414" height="1"/>
@@ -160,5 +164,10 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
+        <tapGestureRecognizer id="N2o-0y-Yue">
+            <connections>
+                <action selector="searchArticles:" destination="-1" id="pzS-B1-JX6"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>
