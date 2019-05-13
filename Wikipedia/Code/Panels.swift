@@ -126,7 +126,7 @@ class DescriptionPublishedPanelViewController: ScrollableEducationPanelViewContr
         image = UIImage(named: "description-published")
         heading = WMFLocalizedString("description-published-title", value: "Description published!", comment: "Title for letting the user know their description change succeeded.")
         subheading = WMFLocalizedString("description-published-subtitle", value:  "You just made Wikipedia better for everyone", comment: "Subtitle encouraging user to continue editing")
-        primaryButtonTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
+        primaryButtonTitle = CommonStrings.doneTitle
         footer = WMFLocalizedString("description-published-footer", value: "You can also edit articles within this app. Try fixing typos and small sentences by clicking on the pencil icon next time", comment: "Title for footer explaining articles may be edited too - not just descriptions.")
     }
 }
@@ -137,7 +137,7 @@ class EditPublishedPanelViewController: ScrollableEducationPanelViewController {
         image = UIImage(named: "description-published")
         heading = WMFLocalizedString("edit-published", value: "Edit published", comment: "Title edit published panel letting user know their edit was saved.")
         subheading = WMFLocalizedString("edit-published-subtitle", value: "You just made Wikipedia better for everyone", comment: "Subtitle for letting users know their edit improved Wikipedia.")
-        primaryButtonTitle = WMFLocalizedString("edit-published-button-title", value: "Done", comment: "Title for edit published panel done button.")
+        primaryButtonTitle = CommonStrings.doneTitle
     }
 }
 

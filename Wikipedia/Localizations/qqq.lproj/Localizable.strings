@@ -169,7 +169,6 @@
 "edit-ordered-list-accessibility-label" = "Accessibility label for ordered list button";
 "edit-ordered-list-remove-accessibility-label" = "Accessibility label for remove ordered list button";
 "edit-published" = "Title edit published panel letting user know their edit was saved.";
-"edit-published-button-title" = "Title for edit published panel done button.";
 "edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-reference-accessibility-label" = "Accessibility label for add reference syntax button";
 "edit-reference-remove-accessibility-label" = "Accessibility label for remove reference syntax button";
