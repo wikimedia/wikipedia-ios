@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditLinkViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="dHU-v9-p77" id="XRJ-e3-DIZ"/>
+                <outlet property="contentViewTopConstraint" destination="R9e-HH-YGT" id="0xj-yA-Ic1"/>
                 <outlet property="displayTextLabel" destination="RKs-ev-uvt" id="fxe-bS-UO2"/>
                 <outlet property="displayTextView" destination="01n-YO-wYJ" id="FFf-WK-iDP"/>
                 <outlet property="linkTargetContainerView" destination="1Ir-HM-Hne" id="A5e-T9-Pwj"/>
