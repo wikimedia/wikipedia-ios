@@ -610,7 +610,8 @@ extension SectionEditorViewController: EditLinkViewControllerDelegate {
     }
 
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
-        //
+        messagingController.insertOrEditLink(page: linkTarget, label: displayText)
+        dismiss(animated: true)
     }
 
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
@@ -624,7 +625,7 @@ extension SectionEditorViewController: InsertLinkViewControllerDelegate {
     }
 
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
-        messagingController.insertLink(page: page, label: label)
+        messagingController.insertOrEditLink(page: page, label: label)
         dismiss(animated: true)
     }
 }

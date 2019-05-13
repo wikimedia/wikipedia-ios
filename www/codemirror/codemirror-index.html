@@ -1250,7 +1250,7 @@
       },
       newlineAndIndent: () => editor.execCommand('newlineAndIndent'),
       getLink: () => stateStore.link,
-      insertLink: (page, label) => {
+      insertOrEditLink: (page, label) => {
         const link = stateStore.link
         if (!link) {
           console.warn("Attempting to insert link with no link in stateStore")
