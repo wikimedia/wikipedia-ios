@@ -161,6 +161,7 @@
 "edit-italic-remove-accessibility-label" = "Accessibility label for italic button";
 "edit-link-accessibility-label" = "Accessibility label for the button that adds link syntax to the current selection";
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
+"edit-link-title" = "Title for the Edit link screen";
 "edit-menu-item" = "Button label for text selection 'Edit' menu item";
 "edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
@@ -377,6 +378,7 @@
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "info-box-title" = "The title of infoboxes – in collapsed and expanded form";
 "insert-action-title" = "Title for insert action";
+"insert-link-title" = "Title for the Insert link screen";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
 "insert-media-alternative-text-placeholder" = "Placeholder text for setting that allows users to add image alternative text";
 "insert-media-alternative-text-title" = "Title for setting that allows users to add image alternative text";

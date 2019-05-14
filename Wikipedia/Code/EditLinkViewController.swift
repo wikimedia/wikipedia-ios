@@ -58,7 +58,7 @@ class EditLinkViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.displayType = .modal
-        title = "Edit link"
+        title = WMFLocalizedString("edit-link-title", value: "Edit link", comment: "Title for the Edit link screen")
         navigationItem.leftBarButtonItem = closeButton
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
