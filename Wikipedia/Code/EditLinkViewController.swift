@@ -127,6 +127,7 @@ class EditLinkViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         displayTextViewHeightConstraint.constant = displayTextView.sizeThatFits(CGSize(width: displayTextView.bounds.width, height: UIView.noIntrinsicMetric)).height
+        articleCell.frame = linkTargetContainerView.bounds
     }
 
     @objc private func finishEditing(_ sender: UIBarButtonItem) {
