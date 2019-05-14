@@ -48,7 +48,7 @@ class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSour
     }
 
     var menuItems: [UIMenuItem] = {
-        let addCitation = UIMenuItem(title: "Add Citation", action: #selector(SectionEditorWebView.toggleCitation(menuItem:)))
+        let addCitation = UIMenuItem(title: WMFLocalizedString("add-citation-title", value: "Add citation", comment: "Title for add citation action"), action: #selector(SectionEditorWebView.toggleCitation(menuItem:)))
         let addTemplate = UIMenuItem(title: "｛ ｝", action: #selector(SectionEditorWebView.toggleTemplate(menuItem:)))
         let makeBold = UIMenuItem(title: "𝗕", action: #selector(SectionEditorWebView.toggleBoldface(menuItem:)))
         let makeItalic = UIMenuItem(title: "𝐼", action: #selector(SectionEditorWebView.toggleItalics(menuItem:)))
