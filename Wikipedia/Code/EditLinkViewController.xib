@@ -148,7 +148,7 @@
                                         <constraint firstAttribute="height" constant="50" placeholder="YES" id="zO9-Ta-lYh"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                    <inset key="titleEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
+                                    <inset key="titleEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                     <state key="normal" title="Remove link"/>
                                     <connections>
                                         <action selector="removeLink:" destination="-1" eventType="touchUpInside" id="HDs-j4-0oP"/>

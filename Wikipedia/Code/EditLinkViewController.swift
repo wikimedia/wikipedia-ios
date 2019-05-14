@@ -76,7 +76,7 @@ class EditLinkViewController: ViewController {
         displayTextView.textContainer.lineFragmentPadding = 0
         displayTextView.text = link.label
         linkTargetLabel.text = WMFLocalizedString("edit-link-link-target-title", value: "Link target", comment: "Title for the link target label")
-        removeLinkButton.titleLabel?.text = WMFLocalizedString("edit-link-remove-link-title", value: "Remove link", comment: "Title for the remove link button")
+        removeLinkButton.setTitle(WMFLocalizedString("edit-link-remove-link-title", value: "Remove link", comment: "Title for the remove link button"), for: .normal)
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
         navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { [weak self] (observation, change) in
