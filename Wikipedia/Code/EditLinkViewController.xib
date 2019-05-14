@@ -157,18 +157,19 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="UAO-dK-eU6" firstAttribute="leading" secondItem="dHU-v9-p77" secondAttribute="leading" id="Ibb-Wh-Avz"/>
-                        <constraint firstAttribute="trailing" secondItem="UAO-dK-eU6" secondAttribute="trailing" id="PzL-xL-pbn"/>
+                        <constraint firstItem="UAO-dK-eU6" firstAttribute="leading" secondItem="eIA-Ad-qYw" secondAttribute="leading" id="Ibb-Wh-Avz"/>
+                        <constraint firstItem="eIA-Ad-qYw" firstAttribute="trailing" secondItem="UAO-dK-eU6" secondAttribute="trailing" id="PzL-xL-pbn"/>
                         <constraint firstAttribute="bottom" secondItem="UAO-dK-eU6" secondAttribute="bottom" id="blD-wG-6Za"/>
                         <constraint firstItem="UAO-dK-eU6" firstAttribute="top" secondItem="dHU-v9-p77" secondAttribute="top" id="yGN-k5-l3N"/>
                     </constraints>
+                    <viewLayoutGuide key="safeArea" id="eIA-Ad-qYw"/>
                 </view>
             </subviews>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dHU-v9-p77" secondAttribute="bottom" id="HQT-j1-kSB"/>
-                <constraint firstItem="dHU-v9-p77" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="R9S-ZZ-iWX"/>
+                <constraint firstItem="dHU-v9-p77" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="R9S-ZZ-iWX"/>
                 <constraint firstItem="dHU-v9-p77" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="R9e-HH-YGT"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dHU-v9-p77" secondAttribute="trailing" id="hUd-7P-Vz9"/>
+                <constraint firstAttribute="trailing" secondItem="dHU-v9-p77" secondAttribute="trailing" id="hUd-7P-Vz9"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
