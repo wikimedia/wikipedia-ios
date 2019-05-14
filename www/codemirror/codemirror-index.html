@@ -809,7 +809,8 @@
         }
       } else {
         if (buttonNames.length === 0) {
-          link = new Link(selection, null, false)
+          const pagePosition = {from: editor.getCursor('anchor'), to: editor.getCursor('head')}
+          link = new Link(selection, null, false, pagePosition)
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
           link = linkFromSelectionWrapInfo()
         }
