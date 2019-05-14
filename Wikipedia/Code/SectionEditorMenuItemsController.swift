@@ -31,14 +31,20 @@ class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSour
     // when web view disappears
     var originalMenuItems: [UIMenuItem]?
 
-    private func setEditMenuItems() {
+    func setEditMenuItems() {
         originalMenuItems = UIMenuController.shared.menuItems
         var menuItems = self.menuItems
-        if let delegate = delegate, delegate.sectionEditorMenuItemsControllerShouldIncludeLinkItem(self) {
-            let addLink = UIMenuItem(title: "Add Link", action: #selector(SectionEditorWebView.toggleLink(menuItem:)))
-            menuItems.append(addLink)
+        messagingController.getLink { link in
+            defer {
+                UIMenuController.shared.menuItems = menuItems
+            }
+            guard let link = link else {
+                return
+            }
+            let title = link.exists ? CommonStrings.editLinkTitle : CommonStrings.insertLinkTitle
+            let linkItem = UIMenuItem(title: title, action: #selector(SectionEditorWebView.toggleLink(menuItem:)))
+            menuItems.append(linkItem)
         }
-        UIMenuController.shared.menuItems = menuItems
     }
 
     var menuItems: [UIMenuItem] = {
