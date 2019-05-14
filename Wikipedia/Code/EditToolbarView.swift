@@ -19,7 +19,7 @@ extension EditToolbarView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.inputAccessoryBackground
         tintColor = theme.colors.link
-        if theme == Theme.standard {
+        if theme.hasInputAccessoryShadow {
             layer.shadowOffset = CGSize(width: 0, height: -2)
             layer.shadowRadius = 10
             layer.shadowOpacity = 1.0
