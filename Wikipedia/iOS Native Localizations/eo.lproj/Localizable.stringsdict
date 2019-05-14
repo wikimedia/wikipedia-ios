@@ -66,6 +66,22 @@
 			<string>%1$d historiaj eventoj</string>
 		</dict>
 	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Havebla en %1$d alia lingvo</string>
+			<key>other</key>
+			<string>Havebla en %1$d aliaj lingvoj</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -210,10 +226,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Pasintjare</string>
 			<key>other</key>
-			<string>Antaŭ %1$d jaroj</string>
+			<string>$Antaŭ %1$d jaroj</string>
 			<key>zero</key>
 			<string>Ĉi-jare</string>
 		</dict>
