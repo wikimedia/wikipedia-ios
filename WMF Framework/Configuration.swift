@@ -77,7 +77,7 @@ public class Configuration: NSObject {
     func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
         switch Stage.current {
         case .local:
-            let host = host ?? Domain.metaWiki
+            let host = host ?? Domain.englishWikipedia
             let baseComponents = [host, "v1"] // "" to get a leading /
             var components = URLComponents()
             components.scheme = Scheme.http
@@ -94,7 +94,7 @@ public class Configuration: NSObject {
     
     func mediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
         var components = URLComponents()
-        components.host = host ?? Domain.englishWikipedia
+        components.host = host ?? Domain.metaWiki
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
