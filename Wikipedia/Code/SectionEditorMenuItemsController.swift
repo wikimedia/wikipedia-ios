@@ -13,7 +13,6 @@ protocol SectionEditorMenuItemsDelegate: class {
 
 protocol SectionEditorMenuItemsControllerDelegate: AnyObject {
     func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController)
-    func sectionEditorMenuItemsControllerShouldIncludeLinkItem(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController) -> Bool
 }
 
 class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSource {
