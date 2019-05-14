@@ -95,11 +95,18 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             return searchBar.text
         }
     }
-    
+
+    private var _siteURL: URL?
+
     var siteURL: URL? {
-        return searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        get {
+            return _siteURL ?? searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        }
+        set {
+            _siteURL = newValue
+        }
     }
-    
+
     @objc func search() {
         search(for: searchTerm, suggested: false)
     }
