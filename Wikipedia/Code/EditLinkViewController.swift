@@ -199,5 +199,6 @@ class EditLinkViewController: ViewController {
 extension EditLinkViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
         self.articleURL = articleURL
+        navigationController?.popViewController(animated: true)
     }
 }
