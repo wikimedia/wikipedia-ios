@@ -103,7 +103,7 @@ extension TextFormattingInputViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.inputAccessoryBackground
-        if theme == Theme.standard {
+        if theme.hasInputAccessoryShadow {
             view.layer.shadowOffset = CGSize(width: 0, height: -2)
             view.layer.shadowRadius = 10
             view.layer.shadowOpacity = 1.0

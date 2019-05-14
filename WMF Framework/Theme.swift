@@ -289,6 +289,8 @@ public class Theme: NSObject {
     @objc public let colors: Colors
     
     @objc public let isDark: Bool
+
+    @objc public let hasInputAccessoryShadow: Bool
     
     @objc public var preferredStatusBarStyle: UIStatusBarStyle {
         return isDark ? .lightContent : .default
@@ -393,27 +395,28 @@ public class Theme: NSObject {
         return DeviceInfo.shared.isOlderDevice ? 0 : 0.13
     }()
     
-    @objc public static let light = Theme(colors: .light, imageOpacity: 1, cardBorderWidthInPixels: Theme.lightCardBorderWidthInPixels, cardShadowOpacity: defaultCardShadowOpacity, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"), analyticsName: "default", webName: "light")
+    @objc public static let light = Theme(colors: .light, imageOpacity: 1, cardBorderWidthInPixels: Theme.lightCardBorderWidthInPixels, cardShadowOpacity: defaultCardShadowOpacity, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, hasInputAccessoryShadow: true, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"), analyticsName: "default", webName: "light")
     
-    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"), analyticsName: "sepia", webName: "sepia")
+    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, hasInputAccessoryShadow: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"), analyticsName: "sepia", webName: "sepia")
     
-    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"), analyticsName: "dark", webName: "dark")
+    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, hasInputAccessoryShadow: false, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"), analyticsName: "dark", webName: "dark")
     
-    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName,  analyticsName: "dark", webName: "dark")
+    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, hasInputAccessoryShadow: false, name: "dark-dimmed", displayName: Theme.dark.displayName,  analyticsName: "dark", webName: "dark")
 
-    @objc public static let black = Theme(colors: .black, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"),  analyticsName: "black", webName: "black")
+    @objc public static let black = Theme(colors: .black, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, hasInputAccessoryShadow: false, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"),  analyticsName: "black", webName: "black")
 
-    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName,  analyticsName: "black", webName: "dark")
+    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, hasInputAccessoryShadow: false, name: "black-dimmed", displayName: Theme.black.displayName,  analyticsName: "black", webName: "dark")
 
-    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, name: "", displayName: "", analyticsName: "", webName: "light")
+    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, hasInputAccessoryShadow: false, name: "", displayName: "", analyticsName: "", webName: "light")
     
-    init(colors: Colors, imageOpacity: CGFloat, cardBorderWidthInPixels: Int, cardShadowOpacity: Float, multiSelectIndicatorImage: UIImage?, isDark: Bool, name: String, displayName: String, analyticsName: String, webName: String) {
+    init(colors: Colors, imageOpacity: CGFloat, cardBorderWidthInPixels: Int, cardShadowOpacity: Float, multiSelectIndicatorImage: UIImage?, isDark: Bool, hasInputAccessoryShadow: Bool, name: String, displayName: String, analyticsName: String, webName: String) {
         self.colors = colors
         self.imageOpacity = imageOpacity
         self.name = name
         self.displayName = displayName
         self.multiSelectIndicatorImage = multiSelectIndicatorImage
         self.isDark = isDark
+        self.hasInputAccessoryShadow = hasInputAccessoryShadow
         self.cardBorderWidthInPixels = cardBorderWidthInPixels
         self.cardShadowOpacity = cardShadowOpacity
         self.analyticsName = analyticsName
