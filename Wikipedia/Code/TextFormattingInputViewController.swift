@@ -64,7 +64,6 @@ class TextFormattingInputViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         embedNavigationController()
-        addTopShadow()
         apply(theme: theme)
     }
 
@@ -74,12 +73,6 @@ class TextFormattingInputViewController: UIInputViewController {
         assert(containerView.subviews.isEmpty)
         containerView.addSubview(embeddedNavigationController.view)
         embeddedNavigationController.didMove(toParent: self)
-    }
-
-    private func addTopShadow() {
-        view.layer.shadowOffset = CGSize(width: 0, height: -2)
-        view.layer.shadowRadius = 10
-        view.layer.shadowOpacity = 1.0
     }
 
     // MARK: Text & button selection messages
@@ -110,7 +103,17 @@ extension TextFormattingInputViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.inputAccessoryBackground
-        view.layer.shadowColor = theme.colors.shadow.cgColor
+        if theme == Theme.standard {
+            view.layer.shadowOffset = CGSize(width: 0, height: -2)
+            view.layer.shadowRadius = 10
+            view.layer.shadowOpacity = 1.0
+            view.layer.shadowColor = theme.colors.shadow.cgColor
+        } else {
+            view.layer.shadowOffset = .zero
+            view.layer.shadowRadius = 0
+            view.layer.shadowOpacity = 0
+            view.layer.shadowColor = nil
+        }
         embeddedNavigationController.navigationBar.isTranslucent = false
         embeddedNavigationController.navigationBar.barTintColor = theme.colors.inputAccessoryBackground
         embeddedNavigationController.navigationBar.tintColor = theme.colors.inputAccessoryButtonTint
