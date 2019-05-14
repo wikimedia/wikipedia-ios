@@ -416,6 +416,9 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTextSelectionDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool) {
+        if isRangeSelected {
+            menuItemsController.setEditMenuItems()
+        }
         navigationItemController.textSelectionDidChange(isRangeSelected: isRangeSelected)
         inputViewsController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
