@@ -42,7 +42,7 @@ class EditLinkViewController: ViewController {
 
     init?(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
         guard
-            let siteURL = siteURL,
+            let siteURL = siteURL ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale(),
             let articleURL = link.articleURL(for: siteURL)
         else {
             return nil
@@ -159,6 +159,7 @@ class EditLinkViewController: ViewController {
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
         let searchViewController = SearchViewController()
         searchViewController.shouldSetTitleViewWhenRecentSearchesAreDisabled = false
+        searchViewController.siteURL = siteURL
         searchViewController.shouldSetSearchVisible = false
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.displayType = .backVisible

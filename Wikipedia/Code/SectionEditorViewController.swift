@@ -593,8 +593,8 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 assertionFailure("Link button should be disabled")
                 return
             }
+            let siteURL = self.section?.article?.url.wmf_site
             if link.exists {
-                let siteURL = self.section?.article?.url.wmf_site ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
                 guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore) else {
                     return
                 }
@@ -603,7 +603,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 navigationController.isNavigationBarHidden = true
                 self.present(navigationController, animated: true)
             } else {
-                let insertLinkViewController = InsertLinkViewController(link: link, dataStore: dataStore)
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
                 insertLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
                 self.present(navigationController, animated: true)

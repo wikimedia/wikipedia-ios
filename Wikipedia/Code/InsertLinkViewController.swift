@@ -11,9 +11,11 @@ class InsertLinkViewController: UIViewController {
     private let dataStore: MWKDataStore
     typealias Link = SectionEditorWebViewMessagingController.Link
     private let link: Link
+    private let siteURL: URL?
 
-    init(link: Link, dataStore: MWKDataStore) {
+    init(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
         self.link = link
+        self.siteURL = siteURL
         self.dataStore = dataStore
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,6 +33,7 @@ class InsertLinkViewController: UIViewController {
     private lazy var searchViewController: SearchViewController = {
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
+        searchViewController.siteURL = siteURL
         searchViewController.searchTerm = link.page
         searchViewController.areRecentSearchesEnabled = false
         searchViewController.shouldBecomeFirstResponder = true
