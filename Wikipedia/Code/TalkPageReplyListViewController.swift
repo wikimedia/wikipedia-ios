@@ -171,7 +171,7 @@ private extension TalkPageReplyListViewController {
         
         let request: NSFetchRequest<TalkPageDiscussionItem> = TalkPageDiscussionItem.fetchRequest()
         request.predicate = NSPredicate(format: "discussion == %@",  discussion)
-        request.sortDescriptors = [NSSortDescriptor(key: "discussion", ascending: true)] //todo: I am forced to use this, does this keep original ordering?
+        request.sortDescriptors = [NSSortDescriptor(key: "sort", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     

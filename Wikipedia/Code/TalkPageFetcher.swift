@@ -19,21 +19,32 @@ class NetworkBase: Codable {
     let topics: [NetworkDiscussion]
 }
 
-class NetworkDiscussion: Codable {
+class NetworkDiscussion:  NSObject, Codable {
     let text: String
     let items: [NetworkDiscussionItem]
     let sectionID: Int
+    let sha: String
+    var sort: Int!
     
     enum CodingKeys: String, CodingKey {
         case text
+        case sha
         case items = "replies"
         case sectionID = "id"
     }
 }
 
-class NetworkDiscussionItem: Codable {
+class NetworkDiscussionItem: NSObject, Codable {
     let text: String
     let depth: Int16
+    let sha: String
+    var sort: Int!
+    
+    enum CodingKeys: String, CodingKey {
+        case text
+        case depth
+        case sha
+    }
 }
 
 import Foundation
@@ -146,6 +157,15 @@ class TalkPageFetcher: Fetcher {
             guard let networkBase = networkBase else {
                 completion(.failure(RequestError.unexpectedResponse))
                 return
+            }
+            
+            //update sort
+            for (topicIndex, topic) in networkBase.topics.enumerated() {
+                
+                topic.sort = topicIndex
+                for (replyIndex, reply) in topic.items.enumerated() {
+                    reply.sort = replyIndex
+                }
             }
             
             let filteredDiscussions = networkBase.topics.filter { $0.text.count > 0 }
