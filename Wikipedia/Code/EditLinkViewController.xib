@@ -18,6 +18,7 @@
                 <outlet property="displayTextView" destination="01n-YO-wYJ" id="FFf-WK-iDP"/>
                 <outlet property="displayTextViewHeightConstraint" destination="80f-1q-GuV" id="Paf-B7-NLX"/>
                 <outlet property="linkTargetContainerView" destination="1Ir-HM-Hne" id="A5e-T9-Pwj"/>
+                <outlet property="linkTargetContainerViewHeightConstraint" destination="7PQ-ub-kCp" id="Kzg-Vp-hUO"/>
                 <outlet property="linkTargetLabel" destination="8Ye-Mi-pQC" id="pM8-nc-ADQ"/>
                 <outlet property="removeLinkButton" destination="md7-Vd-A43" id="qDq-Es-z3J"/>
                 <outlet property="scrollViewTopConstraint" destination="QuR-3X-hYT" id="572-Zn-WzQ"/>
@@ -111,7 +112,7 @@
                                                                 <constraint firstItem="8Ye-Mi-pQC" firstAttribute="top" secondItem="RMj-P0-PsU" secondAttribute="top" constant="15" id="f8S-Zi-THd"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ir-HM-Hne" userLabel="Container View">
+                                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="60" translatesAutoresizingMaskIntoConstraints="NO" id="1Ir-HM-Hne" userLabel="Container View">
                                                             <rect key="frame" x="0.0" y="103" width="414" height="60"/>
                                                             <subviews>
                                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Z0L-Qp-ciJ">

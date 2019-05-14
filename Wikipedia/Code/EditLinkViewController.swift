@@ -27,6 +27,7 @@ class EditLinkViewController: ViewController {
     @IBOutlet private weak var displayTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var linkTargetLabel: UILabel!
     @IBOutlet private weak var linkTargetContainerView: UIView!
+    @IBOutlet private weak var linkTargetContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
@@ -111,11 +112,16 @@ class EditLinkViewController: ViewController {
         articleCell.topSeparator.isHidden = true
         articleCell.bottomSeparator.isHidden = true
         articleCell.extractLabel?.numberOfLines = 5
-        articleCell.frame = linkTargetContainerView.bounds
+        updateLinkTargetContainer()
         articleCell.isHidden = false
 
         activityIndicatorView.stopAnimating()
         view.setNeedsLayout()
+    }
+
+    private func updateLinkTargetContainer() {
+        articleCell.frame = CGRect(origin: linkTargetContainerView.bounds.origin, size: articleCell.sizeThatFits(CGSize(width: linkTargetContainerView.bounds.width, height: UIView.noIntrinsicMetric), apply: true))
+        linkTargetContainerViewHeightConstraint.constant = articleCell.frame.height
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -133,7 +139,7 @@ class EditLinkViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         displayTextViewHeightConstraint.constant = displayTextView.sizeThatFits(CGSize(width: displayTextView.bounds.width, height: UIView.noIntrinsicMetric)).height
-        articleCell.frame = linkTargetContainerView.bounds
+        updateLinkTargetContainer()
     }
 
     @objc private func finishEditing(_ sender: UIBarButtonItem) {
