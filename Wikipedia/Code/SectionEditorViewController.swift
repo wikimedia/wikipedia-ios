@@ -587,7 +587,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         }
         messagingController.getLink { link in
             guard let link = link else {
-                print("TODO: No link")
+                assertionFailure("Link button should be disabled")
                 return
             }
             if link.exists {
