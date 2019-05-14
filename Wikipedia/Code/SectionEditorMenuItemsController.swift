@@ -13,6 +13,7 @@ protocol SectionEditorMenuItemsDelegate: class {
 
 protocol SectionEditorMenuItemsControllerDelegate: AnyObject {
     func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController)
+    func sectionEditorMenuItemsControllerShouldIncludeLinkItem(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController) -> Bool
 }
 
 class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSource {
@@ -33,17 +34,22 @@ class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSour
 
     private func setEditMenuItems() {
         originalMenuItems = UIMenuController.shared.menuItems
+        var menuItems = self.menuItems
+        if let delegate = delegate, delegate.sectionEditorMenuItemsControllerShouldIncludeLinkItem(self) {
+            let addLink = UIMenuItem(title: "Add Link", action: #selector(SectionEditorWebView.toggleLink(menuItem:)))
+            menuItems.append(addLink)
+        }
         UIMenuController.shared.menuItems = menuItems
     }
 
-    lazy var menuItems: [UIMenuItem] = {
+    var menuItems: [UIMenuItem] = {
         let addCitation = UIMenuItem(title: "Add Citation", action: #selector(SectionEditorWebView.toggleCitation(menuItem:)))
-        let addLink = UIMenuItem(title: "Add Link", action: #selector(SectionEditorWebView.toggleLink(menuItem:)))
         let addTemplate = UIMenuItem(title: "｛ ｝", action: #selector(SectionEditorWebView.toggleTemplate(menuItem:)))
         let makeBold = UIMenuItem(title: "𝗕", action: #selector(SectionEditorWebView.toggleBoldface(menuItem:)))
         let makeItalic = UIMenuItem(title: "𝐼", action: #selector(SectionEditorWebView.toggleItalics(menuItem:)))
-        return [addCitation, addLink, addTemplate, makeBold, makeItalic]
+        return [addCitation, addTemplate, makeBold, makeItalic]
     }()
+
 
     lazy var availableMenuActions: [Selector] = {
         let actions = [

@@ -614,6 +614,10 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
 }
 
 extension SectionEditorViewController: SectionEditorMenuItemsControllerDelegate {
+    func sectionEditorMenuItemsControllerShouldIncludeLinkItem(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController) -> Bool {
+        return inputViewsController.defaultEditToolbarView?.buttons.lazy.first(where: { $0.kind == .link })?.isEnabled ?? false
+    }
+
     func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController) {
         showLinkWizard()
     }
