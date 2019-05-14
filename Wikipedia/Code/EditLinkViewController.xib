@@ -142,12 +142,13 @@
                                         <constraint firstAttribute="height" constant="1" id="1Id-tA-d9A"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="md7-Vd-A43">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="md7-Vd-A43" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="802" width="414" height="50"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="zO9-Ta-lYh"/>
+                                        <constraint firstAttribute="height" constant="50" placeholder="YES" id="zO9-Ta-lYh"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <inset key="titleEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
                                     <state key="normal" title="Remove link"/>
                                     <connections>
                                         <action selector="removeLink:" destination="-1" eventType="touchUpInside" id="HDs-j4-0oP"/>

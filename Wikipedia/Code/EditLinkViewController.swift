@@ -28,7 +28,7 @@ class EditLinkViewController: ViewController {
     @IBOutlet private weak var linkTargetLabel: UILabel!
     @IBOutlet private weak var linkTargetContainerView: UIView!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var removeLinkButton: UIButton!
+    @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
 
     private lazy var closeButton: UIBarButtonItem = {
@@ -76,7 +76,10 @@ class EditLinkViewController: ViewController {
         displayTextView.text = link.label
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
-        navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { (observation, change) in
+        navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { [weak self] (observation, change) in
+            guard let self = self else {
+                return
+            }
             self.contentViewTopConstraint.constant = self.navigationBar.visibleHeight
         })
         apply(theme: theme)
