@@ -1291,8 +1291,14 @@
             const newPageWithLabel = `[[${page}|${label}]]`
             editor.replaceRange(newPageWithLabel, link.pagePosition.from, link.pagePosition.to)
           } else {
-            const newPage = `[[${page}]]`
-            editor.replaceRange(newPage, link.pagePosition.from, link.pagePosition.to)
+            const shouldAddLabel = link.page.toLowerCase() !== page.toLowerCase()
+            let newPageWithMaybeLabel
+            if (shouldAddLabel) {
+              newPageWithMaybeLabel = `[[${page}|${link.page}]]`
+            } else {
+              newPageWithMaybeLabel = `[[${link.page}]]` // use link.page to match case
+            }
+            editor.replaceRange(newPageWithMaybeLabel, link.pagePosition.from, link.pagePosition.to)
           }
         }
       },
