@@ -58,7 +58,7 @@ class EditLinkViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.displayType = .modal
-        title = WMFLocalizedString("edit-link-title", value: "Edit link", comment: "Title for the Edit link screen")
+        title = CommonStrings.editLinkTitle
         navigationItem.leftBarButtonItem = closeButton
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
@@ -93,6 +93,7 @@ class EditLinkViewController: ViewController {
     private func updateView(with article: WMFArticle) {
         articleCell.configure(article: article, displayType: .compactList, index: 0, theme: theme, layoutOnly: false)
         articleCell.topSeparator.isHidden = true
+        articleCell.bottomSeparator.isHidden = true
         articleCell.extractLabel?.numberOfLines = 5
         articleCell.frame = linkTargetContainerView.bounds
         articleCell.isHidden = false

@@ -45,7 +45,7 @@ class InsertLinkViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = WMFLocalizedString("insert-link-title", value: "Insert link", comment: "Title for the Insert link screen")
+        title = CommonStrings.insertLinkTitle
         navigationItem.leftBarButtonItem = closeButton
         let navigationController = WMFThemeableNavigationController(rootViewController: searchViewController)
         navigationController.isNavigationBarHidden = true
