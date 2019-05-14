@@ -21,7 +21,7 @@ class EditLinkViewController: ViewController {
     private var navigationBarVisibleHeightObservation: NSKeyValueObservation?
 
     @IBOutlet private weak var contentView: UIView!
-    @IBOutlet private weak var contentViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var scrollViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var displayTextLabel: UILabel!
     @IBOutlet private weak var displayTextView: UITextView!
     @IBOutlet private weak var displayTextViewHeightConstraint: NSLayoutConstraint!
@@ -83,7 +83,7 @@ class EditLinkViewController: ViewController {
             guard let self = self else {
                 return
             }
-            self.contentViewTopConstraint.constant = self.navigationBar.visibleHeight
+            self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
         })
         apply(theme: theme)
     }
