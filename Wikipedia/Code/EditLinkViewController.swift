@@ -18,6 +18,8 @@ class EditLinkViewController: ViewController {
     private let articleCell = ArticleRightAlignedImageCollectionViewCell()
     private let dataStore: MWKDataStore
 
+    private var navigationBarVisibleHeightObservation: NSKeyValueObservation?
+
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var contentViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var displayTextLabel: UILabel!
@@ -51,6 +53,11 @@ class EditLinkViewController: ViewController {
         super.init(nibName: "EditLinkViewController", bundle: nil)
     }
 
+    deinit {
+        navigationBarVisibleHeightObservation?.invalidate()
+        navigationBarVisibleHeightObservation = nil
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -69,6 +76,9 @@ class EditLinkViewController: ViewController {
         displayTextView.text = link.label
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
+        navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { (observation, change) in
+            self.contentViewTopConstraint.constant = self.navigationBar.visibleHeight
+        })
         apply(theme: theme)
     }
 
@@ -116,7 +126,6 @@ class EditLinkViewController: ViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        contentViewTopConstraint.constant = navigationBar.visibleHeight
         displayTextViewHeightConstraint.constant = displayTextView.sizeThatFits(CGSize(width: displayTextView.bounds.width, height: UIView.noIntrinsicMetric)).height
     }
 
