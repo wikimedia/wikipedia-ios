@@ -71,9 +71,12 @@ class EditLinkViewController: ViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
         var textContainerInset = displayTextView.textContainerInset
         textContainerInset.top = 15
+        displayTextLabel.text = WMFLocalizedString("edit-link-display-text-title", value: "Display text", comment: "Title for the display text label")
         displayTextView.textContainerInset = textContainerInset
         displayTextView.textContainer.lineFragmentPadding = 0
         displayTextView.text = link.label
+        linkTargetLabel.text = WMFLocalizedString("edit-link-link-target-title", value: "Link target", comment: "Title for the link target label")
+        removeLinkButton.titleLabel?.text = WMFLocalizedString("edit-link-remove-link-title", value: "Remove link", comment: "Title for the remove link button")
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
         navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { [weak self] (observation, change) in
