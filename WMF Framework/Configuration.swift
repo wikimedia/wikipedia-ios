@@ -57,6 +57,7 @@ public class Configuration: NSObject {
     public let mediaWikiCookieDomain: String
     public let wikipediaCookieDomain: String
     public let wikidataCookieDomain: String
+    public let wikimediaCookieDomain: String
     public let centralAuthCookieSourceDomain: String // copy cookies from
     public let centralAuthCookieTargetDomains: [String] // copy cookies to
     
@@ -65,17 +66,18 @@ public class Configuration: NSObject {
     required init(defaultSiteDomain: String, otherDomains: [String] = []) {
         self.defaultSiteDomain = defaultSiteDomain
         self.mediaWikiCookieDomain = Domain.mediaWiki.withDotPrefix
+        self.wikimediaCookieDomain = Domain.wikimedia.withDotPrefix
         self.wikipediaCookieDomain = Domain.wikipedia.withDotPrefix
         self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
-        self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain]
+        self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain, Domain.mediaWiki] + otherDomains
     }
     
     func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
         switch Stage.current {
         case .local:
-            let host = host ?? Domain.englishWikipedia
+            let host = host ?? Domain.metaWiki
             let baseComponents = [host, "v1"] // "" to get a leading /
             var components = URLComponents()
             components.scheme = Scheme.http
