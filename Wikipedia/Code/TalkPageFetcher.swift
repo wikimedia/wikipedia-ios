@@ -23,15 +23,20 @@ class NetworkDiscussion:  NSObject, Codable {
     let text: String
     let items: [NetworkDiscussionItem]
     let sectionID: Int
-    let sha: String
+    let shas: NetworkDiscussionShas
     var sort: Int!
     
     enum CodingKeys: String, CodingKey {
         case text
-        case sha
+        case shas
         case items = "replies"
         case sectionID = "id"
     }
+}
+
+class NetworkDiscussionShas: Codable {
+    let text: String
+    let replies: String
 }
 
 class NetworkDiscussionItem: NSObject, Codable {

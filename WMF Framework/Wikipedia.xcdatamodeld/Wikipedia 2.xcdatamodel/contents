@@ -77,9 +77,10 @@
         <relationship name="discussions" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageDiscussion" inverseName="talkPage" inverseEntity="TalkPageDiscussion" syncable="YES"/>
     </entity>
     <entity name="TalkPageDiscussion" representedClassName="TalkPageDiscussion" syncable="YES" codeGenerationType="class">
+        <attribute name="repliesSha" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="sha" attributeType="String" syncable="YES"/>
         <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="textSha" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="items" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageDiscussionItem" inverseName="discussion" inverseEntity="TalkPageDiscussionItem" syncable="YES"/>
         <relationship name="talkPage" maxCount="1" deletionRule="Deny" destinationEntity="TalkPage" inverseName="discussions" inverseEntity="TalkPage" syncable="YES"/>
@@ -205,7 +206,7 @@
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
         <element name="TalkPage" positionX="-45" positionY="135" width="128" height="120"/>
-        <element name="TalkPageDiscussion" positionX="-36" positionY="144" width="128" height="135"/>
+        <element name="TalkPageDiscussion" positionX="-36" positionY="144" width="128" height="150"/>
         <element name="TalkPageDiscussionItem" positionX="-27" positionY="153" width="128" height="120"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="480"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
