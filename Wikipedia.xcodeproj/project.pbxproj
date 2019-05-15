@@ -150,8 +150,6 @@
 		67CE5D21222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
-		67D3C44D228C94BF001D5741 /* TalkPageUpdateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C44C228C94BF001D5741 /* TalkPageUpdateStackView.swift */; };
-		67D3C44F228C94DB001D5741 /* TalkPageUpdateStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67D3C44E228C94DB001D5741 /* TalkPageUpdateStackView.xib */; };
 		67D3C453228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
 		67D3C454228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
 		67D3C455228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
@@ -3667,8 +3665,6 @@
 		676070A1227CE60800A81F09 /* ReplyButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyButtonFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageUpdateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageUpdateViewController.xib; sourceTree = "<group>"; };
 		6780DF422264265400D9069D /* RemoteSubHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSubHandler.swift; sourceTree = "<group>"; };
-		67D3C44C228C94BF001D5741 /* TalkPageUpdateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageUpdateStackView.swift; sourceTree = "<group>"; };
-		67D3C44E228C94DB001D5741 /* TalkPageUpdateStackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageUpdateStackView.xib; sourceTree = "<group>"; };
 		67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyView.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
@@ -6311,8 +6307,6 @@
 				67F73E782267B9500079DEEF /* TalkPageUpdateViewController.swift */,
 				67F73E742267B9070079DEEF /* TalkPageReplyListViewController.swift */,
 				676070A32280987C00A81F09 /* TalkPageUpdateViewController.xib */,
-				67D3C44C228C94BF001D5741 /* TalkPageUpdateStackView.swift */,
-				67D3C44E228C94DB001D5741 /* TalkPageUpdateStackView.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -9703,7 +9697,6 @@
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
 				B0C17B9321FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
-				67D3C44F228C94DB001D5741 /* TalkPageUpdateStackView.xib in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D022665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -10750,7 +10743,6 @@
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
 				7AB809D022675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
 				83A642752226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
-				67D3C44D228C94BF001D5741 /* TalkPageUpdateStackView.swift in Sources */,
 				B0C7A07A1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				7A827659226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift in Sources */,

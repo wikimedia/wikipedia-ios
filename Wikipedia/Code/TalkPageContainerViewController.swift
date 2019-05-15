@@ -46,7 +46,7 @@ class TalkPageContainerViewController: ViewController {
             return
         }
         
-        let discussionNewVC = TalkPageUpdateViewController.init(type: .newDiscussion)
+        let discussionNewVC = TalkPageUpdateViewController.init()
         discussionNewVC.delegate = self
         discussionNewVC.apply(theme: theme)
         navigationController?.pushViewController(discussionNewVC, animated: true)
@@ -87,10 +87,8 @@ class TalkPageContainerViewController: ViewController {
 }
 
 extension TalkPageContainerViewController: TalkPageUpdateDelegate {
-    func tappedPublish(updateType: TalkPageUpdateViewController.UpdateType, subject: String?, body: String, viewController: TalkPageUpdateViewController) {
+    func tappedPublish(subject: String?, body: String, viewController: TalkPageUpdateViewController) {
         
-        switch viewController.updateType {
-        case .newDiscussion:
             navigationController?.popViewController(animated: true)
             
             guard let subject = subject,
@@ -106,10 +104,6 @@ extension TalkPageContainerViewController: TalkPageUpdateDelegate {
                     print("failure")
                 }
             }
-            default: break
-        }
-
-        
     }
 }
 
