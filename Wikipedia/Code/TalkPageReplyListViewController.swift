@@ -3,7 +3,6 @@ import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
-    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController, lastSeenView: UIView, additionalPresentationAnimations: (() -> Void)?, additionalDismissalAnimations: (() -> Void)?)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -18,13 +17,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     weak var delegate: TalkPageReplyListViewControllerDelegate?
     
-    private var disableScrolling = false {
-        didSet {
-            disableScrollingOffset = disableScrolling == true ? collectionView.contentOffset : nil
-            collectionView.showsVerticalScrollIndicator = disableScrolling ? false : true
-        }
-    }
-    private var disableScrollingOffset: CGPoint?
+    private var replyNewVC: TalkPageUpdateViewController?
     
     required init(dataStore: MWKDataStore, discussion: TalkPageDiscussion) {
         self.dataStore = dataStore
@@ -63,18 +56,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 return 0
         }
         return sections[section].numberOfObjects
-    }
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        if let disableScrollingOffset = disableScrollingOffset,
-            disableScrolling {
-            collectionView.setContentOffset(disableScrollingOffset, animated: false)
-        } else {
-            super.scrollViewDidScroll(scrollView)
-        }
-        
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -127,7 +108,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         configure(header: header)
         estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
+        estimate.precalculated = false
         return estimate
     }
     
@@ -194,6 +175,7 @@ private extension TalkPageReplyListViewController {
         footer.delegate = self
         footer.layoutMargins = layout.itemLayoutMargins
         footer.apply(theme: theme)
+        footer.newReplyView = replyNewVC?.view
     }
     
     func configure(cell: ReplyListItemCollectionViewCell, at indexPath: IndexPath) {
@@ -218,32 +200,13 @@ extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelega
 }
 
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
-    func tappedReply(from view: ReplyButtonFooterView, additionalPresentationAnimations:
-        (() -> Void)?, additionalDismissalAnimations: (() -> Void)?) {
-        
-        if let sections = fetchedResultsController.sections {
-            let lastSectionIndex = sections.count - 1
-            let lastSection = sections[lastSectionIndex]
-            let lastItemIndex = lastSection.numberOfObjects - 1
-            let indexPath = IndexPath(item: lastItemIndex, section: lastSectionIndex)
-            
-            if let lastCell = collectionView.cellForItem(at: indexPath) as? ReplyListItemCollectionViewCell {
-                disableScrolling = true
-                delegate?.tappedReply(to: discussion, viewController: self, lastSeenView: lastCell, additionalPresentationAnimations: additionalPresentationAnimations, additionalDismissalAnimations: additionalDismissalAnimations)
-                return
-            }
-        }
-        
-        assertionFailure("Reply Footer Delegate validation failure")
-    }
-}
+    func tappedReply(from view: ReplyButtonFooterView) {
 
-extension TalkPageReplyListViewController: ReplyDismissDelegate {
-    func willDismiss() {
-        disableScrolling = false
-    }
-    
-    func cancelDismiss() {
-        disableScrolling = true
+        let replyNewVC = TalkPageUpdateViewController.init(type: .newReply)
+        addChild(replyNewVC)
+        self.replyNewVC = replyNewVC
+        
+        layout.invalidateLayout()
+        //todo: show publish
     }
 }

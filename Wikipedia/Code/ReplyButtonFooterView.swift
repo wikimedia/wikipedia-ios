@@ -2,16 +2,32 @@
 import UIKit
 
 protocol ReplyButtonFooterViewDelegate: class {
-    func tappedReply(from view: ReplyButtonFooterView, additionalPresentationAnimations:
-        (() -> Void)?, additionalDismissalAnimations: (() -> Void)?)
+    func tappedReply(from view: ReplyButtonFooterView)
 }
 
 class ReplyButtonFooterView: SizeThatFitsReusableView {
     private let replyButton = ActionButton(frame: .zero)
     private let dividerView = UIView(frame: .zero)
     weak var delegate: ReplyButtonFooterViewDelegate?
+    var newReplyView: UIView? {
+        didSet {
+            if oldValue != newReplyView {
+                oldValue?.removeFromSuperview()
+                if let newReplyView = newReplyView {
+                    addSubview(newReplyView)
+                }
+            }
+        }
+    }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        
+        if let newReplyView = newReplyView {
+            newReplyView.frame = CGRect(x: 0, y: 0, width: size.width, height: 400)
+            return CGSize(width: size.width, height: 400)
+            
+        }
+        
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
         
         let adjustedMargins = UIEdgeInsets(top: layoutMargins.top + 25, left: layoutMargins.left + 5, bottom: layoutMargins.bottom + 75, right: layoutMargins.right + 5)
@@ -36,16 +52,7 @@ class ReplyButtonFooterView: SizeThatFitsReusableView {
     
     @objc private func tappedReply() {
         
-        let divViewOffset = CGFloat(35)
-        delegate?.tappedReply(from: self, additionalPresentationAnimations: {
-            let oldFrame = self.dividerView.frame
-            self.dividerView.frame.origin = CGPoint(x: oldFrame.minX, y: oldFrame.minY - divViewOffset)
-            self.replyButton.alpha = 0
-        }, additionalDismissalAnimations: {
-            let oldFrame = self.dividerView.frame
-            self.dividerView.frame.origin = CGPoint(x: oldFrame.minX, y: oldFrame.minY + divViewOffset)
-            self.replyButton.alpha = 1
-        })
+        delegate?.tappedReply(from: self)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {

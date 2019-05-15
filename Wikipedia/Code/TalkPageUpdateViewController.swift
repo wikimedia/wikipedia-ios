@@ -9,11 +9,10 @@ class TalkPageUpdateViewController: ViewController {
     
     enum UpdateType {
         case newDiscussion
-        case newReply(discussion: TalkPageDiscussion)
+        case newReply
     }
     
     weak var delegate: TalkPageUpdateDelegate?
-    private let talkPage: TalkPage
     let updateType: UpdateType
     
     @IBOutlet private var subjectTextField: ThemeableTextField!
@@ -37,11 +36,6 @@ class TalkPageUpdateViewController: ViewController {
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     
     private var publishButton: UIBarButtonItem!
-    
-    var swipeInteractionController: ReplySwipeInteractionController?
-    weak var replyPresentationController: ReplyPresentationController?
-    
-    private var fakePublishButton: UIButton?
     
     private var bodyPlaceholder: String {
         switch updateType {
@@ -70,8 +64,7 @@ class TalkPageUpdateViewController: ViewController {
         return attributedString
     }
     
-    init(talkPage: TalkPage, type: UpdateType) {
-        self.talkPage = talkPage
+    init(type: UpdateType) {
         self.updateType = type
         
         super.init()
@@ -93,19 +86,11 @@ class TalkPageUpdateViewController: ViewController {
         case .newReply:
             newReplySetup()
         }
-        
-        swipeInteractionController = ReplySwipeInteractionController(viewController: self)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setBodyHeightIfNeeded()
-        switch updateType {
-        case .newReply:
-            fakePublishButton?.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.height - 200, width: 100, height: 50)
-        default:
-            break
-        }
     }
     
     private func commonSetup() {
@@ -142,22 +127,6 @@ class TalkPageUpdateViewController: ViewController {
         bodyTextView.placeholder = WMFLocalizedString("talk-page-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in reply field for talk pages.")
         subjectContainerView.isHidden = true
         firstDivView.isHidden = true
-        
-        //insert fake publish. will remove
-        fakePublishButton = UIButton(type: .system)
-        fakePublishButton?.setTitle("Publish", for: .normal)
-        fakePublishButton?.tintColor = theme.colors.link
-        fakePublishButton?.addTarget(self, action: #selector(tappedFakePublish), for: .touchUpInside)
-        fakePublishButton?.frame = CGRect(x: view.bounds.width - 200, y: view.bounds.height - 500, width: 100, height: 50)
-        view.addSubview(fakePublishButton!)
-    }
-
-    @objc func tappedFakePublish() {
-        guard let bodyText = bodyTextView.text else {
-            return
-        }
-        
-        delegate?.tappedPublish(updateType: updateType, subject: nil, body: bodyText, viewController: self)
     }
     
     private func calculateSingleLineBodyHeightIfNeeded() {

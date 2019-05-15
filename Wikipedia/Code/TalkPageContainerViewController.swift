@@ -13,8 +13,6 @@ class TalkPageContainerViewController: ViewController {
     private var talkPage: TalkPage?
     
     private var talkPageController: TalkPageController!
-    private var replyTransitioningDelegate: ReplyTransitioningDelegate!
-    private var listVC: TalkPageReplyListViewController?
     
     required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
@@ -38,16 +36,6 @@ class TalkPageContainerViewController: ViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
         navigationItem.rightBarButtonItem = addButton
         navigationBar.updateNavigationItems()
-        
-        replyTransitioningDelegate = ReplyTransitioningDelegate()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        replyTransitioningDelegate.topChromeHeight = 75
-        replyTransitioningDelegate.navigationBarHeight = navigationBar.frame.height
-        replyTransitioningDelegate.topChromeExtraOffset = 5
     }
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
@@ -58,7 +46,7 @@ class TalkPageContainerViewController: ViewController {
             return
         }
         
-        let discussionNewVC = TalkPageUpdateViewController.init(talkPage: talkPage, type: .newDiscussion)
+        let discussionNewVC = TalkPageUpdateViewController.init(type: .newDiscussion)
         discussionNewVC.delegate = self
         discussionNewVC.apply(theme: theme)
         navigationController?.pushViewController(discussionNewVC, animated: true)
@@ -118,8 +106,8 @@ extension TalkPageContainerViewController: TalkPageUpdateDelegate {
                     print("failure")
                 }
             }
+            /*
         case .newReply(let discussion):
-            listVC?.willDismiss()
             dismiss(animated: true, completion: nil)
             
             talkPageController.addReply(to: discussion, title: talkPageTitle, host: host, languageCode: languageCode, body: body) { (result) in
@@ -130,7 +118,11 @@ extension TalkPageContainerViewController: TalkPageUpdateDelegate {
                     print("failure")
                 }
             }
+ */
+            default: break
         }
+
+        
     }
 }
 
@@ -156,42 +148,11 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         if lastPathComponent.contains(underscoredPrefix) && languageCode == "test" {
             let talkPageContainerVC = TalkPageContainerViewController(title: title, host: host, languageCode: languageCode, titleIncludesPrefix: false, type: .user, dataStore: dataStore)
             talkPageContainerVC.apply(theme: theme)
-            if presentedViewController != nil {
-                viewController.willDismiss()
-                dismiss(animated: true) {
-                    self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
-                }
-            } else {
-                navigationController?.pushViewController(talkPageContainerVC, animated: true)
-            }
+            navigationController?.pushViewController(talkPageContainerVC, animated: true)
         }
         
         //todo: else if User: prefix, show their wikitext editing page in a web view. Ensure edits there cause talk page to refresh when coming back.
         //else if no host, try prepending language wiki to components and navigate (openUrl, is it okay that this kicks them out of the app?)
         //else if it's a full url (i.e. a different host), send them to safari
-    }
-    
-    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController, lastSeenView: UIView, additionalPresentationAnimations: (() -> Void)?, additionalDismissalAnimations: (() -> Void)?) {
-        
-        guard let talkPage = talkPage else {
-            assertionFailure("TalkPage is not populated yet.")
-            return
-        }
-        
-        listVC = viewController
-        
-        let replyNewViewController = TalkPageUpdateViewController.init(talkPage: talkPage, type: .newReply(discussion: discussion))
-        replyNewViewController.delegate = self
-        replyNewViewController.apply(theme: theme)
-        
-        replyNewViewController.modalPresentationStyle = .custom
-        replyTransitioningDelegate.lastSeenView = lastSeenView
-        replyTransitioningDelegate.additionalPresentationAnimations = additionalPresentationAnimations
-        replyTransitioningDelegate.additionalDismissalAnimations = additionalDismissalAnimations
-        replyNewViewController.transitioningDelegate = replyTransitioningDelegate
-        viewController.present(replyNewViewController, animated: true) {
-            replyNewViewController.swipeInteractionController?.scrollView = viewController.collectionView
-            replyNewViewController.swipeInteractionController?.dismissDelegate = viewController
-        }
     }
 }
