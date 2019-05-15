@@ -6,34 +6,13 @@ protocol TalkPageReplyContainerViewControllerDelegate: class {
 }
 
 class TalkPageReplyContainerViewController: ViewController {
-    
-    enum Mode {
-        case reply
-        case view
-    }
-    
+
     weak var delegate: TalkPageReplyContainerViewControllerDelegate?
     
     private let discussion: TalkPageDiscussion
     private let dataStore: MWKDataStore
     private var replyListViewController: TalkPageReplyListViewController!
-    private var replyNewView: TalkPageUpdateStackView!
-    
-    private var mode: Mode = .view {
-        didSet {
-            switch mode {
-            case .view:
-                layoutForViewMode()
-            case .reply:
-                layoutForReplyMode()
-            }
-        }
-    }
-    private var replyContainerHeightConstraint: NSLayoutConstraint!
-    private var replyContainerTopConstraint: NSLayoutConstraint!
-    private var replyFooterView: UIView?
-    
-    private var replyModeContentOffset: CGPoint = .zero
+
     
     required init(dataStore: MWKDataStore, discussion: TalkPageDiscussion) {
         self.dataStore = dataStore
@@ -52,13 +31,6 @@ class TalkPageReplyContainerViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
 
         embedListViewController()
-        embedReplyNewView()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        evaluateReplyContainerTopHeightConstraints(for: size)
     }
     
     override func apply(theme: Theme) {
@@ -69,63 +41,7 @@ class TalkPageReplyContainerViewController: ViewController {
 }
 
 private extension TalkPageReplyContainerViewController {
-    
-    func evaluateReplyContainerTopHeightConstraints(for size: CGSize) {
-        replyContainerHeightConstraint.constant = size.height * 0.75
-        
-        switch mode {
-        case .reply:
-            replyContainerTopConstraint.constant = replyContainerHeightConstraint.constant
-        case .view:
-            replyContainerTopConstraint.constant = 0
-        }
-    }
-    
-    func layoutForReplyMode() {
-        
-        replyFooterView?.isHidden = true
-        
-        updateInsetsOffsetsForReplyMode()
-        
-        evaluateReplyContainerTopHeightConstraints(for: view.bounds.size)
-        
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
-    func updateInsetsOffsetsForReplyMode() {
-        let initialInset = replyListViewController.initialContentInset
-        
-        replyListViewController.collectionView.contentInset = UIEdgeInsets(top: initialInset.top, left: initialInset.left, bottom: replyContainerHeightConstraint.constant - (replyFooterView?.frame.height ?? 0), right: initialInset.right)
-        
-        //scroll to bottom
-        let scrollView = replyListViewController.collectionView
-        let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.adjustedContentInset.bottom)
-        replyModeContentOffset = bottomOffset
-        scrollView.setContentOffset(replyModeContentOffset, animated: true)
-    }
-    
-    func updateInsetsOffsetsForViewMode() {
-        replyListViewController.collectionView.contentInset = replyListViewController.initialContentInset
-        
-        //scroll to top
-        replyListViewController.collectionView.setContentOffset(replyListViewController.initialContentOffset, animated: true)
-    }
-    
-    func layoutForViewMode() {
-        
-        replyFooterView?.isHidden = true
-        
-        updateInsetsOffsetsForViewMode()
-        
-        evaluateReplyContainerTopHeightConstraints(for: view.bounds.size)
-        
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
+
     private func embedListViewController() {
         
         replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, discussion: discussion)
@@ -134,53 +50,27 @@ private extension TalkPageReplyContainerViewController {
         
         wmf_add(childController: replyListViewController, andConstrainToEdgesOfContainerView: view)
     }
-    
-    private func embedReplyNewView() {
-        
-        replyNewView = TalkPageUpdateStackView.wmf_viewFromClassNib()
-        replyNewView.delegate = self
-        replyNewView.commonSetup()
-        replyNewView.newReplySetup()
-        
-        replyNewView.apply(theme: theme)
-        view.addSubview(replyNewView)
-        
-        replyNewView.translatesAutoresizingMaskIntoConstraints = false
-        replyContainerTopConstraint = view.bottomAnchor.constraint(equalTo: replyNewView.topAnchor)
-        let leftConstraint = replyNewView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let rightConstraint = view.trailingAnchor.constraint(equalTo: replyNewView.trailingAnchor)
-        replyContainerHeightConstraint = replyNewView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.75)
-        view.addConstraints([replyContainerTopConstraint, leftConstraint, rightConstraint, replyContainerHeightConstraint])
-    }
 }
 
 extension TalkPageReplyContainerViewController: TalkPageReplyListViewControllerDelegate {
+    func initialInsetOffsetDidChange(for viewController: TalkPageReplyListViewController) {
+        //no-op
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageReplyListViewController) {
+        //no-op
+    }
+    
+    func composeTextDidChange(_ viewController: TalkPageReplyListViewController) {
+        //todo: mess with navigation items
+    }
+    
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
         delegate?.tappedLink(url, viewController: self)
     }
     
     func tappedReply(viewController: TalkPageReplyListViewController, footerView: ReplyButtonFooterView) {
-        
-        replyFooterView = footerView
-        mode = mode == .reply ? .view : .reply
-    }
-    
-    func initialInsetOffsetDidChange(for viewController: TalkPageReplyListViewController) {
-        switch mode {
-        case .view:
-            updateInsetsOffsetsForViewMode()
-        case .reply:
-            updateInsetsOffsetsForReplyMode()
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageReplyListViewController) {
-        guard mode == .reply else {
-            return
-        }
-        
-        let delta = max(replyModeContentOffset.y - scrollView.contentOffset.y, 0)
-        replyContainerTopConstraint.constant = replyContainerHeightConstraint.constant - delta
+
     }
 }
 

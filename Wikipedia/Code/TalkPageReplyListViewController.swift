@@ -6,6 +6,7 @@ protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedReply(viewController: TalkPageReplyListViewController, footerView: ReplyButtonFooterView)
     func initialInsetOffsetDidChange(for viewController: TalkPageReplyListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageReplyListViewController)
+    func composeTextDidChange(_ viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -20,9 +21,17 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     weak var delegate: TalkPageReplyListViewControllerDelegate?
     
-    private var replyNewVC: TalkPageUpdateViewController?
     private(set) var initialContentInset = UIEdgeInsets.zero
     private(set) var initialContentOffset = CGPoint.zero
+    
+    private var showingCompose = false {
+        didSet {
+            if showingCompose != oldValue {
+                //todo: better reload
+                collectionView.reloadData()
+            }
+        }
+    }
     
     required init(dataStore: MWKDataStore, discussion: TalkPageDiscussion) {
         self.dataStore = dataStore
@@ -46,6 +55,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         collectionViewUpdater?.performFetch()
+        
+        collectionView.keyboardDismissMode = .onDrag
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -200,9 +211,9 @@ private extension TalkPageReplyListViewController {
     
     func configure(footer: ReplyButtonFooterView) {
         footer.delegate = self
+        footer.showingCompose = showingCompose
         footer.layoutMargins = layout.itemLayoutMargins
         footer.apply(theme: theme)
-        footer.newReplyView = replyNewVC?.view
     }
     
     func configure(cell: ReplyListItemCollectionViewCell, at indexPath: IndexPath) {
@@ -227,8 +238,16 @@ extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelega
 }
 
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
+    func textDidChange() {
+        delegate?.composeTextDidChange(self)
+    }
+    
     func tappedReply(from view: ReplyButtonFooterView) {
 
-        delegate?.tappedReply(viewController: self, footerView: view)
+        showingCompose = !showingCompose
+    }
+    
+    var collectionViewFrame: CGRect {
+        return collectionView.frame
     }
 }

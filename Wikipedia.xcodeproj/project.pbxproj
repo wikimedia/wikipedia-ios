@@ -157,6 +157,11 @@
 		67D3C447228C48BD001D5741 /* TalkPageReplyContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C442228C48BA001D5741 /* TalkPageReplyContainerViewController.swift */; };
 		67D3C44D228C94BF001D5741 /* TalkPageUpdateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C44C228C94BF001D5741 /* TalkPageUpdateStackView.swift */; };
 		67D3C44F228C94DB001D5741 /* TalkPageUpdateStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67D3C44E228C94DB001D5741 /* TalkPageUpdateStackView.xib */; };
+		67D3C453228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
+		67D3C454228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
+		67D3C455228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
+		67D3C456228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
+		67D3C457228CB54E001D5741 /* TalkPageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */; };
 		67DB11032261213C00F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */; };
 		67DB110422612C3300F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */; };
 		67DB110522612C3300F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */; };
@@ -3670,6 +3675,7 @@
 		67D3C442228C48BA001D5741 /* TalkPageReplyContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyContainerViewController.swift; sourceTree = "<group>"; };
 		67D3C44C228C94BF001D5741 /* TalkPageUpdateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageUpdateStackView.swift; sourceTree = "<group>"; };
 		67D3C44E228C94DB001D5741 /* TalkPageUpdateStackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageUpdateStackView.xib; sourceTree = "<group>"; };
+		67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyView.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
 		67DB110922613F2700F789B0 /* SchemeHandlerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandlerCache.swift; sourceTree = "<group>"; };
@@ -6323,6 +6329,7 @@
 			children = (
 				67E8B0732268DA8B00537BC9 /* DiscussionListItemCollectionViewCell.swift */,
 				6734116F22773122005B31DA /* ReplyListItemCollectionViewCell.swift */,
+				67D3C452228CB54E001D5741 /* TalkPageReplyView.swift */,
 				675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */,
 				676070A1227CE60800A81F09 /* ReplyButtonFooterView.swift */,
 			);
@@ -10949,6 +10956,7 @@
 				6734115922735832005B31DA /* TalkPagesController.swift in Sources */,
 				7ABAD6BF20349B91006A364C /* Collection.swift in Sources */,
 				7A5A0543225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
+				67D3C453228CB54E001D5741 /* TalkPageReplyView.swift in Sources */,
 				7A6F560521AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */,
@@ -11009,6 +11017,7 @@
 				B04AE85021C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0524B79214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				B0D3E710214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
+				67D3C457228CB54E001D5741 /* TalkPageReplyView.swift in Sources */,
 				B0F4761F21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				7A48EA1221B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
 				7A82896C21B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
@@ -11782,6 +11791,7 @@
 				7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				7A49A20421231510005C574C /* CollectionViewFooter.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
+				67D3C456228CB54E001D5741 /* TalkPageReplyView.swift in Sources */,
 				41CCB67721CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC4F20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
@@ -12144,6 +12154,7 @@
 				B04AE84D21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0524B76214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				B0D3E70D214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
+				67D3C454228CB54E001D5741 /* TalkPageReplyView.swift in Sources */,
 				B0F4761C21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				7A48EA0F21B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
 				7A82896921B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
@@ -12541,6 +12552,7 @@
 				D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				B04AE84E21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0524B77214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
+				67D3C455228CB54E001D5741 /* TalkPageReplyView.swift in Sources */,
 				B0D3E70E214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				B0F4761D21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				7A48EA1021B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
