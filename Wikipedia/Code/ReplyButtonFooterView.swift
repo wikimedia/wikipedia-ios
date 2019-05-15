@@ -3,7 +3,7 @@ import UIKit
 
 protocol ReplyButtonFooterViewDelegate: class {
     func tappedReply(from view: ReplyButtonFooterView)
-    func textDidChange()
+    func composeTextDidChange(text: String?)
     var collectionViewFrame: CGRect { get }
 }
 
@@ -17,6 +17,10 @@ class ReplyButtonFooterView: SizeThatFitsReusableView {
             replyButton.isHidden = showingCompose
             composeView.isHidden = !showingCompose
         }
+    }
+    
+    func resetCompose() {
+        composeView.resetCompose()
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -92,8 +96,8 @@ extension ReplyButtonFooterView: Themeable {
 }
 
 extension ReplyButtonFooterView: TalkPageReplyViewDelegate {
-    func textDidChange() {
-        delegate?.textDidChange()
+    func composeTextDidChange(text: String?) {
+        delegate?.composeTextDidChange(text: text)
     }
     
     var collectionViewFrame: CGRect {

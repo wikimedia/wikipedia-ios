@@ -3,10 +3,7 @@ import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
-    func tappedReply(viewController: TalkPageReplyListViewController, footerView: ReplyButtonFooterView)
-    func initialInsetOffsetDidChange(for viewController: TalkPageReplyListViewController)
-    func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageReplyListViewController)
-    func composeTextDidChange(_ viewController: TalkPageReplyListViewController)
+    func tappedPublish(discussion: TalkPageDiscussion, composeText: String, viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -21,14 +18,25 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     weak var delegate: TalkPageReplyListViewControllerDelegate?
     
-    private(set) var initialContentInset = UIEdgeInsets.zero
-    private(set) var initialContentOffset = CGPoint.zero
+    private lazy var publishButton: UIBarButtonItem = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
+    
+    private var composeText: String?
+    private var footerView: ReplyButtonFooterView?
     
     private var showingCompose = false {
         didSet {
             if showingCompose != oldValue {
                 //todo: better reload
                 collectionView.reloadData()
+            }
+            
+            if showingCompose {
+                publishButton.isEnabled = false
+                navigationItem.rightBarButtonItem = publishButton
+                navigationBar.updateNavigationItems()
+            } else {
+                navigationItem.rightBarButtonItem = nil
+                navigationBar.updateNavigationItems()
             }
         }
     }
@@ -57,28 +65,19 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         collectionViewUpdater?.performFetch()
         
         collectionView.keyboardDismissMode = .onDrag
+        navigationBar.isBarHidingEnabled = false
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
+    @objc func tappedPublish(_ sender: UIBarButtonItem) {
         
-        coordinator.animate(alongsideTransition: nil) { (_) in
-            self.initialContentInset = self.collectionView.contentInset
-            self.initialContentOffset = self.collectionView.contentOffset
-            self.delegate?.initialInsetOffsetDidChange(for: self)
+        guard let composeText = composeText,
+            composeText.count > 0 else {
+                assertionFailure("User should be able to tap Publish if they have not written a reply.")
+                return
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        initialContentInset = collectionView.contentInset
-        initialContentOffset = collectionView.contentOffset
-    }
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-        delegate?.scrollViewDidScroll(scrollView, viewController: self)
+        delegate?.tappedPublish(discussion: discussion, composeText: composeText, viewController: self)
+        showingCompose = false
+        footerView?.resetCompose()
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -130,6 +129,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         if kind == UICollectionView.elementKindSectionFooter,
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ReplyButtonFooterView.identifier, for: indexPath) as? ReplyButtonFooterView {
+            self.footerView = footer
             configure(footer: footer)
             return footer
         }
@@ -238,8 +238,9 @@ extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelega
 }
 
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
-    func textDidChange() {
-        delegate?.composeTextDidChange(self)
+    func composeTextDidChange(text: String?) {
+        publishButton.isEnabled = text?.count ?? 0 > 0
+        composeText = text
     }
     
     func tappedReply(from view: ReplyButtonFooterView) {

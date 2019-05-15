@@ -40,7 +40,7 @@ class TalkPageContainerViewController: ViewController {
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
         
-        guard let talkPage = talkPage else {
+        guard let _ = talkPage else {
 
             assertionFailure("TalkPage is not populated yet.")
             return
@@ -106,19 +106,6 @@ extension TalkPageContainerViewController: TalkPageUpdateDelegate {
                     print("failure")
                 }
             }
-            /*
-        case .newReply(let discussion):
-            dismiss(animated: true, completion: nil)
-            
-            talkPageController.addReply(to: discussion, title: talkPageTitle, host: host, languageCode: languageCode, body: body) { (result) in
-                switch result {
-                case .success:
-                    print("made it")
-                case .failure:
-                    print("failure")
-                }
-            }
- */
             default: break
         }
 
@@ -130,16 +117,27 @@ extension TalkPageContainerViewController: TalkPageDiscussionListDelegate {
     
     func tappedDiscussion(_ discussion: TalkPageDiscussion, viewController: TalkPageDiscussionListViewController) {
         
-        let replyContainerVC = TalkPageReplyContainerViewController(dataStore: dataStore, discussion: discussion)
-        replyContainerVC.delegate = self
-        replyContainerVC.apply(theme: theme)
-        navigationController?.pushViewController(replyContainerVC, animated: true)
+        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, discussion: discussion)
+        replyVC.delegate = self
+        replyVC.apply(theme: theme)
+        navigationController?.pushViewController(replyVC, animated: true)
     }
 }
 
-extension TalkPageContainerViewController: TalkPageReplyContainerViewControllerDelegate {
-
-    func tappedLink(_ url: URL, viewController: TalkPageReplyContainerViewController) {
+extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelegate {
+    func tappedPublish(discussion: TalkPageDiscussion, composeText: String, viewController: TalkPageReplyListViewController) {
+        
+        talkPageController.addReply(to: discussion, title: talkPageTitle, host: host, languageCode: languageCode, body: composeText) { (result) in
+            switch result {
+            case .success:
+                print("made it")
+            case .failure:
+                print("failure")
+            }
+        }
+    }
+    
+    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
         let lastPathComponent = url.lastPathComponent
         
         //todo: fix for other languages

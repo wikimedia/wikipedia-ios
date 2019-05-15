@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TalkPageReplyViewDelegate: class {
-     func textDidChange()
+    func composeTextDidChange(text: String?)
      var collectionViewFrame: CGRect { get }
 }
 
@@ -51,6 +51,10 @@ class TalkPageReplyView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func resetCompose() {
+        composeTextView.text = nil
     }
     
     private func setupView() {
@@ -133,6 +137,6 @@ extension TalkPageReplyView: ThemeableTextViewPlaceholderDelegate {
     }
     
     func themeableTextViewDidChange(_ themeableTextView: UITextView) {
-        delegate?.textDidChange()
+        delegate?.composeTextDidChange(text: themeableTextView.text)
     }
 }
