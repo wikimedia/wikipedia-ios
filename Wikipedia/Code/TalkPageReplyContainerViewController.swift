@@ -17,7 +17,7 @@ class TalkPageReplyContainerViewController: ViewController {
     private let discussion: TalkPageDiscussion
     private let dataStore: MWKDataStore
     private var replyListViewController: TalkPageReplyListViewController!
-    private var replyNewViewController: TalkPageDeleteMeViewController!
+    private var replyNewView: TalkPageUpdateStackView!
     
     private var mode: Mode = .view {
         didSet {
@@ -52,7 +52,7 @@ class TalkPageReplyContainerViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
 
         embedListViewController()
-        embedReplyNewViewController()
+        embedReplyNewView()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -135,28 +135,22 @@ private extension TalkPageReplyContainerViewController {
         wmf_add(childController: replyListViewController, andConstrainToEdgesOfContainerView: view)
     }
     
-    private func embedReplyNewViewController() {
-        replyNewViewController = TalkPageDeleteMeViewController()
-        //replyNewViewController.delegate = self
+    private func embedReplyNewView() {
         
-        replyNewViewController.apply(theme: theme)
+        replyNewView = TalkPageUpdateStackView.wmf_viewFromClassNib()
+        replyNewView.delegate = self
+        replyNewView.commonSetup()
+        replyNewView.newReplySetup()
         
-        guard let subview = replyNewViewController.view else {
-            return
-        }
+        replyNewView.apply(theme: theme)
+        view.addSubview(replyNewView)
         
-        addChild(replyNewViewController)
-        
-        view.addSubview(subview)
-        
-        subview.translatesAutoresizingMaskIntoConstraints = false
-        replyContainerTopConstraint = view.bottomAnchor.constraint(equalTo: subview.topAnchor)
-        let leftConstraint = subview.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let rightConstraint = view.trailingAnchor.constraint(equalTo: subview.trailingAnchor)
-        replyContainerHeightConstraint = subview.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.75)
+        replyNewView.translatesAutoresizingMaskIntoConstraints = false
+        replyContainerTopConstraint = view.bottomAnchor.constraint(equalTo: replyNewView.topAnchor)
+        let leftConstraint = replyNewView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let rightConstraint = view.trailingAnchor.constraint(equalTo: replyNewView.trailingAnchor)
+        replyContainerHeightConstraint = replyNewView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.75)
         view.addConstraints([replyContainerTopConstraint, leftConstraint, rightConstraint, replyContainerHeightConstraint])
-        
-        replyNewViewController.didMove(toParent: self)
     }
 }
 
@@ -190,9 +184,8 @@ extension TalkPageReplyContainerViewController: TalkPageReplyListViewControllerD
     }
 }
 
-extension TalkPageReplyContainerViewController: TalkPageUpdateDelegate {
-    func tappedPublish(updateType: TalkPageUpdateViewController.UpdateType, subject: String?, body: String, viewController: TalkPageUpdateViewController) {
-        //no-op
-        //todo: cleanup
+extension TalkPageReplyContainerViewController: TalkPageUpdateStackViewDelegate {
+    func textDidChange() {
+        //no-op yet
     }
 }
