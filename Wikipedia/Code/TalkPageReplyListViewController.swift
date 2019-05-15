@@ -3,6 +3,9 @@ import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
+    func tappedReply(viewController: TalkPageReplyListViewController, footerView: ReplyButtonFooterView)
+    func initialInsetOffsetDidChange(for viewController: TalkPageReplyListViewController)
+    func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -18,6 +21,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     weak var delegate: TalkPageReplyListViewControllerDelegate?
     
     private var replyNewVC: TalkPageUpdateViewController?
+    private(set) var initialContentInset = UIEdgeInsets.zero
+    private(set) var initialContentOffset = CGPoint.zero
     
     required init(dataStore: MWKDataStore, discussion: TalkPageDiscussion) {
         self.dataStore = dataStore
@@ -41,6 +46,28 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         collectionViewUpdater?.performFetch()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: nil) { (_) in
+            self.initialContentInset = self.collectionView.contentInset
+            self.initialContentOffset = self.collectionView.contentOffset
+            self.delegate?.initialInsetOffsetDidChange(for: self)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        initialContentInset = collectionView.contentInset
+        initialContentOffset = collectionView.contentOffset
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        delegate?.scrollViewDidScroll(scrollView, viewController: self)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -202,11 +229,6 @@ extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelega
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
     func tappedReply(from view: ReplyButtonFooterView) {
 
-        let replyNewVC = TalkPageUpdateViewController.init(type: .newReply)
-        addChild(replyNewVC)
-        self.replyNewVC = replyNewVC
-        
-        layout.invalidateLayout()
-        //todo: show publish
+        delegate?.tappedReply(viewController: self, footerView: view)
     }
 }

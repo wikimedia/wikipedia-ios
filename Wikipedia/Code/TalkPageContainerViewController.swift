@@ -130,15 +130,16 @@ extension TalkPageContainerViewController: TalkPageDiscussionListDelegate {
     
     func tappedDiscussion(_ discussion: TalkPageDiscussion, viewController: TalkPageDiscussionListViewController) {
         
-        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, discussion: discussion)
-        replyVC.delegate = self
-        replyVC.apply(theme: theme)
-        navigationController?.pushViewController(replyVC, animated: true)
+        let replyContainerVC = TalkPageReplyContainerViewController(dataStore: dataStore, discussion: discussion)
+        replyContainerVC.delegate = self
+        replyContainerVC.apply(theme: theme)
+        navigationController?.pushViewController(replyContainerVC, animated: true)
     }
 }
 
-extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelegate {
-    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
+extension TalkPageContainerViewController: TalkPageReplyContainerViewControllerDelegate {
+
+    func tappedLink(_ url: URL, viewController: TalkPageReplyContainerViewController) {
         let lastPathComponent = url.lastPathComponent
         
         //todo: fix for other languages
