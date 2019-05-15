@@ -708,8 +708,7 @@
         this.hasMarkup = hasMarkup
         this.innerPosition = innerPosition
         if (hasMarkup) {
-          const markupLength = 2
-          this.outerPosition = new LinkElementPosition({ line: innerPosition.from.line, ch: innerPosition.from.ch - markupLength }, { line: innerPosition.to.line, ch: innerPosition.to.ch + markupLength })
+          this.outerPosition = new LinkElementPosition({ line: innerPosition.from.line, ch: innerPosition.from.ch - anchorLength }, { line: innerPosition.to.line, ch: innerPosition.to.ch + anchorLength })
         }
         if (label) {
           this.pageWithPipePosition = new LinkElementPosition({ line: innerPosition.from.line, ch: innerPosition.from.ch }, { line: innerPosition.from.line, ch: innerPosition.from.ch + page.length + 1 }) // add pipe
@@ -746,7 +745,6 @@
       const info = selectionWrapInfo(openAnchorRegex, closeAnchorRegex)
       const anchor = editor.getCursor('anchor')
       const head = editor.getCursor('head')
-      const markupLength = 2
 
       if (info.openDistance === 0 && info.closeDistance === 0) {
         const innerPosition = new LinkElementPosition(anchor, head)
@@ -758,8 +756,8 @@
         if (info.openMatchEncompassingStartOffset !== undefined && (info.closeMatchEncompassingEndOffset || info.closeDistance !== -1) && info.closeWithinDistance <= 0) {
           let fromCh
           if (info.openMatchEncompassingStartOffset === 0) {
-            fromCh = anchor.ch + markupLength
-          } else if (info.openMatchEncompassingStartOffset + markupLength === 0) {
+            fromCh = anchor.ch + anchorLength
+          } else if (info.openMatchEncompassingStartOffset + anchorLength === 0) {
             fromCh = anchor.ch
           } else {
             fromCh = anchor.ch - info.openMatchEncompassingStartOffset
@@ -773,8 +771,8 @@
           let toCh
           if (info.closeMatchEncompassingEndOffset === 0) {
             toCh = head.ch
-          } else if (info.closeMatchEncompassingEndOffset + markupLength === 0) {
-            toCh = head.ch - markupLength
+          } else if (info.closeMatchEncompassingEndOffset + anchorLength === 0) {
+            toCh = head.ch - anchorLength
           } else {
             toCh = head.ch + info.closeMatchEncompassingEndOffset
           }
@@ -1030,7 +1028,8 @@
 	
     const openAnchorRegex = /\[\[/
     const closeAnchorRegex = /\]\]/
-    
+    const anchorLength = 2
+
     const openTemplateRegex = /\{\{/
     const closeTemplateRegex = /\}\}/
   
@@ -1311,16 +1310,15 @@
           console.warn("Attempting to remove link with no innerPosition or outerPosition")
           return
         }
-        const markupLength = 2
         const removePageWithPipeIfPresent = () => {
           if (link.pageWithPipePosition) {
-            const from = { line: link.pageWithPipePosition.from.line, ch: link.pageWithPipePosition.from.ch - markupLength }
-            const to = { line: link.pageWithPipePosition.to.line, ch: link.pageWithPipePosition.to.ch - markupLength }
+            const from = { line: link.pageWithPipePosition.from.line, ch: link.pageWithPipePosition.from.ch - anchorLength }
+            const to = { line: link.pageWithPipePosition.to.line, ch: link.pageWithPipePosition.to.ch - anchorLength }
             editor.replaceRange("", from, to)
           }
         }
         const openingMarkupPosition = new LinkElementPosition({ line: outerPosition.from.line, ch: outerPosition.from.ch }, { line: innerPosition.from.line, ch: innerPosition.from.ch })
-        const closingMarkupPosition = new LinkElementPosition({ line: outerPosition.to.line, ch: outerPosition.to.ch - (markupLength * 2) }, { line: innerPosition.to.line, ch: innerPosition.to.ch })
+        const closingMarkupPosition = new LinkElementPosition({ line: outerPosition.to.line, ch: outerPosition.to.ch - (anchorLength * 2) }, { line: innerPosition.to.line, ch: innerPosition.to.ch })
         const removePageAndMarkup = () => {
           editor.replaceRange("", openingMarkupPosition.from, openingMarkupPosition.to)
           editor.replaceRange("", closingMarkupPosition.from, closingMarkupPosition.to)
