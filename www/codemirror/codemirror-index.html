@@ -700,28 +700,29 @@
       * @param {!string} page
       * @param {?string} label
       * @param {!boolean} hasMarkup
-      * @param {!LinkElementPosition} pagePosition
-      * @param {!LinkElementPosition} linkPosition
+      * @param {!LinkElementPosition} innerPosition
       */
-      constructor(page, label, hasMarkup, pagePosition, linkPosition) {
+      constructor(page, label, hasMarkup, innerPosition) {
         this.page = page
         this.label = label
         this.hasMarkup = hasMarkup
-        this.pagePosition = pagePosition
-        this.linkPosition = linkPosition
+        this.innerPosition = innerPosition
+        if (hasMarkup) {
+          const markupLength = 2
+          this.outerPosition = new LinkElementPosition({ line: innerPosition.from.line, ch: innerPosition.from.ch - markupLength }, { line: innerPosition.to.line, ch: innerPosition.to.ch + markupLength })
+        }
+        if (label) {
+          this.pageWithPipePosition = new LinkElementPosition({ line: innerPosition.from.line, ch: innerPosition.from.ch }, { line: innerPosition.from.line, ch: innerPosition.from.ch + page.length + 1 }) // add pipe
+        }
       }
     }
 
-    const linkFromTextBetweenAnchorMarkup = (text, pagePosition, linkPosition) => {
+    const linkFromTextBetweenAnchorMarkup = (text, innerPosition) => {
       if (!text) {
         return null
       }
-      if (!pagePosition) {
-        console.warn("Mising pagePosition in linkFromTextBetweenAnchorMarkup; pagePosition must be defined to construct a new Link")
-        return null
-      }
-      if (!linkPosition) {
-        console.warn("Mising linkPosition in linkFromTextBetweenAnchorMarkup; linkPosition must be defined to construct a new Link")
+      if (!innerPosition) {
+        console.warn("Mising innerPosition in linkFromTextBetweenAnchorMarkup; innerPosition must be defined to construct a new Link")
         return null
       }
       const textSplitByPipe = text.split("|")
@@ -731,8 +732,8 @@
       
       const page = textSplitByPipe[0]
       const label = textSplitByPipe[1]
-      
-      return new Link(page, label, true, pagePosition, linkPosition)
+
+      return new Link(page, label, true, innerPosition)
     }
 
     const linkFromWord = () => {
@@ -748,9 +749,8 @@
       const markupLength = 2
 
       if (info.openDistance === 0 && info.closeDistance === 0) {
-        const pagePosition = new LinkElementPosition(anchor, head)
-        const linkPosition = new LinkElementPosition({line: from.line, ch: from.ch - markupLength}, {line: to.line, ch: to.ch + markupLength})
-        return linkFromTextBetweenAnchorMarkup(editor.getSelection(), pagePosition, linkPosition)
+        const innerPosition = new LinkElementPosition(anchor, head)
+        return linkFromTextBetweenAnchorMarkup(editor.getSelection(), innerPosition)
       } else {
         let from;
         let to;
@@ -788,9 +788,8 @@
 
         if (from && to) {
           const maybePipedText = editor.getRange(from, to)
-          const pagePosition = new LinkElementPosition(from, to)
-          const linkPosition = new LinkElementPosition({line: from.line, ch: from.ch - markupLength}, {line: to.line, ch: to.ch + markupLength})
-          return linkFromTextBetweenAnchorMarkup(maybePipedText, pagePosition, linkPosition)
+          const innerPosition = new LinkElementPosition(from, to)
+          return linkFromTextBetweenAnchorMarkup(maybePipedText, innerPosition)
         } else {
           return null
         }
@@ -809,8 +808,8 @@
         }
       } else {
         if (buttonNames.length === 0) {
-          const pagePosition = {from: editor.getCursor('anchor'), to: editor.getCursor('head')}
-          link = new Link(selection, null, false, pagePosition)
+          const innerPosition = {from: editor.getCursor('anchor'), to: editor.getCursor('head')}
+          link = new Link(selection, null, false, innerPosition)
         } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
           link = linkFromSelectionWrapInfo()
         }
@@ -1267,29 +1266,27 @@
           console.warn("Attempting to insert or edit link with no link in stateStore")
           return
         }
-        const position = link.pagePosition
-        
         if (link.hasMarkup) { // existing link
           if (link.label) {
             if (label) { // modify an exsiting label
               const pageWithLabel = `${page}|${label}`
-              editor.replaceRange(pageWithLabel, link.pagePosition.from, link.pagePosition.to) 
+              editor.replaceRange(pageWithLabel, link.innerPosition.from, link.innerPosition.to) 
             } else { // modify an existing link with a label
               const pageWithExistingLabel = `${page}|${link.label}`
-              editor.replaceRange(pageWithExistingLabel, link.pagePosition.from, link.pagePosition.to)
+              editor.replaceRange(pageWithExistingLabel, link.innerPosition.from, link.innerPosition.to)
             }
           } else {
             if (label) { // add a label to an existing link with no label
               const pageWithLabel = `${page}|${label}`
-              editor.replaceRange(pageWithLabel, link.pagePosition.from, link.pagePosition.to)
+              editor.replaceRange(pageWithLabel, link.innerPosition.from, link.innerPosition.to)
             } else { // modify existing link
-              editor.replaceRange(page, link.pagePosition.from, link.pagePosition.to)
+              editor.replaceRange(page, link.innerPosition.from, link.innerPosition.to)
             }
           }
         } else { // new link
           if (label) {
             const newPageWithLabel = `[[${page}|${label}]]`
-            editor.replaceRange(newPageWithLabel, link.pagePosition.from, link.pagePosition.to)
+            editor.replaceRange(newPageWithLabel, link.innerPosition.from, link.innerPosition.to)
           } else {
             const shouldAddLabel = link.page.toLowerCase() !== page.toLowerCase()
             let newPageWithMaybeLabel
@@ -1298,7 +1295,7 @@
             } else {
               newPageWithMaybeLabel = `[[${link.page}]]` // use link.page to match case
             }
-            editor.replaceRange(newPageWithMaybeLabel, link.pagePosition.from, link.pagePosition.to)
+            editor.replaceRange(newPageWithMaybeLabel, link.innerPosition.from, link.innerPosition.to)
           }
         }
       },
@@ -1308,18 +1305,28 @@
           console.warn("Attempting to remove link with no link in stateStore")
           return
         }
-        const linkPosition = link.linkPosition
-        if (!linkPosition) {
-          console.warn("Attempting to remove link with no linkPosition")
+        const innerPosition = link.innerPosition
+        const outerPosition = link.outerPosition
+        if (!innerPosition || !outerPosition) {
+          console.warn("Attempting to remove link with no innerPosition or outerPosition")
           return
         }
-        const openingMarkupPosition = new LinkElementPosition({line: linkPosition.from.line, ch: linkPosition.from.ch}, {line: linkPosition.from.line, ch: linkPosition.from.ch + 2})
-        const closingMarkupPosition = new LinkElementPosition({line: linkPosition.to.line, ch: linkPosition.to.ch - 4}, {line: linkPosition.to.line, ch: linkPosition.to.ch - 2})
-        const removeMarkup = () => {
+        const markupLength = 2
+        const removePageWithPipeIfPresent = () => {
+          if (link.pageWithPipePosition) {
+            const from = { line: link.pageWithPipePosition.from.line, ch: link.pageWithPipePosition.from.ch - markupLength }
+            const to = { line: link.pageWithPipePosition.to.line, ch: link.pageWithPipePosition.to.ch - markupLength }
+            editor.replaceRange("", from, to)
+          }
+        }
+        const openingMarkupPosition = new LinkElementPosition({ line: outerPosition.from.line, ch: outerPosition.from.ch }, { line: innerPosition.from.line, ch: innerPosition.from.ch })
+        const closingMarkupPosition = new LinkElementPosition({ line: outerPosition.to.line, ch: outerPosition.to.ch - (markupLength * 2) }, { line: innerPosition.to.line, ch: innerPosition.to.ch })
+        const removePageAndMarkup = () => {
           editor.replaceRange("", openingMarkupPosition.from, openingMarkupPosition.to)
           editor.replaceRange("", closingMarkupPosition.from, closingMarkupPosition.to)
+          removePageWithPipeIfPresent()
         }
-        editor.operation(removeMarkup)
+        editor.operation(removePageAndMarkup)
       }
     }
 
