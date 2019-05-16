@@ -75,7 +75,7 @@ class EditLinkViewController: ViewController {
         displayTextLabel.text = WMFLocalizedString("edit-link-display-text-title", value: "Display text", comment: "Title for the display text label")
         displayTextView.textContainerInset = textContainerInset
         displayTextView.textContainer.lineFragmentPadding = 0
-        displayTextView.text = link.label
+        displayTextView.text = link.label ?? link.page
         linkTargetLabel.text = WMFLocalizedString("edit-link-link-target-title", value: "Link target", comment: "Title for the link target label")
         removeLinkButton.setTitle(WMFLocalizedString("edit-link-remove-link-title", value: "Remove link", comment: "Title for the remove link button"), for: .normal)
         articleCell.isHidden = true
