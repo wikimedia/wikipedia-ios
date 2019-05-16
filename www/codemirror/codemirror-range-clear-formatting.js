@@ -1,6 +1,3 @@
-const ItemRange = require('./codemirror-range-objects').ItemRange
-const ItemLocation = require('./codemirror-range-objects').ItemLocation
-
 const getItemRangeFromSelection = require('./codemirror-range-utilities').getItemRangeFromSelection
 const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilities').getMarkupItemsIntersectingSelection
 const getButtonNamesFromMarkupItems = require('./codemirror-range-utilities').getButtonNamesFromMarkupItems

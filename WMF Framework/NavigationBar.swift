@@ -332,7 +332,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    @objc public var visibleHeight: CGFloat = 0
+    @objc dynamic public var visibleHeight: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
     public var shadowAlpha: CGFloat {
