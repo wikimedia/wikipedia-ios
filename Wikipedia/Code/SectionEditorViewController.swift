@@ -10,7 +10,8 @@ class SectionEditorViewController: UIViewController {
     
     @objc var section: MWKSection?
     @objc var selectedTextEditInfo: SelectedTextEditInfo?
-    
+    @objc var dataStore: MWKDataStore?
+
     private var webView: SectionEditorWebView!
     private let sectionFetcher = WikiTextSectionFetcher()
     
@@ -192,6 +193,7 @@ class SectionEditorViewController: UIViewController {
             messagingController.webView = webView
             
             menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
+            menuItemsController.delegate = self
             webView.menuItemsDataSource = menuItemsController
             webView.menuItemsDelegate = menuItemsController
         }
@@ -414,6 +416,9 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTextSelectionDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool) {
+        if isRangeSelected {
+            menuItemsController.setEditMenuItems()
+        }
         navigationItemController.textSelectionDidChange(isRangeSelected: isRangeSelected)
         inputViewsController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
@@ -576,8 +581,75 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
         let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle, siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
-        present(navigationController, animated: true)
+        present(insertMediaViewController, animated: true)
+    }
+
+    func showLinkWizard() {
+        guard let dataStore = dataStore else {
+            return
+        }
+        messagingController.getLink { link in
+            guard let link = link else {
+                assertionFailure("Link button should be disabled")
+                return
+            }
+            let siteURL = self.section?.article?.url.wmf_site
+            if link.exists {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore) else {
+                    return
+                }
+                editLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+                navigationController.isNavigationBarHidden = true
+                self.present(navigationController, animated: true)
+            } else {
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
+                insertLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+                self.present(navigationController, animated: true)
+            }
+        }
+    }
+
+    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+        showLinkWizard()
+    }
+}
+
+extension SectionEditorViewController: SectionEditorMenuItemsControllerDelegate {
+    func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController) {
+        showLinkWizard()
+    }
+}
+
+extension SectionEditorViewController: EditLinkViewControllerDelegate {
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        messagingController.insertOrEditLink(page: linkTarget, label: displayText)
+        dismiss(animated: true)
+    }
+
+    func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
+        messagingController.removeLink()
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
+        dismiss(animated: true)
+    }
+}
+
+extension SectionEditorViewController: InsertLinkViewControllerDelegate {
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
+        messagingController.insertOrEditLink(page: page, label: label)
+        dismiss(animated: true)
     }
 }
 
