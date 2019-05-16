@@ -122,6 +122,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
+@property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
+
 @end
 
 @implementation WMFAppViewController
