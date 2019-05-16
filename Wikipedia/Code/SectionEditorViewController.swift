@@ -581,7 +581,10 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
         let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle, siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
-        present(insertMediaViewController, animated: true)
+        insertMediaViewController.apply(theme: theme)
+        let navigationController = UINavigationController(rootViewController: insertMediaViewController)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
 
     func showLinkWizard() {
