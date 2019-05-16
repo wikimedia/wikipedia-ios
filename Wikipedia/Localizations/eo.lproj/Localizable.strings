@@ -5,6 +5,7 @@
 // Author: Lucas
 // Author: Luis Miguel Obando
 // Author: Marcellus
+// Author: Mirin
 // Author: Nemo bis
 // Author: Ochilov
 // Author: Orikrin1998
@@ -36,20 +37,17 @@
 "about-translators-details" = "Tradukita de volontuloj ĉe $1";
 "about-wikimedia-foundation" = "Fondaĵo Vikimedio";
 "about-wikipedia" = "Vikipedio";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Vi ne povas publikigi ĉi tiun modifon. Bonvolu iri reen kaj ŝanĝi ĝin.";
+"abuse-filter-disallow-heading" = "Vi ne povas publikigi ĉi tiun modifon";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Aŭtomatigita filtrilo identigis ĉi tiun redakton kiel potenciale malhelpan aŭ provon je vandalismo.";
 // Fuzzy
 "abuse-filter-warning-blanking" = "Malplenigi artikolon aŭ spamado";
-// Fuzzy
-"abuse-filter-warning-caps" = "Skribi ĈION MAJUSKLE";
+"abuse-filter-warning-caps" = "Tute majuskla teksto";
 "abuse-filter-warning-heading" = "Tio ĉi eble estas malhelpa redakto. Ĉu vi certas, ke vi volas publikigi ĝin?";
 "abuse-filter-warning-irrelevant" = "Senrilata ekstera ligilo aŭ bildo";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Ripetaaaado de signoj";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Via redakto povas enhavi unu aŭ pli de la jeno:";
+"abuse-filter-warning-repeat" = "Ripetado de skribsignoj";
+"abuse-filter-warning-spam" = "Aldoni trudaĵon al artikolo";
+"abuse-filter-warning-subheading" = "Via redakto eble enhavas la jenon:";
 "account-creation-captcha-cannot-see-image" = "Ĉu vi ne povas vidi la bildon? $1";
 "account-creation-captcha-obtaining" = "Akiras novan CAPTCHA...";
 "account-creation-captcha-request-account" = "Peti konton.";
@@ -66,19 +64,21 @@
 "action-add-to-reading-list" = "Aldoni al legolisto";
 "action-add-to-reading-list-short" = "Aldoni al listo";
 "action-cancel" = "Nuligi";
-// Fuzzy
-"action-find-in-page" = "Trovi en la paĝo";
+"action-find-in-page" = "Trovi en paĝo";
 "action-move-to" = "Movi al...";
 "action-move-to-reading-list" = "Movi al legolisto";
 "action-read" = "Legi";
+"action-redo" = "Refari";
 "action-remove" = "Forigi";
+"action-replace" = "Anstataŭigi";
+"action-replace-all" = "Anstataŭigi ĉiujn";
 "action-save" = "Konservi";
 "action-saved" = "Konservita";
 "action-saved-accessibility" = "Konservita. Aktivigu por malkonservi.";
 "action-saved-accessibility-notification" = "Artikolo konservita por poste";
 "action-share" = "Konigi";
+"action-share-accessibility" = "Diskonigi";
 "action-sort" = "Ordigi";
-// Fuzzy
 "action-undo" = "Malfari";
 "action-unsave" = "Malkonservi";
 "action-unsaved-accessibility-notification" = "Artikolo malkonservita";
@@ -164,10 +164,59 @@
 "description-welcome-promise-title" = "Ekante, mi promesas ne misuzi ĉi tiun eblon";
 "description-welcome-start-editing-button" = "Ekredakti";
 "dim-images" = "Malheligi bildojn";
+"edit-bold-accessibility-label" = "Grasigi";
+"edit-bold-remove-accessibility-label" = "Malgrasigi";
 "edit-clear-formatting-accessibility-label" = "Forigi aspektigadon";
+"edit-comment-accessibility-label" = "Aldoni komentan sintakson";
+"edit-comment-remove-accessibility-label" = "Forigi komentan sintakson";
+"edit-decrease-indent-depth-accessibility-label" = "Malpligrandigi krommarĝenon";
+"edit-direction-down-accessibility-label" = "Movi tajpmontrilon malsupren";
+"edit-direction-left-accessibility-label" = "Movi tajpmontrilon maldekstren";
+"edit-direction-right-accessibility-label" = "Movi tajpmontrilon dekstren";
+"edit-direction-up-accessibility-label" = "Movi tajpmontrilon supren";
+"edit-increase-indent-depth-accessibility-label" = "Pligrandigi krommarĝenon";
+"edit-indent-accessibility-label" = "Aldoni krommarĝenon al ĉi tiu linio";
+"edit-italic-accessibility-label" = "Kursivigi";
+"edit-italic-remove-accessibility-label" = "Malkursivigi";
+"edit-link-accessibility-label" = "Aldoni ligilan sintakson";
+"edit-link-remove-accessibility-label" = "Forigi ligilan sintakson";
+"edit-menu-item" = "Redakti";
+"edit-minor-learn-more-text" = "Lerni plu pri redaktetoj";
+"edit-minor-text" = "Tio estas redakteto";
+"edit-published" = "Publikigis redakton";
+"edit-published-button-title" = "Farite";
+"edit-published-subtitle" = "Vi ĵus plibonigis Vikipedion por ĉiuj";
+"edit-reference-accessibility-label" = "Aldoni referencan sintakson";
+"edit-reference-remove-accessibility-label" = "Forigi referencan sintakson";
+"edit-signature-accessibility-label" = "Aldoni subskriban sintakson";
+"edit-signature-remove-accessibility-label" = "Forigi subskriban sintakson";
+"edit-strikethrough-accessibility-label" = "Trastreki";
+"edit-strikethrough-remove-accessibility-label" = "Maltrastreki";
+"edit-style-table-view-title" = "Stilo";
+"edit-subscript-accessibility-label" = "Malsupre indicigi";
+"edit-subscript-remove-accessibility-label" = "Malindicigi";
+"edit-summary-add-summary-text" = "Aldoni redaktan resumon";
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
+"edit-summary-learn-more-text" = "Lerni plu";
+"edit-summary-placeholder-text" = "Kiel ĝi plibonigis la artikolon?";
+"edit-superscript-accessibility-label" = "Supre indicigi";
+"edit-superscript-remove-accessibility-label" = "Malindicigi";
+"edit-template-accessibility-label" = "Aldoni ŝablonan sintakson";
+"edit-template-remove-accessibility-label" = "Forigi ŝablonan sintakson";
+"edit-text-clear-formatting" = "Malaranĝi";
+"edit-text-formatting-table-view-title" = "Teksta aranĝado";
+"edit-text-size-table-view-title" = "Grando de teksto";
+"edit-text-style-accessibility-label" = "Montri menuon pri teksta stilo";
+"edit-underline-accessibility-label" = "Substreki";
+"edit-underline-remove-accessibility-label" = "Malsubstreki";
+"edit-watch-list-learn-more-text" = "Lerni pli pri atentaro";
+"edit-watch-this-page-text" = "Atenti ĉi tiun paĝon";
+"editing-welcome-be-bold-title" = "Via voĉo gravas";
+"editing-welcome-citations-title" = "Citu fidindajn fontojn";
+"editing-welcome-set-knowledge-free-title" = "Liberigu scion";
+"empty-insert-media-title" = "Elekti dosieron";
 "empty-no-article-message" = "Pardonon, ne povis ŝargi la artikolon";
 "empty-no-feed-action-message" = "Vi daŭre povas legi konservitajn paĝojn";
 "empty-no-feed-message" = "Vi povas vidi viajn rekomenditajn artikolojn kiam vi havas retaliron";
@@ -212,8 +261,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Ne lingvospecifa";
 "explore-feed-preferences-global-cards-title" = "Tutmondaj kartoj";
 "explore-feed-preferences-hide-card-action-title" = "Kaŝi ĉi tiun karton";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Kaŝi ĉiuj %@ kartoj";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Kaŝi ĉiujn kartojn de tipo “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artikoloj pri nunaj eventoj";
 "explore-feed-preferences-languages-footer-text" = "Se vi kaŝas ĉiujn kartojn sur la Esplorfluo en via lingvo, la Esplortaba folio estos malŝaltita.";
 "explore-feed-preferences-on-this-day-description" = "Historiaj eventoj en tiu ĉi tago";
@@ -291,7 +339,13 @@
 "field-token-title" = "Kontrolkodo";
 "field-username-placeholder" = "enigu la uzantnomon";
 "field-username-title" = "Salutnomo";
+"find-clear-button-accessibility" = "Viŝi serĉan kampon";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "Sekva trovito";
+"find-previous-button-accessibility" = "Antaŭa trovito";
+"find-replace-header" = "Trovi kaj anstataŭigi";
+"find-replace-header-close-accessibility" = "Malŝalti reĝimon de trovado kaj anstataŭigado";
+"find-textfield-accessibility" = "Trovi";
 "forgot-password-button-title" = "Restarigi";
 "forgot-password-email-sent" = "Retmesaĝo kun instrukcioj pri la restarigo de pasvorto estas sendita";
 "forgot-password-instructions" = "Plenigu unu el la kampoj ĉi-sube por ricevi instrukcioj pri restarigo de pasvorto per retpoŝto";
@@ -328,6 +382,28 @@
 "in-the-news-title" = "En la novaĵoj";
 "info-box-close-text" = "Fermi";
 "info-box-title" = "Rapidaj faktoj";
+"insert-action-title" = "Enŝovi";
+"insert-media-alternative-text-placeholder" = "Priskribi la bildon";
+"insert-media-alternative-text-title" = "Alternativa teksto";
+"insert-media-caption-caption-placeholder" = "Kiel la bildo rilatas la artikolon?";
+"insert-media-caption-title" = "Titolo";
+"insert-media-image-position-setting-center" = "Centren";
+"insert-media-image-position-setting-left" = "Maldekstren";
+"insert-media-image-position-setting-none" = "Neniel";
+"insert-media-image-position-setting-right" = "Dekstren";
+"insert-media-image-position-settings-title" = "Pozicio de bildo";
+"insert-media-image-preview-more-information-action-title" = "Pli da informo";
+"insert-media-image-preview-select-image-action-title" = "Elekti bildon";
+"insert-media-image-size-setting-custom" = "Tajlorite";
+"insert-media-image-size-setting-default" = "Implicite";
+"insert-media-image-size-settings-px-unit-name" = "bilderoj";
+"insert-media-image-size-settings-title" = "Grando de bildo";
+"insert-media-image-type-setting-basic" = "Baza";
+"insert-media-image-type-setting-frame" = "Kadro";
+"insert-media-image-type-setting-frameless" = "Sen kadro";
+"insert-media-image-type-setting-thumbnail" = "Miniaturo";
+"insert-media-image-type-settings-title" = "Tipo de bildo";
+"insert-media-uploaded-image-title" = "Alŝutita bildo";
 "languages-settings-title" = "Lingvoj";
 "languages-title" = "Ŝanĝi lingvon";
 "languages-wikipedia" = "Vikipediaj lingvoj";
@@ -368,6 +444,8 @@
 "new-password-instructions" = "Vi ensalutis per provizora pasvorto. Por fini vian ensalutadon, agordu novan pasvorton ĉi tie.";
 "new-password-title" = "Starigu vian pasvorton";
 "no-email-account-alert" = "Bonvolu agordi retpoŝtan konton sur via aparato kaj provi denove.";
+"no-internet-connection" = "Interreta konekto mankas";
+"no-internet-connection-article-reload-button" = "Reen al lasta konservita versio";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1mil";
@@ -389,8 +467,7 @@
 "page-protected-can-not-edit-title" = "Ĉi tiu paĝo estas protektita";
 "page-protected-other" = "Ĉi tiu paĝo estas protektita je la jenaj niveloj: $1";
 "page-protected-sysop" = "Ĉi tiu paĝo estas tut-protektita.";
-// Fuzzy
-"page-read-in-other-languages" = "Disponebla en $1 aliaj lingvoj";
+"page-read-in-other-languages" = "Havebla en {{PLURAL:$1|$1 alia lingvo|$1 aliaj lingvoj}}";
 "page-similar-titles" = "Similaj paĝoj";
 "page-talk-page" = "Montri diskutpaĝon";
 "pictured" = "bildigita";
@@ -510,14 +587,23 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Malhela etoso";
 "reading-themes-controls-accessibility-light-theme-button" = "Hela etoso";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia etoso";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Sintaksa Reliefo";
 "reading-themes-controls-accessibility-text-size-slider" = "Ŝovilo pri teksta grando";
+"reading-themes-controls-syntax-highlighting" = "Sintaksa Reliefo";
 "reference-title" = "Referenco $1";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hodiaŭ|Hieraŭ|Antaŭ $1 tagoj}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Antaŭ nelonge|Antaŭ $1 horo|Antaŭ $1 horoj}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ĵus|Antaŭ $1 minuto|Antaŭ $1 minutoj}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Ĉi-jare|Pasintjare|Antaŭ $1 jaroj}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Ĉi-jare|1=Pasintjare|$Antaŭ $1 jaroj}}";
+"replace-button-accessibility" = "Fari la agon $1.";
+"replace-buttons-replace-accessibility" = "Anstataŭigi unufoje";
+"replace-buttons-replace-all-accessibility" = "Anstataŭigi ĉiufoje";
+"replace-clear-button-accessibility" = "Viŝi anstataŭigan kampon";
+"replace-infolabel-method-replace" = "Anstataŭigi";
+"replace-infolabel-method-replace-all" = "Anstataŭigi ĉiujn";
+"replace-textfield-accessibility" = "Anstataŭigi";
+"replace-textfield-placeholder" = "Anstataŭigi per…";
 "request-feedback-on-error" = "La aplikaĵo ekhavis problemon pri kiu niaj programistoj ŝatus scii pli. Bonvolu tuŝeti ĉi tie por sendi retmesaĝon al ni kun la eraro-detaloj.";
 "reverted-edit-back-to-article-button-title" = "Reen al la artikolo";
 "reverted-edit-notification-body" = "La redakto de la artikolo $1 kiun vi faris, estas malfarita de $2";
@@ -532,8 +618,7 @@
 "saved-pages-image-download-error" = "Malsukcesis elŝuti bildojn por ĉi tiu konservita paĝo.";
 "saved-pages-progress-syncing" = "Artikolo estas elŝutata...";
 "saved-reading-lists-title" = "Legolistoj";
-// Fuzzy
-"saved-search-default-text" = "Serĉi";
+"saved-search-default-text" = "Serĉi konservitajn artikolojn";
 "saved-title" = "Konservita";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Se vi malkonservas {{PLURAL:$1|ĉi tiun artikolon, ĝi estas forigota|ĉi tiujn artikolojn, ili estas forigotaj}} de ĉiuj ligitaj legolistoj";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ĉu malkonservi {{PLURAL:$1|la artikolon|la artikolojn}}?";
@@ -649,8 +734,13 @@
 "wikitext-downloading" = "Ŝargante enhavon...";
 "wikitext-preview-changes" = "Ricevado de antaŭrigardo de viaj ŝanĝoj...";
 "wikitext-preview-changes-none" = "Neniuj ŝanĝoj estas faritaj por antaŭrigardi.";
+"wikitext-preview-link-external-preview-description" = "Ĉi tiu ligilo ligas eksteran retejon: $1";
+"wikitext-preview-link-external-preview-title" = "Ekstera ligilo";
+"wikitext-preview-link-not-found-preview-description" = "Vikipedio ne havas artikolon kun tiu ekzakta nomo";
+"wikitext-preview-link-not-found-preview-title" = "Ne trovis eksteran ligilon";
 "wikitext-preview-link-preview-description" = "Ĉi tiu ligilo ligas al '$1'";
 "wikitext-preview-link-preview-title" = "Ligila antaŭrigardo";
+"wikitext-preview-save-changes-title" = "Konservi ŝanĝojn";
 "wikitext-upload-captcha-error" = "CAPTCHA-kontroleraro.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-kontrolo deviga.";
 "wikitext-upload-result-unknown" = "Nekapabla determini la alŝutan rezulton de wikitext.";
