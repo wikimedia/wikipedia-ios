@@ -54,18 +54,19 @@ class TalkPageLocalHandlerTests: XCTestCase {
         XCTAssertEqual(dbTalkPage.revisionId, 1, "Unexpected revisionId")
         XCTAssertEqual(dbTalkPage.discussions?.count, 1, "Unexpected discussion count")
         
-        if let firstDiscussion = dbTalkPage.discussions?[0] as? TalkPageDiscussion {
+        if let firstDiscussion = dbTalkPage.discussions?.allObjects[0] as? TalkPageDiscussion {
             XCTAssertEqual(firstDiscussion.title, "Would you please help me expand the Puppy cat article?", "Unexpected discussion title")
             XCTAssertEqual(firstDiscussion.items?.count, 2, "Unexpected discussion items count")
             
-            if let firstDiscussionItem = firstDiscussion.items?[0] as? TalkPageDiscussionItem {
+            let items = firstDiscussion.items?.allObjects.sorted{ ($0 as! TalkPageDiscussionItem).sort < ($1 as! TalkPageDiscussionItem).sort }
+            if let firstDiscussionItem = items?[0] as? TalkPageDiscussionItem {
                 XCTAssertEqual(firstDiscussionItem.text, "Hi Pixiu! Glad we were able to meet at the Bay Area Puppercat Edit-a-thon last week. I noticed that the <a href=\'https://en.wikipedia.org/wiki/Puppy_cat\'>Puppy cat</a> could use some more information about ragdolls, do you think that this might be something you\'d be interested in contributing to? <a href=\'https://en.wikipedia.org/wiki/User:Fruzia\'>Fruzia</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Fruzia\'>talk</a>) 23:08. 20 March 2019 (UTC)", "Unexpected discussion item text")
                 XCTAssertEqual(firstDiscussionItem.depth, 0, "Unexpected discussion item depth")
             } else {
                 XCTFail("Unexpected first discussion item type")
             }
             
-            if let secondDiscussionItem = firstDiscussion.items?[1] as? TalkPageDiscussionItem {
+            if let secondDiscussionItem = items?[1] as? TalkPageDiscussionItem {
                 XCTAssertEqual(secondDiscussionItem.text, "Hi Fruzia, thanks for reaching out! I\'ll go and take a look at the article and see what I can contribute with the resources I have at paw <a href=\'https://en.wikipedia.org/wiki/User:Pixiu\'>Pixiu</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Pixiu\'>talk</a>) 08:09. 21 March 2019 (UTC)", "Unexpected discussion item text")
                 XCTAssertEqual(secondDiscussionItem.depth, 1, "Unexpected discussion item depth")
             } else {
@@ -151,7 +152,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //confirm only 2 discussion items
-        if let firstDiscussion = dbTalkPage.discussions?[0] as? TalkPageDiscussion {
+        if let firstDiscussion = dbTalkPage.discussions?.allObjects[0] as? TalkPageDiscussion {
             XCTAssertEqual(firstDiscussion.items?.count, 2)
         } else {
             XCTFail("Unexpected discussion type")
@@ -169,7 +170,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //confirm 3 discussion items
-        if let firstDiscussion = updatedDbTalkPage.discussions?[0] as? TalkPageDiscussion {
+        if let firstDiscussion = updatedDbTalkPage.discussions?.allObjects[0] as? TalkPageDiscussion {
             XCTAssertEqual(firstDiscussion.items?.count, 3)
         } else {
             XCTFail("Unexpected discussion type")

@@ -30,7 +30,10 @@ class TalkPageTestHelpers {
                     "sort": 1
                     }
                     ],
-                    "sha": "5a5bd8e",
+                    "shas": {
+                        "text": "5a5bd8e",
+                        "replies": "asdfgjl"
+                    },
                     "sort": 0
                 }
                 ]}
@@ -60,7 +63,10 @@ class TalkPageTestHelpers {
                                     "sort": 2
                                 }
                             ],
-                            "sha": "5a5bd8e",
+                            "shas": {
+                                "text": "5a5bd8e",
+                                "replies": "123456"
+                            },
                             "sort": 0
                         }
                     ]}
