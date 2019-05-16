@@ -68,6 +68,7 @@
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
+"add-citation-title" = "Add citation";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -162,7 +163,11 @@
 "edit-italic-accessibility-label" = "Add italic formatting";
 "edit-italic-remove-accessibility-label" = "Remove italic formatting";
 "edit-link-accessibility-label" = "Add link syntax";
+"edit-link-display-text-title" = "Display text";
+"edit-link-link-target-title" = "Link target";
 "edit-link-remove-accessibility-label" = "Remove link syntax";
+"edit-link-remove-link-title" = "Remove link";
+"edit-link-title" = "Edit link";
 "edit-menu-item" = "Edit";
 "edit-menu-item-could-not-find-selection-alert-message" = "This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted";
 "edit-menu-item-could-not-find-selection-alert-title" = "The text that you selected could not be located";
@@ -171,7 +176,6 @@
 "edit-ordered-list-accessibility-label" = "Make current line ordered list";
 "edit-ordered-list-remove-accessibility-label" = "Remove ordered list from current line";
 "edit-published" = "Edit published";
-"edit-published-button-title" = "Done";
 "edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-reference-accessibility-label" = "Add reference syntax";
 "edit-reference-remove-accessibility-label" = "Remove reference syntax";
@@ -380,6 +384,7 @@
 "info-box-close-text" = "Close";
 "info-box-title" = "Quick Facts";
 "insert-action-title" = "Insert";
+"insert-link-title" = "Insert link";
 "insert-media-alternative-text-description" = "Text description for readers who cannot see the image";
 "insert-media-alternative-text-placeholder" = "Describe this image";
 "insert-media-alternative-text-title" = "Alternative text";

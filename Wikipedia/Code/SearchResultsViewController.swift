@@ -9,7 +9,9 @@ class SearchResultsViewController: ArticleCollectionViewController {
             reload()
         }
     }
-    
+
+    var delegatesSelection: Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         useNavigationBarVisibleHeightForScrollViewInsets = true
@@ -63,6 +65,22 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return results.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
+        guard !delegatesSelection else {
+            return
+        }
+        guard !isExternalURL(at: indexPath) else {
+            wmf_openExternalUrl(articleURL)
+            return
+        }
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {

@@ -1802,6 +1802,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
     sectionEditVC.editFunnel = self.editFunnel;
+    sectionEditVC.dataStore = self.dataStore;
     sectionEditVC.selectedTextEditInfo = selectedTextEditInfo;
 
     WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:sectionEditVC theme:self.theme];
