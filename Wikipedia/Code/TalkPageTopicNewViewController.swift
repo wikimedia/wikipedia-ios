@@ -1,13 +1,13 @@
 
 import UIKit
 
-protocol TalkPageUpdateDelegate: class {
-    func tappedPublish(subject: String?, body: String, viewController: TalkPageUpdateViewController)
+protocol TalkPageTopicNewViewControllerDelegate: class {
+    func tappedPublish(subject: String, body: String, viewController: TalkPageTopicNewViewController)
 }
 
-class TalkPageUpdateViewController: ViewController {
+class TalkPageTopicNewViewController: ViewController {
 
-    weak var delegate: TalkPageUpdateDelegate?
+    weak var delegate: TalkPageTopicNewViewControllerDelegate?
     
     @IBOutlet private var subjectTextField: ThemeableTextField!
     @IBOutlet private var bodyTextView: ThemeableTextView!
@@ -16,9 +16,7 @@ class TalkPageUpdateViewController: ViewController {
     @IBOutlet private var divViews: [UIView]!
     @IBOutlet private var containerViews: [UIView]!
     
-    @IBOutlet private var firstDivView: UIView!
     @IBOutlet private var secondDivView: UIView!
-    @IBOutlet private var subjectContainerView: UIView!
     @IBOutlet private var finePrintContainerView: UIView!
     @IBOutlet private var bodyContainerView: UIView!
     @IBOutlet private var bodyContainerVerticalPaddingConstraints: [NSLayoutConstraint]!
@@ -32,7 +30,7 @@ class TalkPageUpdateViewController: ViewController {
     private var publishButton: UIBarButtonItem!
     
     private var bodyPlaceholder: String {
-        return WMFLocalizedString("talk-page-new-discussion-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new discussion body field for talk pages.")
+        return WMFLocalizedString("talk-page-new-topic-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new topic body field for talk pages.")
     }
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
@@ -66,7 +64,12 @@ class TalkPageUpdateViewController: ViewController {
         
         super.viewDidLoad()
 
-       setup()
+        setupNavigationBar()
+        setupTextInputViews()
+        setupBackgroundTap()
+        talkPageScrollView.keyboardDismissMode = .interactive
+        
+        calculateSingleLineBodyHeightIfNeeded()
     }
     
     override func viewDidLayoutSubviews() {
@@ -74,41 +77,72 @@ class TalkPageUpdateViewController: ViewController {
         setBodyHeightIfNeeded()
     }
     
-    private func setup() {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateFonts()
+        
+        singleLineBodyHeight = nil
+        calculateSingleLineBodyHeightIfNeeded()
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        containerViews.forEach { $0.backgroundColor = theme.colors.paperBackground }
+        divViews.forEach { $0.backgroundColor = theme.colors.border }
+        finePrintTextView.backgroundColor = theme.colors.paperBackground
+        finePrintTextView.textColor = theme.colors.secondaryText
+        
+        subjectTextField.apply(theme: theme)
+        bodyTextView.apply(theme: theme)
+        super.apply(theme: theme)
+    }
+}
+
+//MARK: Private
+
+private extension TalkPageTopicNewViewController {
+    
+    func setupNavigationBar() {
         publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
         publishButton.isEnabled = false
         navigationItem.rightBarButtonItem = publishButton
         navigationBar.updateNavigationItems()
         navigationBar.isBarHidingEnabled = false
         
+        title = WMFLocalizedString("talk-page-new-topic-title", value: "New discussion", comment: "Title of page when composing a new topic on talk pages.")
+    }
+    
+    func setupTextInputViews() {
         subjectTextField.isUnderlined = false
         bodyTextView.isUnderlined = false
         bodyTextView.placeholderDelegate = self
         
-        talkPageScrollView.keyboardDismissMode = .interactive
-        backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedBackground(_:)))
-        view.addGestureRecognizer(backgroundTapGestureRecognizer)
-        
-        title = WMFLocalizedString("talk-page-new-discussion-title", value: "New discussion", comment: "Title of page when composing a new discussion topic on talk pages.")
-        
-        subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new discussion subject field for talk pages.")
-        
-        calculateSingleLineBodyHeightIfNeeded()
+        subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new topic subject field for talk pages.")
         
         subjectTextField.addTarget(self, action: #selector(evaluatePublishButtonState), for: .editingChanged)
     }
     
-    @objc private func tappedBackground(_ tapGestureRecognizer: UITapGestureRecognizer) {
+    func setupBackgroundTap() {
+        backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedBackground(_:)))
+        view.addGestureRecognizer(backgroundTapGestureRecognizer)
+    }
+    
+    @objc func tappedBackground(_ tapGestureRecognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
     
-    private func newReplySetup() {
-        bodyTextView.placeholder = WMFLocalizedString("talk-page-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in reply field for talk pages.")
-        subjectContainerView.isHidden = true
-        firstDivView.isHidden = true
+    @objc func tappedPublish(_ sender: UIBarButtonItem) {
+        guard let subjectText = subjectTextField.text,
+            let bodyText = bodyTextView.text else {
+                return
+        }
+        
+        delegate?.tappedPublish(subject: subjectText, body: bodyText, viewController: self)
     }
     
-    private func calculateSingleLineBodyHeightIfNeeded() {
+    func calculateSingleLineBodyHeightIfNeeded() {
         if singleLineBodyHeight == nil {
             let oldText = bodyTextView.text
             bodyTextView.text = "&nbsp;"
@@ -134,7 +168,7 @@ class TalkPageUpdateViewController: ViewController {
         }
     }
     
-    private func setBodyHeightIfNeeded() {
+    func setBodyHeightIfNeeded() {
         
         guard keyboardFrame == nil else {
             return
@@ -142,7 +176,7 @@ class TalkPageUpdateViewController: ViewController {
         
         guard let singleLineBodyHeight = singleLineBodyHeight,
             let bodyContainerOrigin = bodyContainerView.superview?.convert(bodyContainerView.frame.origin, to: view) else {
-            return
+                return
         }
         
         //first get the size bodyTextView wants to be without a height limit (bodyTextView.contentSize.height doesn't seem reliable here)
@@ -155,7 +189,7 @@ class TalkPageUpdateViewController: ViewController {
         var availableVerticalScreenSpace = talkPageScrollView.frame.height - bodyContainerOrigin.y
         availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - secondDivView.frame.height
         
-
+        
         if bodyContainerViewHeightConstraint.constant != availableVerticalScreenSpace {
             if availableVerticalScreenSpace > singleLineBodyHeight && availableVerticalScreenSpace >= contentFittingBodyContainerHeight {
                 bodyContainerViewHeightConstraint.constant = availableVerticalScreenSpace
@@ -166,45 +200,20 @@ class TalkPageUpdateViewController: ViewController {
         }
     }
     
-    @objc private func evaluatePublishButtonState() {
+    @objc func evaluatePublishButtonState() {
         publishButton.isEnabled = (subjectTextField.text?.count ?? 0) > 0 && (bodyTextView.text?.count ?? 0) > 0
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
+    func updateFonts() {
         subjectTextField.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         bodyTextView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
-        
-        singleLineBodyHeight = nil
-        calculateSingleLineBodyHeightIfNeeded()
-    }
-    
-    @objc func tappedPublish(_ sender: UIBarButtonItem) {
-        guard let subjectText = subjectTextField.text,
-            let bodyText = bodyTextView.text else {
-                return
-        }
-        
-        delegate?.tappedPublish(subject: subjectText, body: bodyText, viewController: self)
-    }
-    
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        view.backgroundColor = theme.colors.paperBackground
-        containerViews.forEach { $0.backgroundColor = theme.colors.paperBackground }
-        divViews.forEach { $0.backgroundColor = theme.colors.border }
-        finePrintTextView.backgroundColor = theme.colors.paperBackground
-        finePrintTextView.textColor = theme.colors.secondaryText
-        
-        subjectTextField.apply(theme: theme)
-        bodyTextView.apply(theme: theme)
-        super.apply(theme: theme)
     }
 }
 
-extension TalkPageUpdateViewController: ThemeableTextViewPlaceholderDelegate {
+//MARK: ThemeableTextViewPlaceholderDelegate
+
+extension TalkPageTopicNewViewController: ThemeableTextViewPlaceholderDelegate {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
         //no-op
     }

@@ -1,26 +1,31 @@
 
 import UIKit
 
-protocol TalkPageDiscussionListDelegate: class {
-    func tappedDiscussion(_ discussion: TalkPageDiscussion, viewController: TalkPageDiscussionListViewController)
+protocol TalkPageTopicListDelegate: class {
+    func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
 }
 
-class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
+class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
-    weak var delegate: TalkPageDiscussionListDelegate?
+    weak var delegate: TalkPageTopicListDelegate?
     
-    private var dataStore: MWKDataStore
-    private var talkPage: TalkPage
+    private let dataStore: MWKDataStore
+    private let talkPage: TalkPage
+    private let fetchedResultsController: NSFetchedResultsController<TalkPageTopic>
     
-    private var fetchedResultsController: NSFetchedResultsController<TalkPageDiscussion>!
-    private var collectionViewUpdater: CollectionViewUpdater<TalkPageDiscussion>!
+    private let reuseIdentifier = "TalkPageTopicCell"
     
+    private var collectionViewUpdater: CollectionViewUpdater<TalkPageTopic>!
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
-    private let reuseIdentifier = "DiscussionListItemCollectionViewCell"
     
     required init(dataStore: MWKDataStore, talkPage: TalkPage) {
         self.dataStore = dataStore
         self.talkPage = talkPage
+        
+        let request: NSFetchRequest<TalkPageTopic> = TalkPageTopic.fetchRequest()
+        request.predicate = NSPredicate(format: "talkPage == %@",  talkPage)
+        request.sortDescriptors = [NSSortDescriptor(key: "sort", ascending: true)]
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
         super.init()
     }
@@ -32,13 +37,8 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        layoutManager.register(DiscussionListItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
-        
-        setupFetchedResultsController(with: dataStore)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
-        collectionViewUpdater?.performFetch()
+        registerCells()
+        setupCollectionViewUpdater()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -63,7 +63,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? DiscussionListItemCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? TalkPageTopicCell else {
                 return UICollectionViewCell()
         }
         
@@ -79,7 +79,7 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
             return estimate
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 54)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? DiscussionListItemCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? TalkPageTopicCell else {
             return estimate
         }
         configure(cell: placeholderCell, at: indexPath)
@@ -94,8 +94,8 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let discussion = fetchedResultsController.object(at: indexPath)
-        delegate?.tappedDiscussion(discussion, viewController: self)
+        let topic = fetchedResultsController.object(at: indexPath)
+        delegate?.tappedTopic(topic, viewController: self)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -127,16 +127,22 @@ class TalkPageDiscussionListViewController: ColumnarCollectionViewController {
     }
 }
 
-private extension TalkPageDiscussionListViewController {
-    func setupFetchedResultsController(with dataStore: MWKDataStore) {
-        
-        let request: NSFetchRequest<TalkPageDiscussion> = TalkPageDiscussion.fetchRequest()
-        request.predicate = NSPredicate(format: "talkPage == %@",  talkPage)
-        request.sortDescriptors = [NSSortDescriptor(key: "sort", ascending: true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+//MARK: Private
+
+private extension TalkPageTopicListViewController {
+    
+    func registerCells() {
+        layoutManager.register(TalkPageTopicCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
     }
     
-    func configure(cell: DiscussionListItemCollectionViewCell, at indexPath: IndexPath) {
+    func setupCollectionViewUpdater() {
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater?.delegate = self
+        collectionViewUpdater?.performFetch()
+    }
+    
+    func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
         guard let title = fetchedResultsController.object(at: indexPath).title else {
             return
         }
@@ -153,21 +159,23 @@ private extension TalkPageDiscussionListViewController {
                 return
         }
         
-        let headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page discussion list. It represents the kind of talk page the user is viewing.").localizedUppercase
-        let titleText = displayTitle
-        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@", comment: "This information label is displayed at the top of a talk page discussion list. %1$@ is replaced by the language wiki they are using ('English Wikipedia').")
+        let headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list. It represents the kind of talk page the user is viewing.").localizedUppercase
+        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@", comment: "This information label is displayed at the top of a talk page topic list. %1$@ is replaced by the language wiki they are using ('English Wikipedia').")
         
         //todo: fix for other languages
         var languageWikiText: String
-        if languageCode == "en" {
+        switch languageCode {
+        case "en":
             languageWikiText = "English Wikipedia"
-        } else {
+        case "test":
+            languageWikiText = "Test Wikipedia"
+        default:
             languageWikiText = ""
         }
         
         let infoText = NSString.localizedStringWithFormat(languageTextFormat as NSString, languageWikiText) as String
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: titleText, info: infoText)
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText)
         
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
@@ -175,10 +183,12 @@ private extension TalkPageDiscussionListViewController {
     }
 }
 
-extension TalkPageDiscussionListViewController: CollectionViewUpdaterDelegate {
+//MARK: CollectionViewUpdaterDelegate
+
+extension TalkPageTopicListViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? DiscussionListItemCollectionViewCell else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageTopicCell else {
                 continue
             }
             

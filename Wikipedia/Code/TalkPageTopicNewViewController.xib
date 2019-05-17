@@ -10,16 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TalkPageUpdateViewController" customModule="Wikipedia" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TalkPageTopicNewViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="bodyContainerView" destination="JOb-y1-6IN" id="FCX-SX-4Rt"/>
                 <outlet property="bodyContainerViewHeightConstraint" destination="wsY-91-S0m" id="iH3-Vc-DXj"/>
                 <outlet property="bodyTextView" destination="dNc-rx-jAZ" id="HbT-gP-tTy"/>
                 <outlet property="finePrintContainerView" destination="JON-m5-Ky9" id="gzc-Mb-kxu"/>
                 <outlet property="finePrintTextView" destination="vRW-Pe-PZI" id="Nas-Ua-ezA"/>
-                <outlet property="firstDivView" destination="R6M-6e-GoT" id="0eN-Rc-5kg"/>
                 <outlet property="secondDivView" destination="OQC-Pb-IB6" id="jPl-pt-HCJ"/>
-                <outlet property="subjectContainerView" destination="thm-2U-JE9" id="Pte-ER-WRh"/>
                 <outlet property="subjectTextField" destination="tey-7u-fS8" id="kiY-Qo-6HP"/>
                 <outlet property="talkPageScrollView" destination="iuD-YN-OrL" id="Ion-dN-hra"/>
                 <outlet property="view" destination="aQX-ak-cfR" id="VWE-ux-SVt"/>

@@ -85,12 +85,12 @@ class TalkPageTestHelpers {
             for (topicIndex, topic) in result.topics.enumerated() {
                 
                 topic.sort = topicIndex
-                for (replyIndex, reply) in topic.items.enumerated() {
+                for (replyIndex, reply) in topic.replies.enumerated() {
                     reply.sort = replyIndex
                 }
             }
             
-            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, discussions: result.topics, revisionId: revisionId, displayTitle: "Username", languageCode: "en")
+            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, topics: result.topics, revisionId: revisionId, displayTitle: "Username", languageCode: "en")
 
             return talkPage
         } catch {

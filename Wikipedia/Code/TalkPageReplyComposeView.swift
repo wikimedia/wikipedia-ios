@@ -1,24 +1,17 @@
-//
-//  TalkPageUpdateView.swift
-//  Wikipedia
-//
-//  Created by Toni Sevener on 5/15/19.
-//  Copyright © 2019 Wikimedia Foundation. All rights reserved.
-//
 
 import UIKit
 
-protocol TalkPageReplyViewDelegate: class {
+protocol TalkPageReplyComposeViewDelegate: class {
     func composeTextDidChange(text: String?)
      var collectionViewFrame: CGRect { get }
 }
 
-class TalkPageReplyView: UIView {
+class TalkPageReplyComposeView: UIView {
     
     lazy private var composeTextView: ThemeableTextView = ThemeableTextView.init()
     lazy private var finePrintTextView: UITextView = UITextView.init()
     
-    weak var delegate: TalkPageReplyViewDelegate?
+    weak var delegate: TalkPageReplyComposeViewDelegate?
     
     private var theme: Theme?
     
@@ -57,16 +50,7 @@ class TalkPageReplyView: UIView {
         composeTextView.text = nil
     }
     
-    private func setupView() {
-        addSubview(composeTextView)
-        composeTextView.isUnderlined = false
-        composeTextView.isScrollEnabled = false
-        composeTextView.placeholderDelegate = self
-        composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
-        addSubview(finePrintTextView)
-        finePrintTextView.isScrollEnabled = false
-        finePrintTextView.attributedText = licenseTitleTextViewAttributedString
-    }
+    
     
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
@@ -121,7 +105,24 @@ class TalkPageReplyView: UIView {
     }
 }
 
-extension TalkPageReplyView: Themeable {
+//MARK: Private
+
+private extension TalkPageReplyComposeView {
+    func setupView() {
+        addSubview(composeTextView)
+        composeTextView.isUnderlined = false
+        composeTextView.isScrollEnabled = false
+        composeTextView.placeholderDelegate = self
+        composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
+        addSubview(finePrintTextView)
+        finePrintTextView.isScrollEnabled = false
+        finePrintTextView.attributedText = licenseTitleTextViewAttributedString
+    }
+}
+
+//MARK: Themeable
+
+extension TalkPageReplyComposeView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         composeTextView.apply(theme: theme)
@@ -131,7 +132,9 @@ extension TalkPageReplyView: Themeable {
     }
 }
 
-extension TalkPageReplyView: ThemeableTextViewPlaceholderDelegate {
+//MARK: ThemeableTextViewPlaceholderDelegate
+
+extension TalkPageReplyComposeView: ThemeableTextViewPlaceholderDelegate {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
         //no-op
     }

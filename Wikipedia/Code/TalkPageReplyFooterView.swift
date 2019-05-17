@@ -2,14 +2,14 @@
 import UIKit
 
 protocol ReplyButtonFooterViewDelegate: class {
-    func tappedReply(from view: ReplyButtonFooterView)
+    func tappedReply(from view: TalkPageReplyFooterView)
     func composeTextDidChange(text: String?)
     var collectionViewFrame: CGRect { get }
 }
 
-class ReplyButtonFooterView: SizeThatFitsReusableView {
+class TalkPageReplyFooterView: SizeThatFitsReusableView {
     private let replyButton = ActionButton(frame: .zero)
-    private let composeView = TalkPageReplyView(frame: .zero)
+    private let composeView = TalkPageReplyComposeView(frame: .zero)
     private let dividerView = UIView(frame: .zero)
     weak var delegate: ReplyButtonFooterViewDelegate?
     var showingCompose = false {
@@ -75,7 +75,7 @@ class ReplyButtonFooterView: SizeThatFitsReusableView {
  
     override func setup() {
         
-        replyButton.setTitle(WMFLocalizedString("talk-pages-reply-button-title", value: "Reply to this discussion", comment: "Text displayed in a reply button for replying to a talk page discussion thread."), for: .normal)
+        replyButton.setTitle(WMFLocalizedString("talk-pages-reply-button-title", value: "Reply to this discussion", comment: "Text displayed in a reply button for replying to a talk page topic thread."), for: .normal)
         replyButton.addTarget(self, action: #selector(tappedReply), for: .touchUpInside)
         addSubview(replyButton)
         addSubview(dividerView)
@@ -86,7 +86,9 @@ class ReplyButtonFooterView: SizeThatFitsReusableView {
     }
 }
 
-extension ReplyButtonFooterView: Themeable {
+//MARK: Themeable
+
+extension TalkPageReplyFooterView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         dividerView.backgroundColor = theme.colors.border
@@ -95,7 +97,9 @@ extension ReplyButtonFooterView: Themeable {
     }
 }
 
-extension ReplyButtonFooterView: TalkPageReplyViewDelegate {
+//MARK: TalkPageReplyComposeViewDelegate
+
+extension TalkPageReplyFooterView: TalkPageReplyComposeViewDelegate {
     func composeTextDidChange(text: String?) {
         delegate?.composeTextDidChange(text: text)
     }

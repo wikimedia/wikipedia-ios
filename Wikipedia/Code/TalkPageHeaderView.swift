@@ -68,7 +68,7 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         
         headerLabel.text = viewModel.header
         
-        //todo: we need to support discussion topic <b> <i> and <a> tags
+        //todo: we need to support topic <b> <i> and <a> tags
         //also todo: need to add intro text truncated to 3 lines
         titleLabel.text = viewModel.title
         
