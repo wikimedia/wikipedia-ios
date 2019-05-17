@@ -199,6 +199,8 @@
 "edit-italic-remove-accessibility-label" = "\nQuitar cursivas";
 "edit-link-accessibility-label" = "\nAñadir enlace";
 "edit-link-remove-accessibility-label" = "\nQuitar enlace";
+// Fuzzy
+"edit-link-title" = "Enlace";
 "edit-menu-item" = "Editar";
 "edit-menu-item-could-not-find-selection-alert-message" = "Esto podría ser debido a que el texto seleccionado no es editable (por ejemplo el título de artículo o la casilla de información de títulos) o el debido a la longitud del texto destacado";
 "edit-menu-item-could-not-find-selection-alert-title" = "El texto seleccionado no puede ser localizado";
@@ -207,7 +209,6 @@
 "edit-ordered-list-accessibility-label" = "Convertir esta línea en una lista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "\nBorrar lista ordenada de esta línea";
 "edit-published" = "Edición publicada";
-"edit-published-button-title" = "Hecho";
 "edit-published-subtitle" = "Tú haces Wikipedia mejor para todo el mundo";
 "edit-reference-accessibility-label" = "Añadir referencia";
 "edit-reference-remove-accessibility-label" = "\nQuitar referencia";

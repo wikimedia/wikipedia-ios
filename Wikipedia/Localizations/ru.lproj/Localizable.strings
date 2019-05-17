@@ -202,6 +202,8 @@
 "edit-italic-remove-accessibility-label" = "Убрать наклонное начертание";
 "edit-link-accessibility-label" = "Добавить ссылку";
 "edit-link-remove-accessibility-label" = "Убрать ссылку";
+// Fuzzy
+"edit-link-title" = "Ссылка";
 "edit-menu-item" = "Редактировать";
 "edit-menu-item-could-not-find-selection-alert-message" = "Это произошло, скорее всего, из-за длины подсвеченного текста или из-за того, что выбранный текст не является редактируемым (например, заголовок статьи, заголовок инфотаблички)";
 "edit-menu-item-could-not-find-selection-alert-title" = "Выбранный текст не найден";
@@ -210,7 +212,6 @@
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
 "edit-ordered-list-remove-accessibility-label" = "Убрать нумерованный список";
 "edit-published" = "Правка опубликована";
-"edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Вы только что сделали Википедию лучше для всех";
 "edit-reference-accessibility-label" = "Добавить примечание";
 "edit-reference-remove-accessibility-label" = "Убрать примечание";

@@ -193,6 +193,8 @@
 "edit-italic-remove-accessibility-label" = "Eğik biçimlendirmeyi kaldır";
 "edit-link-accessibility-label" = "Bağlantı sözdizimi ekle";
 "edit-link-remove-accessibility-label" = "Bağlantı sözdizimini kaldır";
+// Fuzzy
+"edit-link-title" = "Bağlantı";
 "edit-menu-item" = "Düzenle";
 "edit-menu-item-could-not-find-selection-alert-message" = "Bu, seçtiğiniz metnin düzenlenebilir olmaması (ör. madde başlığı veya bilgi kutusu başlıkları) veya vurgulanan metnin uzunluğundan dolayı olabilir.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Seçtiğiniz metin bulunamadı";
@@ -201,7 +203,6 @@
 "edit-ordered-list-accessibility-label" = "Geçerli satırı sıralı liste yap";
 "edit-ordered-list-remove-accessibility-label" = "Sıralı listeyi mevcut satırdan kaldır";
 "edit-published" = "Düzenleme yayımlandı";
-"edit-published-button-title" = "Yapıldı";
 "edit-published-subtitle" = "Vikipedi'yi herkes için daha iyi yaptın";
 "edit-reference-accessibility-label" = "Referans sözdizimi ekle";
 "edit-reference-remove-accessibility-label" = "Kaynak sözdizimini kaldır";

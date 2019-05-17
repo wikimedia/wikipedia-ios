@@ -93,6 +93,7 @@
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
+"add-citation-title" = "Aggiungi citazione";
 "announcements-dismiss" = "Nascondi";
 "app-store-subtitle" = "L'enciclopedia libera";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
@@ -156,12 +157,15 @@
 "edit-direction-right-accessibility-label" = "Sposta il cursore a destra";
 "edit-increase-indent-depth-accessibility-label" = "Aumenta indentazione";
 "edit-italic-accessibility-label" = "Aggiungi la formattazione in corsivo";
+"edit-link-display-text-title" = "Mostra testo";
+"edit-link-link-target-title" = "Destinazione collegamento";
 "edit-link-remove-accessibility-label" = "Rimuovi sintassi per collegamento";
+"edit-link-remove-link-title" = "Rimuovi collegamento";
+"edit-link-title" = "Modifica collegamento";
 "edit-menu-item" = "Modifica";
 "edit-minor-learn-more-text" = "Per saperne di più sulle modifiche minori";
 "edit-minor-text" = "Questa è una modifica minore";
 "edit-published" = "Modifica pubblicata";
-"edit-published-button-title" = "Fatto";
 "edit-published-subtitle" = "Hai appena reso Wikipedia migliore per tutti";
 "edit-reference-accessibility-label" = "Aggiungi sintassi per nota";
 "edit-signature-accessibility-label" = "Aggiungi sintassi per firma";
@@ -281,6 +285,7 @@
 "info-box-close-text" = "Chiudi";
 "info-box-title" = "Fatti in breve";
 "insert-action-title" = "Inserisci";
+"insert-link-title" = "Inserisci collegamento";
 "insert-media-alternative-text-description" = "Descrizione testuale per utenti che non riescono a vedere l'immagine";
 "insert-media-alternative-text-placeholder" = "Descrivi questa immagine";
 "insert-media-alternative-text-title" = "Testo alternativo";

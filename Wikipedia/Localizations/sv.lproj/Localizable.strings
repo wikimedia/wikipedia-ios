@@ -182,6 +182,8 @@
 "edit-italic-remove-accessibility-label" = "Ta bort kursiverad formatering";
 "edit-link-accessibility-label" = "Lägg till länksyntax";
 "edit-link-remove-accessibility-label" = "Ta bort länksyntax";
+// Fuzzy
+"edit-link-title" = "Länk";
 "edit-menu-item" = "Redigera";
 "edit-menu-item-could-not-find-selection-alert-message" = "Detta kan bero på att texten du markerade inte kan redigeras (t.ex. artikelns eller inforutans titel) eller p.g.a. längden på texten som markerades";
 "edit-menu-item-could-not-find-selection-alert-title" = "Texten du markerade kunde inte hittas";
@@ -190,7 +192,6 @@
 "edit-ordered-list-accessibility-label" = "Gör nuvarande rad till en ordnad lista";
 "edit-ordered-list-remove-accessibility-label" = "Ta bort ordnad lista från nuvarande rad";
 "edit-published" = "Redigeringen publicerades";
-"edit-published-button-title" = "Klar";
 "edit-published-subtitle" = "Du gjorde precis Wikipedia bättre för alla";
 "edit-reference-accessibility-label" = "Lägg till referenssyntax";
 "edit-reference-remove-accessibility-label" = "Ta bort referenssyntax";

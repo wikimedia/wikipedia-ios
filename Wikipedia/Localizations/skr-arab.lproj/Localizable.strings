@@ -66,6 +66,8 @@
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
 "dim-images" = "مدھم تصویر";
+// Fuzzy
+"edit-link-title" = "ربط";
 "edit-menu-item" = "لکھو";
 "edit-style-table-view-title" = "سٹائل";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";

@@ -1,6 +1,7 @@
 // Messages for Hebrew (עברית)
 // Exported from translatewiki.net
 // Author: Amire80
+// Author: Erelon
 // Author: Guycn2
 // Author: Inkbug
 // Author: LaG roiL
@@ -83,6 +84,7 @@
 "action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
 "action-update" = "עדכון";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
+"add-citation-title" = "הוספת הערת שוליים";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
 "app-store-release-notes" = "הזנת ה\"לחקור\" ניתנת להתאמה אישית וקל יותר לקרוא אותה. שיפורי מיקום, ביצועים ותיקוני באגים.";
@@ -177,7 +179,10 @@
 "edit-italic-accessibility-label" = "הוספת עיצוב נטוי";
 "edit-italic-remove-accessibility-label" = "הסרת עיצוב נטוי";
 "edit-link-accessibility-label" = "הוספת תחביר קישור";
+"edit-link-display-text-title" = "טקסט להצגה";
 "edit-link-remove-accessibility-label" = "הסרת תחביר קישור";
+"edit-link-remove-link-title" = "הסרת הקישור";
+"edit-link-title" = "עריכת קישור";
 "edit-menu-item" = "עריכה";
 "edit-menu-item-could-not-find-selection-alert-message" = "ייתכן שזה קרה כיוון שהטקסט שבחרת אינו זמין לעריכה (למשל: כותרת ערך או תיבות מידע) או עקב אורך הטקסט שסומן";
 "edit-menu-item-could-not-find-selection-alert-title" = "לא ניתן לאתר את הטקסט שבחרת";
@@ -186,7 +191,6 @@
 "edit-ordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימה ממוספרת";
 "edit-ordered-list-remove-accessibility-label" = "הסרת רשימה ממוספרת מהשורה הנוכחית";
 "edit-published" = "העריכה פורסמה";
-"edit-published-button-title" = "סיום";
 "edit-published-subtitle" = "שיפרת עכשיו את ויקיפדיה בשביל כולם";
 "edit-reference-accessibility-label" = "הוספת תחביר הערה";
 "edit-reference-remove-accessibility-label" = "הסרת תחביר הערה";
@@ -226,6 +230,7 @@
 "editing-welcome-impartial-tone-title" = "כתבו בנימה חסרת פניות";
 "editing-welcome-set-knowledge-free-subtitle" = "כדי להעניק לכולם גישה למידע עולמי, אנו רוצים לבקש ממך לקחת חלק בקריאה, עריכה ותרומה לנושאים שהכי נוגעים ללבך.";
 "editing-welcome-set-knowledge-free-title" = "להוציא את הידע לחופשי";
+"empty-insert-media-title" = "נא לבחור קובץ";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
@@ -393,6 +398,19 @@
 "in-the-news-title" = "בחדשות";
 "info-box-close-text" = "סגירה";
 "info-box-title" = "עובדות מהירות";
+"insert-action-title" = "הוספה";
+"insert-link-title" = "הוספת קישור";
+"insert-media-alternative-text-title" = "טקסט חלופי";
+"insert-media-image-position-setting-center" = "מרכז";
+"insert-media-image-position-setting-left" = "שמאל";
+"insert-media-image-position-setting-right" = "ימין";
+"insert-media-image-position-settings-title" = "מיקום תמונה";
+"insert-media-image-preview-more-information-action-title" = "מידע נוסף";
+"insert-media-image-preview-select-image-action-title" = "בחירת תמונה";
+"insert-media-image-size-setting-custom" = "מותאם אישית";
+"insert-media-image-size-setting-default" = "ברירת מחדל";
+"insert-media-image-size-settings-px-unit-name" = "פיקסל";
+"insert-media-image-type-setting-thumbnail" = "תמונה ממוזערת";
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
@@ -722,6 +740,7 @@
 "wikitext-downloading" = "טעינת תוכן...";
 "wikitext-preview-changes" = "אחזור תצוגה מקדימה של השינויים שלך...";
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";
+"wikitext-preview-link-external-preview-title" = "קישור חיצוני";
 "wikitext-preview-link-preview-description" = "הקישור הזה מוביל לכתובת '$1'";
 "wikitext-preview-link-preview-title" = "תצוגה מקדימה של קישור";
 "wikitext-preview-save-changes-title" = "שמירת השינויים";

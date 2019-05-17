@@ -190,6 +190,8 @@
 "edit-italic-remove-accessibility-label" = "Supprimer la mise en forme en italique";
 "edit-link-accessibility-label" = "Ajouter une syntaxe de lien";
 "edit-link-remove-accessibility-label" = "Supprimer la syntaxe de lien";
+// Fuzzy
+"edit-link-title" = "Lien";
 "edit-menu-item" = "Modifier";
 "edit-menu-item-could-not-find-selection-alert-message" = "Cela peut être dû au fait que le texte que vous avez sélectionné n’est pas modifiable (par ex. titre d’article ou titres de boîte d’info) ou à cause de la longueur du texte qui a été mis en surbrillance";
 "edit-menu-item-could-not-find-selection-alert-title" = "Le texte que vous avez sélectionné n’a pas pu être localisé";
@@ -198,7 +200,6 @@
 "edit-ordered-list-accessibility-label" = "Faire de la ligne actuelle une liste ordonnée";
 "edit-ordered-list-remove-accessibility-label" = "Supprimer la liste ordonnée de la ligne actuelle";
 "edit-published" = "Modification publiée";
-"edit-published-button-title" = "Fait";
 "edit-published-subtitle" = "Vous venez tout juste de rendre Wikipédia meilleur pour tout le monde";
 "edit-reference-accessibility-label" = "Ajouter une syntaxe de référence";
 "edit-reference-remove-accessibility-label" = "Supprimer la syntaxe de référence";

@@ -181,6 +181,8 @@
 "edit-italic-remove-accessibility-label" = "Suprimeix format en cursiva";
 "edit-link-accessibility-label" = "Afegeix sintaxi d'enllaç";
 "edit-link-remove-accessibility-label" = "Suprimeix sintaxi d'enllaç";
+// Fuzzy
+"edit-link-title" = "Enllaç";
 "edit-menu-item" = "Edita";
 "edit-menu-item-could-not-find-selection-alert-message" = "Podria ser perquè el text que heu seleccionat no és editable (p. ex., el títol de l'article o els títols de les infotaules) o bé per la longitud del text que s'ha ressaltat";
 "edit-menu-item-could-not-find-selection-alert-title" = "No s’ha pogut trobar el text que heu seleccionat";
@@ -189,7 +191,6 @@
 "edit-ordered-list-accessibility-label" = "Fes la línia actual part d'una llista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Treu la línia actual de la llista ordenada";
 "edit-published" = "S'ha publicat la modificació";
-"edit-published-button-title" = "Fet";
 "edit-published-subtitle" = "Heu millorat la Viquipèdia per a tothom";
 "edit-reference-accessibility-label" = "Afegeix sintaxi de referència";
 "edit-reference-remove-accessibility-label" = "Suprimeix sintaxi de referència";
