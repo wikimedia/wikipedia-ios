@@ -24,6 +24,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private var footerView: TalkPageReplyFooterView?
     private var originalFooterViewFrame: CGRect?
     
+    private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
+    
     private var showingCompose = false {
         didSet {
             if showingCompose != oldValue {
@@ -68,6 +70,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
 
         registerCells()
         setupCollectionViewUpdater()
+        setupBackgroundTap()
         
         collectionView.keyboardDismissMode = .onDrag
         navigationBar.isBarHidingEnabled = false
@@ -93,11 +96,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             let convertedComposeViewFrame = footerView.composeView.convert(footerView.composeTextView.frame, to: view)
 
             //shift keyboard frame if necessary so compose view is in visible window
-            let margin = CGFloat(10)
             let navBarHeight = navigationBar.visibleHeight
-            let newHeight = (keyboardFrame.minY - margin) - (navBarHeight + margin)
+            let newHeight = keyboardFrame.minY - navBarHeight
             
-            let newRect = CGRect(x: convertedComposeViewFrame.minX, y: navBarHeight + margin, width: convertedComposeViewFrame.width, height: newHeight)
+            let newRect = CGRect(x: convertedComposeViewFrame.minX, y: navBarHeight, width: convertedComposeViewFrame.width, height: newHeight)
             let newConvertedRect = footerView.composeView.convert(newRect, from: view)
         
             let keyboardAnimationDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
@@ -262,6 +264,15 @@ private extension TalkPageReplyListViewController {
         collectionViewUpdater?.performFetch()
     }
     
+    func setupBackgroundTap() {
+        backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedBackground(_:)))
+        view.addGestureRecognizer(backgroundTapGestureRecognizer)
+    }
+    
+    @objc func tappedBackground(_ tapGestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     func configure(header: TalkPageHeaderView) {
         
         guard let title = topic.title else {
@@ -281,7 +292,7 @@ private extension TalkPageReplyListViewController {
         footer.delegate = self
         footer.showingCompose = showingCompose
         footer.layoutMargins = layout.itemLayoutMargins
-        footer.layer.zPosition = CGFloat.greatestFiniteMagnitude
+        footer.layer.zPosition = 999
         footer.apply(theme: theme)
     }
     

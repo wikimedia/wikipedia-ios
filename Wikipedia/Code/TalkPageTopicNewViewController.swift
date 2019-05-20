@@ -170,10 +170,6 @@ private extension TalkPageTopicNewViewController {
     
     func setBodyHeightIfNeeded() {
         
-        guard keyboardFrame == nil else {
-            return
-        }
-        
         guard let singleLineBodyHeight = singleLineBodyHeight,
             let bodyContainerOrigin = bodyContainerView.superview?.convert(bodyContainerView.frame.origin, to: view) else {
                 return
@@ -197,6 +193,8 @@ private extension TalkPageTopicNewViewController {
             } else {
                 bodyContainerViewHeightConstraint.isActive = false
             }
+        } else {
+            bodyContainerViewHeightConstraint.isActive = true
         }
     }
     
