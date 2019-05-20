@@ -81,12 +81,19 @@ class ThemeableTextView: UITextView {
     @objc private func clear() {
         text = nil
     }
+
+    private func setClearButtonHidden(_ hidden: Bool) {
+        guard clearButton.isHidden != hidden else {
+            return
+        }
+        clearButton.isHidden = hidden
+    }
 }
 
 extension ThemeableTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         _delegate?.textViewDidChange?(textView)
-        clearButton.isHidden = textView.text.isEmpty
+        setClearButtonHidden(textView.text.isEmpty)
     }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -106,7 +113,7 @@ extension ThemeableTextView: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         _delegate?.textViewDidEndEditing?(textView)
-        clearButton.isHidden = true
+        setClearButtonHidden(true)
     }
 
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
@@ -115,10 +122,10 @@ extension ThemeableTextView: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         _delegate?.textViewDidBeginEditing?(textView)
+        setClearButtonHidden(textView.text.isEmpty)
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        clearButton.isHidden = text.isEmpty
         return _delegate?.textView?(textView, shouldChangeTextIn: range, replacementText: text) ?? true
     }
 
