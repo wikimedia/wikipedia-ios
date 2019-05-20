@@ -75,7 +75,13 @@ class ThemeableTextView: UITextView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        clearButton.frame = CGRect(x: frame.width - clearButton.frame.width, y: 0, width: clearButton.frame.width, height: clearButton.frame.height)
+        let clearButtonOriginX: CGFloat
+        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            clearButtonOriginX = 0
+        } else {
+            clearButtonOriginX = frame.width - clearButton.frame.width
+        }
+        clearButton.frame = CGRect(x: clearButtonOriginX, y: 0, width: clearButton.frame.width, height: clearButton.frame.height)
     }
 
     @objc private func clear() {
