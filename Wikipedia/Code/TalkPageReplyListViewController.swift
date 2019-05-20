@@ -22,12 +22,14 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private var composeText: String?
     private var footerView: TalkPageReplyFooterView?
+    private var originalFooterViewFrame: CGRect?
     
     private var showingCompose = false {
         didSet {
             if showingCompose != oldValue {
                 //todo: better reload
                 collectionView.reloadData()
+                collectionView.layoutIfNeeded()
             }
             
             if showingCompose {
@@ -39,6 +41,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 navigationBar.updateNavigationItems()
             }
         }
+    }
+    
+    var isShowingKeyboard: Bool {
+        return keyboardFrame != nil
     }
     
     required init(dataStore: MWKDataStore, topic: TalkPageTopic) {
@@ -65,6 +71,61 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         collectionView.keyboardDismissMode = .onDrag
         navigationBar.isBarHidingEnabled = false
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+
+    override func keyboardWillChangeFrame(_ notification: Notification) {
+        
+        super.keyboardWillChangeFrame(notification)
+        
+        if let footerView = footerView,
+            let keyboardFrame = keyboardFrame {
+            
+            if keyboardFrame.height == 0 {
+                return
+            }
+            
+            scrollToBottom()
+            
+            let convertedComposeViewFrame = footerView.composeView.convert(footerView.composeTextView.frame, to: view)
+
+            //shift keyboard frame if necessary so compose view is in visible window
+            let margin = CGFloat(10)
+            let navBarHeight = navigationBar.visibleHeight
+            let newHeight = (keyboardFrame.minY - margin) - (navBarHeight + margin)
+            
+            let newRect = CGRect(x: convertedComposeViewFrame.minX, y: navBarHeight + margin, width: convertedComposeViewFrame.width, height: newHeight)
+            let newConvertedRect = footerView.composeView.convert(newRect, from: view)
+        
+            let keyboardAnimationDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
+            let duration = keyboardAnimationDuration == 0 ? 0.2 : keyboardAnimationDuration
+            
+            footerView.dividerView.isHidden = true
+            
+            UIView.animate(withDuration: duration, animations: {
+                footerView.composeTextView.frame = newConvertedRect
+            })
+        }
+    }
+    
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        //no-op, avoiding updateScrollViewInsets() call in superclass
+    }
+    
+    override func keyboardWillHide(_ notification: Notification) {
+        super.keyboardWillHide(notification)
+        
+        footerView?.dividerView.isHidden = false
+        
+        let keyboardAnimationDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
+        let duration = keyboardAnimationDuration == 0 ? 0.2 : keyboardAnimationDuration
+        
+        UIView.animate(withDuration: duration, animations: {
+            self.footerView?.resetComposeTextViewFrame()
+        })
     }
     
     @objc func tappedPublish(_ sender: UIBarButtonItem) {
@@ -220,6 +281,7 @@ private extension TalkPageReplyListViewController {
         footer.delegate = self
         footer.showingCompose = showingCompose
         footer.layoutMargins = layout.itemLayoutMargins
+        footer.layer.zPosition = CGFloat.greatestFiniteMagnitude
         footer.apply(theme: theme)
     }
     
@@ -235,6 +297,11 @@ private extension TalkPageReplyListViewController {
         cell.configure(title: title, depth: UInt(item.depth))
         cell.layoutMargins = layout.itemLayoutMargins
         cell.apply(theme: theme)
+    }
+    
+    func scrollToBottom() {
+        let bottomOffset = CGPoint(x: 0, y: (collectionView.contentSize.height - collectionView.frame.size.height) + collectionView.adjustedContentInset.bottom)
+        scrollView?.setContentOffset(bottomOffset, animated: true)
     }
 }
 
@@ -254,6 +321,8 @@ extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
     func tappedReply(from view: TalkPageReplyFooterView) {
 
         showingCompose = !showingCompose
+        scrollToBottom()
+        originalFooterViewFrame = footerView?.frame
     }
     
     var collectionViewFrame: CGRect {
