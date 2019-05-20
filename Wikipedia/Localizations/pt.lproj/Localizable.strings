@@ -85,6 +85,7 @@
 "action-unsaved-accessibility-notification" = "Artigo não guardado";
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
+"add-citation-title" = "Adicionar citação";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Feed Explorar completamente personalizável e mais fácil de ler. Localização, melhorias de desempenho e correções de defeitos.";
@@ -179,7 +180,11 @@
 "edit-italic-accessibility-label" = "Acrescentar formatação para itálico";
 "edit-italic-remove-accessibility-label" = "Remover formatação de itálico";
 "edit-link-accessibility-label" = "Acrescentar sintaxe para hiperligação";
+"edit-link-display-text-title" = "Texto apresentado";
+"edit-link-link-target-title" = "Destino da hiperligação";
 "edit-link-remove-accessibility-label" = "Remover sintaxe de hiperligação";
+"edit-link-remove-link-title" = "Remover hiperligação";
+"edit-link-title" = "Editar hiperligação";
 "edit-menu-item" = "Editar";
 "edit-menu-item-could-not-find-selection-alert-message" = "Isto pode ocorrer porque o texto que selecionou não é editável (por exemplo, o título do artigo ou títulos de caixas informativas) ou devido ao comprimento do texto destacado.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Não foi possível localizar o texto que selecionou";
@@ -396,6 +401,7 @@
 "info-box-close-text" = "Fechar";
 "info-box-title" = "Factos rápidos";
 "insert-action-title" = "Inserir";
+"insert-link-title" = "Inserir hiperligação";
 "insert-media-alternative-text-description" = "Descrição em texto para leitores que não podem ver a imagem";
 "insert-media-alternative-text-placeholder" = "Descreva esta imagem";
 "insert-media-alternative-text-title" = "Texto alternativo";

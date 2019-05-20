@@ -101,6 +101,7 @@
 "action-unsaved-accessibility-notification" = "記事をリストから削除しました";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "$1記事をあとで読むリストに追加";
+"add-citation-title" = "引用を追加";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア, 参考資料, ウィキ, 百科事典, 情報, 知識, リサーチ, 情報, 発見, 学習";
 "app-store-release-notes" = "「探してみよう」フィードが読みやすくなり、細かなカスタマイズもできるようになりました。日本語化、パフォーマンスの向上とバグ修正を実施しました。";
@@ -195,7 +196,11 @@
 "edit-italic-accessibility-label" = "斜体にする";
 "edit-italic-remove-accessibility-label" = "斜体を解除";
 "edit-link-accessibility-label" = "リンクを追加する";
+"edit-link-display-text-title" = "表示テキスト";
+"edit-link-link-target-title" = "リンク先";
 "edit-link-remove-accessibility-label" = "リンクを削除";
+"edit-link-remove-link-title" = "リンクを除去";
+"edit-link-title" = "リンクを編集";
 "edit-menu-item" = "編集";
 "edit-menu-item-could-not-find-selection-alert-message" = "これはたとえば、選択したテキストが編集可能ではないか(例: 記事の題名やinfoboxの見出しなど)、ハイライトされたテキストの長さによるものかもしれません。";
 "edit-menu-item-could-not-find-selection-alert-title" = "選択したテキストが見つかりませんでした。";
@@ -412,6 +417,7 @@
 "info-box-close-text" = "閉じる";
 "info-box-title" = "概要";
 "insert-action-title" = "挿入";
+"insert-link-title" = "リンクを挿入";
 "insert-media-alternative-text-description" = "画像が見えない人のための説明テキスト";
 "insert-media-alternative-text-placeholder" = "この画像を説明する";
 "insert-media-alternative-text-title" = "代替テキスト";
