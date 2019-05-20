@@ -68,6 +68,9 @@ class ThemeableTextView: UITextView {
         clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
         addSubview(clearButton)
         clearButton.isHidden = true
+        var inset = textContainerInset
+        inset.top += 8
+        textContainerInset = inset
     }
 
     override func layoutSubviews() {
