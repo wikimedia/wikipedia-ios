@@ -801,8 +801,23 @@
       if (selection.length === 0) {
         if (buttonNames.includes("link")) {
           link = linkFromSelectionWrapInfo()
-        } else if (buttonNames.length === 0) {
-          link = linkFromWord()
+        } else {
+          const leading = {
+            from: { line: editor.getCursor().line, ch: editor.getCursor().ch },
+            to: { line: editor.getCursor().line, ch: editor.getCursor().ch + anchorLength }
+          }
+          const trailing = {
+            from: { line: editor.getCursor().line, ch: editor.getCursor().ch - anchorLength },
+            to: { line: editor.getCursor().line, ch: editor.getCursor().ch }
+          }
+          const leadingText = editor.getRange(leading.from, leading.to)
+          const trailingText = editor.getRange(trailing.from, trailing.to)
+          const isMarkup = (text) => text === "]]" || text === "[["
+          if (isMarkup(leadingText) || isMarkup(trailingText)) {
+            link = linkFromSelectionWrapInfo()
+          } else {
+            link = linkFromWord()
+          }
         }
       } else {
         if (buttonNames.length === 0) {
