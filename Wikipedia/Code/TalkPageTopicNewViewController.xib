@@ -19,6 +19,7 @@
                 <outlet property="bodyTextView" destination="dNc-rx-jAZ" id="HbT-gP-tTy"/>
                 <outlet property="finePrintContainerView" destination="JON-m5-Ky9" id="gzc-Mb-kxu"/>
                 <outlet property="finePrintTextView" destination="vRW-Pe-PZI" id="Nas-Ua-ezA"/>
+                <outlet property="stackView" destination="XBx-dB-CQd" id="qzG-Fu-Xcv"/>
                 <outlet property="subjectTextField" destination="tey-7u-fS8" id="kiY-Qo-6HP"/>
                 <outlet property="talkPageScrollView" destination="iuD-YN-OrL" id="Ion-dN-hra"/>
                 <outlet property="view" destination="aQX-ak-cfR" id="VWE-ux-SVt"/>

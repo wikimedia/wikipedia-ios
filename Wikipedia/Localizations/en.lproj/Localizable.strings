@@ -708,6 +708,7 @@
 "talk-page-new-topic-success-text" = "Your discussion was successfully published";
 "talk-page-new-topic-title" = "New discussion";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
+"talk-page-reply-title" = "Reply";
 "talk-page-title-user-talk" = "User Talk";
 "talk-page-topic-title" = "Discussion";
 "talk-pages-reply-button-title" = "Reply to this discussion";

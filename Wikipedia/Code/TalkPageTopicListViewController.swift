@@ -18,6 +18,8 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageTopic>!
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
+    private var toolbar: UIToolbar?
+    private var shareIcon: IconBarButtonItem?
     
     required init(dataStore: MWKDataStore, talkPage: TalkPage) {
         self.dataStore = dataStore
@@ -40,6 +42,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         
         registerCells()
         setupCollectionViewUpdater()
+        setupToolbar()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -130,6 +133,8 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         collectionView.backgroundColor = theme.colors.baseBackground
+        toolbar?.barTintColor = theme.colors.chromeBackground
+        shareIcon?.apply(theme: theme)
     }
 }
 
@@ -146,6 +151,38 @@ private extension TalkPageTopicListViewController {
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         collectionViewUpdater?.performFetch()
+    }
+    
+    func setupToolbar() {
+        let toolbar = UIToolbar()
+        toolbar.barTintColor = theme.colors.chromeBackground
+        
+        let toolbarHeight = CGFloat(44)
+        additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: toolbarHeight, right: 0)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(toolbar)
+        let guide = view.safeAreaLayoutGuide
+        let heightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor)
+        let bottomConstraint = guide.bottomAnchor.constraint(equalTo: toolbar.topAnchor)
+        
+        NSLayoutConstraint.activate([heightConstraint, leadingConstraint, trailingConstraint, bottomConstraint])
+        
+        let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(shareTapped), for: .touchUpInside)
+        shareIcon.apply(theme: theme)
+        shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
+        
+        let spacer1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let spacer2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [spacer1, shareIcon, spacer2]
+
+        self.toolbar = toolbar
+        self.shareIcon = shareIcon
+    }
+    
+    @objc func shareTapped() {
+        print("share here")
     }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {

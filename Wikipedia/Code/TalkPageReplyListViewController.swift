@@ -37,9 +37,11 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             if showingCompose {
                 publishButton.isEnabled = false
                 navigationItem.rightBarButtonItem = publishButton
+                navigationItem.title = WMFLocalizedString("talk-page-reply-title", value: "Reply", comment: "This header label is displayed at the top of a talk page thread once the user taps Reply.")
                 navigationBar.updateNavigationItems()
             } else {
                 navigationItem.rightBarButtonItem = nil
+                navigationItem.title = nil
                 navigationBar.updateNavigationItems()
             }
         }
