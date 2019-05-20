@@ -80,6 +80,7 @@ class ThemeableTextView: UITextView {
 
     @objc private func clear() {
         text = nil
+        setClearButtonHidden(true)
     }
 
     private func setClearButtonHidden(_ hidden: Bool) {
