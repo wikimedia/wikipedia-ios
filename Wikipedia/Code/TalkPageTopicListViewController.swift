@@ -102,7 +102,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    @objc func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let topic = fetchedResultsController.object(at: indexPath)
         delegate?.tappedTopic(topic, viewController: self)
     }
