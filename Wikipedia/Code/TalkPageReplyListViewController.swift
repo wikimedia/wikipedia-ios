@@ -93,23 +93,26 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             
             scrollToBottom()
             
-            let convertedComposeViewFrame = footerView.composeView.convert(footerView.composeTextView.frame, to: view)
-
+            var convertedComposeTextViewFrame = footerView.composeView.convert(footerView.composeTextView.frame, to: view)
+            
             //shift keyboard frame if necessary so compose view is in visible window
             let navBarHeight = navigationBar.visibleHeight
-            let newHeight = keyboardFrame.minY - navBarHeight
+            let newHeight = keyboardFrame.minY - navBarHeight - footerView.beKindView.frame.height
             
-            let newRect = CGRect(x: convertedComposeViewFrame.minX, y: navBarHeight, width: convertedComposeViewFrame.width, height: newHeight)
-            let newConvertedRect = footerView.composeView.convert(newRect, from: view)
+            convertedComposeTextViewFrame.origin.y = navBarHeight
+            convertedComposeTextViewFrame.size.height = newHeight
+            
+            let newConvertedComposeTextViewFrame = footerView.composeView.convert(convertedComposeTextViewFrame, from: view)
         
-            let keyboardAnimationDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
-            let duration = keyboardAnimationDuration == 0 ? 0.2 : keyboardAnimationDuration
+            let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
+            let curve = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UIView.AnimationOptions) ?? UIView.AnimationOptions.curveLinear
             
             footerView.dividerView.isHidden = true
             
-            UIView.animate(withDuration: duration, animations: {
-                footerView.composeTextView.frame = newConvertedRect
-            })
+            UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
+                footerView.composeTextView.frame = newConvertedComposeTextViewFrame
+                footerView.beKindView.frame.origin.y = newConvertedComposeTextViewFrame.minY + newConvertedComposeTextViewFrame.height
+            }, completion: nil)
         }
     }
     
@@ -127,6 +130,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         UIView.animate(withDuration: duration, animations: {
             self.footerView?.resetComposeTextViewFrame()
+            self.footerView?.resetBeKindViewFrame()
         })
     }
     

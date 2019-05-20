@@ -16,7 +16,9 @@ class TalkPageTopicNewViewController: ViewController {
     @IBOutlet private var divViews: [UIView]!
     @IBOutlet private var containerViews: [UIView]!
     
-    @IBOutlet private var secondDivView: UIView!
+    @IBOutlet private var beKindContainerView: UIView!
+    private var beKindView: InfoBannerView!
+    @IBOutlet private var beKindContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var finePrintContainerView: UIView!
     @IBOutlet private var bodyContainerView: UIView!
     @IBOutlet private var bodyContainerVerticalPaddingConstraints: [NSLayoutConstraint]!
@@ -24,9 +26,10 @@ class TalkPageTopicNewViewController: ViewController {
     @IBOutlet private var talkPageScrollView: UIScrollView!
     
     @IBOutlet private var bodyContainerViewHeightConstraint: NSLayoutConstraint!
-    private var singleLineBodyHeight: CGFloat?
-    private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     
+    private var singleLineBodyHeight: CGFloat?
+    
+    private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var publishButton: UIBarButtonItem!
     
     private var bodyPlaceholder: String {
@@ -66,6 +69,7 @@ class TalkPageTopicNewViewController: ViewController {
 
         setupNavigationBar()
         setupTextInputViews()
+        setupBeKindContainerView()
         setupBackgroundTap()
         talkPageScrollView.keyboardDismissMode = .interactive
         
@@ -75,6 +79,7 @@ class TalkPageTopicNewViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setBodyHeightIfNeeded()
+        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -93,7 +98,7 @@ class TalkPageTopicNewViewController: ViewController {
         divViews.forEach { $0.backgroundColor = theme.colors.border }
         finePrintTextView.backgroundColor = theme.colors.paperBackground
         finePrintTextView.textColor = theme.colors.secondaryText
-        
+        beKindView?.apply(theme: theme)
         subjectTextField.apply(theme: theme)
         bodyTextView.apply(theme: theme)
         super.apply(theme: theme)
@@ -122,6 +127,19 @@ private extension TalkPageTopicNewViewController {
         subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new topic subject field for talk pages.")
         
         subjectTextField.addTarget(self, action: #selector(evaluatePublishButtonState), for: .editingChanged)
+    }
+    
+    func setupBeKindContainerView() {
+        
+        guard let view = view else {
+            return
+        }
+        
+        beKindView = InfoBannerView()
+        beKindView.apply(theme: theme)
+        beKindView.configure(iconName: "heart-icon", title: CommonStrings.talkPageNewBannerTitle, subtitle: CommonStrings.talkPageNewBannerSubtitle)
+        beKindContainerViewHeightConstraint.constant = beKindView.sizeThatFits(view.bounds.size, apply: true).height
+        beKindContainerView.wmf_addSubviewWithConstraintsToEdges(beKindView)
     }
     
     func setupBackgroundTap() {
@@ -183,8 +201,7 @@ private extension TalkPageTopicNewViewController {
         bodyContainerVerticalPaddingConstraints.forEach { contentFittingBodyContainerHeight += $0.constant  }
         
         var availableVerticalScreenSpace = talkPageScrollView.frame.height - bodyContainerOrigin.y
-        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - secondDivView.frame.height
-        
+        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindContainerView.frame.height
         
         if bodyContainerViewHeightConstraint.constant != availableVerticalScreenSpace {
             if availableVerticalScreenSpace > singleLineBodyHeight && availableVerticalScreenSpace >= contentFittingBodyContainerHeight {

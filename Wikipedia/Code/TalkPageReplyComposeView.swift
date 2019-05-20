@@ -9,9 +9,11 @@ protocol TalkPageReplyComposeViewDelegate: class {
 class TalkPageReplyComposeView: UIView {
     
     private(set) var composeTextViewFrame: CGRect?
+    private(set) var beKindViewFrame: CGRect?
     
-    lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView.init()
-    lazy private var finePrintTextView: UITextView = UITextView.init()
+    lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
+    lazy private(set) var beKindView: InfoBannerView = InfoBannerView()
+    lazy private var finePrintTextView: UITextView = UITextView()
     
     weak var delegate: TalkPageReplyComposeViewDelegate?
     
@@ -58,6 +60,12 @@ class TalkPageReplyComposeView: UIView {
         }
     }
     
+    func resetBeKindViewFrame() {
+        if let beKindViewFrame = beKindViewFrame {
+            beKindView.frame = beKindViewFrame
+        }
+    }
+    
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
@@ -70,19 +78,27 @@ class TalkPageReplyComposeView: UIView {
         let finePrintTextViewOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let finePrintTextViewWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
+        
         let finePrintFrame = finePrintTextView.wmf_preferredFrame(at: finePrintTextViewOrigin, maximumWidth: finePrintTextViewWidth, minimumWidth: finePrintTextViewWidth, alignedBy: semanticContentAttribute, apply: false) //will apply below
         
-        let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.67 - finePrintFrame.height
+        let beKindViewOrigin = CGPoint(x: 0, y: adjustedMargins.top)
+        beKindView.layoutMargins = layoutMargins
+        let beKindViewSize = beKindView.sizeThatFits(size, apply: apply)
+        let beKindViewFrame = CGRect(origin: beKindViewOrigin, size: beKindViewSize)
+        
+        let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.67 - (finePrintFrame.height + beKindViewFrame.height)
         
         let composeTextViewFrame = CGRect(x: composeTextViewOrigin.x, y: composeTextViewOrigin.y, width: composeTextViewWidth, height: forcedComposeHeight)
         self.composeTextViewFrame = composeTextViewFrame
         
         if (apply) {
             composeTextView.frame = composeTextViewFrame
-            finePrintTextView.frame = CGRect(x: adjustedMargins.left, y: composeTextViewFrame.minY + composeTextViewFrame.height, width: finePrintTextViewWidth, height: finePrintFrame.height)
+            beKindView.frame = CGRect(x: 0, y: composeTextViewFrame.minY + composeTextViewFrame.height, width: size.width, height: beKindViewFrame.height)
+            self.beKindViewFrame = beKindView.frame
+            finePrintTextView.frame = CGRect(x: adjustedMargins.left, y: composeTextViewFrame.minY + composeTextViewFrame.height + beKindViewFrame.height, width: finePrintTextViewWidth, height: finePrintFrame.height)
         }
         
-        let finalHeight = adjustedMargins.top + composeTextViewFrame.size.height + finePrintFrame.height + adjustedMargins.bottom
+        let finalHeight = adjustedMargins.top + composeTextViewFrame.size.height + beKindViewFrame.height + finePrintFrame.height + adjustedMargins.bottom
         return CGSize(width: size.width, height: finalHeight)
     }
     
@@ -133,6 +149,8 @@ private extension TalkPageReplyComposeView {
         insertSubview(finePrintTextView, belowSubview: composeTextView)
         finePrintTextView.isScrollEnabled = false
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
+        insertSubview(beKindView, aboveSubview: composeTextView)
+        beKindView.configure(iconName: "heart-icon", title: CommonStrings.talkPageNewBannerTitle, subtitle: CommonStrings.talkPageNewBannerSubtitle)
     }
 }
 
@@ -142,6 +160,7 @@ extension TalkPageReplyComposeView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         composeTextView.apply(theme: theme)
+        beKindView.apply(theme: theme)
         backgroundColor = theme.colors.paperBackground
         finePrintTextView.backgroundColor = theme.colors.paperBackground
         finePrintTextView.textColor = theme.colors.secondaryText

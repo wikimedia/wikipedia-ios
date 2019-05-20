@@ -699,9 +699,13 @@
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
 "talk-page-info-active-conversations" = "Active conversations on $1";
+"talk-page-new-banner-subtitle" = "Remember, we are all humans here";
+"talk-page-new-banner-title" = "Please be kind";
 "talk-page-new-reply-body-placeholder-text" = "Compose response";
+"talk-page-new-reply-success-text" = "Your reply was successfully published";
 "talk-page-new-subject-placeholder-text" = "Subject";
 "talk-page-new-topic-body-placeholder-text" = "Compose new discussion";
+"talk-page-new-topic-success-text" = "Your discussion was successfully published";
 "talk-page-new-topic-title" = "New discussion";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
 "talk-page-title-user-talk" = "User Talk";

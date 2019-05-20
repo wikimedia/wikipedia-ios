@@ -3,6 +3,7 @@ import UIKit
 
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
+    func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -44,6 +45,11 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        delegate?.scrollViewDidScroll(scrollView, viewController: self)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -1,7 +1,8 @@
 
 import UIKit
 
-class TalkPageContainerViewController: ViewController {
+@objc(WMFTalkPageContainerViewController)
+class TalkPageContainerViewController: ViewController, HintPresenting {
     
     private let talkPageTitle: String
     private let host: String
@@ -13,6 +14,11 @@ class TalkPageContainerViewController: ViewController {
     
     private var talkPage: TalkPage?
     private var topicListViewController: TalkPageTopicListViewController?
+    
+    @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
+    @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
+    
+    var hintController: HintController?
     
     required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
@@ -101,6 +107,8 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
             }
             
             controller.addTopic(to: talkPage, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { (result) in
+                
+                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
                 switch result {
                 case .success:
                     print("made it")
@@ -114,6 +122,10 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
 //MARK: TalkPageTopicListDelegate
 
 extension TalkPageContainerViewController: TalkPageTopicListDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController) {
+        hintController?.dismissHintDueToUserInteraction()
+    }
     
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
         
@@ -130,6 +142,9 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController) {
         
         controller.addReply(to: topic, title: talkPageTitle, host: host, languageCode: languageCode, body: composeText) { (result) in
+            
+            NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
+            
             switch result {
             case .success:
                 print("made it")

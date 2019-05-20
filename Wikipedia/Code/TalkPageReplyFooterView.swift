@@ -33,12 +33,20 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
         return composeView.composeTextView
     }
     
+    var beKindView: InfoBannerView {
+        return composeView.beKindView
+    }
+    
     func resetCompose() {
         composeView.resetCompose()
     }
     
     func resetComposeTextViewFrame() {
         composeView.resetComposeTextViewFrame()
+    }
+    
+    func resetBeKindViewFrame() {
+        composeView.resetBeKindViewFrame()
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
