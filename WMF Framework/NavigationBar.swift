@@ -373,7 +373,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                     self.shadowAlpha = shadowAlpha
                 }
                 if (animated) {
-                    self.layoutSubviews()
+                    self.layoutIfNeeded()
                 }
                 additionalAnimations?()
             }
