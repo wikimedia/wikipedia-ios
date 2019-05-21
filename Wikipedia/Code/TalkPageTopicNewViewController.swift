@@ -59,6 +59,12 @@ class TalkPageTopicNewViewController: ViewController {
         return attributedString
     }
     
+    lazy private var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
+    
     override init() {
         super.init()
     }
@@ -84,6 +90,20 @@ class TalkPageTopicNewViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setBodyHeightIfNeeded()
+    }
+    
+    func postDidBegin() {
+        fakeProgressController.start()
+        publishButton.isEnabled = false
+        subjectTextField.isUserInteractionEnabled = false
+        bodyTextView.isUserInteractionEnabled = false
+    }
+    
+    func postDidEnd() {
+        fakeProgressController.stop()
+        publishButton.isEnabled = true
+        subjectTextField.isUserInteractionEnabled = true
+        bodyTextView.isUserInteractionEnabled = true
     }
     
     override func keyboardWillChangeFrame(_ notification: Notification) {

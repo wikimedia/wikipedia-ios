@@ -52,6 +52,7 @@ class TalkPageReplyComposeView: UIView {
     
     func resetCompose() {
         composeTextView.text = nil
+        composeTextView.isUserInteractionEnabled = true
     }
     
     func resetComposeTextViewFrame() {

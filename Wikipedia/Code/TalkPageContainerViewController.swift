@@ -99,23 +99,26 @@ private extension TalkPageContainerViewController {
 extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegate {
     func tappedPublish(subject: String, body: String, viewController: TalkPageTopicNewViewController) {
         
-            navigationController?.popViewController(animated: true)
+        guard let talkPage = talkPage else {
+            assertionFailure("Missing Talk Page")
+            return
+        }
+        
+        viewController.postDidBegin()
+        controller.addTopic(to: talkPage, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { [weak self] (result) in
             
-            guard let talkPage = talkPage else {
-                assertionFailure("Missing Talk Page")
-                return
+            viewController.postDidEnd()
+            
+            NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+            switch result {
+            case .success:
+                print("made it")
+            case .failure:
+                print("failure")
             }
             
-            controller.addTopic(to: talkPage, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { (result) in
-                
-                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
-                switch result {
-                case .success:
-                    print("made it")
-                case .failure:
-                    print("failure")
-                }
-            }
+        self?.navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -141,8 +144,9 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
 extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelegate {
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController) {
         
+        viewController.postDidBegin()
         controller.addReply(to: topic, title: talkPageTitle, host: host, languageCode: languageCode, body: composeText) { (result) in
-            
+            viewController.postDidEnd()
             NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
             
             switch result {

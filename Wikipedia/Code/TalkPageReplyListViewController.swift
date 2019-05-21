@@ -25,13 +25,19 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private var originalFooterViewFrame: CGRect?
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
-    
+
     private var showingCompose = false {
         didSet {
             if showingCompose != oldValue {
-                //todo: better reload
-                collectionView.reloadData()
-                collectionView.layoutIfNeeded()
+                footerView?.showingCompose = showingCompose
+                if let layoutCopy = layout.copy() as? ColumnarCollectionViewLayout {
+                    collectionView.setCollectionViewLayout(layoutCopy, animated: true)
+                } else {
+                    collectionView.reloadData()
+                    collectionView.layoutIfNeeded()
+                }
+                
+                scrollToBottom()
             }
             
             if showingCompose {
@@ -47,9 +53,11 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         }
     }
     
-    var isShowingKeyboard: Bool {
-        return keyboardFrame != nil
-    }
+    lazy private var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
     
     required init(dataStore: MWKDataStore, topic: TalkPageTopic) {
         self.dataStore = dataStore
@@ -81,6 +89,19 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
+    
+    func postDidBegin() {
+        fakeProgressController.start()
+        publishButton.isEnabled = false
+        footerView?.composeTextView.isUserInteractionEnabled = false
+    }
+    
+    func postDidEnd() {
+        fakeProgressController.stop()
+        publishButton.isEnabled = true
+        showingCompose = false
+        footerView?.resetCompose()
+    }
 
     override func keyboardWillChangeFrame(_ notification: Notification) {
         
@@ -93,7 +114,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 return
             }
             
-            scrollToBottom()
+            //scrollToBottom()
             
             var convertedComposeTextViewFrame = footerView.composeView.convert(footerView.composeTextView.frame, to: view)
             
@@ -143,9 +164,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 assertionFailure("User should be able to tap Publish if they have not written a reply.")
                 return
         }
+        view.endEditing(true)
         delegate?.tappedPublish(topic: topic, composeText: composeText, viewController: self)
-        showingCompose = false
-        footerView?.resetCompose()
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -214,7 +234,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         configure(header: header)
         estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        estimate.precalculated = false
+        estimate.precalculated = true
         return estimate
     }
     
@@ -338,7 +358,6 @@ extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
     func tappedReply(from view: TalkPageReplyFooterView) {
 
         showingCompose = !showingCompose
-        scrollToBottom()
         originalFooterViewFrame = footerView?.frame
     }
     

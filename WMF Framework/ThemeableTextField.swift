@@ -38,6 +38,7 @@ open class ThemeableTextField: UITextField, Themeable {
     
     fileprivate func _clear() {
         text = nil
+        sendActions(for: .editingChanged)
     }
     
     @objc(clear)
