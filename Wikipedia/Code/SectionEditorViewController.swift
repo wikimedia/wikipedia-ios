@@ -573,7 +573,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
         guard presentedViewController == nil else {
             return
         }
-        webView.scrollView.setContentOffset(newContentOffset, animated: true)
+        self.webView.scrollView.wmf_safeSetContentOffset(newContentOffset, animated: true, completion: nil)
     }
 }
 
