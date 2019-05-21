@@ -1,7 +1,7 @@
 
 import UIKit
 
-class DiscussionListItemCollectionViewCell: CollectionViewCell {
+class TalkPageTopicCell: CollectionViewCell {
     
     private let titleLabel = UILabel()
     private let unreadView = UIView()
@@ -63,7 +63,7 @@ class DiscussionListItemCollectionViewCell: CollectionViewCell {
     }
 }
 
-extension DiscussionListItemCollectionViewCell: Themeable {
+extension TalkPageTopicCell: Themeable {
     func apply(theme: Theme) {
         titleLabel.textColor = theme.colors.primaryText
         setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.baseBackground)

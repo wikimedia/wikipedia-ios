@@ -34,9 +34,9 @@ class TalkPageFetcherTests: XCTestCase {
 
             switch result {
             case .success(let talkPage):
-                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
+                XCTAssertEqual(talkPage.url.absoluteString, "https://talk-pages.wmflabs.org/en.wikipedia.org/v1/page/talk/User_talk:Username")
                 XCTAssertEqual(talkPage.revisionId, 5)
-            case .failure (let error):
+            case .failure:
                 XCTFail("Expected Success")
             }
         }
@@ -59,7 +59,7 @@ class TalkPageFetcherTests: XCTestCase {
             
             switch result {
             case .success(let talkPage):
-                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
+                XCTAssertEqual(talkPage.url.absoluteString, "https://talk-pages.wmflabs.org/en.wikipedia.org/v1/page/talk/User_talk:Username")
                 XCTAssertEqual(talkPage.revisionId, 5)
             case .failure:
                 XCTFail("Expected Success")

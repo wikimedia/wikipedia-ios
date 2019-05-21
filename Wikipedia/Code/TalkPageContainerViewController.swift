@@ -1,18 +1,24 @@
 
 import UIKit
 
-class TalkPageContainerViewController: ViewController {
+@objc(WMFTalkPageContainerViewController)
+class TalkPageContainerViewController: ViewController, HintPresenting {
     
-    private var discussionListViewController: TalkPageDiscussionListViewController?
-    let talkPageTitle: String
-    let host: String
-    let languageCode: String
-    let titleIncludesPrefix: Bool
-    let type: TalkPageType
-    let dataStore: MWKDataStore!
+    private let talkPageTitle: String
+    private let host: String
+    private let languageCode: String
+    private let titleIncludesPrefix: Bool
+    private let type: TalkPageType
+    private let dataStore: MWKDataStore
+    private var controller: TalkPageController
+    
     private var talkPage: TalkPage?
+    private var topicListViewController: TalkPageTopicListViewController?
     
-    private var talkPageController: TalkPageController!
+    @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
+    @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
+    
+    var hintController: HintController?
     
     required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
@@ -21,6 +27,7 @@ class TalkPageContainerViewController: ViewController {
         self.titleIncludesPrefix = titleIncludesPrefix
         self.type = type
         self.dataStore = dataStore
+        self.controller = TalkPageController(dataStore: dataStore, title: talkPageTitle, host: host, languageCode: languageCode, titleIncludesPrefix: titleIncludesPrefix, type: type)
         super.init()
     }
     
@@ -32,52 +39,7 @@ class TalkPageContainerViewController: ViewController {
         super.viewDidLoad()
 
         fetch()
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
-        navigationItem.rightBarButtonItem = addButton
-        navigationBar.updateNavigationItems()
-    }
-    
-    @objc func tappedAdd(_ sender: UIBarButtonItem) {
-        
-        guard let _ = talkPage else {
-
-            assertionFailure("TalkPage is not populated yet.")
-            return
-        }
-        
-        let discussionNewVC = TalkPageUpdateViewController.init()
-        discussionNewVC.delegate = self
-        discussionNewVC.apply(theme: theme)
-        navigationController?.pushViewController(discussionNewVC, animated: true)
-    }
-    
-    private func fetch() {
-        //todo: loading/error/empty states
-        talkPageController = TalkPageController(dataStore: dataStore, title: talkPageTitle, host: host, languageCode: languageCode, titleIncludesPrefix: titleIncludesPrefix, type: type)
-        talkPageController.fetchTalkPage { [weak self] (result) in
-            
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case .success(let talkPage):
-                self.talkPage = talkPage
-                self.setupDiscussionListViewControllerIfNeeded(with: talkPage)
-            case .failure(let error):
-                print("error! \(error)")
-            }
-        }
-    }
-    
-    private func setupDiscussionListViewControllerIfNeeded(with talkPage: TalkPage) {
-        if discussionListViewController == nil {
-            discussionListViewController = TalkPageDiscussionListViewController(dataStore: dataStore, talkPage: talkPage)
-            discussionListViewController?.apply(theme: theme)
-            wmf_add(childController: discussionListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
-            discussionListViewController?.delegate = self
-        }
+        setupNavigationBar()
     }
     
     override func apply(theme: Theme) {
@@ -86,42 +48,110 @@ class TalkPageContainerViewController: ViewController {
     }
 }
 
-extension TalkPageContainerViewController: TalkPageUpdateDelegate {
-    func tappedPublish(subject: String?, body: String, viewController: TalkPageUpdateViewController) {
+//MARK: Private
+
+private extension TalkPageContainerViewController {
+    
+    func setupNavigationBar() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
+        addButton.tintColor = theme.colors.link
+        navigationItem.rightBarButtonItem = addButton
+        navigationBar.updateNavigationItems()
+    }
+    
+    @objc func tappedAdd(_ sender: UIBarButtonItem) {
+        let topicNewVC = TalkPageTopicNewViewController.init()
+        topicNewVC.delegate = self
+        topicNewVC.apply(theme: theme)
+        navigationController?.pushViewController(topicNewVC, animated: true)
+    }
+    
+    func fetch() {
         
-            navigationController?.popViewController(animated: true)
+        //todo: loading/error/empty states
+        controller.fetchTalkPage { [weak self] (result) in
             
-            guard let subject = subject,
-            let talkPage = talkPage else {
+            guard let self = self else {
                 return
             }
             
-            talkPageController.addDiscussion(to: talkPage, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { (result) in
-                switch result {
-                case .success:
-                    print("made it")
-                case .failure:
-                    print("failure")
-                }
+            switch result {
+            case .success(let talkPage):
+                self.talkPage = talkPage
+                self.setupTopicListViewControllerIfNeeded(with: talkPage)
+            case .failure(let error):
+                print("error! \(error)")
             }
+        }
+    }
+    
+    func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {
+        if topicListViewController == nil {
+            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPage: talkPage)
+            topicListViewController?.apply(theme: theme)
+            wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+            topicListViewController?.delegate = self
+        }
     }
 }
 
-extension TalkPageContainerViewController: TalkPageDiscussionListDelegate {
-    
-    func tappedDiscussion(_ discussion: TalkPageDiscussion, viewController: TalkPageDiscussionListViewController) {
+//MARK: TalkPageTopicNewViewControllerDelegate
+
+extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegate {
+    func tappedPublish(subject: String, body: String, viewController: TalkPageTopicNewViewController) {
         
-        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, discussion: discussion)
+        guard let talkPage = talkPage else {
+            assertionFailure("Missing Talk Page")
+            return
+        }
+        
+        viewController.postDidBegin()
+        controller.addTopic(to: talkPage, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { [weak self] (result) in
+            
+            viewController.postDidEnd()
+            
+            
+            switch result {
+            case .success:
+                self?.navigationController?.popViewController(animated: true)
+                
+                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+            case .failure:
+                break
+            }
+            
+            
+        }
+    }
+}
+
+//MARK: TalkPageTopicListDelegate
+
+extension TalkPageContainerViewController: TalkPageTopicListDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController) {
+        hintController?.dismissHintDueToUserInteraction()
+    }
+    
+    func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
+        
+        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, topic: topic)
         replyVC.delegate = self
         replyVC.apply(theme: theme)
         navigationController?.pushViewController(replyVC, animated: true)
     }
 }
 
+//MARK: TalkPageReplyListViewControllerDelegate
+
 extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelegate {
-    func tappedPublish(discussion: TalkPageDiscussion, composeText: String, viewController: TalkPageReplyListViewController) {
+    func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController) {
         
-        talkPageController.addReply(to: discussion, title: talkPageTitle, host: host, languageCode: languageCode, body: composeText) { (result) in
+        viewController.postDidBegin()
+        controller.addReply(to: topic, title: talkPageTitle, host: host, languageCode: languageCode, body: composeText) { (result) in
+            viewController.postDidEnd()
+            NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
+            
             switch result {
             case .success:
                 print("made it")

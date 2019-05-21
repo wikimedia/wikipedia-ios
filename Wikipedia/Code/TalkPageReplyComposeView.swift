@@ -1,24 +1,21 @@
-//
-//  TalkPageUpdateView.swift
-//  Wikipedia
-//
-//  Created by Toni Sevener on 5/15/19.
-//  Copyright © 2019 Wikimedia Foundation. All rights reserved.
-//
 
 import UIKit
 
-protocol TalkPageReplyViewDelegate: class {
+protocol TalkPageReplyComposeViewDelegate: class {
     func composeTextDidChange(text: String?)
      var collectionViewFrame: CGRect { get }
 }
 
-class TalkPageReplyView: UIView {
+class TalkPageReplyComposeView: UIView {
     
-    lazy private var composeTextView: ThemeableTextView = ThemeableTextView.init()
-    lazy private var finePrintTextView: UITextView = UITextView.init()
+    private(set) var composeTextViewFrame: CGRect?
+    private(set) var beKindViewFrame: CGRect?
     
-    weak var delegate: TalkPageReplyViewDelegate?
+    lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
+    lazy private(set) var beKindView: InfoBannerView = InfoBannerView()
+    lazy private var finePrintTextView: UITextView = UITextView()
+    
+    weak var delegate: TalkPageReplyComposeViewDelegate?
     
     private var theme: Theme?
     
@@ -55,17 +52,19 @@ class TalkPageReplyView: UIView {
     
     func resetCompose() {
         composeTextView.text = nil
+        composeTextView.isUserInteractionEnabled = true
     }
     
-    private func setupView() {
-        addSubview(composeTextView)
-        composeTextView.isUnderlined = false
-        composeTextView.isScrollEnabled = false
-        composeTextView.placeholderDelegate = self
-        composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
-        addSubview(finePrintTextView)
-        finePrintTextView.isScrollEnabled = false
-        finePrintTextView.attributedText = licenseTitleTextViewAttributedString
+    func resetComposeTextViewFrame() {
+        if let composeTextViewFrame = composeTextViewFrame {
+            composeTextView.frame = composeTextViewFrame
+        }
+    }
+    
+    func resetBeKindViewFrame() {
+        if let beKindViewFrame = beKindViewFrame {
+            beKindView.frame = beKindViewFrame
+        }
     }
     
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -73,24 +72,34 @@ class TalkPageReplyView: UIView {
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
         
         let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left + 7, bottom: layoutMargins.bottom, right: layoutMargins.right + 7)
+        
         let composeTextViewOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let composeTextViewWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
         let finePrintTextViewOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let finePrintTextViewWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
+        
         let finePrintFrame = finePrintTextView.wmf_preferredFrame(at: finePrintTextViewOrigin, maximumWidth: finePrintTextViewWidth, minimumWidth: finePrintTextViewWidth, alignedBy: semanticContentAttribute, apply: false) //will apply below
         
-        let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.5 - finePrintFrame.height
+        let beKindViewOrigin = CGPoint(x: 0, y: adjustedMargins.top)
+        beKindView.layoutMargins = layoutMargins
+        let beKindViewSize = beKindView.sizeThatFits(size, apply: apply)
+        let beKindViewFrame = CGRect(origin: beKindViewOrigin, size: beKindViewSize)
+        
+        let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.67 - (finePrintFrame.height + beKindViewFrame.height)
         
         let composeTextViewFrame = CGRect(x: composeTextViewOrigin.x, y: composeTextViewOrigin.y, width: composeTextViewWidth, height: forcedComposeHeight)
+        self.composeTextViewFrame = composeTextViewFrame
         
         if (apply) {
             composeTextView.frame = composeTextViewFrame
-            finePrintTextView.frame = CGRect(x: adjustedMargins.left, y: composeTextViewFrame.minY + composeTextViewFrame.height, width: finePrintTextViewWidth, height: finePrintFrame.height)
+            beKindView.frame = CGRect(x: 0, y: composeTextViewFrame.minY + composeTextViewFrame.height, width: size.width, height: beKindViewFrame.height)
+            self.beKindViewFrame = beKindView.frame
+            finePrintTextView.frame = CGRect(x: adjustedMargins.left, y: composeTextViewFrame.minY + composeTextViewFrame.height + beKindViewFrame.height, width: finePrintTextViewWidth, height: finePrintFrame.height)
         }
         
-        let finalHeight = adjustedMargins.top + composeTextViewFrame.size.height + finePrintFrame.height + adjustedMargins.bottom
+        let finalHeight = adjustedMargins.top + composeTextViewFrame.size.height + beKindViewFrame.height + finePrintFrame.height + adjustedMargins.bottom
         return CGSize(width: size.width, height: finalHeight)
     }
     
@@ -101,9 +110,14 @@ class TalkPageReplyView: UIView {
     // MARK - Dynamic Type
     // Only applies new fonts if the content size category changes
     
+    open override func setNeedsLayout() {
+        maybeUpdateFonts(with: traitCollection)
+        super.setNeedsLayout()
+    }
+    
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        maybeUpdateFonts(with: traitCollection)
+        setNeedsLayout()
     }
     
     var contentSizeCategory: UIContentSizeCategory?
@@ -121,17 +135,42 @@ class TalkPageReplyView: UIView {
     }
 }
 
-extension TalkPageReplyView: Themeable {
+//MARK: Private
+
+private extension TalkPageReplyComposeView {
+    func setupView() {
+        preservesSuperviewLayoutMargins = false
+        insetsLayoutMarginsFromSafeArea = false
+        autoresizesSubviews = false
+        addSubview(composeTextView)
+        composeTextView.isUnderlined = false
+        composeTextView.isScrollEnabled = true
+        composeTextView.placeholderDelegate = self
+        composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
+        insertSubview(finePrintTextView, belowSubview: composeTextView)
+        finePrintTextView.isScrollEnabled = false
+        finePrintTextView.attributedText = licenseTitleTextViewAttributedString
+        insertSubview(beKindView, aboveSubview: composeTextView)
+        beKindView.configure(iconName: "heart-icon", title: CommonStrings.talkPageNewBannerTitle, subtitle: CommonStrings.talkPageNewBannerSubtitle)
+    }
+}
+
+//MARK: Themeable
+
+extension TalkPageReplyComposeView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         composeTextView.apply(theme: theme)
+        beKindView.apply(theme: theme)
         backgroundColor = theme.colors.paperBackground
         finePrintTextView.backgroundColor = theme.colors.paperBackground
         finePrintTextView.textColor = theme.colors.secondaryText
     }
 }
 
-extension TalkPageReplyView: ThemeableTextViewPlaceholderDelegate {
+//MARK: ThemeableTextViewPlaceholderDelegate
+
+extension TalkPageReplyComposeView: ThemeableTextViewPlaceholderDelegate {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
         //no-op
     }

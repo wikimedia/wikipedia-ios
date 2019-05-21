@@ -3,8 +3,8 @@ import Foundation
 
 enum TalkPageError: Error {
     case createTaskURLFailure
-    case fetchExistingLocalTalkPageFailure
-    case updateExistingLocalTalkPageFailure
+    case fetchLocalTalkPageFailure
+    case updateLocalTalkPageFailure
     case createLocalTalkPageFailure
     case fetchNetworkTalkPageFailure
     case fetchRevisionIDFailure
@@ -21,7 +21,7 @@ enum TalkPageAppendSuccessResult {
 }
 
 class TalkPageController {
-    let talkPageFetcher: TalkPageFetcher
+    let fetcher: TalkPageFetcher
     let localHandler: TalkPageLocalHandler
     let articleRevisionFetcher: WMFArticleRevisionFetcher
     let title: String
@@ -30,8 +30,8 @@ class TalkPageController {
     let titleIncludesPrefix: Bool
     let type: TalkPageType
     
-    required init(talkPageFetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), localHandler: TalkPageLocalHandler? = nil, dataStore: MWKDataStore, title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType) {
-        self.talkPageFetcher = talkPageFetcher
+    required init(fetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), localHandler: TalkPageLocalHandler? = nil, dataStore: MWKDataStore, title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType) {
+        self.fetcher = fetcher
         self.articleRevisionFetcher = articleRevisionFetcher
         
         if let localHandler = localHandler {
@@ -48,18 +48,19 @@ class TalkPageController {
     }
     
     func fetchTalkPage(completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
+        
         guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix),
-            let taskURL = talkPageFetcher.taskURL(for: urlTitle, host: host) else {
+            let taskURL = fetcher.taskURL(for: urlTitle, host: host) else {
             completion?(.failure(TalkPageError.createTaskURLFailure))
             return
         }
         
-        var existingLocalTalkPage: TalkPage?
+        var localTalkPage: TalkPage?
         localHandler.dataStore.viewContext.performAndWait {
             do {
-                existingLocalTalkPage = try localHandler.existingTalkPage(for: taskURL)
+                localTalkPage = try localHandler.talkPage(for: taskURL)
             } catch {
-                completion?(.failure(TalkPageError.fetchExistingLocalTalkPageFailure))
+                completion?(.failure(TalkPageError.fetchLocalTalkPageFailure))
                 return
             }
         }
@@ -80,13 +81,13 @@ class TalkPageController {
             }
             
             //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
-            if let existingLocalTalkPage = existingLocalTalkPage,
-                existingLocalTalkPage.revisionId == lastRevisionId {
+            if let localTalkPage = localTalkPage,
+                localTalkPage.revisionId == lastRevisionId {
                 DispatchQueue.main.async {
-                    completion?(.success(existingLocalTalkPage))
+                    completion?(.success(localTalkPage))
                 }
             } else {
-                self.fetchAndUpdate(existingLocalTalkPage:existingLocalTalkPage, revisionID: lastRevisionId, completion: completion)
+                self.fetchAndUpdate(localTalkPage: localTalkPage, revisionID: lastRevisionId, completion: completion)
             }
         }
         
@@ -96,25 +97,27 @@ class TalkPageController {
         }
         
         var revisionID: NSNumber?
-        if let existingLocalRevisionId = existingLocalTalkPage?.revisionId {
-            revisionID = NSNumber(value: existingLocalRevisionId)
+        if let localRevisionId = localTalkPage?.revisionId {
+            revisionID = NSNumber(value: localRevisionId)
         }
+        
         let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, endingWithRevision: revisionID, failure: errorHandler, success: successIDHandler)
         
         //todo: task tracking
         revisionFetcherTask?.resume()
     }
     
-    func addDiscussion(to talkPage: TalkPage, title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
+    func addTopic(to talkPage: TalkPage, title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
         
         guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
             completion(.failure(TalkPageError.createUrlTitleStringFailure))
             return
         }
         
+        //todo: conditional signature
         let wrappedBody = "<p>\n\n" + body + " ~~~~</p>"
         
-        talkPageFetcher.addDiscussion(to: title, host: host, languageCode: languageCode, subject: subject, body: wrappedBody) { (result) in
+        fetcher.addTopic(to: title, host: host, languageCode: languageCode, subject: subject, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
                 guard let newRevisionID = result["newrevid"] as? Int64 else {
@@ -122,7 +125,7 @@ class TalkPageController {
                     return
                 }
                 
-                self.fetchAndUpdate(existingLocalTalkPage: talkPage, revisionID: newRevisionID, completion: { (result) in
+                self.fetchAndUpdate(localTalkPage: talkPage, revisionID: newRevisionID, completion: { (result) in
                     switch result {
                     case .success:
                         completion(.success(.success))
@@ -136,16 +139,17 @@ class TalkPageController {
         }
     }
     
-    func addReply(to discussion: TalkPageDiscussion, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
+    func addReply(to topic: TalkPageTopic, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
         
         guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
             completion(.failure(TalkPageError.createUrlTitleStringFailure))
             return
         }
         
+        //todo: conditional signature
         let wrappedBody = "<p>\n\n" + body + " ~~~~</p>"
         
-        talkPageFetcher.addReply(to: discussion, title: title, host: host, languageCode: languageCode, body: wrappedBody) { (result) in
+        fetcher.addReply(to: topic, title: title, host: host, languageCode: languageCode, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
                 guard let newRevisionID = result["newrevid"] as? Int64 else {
@@ -153,7 +157,7 @@ class TalkPageController {
                     return
                 }
                 
-                self.fetchAndUpdate(existingLocalTalkPage: discussion.talkPage, revisionID: newRevisionID, completion: { (result) in
+                self.fetchAndUpdate(localTalkPage: topic.talkPage, revisionID: newRevisionID, completion: { (result) in
                     switch result {
                     case .success:
                         completion(.success(.success))
@@ -166,25 +170,30 @@ class TalkPageController {
             }
         }
     }
+}
+
+//MARK: Private
+
+private extension TalkPageController {
     
-    private func fetchAndUpdate(existingLocalTalkPage: TalkPage?, revisionID: Int64, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
+    func fetchAndUpdate(localTalkPage: TalkPage?, revisionID: Int64, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
         
         guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
             completion?(.failure(TalkPageError.talkPageTitleCreationFailure))
             return
         }
         let displayTitle = TalkPageType.user.displayTitle(for: title, titleIncludesPrefix: titleIncludesPrefix)
-        talkPageFetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, host: host, languageCode: languageCode, revisionID: revisionID) { (result) in
+        fetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, host: host, languageCode: languageCode, revisionID: revisionID) { (result) in
             
             DispatchQueue.main.async {
                 self.localHandler.dataStore.viewContext.perform {
                     switch result {
                     case .success(let networkTalkPage):
-                        if let existingLocalTalkPage = existingLocalTalkPage {
-                            if let updatedLocalTalkPage = self.localHandler.updateExistingTalkPage(existingTalkPage: existingLocalTalkPage, with: networkTalkPage) {
+                        if let localTalkPage = localTalkPage {
+                            if let updatedLocalTalkPage = self.localHandler.updateTalkPage(localTalkPage, with: networkTalkPage) {
                                 completion?(.success(updatedLocalTalkPage))
                             } else {
-                                completion?(.failure(TalkPageError.updateExistingLocalTalkPageFailure))
+                                completion?(.failure(TalkPageError.updateLocalTalkPageFailure))
                             }
                         } else {
                             if let newLocalTalkPage = self.localHandler.createTalkPage(with: networkTalkPage) {

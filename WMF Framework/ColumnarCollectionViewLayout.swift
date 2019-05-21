@@ -300,3 +300,21 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     }
 }
 
+extension ColumnarCollectionViewLayout: NSCopying {
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let newLayout = ColumnarCollectionViewLayout()
+        newLayout.info = info
+        newLayout.oldInfo = oldInfo
+        newLayout.metrics = metrics
+        newLayout.isLayoutValid = isLayoutValid
+        newLayout.slideInNewContentFromTheTop = slideInNewContentFromTheTop
+        newLayout.animateItems = animateItems
+        
+        newLayout.maxNewSection = maxNewSection
+        newLayout.newSectionDeltaY = newSectionDeltaY
+        newLayout.appearingIndexPaths = appearingIndexPaths
+        newLayout.disappearingIndexPaths = disappearingIndexPaths
+        
+        return newLayout
+    }
+}

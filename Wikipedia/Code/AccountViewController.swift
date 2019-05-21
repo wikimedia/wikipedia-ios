@@ -85,7 +85,7 @@ class AccountViewController: SubSettingsViewController {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let item = sections[safeIndex: indexPath.section]?.items[safeIndex: indexPath.row] else {
             return
@@ -105,7 +105,7 @@ class AccountViewController: SubSettingsViewController {
         }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let section = sections[safeIndex: section] else {
             return nil
         }
@@ -113,7 +113,7 @@ class AccountViewController: SubSettingsViewController {
         return section.headerTitle
     }
     
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    @objc func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard let section = sections[safeIndex: section] else {
             return nil
         }

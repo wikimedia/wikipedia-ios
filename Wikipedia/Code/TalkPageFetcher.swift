@@ -1,14 +1,14 @@
 
 class NetworkTalkPage {
     let url: URL
-    let discussions: [NetworkDiscussion]
+    let topics: [NetworkTopic]
     let revisionId: Int64
     let displayTitle: String
     let languageCode: String
     
-    init(url: URL, discussions: [NetworkDiscussion], revisionId: Int64, displayTitle: String, languageCode: String) {
+    init(url: URL, topics: [NetworkTopic], revisionId: Int64, displayTitle: String, languageCode: String) {
         self.url = url
-        self.discussions = discussions
+        self.topics = topics
         self.revisionId = revisionId
         self.displayTitle = displayTitle
         self.languageCode = languageCode
@@ -16,30 +16,30 @@ class NetworkTalkPage {
 }
 
 class NetworkBase: Codable {
-    let topics: [NetworkDiscussion]
+    let topics: [NetworkTopic]
 }
 
-class NetworkDiscussion:  NSObject, Codable {
+class NetworkTopic:  NSObject, Codable {
     let text: String
-    let items: [NetworkDiscussionItem]
+    let replies: [NetworkReply]
     let sectionID: Int
-    let shas: NetworkDiscussionShas
+    let shas: NetworkTopicShas
     var sort: Int!
     
     enum CodingKeys: String, CodingKey {
         case text
         case shas
-        case items = "replies"
+        case replies
         case sectionID = "id"
     }
 }
 
-class NetworkDiscussionShas: Codable {
+class NetworkTopicShas: Codable {
     let text: String
     let replies: String
 }
 
-class NetworkDiscussionItem: NSObject, Codable {
+class NetworkReply: NSObject, Codable {
     let text: String
     let depth: Int16
     let sha: String
@@ -96,7 +96,7 @@ class TalkPageFetcher: Fetcher {
     
     private let sectionUploader = WikiTextSectionUploader()
     
-    func addDiscussion(to title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+    func addTopic(to title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
         
         guard let url = articleURL(for: title, host: host) else {
             completion(.failure(RequestError.invalidParameters))
@@ -118,14 +118,15 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func addReply(to discussion: TalkPageDiscussion, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+    func addReply(to topic: TalkPageTopic, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
         
         guard let url = articleURL(for: title, host: host) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
+        
         //todo: should sectionID in CoreData be string?
-        sectionUploader.append(toSection: String(discussion.sectionID), text: body, forArticleURL: url) { (result, error) in
+        sectionUploader.append(toSection: String(topic.sectionID), text: body, forArticleURL: url) { (result, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -140,11 +141,8 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func taskURL(for urlTitle: String, host: String) -> URL? {
-        return taskURL(for: urlTitle, host: host, revisionID: nil)
-    }
-    
     func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+        
         guard let taskURLWithRevID = taskURL(for: urlTitle, host: host, revisionID: revisionID),
             let taskURLWithoutRevID = taskURL(for: urlTitle, host: host, revisionID: nil) else {
             completion(.failure(RequestError.invalidParameters))
@@ -165,22 +163,32 @@ class TalkPageFetcher: Fetcher {
             }
             
             //update sort
+            //todo performance: should we go back to NSOrderedSets or move sort up into endpoint
             for (topicIndex, topic) in networkBase.topics.enumerated() {
                 
                 topic.sort = topicIndex
-                for (replyIndex, reply) in topic.items.enumerated() {
+                
+                for (replyIndex, reply) in topic.replies.enumerated() {
                     reply.sort = replyIndex
                 }
             }
-            
-            let filteredDiscussions = networkBase.topics.filter { $0.text.count > 0 }
-            
-            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: filteredDiscussions, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode)
+
+            let filteredTopics = networkBase.topics.filter { $0.text.count > 0 }
+            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: filteredTopics, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode)
             completion(.success(talkPage))
         }
     }
     
-    private func taskURL(for urlTitle: String, host: String, revisionID: Int64?) -> URL? {
+    func taskURL(for urlTitle: String, host: String) -> URL? {
+        return taskURL(for: urlTitle, host: host, revisionID: nil)
+    }
+}
+
+//MARK: Private
+
+private extension TalkPageFetcher {
+    
+    func taskURL(for urlTitle: String, host: String, revisionID: Int64?) -> URL? {
         
         //note: assuming here urlTitle has already been percent endcoded & escaped
         var pathComponents = ["page", "talk", urlTitle]
@@ -188,17 +196,18 @@ class TalkPageFetcher: Fetcher {
             pathComponents.append(String(revisionID))
         }
         
-        guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
+        guard let taskURL = configuration.wikipediaTalkPageAPIURLComponentsForHost(host, appending: pathComponents).url else {
             return nil
         }
         
         return taskURL
     }
     
-    private func articleURL(for urlTitle: String, host: String) -> URL? {
+    func articleURL(for urlTitle: String, host: String) -> URL? {
         
         //note: assuming here urlTitle has already been percent endcoded, prefixed & escaped
         let components = configuration.articleURLForHost(host, appending: [urlTitle])
         return components.url
     }
+    
 }

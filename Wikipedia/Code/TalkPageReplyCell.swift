@@ -1,17 +1,19 @@
 
 import UIKit
 
-protocol ReplyListItemCollectionViewCellDelegate: class {
-    func tappedLink(_ url: URL, cell: ReplyListItemCollectionViewCell)
+protocol TalkPageReplyCellDelegate: class {
+    func tappedLink(_ url: URL, cell: TalkPageReplyCell)
 }
 
-class ReplyListItemCollectionViewCell: CollectionViewCell {
+class TalkPageReplyCell: CollectionViewCell {
+    
+    weak var delegate: TalkPageReplyCellDelegate?
+    
     private let titleTextView = UITextView()
     private let depthMarker = UIView()
-    weak var delegate: ReplyListItemCollectionViewCellDelegate?
-    private var theme: Theme?
-    
     private var depth: UInt = 0
+    
+    private var theme: Theme?
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
@@ -97,7 +99,9 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
     }
 }
 
-extension ReplyListItemCollectionViewCell: Themeable {
+//MARK: Themeable
+
+extension TalkPageReplyCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         titleTextView.textColor = theme.colors.primaryText
@@ -107,7 +111,9 @@ extension ReplyListItemCollectionViewCell: Themeable {
     }
 }
 
-extension ReplyListItemCollectionViewCell: UITextViewDelegate {
+//MARK: UITextViewDelegate
+
+extension TalkPageReplyCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.tappedLink(URL, cell: self)
         return false

@@ -9,7 +9,7 @@ class TalkPageLocalHandler {
         self.dataStore = dataStore
     }
     
-    func existingTalkPage(for taskURL: URL) throws -> TalkPage? {
+    func talkPage(for taskURL: URL) throws -> TalkPage? {
         
         guard let databaseKey = taskURL.wmf_talkPageDatabaseKey else {
             throw TalkPageError.talkPageDatabaseKeyCreationFailure
@@ -34,116 +34,121 @@ class TalkPageLocalHandler {
         talkPage.languageCode = networkTalkPage.languageCode
         talkPage.displayTitle = networkTalkPage.displayTitle
         
-        addTalkPageDiscussions(to: talkPage, with: networkTalkPage)
+        addTalkPageTopics(to: talkPage, with: networkTalkPage)
         
         try? dataStore.viewContext.save() //todo: no try?
         return talkPage
     }
     
-    func updateExistingTalkPage(existingTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage) -> TalkPage? {
-        existingTalkPage.revisionId = networkTalkPage.revisionId
+    func updateTalkPage(_ localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage) -> TalkPage? {
+        localTalkPage.revisionId = networkTalkPage.revisionId
         
-        guard let discussionIds = (existingTalkPage.discussions as? Set<TalkPageDiscussion>)?.compactMap ({ return $0.textSha }) else {
+        guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
             return nil
         }
         
-        let oldDiscussionSetIds = Set(discussionIds)
-        let newDiscussionSetIds = Set(networkTalkPage.discussions.map { $0.shas.text })
+        let oldTopicSetShas = Set(topicShas)
+        let newTopicSetShas = Set(networkTalkPage.topics.map { $0.shas.text })
         
-        //delete old discussions
-        let discussionIdsToDelete = oldDiscussionSetIds.subtracting(newDiscussionSetIds)
+        //delete old topics
+        let topicShasToDelete = oldTopicSetShas.subtracting(newTopicSetShas)
         
-        for deleteSha in discussionIdsToDelete {
-            if let existingDiscussion = existingTalkPage.discussions?.filter({ ($0 as? TalkPageDiscussion)?.textSha == deleteSha }).first as? TalkPageDiscussion {
-                dataStore.viewContext.delete(existingDiscussion)
+        for deleteSha in topicShasToDelete {
+            if let localTopic = localTalkPage.topics?.filter({ ($0 as? TalkPageTopic)?.textSha == deleteSha }).first as? TalkPageTopic {
+                dataStore.viewContext.delete(localTopic)
             }
         }
         
-        //udpate common discussions
-        let commonDiscussionShas = oldDiscussionSetIds.intersection(newDiscussionSetIds)
-        updateCommonDiscussions(existingTalkPage: existingTalkPage, with: networkTalkPage, commonDiscussionShas: commonDiscussionShas)
+        //udpate common topics
+        let commonTopicShas = oldTopicSetShas.intersection(newTopicSetShas)
+        updateCommonTopics(localTalkPage: localTalkPage, with: networkTalkPage, commonTopicShas: commonTopicShas)
         
-        //add new discussions
-        let discussionsToInsert = newDiscussionSetIds.subtracting(oldDiscussionSetIds)
+        //add new topics
+        let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
         
-        for insertSha in discussionsToInsert {
-            if let networkDiscussion = networkTalkPage.discussions.filter({ $0.shas.text == insertSha }).first {
-                addTalkPageDiscussion(to: existingTalkPage, with: networkDiscussion)
+        for insertSha in topicShasToInsert {
+            if let networkTopic = networkTalkPage.topics.filter({ $0.shas.text == insertSha }).first {
+                addTalkPageTopic(to: localTalkPage, with: networkTopic)
             }
         }
         
         try? dataStore.viewContext.save() //todo: no try?
-        return existingTalkPage
+        return localTalkPage
     }
+}
+
+//MARK: Private
+
+private extension TalkPageLocalHandler {
     
-    private func updateCommonDiscussions(existingTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage, commonDiscussionShas: Set<String>) {
+    func updateCommonTopics(localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage, commonTopicShas: Set<String>) {
         
-        //create & zip limited set of discussions
-        let predicate = NSPredicate(format:"textSha IN %@", commonDiscussionShas)
-        guard let sameLocalDiscussions = existingTalkPage.discussions?.filtered(using: predicate).sorted(by: { (item1, item2) -> Bool in
-            guard let discussion1 = item1 as? TalkPageDiscussion,
-                let sha1 = discussion1.textSha,
-                let discussion2 = item2 as? TalkPageDiscussion,
-                let sha2 = discussion2.textSha else {
+        //create & zip limited set of topics
+        let predicate = NSPredicate(format:"textSha IN %@", commonTopicShas)
+        guard let sameLocalTopics = localTalkPage.topics?.filtered(using: predicate).sorted(by: { (item1, item2) -> Bool in
+            guard let topic1 = item1 as? TalkPageTopic,
+                let sha1 = topic1.textSha,
+                let topic2 = item2 as? TalkPageTopic,
+                let sha2 = topic2.textSha else {
                     return false
             }
             
             return sha1 < sha2
-        }) as? [TalkPageDiscussion] else {
+        }) as? [TalkPageTopic] else {
             return
         }
         
-        let sameNetworkDiscussions = networkTalkPage.discussions.filter ({ commonDiscussionShas.contains($0.shas.text) }).sorted(by: { $0.shas.text < $1.shas.text })
+        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.text) }).sorted(by: { $0.shas.text < $1.shas.text })
         
-        guard (sameLocalDiscussions.count == sameNetworkDiscussions.count) else {
+        guard (sameLocalTopics.count == sameNetworkTopics.count) else {
             return
         }
         
-        let zippedDiscussions = zip(sameLocalDiscussions, sameNetworkDiscussions)
+        let zippedTopics = zip(sameLocalTopics, sameNetworkTopics)
         
-        for (localDiscussion, networkDiscussion) in zippedDiscussions {
+        for (localTopic, networkTopic) in zippedTopics {
             
-            localDiscussion.sort = Int64(networkDiscussion.sort)
+            localTopic.sort = Int64(networkTopic.sort)
             
             //if replies have not changed in any manner, no need to dig into replies diffing
-            guard localDiscussion.repliesSha != networkDiscussion.shas.replies else {
+            guard localTopic.repliesSha != networkTopic.shas.replies else {
                 continue
             }
             
-            guard let replyIds = (localDiscussion.items as? Set<TalkPageDiscussionItem>)?.compactMap ({ return $0.sha }) else {
+            guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap ({ return $0.sha }) else {
                 continue
             }
             
-            let oldSetReplyIds = Set(replyIds)
-            let newSetReplyIds = Set(networkDiscussion.items.map { $0.sha })
+            let oldSetReplyShas = Set(replyShas)
+            let newSetReplyShas = Set(networkTopic.replies.map { $0.sha })
             
             //delete old replies
-            let repliesToDelete = oldSetReplyIds.subtracting(newSetReplyIds)
+            let replyShasToDelete = oldSetReplyShas.subtracting(newSetReplyShas)
             
-            for deleteSha in repliesToDelete {
-                if let existingReply = localDiscussion.items?.filter({ ($0 as? TalkPageDiscussionItem)?.sha == deleteSha }).first as? TalkPageDiscussionItem {
-                    dataStore.viewContext.delete(existingReply)
+            for deleteSha in replyShasToDelete {
+                if let localReply = localTopic.replies?.filter({ ($0 as? TalkPageReply)?.sha == deleteSha }).first as? TalkPageReply {
+                    dataStore.viewContext.delete(localReply)
                 }
             }
             
             //update common replies
-            let commonReplyShas = oldSetReplyIds.intersection(newSetReplyIds)
+            let commonReplyShas = oldSetReplyShas.intersection(newSetReplyShas)
             
             let predicate = NSPredicate(format:"sha IN %@", commonReplyShas)
-            guard let sameLocalReplies = localDiscussion.items?.filtered(using: predicate).sorted(by: { (item1, item2) -> Bool in
-                guard let reply1 = item1 as? TalkPageDiscussionItem,
+            guard let sameLocalReplies = localTopic.replies?.filtered(using: predicate).sorted(by: { (item1, item2) -> Bool in
+                guard let reply1 = item1 as? TalkPageReply,
                     let sha1 = reply1.sha,
-                    let reply2 = item2 as? TalkPageDiscussionItem,
+                    let reply2 = item2 as? TalkPageReply,
                     let sha2 = reply2.sha else {
                         return false
                 }
                 
                 return sha1 < sha2
-            }) as? [TalkPageDiscussionItem] else {
+            }) as? [TalkPageReply] else {
                 return
             }
             
-            let sameNetworkReplies = networkDiscussion.items.filter ({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
+            let sameNetworkReplies = networkTopic.replies.filter ({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
             
             guard sameLocalReplies.count == sameNetworkReplies.count else { continue }
             
@@ -154,53 +159,55 @@ class TalkPageLocalHandler {
             }
             
             //add new replies
-            let repliesToInsert = newSetReplyIds.subtracting(oldSetReplyIds)
+            let replyShasToInsert = newSetReplyShas.subtracting(oldSetReplyShas)
             
-            for insertSha in repliesToInsert {
-                if let networkReply = networkDiscussion.items.filter({ $0.sha == insertSha }).first {
-                    addTalkPageReply(to: localDiscussion, with: networkReply)
+            for insertSha in replyShasToInsert {
+                if let networkReply = networkTopic.replies.filter({ $0.sha == insertSha }).first {
+                    addTalkPageReply(to: localTopic, with: networkReply)
                 }
             }
         }
     }
     
-    private func addTalkPageDiscussions(to talkPage: TalkPage, with networkTalkPage: NetworkTalkPage) {
+    func addTalkPageTopics(to talkPage: TalkPage, with networkTalkPage: NetworkTalkPage) {
         
-        for networkDiscussion in networkTalkPage.discussions {
-            addTalkPageDiscussion(to: talkPage, with: networkDiscussion)
+        for networkTopic in networkTalkPage.topics {
+            addTalkPageTopic(to: talkPage, with: networkTopic)
         }
     }
     
-    private func addTalkPageDiscussion(to talkPage: TalkPage, with networkDiscussion: NetworkDiscussion) {
-        guard let entityDesc = NSEntityDescription.entity(forEntityName: "TalkPageDiscussion", in: dataStore.viewContext) else {
+    func addTalkPageTopic(to talkPage: TalkPage, with networkTopic: NetworkTopic) {
+        guard let entityDesc = NSEntityDescription.entity(forEntityName: "TalkPageTopic", in: dataStore.viewContext) else {
+            assertionFailure("Failure determining topic entity.")
             return
         }
         
-        let discussion = TalkPageDiscussion(entity: entityDesc, insertInto: dataStore.viewContext)
-        discussion.title = networkDiscussion.text
-        discussion.sectionID = Int64(networkDiscussion.sectionID)
-        discussion.sort = Int64(networkDiscussion.sort)
-        discussion.textSha = networkDiscussion.shas.text
-        discussion.repliesSha = networkDiscussion.shas.replies
+        let topic = TalkPageTopic(entity: entityDesc, insertInto: dataStore.viewContext)
+        topic.title = networkTopic.text
+        topic.sectionID = Int64(networkTopic.sectionID)
+        topic.sort = Int64(networkTopic.sort)
+        topic.textSha = networkTopic.shas.text
+        topic.repliesSha = networkTopic.shas.replies
         
-        for networkItem in networkDiscussion.items {
+        for reply in networkTopic.replies {
             
-            addTalkPageReply(to: discussion, with: networkItem)
+            addTalkPageReply(to: topic, with: reply)
         }
         
-        discussion.talkPage = talkPage
+        topic.talkPage = talkPage
     }
     
-    private func addTalkPageReply(to discussion: TalkPageDiscussion, with networkItem: NetworkDiscussionItem) {
-        guard let entityDesc = NSEntityDescription.entity(forEntityName: "TalkPageDiscussionItem", in: dataStore.viewContext) else {
+    func addTalkPageReply(to topic: TalkPageTopic, with networkReply: NetworkReply) {
+        guard let entityDesc = NSEntityDescription.entity(forEntityName: "TalkPageReply", in: dataStore.viewContext) else {
+            assertionFailure("Failure determining reply entity.")
             return
         }
         
-        let discussionItem = TalkPageDiscussionItem(entity: entityDesc, insertInto: dataStore.viewContext)
-        discussionItem.depth = networkItem.depth
-        discussionItem.text = networkItem.text
-        discussionItem.sort = Int64(networkItem.sort)
-        discussionItem.discussion = discussion
-        discussionItem.sha = networkItem.sha
+        let reply = TalkPageReply(entity: entityDesc, insertInto: dataStore.viewContext)
+        reply.depth = networkReply.depth
+        reply.text = networkReply.text
+        reply.sort = Int64(networkReply.sort)
+        reply.topic = topic
+        reply.sha = networkReply.sha
     }
 }
