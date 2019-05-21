@@ -92,6 +92,7 @@
 "action-undo" = "Cofnij";
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
+"add-citation-title" = "Dodaj przypis";
 "announcements-dismiss" = "Odrzuć";
 "app-store-subtitle" = "Wolna encyklopedia";
 "article-about-title" = "O tym artykule";
@@ -125,6 +126,10 @@
 "description-help-tips-title" = "Wskazówki dotyczące tworzenia opisów";
 "description-published-title" = "Opis opublikowany!";
 "description-welcome-start-editing-button" = "Rozpocznij edycję";
+"edit-link-display-text-title" = "Wyświetlany tekst";
+"edit-link-link-target-title" = "Adres linku";
+"edit-link-remove-link-title" = "Usuń link";
+"edit-link-title" = "Edytuj link";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
@@ -216,6 +221,7 @@
 "in-the-news-title" = "W wiadomościach";
 "info-box-close-text" = "Zamknij";
 "info-box-title" = "Szybkie fakty";
+"insert-link-title" = "Wstaw link";
 "insert-media-alternative-text-placeholder" = "Opisz ten obraz";
 "insert-media-caption-description" = "Etykieta wyświetlana obok elementu dla wszystkich czytelników";
 "insert-media-caption-title" = "Podpis";

@@ -95,6 +95,7 @@
 "action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
 "action-update" = "업데이트";
 "add-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록에 추가";
+"add-citation-title" = "인용 추가";
 "announcements-dismiss" = "숨기기";
 "app-store-keywords" = "위키백과, 참고문헌, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
 "app-store-release-notes" = "탐색 피드를 온전히 사용자에 맞추어 지정하고 더 쉽게 읽습니다. 지역화, 성능 개선, 버그 수정.";
@@ -184,11 +185,12 @@
 "edit-italic-accessibility-label" = "기울임 서식 추가";
 "edit-link-accessibility-label" = "링크 문법 추가";
 "edit-link-remove-accessibility-label" = "링크 문법 제거";
+"edit-link-remove-link-title" = "링크 제거";
+"edit-link-title" = "링크 편집";
 "edit-menu-item" = "편집";
 "edit-minor-learn-more-text" = "사소한 편집에 대해 더 알아보기";
 "edit-minor-text" = "사소한 편집입니다";
 "edit-published" = "편집이 게시됐습니다";
-"edit-published-button-title" = "완료";
 "edit-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
 "edit-reference-accessibility-label" = "각주 문법 추가";
 "edit-reference-remove-accessibility-label" = "각주 문법 제거";

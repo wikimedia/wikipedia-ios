@@ -80,6 +80,7 @@
 "action-unsaved-accessibility-notification" = "Artikel gelöscht";
 "action-update" = "Aktualisieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Ein|$1}} Artikel zu einer Leseliste hinzufügen";
+"add-citation-title" = "Zitat hinzufügen";
 "announcements-dismiss" = "Ausblenden";
 "app-store-keywords" = "Wikipedia, Referenz, Wiki, Enzyklopädie, Information, Info, Wissen, Forschung, Entdecken, Lernen";
 "app-store-release-notes" = "Vollständig anpassbarer und leichter zu lesender Entdecken-Feed. Lokalisierung, Verbesserungen an der Leistung und Fehlerbehebungen.";
@@ -174,7 +175,11 @@
 "edit-italic-accessibility-label" = "Kursiv-Formatierung hinzufügen";
 "edit-italic-remove-accessibility-label" = "Kursiv-Formatierung entfernen";
 "edit-link-accessibility-label" = "Link-Syntax hinzufügen";
+"edit-link-display-text-title" = "Angezeigter Text";
+"edit-link-link-target-title" = "Linkziel";
 "edit-link-remove-accessibility-label" = "Link-Syntax entfernen";
+"edit-link-remove-link-title" = "Link entfernen";
+"edit-link-title" = "Link bearbeiten";
 "edit-menu-item" = "Bearbeiten";
 "edit-menu-item-could-not-find-selection-alert-message" = "Vielleicht kann der ausgewählte Text nicht bearbeitet werden (z.&nbsp;B. der Artikel- oder die Infobox-Titel) oder wegen der Länge des Textes, der hervorgehoben wurde.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Der ausgewählte Text konnte nicht gefunden werden";
@@ -183,7 +188,6 @@
 "edit-ordered-list-accessibility-label" = "Aus der aktuellen Zeile eine sortierte Liste machen";
 "edit-ordered-list-remove-accessibility-label" = "Sortierte Liste aus der aktuellen Zeile entfernen";
 "edit-published" = "Bearbeitung veröffentlicht";
-"edit-published-button-title" = "Fertig";
 "edit-published-subtitle" = "Du hast soeben Wikipedia für jeden besser gemacht";
 "edit-reference-accessibility-label" = "Einzelnachweis-Syntax hinzufügen";
 "edit-reference-remove-accessibility-label" = "Einzelnachweis-Syntax entfernen";
@@ -392,6 +396,7 @@
 "info-box-close-text" = "Schließen";
 "info-box-title" = "Schnelle Fakten";
 "insert-action-title" = "Einfügen";
+"insert-link-title" = "Link einfügen";
 "insert-media-alternative-text-description" = "Textbeschreibung für Leser, die das Bild nicht sehen können.";
 "insert-media-alternative-text-placeholder" = "Beschreibe dieses Bild";
 "insert-media-alternative-text-title" = "Alternativer Text";

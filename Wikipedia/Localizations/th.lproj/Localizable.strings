@@ -159,6 +159,8 @@
 "edit-bold-accessibility-label" = "เพิ่มการจัดรูปแบบตัวเส้นหนา";
 "edit-bold-remove-accessibility-label" = "ลบการจัดรูปแบบตัวเส้นหนา";
 "edit-clear-formatting-accessibility-label" = "ลบการจัดรูปแบบ";
+// Fuzzy
+"edit-link-title" = "ลิงก์";
 "edit-style-table-view-title" = "รูปแบบ";
 "edit-summary-choice-fixed-grammar" = "แก้ไขไวยากรณ์";
 "edit-summary-choice-fixed-typos" = "แก้ไขความผิดพลาดการพิมพ์";
