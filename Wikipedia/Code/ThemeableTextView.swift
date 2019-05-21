@@ -10,7 +10,7 @@ class ThemeableTextView: UITextView {
     weak var _delegate: UITextViewDelegate?
     weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?
 
-    private var clearButton: UIButton!
+    var clearButton: UIButton!
 
     override var delegate: UITextViewDelegate? {
         didSet {
@@ -66,6 +66,8 @@ class ThemeableTextView: UITextView {
         clearButton = UIButton(frame: CGRect(origin: .zero, size: image.size))
         clearButton.setImage(image, for: .normal)
         clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        clearButton.isAccessibilityElement = true
+        clearButton.accessibilityLabel = CommonStrings.accessibilityClearTitle
         addSubview(clearButton)
         clearButton.isHidden = true
         var inset = textContainerInset
@@ -87,6 +89,7 @@ class ThemeableTextView: UITextView {
     @objc private func clear() {
         text = nil
         setClearButtonHidden(true)
+        UIAccessibility.post(notification: .layoutChanged, argument: self)
     }
 
     private func setClearButtonHidden(_ hidden: Bool) {
