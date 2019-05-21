@@ -36,12 +36,15 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 footerView?.showingCompose = showingCompose
                 if let layoutCopy = layout.copy() as? ColumnarCollectionViewLayout {
                     collectionView.setCollectionViewLayout(layoutCopy, animated: true)
+                    if showingCompose == true {
+                        scrollToBottom()
+                    }
                 } else {
                     collectionView.reloadData()
                     collectionView.layoutIfNeeded()
+                    scrollToBottom()
                 }
                 
-                scrollToBottom()
             }
             
             if showingCompose {
@@ -117,8 +120,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             if keyboardFrame.height == 0 {
                 return
             }
-            
-            //scrollToBottom()
             
             var convertedComposeTextViewFrame = footerView.composeView.convert(footerView.composeTextView.frame, to: view)
             

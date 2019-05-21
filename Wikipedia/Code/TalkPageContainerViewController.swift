@@ -110,15 +110,17 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
             
             viewController.postDidEnd()
             
-            NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+            
             switch result {
             case .success:
-                print("made it")
+                self?.navigationController?.popViewController(animated: true)
+                
+                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
             case .failure:
-                print("failure")
+                break
             }
             
-        self?.navigationController?.popViewController(animated: true)
+            
         }
     }
 }
