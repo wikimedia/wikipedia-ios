@@ -29,6 +29,7 @@
 // Author: Pginer
 // Author: RicardoSGZ
 // Author: Rodm23
+// Author: Ryo567
 // Author: Tiberius1701
 // Author: VegaDark
 // Author: Vivaelcelta
@@ -104,6 +105,7 @@
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
+"add-citation-title" = "Añadir cita";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, info, conocimiento, búsqueda, investiga, información, explora, aprende";
 "app-store-release-notes" = "Canal Explorar completamente personalizable y fácil de leer. Localización, mejoras de rendimiento y corrección de fallos.";
@@ -198,7 +200,10 @@
 "edit-italic-accessibility-label" = "\nAñadir cursivas";
 "edit-italic-remove-accessibility-label" = "\nQuitar cursivas";
 "edit-link-accessibility-label" = "\nAñadir enlace";
+"edit-link-display-text-title" = "Mostrar texto";
 "edit-link-remove-accessibility-label" = "\nQuitar enlace";
+"edit-link-remove-link-title" = "Eliminar enlace";
+"edit-link-title" = "Editar enlace";
 "edit-menu-item" = "Editar";
 "edit-menu-item-could-not-find-selection-alert-message" = "Esto podría ser debido a que el texto seleccionado no es editable (por ejemplo el título de artículo o la casilla de información de títulos) o el debido a la longitud del texto destacado";
 "edit-menu-item-could-not-find-selection-alert-title" = "El texto seleccionado no puede ser localizado";
@@ -207,7 +212,6 @@
 "edit-ordered-list-accessibility-label" = "Convertir esta línea en una lista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "\nBorrar lista ordenada de esta línea";
 "edit-published" = "Edición publicada";
-"edit-published-button-title" = "Hecho";
 "edit-published-subtitle" = "Tú haces Wikipedia mejor para todo el mundo";
 "edit-reference-accessibility-label" = "Añadir referencia";
 "edit-reference-remove-accessibility-label" = "\nQuitar referencia";
@@ -416,6 +420,7 @@
 "info-box-close-text" = "Cerrar";
 "info-box-title" = "Datos rápidos";
 "insert-action-title" = "Insertar";
+"insert-link-title" = "Insertar enlace";
 "insert-media-alternative-text-description" = "Descripción de texto para lectores quiénes no pueden ver la imagen";
 "insert-media-alternative-text-placeholder" = "Describir esta imagen";
 "insert-media-alternative-text-title" = "Texto alternativo";

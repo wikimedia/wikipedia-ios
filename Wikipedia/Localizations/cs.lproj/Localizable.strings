@@ -95,6 +95,7 @@
 "action-unsaved-accessibility-notification" = "Zrušeno uložení článku";
 "action-update" = "Aktualizovat";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
+"add-citation-title" = "Přidat citaci";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informování, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
@@ -189,7 +190,11 @@
 "edit-italic-accessibility-label" = "Přidat formátování kurzíva";
 "edit-italic-remove-accessibility-label" = "Odebrat formátování kurzíva";
 "edit-link-accessibility-label" = "Přidat syntaxi odkaz";
+"edit-link-display-text-title" = "Zobrazovaný text";
+"edit-link-link-target-title" = "Cíl odkazu";
 "edit-link-remove-accessibility-label" = "Odebrat syntaxi odkaz";
+"edit-link-remove-link-title" = "Odstranit odkaz";
+"edit-link-title" = "Upravit odkaz";
 "edit-menu-item" = "Editovat";
 "edit-menu-item-could-not-find-selection-alert-message" = "To může být způsobeno tím, že vybraný text není editovatelný (např. název článku nebo název infoboxu) nebo z důvodu délky zvýrazněného textu.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Vybraný text nelze nalézt";
@@ -198,7 +203,6 @@
 "edit-ordered-list-accessibility-label" = "Změnit aktuální řádek na číslovaný seznam";
 "edit-ordered-list-remove-accessibility-label" = "Odebrat číslovaný seznam z aktuálního řádku";
 "edit-published" = "Editace zveřejněna";
-"edit-published-button-title" = "Hotovo";
 "edit-published-subtitle" = "Právě jste vylepšili Wikipedii, encyklopedii pro každého";
 "edit-reference-accessibility-label" = "Přidat syntaxi reference";
 "edit-reference-remove-accessibility-label" = "Odebrat syntaxi reference";
@@ -407,6 +411,7 @@
 "info-box-close-text" = "Zavřít";
 "info-box-title" = "Stručná fakta";
 "insert-action-title" = "Vložit";
+"insert-link-title" = "Vložit odkaz";
 "insert-media-alternative-text-description" = "Popis, který se zobrazí čtenářům, kteří neuvidí obrázek";
 "insert-media-alternative-text-placeholder" = "Popsat obrázek";
 "insert-media-alternative-text-title" = "Alternativní text";
