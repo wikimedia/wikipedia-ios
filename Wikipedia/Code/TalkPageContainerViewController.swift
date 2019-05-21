@@ -54,6 +54,7 @@ private extension TalkPageContainerViewController {
     
     func setupNavigationBar() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
+        addButton.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = addButton
         navigationBar.updateNavigationItems()
     }

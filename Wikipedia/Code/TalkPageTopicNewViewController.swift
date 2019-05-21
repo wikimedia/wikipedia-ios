@@ -180,6 +180,7 @@ private extension TalkPageTopicNewViewController {
     func setupNavigationBar() {
         publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
         publishButton.isEnabled = false
+        publishButton.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = publishButton
         navigationBar.updateNavigationItems()
         navigationBar.isBarHidingEnabled = false

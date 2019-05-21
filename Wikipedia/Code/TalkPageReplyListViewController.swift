@@ -18,7 +18,11 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageReply>!
     
-    private lazy var publishButton: UIBarButtonItem = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
+    private lazy var publishButton: UIBarButtonItem = {
+        let publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
+        publishButton.tintColor = theme.colors.link
+        return publishButton
+    }()
     
     private var composeText: String?
     private var footerView: TalkPageReplyFooterView?
