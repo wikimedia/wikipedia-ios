@@ -6,6 +6,10 @@ import UIKit
 @objc(WMFTalkPageTopicHintViewController)
 class TalkPageTopicHintViewController: HintViewController {
     
+    override var extendsUnderSafeArea: Bool {
+        return true
+    }
+    
     override func configureSubviews() {
         defaultImageView.image = UIImage(named: "published-pencil")
         defaultLabel.text = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")
@@ -15,6 +19,10 @@ class TalkPageTopicHintViewController: HintViewController {
 @objc(WMFTalkPageReplyHintViewController)
 class TalkPageReplyHintViewController: HintViewController {
     
+    override var extendsUnderSafeArea: Bool {
+        return true
+    }
+    
     override func configureSubviews() {
         defaultImageView.image = UIImage(named: "published-pencil")
         defaultLabel.text = WMFLocalizedString("talk-page-new-reply-success-text", value: "Your reply was successfully published", comment: "Banner text that appears after a new reply was successfully published on a talk page discussion.")
@@ -23,6 +31,11 @@ class TalkPageReplyHintViewController: HintViewController {
 
 @objc(WMFTalkPageTopicHintController)
 class TalkPageTopicHintController: HintController {
+    
+    override var extendsUnderSafeArea: Bool {
+        return true
+    }
+    
     @objc init() {
         let topicHintViewController = TalkPageTopicHintViewController()
         super.init(hintViewController: topicHintViewController)
@@ -36,6 +49,11 @@ class TalkPageTopicHintController: HintController {
 
 @objc(WMFTalkPageReplyHintController)
 class TalkPageReplyHintController: HintController {
+    
+    override var extendsUnderSafeArea: Bool {
+        return true
+    }
+    
     @objc init() {
         let topicReplyViewController = TalkPageReplyHintViewController()
         super.init(hintViewController: topicReplyViewController)
