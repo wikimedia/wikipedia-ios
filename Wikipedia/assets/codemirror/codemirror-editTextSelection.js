@@ -35,7 +35,7 @@ const scoreForMatch = (match, lastIndex, wordsBeforeFromHTML, wordsAfterFromHTML
 const wikitextRangeForSelectedAndAdjacentText = (selectedAndAdjacentText, wikitext) => {
   const wordsBeforeFromHTML = getNumberOfWordsFromEndOfString(selectedAndAdjacentText.textBeforeSelectedText, adjacentComparisonWordCount)
   const wordsAfterFromHTML = getNumberOfWordsFromBeginningOfString(selectedAndAdjacentText.textAfterSelectedText, adjacentComparisonWordCount)
-  const selectedTextRegexPattern = `(${selectedAndAdjacentText.selectedText.replace(/\s+/g, '\\W*(?:(?:[<{][^>]*[}>])*)\\W*')})`
+  const selectedTextRegexPattern = `(${selectedAndAdjacentText.selectedText.replace(/\s+/g, '(?:(?:\\[\\[[^\\]\\|]+\\|)|{{[^}]*}}|<[^>]*>|\\W)+')})`
   const selectedTextRegex = new RegExp(selectedTextRegexPattern, 'gs')
 
   let bestScoredMatch = null
