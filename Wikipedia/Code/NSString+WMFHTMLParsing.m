@@ -309,6 +309,15 @@
         hrefRegex = [NSRegularExpression regularExpressionWithPattern:hrefPattern options:NSRegularExpressionCaseInsensitive error:nil];
     });
 
+    NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
+    NSMutableSet<NSURL *> *currentLinks = [NSMutableSet setWithCapacity:1];
+    NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSSet<NSURL *> *> *links = [NSMutableArray arrayWithCapacity:1];
+
+    NSMutableArray<WMFHTMLElement *> *lists = [NSMutableArray arrayWithCapacity:1];
+    NSMutableIndexSet __block *openListsIndexSet = [[NSMutableIndexSet alloc] init];
+    NSMutableIndexSet __block *closedListsIndexSet = [[NSMutableIndexSet alloc] init];
+
     NSUInteger (^countOfPrecedingWMFHTMLElementsWithoutEndLocation)(NSMutableArray<WMFHTMLElement *> *) = ^NSUInteger(NSMutableArray<WMFHTMLElement *> *elements) {
         NSUInteger count = 0;
         for (WMFHTMLElement *element in [elements reverseObjectEnumerator]) {
@@ -321,14 +330,24 @@
         return count;
     };
 
-    NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
-    NSMutableSet<NSURL *> *currentLinks = [NSMutableSet setWithCapacity:1];
-    NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
-    NSMutableArray<NSSet<NSURL *> *> *links = [NSMutableArray arrayWithCapacity:1];
-
-    NSMutableArray<WMFHTMLElement *> *lists = [NSMutableArray arrayWithCapacity:1];
-    NSMutableIndexSet __block *openListsIndexSet = [[NSMutableIndexSet alloc] init];
-    NSMutableIndexSet __block *closedListsIndexSet = [[NSMutableIndexSet alloc] init];
+    NSDictionary<NSNumber *, WMFHTMLElement *> * (^lastWMFHTMLElementMissingEndLocation)(NSMutableArray<WMFHTMLElement *> *, NSMutableIndexSet *, NSMutableIndexSet *) = ^NSDictionary<NSNumber *, WMFHTMLElement *> *(NSMutableArray<WMFHTMLElement *> *elements, NSMutableIndexSet *openElementsIndexSet, NSMutableIndexSet *closedElementsIndexSet) {
+        NSUInteger __block lastUnclosedIndex = NSNotFound;
+        [openElementsIndexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *_Nonnull stop) {
+            BOOL isClosed = [closedElementsIndexSet containsIndex:idx];
+            if (!isClosed) {
+                if (lastUnclosedIndex == NSNotFound) {
+                    lastUnclosedIndex = idx;
+                } else {
+                    lastUnclosedIndex = MAX(lastUnclosedIndex, idx);
+                }
+            }
+        }];
+        if (lastUnclosedIndex < elements.count) {
+            return @{[NSNumber numberWithUnsignedInteger:lastUnclosedIndex]: [lists objectAtIndex:lastUnclosedIndex]};
+        } else {
+            return nil;
+        }
+    };
 
     NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
     __block NSInteger startLocation = NSNotFound;
@@ -352,29 +371,16 @@
                     assert([lastList.tagName isEqualToString:closeTagName]);
                     lastList.endLocation = currentLocation;
                     [closedListsIndexSet addIndex:lists.count - 1];
-                } else {
-                    NSUInteger __block lastUnclosedListIndex = NSNotFound;
-                    [openListsIndexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *_Nonnull stop) {
-                        BOOL isClosed = [closedListsIndexSet containsIndex:idx];
-                        if (!isClosed) {
-                            if (lastUnclosedListIndex == NSNotFound) {
-                                lastUnclosedListIndex = idx;
-                            } else {
-                                lastUnclosedListIndex = MAX(lastUnclosedListIndex, idx);
-                            }
+                } else if (openListsIndexSet.count > closedListsIndexSet.count) {
+                    NSDictionary<NSNumber *, WMFHTMLElement *> *lastUnclosedListGroupedByIndex = lastWMFHTMLElementMissingEndLocation(lists, openListsIndexSet, closedListsIndexSet);
+                    if (lastUnclosedListGroupedByIndex) {
+                        NSNumber *index = lastUnclosedListGroupedByIndex.allKeys.firstObject;
+                        WMFHTMLElement *list = [lastUnclosedListGroupedByIndex objectForKey:index];
+                        if ([list.tagName isEqualToString:closeTagName]) {
+                            list.endLocation = currentLocation;
+                            list.hasNestedElements = YES;
+                            [closedListsIndexSet addIndex:index.unsignedIntegerValue];
                         }
-                    }];
-                    if ((lastUnclosedListIndex < lists.count)) {
-                        WMFHTMLElement *lastUnclosedList = [lists objectAtIndex:lastUnclosedListIndex];
-                        if ([lastUnclosedList.tagName isEqualToString:closeTagName]) {
-                            lastUnclosedList.endLocation = currentLocation;
-                            lastUnclosedList.hasNestedElements = YES;
-                            [closedListsIndexSet addIndex:lastUnclosedListIndex];
-                        } else {
-                            assert(false);
-                        }
-                    } else {
-                        assert(false);
                     }
                 }
             } else if ([closeTagName isEqualToString:@"li"]) {
@@ -415,11 +421,19 @@
                 [lists addObject:list];
                 [openListsIndexSet addIndex:lists.count - 1];
             } else if ([HTMLTagName isEqualToString:@"li"]) {
+                WMFHTMLElement *listItem = [[WMFHTMLElement alloc] initWithTagName:HTMLTagName];
+                listItem.startLocation = startLocation;
                 WMFHTMLElement *lastList = lists.lastObject;
                 if (lastList.endLocation == NSNotFound) {
-                    WMFHTMLElement *listItem = [[WMFHTMLElement alloc] initWithTagName:HTMLTagName];
                     listItem.startLocation = startLocation;
                     [lastList.children addObject:listItem];
+                } else if (openListsIndexSet.count > closedListsIndexSet.count) {
+                    NSDictionary<NSNumber *, WMFHTMLElement *> *lastUnclosedListGroupedByIndex = lastWMFHTMLElementMissingEndLocation(lists, openListsIndexSet, closedListsIndexSet);
+                    if (lastUnclosedListGroupedByIndex) {
+                        NSNumber *index = lastUnclosedListGroupedByIndex.allKeys.firstObject;
+                        WMFHTMLElement *list = [lastUnclosedListGroupedByIndex objectForKey:index];
+                        [list.children addObject:listItem];
+                    }
                 }
             }
         }
@@ -484,7 +498,7 @@
                         NSString *spaces = [@"" stringByPaddingToLength:list.nestingDepth * 4 withString:@" " startingAtIndex:0];
                         NSString *number = [NSString stringWithFormat:@"\n%@%lu. ", spaces, idx + 1];
                         NSString *bulletPoint = [NSString stringWithFormat:@"%@\n• ", spaces];
-                        NSString *bulletPointOrNumberWithNewline = isOrderedList ? number : bulletPoint;
+                        NSString *bulletPointOrNumberWithNewline = [list.tagName isEqualToString:@"ol"] ? number : bulletPoint;
                         NSAttributedString *stringToInsert = [[NSAttributedString alloc] initWithString:bulletPointOrNumberWithNewline attributes:attributes];
                         NSDictionary *keyValue = @{[NSNumber numberWithInteger:obj.startLocation]: stringToInsert};
                         [insertions addObject:keyValue];
