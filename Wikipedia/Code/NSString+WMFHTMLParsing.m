@@ -497,7 +497,7 @@
                     [list.children enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                         NSString *spaces = [@"" stringByPaddingToLength:list.nestingDepth * 4 withString:@" " startingAtIndex:0];
                         NSString *number = [NSString stringWithFormat:@"\n%@%lu. ", spaces, idx + 1];
-                        NSString *bulletPoint = [NSString stringWithFormat:@"%@\n• ", spaces];
+                        NSString *bulletPoint = [NSString stringWithFormat:@"\n%@• ", spaces];
                         NSString *bulletPointOrNumberWithNewline = [list.tagName isEqualToString:@"ol"] ? number : bulletPoint;
                         NSAttributedString *stringToInsert = [[NSAttributedString alloc] initWithString:bulletPointOrNumberWithNewline attributes:attributes];
                         NSDictionary *keyValue = @{[NSNumber numberWithInteger:obj.startLocation]: stringToInsert};
@@ -505,7 +505,7 @@
                     }];
 
                     // end of list
-                    if (!list.hasNestedElements) {
+                    if (!list.hasNestedElements && list.nestingDepth == 0) {
                         NSString *newline = @"\n";
                         NSAttributedString *stringToInsert = [[NSAttributedString alloc] initWithString:newline attributes:attributes];
                         NSDictionary *keyValue = @{[NSNumber numberWithInteger:list.endLocation]: stringToInsert};
