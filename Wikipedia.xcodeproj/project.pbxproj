@@ -9173,6 +9173,7 @@
 					B0606EAD20AA6FF0006EC6B9 = {
 						CreatedOnToolsVersion = 9.3.1;
 						DevelopmentTeam = AKK7J2GV64;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = D4991434181D51DE00E6073C;
 					};
@@ -14053,7 +14054,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15002,7 +15003,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15042,7 +15043,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15078,7 +15079,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15114,7 +15115,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15150,7 +15151,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15186,7 +15187,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15222,7 +15223,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15258,7 +15259,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15294,7 +15295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15330,7 +15331,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15366,7 +15367,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15402,7 +15403,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15438,7 +15439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15474,7 +15475,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -15510,7 +15511,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -18821,7 +18822,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
