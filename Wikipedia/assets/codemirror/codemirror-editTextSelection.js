@@ -19,8 +19,6 @@ const calculateScore = (wordsFromHTML, wordsFromWikitext) => wordsFromHTML.reduc
 }, 0) 
 
 const wordsOnly = string => string.replace(/\(.*?\)/g, '').replace(/{{.*}}/g, '').replace(/\W+/g, ' ').trim()
-const replaceSpaceWith = string => string.replace(/\s+/g, '\\W*(?:(?:[<{][^>]*[}>])*)\\W*')
-
 const adjacentComparisonWordCount = 6
 const adjacentCharsToGather = 200
 
