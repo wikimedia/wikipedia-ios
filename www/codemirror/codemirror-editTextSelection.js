@@ -51,7 +51,7 @@ const wikitextRangeForSelectedAndAdjacentText = (selectedAndAdjacentText, wikite
     }
   }
 
-  if (bestScoredMatch === undefined) {
+  if (bestScoredMatch === null) {
     return null
   }
 
