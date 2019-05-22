@@ -222,7 +222,7 @@ open class Snapshot: NSObject {
                 }
                 guard let homeDirUrl = URL(string: simulatorHostHome) else {
                     throw SnapshotError.cannotAccessSimulatorHomeDirectory(simulatorHostHome)
-                }T
+                }
                 homeDir = URL(fileURLWithPath: homeDirUrl.path)
             #else
                 throw SnapshotError.cannotRunOnPhysicalDevice
