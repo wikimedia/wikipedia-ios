@@ -4,6 +4,8 @@ import UIKit
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
+    func updateNavigationBarTitle(title: String?, viewController: TalkPageTopicListViewController)
+    func currentNavigationTitle(viewController: TalkPageTopicListViewController) -> String?
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -20,6 +22,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private var toolbar: UIToolbar?
     private var shareIcon: IconBarButtonItem?
+    private var headerView: TalkPageHeaderView?
     
     required init(dataStore: MWKDataStore, talkPage: TalkPage) {
         self.dataStore = dataStore
@@ -53,6 +56,21 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         delegate?.scrollViewDidScroll(scrollView, viewController: self)
+        
+        //todo: should refactor to lean on NavigationBar's extendedView
+        if let headerView = headerView {
+            navigationBar.shadowAlpha = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > headerView.frame.height ? 1 : 0
+            
+            let convertedHeaderTitleFrame = headerView.convert(headerView.titleLabel.frame, to: view)
+            
+            let oldTitle = delegate?.currentNavigationTitle(viewController: self)
+            let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? talkPage.displayTitle : nil
+            if oldTitle != newTitle {
+                delegate?.updateNavigationBarTitle(title: newTitle, viewController: self)
+            }
+        } else {
+            navigationBar.shadowAlpha = 0
+        }
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -114,6 +132,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         }
         
         configure(header: header)
+        self.headerView = header
         return header
     }
     

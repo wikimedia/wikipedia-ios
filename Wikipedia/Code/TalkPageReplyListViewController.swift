@@ -26,9 +26,11 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private var composeText: String?
     private var footerView: TalkPageReplyFooterView?
+    private var headerView: TalkPageHeaderView?
     private var originalFooterViewFrame: CGRect?
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
+    private var replyBarButtonItem: UIBarButtonItem!
 
     private var showingCompose = false {
         didSet {
@@ -50,11 +52,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             if showingCompose {
                 publishButton.isEnabled = false
                 navigationItem.rightBarButtonItem = publishButton
-                navigationItem.title = WMFLocalizedString("talk-page-reply-title", value: "Reply", comment: "This header label is displayed at the top of a talk page thread once the user taps Reply.")
+                navigationItem.title = replyString
                 navigationBar.updateNavigationItems()
             } else {
-                navigationItem.rightBarButtonItem = nil
-                navigationItem.title = nil
+                navigationItem.rightBarButtonItem = replyBarButtonItem
                 navigationBar.updateNavigationItems()
             }
         }
@@ -65,6 +66,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         progressController.delay = 0.0
         return progressController
     }()
+    
+    private let replyString = WMFLocalizedString("talk-page-reply-title", value: "Reply", comment: "This header label is displayed at the top of a talk page thread once the user taps Reply.")
     
     required init(dataStore: MWKDataStore, topic: TalkPageTopic) {
         self.dataStore = dataStore
@@ -88,9 +91,9 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         registerCells()
         setupCollectionViewUpdater()
         setupBackgroundTap()
+        setupNavigationBar()
         
         collectionView.keyboardDismissMode = .onDrag
-        navigationBar.isBarHidingEnabled = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -162,15 +165,24 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         })
     }
     
-    @objc func tappedPublish(_ sender: UIBarButtonItem) {
-        
-        guard let composeText = composeText,
-            composeText.count > 0 else {
-                assertionFailure("User should be able to tap Publish if they have not written a reply.")
-                return
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+
+        //todo: should refactor to lean on NavigationBar's extendedView
+        if let headerView = headerView {
+            navigationBar.shadowAlpha = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > headerView.frame.height ? 1 : 0
+            
+            let convertedHeaderTitleFrame = headerView.convert(headerView.titleLabel.frame, to: view)
+            let oldTitle = navigationItem.title
+            let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? topic.title : nil
+            if oldTitle != newTitle {
+                navigationItem.title = showingCompose ? replyString : newTitle
+                navigationBar.updateNavigationItems()
+            }
+        } else {
+            navigationBar.shadowAlpha = 0
         }
-        view.endEditing(true)
-        delegate?.tappedPublish(topic: topic, composeText: composeText, viewController: self)
+        
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -216,6 +228,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader,
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView {
+                headerView = header
                 configure(header: header)
                 return header
         }
@@ -293,6 +306,33 @@ private extension TalkPageReplyListViewController {
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         collectionViewUpdater?.performFetch()
+    }
+    
+    func setupNavigationBar() {
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.shadowAlpha = 0
+        let replyImage = UIImage(named: "reply")
+        replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
+        replyBarButtonItem.tintColor = theme.colors.link
+        navigationItem.rightBarButtonItem = replyBarButtonItem
+        navigationItem.title = nil
+        navigationBar.updateNavigationItems()
+    }
+    
+    @objc func tappedPublish(_ sender: UIBarButtonItem) {
+        
+        guard let composeText = composeText,
+            composeText.count > 0 else {
+                assertionFailure("User should be able to tap Publish if they have not written a reply.")
+                return
+        }
+        view.endEditing(true)
+        delegate?.tappedPublish(topic: topic, composeText: composeText, viewController: self)
+    }
+    
+    @objc func tappedReplyNavigationItem(_ sender: UIBarButtonItem) {
+        
+        showingCompose = true
     }
     
     func setupBackgroundTap() {
