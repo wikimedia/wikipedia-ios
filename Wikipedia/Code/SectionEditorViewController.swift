@@ -340,7 +340,7 @@ class SectionEditorViewController: UIViewController {
     // MARK: - Accessibility
     
     override func accessibilityPerformEscape() -> Bool {
-        navigationController?.popViewController(animated: true)
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
         return true
     }
     
