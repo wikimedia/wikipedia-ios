@@ -96,7 +96,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: 'codemirror/',
-            src: ['**', '!**/*.js'],
+            src: ['**', '!**/codemirror-range-*.js'],
             dest: `${distFolder}codemirror/`
           }
         ]
