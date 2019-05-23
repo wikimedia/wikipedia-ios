@@ -26,6 +26,16 @@ class NetworkTopic:  NSObject, Codable {
     let shas: NetworkTopicShas
     var sort: Int?
     
+    var textShaForManagedObject: String {
+        
+        guard let sort = sort else {
+            assertionFailure("textSha not accurate until sort is populated.")
+            return shas.textShaForManagedObject
+        }
+        
+        return shas.textShaForManagedObject + "-" + String(sort)
+    }
+    
     enum CodingKeys: String, CodingKey {
         case text
         case shas
@@ -35,15 +45,28 @@ class NetworkTopic:  NSObject, Codable {
 }
 
 class NetworkTopicShas: Codable {
-    let text: String
+    private let text: String
     let replies: String
+    
+    var textShaForManagedObject: String {
+        return text
+    }
 }
 
 class NetworkReply: NSObject, Codable {
     let text: String
     let depth: Int16
-    let sha: String
+    private let sha: String
     var sort: Int!
+    
+    var textShaForManagedObject: String {
+        guard let sort = sort else {
+            assertionFailure("textSha not accurate until sort is populated.")
+            return text
+        }
+        
+        return sha + "-" + String(sort)
+    }
     
     enum CodingKeys: String, CodingKey {
         case text

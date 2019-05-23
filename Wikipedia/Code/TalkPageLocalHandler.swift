@@ -76,7 +76,7 @@ class TalkPageLocalHandler {
         }
         
         let oldTopicSetShas = Set(topicShas)
-        let newTopicSetShas = Set(networkTalkPage.topics.map { $0.shas.text })
+        let newTopicSetShas = Set(networkTalkPage.topics.map { $0.textShaForManagedObject })
         
         //delete old topics
         let topicShasToDelete = oldTopicSetShas.subtracting(newTopicSetShas)
@@ -95,7 +95,7 @@ class TalkPageLocalHandler {
         let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
         
         for insertSha in topicShasToInsert {
-            if let networkTopic = networkTalkPage.topics.filter({ $0.shas.text == insertSha }).first {
+            if let networkTopic = networkTalkPage.topics.filter({ $0.textShaForManagedObject == insertSha }).first {
                 addTalkPageTopic(to: localTalkPage, with: networkTopic)
             }
         }
@@ -130,7 +130,7 @@ private extension TalkPageLocalHandler {
             return
         }
         
-        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.text) }).sorted(by: { $0.shas.text < $1.shas.text })
+        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.textShaForManagedObject) }).sorted(by: { $0.textShaForManagedObject < $1.textShaForManagedObject })
         
         guard (sameLocalTopics.count == sameNetworkTopics.count) else {
             return
@@ -156,7 +156,7 @@ private extension TalkPageLocalHandler {
             }
             
             let oldSetReplyShas = Set(replyShas)
-            let newSetReplyShas = Set(networkTopic.replies.map { $0.sha })
+            let newSetReplyShas = Set(networkTopic.replies.map { $0.textShaForManagedObject })
             
             //delete old replies
             let replyShasToDelete = oldSetReplyShas.subtracting(newSetReplyShas)
@@ -168,6 +168,7 @@ private extension TalkPageLocalHandler {
             }
             
             //update common replies
+            //note: not sure if this is possible anymore. reply shas now contain sort so a different ordering will be seen as new or deleted
             let commonReplyShas = oldSetReplyShas.intersection(newSetReplyShas)
             
             let predicate = NSPredicate(format:"sha IN %@", commonReplyShas)
@@ -184,7 +185,7 @@ private extension TalkPageLocalHandler {
                 return
             }
             
-            let sameNetworkReplies = networkTopic.replies.filter ({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
+            let sameNetworkReplies = networkTopic.replies.filter ({ commonReplyShas.contains($0.textShaForManagedObject) }).sorted(by: { $0.textShaForManagedObject < $1.textShaForManagedObject })
             
             guard sameLocalReplies.count == sameNetworkReplies.count else { continue }
             
@@ -198,7 +199,7 @@ private extension TalkPageLocalHandler {
             let replyShasToInsert = newSetReplyShas.subtracting(oldSetReplyShas)
             
             for insertSha in replyShasToInsert {
-                if let networkReply = networkTopic.replies.filter({ $0.sha == insertSha }).first {
+                if let networkReply = networkTopic.replies.filter({ $0.textShaForManagedObject == insertSha }).first {
                     addTalkPageReply(to: localTopic, with: networkReply)
                 }
             }
@@ -228,7 +229,7 @@ private extension TalkPageLocalHandler {
             assertionFailure("Network topic is missing sort")
         }
         
-        topic.textSha = networkTopic.shas.text
+        topic.textSha = networkTopic.textShaForManagedObject
         topic.repliesSha = networkTopic.shas.replies
         
         for reply in networkTopic.replies {
@@ -250,6 +251,6 @@ private extension TalkPageLocalHandler {
         reply.text = networkReply.text
         reply.sort = Int64(networkReply.sort)
         reply.topic = topic
-        reply.sha = networkReply.sha
+        reply.sha = networkReply.textShaForManagedObject
     }
 }
