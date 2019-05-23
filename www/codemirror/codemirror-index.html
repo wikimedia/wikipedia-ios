@@ -782,6 +782,11 @@
           from = { line: anchor.line, ch: fromCh }
           const toCh = head.ch + info.closeDistance
           to = { line: head.line, ch: toCh }
+        } else if (info.openWithinDistance !== -1 && info.closeWithinDistance !== -1) {
+          const fromCh = anchor.ch + info.openWithinDistance + anchorLength
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch - info.closeWithinDistance - anchorLength
+          to = { line: head.line, ch: toCh }
         }
 
         if (from && to) {
