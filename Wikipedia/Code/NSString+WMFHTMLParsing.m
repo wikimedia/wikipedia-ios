@@ -391,8 +391,6 @@
         }
     }];
 
-    assert(unclosedLists.count == 0);
-
     NSMutableDictionary *attribtues = [NSMutableDictionary dictionaryWithCapacity:2];
     if (font) {
         [attribtues setObject:font forKey:NSFontAttributeName];
