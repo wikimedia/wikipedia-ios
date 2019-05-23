@@ -12,11 +12,13 @@ enum TalkPageError: Error {
     case revisionUrlCreationFailure
     case talkPageTitleCreationFailure
     case createUrlTitleStringFailure
+    case freshFetchTaskGroupFailure
 }
 
 enum TalkPageAppendSuccessResult {
     case missingRevisionIDInResult
     case refreshFetchFailed
+    case topicMissingTalkPageRelationship
     case success
 }
 
@@ -29,6 +31,10 @@ class TalkPageController {
     let languageCode: String
     let titleIncludesPrefix: Bool
     let type: TalkPageType
+    
+    var displayTitle: String {
+        return type.displayTitle(for: title, titleIncludesPrefix: titleIncludesPrefix)
+    }
     
     required init(fetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), localHandler: TalkPageLocalHandler? = nil, dataStore: MWKDataStore, title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType) {
         self.fetcher = fetcher
@@ -65,46 +71,107 @@ class TalkPageController {
             }
         }
         
-        let errorHandler: (Error) -> Void = { error in
-            completion?(.failure(TalkPageError.fetchRevisionIDFailure))
-        }
-        
-        let successIDHandler: (Any) -> Void = { object in
+        //If we already have a local talk page, chain revision & talk page calls.
+        //If revision indicates we already have the latest, no need to fetch talk page.
+        if let localTalkPage = localTalkPage {
             
-            let queryResults = (object as? [WMFRevisionQueryResults])?.first ?? (object as? WMFRevisionQueryResults)
-            
-            guard let lastRevisionId = queryResults?.revisions.first?.revisionId.int64Value else {
-                DispatchQueue.main.async {
-                    completion?(.failure(TalkPageError.fetchRevisionIDFailure))
+            if let localRevisionID = localTalkPage.revisionId?.intValue {
+                fetchLatestRevisionID(endingWithRevision: localRevisionID, urlTitle: urlTitle) { (result) in
+                    switch result {
+                    case .success(let lastRevisionID):
+                        
+                        //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
+                        if localTalkPage.revisionId == NSNumber(value: lastRevisionID) {
+                            DispatchQueue.main.async {
+                                completion?(.success(localTalkPage))
+                            }
+                        } else {
+                            self.fetchAndUpdate(localTalkPage: localTalkPage, revisionID: lastRevisionID, completion: completion)
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            completion?(.failure(error))
+                        }
+                    }
                 }
-                return
-            }
-            
-            //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
-            if let localTalkPage = localTalkPage,
-                localTalkPage.revisionId == lastRevisionId {
+            } else {
+                
+                //can get into this state with a local talk page with no revision if talk page doesn't exist
+                //skip revision checking and return local talk page
                 DispatchQueue.main.async {
                     completion?(.success(localTalkPage))
                 }
-            } else {
-                self.fetchAndUpdate(localTalkPage: localTalkPage, revisionID: lastRevisionId, completion: completion)
+            }
+            
+            return
+            
+        }
+        
+        //If no local talk page to reference, fetch latest revision ID & latest talk page in a grouped calls.
+        //Update network talk page with latest revision & save to db
+        
+        let taskGroup = WMFTaskGroup()
+        
+        taskGroup.enter()
+        
+        var revisionID: Int?
+        
+        fetchLatestRevisionID(endingWithRevision: nil, urlTitle: urlTitle) { (result) in
+            
+            switch result {
+            case .success(let resultRevisionID):
+                revisionID = resultRevisionID
+            case .failure:
+                break
+            }
+            
+            taskGroup.leave()
+        }
+        
+        taskGroup.enter()
+        
+        var networkTalkPage: NetworkTalkPage?
+        var talkPageDoesNotExist: Bool = false
+        fetchTalkPage(revisionID: nil) { (result) in
+            switch result {
+            case .success(let resultNetworkTalkPage):
+                networkTalkPage = resultNetworkTalkPage
+            case .failure(let error):
+                if let talkPageFetcherError = error as? TalkPageFetcherError,
+                    talkPageFetcherError == .TalkPageDoesNotExist {
+                    talkPageDoesNotExist = true
+                }
+            }
+            
+            taskGroup.leave()
+        }
+        
+        taskGroup.waitInBackground {
+            
+            self.localHandler.dataStore.viewContext.perform {
+                if talkPageDoesNotExist {
+                    if let newLocalTalkPage = self.localHandler.createEmptyTalkPage(with: taskURL, languageCode: self.languageCode, displayTitle: self.displayTitle) {
+                        completion?(.success(newLocalTalkPage))
+                    } else {
+                        completion?(.failure(TalkPageError.createLocalTalkPageFailure))
+                    }
+                } else {
+                    
+                    guard let revisionID = revisionID,
+                        let networkTalkPage = networkTalkPage else {
+                        completion?(.failure(TalkPageError.freshFetchTaskGroupFailure))
+                        return
+                    }
+                    
+                    networkTalkPage.revisionId = revisionID
+                    if let newLocalTalkPage = self.localHandler.createTalkPage(with: networkTalkPage) {
+                        completion?(.success(newLocalTalkPage))
+                    } else {
+                        completion?(.failure(TalkPageError.createLocalTalkPageFailure))
+                    }
+                }
             }
         }
-        
-        guard let revisionURL = Configuration.current.mediaWikiAPIURLForWikiLanguage(languageCode, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
-            completion?(.failure(TalkPageError.revisionUrlCreationFailure))
-                return
-        }
-        
-        var revisionID: NSNumber?
-        if let localRevisionId = localTalkPage?.revisionId {
-            revisionID = NSNumber(value: localRevisionId)
-        }
-        
-        let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, endingWithRevision: revisionID, failure: errorHandler, success: successIDHandler)
-        
-        //todo: task tracking
-        revisionFetcherTask?.resume()
     }
     
     func addTopic(to talkPage: TalkPage, title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
@@ -120,8 +187,10 @@ class TalkPageController {
         fetcher.addTopic(to: title, host: host, languageCode: languageCode, subject: subject, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
-                guard let newRevisionID = result["newrevid"] as? Int64 else {
-                    completion(.success(.missingRevisionIDInResult))
+                guard let newRevisionID = result["newrevid"] as? Int else {
+                    DispatchQueue.main.async {
+                        completion(.success(.missingRevisionIDInResult))
+                    }
                     return
                 }
                 
@@ -134,7 +203,9 @@ class TalkPageController {
                     }
                 })
             case .failure(let error):
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }
     }
@@ -152,12 +223,21 @@ class TalkPageController {
         fetcher.addReply(to: topic, title: title, host: host, languageCode: languageCode, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
-                guard let newRevisionID = result["newrevid"] as? Int64 else {
-                    completion(.success(.missingRevisionIDInResult))
+                guard let newRevisionID = result["newrevid"] as? Int else {
+                    DispatchQueue.main.async {
+                        completion(.success(.missingRevisionIDInResult))
+                    }
                     return
                 }
                 
-                self.fetchAndUpdate(localTalkPage: topic.talkPage, revisionID: newRevisionID, completion: { (result) in
+                guard let talkPage = topic.talkPage else {
+                    DispatchQueue.main.async {
+                        completion(.success(.topicMissingTalkPageRelationship))
+                    }
+                    return
+                }
+                
+                self.fetchAndUpdate(localTalkPage: talkPage, revisionID: newRevisionID, completion: { (result) in
                     switch result {
                     case .success:
                         completion(.success(.success))
@@ -166,7 +246,9 @@ class TalkPageController {
                     }
                 })
             case .failure(let error):
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }
     }
@@ -176,35 +258,62 @@ class TalkPageController {
 
 private extension TalkPageController {
     
-    func fetchAndUpdate(localTalkPage: TalkPage?, revisionID: Int64, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
+    func fetchLatestRevisionID(endingWithRevision revisionID: Int?, urlTitle: String, completion: @escaping (Result<Int, Error>) -> Void) {
         
-        guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
-            completion?(.failure(TalkPageError.talkPageTitleCreationFailure))
+        guard let revisionURL = Configuration.current.mediaWikiAPIURLForWikiLanguage(languageCode, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
+            completion(.failure(TalkPageError.revisionUrlCreationFailure))
             return
         }
-        let displayTitle = TalkPageType.user.displayTitle(for: title, titleIncludesPrefix: titleIncludesPrefix)
-        fetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, host: host, languageCode: languageCode, revisionID: revisionID) { (result) in
+        
+        let errorHandler: (Error) -> Void = { error in
+            completion(.failure(TalkPageError.fetchRevisionIDFailure))
+        }
+        
+        let successIDHandler: (Any) -> Void = { object in
             
+            let queryResults = (object as? [WMFRevisionQueryResults])?.first ?? (object as? WMFRevisionQueryResults)
+            
+            guard let lastRevisionId = queryResults?.revisions.first?.revisionId.intValue else {
+                DispatchQueue.main.async {
+                    completion(.failure(TalkPageError.fetchRevisionIDFailure))
+                }
+                return
+            }
+            
+            completion(.success(lastRevisionId))
+        }
+        
+        let revisionIDNumber: NSNumber? = revisionID != nil ? NSNumber(value: revisionID!) : nil
+        let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, endingWithRevision: revisionIDNumber, failure: errorHandler, success: successIDHandler)
+        
+        //todo: task tracking
+        revisionFetcherTask?.resume()
+    }
+    
+    func fetchTalkPage(revisionID: Int?, completion: @escaping ((Result<NetworkTalkPage, Error>) -> Void)) {
+        guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
+            completion(.failure(TalkPageError.talkPageTitleCreationFailure))
+            return
+        }
+        
+        fetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, host: host, languageCode: languageCode, revisionID: revisionID, completion: completion)
+    }
+    
+    func fetchAndUpdate(localTalkPage: TalkPage, revisionID: Int, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
+        
+        fetchTalkPage(revisionID: revisionID) { (result) in
             DispatchQueue.main.async {
                 self.localHandler.dataStore.viewContext.perform {
                     switch result {
                     case .success(let networkTalkPage):
-                        if let localTalkPage = localTalkPage {
-                            if let updatedLocalTalkPage = self.localHandler.updateTalkPage(localTalkPage, with: networkTalkPage) {
-                                completion?(.success(updatedLocalTalkPage))
-                            } else {
-                                completion?(.failure(TalkPageError.updateLocalTalkPageFailure))
-                            }
+                        assert(networkTalkPage.revisionId != nil, "Expecting network talk page to have a revision ID here so it can pass it into the local talk page.")
+                        if let updatedLocalTalkPage = self.localHandler.updateTalkPage(localTalkPage, with: networkTalkPage) {
+                            completion?(.success(updatedLocalTalkPage))
                         } else {
-                            if let newLocalTalkPage = self.localHandler.createTalkPage(with: networkTalkPage) {
-                                completion?(.success(newLocalTalkPage))
-                            } else {
-                                completion?(.failure(TalkPageError.createLocalTalkPageFailure))
-                            }
+                            completion?(.failure(TalkPageError.updateLocalTalkPageFailure))
                         }
                     case .failure(let error):
-                        print(error)
-                        completion?(.failure(TalkPageError.fetchNetworkTalkPageFailure))
+                        completion?(.failure(error))
                     }
                 }
             }

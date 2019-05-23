@@ -75,7 +75,7 @@ class TalkPageTestHelpers {
         }
     }
     
-    static func networkTalkPage(for urlString: String, jsonType: TalkPageJSONType = .original, revisionId: Int64) -> NetworkTalkPage? {
+    static func networkTalkPage(for urlString: String, jsonType: TalkPageJSONType = .original, revisionId: Int) -> NetworkTalkPage? {
         let session = Session.shared
         do {
             let result: NetworkBase = try session.jsonDecodeData(data: jsonType.json)
