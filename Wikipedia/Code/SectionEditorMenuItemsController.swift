@@ -32,7 +32,9 @@ class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSour
     var originalMenuItems: [UIMenuItem]?
 
     func setEditMenuItems() {
-        originalMenuItems = UIMenuController.shared.menuItems
+        if (originalMenuItems == nil){
+            originalMenuItems = UIMenuController.shared.menuItems
+        }
         var menuItems = self.menuItems
         messagingController.getLink { link in
             defer {
