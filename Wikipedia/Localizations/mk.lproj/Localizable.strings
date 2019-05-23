@@ -114,6 +114,7 @@
 "button-skip" = "Прескокни";
 "cancel" = "Откажи";
 "cc-zero" = "Криејтив комонс CC0";
+"clear-title-accessibility-label" = "Исчисти";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
