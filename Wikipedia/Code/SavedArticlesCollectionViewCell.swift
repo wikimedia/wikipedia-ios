@@ -205,7 +205,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         if (apply && !isAlertIconHidden) {
             var x = origin.x
             if isArticleRTL {
-                x = size.width - alertIconDimension - layoutMargins.right
+                x = imageView.frame.maxX + alertIconDimension
             }
             alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
             origin.y += alertIcon.frame.layoutHeight(with: 0)
