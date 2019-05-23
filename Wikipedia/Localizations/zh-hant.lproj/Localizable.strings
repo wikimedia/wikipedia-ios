@@ -89,6 +89,7 @@
 "action-unsaved-accessibility-notification" = "條目未儲存";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
+"add-citation-title" = "新增引用";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科,參考,wiki,百科全書,訊息,知識,研究,資訊,探索,學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
@@ -183,7 +184,11 @@
 "edit-italic-accessibility-label" = "添加斜體格式";
 "edit-italic-remove-accessibility-label" = "移除斜體格式";
 "edit-link-accessibility-label" = "添加連結語法";
+"edit-link-display-text-title" = "顯示文字";
+"edit-link-link-target-title" = "連結目標";
 "edit-link-remove-accessibility-label" = "移除連結語法";
+"edit-link-remove-link-title" = "移除連結";
+"edit-link-title" = "編輯連結";
 "edit-menu-item" = "編輯";
 "edit-menu-item-could-not-find-selection-alert-message" = "這可能是因為您所選擇的文字無法編輯（例如：條目標題或是資訊框標題），或是因為文字長度有被反白到";
 "edit-menu-item-could-not-find-selection-alert-title" = "您所選擇的文字無法載入";
@@ -192,7 +197,6 @@
 "edit-ordered-list-accessibility-label" = "建立目前列的有序清單";
 "edit-ordered-list-remove-accessibility-label" = "從目前列來移除有序清單";
 "edit-published" = "已發佈編輯";
-"edit-published-button-title" = "完成";
 "edit-published-subtitle" = "謝謝您！您剛剛已令維基百科變得更完善，所有人都會受惠";
 "edit-reference-accessibility-label" = "添加參考資料語法";
 "edit-reference-remove-accessibility-label" = "移除參考資料語法";
@@ -401,6 +405,7 @@
 "info-box-close-text" = "關閉";
 "info-box-title" = "快速預覽";
 "insert-action-title" = "插入";
+"insert-link-title" = "插入連結";
 "insert-media-alternative-text-description" = "圖片沒辦法正常顯示給讀者查看時用的文字描述";
 "insert-media-alternative-text-placeholder" = "描述此圖片";
 "insert-media-alternative-text-title" = "替代文字";

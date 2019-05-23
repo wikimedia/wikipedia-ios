@@ -30,6 +30,9 @@ const getSelectedTextEditInfo = () => {
 
   let selectedAndAdjacentText = isSelectedTextInArticleTitle(selection) ? new SelectedAndAdjacentText('', '', '') : getSelectedAndAdjacentText().reducedToSpaceSeparatedWordsOnly()
 
+  selection.removeAllRanges()
+  selection.empty()
+
   return new SelectedTextEditInfo(
     selectedAndAdjacentText,
     isTitleDescriptionSelection,

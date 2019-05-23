@@ -107,6 +107,7 @@
 "button-skip" = "Skip";
 "cancel" = "Cancel";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Clear";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";

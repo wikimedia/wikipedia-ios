@@ -87,6 +87,7 @@
 "action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "action-update" = "Uppdatera";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
+"add-citation-title" = "Lägg till källa";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -181,7 +182,11 @@
 "edit-italic-accessibility-label" = "Lägg till kursiverad formatering";
 "edit-italic-remove-accessibility-label" = "Ta bort kursiverad formatering";
 "edit-link-accessibility-label" = "Lägg till länksyntax";
+"edit-link-display-text-title" = "Visa text";
+"edit-link-link-target-title" = "Länkmål";
 "edit-link-remove-accessibility-label" = "Ta bort länksyntax";
+"edit-link-remove-link-title" = "Ta bort länk";
+"edit-link-title" = "Redigera länk";
 "edit-menu-item" = "Redigera";
 "edit-menu-item-could-not-find-selection-alert-message" = "Detta kan bero på att texten du markerade inte kan redigeras (t.ex. artikelns eller inforutans titel) eller p.g.a. längden på texten som markerades";
 "edit-menu-item-could-not-find-selection-alert-title" = "Texten du markerade kunde inte hittas";
@@ -190,7 +195,6 @@
 "edit-ordered-list-accessibility-label" = "Gör nuvarande rad till en ordnad lista";
 "edit-ordered-list-remove-accessibility-label" = "Ta bort ordnad lista från nuvarande rad";
 "edit-published" = "Redigeringen publicerades";
-"edit-published-button-title" = "Klar";
 "edit-published-subtitle" = "Du gjorde precis Wikipedia bättre för alla";
 "edit-reference-accessibility-label" = "Lägg till referenssyntax";
 "edit-reference-remove-accessibility-label" = "Ta bort referenssyntax";
@@ -399,6 +403,7 @@
 "info-box-close-text" = "Stäng";
 "info-box-title" = "Snabbfakta";
 "insert-action-title" = "Infoga";
+"insert-link-title" = "Infoga länk";
 "insert-media-alternative-text-description" = "Textbeskrivning för läsare som inte kan se bilden";
 "insert-media-alternative-text-placeholder" = "Beskriv denna bild";
 "insert-media-alternative-text-title" = "Alternativ text";

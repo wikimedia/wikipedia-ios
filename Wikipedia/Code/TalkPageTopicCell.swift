@@ -13,7 +13,7 @@ class TalkPageTopicCell: CollectionViewCell {
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
         let isRTL = semanticContentAttribute == .forceRightToLeft
         
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top + 4, left: layoutMargins.left + 5, bottom: layoutMargins.bottom + 4, right: layoutMargins.right + 5)
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top + 5, left: layoutMargins.left + 5, bottom: layoutMargins.bottom + 5, right: layoutMargins.right + 5)
         
         let unreadIndicatorSideLength = CGFloat(11)
         let unreadIndicatorX = !isRTL ? adjustedMargins.left : size.width - adjustedMargins.right - unreadIndicatorSideLength

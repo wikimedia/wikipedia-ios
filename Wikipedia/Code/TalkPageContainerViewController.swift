@@ -57,6 +57,7 @@ private extension TalkPageContainerViewController {
         addButton.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = addButton
         navigationBar.updateNavigationItems()
+        navigationBar.isBarHidingEnabled = false
     }
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
@@ -128,6 +129,14 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
 //MARK: TalkPageTopicListDelegate
 
 extension TalkPageContainerViewController: TalkPageTopicListDelegate {
+    func updateNavigationBarTitle(title: String?, viewController: TalkPageTopicListViewController) {
+        navigationItem.title = title
+        navigationBar.updateNavigationItems()
+    }
+    
+    func currentNavigationTitle(viewController: TalkPageTopicListViewController) -> String? {
+        return navigationItem.title
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController) {
         hintController?.dismissHintDueToUserInteraction()

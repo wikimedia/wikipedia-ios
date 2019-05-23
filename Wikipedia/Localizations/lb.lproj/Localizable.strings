@@ -67,6 +67,7 @@
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "action-update" = "Aktualiséieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
+"add-citation-title" = "Zitat dobäisetzen";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "article-about-title" = "Iwwer dësen Artikel";
@@ -107,11 +108,14 @@
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
 "edit-indent-accessibility-label" = "Déi Aktuell Linn eraréckelen";
+"edit-link-display-text-title" = "Text weisen";
+"edit-link-link-target-title" = "Linkzil";
+"edit-link-remove-link-title" = "Link ewechhuelen";
+"edit-link-title" = "Link änneren";
 "edit-menu-item" = "Änneren";
 "edit-minor-learn-more-text" = "Méi iwwer kleng Ännerunge gewuer ginn";
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
 "edit-published" = "Ännerung verëffentlecht";
-"edit-published-button-title" = "Fäerdeg";
 "edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaacht";
 "edit-strikethrough-remove-accessibility-label" = "Duerchsträichen ewech huelen";
 "edit-style-table-view-title" = "Stil";
@@ -234,6 +238,7 @@
 "info-box-close-text" = "Zoumaachen";
 "info-box-title" = "Séier Fakten";
 "insert-action-title" = "Drasetzen";
+"insert-link-title" = "Link drasetzen";
 "insert-media-alternative-text-placeholder" = "Beschreift dëst Bild";
 "insert-media-alternative-text-title" = "Alternativen Text";
 "insert-media-caption-title" = "Beschreiwung";

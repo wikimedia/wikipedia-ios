@@ -18,6 +18,15 @@ class HintViewController: UIViewController {
     @IBOutlet weak var confirmationImageView: UIImageView!
     @IBOutlet weak var confirmationAccessoryButton: UIButton!
 
+    @IBOutlet var safeAreaBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var viewBottomConstraint: NSLayoutConstraint!
+    
+    //if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
+    //must also override extendsUnderSafeArea to true in HintController
+    var extendsUnderSafeArea: Bool {
+        return false
+    }
+    
     weak var delegate: HintViewControllerDelegate?
 
     var theme = Theme.standard
@@ -51,6 +60,10 @@ class HintViewController: UIViewController {
         apply(theme: theme)
         let isRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
         confirmationAccessoryButton.imageView?.transform = isRTL ? CGAffineTransform(scaleX: -1, y: 1) : CGAffineTransform.identity
+        
+        safeAreaBottomConstraint.isActive = extendsUnderSafeArea
+        viewBottomConstraint.isActive = !extendsUnderSafeArea
+        view.setNeedsLayout()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

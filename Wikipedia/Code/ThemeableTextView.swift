@@ -11,6 +11,8 @@ class ThemeableTextView: UITextView {
     weak var _delegate: UITextViewDelegate?
     weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?
 
+    var clearButton: UIButton!
+
     override var delegate: UITextViewDelegate? {
         didSet {
             if delegate != nil, placeholder != nil {
@@ -61,6 +63,41 @@ class ThemeableTextView: UITextView {
 
     private func setup() {
         delegate = self
+        let image = #imageLiteral(resourceName: "clear-mini")
+        clearButton = UIButton(frame: CGRect(origin: .zero, size: image.size))
+        clearButton.setImage(image, for: .normal)
+        clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        clearButton.isAccessibilityElement = true
+        clearButton.accessibilityLabel = CommonStrings.accessibilityClearTitle
+        addSubview(clearButton)
+        clearButton.isHidden = true
+        var inset = textContainerInset
+        inset.top += 8
+        textContainerInset = inset
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let clearButtonOriginX: CGFloat
+        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            clearButtonOriginX = 0
+        } else {
+            clearButtonOriginX = frame.width - clearButton.frame.width
+        }
+        clearButton.frame = CGRect(x: clearButtonOriginX, y: 0, width: clearButton.frame.width, height: clearButton.frame.height)
+    }
+
+    @objc private func clear() {
+        text = nil
+        setClearButtonHidden(true)
+        UIAccessibility.post(notification: .layoutChanged, argument: self)
+    }
+
+    private func setClearButtonHidden(_ hidden: Bool) {
+        guard clearButton.isHidden != hidden else {
+            return
+        }
+        clearButton.isHidden = hidden
     }
 }
 
@@ -68,6 +105,7 @@ extension ThemeableTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         _delegate?.textViewDidChange?(textView)
         placeholderDelegate?.themeableTextViewDidChange(self)
+        setClearButtonHidden(textView.text.isEmpty)
     }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -87,6 +125,7 @@ extension ThemeableTextView: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         _delegate?.textViewDidEndEditing?(textView)
+        setClearButtonHidden(true)
     }
 
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
@@ -95,6 +134,7 @@ extension ThemeableTextView: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         _delegate?.textViewDidBeginEditing?(textView)
+        setClearButtonHidden(textView.text.isEmpty)
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -117,6 +157,7 @@ extension ThemeableTextView: UITextViewDelegate {
 extension ThemeableTextView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
+        clearButton.tintColor = theme.colors.tertiaryText
         backgroundColor = theme.colors.paperBackground
         textColor = isShowingPlaceholder ? theme.colors.tertiaryText : theme.colors.primaryText
         keyboardAppearance = theme.keyboardAppearance

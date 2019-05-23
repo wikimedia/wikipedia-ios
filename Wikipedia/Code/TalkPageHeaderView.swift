@@ -10,7 +10,7 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
     }
     
     private let headerLabel = UILabel()
-    private let titleLabel = UILabel()
+    private(set) var titleLabel = UILabel()
     private let infoLabel = UILabel()
     private let dividerView = UIView(frame: .zero)
     
@@ -30,7 +30,7 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 22, right: layoutMargins.right + 7)
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top - 1, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 21, right: layoutMargins.right + 7)
         
         let talkOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let labelMaximumWidth = size.width - adjustedMargins.left - adjustedMargins.right
@@ -43,7 +43,7 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         
         var finalHeight: CGFloat
         if hasInfoText {
-            let infoOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + 10)
+            let infoOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + 7)
             let infoFrame = infoLabel.wmf_preferredFrame(at: infoOrigin, maximumWidth: labelMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
             finalHeight = infoFrame.maxY + adjustedMargins.bottom
         } else {
@@ -70,6 +70,7 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         
         //todo: we need to support topic <b> <i> and <a> tags
         //also todo: need to add intro text truncated to 3 lines
+        
         titleLabel.text = viewModel.title
         
         updateFonts(with: traitCollection)
@@ -77,8 +78,8 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        headerLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(DynamicTextStyle.boldTitle2, compatibleWithTraitCollection: traitCollection)
+        headerLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_font(DynamicTextStyle.boldTitle1, compatibleWithTraitCollection: traitCollection)
         infoLabel.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
     }
     

@@ -86,6 +86,7 @@
 "action-unsaved-accessibility-notification" = "Article no desat";
 "action-update" = "Actualitza";
 "add-articles-to-reading-list" = "Afegeix {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
+"add-citation-title" = "Afegeix una referència";
 "announcements-dismiss" = "Descarta";
 "app-store-keywords" = "Wikipedia, Viquipèdia, referència, wiki, enciclopèdia, informació, coneixement, recerca, exploració, aprenentatge";
 "app-store-release-notes" = "Canal d'exploració plenament configurable i fàcil de llegir. Localització, millores de rendiment i correccions d'errades.";
@@ -180,7 +181,11 @@
 "edit-italic-accessibility-label" = "Afegeix format en cursiva";
 "edit-italic-remove-accessibility-label" = "Suprimeix format en cursiva";
 "edit-link-accessibility-label" = "Afegeix sintaxi d'enllaç";
+"edit-link-display-text-title" = "Text a mostrar";
+"edit-link-link-target-title" = "Destinació de l'enllaç";
 "edit-link-remove-accessibility-label" = "Suprimeix sintaxi d'enllaç";
+"edit-link-remove-link-title" = "Suprimeix l'enllaç";
+"edit-link-title" = "Modifica l'enllaç";
 "edit-menu-item" = "Edita";
 "edit-menu-item-could-not-find-selection-alert-message" = "Podria ser perquè el text que heu seleccionat no és editable (p. ex., el títol de l'article o els títols de les infotaules) o bé per la longitud del text que s'ha ressaltat";
 "edit-menu-item-could-not-find-selection-alert-title" = "No s’ha pogut trobar el text que heu seleccionat";
@@ -189,7 +194,6 @@
 "edit-ordered-list-accessibility-label" = "Fes la línia actual part d'una llista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Treu la línia actual de la llista ordenada";
 "edit-published" = "S'ha publicat la modificació";
-"edit-published-button-title" = "Fet";
 "edit-published-subtitle" = "Heu millorat la Viquipèdia per a tothom";
 "edit-reference-accessibility-label" = "Afegeix sintaxi de referència";
 "edit-reference-remove-accessibility-label" = "Suprimeix sintaxi de referència";
@@ -398,6 +402,7 @@
 "info-box-close-text" = "Tanca";
 "info-box-title" = "Dades ràpides";
 "insert-action-title" = "Insereix";
+"insert-link-title" = "Insereix un enllaç";
 "insert-media-alternative-text-description" = "Text de descripció per als lectors que no poden veure la imatge";
 "insert-media-alternative-text-placeholder" = "Descriviu la imatge";
 "insert-media-alternative-text-title" = "Text alternatiu";

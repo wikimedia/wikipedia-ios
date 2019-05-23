@@ -17,6 +17,12 @@ class HintController: NSObject {
     private var task: DispatchWorkItem?
 
     var theme = Theme.standard
+    
+    //if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
+    //must also override extendsUnderSafeArea to true in HintViewController
+    var extendsUnderSafeArea: Bool {
+        return false
+    }
 
     init(hintViewController: HintViewController) {
         self.hintViewController = hintViewController
@@ -67,13 +73,14 @@ class HintController: NSObject {
             presenter.view.addSubview(containerView)
         }
 
-        let safeBottomAnchor = presenter.view.safeAreaLayoutGuide.bottomAnchor
+        var bottomAnchor: NSLayoutYAxisAnchor
+        bottomAnchor = extendsUnderSafeArea ? presenter.view.bottomAnchor : presenter.view.safeAreaLayoutGuide.bottomAnchor
 
         // `containerBottomConstraint` is activated when the hint is visible
-        containerViewConstraint.bottom = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: 0 - additionalBottomSpacing)
+        containerViewConstraint.bottom = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0 - additionalBottomSpacing)
 
         // `containerTopConstraint` is activated when the hint is hidden
-        containerViewConstraint.top = containerView.topAnchor.constraint(equalTo: safeBottomAnchor)
+        containerViewConstraint.top = containerView.topAnchor.constraint(equalTo: bottomAnchor)
 
         let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor)
         let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)

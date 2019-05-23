@@ -188,11 +188,11 @@
 "edit-italic-accessibility-label" = "Cursieve opmaak toevoegen";
 "edit-italic-remove-accessibility-label" = "Cursieve opmaak weghalen";
 "edit-link-remove-accessibility-label" = "Syntaxis van koppeling verwijderen";
+"edit-link-title" = "Koppeling bewerken";
 "edit-menu-item" = "Bewerken";
 "edit-minor-learn-more-text" = "Meer informatie over kleine bewerkingen";
 "edit-minor-text" = "Dit is een kleine bewerking";
 "edit-published" = "Bewerking gepubliceerd";
-"edit-published-button-title" = "Afgerond";
 "edit-published-subtitle" = "U hebt Wikipedia zojuist voor iedereen beter gemaakt";
 "edit-reference-accessibility-label" = "Voeg referentiesyntaxis toe";
 "edit-strikethrough-accessibility-label" = "Doorhalen toevoegen";

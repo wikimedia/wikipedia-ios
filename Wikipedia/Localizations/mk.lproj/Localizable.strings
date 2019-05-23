@@ -75,6 +75,7 @@
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
+"add-citation-title" = "Додај навод";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -169,7 +170,11 @@
 "edit-italic-accessibility-label" = "Стави закосено форматирање";
 "edit-italic-remove-accessibility-label" = "Отстрани закосено форматирање";
 "edit-link-accessibility-label" = "Стави синтакса за врска";
+"edit-link-display-text-title" = "Прикажи текст";
+"edit-link-link-target-title" = "Цел на врската";
 "edit-link-remove-accessibility-label" = "Отстрани синтакса за врска";
+"edit-link-remove-link-title" = "Отстрани врска";
+"edit-link-title" = "Уреди врска";
 "edit-menu-item" = "Уреди";
 "edit-menu-item-could-not-find-selection-alert-message" = "Ова може да се случува бидејќи текстот што го избравте не е уредлив (на пр. наслов на статија или наслови ви инфокутија), или пак поради големината на означениот текст.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Не можев да го пронајдам избраниот текст";
@@ -178,7 +183,6 @@
 "edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
 "edit-ordered-list-remove-accessibility-label" = "Отстрани подреден список од тековниот ред";
 "edit-published" = "Уредувањето е објавено";
-"edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
 "edit-reference-accessibility-label" = "Стави синтакса за навод";
 "edit-reference-remove-accessibility-label" = "Отстрани синтакса за навод";
@@ -387,6 +391,7 @@
 "info-box-close-text" = "Затвори";
 "info-box-title" = "Кратки факти";
 "insert-action-title" = "Вметни";
+"insert-link-title" = "Вметни врска";
 "insert-media-alternative-text-description" = "Писмен опис за читателите кои не можат да ја видат сликата";
 "insert-media-alternative-text-placeholder" = "Опишете ја сликава";
 "insert-media-alternative-text-title" = "Алтернативен текст";

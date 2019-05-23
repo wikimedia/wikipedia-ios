@@ -19,13 +19,13 @@ class TalkPageReplyCell: CollectionViewCell {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
         let isRTL = semanticContentAttribute == .forceRightToLeft
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left + 5, bottom: layoutMargins.bottom, right: layoutMargins.right + 5)
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left, bottom: 0, right: layoutMargins.right)
         
         var depthIndicatorOrigin: CGPoint?
         if depth > 0 {
             var depthIndicatorX = isRTL ? size.width - adjustedMargins.right : adjustedMargins.left
             
-            let depthAdjustmentMultiplier = CGFloat(12) //todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
+            let depthAdjustmentMultiplier = CGFloat(13) //todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
             if isRTL {
                 depthIndicatorX -= (CGFloat(depth) - 1) * depthAdjustmentMultiplier
             } else {
@@ -71,8 +71,9 @@ class TalkPageReplyCell: CollectionViewCell {
         let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
         
         //todo: we seem to be losing <b> tags (possibly more). Need to look into this.
-        let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: font, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim()
-        titleTextView.attributedText = attributedString
+        if let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: font, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim() {
+            setupTitle(for: attributedString)
+        }
         setNeedsLayout()
     }
     
@@ -84,9 +85,18 @@ class TalkPageReplyCell: CollectionViewCell {
         depthMarker.frame = .zero
     }
     
+    private func setupTitle(for attributedText: NSAttributedString) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 7
+        let attrString = NSMutableAttributedString(attributedString: attributedText)
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSRange(location: 0, length: attrString.length))
+        titleTextView.attributedText = attrString
+    }
+    
+    
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleTextView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        setupTitle(for: titleTextView.attributedText)
     }
     
     override func setup() {
@@ -106,7 +116,7 @@ extension TalkPageReplyCell: Themeable {
         self.theme = theme
         titleTextView.textColor = theme.colors.primaryText
         titleTextView.backgroundColor = theme.colors.paperBackground
-        depthMarker.backgroundColor = theme.colors.border
+        depthMarker.backgroundColor = theme.colors.depthMarker
         contentView.backgroundColor = theme.colors.paperBackground
     }
 }
