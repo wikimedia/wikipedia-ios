@@ -23,6 +23,7 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         textView.placeholder = placeholder!
         textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag
+        accessibilityElements = [headerLabel as Any, textView as Any, textView.clearButton as Any, footerLabel as Any]
         return textView
     }
 
@@ -49,4 +50,3 @@ extension InsertMediaSettingsTextTableViewCell: Themeable {
         textView.apply(theme: theme)
     }
 }
-

@@ -98,6 +98,7 @@
 "action-unsaved-accessibility-notification" = "Artigo não salvo";
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
+"add-citation-title" = "Adicionar citação";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
@@ -192,7 +193,11 @@
 "edit-italic-accessibility-label" = "Adicionar formatação em itálico";
 "edit-italic-remove-accessibility-label" = "Remover formatação em itálico";
 "edit-link-accessibility-label" = "Acrescentar sintaxe para link";
+"edit-link-display-text-title" = "Mostrar texto";
+"edit-link-link-target-title" = "Destino do link";
 "edit-link-remove-accessibility-label" = "Remover a sintaxe do link";
+"edit-link-remove-link-title" = "Remover link";
+"edit-link-title" = "Editar link";
 "edit-menu-item" = "Editar";
 "edit-menu-item-could-not-find-selection-alert-message" = "Isso pode ocorrer porque o texto selecionado não é editável (por exemplo, título do artigo ou títulos de infobox) ou devido à duração do texto destacado.";
 "edit-menu-item-could-not-find-selection-alert-title" = "O texto que você selecionou não pôde ser localizado";
@@ -201,7 +206,6 @@
 "edit-ordered-list-accessibility-label" = "Tornar a lista ordenada da linha atual";
 "edit-ordered-list-remove-accessibility-label" = "Remover lista ordenada da linha atual";
 "edit-published" = "Editar publicado";
-"edit-published-button-title" = "Feito";
 "edit-published-subtitle" = "Você acabou de tornar a Wikipédia melhor para todos";
 "edit-reference-accessibility-label" = "Adicionar sintaxe de referência";
 "edit-reference-remove-accessibility-label" = "Remover a sintaxe de referência";
@@ -410,6 +414,7 @@
 "info-box-close-text" = "Fechar";
 "info-box-title" = "Fatos rápidos";
 "insert-action-title" = "Inserir";
+"insert-link-title" = "Inserir link";
 "insert-media-alternative-text-description" = "Descrição em texto para leitores que não podem ver a imagem";
 "insert-media-alternative-text-placeholder" = "Descreva esta imagem";
 "insert-media-alternative-text-title" = "Texto alternativo";

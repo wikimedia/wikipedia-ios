@@ -92,6 +92,7 @@
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
+"add-citation-title" = "إضافة استشهاد";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
@@ -186,7 +187,11 @@
 "edit-italic-accessibility-label" = "إضافة تنسيق مائل";
 "edit-italic-remove-accessibility-label" = "إزالة التنسيق المائل";
 "edit-link-accessibility-label" = "إضافة صيغة الوصلة";
+"edit-link-display-text-title" = "نص العرض";
+"edit-link-link-target-title" = "رابط الهدف";
 "edit-link-remove-accessibility-label" = "إزالة صيغة الوصلة";
+"edit-link-remove-link-title" = "إزالة الرابط";
+"edit-link-title" = "عدل الوصلة";
 "edit-menu-item" = "تعديل";
 "edit-menu-item-could-not-find-selection-alert-message" = "قد يكون هذا لأن النص الذي حددته غير قابل للتحرير (على سبيل المثال، عنوان مقالة أو عناوين صندوق معلومات) أو بسبب طول النص الذي تم تمييزه";
 "edit-menu-item-could-not-find-selection-alert-title" = "تعذر تحديد موقع النص الذي حددته";
@@ -195,7 +200,6 @@
 "edit-ordered-list-accessibility-label" = "جعل الخط الحالي قائمة مرتبة";
 "edit-ordered-list-remove-accessibility-label" = "إزالة قائمة مرتبة من الخط الحالي";
 "edit-published" = "تم نشر التعديل";
-"edit-published-button-title" = "تم";
 "edit-published-subtitle" = "أنت فقط جعلت ويكيبيديا أفضل للجميع";
 "edit-reference-accessibility-label" = "أضف صيغة مرجع";
 "edit-reference-remove-accessibility-label" = "إزالة صيغة المرجع";
@@ -404,6 +408,7 @@
 "info-box-close-text" = "إغلاق";
 "info-box-title" = "معلومات سريعة";
 "insert-action-title" = "إدراج";
+"insert-link-title" = "إدراج وصلة";
 "insert-media-alternative-text-description" = "وصف النص للقراء الذين لا يستطيعون رؤية الصورة";
 "insert-media-alternative-text-placeholder" = "صف هذه الصورة";
 "insert-media-alternative-text-title" = "نص بديل";

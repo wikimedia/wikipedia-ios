@@ -11,7 +11,7 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
         reset()
-        layoutSubviews()
+        setNeedsLayout()
     }
     
     open func reset() {

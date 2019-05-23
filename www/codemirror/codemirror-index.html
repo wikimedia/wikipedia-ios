@@ -1302,12 +1302,12 @@
             const newPageWithLabel = `[[${page}|${label}]]`
             editor.replaceRange(newPageWithLabel, link.innerPosition.from, link.innerPosition.to)
           } else {
-            const shouldAddLabel = link.page.toLowerCase() !== page.toLowerCase()
+            const shouldAddLabel = (link.page.length > 0) && (link.page.toLowerCase() !== page.toLowerCase())
             let newPageWithMaybeLabel
             if (shouldAddLabel) {
               newPageWithMaybeLabel = `[[${page}|${link.page}]]`
             } else {
-              newPageWithMaybeLabel = `[[${link.page}]]` // use link.page to match case
+              newPageWithMaybeLabel = link.page.length > 0 ? `[[${link.page}]]` : `[[${page}]]`
             }
             editor.replaceRange(newPageWithMaybeLabel, link.innerPosition.from, link.innerPosition.to)
           }
