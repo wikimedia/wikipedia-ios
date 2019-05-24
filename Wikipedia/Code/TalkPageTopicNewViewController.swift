@@ -121,11 +121,6 @@ class TalkPageTopicNewViewController: ViewController {
         calculateSingleLineBodyHeightIfNeeded()
     }
 
-    override func becomeFirstResponder() -> Bool {
-        beKindInputAccessoryView?.invalidateIntrinsicContentSize()
-        return super.becomeFirstResponder()
-    }
-
     override var canBecomeFirstResponder: Bool {
         return true
     }
