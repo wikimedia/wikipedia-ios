@@ -61,6 +61,11 @@ class AddArticlesToReadingListViewController: ViewController {
         readingListsViewController.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
     }
 
+    override func accessibilityPerformEscape() -> Bool {
+        closeButtonPressed()
+        return true
+    }
+
     private var isCreateNewReadingListButtonViewHidden: Bool = false {
         didSet {
             if isCreateNewReadingListButtonViewHidden {
