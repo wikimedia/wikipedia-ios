@@ -76,7 +76,7 @@ class TalkPageLocalHandler {
         }
         
         let oldTopicSetShas = Set(topicShas)
-        let newTopicSetShas = Set(networkTalkPage.topics.map { $0.textShaForManagedObject })
+        let newTopicSetShas = Set(networkTalkPage.topics.map { $0.shas.text })
         
         //delete old topics
         let topicShasToDelete = oldTopicSetShas.subtracting(newTopicSetShas)
@@ -95,7 +95,7 @@ class TalkPageLocalHandler {
         let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
         
         for insertSha in topicShasToInsert {
-            if let networkTopic = networkTalkPage.topics.filter({ $0.textShaForManagedObject == insertSha }).first {
+            if let networkTopic = networkTalkPage.topics.filter({ $0.shas.text == insertSha }).first {
                 addTalkPageTopic(to: localTalkPage, with: networkTopic)
             }
         }
@@ -130,7 +130,7 @@ private extension TalkPageLocalHandler {
             return
         }
         
-        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.textShaForManagedObject) }).sorted(by: { $0.textShaForManagedObject < $1.textShaForManagedObject })
+        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.text) }).sorted(by: { $0.shas.text < $1.shas.text })
         
         guard (sameLocalTopics.count == sameNetworkTopics.count) else {
             return
@@ -146,17 +146,18 @@ private extension TalkPageLocalHandler {
                  assertionFailure("Network topic is missing sort.")
             }
             
+            //todo possible performance, at one point we thought maybe having a 3rd separate "replies" at the topic level sha that represents only the replies text of a topic could improve performance here. Keeping it out now for simplicity but we could bring it back if we find it improves things.
             //if replies have not changed in any manner, no need to dig into replies diffing
-            guard localTopic.repliesSha != networkTopic.shas.replies else {
-                continue
-            }
+//            guard localTopic.repliesSha != networkTopic.shas.replies else {
+//                continue
+//            }
             
             guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap ({ return $0.sha }) else {
                 continue
             }
             
             let oldSetReplyShas = Set(replyShas)
-            let newSetReplyShas = Set(networkTopic.replies.map { $0.textShaForManagedObject })
+            let newSetReplyShas = Set(networkTopic.replies.map { $0.sha })
             
             //delete old replies
             let replyShasToDelete = oldSetReplyShas.subtracting(newSetReplyShas)
@@ -185,7 +186,7 @@ private extension TalkPageLocalHandler {
                 return
             }
             
-            let sameNetworkReplies = networkTopic.replies.filter ({ commonReplyShas.contains($0.textShaForManagedObject) }).sorted(by: { $0.textShaForManagedObject < $1.textShaForManagedObject })
+            let sameNetworkReplies = networkTopic.replies.filter ({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
             
             guard sameLocalReplies.count == sameNetworkReplies.count else { continue }
             
@@ -199,7 +200,7 @@ private extension TalkPageLocalHandler {
             let replyShasToInsert = newSetReplyShas.subtracting(oldSetReplyShas)
             
             for insertSha in replyShasToInsert {
-                if let networkReply = networkTopic.replies.filter({ $0.textShaForManagedObject == insertSha }).first {
+                if let networkReply = networkTopic.replies.filter({ $0.sha == insertSha }).first {
                     addTalkPageReply(to: localTopic, with: networkReply)
                 }
             }
@@ -229,8 +230,8 @@ private extension TalkPageLocalHandler {
             assertionFailure("Network topic is missing sort")
         }
         
-        topic.textSha = networkTopic.textShaForManagedObject
-        topic.repliesSha = networkTopic.shas.replies
+        topic.textSha = networkTopic.shas.text
+        topic.indicatorSha = networkTopic.shas.indicator
         
         for reply in networkTopic.replies {
             
@@ -251,6 +252,6 @@ private extension TalkPageLocalHandler {
         reply.text = networkReply.text
         reply.sort = Int64(networkReply.sort)
         reply.topic = topic
-        reply.sha = networkReply.textShaForManagedObject
+        reply.sha = networkReply.sha
     }
 }
