@@ -176,6 +176,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     return cell;
 }
 
+- (BOOL)accessibilityPerformEscape {
+    [self closeButtonPressed];
+    return YES;
+}
+
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
     [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn];

@@ -33,7 +33,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
-    @objc func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
     }
 
@@ -59,6 +59,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         startDate = Date()
+    }
+
+    override func accessibilityPerformEscape() -> Bool {
+        closeButtonPushed(nil)
+        return true
     }
     
     override func viewDidLoad() {
