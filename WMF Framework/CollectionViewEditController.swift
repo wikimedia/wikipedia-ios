@@ -576,7 +576,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var isTextEditing: Bool = false {
         didSet {
-            editingState = .editing
+            editingState = isTextEditing ? .editing : .done
         }
     }
     
