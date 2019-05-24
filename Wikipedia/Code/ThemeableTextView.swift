@@ -2,6 +2,10 @@ protocol ThemeableTextViewPlaceholderDelegate: AnyObject {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool)
 }
 
+protocol ThemeableTextViewClearDelegate: AnyObject {
+    func themeableTextViewDidClear(_ themeableTextView: UITextView)
+}
+
 class ThemeableTextView: UITextView {
     private var theme = Theme.standard
     public var isUnderlined = true
@@ -9,6 +13,7 @@ class ThemeableTextView: UITextView {
 
     weak var _delegate: UITextViewDelegate?
     weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?
+    weak var clearDelegate: ThemeableTextViewClearDelegate?
 
     var clearButton: UIButton!
 
@@ -104,6 +109,7 @@ class ThemeableTextView: UITextView {
     @objc private func clear() {
         text = nil
         setClearButtonHidden(true)
+        clearDelegate?.themeableTextViewDidClear(self)
         UIAccessibility.post(notification: .layoutChanged, argument: self)
     }
 
