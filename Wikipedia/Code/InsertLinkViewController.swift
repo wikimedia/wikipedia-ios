@@ -59,6 +59,11 @@ class InsertLinkViewController: UIViewController {
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
         delegate?.insertLinkViewController(self, didTapCloseButton: sender)
     }
+
+    override func accessibilityPerformEscape() -> Bool {
+        delegate?.insertLinkViewController(self, didTapCloseButton: closeButton)
+        return true
+    }
 }
 
 extension InsertLinkViewController: ArticleCollectionViewControllerDelegate {

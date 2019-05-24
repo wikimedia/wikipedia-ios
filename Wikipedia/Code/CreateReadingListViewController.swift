@@ -40,6 +40,11 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     override func viewWillDisappear(_ animated: Bool) {
         view.endEditing(false)
     }
+
+    override func accessibilityPerformEscape() -> Bool {
+        dismiss(animated: true)
+        return true
+    }
     
     init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil) {
         self.theme = theme
