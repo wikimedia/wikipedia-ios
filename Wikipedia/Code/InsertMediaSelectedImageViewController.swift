@@ -65,6 +65,11 @@ extension InsertMediaSelectedImageViewController: InsertMediaSearchResultsCollec
             stopActivityIndicator()
             return
         }
+        if selectedView.moreInformationAction == nil {
+            selectedView.moreInformationAction = { [weak self] url in
+                self?.present(SFSafariViewController(url: url), animated: true)
+            }
+        }
         selectedView.configure(with: imageURL, searchResult: searchResult, theme: theme) { error in
             guard error == nil else {
                 self.stopActivityIndicator()
@@ -72,9 +77,6 @@ extension InsertMediaSelectedImageViewController: InsertMediaSearchResultsCollec
             }
             self.stopActivityIndicator()
             if self.selectedView.superview == nil {
-                self.selectedView.moreInformationAction = { [weak self] url in
-                    self?.present(SFSafariViewController(url: url), animated: true)
-                }
                 self.view.wmf_addSubviewWithConstraintsToEdges(self.selectedView)
             }
             self.delegate?.insertMediaSelectedImageViewController(self, didSetSelectedImage: self.image, from: searchResult)

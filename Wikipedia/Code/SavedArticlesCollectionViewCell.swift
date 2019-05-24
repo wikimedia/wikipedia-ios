@@ -205,18 +205,24 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         if (apply && !isAlertIconHidden) {
             var x = origin.x
             if isArticleRTL {
-                x = size.width - alertIconDimension - layoutMargins.right
+                x = size.width - layoutMargins.right - alertIconDimension
             }
             alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
             origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
         if (apply && !isAlertLabelHidden) {
-            var xPosition = alertIcon.frame.maxX + spacing
+            let xPosition: CGFloat
+            if isAlertIconHidden {
+                xPosition = origin.x
+            } else if isArticleRTL {
+                xPosition = alertIcon.frame.origin.x - widthMinusMargins + alertIconDimension
+            } else {
+                xPosition = alertIcon.frame.maxX + spacing
+            }
             var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
             var availableWidth = widthMinusMargins - alertIconDimension - spacing
             if isAlertIconHidden {
-                xPosition = origin.x
                 yPosition = yAlignedWithImageBottom
                 availableWidth = widthMinusMargins
             }
