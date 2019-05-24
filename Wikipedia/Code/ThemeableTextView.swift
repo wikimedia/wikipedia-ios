@@ -83,8 +83,9 @@ class ThemeableTextView: UITextView {
         }
         textContainerInset = inset
 
-        if let selectedTextRange = selectedTextRange {
-            clearButtonCenterY = caretRect(for: selectedTextRange.start).midY
+        if let selectedTextRange = selectedTextRange, let font = font {
+            let caret = caretRect(for: selectedTextRange.start)
+            clearButtonCenterY = caret.midY + (caret.height - font.lineHeight)
         } else {
             clearButtonCenterY = nil
         }
