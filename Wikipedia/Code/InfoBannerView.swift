@@ -1,20 +1,11 @@
 
 import UIKit
 
-class InfoBannerView: UIView {
+class InfoBannerView: SetupView {
     
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
@@ -82,12 +73,8 @@ class InfoBannerView: UIView {
         titleLabel.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
     }
-}
 
-//MARK: Private
-
-private extension InfoBannerView {
-    func setupView() {
+    override func setup() {
         preservesSuperviewLayoutMargins = false
         insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false

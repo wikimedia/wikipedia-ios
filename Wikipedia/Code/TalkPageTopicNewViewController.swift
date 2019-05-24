@@ -16,14 +16,13 @@ class TalkPageTopicNewViewController: ViewController {
     
     @IBOutlet private var divViews: [UIView]!
     @IBOutlet private var containerViews: [UIView]!
-    
-    @IBOutlet private var beKindContainerView: UIView!
-    private var beKindView: InfoBannerView!
-    @IBOutlet private var beKindContainerViewHeightConstraint: NSLayoutConstraint!
+
     private var beKindViewTopConstraint: NSLayoutConstraint!
     private var beKindViewBottomConstraint: NSLayoutConstraint!
     private var beKindViewHeightConstraint: NSLayoutConstraint!
-    
+
+    private var beKindInputAccessoryView: BeKindInputAccessoryView?
+
     @IBOutlet private var finePrintContainerView: UIView!
     @IBOutlet private var bodyContainerView: UIView!
     @IBOutlet private var bodyContainerVerticalPaddingConstraints: [NSLayoutConstraint]!
@@ -80,11 +79,18 @@ class TalkPageTopicNewViewController: ViewController {
 
         setupNavigationBar()
         setupTextInputViews()
-        setupBeKindContainerView()
+        beKindInputAccessoryView = BeKindInputAccessoryView.wmf_viewFromClassNib()
         setupBackgroundTap()
         talkPageScrollView.keyboardDismissMode = .interactive
         
         calculateSingleLineBodyHeightIfNeeded()
+
+        subjectTextField.inputAccessoryView = beKindInputAccessoryView
+        bodyTextView.inputAccessoryView = beKindInputAccessoryView
+    }
+
+    override var inputAccessoryView: UIView? {
+        return beKindInputAccessoryView
     }
     
     override func viewDidLayoutSubviews() {
@@ -105,50 +111,7 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.isUserInteractionEnabled = true
         bodyTextView.isUserInteractionEnabled = true
     }
-    
-    override func keyboardWillChangeFrame(_ notification: Notification) {
-        
-        super.keyboardWillChangeFrame(notification)
-        
-        if let keyboardFrame = keyboardFrame {
-            
-            if keyboardFrame.height == 0 {
-                return
-            }
-            
-            var convertedBeKindViewFrame = beKindContainerView.convert(beKindView.frame, to: view)
-            convertedBeKindViewFrame.origin.y = keyboardFrame.minY - beKindContainerView.frame.height
-            let newBeKindViewFrame = view.convert(convertedBeKindViewFrame, to: beKindContainerView)
-            
-            beKindViewTopConstraint.constant = newBeKindViewFrame.minY
-            beKindViewBottomConstraint.isActive = false
-            beKindContainerViewHeightConstraint.constant = 0
-            
-            let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
-            let curve = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UIView.AnimationOptions) ?? UIView.AnimationOptions.curveLinear
-            
-            UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
-                self.view.layoutIfNeeded()
-             }, completion: nil)
-        }
-        
-    }
-    
-    override func keyboardWillHide(_ notification: Notification) {
-        super.keyboardWillHide(notification)
-        
-        let keyboardAnimationDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
-        let duration = keyboardAnimationDuration == 0 ? 0.2 : keyboardAnimationDuration
-        
-        beKindViewTopConstraint.constant = 0
-        beKindViewBottomConstraint.isActive = true
-        beKindContainerViewHeightConstraint.constant = beKindViewHeightConstraint.constant
-        
-        UIView.animate(withDuration: duration, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -156,6 +119,15 @@ class TalkPageTopicNewViewController: ViewController {
         
         singleLineBodyHeight = nil
         calculateSingleLineBodyHeightIfNeeded()
+    }
+
+    override func becomeFirstResponder() -> Bool {
+        beKindInputAccessoryView?.invalidateIntrinsicContentSize()
+        return super.becomeFirstResponder()
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     override func apply(theme: Theme) {
@@ -165,8 +137,7 @@ class TalkPageTopicNewViewController: ViewController {
         divViews.forEach { $0.backgroundColor = theme.colors.border }
         finePrintTextView.backgroundColor = theme.colors.paperBackground
         finePrintTextView.textColor = theme.colors.secondaryText
-        beKindView?.apply(theme: theme)
-        beKindContainerView.backgroundColor = theme.colors.paperBackground
+        beKindInputAccessoryView?.apply(theme: theme)
         subjectTextField.apply(theme: theme)
         bodyTextView.apply(theme: theme)
         super.apply(theme: theme)
@@ -196,28 +167,6 @@ private extension TalkPageTopicNewViewController {
         subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new topic subject field for talk pages.")
         
         subjectTextField.addTarget(self, action: #selector(evaluatePublishButtonState), for: .editingChanged)
-    }
-    
-    func setupBeKindContainerView() {
-        
-        guard let view = view else {
-            return
-        }
-        
-        beKindView = InfoBannerView()
-        beKindView.apply(theme: theme)
-        beKindView.configure(iconName: "heart-icon", title: CommonStrings.talkPageNewBannerTitle, subtitle: CommonStrings.talkPageNewBannerSubtitle)
-        beKindContainerViewHeightConstraint.constant = beKindView.sizeThatFits(view.bounds.size, apply: true).height
-        beKindViewHeightConstraint = beKindView.heightAnchor.constraint(equalToConstant: beKindContainerViewHeightConstraint.constant)
-        beKindViewHeightConstraint.priority = .defaultHigh
-        
-        beKindView.translatesAutoresizingMaskIntoConstraints = false
-        beKindContainerView.addSubview(beKindView)
-        beKindViewTopConstraint = beKindView.topAnchor.constraint(equalTo: beKindContainerView.topAnchor)
-        beKindViewBottomConstraint = beKindView.bottomAnchor.constraint(equalTo: beKindContainerView.bottomAnchor)
-        let trailingConstraint = beKindView.trailingAnchor.constraint(equalTo: beKindContainerView.trailingAnchor)
-        let leadingConstraint = beKindView.leadingAnchor.constraint(equalTo: beKindContainerView.leadingAnchor)
-        NSLayoutConstraint.activate([beKindViewTopConstraint, beKindViewBottomConstraint, trailingConstraint, leadingConstraint, beKindViewHeightConstraint])
     }
     
     func setupBackgroundTap() {
@@ -279,7 +228,7 @@ private extension TalkPageTopicNewViewController {
         bodyContainerVerticalPaddingConstraints.forEach { contentFittingBodyContainerHeight += $0.constant  }
         
         var availableVerticalScreenSpace = talkPageScrollView.frame.height - bodyContainerOrigin.y
-        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindContainerView.frame.height
+        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindInputAccessoryView!.frame.height
         
         if bodyContainerViewHeightConstraint.constant != availableVerticalScreenSpace {
             if availableVerticalScreenSpace > singleLineBodyHeight && availableVerticalScreenSpace >= contentFittingBodyContainerHeight {
