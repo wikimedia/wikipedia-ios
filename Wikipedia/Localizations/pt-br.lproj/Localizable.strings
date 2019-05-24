@@ -137,6 +137,7 @@
 "button-skip" = "Pular";
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipedia para mais artigos para ler";

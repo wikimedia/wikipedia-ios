@@ -7,6 +7,7 @@
 // Author: Haytham morsy
 // Author: Hhaboh162002
 // Author: Hocinend1
+// Author: Kassem7899
 // Author: Macofe
 // Author: Maroen1990
 // Author: Meno25
@@ -131,6 +132,7 @@
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
 "cc-zero" = "المشاع الإبداعي CC0";
+"clear-title-accessibility-label" = "امسح";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
