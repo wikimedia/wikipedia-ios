@@ -71,9 +71,21 @@ class ThemeableTextView: UITextView {
         addSubview(clearButton)
         clearButton.isHidden = true
         var inset = textContainerInset
-        inset.top += 8
+        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            inset.left += clearButton.frame.width
+        } else {
+            inset.right += clearButton.frame.width
+        }
         textContainerInset = inset
+
+        if let selectedTextRange = selectedTextRange {
+            clearButtonCenterY = caretRect(for: selectedTextRange.start).midY
+        } else {
+            clearButtonCenterY = nil
+        }
     }
+
+    private var clearButtonCenterY: CGFloat?
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -83,7 +95,10 @@ class ThemeableTextView: UITextView {
         } else {
             clearButtonOriginX = frame.width - clearButton.frame.width
         }
-        clearButton.frame = CGRect(x: clearButtonOriginX, y: 0, width: clearButton.frame.width, height: clearButton.frame.height)
+        clearButton.frame = CGRect(x: clearButtonOriginX, y: textContainerInset.top, width: clearButton.frame.width, height: clearButton.frame.height)
+        if let clearButtonCenterY = clearButtonCenterY {
+            clearButton.center = CGPoint(x: clearButton.center.x, y: clearButtonCenterY)
+        }
     }
 
     @objc private func clear() {
