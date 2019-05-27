@@ -36,7 +36,7 @@ class NetworkTopic:  NSObject, Codable {
 
 class NetworkTopicShas: Codable {
     let text: String
-    let replies: String
+    let indicator: String
 }
 
 class NetworkReply: NSObject, Codable {

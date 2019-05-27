@@ -81,16 +81,16 @@
         <attribute name="sha" attributeType="String" syncable="YES"/>
         <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="text" attributeType="String" syncable="YES"/>
-        <relationship name="topic" maxCount="1" deletionRule="Deny" destinationEntity="TalkPageTopic" inverseName="replies" inverseEntity="TalkPageTopic" syncable="YES"/>
+        <relationship name="topic" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="replies" inverseEntity="TalkPageTopic" syncable="YES"/>
     </entity>
     <entity name="TalkPageTopic" representedClassName="TalkPageTopic" syncable="YES" codeGenerationType="class">
-        <attribute name="repliesSha" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="indicatorSha" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="textSha" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="replies" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageReply" inverseName="topic" inverseEntity="TalkPageReply" syncable="YES"/>
-        <relationship name="talkPage" maxCount="1" deletionRule="Deny" destinationEntity="TalkPage" inverseName="topics" inverseEntity="TalkPage" syncable="YES"/>
+        <relationship name="talkPage" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPage" inverseName="topics" inverseEntity="TalkPage" syncable="YES"/>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>

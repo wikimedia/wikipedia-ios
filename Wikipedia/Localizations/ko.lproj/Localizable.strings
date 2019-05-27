@@ -134,6 +134,7 @@
 "button-skip" = "건너뛰기";
 "cancel" = "취소";
 "cc-zero" = "크리에이티브 커먼즈 CC0";
+"clear-title-accessibility-label" = "지우기";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
@@ -184,6 +185,7 @@
 "edit-direction-up-accessibility-label" = "커서를 위로 이동";
 "edit-italic-accessibility-label" = "기울임 서식 추가";
 "edit-link-accessibility-label" = "링크 문법 추가";
+"edit-link-display-text-title" = "텍스트 표시";
 "edit-link-remove-accessibility-label" = "링크 문법 제거";
 "edit-link-remove-link-title" = "링크 제거";
 "edit-link-title" = "링크 편집";
@@ -381,6 +383,7 @@
 "info-box-close-text" = "닫기";
 "info-box-title" = "간략 정보";
 "insert-action-title" = "넣기";
+"insert-link-title" = "링크 넣기";
 "insert-media-alternative-text-placeholder" = "이 이미지 설명하기";
 "insert-media-alternative-text-title" = "대체 텍스트";
 "insert-media-caption-caption-placeholder" = "이 이미지가 문서와 어떠한 관련이 있습니까?";

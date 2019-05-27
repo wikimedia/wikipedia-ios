@@ -119,6 +119,7 @@
 "button-skip" = "Überspringen";
 "cancel" = "Abbrechen";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Löschen";
 "close-button-accessibility-label" = "Schließen";
 "compass-direction" = "nach $1 Uhr";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";

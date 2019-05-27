@@ -32,7 +32,7 @@ class TalkPageTestHelpers {
                     ],
                     "shas": {
                         "text": "5a5bd8e",
-                        "replies": "asdfgjl"
+                        "indicator": "asdfgjl"
                     },
                     "sort": 0
                 }
@@ -65,7 +65,7 @@ class TalkPageTestHelpers {
                             ],
                             "shas": {
                                 "text": "5a5bd8e",
-                                "replies": "123456"
+                                "indicator": "asdfgjl"
                             },
                             "sort": 0
                         }

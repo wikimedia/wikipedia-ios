@@ -134,6 +134,7 @@
 "button-skip" = "Přeskočit";
 "cancel" = "Storno";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Vymazat";
 "close-button-accessibility-label" = "Zavřít";
 "compass-direction" = "ve $1 hodiny";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";

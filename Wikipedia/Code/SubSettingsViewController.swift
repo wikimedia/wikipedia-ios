@@ -11,6 +11,11 @@ class SubSettingsViewController: ViewController {
     override var nibName: String? {
         return "SubSettingsViewController"
     }
+
+    override func accessibilityPerformEscape() -> Bool {
+        dismiss(animated: true)
+        return true
+    }
 }
 
 extension SubSettingsViewController: UITableViewDataSource {
