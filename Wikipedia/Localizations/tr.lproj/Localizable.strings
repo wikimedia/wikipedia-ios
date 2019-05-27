@@ -242,6 +242,7 @@
 "editing-welcome-impartial-tone-title" = "Tarafsız bir bakış açısıyla yazın";
 "editing-welcome-set-knowledge-free-subtitle" = "Herkesin dünyadaki bilgiye erişimini sağlamak için en önemli olan konuları okumada, düzenlemede ve katkıda bulunmada size ihtiyacımız var.";
 "editing-welcome-set-knowledge-free-title" = "Bilgiyi özgür kıl";
+// Fuzzy
 "empty-insert-media-title" = "Bir dosya seç";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
