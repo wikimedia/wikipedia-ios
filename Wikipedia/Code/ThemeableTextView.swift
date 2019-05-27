@@ -1,6 +1,5 @@
 protocol ThemeableTextViewPlaceholderDelegate: AnyObject {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool)
-    func themeableTextViewDidChange(_ themeableTextView: UITextView)
 }
 
 class ThemeableTextView: UITextView {
@@ -104,7 +103,6 @@ class ThemeableTextView: UITextView {
 extension ThemeableTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         _delegate?.textViewDidChange?(textView)
-        placeholderDelegate?.themeableTextViewDidChange(self)
         setClearButtonHidden(textView.text.isEmpty)
     }
 
