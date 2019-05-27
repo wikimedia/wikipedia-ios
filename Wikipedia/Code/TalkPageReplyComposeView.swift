@@ -145,7 +145,7 @@ private extension TalkPageReplyComposeView {
         addSubview(composeTextView)
         composeTextView.isUnderlined = false
         composeTextView.isScrollEnabled = true
-        composeTextView.placeholderDelegate = self
+        composeTextView._delegate = self
         composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
         insertSubview(finePrintTextView, belowSubview: composeTextView)
         finePrintTextView.isScrollEnabled = false
@@ -170,12 +170,8 @@ extension TalkPageReplyComposeView: Themeable {
 
 //MARK: ThemeableTextViewPlaceholderDelegate
 
-extension TalkPageReplyComposeView: ThemeableTextViewPlaceholderDelegate {
-    func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
-        //no-op
-    }
-    
-    func themeableTextViewDidChange(_ themeableTextView: UITextView) {
-        delegate?.composeTextDidChange(text: themeableTextView.text)
+extension TalkPageReplyComposeView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        delegate?.composeTextDidChange(text: textView.text)
     }
 }
