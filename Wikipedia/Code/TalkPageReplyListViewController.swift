@@ -113,10 +113,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         footerView?.resetCompose()
     }
 
+    private var previousKeyboardFrame: CGRect?
+
     override func keyboardWillChangeFrame(_ notification: Notification) {
-        
         super.keyboardWillChangeFrame(notification)
-        
         if let footerView = footerView,
             let keyboardFrame = keyboardFrame {
             
@@ -139,16 +139,35 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             let curve = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UIView.AnimationOptions) ?? UIView.AnimationOptions.curveLinear
             
             footerView.dividerView.isHidden = true
-            
+
+            let animateCellsIfKeyboardChangedFrame = {
+                guard self.previousKeyboardFrame != keyboardFrame else {
+                    return
+                }
+                self.updateAlphaOfVisibleCells(newAlpha: 0)
+            }
+
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 footerView.composeTextView.frame = newConvertedComposeTextViewFrame
                 footerView.beKindView.frame.origin.y = newConvertedComposeTextViewFrame.minY + newConvertedComposeTextViewFrame.height
+                animateCellsIfKeyboardChangedFrame()
             }, completion: nil)
         }
+
+        previousKeyboardFrame = keyboardFrame
     }
     
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         //no-op, avoiding updateScrollViewInsets() call in superclass
+    }
+
+    private func updateAlphaOfVisibleCells(newAlpha: CGFloat) {
+        for visibleCell in collectionView.visibleCells {
+            guard visibleCell.alpha != newAlpha else {
+                continue
+            }
+            visibleCell.alpha = newAlpha
+        }
     }
     
     override func keyboardWillHide(_ notification: Notification) {
@@ -160,6 +179,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         let duration = keyboardAnimationDuration == 0 ? 0.2 : keyboardAnimationDuration
         
         UIView.animate(withDuration: duration, animations: {
+            self.updateAlphaOfVisibleCells(newAlpha: 1)
             self.footerView?.resetComposeTextViewFrame()
             self.footerView?.resetBeKindViewFrame()
         })
