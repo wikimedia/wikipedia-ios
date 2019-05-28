@@ -9,8 +9,7 @@ protocol TalkPageReplyComposeViewDelegate: class {
 class TalkPageReplyComposeView: UIView {
     
     private(set) var composeTextViewFrame: CGRect?
-    private(set) var beKindViewFrame: CGRect?
-    
+
     lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
     lazy private var finePrintTextView: UITextView = UITextView()
     
