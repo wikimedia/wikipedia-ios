@@ -7,6 +7,12 @@ class InfoBannerView: SetupView {
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     
+    var isDynamicFont: Bool = true {
+        didSet {
+            updateFonts(with: traitCollection)
+        }
+    }
+    
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
@@ -70,8 +76,13 @@ class InfoBannerView: SetupView {
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
-        titleLabel.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
-        subtitleLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        if !isDynamicFont {
+            titleLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
+            subtitleLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
+        } else {
+            titleLabel.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
+            subtitleLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        }
     }
 
     override func setup() {

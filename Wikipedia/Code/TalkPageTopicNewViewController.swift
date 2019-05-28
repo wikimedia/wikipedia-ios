@@ -88,6 +88,7 @@ class TalkPageTopicNewViewController: ViewController {
 
         subjectTextField.inputAccessoryView = beKindInputAccessoryView
         bodyTextView.inputAccessoryView = beKindInputAccessoryView
+        beKindInputAccessoryView.delegate = self
     }
 
     override var inputAccessoryView: UIView? {
@@ -96,6 +97,7 @@ class TalkPageTopicNewViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        beKindInputAccessoryView.containerHeight = view.bounds.height
         setBodyHeightIfNeeded()
         updateContentInsets()
     }
@@ -231,11 +233,13 @@ private extension TalkPageTopicNewViewController {
         bodyContainerViewHeightConstraint.isActive = false
         bodyTextView.setNeedsLayout()
         bodyTextView.layoutIfNeeded()
+        finePrintContainerView.setNeedsLayout()
+        finePrintContainerView.layoutIfNeeded()
         var contentFittingBodyContainerHeight = bodyTextView.frame.height
         bodyContainerVerticalPaddingConstraints.forEach { contentFittingBodyContainerHeight += $0.constant  }
         
         var availableVerticalScreenSpace = talkPageScrollView.frame.height - bodyContainerOrigin.y
-        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindInputAccessoryView.frame.height
+        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindInputAccessoryView.height
         
         if bodyContainerViewHeightConstraint.constant != availableVerticalScreenSpace {
             if availableVerticalScreenSpace > singleLineBodyHeight && availableVerticalScreenSpace >= contentFittingBodyContainerHeight {
@@ -275,5 +279,13 @@ extension TalkPageTopicNewViewController: ThemeableTextViewPlaceholderDelegate {
     
     func themeableTextViewDidChange(_ themeableTextView: UITextView) {
         evaluatePublishButtonState()
+    }
+}
+
+//MARK: BeKindInputAccessoryViewDelegate
+
+extension TalkPageTopicNewViewController: BeKindInputAccessoryViewDelegate {
+    func didUpdateHeight(view: BeKindInputAccessoryView) {
+        setBodyHeightIfNeeded()
     }
 }
