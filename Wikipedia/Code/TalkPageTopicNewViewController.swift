@@ -97,6 +97,17 @@ class TalkPageTopicNewViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setBodyHeightIfNeeded()
+        updateContentInsets()
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        updateContentInsets()
+    }
+    
+    override func keyboardWillChangeFrame(_ notification: Notification) {
+        super.keyboardWillChangeFrame(notification)
+        updateContentInsets()
     }
     
     func postDidBegin() {
@@ -235,6 +246,12 @@ private extension TalkPageTopicNewViewController {
             }
         } else {
             bodyContainerViewHeightConstraint.isActive = true
+        }
+    }
+    
+    func updateContentInsets() {
+        if (!bodyContainerViewHeightConstraint.isActive) {
+            talkPageScrollView.contentInset.bottom += beKindInputAccessoryView.height
         }
     }
     

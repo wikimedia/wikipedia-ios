@@ -78,6 +78,8 @@ class InfoBannerView: SetupView {
         preservesSuperviewLayoutMargins = false
         insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
+        titleLabel.numberOfLines = 0
+        subtitleLabel.numberOfLines = 0
         addSubview(iconImageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
@@ -90,8 +92,6 @@ extension InfoBannerView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.hintBackground
         titleLabel.textColor = theme.colors.link
-        titleLabel.numberOfLines = 0
         subtitleLabel.textColor = theme.colors.link
-        subtitleLabel.numberOfLines = 0
     }
 }
