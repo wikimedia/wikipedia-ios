@@ -21,7 +21,9 @@ class TalkPageTopicNewViewController: ViewController {
     private var beKindViewBottomConstraint: NSLayoutConstraint!
     private var beKindViewHeightConstraint: NSLayoutConstraint!
 
-    private var beKindInputAccessoryView: BeKindInputAccessoryView?
+    private lazy var beKindInputAccessoryView: BeKindInputAccessoryView = {
+        return BeKindInputAccessoryView.wmf_viewFromClassNib()
+    }()
 
     @IBOutlet private var finePrintContainerView: UIView!
     @IBOutlet private var bodyContainerView: UIView!
@@ -79,7 +81,6 @@ class TalkPageTopicNewViewController: ViewController {
 
         setupNavigationBar()
         setupTextInputViews()
-        beKindInputAccessoryView = BeKindInputAccessoryView.wmf_viewFromClassNib()
         setupBackgroundTap()
         talkPageScrollView.keyboardDismissMode = .interactive
         
@@ -132,7 +133,7 @@ class TalkPageTopicNewViewController: ViewController {
         divViews.forEach { $0.backgroundColor = theme.colors.border }
         finePrintTextView.backgroundColor = theme.colors.paperBackground
         finePrintTextView.textColor = theme.colors.secondaryText
-        beKindInputAccessoryView?.apply(theme: theme)
+        beKindInputAccessoryView.apply(theme: theme)
         subjectTextField.apply(theme: theme)
         bodyTextView.apply(theme: theme)
         super.apply(theme: theme)
@@ -223,7 +224,7 @@ private extension TalkPageTopicNewViewController {
         bodyContainerVerticalPaddingConstraints.forEach { contentFittingBodyContainerHeight += $0.constant  }
         
         var availableVerticalScreenSpace = talkPageScrollView.frame.height - bodyContainerOrigin.y
-        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindInputAccessoryView!.frame.height
+        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindInputAccessoryView.frame.height
         
         if bodyContainerViewHeightConstraint.constant != availableVerticalScreenSpace {
             if availableVerticalScreenSpace > singleLineBodyHeight && availableVerticalScreenSpace >= contentFittingBodyContainerHeight {
