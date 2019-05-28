@@ -82,6 +82,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         if displayType == .largeTitle, let navigationItem = items.last {
             configureTitleBar(with: navigationItem)
         } else {
+            bar.setItems([], animated: false)
             bar.setItems(items, animated: false)
         }
         apply(theme: theme)
