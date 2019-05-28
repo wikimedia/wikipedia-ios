@@ -29,7 +29,7 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
             return composeView.composeTextViewFrame
     }
     
-    var composeTextView: UITextView {
+    var composeTextView: ThemeableTextView {
         return composeView.composeTextView
     }
     
