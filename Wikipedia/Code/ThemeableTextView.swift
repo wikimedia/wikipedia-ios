@@ -2,6 +2,10 @@ protocol ThemeableTextViewPlaceholderDelegate: AnyObject {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool)
 }
 
+protocol ThemeableTextViewClearDelegate: AnyObject {
+    func themeableTextViewDidClear(_ themeableTextView: UITextView)
+}
+
 class ThemeableTextView: UITextView {
     private var theme = Theme.standard
     public var isUnderlined = true
@@ -9,6 +13,7 @@ class ThemeableTextView: UITextView {
 
     weak var _delegate: UITextViewDelegate?
     weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?
+    weak var clearDelegate: ThemeableTextViewClearDelegate?
 
     var clearButton: UIButton!
 
@@ -71,9 +76,22 @@ class ThemeableTextView: UITextView {
         addSubview(clearButton)
         clearButton.isHidden = true
         var inset = textContainerInset
-        inset.top += 8
+        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            inset.left += clearButton.frame.width
+        } else {
+            inset.right += clearButton.frame.width
+        }
         textContainerInset = inset
+
+        if let selectedTextRange = selectedTextRange, let font = font {
+            let caret = caretRect(for: selectedTextRange.start)
+            clearButtonCenterY = caret.midY + (caret.height - font.lineHeight)
+        } else {
+            clearButtonCenterY = nil
+        }
     }
+
+    private var clearButtonCenterY: CGFloat?
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -83,12 +101,16 @@ class ThemeableTextView: UITextView {
         } else {
             clearButtonOriginX = frame.width - clearButton.frame.width
         }
-        clearButton.frame = CGRect(x: clearButtonOriginX, y: 0, width: clearButton.frame.width, height: clearButton.frame.height)
+        clearButton.frame = CGRect(x: clearButtonOriginX, y: textContainerInset.top, width: clearButton.frame.width, height: clearButton.frame.height)
+        if let clearButtonCenterY = clearButtonCenterY {
+            clearButton.center = CGPoint(x: clearButton.center.x, y: clearButtonCenterY)
+        }
     }
 
     @objc private func clear() {
         text = nil
         setClearButtonHidden(true)
+        clearDelegate?.themeableTextViewDidClear(self)
         UIAccessibility.post(notification: .layoutChanged, argument: self)
     }
 
