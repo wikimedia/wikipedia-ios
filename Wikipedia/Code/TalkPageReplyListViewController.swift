@@ -17,6 +17,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private let reuseIdentifier = "TalkPageReplyCell"
     
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageReply>!
+
+    private lazy var beKindInputAccessoryView: BeKindInputAccessoryView = BeKindInputAccessoryView.wmf_viewFromClassNib()
     
     private lazy var publishButton: UIBarButtonItem = {
         let publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
@@ -58,6 +60,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 navigationItem.rightBarButtonItem = replyBarButtonItem
                 navigationBar.updateNavigationItems()
             }
+            reloadInputViews()
         }
     }
     
@@ -95,6 +98,14 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         collectionView.keyboardDismissMode = .onDrag
     }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    override var inputAccessoryView: UIView? {
+        return showingCompose ? beKindInputAccessoryView : nil
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -128,7 +139,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             
             //shift keyboard frame if necessary so compose view is in visible window
             let navBarHeight = navigationBar.visibleHeight
-            let newHeight = keyboardFrame.minY - navBarHeight - footerView.beKindView.frame.height
+            let newHeight = keyboardFrame.minY - navBarHeight
             
             convertedComposeTextViewFrame.origin.y = navBarHeight
             convertedComposeTextViewFrame.size.height = newHeight
@@ -142,7 +153,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 footerView.composeTextView.frame = newConvertedComposeTextViewFrame
-                footerView.beKindView.frame.origin.y = newConvertedComposeTextViewFrame.minY + newConvertedComposeTextViewFrame.height
             }, completion: nil)
         }
     }
@@ -161,7 +171,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         UIView.animate(withDuration: duration, animations: {
             self.footerView?.resetComposeTextViewFrame()
-            self.footerView?.resetBeKindViewFrame()
         })
     }
     
@@ -262,6 +271,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             return estimate
         }
         configure(footer: footer)
+        footer.composeTextView.inputAccessoryView = beKindInputAccessoryView
         estimate.height = footer.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
@@ -270,6 +280,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        beKindInputAccessoryView.apply(theme: theme)
     }
 }
 
