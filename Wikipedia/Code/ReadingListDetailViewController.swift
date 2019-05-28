@@ -179,6 +179,8 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         default:
             break
         }
+        
+        navigationBar.updateNavigationItems()
     }
 }
 
