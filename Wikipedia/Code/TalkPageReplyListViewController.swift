@@ -31,6 +31,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var replyBarButtonItem: UIBarButtonItem!
+    
+    private var originalContentOffset: CGPoint?
 
     private var showingCompose = false {
         didSet {
@@ -93,11 +95,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         setupBackgroundTap()
         setupNavigationBar()
         
-        collectionView.keyboardDismissMode = .onDrag
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+        collectionView.keyboardDismissMode = .interactive
     }
     
     func postDidBegin() {
@@ -111,78 +109,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         publishButton.isEnabled = true
         showingCompose = false
         footerView?.resetCompose()
-    }
-
-    private var previousKeyboardFrame: CGRect?
-
-    override func keyboardWillChangeFrame(_ notification: Notification) {
-        super.keyboardWillChangeFrame(notification)
-        if let footerView = footerView,
-            let keyboardFrame = keyboardFrame {
-            
-            if keyboardFrame.height == 0 {
-                return
-            }
-            
-            var convertedComposeTextViewFrame = footerView.composeView.convert(footerView.composeTextView.frame, to: view)
-            
-            //shift keyboard frame if necessary so compose view is in visible window
-            let navBarHeight = navigationBar.visibleHeight
-            let newHeight = keyboardFrame.minY - navBarHeight - footerView.beKindView.frame.height
-            
-            convertedComposeTextViewFrame.origin.y = navBarHeight
-            convertedComposeTextViewFrame.size.height = newHeight
-            
-            let newConvertedComposeTextViewFrame = footerView.composeView.convert(convertedComposeTextViewFrame, from: view)
-        
-            let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
-            let curve = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UIView.AnimationOptions) ?? UIView.AnimationOptions.curveLinear
-            
-            footerView.dividerView.isHidden = true
-
-            let animateCellsIfKeyboardChangedFrame = {
-                guard self.previousKeyboardFrame != keyboardFrame else {
-                    return
-                }
-                self.updateAlphaOfVisibleCells(newAlpha: 0)
-            }
-
-            UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
-                footerView.composeTextView.frame = newConvertedComposeTextViewFrame
-                footerView.beKindView.frame.origin.y = newConvertedComposeTextViewFrame.minY + newConvertedComposeTextViewFrame.height
-                animateCellsIfKeyboardChangedFrame()
-            }, completion: nil)
-        }
-
-        previousKeyboardFrame = keyboardFrame
-    }
-    
-    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-        //no-op, avoiding updateScrollViewInsets() call in superclass
-    }
-
-    private func updateAlphaOfVisibleCells(newAlpha: CGFloat) {
-        for visibleCell in collectionView.visibleCells {
-            guard visibleCell.alpha != newAlpha else {
-                continue
-            }
-            visibleCell.alpha = newAlpha
-        }
-    }
-    
-    override func keyboardWillHide(_ notification: Notification) {
-        super.keyboardWillHide(notification)
-        
-        footerView?.dividerView.isHidden = false
-        
-        let keyboardAnimationDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0.2
-        let duration = keyboardAnimationDuration == 0 ? 0.2 : keyboardAnimationDuration
-        
-        UIView.animate(withDuration: duration, animations: {
-            self.updateAlphaOfVisibleCells(newAlpha: 1)
-            self.footerView?.resetComposeTextViewFrame()
-            self.footerView?.resetBeKindViewFrame()
-        })
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -202,7 +128,38 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         } else {
             navigationBar.shadowAlpha = 0
         }
+    }
+    
+    override func keyboardWillShow(_ notification: Notification) {
+        if traitCollection.verticalSizeClass == .regular {
+            originalContentOffset = collectionView.contentOffset
+        }
         
+        super.keyboardWillShow(notification)
+    }
+    
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        
+        //animate content offset so text view is in window
+        guard let composeTextView = footerView?.composeTextView,
+        let newKeyboardFrame = newKeyboardFrame,
+        newKeyboardFrame.minY < view.bounds.height,
+        traitCollection.verticalSizeClass == .compact else {
+            
+            if let originalContentOffset = originalContentOffset {
+                collectionView.setContentOffset(originalContentOffset, animated: true)
+            }
+            
+            return
+        }
+        
+        let convertedRect = view.convert(composeTextView.frame, from: composeTextView.superview)
+        let delta = convertedRect.minY - navigationBar.visibleHeight
+        
+        let contentOffset = collectionView.contentOffset
+
+        collectionView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y + delta), animated: true)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -383,7 +340,6 @@ private extension TalkPageReplyListViewController {
         footer.delegate = self
         footer.showingCompose = showingCompose
         footer.layoutMargins = layout.itemLayoutMargins
-        footer.layer.zPosition = 999
         footer.apply(theme: theme)
     }
     

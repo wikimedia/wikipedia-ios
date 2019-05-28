@@ -8,9 +8,6 @@ protocol TalkPageReplyComposeViewDelegate: class {
 
 class TalkPageReplyComposeView: UIView {
     
-    private(set) var composeTextViewFrame: CGRect?
-    private(set) var beKindViewFrame: CGRect?
-    
     lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
     lazy private(set) var beKindView: InfoBannerView = InfoBannerView()
     lazy private var finePrintTextView: UITextView = UITextView()
@@ -55,18 +52,6 @@ class TalkPageReplyComposeView: UIView {
         composeTextView.isUserInteractionEnabled = true
     }
     
-    func resetComposeTextViewFrame() {
-        if let composeTextViewFrame = composeTextViewFrame {
-            composeTextView.frame = composeTextViewFrame
-        }
-    }
-    
-    func resetBeKindViewFrame() {
-        if let beKindViewFrame = beKindViewFrame {
-            beKindView.frame = beKindViewFrame
-        }
-    }
-    
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
@@ -90,12 +75,10 @@ class TalkPageReplyComposeView: UIView {
         let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.67 - (finePrintFrame.height + beKindViewFrame.height)
         
         let composeTextViewFrame = CGRect(x: composeTextViewOrigin.x, y: composeTextViewOrigin.y, width: composeTextViewWidth, height: forcedComposeHeight)
-        self.composeTextViewFrame = composeTextViewFrame
         
         if (apply) {
             composeTextView.frame = composeTextViewFrame
             beKindView.frame = CGRect(x: 0, y: composeTextViewFrame.minY + composeTextViewFrame.height, width: size.width, height: beKindViewFrame.height)
-            self.beKindViewFrame = beKindView.frame
             finePrintTextView.frame = CGRect(x: adjustedMargins.left, y: composeTextViewFrame.minY + composeTextViewFrame.height + beKindViewFrame.height, width: finePrintTextViewWidth, height: finePrintFrame.height)
         }
         
