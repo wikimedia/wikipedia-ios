@@ -157,6 +157,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                           [article updateWithSummary:summaryResponse];
                                                                                       }
                                                                                       article.wikidataDescription = mwkArticle.entityDescription; // summary response not as up-to-date as mediawiki
+                                                                                      article.ns = [NSNumber numberWithInteger:mwkArticle.ns];
                                                                                       NSError *saveError = nil;
                                                                                       if ([moc hasChanges] && ![moc save:&saveError]) {
                                                                                           DDLogError(@"Error saving after updating article: %@", saveError);
