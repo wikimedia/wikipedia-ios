@@ -170,7 +170,7 @@ private extension NSManagedObjectContext {
             if let sort = networkTopic.sort, localTopic.sort != sort {
                 localTopic.sort = Int64(sort)
             } else {
-                assertionFailure("Network topic is missing sort.")
+                assert(networkTopic.sort != nil, "Network topic is missing sort.")
             }
             
             let sectionID = Int64(networkTopic.sectionID)
