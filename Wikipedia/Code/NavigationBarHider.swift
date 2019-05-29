@@ -166,14 +166,14 @@ public class NavigationBarHider: NSObject {
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             } else {
-                if targetOffsetY < 0.5 * extendedViewHideableHeight { // show everything if extended view is less than half hidden
+                if targetOffsetY < 0.5 * underBarViewHideableHeight { // show everything if underbar view is less than half hidden
                     targetContentOffset.pointee = CGPoint(x: 0, y: top)
-                } else if targetOffsetY < extendedViewHideableHeight + 0.5 * underBarViewHideableHeight { // just hide extended view if it's more than half hidden and under bar view is less than half hidden
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight)
-                } else if targetOffsetY < extendedViewHideableHeight + underBarViewHideableHeight + 0.5 * topSpacingHideableHeight { // hide extended & under bar views
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight + underBarViewHideableHeight)
-                } else if targetOffsetY < extendedViewHideableHeight + underBarViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight  { // hide top spacing
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight + underBarViewHideableHeight + topSpacingHideableHeight)
+                } else if targetOffsetY < underBarViewHideableHeight + 0.5 * extendedViewHideableHeight { // just hide underbar view if it's more than half hidden and extended view is less than half hidden
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + underBarViewHideableHeight)
+                } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + 0.5 * topSpacingHideableHeight { // hide extended & under bar views
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + underBarViewHideableHeight + extendedViewHideableHeight)
+                } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight  { // hide top spacing
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight)
                 } else { // hide everything
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
