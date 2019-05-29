@@ -273,7 +273,7 @@ private extension TalkPageTopicListViewController {
         
         let infoText = NSString.localizedStringWithFormat(languageTextFormat as NSString, languageWikiText) as String
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText)
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText, intro: talkPage.introText)
         
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins

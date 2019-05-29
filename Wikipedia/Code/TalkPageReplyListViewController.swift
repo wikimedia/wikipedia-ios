@@ -120,7 +120,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             
             let convertedHeaderTitleFrame = headerView.convert(headerView.titleTextView.frame, to: view)
             let oldTitle = navigationItem.title
-            let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? topic.title : nil
+            let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? headerView.titleTextView.attributedText.string : nil
             if oldTitle != newTitle {
                 navigationItem.title = showingCompose ? replyString : newTitle
                 navigationBar.updateNavigationItems()
@@ -329,7 +329,7 @@ private extension TalkPageReplyListViewController {
         
         let headerText = WMFLocalizedString("talk-page-topic-title", value: "Discussion", comment: "This header label is displayed at the top of a talk page topic thread.").localizedUppercase
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil)
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil, intro: nil)
         
         header.delegate = self
         header.configure(viewModel: viewModel)
