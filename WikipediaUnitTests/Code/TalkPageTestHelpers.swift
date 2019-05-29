@@ -90,7 +90,7 @@ class TalkPageTestHelpers {
                 }
             }
             
-            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, topics: result.topics, revisionId: revisionId, displayTitle: "Username", languageCode: "en")
+            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, topics: result.topics, revisionId: revisionId, displayTitle: "Username", languageCode: "en", introText: "Intro text")
 
             return talkPage
         } catch {
