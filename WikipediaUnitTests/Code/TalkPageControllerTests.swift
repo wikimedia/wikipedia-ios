@@ -124,7 +124,7 @@ class TalkPageControllerTests: XCTestCase {
                     XCTFail("Failure fetching initial talk pages")
                     return
                 }
-                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID)
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID) as? TalkPage
                 XCTAssertEqual(results.count, 1, "Expected one talk page in DB")
                 XCTAssertEqual(results.first, dbTalkPage)
                 XCTAssertEqual(dbTalkPage?.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
@@ -329,10 +329,10 @@ class TalkPageControllerTests: XCTestCase {
             initialFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPageId):
-                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID)
+            case .success(let dbTalkPageID):
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID) as? TalkPage
                 firstDBTalkPage = dbTalkPage
-                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage?.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertTrue(self.talkPageFetcher.fetchCalled, "Expected fetcher to be called for initial fetch")
                 
             case .failure:
@@ -352,9 +352,9 @@ class TalkPageControllerTests: XCTestCase {
             
             switch result {
             case .success(let dbTalkPageID):
-                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID)
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID) as? TalkPage
                 XCTAssertEqual(firstDBTalkPage, dbTalkPage)
-                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage?.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertFalse(self.talkPageFetcher.fetchCalled, "Expected fetcher to not be called for second fetch")
                 
             case .failure:
