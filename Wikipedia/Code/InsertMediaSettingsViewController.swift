@@ -308,10 +308,6 @@ extension InsertMediaSettingsViewController: UITextViewDelegate {
 }
 
 extension InsertMediaSettingsViewController: ThemeableTextViewPlaceholderDelegate {
-    func themeableTextViewDidChange(_ themeableTextView: UITextView) {
-        //no-op
-    }
-    
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
         updateTextViewHeight(themeableTextView)
     }

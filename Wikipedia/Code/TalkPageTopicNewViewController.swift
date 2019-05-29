@@ -171,7 +171,7 @@ private extension TalkPageTopicNewViewController {
     func setupTextInputViews() {
         subjectTextField.isUnderlined = false
         bodyTextView.isUnderlined = false
-        bodyTextView.placeholderDelegate = self
+        bodyTextView._delegate = self
         
         subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new topic subject field for talk pages.")
         
@@ -272,12 +272,8 @@ private extension TalkPageTopicNewViewController {
 
 //MARK: ThemeableTextViewPlaceholderDelegate
 
-extension TalkPageTopicNewViewController: ThemeableTextViewPlaceholderDelegate {
-    func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
-        //no-op
-    }
-    
-    func themeableTextViewDidChange(_ themeableTextView: UITextView) {
+extension TalkPageTopicNewViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
         evaluatePublishButtonState()
     }
 }
