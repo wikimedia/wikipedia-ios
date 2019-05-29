@@ -17,6 +17,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private let reuseIdentifier = "TalkPageReplyCell"
     
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageReply>!
+
+    private lazy var beKindInputAccessoryView: BeKindInputAccessoryView = BeKindInputAccessoryView.wmf_viewFromClassNib()
     
     private lazy var publishButton: UIBarButtonItem = {
         let publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
@@ -60,6 +62,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                 navigationItem.rightBarButtonItem = replyBarButtonItem
                 navigationBar.updateNavigationItems()
             }
+            reloadInputViews()
         }
     }
     
@@ -97,6 +100,14 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         collectionView.keyboardDismissMode = .interactive
     }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    override var inputAccessoryView: UIView? {
+        return showingCompose ? beKindInputAccessoryView : nil
+    }
     
     func postDidBegin() {
         fakeProgressController.start()
@@ -130,27 +141,14 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         }
     }
     
-    override func keyboardWillShow(_ notification: Notification) {
-        if traitCollection.verticalSizeClass == .regular {
-            originalContentOffset = collectionView.contentOffset
-        }
-        
-        super.keyboardWillShow(notification)
-    }
-    
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
         
         //animate content offset so text view is in window
         guard let composeTextView = footerView?.composeTextView,
         let newKeyboardFrame = newKeyboardFrame,
-        newKeyboardFrame.minY < view.bounds.height,
+        newKeyboardFrame.minY < (view.bounds.height - beKindInputAccessoryView.frame.height),
         traitCollection.verticalSizeClass == .compact else {
-            
-            if let originalContentOffset = originalContentOffset {
-                collectionView.setContentOffset(originalContentOffset, animated: true)
-            }
-            
             return
         }
         
@@ -239,6 +237,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             return estimate
         }
         configure(footer: footer)
+        footer.composeTextView.inputAccessoryView = beKindInputAccessoryView
         estimate.height = footer.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
@@ -247,6 +246,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        beKindInputAccessoryView.apply(theme: theme)
     }
 }
 

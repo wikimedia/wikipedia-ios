@@ -59,8 +59,6 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
             
             return CGSize(width: size.width, height: finalHeight)
         } else {
-            
-            
             let composeViewOrigin = CGPoint(x: 0, y: adjustedMargins.top + dividerHeight + divComposeSpacing)
             
             composeView.layoutMargins = layoutMargins
