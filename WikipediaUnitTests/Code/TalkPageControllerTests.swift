@@ -115,7 +115,7 @@ class TalkPageControllerTests: XCTestCase {
             initialFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
+            case .success(let dbTalkPageID):
                 
                 //fetch from db again, confirm count is 1 and matches returned talk page
                 let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
@@ -124,10 +124,10 @@ class TalkPageControllerTests: XCTestCase {
                     XCTFail("Failure fetching initial talk pages")
                     return
                 }
-                
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID)
                 XCTAssertEqual(results.count, 1, "Expected one talk page in DB")
                 XCTAssertEqual(results.first, dbTalkPage)
-                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage?.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 
             case .failure:
                 XCTFail("TalkPageController fetchTalkPage failure")
@@ -329,7 +329,8 @@ class TalkPageControllerTests: XCTestCase {
             initialFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
+            case .success(let dbTalkPageId):
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID)
                 firstDBTalkPage = dbTalkPage
                 XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertTrue(self.talkPageFetcher.fetchCalled, "Expected fetcher to be called for initial fetch")
@@ -350,8 +351,8 @@ class TalkPageControllerTests: XCTestCase {
             secondFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
-                
+            case .success(let dbTalkPageID):
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID)
                 XCTAssertEqual(firstDBTalkPage, dbTalkPage)
                 XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertFalse(self.talkPageFetcher.fetchCalled, "Expected fetcher to not be called for second fetch")

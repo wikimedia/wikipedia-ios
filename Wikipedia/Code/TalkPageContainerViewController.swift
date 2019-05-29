@@ -87,7 +87,7 @@ private extension TalkPageContainerViewController {
             
             switch result {
             case .success(let talkPageID):
-                self.talkPage = self.dataStore.viewContext.object(with: talkPageID) as? TalkPage
+                self.talkPage = try? self.dataStore.viewContext.existingObject(with: talkPageID) as? TalkPage
                 if let talkPage = self.talkPage {
                     self.setupTopicListViewControllerIfNeeded(with: talkPage)
                 }
