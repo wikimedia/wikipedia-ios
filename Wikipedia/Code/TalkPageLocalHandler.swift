@@ -16,11 +16,8 @@ extension NSManagedObjectContext {
     }
     
     func createEmptyTalkPage(with url: URL, languageCode: String, displayTitle: String) -> TalkPage? {
-        guard let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: self) else {
-                return nil
-        }
         
-        let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: self)
+        let talkPage = TalkPage(context: self)
         talkPage.key = url.wmf_talkPageDatabaseKey
         talkPage.languageCode = languageCode
         talkPage.displayTitle = displayTitle
@@ -36,12 +33,11 @@ extension NSManagedObjectContext {
     
     func createTalkPage(with networkTalkPage: NetworkTalkPage) -> TalkPage? {
         
-        guard let revisionID = networkTalkPage.revisionId,
-            let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: self) else {
+        guard let revisionID = networkTalkPage.revisionId else {
             return nil
         }
         
-        let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: self)
+        let talkPage = TalkPage(context: self)
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.languageCode = networkTalkPage.languageCode
