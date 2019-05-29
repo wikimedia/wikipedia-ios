@@ -237,6 +237,7 @@
 "editing-welcome-impartial-tone-title" = "以客觀語氣編寫";
 "editing-welcome-set-knowledge-free-subtitle" = "為了讓任何人能取用世界上的知識，我們需要您透過閱讀、編輯、貢獻您最感興趣的主題來參與創建。";
 "editing-welcome-set-knowledge-free-title" = "讓知識能自由取得";
+// Fuzzy
 "empty-insert-media-title" = "選擇檔案";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";

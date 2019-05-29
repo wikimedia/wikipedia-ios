@@ -133,6 +133,7 @@
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
+// Fuzzy
 "empty-insert-media-title" = "Wybierz plik";
 "empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
 "empty-no-feed-action-message" = "Nadal możesz czytać zapisane strony";
