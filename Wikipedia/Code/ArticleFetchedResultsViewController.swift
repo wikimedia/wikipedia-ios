@@ -43,11 +43,11 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
         guard
             let article = article(at: indexPath),
-            article.ns?.intValue == 3 // TODO: What about saved articles that didn't get a ns?
+            article.pageNamespace == .userTalk
         else {
             return nil
         }
-        return article.displayTitle // TODO: Can there ever be HTML in User talk display title?
+        return article.displayTitle
     }
     
     var deleteAllButtonText: String? = nil

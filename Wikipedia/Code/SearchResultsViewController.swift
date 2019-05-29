@@ -38,7 +38,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
         guard let title = results[indexPath.item].title,
-            results[indexPath.item].titleNamespace?.intValue ?? 0 == 3 else {
+            results[indexPath.item].pageNamespace == .userTalk else {
                 return nil
         }
         
