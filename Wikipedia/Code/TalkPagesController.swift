@@ -13,12 +13,12 @@ enum TalkPageError: Error {
     case talkPageTitleCreationFailure
     case createUrlTitleStringFailure
     case freshFetchTaskGroupFailure
+    case topicMissingTalkPageRelationship
 }
 
 enum TalkPageAppendSuccessResult {
     case missingRevisionIDInResult
     case refreshFetchFailed
-    case topicMissingTalkPageRelationship
     case success
 }
 
@@ -91,7 +91,7 @@ class TalkPageController {
     }
     
     func createTalkPage(with urlTitle: String, taskURL: URL, in moc: NSManagedObjectContext, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
-        //If no local talk page to reference, fetch latest revision ID & latest talk page in a grouped calls.
+        //If no local talk page to reference, fetch latest revision ID & latest talk page in grouped calls.
         //Update network talk page with latest revision & save to db
         
         let taskGroup = WMFTaskGroup()
@@ -122,7 +122,7 @@ class TalkPageController {
                 networkTalkPage = resultNetworkTalkPage
             case .failure(let error):
                 if let talkPageFetcherError = error as? TalkPageFetcherError,
-                    talkPageFetcherError == .TalkPageDoesNotExist {
+                    talkPageFetcherError == .talkPageDoesNotExist {
                     talkPageDoesNotExist = true
                 }
             }
@@ -203,7 +203,7 @@ class TalkPageController {
         let wrappedBody = "<p>\n\n" + body + " ~~~~</p>"
         guard let talkPageObjectID = topic.talkPage?.objectID else {
             DispatchQueue.main.async {
-                completion(.success(.topicMissingTalkPageRelationship))
+                completion(.failure(TalkPageError.topicMissingTalkPageRelationship))
             }
             return
         }
