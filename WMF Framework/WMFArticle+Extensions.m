@@ -106,6 +106,9 @@
     if (searchResult.geoType != nil) {
         self.geoTypeNumber = searchResult.geoType;
     }
+    if (searchResult.titleNamespace != nil) {
+        self.ns = searchResult.titleNamespace;
+    }
 }
 
 @end
