@@ -83,6 +83,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             talkPageContainer.apply(theme: theme)
             let article = dataStore.historyList.addPageToHistory(with: articleURL)
             article?.update(with: results[indexPath.item])
+            article?.isExcludedFromFeed = true
             wmf_push(talkPageContainer, animated: true)
             return
         }
