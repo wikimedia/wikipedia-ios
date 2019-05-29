@@ -97,7 +97,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         if let headerView = headerView {
             navigationBar.shadowAlpha = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > headerView.frame.height ? 1 : 0
             
-            let convertedHeaderTitleFrame = headerView.convert(headerView.titleLabel.frame, to: view)
+            let convertedHeaderTitleFrame = headerView.convert(headerView.titleTextView.frame, to: view)
             
             let oldTitle = delegate?.currentNavigationTitle(viewController: self)
             let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? talkPage.displayTitle : nil
@@ -273,7 +273,7 @@ private extension TalkPageTopicListViewController {
         
         let infoText = NSString.localizedStringWithFormat(languageTextFormat as NSString, languageWikiText) as String
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText)
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText, intro: talkPage.introText)
         
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins

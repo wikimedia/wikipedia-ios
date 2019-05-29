@@ -228,6 +228,7 @@
 "editing-welcome-impartial-tone-title" = "In einem neutralen Ton schreiben";
 "editing-welcome-set-knowledge-free-subtitle" = "Um jedem den Zugang auf das Wissen der Welt zu geben, brauchen wir deine Teilnahme an seiner Erstellung durch Lesen, Bearbeiten und Beitragen an den Themen, die dir am Wichtigsten sind.";
 "editing-welcome-set-knowledge-free-title" = "Wissen frei aufsetzen";
+// Fuzzy
 "empty-insert-media-title" = "Eine Datei auswählen";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
 "empty-no-feed-action-message" = "Du kannst trotzdem gespeicherte Seiten lesen";

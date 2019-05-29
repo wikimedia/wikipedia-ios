@@ -199,6 +199,7 @@
 "edit-watch-this-page-text" = "เฝ้าดูหน้านี้";
 "editing-welcome-be-bold-title" = "เสียงของคุณสำคัญ";
 "editing-welcome-citations-title" = "อ้างอิงแหล่งข้อมูลที่น่าเชื่อถือ";
+// Fuzzy
 "empty-insert-media-title" = "เลือกไฟล์";
 "empty-no-article-message" = "ขออภัย ไม่สามารถโหลดบทความนี้ได้";
 "empty-no-feed-action-message" = "คุณยังสามารถอ่านหน้าที่บันทึกไว้ได้";

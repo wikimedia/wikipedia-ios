@@ -1,19 +1,16 @@
 
 import UIKit
 
-class InfoBannerView: UIView {
+class InfoBannerView: SetupView {
     
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    var isDynamicFont: Bool = true {
+        didSet {
+            updateFonts(with: traitCollection)
+        }
     }
     
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -79,18 +76,21 @@ class InfoBannerView: UIView {
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
-        titleLabel.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
-        subtitleLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        if !isDynamicFont {
+            titleLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
+            subtitleLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
+        } else {
+            titleLabel.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
+            subtitleLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        }
     }
-}
 
-//MARK: Private
-
-private extension InfoBannerView {
-    func setupView() {
+    override func setup() {
         preservesSuperviewLayoutMargins = false
         insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
+        titleLabel.numberOfLines = 0
+        subtitleLabel.numberOfLines = 0
         addSubview(iconImageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
@@ -103,8 +103,6 @@ extension InfoBannerView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.hintBackground
         titleLabel.textColor = theme.colors.link
-        titleLabel.numberOfLines = 0
         subtitleLabel.textColor = theme.colors.link
-        subtitleLabel.numberOfLines = 0
     }
 }

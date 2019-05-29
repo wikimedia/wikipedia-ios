@@ -843,6 +843,16 @@
 		7AEC9862219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* DefaultEditToolbarView.xib */; };
 		7AEF527120ADD74D00DDF791 /* WMFCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */; };
 		7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */; };
+		7AF0265622985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265722985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265822985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265922985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265A22985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265B22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265C22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265D22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265E22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265F22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
 		7AF49F80204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
@@ -3861,6 +3871,8 @@
 		7AEC9857219F529000BEF62B /* DefaultEditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEditToolbarView.swift; sourceTree = "<group>"; };
 		7AEC9858219F529000BEF62B /* DefaultEditToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefaultEditToolbarView.xib; sourceTree = "<group>"; };
 		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
+		7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeKindInputAccessoryView.swift; sourceTree = "<group>"; };
+		7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BeKindInputAccessoryView.xib; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndSyncingSettingsViewController.swift; sourceTree = "<group>"; };
 		7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadMoreAboutRevertedEditViewController.xib; sourceTree = "<group>"; };
@@ -6343,6 +6355,8 @@
 				67F73E742267B9070079DEEF /* TalkPageReplyListViewController.swift */,
 				676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */,
 				67F73E782267B9500079DEEF /* TalkPageTopicNewViewController.swift */,
+				7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */,
+				7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */,
 				6706A21822927D63004774E2 /* TalkPageHintViewController.swift */,
 			);
 			name = "View Controllers";
@@ -9703,6 +9717,7 @@
 				67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				B0524AF62144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
+				7AF0265B22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
 				7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
@@ -9775,6 +9790,7 @@
 				D8E27BB11F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B0D3E715214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D80ED3D51EE57F4800CE8C50 /* WMFRandomDiceButtonRoll.js in Resources */,
+				7AF0265F22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				B0C64A9A21F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
 				7A827662226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				D80ED3D61EE57F4800CE8C50 /* NotificationBackgroundSuccess.png in Resources */,
@@ -9966,6 +9982,7 @@
 				B0EFCD6B1EBEC2FA008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF92144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8A42BE51E815A9C00D8E281 /* NotificationBackgroundSuccess@2x.png in Resources */,
+				7AF0265E22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				D8A42BE61E815A9C00D8E281 /* WMFChangePasswordViewController.storyboard in Resources */,
 				7ABAD6BC20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8A42BE81E815A9C00D8E281 /* NotificationBackgroundError.png in Resources */,
@@ -10076,6 +10093,7 @@
 				B0EFCD691EBEC2F7008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF72144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8CE266C1E698E2400DAE2E0 /* NotificationBackgroundSuccess@2x.png in Resources */,
+				7AF0265C22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				D8CE266D1E698E2400DAE2E0 /* WMFChangePasswordViewController.storyboard in Resources */,
 				7ABAD6BA20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
@@ -10186,6 +10204,7 @@
 				B0EFCD6A1EBEC2F8008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF82144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8EC3F6C1E9BDA35006712EB /* NotificationBackgroundSuccess@2x.png in Resources */,
+				7AF0265D22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				D8EC3F6D1E9BDA35006712EB /* WMFChangePasswordViewController.storyboard in Resources */,
 				7ABAD6BB20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
@@ -10723,6 +10742,7 @@
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
 				830ECACF1FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */,
+				7AF0265622985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */,
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
@@ -11376,6 +11396,7 @@
 				B0845E1520618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0CD9DF21F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0F9299D1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
+				7AF0265A22985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DB11272261820600F789B0 /* SchemeHandlerCache.swift in Sources */,
 				7AB7DECC227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D80ED3851EE57F4800CE8C50 /* WMFAccountCreationViewController.swift in Sources */,
@@ -11885,6 +11906,7 @@
 				7A9524DA22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				67861A1A223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */,
+				7AF0265922985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
 				67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				B0016CC621362DB300FA1096 /* SetupGradientView.swift in Sources */,
@@ -12522,6 +12544,7 @@
 				830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D8CE25EC1E698E2400DAE2E0 /* WMFImageGalleryViewController.m in Sources */,
+				7AF0265722985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DB11152261820400F789B0 /* SchemeHandlerCache.swift in Sources */,
 				7AB7DEC9227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				B0CD9DDD1F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
@@ -12926,6 +12949,7 @@
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0F9299C1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
+				7AF0265822985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DB111B2261820500F789B0 /* SchemeHandlerCache.swift in Sources */,
 				7AB7DECA227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D8EC3EE91E9BDA35006712EB /* WMFForgotPasswordViewController.swift in Sources */,

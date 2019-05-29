@@ -223,6 +223,7 @@
 "editing-welcome-impartial-tone-title" = "Пишувајте со непристрасен тон";
 "editing-welcome-set-knowledge-free-subtitle" = "Со цел да го направиме светското знаење пристапно за секого, ќе треба да учествувате во неовото создавање со читање и уредување на темите кои највеќе ви значат.";
 "editing-welcome-set-knowledge-free-title" = "Да го ослободиме знаењето";
+// Fuzzy
 "empty-insert-media-title" = "Изберете податотека";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";

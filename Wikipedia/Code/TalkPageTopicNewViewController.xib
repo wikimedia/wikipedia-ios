@@ -12,8 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TalkPageTopicNewViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="beKindContainerView" destination="OQC-Pb-IB6" id="rL8-cm-aPf"/>
-                <outlet property="beKindContainerViewHeightConstraint" destination="DmH-0c-FRw" id="Yne-6R-1XU"/>
                 <outlet property="bodyContainerView" destination="JOb-y1-6IN" id="FCX-SX-4Rt"/>
                 <outlet property="bodyContainerViewHeightConstraint" destination="wsY-91-S0m" id="iH3-Vc-DXj"/>
                 <outlet property="bodyTextView" destination="dNc-rx-jAZ" id="HbT-gP-tTy"/>
@@ -40,7 +38,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XBx-dB-CQd">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="911"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="861"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thm-2U-JE9">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -86,15 +84,8 @@
                                         <constraint firstAttribute="height" constant="565" id="wsY-91-S0m"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="50" translatesAutoresizingMaskIntoConstraints="NO" id="OQC-Pb-IB6">
-                                    <rect key="frame" x="0.0" y="636" width="414" height="50"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="DmH-0c-FRw"/>
-                                    </constraints>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JON-m5-Ky9">
-                                    <rect key="frame" x="0.0" y="686" width="414" height="225"/>
+                                    <rect key="frame" x="0.0" y="636" width="414" height="225"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="185" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vRW-Pe-PZI">
                                             <rect key="frame" x="20" y="20" width="374" height="185"/>

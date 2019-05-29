@@ -31,6 +31,7 @@ class TalkPageLocalHandler {
         talkPage.key = url.wmf_talkPageDatabaseKey
         talkPage.languageCode = languageCode
         talkPage.displayTitle = displayTitle
+        talkPage.introText = nil
         
         do {
             try dataStore.viewContext.save()
@@ -52,6 +53,7 @@ class TalkPageLocalHandler {
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.languageCode = networkTalkPage.languageCode
         talkPage.displayTitle = networkTalkPage.displayTitle
+        talkPage.introText = networkTalkPage.introText
         
         addTalkPageTopics(to: talkPage, with: networkTalkPage)
         
@@ -70,6 +72,7 @@ class TalkPageLocalHandler {
         }
         
         localTalkPage.revisionId = NSNumber(value: revisionID)
+        localTalkPage.introText = networkTalkPage.introText
         
         guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
             return nil

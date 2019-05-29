@@ -42,14 +42,18 @@ class TalkPageTopicCell: CollectionViewCell {
     }
     
     func configure(title: String) {
-        //todo: we need to support <b> and <i> tags here
-        titleLabel.text = title
-        updateFonts(with: traitCollection)
+        configureTitleLabel(title: title)
     }
     
-    override func updateFonts(with traitCollection: UITraitCollection) {
-        super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+    private func configureTitleLabel(title: String) {
+        
+        let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
+        let italicfont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        
+        if let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleLabel.textColor, linkColor:nil, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a": "b"], additionalTagAttributes: nil).wmf_trim() {
+            titleLabel.attributedText = attributedString
+        }
     }
     
     override func setup() {
