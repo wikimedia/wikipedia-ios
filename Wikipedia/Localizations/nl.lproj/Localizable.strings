@@ -211,6 +211,7 @@
 "edit-underline-remove-accessibility-label" = "Onderstrepen verwijderen";
 "edit-watch-list-learn-more-text" = "Meer over kijklijsten";
 "edit-watch-this-page-text" = "Deze pagina volgen";
+// Fuzzy
 "empty-insert-media-title" = "Selecteer een bestand";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";

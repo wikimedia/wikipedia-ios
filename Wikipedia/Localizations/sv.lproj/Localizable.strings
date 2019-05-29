@@ -235,6 +235,7 @@
 "editing-welcome-impartial-tone-title" = "Skriv med en neutral ton";
 "editing-welcome-set-knowledge-free-subtitle" = "För att alla ska få åtkomst till världens kunskap vill vi att du deltar genom att läsa, redigera och bidra till de ämnen som betyder mest för dig.";
 "editing-welcome-set-knowledge-free-title" = "Frigör kunskap";
+// Fuzzy
 "empty-insert-media-title" = "Välj en fil";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";

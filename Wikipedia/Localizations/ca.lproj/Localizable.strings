@@ -125,6 +125,7 @@
 "button-skip" = "Omet";
 "cancel" = "Cancel·la";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Neteja";
 "close-button-accessibility-label" = "Tanca";
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
@@ -233,6 +234,7 @@
 "editing-welcome-impartial-tone-title" = "Escriviu amb un to imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Per tal de proporcionar accés al coneixement mundial, ens cal que hi participeu tot llegint, editant i contribuint en els temes que més us importin.";
 "editing-welcome-set-knowledge-free-title" = "Allibera el coneixement";
+// Fuzzy
 "empty-insert-media-title" = "Selecciona un fitxer";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";

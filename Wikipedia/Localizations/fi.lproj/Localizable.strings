@@ -197,6 +197,7 @@
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-title" = "Äänesi on tärkeä";
 "editing-welcome-impartial-tone-title" = "Kirjoita puolueettomaan sävyyn";
+// Fuzzy
 "empty-insert-media-title" = "Valitse tiedosto";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
