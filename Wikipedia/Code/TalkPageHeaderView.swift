@@ -113,8 +113,6 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         if let introAttributedString = viewModel.intro?.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim() {
             introTextView.attributedText = introAttributedString
         }
-        
-        updateFonts(with: traitCollection)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -122,10 +120,7 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         headerLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         titleTextView.font = UIFont.wmf_font(DynamicTextStyle.boldTitle1, compatibleWithTraitCollection: traitCollection)
         infoLabel.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
-        introTextView.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
     }
-    
-    
 }
 
 extension TalkPageHeaderView: Themeable {

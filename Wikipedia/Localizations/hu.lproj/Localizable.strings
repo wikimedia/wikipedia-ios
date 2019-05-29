@@ -141,6 +141,7 @@
 "description-help-tips-title" = "Tippek a leírások készítéséhez";
 "description-help-title" = "Címleírás súgó";
 "description-published-button-title" = "Kész";
+"description-published-footer" = "Az alkalmazás segítségével szócikkeket is szerkeszthetsz. Legközelebb a ceruza ikonra kattintva bátran javíts elírásokat és tipográfia hibákat.";
 "description-published-subtitle" = "Épp jobbá tetted a Wikipédiát mindenkinek";
 "description-published-title" = "Leírás közzétéve!";
 "description-welcome-concise-sub-title" = "Ideális, ha egy sor, kettő és tizenkettő szó között";
@@ -162,6 +163,7 @@
 "edit-italic-accessibility-label" = "Kurzív formázás hozzáadása";
 "edit-italic-remove-accessibility-label" = "Kurzív formázás eltávolítása";
 "edit-link-display-text-title" = "Szöveg mutatása";
+"edit-link-remove-link-title" = "Hivatkozás eltávolítása";
 "edit-link-title" = "Hivatkozás szerkesztése";
 "edit-menu-item" = "Szerkesztés";
 "edit-menu-item-could-not-find-selection-alert-title" = "A kijelölt szöveg nem található";
@@ -190,6 +192,7 @@
 "edit-watch-this-page-text" = "Lap figyelése";
 "editing-welcome-be-bold-title" = "A hangod fontos";
 "editing-welcome-citations-title" = "Megbízható források megadása";
+// Fuzzy
 "empty-insert-media-title" = "Fájl kiválasztása";
 "empty-no-article-message" = "Sajnáljuk, nem sikerült betölteni a cikket";
 "empty-no-feed-action-message" = "Továbbra is olvashatsz elmentett lapokat";
@@ -226,6 +229,8 @@
 "explore-feed-preferences-places-description" = "Wikipédia szócikkek a közeledben";
 "explore-feed-preferences-potd-description" = "A nap kiemelt képe a Wikimédia Commonsról";
 "explore-feed-preferences-randomizer-description" = "Véletlenszerűen kiválasztott szócikkek";
+"explore-feed-preferences-related-pages-description" = "Javaslatok olvasási előzményeid alapján";
+"explore-feed-preferences-top-read-description" = "A nap legolvasottabb szócikkei";
 "explore-hide-card-prompt" = "Kártya elrejtése";
 "explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
@@ -247,6 +252,7 @@
 "explore-randomizer" = "Randomizáló";
 "feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "feed-news-notification-text" = "Engedélyezd az értesítéseket, hogy a Wikipédia jelezze a hírekben felkapott szócikkeket.";
+"fetcher-error-generic" = "Valami félresikerült. Kérlek próbáld újra később.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
 "field-alert-password-confirm-mismatch" = "A jelszavak nem egyeznek";
 "field-alert-token-invalid" = "Érvénytelen kód";
@@ -316,6 +322,9 @@
 "insert-media-alternative-text-placeholder" = "Írd le a képet";
 "insert-media-alternative-text-title" = "Alternatív szöveg";
 "insert-media-caption-caption-placeholder" = "Hogyan kapcsolódik ez a kép a szócikkhez?";
+"insert-media-image-position-setting-center" = "Középre";
+"insert-media-image-position-setting-left" = "Balra";
+"insert-media-image-position-setting-right" = "Jobbra";
 "insert-media-image-position-settings-title" = "A kép pozíciója";
 "insert-media-image-preview-more-information-action-title" = "További információk";
 "insert-media-image-preview-select-image-action-title" = "Kép kiválasztása";
@@ -328,6 +337,7 @@
 "insert-media-image-type-setting-thumbnail" = "Bélyegkép";
 "insert-media-image-type-settings-title" = "Képtípus";
 "insert-media-media-settings-title" = "Médiabeállítások";
+"insert-media-title" = "Média beszúrása";
 "insert-media-uploaded-image-title" = "Feltöltött kép";
 "languages-settings-title" = "Nyelvek";
 "languages-title" = "Nyelvváltás";
@@ -463,7 +473,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Sötét téma";
 "reading-themes-controls-accessibility-light-theme-button" = "Világos téma";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Szépia téma";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Szintaxiskiemelés";
 "reading-themes-controls-accessibility-text-size-slider" = "Szövegméret csúszka";
+"reading-themes-controls-syntax-highlighting" = "Szintaxiskiemelés";
 "reference-title" = "Forráshivatkozás $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ma|1=Tegnap|$1 napja}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nemrég|$1 órája|$1 órája}}";
@@ -573,6 +585,7 @@
 "wikitext-downloading" = "Tartalom betöltése…";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
 "wikitext-preview-changes-none" = "Nem történt megjeleníthető változtatás.";
+"wikitext-preview-link-external-preview-title" = "Külső hivatkozás";
 "wikitext-preview-link-not-found-preview-description" = "A Wikipédián nincs szócikk pontosan ezzel a névvel";
 "wikitext-preview-link-preview-description" = "A hivatkozás ide mutat: „$1”";
 "wikitext-preview-link-preview-title" = "Hivatkozás előnézete";

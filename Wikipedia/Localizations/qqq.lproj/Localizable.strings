@@ -712,7 +712,7 @@
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list. It represents the kind of talk page the user is viewing.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
-"talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page discussion thread.";
+"talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";
 "theme-default-display-name" = "Default theme name presented to the user";
