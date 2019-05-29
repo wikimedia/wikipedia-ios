@@ -65,7 +65,7 @@ class TalkPageTestHelpers {
                             ],
                             "shas": {
                                 "text": "5a5bd8e",
-                                "indicator": "asdfgjl"
+                                "indicator": "not_asdfgjl"
                             },
                             "sort": 0
                         }
