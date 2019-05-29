@@ -69,9 +69,9 @@ class TalkPageReplyCell: CollectionViewCell {
         
         let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
+        let italicfont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
         
-        //todo: we seem to be losing <b> tags (possibly more). Need to look into this.
-        if let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: font, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim() {
+        if let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim() {
             setupTitle(for: attributedString)
         }
     
@@ -93,7 +93,6 @@ class TalkPageReplyCell: CollectionViewCell {
         attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSRange(location: 0, length: attrString.length))
         titleTextView.attributedText = attrString
     }
-    
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)

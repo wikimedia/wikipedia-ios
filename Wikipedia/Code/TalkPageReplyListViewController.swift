@@ -118,7 +118,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         if let headerView = headerView {
             navigationBar.shadowAlpha = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > headerView.frame.height ? 1 : 0
             
-            let convertedHeaderTitleFrame = headerView.convert(headerView.titleLabel.frame, to: view)
+            let convertedHeaderTitleFrame = headerView.convert(headerView.titleTextView.frame, to: view)
             let oldTitle = navigationItem.title
             let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? topic.title : nil
             if oldTitle != newTitle {
@@ -331,6 +331,7 @@ private extension TalkPageReplyListViewController {
         
         let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil)
         
+        header.delegate = self
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
         header.apply(theme: theme)
@@ -384,5 +385,13 @@ extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
     
     var collectionViewFrame: CGRect {
         return collectionView.frame
+    }
+}
+
+//MARK: TalkPageHeaderViewDelegate
+
+extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
+    func tappedLink(_ url: URL, cell: TalkPageHeaderView) {
+        delegate?.tappedLink(url, viewController: self)
     }
 }
