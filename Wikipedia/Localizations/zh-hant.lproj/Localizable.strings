@@ -128,6 +128,7 @@
 "button-skip" = "略過";
 "cancel" = "取消";
 "cc-zero" = "創用CC公眾領域貢獻宣告";
+"clear-title-accessibility-label" = "清除";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";

@@ -136,6 +136,7 @@
 "button-skip" = "Atla";
 "cancel" = "İptal";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Temizle";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";

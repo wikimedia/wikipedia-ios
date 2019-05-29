@@ -146,6 +146,7 @@
 "button-skip" = "Пропустить";
 "cancel" = "Отмена";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Очистить";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";

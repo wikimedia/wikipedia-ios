@@ -48,6 +48,42 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         setupToolbar()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //number of talk pages:
+        /*
+        let talkPageRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
+        talkPageRequest.includesSubentities = false
+        do {
+            let count = try dataStore.viewContext.count(for: talkPageRequest)
+            print("🌹talk page count: \(count)")
+        } catch {
+            print("🌹talk page fetch failure")
+        }
+        
+        //number of topics:
+        let topicRequest: NSFetchRequest<TalkPageTopic> = TalkPageTopic.fetchRequest()
+        topicRequest.includesSubentities = false
+        do {
+            let count = try dataStore.viewContext.count(for: topicRequest)
+            print("🌹topic count: \(count)")
+        } catch {
+            print("🌹topic count fetch failure")
+        }
+        
+        //number of replies:
+        let replyRequest: NSFetchRequest<TalkPageReply> = TalkPageReply.fetchRequest()
+        replyRequest.includesSubentities = false
+        do {
+            let count = try dataStore.viewContext.count(for: replyRequest)
+            print("🌹reply count: \(count)")
+        } catch {
+            print("🌹reply count fetch failure")
+        }
+ */
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
@@ -61,7 +97,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         if let headerView = headerView {
             navigationBar.shadowAlpha = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > headerView.frame.height ? 1 : 0
             
-            let convertedHeaderTitleFrame = headerView.convert(headerView.titleLabel.frame, to: view)
+            let convertedHeaderTitleFrame = headerView.convert(headerView.titleTextView.frame, to: view)
             
             let oldTitle = delegate?.currentNavigationTitle(viewController: self)
             let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? talkPage.displayTitle : nil
@@ -237,7 +273,7 @@ private extension TalkPageTopicListViewController {
         
         let infoText = NSString.localizedStringWithFormat(languageTextFormat as NSString, languageWikiText) as String
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText)
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText, intro: talkPage.introText)
         
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins

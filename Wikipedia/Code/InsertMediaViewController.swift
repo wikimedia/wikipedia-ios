@@ -202,6 +202,11 @@ final class InsertMediaViewController: ViewController {
             completion?()
         })
     }
+
+    override func accessibilityPerformEscape() -> Bool {
+        delegate?.insertMediaViewController(self, didTapCloseButton: closeButton)
+        return true
+    }
 }
 
 extension InsertMediaViewController: InsertMediaSearchViewControllerDelegate {

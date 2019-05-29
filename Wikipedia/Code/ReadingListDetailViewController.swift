@@ -112,6 +112,11 @@ class ReadingListDetailViewController: ViewController {
         readingListDetailUnderBarViewController.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        readingListEntryCollectionViewController.editController.isTextEditing = false
+    }
+    
     // MARK: - Theme
     
     override func apply(theme: Theme) {
@@ -174,6 +179,8 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         default:
             break
         }
+        
+        navigationBar.updateNavigationItems()
     }
 }
 

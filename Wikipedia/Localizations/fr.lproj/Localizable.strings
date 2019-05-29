@@ -134,6 +134,7 @@
 "button-skip" = "Passer";
 "cancel" = "Annuler";
 "cc-zero" = "licence Creative Commons Zéro";
+"clear-title-accessibility-label" = "Effacer";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";

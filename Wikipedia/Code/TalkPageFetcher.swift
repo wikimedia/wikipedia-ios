@@ -2,16 +2,18 @@
 class NetworkTalkPage {
     let url: URL
     let topics: [NetworkTopic]
-    let revisionId: Int64
+    var revisionId: Int?
     let displayTitle: String
     let languageCode: String
+    let introText: String?
     
-    init(url: URL, topics: [NetworkTopic], revisionId: Int64, displayTitle: String, languageCode: String) {
+    init(url: URL, topics: [NetworkTopic], revisionId: Int?, displayTitle: String, languageCode: String, introText: String?) {
         self.url = url
         self.topics = topics
         self.revisionId = revisionId
         self.displayTitle = displayTitle
         self.languageCode = languageCode
+        self.introText = introText
     }
 }
 
@@ -24,7 +26,7 @@ class NetworkTopic:  NSObject, Codable {
     let replies: [NetworkReply]
     let sectionID: Int
     let shas: NetworkTopicShas
-    var sort: Int!
+    var sort: Int?
     
     enum CodingKeys: String, CodingKey {
         case text
@@ -36,7 +38,7 @@ class NetworkTopic:  NSObject, Codable {
 
 class NetworkTopicShas: Codable {
     let text: String
-    let replies: String
+    let indicator: String
 }
 
 class NetworkReply: NSObject, Codable {
@@ -92,6 +94,10 @@ enum TalkPageType {
     }
 }
 
+enum TalkPageFetcherError: Error {
+    case TalkPageDoesNotExist
+}
+
 class TalkPageFetcher: Fetcher {
     
     private let sectionUploader = WikiTextSectionUploader()
@@ -141,7 +147,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+    func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
         guard let taskURLWithRevID = taskURL(for: urlTitle, host: host, revisionID: revisionID),
             let taskURLWithoutRevID = taskURL(for: urlTitle, host: host, revisionID: nil) else {
@@ -151,7 +157,13 @@ class TalkPageFetcher: Fetcher {
     
         //todo: track tasks/cancel
         session.jsonDecodableTask(with: taskURLWithRevID) { (networkBase: NetworkBase?, response: URLResponse?, error: Error?) in
-
+            
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                statusCode == 404 {
+                completion(.failure(TalkPageFetcherError.TalkPageDoesNotExist))
+                return
+            }
+            
             if let error = error {
                 completion(.failure(error))
                 return
@@ -173,8 +185,16 @@ class TalkPageFetcher: Fetcher {
                 }
             }
 
+            var introText: String?
+            if let firstTopic = networkBase.topics.first,
+                firstTopic.text.count == 0,
+                let firstReply = firstTopic.replies.first,
+                firstReply.text.count > 0 {
+                introText = firstReply.text
+            }
+            
             let filteredTopics = networkBase.topics.filter { $0.text.count > 0 }
-            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: filteredTopics, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode)
+            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: filteredTopics, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode, introText: introText)
             completion(.success(talkPage))
         }
     }
@@ -188,7 +208,7 @@ class TalkPageFetcher: Fetcher {
 
 private extension TalkPageFetcher {
     
-    func taskURL(for urlTitle: String, host: String, revisionID: Int64?) -> URL? {
+    func taskURL(for urlTitle: String, host: String, revisionID: Int?) -> URL? {
         
         //note: assuming here urlTitle has already been percent endcoded & escaped
         var pathComponents = ["page", "talk", urlTitle]

@@ -22,26 +22,57 @@ class TalkPageLocalHandler {
         return try dataStore.viewContext.fetch(fetchRequest).first
     }
     
+    func createEmptyTalkPage(with url: URL, languageCode: String, displayTitle: String) -> TalkPage? {
+        guard let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: dataStore.viewContext) else {
+                return nil
+        }
+        
+        let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: dataStore.viewContext)
+        talkPage.key = url.wmf_talkPageDatabaseKey
+        talkPage.languageCode = languageCode
+        talkPage.displayTitle = displayTitle
+        talkPage.introText = nil
+        
+        do {
+            try dataStore.viewContext.save()
+            return talkPage
+        } catch {
+            return nil
+        }
+    }
+    
     func createTalkPage(with networkTalkPage: NetworkTalkPage) -> TalkPage? {
         
-        guard let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: dataStore.viewContext) else {
+        guard let revisionID = networkTalkPage.revisionId,
+            let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: dataStore.viewContext) else {
             return nil
         }
         
         let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: dataStore.viewContext)
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
-        talkPage.revisionId = networkTalkPage.revisionId
+        talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.languageCode = networkTalkPage.languageCode
         talkPage.displayTitle = networkTalkPage.displayTitle
+        talkPage.introText = networkTalkPage.introText
         
         addTalkPageTopics(to: talkPage, with: networkTalkPage)
         
-        try? dataStore.viewContext.save() //todo: no try?
-        return talkPage
+        do {
+            try dataStore.viewContext.save()
+            return talkPage
+        } catch {
+            return nil
+        }
     }
     
     func updateTalkPage(_ localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage) -> TalkPage? {
-        localTalkPage.revisionId = networkTalkPage.revisionId
+        
+        guard let revisionID = networkTalkPage.revisionId else {
+            return nil
+        }
+        
+        localTalkPage.revisionId = NSNumber(value: revisionID)
+        localTalkPage.introText = networkTalkPage.introText
         
         guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
             return nil
@@ -72,8 +103,12 @@ class TalkPageLocalHandler {
             }
         }
         
-        try? dataStore.viewContext.save() //todo: no try?
-        return localTalkPage
+        do {
+            try dataStore.viewContext.save()
+            return localTalkPage
+        } catch {
+            return nil
+        }
     }
 }
 
@@ -108,12 +143,17 @@ private extension TalkPageLocalHandler {
         
         for (localTopic, networkTopic) in zippedTopics {
             
-            localTopic.sort = Int64(networkTopic.sort)
-            
-            //if replies have not changed in any manner, no need to dig into replies diffing
-            guard localTopic.repliesSha != networkTopic.shas.replies else {
-                continue
+            if let sort = networkTopic.sort {
+                localTopic.sort = Int64(sort)
+            } else {
+                 assertionFailure("Network topic is missing sort.")
             }
+            
+            //todo possible performance, at one point we thought maybe having a 3rd separate "replies" at the topic level sha that represents only the replies text of a topic could improve performance here. Keeping it out now for simplicity but we could bring it back if we find it improves things.
+            //if replies have not changed in any manner, no need to dig into replies diffing
+//            guard localTopic.repliesSha != networkTopic.shas.replies else {
+//                continue
+//            }
             
             guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap ({ return $0.sha }) else {
                 continue
@@ -132,6 +172,7 @@ private extension TalkPageLocalHandler {
             }
             
             //update common replies
+            //note: not sure if this is possible anymore. reply shas now contain sort so a different ordering will be seen as new or deleted
             let commonReplyShas = oldSetReplyShas.intersection(newSetReplyShas)
             
             let predicate = NSPredicate(format:"sha IN %@", commonReplyShas)
@@ -185,9 +226,15 @@ private extension TalkPageLocalHandler {
         let topic = TalkPageTopic(entity: entityDesc, insertInto: dataStore.viewContext)
         topic.title = networkTopic.text
         topic.sectionID = Int64(networkTopic.sectionID)
-        topic.sort = Int64(networkTopic.sort)
+        
+        if let sort = networkTopic.sort {
+            topic.sort = Int64(sort)
+        } else {
+            assertionFailure("Network topic is missing sort")
+        }
+        
         topic.textSha = networkTopic.shas.text
-        topic.repliesSha = networkTopic.shas.replies
+        topic.indicatorSha = networkTopic.shas.indicator
         
         for reply in networkTopic.replies {
             

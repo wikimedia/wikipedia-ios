@@ -10,7 +10,6 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
     let readingList: ReadingList
-    
     var searchString: String?
     
     var basePredicate: NSPredicate {
@@ -183,6 +182,13 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
+    }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        if (editController.isTextEditing) {
+            editController.isTextEditing = false
+        }
     }
     
     func articleURL(at indexPath: IndexPath) -> URL? {

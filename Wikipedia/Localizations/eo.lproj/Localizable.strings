@@ -121,6 +121,7 @@
 "button-skip" = "Preterlasi";
 "cancel" = "Nuligi";
 "cc-zero" = "Krea Komunaĵo CCO";
+"clear-title-accessibility-label" = "Vakigi";
 "close-button-accessibility-label" = "Fermi";
 "compass-direction" = "je la $1 horo";
 "continue-reading-empty-description" = "Esploru Vikipedion por legi pliajn artikolojn";

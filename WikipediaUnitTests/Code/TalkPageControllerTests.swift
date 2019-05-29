@@ -9,7 +9,7 @@ fileprivate class MockTalkPageFetcher: TalkPageFetcher {
     static var domain = "en.wikipedia.org"
     var fetchCalled = false
     
-    override func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+    override func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
         fetchCalled = true
         if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://talk-pages.wmflabs.org/\(MockTalkPageFetcher.domain)/v1/page/talk/\(urlTitle)", revisionId: MockArticleRevisionFetcher.revisionId) {
@@ -23,7 +23,7 @@ fileprivate class MockTalkPageFetcher: TalkPageFetcher {
 
 fileprivate class MockArticleRevisionFetcher: WMFArticleRevisionFetcher {
     
-    static var revisionId: Int64 = 894272715
+    static var revisionId: Int = 894272715
     
     var resultsDictionary: [AnyHashable : Any] {
         return ["batchcomplete": 1,
@@ -127,7 +127,7 @@ class TalkPageControllerTests: XCTestCase {
                 
                 XCTAssertEqual(results.count, 1, "Expected one talk page in DB")
                 XCTAssertEqual(results.first, dbTalkPage)
-                XCTAssertEqual(dbTalkPage.revisionId, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 
             case .failure:
                 XCTFail("TalkPageController fetchTalkPage failure")
@@ -331,7 +331,7 @@ class TalkPageControllerTests: XCTestCase {
             switch result {
             case .success(let dbTalkPage):
                 firstDBTalkPage = dbTalkPage
-                XCTAssertEqual(dbTalkPage.revisionId, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertTrue(self.talkPageFetcher.fetchCalled, "Expected fetcher to be called for initial fetch")
                 
             case .failure:
@@ -353,7 +353,7 @@ class TalkPageControllerTests: XCTestCase {
             case .success(let dbTalkPage):
                 
                 XCTAssertEqual(firstDBTalkPage, dbTalkPage)
-                XCTAssertEqual(dbTalkPage.revisionId, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertFalse(self.talkPageFetcher.fetchCalled, "Expected fetcher to not be called for second fetch")
                 
             case .failure:

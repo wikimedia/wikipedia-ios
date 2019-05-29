@@ -119,6 +119,18 @@
 		6734116822739CCC005B31DA /* TalkPageLocalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */; };
 		6734116A22739FD6005B31DA /* TalkPageLocalHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116922739FD6005B31DA /* TalkPageLocalHandlerTests.swift */; };
 		6734117022773122005B31DA /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
+		6734EE7322976AE300F00B05 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21622925FD2004774E2 /* InfoBannerView.swift */; };
+		6734EE7422976AE300F00B05 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21622925FD2004774E2 /* InfoBannerView.swift */; };
+		6734EE7522976AE400F00B05 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21622925FD2004774E2 /* InfoBannerView.swift */; };
+		6734EE7622976AE400F00B05 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21622925FD2004774E2 /* InfoBannerView.swift */; };
+		6734EE7722976AED00F00B05 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734F051227B634900BDDB94 /* ActionButton.swift */; };
+		6734EE7822976AED00F00B05 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734F051227B634900BDDB94 /* ActionButton.swift */; };
+		6734EE7922976AED00F00B05 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734F051227B634900BDDB94 /* ActionButton.swift */; };
+		6734EE7A22976AEE00F00B05 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734F051227B634900BDDB94 /* ActionButton.swift */; };
+		6734EE7B22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21822927D63004774E2 /* TalkPageHintViewController.swift */; };
+		6734EE7C22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21822927D63004774E2 /* TalkPageHintViewController.swift */; };
+		6734EE7D22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21822927D63004774E2 /* TalkPageHintViewController.swift */; };
+		6734EE7E22976BA400F00B05 /* TalkPageHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6706A21822927D63004774E2 /* TalkPageHintViewController.swift */; };
 		6734F052227B634900BDDB94 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734F051227B634900BDDB94 /* ActionButton.swift */; };
 		6754E44922773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		6754E44A22773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
@@ -833,6 +845,16 @@
 		7AEC9862219F529000BEF62B /* DefaultEditToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* DefaultEditToolbarView.xib */; };
 		7AEF527120ADD74D00DDF791 /* WMFCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */; };
 		7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */; };
+		7AF0265622985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265722985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265822985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265922985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265A22985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */; };
+		7AF0265B22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265C22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265D22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265E22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
+		7AF0265F22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */; };
 		7AF49F80204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
@@ -3853,6 +3875,8 @@
 		7AEC9857219F529000BEF62B /* DefaultEditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEditToolbarView.swift; sourceTree = "<group>"; };
 		7AEC9858219F529000BEF62B /* DefaultEditToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefaultEditToolbarView.xib; sourceTree = "<group>"; };
 		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
+		7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeKindInputAccessoryView.swift; sourceTree = "<group>"; };
+		7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BeKindInputAccessoryView.xib; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndSyncingSettingsViewController.swift; sourceTree = "<group>"; };
 		7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadMoreAboutRevertedEditViewController.xib; sourceTree = "<group>"; };
@@ -6338,6 +6362,8 @@
 				67F73E742267B9070079DEEF /* TalkPageReplyListViewController.swift */,
 				676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */,
 				67F73E782267B9500079DEEF /* TalkPageTopicNewViewController.swift */,
+				7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */,
+				7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */,
 				6706A21822927D63004774E2 /* TalkPageHintViewController.swift */,
 			);
 			name = "View Controllers";
@@ -9699,6 +9725,7 @@
 				67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				B0524AF62144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
+				7AF0265B22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
 				7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
@@ -9771,6 +9798,7 @@
 				D8E27BB11F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B0D3E715214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D80ED3D51EE57F4800CE8C50 /* WMFRandomDiceButtonRoll.js in Resources */,
+				7AF0265F22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				B0C64A9A21F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
 				7A827662226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				D80ED3D61EE57F4800CE8C50 /* NotificationBackgroundSuccess.png in Resources */,
@@ -9962,6 +9990,7 @@
 				B0EFCD6B1EBEC2FA008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF92144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8A42BE51E815A9C00D8E281 /* NotificationBackgroundSuccess@2x.png in Resources */,
+				7AF0265E22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				D8A42BE61E815A9C00D8E281 /* WMFChangePasswordViewController.storyboard in Resources */,
 				7ABAD6BC20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8A42BE81E815A9C00D8E281 /* NotificationBackgroundError.png in Resources */,
@@ -10072,6 +10101,7 @@
 				B0EFCD691EBEC2F7008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF72144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8CE266C1E698E2400DAE2E0 /* NotificationBackgroundSuccess@2x.png in Resources */,
+				7AF0265C22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				D8CE266D1E698E2400DAE2E0 /* WMFChangePasswordViewController.storyboard in Resources */,
 				7ABAD6BA20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
@@ -10182,6 +10212,7 @@
 				B0EFCD6A1EBEC2F8008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF82144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8EC3F6C1E9BDA35006712EB /* NotificationBackgroundSuccess@2x.png in Resources */,
+				7AF0265D22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
 				D8EC3F6D1E9BDA35006712EB /* WMFChangePasswordViewController.storyboard in Resources */,
 				7ABAD6BB20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
@@ -10720,6 +10751,7 @@
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
 				830ECACF1FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */,
+				7AF0265622985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */,
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
@@ -11129,6 +11161,7 @@
 				7ADF498B21B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D80ED2B61EE57F4800CE8C50 /* PageHistoryViewController.m in Sources */,
 				D80ED2B71EE57F4800CE8C50 /* WMFTitleInsetRespectingButton.m in Sources */,
+				6734EE7E22976BA400F00B05 /* TalkPageHintViewController.swift in Sources */,
 				B0524B69214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				B0016CC721362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				D80ED2B81EE57F4800CE8C50 /* WMFChangePasswordViewController.swift in Sources */,
@@ -11216,6 +11249,7 @@
 				B0C7A0821F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D80ED3091EE57F4800CE8C50 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				67861A1B223C13950044F69D /* FocusNavigationView.swift in Sources */,
+				6734EE7622976AE400F00B05 /* InfoBannerView.swift in Sources */,
 				83023C2320E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D80ED30B1EE57F4800CE8C50 /* WeakScriptMessageDelegate.swift in Sources */,
 				83023C0A20E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
@@ -11349,6 +11383,7 @@
 				7A1C4993227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				D80ED3751EE57F4800CE8C50 /* WMFFirstRandomViewController.m in Sources */,
 				7A6ED51520ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
+				6734EE7A22976AEE00F00B05 /* ActionButton.swift in Sources */,
 				D80ED3771EE57F4800CE8C50 /* ArticlePopoverViewController.swift in Sources */,
 				D80ED3781EE57F4800CE8C50 /* WMFLogFormatter.m in Sources */,
 				B03103311F677BEE00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
@@ -11370,6 +11405,7 @@
 				B0845E1520618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0CD9DF21F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0F9299D1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
+				7AF0265A22985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DB11272261820600F789B0 /* SchemeHandlerCache.swift in Sources */,
 				7AB7DECC227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D80ED3851EE57F4800CE8C50 /* WMFAccountCreationViewController.swift in Sources */,
@@ -11856,6 +11892,7 @@
 				D8A42A8D1E815A9C00D8E281 /* UIView+WMFSubviews.swift in Sources */,
 				D8A42A8F1E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				8351CE7B20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
+				6734EE7922976AED00F00B05 /* ActionButton.swift in Sources */,
 				7A0CD24321DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */,
 				D8A42A901E815A9C00D8E281 /* WMFSearchFetcher.m in Sources */,
 				7A741DCD207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
@@ -11879,6 +11916,7 @@
 				7A9524DA22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				67861A1A223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */,
+				7AF0265922985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
 				67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				B0016CC621362DB300FA1096 /* SetupGradientView.swift in Sources */,
@@ -11992,6 +12030,7 @@
 				D8A42AFE1E815A9C00D8E281 /* WMFRandomArticleViewController.m in Sources */,
 				B0BCF0BC202537D800986F72 /* Panels.swift in Sources */,
 				D8A42B001E815A9C00D8E281 /* WMFArticleViewController.m in Sources */,
+				6734EE7522976AE400F00B05 /* InfoBannerView.swift in Sources */,
 				D8E27BA91F82B38700F9D2B3 /* RMessage.m in Sources */,
 				D8A42B031E815A9C00D8E281 /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				D8A42B051E815A9C00D8E281 /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -12026,6 +12065,7 @@
 				D82117FF1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				7ABE173E2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */,
 				D8A42B2A1E815A9C00D8E281 /* WMFSearchResults.m in Sources */,
+				6734EE7D22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */,
 				D8A42B2C1E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				67E8B07D226A57DF00537BC9 /* AccountViewController.swift in Sources */,
 				D8A42B2E1E815A9C00D8E281 /* WMFReferencePageViewController.swift in Sources */,
@@ -12270,6 +12310,7 @@
 				7ADF498821B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
 				D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
+				6734EE7B22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */,
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				B0016CC421362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				D8CE25251E698E2400DAE2E0 /* PageHistoryViewController.m in Sources */,
@@ -12357,6 +12398,7 @@
 				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
 				67861A18223C13940044F69D /* FocusNavigationView.swift in Sources */,
+				6734EE7322976AE300F00B05 /* InfoBannerView.swift in Sources */,
 				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				83023C0720E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				D8CE25771E698E2400DAE2E0 /* MWKLanguageLinkFetcher.m in Sources */,
@@ -12490,6 +12532,7 @@
 				7A1C4990227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				D8CE25D81E698E2400DAE2E0 /* WMFRandomDiceButton.m in Sources */,
 				D8CE25DE1E698E2400DAE2E0 /* TableOfContentsReadMoreItem.swift in Sources */,
+				6734EE7722976AED00F00B05 /* ActionButton.swift in Sources */,
 				7A6ED51820ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				D8CE25DF1E698E2400DAE2E0 /* WMFFirstRandomViewController.m in Sources */,
 				D8CE25E11E698E2400DAE2E0 /* ArticlePopoverViewController.swift in Sources */,
@@ -12511,6 +12554,7 @@
 				830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D8CE25EC1E698E2400DAE2E0 /* WMFImageGalleryViewController.m in Sources */,
+				7AF0265722985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DB11152261820400F789B0 /* SchemeHandlerCache.swift in Sources */,
 				7AB7DEC9227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				B0CD9DDD1F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
@@ -12671,6 +12715,7 @@
 				7ADF498921B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
 				D8EC3E171E9BDA35006712EB /* MWKTitleLanguageController.m in Sources */,
 				B0016CC521362DB300FA1096 /* SetupGradientView.swift in Sources */,
+				6734EE7C22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */,
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				D8EC3E181E9BDA35006712EB /* UIView+WMFSnapshotting.m in Sources */,
 				D8EC3E191E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.m in Sources */,
@@ -12758,6 +12803,7 @@
 				D8EC3E621E9BDA35006712EB /* WMFSuggestedPagesFunnel.m in Sources */,
 				D8EC3E631E9BDA35006712EB /* WMFWelcomeContainerViewController.swift in Sources */,
 				67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */,
+				6734EE7422976AE300F00B05 /* InfoBannerView.swift in Sources */,
 				D8EC3E641E9BDA35006712EB /* WMFAccountCreator.swift in Sources */,
 				D8EC3E651E9BDA35006712EB /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D8EC3E671E9BDA35006712EB /* WeakScriptMessageDelegate.swift in Sources */,
@@ -12891,6 +12937,7 @@
 				7A1C4991227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				B031032F1F677BED00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				D858C7B8210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
+				6734EE7822976AED00F00B05 /* ActionButton.swift in Sources */,
 				7A6ED51420ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8EC3EDD1E9BDA35006712EB /* WMFFirstRandomViewController.m in Sources */,
@@ -12912,6 +12959,7 @@
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0F9299C1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
+				7AF0265822985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				67DB111B2261820500F789B0 /* SchemeHandlerCache.swift in Sources */,
 				7AB7DECA227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				D8EC3EE91E9BDA35006712EB /* WMFForgotPasswordViewController.swift in Sources */,

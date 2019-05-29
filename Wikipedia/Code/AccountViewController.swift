@@ -103,6 +103,8 @@ class AccountViewController: SubSettingsViewController {
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

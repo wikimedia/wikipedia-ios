@@ -20,6 +20,12 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     var hintController: HintController?
     
+    lazy private var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
+    
     required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
         self.host = host
@@ -70,11 +76,14 @@ private extension TalkPageContainerViewController {
     func fetch() {
         
         //todo: loading/error/empty states
+        fakeProgressController.start()
         controller.fetchTalkPage { [weak self] (result) in
             
             guard let self = self else {
                 return
             }
+            
+            self.fakeProgressController.stop()
             
             switch result {
             case .success(let talkPage):
