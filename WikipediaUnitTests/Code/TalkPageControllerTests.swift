@@ -68,7 +68,7 @@ class TalkPageControllerTests: XCTestCase {
         tempDataStore = MWKDataStore.temporary()
         talkPageFetcher = MockTalkPageFetcher(session: Session.shared, configuration: Configuration.current)
         articleRevisionFetcher = MockArticleRevisionFetcher()
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, dataStore: tempDataStore, title: "Username1", host: Configuration.Domain.englishWikipedia, languageCode: "en", titleIncludesPrefix: false, type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "Username1", host: Configuration.Domain.englishWikipedia, languageCode: "en", titleIncludesPrefix: false, type: .user)
         MockArticleRevisionFetcher.revisionId = 894272715
         
     }
@@ -231,7 +231,7 @@ class TalkPageControllerTests: XCTestCase {
         
         //fetch again for ES language
         MockTalkPageFetcher.domain = "es.wikipedia.org"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, dataStore: tempDataStore, title: "Username1", host:"es.wikipedia.org", languageCode: "en", titleIncludesPrefix: false, type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "Username1", host:"es.wikipedia.org", languageCode: "en", titleIncludesPrefix: false, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in
@@ -284,7 +284,7 @@ class TalkPageControllerTests: XCTestCase {
         
         //fetch again for ES language
         MockTalkPageFetcher.name = "Username2"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, dataStore: tempDataStore, title: "Username2", host:Configuration.Domain.englishWikipedia, languageCode: "en", titleIncludesPrefix: false, type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "Username2", host:Configuration.Domain.englishWikipedia, languageCode: "en", titleIncludesPrefix: false, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in

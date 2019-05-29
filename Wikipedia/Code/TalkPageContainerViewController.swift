@@ -33,7 +33,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         self.titleIncludesPrefix = titleIncludesPrefix
         self.type = type
         self.dataStore = dataStore
-        self.controller = TalkPageController(dataStore: dataStore, title: talkPageTitle, host: host, languageCode: languageCode, titleIncludesPrefix: titleIncludesPrefix, type: type)
+        self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, host: host, languageCode: languageCode, titleIncludesPrefix: titleIncludesPrefix, type: type)
         super.init()
     }
     
@@ -78,21 +78,22 @@ private extension TalkPageContainerViewController {
         //todo: loading/error/empty states
         fakeProgressController.start()
         controller.fetchTalkPage { [weak self] (result) in
-            
-            guard let self = self else {
-                return
-            }
-            
-            self.fakeProgressController.stop()
-            
-            switch result {
-            case .success(let talkPageID):
-                self.talkPage = try? self.dataStore.viewContext.existingObject(with: talkPageID) as? TalkPage
-                if let talkPage = self.talkPage {
-                    self.setupTopicListViewControllerIfNeeded(with: talkPage)
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
                 }
-            case .failure(let error):
-                print("error! \(error)")
+                
+                self.fakeProgressController.stop()
+                
+                switch result {
+                case .success(let talkPageID):
+                    self.talkPage = try? self.dataStore.viewContext.existingObject(with: talkPageID) as? TalkPage
+                    if let talkPage = self.talkPage {
+                        self.setupTopicListViewControllerIfNeeded(with: talkPage)
+                    }
+                case .failure(let error):
+                    print("error! \(error)")
+                }
             }
         }
     }
@@ -119,20 +120,19 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
         
         viewController.postDidBegin()
         controller.addTopic(toTalkPageWith: talkPage.objectID, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { [weak self] (result) in
-            
-            viewController.postDidEnd()
-            
-            
-            switch result {
-            case .success:
-                self?.navigationController?.popViewController(animated: true)
+            DispatchQueue.main.async {
+                viewController.postDidEnd()
                 
-                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
-            case .failure:
-                break
+                
+                switch result {
+                case .success:
+                    self?.navigationController?.popViewController(animated: true)
+                    
+                    NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+                case .failure:
+                    break
+                }
             }
-            
-            
         }
     }
 }
@@ -168,14 +168,16 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         
         viewController.postDidBegin()
         controller.addReply(to: topic, title: talkPageTitle, host: host, languageCode: languageCode, body: composeText) { (result) in
-            viewController.postDidEnd()
-            NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
-            
-            switch result {
-            case .success:
-                print("made it")
-            case .failure:
-                print("failure")
+            DispatchQueue.main.async {
+                viewController.postDidEnd()
+                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
+                
+                switch result {
+                case .success:
+                    print("made it")
+                case .failure:
+                    print("failure")
+                }
             }
         }
     }
