@@ -74,32 +74,23 @@ class TalkPageController {
         //If we already have a local talk page, chain revision & talk page calls.
         //If revision indicates we already have the latest, no need to fetch talk page.
         if let localTalkPage = localTalkPage {
-            
-            if let localRevisionID = localTalkPage.revisionId?.intValue {
-                fetchLatestRevisionID(endingWithRevision: localRevisionID, urlTitle: urlTitle) { (result) in
-                    switch result {
-                    case .success(let lastRevisionID):
-                        
-                        //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
-                        if localTalkPage.revisionId == NSNumber(value: lastRevisionID) {
-                            DispatchQueue.main.async {
-                                completion?(.success(localTalkPage))
-                            }
-                        } else {
-                            self.fetchAndUpdate(localTalkPage: localTalkPage, revisionID: lastRevisionID, completion: completion)
-                        }
-                    case .failure(let error):
+            let localRevisionID = localTalkPage.revisionId?.intValue
+            fetchLatestRevisionID(endingWithRevision: localRevisionID, urlTitle: urlTitle) { (result) in
+                switch result {
+                case .success(let lastRevisionID):
+                    
+                    //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
+                    if localRevisionID == lastRevisionID {
                         DispatchQueue.main.async {
-                            completion?(.failure(error))
+                            completion?(.success(localTalkPage))
                         }
+                    } else {
+                        self.fetchAndUpdate(localTalkPage: localTalkPage, revisionID: lastRevisionID, completion: completion)
                     }
-                }
-            } else {
-                
-                //can get into this state with a local talk page with no revision if talk page doesn't exist
-                //skip revision checking and return local talk page
-                DispatchQueue.main.async {
-                    completion?(.success(localTalkPage))
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        completion?(.failure(error))
+                    }
                 }
             }
             
