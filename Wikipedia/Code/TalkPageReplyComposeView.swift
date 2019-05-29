@@ -8,8 +8,6 @@ protocol TalkPageReplyComposeViewDelegate: class {
 
 class TalkPageReplyComposeView: UIView {
     
-    private(set) var composeTextViewFrame: CGRect?
-
     lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
     lazy private var finePrintTextView: UITextView = UITextView()
     
@@ -53,12 +51,6 @@ class TalkPageReplyComposeView: UIView {
         composeTextView.isUserInteractionEnabled = true
     }
     
-    func resetComposeTextViewFrame() {
-        if let composeTextViewFrame = composeTextViewFrame {
-            composeTextView.frame = composeTextViewFrame
-        }
-    }
-    
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let inputAccessoryViewHeight: CGFloat = composeTextView.inputAccessoryView?.frame.height ?? 0
 
@@ -78,7 +70,6 @@ class TalkPageReplyComposeView: UIView {
         let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.67 - finePrintFrame.height - inputAccessoryViewHeight
         
         let composeTextViewFrame = CGRect(x: composeTextViewOrigin.x, y: composeTextViewOrigin.y, width: composeTextViewWidth, height: forcedComposeHeight)
-        self.composeTextViewFrame = composeTextViewFrame
         
         if (apply) {
             composeTextView.frame = composeTextViewFrame
@@ -131,7 +122,7 @@ private extension TalkPageReplyComposeView {
         addSubview(composeTextView)
         composeTextView.isUnderlined = false
         composeTextView.isScrollEnabled = true
-        composeTextView.placeholderDelegate = self
+        composeTextView._delegate = self
         composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
         insertSubview(finePrintTextView, belowSubview: composeTextView)
         finePrintTextView.isScrollEnabled = false
@@ -153,12 +144,8 @@ extension TalkPageReplyComposeView: Themeable {
 
 //MARK: ThemeableTextViewPlaceholderDelegate
 
-extension TalkPageReplyComposeView: ThemeableTextViewPlaceholderDelegate {
-    func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
-        //no-op
-    }
-    
-    func themeableTextViewDidChange(_ themeableTextView: UITextView) {
-        delegate?.composeTextDidChange(text: themeableTextView.text)
+extension TalkPageReplyComposeView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        delegate?.composeTextDidChange(text: textView.text)
     }
 }

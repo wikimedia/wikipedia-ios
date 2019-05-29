@@ -267,7 +267,7 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
         }
         let viewModel = viewModels[indexPath.row]
         cell.headerText = viewModel.headerText
-        textViewsGroupedByType[viewModel.type] = cell.textViewConfigured(with: self, placeholder: viewModel.placeholder, placeholderDelegate: self, tag: indexPath.row)
+        textViewsGroupedByType[viewModel.type] = cell.textViewConfigured(with: self, placeholder: viewModel.placeholder, placeholderDelegate: self, clearDelegate: self, tag: indexPath.row)
         cell.footerText = viewModel.footerText
         cell.selectionStyle = .none
         cell.apply(theme: theme)
@@ -308,11 +308,13 @@ extension InsertMediaSettingsViewController: UITextViewDelegate {
 }
 
 extension InsertMediaSettingsViewController: ThemeableTextViewPlaceholderDelegate {
-    func themeableTextViewDidChange(_ themeableTextView: UITextView) {
-        //no-op
-    }
-    
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
+        updateTextViewHeight(themeableTextView)
+    }
+}
+
+extension InsertMediaSettingsViewController: ThemeableTextViewClearDelegate {
+    func themeableTextViewDidClear(_ themeableTextView: UITextView) {
         updateTextViewHeight(themeableTextView)
     }
 }

@@ -17,10 +17,12 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         }
     }
 
-    func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, placeholderDelegate: ThemeableTextViewPlaceholderDelegate, tag: Int) -> UITextView {
+    func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, placeholderDelegate: ThemeableTextViewPlaceholderDelegate, clearDelegate: ThemeableTextViewClearDelegate, tag: Int) -> UITextView {
         textView._delegate = delegate
         textView.placeholderDelegate = placeholderDelegate
-        textView.placeholder = placeholder!
+        textView.clearDelegate = clearDelegate
+        textView.showsClearButton = true
+        textView.placeholder = placeholder
         textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag
         accessibilityElements = [headerLabel as Any, textView as Any, textView.clearButton as Any, footerLabel as Any]

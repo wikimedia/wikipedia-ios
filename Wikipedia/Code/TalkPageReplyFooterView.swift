@@ -25,20 +25,12 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
         return UIEdgeInsets(top: layoutMargins.top + 25, left: layoutMargins.left + 5, bottom: layoutMargins.bottom, right: layoutMargins.right + 5)
     }
     
-    var composeTextViewFrame: CGRect? {
-            return composeView.composeTextViewFrame
-    }
-    
-    var composeTextView: UITextView {
+    var composeTextView: ThemeableTextView {
         return composeView.composeTextView
     }
     
     func resetCompose() {
         composeView.resetCompose()
-    }
-    
-    func resetComposeTextViewFrame() {
-        composeView.resetComposeTextViewFrame()
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

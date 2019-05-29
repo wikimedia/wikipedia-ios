@@ -88,6 +88,7 @@ class TalkPageTopicNewViewController: ViewController {
 
         subjectTextField.inputAccessoryView = beKindInputAccessoryView
         bodyTextView.inputAccessoryView = beKindInputAccessoryView
+        beKindInputAccessoryView.delegate = self
     }
 
     override var inputAccessoryView: UIView? {
@@ -96,7 +97,19 @@ class TalkPageTopicNewViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        beKindInputAccessoryView.containerHeight = view.bounds.height
         setBodyHeightIfNeeded()
+        updateContentInsets()
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        updateContentInsets()
+    }
+    
+    override func keyboardWillChangeFrame(_ notification: Notification) {
+        super.keyboardWillChangeFrame(notification)
+        updateContentInsets()
     }
     
     func postDidBegin() {
@@ -158,7 +171,7 @@ private extension TalkPageTopicNewViewController {
     func setupTextInputViews() {
         subjectTextField.isUnderlined = false
         bodyTextView.isUnderlined = false
-        bodyTextView.placeholderDelegate = self
+        bodyTextView._delegate = self
         
         subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new topic subject field for talk pages.")
         
@@ -220,11 +233,13 @@ private extension TalkPageTopicNewViewController {
         bodyContainerViewHeightConstraint.isActive = false
         bodyTextView.setNeedsLayout()
         bodyTextView.layoutIfNeeded()
+        finePrintContainerView.setNeedsLayout()
+        finePrintContainerView.layoutIfNeeded()
         var contentFittingBodyContainerHeight = bodyTextView.frame.height
         bodyContainerVerticalPaddingConstraints.forEach { contentFittingBodyContainerHeight += $0.constant  }
         
         var availableVerticalScreenSpace = talkPageScrollView.frame.height - bodyContainerOrigin.y
-        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindInputAccessoryView.frame.height
+        availableVerticalScreenSpace = availableVerticalScreenSpace - finePrintContainerView.frame.height - beKindInputAccessoryView.height
         
         if bodyContainerViewHeightConstraint.constant != availableVerticalScreenSpace {
             if availableVerticalScreenSpace > singleLineBodyHeight && availableVerticalScreenSpace >= contentFittingBodyContainerHeight {
@@ -235,6 +250,12 @@ private extension TalkPageTopicNewViewController {
             }
         } else {
             bodyContainerViewHeightConstraint.isActive = true
+        }
+    }
+    
+    func updateContentInsets() {
+        if (!bodyContainerViewHeightConstraint.isActive) {
+            talkPageScrollView.contentInset.bottom += beKindInputAccessoryView.height
         }
     }
     
@@ -251,12 +272,16 @@ private extension TalkPageTopicNewViewController {
 
 //MARK: ThemeableTextViewPlaceholderDelegate
 
-extension TalkPageTopicNewViewController: ThemeableTextViewPlaceholderDelegate {
-    func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool) {
-        //no-op
-    }
-    
-    func themeableTextViewDidChange(_ themeableTextView: UITextView) {
+extension TalkPageTopicNewViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
         evaluatePublishButtonState()
+    }
+}
+
+//MARK: BeKindInputAccessoryViewDelegate
+
+extension TalkPageTopicNewViewController: BeKindInputAccessoryViewDelegate {
+    func didUpdateHeight(view: BeKindInputAccessoryView) {
+        setBodyHeightIfNeeded()
     }
 }
