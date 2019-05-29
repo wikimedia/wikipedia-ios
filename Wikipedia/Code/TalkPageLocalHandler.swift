@@ -149,6 +149,10 @@ private extension TalkPageLocalHandler {
                  assertionFailure("Network topic is missing sort.")
             }
             
+            if localTopic.indicatorSha != networkTopic.shas.indicator {
+                localTopic.isRead = false
+            }
+            
             //todo possible performance, at one point we thought maybe having a 3rd separate "replies" at the topic level sha that represents only the replies text of a topic could improve performance here. Keeping it out now for simplicity but we could bring it back if we find it improves things.
             //if replies have not changed in any manner, no need to dig into replies diffing
 //            guard localTopic.repliesSha != networkTopic.shas.replies else {
@@ -234,6 +238,7 @@ private extension TalkPageLocalHandler {
         }
         
         topic.textSha = networkTopic.shas.text
+        topic.isRead = true
         topic.indicatorSha = networkTopic.shas.indicator
         
         for reply in networkTopic.replies {

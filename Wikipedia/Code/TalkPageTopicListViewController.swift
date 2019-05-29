@@ -241,11 +241,12 @@ private extension TalkPageTopicListViewController {
     }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
-        guard let title = fetchedResultsController.object(at: indexPath).title else {
+        let topic = fetchedResultsController.object(at: indexPath)
+        guard let title = topic.title else {
             return
         }
         
-        cell.configure(title: title)
+        cell.configure(title: title, isRead: topic.isRead)
         cell.layoutMargins = layout.itemLayoutMargins
         cell.apply(theme: theme)
     }

@@ -41,7 +41,8 @@ class TalkPageTopicCell: CollectionViewCell {
         return CGSize(width: size.width, height: finalHeight)
     }
     
-    func configure(title: String) {
+    func configure(title: String, isRead: Bool = true) {
+        unreadView.isHidden = isRead
         configureTitleLabel(title: title)
     }
     
