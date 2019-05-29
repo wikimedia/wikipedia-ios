@@ -81,6 +81,8 @@ class SearchResultsViewController: ArticleCollectionViewController {
             //todo: smart host & language code
             let talkPageContainer = TalkPageContainerViewController(title: userTalkPageTitle, host: "test.wikipedia.org", languageCode: "test", titleIncludesPrefix: true, type: .user, dataStore: dataStore)
             talkPageContainer.apply(theme: theme)
+            let article = dataStore.historyList.addPageToHistory(with: articleURL)
+            article?.update(with: results[indexPath.item])
             wmf_push(talkPageContainer, animated: true)
             return
         }
