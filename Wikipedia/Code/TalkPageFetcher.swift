@@ -95,7 +95,7 @@ enum TalkPageType {
 }
 
 enum TalkPageFetcherError: Error {
-    case TalkPageDoesNotExist
+    case talkPageDoesNotExist
 }
 
 class TalkPageFetcher: Fetcher {
