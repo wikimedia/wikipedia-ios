@@ -47,7 +47,7 @@ class TalkPageController {
         self.type = type
     }
     
-    func fetchTalkPage(completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
+    func fetchTalkPage(completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
         guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix),
             let taskURL = fetcher.taskURL(for: urlTitle, host: host) else {
             completion?(.failure(TalkPageError.createTaskURLFailure))
@@ -58,7 +58,11 @@ class TalkPageController {
         moc.perform {
             do {
                 guard let localTalkPage = try moc.talkPage(for: taskURL) else {
-                    self.createTalkPage(with: urlTitle, taskURL: taskURL, in: moc, completion: completion)
+                    self.createTalkPage(with: urlTitle, taskURL: taskURL, in: moc, completion: { (result) in
+                        DispatchQueue.main.async {
+                            completion?(result)
+                        }
+                    })
                     return
                 }
                 let localObjectID = localTalkPage.objectID
@@ -69,7 +73,7 @@ class TalkPageController {
                         //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
                         if localRevisionID == lastRevisionID {
                             DispatchQueue.main.async {
-                                completion?(.success(localTalkPage))
+                                completion?(.success(localObjectID))
                             }
                         } else {
                             self.fetchAndUpdateLocalTalkPage(with: localObjectID, revisionID: lastRevisionID, completion: completion)
@@ -90,7 +94,7 @@ class TalkPageController {
         }
     }
     
-    func createTalkPage(with urlTitle: String, taskURL: URL, in moc: NSManagedObjectContext, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
+    func createTalkPage(with urlTitle: String, taskURL: URL, in moc: NSManagedObjectContext, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
         //If no local talk page to reference, fetch latest revision ID & latest talk page in grouped calls.
         //Update network talk page with latest revision & save to db
         
@@ -134,7 +138,7 @@ class TalkPageController {
             moc.perform {
                 if talkPageDoesNotExist {
                     if let newLocalTalkPage = moc.createEmptyTalkPage(with: taskURL, languageCode: self.languageCode, displayTitle: self.displayTitle) {
-                        completion?(.success(newLocalTalkPage))
+                        completion?(.success(newLocalTalkPage.objectID))
                     } else {
                         completion?(.failure(TalkPageError.createLocalTalkPageFailure))
                     }
@@ -148,7 +152,7 @@ class TalkPageController {
                     
                     networkTalkPage.revisionId = revisionID
                     if let newLocalTalkPage = moc.createTalkPage(with: networkTalkPage) {
-                        completion?(.success(newLocalTalkPage))
+                        completion?(.success(newLocalTalkPage.objectID))
                     } else {
                         completion?(.failure(TalkPageError.createLocalTalkPageFailure))
                     }
@@ -177,11 +181,13 @@ class TalkPageController {
                 }
                 
                 self.fetchAndUpdateLocalTalkPage(with: talkPageObjectID, revisionID: newRevisionID, completion: { (result) in
-                    switch result {
-                    case .success:
-                        completion(.success(.success))
-                    case .failure:
-                        completion(.success(.refreshFetchFailed))
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success:
+                            completion(.success(.success))
+                        case .failure:
+                            completion(.success(.refreshFetchFailed))
+                        }
                     }
                 })
             case .failure(let error):
@@ -218,11 +224,13 @@ class TalkPageController {
                     return
                 }
                 self.fetchAndUpdateLocalTalkPage(with: talkPageObjectID, revisionID: newRevisionID, completion: { (result) in
-                    switch result {
-                    case .success:
-                        completion(.success(.success))
-                    case .failure:
-                        completion(.success(.refreshFetchFailed))
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success:
+                            completion(.success(.success))
+                        case .failure:
+                            completion(.success(.refreshFetchFailed))
+                        }
                     }
                 })
             case .failure(let error):
@@ -279,7 +287,7 @@ private extension TalkPageController {
         fetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, host: host, languageCode: languageCode, revisionID: revisionID, completion: completion)
     }
     
-    func fetchAndUpdateLocalTalkPage(with moid: NSManagedObjectID, revisionID: Int, completion: ((Result<TalkPage, Error>) -> Void)? = nil) {
+    func fetchAndUpdateLocalTalkPage(with moid: NSManagedObjectID, revisionID: Int, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
         fetchTalkPage(revisionID: revisionID) { (result) in
             DispatchQueue.main.async {
                 let moc = self.dataStore.viewContext
@@ -291,16 +299,23 @@ private extension TalkPageController {
                             }
                             return
                         }
+                        
                         switch result {
                         case .success(let networkTalkPage):
                             assert(networkTalkPage.revisionId != nil, "Expecting network talk page to have a revision ID here so it can pass it into the local talk page.")
-                            if let updatedLocalTalkPage = moc.updateTalkPage(localTalkPage, with: networkTalkPage) {
-                                completion?(.success(updatedLocalTalkPage))
+                            if let updatedLocalTalkPageID = moc.updateTalkPage(localTalkPage, with: networkTalkPage)?.objectID {
+                                DispatchQueue.main.async {
+                                    completion?(.success(updatedLocalTalkPageID))
+                                }
                             } else {
-                                completion?(.failure(TalkPageError.updateLocalTalkPageFailure))
+                                DispatchQueue.main.async {
+                                    completion?(.failure(TalkPageError.updateLocalTalkPageFailure))
+                                }
                             }
                         case .failure(let error):
-                            completion?(.failure(error))
+                            DispatchQueue.main.async {
+                                completion?(.failure(error))
+                            }
                         }
                         
                     } catch {

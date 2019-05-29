@@ -86,9 +86,11 @@ private extension TalkPageContainerViewController {
             self.fakeProgressController.stop()
             
             switch result {
-            case .success(let talkPage):
-                self.talkPage = talkPage
-                self.setupTopicListViewControllerIfNeeded(with: talkPage)
+            case .success(let talkPageID):
+                self.talkPage = self.dataStore.viewContext.object(with: talkPageID) as? TalkPage
+                if let talkPage = self.talkPage {
+                    self.setupTopicListViewControllerIfNeeded(with: talkPage)
+                }
             case .failure(let error):
                 print("error! \(error)")
             }
