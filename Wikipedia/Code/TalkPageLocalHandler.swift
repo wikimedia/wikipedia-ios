@@ -1,14 +1,7 @@
 
 import Foundation
 
-class TalkPageLocalHandler {
-    
-    var dataStore: MWKDataStore
-    
-    required init(dataStore: MWKDataStore) {
-        self.dataStore = dataStore
-    }
-    
+extension NSManagedObjectContext {
     func talkPage(for taskURL: URL) throws -> TalkPage? {
         
         guard let databaseKey = taskURL.wmf_talkPageDatabaseKey else {
@@ -19,22 +12,22 @@ class TalkPageLocalHandler {
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "key == %@", databaseKey)
         
-        return try dataStore.viewContext.fetch(fetchRequest).first
+        return try fetch(fetchRequest).first
     }
     
     func createEmptyTalkPage(with url: URL, languageCode: String, displayTitle: String) -> TalkPage? {
-        guard let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: dataStore.viewContext) else {
+        guard let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: self) else {
                 return nil
         }
         
-        let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: dataStore.viewContext)
+        let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: self)
         talkPage.key = url.wmf_talkPageDatabaseKey
         talkPage.languageCode = languageCode
         talkPage.displayTitle = displayTitle
         talkPage.introText = nil
         
         do {
-            try dataStore.viewContext.save()
+            try save()
             return talkPage
         } catch {
             return nil
@@ -44,11 +37,11 @@ class TalkPageLocalHandler {
     func createTalkPage(with networkTalkPage: NetworkTalkPage) -> TalkPage? {
         
         guard let revisionID = networkTalkPage.revisionId,
-            let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: dataStore.viewContext) else {
+            let talkPageEntityDesc = NSEntityDescription.entity(forEntityName: "TalkPage", in: self) else {
             return nil
         }
         
-        let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: dataStore.viewContext)
+        let talkPage = TalkPage(entity: talkPageEntityDesc, insertInto: self)
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.languageCode = networkTalkPage.languageCode
@@ -58,7 +51,7 @@ class TalkPageLocalHandler {
         addTalkPageTopics(to: talkPage, with: networkTalkPage)
         
         do {
-            try dataStore.viewContext.save()
+            try save()
             return talkPage
         } catch {
             return nil
@@ -86,7 +79,7 @@ class TalkPageLocalHandler {
         
         for deleteSha in topicShasToDelete {
             if let localTopic = localTalkPage.topics?.filter({ ($0 as? TalkPageTopic)?.textSha == deleteSha }).first as? TalkPageTopic {
-                dataStore.viewContext.delete(localTopic)
+                delete(localTopic)
             }
         }
         
@@ -104,7 +97,7 @@ class TalkPageLocalHandler {
         }
         
         do {
-            try dataStore.viewContext.save()
+            try save()
             return localTalkPage
         } catch {
             return nil
@@ -114,7 +107,7 @@ class TalkPageLocalHandler {
 
 //MARK: Private
 
-private extension TalkPageLocalHandler {
+private extension NSManagedObjectContext {
     
     func updateCommonTopics(localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage, commonTopicShas: Set<String>) {
         
@@ -167,7 +160,7 @@ private extension TalkPageLocalHandler {
             
             for deleteSha in replyShasToDelete {
                 if let localReply = localTopic.replies?.filter({ ($0 as? TalkPageReply)?.sha == deleteSha }).first as? TalkPageReply {
-                    dataStore.viewContext.delete(localReply)
+                    delete(localReply)
                 }
             }
             
@@ -211,19 +204,13 @@ private extension TalkPageLocalHandler {
     }
     
     func addTalkPageTopics(to talkPage: TalkPage, with networkTalkPage: NetworkTalkPage) {
-        
         for networkTopic in networkTalkPage.topics {
             addTalkPageTopic(to: talkPage, with: networkTopic)
         }
     }
     
     func addTalkPageTopic(to talkPage: TalkPage, with networkTopic: NetworkTopic) {
-        guard let entityDesc = NSEntityDescription.entity(forEntityName: "TalkPageTopic", in: dataStore.viewContext) else {
-            assertionFailure("Failure determining topic entity.")
-            return
-        }
-        
-        let topic = TalkPageTopic(entity: entityDesc, insertInto: dataStore.viewContext)
+        let topic = TalkPageTopic(context: self)
         topic.title = networkTopic.text
         topic.sectionID = Int64(networkTopic.sectionID)
         
@@ -246,12 +233,7 @@ private extension TalkPageLocalHandler {
     }
     
     func addTalkPageReply(to topic: TalkPageTopic, with networkReply: NetworkReply) {
-        guard let entityDesc = NSEntityDescription.entity(forEntityName: "TalkPageReply", in: dataStore.viewContext) else {
-            assertionFailure("Failure determining reply entity.")
-            return
-        }
-        
-        let reply = TalkPageReply(entity: entityDesc, insertInto: dataStore.viewContext)
+        let reply = TalkPageReply(context: self)
         reply.depth = networkReply.depth
         reply.text = networkReply.text
         reply.sort = Int64(networkReply.sort)

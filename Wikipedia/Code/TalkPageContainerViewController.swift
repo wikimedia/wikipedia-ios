@@ -116,7 +116,7 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
         }
         
         viewController.postDidBegin()
-        controller.addTopic(to: talkPage, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { [weak self] (result) in
+        controller.addTopic(toTalkPageWith: talkPage.objectID, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { [weak self] (result) in
             
             viewController.postDidEnd()
             
