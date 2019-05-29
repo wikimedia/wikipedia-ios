@@ -98,6 +98,18 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         collectionView.keyboardDismissMode = .interactive
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !topic.isRead {
+            topic.isRead = true
+            do {
+                try dataStore.viewContext.save()
+            } catch let error {
+                DDLogError("Error saving after marking topic as read: \(error)")
+            }
+        }
+    }
+    
     func postDidBegin() {
         fakeProgressController.start()
         publishButton.isEnabled = false

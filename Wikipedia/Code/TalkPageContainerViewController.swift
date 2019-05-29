@@ -154,14 +154,6 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     }
     
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
-        if !topic.isRead {
-            topic.isRead = true
-            do {
-                try topic.managedObjectContext?.save()
-            } catch let error {
-                DDLogError("Error saving after marking topic as read: \(error)")
-            }
-        }
         let replyVC = TalkPageReplyListViewController(dataStore: dataStore, topic: topic)
         replyVC.delegate = self
         replyVC.apply(theme: theme)

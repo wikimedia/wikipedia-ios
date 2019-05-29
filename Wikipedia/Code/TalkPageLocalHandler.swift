@@ -2,6 +2,14 @@
 import Foundation
 
 extension NSManagedObjectContext {
+    func talkPage(with managedObjectID: NSManagedObjectID) -> TalkPage? {
+        return try? existingObject(with: managedObjectID) as? TalkPage
+    }
+    
+    func talkPageTopic(with managedObjectID: NSManagedObjectID) -> TalkPageTopic? {
+        return try? existingObject(with: managedObjectID) as? TalkPageTopic
+    }
+
     func talkPage(for taskURL: URL) throws -> TalkPage? {
         
         guard let databaseKey = taskURL.wmf_talkPageDatabaseKey else {
