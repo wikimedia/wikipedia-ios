@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param url The url of the page to add
  */
-- (void)addPageToHistoryWithURL:(NSURL *)url;
+- (nullable WMFArticle *)addPageToHistoryWithURL:(NSURL *)url;
 
 /**
  *  Add pages to the user history.

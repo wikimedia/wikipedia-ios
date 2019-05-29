@@ -141,18 +141,18 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)addPageToHistoryWithURL:(NSURL *)URL {
+- (nullable WMFArticle *)addPageToHistoryWithURL:(NSURL *)URL {
     NSParameterAssert(URL);
     if (!URL) {
-        return;
+        return nil;
     }
 
     if ([URL wmf_isNonStandardURL]) {
-        return;
+        return nil;
     }
 
     if ([URL.wmf_title length] == 0) {
-        return;
+        return nil;
     }
 
     NSDate *now = [NSDate date];
@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
 
     if (!article.displayTitleHTML) {
-        return;
+        return article;
     }
 
     article.viewedDate = now;
@@ -170,6 +170,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error adding pages to history: %@", error);
     }
+
+    return article;
 }
 
 - (void)setFragment:(nullable NSString *)fragment scrollPosition:(double)scrollposition onPageInHistoryWithURL:(NSURL *)URL {
