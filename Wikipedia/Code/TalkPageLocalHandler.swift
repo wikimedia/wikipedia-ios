@@ -234,7 +234,7 @@ private extension TalkPageLocalHandler {
         }
         
         topic.textSha = networkTopic.shas.text
-        topic.isRead = true
+        topic.isRead = false
         topic.indicatorSha = networkTopic.shas.indicator
         
         for reply in networkTopic.replies {

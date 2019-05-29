@@ -86,7 +86,7 @@
     </entity>
     <entity name="TalkPageTopic" representedClassName="TalkPageTopic" syncable="YES" codeGenerationType="class">
         <attribute name="indicatorSha" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isRead" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isRead" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="textSha" attributeType="String" syncable="YES"/>
