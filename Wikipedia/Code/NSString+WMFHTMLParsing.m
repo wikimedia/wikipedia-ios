@@ -6,6 +6,7 @@
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
 #import "WMF/WMFHTMLElement.h"
+@import CoreText;
 
 @implementation NSString (WMFHTMLParsing)
 
@@ -294,11 +295,11 @@
     return [self wmf_stringByRemovingHTMLWithParsingBlock:NULL];
 }
 
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
-    return [self wmf_attributedStringFromHTMLWithFont:font boldFont:boldFont italicFont:italicFont boldItalicFont:boldItalicFont color:color linkColor:linkColor handlingLists:handlingLists withAdditionalBoldingForMatchingSubstring:stringToBold tagMapping:nil additionalTagAttributes:nil];
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+    return [self wmf_attributedStringFromHTMLWithFont:font boldFont:boldFont italicFont:italicFont boldItalicFont:boldItalicFont color:color linkColor:linkColor handlingLists:handlingLists handlingSuperSubscripts: handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:stringToBold tagMapping:nil additionalTagAttributes:nil];
 }
 
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes {
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes {
     boldFont = boldFont ?: font;
     italicFont = italicFont ?: font;
     boldItalicFont = boldItalicFont ?: font;
@@ -418,6 +419,8 @@
         NSSet *linksForRange = [links objectAtIndex:idx];
         BOOL isItalic = [tagsForRange containsObject:@"i"];
         BOOL isBold = [tagsForRange containsObject:@"b"];
+        BOOL isSubscript = [tagsForRange containsObject:@"sub"];
+        BOOL isSuperscript = [tagsForRange containsObject:@"sup"];
         BOOL isUnorderedList = [tagsForRange containsObject:@"ul"];
         BOOL isOrderedList = [tagsForRange containsObject:@"ol"];
         BOOL isList = isUnorderedList || isOrderedList;
@@ -433,6 +436,16 @@
             }
         } else if (isBold) {
             [attributedString addAttribute:NSFontAttributeName value:boldFont range:range];
+        }
+        
+        if (handlingSuperSubscripts) {
+            if (isSubscript) {
+                [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt: -1] range:range];
+            }
+            
+            if (isSuperscript) {
+                [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt: 1] range:range];
+            }
         }
 
         if (handlingLists) {
