@@ -209,7 +209,7 @@ class TalkPageControllerTests: XCTestCase {
             initialFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
+            case .success(let dbTalkPageID):
                 
                 //fetch from db again, confirm count is 1 and matches returned talk page
                 let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
@@ -220,7 +220,7 @@ class TalkPageControllerTests: XCTestCase {
                 }
                 
                 XCTAssertEqual(results.count, 1, "Expected one talk page in DB")
-                XCTAssertEqual(results.first, dbTalkPage)
+                XCTAssertEqual(results.first?.objectID, dbTalkPageID)
                 
             case .failure:
                 XCTFail("TalkPageController fetchTalkPage failure")

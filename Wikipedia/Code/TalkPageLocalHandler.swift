@@ -52,7 +52,8 @@ extension NSManagedObjectContext {
             try addTalkPageTopics(to: talkPage, with: networkTalkPage)
             try save()
             return talkPage
-        } catch {
+        } catch let error {
+            DDLogError("error creating talk page: \(error)")
             delete(talkPage)
             return nil
         }
@@ -111,7 +112,7 @@ extension NSManagedObjectContext {
         }
         let request: NSFetchRequest<TalkPageTopicContent> = TalkPageTopicContent.fetchRequest()
         request.predicate = NSPredicate(format: "sha == %@", sha)
-        let results = try request.execute()
+        let results = try fetch(request)
         var content = results.first
         if content == nil {
             content = TalkPageTopicContent(context: self)
