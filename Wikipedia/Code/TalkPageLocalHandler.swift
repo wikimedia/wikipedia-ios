@@ -48,12 +48,12 @@ extension NSManagedObjectContext {
         talkPage.displayTitle = networkTalkPage.displayTitle
         talkPage.introText = networkTalkPage.introText
         
-        addTalkPageTopics(to: talkPage, with: networkTalkPage)
-        
         do {
+            try addTalkPageTopics(to: talkPage, with: networkTalkPage)
             try save()
             return talkPage
         } catch {
+            delete(talkPage)
             return nil
         }
     }
@@ -85,22 +85,48 @@ extension NSManagedObjectContext {
         
         //udpate common topics
         let commonTopicShas = oldTopicSetShas.intersection(newTopicSetShas)
-        updateCommonTopics(localTalkPage: localTalkPage, with: networkTalkPage, commonTopicShas: commonTopicShas)
+        do  {
+            try updateCommonTopics(localTalkPage: localTalkPage, with: networkTalkPage, commonTopicShas: commonTopicShas)
         
-        //add new topics
-        let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
-        
-        for insertSha in topicShasToInsert {
-            if let networkTopic = networkTalkPage.topics.filter({ $0.shas.text == insertSha }).first {
-                addTalkPageTopic(to: localTalkPage, with: networkTopic)
+            //add new topics
+            let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
+            
+            for insertSha in topicShasToInsert {
+                if let networkTopic = networkTalkPage.topics.filter({ $0.shas.text == insertSha }).first {
+                    try addTalkPageTopic(to: localTalkPage, with: networkTopic)
+                }
             }
-        }
-        
-        do {
+            try? removeUnlinkedTalkPageTopicContent()
             try save()
             return localTalkPage
         } catch {
+            delete(localTalkPage)
             return nil
+        }
+    }
+    
+    func fetchOrCreateTalkPageTopicContent(with sha: String, for topic: TalkPageTopic) throws {
+        guard topic.content?.sha != sha else {
+            return
+        }
+        let request: NSFetchRequest<TalkPageTopicContent> = TalkPageTopicContent.fetchRequest()
+        request.predicate = NSPredicate(format: "sha == %@", sha)
+        let results = try request.execute()
+        var content = results.first
+        if content == nil {
+            content = TalkPageTopicContent(context: self)
+            content?.sha = sha
+        }
+        topic.relatedObjectsVersion += 1
+        topic.content = content
+    }
+    
+    func removeUnlinkedTalkPageTopicContent() throws {
+        let request: NSFetchRequest<TalkPageTopicContent> = TalkPageTopicContent.fetchRequest()
+        request.predicate = NSPredicate(format: "topics.@count == 0")
+        let results = try request.execute()
+        for result in results {
+            delete(result)
         }
     }
 }
@@ -109,7 +135,7 @@ extension NSManagedObjectContext {
 
 private extension NSManagedObjectContext {
     
-    func updateCommonTopics(localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage, commonTopicShas: Set<String>) {
+    func updateCommonTopics(localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage, commonTopicShas: Set<String>) throws {
         
         //create & zip limited set of topics
         let predicate = NSPredicate(format:"textSha IN %@", commonTopicShas)
@@ -142,11 +168,7 @@ private extension NSManagedObjectContext {
                  assertionFailure("Network topic is missing sort.")
             }
 
-            guard localTopic.indicatorSha != networkTopic.shas.indicator else {
-                return
-            }
-            
-            localTopic.isRead = false
+            try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: localTopic)
 
             guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap ({ return $0.sha }) else {
                 continue
@@ -203,13 +225,13 @@ private extension NSManagedObjectContext {
         }
     }
     
-    func addTalkPageTopics(to talkPage: TalkPage, with networkTalkPage: NetworkTalkPage) {
+    func addTalkPageTopics(to talkPage: TalkPage, with networkTalkPage: NetworkTalkPage) throws {
         for networkTopic in networkTalkPage.topics {
-            addTalkPageTopic(to: talkPage, with: networkTopic)
+            try addTalkPageTopic(to: talkPage, with: networkTopic)
         }
     }
     
-    func addTalkPageTopic(to talkPage: TalkPage, with networkTopic: NetworkTopic) {
+    func addTalkPageTopic(to talkPage: TalkPage, with networkTopic: NetworkTopic) throws {
         let topic = TalkPageTopic(context: self)
         topic.title = networkTopic.text
         topic.sectionID = Int64(networkTopic.sectionID)
@@ -221,11 +243,9 @@ private extension NSManagedObjectContext {
         }
         
         topic.textSha = networkTopic.shas.text
-        topic.isRead = false
-        topic.indicatorSha = networkTopic.shas.indicator
+        try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: topic)
         
         for reply in networkTopic.replies {
-            
             addTalkPageReply(to: topic, with: reply)
         }
         
