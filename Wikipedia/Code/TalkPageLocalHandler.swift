@@ -167,10 +167,15 @@ private extension NSManagedObjectContext {
         
         for (localTopic, networkTopic) in zippedTopics {
             
-            if let sort = networkTopic.sort {
+            if let sort = networkTopic.sort, localTopic.sort != sort {
                 localTopic.sort = Int64(sort)
             } else {
-                 assertionFailure("Network topic is missing sort.")
+                assertionFailure("Network topic is missing sort.")
+            }
+            
+            let sectionID = Int64(networkTopic.sectionID)
+            if localTopic.sectionID != sectionID {
+                localTopic.sectionID = sectionID
             }
 
             try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: localTopic)
