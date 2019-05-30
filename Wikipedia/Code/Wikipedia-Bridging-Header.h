@@ -67,7 +67,6 @@
 #import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
-#import "EditFunnel.h"
 
 // Third Party
 #import "TUSafariActivity.h"
