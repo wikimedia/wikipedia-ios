@@ -74,6 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                               color:(nullable UIColor *)color
                                                           linkColor:(nullable UIColor *)color
                                                         handlingLists:(BOOL)handlingLists
+                                                        handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
                           withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold
                                                          tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
                                             additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
@@ -81,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Convienence method for the method above.
  */
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *) color linkColor:(nullable UIColor *) linkColor handlingLists:(BOOL)handlingLists withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *) color linkColor:(nullable UIColor *) linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
 
 
 @end
