@@ -13,7 +13,8 @@ extension WMFArticle {
         wikidataDescription = summary.articleDescription
         displayTitleHTML = summary.displayTitle ?? summary.title ?? ""
         snippet = summary.extract?.wmf_summaryFromText()
-    
+        ns = NSNumber(value: summary.namespace?.id ?? 0)
+        
         if let summaryCoordinate = summary.coordinates {
             coordinate = CLLocationCoordinate2D(latitude: summaryCoordinate.lat, longitude: summaryCoordinate.lon)
         } else {
