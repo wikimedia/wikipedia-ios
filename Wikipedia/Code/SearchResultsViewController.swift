@@ -77,9 +77,13 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         
-        if let userTalkPageTitle = userTalkPageTitle(at: indexPath) {
-            //todo: smart host & language code
-            let talkPageContainer = TalkPageContainerViewController(title: userTalkPageTitle, host: "test.wikipedia.org", languageCode: "test", titleIncludesPrefix: true, type: .user, dataStore: dataStore)
+        if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
+            let searchSiteURL = searchSiteURL {
+            
+            //replace localized namespace with canonical namespace so it's considered the same key in the database
+            let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: userTalkPageTitle)
+            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: searchSiteURL)
+            let talkPageContainer = TalkPageContainerViewController(title: title, siteURL: searchSiteURL, type: .user, dataStore: dataStore)
             talkPageContainer.apply(theme: theme)
             wmf_push(talkPageContainer, animated: true)
             return

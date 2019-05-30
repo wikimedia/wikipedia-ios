@@ -23,7 +23,7 @@ class TalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        guard let title = TalkPageType.user.urlTitle(for: "Username", titleIncludesPrefix: false) else {
+        guard let title = TalkPageType.user.urlTitle(for: "Username") else {
             XCTFail("Failure generating title")
             return
         }
@@ -48,7 +48,7 @@ class TalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        guard let title = TalkPageType.user.urlTitle(for: "User talk:Username", titleIncludesPrefix: true) else {
+        guard let title = TalkPageType.user.urlTitle(for: "User talk:Username") else {
             XCTFail("Failure generating title")
             return
         }

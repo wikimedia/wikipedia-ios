@@ -73,7 +73,6 @@
         <attribute name="displayTitle" attributeType="String" syncable="YES"/>
         <attribute name="introText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
-        <attribute name="languageCode" attributeType="String" syncable="YES"/>
         <attribute name="revisionId" optional="YES" attributeType="Integer 64" minValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="topics" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageTopic" inverseName="talkPage" inverseEntity="TalkPageTopic" syncable="YES"/>
     </entity>
@@ -215,7 +214,7 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
-        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="135"/>
+        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="120"/>
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
         <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="165"/>
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>

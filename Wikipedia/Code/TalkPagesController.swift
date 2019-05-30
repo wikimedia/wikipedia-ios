@@ -27,29 +27,25 @@ class TalkPageController {
     let articleRevisionFetcher: WMFArticleRevisionFetcher
     let moc: NSManagedObjectContext
     let title: String
-    let host: String
-    let languageCode: String
-    let titleIncludesPrefix: Bool
+    let siteURL: URL
     let type: TalkPageType
     
     var displayTitle: String {
-        return type.displayTitle(for: title, titleIncludesPrefix: titleIncludesPrefix)
+        return type.titleWithoutNamespacePrefix(title: title)
     }
     
-    required init(fetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), moc: NSManagedObjectContext, title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType) {
+    required init(fetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), moc: NSManagedObjectContext, title: String, siteURL: URL, type: TalkPageType) {
         self.fetcher = fetcher
         self.articleRevisionFetcher = articleRevisionFetcher
         self.moc = moc
         self.title = title
-        self.host = host
-        self.languageCode = languageCode
-        self.titleIncludesPrefix = titleIncludesPrefix
+        self.siteURL = siteURL
         self.type = type
     }
     
     func fetchTalkPage(completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
-        guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix),
-            let taskURL = fetcher.taskURL(for: urlTitle, host: host) else {
+        guard let urlTitle = type.urlTitle(for: title),
+            let taskURL = fetcher.getURL(for: urlTitle, siteURL: siteURL) else {
             completion?(.failure(TalkPageError.createTaskURLFailure))
             return
         }
@@ -127,7 +123,7 @@ class TalkPageController {
         taskGroup.waitInBackground {
             moc.perform {
                 if talkPageDoesNotExist {
-                    if let newLocalTalkPage = moc.createEmptyTalkPage(with: taskURL, languageCode: self.languageCode, displayTitle: self.displayTitle) {
+                    if let newLocalTalkPage = moc.createEmptyTalkPage(with: taskURL, displayTitle: self.displayTitle) {
                         completion?(.success(newLocalTalkPage.objectID))
                     } else {
                         completion?(.failure(TalkPageError.createLocalTalkPageFailure))
@@ -151,16 +147,16 @@ class TalkPageController {
         }
     }
     
-    func addTopic(toTalkPageWith talkPageObjectID: NSManagedObjectID, title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
+    func addTopic(toTalkPageWith talkPageObjectID: NSManagedObjectID, title: String, siteURL: URL, subject: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
         
-        guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
+        guard let title = type.urlTitle(for: title) else {
             completion(.failure(TalkPageError.createUrlTitleStringFailure))
             return
         }
         
         //todo: conditional signature
         let wrappedBody = "<p>\n\n" + body + " ~~~~</p>"
-        fetcher.addTopic(to: title, host: host, languageCode: languageCode, subject: subject, body: wrappedBody) { (result) in
+        fetcher.addTopic(to: title, siteURL: siteURL, subject: subject, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
                 guard let newRevisionID = result["newrevid"] as? Int else {
@@ -190,9 +186,9 @@ class TalkPageController {
         }
     }
     
-    func addReply(to topic: TalkPageTopic, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
+    func addReply(to topic: TalkPageTopic, title: String, siteURL: URL, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
         
-        guard let title = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
+        guard let title = type.urlTitle(for: title) else {
             completion(.failure(TalkPageError.createUrlTitleStringFailure))
             return
         }
@@ -205,7 +201,7 @@ class TalkPageController {
             return
         }
         
-        fetcher.addReply(to: topic, title: title, host: host, languageCode: languageCode, body: wrappedBody) { (result) in
+        fetcher.addReply(to: topic, title: title, siteURL: siteURL, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
                 guard let newRevisionID = result["newrevid"] as? Int else {
@@ -239,7 +235,8 @@ private extension TalkPageController {
     
     func fetchLatestRevisionID(endingWithRevision revisionID: Int?, urlTitle: String, completion: @escaping (Result<Int, Error>) -> Void) {
         
-        guard let revisionURL = Configuration.current.mediaWikiAPIURLForWikiLanguage(languageCode, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
+        guard let host = siteURL.host,
+            let revisionURL = Configuration.current.mediaWikiAPIURForHost(host, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
             completion(.failure(TalkPageError.revisionUrlCreationFailure))
             return
         }
@@ -268,12 +265,12 @@ private extension TalkPageController {
     }
     
     func fetchTalkPage(revisionID: Int?, completion: @escaping ((Result<NetworkTalkPage, Error>) -> Void)) {
-        guard let urlTitle = type.urlTitle(for: title, titleIncludesPrefix: titleIncludesPrefix) else {
+        guard let urlTitle = type.urlTitle(for: title) else {
             completion(.failure(TalkPageError.talkPageTitleCreationFailure))
             return
         }
         
-        fetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, host: host, languageCode: languageCode, revisionID: revisionID, completion: completion)
+        fetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, siteURL: siteURL, revisionID: revisionID, completion: completion)
     }
     
     func fetchAndUpdateLocalTalkPage(with moid: NSManagedObjectID, revisionID: Int, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {

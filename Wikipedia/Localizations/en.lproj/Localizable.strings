@@ -699,7 +699,8 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
-"talk-page-info-active-conversations" = "Active conversations on $1";
+"talk-page-info-active-conversations" = "Active conversations on $1 Wikipedia";
+"talk-page-info-active-conversations-generic" = "Active conversations on Wikipedia";
 "talk-page-new-banner-subtitle" = "Remember, we are all humans here";
 "talk-page-new-banner-title" = "Please be kind";
 "talk-page-new-reply-body-placeholder-text" = "Compose response";
@@ -710,6 +711,7 @@
 "talk-page-new-topic-title" = "New discussion";
 "talk-page-publish-terms-and-licenses" = "By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
 "talk-page-reply-title" = "Reply";
+"talk-page-title-article-talk" = "article Talk";
 "talk-page-title-user-talk" = "User Talk";
 "talk-page-topic-title" = "Discussion";
 "talk-pages-reply-button-title" = "Reply to this discussion";

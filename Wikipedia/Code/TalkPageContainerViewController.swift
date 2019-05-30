@@ -5,13 +5,10 @@ import UIKit
 class TalkPageContainerViewController: ViewController, HintPresenting {
     
     private let talkPageTitle: String
-    private let host: String
-    private let languageCode: String
-    private let titleIncludesPrefix: Bool
+    private let siteURL: URL
     private let type: TalkPageType
     private let dataStore: MWKDataStore
     private var controller: TalkPageController
-    
     private var talkPage: TalkPage?
     private var topicListViewController: TalkPageTopicListViewController?
     
@@ -26,14 +23,12 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         return progressController
     }()
     
-    required init(title: String, host: String, languageCode: String, titleIncludesPrefix: Bool, type: TalkPageType, dataStore: MWKDataStore) {
+    required init(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore) {
         self.talkPageTitle = title
-        self.host = host
-        self.languageCode = languageCode
-        self.titleIncludesPrefix = titleIncludesPrefix
+        self.siteURL = siteURL
         self.type = type
         self.dataStore = dataStore
-        self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, host: host, languageCode: languageCode, titleIncludesPrefix: titleIncludesPrefix, type: type)
+        self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
         super.init()
     }
     
@@ -100,7 +95,7 @@ private extension TalkPageContainerViewController {
     
     func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {
         if topicListViewController == nil {
-            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPage: talkPage)
+            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPage: talkPage, siteURL: siteURL, type: type)
             topicListViewController?.apply(theme: theme)
             wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             topicListViewController?.delegate = self
@@ -119,7 +114,7 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
         }
         
         viewController.postDidBegin()
-        controller.addTopic(toTalkPageWith: talkPage.objectID, title: talkPageTitle, host: host, languageCode: languageCode, subject: subject, body: body) { [weak self] (result) in
+        controller.addTopic(toTalkPageWith: talkPage.objectID, title: talkPageTitle, siteURL: siteURL, subject: subject, body: body) { [weak self] (result) in
             DispatchQueue.main.async {
                 viewController.postDidEnd()
                 
@@ -167,7 +162,7 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController) {
         
         viewController.postDidBegin()
-        controller.addReply(to: topic, title: talkPageTitle, host: host, languageCode: languageCode, body: composeText) { (result) in
+        controller.addReply(to: topic, title: talkPageTitle, siteURL: siteURL, body: composeText) { (result) in
             DispatchQueue.main.async {
                 viewController.postDidEnd()
                 NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
@@ -185,12 +180,11 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
         let lastPathComponent = url.lastPathComponent
         
-        //todo: fix for other languages
-        let prefix = TalkPageType.user.prefix
-        let underscoredPrefix = prefix.replacingOccurrences(of: " ", with: "_")
-        let title = lastPathComponent.replacingOccurrences(of: underscoredPrefix, with: "")
-        if lastPathComponent.contains(underscoredPrefix) && languageCode == "test" {
-            let talkPageContainerVC = TalkPageContainerViewController(title: title, host: host, languageCode: languageCode, titleIncludesPrefix: false, type: .user, dataStore: dataStore)
+        //todo: check for localized prefix too?
+        let urlWithHost = url.host != nil ? url : siteURL
+        if let prefix = type.canonicalNamespacePrefix(for: urlWithHost)?.wmf_denormalizedPageTitle(),
+            lastPathComponent.contains(prefix) {
+            let talkPageContainerVC = TalkPageContainerViewController(title: lastPathComponent, siteURL: siteURL, type: .user, dataStore: dataStore)
             talkPageContainerVC.apply(theme: theme)
             navigationController?.pushViewController(talkPageContainerVC, animated: true)
         }

@@ -23,11 +23,10 @@ extension NSManagedObjectContext {
         return try fetch(fetchRequest).first
     }
     
-    func createEmptyTalkPage(with url: URL, languageCode: String, displayTitle: String) -> TalkPage? {
+    func createEmptyTalkPage(with url: URL, displayTitle: String) -> TalkPage? {
         
         let talkPage = TalkPage(context: self)
         talkPage.key = url.wmf_talkPageDatabaseKey
-        talkPage.languageCode = languageCode
         talkPage.displayTitle = displayTitle
         talkPage.introText = nil
         
@@ -48,7 +47,6 @@ extension NSManagedObjectContext {
         let talkPage = TalkPage(context: self)
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
-        talkPage.languageCode = networkTalkPage.languageCode
         talkPage.displayTitle = networkTalkPage.displayTitle
         talkPage.introText = networkTalkPage.introText
         
