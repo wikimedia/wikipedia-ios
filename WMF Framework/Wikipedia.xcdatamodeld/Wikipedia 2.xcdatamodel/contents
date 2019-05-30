@@ -85,13 +85,22 @@
         <relationship name="topic" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="replies" inverseEntity="TalkPageTopic" syncable="YES"/>
     </entity>
     <entity name="TalkPageTopic" representedClassName="TalkPageTopic" syncable="YES" codeGenerationType="class">
-        <attribute name="indicatorSha" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="relatedObjectsVersion" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="textSha" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopicContent" inverseName="topics" inverseEntity="TalkPageTopicContent" syncable="YES"/>
         <relationship name="replies" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageReply" inverseName="topic" inverseEntity="TalkPageReply" syncable="YES"/>
         <relationship name="talkPage" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPage" inverseName="topics" inverseEntity="TalkPage" syncable="YES"/>
+    </entity>
+    <entity name="TalkPageTopicContent" representedClassName="TalkPageTopicContent" syncable="YES" codeGenerationType="class">
+        <attribute name="isRead" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sha" attributeType="String" syncable="YES"/>
+        <relationship name="topics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="content" inverseEntity="TalkPageTopic" syncable="YES"/>
+        <fetchIndex name="bySHAIndex">
+            <fetchIndexElement property="sha" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -209,7 +218,8 @@
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
         <element name="TalkPage" positionX="-45" positionY="135" width="128" height="135"/>
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
-        <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="150"/>
+        <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="165"/>
+        <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="495"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="345"/>
