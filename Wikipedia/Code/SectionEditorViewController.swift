@@ -35,7 +35,7 @@ class SectionEditorViewController: UIViewController {
     
     private var needsSelectLastSelection: Bool = false
     
-    @objc var editFunnel: EditFunnel?
+    @objc var editFunnel = EditFunnel.shared
     
     private var wikitext: String? {
         didSet {
@@ -210,6 +210,7 @@ class SectionEditorViewController: UIViewController {
 
     private var didSetWikitextToWebView: Bool = false {
         didSet {
+            logSectionReadyToEdit()
             guard shouldFocusWebView else {
                 return
             }
@@ -309,8 +310,6 @@ class SectionEditorViewController: UIViewController {
                     else {
                         return
                 }
-                
-                self.editFunnel?.logStart(section.article?.url.wmf_language)
 
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
@@ -350,6 +349,16 @@ class SectionEditorViewController: UIViewController {
             self.inputViewsController.didTransitionToNewCollection()
             self.focusNavigationView.updateLayout(for: newCollection)
         }
+    }
+
+    // MARK: Event logging
+
+    private func logSectionReadyToEdit() {
+        editFunnel.logSectionReadyToEditFrom(source: editFunnelSource, revision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
+    }
+
+    private var editFunnelSource: EditFunnelSource {
+        return selectedTextEditInfo == nil ? .pencil : .highlight
     }
 }
 
@@ -502,7 +511,8 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
-        vc.funnel = self.editFunnel
+        vc.editFunnel = self.editFunnel
+        vc.editFunnelSource = editFunnelSource
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

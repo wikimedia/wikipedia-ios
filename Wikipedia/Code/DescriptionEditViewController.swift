@@ -21,18 +21,14 @@ import UIKit
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
 
-    @objc var article: MWKArticle? = nil {
-        didSet {
-            isEditingExistingDescription = article?.entityDescription != nil
-        }
-    }
+    @objc var article: MWKArticle? = nil
     private let showWarningIfDescriptionLongerThanCount = 90
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
 
     @objc var editFunnel: EditFunnel?
-    private var isEditingExistingDescription: Bool = false
-    
+    @objc var editFunnelSource: EditFunnelSource = .unknown
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -175,7 +171,7 @@ import UIKit
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        editFunnel?.logWikidataDescriptionEditSaveAttempt(isEditingExistingDescription, language: article?.url.wmf_language)
+        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: article?.entityDescription == nil, revision: article?.revisionId?.intValue, language: article?.url.wmf_language)
         save()
     }
 
@@ -219,10 +215,10 @@ import UIKit
                 if let error = error {
                     let apiErrorCode = (error as? WikidataAPIResult.APIError)?.code
                     let errorText = apiErrorCode ?? "\((error as NSError).domain)-\((error as NSError).code)"
-                    self.editFunnel?.logWikidataDescriptionEditError(self.isEditingExistingDescription, language: language, errorText: errorText)
+                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: article.entityDescription == nil, revision: article.revisionId?.intValue, language: article.url.wmf_language, errorText: errorText)
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 } else {
-                    self.editFunnel?.logWikidataDescriptionEditSaved(self.isEditingExistingDescription, language: language, revID: self.article?.revisionId)
+                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: article.entityDescription == nil, revision: article.revisionId?.intValue, language: article.url.wmf_language)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
