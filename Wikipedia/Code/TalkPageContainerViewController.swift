@@ -178,13 +178,27 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     }
     
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
+        
+        //todo: might want to fetch/lean on article summary for this instead to detect user talk page namespace.
+        
         let lastPathComponent = url.lastPathComponent
         
-        //todo: check for localized prefix too?
-        let urlWithHost = url.host != nil ? url : siteURL
-        if let prefix = type.canonicalNamespacePrefix(for: urlWithHost)?.wmf_denormalizedPageTitle(),
+        var urlForCanonicalCheck: URL?
+        var urlForContainer: URL?
+        if let host = url.host,
+            let scheme = url.scheme {
+            urlForCanonicalCheck = URL(string: "\(scheme)://\(host)")
+            urlForContainer = url
+        } else {
+            urlForCanonicalCheck = siteURL
+            urlForContainer = siteURL
+        }
+        
+        if let urlForCanonicalCheck = urlForCanonicalCheck,
+            let urlForContainer = urlForContainer,
+            let prefix = type.canonicalNamespacePrefix(for: urlForCanonicalCheck)?.wmf_denormalizedPageTitle(), //todo: check for localized prefix too?
             lastPathComponent.contains(prefix) {
-            let talkPageContainerVC = TalkPageContainerViewController(title: lastPathComponent, siteURL: siteURL, type: .user, dataStore: dataStore)
+            let talkPageContainerVC = TalkPageContainerViewController(title: lastPathComponent, siteURL: urlForContainer, type: .user, dataStore: dataStore)
             talkPageContainerVC.apply(theme: theme)
             navigationController?.pushViewController(talkPageContainerVC, animated: true)
         }
