@@ -236,8 +236,7 @@
 "editing-welcome-impartial-tone-title" = "Пишіть непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Аби надати доступ до знань людства кожному, ми потребуємо вашої участі у їхньому створенні завдяки вичитуванню, редагуванню статей і додаванню інформації на теми, що є найбільш релевантними для вас.";
 "editing-welcome-set-knowledge-free-title" = "Зробіть інформацію доступною всім";
-// Fuzzy
-"empty-insert-media-title" = "Оберіть файл";
+"empty-insert-media-title" = "Оберіть файл з Вікісховища";
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
 "empty-no-feed-action-message" = "Ви все ще можете читати збережені сторінки";
 "empty-no-feed-message" = "Ви можете побачити рекомендовані статті, коли у вас є інтернет";
