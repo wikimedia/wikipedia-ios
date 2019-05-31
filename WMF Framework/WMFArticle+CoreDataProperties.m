@@ -35,5 +35,6 @@
 @dynamic readingLists;
 @dynamic previewReadingLists;
 @dynamic errorCodeNumber;
+@dynamic ns;
 
 @end
