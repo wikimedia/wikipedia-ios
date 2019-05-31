@@ -109,16 +109,14 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         headerLabel.text = viewModel.header
         
         let titleFont = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        
-        if let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim() {
-            titleTextView.attributedText = titleAttributedString
-        }
-        
+        let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
+        titleTextView.attributedText = titleAttributedString
+
         let introFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         let italicIntroFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
         
-        if let introAttributedString = viewModel.intro?.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim() {
+        if let introAttributedString = viewModel.intro?.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil) {
             introTextView.attributedText = introAttributedString
         }
     }

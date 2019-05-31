@@ -78,7 +78,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKImageInfo.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
-#import <WMF/NSAttributedString+WMFTrim.h>
 
 #import <WMF/WMFURLCache.h>
 

@@ -79,9 +79,8 @@ class TalkPageReplyCell: CollectionViewCell {
         let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
         let italicfont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
-        if let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim() {
-            setupTitle(for: attributedString)
-        }
+        let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
+        setupTitle(for: attributedString)
         setNeedsLayout()
     }
     
