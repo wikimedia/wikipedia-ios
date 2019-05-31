@@ -392,7 +392,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.section = self.section
                     vc.wikitext = wikitext
                     vc.delegate = self
-                    vc.funnel = self.editFunnel
+                    vc.editFunnel = self.editFunnel
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
