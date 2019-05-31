@@ -29,6 +29,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         self.type = type
         self.dataStore = dataStore
         self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
+        assert(title.contains(":"), "Title must already be prefixed with namespace.")
         super.init()
     }
     

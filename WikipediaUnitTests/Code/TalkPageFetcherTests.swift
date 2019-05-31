@@ -23,12 +23,15 @@ class TalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        guard let title = TalkPageType.user.urlTitle(for: "Username") else {
+        let siteURL = URL(string: "https://en.wikipedia.org")!
+        
+        let prefixedTitle = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: "Username", siteURL: siteURL)
+        guard let title = TalkPageType.user.urlTitle(for: prefixedTitle) else {
             XCTFail("Failure generating title")
             return
         }
         
-        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", host: Configuration.Domain.englishWikipedia, languageCode: "en", revisionID: 5) { (result) in
+        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", siteURL: siteURL, revisionID: 5) { (result) in
             
             fetchExpectation.fulfill()
 
@@ -53,7 +56,7 @@ class TalkPageFetcherTests: XCTestCase {
             return
         }
         
-        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", host: Configuration.Domain.englishWikipedia, languageCode: "en", revisionID: 5) { (result) in
+        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", siteURL: URL(string: "https://en.wikipedia.org")!, revisionID: 5) { (result) in
             
             fetchExpectation.fulfill()
             

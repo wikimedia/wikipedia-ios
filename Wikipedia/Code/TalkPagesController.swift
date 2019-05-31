@@ -41,6 +41,7 @@ class TalkPageController {
         self.title = title
         self.siteURL = siteURL
         self.type = type
+        assert(title.contains(":"), "Title must already be prefixed with namespace.")
     }
     
     func fetchTalkPage(completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {

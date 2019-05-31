@@ -9,7 +9,7 @@ fileprivate class MockTalkPageFetcher: TalkPageFetcher {
     static var domain = "en.wikipedia.org"
     var fetchCalled = false
     
-    override func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+    override func fetchTalkPage(urlTitle: String, displayTitle: String, siteURL: URL, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
         fetchCalled = true
         if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://talk-pages.wmflabs.org/\(MockTalkPageFetcher.domain)/v1/page/talk/\(urlTitle)", revisionId: MockArticleRevisionFetcher.revisionId) {
@@ -68,7 +68,7 @@ class TalkPageControllerTests: XCTestCase {
         tempDataStore = MWKDataStore.temporary()
         talkPageFetcher = MockTalkPageFetcher(session: Session.shared, configuration: Configuration.current)
         articleRevisionFetcher = MockArticleRevisionFetcher()
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "Username1", host: Configuration.Domain.englishWikipedia, languageCode: "en", type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         MockArticleRevisionFetcher.revisionId = 894272715
         
     }
@@ -231,7 +231,7 @@ class TalkPageControllerTests: XCTestCase {
         
         //fetch again for ES language
         MockTalkPageFetcher.domain = "es.wikipedia.org"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "Username1", host:"es.wikipedia.org", languageCode: "en", type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://es.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in
@@ -282,9 +282,8 @@ class TalkPageControllerTests: XCTestCase {
         
         wait(for: [initialFetchCallback], timeout: 5)
         
-        //fetch again for ES language
         MockTalkPageFetcher.name = "Username2"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "Username2", host:Configuration.Domain.englishWikipedia, languageCode: "en", type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username2", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in
