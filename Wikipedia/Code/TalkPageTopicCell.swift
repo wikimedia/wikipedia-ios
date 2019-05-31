@@ -14,7 +14,14 @@ class TalkPageTopicCell: CollectionViewCell {
     
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
+            textAlignmentOverride = semanticContentAttributeOverride == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
             titleLabel.semanticContentAttribute = semanticContentAttributeOverride
+        }
+    }
+    
+    private var textAlignmentOverride: NSTextAlignment = .left {
+        didSet {
+            titleLabel.textAlignment = textAlignmentOverride
         }
     }
 
@@ -43,6 +50,7 @@ class TalkPageTopicCell: CollectionViewCell {
             dividerView.frame = CGRect(x: 0, y: finalHeight - 1, width: size.width, height: 1)
             unreadView.frame = CGRect(x: unreadIndicatorX, y: (finalHeight / 2) - (unreadIndicatorSideLength / 2), width: unreadIndicatorSideLength, height: unreadIndicatorSideLength)
             chevronImageView.frame = CGRect(x: chevronX, y: (finalHeight / 2) - (chevronSize.height / 2), width: chevronSize.width, height: chevronSize.height)
+            titleLabel.textAlignment = textAlignmentOverride
         }
         
         return CGSize(width: size.width, height: finalHeight)

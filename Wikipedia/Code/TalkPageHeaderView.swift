@@ -36,10 +36,21 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
     
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
+            textAlignmentOverride = semanticContentAttributeOverride == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+            
             headerLabel.semanticContentAttribute = semanticContentAttributeOverride
             titleTextView.semanticContentAttribute = semanticContentAttributeOverride
             infoLabel.semanticContentAttribute = semanticContentAttributeOverride
             introTextView.semanticContentAttribute = semanticContentAttributeOverride
+        }
+    }
+    
+    private var textAlignmentOverride: NSTextAlignment = .left {
+        didSet {
+            headerLabel.textAlignment = textAlignmentOverride
+            titleTextView.textAlignment = textAlignmentOverride
+            infoLabel.textAlignment = textAlignmentOverride
+            introTextView.textAlignment = textAlignmentOverride
         }
     }
     
@@ -92,6 +103,10 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         
         if (apply) {
             dividerView.frame = CGRect(x: 0, y: finalHeight - 1, width: size.width, height: 1)
+            headerLabel.textAlignment = textAlignmentOverride
+            titleTextView.textAlignment = textAlignmentOverride
+            infoLabel.textAlignment = textAlignmentOverride
+            introTextView.textAlignment = textAlignmentOverride
         }
         
         return CGSize(width: size.width, height: finalHeight)
