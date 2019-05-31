@@ -31,6 +31,9 @@
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"
+#import "WMFArticleRevisionFetcher.h"
+#import "WMFRevisionQueryResults.h"
+#import "WMFArticleRevision.h"
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"

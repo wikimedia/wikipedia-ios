@@ -24,6 +24,16 @@ NS_ASSUME_NONNULL_BEGIN
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
+
+- (void)addSectionWithSummary:(NSString *)summary
+                         text:(NSString *)text
+                forArticleURL:(NSURL *)articleURL
+                   completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
+
+- (void)appendToSection:(NSString *)section
+                   text:(NSString *)text
+          forArticleURL:(NSURL *)articleURL
+             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

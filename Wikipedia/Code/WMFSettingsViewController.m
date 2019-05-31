@@ -40,9 +40,9 @@ static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/i
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
 #if WMF_TWEAKS_ENABLED
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, WMFAccountViewControllerDelegate, FBTweakViewControllerDelegate>
 #else
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, WMFAccountViewControllerDelegate>
 #endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -215,8 +215,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     switch (cell.tag) {
-        case WMFSettingsMenuItemType_Login:
-            [self showLoginOrLogout];
+        case WMFSettingsMenuItemType_LoginAccount:
+            [self showLoginOrAccount];
             break;
         case WMFSettingsMenuItemType_SearchLanguage:
             [self showLanguages];
@@ -318,31 +318,20 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Log in and out
 
-- (void)showLoginOrLogout {
+- (void)showLoginOrAccount {
     NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
     if (userName) {
-        [self showLogoutActionSheet];
+        WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
+        accountVC.dataStore = self.dataStore;
+        accountVC.delegate = self;
+        [accountVC applyTheme:self.theme];
+        [self.navigationController pushViewController:accountVC animated:YES];
     } else {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];
         [self presentViewControllerWrappedInNavigationController:loginVC];
         [[LoginFunnel shared] logLoginStartInSettings];
     }
-}
-
-- (void)showLogoutActionSheet {
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-account-logout-are-you-sure", nil, nil, @"Are you sure you want to log out?", @"Header asking if user is sure they wish to log out.") message:nil preferredStyle:UIAlertControllerStyleAlert];
-    @weakify(self)
-        [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-account-logout", nil, nil, @"Log out", @"Button text for logging out. The username of the user who is currently logged in is displayed after the message, e.g. Log out ExampleUserName.\n{{Identical|Log out}}")
-                                                  style:UIAlertActionStyleDestructive
-                                                handler:^(UIAlertAction *_Nonnull action) {
-                                                    @strongify(self)
-                                                        [self logout];
-                                                    [self loadSections];
-                                                }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-account-logout-cancel", nil, nil, @"Cancel", @"Button text for hiding the log out menu.\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
-
-    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 #pragma mark - Clear Cache
@@ -496,7 +485,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Section structure
 
 - (WMFSettingsTableViewSection *)section_1 {
-    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
+    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount],
                        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
@@ -611,6 +600,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
+    [self loadSections];
+}
+
+#pragma Mark WMFAccountViewControllerDelegate
+
+- (void)accountViewControllerDidTapLogout:(WMFAccountViewController * _Nonnull)accountViewController {
+    [self logout];
     [self loadSections];
 }
 

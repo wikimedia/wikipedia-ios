@@ -1,7 +1,7 @@
 import Foundation
 
 extension CharacterSet {
-    static var wmf_articleTitlePathComponentAllowed: CharacterSet {
+    public static var wmf_articleTitlePathComponentAllowed: CharacterSet {
         return NSCharacterSet.wmf_URLArticleTitlePathComponentAllowed()
     }
 
@@ -31,6 +31,10 @@ extension URL {
     
     public var wmf_articleDatabaseKey: String? {
         return (self as NSURL).wmf_articleDatabaseKey
+    }
+    
+    public var wmf_talkPageDatabaseKey: String? {
+        return (self as NSURL).wmf_talkPageDatabaseKey
     }
     
     public var wmf_site: URL? {

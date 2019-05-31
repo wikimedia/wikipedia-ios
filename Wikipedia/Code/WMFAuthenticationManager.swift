@@ -32,7 +32,7 @@ public class WMFAuthenticationManager: Fetcher {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic private(set) var loggedInUsername: String? = nil
+    @objc dynamic public private(set) var loggedInUsername: String? = nil
     
     /**
      *  Returns YES if a user is logged in, NO otherwise
