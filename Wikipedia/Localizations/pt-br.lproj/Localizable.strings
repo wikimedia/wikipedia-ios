@@ -246,8 +246,7 @@
 "editing-welcome-impartial-tone-title" = "Escreva em tom imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos o acesso ao conhecimento do mundo, precisamos que você participe da criação lendo, editando e contribuindo com os tópicos mais importantes para você.";
 "editing-welcome-set-knowledge-free-title" = "Definir conhecimento livre";
-// Fuzzy
-"empty-insert-media-title" = "Selecionar um arquivo";
+"empty-insert-media-title" = "Selecionar um arquivo do Wikimedia Commons";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
