@@ -6,7 +6,12 @@
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
 #import "WMF/WMFHTMLElement.h"
+#import "EXTScope.h"
 @import CoreText;
+
+@interface NSMutableAttributedString (WMFListHandling)
+- (NSInteger)performReplacementsForListElement:(nonnull WMFHTMLElement *)listElement currentList:(nullable WMFHTMLElement *)currentList withAttributes:(nullable NSDictionary *)attributes listIndex:(NSInteger)index replacementOffset:(NSInteger)offset;
+@end
 
 @implementation NSString (WMFHTMLParsing)
 
@@ -296,7 +301,7 @@
 }
 
 - (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
-    return [self wmf_attributedStringFromHTMLWithFont:font boldFont:boldFont italicFont:italicFont boldItalicFont:boldItalicFont color:color linkColor:linkColor handlingLists:handlingLists handlingSuperSubscripts: handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:stringToBold tagMapping:nil additionalTagAttributes:nil];
+    return [self wmf_attributedStringFromHTMLWithFont:font boldFont:boldFont italicFont:italicFont boldItalicFont:boldItalicFont color:color linkColor:linkColor handlingLists:handlingLists handlingSuperSubscripts:handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:stringToBold tagMapping:nil additionalTagAttributes:nil];
 }
 
 - (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes {
@@ -316,7 +321,7 @@
     NSMutableArray<NSSet<NSURL *> *> *links = [NSMutableArray arrayWithCapacity:1];
 
     NSMutableArray<WMFHTMLElement *> *lists = [NSMutableArray arrayWithCapacity:1];
-    NSMutableArray<WMFHTMLElement *> *unclosedLists = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<WMFHTMLElement *> *unclosedListElements = [NSMutableArray arrayWithCapacity:1];
 
     NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
     __block NSInteger startLocation = NSNotFound;
@@ -330,21 +335,25 @@
             [tags addObject:[currentTags copy]];
             [links addObject:[currentLinks copy]];
         }
-        if ([HTMLTagName hasPrefix:@"/"] && startLocation != NSNotFound) {
+        if ([HTMLTagName hasPrefix:@"/"]) {
             NSString *closeTagName = [HTMLTagName substringFromIndex:1];
             if ([closeTagName isEqualToString:@"a"]) {
                 [currentLinks removeAllObjects];
-            } else if (handlingLists) {
-                if ([closeTagName isEqualToString:@"ul"] || [closeTagName isEqualToString:@"ol"]) {
-                    WMFHTMLElement *lastUnclosedList = unclosedLists.lastObject;
-                    assert([lastUnclosedList.tagName isEqualToString:closeTagName]);
-                    lastUnclosedList.endLocation = currentLocation;
-                    [unclosedLists removeObject:lastUnclosedList];
-                } else if ([closeTagName isEqualToString:@"li"]) {
-                    WMFHTMLElement *lastChild = lists.lastObject.children.lastObject;
-                    if (lastChild.endLocation == NSNotFound) {
-                        lastChild.endLocation = startLocation;
+            } else if (handlingLists && ([closeTagName isEqualToString:@"ul"] || [closeTagName isEqualToString:@"ol"] || [closeTagName isEqualToString:@"li"])) {
+                WMFHTMLElement *lastUnclosedListElement = nil;
+                NSInteger index = unclosedListElements.count;
+                for (WMFHTMLElement *unclosedListElement in [unclosedListElements reverseObjectEnumerator]) {
+                    index -= 1;
+                    if ([unclosedListElement.tagName isEqualToString:closeTagName]) {
+                        lastUnclosedListElement = unclosedListElement;
+                        break;
                     }
+                }
+                if (lastUnclosedListElement != nil) {
+                    lastUnclosedListElement.endLocation = currentLocation;
+                    [unclosedListElements removeObjectAtIndex:index];
+                } else {
+                    assert(false);
                 }
             }
             [currentTags removeObject:closeTagName];
@@ -372,21 +381,35 @@
                     WMFHTMLElement *list = [[WMFHTMLElement alloc] initWithTagName:HTMLTagName];
                     list.startLocation = startLocation;
                     list.children = [NSMutableArray arrayWithCapacity:2];
-
-                    NSUInteger nestingDepth = 0;
-                    if (unclosedLists.count > 0) { // nested
-                        nestingDepth = unclosedLists.count;
-                        [lists.lastObject.children addObject:list];
+                    WMFHTMLElement *lastUnclosedListElement = unclosedListElements.lastObject;
+                    if (lastUnclosedListElement) {
+                        [lastUnclosedListElement.children addObject:list];
+                        list.nestingDepth = lastUnclosedListElement.nestingDepth + 1;
+                    } else {
+                        list.nestingDepth = 0;
+                        [lists addObject:list];
                     }
-                    list.nestingDepth = nestingDepth;
-
-                    [lists addObject:list];
-                    [unclosedLists addObject:list];
+                    [unclosedListElements addObject:list];
                 } else if ([HTMLTagName isEqualToString:@"li"]) {
-                    WMFHTMLElement *lastUnclosedList = unclosedLists.lastObject;
+                    WMFHTMLElement *lastUnclosedListElement = nil;
+                    NSInteger index = unclosedListElements.count;
+                    for (WMFHTMLElement *unclosedListElement in [unclosedListElements reverseObjectEnumerator]) {
+                        index -= 1;
+                        if (![unclosedListElement.tagName isEqualToString:@"li"]) {
+                            lastUnclosedListElement = unclosedListElement;
+                            break;
+                        }
+                    }
+                    if (lastUnclosedListElement == nil) {
+                        assert(false);
+                        return;
+                    }
                     WMFHTMLElement *listItem = [[WMFHTMLElement alloc] initWithTagName:HTMLTagName];
+                    listItem.nestingDepth = lastUnclosedListElement.nestingDepth;
                     listItem.startLocation = startLocation;
-                    [lastUnclosedList.children addObject:listItem];
+                    listItem.children = [NSMutableArray arrayWithCapacity:2];
+                    [lastUnclosedListElement.children addObject:listItem];
+                    [unclosedListElements addObject:listItem];
                 }
             }
         }
@@ -409,10 +432,6 @@
         }
     }
 
-    __block NSUInteger listIndex = 0;
-    __block NSUInteger lastHandledListIndex = NSNotFound;
-    NSMutableArray<NSDictionary<NSNumber *, NSAttributedString *> *> *insertions = [NSMutableArray arrayWithCapacity:1];
-
     [ranges enumerateObjectsUsingBlock:^(NSValue *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSRange range = [obj rangeValue];
         NSSet *tagsForRange = [tags objectAtIndex:idx];
@@ -421,9 +440,6 @@
         BOOL isBold = [tagsForRange containsObject:@"b"];
         BOOL isSubscript = [tagsForRange containsObject:@"sub"];
         BOOL isSuperscript = [tagsForRange containsObject:@"sup"];
-        BOOL isUnorderedList = [tagsForRange containsObject:@"ul"];
-        BOOL isOrderedList = [tagsForRange containsObject:@"ol"];
-        BOOL isList = isUnorderedList || isOrderedList;
         if (isItalic && isBold) {
             [attributedString addAttribute:NSFontAttributeName value:boldItalicFont range:range];
         } else if (isItalic) {
@@ -437,79 +453,14 @@
         } else if (isBold) {
             [attributedString addAttribute:NSFontAttributeName value:boldFont range:range];
         }
-        
+
         if (handlingSuperSubscripts) {
             if (isSubscript) {
-                [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt: -1] range:range];
+                [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt:-1] range:range];
             }
-            
+
             if (isSuperscript) {
-                [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt: 1] range:range];
-            }
-        }
-
-        if (handlingLists) {
-            if (isList) {
-                if (listIndex >= 0 && listIndex < lists.count) {
-                    WMFHTMLElement *list = [lists objectAtIndex:listIndex];
-                    if (list.startLocation == range.location) { // start of list
-                        if (listIndex != lastHandledListIndex) {
-                            NSDictionary *attributes;
-                            if (font) {
-                                attributes = @{NSFontAttributeName: font};
-                            }
-
-                            void (^enrichLiElement)(WMFHTMLElement *, WMFHTMLElement *, NSUInteger) = ^void(WMFHTMLElement *liElement, WMFHTMLElement *list, NSUInteger index) {
-                                NSString *spaces = [@"" stringByPaddingToLength:list.nestingDepth * 4 withString:@" " startingAtIndex:0];
-                                NSString *number = [NSString stringWithFormat:@"\n%@%lu. ", spaces, index + 1];
-                                NSString *bulletPoint = [NSString stringWithFormat:@"\n%@• ", spaces];
-                                NSString *bulletPointOrNumberWithNewline = [list.tagName isEqualToString:@"ol"] ? number : bulletPoint;
-                                NSAttributedString *stringToInsert = [[NSAttributedString alloc] initWithString:bulletPointOrNumberWithNewline attributes:attributes];
-                                NSDictionary *keyValue = @{[NSNumber numberWithInteger:liElement.startLocation]: stringToInsert};
-                                [insertions addObject:keyValue];
-                            };
-
-                            void (^enrichLiElements)(NSArray<WMFHTMLElement *> *, WMFHTMLElement *) = ^void(NSArray<WMFHTMLElement *> *elements, WMFHTMLElement *list) {
-                                [elements enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                    enrichLiElement(obj, list, idx);
-                                }];
-                            };
-
-                            BOOL __block isPreviousElementLi = YES;
-                            NSUInteger __block nestedListsCount = 0;
-
-                            [list.children enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                if ([obj.tagName isEqualToString:@"li"]) {
-                                    idx = isPreviousElementLi ? idx : idx - 1;
-                                    enrichLiElement(obj, list, idx);
-                                    isPreviousElementLi = YES;
-                                } else if ([obj.tagName isEqualToString:@"ul"] || [obj.tagName isEqualToString:@"ol"]) {
-                                    enrichLiElements(obj.children, obj);
-                                    isPreviousElementLi = NO;
-                                    nestedListsCount++;
-                                }
-                            }];
-
-                            if (lastHandledListIndex == NSNotFound) {
-                                lastHandledListIndex = 0;
-                            }
-
-                            if (nestedListsCount > 0) {
-                                lastHandledListIndex = nestedListsCount + listIndex;
-                            }
-
-                            // end of list
-                            NSString *newline = @"\n";
-                            NSAttributedString *stringToInsert = [[NSAttributedString alloc] initWithString:newline attributes:attributes];
-                            NSDictionary *keyValue = @{[NSNumber numberWithInteger:list.endLocation]: stringToInsert};
-                            [insertions addObject:keyValue];
-
-                            listIndex++;
-                        } else {
-                            listIndex++;
-                        }
-                    }
-                }
+                [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt:1] range:range];
             }
         }
 
@@ -533,23 +484,40 @@
         }
     }];
 
-    if (handlingLists) {
-        __block NSUInteger replacementOffset = 0;
-
-        for (NSDictionary<NSNumber *, NSAttributedString *> *insertion in insertions) {
-            NSNumber *locationNumber = insertion.allKeys.firstObject;
-            NSUInteger location = locationNumber.unsignedIntegerValue;
-            NSAttributedString *string = insertion.allValues.firstObject;
-            NSUInteger index = location + replacementOffset;
-            if (index >= attributedString.length) {
-                continue;
-            }
-            [attributedString insertAttributedString:string atIndex:index];
-            replacementOffset += string.length;
-        }
-    }
+    NSDictionary *listAttributes = @{NSFontAttributeName: font};
+    __block NSInteger offset = 0;
+    [lists enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull list, NSUInteger idx, BOOL *_Nonnull stop) {
+        offset += [attributedString performReplacementsForListElement:list currentList:list withAttributes:listAttributes listIndex:0 replacementOffset:0];
+        NSString *newline = @"\n";
+        NSAttributedString *attributedNewline = [[NSAttributedString alloc] initWithString:newline attributes:attribtues];
+        [attributedString insertAttributedString:attributedNewline atIndex:list.endLocation + offset];
+        offset += attributedString.length;
+    }];
 
     return attributedString;
+}
+
+@end
+
+@implementation NSMutableAttributedString (WMFListHandling)
+
+- (NSInteger)performReplacementsForListElement:(nonnull WMFHTMLElement *)listElement currentList:(nullable WMFHTMLElement *)currentList withAttributes:(nullable NSDictionary *)listAttributes listIndex:(NSInteger)index replacementOffset:(NSInteger)offset {
+    __block NSInteger offsetDelta = 0;
+    if ([listElement.tagName isEqualToString:@"ul"] || [listElement.tagName isEqualToString:@"ol"]) {
+        currentList = listElement;
+    } else if (currentList && [listElement.tagName isEqualToString:@"li"]) {
+        NSString *spaces = [@"" stringByPaddingToLength:listElement.nestingDepth * 4 withString:@" " startingAtIndex:0];
+        NSString *number = [NSString stringWithFormat:@"\n%@%lu. ", spaces, index + 1];
+        NSString *bulletPoint = [NSString stringWithFormat:@"\n%@• ", spaces];
+        NSString *bulletPointOrNumberWithNewline = [currentList.tagName isEqualToString:@"ol"] ? number : bulletPoint;
+        NSAttributedString *stringToInsert = [[NSAttributedString alloc] initWithString:bulletPointOrNumberWithNewline attributes:listAttributes];
+        [self insertAttributedString:stringToInsert atIndex:listElement.startLocation + offset + offsetDelta];
+        offsetDelta += stringToInsert.length;
+    }
+    [listElement.children enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        offsetDelta += [self performReplacementsForListElement:obj currentList:currentList withAttributes:listAttributes listIndex:idx replacementOffset:offset + offsetDelta];
+    }];
+    return offsetDelta;
 }
 
 @end
