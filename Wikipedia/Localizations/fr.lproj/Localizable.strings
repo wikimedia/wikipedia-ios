@@ -243,8 +243,7 @@
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Voir l’arbre de connaissance";
-// Fuzzy
-"empty-insert-media-title" = "Sélectionner un fichier";
+"empty-insert-media-title" = "Sélectionner un fichier de Wikimedia Commons";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
