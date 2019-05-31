@@ -1,6 +1,7 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
 // Author: Bouman4
+// Author: Duckson32
 // Author: Elroy
 // Author: FabianRM
 // Author: Festina90
@@ -96,6 +97,7 @@
 "action-unsaved-accessibility-notification" = "Artikel terug opgeslagen";
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
+"add-citation-title" = "Citaat toevoegen";
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
 "app-store-release-notes" = "Volledig aanpasbaar verkennen-tabblad welke tevens makkelijker te verkennen is. Lokalisatie, prestatieverbeteringen en foutoplossingen.";
@@ -211,8 +213,7 @@
 "edit-underline-remove-accessibility-label" = "Onderstrepen verwijderen";
 "edit-watch-list-learn-more-text" = "Meer over kijklijsten";
 "edit-watch-this-page-text" = "Deze pagina volgen";
-// Fuzzy
-"empty-insert-media-title" = "Selecteer een bestand";
+"empty-insert-media-title" = "Selecteer een bestand van Wikimedia Commons";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
@@ -404,7 +405,7 @@
 "logged-out-subtitle" = "Er is een probleem opgetreden bij het verifiëren van uw account. Als u uw leeslijsten wilt synchroniseren en wilt bewerken onder uw gebruikersnaam, meldt u zich opnieuw aan.";
 "logged-out-title" = "U bent afgemeld.";
 "login-forgot-password" = "Wachtwoord vergeten?";
-"login-join-wikipedia" = "Vervoeg Wikipedia.";
+"login-join-wikipedia" = "Word lid van Wikipedia.";
 "login-no-account" = "Nog geen account? $1";
 "login-title" = "Aanmelden bij uw account";
 "main-menu-about" = "Over de app";
