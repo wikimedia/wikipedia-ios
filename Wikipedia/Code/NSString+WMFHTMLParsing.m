@@ -385,7 +385,7 @@
                         [lastUnclosedListElement.children addObject:list];
                         list.nestingDepth = lastUnclosedListElement.nestingDepth + 1;
                     } else {
-                        list.nestingDepth = 0;
+                        list.nestingDepth = 1;
                         [lists addObject:list];
                     }
                     [unclosedListElements addObject:list];
@@ -505,7 +505,7 @@
     if ([listElement.tagName isEqualToString:@"ul"] || [listElement.tagName isEqualToString:@"ol"]) {
         currentList = listElement;
     } else if (currentList && [listElement.tagName isEqualToString:@"li"]) {
-        NSString *spaces = [@"" stringByPaddingToLength:listElement.nestingDepth * 4 withString:@" " startingAtIndex:0];
+        NSString *spaces = [@"" stringByPaddingToLength:listElement.nestingDepth * 3 withString:@" " startingAtIndex:0];
         NSString *number = [NSString stringWithFormat:@"\n%@%lu. ", spaces, index + 1];
         NSString *bulletPoint = [NSString stringWithFormat:@"\n%@• ", spaces];
         NSString *bulletPointOrNumberWithNewline = [currentList.tagName isEqualToString:@"ol"] ? number : bulletPoint;
