@@ -69,7 +69,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
         WMFArticle *userData = [moc fetchArticleWithURL:lastRead];
 
-        if (userData == nil) {
+        if (userData == nil || userData.isExcludedFromFeed) {
             if (completion) {
                 completion();
             }

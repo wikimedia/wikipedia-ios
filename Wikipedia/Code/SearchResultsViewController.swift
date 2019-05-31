@@ -38,7 +38,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
         guard let title = results[indexPath.item].title,
-            results[indexPath.item].titleNamespace?.intValue ?? 0 == 3 else {
+            results[indexPath.item].pageNamespace == .userTalk else {
                 return nil
         }
         
@@ -85,6 +85,8 @@ class SearchResultsViewController: ArticleCollectionViewController {
             let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: searchSiteURL)
             let talkPageContainer = TalkPageContainerViewController(title: title, siteURL: searchSiteURL, type: .user, dataStore: dataStore)
             talkPageContainer.apply(theme: theme)
+            let article = dataStore.historyList.addPageToHistory(with: articleURL)
+            article?.update(with: results[indexPath.item])
             wmf_push(talkPageContainer, animated: true)
             return
         }
