@@ -1,7 +1,7 @@
 import Foundation
 
 extension CharacterSet {
-    static var wmf_articleTitlePathComponentAllowed: CharacterSet {
+    public static var wmf_articleTitlePathComponentAllowed: CharacterSet {
         return NSCharacterSet.wmf_URLArticleTitlePathComponentAllowed()
     }
 

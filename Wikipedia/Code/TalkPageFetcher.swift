@@ -92,7 +92,7 @@ enum TalkPageType {
     }
     
     func urlTitle(for title: String) -> String? {
-        //assuming title has already been prefixed
+        assert(title.contains(":"), "Title must already be prefixed with namespace.")
         return title.wmf_denormalizedPageTitle()
     }
 }
@@ -213,12 +213,14 @@ private extension TalkPageFetcher {
     
     func getURL(for urlTitle: String, siteURL: URL, revisionID: Int?) -> URL? {
         
-        guard let host = siteURL.host else {
+        assert(urlTitle.contains(":"), "Title must already be prefixed with namespace.")
+        
+        guard let host = siteURL.host,
+        let percentEncodedUrlTitle = urlTitle.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
             return nil
         }
         
-        //note: assuming here urlTitle has already been percent endcoded & escaped
-        var pathComponents = ["page", "talk", urlTitle]
+        var pathComponents = ["page", "talk", percentEncodedUrlTitle]
         if let revisionID = revisionID {
             pathComponents.append(String(revisionID))
         }
@@ -232,11 +234,12 @@ private extension TalkPageFetcher {
     
     func postURL(for urlTitle: String, siteURL: URL) -> URL? {
         
+        assert(urlTitle.contains(":"), "Title must already be prefixed with namespace.")
+        
         guard let host = siteURL.host else {
             return nil
         }
         
-        //note: assuming here urlTitle has already been percent endcoded, prefixed & escaped
         let components = configuration.articleURLForHost(host, appending: [urlTitle])
         return components.url
     }

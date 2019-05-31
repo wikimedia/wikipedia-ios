@@ -21,7 +21,14 @@ class TalkPageReplyCell: CollectionViewCell {
     
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
+            textAlignmentOverride = semanticContentAttributeOverride == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
             titleTextView.semanticContentAttribute = semanticContentAttributeOverride
+        }
+    }
+    
+    private var textAlignmentOverride: NSTextAlignment = .left {
+        didSet {
+            titleTextView.textAlignment = textAlignmentOverride
         }
     }
     
@@ -66,6 +73,10 @@ class TalkPageReplyCell: CollectionViewCell {
         if let depthIndicatorOrigin = depthIndicatorOrigin,
             apply {
             depthMarker.frame = CGRect(origin: depthIndicatorOrigin, size: CGSize(width: 2, height: titleTextViewFrame.height))
+        }
+        
+        if (apply) {
+            titleTextView.textAlignment = textAlignmentOverride
         }
         
         return CGSize(width: size.width, height: finalHeight)
