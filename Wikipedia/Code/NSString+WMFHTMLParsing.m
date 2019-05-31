@@ -6,7 +6,6 @@
 #import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
 #import "WMF/WMFHTMLElement.h"
-#import "EXTScope.h"
 @import CoreText;
 
 @interface NSMutableAttributedString (WMFListHandling)
@@ -487,11 +486,11 @@
     NSDictionary *listAttributes = @{NSFontAttributeName: font};
     __block NSInteger offset = 0;
     [lists enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull list, NSUInteger idx, BOOL *_Nonnull stop) {
-        offset += [attributedString performReplacementsForListElement:list currentList:list withAttributes:listAttributes listIndex:0 replacementOffset:0];
+        offset += [attributedString performReplacementsForListElement:list currentList:list withAttributes:listAttributes listIndex:0 replacementOffset:offset];
         NSString *newline = @"\n";
         NSAttributedString *attributedNewline = [[NSAttributedString alloc] initWithString:newline attributes:attribtues];
         [attributedString insertAttributedString:attributedNewline atIndex:list.endLocation + offset];
-        offset += attributedString.length;
+        offset += attributedNewline.length;
     }];
 
     return attributedString;
