@@ -25,12 +25,14 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private var headerView: TalkPageHeaderView?
     private let siteURL: URL
     private let type: TalkPageType
+    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     
-    required init(dataStore: MWKDataStore, talkPage: TalkPage, siteURL: URL, type: TalkPageType) {
+    required init(dataStore: MWKDataStore, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
         self.talkPage = talkPage
         self.siteURL = siteURL
         self.type = type
+        self.talkPageSemanticContentAttribute = talkPageSemanticContentAttribute
         
         let request: NSFetchRequest<TalkPageTopic> = TalkPageTopic.fetchRequest()
         request.predicate = NSPredicate(format: "talkPage == %@",  talkPage)
@@ -253,6 +255,7 @@ private extension TalkPageTopicListViewController {
         
         cell.configure(title: title, isRead: topic.isRead)
         cell.layoutMargins = layout.itemLayoutMargins
+        cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         cell.apply(theme: theme)
     }
     
@@ -280,6 +283,7 @@ private extension TalkPageTopicListViewController {
         
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
+        header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
     }
     

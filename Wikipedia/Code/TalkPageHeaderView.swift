@@ -34,6 +34,15 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         return viewModel?.intro != nil
     }
     
+    var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
+        didSet {
+            headerLabel.semanticContentAttribute = semanticContentAttributeOverride
+            titleTextView.semanticContentAttribute = semanticContentAttributeOverride
+            infoLabel.semanticContentAttribute = semanticContentAttributeOverride
+            introTextView.semanticContentAttribute = semanticContentAttributeOverride
+        }
+    }
+    
     override func setup() {
         super.setup()
         infoLabel.numberOfLines = 0
@@ -57,20 +66,19 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         let talkOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let contentMaximumWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
-        let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
-        let headerFrame = headerLabel.wmf_preferredFrame(at: talkOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+        let headerFrame = headerLabel.wmf_preferredFrame(at: talkOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
         
         let titleOrigin = CGPoint(x: adjustedMargins.left - 3, y: headerFrame.maxY + 5)
-        let titleFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+        let titleFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
         
         var finalHeight: CGFloat
         if hasInfoText {
             let infoOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY)
-            let infoFrame = infoLabel.wmf_preferredFrame(at: infoOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+            let infoFrame = infoLabel.wmf_preferredFrame(at: infoOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
             
             if hasIntroText {
                 let introOrigin = CGPoint(x: adjustedMargins.left - 3, y: infoFrame.maxY + 3)
-                let introFrame = introTextView.wmf_preferredFrame(at: introOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+                let introFrame = introTextView.wmf_preferredFrame(at: introOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
                 finalHeight = introFrame.maxY + adjustedMargins.bottom
                 introTextView.isHidden = false
             } else {

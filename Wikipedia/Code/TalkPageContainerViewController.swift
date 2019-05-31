@@ -8,7 +8,8 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let siteURL: URL
     private let type: TalkPageType
     private let dataStore: MWKDataStore
-    private var controller: TalkPageController
+    private let controller: TalkPageController
+    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     private var talkPage: TalkPage?
     private var topicListViewController: TalkPageTopicListViewController?
     
@@ -30,6 +31,10 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         self.dataStore = dataStore
         self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
         assert(title.contains(":"), "Title must already be prefixed with namespace.")
+        
+        let language = siteURL.wmf_language
+        talkPageSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+        
         super.init()
     }
     
@@ -96,7 +101,7 @@ private extension TalkPageContainerViewController {
     
     func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {
         if topicListViewController == nil {
-            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPage: talkPage, siteURL: siteURL, type: type)
+            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
             topicListViewController?.apply(theme: theme)
             wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             topicListViewController?.delegate = self
@@ -150,7 +155,7 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     }
     
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
-        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, topic: topic)
+        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
         replyVC.delegate = self
         replyVC.apply(theme: theme)
         navigationController?.pushViewController(replyVC, animated: true)

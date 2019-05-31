@@ -7,27 +7,34 @@ class TalkPageTopicCell: CollectionViewCell {
     private let unreadView = UIView()
     private let dividerView = UIView(frame: .zero)
     private let chevronImageView = UIImageView(frame: .zero)
+    
+    private var isDeviceRTL: Bool {
+        return effectiveUserInterfaceLayoutDirection == .rightToLeft
+    }
+    
+    var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
+        didSet {
+            titleLabel.semanticContentAttribute = semanticContentAttributeOverride
+        }
+    }
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        
-        let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
-        let isRTL = semanticContentAttribute == .forceRightToLeft
         
         let adjustedMargins = UIEdgeInsets(top: layoutMargins.top + 5, left: layoutMargins.left + 5, bottom: layoutMargins.bottom + 5, right: layoutMargins.right + 5)
         
         let unreadIndicatorSideLength = CGFloat(11)
-        let unreadIndicatorX = !isRTL ? adjustedMargins.left : size.width - adjustedMargins.right - unreadIndicatorSideLength
+        let unreadIndicatorX = !isDeviceRTL ? adjustedMargins.left : size.width - adjustedMargins.right - unreadIndicatorSideLength
        
         let chevronSize = CGSize(width: 8, height: 14)
-        let chevronX = !isRTL ? size.width - adjustedMargins.right - chevronSize.width : adjustedMargins.left
+        let chevronX = !isDeviceRTL ? size.width - adjustedMargins.right - chevronSize.width : adjustedMargins.left
         
-        let titleX = !isRTL ? unreadIndicatorX + unreadIndicatorSideLength + 15 : chevronX + chevronSize.width + 28
-        let titleMaxX = !isRTL ? size.width - adjustedMargins.right - chevronSize.width - 28 : size.width - adjustedMargins.right - unreadIndicatorSideLength - 15
+        let titleX = !isDeviceRTL ? unreadIndicatorX + unreadIndicatorSideLength + 15 : chevronX + chevronSize.width + 28
+        let titleMaxX = !isDeviceRTL ? size.width - adjustedMargins.right - chevronSize.width - 28 : size.width - adjustedMargins.right - unreadIndicatorSideLength - 15
         
         let titleMaximumWidth = titleMaxX - titleX
         let titleOrigin = CGPoint(x: titleX, y: adjustedMargins.top)
         
-        let titleLabelFrame = titleLabel.wmf_preferredFrame(at: titleOrigin, maximumWidth: titleMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+        let titleLabelFrame = titleLabel.wmf_preferredFrame(at: titleOrigin, maximumWidth: titleMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
         
         let finalHeight = adjustedMargins.top + titleLabelFrame.size.height + adjustedMargins.bottom
         
