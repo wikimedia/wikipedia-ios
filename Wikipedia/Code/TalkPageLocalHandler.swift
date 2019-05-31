@@ -23,7 +23,7 @@ extension NSManagedObjectContext {
         return try fetch(fetchRequest).first
     }
     
-    func createEmptyTalkPage(with url: URL, displayTitle: String) -> TalkPage? {
+    func createMissingTalkPage(with url: URL, displayTitle: String) -> TalkPage? {
         
         let talkPage = TalkPage(context: self)
         talkPage.key = url.wmf_talkPageDatabaseKey

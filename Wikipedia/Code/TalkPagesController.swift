@@ -58,6 +58,13 @@ class TalkPageController {
                     })
                     return
                 }
+                
+                //fixes bug where revisionID fetch fails due to missing talk page
+                if localTalkPage.isMissing {
+                    completion?(.success(localTalkPage.objectID))
+                    return
+                }
+                
                 let localObjectID = localTalkPage.objectID
                 let localRevisionID = localTalkPage.revisionId?.intValue
                 self.fetchLatestRevisionID(endingWithRevision: localRevisionID, urlTitle: urlTitle) { (result) in
@@ -124,7 +131,7 @@ class TalkPageController {
         taskGroup.waitInBackground {
             moc.perform {
                 if talkPageDoesNotExist {
-                    if let newLocalTalkPage = moc.createEmptyTalkPage(with: taskURL, displayTitle: self.displayTitle) {
+                    if let newLocalTalkPage = moc.createMissingTalkPage(with: taskURL, displayTitle: self.displayTitle) {
                         completion?(.success(newLocalTalkPage.objectID))
                     } else {
                         completion?(.failure(TalkPageError.createLocalTalkPageFailure))
@@ -300,5 +307,11 @@ private extension TalkPageController {
                 }
             }
         }
+    }
+}
+
+extension TalkPage {
+    var isMissing: Bool {
+        return revisionId == nil
     }
 }
