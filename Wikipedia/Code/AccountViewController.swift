@@ -96,9 +96,11 @@ class AccountViewController: SubSettingsViewController {
             showLogoutAlert()
         case .talkPage:
             
-            //todo: smart host & language code
-            if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername {
-                let talkPageContainerVC = TalkPageContainerViewController(title: username, host: "test.wikipedia.org", languageCode: "test", titleIncludesPrefix: false, type: .user, dataStore: dataStore)
+            if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername,
+                let language = MWKLanguageLinkController.sharedInstance().appLanguage {
+                let siteURL = language.siteURL()
+                let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
+                let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: .user, dataStore: dataStore)
                 talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }

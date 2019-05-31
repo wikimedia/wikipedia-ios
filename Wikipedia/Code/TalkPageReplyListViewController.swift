@@ -33,8 +33,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var replyBarButtonItem: UIBarButtonItem!
-    
-    private var originalContentOffset: CGPoint?
 
     private var showingCompose = false {
         didSet {
@@ -74,9 +72,12 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private let replyString = WMFLocalizedString("talk-page-reply-title", value: "Reply", comment: "This header label is displayed at the top of a talk page thread once the user taps Reply.")
     
-    required init(dataStore: MWKDataStore, topic: TalkPageTopic) {
+    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
+    
+    required init(dataStore: MWKDataStore, topic: TalkPageTopic, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
         self.topic = topic
+        self.talkPageSemanticContentAttribute = talkPageSemanticContentAttribute
         
         let request: NSFetchRequest<TalkPageReply> = TalkPageReply.fetchRequest()
         request.predicate = NSPredicate(format: "topic == %@",  topic)
@@ -107,6 +108,18 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
 
     override var inputAccessoryView: UIView? {
         return showingCompose ? beKindInputAccessoryView : nil
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !topic.isRead {
+            topic.isRead = true
+            do {
+                try dataStore.viewContext.save()
+            } catch let error {
+                DDLogError("Error saving after marking topic as read: \(error)")
+            }
+        }
     }
     
     func postDidBegin() {
@@ -334,6 +347,7 @@ private extension TalkPageReplyListViewController {
         header.delegate = self
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
+        header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
     }
     
@@ -355,6 +369,7 @@ private extension TalkPageReplyListViewController {
         cell.delegate = self
         cell.configure(title: title, depth: UInt(item.depth))
         cell.layoutMargins = layout.itemLayoutMargins
+        cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         cell.apply(theme: theme)
     }
     

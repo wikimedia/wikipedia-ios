@@ -1,5 +1,6 @@
 
 import XCTest
+import CoreData
 @testable import Wikipedia
 
 class TalkPageLocalHandlerTests: XCTestCase {
@@ -9,12 +10,12 @@ class TalkPageLocalHandlerTests: XCTestCase {
     let urlString3 = "https://es.wikipedia.org/api/rest_v1/page/talk/Username1"
     
     var tempDataStore: MWKDataStore!
-    var talkPageLocalHandler: TalkPageLocalHandler!
+    var moc: NSManagedObjectContext!
     
     override func setUp() {
         super.setUp()
         tempDataStore = MWKDataStore.temporary()
-        talkPageLocalHandler = TalkPageLocalHandler(dataStore: tempDataStore)
+        moc = tempDataStore.viewContext
     }
     
     override func tearDown() {
@@ -42,7 +43,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
 
         //create db talk page
-        guard let dbTalkPage = talkPageLocalHandler.createTalkPage(with: talkPage) else {
+        guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
             XCTFail("Failure to create db talk page")
             return
         }
@@ -106,13 +107,13 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //create db talk page
-        guard let dbTalkPage = talkPageLocalHandler.createTalkPage(with: talkPage) else {
+        guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
             XCTFail("Failure to create db talk page")
             return
         }
         
         //confirm asking for existing talk page with key pulls same talk page
-        guard let existingTalkPage = try? talkPageLocalHandler.talkPage(for: URL(string: urlString1)!) else {
+        guard let existingTalkPage = try? moc.talkPage(for: URL(string: urlString1)!) else {
             XCTFail("Pull existing talk page fails")
             return
         }
@@ -121,7 +122,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         //confirm asking for urlString2 pulls nothing
         do {
-            let nonexistantTalkPage = try talkPageLocalHandler.talkPage(for: URL(string: urlString2)!)
+            let nonexistantTalkPage = try moc.talkPage(for: URL(string: urlString2)!)
             XCTAssertNil(nonexistantTalkPage)
         } catch {
             XCTFail("Pull existing talk page fails")
@@ -146,7 +147,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //create db talk page
-        guard let dbTalkPage = talkPageLocalHandler.createTalkPage(with: talkPage) else {
+        guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
             XCTFail("Failure to create db talk page")
             return
         }
@@ -164,7 +165,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
             return
         }
         
-        guard let updatedDbTalkPage = talkPageLocalHandler.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
+        guard let updatedDbTalkPage = moc.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
             XCTFail("Failure updating existing local talk page")
             return
         }

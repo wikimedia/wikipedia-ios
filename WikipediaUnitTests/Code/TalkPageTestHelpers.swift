@@ -65,7 +65,7 @@ class TalkPageTestHelpers {
                             ],
                             "shas": {
                                 "text": "5a5bd8e",
-                                "indicator": "asdfgjl"
+                                "indicator": "not_asdfgjl"
                             },
                             "sort": 0
                         }
@@ -90,7 +90,7 @@ class TalkPageTestHelpers {
                 }
             }
             
-            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, topics: result.topics, revisionId: revisionId, displayTitle: "Username", languageCode: "en", introText: "Intro text")
+            let talkPage = NetworkTalkPage(url: URL(string: urlString)!, topics: result.topics, revisionId: revisionId, displayTitle: "Username", introText: "Intro text")
 
             return talkPage
         } catch {

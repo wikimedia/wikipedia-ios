@@ -143,6 +143,7 @@
 		676070A62280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A82280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
+		677E49B222A03859002D40D6 /* LanguageLinkNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */; };
 		6780DF432264265400D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF442264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
 		6780DF452264350700D9069D /* RemoteSubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780DF422264265400D9069D /* RemoteSubHandler.swift */; };
@@ -972,6 +973,11 @@
 		8338AF8D21F7B33E000C4055 /* WMFLegacyFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8338AF8E21F7B33E000C4055 /* WMFLegacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */; };
 		833D4FFB20A9E20800B44E7C /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D4FFA20A9E20800B44E7C /* String+HTML.swift */; };
+		833D6B48229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
+		833D6B49229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
+		833D6B4A229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
+		833D6B4B229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
+		833D6B4C229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
 		834400AE20B33498005F087D /* NSAttributedString+WMFTrim.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804881C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m */; };
 		834400AF20B334A0005F087D /* NSAttributedString+WMFTrim.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804871C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		834400B020B3368A005F087D /* NSCharacterSet+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048C1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m */; };
@@ -3712,6 +3718,7 @@
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
+		677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageLinkNamespace.swift; sourceTree = "<group>"; };
 		6780DF422264265400D9069D /* RemoteSubHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSubHandler.swift; sourceTree = "<group>"; };
 		67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeView.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
@@ -3913,6 +3920,7 @@
 		8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLegacyFetcher.h; sourceTree = "<group>"; };
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
 		833D4FFA20A9E20800B44E7C /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
+		833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageTopic+Extensions.swift"; sourceTree = "<group>"; };
 		834CC34A21075B7600F62818 /* UITabBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Theme.swift"; sourceTree = "<group>"; };
 		8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationAuthorizationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -5788,6 +5796,7 @@
 				B0E8079A1C0CEFBD0065EBC0 /* MWKLanguageLink.m */,
 				B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */,
 				B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */,
+				677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */,
 			);
 			name = Language;
 			sourceTree = "<group>";
@@ -6407,6 +6416,7 @@
 			children = (
 				67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */,
 				6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */,
+				833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */,
 				67E8B0782268F8F100537BC9 /* Views */,
 				67E8B0772268F8E300537BC9 /* View Controllers */,
 			);
@@ -8285,10 +8295,10 @@
 				D8733C911ECA16580011E379 /* UIView+SemanticContent.swift */,
 				D8733C931ECA16940011E379 /* HasText.swift */,
 				D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */,
+				83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */,
 				D8FB46A11E26BC6600F2620F /* QuadKey.swift */,
 				D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */,
 				D8F36F021EEEBA130087D4DD /* Licenses.swift */,
-				83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */,
 				D8CC94D62178972C007293E7 /* Core Data */,
 				D8EBD1B91FBB16F700AA7DA9 /* Dictionary+JSON.swift */,
 				D8650B7920350FEE0044DFFA /* NSString+SHA256.h */,
@@ -10829,6 +10839,7 @@
 				B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
 				D82E956A1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
+				833D6B48229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */,
 				B010E1A81E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				BA4524241F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */,
@@ -11106,6 +11117,7 @@
 				BA45241C1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				D80ED2841EE57F4800CE8C50 /* WMFReferencePageBackgroundView.swift in Sources */,
 				D80ED2861EE57F4800CE8C50 /* UIApplication+RTL.swift in Sources */,
+				833D6B4C229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */,
 				67E8B09B226A57EA00537BC9 /* TalkPageTopicNewViewController.swift in Sources */,
 				83E52BB81F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				D80ED2891EE57F4800CE8C50 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -11487,6 +11499,7 @@
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D830D2461DEF3E50005ACB0E /* WMFLegacyContentGroup.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
+				677E49B222A03859002D40D6 /* LanguageLinkNamespace.swift in Sources */,
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
 				D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */,
 				D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */,
@@ -11970,6 +11983,7 @@
 				D8A42ACB1E815A9C00D8E281 /* WMFArticleTextActivitySource.m in Sources */,
 				D8A42ACC1E815A9C00D8E281 /* WMFAuthLinkLabel.swift in Sources */,
 				D82E956D1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
+				833D6B4B229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */,
 				D818D3841ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8A42AD11E815A9C00D8E281 /* WMFPasswordResetter.swift in Sources */,
 				7A0161E31FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
@@ -12255,6 +12269,7 @@
 				D82E956B1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				D8CE24F61E698E2400DAE2E0 /* WMFReferencePageBackgroundView.swift in Sources */,
 				B04C809B1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
+				833D6B49229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */,
 				67E8B086226A57E900537BC9 /* TalkPageTopicNewViewController.swift in Sources */,
 				83E52BB51F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				D8CE24F81E698E2400DAE2E0 /* UIApplication+RTL.swift in Sources */,
@@ -12660,6 +12675,7 @@
 				D8EC3DEA1E9BDA35006712EB /* WMFTableOfContentsAnimator.swift in Sources */,
 				B0432346210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				BA45241A1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
+				833D6B4A229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */,
 				67E8B08D226A57E900537BC9 /* TalkPageTopicNewViewController.swift in Sources */,
 				D8EC3DED1E9BDA35006712EB /* WMFReferencePageBackgroundView.swift in Sources */,
 				83E52BB61F681F940045E776 /* ShareAFactViewController.swift in Sources */,

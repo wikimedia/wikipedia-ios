@@ -15,10 +15,19 @@ class TalkPageReplyCell: CollectionViewCell {
     
     private var theme: Theme?
     
+    private var isDeviceRTL: Bool {
+        return effectiveUserInterfaceLayoutDirection == .rightToLeft
+    }
+    
+    var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
+        didSet {
+            titleTextView.semanticContentAttribute = semanticContentAttributeOverride
+        }
+    }
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
-        let isRTL = semanticContentAttribute == .forceRightToLeft
+        let isRTL = semanticContentAttributeOverride == .forceRightToLeft
         let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left, bottom: 0, right: layoutMargins.right)
         
         var depthIndicatorOrigin: CGPoint?
@@ -50,7 +59,7 @@ class TalkPageReplyCell: CollectionViewCell {
             titleMaximumWidth = (size.width - adjustedMargins.right) - titleOrigin.x
         }
         
-        let titleTextViewFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: titleMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+        let titleTextViewFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: titleMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
         
         let finalHeight = adjustedMargins.top + titleTextViewFrame.size.height + adjustedMargins.bottom
         

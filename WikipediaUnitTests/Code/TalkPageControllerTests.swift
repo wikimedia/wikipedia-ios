@@ -9,7 +9,7 @@ fileprivate class MockTalkPageFetcher: TalkPageFetcher {
     static var domain = "en.wikipedia.org"
     var fetchCalled = false
     
-    override func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+    override func fetchTalkPage(urlTitle: String, displayTitle: String, siteURL: URL, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
         fetchCalled = true
         if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://talk-pages.wmflabs.org/\(MockTalkPageFetcher.domain)/v1/page/talk/\(urlTitle)", revisionId: MockArticleRevisionFetcher.revisionId) {
@@ -68,7 +68,7 @@ class TalkPageControllerTests: XCTestCase {
         tempDataStore = MWKDataStore.temporary()
         talkPageFetcher = MockTalkPageFetcher(session: Session.shared, configuration: Configuration.current)
         articleRevisionFetcher = MockArticleRevisionFetcher()
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, dataStore: tempDataStore, title: "Username1", host: Configuration.Domain.englishWikipedia, languageCode: "en", titleIncludesPrefix: false, type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         MockArticleRevisionFetcher.revisionId = 894272715
         
     }
@@ -115,7 +115,7 @@ class TalkPageControllerTests: XCTestCase {
             initialFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
+            case .success(let dbTalkPageID):
                 
                 //fetch from db again, confirm count is 1 and matches returned talk page
                 let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
@@ -124,10 +124,10 @@ class TalkPageControllerTests: XCTestCase {
                     XCTFail("Failure fetching initial talk pages")
                     return
                 }
-                
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID) as? TalkPage
                 XCTAssertEqual(results.count, 1, "Expected one talk page in DB")
                 XCTAssertEqual(results.first, dbTalkPage)
-                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage?.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 
             case .failure:
                 XCTFail("TalkPageController fetchTalkPage failure")
@@ -209,7 +209,7 @@ class TalkPageControllerTests: XCTestCase {
             initialFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
+            case .success(let dbTalkPageID):
                 
                 //fetch from db again, confirm count is 1 and matches returned talk page
                 let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
@@ -220,7 +220,7 @@ class TalkPageControllerTests: XCTestCase {
                 }
                 
                 XCTAssertEqual(results.count, 1, "Expected one talk page in DB")
-                XCTAssertEqual(results.first, dbTalkPage)
+                XCTAssertEqual(results.first?.objectID, dbTalkPageID)
                 
             case .failure:
                 XCTFail("TalkPageController fetchTalkPage failure")
@@ -231,7 +231,7 @@ class TalkPageControllerTests: XCTestCase {
         
         //fetch again for ES language
         MockTalkPageFetcher.domain = "es.wikipedia.org"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, dataStore: tempDataStore, title: "Username1", host:"es.wikipedia.org", languageCode: "en", titleIncludesPrefix: false, type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://es.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in
@@ -282,9 +282,8 @@ class TalkPageControllerTests: XCTestCase {
         
         wait(for: [initialFetchCallback], timeout: 5)
         
-        //fetch again for ES language
         MockTalkPageFetcher.name = "Username2"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, dataStore: tempDataStore, title: "Username2", host:Configuration.Domain.englishWikipedia, languageCode: "en", titleIncludesPrefix: false, type: .user)
+        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username2", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in
@@ -329,9 +328,10 @@ class TalkPageControllerTests: XCTestCase {
             initialFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
+            case .success(let dbTalkPageID):
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID) as? TalkPage
                 firstDBTalkPage = dbTalkPage
-                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage?.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertTrue(self.talkPageFetcher.fetchCalled, "Expected fetcher to be called for initial fetch")
                 
             case .failure:
@@ -350,10 +350,10 @@ class TalkPageControllerTests: XCTestCase {
             secondFetchCallback.fulfill()
             
             switch result {
-            case .success(let dbTalkPage):
-                
+            case .success(let dbTalkPageID):
+                let dbTalkPage = try? self.tempDataStore.viewContext.existingObject(with: dbTalkPageID) as? TalkPage
                 XCTAssertEqual(firstDBTalkPage, dbTalkPage)
-                XCTAssertEqual(dbTalkPage.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
+                XCTAssertEqual(dbTalkPage?.revisionId?.intValue, MockArticleRevisionFetcher.revisionId)
                 XCTAssertFalse(self.talkPageFetcher.fetchCalled, "Expected fetcher to not be called for second fetch")
                 
             case .failure:

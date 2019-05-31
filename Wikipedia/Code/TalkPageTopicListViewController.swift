@@ -23,13 +23,20 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private var toolbar: UIToolbar?
     private var shareIcon: IconBarButtonItem?
     private var headerView: TalkPageHeaderView?
+    private let siteURL: URL
+    private let type: TalkPageType
+    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     
-    required init(dataStore: MWKDataStore, talkPage: TalkPage) {
+    required init(dataStore: MWKDataStore, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
         self.talkPage = talkPage
+        self.siteURL = siteURL
+        self.type = type
+        self.talkPageSemanticContentAttribute = talkPageSemanticContentAttribute
         
         let request: NSFetchRequest<TalkPageTopic> = TalkPageTopic.fetchRequest()
         request.predicate = NSPredicate(format: "talkPage == %@",  talkPage)
+        request.relationshipKeyPathsForPrefetching = ["content"]
         request.sortDescriptors = [NSSortDescriptor(key: "sort", ascending: true)]
         self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -46,42 +53,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         registerCells()
         setupCollectionViewUpdater()
         setupToolbar()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        //number of talk pages:
-        /*
-        let talkPageRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
-        talkPageRequest.includesSubentities = false
-        do {
-            let count = try dataStore.viewContext.count(for: talkPageRequest)
-            print("🌹talk page count: \(count)")
-        } catch {
-            print("🌹talk page fetch failure")
-        }
-        
-        //number of topics:
-        let topicRequest: NSFetchRequest<TalkPageTopic> = TalkPageTopic.fetchRequest()
-        topicRequest.includesSubentities = false
-        do {
-            let count = try dataStore.viewContext.count(for: topicRequest)
-            print("🌹topic count: \(count)")
-        } catch {
-            print("🌹topic count fetch failure")
-        }
-        
-        //number of replies:
-        let replyRequest: NSFetchRequest<TalkPageReply> = TalkPageReply.fetchRequest()
-        replyRequest.includesSubentities = false
-        do {
-            let count = try dataStore.viewContext.count(for: replyRequest)
-            print("🌹reply count: \(count)")
-        } catch {
-            print("🌹reply count fetch failure")
-        }
- */
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -241,43 +212,53 @@ private extension TalkPageTopicListViewController {
     }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
-        guard let title = fetchedResultsController.object(at: indexPath).title else {
+        let topic = fetchedResultsController.object(at: indexPath)
+        guard let title = topic.title else {
             return
         }
         
-        cell.configure(title: title)
+        cell.configure(title: title, isRead: topic.isRead)
         cell.layoutMargins = layout.itemLayoutMargins
+        cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         cell.apply(theme: theme)
     }
     
     func configure(header: TalkPageHeaderView) {
         
-        guard let displayTitle = talkPage.displayTitle,
-            let languageCode = talkPage.languageCode else {
+        guard let displayTitle = talkPage.displayTitle else {
                 return
         }
         
-        let headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list. It represents the kind of talk page the user is viewing.").localizedUppercase
-        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@", comment: "This information label is displayed at the top of a talk page topic list. %1$@ is replaced by the language wiki they are using ('English Wikipedia').")
-        
-        //todo: fix for other languages
-        var languageWikiText: String
-        switch languageCode {
-        case "en":
-            languageWikiText = "English Wikipedia"
-        case "test":
-            languageWikiText = "Test Wikipedia"
-        default:
-            languageWikiText = ""
+        var headerText: String
+        switch type {
+        case .user:
+            headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.").localizedUppercase
+        case .article:
+            headerText = WMFLocalizedString("talk-page-title-article-talk", value: "article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.").localizedUppercase
         }
         
-        let infoText = NSString.localizedStringWithFormat(languageTextFormat as NSString, languageWikiText) as String
+        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@ Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. %1$@ is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.")
+        
+        let genericInfoText = WMFLocalizedString("talk-page-info-active-conversations-generic", value: "Active conversations on Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. This is fallback text in case a specific wiki language cannot be determined.")
+        
+        let infoText = stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: languageTextFormat, fallbackGenericString: genericInfoText)
         
         let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText, intro: talkPage.introText)
         
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
+        header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
+    }
+    
+    func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: String, fallbackGenericString: String) -> String {
+        
+        if let code = siteURL.wmf_language,
+            let language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(code) {
+            return NSString.localizedStringWithFormat(string as NSString, language) as String
+        } else {
+            return fallbackGenericString
+        }
     }
 }
 

@@ -4,15 +4,13 @@ class NetworkTalkPage {
     let topics: [NetworkTopic]
     var revisionId: Int?
     let displayTitle: String
-    let languageCode: String
     let introText: String?
     
-    init(url: URL, topics: [NetworkTopic], revisionId: Int?, displayTitle: String, languageCode: String, introText: String?) {
+    init(url: URL, topics: [NetworkTopic], revisionId: Int?, displayTitle: String, introText: String?) {
         self.url = url
         self.topics = topics
         self.revisionId = revisionId
         self.displayTitle = displayTitle
-        self.languageCode = languageCode
         self.introText = introText
     }
 }
@@ -55,56 +53,61 @@ class NetworkReply: NSObject, Codable {
 }
 
 import Foundation
+import WMF
 
 enum TalkPageType {
     case user
     case article
     
-    var prefix: String {
+    func canonicalNamespacePrefix(for siteURL: URL) -> String? {
+        
+        //todo: PageNamespace
+        var namespaceRaw: String
         switch self {
-        case .user:
-            return "User talk:"
         case .article:
-            return "Talk:"
-        }
-    }
-    
-    func urlTitle(for title: String, titleIncludesPrefix: Bool) -> String? {
-        if !titleIncludesPrefix {
-
-            guard let underscoredTitle = title.wmf_denormalizedPageTitle(),
-                let underscoredPrefix = prefix.wmf_denormalizedPageTitle(),
-                let percentEncodedTitle = underscoredTitle.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
-                return nil
-            }
-            
-            return underscoredPrefix + percentEncodedTitle
-        } else {
-            return title.wmf_denormalizedPageTitle()
-        }
-    }
-    
-    func displayTitle(for title: String, titleIncludesPrefix: Bool) -> String {
-        if !titleIncludesPrefix {
-            return title
+            namespaceRaw = "1"
+        case .user:
+            namespaceRaw = "3"
         }
         
-        //todo: There will be some language issues with this
-        return title.replacingOccurrences(of: prefix, with: "")
+        guard let namespace = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL)?.namespaces?[namespaceRaw] else {
+            return nil
+        }
+        
+        return namespace.canonicalName + ":"
+    }
+    
+    func titleWithCanonicalNamespacePrefix(title: String, siteURL: URL) -> String {
+        return (canonicalNamespacePrefix(for: siteURL) ?? "") + title
+    }
+    
+    func titleWithoutNamespacePrefix(title: String) -> String {
+        if let firstColon = title.range(of: ":") {
+            var returnTitle = title
+            returnTitle.removeSubrange(title.startIndex..<firstColon.upperBound)
+            return returnTitle
+        } else {
+            return title
+        }
+    }
+    
+    func urlTitle(for title: String) -> String? {
+        //assuming title has already been prefixed
+        return title.wmf_denormalizedPageTitle()
     }
 }
 
 enum TalkPageFetcherError: Error {
-    case TalkPageDoesNotExist
+    case talkPageDoesNotExist
 }
 
 class TalkPageFetcher: Fetcher {
     
     private let sectionUploader = WikiTextSectionUploader()
     
-    func addTopic(to title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+    func addTopic(to title: String, siteURL: URL, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
         
-        guard let url = articleURL(for: title, host: host) else {
+        guard let url = postURL(for: title, siteURL: siteURL) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
@@ -124,9 +127,9 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func addReply(to topic: TalkPageTopic, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+    func addReply(to topic: TalkPageTopic, title: String, siteURL: URL, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
         
-        guard let url = articleURL(for: title, host: host) else {
+        guard let url = postURL(for: title, siteURL: siteURL) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
@@ -147,10 +150,10 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+    func fetchTalkPage(urlTitle: String, displayTitle: String, siteURL: URL, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
-        guard let taskURLWithRevID = taskURL(for: urlTitle, host: host, revisionID: revisionID),
-            let taskURLWithoutRevID = taskURL(for: urlTitle, host: host, revisionID: nil) else {
+        guard let taskURLWithRevID = getURL(for: urlTitle, siteURL: siteURL, revisionID: revisionID),
+            let taskURLWithoutRevID = getURL(for: urlTitle, siteURL: siteURL, revisionID: nil) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
@@ -160,7 +163,7 @@ class TalkPageFetcher: Fetcher {
             
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
-                completion(.failure(TalkPageFetcherError.TalkPageDoesNotExist))
+                completion(.failure(TalkPageFetcherError.talkPageDoesNotExist))
                 return
             }
             
@@ -175,7 +178,7 @@ class TalkPageFetcher: Fetcher {
             }
             
             //update sort
-            //todo performance: should we go back to NSOrderedSets or move sort up into endpoint
+            //todo performance: should we go back to NSOrderedSets or move sort up into endpoint?
             for (topicIndex, topic) in networkBase.topics.enumerated() {
                 
                 topic.sort = topicIndex
@@ -194,13 +197,13 @@ class TalkPageFetcher: Fetcher {
             }
             
             let filteredTopics = networkBase.topics.filter { $0.text.count > 0 }
-            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: filteredTopics, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode, introText: introText)
+            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: filteredTopics, revisionId: revisionID, displayTitle: displayTitle, introText: introText)
             completion(.success(talkPage))
         }
     }
     
-    func taskURL(for urlTitle: String, host: String) -> URL? {
-        return taskURL(for: urlTitle, host: host, revisionID: nil)
+    func getURL(for urlTitle: String, siteURL: URL) -> URL? {
+        return getURL(for: urlTitle, siteURL: siteURL, revisionID: nil)
     }
 }
 
@@ -208,7 +211,11 @@ class TalkPageFetcher: Fetcher {
 
 private extension TalkPageFetcher {
     
-    func taskURL(for urlTitle: String, host: String, revisionID: Int?) -> URL? {
+    func getURL(for urlTitle: String, siteURL: URL, revisionID: Int?) -> URL? {
+        
+        guard let host = siteURL.host else {
+            return nil
+        }
         
         //note: assuming here urlTitle has already been percent endcoded & escaped
         var pathComponents = ["page", "talk", urlTitle]
@@ -223,7 +230,11 @@ private extension TalkPageFetcher {
         return taskURL
     }
     
-    func articleURL(for urlTitle: String, host: String) -> URL? {
+    func postURL(for urlTitle: String, siteURL: URL) -> URL? {
+        
+        guard let host = siteURL.host else {
+            return nil
+        }
         
         //note: assuming here urlTitle has already been percent endcoded, prefixed & escaped
         let components = configuration.articleURLForHost(host, appending: [urlTitle])
