@@ -983,8 +983,6 @@
 		833D6B4A229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
 		833D6B4B229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
 		833D6B4C229EE872003CB650 /* TalkPageTopic+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */; };
-		834400AE20B33498005F087D /* NSAttributedString+WMFTrim.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804881C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m */; };
-		834400AF20B334A0005F087D /* NSAttributedString+WMFTrim.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804871C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		834400B020B3368A005F087D /* NSCharacterSet+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048C1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m */; };
 		834400B120B3368E005F087D /* NSCharacterSet+WMFExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048B1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
@@ -1620,7 +1618,6 @@
 		B0E809491C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809481C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m */; };
 		B0E8094B1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8094A1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m */; };
 		B0E8094D1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8094C1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m */; };
-		B0E8094F1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8094E1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m */; };
 		B0E809511C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */; };
 		B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */; };
 		B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */; };
@@ -4208,8 +4205,6 @@
 		B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFModify.m"; path = "Wikipedia/Code/NSAttributedString+WMFModify.m"; sourceTree = SOURCE_ROOT; };
 		B0E804851C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+WMFSavedPagesAttributedStrings.h"; path = "Wikipedia/Code/NSAttributedString+WMFSavedPagesAttributedStrings.h"; sourceTree = SOURCE_ROOT; };
 		B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFSavedPagesAttributedStrings.m"; path = "Wikipedia/Code/NSAttributedString+WMFSavedPagesAttributedStrings.m"; sourceTree = SOURCE_ROOT; };
-		B0E804871C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+WMFTrim.h"; path = "Wikipedia/Code/NSAttributedString+WMFTrim.h"; sourceTree = SOURCE_ROOT; };
-		B0E804881C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFTrim.m"; path = "Wikipedia/Code/NSAttributedString+WMFTrim.m"; sourceTree = SOURCE_ROOT; };
 		B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+WMFInfoUtils.h"; path = "Wikipedia/Code/NSBundle+WMFInfoUtils.h"; sourceTree = SOURCE_ROOT; };
 		B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+WMFInfoUtils.m"; path = "Wikipedia/Code/NSBundle+WMFInfoUtils.m"; sourceTree = SOURCE_ROOT; };
 		B0E8048B1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCharacterSet+WMFExtras.h"; path = "Wikipedia/Code/NSCharacterSet+WMFExtras.h"; sourceTree = SOURCE_ROOT; };
@@ -4502,7 +4497,6 @@
 		B0E809481C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WMFImageFetchingVisualTests.m"; path = "WikipediaUnitTests/Code/UIImageView+WMFImageFetchingVisualTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E8094A1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFModifyTests.m"; path = "WikipediaUnitTests/Code/NSAttributedString+WMFModifyTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E8094C1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+MWKImageTests.m"; path = "WikipediaUnitTests/Code/UIImageView+MWKImageTests.m"; sourceTree = SOURCE_ROOT; };
-		B0E8094E1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFTrimTests.m"; path = "WikipediaUnitTests/Code/NSAttributedString+WMFTrimTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionListHierarchyTests.m; path = WikipediaUnitTests/Code/MWKSectionListHierarchyTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLLocation+WMFBearingTests.m"; path = "WikipediaUnitTests/Code/CLLocation+WMFBearingTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsSerializationTests.m; path = WikipediaUnitTests/Code/WMFSearchResultsSerializationTests.m; sourceTree = SOURCE_ROOT; };
@@ -5989,7 +5983,6 @@
 				B0E804AD1C0CE0B40065EBC0 /* NSString+WMFHTMLParsing.m */,
 				7A5AB82522940CE200B91C9C /* WMFHTMLElement.m */,
 				7A5AB82B22940D8500B91C9C /* WMFHTMLElement.h */,
-				7A5AB82322940C2100B91C9C /* WMFHTMLParsingHelpers.swift */,
 				833D4FFA20A9E20800B44E7C /* String+HTML.swift */,
 				B0E807321C0CED810065EBC0 /* WMFImageURLParsing.h */,
 				B0E807331C0CED810065EBC0 /* WMFImageURLParsing.m */,
@@ -7347,8 +7340,6 @@
 				B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */,
 				B0E804851C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.h */,
 				B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */,
-				B0E804871C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.h */,
-				B0E804881C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m */,
 				B0E8048B1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.h */,
 				B0E8048C1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m */,
 				B0E804A61C0CE0B40065EBC0 /* NSString+FormattedAttributedString.h */,
@@ -7887,7 +7878,6 @@
 				B0E809481C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m */,
 				B0E8094A1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m */,
 				B0E8094C1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m */,
-				B0E8094E1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m */,
 				B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */,
 				B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */,
 				B062ABC71D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m */,
@@ -8995,7 +8985,6 @@
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
 				D8FA18BD1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.h in Headers */,
 				D844D9A01D6CB6600042D692 /* WMFURLCache.h in Headers */,
-				834400AF20B334A0005F087D /* NSAttributedString+WMFTrim.h in Headers */,
 				D8FA18B01E1BD891009675C3 /* NSBundle+WMFInfoUtils.h in Headers */,
 				D8FA18AD1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */,
 				D8DC16ED1D6F6DD600D6D9FB /* WMFAssetsFile.h in Headers */,
@@ -10598,7 +10587,6 @@
 				B0E808EA1C0D17FB0065EBC0 /* MWKDataStoreStorageTests.m in Sources */,
 				B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */,
 				B0E808E01C0D17C20065EBC0 /* MWKSavedPageListCorruptDataTests.m in Sources */,
-				B0E8094F1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m in Sources */,
 				B0E808F21C0D18280065EBC0 /* MWKProtectionStatusTests.m in Sources */,
 				B0E808D41C0D17A60065EBC0 /* MWKHistoryListCorruptDataTests.m in Sources */,
 				B0E809271C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m in Sources */,
@@ -10709,7 +10697,6 @@
 				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				7A5AB82422940C2100B91C9C /* WMFHTMLParsingHelpers.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -11644,7 +11631,6 @@
 				D8D365151E953C7100593A38 /* ImageControllerCompletionManager.swift in Sources */,
 				D8FA18FD1E1BDA4C009675C3 /* UIImageView+WMFImageFetching.m in Sources */,
 				D8FA18FE1E1BDA4C009675C3 /* UIColor+WMFStyle.m in Sources */,
-				834400AE20B33498005F087D /* NSAttributedString+WMFTrim.m in Sources */,
 				D84C36161F32401B00895FA1 /* RankedArticleCollectionViewCell.swift in Sources */,
 				B389CFD01E6F459F00483C06 /* MWKArticle+MKMapItem.swift in Sources */,
 				D8AAF6B81FE93DE9005760E6 /* UIScrollView+Limits.swift in Sources */,

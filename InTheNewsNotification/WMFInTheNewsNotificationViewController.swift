@@ -59,7 +59,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
                 let html = newsStory.storyHTML  {
                 let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote, compatibleWith: nil)
                 let linkFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-                let attributedString = html.wmf_attributedStringFromHTML(with: font, boldFont: linkFont, italicFont: font, boldItalicFont: linkFont, color:nil, linkColor:nil, handlingLists: false, handlingSuperSubscripts: false, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a":"b"], additionalTagAttributes:nil).wmf_trim()
+                let attributedString = html.wmf_attributedStringFromHTML(with: font, boldFont: linkFont, italicFont: font, boldItalicFont: linkFont, color:nil, linkColor:nil, handlingLists: false, handlingSuperSubscripts: false, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a":"b"], additionalTagAttributes:nil)
                 summaryLabel.attributedText = attributedString
             }
         } catch let error as NSError {
