@@ -468,6 +468,8 @@
 		7A5A0546225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A0542225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift */; };
 		7A5A0547225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A0542225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift */; };
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
+		7A5AB82C22940D8500B91C9C /* WMFHTMLElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5AB82B22940D8500B91C9C /* WMFHTMLElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A5AB82D2294121D00B91C9C /* WMFHTMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AB82522940CE200B91C9C /* WMFHTMLElement.m */; };
 		7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
 		7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
 		7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
@@ -3800,6 +3802,8 @@
 		7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperation.swift; sourceTree = "<group>"; };
 		7A5A0542225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
+		7A5AB82522940CE200B91C9C /* WMFHTMLElement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFHTMLElement.m; sourceTree = "<group>"; };
+		7A5AB82B22940D8500B91C9C /* WMFHTMLElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFHTMLElement.h; sourceTree = "<group>"; };
 		7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreAboutRevertedEditViewController.swift; sourceTree = "<group>"; };
 		7A610CB6220A30C900C266AE /* HintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintViewController.swift; sourceTree = "<group>"; };
 		7A610CBC220A582A00C266AE /* HintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintController.swift; sourceTree = "<group>"; };
@@ -5984,6 +5988,9 @@
 				83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */,
 				B0E804AC1C0CE0B40065EBC0 /* NSString+WMFHTMLParsing.h */,
 				B0E804AD1C0CE0B40065EBC0 /* NSString+WMFHTMLParsing.m */,
+				7A5AB82522940CE200B91C9C /* WMFHTMLElement.m */,
+				7A5AB82B22940D8500B91C9C /* WMFHTMLElement.h */,
+				7A5AB82322940C2100B91C9C /* WMFHTMLParsingHelpers.swift */,
 				833D4FFA20A9E20800B44E7C /* String+HTML.swift */,
 				B0E807321C0CED810065EBC0 /* WMFImageURLParsing.h */,
 				B0E807331C0CED810065EBC0 /* WMFImageURLParsing.m */,
@@ -8955,6 +8962,7 @@
 				D8FA19031E1BDA66009675C3 /* UIImage+WMFStyle.h in Headers */,
 				D844D9B21D6CB7770042D692 /* MWKSavedPageList.h in Headers */,
 				D8FA18F01E1BDA2F009675C3 /* UIImage+WMFNormalization.h in Headers */,
+				7A5AB82C22940D8500B91C9C /* WMFHTMLElement.h in Headers */,
 				D80A79291F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.h in Headers */,
 				D8FA18E81E1BD8B2009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */,
 				D8FA18AB1E1BD86E009675C3 /* EXTScope.h in Headers */,
@@ -10703,6 +10711,7 @@
 				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
+				7A5AB82422940C2100B91C9C /* WMFHTMLParsingHelpers.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -11601,6 +11610,7 @@
 				D844D9B91D6CB7980042D692 /* MWKRecentSearchList.m in Sources */,
 				D837B5A61F06AA8C00DCB9CD /* Theme.swift in Sources */,
 				D8619BA51FBB10240045C8BC /* ReadingList+CoreDataProperties.swift in Sources */,
+				7A5AB82D2294121D00B91C9C /* WMFHTMLElement.m in Sources */,
 				D881B10F1E32686100D33F62 /* ArticleLocationController.swift in Sources */,
 				D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */,
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,

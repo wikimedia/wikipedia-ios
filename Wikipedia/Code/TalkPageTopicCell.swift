@@ -59,7 +59,7 @@ class TalkPageTopicCell: CollectionViewCell {
         let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
         let italicfont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
         
-        if let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleLabel.textColor, linkColor:nil, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a": "b"], additionalTagAttributes: nil).wmf_trim() {
+        if let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleLabel.textColor, linkColor:nil, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a": "b"], additionalTagAttributes: nil).wmf_trim() {
             titleLabel.attributedText = attributedString
         }
     }
