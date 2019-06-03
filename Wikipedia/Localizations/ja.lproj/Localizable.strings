@@ -249,8 +249,7 @@
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
-// Fuzzy
-"empty-insert-media-title" = "ファイルを選択";
+"empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
 "empty-no-feed-action-message" = "保存したページはそうでなくても読むことができます";
 "empty-no-feed-message" = "おすすめの記事は、インターネットに接続されているときに見ることができます";

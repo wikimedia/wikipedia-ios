@@ -116,7 +116,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         buttonLeftCaret = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
         
-        buttonSave = UIBarButtonItem(title: WMFLocalizedString("button-publish", value: "Publish", comment: "Button text for publish button used in various places.\n{{Identical|Publish}}"), style: .done, target: self, action: #selector(self.goForward))
+        buttonSave = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(self.goForward))
         buttonSave?.tintColor = theme.colors.link
 
         mode = .preview

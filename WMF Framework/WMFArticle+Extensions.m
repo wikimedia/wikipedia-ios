@@ -106,6 +106,10 @@
     if (searchResult.geoType != nil) {
         self.geoTypeNumber = searchResult.geoType;
     }
+    if (searchResult.titleNamespace != nil) {
+        self.ns = searchResult.titleNamespace;
+        self.isExcludedFromFeed = self.isExcludedFromFeed || self.ns.integerValue != 0;
+    }
 }
 
 @end

@@ -15,7 +15,38 @@ class ThemeableTextView: UITextView {
     weak var placeholderDelegate: ThemeableTextViewPlaceholderDelegate?
     weak var clearDelegate: ThemeableTextViewClearDelegate?
 
-    var clearButton: UIButton!
+    var clearButton: UIButton?
+    var showsClearButton: Bool = false {
+        didSet {
+            if showsClearButton {
+                let image = #imageLiteral(resourceName: "clear-mini")
+                let clearButton = UIButton(frame: CGRect(origin: .zero, size: image.size))
+                clearButton.setImage(image, for: .normal)
+                clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+                clearButton.isAccessibilityElement = true
+                clearButton.accessibilityLabel = CommonStrings.accessibilityClearTitle
+                addSubview(clearButton)
+                clearButton.isHidden = true
+                var inset = textContainerInset
+                if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+                    inset.left += clearButton.frame.width
+                } else {
+                    inset.right += clearButton.frame.width
+                }
+                textContainerInset = inset
+
+                if let selectedTextRange = selectedTextRange, let font = font {
+                    let caret = caretRect(for: selectedTextRange.start)
+                    clearButtonCenterY = caret.midY + (caret.height - font.lineHeight)
+                } else {
+                    clearButtonCenterY = nil
+                }
+                self.clearButton = clearButton
+            } else {
+                clearButton = nil
+            }
+        }
+    }
 
     override var delegate: UITextViewDelegate? {
         didSet {
@@ -67,34 +98,15 @@ class ThemeableTextView: UITextView {
 
     private func setup() {
         delegate = self
-        let image = #imageLiteral(resourceName: "clear-mini")
-        clearButton = UIButton(frame: CGRect(origin: .zero, size: image.size))
-        clearButton.setImage(image, for: .normal)
-        clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
-        clearButton.isAccessibilityElement = true
-        clearButton.accessibilityLabel = CommonStrings.accessibilityClearTitle
-        addSubview(clearButton)
-        clearButton.isHidden = true
-        var inset = textContainerInset
-        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
-            inset.left += clearButton.frame.width
-        } else {
-            inset.right += clearButton.frame.width
-        }
-        textContainerInset = inset
-
-        if let selectedTextRange = selectedTextRange, let font = font {
-            let caret = caretRect(for: selectedTextRange.start)
-            clearButtonCenterY = caret.midY + (caret.height - font.lineHeight)
-        } else {
-            clearButtonCenterY = nil
-        }
     }
 
     private var clearButtonCenterY: CGFloat?
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        guard let clearButton = clearButton else {
+            return
+        }
         let clearButtonOriginX: CGFloat
         if effectiveUserInterfaceLayoutDirection == .rightToLeft {
             clearButtonOriginX = 0
@@ -115,7 +127,10 @@ class ThemeableTextView: UITextView {
     }
 
     private func setClearButtonHidden(_ hidden: Bool) {
-        guard clearButton.isHidden != hidden else {
+        guard
+            let clearButton = clearButton,
+            clearButton.isHidden != hidden
+        else {
             return
         }
         clearButton.isHidden = hidden
@@ -177,7 +192,7 @@ extension ThemeableTextView: UITextViewDelegate {
 extension ThemeableTextView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-        clearButton.tintColor = theme.colors.tertiaryText
+        clearButton?.tintColor = theme.colors.tertiaryText
         backgroundColor = theme.colors.paperBackground
         textColor = isShowingPlaceholder ? theme.colors.tertiaryText : theme.colors.primaryText
         keyboardAppearance = theme.keyboardAppearance

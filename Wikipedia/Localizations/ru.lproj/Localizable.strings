@@ -255,8 +255,7 @@
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
-// Fuzzy
-"empty-insert-media-title" = "Выберите файл";
+"empty-insert-media-title" = "Выберите файл на Викискладе";
 "empty-no-article-message" = "К сожалению, не удалось скачать статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
