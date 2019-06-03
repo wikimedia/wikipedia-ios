@@ -353,8 +353,13 @@ class SectionEditorViewController: UIViewController {
 
     // MARK: Event logging
 
+    private var loggedSectionReadyToEdit: Bool = false
     private func logSectionReadyToEdit() {
+        guard !loggedSectionReadyToEdit else {
+            return
+        }
         editFunnel.logSectionReadyToEditFrom(source: editFunnelSource, revision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
+        loggedSectionReadyToEdit = true
     }
 
     private var editFunnelSource: EditFunnelSource {
