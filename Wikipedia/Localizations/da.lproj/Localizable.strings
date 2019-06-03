@@ -58,6 +58,8 @@
 "account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens.";
 "account-creation-saving" = "Gemmer...";
 "account-creation-title" = "Opret en ny konto";
+"account-group-title" = "Din konto";
+"account-talk-page-title" = "Din diskussionsside";
 "action-add-to" = "Tilføj til ...";
 "action-add-to-reading-list" = "Tilføj til læseliste";
 "action-add-to-reading-list-short" = "Tilføj til liste";
@@ -505,6 +507,7 @@
 "search-recent-title" = "Seneste søgte";
 "search-result-redirected-from" = "Omdirigeret fra: $1";
 "search-title" = "Søg";
+"settings-account" = "Konto";
 "settings-appearance" = "Læsepræferencer";
 "settings-clear-cache" = "Ryd cachede data";
 "settings-clear-cache-are-you-sure-message" = "Rydning af cachede data vil frigøre omkring $1 plads. Det vil ikke slette dine gemte sider.";
@@ -564,6 +567,9 @@
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
 "table-of-contents-heading" = "Indhold";
 "table-title-other" = "Flere oplysninger";
+"talk-page-reply-title" = "Svar";
+"talk-page-title-user-talk" = "Brugerdiskussion";
+"talk-page-topic-title" = "Diskussion";
 "theme-black-display-name" = "Sort";
 "theme-dark-display-name" = "Mørk";
 "theme-default-display-name" = "Standard";

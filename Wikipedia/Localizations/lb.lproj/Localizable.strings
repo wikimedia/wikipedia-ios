@@ -46,6 +46,8 @@
 "account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
 "account-creation-title" = "En neie Benotzerkont uleeën";
+"account-group-title" = "Äre Benotzerkont";
+"account-talk-page-title" = "Är Diskussiouns-Säit";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
 "action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
@@ -423,6 +425,7 @@
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "search-title" = "Sichen";
+"settings-account" = "Benotzerkont";
 "settings-appearance" = "Lies-Astellungen";
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
 "settings-clear-cache-are-you-sure-message" = "D'Läsche vun tëschegespäicherten Donnéeën mécht ongeféier $1 Plaz fräi. Är gespäichert Säite ginn net geläscht.";
@@ -469,6 +472,15 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-heading" = "Inhalter";
 "table-title-other" = "Méi Informatiounen";
+"talk-page-info-active-conversations-generic" = "Aktiv Gespréicher op Wikipedia";
+"talk-page-new-banner-subtitle" = "Denkt dru, mir sinn hei all Mënschen";
+"talk-page-new-banner-title" = "Sidd w.e.g. fein";
+"talk-page-new-reply-success-text" = "Är Äntwert gouf verëffentlecht";
+"talk-page-new-subject-placeholder-text" = "Sujet";
+"talk-page-new-topic-success-text" = "Är Diskussioun gouf verëffentlecht";
+"talk-page-new-topic-title" = "Nei Diskussioun";
+"talk-page-reply-title" = "Äntwerten";
+"talk-page-topic-title" = "Diskussioun";
 "theme-black-display-name" = "Schwaarz";
 "theme-dark-display-name" = "Däischter";
 "theme-default-display-name" = "Standard";
