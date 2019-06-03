@@ -86,6 +86,7 @@ class SectionEditorViewController: UIViewController {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
         selectLastSelectionIfNeeded()
+        logSectionReadyToEdit()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -210,7 +211,6 @@ class SectionEditorViewController: UIViewController {
 
     private var didSetWikitextToWebView: Bool = false {
         didSet {
-            logSectionReadyToEdit()
             guard shouldFocusWebView else {
                 return
             }
