@@ -25,7 +25,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var editFunnelSource: EditFunnelSource = .unknown
     var savedPagesFunnel: SavedPagesFunnel?
     private var articleRevision: Int? {
-        return articleRevision
+        return section?.article?.revisionId?.intValue
     }
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
