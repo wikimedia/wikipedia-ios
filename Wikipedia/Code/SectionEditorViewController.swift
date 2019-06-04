@@ -518,7 +518,6 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.delegate = self
         vc.theme = self.theme
         vc.editFunnel = self.editFunnel
-        vc.loggedEditActions = self.loggedEditActions
         vc.editFunnelSource = editFunnelSource
         self.navigationController?.pushViewController(vc, animated: true)
     }
