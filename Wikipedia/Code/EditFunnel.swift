@@ -179,6 +179,10 @@
         log(event(action: .error, source: source, errorText: errorText, revision: revision), language: language)
     }
 
+    public func logSectionHighlightToEditError(revision: Int?, language: String?) {
+        log(event(action: .error, source: .highlight, errorText: "non-editable", revision: revision), language: language)
+    }
+
     // MARK: Section edit summary tap
 
     public func logSectionEditSummaryTap(source: EditFunnelSource, editSummaryType: EditSummaryViewCannedButtonType, revision: Int?, language: String?) {
