@@ -229,6 +229,7 @@
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
+"empty-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
 "error-generic-description" = "Generic error message for when the error isn't recoverable by the user.";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
 "error-unknown" = "Message displayed when an unknown error occurred";

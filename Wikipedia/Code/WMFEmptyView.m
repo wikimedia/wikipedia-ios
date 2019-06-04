@@ -169,6 +169,30 @@
     return view;
 }
 
++ (instancetype)unableToLoadTalkPageEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"unable-to-load-talk-page"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-talk-page-title", nil, nil, @"Unable to load talk page", @"Text for placeholder label visible when talk page can't be loaded");
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
++ (instancetype)unableToLoadTalkPageDiscussionEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"unable-to-load-talk-page"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-talk-page-title", nil, nil, @"Unable to load discussion", @"Text for placeholder label visible when talk page discussion can't be loaded");
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
 - (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nonnull SEL)action {
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];

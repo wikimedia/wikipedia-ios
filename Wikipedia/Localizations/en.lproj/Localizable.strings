@@ -229,6 +229,7 @@
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
+"empty-talk-page-title" = "Unable to load talk page";
 "error-generic-description" = "An unexpected error occurred";
 "error-generic-recovery-suggestion" = "Please try again later";
 "error-unknown" = "An unknown error occurred";

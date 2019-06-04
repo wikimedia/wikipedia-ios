@@ -45,6 +45,12 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeNoSelectedImageToInsert:
             view = [WMFEmptyView noSelectedImageToInsertEmptyView];
             break;
+        case WMFEmptyViewTypeUnableToLoadTalkPage:
+            view = [WMFEmptyView unableToLoadTalkPageEmptyView];
+            break;
+        case WMFEmptyViewTypeUnableToLoadTalkPageDiscussion:
+            view = [WMFEmptyView unableToLoadTalkPageDiscussionEmptyView];
+            break;
         default:
             return;
     }
