@@ -224,9 +224,11 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
                 viewController.postDidEnd()
 
                 switch result {
-                case .success:
+                case .success(let result):
+                    if result != .success {
+                        self?.fetch()
+                    }
                     self?.navigationController?.popViewController(animated: true)
-                    
                     NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
                 case .failure(let error):
                     if (error as NSError).wmf_isNetworkConnectionError() {
