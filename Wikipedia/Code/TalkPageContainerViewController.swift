@@ -211,15 +211,18 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
         controller.addTopic(toTalkPageWith: talkPage.objectID, title: talkPageTitle, siteURL: siteURL, subject: subject, body: body) { [weak self] (result) in
             DispatchQueue.main.async {
                 viewController.postDidEnd()
-                
-                
+
                 switch result {
                 case .success:
                     self?.navigationController?.popViewController(animated: true)
                     
                     NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
-                case .failure:
-                    break
+                case .failure(let error):
+                    if (error as NSError).wmf_isNetworkConnectionError() {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post topic.", comment: "Error message appearing when user attempts to post a new topic while being offline"), sticky: true, dismissPreviousAlerts: true)
+                    } else if let talkPageError = error as? TalkPageError {
+                        WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                    }
                 }
             }
         }

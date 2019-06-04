@@ -700,6 +700,7 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
+"talk-page-error-unable-to-post-topic" = "No internet connection. Unable to post topic.";
 "talk-page-info-active-conversations" = "Active conversations on $1 Wikipedia";
 "talk-page-info-active-conversations-generic" = "Active conversations on Wikipedia";
 "talk-page-new-banner-subtitle" = "Remember, we are all humans here";

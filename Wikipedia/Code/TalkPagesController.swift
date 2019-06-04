@@ -14,6 +14,10 @@ enum TalkPageError: Error {
     case createUrlTitleStringFailure
     case freshFetchTaskGroupFailure
     case topicMissingTalkPageRelationship
+
+    var localizedDescription: String {
+        return CommonStrings.genericErrorDescription
+    }
 }
 
 enum TalkPageAppendSuccessResult {

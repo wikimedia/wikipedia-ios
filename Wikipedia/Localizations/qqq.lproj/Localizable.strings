@@ -700,6 +700,7 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
+"talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new topic while being offline";
 "talk-page-info-active-conversations" = "This information label is displayed at the top of a talk page topic list. $1 is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.";
 "talk-page-info-active-conversations-generic" = "This information label is displayed at the top of a talk page topic list. This is fallback text in case a specific wiki language cannot be determined.";
 "talk-page-new-banner-subtitle" = "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.";
