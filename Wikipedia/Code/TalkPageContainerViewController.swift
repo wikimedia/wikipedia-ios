@@ -260,8 +260,12 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
                 switch result {
                 case .success:
                     print("made it")
-                case .failure:
-                    print("failure")
+                case .failure(let error):
+                    if (error as NSError).wmf_isNetworkConnectionError() {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+                    } else if let talkPageError = error as? TalkPageError {
+                        WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                    }
                 }
             }
         }
