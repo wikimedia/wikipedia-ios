@@ -12,7 +12,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     private var talkPage: TalkPage?
     private var topicListViewController: TalkPageTopicListViewController?
+    private var replyListViewController: TalkPageReplyListViewController?
     private var headerView: TalkPageHeaderView?
+    private var addButton: UIBarButtonItem?
     
     @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
     @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
@@ -24,6 +26,12 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         progressController.delay = 0.0
         return progressController
     }()
+    
+    private var repliesAreDisabled = true {
+        didSet {
+            replyListViewController?.repliesAreDisabled = repliesAreDisabled
+        }
+    }
     
     required init(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, controller: TalkPageController? = nil) {
         self.talkPageTitle = title
@@ -70,17 +78,23 @@ private extension TalkPageContainerViewController {
         
         //todo: loading/error/empty states
         fakeProgressController.start()
+        
         controller.fetchTalkPage { [weak self] (result) in
             DispatchQueue.main.async {
                 guard let self = self else {
                     return
                 }
                 
-                self.fakeProgressController.stop()
-                
                 switch result {
-                case .success(let talkPageID):
-                    self.talkPage = try? self.dataStore.viewContext.existingObject(with: talkPageID) as? TalkPage
+                case .success(let fetchResult):
+                    
+                    if !fetchResult.isInitialLocalResult {
+                        self.fakeProgressController.stop()
+                        self.addButton?.isEnabled = true
+                        self.repliesAreDisabled = false
+                    }
+                    
+                    self.talkPage = try? self.dataStore.viewContext.existingObject(with: fetchResult.objectID) as? TalkPage
                     if let talkPage = self.talkPage {
                         self.setupTopicListViewControllerIfNeeded(with: talkPage)
                         if let headerView = self.headerView {
@@ -90,6 +104,7 @@ private extension TalkPageContainerViewController {
                     }
                 case .failure(let error):
                     print("error! \(error)")
+                    self.fakeProgressController.stop()
                 }
             }
         }
@@ -116,6 +131,9 @@ private extension TalkPageContainerViewController {
         addButton.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = addButton
         navigationBar.updateNavigationItems()
+        addButton.isEnabled = false
+        self.addButton = addButton
+        
     }
     
     func setupNavigationBar() {
@@ -206,10 +224,12 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     }
     
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
-        let replyVC = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
-        replyVC.delegate = self
-        replyVC.apply(theme: theme)
-        navigationController?.pushViewController(replyVC, animated: true)
+        let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
+        replyListViewController.delegate = self
+        replyListViewController.apply(theme: theme)
+        replyListViewController.repliesAreDisabled = repliesAreDisabled
+        self.replyListViewController = replyListViewController
+        navigationController?.pushViewController(replyListViewController, animated: true)
     }
 }
 

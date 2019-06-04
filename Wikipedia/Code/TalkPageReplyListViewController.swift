@@ -32,6 +32,13 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var replyBarButtonItem: UIBarButtonItem!
+    
+    var repliesAreDisabled = true {
+        didSet {
+            footerView?.composeButtonIsDisabled = repliesAreDisabled
+            replyBarButtonItem.isEnabled = !repliesAreDisabled
+        }
+    }
 
     private var showingCompose = false {
         didSet {
@@ -192,6 +199,18 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionFooter,
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageReplyFooterView.identifier, for: indexPath) as? TalkPageReplyFooterView {
+            self.footerView = footer
+            configure(footer: footer)
+            return footer
+        }
+        
+        return UICollectionReusableView()
+    }
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
@@ -252,6 +271,7 @@ private extension TalkPageReplyListViewController {
         replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
         replyBarButtonItem.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = replyBarButtonItem
+        replyBarButtonItem.isEnabled = repliesAreDisabled
         navigationBar.updateNavigationItems()
         
         if let headerView = TalkPageHeaderView.wmf_viewFromClassNib(),
@@ -314,6 +334,8 @@ private extension TalkPageReplyListViewController {
         footer.showingCompose = showingCompose
         footer.layoutMargins = layout.itemLayoutMargins
         footer.apply(theme: theme)
+        footer.composeButtonIsDisabled = repliesAreDisabled
+        self.footerView = footer
     }
     
     func configure(cell: TalkPageReplyCell, at indexPath: IndexPath) {

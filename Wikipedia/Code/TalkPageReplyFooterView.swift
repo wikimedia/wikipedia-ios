@@ -21,6 +21,12 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
         }
     }
     
+    var composeButtonIsDisabled = true {
+        didSet {
+            replyButton.isEnabled = !composeButtonIsDisabled
+        }
+    }
+    
     private var adjustedMargins: UIEdgeInsets {
         return UIEdgeInsets(top: layoutMargins.top + 25, left: layoutMargins.left + 5, bottom: layoutMargins.bottom, right: layoutMargins.right + 5)
     }
