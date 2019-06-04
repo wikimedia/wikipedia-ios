@@ -103,7 +103,7 @@ private extension TalkPageContainerViewController {
                 case .failure(let error):
                     self.showEmptyView()
                     self.fakeProgressController.stop()
-                    self.showNoInternetConnectionErrorOrTalkPageWarning(error)
+                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
                 }
             }
         }
@@ -199,11 +199,13 @@ extension TalkPageContainerViewController {
         wmf_showEmptyView(of: .unableToLoadTalkPage, theme: self.theme, frame: self.view.bounds)
     }
 
-    private func showNoInternetConnectionErrorOrTalkPageWarning(_ error: Error) {
+    private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
         if (error as NSError).wmf_isNetworkConnectionError() {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
         } else if let talkPageError = error as? TalkPageError {
             WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+        }  else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
         }
     }
 }
@@ -231,11 +233,7 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
                     self?.navigationController?.popViewController(animated: true)
                     NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
                 case .failure(let error):
-                    if (error as NSError).wmf_isNetworkConnectionError() {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post topic.", comment: "Error message appearing when user attempts to post a new talk page topic while being offline"), sticky: true, dismissPreviousAlerts: true)
-                    } else if let talkPageError = error as? TalkPageError {
-                        WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
-                    }
+                    self?.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post topic.", comment: "Error message appearing when user attempts to post a new talk page topic while being offline"))
                 }
             }
         }
@@ -274,11 +272,7 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
                 case .success:
                     print("made it")
                 case .failure(let error):
-                    if (error as NSError).wmf_isNetworkConnectionError() {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("talk-page-error-unable-to-post-reply", value: "No internet connection. Unable to post reply.", comment: "Error message appearing when user attempts to post a new talk page reply while being offline"), sticky: true, dismissPreviousAlerts: true)
-                    } else if let talkPageError = error as? TalkPageError {
-                        WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
-                    }
+                    self.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-reply", value: "No internet connection. Unable to post reply.", comment: "Error message appearing when user attempts to post a new talk page reply while being offline"))
                 }
             }
         }
