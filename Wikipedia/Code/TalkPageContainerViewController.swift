@@ -100,24 +100,13 @@ private extension TalkPageContainerViewController {
                             self.updateScrollViewInsets()
                         }
                     }
-                case .failure(_):
-                    // TODO: Error message?
-                    self.navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
+                case .failure(let error):
                     self.showEmptyView()
                     self.fakeProgressController.stop()
+                    self.showNoInternetConnectionErrorOrTalkPageWarning(error)
                 }
             }
         }
-    }
-
-    private func hideEmptyView() {
-        navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
-        wmf_hideEmptyView()
-    }
-
-    private func showEmptyView() {
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
-        wmf_showEmptyView(of: .unableToLoadTalkPage, theme: self.theme, frame: self.view.bounds)
     }
     
     func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {
@@ -197,6 +186,28 @@ private extension TalkPageContainerViewController {
     }
 }
 
+// MARK: Empty & error states
+
+extension TalkPageContainerViewController {
+    private func hideEmptyView() {
+        navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
+        wmf_hideEmptyView()
+    }
+
+    private func showEmptyView() {
+        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
+        wmf_showEmptyView(of: .unableToLoadTalkPage, theme: self.theme, frame: self.view.bounds)
+    }
+
+    private func showNoInternetConnectionErrorOrTalkPageWarning(_ error: Error) {
+        if (error as NSError).wmf_isNetworkConnectionError() {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+        } else if let talkPageError = error as? TalkPageError {
+            WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+        }
+    }
+}
+
 //MARK: TalkPageTopicNewViewControllerDelegate
 
 extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegate {
@@ -261,11 +272,7 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
                 case .success:
                     print("made it")
                 case .failure(let error):
-                    if (error as NSError).wmf_isNetworkConnectionError() {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
-                    } else if let talkPageError = error as? TalkPageError {
-                        WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
-                    }
+                    self.showNoInternetConnectionErrorOrTalkPageWarning(error)
                 }
             }
         }
