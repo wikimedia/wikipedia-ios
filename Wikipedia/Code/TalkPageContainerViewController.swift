@@ -75,8 +75,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 private extension TalkPageContainerViewController {
     
     func fetch() {
-        
-        //todo: loading/error/empty states
         fakeProgressController.start()
         
         controller.fetchTalkPage { [weak self] (result) in
@@ -87,7 +85,7 @@ private extension TalkPageContainerViewController {
                 
                 switch result {
                 case .success(let fetchResult):
-                    
+                    self.hideEmptyView()
                     if !fetchResult.isInitialLocalResult {
                         self.fakeProgressController.stop()
                         self.addButton?.isEnabled = true
@@ -102,12 +100,24 @@ private extension TalkPageContainerViewController {
                             self.updateScrollViewInsets()
                         }
                     }
-                case .failure(let error):
-                    print("error! \(error)")
+                case .failure(_):
+                    // TODO: Error message?
+                    self.navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
+                    self.showEmptyView()
                     self.fakeProgressController.stop()
                 }
             }
         }
+    }
+
+    private func hideEmptyView() {
+        navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
+        wmf_hideEmptyView()
+    }
+
+    private func showEmptyView() {
+        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
+        wmf_showEmptyView(of: .unableToLoadTalkPage, theme: self.theme, frame: self.view.bounds)
     }
     
     func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {

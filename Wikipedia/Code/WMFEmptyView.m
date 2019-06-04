@@ -173,6 +173,7 @@
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"unable-to-load-talk-page"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-talk-page-title", nil, nil, @"Unable to load talk page", @"Text for placeholder label visible when talk page can't be loaded");
+    view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
@@ -185,6 +186,7 @@
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"unable-to-load-talk-page"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-talk-page-title", nil, nil, @"Unable to load discussion", @"Text for placeholder label visible when talk page discussion can't be loaded");
+    view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
