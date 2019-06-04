@@ -28,7 +28,7 @@
         super.init(schema: "MobileWikiAppEdit", version: 19082700)
     }
 
-    private enum Action: String {
+    enum Action: String {
         case start
         case preview
         case saved

@@ -353,13 +353,13 @@ class SectionEditorViewController: UIViewController {
 
     // MARK: Event logging
 
-    private var loggedSectionReadyToEdit: Bool = false
+    private var loggedEditActions: [EditFunnel.Action] = []
     private func logSectionReadyToEdit() {
-        guard !loggedSectionReadyToEdit else {
+        guard !loggedEditActions.contains(.ready) else {
             return
         }
         editFunnel.logSectionReadyToEditFrom(source: editFunnelSource, revision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
-        loggedSectionReadyToEdit = true
+        loggedEditActions.append(.ready)
     }
 
     private var editFunnelSource: EditFunnelSource {
@@ -398,6 +398,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.wikitext = wikitext
                     vc.delegate = self
                     vc.editFunnel = self.editFunnel
+                    vc.loggedEditActions = self.loggedEditActions
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
@@ -517,6 +518,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.delegate = self
         vc.theme = self.theme
         vc.editFunnel = self.editFunnel
+        vc.loggedEditActions = self.loggedEditActions
         vc.editFunnelSource = editFunnelSource
         self.navigationController?.pushViewController(vc, animated: true)
     }
