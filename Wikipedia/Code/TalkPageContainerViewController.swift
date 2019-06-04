@@ -232,7 +232,7 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
                     NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
                 case .failure(let error):
                     if (error as NSError).wmf_isNetworkConnectionError() {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post topic.", comment: "Error message appearing when user attempts to post a new topic while being offline"), sticky: true, dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post topic.", comment: "Error message appearing when user attempts to post a new talk page topic while being offline"), sticky: true, dismissPreviousAlerts: true)
                     } else if let talkPageError = error as? TalkPageError {
                         WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
                     }
@@ -274,7 +274,11 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
                 case .success:
                     print("made it")
                 case .failure(let error):
-                    self.showNoInternetConnectionErrorOrTalkPageWarning(error)
+                    if (error as NSError).wmf_isNetworkConnectionError() {
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("talk-page-error-unable-to-post-reply", value: "No internet connection. Unable to post reply.", comment: "Error message appearing when user attempts to post a new talk page reply while being offline"), sticky: true, dismissPreviousAlerts: true)
+                    } else if let talkPageError = error as? TalkPageError {
+                        WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                    }
                 }
             }
         }
