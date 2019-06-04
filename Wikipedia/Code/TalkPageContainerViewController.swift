@@ -12,6 +12,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     private var talkPage: TalkPage?
     private var topicListViewController: TalkPageTopicListViewController?
+    private var headerView: TalkPageHeaderView?
     
     @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
     @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
@@ -24,12 +25,18 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         return progressController
     }()
     
-    required init(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore) {
+    required init(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, controller: TalkPageController? = nil) {
         self.talkPageTitle = title
         self.siteURL = siteURL
         self.type = type
         self.dataStore = dataStore
-        self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
+        
+        if let controller = controller {
+            self.controller = controller
+        } else {
+            self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
+        }
+        
         assert(title.contains(":"), "Title must already be prefixed with namespace.")
         
         let language = siteURL.wmf_language
@@ -59,21 +66,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 
 private extension TalkPageContainerViewController {
     
-    func setupNavigationBar() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
-        addButton.tintColor = theme.colors.link
-        navigationItem.rightBarButtonItem = addButton
-        navigationBar.updateNavigationItems()
-        navigationBar.isBarHidingEnabled = false
-    }
-    
-    @objc func tappedAdd(_ sender: UIBarButtonItem) {
-        let topicNewVC = TalkPageTopicNewViewController.init()
-        topicNewVC.delegate = self
-        topicNewVC.apply(theme: theme)
-        navigationController?.pushViewController(topicNewVC, animated: true)
-    }
-    
     func fetch() {
         
         //todo: loading/error/empty states
@@ -91,6 +83,10 @@ private extension TalkPageContainerViewController {
                     self.talkPage = try? self.dataStore.viewContext.existingObject(with: talkPageID) as? TalkPage
                     if let talkPage = self.talkPage {
                         self.setupTopicListViewControllerIfNeeded(with: talkPage)
+                        if let headerView = self.headerView {
+                            self.configure(header: headerView, intro: talkPage.introText)
+                            self.updateScrollViewInsets()
+                        }
                     }
                 case .failure(let error):
                     print("error! \(error)")
@@ -105,6 +101,70 @@ private extension TalkPageContainerViewController {
             topicListViewController?.apply(theme: theme)
             wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
             topicListViewController?.delegate = self
+        }
+    }
+    
+    @objc func tappedAdd(_ sender: UIBarButtonItem) {
+        let topicNewVC = TalkPageTopicNewViewController.init()
+        topicNewVC.delegate = self
+        topicNewVC.apply(theme: theme)
+        navigationController?.pushViewController(topicNewVC, animated: true)
+    }
+    
+    func setupAddBarButton() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
+        addButton.tintColor = theme.colors.link
+        navigationItem.rightBarButtonItem = addButton
+        navigationBar.updateNavigationItems()
+    }
+    
+    func setupNavigationBar() {
+        
+        setupAddBarButton()
+        
+        if let headerView = TalkPageHeaderView.wmf_viewFromClassNib() {
+            self.headerView = headerView
+            configure(header: headerView, intro: nil)
+            navigationBar.isBarHidingEnabled = false
+            navigationBar.isUnderBarViewHidingEnabled = true
+            useNavigationBarVisibleHeightForScrollViewInsets = true
+            navigationBar.addUnderNavigationBarView(headerView)
+            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+            navigationBar.title = controller.displayTitle
+            updateScrollViewInsets()
+        }
+    }
+    
+    func configure(header: TalkPageHeaderView, intro: String?) {
+        
+        var headerText: String
+        switch type {
+        case .user:
+            headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.").localizedUppercase
+        case .article:
+            headerText = WMFLocalizedString("talk-page-title-article-talk", value: "article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.").localizedUppercase
+        }
+        
+        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@ Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. %1$@ is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.")
+        
+        let genericInfoText = WMFLocalizedString("talk-page-info-active-conversations-generic", value: "Active conversations on Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. This is fallback text in case a specific wiki language cannot be determined.")
+        
+        let infoText = stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: languageTextFormat, fallbackGenericString: genericInfoText)
+        
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: controller.displayTitle, info: infoText, intro: intro)
+        
+        header.configure(viewModel: viewModel)
+        header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
+        header.apply(theme: theme)
+    }
+    
+    func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: String, fallbackGenericString: String) -> String {
+        
+        if let code = siteURL.wmf_language,
+            let language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(code) {
+            return NSString.localizedStringWithFormat(string as NSString, language) as String
+        } else {
+            return fallbackGenericString
         }
     }
 }
@@ -140,16 +200,7 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
 
 //MARK: TalkPageTopicListDelegate
 
-extension TalkPageContainerViewController: TalkPageTopicListDelegate {
-    func updateNavigationBarTitle(title: String?, viewController: TalkPageTopicListViewController) {
-        navigationItem.title = title
-        navigationBar.updateNavigationItems()
-    }
-    
-    func currentNavigationTitle(viewController: TalkPageTopicListViewController) -> String? {
-        return navigationItem.title
-    }
-    
+extension TalkPageContainerViewController: TalkPageTopicListDelegate {    
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController) {
         hintController?.dismissHintDueToUserInteraction()
     }

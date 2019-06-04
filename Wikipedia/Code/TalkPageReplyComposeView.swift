@@ -6,7 +6,7 @@ protocol TalkPageReplyComposeViewDelegate: class {
      var collectionViewFrame: CGRect { get }
 }
 
-class TalkPageReplyComposeView: UIView {
+class TalkPageReplyComposeView: SizeThatFitsView {
     
     lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
     lazy private var finePrintTextView: UITextView = UITextView()
@@ -51,7 +51,7 @@ class TalkPageReplyComposeView: UIView {
         composeTextView.isUserInteractionEnabled = true
     }
     
-    func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let inputAccessoryViewHeight: CGFloat = composeTextView.inputAccessoryView?.frame.height ?? 0
 
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
@@ -78,10 +78,6 @@ class TalkPageReplyComposeView: UIView {
         
         let finalHeight = adjustedMargins.top + composeTextViewFrame.size.height + finePrintFrame.height + adjustedMargins.bottom + inputAccessoryViewHeight
         return CGSize(width: size.width, height: finalHeight)
-    }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return sizeThatFits(size, apply: false)
     }
     
     // MARK - Dynamic Type
