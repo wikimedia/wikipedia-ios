@@ -172,7 +172,20 @@
 + (instancetype)unableToLoadTalkPageEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"unable-to-load-talk-page"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-talk-page-title", nil, nil, @"Unable to load talk page", @"Text for placeholder label visible when talk page can't be loaded");
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"unable-to-load-talk-page-title", nil, nil, @"Unable to load talk page", @"Text for placeholder label visible when talk page can't be loaded");
+    view.backgroundColorKeyPath = @"colors.midBackground";
+
+    [view.messageLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
+    return view;
+}
+
++ (instancetype)emptyTalkPageEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"empty-talk-page"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-talk-page-title", nil, nil, @"No messages have been posted for this user yet", @"Text for placeholder label visible when talk page is empty");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];

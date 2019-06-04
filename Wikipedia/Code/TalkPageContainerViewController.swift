@@ -85,7 +85,6 @@ private extension TalkPageContainerViewController {
                 
                 switch result {
                 case .success(let fetchResult):
-                    self.hideEmptyView()
                     if !fetchResult.isInitialLocalResult {
                         self.fakeProgressController.stop()
                         self.addButton?.isEnabled = true
@@ -94,11 +93,18 @@ private extension TalkPageContainerViewController {
                     
                     self.talkPage = try? self.dataStore.viewContext.existingObject(with: fetchResult.objectID) as? TalkPage
                     if let talkPage = self.talkPage {
+                        if let topics = talkPage.topics, topics.count > 0 {
+                            self.hideEmptyView()
+                        } else {
+                            self.wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+                        }
                         self.setupTopicListViewControllerIfNeeded(with: talkPage)
                         if let headerView = self.headerView {
                             self.configure(header: headerView, intro: talkPage.introText)
                             self.updateScrollViewInsets()
                         }
+                    } else {
+                        self.showEmptyView()
                     }
                 case .failure(let error):
                     self.showEmptyView()

@@ -229,7 +229,7 @@
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
-"empty-talk-page-title" = "Unable to load talk page";
+"empty-talk-page-title" = "No messages have been posted for this user yet";
 "error-generic-description" = "An unexpected error occurred";
 "error-generic-recovery-suggestion" = "Please try again later";
 "error-unknown" = "An unknown error occurred";
@@ -730,6 +730,7 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
+"unable-to-load-talk-page-title" = "Unable to load talk page";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
