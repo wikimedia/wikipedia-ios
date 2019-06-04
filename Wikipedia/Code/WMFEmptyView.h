@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noInternetConnectionEmptyView;
 + (instancetype)noSelectedImageToInsertEmptyView;
 + (instancetype)unableToLoadTalkPageEmptyView;
-+ (instancetype)unableToLoadTalkPageDiscussionEmptyView;
 
 NS_ASSUME_NONNULL_END
 

@@ -48,9 +48,6 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeUnableToLoadTalkPage:
             view = [WMFEmptyView unableToLoadTalkPageEmptyView];
             break;
-        case WMFEmptyViewTypeUnableToLoadTalkPageDiscussion:
-            view = [WMFEmptyView unableToLoadTalkPageDiscussionEmptyView];
-            break;
         default:
             return;
     }
