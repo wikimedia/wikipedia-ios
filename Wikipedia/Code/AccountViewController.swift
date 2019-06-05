@@ -86,7 +86,7 @@ class AccountViewController: SubSettingsViewController {
         case .talkPageAutoSignDiscussions:
             cell.disclosureType = .switch
             cell.selectionStyle = .none
-            cell.disclosureSwitch.isOn = UserDefaults.wmf.autSignTalkPageDiscussions
+            cell.disclosureSwitch.isOn = UserDefaults.wmf.autoSignTalkPageDiscussions
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         }
         
@@ -96,7 +96,7 @@ class AccountViewController: SubSettingsViewController {
     }
 
     @objc private func autoSignTalkPageDiscussions(_ sender: UISwitch) {
-        UserDefaults.wmf.autSignTalkPageDiscussions = sender.isOn
+        UserDefaults.wmf.autoSignTalkPageDiscussions = sender.isOn
     }
     
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

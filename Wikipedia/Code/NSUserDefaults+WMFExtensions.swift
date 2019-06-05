@@ -50,7 +50,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
-        static let autSignTalkPageDiscussions = "WMFAutSignTalkPageDiscussions"
+        static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
     }
 
     @objc static let wmf: UserDefaults = {
@@ -531,12 +531,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
 
-    var autSignTalkPageDiscussions: Bool {
+    var autoSignTalkPageDiscussions: Bool {
         get {
-            return bool(forKey: UserDefaults.Key.autSignTalkPageDiscussions)
+            return bool(forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
         }
         set {
-            set(newValue, forKey: UserDefaults.Key.autSignTalkPageDiscussions)
+            set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
         }
     }
 #if UI_TEST
