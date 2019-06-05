@@ -359,7 +359,7 @@ class SectionEditorViewController: UIViewController {
         guard !loggedEditActions.contains(.ready) else {
             return
         }
-        editFunnel.logSectionReadyToEditFrom(source: editFunnelSource, revision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
+        editFunnel.logSectionReadyToEdit(from: editFunnelSource, revision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
         loggedEditActions.append(.ready)
     }
 

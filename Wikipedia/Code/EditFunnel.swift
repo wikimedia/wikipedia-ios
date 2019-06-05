@@ -103,11 +103,13 @@
 
     // MARK: Start
 
-    @objc public func logSectionEditingStartFrom(source: EditFunnelSource, revision: Int, language: String) {
+    @objc(logSectionEditingStartFromSource:revision:language:)
+    public func logSectionEditingStart(from source: EditFunnelSource, revision: Int, language: String) {
         logStart(source: source, revision: revision, language: language)
     }
 
-    @objc public func logTitleDescriptionEditingStartFrom(source: EditFunnelSource, revision: Int, language: String) {
+    @objc(logTitleDescriptionEditingStartFromSource:revision:language:)
+    public func logTitleDescriptionEditingStart(from source: EditFunnelSource, revision: Int, language: String) {
         let wikidataDescriptionEdit: WikidataDescriptionEdit
         if source == .titleDescription {
             wikidataDescriptionEdit = .new
@@ -125,7 +127,8 @@
 
     // MARK: Onboarding
 
-    @objc public func logOnboardingPresentationInitiatedBy(source: EditFunnelSource, revision: Int, language: String) {
+    @objc(logOnboardingPresentationInitiatedBySource:revision:language:)
+    public func logOnboardingPresentation(initiatedBy source: EditFunnelSource, revision: Int, language: String) {
         logOnboardingPresentation(source: source, revision: revision, language: language)
     }
 
@@ -135,11 +138,12 @@
 
     // MARK: Ready
 
-    @objc public func logTitleDescriptionReadyToEditFrom(source: EditFunnelSource, isAddingNewTitleDescription: Bool, revision: Int, language: String) {
+    @objc(logTitleDescriptionReadyToEditFromSource:isAddingNewTitleDescription:revision:language:)
+    public func logTitleDescriptionReadyToEditFrom(from source: EditFunnelSource, isAddingNewTitleDescription: Bool, revision: Int, language: String) {
         log(event(action: .ready, source: source, wikidataDescriptionEdit: WikidataDescriptionEdit(isAddingNewTitleDescription: isAddingNewTitleDescription), revision: revision), language: language)
     }
 
-    public func logSectionReadyToEditFrom(source: EditFunnelSource, revision: Int?, language: String?) {
+    public func logSectionReadyToEdit(from source: EditFunnelSource, revision: Int?, language: String?) {
         log(event(action: .ready, source: source, revision: revision), language: language)
     }
 
