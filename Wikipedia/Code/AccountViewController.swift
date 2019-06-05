@@ -118,15 +118,8 @@ class AccountViewController: SubSettingsViewController {
                 talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }
-<<<<<<< HEAD
-        case .talkPageSignature:
-            fallthrough
-        case .talkPageAutoSignDiscussions:
-            return
-=======
         default:
             break
->>>>>>> 150d85826... leave auto-sign switch only
         }
     }
     
