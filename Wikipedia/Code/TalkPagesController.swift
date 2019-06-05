@@ -154,6 +154,10 @@ class TalkPageController {
             }
         }
     }
+
+    private var maybeSignature: String {
+        return UserDefaults.wmf.autSignTalkPageDiscussions ? " ~~~~" : ""
+    }
     
     func addTopic(toTalkPageWith talkPageObjectID: NSManagedObjectID, title: String, siteURL: URL, subject: String, body: String, completion: @escaping (Result<TalkPageAppendSuccessResult, Error>) -> Void) {
         
@@ -163,7 +167,7 @@ class TalkPageController {
         }
         
         //todo: conditional signature
-        let wrappedBody = "<p>\n\n" + body + " ~~~~</p>"
+        let wrappedBody = "<p>\n\n" + body + "\(maybeSignature)</p>"
         fetcher.addTopic(to: title, siteURL: siteURL, subject: subject, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
@@ -202,7 +206,7 @@ class TalkPageController {
         }
         
         //todo: conditional signature
-        let wrappedBody = "<p>\n\n" + body + " ~~~~</p>"
+        let wrappedBody = "<p>\n\n" + body + "\(maybeSignature)</p>"
         let talkPageTopicID = topic.objectID
         guard let talkPageObjectID = topic.talkPage?.objectID else {
             completion(.failure(TalkPageError.topicMissingTalkPageRelationship))

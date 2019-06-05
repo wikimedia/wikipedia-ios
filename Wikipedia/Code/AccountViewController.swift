@@ -9,7 +9,6 @@ protocol AccountViewControllerDelegate: class {
 private enum ItemType {
     case logout
     case talkPage
-    case talkPageSignature
     case talkPageAutoSignDiscussions
 }
 
@@ -45,9 +44,8 @@ class AccountViewController: SubSettingsViewController {
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: UIColor(red: 51/255, green: 102/255, blue: 204/255, alpha: 1) , type: .talkPage)
         let accountSection = Section(items: [logout, talkPage], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
-        let signature = Item(title: "Signature", subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageSignature)
-        let autoSignDiscussions = Item(title: "Auto-sign discussions", subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
-        let talkPagePreferencesSection = Section(items: [signature, autoSignDiscussions], headerTitle: "Talk page preferences", footerTitle: "Auto-signing of discussions will use the signature defined in Signature settings")
+        let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
+        let talkPagePreferencesSection = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "alk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
 
         return [accountSection, talkPagePreferencesSection]
     }()
@@ -85,10 +83,9 @@ class AccountViewController: SubSettingsViewController {
         case .talkPage:
             cell.disclosureType = .viewController
             cell.disclosureText = nil
-        case .talkPageSignature:
-            cell.disclosureType = .viewController
         case .talkPageAutoSignDiscussions:
             cell.disclosureType = .switch
+            cell.selectionStyle = .none
             cell.disclosureSwitch.isOn = UserDefaults.wmf.autSignTalkPageDiscussions
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         }
@@ -103,16 +100,16 @@ class AccountViewController: SubSettingsViewController {
     }
     
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         guard let item = sections[safeIndex: indexPath.section]?.items[safeIndex: indexPath.row] else {
             return
         }
-        
         switch item.type {
         case .logout:
             showLogoutAlert()
         case .talkPage:
-            
             if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername,
                 let language = MWKLanguageLinkController.sharedInstance().appLanguage {
                 let siteURL = language.siteURL()
@@ -121,13 +118,16 @@ class AccountViewController: SubSettingsViewController {
                 talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }
+<<<<<<< HEAD
         case .talkPageSignature:
             fallthrough
         case .talkPageAutoSignDiscussions:
             return
+=======
+        default:
+            break
+>>>>>>> 150d85826... leave auto-sign switch only
         }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

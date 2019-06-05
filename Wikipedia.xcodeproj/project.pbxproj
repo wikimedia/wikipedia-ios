@@ -771,11 +771,6 @@
 		7ABE173D2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */; };
 		7ABE173E2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */; };
 		7ABE173F2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */; };
-		7AC4E91322A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4E91222A835C3001E1E84 /* TalkPageSignatureViewController.swift */; };
-		7AC4E91422A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4E91222A835C3001E1E84 /* TalkPageSignatureViewController.swift */; };
-		7AC4E91522A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4E91222A835C3001E1E84 /* TalkPageSignatureViewController.swift */; };
-		7AC4E91622A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4E91222A835C3001E1E84 /* TalkPageSignatureViewController.swift */; };
-		7AC4E91722A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4E91222A835C3001E1E84 /* TalkPageSignatureViewController.swift */; };
 		7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
@@ -3866,7 +3861,6 @@
 		7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomePanelViewController.xib; sourceTree = "<group>"; };
 		7ABE17342239DCF5006BA309 /* WelcomeAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationViewController.swift; sourceTree = "<group>"; };
 		7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationView.swift; sourceTree = "<group>"; };
-		7AC4E91222A835C3001E1E84 /* TalkPageSignatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageSignatureViewController.swift; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
 		7AD5D452223874F600C01164 /* RelatedSearchFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedSearchFetcher.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
@@ -6372,7 +6366,6 @@
 				7AF0265422985CB9000E0A06 /* BeKindInputAccessoryView.swift */,
 				7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */,
 				6706A21822927D63004774E2 /* TalkPageHintViewController.swift */,
-				7AC4E91222A835C3001E1E84 /* TalkPageSignatureViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -10883,7 +10876,6 @@
 				D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */,
-				7AC4E91322A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */,
 				B0370E161FA404B0002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
 				675A7CFE227A3F7C0034D9D9 /* TalkPageHeaderView.swift in Sources */,
@@ -11373,7 +11365,6 @@
 				B01E3B0321F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D80ED36B1EE57F4800CE8C50 /* WMFArticleFetcher.m in Sources */,
 				7A6ED50B20ADBF950001849F /* SessionsFunnel.swift in Sources */,
-				7AC4E91722A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */,
 				7A8422572268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				7AF56C3321DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				D80ED36C1EE57F4800CE8C50 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
@@ -12028,7 +12019,6 @@
 				BA6972591F2BA2D700E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8A42AF51E815A9C00D8E281 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476D20D019A100A21F34 /* ExploreViewController.swift in Sources */,
-				7AC4E91622A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */,
 				D8A42AF91E815A9C00D8E281 /* ToCInteractionFunnel.m in Sources */,
 				7A8422562268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				D8A42AFC1E815A9C00D8E281 /* WMFCompassView.m in Sources */,
@@ -12526,7 +12516,6 @@
 				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */,
 				7A6ED50E20ADBF950001849F /* SessionsFunnel.swift in Sources */,
-				7AC4E91422A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */,
 				7A8422542268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				7AF56C3021DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				D8CE25D11E698E2400DAE2E0 /* WMFSearchButton.m in Sources */,
@@ -12933,7 +12922,6 @@
 				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8EC3ECF1E9BDA35006712EB /* WMFSearchButton.m in Sources */,
-				7AC4E91522A835C3001E1E84 /* TalkPageSignatureViewController.swift in Sources */,
 				7A8422552268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				7AF56C3121DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				D8EC3ED01E9BDA35006712EB /* WMFArticleFetcher.m in Sources */,
