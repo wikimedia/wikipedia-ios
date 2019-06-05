@@ -9,6 +9,8 @@ protocol AccountViewControllerDelegate: class {
 private enum ItemType {
     case logout
     case talkPage
+    case talkPageSignature
+    case talkPageAutoSignDiscussions
 }
 
 private struct Section {
@@ -20,9 +22,9 @@ private struct Section {
 private struct Item {
     let title: String
     let subtitle: String?
-    let iconName: String
-    let iconColor: UIColor
-    let iconBackgroundColor: UIColor
+    let iconName: String?
+    let iconColor: UIColor?
+    let iconBackgroundColor: UIColor?
     let type: ItemType
 }
 
@@ -41,8 +43,13 @@ class AccountViewController: SubSettingsViewController {
         
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: UIColor.wmf_colorWithHex(0xFF8E2B), type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: UIColor(red: 51/255, green: 102/255, blue: 204/255, alpha: 1) , type: .talkPage)
-        let section = Section(items: [logout, talkPage], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
-        return [section]
+        let accountSection = Section(items: [logout, talkPage], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
+
+        let signature = Item(title: "Signature", subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageSignature)
+        let autoSignDiscussions = Item(title: "Auto-sign discussions", subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
+        let talkPagePreferencesSection = Section(items: [signature, autoSignDiscussions], headerTitle: "Talk page preferences", footerTitle: "Auto-signing of discussions will use the signature defined in Signature settings")
+
+        return [accountSection, talkPagePreferencesSection]
     }()
 
     override func viewDidLoad() {
@@ -78,11 +85,21 @@ class AccountViewController: SubSettingsViewController {
         case .talkPage:
             cell.disclosureType = .viewController
             cell.disclosureText = nil
+        case .talkPageSignature:
+            cell.disclosureType = .viewController
+        case .talkPageAutoSignDiscussions:
+            cell.disclosureType = .switch
+            cell.disclosureSwitch.isOn = UserDefaults.wmf.autSignTalkPageDiscussions
+            cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         }
         
         cell.apply(theme)
         
         return cell
+    }
+
+    @objc private func autoSignTalkPageDiscussions(_ sender: UISwitch) {
+        UserDefaults.wmf.autSignTalkPageDiscussions = sender.isOn
     }
     
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -104,6 +121,10 @@ class AccountViewController: SubSettingsViewController {
                 talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }
+        case .talkPageSignature:
+            fallthrough
+        case .talkPageAutoSignDiscussions:
+            return
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
