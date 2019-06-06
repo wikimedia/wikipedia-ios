@@ -33,6 +33,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
+    open func userTalkPageTitle(at indexPath: IndexPath) -> String? {
+        return nil
+    }
+    
     open func isExternalURL(at indexPath: IndexPath) -> Bool {
         return false
     }
@@ -169,7 +173,9 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
+
         delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
+        
         guard !isExternalURL(at: indexPath) else {
             wmf_openExternalUrl(articleURL)
             return

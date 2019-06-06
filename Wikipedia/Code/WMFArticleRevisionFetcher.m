@@ -9,23 +9,26 @@
 
 - (NSURLSessionTask *)fetchLatestRevisionsForArticleURL:(NSURL *)articleURL
                                             resultLimit:(NSUInteger)numberOfResults
-                                     endingWithRevision:(NSUInteger)revisionId
+                                     endingWithRevision:(NSNumber *)revisionId
                                                 failure:(WMFErrorHandler)failure
                                                 success:(WMFSuccessIdHandler)success {
-    NSDictionary *parameters = @{
-                                 @"format": @"json",
-                                 @"continue": @"",
-                                 @"formatversion": @2,
-                                 @"action": @"query",
-                                 @"prop": @"revisions",
-                                 @"redirects": @1,
-                                 @"titles": articleURL.wmf_title,
-                                 @"rvlimit": @(numberOfResults),
-                                 @"rvendid": @(revisionId),
-                                 @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
-                                 //@"pilicense": @"any"
-                                 };
-    return [self performMediaWikiAPIGETForURL:articleURL withQueryParameters:parameters completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                                                                        @"format": @"json",
+                                                                                        @"continue": @"",
+                                                                                        @"formatversion": @2,
+                                                                                        @"action": @"query",
+                                                                                        @"prop": @"revisions",
+                                                                                        @"redirects": @1,
+                                                                                        @"titles": articleURL.wmf_title,
+                                                                                        @"rvlimit": @(numberOfResults),
+                                                                                        @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
+                                                                                        //@"pilicense": @"any"
+                                                                                        }];
+    
+    if (revisionId != nil) {
+        parameters[@"rvendid"] = revisionId;
+    }
+    return [self performMediaWikiAPIGETForURL:articleURL withQueryParameters:[parameters copy] completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;

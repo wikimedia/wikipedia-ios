@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *previewReadingLists;
 @property (nullable, nonatomic, copy) NSNumber *errorCodeNumber;
+@property (nullable, nonatomic, copy) NSNumber *ns;
 
 @end
 
