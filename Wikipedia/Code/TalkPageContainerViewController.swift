@@ -119,7 +119,8 @@ private extension TalkPageContainerViewController {
         if topicListViewController == nil {
             topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
             topicListViewController?.apply(theme: theme)
-            wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: navigationBar)
+            let belowView: UIView = wmf_emptyView ?? navigationBar
+            wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowView)
             topicListViewController?.delegate = self
         }
     }
