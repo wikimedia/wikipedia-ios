@@ -16,6 +16,7 @@
 "account-creation-missing-fields" = "نواں کھاتہ کھولݨ کیتے تہاکں ورتݨ آلا ناں، پاسورڈ تے پاسورڈ دی تصدیق درج کرݨی پوسی۔";
 "account-creation-saving" = "بچیندا پئے۔۔۔";
 "account-creation-title" = "نواں کھاتہ کھولو";
+"account-group-title" = "تہاݙا کھاتہ";
 "action-add-to" = "شامل کرو۔۔۔";
 "action-cancel" = "منسوخ";
 // Fuzzy
@@ -179,6 +180,7 @@
 "search-recent-clear-confirmation-sub-heading" = "اے کم واپس نی تھی سڳدا";
 "search-recent-clear-delete-all" = "سارے مٹاؤ";
 "search-title" = "ڳولو";
+"settings-account" = "کھاتہ";
 "settings-appearance" = "پڑھݨ ترجیحاں";
 "settings-clear-cache-cancel" = "منسوخ";
 "settings-clear-cache-ok" = "کیشی صاف کرو";
@@ -197,6 +199,8 @@
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "table-title-other" = "ٻیاں معلومات";
+"talk-page-new-subject-placeholder-text" = "موضوع";
+"talk-page-reply-title" = "جواب";
 "theme-black-display-name" = "کالا";
 "theme-dark-display-name" = "گہرا";
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";

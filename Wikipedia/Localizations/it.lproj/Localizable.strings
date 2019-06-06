@@ -70,6 +70,7 @@
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
 "account-creation-title" = "Crea una nuova utenza";
+"account-group-title" = "La tua utenza";
 "action-add-to" = "Aggiungi a…";
 "action-add-to-reading-list" = "Aggiungi all'elenco di lettura";
 "action-add-to-reading-list-short" = "Aggiungi all'elenco";
@@ -457,6 +458,7 @@
 "search-recent-title" = "Cercato recentemente";
 "search-result-redirected-from" = "Reindirizzamento da: $1";
 "search-title" = "Ricerca";
+"settings-account" = "Utenza";
 "settings-appearance" = "Preferenze di lettura";
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
@@ -494,6 +496,15 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "table-title-other" = "Ulteriori informazioni";
+"talk-page-info-active-conversations-generic" = "Conversazioni attive su Wikipedia";
+"talk-page-new-banner-subtitle" = "Ricorda, siamo tutti umani qui";
+"talk-page-new-banner-title" = "Per favore, sii gentile";
+"talk-page-new-reply-success-text" = "La tua risposta è stata pubblicata con successo";
+"talk-page-new-topic-success-text" = "La tua discussione è stata pubblicata con successo";
+"talk-page-new-topic-title" = "Nuova discussione";
+"talk-page-reply-title" = "Rispondi";
+"talk-page-title-user-talk" = "Discussioni utente";
+"talk-page-topic-title" = "Discussione";
 "theme-black-display-name" = "Nero";
 "theme-dark-display-name" = "Scuro";
 "theme-default-display-name" = "Predefinito";
