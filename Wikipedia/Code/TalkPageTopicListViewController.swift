@@ -4,8 +4,6 @@ import UIKit
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
-    func updateNavigationBarTitle(title: String?, viewController: TalkPageTopicListViewController)
-    func currentNavigationTitle(viewController: TalkPageTopicListViewController) -> String?
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -22,7 +20,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private var toolbar: UIToolbar?
     private var shareIcon: IconBarButtonItem?
-    private var headerView: TalkPageHeaderView?
     private let siteURL: URL
     private let type: TalkPageType
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
@@ -63,21 +60,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         delegate?.scrollViewDidScroll(scrollView, viewController: self)
-        
-        //todo: should refactor to lean on NavigationBar's extendedView
-        if let headerView = headerView {
-            navigationBar.shadowAlpha = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > headerView.frame.height ? 1 : 0
-            
-            let convertedHeaderTitleFrame = headerView.convert(headerView.titleTextView.frame, to: view)
-            
-            let oldTitle = delegate?.currentNavigationTitle(viewController: self)
-            let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? talkPage.displayTitle : nil
-            if oldTitle != newTitle {
-                delegate?.updateNavigationBarTitle(title: newTitle, viewController: self)
-            }
-        } else {
-            navigationBar.shadowAlpha = 0
-        }
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -132,30 +114,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         delegate?.tappedTopic(topic, viewController: self)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView else {
-                return UICollectionReusableView()
-        }
-        
-        configure(header: header)
-        self.headerView = header
-        return header
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier) as? TalkPageHeaderView else {
-            return estimate
-        }
-     
-        configure(header: header)
-        estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        return estimate
-    }
-    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         collectionView.backgroundColor = theme.colors.baseBackground
@@ -170,7 +128,6 @@ private extension TalkPageTopicListViewController {
     
     func registerCells() {
         layoutManager.register(TalkPageTopicCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
     }
     
     func setupCollectionViewUpdater() {
@@ -195,7 +152,7 @@ private extension TalkPageTopicListViewController {
         
         NSLayoutConstraint.activate([heightConstraint, leadingConstraint, trailingConstraint, bottomConstraint])
         
-        let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(shareTapped), for: .touchUpInside)
+        let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
         shareIcon.apply(theme: theme)
         shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
         
@@ -207,7 +164,7 @@ private extension TalkPageTopicListViewController {
         self.shareIcon = shareIcon
     }
     
-    @objc func shareTapped() {
+    @objc func tappedShare(_ sender: UIBarButtonItem) {
         print("share here")
     }
     
@@ -221,44 +178,6 @@ private extension TalkPageTopicListViewController {
         cell.layoutMargins = layout.itemLayoutMargins
         cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         cell.apply(theme: theme)
-    }
-    
-    func configure(header: TalkPageHeaderView) {
-        
-        guard let displayTitle = talkPage.displayTitle else {
-                return
-        }
-        
-        var headerText: String
-        switch type {
-        case .user:
-            headerText = WMFLocalizedString("talk-page-title-user-talk", value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.").localizedUppercase
-        case .article:
-            headerText = WMFLocalizedString("talk-page-title-article-talk", value: "article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.").localizedUppercase
-        }
-        
-        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@ Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. %1$@ is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.")
-        
-        let genericInfoText = WMFLocalizedString("talk-page-info-active-conversations-generic", value: "Active conversations on Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. This is fallback text in case a specific wiki language cannot be determined.")
-        
-        let infoText = stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: languageTextFormat, fallbackGenericString: genericInfoText)
-        
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: displayTitle, info: infoText, intro: talkPage.introText)
-        
-        header.configure(viewModel: viewModel)
-        header.layoutMargins = layout.itemLayoutMargins
-        header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
-        header.apply(theme: theme)
-    }
-    
-    func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: String, fallbackGenericString: String) -> String {
-        
-        if let code = siteURL.wmf_language,
-            let language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(code) {
-            return NSString.localizedStringWithFormat(string as NSString, language) as String
-        } else {
-            return fallbackGenericString
-        }
     }
 }
 

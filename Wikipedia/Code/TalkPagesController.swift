@@ -14,6 +14,10 @@ enum TalkPageError: Error {
     case createUrlTitleStringFailure
     case freshFetchTaskGroupFailure
     case topicMissingTalkPageRelationship
+
+    var localizedDescription: String {
+        return CommonStrings.genericErrorDescription
+    }
 }
 
 enum TalkPageAppendSuccessResult {
@@ -44,7 +48,12 @@ class TalkPageController {
         assert(title.contains(":"), "Title must already be prefixed with namespace.")
     }
     
-    func fetchTalkPage(completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
+    struct FetchResult {
+        let objectID: NSManagedObjectID
+        let isInitialLocalResult: Bool
+    }
+    
+    func fetchTalkPage(completion: ((Result<FetchResult, Error>) -> Void)? = nil) {
         guard let urlTitle = type.urlTitle(for: title),
             let taskURL = fetcher.getURL(for: urlTitle, siteURL: siteURL) else {
             completion?(.failure(TalkPageError.createTaskURLFailure))
@@ -53,17 +62,30 @@ class TalkPageController {
         moc.perform {
             do {
                 guard let localTalkPage = try self.moc.talkPage(for: taskURL) else {
+                    
                     self.createTalkPage(with: urlTitle, taskURL: taskURL, in: self.moc, completion: { (result) in
-                        completion?(result)
+                        
+                        switch result {
+                        case .success(let response):
+                            let fetchResult = FetchResult(objectID: response, isInitialLocalResult: false)
+                            completion?(.success(fetchResult))
+                        case .failure(let error):
+                            completion?(.failure(error))
+                        }
                     })
                     return
                 }
                 
                 //fixes bug where revisionID fetch fails due to missing talk page
                 if localTalkPage.isMissing {
-                    completion?(.success(localTalkPage.objectID))
+                    let fetchResult = FetchResult(objectID: localTalkPage.objectID, isInitialLocalResult: false)
+                    completion?(.success(fetchResult))
                     return
                 }
+                
+                //return initial local result early to display data while API is being called
+                let fetchResult = FetchResult(objectID: localTalkPage.objectID, isInitialLocalResult: true)
+                completion?(.success(fetchResult))
                 
                 let localObjectID = localTalkPage.objectID
                 let localRevisionID = localTalkPage.revisionId?.intValue
@@ -72,9 +94,18 @@ class TalkPageController {
                     case .success(let lastRevisionID):
                         //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
                         if localRevisionID == lastRevisionID {
-                            completion?(.success(localObjectID))
+                            let fetchResult = FetchResult(objectID: localObjectID, isInitialLocalResult: false)
+                            completion?(.success(fetchResult))
                         } else {
-                            self.fetchAndUpdateLocalTalkPage(with: localObjectID, revisionID: lastRevisionID, completion: completion)
+                            self.fetchAndUpdateLocalTalkPage(with: localObjectID, revisionID: lastRevisionID, completion: { (result) in
+                                switch result {
+                                case .success(let response):
+                                    let fetchResult = FetchResult(objectID: response, isInitialLocalResult: false)
+                                    completion?(.success(fetchResult))
+                                case .failure(let error):
+                                    completion?(.failure(error))
+                                }
+                            })
                         }
                     case .failure(let error):
                         completion?(.failure(error))
