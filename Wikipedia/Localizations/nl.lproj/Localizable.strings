@@ -675,6 +675,9 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
+"talk-page-new-subject-placeholder-text" = "Onderwerp";
+"talk-page-topic-title" = "Overleg";
 "theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
@@ -717,6 +720,7 @@
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
+"wikitext-preview-link-external-preview-description" = "Deze koppeling leidt naar een externe website: $1";
 "wikitext-preview-link-external-preview-title" = "Uitwendige koppeling";
 "wikitext-preview-link-preview-description" = "Deze link leidt naar '$1'";
 "wikitext-preview-link-preview-title" = "Linkvoorvertoning";

@@ -44,6 +44,9 @@
 "account-creation-title" = "Title for account creation interface";
 "account-group-title" = "Title for account group on account settings screen.";
 "account-talk-page-title" = "Title for button and page letting user view their account page.";
+"account-talk-preferences-auto-sign-discussions" = "Title for talk page preference that configures adding signature to new posts";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Text explaining how setting the auto-signing of talk page discussions preference works";
+"account-talk-preferences-title" = "Title for talk page preference sections in account settings";
 "action-add-to" = "Title of the action that adds the selection to something else.";
 "action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
 "action-add-to-reading-list-short" = "Shorter title for the action that adds selected articles to a reading list";

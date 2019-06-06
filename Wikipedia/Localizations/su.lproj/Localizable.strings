@@ -104,6 +104,7 @@
 "edit-summary-choice-fixed-grammar" = "Pameneran tata basa";
 "edit-summary-choice-fixed-typos" = "Pameneran kasalahan ngetik";
 "edit-summary-choice-linked-words" = "Panambahan tutumbu";
+"empty-insert-media-title" = "Pilih berkas ti Wikimédia Commons";
 "empty-no-article-message" = "Hampura, teu bisa muat artikel";
 "empty-no-feed-action-message" = "Anjeun masih bisa kénéh maca kaca kasimpen.";
 "empty-no-feed-message" = "Anjeun bisa nempo artikel nu disarankeun pikeun anjeun nalika anjeun miboga sambungan intenet";
@@ -194,6 +195,7 @@
 "in-the-news-title" = "Dina warta";
 "info-box-close-text" = "Tutup";
 "info-box-title" = "Fakta Singget";
+"insert-media-image-preview-select-image-action-title" = "Pilih gambar";
 "languages-title" = "Robah basa";
 "languages-wikipedia" = "Basa Wikipédia";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -300,6 +302,7 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Cik kénéh|$1 menit kaliwat|$1 menit kaliwat}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun ieu|Taun kamari|$1 taun kaliwat}}";
+"replace-method-button-accessibility" = "Ganti métodeu. Setél ka $1. Pilih jang ngarobah.";
 "request-feedback-on-error" = "Ieu aplikasi ngalaman masalah nu nyumebabkeun pangembang kami hayng mikanyaho leuwih jero. Pék totog di dieu pikeun ngirimkeun surélék kalawan wincikan kasalahan.";
 "saved-pages-image-download-error" = "Gagal ngundeur gambar pikeun ieu kaca kasimpen.";
 "saved-search-default-text" = "Paluruh artikel kasimpen";

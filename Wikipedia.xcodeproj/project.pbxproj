@@ -434,6 +434,11 @@
 		7A3EE1562267DC3800709CF6 /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */; };
 		7A3EE1572267DC3800709CF6 /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */; };
 		7A3EE1582267DC3800709CF6 /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */; };
+		7A420DB422A029780005689B /* EditFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A420DB322A029780005689B /* EditFunnel.swift */; };
+		7A420DB522A029780005689B /* EditFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A420DB322A029780005689B /* EditFunnel.swift */; };
+		7A420DB622A029780005689B /* EditFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A420DB322A029780005689B /* EditFunnel.swift */; };
+		7A420DB722A029780005689B /* EditFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A420DB322A029780005689B /* EditFunnel.swift */; };
+		7A420DB822A029780005689B /* EditFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A420DB322A029780005689B /* EditFunnel.swift */; };
 		7A4170D9229EFC2A00251582 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
 		7A4170DA229EFC2A00251582 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
 		7A4170DB229EFC2A00251582 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
@@ -1527,7 +1532,6 @@
 		B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
-		B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		B0E805911C0CE2C60065EBC0 /* WMFLoginFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805801C0CE2C60065EBC0 /* WMFLoginFunnel.m */; };
 		B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */; };
 		B0E805941C0CE2C60065EBC0 /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */; };
@@ -1872,7 +1876,6 @@
 		D80ED34D1EE57F4800CE8C50 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */; };
 		D80ED34F1EE57F4800CE8C50 /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D80ED3561EE57F4800CE8C50 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
-		D80ED3581EE57F4800CE8C50 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D80ED3591EE57F4800CE8C50 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D80ED35A1EE57F4800CE8C50 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		D80ED35D1EE57F4800CE8C50 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
@@ -2474,7 +2477,6 @@
 		D8A42B2C1E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */; };
 		D8A42B2E1E815A9C00D8E281 /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D8A42B371E815A9C00D8E281 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
-		D8A42B391E815A9C00D8E281 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D8A42B3A1E815A9C00D8E281 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		D8A42B3F1E815A9C00D8E281 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
@@ -2746,7 +2748,6 @@
 		D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */; };
 		D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
-		D8CE25BE1E698E2400DAE2E0 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D8CE25BF1E698E2400DAE2E0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D8CE25C01E698E2400DAE2E0 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		D8CE25C41E698E2400DAE2E0 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
@@ -3044,7 +3045,6 @@
 		D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		D8EC3EBB1E9BDA35006712EB /* WMFAuthLinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B010E1A71E723E3600CFE1CD /* WMFAuthLinkLabel.swift */; };
-		D8EC3EBC1E9BDA35006712EB /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D8EC3EBD1E9BDA35006712EB /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D8EC3EBE1E9BDA35006712EB /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		D8EC3EC21E9BDA35006712EB /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
@@ -3790,6 +3790,7 @@
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WMFCaptcha.swift; path = "../../WMF Framework/WMFCaptcha.swift"; sourceTree = "<group>"; };
 		7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
+		7A420DB322A029780005689B /* EditFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFunnel.swift; sourceTree = "<group>"; };
 		7A4170D8229EFC2A00251582 /* PageNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNamespace.swift; sourceTree = "<group>"; };
 		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
 		7A48EA0D21B5C9B20083F3DC /* EditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbarView.swift; sourceTree = "<group>"; };
@@ -4267,8 +4268,6 @@
 		B0E805761C0CE24B0065EBC0 /* WMFDeprecationMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFDeprecationMacros.h; path = Wikipedia/Code/WMFDeprecationMacros.h; sourceTree = SOURCE_ROOT; };
 		B0E805771C0CE2C60065EBC0 /* CreateAccountFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateAccountFunnel.h; path = Wikipedia/Code/CreateAccountFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateAccountFunnel.m; path = Wikipedia/Code/CreateAccountFunnel.m; sourceTree = SOURCE_ROOT; };
-		B0E805791C0CE2C60065EBC0 /* EditFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditFunnel.h; path = Wikipedia/Code/EditFunnel.h; sourceTree = SOURCE_ROOT; };
-		B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditFunnel.m; path = Wikipedia/Code/EditFunnel.m; sourceTree = SOURCE_ROOT; };
 		B0E8057D1C0CE2C60065EBC0 /* EventLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLoggingFunnel.h; path = Wikipedia/Code/EventLoggingFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E8057E1C0CE2C60065EBC0 /* EventLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = EventLoggingFunnel.m; path = Wikipedia/Code/EventLoggingFunnel.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0E8057F1C0CE2C60065EBC0 /* WMFLoginFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLoginFunnel.h; path = Wikipedia/Code/WMFLoginFunnel.h; sourceTree = SOURCE_ROOT; };
@@ -6066,8 +6065,7 @@
 				0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */,
 				B0E805771C0CE2C60065EBC0 /* CreateAccountFunnel.h */,
 				B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */,
-				B0E805791C0CE2C60065EBC0 /* EditFunnel.h */,
-				B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */,
+				7A420DB322A029780005689B /* EditFunnel.swift */,
 				B0E8057F1C0CE2C60065EBC0 /* WMFLoginFunnel.h */,
 				B0E805801C0CE2C60065EBC0 /* WMFLoginFunnel.m */,
 				B0E805811C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.h */,
@@ -10687,6 +10685,7 @@
 				B01E54AF206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				B0CD9DDC1F70997300051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				83987AD020E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
+				7A420DB422A029780005689B /* EditFunnel.swift in Sources */,
 				B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
@@ -10929,7 +10928,6 @@
 				67F73E6D2267B79E0079DEEF /* AccountViewController.swift in Sources */,
 				8382F8CD20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
-				B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */,
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				67DB111022613FA100F789B0 /* SchemeHandler+APIHandler.swift in Sources */,
 				B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
@@ -11302,6 +11300,7 @@
 				B03F8A8D205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D80ED33B1EE57F4800CE8C50 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0FFFB2E21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
+				7A420DB822A029780005689B /* EditFunnel.swift in Sources */,
 				D80ED33F1EE57F4800CE8C50 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				67DB110722612C3500F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */,
 				B0524B55214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
@@ -11329,7 +11328,6 @@
 				D80ED34F1EE57F4800CE8C50 /* WMFReferencePageViewController.swift in Sources */,
 				D850A53E1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D80ED3561EE57F4800CE8C50 /* WikiTextSectionUploader.m in Sources */,
-				D80ED3581EE57F4800CE8C50 /* EditFunnel.m in Sources */,
 				7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D80ED3591EE57F4800CE8C50 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				7A9F06112266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
@@ -11828,6 +11826,7 @@
 				83987AD320E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
+				7A420DB722A029780005689B /* EditFunnel.swift in Sources */,
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8A42A621E815A9C00D8E281 /* PlacesViewController.swift in Sources */,
 				B0ACB13621265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
@@ -12076,7 +12075,6 @@
 				8382F8D020D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				D8A42B371E815A9C00D8E281 /* WikiTextSectionUploader.m in Sources */,
 				7A6ED51B20ADBF950001849F /* SettingsFunnel.swift in Sources */,
-				D8A42B391E815A9C00D8E281 /* EditFunnel.m in Sources */,
 				D8A42B3A1E815A9C00D8E281 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				7AF8CEF022653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
@@ -12453,6 +12451,7 @@
 				D8CE259C1E698E2400DAE2E0 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */,
 				B0FFFB2B21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
+				7A420DB522A029780005689B /* EditFunnel.swift in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				67DB110422612C3300F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */,
 				B0524B52214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
@@ -12487,7 +12486,6 @@
 				7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				B010E1A91E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
-				D8CE25BE1E698E2400DAE2E0 /* EditFunnel.m in Sources */,
 				B01E3AFA21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				D8CE25BF1E698E2400DAE2E0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				D8421B54203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
@@ -12859,6 +12857,7 @@
 				D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */,
 				D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0FFFB2C21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
+				7A420DB622A029780005689B /* EditFunnel.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
 				67DB110522612C3300F789B0 /* WMFArticleJSONCompilationHelper.m in Sources */,
 				B0524B53214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
@@ -12893,7 +12892,6 @@
 				7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				BAA0D91E1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
-				D8EC3EBC1E9BDA35006712EB /* EditFunnel.m in Sources */,
 				B01E3AFB21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				D8421B55203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				D8EC3EBD1E9BDA35006712EB /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,

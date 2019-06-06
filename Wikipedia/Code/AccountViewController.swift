@@ -9,6 +9,7 @@ protocol AccountViewControllerDelegate: class {
 private enum ItemType {
     case logout
     case talkPage
+    case talkPageAutoSignDiscussions
 }
 
 private struct Section {
@@ -20,9 +21,9 @@ private struct Section {
 private struct Item {
     let title: String
     let subtitle: String?
-    let iconName: String
-    let iconColor: UIColor
-    let iconBackgroundColor: UIColor
+    let iconName: String?
+    let iconColor: UIColor?
+    let iconBackgroundColor: UIColor?
     let type: ItemType
 }
 
@@ -41,8 +42,12 @@ class AccountViewController: SubSettingsViewController {
         
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: UIColor.wmf_colorWithHex(0xFF8E2B), type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: UIColor(red: 51/255, green: 102/255, blue: 204/255, alpha: 1) , type: .talkPage)
-        let section = Section(items: [logout, talkPage], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
-        return [section]
+        let account = Section(items: [logout, talkPage], headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
+
+        let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
+        let talkPagePreferences = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
+
+        return [account, talkPagePreferences]
     }()
 
     override func viewDidLoad() {
@@ -78,24 +83,33 @@ class AccountViewController: SubSettingsViewController {
         case .talkPage:
             cell.disclosureType = .viewController
             cell.disclosureText = nil
+        case .talkPageAutoSignDiscussions:
+            cell.disclosureType = .switch
+            cell.selectionStyle = .none
+            cell.disclosureSwitch.isOn = UserDefaults.wmf.autoSignTalkPageDiscussions
+            cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         }
         
         cell.apply(theme)
         
         return cell
     }
+
+    @objc private func autoSignTalkPageDiscussions(_ sender: UISwitch) {
+        UserDefaults.wmf.autoSignTalkPageDiscussions = sender.isOn
+    }
     
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         guard let item = sections[safeIndex: indexPath.section]?.items[safeIndex: indexPath.row] else {
             return
         }
-        
         switch item.type {
         case .logout:
             showLogoutAlert()
         case .talkPage:
-            
             if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername,
                 let language = MWKLanguageLinkController.sharedInstance().appLanguage {
                 let siteURL = language.siteURL()
@@ -104,9 +118,9 @@ class AccountViewController: SubSettingsViewController {
                 talkPageContainerVC.apply(theme: theme)
                 self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
             }
+        default:
+            break
         }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
