@@ -5,7 +5,7 @@ protocol TalkPageHeaderViewDelegate: class {
     func tappedLink(_ url: URL, cell: TalkPageHeaderView)
 }
 
-class TalkPageHeaderView: SizeThatFitsReusableView {
+class TalkPageHeaderView: UIView {
     
     weak var delegate: TalkPageHeaderViewDelegate?
     
@@ -16,11 +16,10 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         let intro: String?
     }
     
-    private let headerLabel = UILabel()
-    private(set) var titleTextView = UITextView()
-    private let infoLabel = UILabel()
-    private let introTextView = UITextView()
-    private let dividerView = UIView(frame: .zero)
+    @IBOutlet private var headerLabel: UILabel!
+    @IBOutlet private(set) var titleTextView: UITextView!
+    @IBOutlet private var infoLabel: UILabel!
+    @IBOutlet private var introTextView: UITextView!
     
     private var viewModel: ViewModel?
     
@@ -54,71 +53,45 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         }
     }
     
-    override func setup() {
-        super.setup()
+    override init(frame: CGRect) {
+        assertionFailure("init(frame) not setup for TalkPageHeaderView")
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setup()
+    }
+    
+    func setup() {
         infoLabel.numberOfLines = 0
         titleTextView.isEditable = false
         titleTextView.isScrollEnabled = false
         titleTextView.delegate = self
+        titleTextView.textContainerInset = UIEdgeInsets.zero
+        titleTextView.textContainer.lineFragmentPadding = 0
         introTextView.isEditable = false
         introTextView.isScrollEnabled = false
         introTextView.delegate = self
         introTextView.textContainer.maximumNumberOfLines = 3
         introTextView.textContainer.lineBreakMode = .byTruncatingTail
-        addSubview(headerLabel)
-        addSubview(titleTextView)
-        addSubview(introTextView)
-        addSubview(dividerView)
-    }
-    
-    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top - 1, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 3, right: layoutMargins.right + 7)
-        
-        let talkOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
-        let contentMaximumWidth = size.width - adjustedMargins.left - adjustedMargins.right
-        
-        let headerFrame = headerLabel.wmf_preferredFrame(at: talkOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
-        
-        let titleOrigin = CGPoint(x: adjustedMargins.left - 3, y: headerFrame.maxY + 5)
-        let titleFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
-        
-        var finalHeight: CGFloat
-        if hasInfoText {
-            let infoOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY)
-            let infoFrame = infoLabel.wmf_preferredFrame(at: infoOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
-            
-            if hasIntroText {
-                let introOrigin = CGPoint(x: adjustedMargins.left - 3, y: infoFrame.maxY + 3)
-                let introFrame = introTextView.wmf_preferredFrame(at: introOrigin, maximumWidth: contentMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
-                finalHeight = introFrame.maxY + adjustedMargins.bottom
-                introTextView.isHidden = false
-            } else {
-                finalHeight = infoFrame.maxY + 7 + adjustedMargins.bottom
-                introTextView.isHidden = true
-            }
-            
-        } else {
-            finalHeight = titleFrame.maxY + adjustedMargins.bottom
-        }
-        
-        if (apply) {
-            dividerView.frame = CGRect(x: 0, y: finalHeight - 1, width: size.width, height: 1)
-            headerLabel.textAlignment = textAlignmentOverride
-            titleTextView.textAlignment = textAlignmentOverride
-            infoLabel.textAlignment = textAlignmentOverride
-            introTextView.textAlignment = textAlignmentOverride
-        }
-        
-        return CGSize(width: size.width, height: finalHeight)
+        introTextView.textContainerInset = UIEdgeInsets.zero
+        introTextView.textContainer.lineFragmentPadding = 0
     }
     
     func configure(viewModel: ViewModel) {
         
         self.viewModel = viewModel
         
-        if hasInfoText && infoLabel.superview == nil {
-            addSubview(infoLabel)
+        if hasInfoText {
             infoLabel.text = viewModel.info
+            introTextView.isHidden = false
+        } else {
+            infoLabel.isHidden = true
         }
         
         headerLabel.text = viewModel.header
@@ -126,21 +99,57 @@ class TalkPageHeaderView: SizeThatFitsReusableView {
         let titleFont = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
         titleTextView.attributedText = titleAttributedString
-
-        let introFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        let italicIntroFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
         
-        if let introAttributedString = viewModel.intro?.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil) {
-            introTextView.attributedText = introAttributedString
+        if let intro = viewModel.intro {
+            introTextView.isHidden = false
+            setupIntro(text: intro)
+        } else {
+            introTextView.isHidden = true
         }
     }
     
-    override func updateFonts(with traitCollection: UITraitCollection) {
-        super.updateFonts(with: traitCollection)
+    private func setupIntro(text: String) {
+        if hasIntroText {
+            
+            let introFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+            let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+            let italicIntroFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+            
+            introTextView.attributedText = text.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
+        } else {
+            introTextView.isHidden = true
+        }
+    }
+    
+    // MARK - Dynamic Type
+    // Only applies new fonts if the content size category changes
+    
+    open override func setNeedsLayout() {
+        maybeUpdateFonts(with: traitCollection)
+        super.setNeedsLayout()
+    }
+    
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setNeedsLayout()
+    }
+    
+    var contentSizeCategory: UIContentSizeCategory?
+    fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
+        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.wmf_preferredContentSizeCategory else {
+            return
+        }
+        contentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
+        updateFonts(with: traitCollection)
+    }
+    
+    func updateFonts(with traitCollection: UITraitCollection) {
         headerLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         titleTextView.font = UIFont.wmf_font(DynamicTextStyle.boldTitle1, compatibleWithTraitCollection: traitCollection)
         infoLabel.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
+        if let intro = viewModel?.intro {
+            setupIntro(text: intro)
+        }
     }
 }
 
@@ -153,7 +162,6 @@ extension TalkPageHeaderView: Themeable {
         infoLabel.textColor = theme.colors.secondaryText
         introTextView.textColor = theme.colors.primaryText
         introTextView.backgroundColor = theme.colors.paperBackground
-        dividerView.backgroundColor = theme.colors.border
         backgroundColor = theme.colors.paperBackground
     }
 }

@@ -458,7 +458,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             self.hasSyncErrorBeenShownThisSesssion = YES; //only show sync error once for multiple failed syncs
             [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                         sticky:YES
-                                         dismissPreviousAlerts:YES
+                                         dismissPreviousAlerts:NO
                                                    tapCallBack:nil];
         }
     }

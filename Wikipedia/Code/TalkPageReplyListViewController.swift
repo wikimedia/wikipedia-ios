@@ -28,11 +28,17 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private var composeText: String?
     private var footerView: TalkPageReplyFooterView?
-    private var headerView: TalkPageHeaderView?
     private var originalFooterViewFrame: CGRect?
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var replyBarButtonItem: UIBarButtonItem!
+    
+    var repliesAreDisabled = true {
+        didSet {
+            footerView?.composeButtonIsDisabled = repliesAreDisabled
+            replyBarButtonItem.isEnabled = !repliesAreDisabled
+        }
+    }
 
     private var showingCompose = false {
         didSet {
@@ -135,25 +141,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         footerView?.resetCompose()
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-
-        //todo: should refactor to lean on NavigationBar's extendedView
-        if let headerView = headerView {
-            navigationBar.shadowAlpha = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > headerView.frame.height ? 1 : 0
-            
-            let convertedHeaderTitleFrame = headerView.convert(headerView.titleTextView.frame, to: view)
-            let oldTitle = navigationItem.title
-            let newTitle = (collectionView.contentOffset.y + collectionView.adjustedContentInset.top) > convertedHeaderTitleFrame.maxY ? headerView.titleTextView.attributedText.string : nil
-            if oldTitle != newTitle {
-                navigationItem.title = showingCompose ? replyString : newTitle
-                navigationBar.updateNavigationItems()
-            }
-        } else {
-            navigationBar.shadowAlpha = 0
-        }
-    }
-    
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
         
@@ -214,12 +201,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView {
-                headerView = header
-                configure(header: header)
-                return header
-        }
         
         if kind == UICollectionView.elementKindSectionFooter,
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageReplyFooterView.identifier, for: indexPath) as? TalkPageReplyFooterView {
@@ -230,20 +211,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         return UICollectionReusableView()
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier) as? TalkPageHeaderView else {
-            return estimate
-        }
-        
-        configure(header: header)
-        estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        return estimate
-    }
-    
+
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let footer = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: TalkPageReplyFooterView.identifier) as? TalkPageReplyFooterView else {
@@ -288,7 +256,6 @@ private extension TalkPageReplyListViewController {
     
     func registerCells() {
         layoutManager.register(TalkPageReplyCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
         layoutManager.register(TalkPageReplyFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: TalkPageReplyFooterView.identifier, addPlaceholder: true)
     }
     
@@ -300,13 +267,24 @@ private extension TalkPageReplyListViewController {
     
     func setupNavigationBar() {
         navigationBar.isBarHidingEnabled = false
-        navigationBar.shadowAlpha = 0
         let replyImage = UIImage(named: "reply")
         replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
         replyBarButtonItem.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = replyBarButtonItem
-        navigationItem.title = nil
+        replyBarButtonItem.isEnabled = repliesAreDisabled
         navigationBar.updateNavigationItems()
+        
+        if let headerView = TalkPageHeaderView.wmf_viewFromClassNib(),
+            let title = topic.title {
+            configure(header: headerView)
+            navigationBar.isBarHidingEnabled = false
+            navigationBar.isUnderBarViewHidingEnabled = true
+            useNavigationBarVisibleHeightForScrollViewInsets = true
+            navigationBar.addUnderNavigationBarView(headerView)
+            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+            navigationBar.title = title
+            updateScrollViewInsets()
+        }
     }
     
     @objc func tappedPublish(_ sender: UIBarButtonItem) {
@@ -356,6 +334,8 @@ private extension TalkPageReplyListViewController {
         footer.showingCompose = showingCompose
         footer.layoutMargins = layout.itemLayoutMargins
         footer.apply(theme: theme)
+        footer.composeButtonIsDisabled = repliesAreDisabled
+        self.footerView = footer
     }
     
     func configure(cell: TalkPageReplyCell, at indexPath: IndexPath) {

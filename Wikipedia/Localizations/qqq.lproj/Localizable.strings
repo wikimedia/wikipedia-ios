@@ -232,6 +232,7 @@
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
+"empty-talk-page-title" = "Text for placeholder label visible when talk page is empty";
 "error-generic-description" = "Generic error message for when the error isn't recoverable by the user.";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
 "error-unknown" = "Message displayed when an unknown error occurred";
@@ -702,6 +703,8 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
+"talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
+"talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page topic while being offline";
 "talk-page-info-active-conversations" = "This information label is displayed at the top of a talk page topic list. $1 is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.";
 "talk-page-info-active-conversations-generic" = "This information label is displayed at the top of a talk page topic list. This is fallback text in case a specific wiki language cannot be determined.";
 "talk-page-new-banner-subtitle" = "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.";
@@ -730,6 +733,7 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
+"unable-to-load-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
 "view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
 "welcome-exploration-explore-feed-title" = "Title for Explore feed";
