@@ -44,6 +44,9 @@
 "account-creation-title" = "Create a new account";
 "account-group-title" = "Your Account";
 "account-talk-page-title" = "Your talk page";
+"account-talk-preferences-auto-sign-discussions" = "Auto-sign discussions";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Auto-signing of discussions will use the signature defined in Signature settings";
+"account-talk-preferences-title" = "Talk page preferences";
 "action-add-to" = "Add to…";
 "action-add-to-reading-list" = "Add to reading list";
 "action-add-to-reading-list-short" = "Add to list";
