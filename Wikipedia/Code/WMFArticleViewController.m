@@ -215,7 +215,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
-        self.editFunnel = [[EditFunnel alloc] init];
+        self.editFunnel = [EditFunnel shared];
     }
     return self;
 }
@@ -1591,11 +1591,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             return;
         }
         if (selectedTextEditInfo.isSelectedTextInTitleDescription) {
-            [self showTitleDescriptionEditor];
+            [self showTitleDescriptionEditor:EditFunnelSourceHighlight];
         } else {
             if (self.article.sections && self.article.sections.count > 0) {
                 MWKSection *section = self.article.sections[selectedTextEditInfo.sectionID];
-                [self showEditorForSection:section selectedTextEditInfo:selectedTextEditInfo];
+                [self showEditorForSection:section selectedTextEditInfo:selectedTextEditInfo source:EditFunnelSourceHighlight];
             }
         }
     }];
@@ -1696,7 +1696,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article {
-    [self showTitleDescriptionEditor];
+    [self showTitleDescriptionEditor:EditFunnelSourceTitleDescription];
 }
 
 - (void)showLocation {
@@ -1787,7 +1787,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         if ([self.article isWikidataDescriptionEditable] && [section isLeadSection] && self.article.entityDescription) {
             [self showEditSectionOrTitleDescriptionDialogForSection:section];
         } else {
-            [self showEditorForSection:section selectedTextEditInfo:nil];
+            [self showEditorForSection:section selectedTextEditInfo:nil source:EditFunnelSourcePencil];
         }
     } else {
         ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
@@ -1796,7 +1796,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-- (void)showEditorForSection:(MWKSection *)section selectedTextEditInfo:(nullable SelectedTextEditInfo *)selectedTextEditInfo {
+- (void)showEditorForSection:(MWKSection *)section selectedTextEditInfo:(nullable SelectedTextEditInfo *)selectedTextEditInfo source:(EditFunnelSource)source {
+    int articleRevision = self.article.revisionId.intValue;
+    NSString *articleLanguage = self.article.url.wmf_language;
+    [self.editFunnel logSectionEditingStartFromSource:source revision:articleRevision language:articleLanguage];
+
     [self cancelWIconPopoverDisplay];
     WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
@@ -1817,6 +1821,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(self);
     void (^showIntro)(void) = ^{
         @strongify(self);
+        [self.editFunnel logOnboardingPresentationInitiatedBySource:source revision:articleRevision language:articleLanguage];
         WMFEditingWelcomeViewController *editingWelcomeViewController = [[WMFEditingWelcomeViewController alloc] initWithTheme:self.theme
                                                                                                                     completion:^{
                                                                                                                         sectionEditVC.shouldFocusWebView = YES;
@@ -1842,14 +1847,17 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self fetchArticle];
 }
 
-- (void)showTitleDescriptionEditor {
-    BOOL hasWikidataDescription = self.article.entityDescription != NULL;
+- (void)showTitleDescriptionEditor:(EditFunnelSource)source {
+    BOOL isAddingNewTitleDescription = self.article.entityDescription == NULL;
+    int articleRevision = self.article.revisionId.intValue;
     NSString *articleLanguage = self.article.url.wmf_language;
-    [self.editFunnel logWikidataDescriptionEditStart:hasWikidataDescription language:articleLanguage];
+    [self.editFunnel logTitleDescriptionEditingStartFromSource:source revision:articleRevision language:articleLanguage];
+
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
     editVC.article = self.article;
     editVC.editFunnel = self.editFunnel;
+    editVC.editFunnelSource = source;
     [editVC applyTheme:self.theme];
 
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
@@ -1866,9 +1874,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(navVC);
     void (^showIntro)(void) = ^{
         @strongify(self);
+        [self.editFunnel logOnboardingPresentationInitiatedBySource:source revision:articleRevision language:articleLanguage];
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
         welcomeVC.completionBlock = ^{
-            [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+            [self.editFunnel logTitleDescriptionReadyToEditFromSource:source isAddingNewTitleDescription:isAddingNewTitleDescription revision:articleRevision language:articleLanguage];
         };
         [welcomeVC applyTheme:self.theme];
         [navVC presentViewController:welcomeVC
@@ -1885,7 +1894,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                          if (needsIntro) {
                              showIntro();
                          } else {
-                             [self.editFunnel logWikidataDescriptionEditReady:hasWikidataDescription language:articleLanguage];
+                             [self.editFunnel logTitleDescriptionReadyToEditFromSource:source isAddingNewTitleDescription:isAddingNewTitleDescription revision:articleRevision language:articleLanguage];
                          }
                      }];
 }
@@ -1896,13 +1905,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-title", nil, nil, @"Edit title description", @"Title for button used to show title description editor")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self showTitleDescriptionEditor];
+                                                [self showTitleDescriptionEditor:EditFunnelSourcePencil];
                                             }]];
 
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self showEditorForSection:section selectedTextEditInfo:nil];
+                                                [self showEditorForSection:section selectedTextEditInfo:nil source:EditFunnelSourcePencil];
                                             }]];
 
     [sheet addAction:[UIAlertAction actionWithTitle:[WMFCommonStrings cancelActionTitle] style:UIAlertActionStyleCancel handler:NULL]];
