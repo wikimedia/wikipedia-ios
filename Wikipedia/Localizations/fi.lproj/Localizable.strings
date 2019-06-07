@@ -65,6 +65,7 @@
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-title" = "Luo uusi tunnus";
+"account-talk-preferences-title" = "Keskustelusivujen asetukset";
 "action-add-to" = "Lisää...";
 "action-add-to-reading-list" = "Lisää lukulistaan";
 "action-add-to-reading-list-short" = "Lisää listaan";
@@ -675,6 +676,7 @@
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
+"unable-to-load-talk-page-title" = "Keskustelusivun lataaminen epäonnistui";
 "view-in-browser-footer-link" = "Lue artikkeli selaimessa";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";

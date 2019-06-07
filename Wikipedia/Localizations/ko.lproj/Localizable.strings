@@ -73,6 +73,9 @@
 "account-creation-title" = "새 계정 만들기";
 "account-group-title" = "내 계정";
 "account-talk-page-title" = "내 사용자토론";
+"account-talk-preferences-auto-sign-discussions" = "토론 자동 서명";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "토론 자동 서명은 서명 설정에 정의된 서명을 사용합니다";
+"account-talk-preferences-title" = "토론 문서 환경 설정";
 "action-add-to" = "추가...";
 "action-add-to-reading-list" = "읽기 목록에 추가";
 "action-add-to-reading-list-short" = "목록에 추가";
@@ -258,6 +261,7 @@
 "empty-no-saved-pages-message" = "오프라인 상태에서도 나중에 보기 위해 문서를 저장합니다";
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
 "empty-no-search-results-message" = "결과가 없습니다.";
+"empty-talk-page-title" = "이 사용자에 대해 게시된 메시지가 아직 없습니다";
 "error-generic-description" = "예기치 않은 오류가 발생했습니다";
 "error-generic-recovery-suggestion" = "나중에 다시 시도해 주십시오";
 "error-unknown" = "알 수 없는 오류가 발생했습니다";
@@ -728,6 +732,8 @@
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
 "table-of-contents-heading" = "목차";
 "table-title-other" = "자세한 정보";
+"talk-page-error-unable-to-post-reply" = "인터넷이 연결되어 있지 않습니다. 답변을 게시할 수 없습니다.";
+"talk-page-error-unable-to-post-topic" = "인터넷이 연결되어 있지 않습니다. 주제를 게시할 수 없습니다.";
 "talk-page-info-active-conversations" = "$1 위키백과에서 진행 중인 대화";
 "talk-page-info-active-conversations-generic" = "위키백과에서 진행 중인 대화";
 "talk-page-new-banner-subtitle" = "여기서 우리 모두는 사람입니다";
@@ -756,6 +762,7 @@
 "two-factor-login-title" = "자신의 계정으로 로그인";
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
+"unable-to-load-talk-page-title" = "토론 문서를 불러올 수 없습니다";
 "view-in-browser-footer-link" = "브라우저에서 문서 보기";
 "welcome-exploration-explore-feed-description" = "우리 공동체의 권장 읽기 및 일일 문서";
 "welcome-exploration-explore-feed-title" = "탐색 피드";

@@ -117,8 +117,7 @@
 "description-published-button-title" = "সম্পন্ন";
 "description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
 "dim-images" = "অনুজ্জ্বল ছবি";
-// Fuzzy
-"edit-link-title" = "সংযোগ";
+"edit-link-title" = "সংযোগ সম্পাদনা";
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";

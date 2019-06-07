@@ -73,6 +73,8 @@
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
 "account-creation-title" = "Een nieuw account aanmaken";
+"account-talk-preferences-auto-sign-discussions" = "Overleg automatisch ondertekenen";
+"account-talk-preferences-title" = "Voorkeuren overlegpagina";
 "action-add-to" = "Toevoegen aan…";
 "action-add-to-reading-list" = "Aan leeslijst toevoegen";
 "action-add-to-reading-list-short" = "Aan lijst toevoegen";
@@ -226,6 +228,7 @@
 "empty-no-saved-pages-message" = "Sla pagina's op om deze later te lezen, zelfs offline";
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
+"empty-talk-page-title" = "Er zijn nog geen berichten geplaatst voor deze gebruiker";
 "error-generic-description" = "Een onverwachte fout is opgetreden";
 "error-generic-recovery-suggestion" = "Probeer later opnieuw";
 "error-unknown" = "Er is een onbekende fout opgetreden";
@@ -675,6 +678,8 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
+"talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
 "talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
 "talk-page-new-subject-placeholder-text" = "Onderwerp";
 "talk-page-topic-title" = "Overleg";
@@ -690,6 +695,7 @@
 "two-factor-login-title" = "Aanmelden bij uw account";
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
+"unable-to-load-talk-page-title" = "Overlegpagina laden niet mogelijk";
 "view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";

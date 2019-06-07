@@ -56,10 +56,8 @@
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "about-wikipedia" = "ویکی‌پدیا";
 "abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را منتشر کنید";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار این ویرایش را به طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "خالی‌کردن مقاله‌ها یا هرز نگاره";
+"abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار، این ویرایش را به‌طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است. لطفاً بازگردید و ویرایش‌تان را اصلاح کنید.";
+"abuse-filter-warning-blanking" = "خالی کردن بخش‌ها یا کل مقاله‌ها";
 "abuse-filter-warning-caps" = "همهٔ حروف به‌صورت بزرگ";
 "abuse-filter-warning-heading" = "به نظر می‌آید این ویرایش غیرسازنده باشد، آیا مطمئنید می‌خواهید منتشرش کنید؟";
 "abuse-filter-warning-irrelevant" = "پیوندهای بیرونی یا تصاویر نامرتبط";
@@ -410,16 +408,14 @@
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "page-history-title" = "تاریخچهٔ مقاله";
 "page-issues" = "موضوعات صفحه";
-// Fuzzy
-"page-last-edited" = "تغییر یافته در $1 روز پیش";
+"page-last-edited" = "{{PLURAL:$1|0=ویرایش‌شده امروز|1=ویرایش‌شده دیروز|ویرایش‌شده $1 روز پیش}}";
 "page-location" = "دیدن در نقشه";
 "page-protected-autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
 "page-protected-can-not-edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page-protected-can-not-edit-title" = "این صفحه محافظت شده‌است";
 "page-protected-other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
-// Fuzzy
-"page-read-in-other-languages" = "به $1 زبان در دسترس است";
+"page-read-in-other-languages" = "موجود به {{PLURAL:$1|$1 زیان دیگر|$1 زبان دیگر}}";
 "page-similar-titles" = "صفحات مشابه";
 "page-talk-page" = "نمایش صفحه بحث";
 "pictured" = "تصویر شده";
@@ -491,8 +487,7 @@
 "reading-list-new-list-description-placeholder" = "توضیح کوتاه اختیاری";
 "reading-list-new-list-name-placeholder" = "عنوان فهرست خواندن";
 "reading-list-sync-enable-button-title" = "فعال‌کردن همسان‌سازی";
-// Fuzzy
-"reading-list-sync-enable-subtitle" = "مقالات و لیست‌ها مطالعه شما اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره شده و با دیگر دستگاه‌ها همسان‌سازی شود.";
+"reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره و در سراسر پروژه‌های ویکی‌پدیا همگام‌سازی شود.";
 "reading-list-sync-enable-title" = "همسان‌سازی فهرست خواندن فعال شود؟";
 "reading-list-unable-to-add-entry" = "یک خطای غیرمنتظره هنگام افزودن یک ورودی به فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
 "reading-list-unable-to-create" = "یک خطای غیرمنتظره هنگام ساخت فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
@@ -516,12 +511,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "پوسته قهوه‌ای";
 "reading-themes-controls-accessibility-text-size-slider" = "لغزنده اندازهٔ متن";
 "reference-title" = "منبع $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=امروز|دیروز|$1 روز پیش}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=امروز|1=Yesterday|$1 روز پیش}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش|$1 ساعت پیش}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=این سال|سال پیش|$1 سال پیش}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=امسال|1=پارسال|$1 سال پیش}}";
 "replace-buttons-replace-accessibility" = "جایگزینی یک مورد";
 "replace-buttons-replace-all-accessibility" = "جایگزینی همهٔ موارد";
 "replace-clear-button-accessibility" = "پاک کردن عبارت جایگزینی";
@@ -576,8 +569,7 @@
 "settings-notifications-system-turn-on" = "روشن کردن آگاه‌سازی";
 "settings-notifications-trending" = "رتبه‌بندی رویدادهای کنونی";
 "settings-primary-language" = "ابتدایی";
-// Fuzzy
-"settings-primary-language-details" = "اولین زبان موجود در این فهرست به عنوان زبان اصلی اپلیکیشن است. تغییر این زبان محتوای روزانه (مانند مقالات برگزیدهٔ روز) که در زمان مرور دیده می‌شوند، را تغییر می‌دهد.";
+"settings-primary-language-details" = "اولین زبان موجود در این فهرست به‌عنوان زبان اصلی اپلیکیشن به کار می‌رود.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "آیا همهٔ مقاله‌های ذخیره‌شده حذف شوند؟";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "حذف";
 "settings-storage-and-syncing-erase-saved-articles-title" = "پاک کردن مقالات ذخیره شده";
