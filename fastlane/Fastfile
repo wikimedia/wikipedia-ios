@@ -264,7 +264,6 @@ platform :ios do
     build_dir = "build"
     product_name = options[:product_name] || "Wikipedia"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
-    wait_for_build_processing = options[:wait_for_build_processing] || true
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
     version = get_version_number_from_options(options)
@@ -295,23 +294,12 @@ platform :ios do
     
     pilot(
       ipa: ipa_path,
-      skip_waiting_for_build_processing: !wait_for_build_processing,
+      skip_waiting_for_build_processing: true,
       skip_submission: true,
       distribute_external: false,
       app_identifier:  app_identifier,
       beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org"
     )
-    
-    if wait_for_build_processing #dsyms are only available if we wait
-      dsyms(
-        app_identifier: app_identifier,
-        version: version,
-        build_number: build_number,
-        ipa_path: ipa_path,
-        output_directory: build_dir
-      )
-    end
-    
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
