@@ -11,6 +11,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     weak var delegate: TalkPageTopicListDelegate?
     
     private let dataStore: MWKDataStore
+    private let talkPageTitle: String
     private let talkPage: TalkPage
     private let fetchedResultsController: NSFetchedResultsController<TalkPageTopic>
     
@@ -23,9 +24,10 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private let siteURL: URL
     private let type: TalkPageType
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
-    
-    required init(dataStore: MWKDataStore, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
+
+    required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
+        self.talkPageTitle = talkPageTitle
         self.talkPage = talkPage
         self.siteURL = siteURL
         self.type = type
@@ -166,6 +168,11 @@ private extension TalkPageTopicListViewController {
     
     @objc func tappedShare(_ sender: UIBarButtonItem) {
         print("share here")
+        var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
+        guard let talkPageURL = talkPageURLComponents?.url else {
+            return
+        }
     }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
