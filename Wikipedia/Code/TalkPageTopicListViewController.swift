@@ -65,6 +65,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
 
     @objc private func didBecomeActive() {
         delegate?.didBecomeActiveAfterCompletingActivity(completedActivityType)
+        completedActivityType = nil
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
