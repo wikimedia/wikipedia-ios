@@ -4,6 +4,7 @@ import UIKit
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
+    func didBecomeActiveAfterCompletingActivity(_ completedActivityType: UIActivity.ActivityType?)
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -54,6 +55,16 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         registerCells()
         setupCollectionViewUpdater()
         setupToolbar()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func didBecomeActive() {
+        delegate?.didBecomeActiveAfterCompletingActivity(completedActivityType)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -169,7 +180,6 @@ private extension TalkPageTopicListViewController {
     }
     
     @objc func tappedShare(_ sender: UIBarButtonItem) {
-        print("share here")
         var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
         guard let talkPageURL = talkPageURLComponents?.url else {
