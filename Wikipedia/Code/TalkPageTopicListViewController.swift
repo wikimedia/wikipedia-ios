@@ -25,6 +25,8 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private let type: TalkPageType
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
 
+    private var completedActivityType: UIActivity.ActivityType?
+
     required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
         self.talkPageTitle = talkPageTitle
@@ -173,6 +175,13 @@ private extension TalkPageTopicListViewController {
         guard let talkPageURL = talkPageURLComponents?.url else {
             return
         }
+        let activityViewController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
+        activityViewController.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
+            if completed {
+                self.completedActivityType = activityType
+            }
+        }
+        present(activityViewController, animated: true)
     }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
