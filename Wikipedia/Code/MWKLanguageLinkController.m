@@ -70,10 +70,27 @@ static id _sharedInstance;
                 localizedName = iOSLocalizedName;
             }
         }
+        NSMutableDictionary *namespaces = [[NSMutableDictionary alloc] init];
+        if ([langAsset[@"namespaces"] isKindOfClass: [NSDictionary class]]) {
+            NSDictionary *loopDictionary = langAsset[@"namespaces"];
+            for (id key in loopDictionary) {
+                
+                id value = [loopDictionary objectForKey:key];
+                if ([value isKindOfClass:[NSDictionary class]]) {
+                    NSString *canonicalName = ((NSDictionary *)value)[@"canonical"];
+                    if (canonicalName) {
+                        WMFLanguageLinkNamespace *namespaceObject = [[WMFLanguageLinkNamespace alloc] initWithCanonicalName: canonicalName];
+                        namespaces[key] = namespaceObject;
+                    }
+                }
+                
+            }
+        }
         return [[MWKLanguageLink alloc] initWithLanguageCode:code
                                                pageTitleText:@""
                                                         name:langAsset[@"name"]
-                                               localizedName:localizedName];
+                                               localizedName:localizedName
+                                                  namespaces:[namespaces copy]];
     }];
     NSParameterAssert(self.allLanguages.count);
 }

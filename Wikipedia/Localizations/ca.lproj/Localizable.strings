@@ -62,6 +62,8 @@
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
 "account-creation-title" = "Crea un compte nou";
+"account-group-title" = "El vostre compte";
+"account-talk-page-title" = "La vostra pàgina de discussió";
 "action-add-to" = "Afegeix a…";
 "action-add-to-reading-list" = "Afegeix a la llista de lectura";
 "action-add-to-reading-list-short" = "Afegeix a la llista";
@@ -234,8 +236,7 @@
 "editing-welcome-impartial-tone-title" = "Escriviu amb un to imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Per tal de proporcionar accés al coneixement mundial, ens cal que hi participeu tot llegint, editant i contribuint en els temes que més us importin.";
 "editing-welcome-set-knowledge-free-title" = "Allibera el coneixement";
-// Fuzzy
-"empty-insert-media-title" = "Selecciona un fitxer";
+"empty-insert-media-title" = "Selecciona un fitxer de Wikimedia Commons";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
@@ -660,6 +661,7 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
+"settings-account" = "Compte";
 "settings-appearance" = "Preferències de lectura";
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";
@@ -717,6 +719,22 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
+"talk-page-info-active-conversations" = "Converses actives a la Viquipèdia en $1";
+"talk-page-info-active-conversations-generic" = "Converses actives a la Viquipèdia";
+"talk-page-new-banner-subtitle" = "Recordeu, aquí tothom és humà";
+"talk-page-new-banner-title" = "Sigueu respectuós/osa";
+"talk-page-new-reply-body-placeholder-text" = "Redacta una resposta";
+"talk-page-new-reply-success-text" = "La vostra resposta s'ha publicat amb èxit";
+"talk-page-new-subject-placeholder-text" = "Assumpte";
+"talk-page-new-topic-body-placeholder-text" = "Redacta una discussió nova";
+"talk-page-new-topic-success-text" = "La vostra discussió s'ha publicat amb èxit";
+"talk-page-new-topic-title" = "Discussió nova";
+"talk-page-publish-terms-and-licenses" = "En desar els canvis esteu d'acord amb els $1Termes d'ús$2 i esteu d'acord en alliberar la vostra contribució sota les llicències $3CC BY-SA 3.0$4 i $5GFDL$6.";
+"talk-page-reply-title" = "Respon";
+"talk-page-title-article-talk" = "Discussió de l'article";
+"talk-page-title-user-talk" = "Discussió de l'usuari";
+"talk-page-topic-title" = "Discussió";
+"talk-pages-reply-button-title" = "Respon la discussió";
 "theme-black-display-name" = "Negre";
 "theme-dark-display-name" = "Fosc";
 "theme-default-display-name" = "Per defecte";

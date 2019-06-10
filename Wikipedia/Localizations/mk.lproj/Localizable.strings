@@ -51,6 +51,8 @@
 "account-creation-passwords-mismatched" = "Лозинките не се совпаѓаат.";
 "account-creation-saving" = "Зачувувам...";
 "account-creation-title" = "Создај нова сметка";
+"account-group-title" = "Ваша сметка";
+"account-talk-page-title" = "Ваша разговорна страница";
 "action-add-to" = "Додај во...";
 "action-add-to-reading-list" = "Додај во список за читање";
 "action-add-to-reading-list-short" = "Додај во список";
@@ -223,8 +225,7 @@
 "editing-welcome-impartial-tone-title" = "Пишувајте со непристрасен тон";
 "editing-welcome-set-knowledge-free-subtitle" = "Со цел да го направиме светското знаење пристапно за секого, ќе треба да учествувате во неовото создавање со читање и уредување на темите кои највеќе ви значат.";
 "editing-welcome-set-knowledge-free-title" = "Да го ослободиме знаењето";
-// Fuzzy
-"empty-insert-media-title" = "Изберете податотека";
+"empty-insert-media-title" = "Изберете податотека од Ризницата";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
@@ -649,6 +650,7 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-title" = "Пребарување";
+"settings-account" = "Сметка";
 "settings-appearance" = "Нагодувања за читање";
 "settings-clear-cache" = "Исчисти меѓускладирани податоци";
 "settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
@@ -706,6 +708,22 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"talk-page-info-active-conversations" = "Тековни разговори на Википедија на $1";
+"talk-page-info-active-conversations-generic" = "Тековни разговори на Википедија";
+"talk-page-new-banner-subtitle" = "Запомнете, сите тука сме луѓе";
+"talk-page-new-banner-title" = "Бидете учтиви";
+"talk-page-new-reply-body-placeholder-text" = "Напиши одговор";
+"talk-page-new-reply-success-text" = "Одговорот е успешно објавен";
+"talk-page-new-subject-placeholder-text" = "Наслов";
+"talk-page-new-topic-body-placeholder-text" = "Состави нова расправа";
+"talk-page-new-topic-success-text" = "Расправата е успешно објавена.";
+"talk-page-new-topic-title" = "Нова расправа";
+"talk-page-publish-terms-and-licenses" = "Зачувувајќи ги промените, се согласувате со $1Условите на употреба$2, и дека ги објавувате вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6.";
+"talk-page-reply-title" = "Одговори";
+"talk-page-title-article-talk" = "разговор за статија";
+"talk-page-title-user-talk" = "Кориснички разговор";
+"talk-page-topic-title" = "Расправа";
+"talk-pages-reply-button-title" = "Одговори на расправата";
 "theme-black-display-name" = "Црн";
 "theme-dark-display-name" = "Темен";
 "theme-default-display-name" = "Основен";

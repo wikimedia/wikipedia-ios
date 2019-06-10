@@ -3,6 +3,7 @@
 // Author: 01miki10
 // Author: 4shadoww
 // Author: Alluk.
+// Author: Antsa
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: Laurianttila
@@ -64,6 +65,7 @@
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-title" = "Luo uusi tunnus";
+"account-talk-preferences-title" = "Keskustelusivujen asetukset";
 "action-add-to" = "Lisää...";
 "action-add-to-reading-list" = "Lisää lukulistaan";
 "action-add-to-reading-list-short" = "Lisää listaan";
@@ -126,6 +128,7 @@
 "button-skip" = "Ohita";
 "cancel" = "Peruuta";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Kumita/putsaa/tyhjennä/puhdista";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
@@ -197,7 +200,6 @@
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-title" = "Äänesi on tärkeä";
 "editing-welcome-impartial-tone-title" = "Kirjoita puolueettomaan sävyyn";
-// Fuzzy
 "empty-insert-media-title" = "Valitse tiedosto";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
@@ -674,6 +676,7 @@
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
+"unable-to-load-talk-page-title" = "Keskustelusivun lataaminen epäonnistui";
 "view-in-browser-footer-link" = "Lue artikkeli selaimessa";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";

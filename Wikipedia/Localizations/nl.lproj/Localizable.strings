@@ -1,6 +1,7 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
 // Author: Bouman4
+// Author: Duckson32
 // Author: Elroy
 // Author: FabianRM
 // Author: Festina90
@@ -72,6 +73,8 @@
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
 "account-creation-title" = "Een nieuw account aanmaken";
+"account-talk-preferences-auto-sign-discussions" = "Overleg automatisch ondertekenen";
+"account-talk-preferences-title" = "Voorkeuren overlegpagina";
 "action-add-to" = "Toevoegen aan…";
 "action-add-to-reading-list" = "Aan leeslijst toevoegen";
 "action-add-to-reading-list-short" = "Aan lijst toevoegen";
@@ -96,6 +99,7 @@
 "action-unsaved-accessibility-notification" = "Artikel terug opgeslagen";
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
+"add-citation-title" = "Citaat toevoegen";
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
 "app-store-release-notes" = "Volledig aanpasbaar verkennen-tabblad welke tevens makkelijker te verkennen is. Lokalisatie, prestatieverbeteringen en foutoplossingen.";
@@ -211,8 +215,7 @@
 "edit-underline-remove-accessibility-label" = "Onderstrepen verwijderen";
 "edit-watch-list-learn-more-text" = "Meer over kijklijsten";
 "edit-watch-this-page-text" = "Deze pagina volgen";
-// Fuzzy
-"empty-insert-media-title" = "Selecteer een bestand";
+"empty-insert-media-title" = "Selecteer een bestand van Wikimedia Commons";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
@@ -225,6 +228,7 @@
 "empty-no-saved-pages-message" = "Sla pagina's op om deze later te lezen, zelfs offline";
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
+"empty-talk-page-title" = "Er zijn nog geen berichten geplaatst voor deze gebruiker";
 "error-generic-description" = "Een onverwachte fout is opgetreden";
 "error-generic-recovery-suggestion" = "Probeer later opnieuw";
 "error-unknown" = "Er is een onbekende fout opgetreden";
@@ -404,7 +408,7 @@
 "logged-out-subtitle" = "Er is een probleem opgetreden bij het verifiëren van uw account. Als u uw leeslijsten wilt synchroniseren en wilt bewerken onder uw gebruikersnaam, meldt u zich opnieuw aan.";
 "logged-out-title" = "U bent afgemeld.";
 "login-forgot-password" = "Wachtwoord vergeten?";
-"login-join-wikipedia" = "Vervoeg Wikipedia.";
+"login-join-wikipedia" = "Word lid van Wikipedia.";
 "login-no-account" = "Nog geen account? $1";
 "login-title" = "Aanmelden bij uw account";
 "main-menu-about" = "Over de app";
@@ -674,6 +678,11 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
+"talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
+"talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
+"talk-page-new-subject-placeholder-text" = "Onderwerp";
+"talk-page-topic-title" = "Overleg";
 "theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
@@ -686,6 +695,7 @@
 "two-factor-login-title" = "Aanmelden bij uw account";
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
+"unable-to-load-talk-page-title" = "Overlegpagina laden niet mogelijk";
 "view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";
@@ -716,6 +726,7 @@
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
+"wikitext-preview-link-external-preview-description" = "Deze koppeling leidt naar een externe website: $1";
 "wikitext-preview-link-external-preview-title" = "Uitwendige koppeling";
 "wikitext-preview-link-preview-description" = "Deze link leidt naar '$1'";
 "wikitext-preview-link-preview-title" = "Linkvoorvertoning";

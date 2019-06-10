@@ -63,6 +63,8 @@
 "account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
 "account-creation-title" = "Skapa ett nytt konto";
+"account-group-title" = "Ditt konto";
+"account-talk-page-title" = "Din diskussionssida";
 "action-add-to" = "Lägg till i...";
 "action-add-to-reading-list" = "Lägg till i läslista";
 "action-add-to-reading-list-short" = "Lägg till i lista";
@@ -235,8 +237,7 @@
 "editing-welcome-impartial-tone-title" = "Skriv med en neutral ton";
 "editing-welcome-set-knowledge-free-subtitle" = "För att alla ska få åtkomst till världens kunskap vill vi att du deltar genom att läsa, redigera och bidra till de ämnen som betyder mest för dig.";
 "editing-welcome-set-knowledge-free-title" = "Frigör kunskap";
-// Fuzzy
-"empty-insert-media-title" = "Välj en fil";
+"empty-insert-media-title" = "Välj en fil från Wikimedia Commons";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
@@ -661,6 +662,7 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-title" = "Sök";
+"settings-account" = "Konto";
 "settings-appearance" = "Läsinställningar";
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
@@ -718,6 +720,22 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-title-other" = "Mer information";
+"talk-page-info-active-conversations" = "Aktiva konversationer i Wikipedia på $1";
+"talk-page-info-active-conversations-generic" = "Aktiva konversationer i Wikipedia";
+"talk-page-new-banner-subtitle" = "Kom ihåg, alla här är människor";
+"talk-page-new-banner-title" = "Var snäll";
+"talk-page-new-reply-body-placeholder-text" = "Skriv svar";
+"talk-page-new-reply-success-text" = "Ditt svar publicerades";
+"talk-page-new-subject-placeholder-text" = "Ämne";
+"talk-page-new-topic-body-placeholder-text" = "Skapa ny diskussion";
+"talk-page-new-topic-success-text" = "Din diskussion publicerades";
+"talk-page-new-topic-title" = "Ny diskussion";
+"talk-page-publish-terms-and-licenses" = "Genom att spara ändringar samtycker du till $1användningsvillkoren$2 och att släppa ditt bidrag under licenserna $3CC BY-SA 3.0$4 och $5GFDL$6.";
+"talk-page-reply-title" = "Svara";
+"talk-page-title-article-talk" = "artikeldiskussion";
+"talk-page-title-user-talk" = "Användardiskussion";
+"talk-page-topic-title" = "Diskussion";
+"talk-pages-reply-button-title" = "Svara på denna diskussion";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörkt";
 "theme-default-display-name" = "Standard";

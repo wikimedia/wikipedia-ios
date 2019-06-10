@@ -5,6 +5,7 @@
 // Author: Dude1717
 // Author: Fryed-peach
 // Author: GAMEZONE628
+// Author: Higa4
 // Author: Hinaloe
 // Author: Hzy980512
 // Author: Iwai.masaharu
@@ -77,6 +78,8 @@
 "account-creation-passwords-mismatched" = "入力したパスワードが一致しません。";
 "account-creation-saving" = "保存中...";
 "account-creation-title" = "新しいアカウントを作成する";
+"account-group-title" = "あなたのアカウント";
+"account-talk-page-title" = "あなたの議論ページ";
 "action-add-to" = "次の場所に追加…";
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
@@ -249,8 +252,7 @@
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
-// Fuzzy
-"empty-insert-media-title" = "ファイルを選択";
+"empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
 "empty-no-feed-action-message" = "保存したページはそうでなくても読むことができます";
 "empty-no-feed-message" = "おすすめの記事は、インターネットに接続されているときに見ることができます";
@@ -675,6 +677,7 @@
 "search-recent-title" = "最近の検索";
 "search-result-redirected-from" = "$1 から転送されました";
 "search-title" = "検索";
+"settings-account" = "アカウント";
 "settings-appearance" = "閲覧設定";
 "settings-clear-cache" = "キャッシュを消去";
 "settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約 $1 の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
@@ -732,6 +735,22 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
+"talk-page-info-active-conversations" = "$1 ウィキペディア上でのアクティブな会話";
+"talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";
+"talk-page-new-banner-subtitle" = "ここではみな同じ人類であることを忘れないでください";
+"talk-page-new-banner-title" = "親切であってください";
+"talk-page-new-reply-body-placeholder-text" = "返事を組み立てる";
+"talk-page-new-reply-success-text" = "返事は無事公開されました";
+"talk-page-new-subject-placeholder-text" = "件名";
+"talk-page-new-topic-body-placeholder-text" = "新しい議論を組み立てる";
+"talk-page-new-topic-success-text" = "議論は無事公開されました";
+"talk-page-new-topic-title" = "新規議論";
+"talk-page-publish-terms-and-licenses" = "変更を保存すると、 $1利用規約$2 に同意し、投稿を $3CC BY-SA 3.0$4 及び $5GFDL$6 ライセンスの下にリリースすることに同意したものとみなされます。";
+"talk-page-reply-title" = "返信";
+"talk-page-title-article-talk" = "記事の議論";
+"talk-page-title-user-talk" = "利用者の議論";
+"talk-page-topic-title" = "議論";
+"talk-pages-reply-button-title" = "この議論に返信する";
 "theme-black-display-name" = "黒";
 "theme-dark-display-name" = "ダーク";
 "theme-default-display-name" = "既定";

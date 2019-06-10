@@ -21,6 +21,7 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         textView._delegate = delegate
         textView.placeholderDelegate = placeholderDelegate
         textView.clearDelegate = clearDelegate
+        textView.showsClearButton = true
         textView.placeholder = placeholder
         textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag

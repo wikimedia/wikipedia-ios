@@ -36,6 +36,15 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return .search
     }
     
+    override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
+        guard let title = results[indexPath.item].title,
+            results[indexPath.item].pageNamespace == .userTalk else {
+                return nil
+        }
+        
+        return title
+    }
+    
     override func isExternalURL(at indexPath: IndexPath) -> Bool {
         return results[indexPath.item].titleNamespace?.intValue ?? 0 != 0
     }
@@ -67,6 +76,21 @@ class SearchResultsViewController: ArticleCollectionViewController {
         guard !delegatesSelection else {
             return
         }
+        
+        if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
+            let searchSiteURL = searchSiteURL {
+            
+            //replace localized namespace with canonical namespace so it's considered the same key in the database
+            let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: userTalkPageTitle)
+            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: searchSiteURL)
+            let talkPageContainer = TalkPageContainerViewController(title: title, siteURL: searchSiteURL, type: .user, dataStore: dataStore)
+            talkPageContainer.apply(theme: theme)
+            let article = dataStore.historyList.addPageToHistory(with: articleURL)
+            article?.update(with: results[indexPath.item])
+            wmf_push(talkPageContainer, animated: true)
+            return
+        }
+        
         guard !isExternalURL(at: indexPath) else {
             wmf_openExternalUrl(articleURL)
             return

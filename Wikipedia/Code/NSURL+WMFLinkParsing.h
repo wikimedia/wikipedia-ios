@@ -196,6 +196,8 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_articleDatabaseKey; // string suitable for using as a unique key for the article
 
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_talkPageDatabaseKey; // string suitable for using as a unique key for the talk page
+
 #pragma mark - Introspection
 
 /**

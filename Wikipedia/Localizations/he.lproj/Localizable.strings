@@ -232,8 +232,7 @@
 "editing-welcome-impartial-tone-title" = "כתבו בנימה חסרת פניות";
 "editing-welcome-set-knowledge-free-subtitle" = "כדי להעניק לכולם גישה למידע עולמי, אנו רוצים לבקש ממך לקחת חלק בקריאה, עריכה ותרומה לנושאים שהכי נוגעים ללבך.";
 "editing-welcome-set-knowledge-free-title" = "להוציא את הידע לחופשי";
-// Fuzzy
-"empty-insert-media-title" = "נא לבחור קובץ";
+"empty-insert-media-title" = "נא לבחור קובץ מוויקישיתוף";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";

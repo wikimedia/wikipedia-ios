@@ -83,6 +83,8 @@
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
 "account-creation-title" = "Создайте новую учётную запись";
+"account-group-title" = "Ваша учётная запись";
+"account-talk-page-title" = "Ваша страница обсуждения";
 "action-add-to" = "Добавить в…";
 "action-add-to-reading-list" = "Добавить в список для чтения";
 "action-add-to-reading-list-short" = "Добавить в список";
@@ -255,8 +257,7 @@
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
-// Fuzzy
-"empty-insert-media-title" = "Выберите файл";
+"empty-insert-media-title" = "Выберите файл на Викискладе";
 "empty-no-article-message" = "К сожалению, не удалось скачать статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
@@ -431,7 +432,7 @@
 "insert-media-alternative-text-title" = "Альтернативный текст";
 "insert-media-caption-caption-placeholder" = "Как это изображение относится к статье?";
 "insert-media-caption-description" = "Текст, показываемый после файла всем читателям";
-"insert-media-caption-title" = "Подпись";
+"insert-media-caption-title" = "Описание";
 "insert-media-image-position-setting-center" = "По центру";
 "insert-media-image-position-setting-left" = "Слева";
 "insert-media-image-position-setting-none" = "Без определённой центровки";
@@ -681,6 +682,7 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
+"settings-account" = "Учётная запись";
 "settings-appearance" = "Настройки чтения";
 "settings-clear-cache" = "Очистить кэш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
@@ -738,6 +740,22 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
+"talk-page-info-active-conversations" = "Активные обсуждения в википедии $1";
+"talk-page-info-active-conversations-generic" = "Активные обсуждения в Википедии";
+"talk-page-new-banner-subtitle" = "И не забывайте - вы общаетесь с живыми людьми, со всеми вытекающими отсюда последствиями :-)";
+"talk-page-new-banner-title" = "Будьте вежливы";
+"talk-page-new-reply-body-placeholder-text" = "Ответить";
+"talk-page-new-reply-success-text" = "Ваш ответ был опубликован";
+"talk-page-new-subject-placeholder-text" = "Тема";
+"talk-page-new-topic-body-placeholder-text" = "Создать новое обсуждение";
+"talk-page-new-topic-success-text" = "Ваше обсуждение было опубликовано";
+"talk-page-new-topic-title" = "Новое обсуждение";
+"talk-page-publish-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и публикуете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-reply-title" = "Ответ";
+"talk-page-title-article-talk" = "Обсуждение статьи";
+"talk-page-title-user-talk" = "Обсуждение участника";
+"talk-page-topic-title" = "Обсуждение";
+"talk-pages-reply-button-title" = "Ответить в этом обсуждении";
 "theme-black-display-name" = "Чёрное";
 "theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";

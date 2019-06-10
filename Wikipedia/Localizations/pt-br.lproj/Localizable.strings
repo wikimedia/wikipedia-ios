@@ -74,6 +74,8 @@
 "account-creation-passwords-mismatched" = "Os campos de senha não correspondem.";
 "account-creation-saving" = "Salvando...";
 "account-creation-title" = "Criar uma nova conta";
+"account-group-title" = "Sua conta";
+"account-talk-page-title" = "Sua página de discussão";
 "action-add-to" = "Adicionar a…";
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
@@ -246,8 +248,7 @@
 "editing-welcome-impartial-tone-title" = "Escreva em tom imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos o acesso ao conhecimento do mundo, precisamos que você participe da criação lendo, editando e contribuindo com os tópicos mais importantes para você.";
 "editing-welcome-set-knowledge-free-title" = "Definir conhecimento livre";
-// Fuzzy
-"empty-insert-media-title" = "Selecionar um arquivo";
+"empty-insert-media-title" = "Selecionar um arquivo do Wikimedia Commons";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
@@ -672,6 +673,7 @@
 "search-recent-title" = "recentemente Procurado";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";
+"settings-account" = "Conta";
 "settings-appearance" = "Preferências de leitura";
 "settings-clear-cache" = "Limpar dados em cache";
 "settings-clear-cache-are-you-sure-message" = "A limpeza dos dados armazenados em cache $1 de espaço. Ele não excluirá suas páginas salvas.";
@@ -729,6 +731,22 @@
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
 "table-title-other" = "Mais informações";
+"talk-page-info-active-conversations" = "Conversas ativas em $1 Wikipédia";
+"talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
+"talk-page-new-banner-subtitle" = "Lembre-se, somos todos humanos aqui";
+"talk-page-new-banner-title" = "Por favor seja gentil";
+"talk-page-new-reply-body-placeholder-text" = "Compor resposta";
+"talk-page-new-reply-success-text" = "Sua resposta foi publicada com sucesso";
+"talk-page-new-subject-placeholder-text" = "Assunto";
+"talk-page-new-topic-body-placeholder-text" = "Compor nova discussão";
+"talk-page-new-topic-success-text" = "Sua discussão foi publicada com sucesso";
+"talk-page-new-topic-title" = "Nova discussão";
+"talk-page-publish-terms-and-licenses" = "Ao salvar as alterações, você concorda com os $1Termos de Uso$2 e concorda em liberar sua contribuição sob as licenças de $3CC BY-SA 3.0 $4 e $5GFDL$6.";
+"talk-page-reply-title" = "Responder";
+"talk-page-title-article-talk" = "Discussão de artigo";
+"talk-page-title-user-talk" = "Discussão do usuário";
+"talk-page-topic-title" = "Discussão";
+"talk-pages-reply-button-title" = "Responder a esta discussão";
 "theme-black-display-name" = "Preto";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Padrão";

@@ -667,6 +667,11 @@
 "table-of-contents-close-accessibility-label" = "关闭目录";
 "table-of-contents-heading" = "内容";
 "table-title-other" = "更多信息";
+"talk-page-info-active-conversations-generic" = "维基百科上的积极对话";
+"talk-page-new-banner-subtitle" = "记住，我们在这里都是人类";
+"talk-page-new-reply-success-text" = "你的答复被成功地发表了";
+"talk-page-new-subject-placeholder-text" = "主题";
+"talk-page-new-topic-title" = "新讨论";
 "theme-black-display-name" = "黑暗";
 "theme-dark-display-name" = "夜间";
 "theme-default-display-name" = "默认";
