@@ -65,6 +65,9 @@
 "account-creation-title" = "Skapa ett nytt konto";
 "account-group-title" = "Ditt konto";
 "account-talk-page-title" = "Din diskussionssida";
+"account-talk-preferences-auto-sign-discussions" = "Signera diskussioner automatiskt";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatisk signering av diskussioner använder signaturen som definieras i signaturinställningarna";
+"account-talk-preferences-title" = "Inställningar för diskussionssida";
 "action-add-to" = "Lägg till i...";
 "action-add-to-reading-list" = "Lägg till i läslista";
 "action-add-to-reading-list-short" = "Lägg till i lista";
@@ -250,6 +253,7 @@
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
+"empty-talk-page-title" = "Inga meddelanden har ännu lagts upp för denna användare";
 "error-generic-description" = "Ett oväntat fel uppstod";
 "error-generic-recovery-suggestion" = "Försök igen senare";
 "error-unknown" = "Ett okänt fel uppstod";
@@ -720,6 +724,8 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-title-other" = "Mer information";
+"talk-page-error-unable-to-post-reply" = "Internetanslutning saknas. Kunde inte skicka svaret.";
+"talk-page-error-unable-to-post-topic" = "Internetanslutning saknas. Kunde inte skicka ämnet.";
 "talk-page-info-active-conversations" = "Aktiva konversationer i Wikipedia på $1";
 "talk-page-info-active-conversations-generic" = "Aktiva konversationer i Wikipedia";
 "talk-page-new-banner-subtitle" = "Kom ihåg, alla här är människor";
@@ -748,6 +754,7 @@
 "two-factor-login-title" = "Logga in på ditt konto";
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
+"unable-to-load-talk-page-title" = "Kan inte läsa in diskussionssida";
 "view-in-browser-footer-link" = "Visa artikeln i webbläsaren";
 "welcome-exploration-explore-feed-description" = "Dagens artiklar och lästips från vår gemenskap";
 "welcome-exploration-explore-feed-title" = "Utforskarflöde";

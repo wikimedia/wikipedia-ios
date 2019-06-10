@@ -73,6 +73,9 @@
 "account-creation-title" = "Vytvořit uživatelský účet";
 "account-group-title" = "Váš účet";
 "account-talk-page-title" = "Vaše diskusní stránka";
+"account-talk-preferences-auto-sign-discussions" = "Automaticky podepisovat příspěvky v diskusích";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatické podpisování příspěvků v diskusích bude používat podpis definovaný v Nastavení podpisu";
+"account-talk-preferences-title" = "Nastavení diskusí";
 "action-add-to" = "Přidat do…";
 "action-add-to-reading-list" = "Přidat do seznamu k přečtení";
 "action-add-to-reading-list-short" = "Přidat do seznamu";
@@ -258,6 +261,7 @@
 "empty-no-saved-pages-message" = "Uložte si stránky pro jejich prohlížení později, a to i v režimu offline";
 "empty-no-saved-pages-title" = "Žádné uložené stránky";
 "empty-no-search-results-message" = "Nenalezeny žádné výsledky";
+"empty-talk-page-title" = "Tento uživatel zatím neodeslal žádné zprávy";
 "error-generic-description" = "Vyskytla se neočekávaná chyba";
 "error-generic-recovery-suggestion" = "Prosíme, zkuste to znovu";
 "error-unknown" = "Došlo k neznámé chybě.";
@@ -728,6 +732,8 @@
 "table-of-contents-close-accessibility-label" = "Schovat obsah";
 "table-of-contents-heading" = "Obsah";
 "table-title-other" = "Další informace";
+"talk-page-error-unable-to-post-reply" = "Nelze se připojit k interentu. Nelze odeslat odpověď.";
+"talk-page-error-unable-to-post-topic" = "Nelze se připojit k interentu. Nelze zveřejnit nové téma.";
 "talk-page-info-active-conversations" = "Aktivní diskuse na Wikipedii v jazyce $1";
 "talk-page-info-active-conversations-generic" = "Aktivní diskuse na Wikipedii";
 "talk-page-new-banner-subtitle" = "Pamatujte, že všichni jsme lidé";
@@ -756,6 +762,7 @@
 "two-factor-login-title" = "Přihlaste se do svého účtu";
 "two-factor-login-with-backup-code" = "Použít jeden z vašich záložních kódů";
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
+"unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
 "view-in-browser-footer-link" = "Zobrazit článek v prohlížeči";
 "welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";

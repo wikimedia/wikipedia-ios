@@ -85,6 +85,9 @@
 "account-creation-title" = "Создайте новую учётную запись";
 "account-group-title" = "Ваша учётная запись";
 "account-talk-page-title" = "Ваша страница обсуждения";
+"account-talk-preferences-auto-sign-discussions" = "Автоматическая подпись в обсуждениях";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "В автоматическом подписывании обсуждений будет использовать та подпись, которая установлена в Настройках";
+"account-talk-preferences-title" = "Настройки страницы обсуждения";
 "action-add-to" = "Добавить в…";
 "action-add-to-reading-list" = "Добавить в список для чтения";
 "action-add-to-reading-list-short" = "Добавить в список";
@@ -270,6 +273,7 @@
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-search-results-message" = "Ничего не найдено";
+"empty-talk-page-title" = "Участник ещё не публиковал обсуждений";
 "error-generic-description" = "Произошла непредвиденная ошибка";
 "error-generic-recovery-suggestion" = "Пожалуйста, повторите позже";
 "error-unknown" = "Произошла неизвестная ошибка";
@@ -740,6 +744,8 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
+"talk-page-error-unable-to-post-reply" = "Нет подключения к интернету. Невозможно опубликовать ответ.";
+"talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать новое обсуждение.";
 "talk-page-info-active-conversations" = "Активные обсуждения в википедии $1";
 "talk-page-info-active-conversations-generic" = "Активные обсуждения в Википедии";
 "talk-page-new-banner-subtitle" = "И не забывайте - вы общаетесь с живыми людьми, со всеми вытекающими отсюда последствиями :-)";
@@ -768,6 +774,7 @@
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
+"unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
 "view-in-browser-footer-link" = "Просмотреть статью в браузере";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
