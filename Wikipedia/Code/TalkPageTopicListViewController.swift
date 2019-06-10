@@ -4,7 +4,7 @@ import UIKit
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
-    func didBecomeActiveAfterCompletingActivity(_ completedActivityType: UIActivity.ActivityType?)
+    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?)
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -64,7 +64,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     }
 
     @objc private func didBecomeActive() {
-        delegate?.didBecomeActiveAfterCompletingActivity(completedActivityType)
+        delegate?.didBecomeActiveAfterCompletingActivity(ofType: completedActivityType)
         completedActivityType = nil
     }
     

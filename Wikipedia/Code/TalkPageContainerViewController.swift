@@ -263,7 +263,7 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
         navigationController?.pushViewController(replyListViewController, animated: true)
     }
 
-    func didBecomeActiveAfterCompletingActivity(_ completedActivityType: UIActivity.ActivityType?) {
+    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?) {
         if completedActivityType == .openInSafari {
             fetch()
         }
