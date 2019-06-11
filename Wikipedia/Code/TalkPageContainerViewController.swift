@@ -117,7 +117,7 @@ private extension TalkPageContainerViewController {
     
     func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {
         if topicListViewController == nil {
-            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
+            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPageTitle: talkPageTitle, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
             topicListViewController?.apply(theme: theme)
             let belowView: UIView = wmf_emptyView ?? navigationBar
             wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowView)
@@ -261,6 +261,12 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
         replyListViewController.repliesAreDisabled = repliesAreDisabled
         self.replyListViewController = replyListViewController
         navigationController?.pushViewController(replyListViewController, animated: true)
+    }
+
+    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?) {
+        if completedActivityType == .openInSafari {
+            fetch()
+        }
     }
 }
 
