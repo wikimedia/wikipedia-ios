@@ -64,6 +64,9 @@
 "account-creation-title" = "Crea un compte nou";
 "account-group-title" = "El vostre compte";
 "account-talk-page-title" = "La vostra pàgina de discussió";
+"account-talk-preferences-auto-sign-discussions" = "Signa les discussions automàticament";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "La signatura automàtica de les discussions utilitzarà la signatura definida als paràmetres de signatura";
+"account-talk-preferences-title" = "Preferències de la pàgina de discussió";
 "action-add-to" = "Afegeix a…";
 "action-add-to-reading-list" = "Afegeix a la llista de lectura";
 "action-add-to-reading-list-short" = "Afegeix a la llista";
@@ -249,6 +252,7 @@
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-search-results-message" = "No s'han trobat resultats";
+"empty-talk-page-title" = "Aquest usuari encara no ha enviat cap missatge.";
 "error-generic-description" = "S'ha produït un error inesperat";
 "error-generic-recovery-suggestion" = "Torneu-ho a provar més tard";
 "error-unknown" = "S'ha produït un error desconegut";
@@ -719,6 +723,8 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
+"talk-page-error-unable-to-post-reply" = "No hi ha connexió a Internet. No es pot enviar la resposta.";
+"talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar el tema.";
 "talk-page-info-active-conversations" = "Converses actives a la Viquipèdia en $1";
 "talk-page-info-active-conversations-generic" = "Converses actives a la Viquipèdia";
 "talk-page-new-banner-subtitle" = "Recordeu, aquí tothom és humà";
@@ -747,6 +753,7 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
+"unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "view-in-browser-footer-link" = "Mostra l'article al navegador";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";
