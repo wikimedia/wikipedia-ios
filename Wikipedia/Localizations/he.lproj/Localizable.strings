@@ -10,6 +10,7 @@
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Or
+// Author: Steeve815
 // Author: Strayblues
 // Author: YaronSh
 // Author: איתן96
@@ -60,6 +61,11 @@
 "account-creation-passwords-mismatched" = "הססמאות אינן זהות.";
 "account-creation-saving" = "שמירה...";
 "account-creation-title" = "יצירת חשבון חדש";
+"account-group-title" = "החשבון שלך";
+"account-talk-page-title" = "דף השיחה שלך";
+"account-talk-preferences-auto-sign-discussions" = "חתימה אוטומטית בדיונים";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "חתימה אוטומטית בדיונים תשתמש בחתימה שהוגדרה בהגדרות החתימה";
+"account-talk-preferences-title" = "העדפות דף שיחה";
 "action-add-to" = "הוספה ל־...";
 "action-add-to-reading-list" = "הוספה לרשימת קריאה";
 "action-add-to-reading-list-short" = "הוספה לרשימה";
@@ -245,6 +251,7 @@
 "empty-no-saved-pages-message" = "אפשר לשמור דפים כדי לקרוא אותם אחר־כך, אפילו בלי חיבור לרשת";
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
 "empty-no-search-results-message" = "לא נמצאו תוצאות";
+"empty-talk-page-title" = "אין שיחות עבור משתמש זה";
 "error-generic-description" = "אירעה שגיאה בלתי־צפויה";
 "error-generic-recovery-suggestion" = "נא לנסות שוב מאוחר יותר";
 "error-unknown" = "אירעה שגיאה בלתי־ידועה";
@@ -657,6 +664,7 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
+"settings-account" = "חשבון";
 "settings-appearance" = "העדפות קריאה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
@@ -714,6 +722,24 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-title-other" = "מידע נוסף";
+"talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
+"talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם נושא.";
+"talk-page-info-active-conversations" = "שיחות פעילות בוויקיפדיה ה$1";
+"talk-page-info-active-conversations-generic" = "שיחות פעילות בוויקיפדיה";
+"talk-page-new-banner-subtitle" = "זכרו, כולנו כאן בני אדם";
+"talk-page-new-banner-title" = "היו מנומסים";
+"talk-page-new-reply-body-placeholder-text" = "תגובה חדשה";
+"talk-page-new-reply-success-text" = "התגובה שלך פורסמה בהצלחה";
+"talk-page-new-subject-placeholder-text" = "נושא";
+"talk-page-new-topic-body-placeholder-text" = "דיון חדש";
+"talk-page-new-topic-success-text" = "הדיון שלך פורסם בהצלחה";
+"talk-page-new-topic-title" = "דיון חדש";
+"talk-page-publish-terms-and-licenses" = "שמירת השינויים מהווה את הסכמתך ל$1תנאי השימוש$2 ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון $3CC BY-SA 3.0$4 ולרישיון $5GFDL$6.";
+"talk-page-reply-title" = "תגובה";
+"talk-page-title-article-talk" = "שיחת ערך";
+"talk-page-title-user-talk" = "שיחת משתמש";
+"talk-page-topic-title" = "דיון";
+"talk-pages-reply-button-title" = "השב לדיון זה";
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
 "theme-default-display-name" = "ברירת מחדל";
@@ -726,6 +752,7 @@
 "two-factor-login-title" = "כניסה לחשבון שלך";
 "two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
+"unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "view-in-browser-footer-link" = "הצגת הערך בדפדפן";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";
 "welcome-exploration-explore-feed-title" = "הזנת לחקור";

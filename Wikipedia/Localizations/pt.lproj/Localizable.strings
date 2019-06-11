@@ -61,6 +61,11 @@
 "account-creation-passwords-mismatched" = "As palavras-passe não coincidem.";
 "account-creation-saving" = "A gravar...";
 "account-creation-title" = "Criar uma conta nova";
+"account-group-title" = "A sua conta";
+"account-talk-page-title" = "A sua página de discussão";
+"account-talk-preferences-auto-sign-discussions" = "Assinar discussões automaticamente";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "A assinatura automática de discussões usará a assinatura definida nas configurações da assinatura";
+"account-talk-preferences-title" = "Preferências da página de discussão";
 "action-add-to" = "Adicionar a…";
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
@@ -124,6 +129,7 @@
 "button-skip" = "Ignorar";
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipédia para ler mais artigos";
@@ -232,8 +238,7 @@
 "editing-welcome-impartial-tone-title" = "Escreva de forma imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos acesso ao conhecimento mundial, precisamos que participe na sua criação, lendo, editando e contribuindo nos assuntos que mais lhe interessam.";
 "editing-welcome-set-knowledge-free-title" = "Libertar o conhecimento";
-// Fuzzy
-"empty-insert-media-title" = "Selecionar um ficheiro";
+"empty-insert-media-title" = "Selecionar um ficheiro da wiki Wikimedia Commons";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Pode sempre ler as páginas guardadas";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados quando tiver acesso à Internet";
@@ -246,6 +251,7 @@
 "empty-no-saved-pages-message" = "Guarde páginas para lê-las mais tarde, mesmo sem ligação";
 "empty-no-saved-pages-title" = "Ainda não tem páginas guardadas";
 "empty-no-search-results-message" = "Não foram encontrados resultados";
+"empty-talk-page-title" = "Ainda não foi publicada nenhuma mensagem para este utilizador";
 "error-generic-description" = "Ocorreu um erro inesperado";
 "error-generic-recovery-suggestion" = "Tente novamente mais tarde, por favor";
 "error-unknown" = "Ocorreu um erro desconhecido";
@@ -658,6 +664,7 @@
 "search-recent-title" = "Pesquisado recentemente";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";
+"settings-account" = "Conta";
 "settings-appearance" = "Leitura";
 "settings-clear-cache" = "Limpar dados da cache";
 "settings-clear-cache-are-you-sure-message" = "Limpar os dados da cache libertará cerca de $1 de espaço. Não apaga as suas páginas guardadas.";
@@ -715,6 +722,24 @@
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-heading" = "Índice";
 "table-title-other" = "Mais informação";
+"talk-page-error-unable-to-post-reply" = "Não há ligação à Internet. Não é possível publicar a resposta.";
+"talk-page-error-unable-to-post-topic" = "Não há ligação à Internet. Não é possível publicar o tópico.";
+"talk-page-info-active-conversations" = "Conversas ativas na Wikipédia em $1";
+"talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
+"talk-page-new-banner-subtitle" = "Lembre-se, aqui somos todos seres humanos";
+"talk-page-new-banner-title" = "Seja gentil, por favor";
+"talk-page-new-reply-body-placeholder-text" = "Redigir resposta";
+"talk-page-new-reply-success-text" = "A sua resposta foi publicada";
+"talk-page-new-subject-placeholder-text" = "Assunto";
+"talk-page-new-topic-body-placeholder-text" = "Redigir discussão nova";
+"talk-page-new-topic-success-text" = "A sua discussão foi publicada";
+"talk-page-new-topic-title" = "Discussão nova";
+"talk-page-publish-terms-and-licenses" = "Ao gravar as alterações concorda com as $1Condições de utilização$2 e aceita publicar a sua contribuição com as licenças $3CC BY-SA 3.0$4 e $5GFDL$6.";
+"talk-page-reply-title" = "Resposta";
+"talk-page-title-article-talk" = "Discussão de artigo";
+"talk-page-title-user-talk" = "Discussão do utilizador";
+"talk-page-topic-title" = "Discussão";
+"talk-pages-reply-button-title" = "Responder a esta discussão";
 "theme-black-display-name" = "Negro";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Padrão";
@@ -727,6 +752,7 @@
 "two-factor-login-title" = "Inicie sessão na sua conta";
 "two-factor-login-with-backup-code" = "Usar um dos seus códigos de uso único";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
+"unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "view-in-browser-footer-link" = "Ver artigo no browser";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "O feed \"Explorar\"";

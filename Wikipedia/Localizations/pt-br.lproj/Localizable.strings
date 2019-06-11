@@ -76,6 +76,9 @@
 "account-creation-title" = "Criar uma nova conta";
 "account-group-title" = "Sua conta";
 "account-talk-page-title" = "Sua página de discussão";
+"account-talk-preferences-auto-sign-discussions" = "Auto-assinar discussões";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "A assinatura automática de discussões usará a assinatura definida nas configurações de assinatura";
+"account-talk-preferences-title" = "Preferências da página de discussão";
 "action-add-to" = "Adicionar a…";
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
@@ -261,6 +264,7 @@
 "empty-no-saved-pages-message" = "Guarde páginas para ler mais tarde, mesmo que seja offline";
 "empty-no-saved-pages-title" = "Sem páginas salvas ainda.";
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
+"empty-talk-page-title" = "Nenhuma mensagem foi postada para este usuário ainda";
 "error-generic-description" = "Um erro inesperado ocorreu";
 "error-generic-recovery-suggestion" = "Por favor, tente novamente mais tarde";
 "error-unknown" = "Ocorreu um erro desconhecido";
@@ -731,6 +735,8 @@
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
 "table-title-other" = "Mais informações";
+"talk-page-error-unable-to-post-reply" = "Nenhuma conexão com a internet. Não é possível postar resposta.";
+"talk-page-error-unable-to-post-topic" = "Nenhuma conexão com a internet. Não é possível postar o tópico.";
 "talk-page-info-active-conversations" = "Conversas ativas em $1 Wikipédia";
 "talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
 "talk-page-new-banner-subtitle" = "Lembre-se, somos todos humanos aqui";
@@ -759,6 +765,7 @@
 "two-factor-login-title" = "Faça login na sua conta";
 "two-factor-login-with-backup-code" = "Use um dos seus códigos de backup";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
+"unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "view-in-browser-footer-link" = "Ver artigo no navegador";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "Feed de explorar";

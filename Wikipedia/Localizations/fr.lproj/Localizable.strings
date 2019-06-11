@@ -73,6 +73,9 @@
 "account-creation-title" = "Créer un nouveau compte";
 "account-group-title" = "Votre compte";
 "account-talk-page-title" = "Votre page de discussion";
+"account-talk-preferences-auto-sign-discussions" = "Discussions signées automatiquement";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "La signature automatique des discussions utilisera la signature définie dans les paramètres Signature";
+"account-talk-preferences-title" = "Préférences de la page de discussion";
 "action-add-to" = "Ajouter à…";
 "action-add-to-reading-list" = "Ajouter à la liste de lecture";
 "action-add-to-reading-list-short" = "Ajouter à la liste";
@@ -258,6 +261,7 @@
 "empty-no-saved-pages-message" = "Enregistrer des pages pour les lire ultérieurement, même hors ligne";
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
+"empty-talk-page-title" = "Aucun message n’a encore été posté pour cet utilisateur";
 "error-generic-description" = "Une erreur inattendue s’est produite";
 "error-generic-recovery-suggestion" = "Veuillez réessayer ultérieurement";
 "error-unknown" = "Une erreur inconnue est survenue";
@@ -728,6 +732,8 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-title-other" = "Plus d’information";
+"talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
+"talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer le sujet.";
 "talk-page-info-active-conversations" = "Conversations actives sur Wikipédia $1";
 "talk-page-info-active-conversations-generic" = "Conversations actives sur Wikipédia";
 "talk-page-new-banner-subtitle" = "Souvenez-vous que chacun est un être humain ici.";
@@ -756,6 +762,7 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
+"unable-to-load-talk-page-title" = "Impossible de charger la page de discussion";
 "view-in-browser-footer-link" = "Afficher l’article dans le navigateur";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Explorer le fil";

@@ -53,6 +53,9 @@
 "account-creation-title" = "Создај нова сметка";
 "account-group-title" = "Ваша сметка";
 "account-talk-page-title" = "Ваша разговорна страница";
+"account-talk-preferences-auto-sign-discussions" = "Автопотпишување во разговори";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Автопотпишувањето ќе го става потписот зададен во нагодувањата";
+"account-talk-preferences-title" = "Нагодувања за разговорни страници";
 "action-add-to" = "Додај во...";
 "action-add-to-reading-list" = "Додај во список за читање";
 "action-add-to-reading-list-short" = "Додај во список";
@@ -238,6 +241,7 @@
 "empty-no-saved-pages-message" = "Зачувајте ги страниците за да ги читате подоцна, дури и кога немате линија";
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-search-results-message" = "Не пронајдов ништо";
+"empty-talk-page-title" = "Корисников засега нема пораки.";
 "error-generic-description" = "Се појави неочекувана грешка";
 "error-generic-recovery-suggestion" = "Обидете се подоцна";
 "error-unknown" = "Се појави непозната грешка";
@@ -708,6 +712,8 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
+"talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам темата.";
 "talk-page-info-active-conversations" = "Тековни разговори на Википедија на $1";
 "talk-page-info-active-conversations-generic" = "Тековни разговори на Википедија";
 "talk-page-new-banner-subtitle" = "Запомнете, сите тука сме луѓе";
@@ -736,6 +742,7 @@
 "two-factor-login-title" = "Најавете се со вашата сметка";
 "two-factor-login-with-backup-code" = "Користи еден од резервните кодови";
 "two-factor-login-with-regular-code" = "Користи потврден код";
+"unable-to-load-talk-page-title" = "Не можам да ја вчитам разговорната страница";
 "view-in-browser-footer-link" = "Отвори во прелистувач";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
 "welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
