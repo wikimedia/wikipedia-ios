@@ -165,7 +165,6 @@
 
     // MARK: Saved
 
-    // check if we get revision after submitting a new wikidata description edit
     public func logTitleDescriptionSaved(source: EditFunnelSource, isAddingNewTitleDescription: Bool, language: String?) {
         log(event(action: .saved, source: source, wikidataDescriptionEdit: WikidataDescriptionEdit(isAddingNewTitleDescription: isAddingNewTitleDescription)), language: language)
     }
