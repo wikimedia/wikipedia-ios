@@ -234,7 +234,7 @@ class SectionEditorViewController: UIViewController {
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
-        editFunnel.logSectionHighlightToEditError(revision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
+        editFunnel.logSectionHighlightToEditError(language: section?.articleLanguage)
         let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
         let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
@@ -359,7 +359,7 @@ class SectionEditorViewController: UIViewController {
         guard !loggedEditActions.contains(.ready) else {
             return
         }
-        editFunnel.logSectionReadyToEdit(from: editFunnelSource, revision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
+        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: section?.articleLanguage)
         loggedEditActions.append(.ready)
     }
 

@@ -83,7 +83,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
 
         if var loggedEditActions = loggedEditActions, loggedEditActions.contains(.preview) {
-            editFunnel?.logEditPreviewForArticle(withRevision: section?.article?.revisionId?.intValue, language: section?.articleLanguage)
+            editFunnel?.logEditPreviewForArticle(language: section?.articleLanguage)
             loggedEditActions.append(.preview)
         }
         
