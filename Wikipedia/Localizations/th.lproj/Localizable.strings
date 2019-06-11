@@ -5,6 +5,7 @@
 // Author: B20180
 // Author: CodeNameBOSS
 // Author: Horus
+// Author: Karit
 // Author: Nemo bis
 // Author: Patsagorn Y.
 // Author: Pon44695
@@ -518,6 +519,7 @@
 "table-of-contents-close-accessibility-label" = "ปิดสารบัญ";
 "table-of-contents-heading" = "เนื้อหา";
 "table-title-other" = "ข้อมูลเพิ่มเติม";
+"talk-page-error-unable-to-post-reply" = "ไม่มีอินเทอร์เน็ต พิมไม่ติด";
 "theme-black-display-name" = "ดำ";
 "theme-dark-display-name" = "มืด";
 "theme-default-display-name" = "ค่าปริยาย";
