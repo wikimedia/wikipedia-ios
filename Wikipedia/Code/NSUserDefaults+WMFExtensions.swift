@@ -533,7 +533,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     var autoSignTalkPageDiscussions: Bool {
         get {
-            return bool(forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
+            return (value(forKey: UserDefaults.Key.autoSignTalkPageDiscussions) as? Bool) ?? true
         }
         set {
             set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
