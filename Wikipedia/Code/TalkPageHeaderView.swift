@@ -22,7 +22,6 @@ class TalkPageHeaderView: UIView {
     @IBOutlet private var introTextView: UITextView!
     
     private var viewModel: ViewModel?
-    private var siteURL: URL?
     
     private var theme: Theme?
     
@@ -84,10 +83,9 @@ class TalkPageHeaderView: UIView {
         introTextView.textContainer.lineFragmentPadding = 0
     }
     
-    func configure(viewModel: ViewModel, siteURL: URL) {
+    func configure(viewModel: ViewModel) {
         
         self.viewModel = viewModel
-        self.siteURL = siteURL
         
         if hasInfoText {
             infoLabel.text = viewModel.info
@@ -99,7 +97,7 @@ class TalkPageHeaderView: UIView {
         headerLabel.text = viewModel.header
         
         let titleFont = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil, baseURL: siteURL.appendingPathComponent("/wiki/"))
+        let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil, baseURL: nil)
         titleTextView.attributedText = titleAttributedString
         
         if let intro = viewModel.intro {
@@ -117,7 +115,7 @@ class TalkPageHeaderView: UIView {
             let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
             let italicIntroFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
             
-            introTextView.attributedText = text.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil, baseURL: siteURL?.appendingPathComponent("/wiki/"))
+            introTextView.attributedText = text.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil, baseURL: nil)
         } else {
             introTextView.isHidden = true
         }

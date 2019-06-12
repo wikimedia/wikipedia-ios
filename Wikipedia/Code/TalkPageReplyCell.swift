@@ -82,7 +82,7 @@ class TalkPageReplyCell: CollectionViewCell {
         return CGSize(width: size.width, height: finalHeight)
     }
     
-    func configure(title: String, depth: UInt, siteURL: URL) {
+    func configure(title: String, depth: UInt) {
         
         self.depth = depth
         depthMarker.isHidden = depth < 1
@@ -90,7 +90,7 @@ class TalkPageReplyCell: CollectionViewCell {
         let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
         let italicfont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
-        let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil, baseURL: siteURL.appendingPathComponent("/wiki/"))
+        let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil, baseURL: nil)
         setupTitle(for: attributedString)
         setNeedsLayout()
     }

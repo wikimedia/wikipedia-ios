@@ -12,7 +12,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private let topic: TalkPageTopic
     private let dataStore: MWKDataStore
-    private let siteURL: URL
     private var fetchedResultsController: NSFetchedResultsController<TalkPageReply>
     
     private let reuseIdentifier = "TalkPageReplyCell"
@@ -81,11 +80,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     
-    required init(dataStore: MWKDataStore, topic: TalkPageTopic, talkPageSemanticContentAttribute: UISemanticContentAttribute, siteURL: URL) {
+    required init(dataStore: MWKDataStore, topic: TalkPageTopic, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
         self.topic = topic
         self.talkPageSemanticContentAttribute = talkPageSemanticContentAttribute
-        self.siteURL = siteURL
         
         let request: NSFetchRequest<TalkPageReply> = TalkPageReply.fetchRequest()
         request.predicate = NSPredicate(format: "topic == %@",  topic)
@@ -326,7 +324,7 @@ private extension TalkPageReplyListViewController {
         let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil, intro: nil)
         
         header.delegate = self
-        header.configure(viewModel: viewModel, siteURL: siteURL)
+        header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
         header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
@@ -350,7 +348,7 @@ private extension TalkPageReplyListViewController {
         }
         
         cell.delegate = self
-        cell.configure(title: title, depth: UInt(item.depth), siteURL: siteURL)
+        cell.configure(title: title, depth: UInt(item.depth))
         cell.layoutMargins = layout.itemLayoutMargins
         cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         cell.apply(theme: theme)

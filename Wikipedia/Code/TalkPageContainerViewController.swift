@@ -178,7 +178,7 @@ private extension TalkPageContainerViewController {
         
         let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: controller.displayTitle, info: infoText, intro: intro)
         
-        header.configure(viewModel: viewModel, siteURL: siteURL)
+        header.configure(viewModel: viewModel)
         header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
     }
@@ -263,12 +263,11 @@ private extension TalkPageContainerViewController {
     }
     
     func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController) {
-//        guard let absoluteURL = absoluteURL(for: url) else {
-//            showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
-//            return
-//        }
-
-        let absoluteURL = url
+        guard let absoluteURL = absoluteURL(for: url) else {
+            showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
+            return
+        }
+        
         toggleLinkDeterminationState(loadingViewController: loadingViewController, shouldDisable: true)
         
         self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [absoluteURL]) { [weak self, weak loadingViewController] (articles, error) in
@@ -369,7 +368,7 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     }
     
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
-        let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute, siteURL: siteURL)
+        let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
         replyListViewController.delegate = self
         replyListViewController.apply(theme: theme)
         replyListViewController.repliesAreDisabled = repliesAreDisabled
