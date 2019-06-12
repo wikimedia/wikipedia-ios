@@ -200,16 +200,13 @@ private extension TalkPageContainerViewController {
         if let firstPathComponent = url.pathComponents.first,
             firstPathComponent == ".",
             url.host == nil,
-            url.scheme == nil,
-            let siteURLHost = siteURL.host,
-            let siteURLScheme = siteURL.scheme {
-            absoluteUrl = URL(string: "\(siteURLScheme)://\(siteURLHost)/wiki/")
+            url.scheme == nil {
             
-            let pathComponents = url.pathComponents.suffix(from: 1)
+            var pathComponents = Array(url.pathComponents.dropFirst()) // replace ./ with wiki/
+            pathComponents.insert("/wiki/", at: 0)
             
-            for pathComponent in pathComponents {
-                absoluteUrl?.appendPathComponent(pathComponent)
-            }
+            absoluteUrl = siteURL.wmf_URL(withPath: pathComponents.joined(), isMobile: true)
+            
         } else if url.host != nil && url.scheme != nil {
             absoluteUrl = url
         }
