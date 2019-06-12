@@ -75,7 +75,7 @@ extension NSManagedObjectContext {
         }
         
         let oldTopicSetShas = Set(topicShas)
-        let newTopicSetShas = Set(networkTalkPage.topics.map { $0.shas.text })
+        let newTopicSetShas = Set(networkTalkPage.topics.map { $0.shas.html })
         
         //delete old topics
         let topicShasToDelete = oldTopicSetShas.subtracting(newTopicSetShas)
@@ -95,7 +95,7 @@ extension NSManagedObjectContext {
             let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
             
             for insertSha in topicShasToInsert {
-                if let networkTopic = networkTalkPage.topics.filter({ $0.shas.text == insertSha }).first {
+                if let networkTopic = networkTalkPage.topics.filter({ $0.shas.html == insertSha }).first {
                     try addTalkPageTopic(to: localTalkPage, with: networkTopic)
                 }
             }
@@ -155,7 +155,7 @@ private extension NSManagedObjectContext {
             return
         }
         
-        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.text) }).sorted(by: { $0.shas.text < $1.shas.text })
+        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.html) }).sorted(by: { $0.shas.html < $1.shas.html })
         
         guard (sameLocalTopics.count == sameNetworkTopics.count) else {
             return
@@ -241,7 +241,7 @@ private extension NSManagedObjectContext {
     
     func addTalkPageTopic(to talkPage: TalkPage, with networkTopic: NetworkTopic) throws {
         let topic = TalkPageTopic(context: self)
-        topic.title = networkTopic.text
+        topic.title = networkTopic.html
         topic.sectionID = Int64(networkTopic.sectionID)
         
         if let sort = networkTopic.sort {
@@ -250,7 +250,7 @@ private extension NSManagedObjectContext {
             assertionFailure("Network topic is missing sort")
         }
         
-        topic.textSha = networkTopic.shas.text
+        topic.textSha = networkTopic.shas.html
         try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: topic)
         
         for reply in networkTopic.replies {
@@ -263,7 +263,7 @@ private extension NSManagedObjectContext {
     func addTalkPageReply(to topic: TalkPageTopic, with networkReply: NetworkReply) {
         let reply = TalkPageReply(context: self)
         reply.depth = networkReply.depth
-        reply.text = networkReply.text
+        reply.text = networkReply.html
         reply.sort = Int64(networkReply.sort)
         reply.topic = topic
         reply.sha = networkReply.sha
