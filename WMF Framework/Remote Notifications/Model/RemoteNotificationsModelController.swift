@@ -202,7 +202,7 @@ final class RemoteNotificationsModelController: NSObject {
     }
 
     public func updateNotifications(_ savedNotifications: Set<RemoteNotification>, with notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
-        let savedIDs = Set(savedNotifications.compactMap { $0.id?.intValue })
+        let savedIDs = Set(savedNotifications.compactMap { $0.id })
         let fetchedIDs = Set(notificationsFetchedFromTheServer.compactMap { $0.id })
         let commonIDs = savedIDs.intersection(fetchedIDs)
         let moc = managedObjectContext
@@ -210,7 +210,7 @@ final class RemoteNotificationsModelController: NSObject {
         moc.perform {
             // Delete notifications that were marked as read on the server
             for notification in savedNotifications {
-                guard let id = notification.id?.intValue, !commonIDs.contains(id) else {
+                guard let id = notification.id, !commonIDs.contains(id) else {
                     continue
                 }
                 moc.delete(notification)
@@ -222,7 +222,7 @@ final class RemoteNotificationsModelController: NSObject {
                     continue
                 }
                 guard !commonIDs.contains(id) else {
-                    if let savedNotification = savedNotifications.first(where: { $0.id?.intValue == id }) {
+                    if let savedNotification = savedNotifications.first(where: { $0.id == id }) {
                         // Update notifications that weren't seen so that moc is notified of the update
                         savedNotification.state = .read
                     }

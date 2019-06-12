@@ -11,7 +11,7 @@ extension RemoteNotification {
     @NSManaged public var affectedPageID: String?
     @NSManaged public var categoryString: String?
     @NSManaged public var date: NSDate?
-    @NSManaged public var id: NSNumber?
+    @NSManaged public var id: String?
     @NSManaged public var message: String?
     @NSManaged public var typeString: String?
     @NSManaged public var wiki: String?

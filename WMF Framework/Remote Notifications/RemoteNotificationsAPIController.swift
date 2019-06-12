@@ -22,7 +22,7 @@ class RemoteNotificationsAPIController: Fetcher {
             let wiki: String?
             let type: String?
             let category: String?
-            let id: Int?
+            let id: String?
             let message: Message?
             let timestamp: Timestamp?
             let agent: Agent?
