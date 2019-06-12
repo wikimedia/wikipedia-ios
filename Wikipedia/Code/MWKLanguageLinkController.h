@@ -82,6 +82,8 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
 
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL;
 
+- (nullable MWKLanguageLink *)languageForLanguageCode:(NSString *)languageCode;
+
 @end
 
 NS_ASSUME_NONNULL_END

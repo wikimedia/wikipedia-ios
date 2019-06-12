@@ -707,6 +707,9 @@
 "talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page topic while being offline";
 "talk-page-info-active-conversations" = "This information label is displayed at the top of a talk page topic list. $1 is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.";
 "talk-page-info-active-conversations-generic" = "This information label is displayed at the top of a talk page topic list. This is fallback text in case a specific wiki language cannot be determined.";
+"talk-page-link-user-action-sheet-app" = "Title of action sheet button that takes user to a user talk page in the app after tapping a user page link in talk pages.";
+"talk-page-link-user-action-sheet-safari" = "Title of action sheet button that takes user to a user page in Safari after tapping a user page link in talk pages.";
+"talk-page-link-user-action-sheet-title" = "Title of action sheet that displays when user taps a user page link in talk pages";
 "talk-page-new-banner-subtitle" = "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.";
 "talk-page-new-banner-title" = "Title text on banner that appears once user posts a new reply or discussion topic on their talk page.";
 "talk-page-new-reply-body-placeholder-text" = "Placeholder text which appears initially in the new reply field for talk pages.";

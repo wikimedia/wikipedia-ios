@@ -21,7 +21,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     var hintController: HintController?
     
-    lazy private var fakeProgressController: FakeProgressController = {
+    lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
         progressController.delay = 0.0
         return progressController
@@ -149,6 +149,7 @@ private extension TalkPageContainerViewController {
         if let headerView = TalkPageHeaderView.wmf_viewFromClassNib() {
             self.headerView = headerView
             configure(header: headerView, intro: nil)
+            headerView.delegate = self
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
             useNavigationBarVisibleHeightForScrollViewInsets = true
@@ -189,6 +190,121 @@ private extension TalkPageContainerViewController {
             return NSString.localizedStringWithFormat(string as NSString, language) as String
         } else {
             return fallbackGenericString
+        }
+    }
+    
+    func absoluteURL(for url: URL) -> URL? {
+        
+        var absoluteUrl: URL?
+        
+        if let firstPathComponent = url.pathComponents.first,
+            firstPathComponent == ".",
+            url.host == nil,
+            url.scheme == nil,
+            let siteURLHost = siteURL.host,
+            let siteURLScheme = siteURL.scheme {
+            absoluteUrl = URL(string: "\(siteURLScheme)://\(siteURLHost)/wiki/")
+            
+            let pathComponents = url.pathComponents.suffix(from: 1)
+            
+            for pathComponent in pathComponents {
+                absoluteUrl?.appendPathComponent(pathComponent)
+            }
+        } else if url.host != nil && url.scheme != nil {
+            absoluteUrl = url
+        }
+        
+        return absoluteUrl
+    }
+    
+    func pushTalkPage(title: String, siteURL: URL) {
+        
+        let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: .user, dataStore: self.dataStore)
+        talkPageContainerVC.apply(theme: self.theme)
+        self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
+    }
+    
+    func showUserActionSheet(siteURL: URL, absoluteURL: URL) {
+        
+        let alertController = UIAlertController(title: WMFLocalizedString("talk-page-link-user-action-sheet-title", value: "User pages", comment: "Title of action sheet that displays when user taps a user page link in talk pages"), message: nil, preferredStyle: .actionSheet)
+        let safariAction = UIAlertAction(title: WMFLocalizedString("talk-page-link-user-action-sheet-safari", value: "View User page in Safari", comment: "Title of action sheet button that takes user to a user page in Safari after tapping a user page link in talk pages."), style: .default) { (_) in
+            self.openURLInSafari(url: absoluteURL)
+        }
+        let talkAction = UIAlertAction(title: WMFLocalizedString("talk-page-link-user-action-sheet-app", value: "View User Talk page in app", comment: "Title of action sheet button that takes user to a user talk page in the app after tapping a user page link in talk pages."), style: .default) { (_) in
+            
+            let title = absoluteURL.lastPathComponent
+            if let firstColon = title.range(of: ":") {
+                var titleWithoutNamespace = title
+                titleWithoutNamespace.removeSubrange(title.startIndex..<firstColon.upperBound)
+                let titleWithTalkPageNamespace = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: titleWithoutNamespace, siteURL: siteURL)
+                self.pushTalkPage(title: titleWithTalkPageNamespace, siteURL: siteURL)
+            }
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        
+        alertController.addAction(safariAction)
+        alertController.addAction(talkAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func openURLInSafari(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    func toggleLinkDeterminationState(loadingViewController: FakeLoading & ViewController, shouldDisable: Bool) {
+        
+        if shouldDisable {
+            loadingViewController.fakeProgressController.start()
+        } else {
+            loadingViewController.fakeProgressController.stop()
+        }
+        
+        loadingViewController.scrollView?.isUserInteractionEnabled = !shouldDisable
+        loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = !shouldDisable
+    }
+    
+    func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController) {
+        guard let absoluteURL = absoluteURL(for: url) else {
+            showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
+            return
+        }
+        
+        toggleLinkDeterminationState(loadingViewController: loadingViewController, shouldDisable: true)
+        
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [absoluteURL]) { [weak self, weak loadingViewController] (articles, error) in
+            
+            guard let self = self,
+            let loadingViewController = loadingViewController else {
+                return
+            }
+            
+            self.toggleLinkDeterminationState(loadingViewController: loadingViewController, shouldDisable: false)
+            
+            if error != nil {
+                self.openURLInSafari(url: absoluteURL)
+                return
+            }
+            
+            if let namespace = articles.first?.pageNamespace,
+                
+                //convert absoluteURL into a siteURL that TalkPageType.user.titleWithCanonicalNamespacePrefix will recognize to prefix the canonical name
+                let languageCode = absoluteURL.wmf_language,
+                let siteURL = MWKLanguageLinkController.sharedInstance().language(forLanguageCode: languageCode)?.siteURL() {
+                
+                switch namespace {
+                case .userTalk:
+                    let lastPathComponent = url.lastPathComponent
+                    self.pushTalkPage(title: lastPathComponent, siteURL: siteURL)
+                case .user:
+                    self.showUserActionSheet(siteURL: siteURL, absoluteURL: absoluteURL)
+                default:
+                    self.openURLInSafari(url: absoluteURL)
+                }
+            } else {
+                self.openURLInSafari(url: absoluteURL)
+            }
         }
     }
 }
@@ -283,7 +399,7 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
                 
                 switch result {
                 case .success:
-                    print("made it")
+                    break
                 case .failure(let error):
                     self.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-reply", value: "No internet connection. Unable to post reply.", comment: "Error message appearing when user attempts to post a new talk page reply while being offline"))
                 }
@@ -292,33 +408,12 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     }
     
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
-        
-        //todo: might want to fetch/lean on article summary for this instead to detect user talk page namespace.
-        
-        let lastPathComponent = url.lastPathComponent
-        
-        var urlForCanonicalCheck: URL?
-        var urlForContainer: URL?
-        if let host = url.host,
-            let scheme = url.scheme {
-            urlForCanonicalCheck = URL(string: "\(scheme)://\(host)")
-            urlForContainer = url
-        } else {
-            urlForCanonicalCheck = siteURL
-            urlForContainer = siteURL
-        }
-        
-        if let urlForCanonicalCheck = urlForCanonicalCheck,
-            let urlForContainer = urlForContainer,
-            let prefix = type.canonicalNamespacePrefix(for: urlForCanonicalCheck)?.wmf_denormalizedPageTitle(), //todo: check for localized prefix too?
-            lastPathComponent.contains(prefix) {
-            let talkPageContainerVC = TalkPageContainerViewController(title: lastPathComponent, siteURL: urlForContainer, type: .user, dataStore: dataStore)
-            talkPageContainerVC.apply(theme: theme)
-            navigationController?.pushViewController(talkPageContainerVC, animated: true)
-        }
-        
-        //todo: else if User: prefix, show their wikitext editing page in a web view. Ensure edits there cause talk page to refresh when coming back.
-        //else if no host, try prepending language wiki to components and navigate (openUrl, is it okay that this kicks them out of the app?)
-        //else if it's a full url (i.e. a different host), send them to safari
+        tappedLink(url, loadingViewController: viewController)
+    }
+}
+
+extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
+    func tappedLink(_ url: URL, cell: TalkPageHeaderView) {
+        tappedLink(url, loadingViewController: self)
     }
 }
