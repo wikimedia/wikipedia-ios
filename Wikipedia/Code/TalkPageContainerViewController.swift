@@ -279,8 +279,8 @@ private extension TalkPageContainerViewController {
             
             self.toggleLinkDeterminationState(loadingViewController: loadingViewController, shouldDisable: false)
             
-            if error != nil {
-                self.openURLInSafari(url: absoluteURL)
+            if let error = error {
+                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
                 return
             }
             
@@ -296,6 +296,8 @@ private extension TalkPageContainerViewController {
                     self.pushTalkPage(title: lastPathComponent, siteURL: siteURL)
                 case .user:
                     self.showUserActionSheet(siteURL: siteURL, absoluteURL: absoluteURL)
+                case .main:
+                    self.wmf_pushArticle(with: absoluteURL, dataStore: self.dataStore, theme: self.theme, animated: true)
                 default:
                     self.openURLInSafari(url: absoluteURL)
                 }
