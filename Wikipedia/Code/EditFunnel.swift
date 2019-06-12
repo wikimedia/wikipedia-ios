@@ -37,13 +37,13 @@
         case abuseFilterWarning
         case abuseFilterError
         case editSummaryTap
+        case editSummaryShown
         case abuseFilterWarningIgnore
         case abuseFilterWarningBack
         case saveAttempt
         case error
         case ready
         case onboarding
-        case editSummaryShown
     }
 
     private enum WikidataDescriptionEdit: String {
@@ -187,10 +187,14 @@
         log(event(action: .error, source: .highlight, errorText: "non-editable"), language: language)
     }
 
-    // MARK: Section edit summary tap
+    // MARK: Section edit summary
 
     public func logSectionEditSummaryTap(source: EditFunnelSource, editSummaryType: EditSummaryViewCannedButtonType, language: String?) {
         log(event(action: .editSummaryTap, source: source, editSummaryType: editSummaryType), language: language)
+    }
+
+    public func logSectionEditSummaryShown(source: EditFunnelSource, language: String?) {
+        log(event(action: .editSummaryShown, source: source), language: language)
     }
 
     // MARK: Captcha
