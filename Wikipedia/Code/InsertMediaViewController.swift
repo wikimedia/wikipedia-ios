@@ -48,6 +48,7 @@ final class InsertMediaViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.isExtendedViewHidingEnabled = true
+        navigationBar.isTopSpacingHidingEnabled = false
 
         addChild(selectedImageViewController)
         navigationBar.addUnderNavigationBarView(selectedImageViewController.view)
@@ -168,44 +169,51 @@ final class InsertMediaViewController: ViewController {
     }
 
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-        guard !isTransitioningToNewCollection else {
-            super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        guard !isAnimatingSearchBarState else {
             return
         }
-        if oldKeyboardFrame == nil, newKeyboardFrame != nil, searchViewController.searchBar.isFirstResponder { // showing
-            setUnderBarViewPercentHidden(1) {
-                self.isKeyboardShowing = true
-            }
-        } else if
-            isKeyboardShowing,
-            !isDisappearing,
-            let oldKeyboardFrame = oldKeyboardFrame,
-            let newKeyboardFrame = newKeyboardFrame,
-            newKeyboardFrame.origin.y > oldKeyboardFrame.origin.y { // hiding
-            navigationBar.isUnderBarViewHidingEnabled = true
-            useNavigationBarVisibleHeightForScrollViewInsets = false
-            updateScrollViewInsets(preserveAnimation: true)
-            isKeyboardShowing = false
-        }
-    }
-
-    private var isKeyboardShowing = false
-
-    private func setUnderBarViewPercentHidden(_ underBarViewPercentHidden: CGFloat, completion: (() -> Void)? = nil) {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true) {
-                self.useNavigationBarVisibleHeightForScrollViewInsets = true
-                self.navigationBar.isUnderBarViewHidingEnabled = false
-                self.updateScrollViewInsets(preserveAnimation: true)
-            }
-        }, completion: { _ in
-            completion?()
-        })
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
     }
 
     override func accessibilityPerformEscape() -> Bool {
         delegate?.insertMediaViewController(self, didTapCloseButton: closeButton)
         return true
+    }
+
+    var isAnimatingSearchBarState: Bool = false
+
+    func focusSearch(_ focus: Bool, animated: Bool = true, additionalAnimations: (() -> Void)? = nil) {
+        useNavigationBarVisibleHeightForScrollViewInsets = focus
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
+        let completion = { (finished: Bool) in
+            self.isAnimatingSearchBarState = false
+            self.useNavigationBarVisibleHeightForScrollViewInsets = focus
+        }
+
+        let animations = {
+            let underBarViewPercentHidden: CGFloat
+            let extendedViewPercentHidden: CGFloat
+            if let scrollView = self.scrollView, scrollView.wmf_isAtTop, !focus {
+                underBarViewPercentHidden = 0
+                extendedViewPercentHidden = 0
+            } else {
+                underBarViewPercentHidden = 1
+                extendedViewPercentHidden = focus ? 0 : 1
+            }
+            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: 0, animated: false)
+            self.searchViewController.searchBar.setShowsCancelButton(focus, animated: animated)
+            additionalAnimations?()
+            self.view.layoutIfNeeded()
+            self.updateScrollViewInsets(preserveAnimation: true)
+        }
+        guard animated else {
+            animations()
+            completion(true)
+            return
+        }
+        isAnimatingSearchBarState = true
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
     }
 }
 
@@ -246,8 +254,8 @@ extension InsertMediaViewController: InsertMediaSelectedImageViewControllerDeleg
 
 extension InsertMediaViewController: InsertMediaSearchResultsCollectionViewControllerScrollDelegate {
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidScroll scrollView: UIScrollView) {
-        if isKeyboardShowing, scrollView.isDragging {
-            searchViewController.searchBar.resignFirstResponder()
+        guard !isAnimatingSearchBarState else {
+            return
         }
         scrollViewDidScroll(scrollView)
     }
@@ -283,6 +291,42 @@ extension InsertMediaViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        unfocusSearch {
+            searchBar.endEditing(true)
+        }
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        navigationBar.isUnderBarViewHidingEnabled = false
+        navigationBar.isExtendedViewHidingEnabled = false
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        guard !isAnimatingSearchBarState else {
+            return
+        }
+        unfocusSearch {
+            searchBar.endEditing(true)
+            searchBar.text = nil
+        }
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.isExtendedViewHidingEnabled = true
+    }
+
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        guard !isAnimatingSearchBarState else {
+            return false
+        }
+        focusSearch(true)
+        return true
+    }
+
+    private func unfocusSearch(additionalAnimations: (() -> Void)? = nil) {
+        navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.isExtendedViewHidingEnabled = true
+        focusSearch(false, additionalAnimations: additionalAnimations)
     }
 }

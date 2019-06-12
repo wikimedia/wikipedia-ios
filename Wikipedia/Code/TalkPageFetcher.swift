@@ -20,14 +20,14 @@ class NetworkBase: Codable {
 }
 
 class NetworkTopic:  NSObject, Codable {
-    let text: String
+    let html: String
     let replies: [NetworkReply]
     let sectionID: Int
     let shas: NetworkTopicShas
     var sort: Int?
     
     enum CodingKeys: String, CodingKey {
-        case text
+        case html
         case shas
         case replies
         case sectionID = "id"
@@ -35,18 +35,18 @@ class NetworkTopic:  NSObject, Codable {
 }
 
 class NetworkTopicShas: Codable {
-    let text: String
+    let html: String
     let indicator: String
 }
 
 class NetworkReply: NSObject, Codable {
-    let text: String
+    let html: String
     let depth: Int16
     let sha: String
     var sort: Int!
     
     enum CodingKeys: String, CodingKey {
-        case text
+        case html
         case depth
         case sha
     }
@@ -190,13 +190,13 @@ class TalkPageFetcher: Fetcher {
 
             var introText: String?
             if let firstTopic = networkBase.topics.first,
-                firstTopic.text.count == 0,
+                firstTopic.html.count == 0,
                 let firstReply = firstTopic.replies.first,
-                firstReply.text.count > 0 {
-                introText = firstReply.text
+                firstReply.html.count > 0 {
+                introText = firstReply.html
             }
             
-            let filteredTopics = networkBase.topics.filter { $0.text.count > 0 }
+            let filteredTopics = networkBase.topics.filter { $0.html.count > 0 }
             let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: filteredTopics, revisionId: revisionID, displayTitle: displayTitle, introText: introText)
             completion(.success(talkPage))
         }

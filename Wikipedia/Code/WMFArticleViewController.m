@@ -1797,9 +1797,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showEditorForSection:(MWKSection *)section selectedTextEditInfo:(nullable SelectedTextEditInfo *)selectedTextEditInfo source:(EditFunnelSource)source {
-    int articleRevision = self.article.revisionId.intValue;
     NSString *articleLanguage = self.article.url.wmf_language;
-    [self.editFunnel logSectionEditingStartFromSource:source revision:articleRevision language:articleLanguage];
+    [self.editFunnel logSectionEditingStartFromSource:source language:articleLanguage];
 
     [self cancelWIconPopoverDisplay];
     WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
@@ -1821,7 +1820,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(self);
     void (^showIntro)(void) = ^{
         @strongify(self);
-        [self.editFunnel logOnboardingPresentationInitiatedBySource:source revision:articleRevision language:articleLanguage];
+        [self.editFunnel logOnboardingPresentationInitiatedBySource:source language:articleLanguage];
         WMFEditingWelcomeViewController *editingWelcomeViewController = [[WMFEditingWelcomeViewController alloc] initWithTheme:self.theme
                                                                                                                     completion:^{
                                                                                                                         sectionEditVC.shouldFocusWebView = YES;
@@ -1849,9 +1848,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)showTitleDescriptionEditor:(EditFunnelSource)source {
     BOOL isAddingNewTitleDescription = self.article.entityDescription == NULL;
-    int articleRevision = self.article.revisionId.intValue;
     NSString *articleLanguage = self.article.url.wmf_language;
-    [self.editFunnel logTitleDescriptionEditingStartFromSource:source revision:articleRevision language:articleLanguage];
+    [self.editFunnel logTitleDescriptionEditingStartFromSource:source language:articleLanguage];
 
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.delegate = self;
@@ -1874,10 +1872,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(navVC);
     void (^showIntro)(void) = ^{
         @strongify(self);
-        [self.editFunnel logOnboardingPresentationInitiatedBySource:source revision:articleRevision language:articleLanguage];
+        [self.editFunnel logOnboardingPresentationInitiatedBySource:source language:articleLanguage];
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
         welcomeVC.completionBlock = ^{
-            [self.editFunnel logTitleDescriptionReadyToEditFromSource:source isAddingNewTitleDescription:isAddingNewTitleDescription revision:articleRevision language:articleLanguage];
+            [self.editFunnel logTitleDescriptionReadyToEditFromSource:source isAddingNewTitleDescription:isAddingNewTitleDescription language:articleLanguage];
         };
         [welcomeVC applyTheme:self.theme];
         [navVC presentViewController:welcomeVC
@@ -1894,7 +1892,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                          if (needsIntro) {
                              showIntro();
                          } else {
-                             [self.editFunnel logTitleDescriptionReadyToEditFromSource:source isAddingNewTitleDescription:isAddingNewTitleDescription revision:articleRevision language:articleLanguage];
+                             [self.editFunnel logTitleDescriptionReadyToEditFromSource:source isAddingNewTitleDescription:isAddingNewTitleDescription language:articleLanguage];
                          }
                      }];
 }
