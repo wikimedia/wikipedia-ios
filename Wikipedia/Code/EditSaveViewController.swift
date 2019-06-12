@@ -24,6 +24,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var editFunnel: EditFunnel?
     var editFunnelSource: EditFunnelSource = .unknown
     var savedPagesFunnel: SavedPagesFunnel?
+    var loggedEditActions: NSMutableSet?
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     @IBOutlet private var captchaContainer: UIView!
@@ -130,6 +131,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         // TODO: show this once we figure out how to handle watchlists (T214749)
         addToWatchlistStackView.isHidden = true
+
+        if let loggedEditActions = loggedEditActions, !loggedEditActions.contains(EditFunnel.Action.editSummaryShown) {
+            editFunnel?.logSectionEditSummaryShown(source: editFunnelSource, language: section?.articleLanguage)
+            loggedEditActions.add(EditFunnel.Action.editSummaryShown)
+        }
         
         apply(theme: theme)
     }

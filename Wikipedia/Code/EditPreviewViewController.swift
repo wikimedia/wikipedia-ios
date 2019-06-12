@@ -9,7 +9,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
     var section: MWKSection?
     var wikitext = ""
     var editFunnel: EditFunnel?
-    var loggedEditActions: [EditFunnel.Action]?
+    var loggedEditActions: NSMutableSet?
     var savedPagesFunnel: SavedPagesFunnel?
     var theme: Theme = .standard
     
@@ -82,9 +82,9 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
 
-        if var loggedEditActions = loggedEditActions, loggedEditActions.contains(.preview) {
+        if let loggedEditActions = loggedEditActions, !loggedEditActions.contains(EditFunnel.Action.preview) {
             editFunnel?.logEditPreviewForArticle(language: section?.articleLanguage)
-            loggedEditActions.append(.preview)
+            loggedEditActions.add(EditFunnel.Action.preview)
         }
         
         preview()

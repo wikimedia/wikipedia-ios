@@ -354,13 +354,13 @@ class SectionEditorViewController: UIViewController {
 
     // MARK: Event logging
 
-    private var loggedEditActions: [EditFunnel.Action] = []
+    private var loggedEditActions: NSMutableSet = []
     private func logSectionReadyToEdit() {
-        guard !loggedEditActions.contains(.ready) else {
+        guard !loggedEditActions.contains(EditFunnel.Action.ready) else {
             return
         }
         editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: section?.articleLanguage)
-        loggedEditActions.append(.ready)
+        loggedEditActions.add(EditFunnel.Action.ready)
     }
 
     private var editFunnelSource: EditFunnelSource {
@@ -520,6 +520,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.theme = self.theme
         vc.editFunnel = self.editFunnel
         vc.editFunnelSource = editFunnelSource
+        vc.loggedEditActions = loggedEditActions
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
