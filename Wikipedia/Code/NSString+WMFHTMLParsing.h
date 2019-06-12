@@ -77,8 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                         handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
                           withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold
                                                          tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
-                                            additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes
-                                                            baseURL:(nullable NSURL *)baseURL;
+                                            additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
 
 /*
  * Convienence method for the method above.
