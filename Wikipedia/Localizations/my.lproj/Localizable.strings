@@ -188,8 +188,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "ဘာသာစကား မသတ်မှတ်ထားပါ";
 "explore-feed-preferences-global-cards-title" = "ကလိုဘယ် ကဒ်များ";
 "explore-feed-preferences-hide-card-action-title" = "ဤကဒ်ကို ဝှက်";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "ကဒ်အားလုံး %@ ဝှက်";
+"explore-feed-preferences-hide-feed-cards-action-title" = "ကဒ်အားလုံး “%@” ဝှက်";
 "explore-feed-preferences-in-the-news-description" = "လက်ရှိအဖြစ်အပျက်များအကြောင်း ဆောင်းပါးများ";
 "explore-feed-preferences-on-this-day-description" = "သမိုင်း၌ ဤနေ့တွင် ဖြစ်ပွားခဲ့သော ဖြစ်ရပ်များ";
 "explore-feed-preferences-places-description" = "သင့်အနီးအနားမှ ဝီကီပီးဒီးယား ဆောင်းပါးများ";
@@ -281,11 +280,13 @@
 "in-the-news-title" = "သတင်းထဲတွင်";
 "info-box-close-text" = "ပိတ်ရန်";
 "info-box-title" = "အချက်တိုများ";
+"insert-media-alternative-text-placeholder" = "ဤရုပ်ပုံကို ဖော်ပြမည်";
 "insert-media-image-position-setting-center" = "အလယ်";
 "insert-media-image-position-setting-left" = "ဘယ်";
 "insert-media-image-position-setting-none" = "ဘာမှမရှိ";
 "insert-media-image-position-setting-right" = "ညာ";
 "insert-media-image-preview-more-information-action-title" = "သတင်းအချက်အလက် ပို၍";
+"insert-media-image-size-setting-custom" = "စိတ်ကြိုက်";
 "insert-media-image-size-setting-default" = "နဂိုအတိုင်း";
 "languages-settings-title" = "ဘာသာစကားများ";
 "languages-title" = "ဘာသာစကား ပြောင်းလဲရန်";
@@ -508,6 +509,8 @@
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";
 "table-of-contents-heading" = "မာတိကာ";
 "table-title-other" = "နောက်ထပ် အချက်အလက်များ";
+"talk-page-new-banner-subtitle" = "မိမိတို့အားလုံးသည် လူသားများဖြစ်ကြသည်ကို သတိရပါ";
+"talk-page-new-banner-title" = "ကျေးဇူးပြု၍ ကြင်နာပါ";
 "talk-page-new-subject-placeholder-text" = "အကြောင်းအရာ";
 "talk-page-new-topic-title" = "ဆွေးနွေးချက် အသစ်";
 "talk-page-reply-title" = "အကြောင်းပြန်ရန်";

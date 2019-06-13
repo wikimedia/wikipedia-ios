@@ -55,6 +55,9 @@
 "account-creation-passwords-mismatched" = "A jelszavak nem egyeznek.";
 "account-creation-saving" = "Mentés…";
 "account-creation-title" = "Új fiók létrehozása";
+"account-group-title" = "Fiókod";
+"account-talk-page-title" = "Vitalapod";
+"account-talk-preferences-title" = "Vitalapok beállításai";
 "action-add-to" = "Hozzáadás ide...";
 "action-add-to-reading-list" = "Hozzáadás az olvasólistához";
 "action-add-to-reading-list-short" = "Hozzáadás a listához";
@@ -163,6 +166,7 @@
 "edit-italic-accessibility-label" = "Kurzív formázás hozzáadása";
 "edit-italic-remove-accessibility-label" = "Kurzív formázás eltávolítása";
 "edit-link-display-text-title" = "Szöveg mutatása";
+"edit-link-link-target-title" = "Hivatkozás célja";
 "edit-link-remove-link-title" = "Hivatkozás eltávolítása";
 "edit-link-title" = "Hivatkozás szerkesztése";
 "edit-menu-item" = "Szerkesztés";
@@ -189,11 +193,11 @@
 "edit-underline-remove-accessibility-label" = "Aláhúzás eltávolítása";
 "edit-unordered-list-accessibility-label" = "Aktuális sor felsorolásos listává alakítása";
 "edit-unordered-list-remove-accessibility-label" = "Felsorolásos lista eltávolítása az aktuális sorról";
+"edit-watch-list-learn-more-text" = "Tudj meg többet a figyelőlistákról";
 "edit-watch-this-page-text" = "Lap figyelése";
 "editing-welcome-be-bold-title" = "A hangod fontos";
 "editing-welcome-citations-title" = "Megbízható források megadása";
-// Fuzzy
-"empty-insert-media-title" = "Fájl kiválasztása";
+"empty-insert-media-title" = "Fájl kiválasztása a Wikimedia Commonsról";
 "empty-no-article-message" = "Sajnáljuk, nem sikerült betölteni a cikket";
 "empty-no-feed-action-message" = "Továbbra is olvashatsz elmentett lapokat";
 "empty-no-feed-message" = "A neked ajánlott szócikkeket akkor láthatod, ha kapcsolódsz az internethez";
@@ -546,6 +550,10 @@
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
 "table-title-other" = "További információk";
+"talk-page-new-topic-title" = "Új téma";
+"talk-page-reply-title" = "Válasz";
+"talk-page-title-user-talk" = "Szerkesztővita";
+"talk-pages-reply-button-title" = "Válasz erre a témára";
 "theme-black-display-name" = "Fekete";
 "theme-dark-display-name" = "Sötét";
 "theme-default-display-name" = "Alapértelmezés";
@@ -558,6 +566,7 @@
 "two-factor-login-title" = "Bejelentkezés a fiókodba";
 "two-factor-login-with-backup-code" = "Használd az egyik visszaállítási kódod";
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
+"unable-to-load-talk-page-title" = "Nem sikerült betölteni a vitalapot";
 "view-in-browser-footer-link" = "Szócikk olvasása böngészőben";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
 "welcome-exploration-explore-feed-title" = "Felfedezés csatorna";

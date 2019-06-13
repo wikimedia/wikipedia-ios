@@ -80,6 +80,9 @@
 "account-creation-title" = "新しいアカウントを作成する";
 "account-group-title" = "あなたのアカウント";
 "account-talk-page-title" = "あなたの議論ページ";
+"account-talk-preferences-auto-sign-discussions" = "議論に自動署名する";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "議論に自動署名する際は、署名設定で定義した署名が使われます";
+"account-talk-preferences-title" = "ノートページの設定";
 "action-add-to" = "次の場所に追加…";
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
@@ -265,6 +268,7 @@
 "empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧することができます";
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
+"empty-talk-page-title" = "このユーザーにはまだメッセージが投稿されていません";
 "error-generic-description" = "予期しないエラーが発生しました。";
 "error-generic-recovery-suggestion" = "しばらくしてから再度、操作をしてください";
 "error-unknown" = "不明なエラーが発生しました";
@@ -735,6 +739,8 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
+"talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
+"talk-page-error-unable-to-post-topic" = "インターネット接続がないためトピックを投稿できません。";
 "talk-page-info-active-conversations" = "$1 ウィキペディア上でのアクティブな会話";
 "talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";
 "talk-page-new-banner-subtitle" = "ここではみな同じ人類であることを忘れないでください";
@@ -763,6 +769,7 @@
 "two-factor-login-title" = "あなたのアカウントにログイン";
 "two-factor-login-with-backup-code" = "バックアップコードの1つを使用する";
 "two-factor-login-with-regular-code" = "確認コードを使用する";
+"unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "view-in-browser-footer-link" = "ブラウザで記事を表示する";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "「探してみよう」フィード";
