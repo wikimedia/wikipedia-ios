@@ -70,7 +70,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         }
     }
     
-    lazy private var fakeProgressController: FakeProgressController = {
+    lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
         progressController.delay = 0.0
         return progressController
@@ -277,6 +277,7 @@ private extension TalkPageReplyListViewController {
         if let headerView = TalkPageHeaderView.wmf_viewFromClassNib(),
             let title = topic.title {
             configure(header: headerView)
+            headerView.delegate = self
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
             useNavigationBarVisibleHeightForScrollViewInsets = true

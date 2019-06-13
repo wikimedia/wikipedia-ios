@@ -707,6 +707,9 @@
 "talk-page-error-unable-to-post-topic" = "No internet connection. Unable to post topic.";
 "talk-page-info-active-conversations" = "Active conversations on $1 Wikipedia";
 "talk-page-info-active-conversations-generic" = "Active conversations on Wikipedia";
+"talk-page-link-user-action-sheet-app" = "View User Talk page in app";
+"talk-page-link-user-action-sheet-safari" = "View User page in Safari";
+"talk-page-link-user-action-sheet-title" = "User pages";
 "talk-page-new-banner-subtitle" = "Remember, we are all humans here";
 "talk-page-new-banner-title" = "Please be kind";
 "talk-page-new-reply-body-placeholder-text" = "Compose response";
