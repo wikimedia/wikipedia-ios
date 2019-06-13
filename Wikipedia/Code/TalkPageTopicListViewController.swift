@@ -4,6 +4,7 @@ import UIKit
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
+    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?)
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -11,6 +12,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     weak var delegate: TalkPageTopicListDelegate?
     
     private let dataStore: MWKDataStore
+    private let talkPageTitle: String
     private let talkPage: TalkPage
     private let fetchedResultsController: NSFetchedResultsController<TalkPageTopic>
     
@@ -23,9 +25,12 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private let siteURL: URL
     private let type: TalkPageType
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
-    
-    required init(dataStore: MWKDataStore, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
+
+    private var completedActivityType: UIActivity.ActivityType?
+
+    required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
+        self.talkPageTitle = talkPageTitle
         self.talkPage = talkPage
         self.siteURL = siteURL
         self.type = type
@@ -50,6 +55,17 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         registerCells()
         setupCollectionViewUpdater()
         setupToolbar()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func didBecomeActive() {
+        delegate?.didBecomeActiveAfterCompletingActivity(ofType: completedActivityType)
+        completedActivityType = nil
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -165,7 +181,18 @@ private extension TalkPageTopicListViewController {
     }
     
     @objc func tappedShare(_ sender: UIBarButtonItem) {
-        print("share here")
+        var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
+        guard let talkPageURL = talkPageURLComponents?.url else {
+            return
+        }
+        let activityViewController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
+        activityViewController.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
+            if completed {
+                self.completedActivityType = activityType
+            }
+        }
+        present(activityViewController, animated: true)
     }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {

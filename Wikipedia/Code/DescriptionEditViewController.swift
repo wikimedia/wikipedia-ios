@@ -32,9 +32,6 @@ import UIKit
     private var isAddingNewTitleDescription: Bool {
         return article?.entityDescription == nil
     }
-    private var articleRevision: Int? {
-        return article?.revisionId?.intValue
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,7 +175,7 @@ import UIKit
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: isAddingNewTitleDescription, revision: articleRevision, language: article?.url.wmf_language)
+        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: isAddingNewTitleDescription, language: article?.url.wmf_language)
         save()
     }
 
@@ -222,10 +219,10 @@ import UIKit
                 if let error = error {
                     let apiErrorCode = (error as? WikidataAPIResult.APIError)?.code
                     let errorText = apiErrorCode ?? "\((error as NSError).domain)-\((error as NSError).code)"
-                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, revision: self.articleRevision, language: article.url.wmf_language, errorText: errorText)
+                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: article.url.wmf_language, errorText: errorText)
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 } else {
-                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, revision: self.articleRevision, language: article.url.wmf_language)
+                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: article.url.wmf_language)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
