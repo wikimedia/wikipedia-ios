@@ -14,6 +14,7 @@ enum TalkPageError: Error {
     case createUrlTitleStringFailure
     case freshFetchTaskGroupFailure
     case topicMissingTalkPageRelationship
+    case unableToDetermineAbsoluteURL
 
     var localizedDescription: String {
         return CommonStrings.genericErrorDescription

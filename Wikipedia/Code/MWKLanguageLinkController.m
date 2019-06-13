@@ -118,6 +118,12 @@ static id _sharedInstance;
     }];
 }
 
+- (nullable MWKLanguageLink *)languageForLanguageCode:(NSString *)languageCode {
+    return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
+        return [obj.languageCode isEqualToString:languageCode];
+    }];
+}
+
 - (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
 }
