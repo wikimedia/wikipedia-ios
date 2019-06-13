@@ -376,7 +376,6 @@
 		7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib */; };
 		7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib */; };
 		7A25368021B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib */; };
-		7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */; };
 		7A27E85221B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
 		7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
 		7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
@@ -650,6 +649,7 @@
 		7A84225A2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
 		7A84225B2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
 		7A84225C2268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */; };
+		7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */; };
 		7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
 		7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
 		7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */; };
@@ -3786,7 +3786,6 @@
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextualHighlightEditToolbarView.swift; sourceTree = "<group>"; };
 		7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextualHighlightEditToolbarView.xib; sourceTree = "<group>"; };
-		7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteNotifications.xcdatamodel; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFormattingTableViewController.swift; sourceTree = "<group>"; };
 		7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertLinkViewController.swift; sourceTree = "<group>"; };
@@ -3847,6 +3846,7 @@
 		7A8422462268BBE70074648E /* InsertMediaImageInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaImageInfoView.xib; sourceTree = "<group>"; };
 		7A8422512268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultPreviewingViewController.swift; sourceTree = "<group>"; };
 		7A8422522268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSearchResultPreviewingViewController.xib; sourceTree = "<group>"; };
+		7A9133A922B162E8002AEBCF /* RemoteNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteNotifications.xcdatamodel; sourceTree = "<group>"; };
 		7A9524C922665E6400C55CDC /* InsertMediaSettingsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsImageView.swift; sourceTree = "<group>"; };
 		7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsImageView.xib; sourceTree = "<group>"; };
 		7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsButtonView.swift; sourceTree = "<group>"; };
@@ -6442,7 +6442,7 @@
 		7A03130121542F250095C953 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */,
+				7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */,
 				7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */,
 				7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */,
 				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
@@ -11511,6 +11511,7 @@
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
+				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
 				B0016CBF2136105900FA1096 /* SetupButton.swift in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
@@ -11633,7 +11634,6 @@
 				0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */,
 				D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */,
 				D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */,
-				7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */,
 				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
@@ -24539,12 +24539,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */ = {
+		7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */,
+				7A9133A922B162E8002AEBCF /* RemoteNotifications.xcdatamodel */,
 			);
-			currentVersion = 7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */;
+			currentVersion = 7A9133A922B162E8002AEBCF /* RemoteNotifications.xcdatamodel */;
 			path = RemoteNotifications.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
