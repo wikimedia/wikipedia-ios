@@ -113,7 +113,7 @@ public class Configuration: NSObject {
         let baseComponents = [host, "v1"]
         var components = URLComponents()
         components.scheme = Scheme.https
-        components.host = "talk-pages.wmflabs.org"
+        components.host = "appservice.wmflabs.org"
         let builder = APIURLComponentsBuilder(hostComponents: components, basePathComponents: baseComponents)
         return builder.components(byAppending: pathComponents, queryParameters: nil)
     }
