@@ -4,14 +4,12 @@ class NetworkTalkPage {
     let topics: [NetworkTopic]
     var revisionId: Int?
     let displayTitle: String
-    let introText: String?
     
-    init(url: URL, topics: [NetworkTopic], revisionId: Int?, displayTitle: String, introText: String?) {
+    init(url: URL, topics: [NetworkTopic], revisionId: Int?, displayTitle: String) {
         self.url = url
         self.topics = topics
         self.revisionId = revisionId
         self.displayTitle = displayTitle
-        self.introText = introText
     }
 }
 
@@ -188,16 +186,7 @@ class TalkPageFetcher: Fetcher {
                 }
             }
 
-            var introText: String?
-            if let firstTopic = networkBase.topics.first,
-                firstTopic.html.count == 0,
-                let firstReply = firstTopic.replies.first,
-                firstReply.html.count > 0 {
-                introText = firstReply.html
-            }
-            
-            let filteredTopics = networkBase.topics.filter { $0.html.count > 0 }
-            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: filteredTopics, revisionId: revisionID, displayTitle: displayTitle, introText: introText)
+            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: networkBase.topics, revisionId: revisionID, displayTitle: displayTitle)
             completion(.success(talkPage))
         }
     }
