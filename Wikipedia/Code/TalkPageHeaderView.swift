@@ -2,7 +2,8 @@
 import UIKit
 
 protocol TalkPageHeaderViewDelegate: class {
-    func tappedLink(_ url: URL, cell: TalkPageHeaderView)
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView)
+    func tappedIntro(headerView: TalkPageHeaderView)
 }
 
 class TalkPageHeaderView: UIView {
@@ -31,6 +32,14 @@ class TalkPageHeaderView: UIView {
     
     private var hasIntroText: Bool {
         return viewModel?.intro != nil
+    }
+    
+    private var hasTitleText: Bool {
+        if let viewModel = viewModel {
+            return viewModel.title.count > 0
+        }
+        
+        return false
     }
     
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
@@ -81,6 +90,8 @@ class TalkPageHeaderView: UIView {
         introTextView.textContainer.lineBreakMode = .byTruncatingTail
         introTextView.textContainerInset = UIEdgeInsets.zero
         introTextView.textContainer.lineFragmentPadding = 0
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedIntro(sender:)))
+        introTextView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func configure(viewModel: ViewModel) {
@@ -96,9 +107,14 @@ class TalkPageHeaderView: UIView {
         
         headerLabel.text = viewModel.header
         
-        let titleFont = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
-        titleTextView.attributedText = titleAttributedString
+        if hasTitleText {
+            let titleFont = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+            let titleAttributedString = viewModel.title.wmf_attributedStringFromHTML(with: titleFont, boldFont: titleFont, italicFont: titleFont, boldItalicFont: titleFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: false, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
+            titleTextView.attributedText = titleAttributedString
+            titleTextView.isHidden = false
+        } else {
+            titleTextView.isHidden = true
+        }
         
         if let intro = viewModel.intro {
             introTextView.isHidden = false
@@ -109,16 +125,15 @@ class TalkPageHeaderView: UIView {
     }
     
     private func setupIntro(text: String) {
-        if hasIntroText {
-            
-            let introFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-            let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-            let italicIntroFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
-            
-            introTextView.attributedText = text.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
-        } else {
-            introTextView.isHidden = true
-        }
+        let introFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        let italicIntroFont = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+        
+        introTextView.attributedText = text.wmf_attributedStringFromHTML(with: introFont, boldFont: boldIntroFont, italicFont: italicIntroFont, boldItalicFont: boldIntroFont, color: introTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: ["a": "b"], additionalTagAttributes: nil)
+    }
+    
+    @objc private func tappedIntro(sender: UITextView) {
+        delegate?.tappedIntro(headerView: self)
     }
     
     // MARK - Dynamic Type
@@ -170,7 +185,7 @@ extension TalkPageHeaderView: Themeable {
 
 extension TalkPageHeaderView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(URL, cell: self)
+        delegate?.tappedLink(URL, headerView: self)
         return false
     }
 }

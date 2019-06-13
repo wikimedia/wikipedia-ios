@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F203" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -71,7 +71,6 @@
     </entity>
     <entity name="TalkPage" representedClassName="TalkPage" syncable="YES" codeGenerationType="class">
         <attribute name="displayTitle" attributeType="String" syncable="YES"/>
-        <attribute name="introText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
         <attribute name="revisionId" optional="YES" attributeType="Integer 64" minValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="topics" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageTopic" inverseName="talkPage" inverseEntity="TalkPageTopic" syncable="YES"/>
@@ -84,6 +83,7 @@
         <relationship name="topic" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="replies" inverseEntity="TalkPageTopic" syncable="YES"/>
     </entity>
     <entity name="TalkPageTopic" representedClassName="TalkPageTopic" syncable="YES" codeGenerationType="class">
+        <attribute name="isIntro" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="relatedObjectsVersion" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -215,9 +215,9 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
-        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="120"/>
+        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="105"/>
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
-        <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="165"/>
+        <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="495"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>

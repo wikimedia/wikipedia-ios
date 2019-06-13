@@ -37,7 +37,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         self.talkPageSemanticContentAttribute = talkPageSemanticContentAttribute
         
         let request: NSFetchRequest<TalkPageTopic> = TalkPageTopic.fetchRequest()
-        request.predicate = NSPredicate(format: "talkPage == %@",  talkPage)
+        request.predicate = NSPredicate(format: "talkPage == %@ && isIntro == NO",  talkPage)
         request.relationshipKeyPathsForPrefetching = ["content"]
         request.sortDescriptors = [NSSortDescriptor(key: "sort", ascending: true)]
         self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)

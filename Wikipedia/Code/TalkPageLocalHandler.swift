@@ -28,7 +28,6 @@ extension NSManagedObjectContext {
         let talkPage = TalkPage(context: self)
         talkPage.key = url.wmf_talkPageDatabaseKey
         talkPage.displayTitle = displayTitle
-        talkPage.introText = nil
         
         do {
             try save()
@@ -48,7 +47,6 @@ extension NSManagedObjectContext {
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.displayTitle = networkTalkPage.displayTitle
-        talkPage.introText = networkTalkPage.introText
         
         do {
             try addTalkPageTopics(to: talkPage, with: networkTalkPage)
@@ -68,7 +66,6 @@ extension NSManagedObjectContext {
         }
         
         localTalkPage.revisionId = NSNumber(value: revisionID)
-        localTalkPage.introText = networkTalkPage.introText
         
         guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
             return nil
@@ -246,6 +243,7 @@ private extension NSManagedObjectContext {
         
         if let sort = networkTopic.sort {
             topic.sort = Int64(sort)
+            topic.isIntro = networkTopic.sort == 0 && networkTopic.html.count == 0
         } else {
             assertionFailure("Network topic is missing sort")
         }
