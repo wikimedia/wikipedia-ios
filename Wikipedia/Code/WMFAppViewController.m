@@ -122,7 +122,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
-@property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
+@property (nonatomic, strong) NavigationStateController *navigationStateController;
 
 @end
 
@@ -373,7 +373,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (![self uiIsLoaded]) {
         return;
     }
-
+    [self.navigationStateController saveNavigationStateFor:self.navigationController in:self.dataStore.viewContext];
     NSError *saveError = nil;
     if (![self.dataStore save:&saveError]) {
         DDLogError(@"Error saving dataStore: %@", saveError);
@@ -852,8 +852,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                            completion:^(BOOL didProcess) {
                                done();
                            }];
-        } else if ([self shouldShowLastReadArticleOnLaunch]) {
-            [self showLastReadArticleAnimated:NO];
+        } else if (NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
+            [self.navigationStateController restoreNavigationStateFor:self.navigationController in:self.dataStore.viewContext];
             done();
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self showExplore];
@@ -908,7 +908,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         if (locationAuthorized != [defaults wmf_locationAuthorized]) {
             [self.dataStore.feedContentController updateContentSource:[WMFNearbyContentSource class] force:NO completion:NULL];
         }
-        if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
+        // TODO: If full navigation stack is not restored (so we're past the cutoff date), should we still force Continue reading card to appear?
+        if (!NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
     }
@@ -1346,6 +1347,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return self.session.dataStore;
 }
 
+- (NavigationStateController *)navigationStateController {
+    if (!_navigationStateController) {
+        _navigationStateController = [[NavigationStateController alloc] initWithDataStore:self.dataStore];
+    }
+    return _navigationStateController;
+}
+
 - (ExploreViewController *)exploreViewController {
     if (!_exploreViewController) {
         _exploreViewController = [[ExploreViewController alloc] init];
@@ -1494,39 +1502,41 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Last Read Article
 
-- (BOOL)shouldShowLastReadArticleOnLaunch {
-    if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
-        return NO;
-    }
-
-    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
-    if (!lastRead) {
-        return NO;
-    }
-
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
-        return YES;
-    }
-
-    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
-    if (!resignActiveDate) {
-        return NO;
-    }
-
-    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeShowingExploreScreenOnLaunch) {
-        if (![self mainViewControllerIsDisplayingContent] && [self selectedIndex] == WMFAppTabTypeMain) {
-            return YES;
-        }
-    }
-
-    return NO;
-#else
-    return YES;
-#endif
-}
+//- (BOOL)shouldShowLastReadArticleOnLaunch {
+//    if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
+//        return NO;
+//    }
+//
+//    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
+//    if (!lastRead) {
+//        return NO;
+//    }
+//
+//#if WMF_TWEAKS_ENABLED
+//    if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
+//        return YES;
+//    }
+//
+//    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
+//    if (!resignActiveDate) {
+//        return NO;
+//    }
+//
+//    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeShowingExploreScreenOnLaunch) {
+//        if (![self mainViewControllerIsDisplayingContent] && [self selectedIndex] == WMFAppTabTypeMain) {
+//            return YES;
+//        }
+//    }
+//
+//    return NO;
+//#else
+//    return YES;
+//#endif
+//}
+//
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
+    // TODO: Move this out of User Defaults and grab it from navigation state controller.
     NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
     [self showArticleForURL:lastRead animated:animated];
 }
