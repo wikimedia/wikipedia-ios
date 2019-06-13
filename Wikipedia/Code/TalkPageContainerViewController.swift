@@ -10,7 +10,12 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let dataStore: MWKDataStore
     private let controller: TalkPageController
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
-    private var talkPage: TalkPage?
+    private var talkPage: TalkPage? {
+        didSet {
+            introTopic = talkPage?.topics?.first(where: { ($0 as? TalkPageTopic)?.isIntro == true}) as? TalkPageTopic
+        }
+    }
+    private var introTopic: TalkPageTopic?
     private var topicListViewController: TalkPageTopicListViewController?
     private var replyListViewController: TalkPageReplyListViewController?
     private var headerView: TalkPageHeaderView?
@@ -99,8 +104,9 @@ private extension TalkPageContainerViewController {
                             self.wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
                         }
                         self.setupTopicListViewControllerIfNeeded(with: talkPage)
-                        if let headerView = self.headerView {
-                            self.configure(header: headerView, intro: talkPage.introText)
+                        if let headerView = self.headerView,
+                            let introTopic = self.introTopic {
+                            self.configure(header: headerView, introTopic: introTopic)
                             self.updateScrollViewInsets()
                         }
                     } else {
@@ -148,7 +154,7 @@ private extension TalkPageContainerViewController {
         
         if let headerView = TalkPageHeaderView.wmf_viewFromClassNib() {
             self.headerView = headerView
-            configure(header: headerView, intro: nil)
+            configure(header: headerView, introTopic: nil)
             headerView.delegate = self
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
@@ -160,7 +166,7 @@ private extension TalkPageContainerViewController {
         }
     }
     
-    func configure(header: TalkPageHeaderView, intro: String?) {
+    func configure(header: TalkPageHeaderView, introTopic: TalkPageTopic?) {
         
         var headerText: String
         switch type {
@@ -176,9 +182,17 @@ private extension TalkPageContainerViewController {
         
         let infoText = stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: languageTextFormat, fallbackGenericString: genericInfoText)
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: controller.displayTitle, info: infoText, intro: intro)
+        var introText: String?
+        let sortDescriptor = NSSortDescriptor(key: "sort", ascending: true)
+        if let first5IntroReplies = introTopic?.replies?.sortedArray(using: [sortDescriptor]).prefix(5) {
+            let replyTexts = Array(first5IntroReplies).compactMap { return ($0 as? TalkPageReply)?.text }
+            introText = replyTexts.joined(separator: "<br />")
+        }
+        
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: controller.displayTitle, info: infoText, intro: introText)
         
         header.configure(viewModel: viewModel)
+        header.delegate = self
         header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
     }
@@ -306,6 +320,15 @@ private extension TalkPageContainerViewController {
             }
         }
     }
+
+    func pushToReplyThread(topic: TalkPageTopic) {
+        let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
+        replyListViewController.delegate = self
+        replyListViewController.apply(theme: theme)
+        replyListViewController.repliesAreDisabled = repliesAreDisabled
+        self.replyListViewController = replyListViewController
+        navigationController?.pushViewController(replyListViewController, animated: true)
+    }
 }
 
 // MARK: Empty & error states
@@ -370,12 +393,7 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     }
     
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
-        let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
-        replyListViewController.delegate = self
-        replyListViewController.apply(theme: theme)
-        replyListViewController.repliesAreDisabled = repliesAreDisabled
-        self.replyListViewController = replyListViewController
-        navigationController?.pushViewController(replyListViewController, animated: true)
+        pushToReplyThread(topic: topic)
     }
 
     func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?) {
@@ -412,7 +430,13 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
 }
 
 extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
-    func tappedLink(_ url: URL, cell: TalkPageHeaderView) {
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView) {
         tappedLink(url, loadingViewController: self)
+    }
+    
+    func tappedIntro(headerView: TalkPageHeaderView) {
+        if let introTopic = self.introTopic {
+            pushToReplyThread(topic: introTopic)
+        }
     }
 }

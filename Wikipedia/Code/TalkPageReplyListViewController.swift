@@ -387,7 +387,11 @@ extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
 //MARK: TalkPageHeaderViewDelegate
 
 extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
-    func tappedLink(_ url: URL, cell: TalkPageHeaderView) {
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView) {
         delegate?.tappedLink(url, viewController: self)
+    }
+    
+    func tappedIntro(headerView: TalkPageHeaderView) {
+        assertionFailure("Should not be able to tap intro text view from replies screen")
     }
 }
