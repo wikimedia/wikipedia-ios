@@ -80,7 +80,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
-    NSUserDefaults.wmf.shouldShowLastReadArticleOnResume = [self shouldShowLastReadArticleOnResume];
+    NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume = [self shouldRestoreNavigationStackOnResume];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];
@@ -116,7 +116,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     }
 }
 
-- (BOOL)shouldShowLastReadArticleOnResume {
+- (BOOL)shouldRestoreNavigationStackOnResume {
     NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;

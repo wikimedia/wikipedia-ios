@@ -1,6 +1,6 @@
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
-let WMFShouldShowLastReadArticleOnResume = "WMFShouldShowLastReadArticleOnResume"
+let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -109,12 +109,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
 
-    @objc var shouldShowLastReadArticleOnResume: Bool {
+    @objc var shouldRestoreNavigationStackOnResume: Bool {
         get {
-            return bool(forKey: WMFShouldShowLastReadArticleOnResume)
+            return bool(forKey: WMFShouldRestoreNavigationStackOnResume)
         }
         set {
-            set(newValue, forKey: WMFShouldShowLastReadArticleOnResume)
+            set(newValue, forKey: WMFShouldRestoreNavigationStackOnResume)
         }
     }
 
