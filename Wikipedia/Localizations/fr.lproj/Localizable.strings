@@ -22,6 +22,7 @@
 // Author: Thibaut120094
 // Author: Trial
 // Author: Urhixidur
+// Author: VIGNERON
 // Author: Verdy p
 // Author: Weft
 // Author: Wladek92
@@ -344,7 +345,7 @@
 "explore-nearby-sub-heading-your-location" = "Votre emplacement";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Votre localisation par Wikipedia en $1";
 "explore-potd-heading" = "Image du jour";
-"explore-potd-sub-heading" = "De Wikimédia Communs";
+"explore-potd-sub-heading" = "De Wikimédia Commons";
 "explore-random-article-heading" = "Article au hasard";
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipédia";

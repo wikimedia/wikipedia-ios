@@ -59,7 +59,7 @@
 "account-creation-captcha-title" = "CAPTCHA 安全性檢查";
 "account-creation-create-account" = "建立您的帳號";
 "account-creation-have-account" = "已經擁有帳號？$1";
-"account-creation-log-in" = "登入";
+"account-creation-log-in" = "登入。";
 "account-creation-logging-in" = "登入中...";
 "account-creation-missing-fields" = "您必須輸入使用者名稱與密碼，並且在確認密碼之後才能建立一個帳號。";
 "account-creation-passwords-mismatched" = "密碼欄位不符合。";
@@ -67,6 +67,9 @@
 "account-creation-title" = "建立新帳號";
 "account-group-title" = "您的帳號";
 "account-talk-page-title" = "您的對話頁面";
+"account-talk-preferences-auto-sign-discussions" = "自動簽名討論";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "討論的自動簽名，會使用在簽名設定裡所定義的簽名";
+"account-talk-preferences-title" = "對話頁偏好設定";
 "action-add-to" = "新增至…";
 "action-add-to-reading-list" = "新增至閱讀清單";
 "action-add-to-reading-list-short" = "加入至清單";
@@ -252,6 +255,7 @@
 "empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
+"empty-talk-page-title" = "尚未對此使用者發佈過訊息";
 "error-generic-description" = "發生意外錯誤";
 "error-generic-recovery-suggestion" = "請稍後重試";
 "error-unknown" = "發生不明錯誤";
@@ -384,7 +388,7 @@
 "home-button-explore-accessibility-label" = "維基百科，返回探索";
 "home-button-history-accessibility-label" = "維基百科，返回歷史清單";
 "home-button-saved-accessibility-label" = "維基百科，返回已儲存條目";
-"home-more-like-footer" = "更像 $1";
+"home-more-like-footer" = "更多像$1";
 "home-nearby-footer" = "更多靠近您所在位置的地點";
 "home-nearby-location-footer" = "更多在$1附近的相關條目";
 "home-news-footer" = "更多目前最新事件";
@@ -722,6 +726,8 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
 "table-title-other" = "更多資訊";
+"talk-page-error-unable-to-post-reply" = "沒有連結到網路，無法發佈回覆。";
+"talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈主題。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
 "talk-page-info-active-conversations-generic" = "在維基百科上積極交談";
 "talk-page-new-banner-subtitle" = "請記得，在此我們也只是一般人";
@@ -750,6 +756,7 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
+"unable-to-load-talk-page-title" = "無法載入對話頁";
 "view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
 "welcome-exploration-explore-feed-title" = "探索摘要";

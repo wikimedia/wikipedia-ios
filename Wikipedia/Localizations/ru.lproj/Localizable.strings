@@ -597,7 +597,7 @@
 "reading-list-login-subtitle" = "Войдите в систему или создайте учётную запись, чтобы ваши сохранённые статьи и списки чтения были синхронизированы между устройствами и сохранены в пользовательских настройках.";
 "reading-list-login-title" = "Синхронизировать сохраненные статьи?";
 "reading-list-name-user-created-annotation" = "_[участник создан]";
-"reading-list-new-list-description-placeholder" = "Необязательное короткое описание";
+"reading-list-new-list-description-placeholder" = "Необязательное краткое описание";
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
 "reading-list-sync-disabled-panel-message" = "Синхронизация списков чтения была выключена в вашей учётной записи на другом устройстве. Вы можете её включить снова перейдя в настройки.";
 "reading-list-sync-disabled-panel-title" = "Синхронизация отключена";

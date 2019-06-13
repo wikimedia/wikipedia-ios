@@ -50,7 +50,7 @@
 "about-testers-details" = "QA testada por $1";
 "about-title" = "Sobre";
 "about-translators" = "Tradutores";
-"about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
+"about-translators-details" = "Esse aplicativo foi traduzido por tradutores voluntários em $1";
 "about-wikimedia-foundation" = "Fundação Wikimedia";
 "about-wikipedia" = "Wikipédia";
 "abuse-filter-disallow-heading" = "Você não pode publicar esta edição";
@@ -69,7 +69,7 @@
 "account-creation-create-account" = "Crie sua conta";
 "account-creation-have-account" = "Já possui uma conta? $1";
 "account-creation-log-in" = "Entrar";
-"account-creation-logging-in" = "Autenticando...";
+"account-creation-logging-in" = "Entrando...";
 "account-creation-missing-fields" = "Deve inserir um nome de usuário(a), uma senha e a sua respectiva confirmação para criar uma conta.";
 "account-creation-passwords-mismatched" = "Os campos de senha não correspondem.";
 "account-creation-saving" = "Salvando...";
@@ -461,11 +461,11 @@
 "login-no-account" = "Não tem uma conta? $1";
 "login-title" = "Faça login na sua conta";
 "main-menu-about" = "Sobre o aplicativo";
-"main-menu-account-login" = "Autenticar";
+"main-menu-account-login" = "Entrar";
 "main-menu-account-logout" = "Sair";
 "main-menu-account-logout-are-you-sure" = "Você tem certeza que quer sair?";
 "main-menu-account-logout-cancel" = "Cancelar";
-"main-menu-account-title-logged-in" = "Autenticado como $1";
+"main-menu-account-title-logged-in" = "Entrado como $1";
 "main-menu-debug-tweaks" = "Configurações de desenvolvedor";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidade e Termos";
@@ -474,7 +474,7 @@
 "main-menu-rate-app" = "Classificar o aplicativo";
 "main-menu-terms-of-use" = "Termos de Uso";
 "main-menu-title" = "Mais";
-"main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
 "more-languages-tooltip-description" = "Pesquise na Wikipedia em quase 300 idiomas";
 "more-languages-tooltip-title" = "Adicionar idiomas";
@@ -762,7 +762,7 @@
 "top-read-see-more" = "Ver mais artigos dos mais lidos";
 "two-factor-login-continue" = "Continuar conectado";
 "two-factor-login-instructions" = "Por favor, insira o código de verificação de dois fatores";
-"two-factor-login-title" = "Faça login na sua conta";
+"two-factor-login-title" = "Entrar na sua conta";
 "two-factor-login-with-backup-code" = "Use um dos seus códigos de backup";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
@@ -794,7 +794,7 @@
 "welcome-volunteer-send-usage-reports" = "Enviar relatório de uso";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-downloading" = "Carregando conteúdo...";
-"wikitext-preview-changes" = "Recuperando um prewie de suas mudanças...";
+"wikitext-preview-changes" = "Recuperando uma pré-visualização de suas mudanças...";
 "wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";
 "wikitext-preview-link-external-preview-description" = "Este link leva a um site externo: $1";
 "wikitext-preview-link-external-preview-title" = "Link externo";
