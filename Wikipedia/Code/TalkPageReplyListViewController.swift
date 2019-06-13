@@ -206,6 +206,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageReplyFooterView.identifier, for: indexPath) as? TalkPageReplyFooterView {
             self.footerView = footer
             configure(footer: footer)
+            self.footerView = footer
             return footer
         }
         
@@ -335,7 +336,6 @@ private extension TalkPageReplyListViewController {
         footer.layoutMargins = layout.itemLayoutMargins
         footer.apply(theme: theme)
         footer.composeButtonIsDisabled = repliesAreDisabled
-        self.footerView = footer
     }
     
     func configure(cell: TalkPageReplyCell, at indexPath: IndexPath) {
