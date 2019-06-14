@@ -1,6 +1,106 @@
 
 import UIKit
 
+fileprivate enum TalkPageContainerViewState {
+    case initial
+    case fetchLoading
+    case fetchInitialResultData
+    case fetchInitialResultEmpty
+    case fetchFinishedResultData
+    case fetchFinishedResultEmpty
+    case fetchFailure(error: Error)
+    case linkLoading(loadingViewController: FakeLoading & ViewController)
+    case linkFinished(loadingViewController: FakeLoading & ViewController)
+    case linkFailure(loadingViewController: FakeLoading & ViewController, error: Error)
+    
+    var repliesAreDisabled: Bool {
+        switch self {
+        case .initial, .fetchLoading, .fetchInitialResultData, .fetchInitialResultEmpty, .fetchFailure, .linkLoading:
+            return true
+        case .fetchFinishedResultData, .fetchFinishedResultEmpty, .linkFinished, .linkFailure:
+            return false
+        }
+    }
+}
+
+extension TalkPageContainerViewState: Equatable {
+    
+    public static func ==(lhs: TalkPageContainerViewState, rhs:TalkPageContainerViewState) -> Bool {
+        switch lhs {
+        case .initial:
+            switch rhs {
+            case .initial:
+                return true
+            default:
+                return false
+            }
+        case .fetchLoading:
+            switch rhs {
+            case .fetchLoading:
+                return true
+            default:
+                return false
+            }
+        case .fetchInitialResultData:
+            switch rhs {
+            case .fetchInitialResultData:
+                return true
+            default:
+                return false
+            }
+        case .fetchInitialResultEmpty:
+            switch rhs {
+            case .fetchInitialResultEmpty:
+                return true
+            default:
+                return false
+            }
+        case .fetchFinishedResultData:
+            switch rhs {
+            case .fetchFinishedResultData:
+                return true
+            default:
+                return false
+            }
+        case .fetchFinishedResultEmpty:
+            switch rhs {
+            case .fetchFinishedResultEmpty:
+                return true
+            default:
+                return false
+            }
+        case .fetchFailure:
+            switch rhs {
+            case .fetchFailure:
+                return true
+            default:
+                return false
+            }
+        case .linkLoading:
+            switch rhs {
+            case .linkLoading:
+                return true
+            default:
+                return false
+            }
+        case .linkFinished:
+            switch rhs {
+            case .linkFinished:
+                return true
+            default:
+                return false
+            }
+        case .linkFailure:
+            switch rhs {
+            case .linkFailure:
+                return true
+            default:
+                return false
+            }
+        }
+    }
+}
+
 @objc(WMFTalkPageContainerViewController)
 class TalkPageContainerViewController: ViewController, HintPresenting {
     
@@ -32,9 +132,51 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         return progressController
     }()
     
-    private var repliesAreDisabled = true {
+    private var viewState: TalkPageContainerViewState = .initial {
         didSet {
-            replyListViewController?.repliesAreDisabled = repliesAreDisabled
+            switch viewState {
+            case .initial:
+                self.scrollView?.isUserInteractionEnabled = true
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            case .fetchLoading:
+                fakeProgressController.start()
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            case .fetchInitialResultData:
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                hideEmptyView()
+            case .fetchInitialResultEmpty:
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+            case .fetchFinishedResultData:
+                fakeProgressController.stop()
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                hideEmptyView()
+            case .fetchFinishedResultEmpty:
+                fakeProgressController.stop()
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+            case .fetchFailure (let error):
+                fakeProgressController.stop()
+                if oldValue != TalkPageContainerViewState.fetchInitialResultData {
+                    showEmptyView()
+                }
+                showNoInternetConnectionAlertOrOtherWarning(from: error)
+            case .linkLoading(let viewController):
+                viewController.fakeProgressController.start()
+                viewController.scrollView?.isUserInteractionEnabled = false
+                viewController.navigationItem.rightBarButtonItem?.isEnabled = false
+            case .linkFinished(let viewController):
+                viewController.fakeProgressController.stop()
+                viewController.scrollView?.isUserInteractionEnabled = true
+                viewController.navigationItem.rightBarButtonItem?.isEnabled = true
+            case .linkFailure(let viewController, let error):
+                viewController.fakeProgressController.stop()
+                viewController.scrollView?.isUserInteractionEnabled = true
+                viewController.navigationItem.rightBarButtonItem?.isEnabled = true
+                showNoInternetConnectionAlertOrOtherWarning(from: error)
+            }
+            
+            replyListViewController?.repliesAreDisabled = viewState.repliesAreDisabled
         }
     }
     
@@ -65,8 +207,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        fetch()
         setupNavigationBar()
+        viewState = .initial
+        fetch()
     }
     
     override func apply(theme: Theme) {
@@ -80,7 +223,8 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 private extension TalkPageContainerViewController {
     
     func fetch() {
-        fakeProgressController.start()
+        
+        viewState = .fetchLoading
         
         controller.fetchTalkPage { [weak self] (result) in
             DispatchQueue.main.async {
@@ -90,18 +234,15 @@ private extension TalkPageContainerViewController {
                 
                 switch result {
                 case .success(let fetchResult):
-                    if !fetchResult.isInitialLocalResult {
-                        self.fakeProgressController.stop()
-                        self.addButton?.isEnabled = true
-                        self.repliesAreDisabled = false
-                    }
+
                     
                     self.talkPage = try? self.dataStore.viewContext.existingObject(with: fetchResult.objectID) as? TalkPage
                     if let talkPage = self.talkPage {
+                        
                         if let topics = talkPage.topics, topics.count > 0 {
-                            self.hideEmptyView()
+                            self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultData : .fetchFinishedResultData
                         } else {
-                            self.wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+                            self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                         }
                         self.setupTopicListViewControllerIfNeeded(with: talkPage)
                         if let headerView = self.headerView,
@@ -110,12 +251,10 @@ private extension TalkPageContainerViewController {
                             self.updateScrollViewInsets()
                         }
                     } else {
-                        self.showEmptyView()
+                        self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                     }
                 case .failure(let error):
-                    self.showEmptyView()
-                    self.fakeProgressController.stop()
-                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                    self.viewState = .fetchFailure(error: error)
                 }
             }
         }
@@ -143,7 +282,6 @@ private extension TalkPageContainerViewController {
         addButton.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = addButton
         navigationBar.updateNavigationItems()
-        addButton.isEnabled = false
         self.addButton = addButton
         
     }
@@ -282,7 +420,7 @@ private extension TalkPageContainerViewController {
             return
         }
         
-        toggleLinkDeterminationState(loadingViewController: loadingViewController, shouldDisable: true)
+        viewState = .linkLoading(loadingViewController: loadingViewController)
         
         self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [absoluteURL]) { [weak self, weak loadingViewController] (articles, error) in
             
@@ -291,12 +429,12 @@ private extension TalkPageContainerViewController {
                 return
             }
             
-            self.toggleLinkDeterminationState(loadingViewController: loadingViewController, shouldDisable: false)
-            
             if let error = error {
-                self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                self.viewState = .linkFailure(loadingViewController: loadingViewController, error: error)
                 return
             }
+            
+            self.viewState = .linkFinished(loadingViewController: loadingViewController)
             
             if let namespace = articles.first?.pageNamespace,
                 
@@ -325,7 +463,7 @@ private extension TalkPageContainerViewController {
         let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
         replyListViewController.delegate = self
         replyListViewController.apply(theme: theme)
-        replyListViewController.repliesAreDisabled = repliesAreDisabled
+        replyListViewController.repliesAreDisabled = viewState.repliesAreDisabled
         self.replyListViewController = replyListViewController
         navigationController?.pushViewController(replyListViewController, animated: true)
     }
