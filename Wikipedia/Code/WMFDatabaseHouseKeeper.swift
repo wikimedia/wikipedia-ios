@@ -6,9 +6,31 @@ import Foundation
     @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext) throws -> [URL] {
         
         let urls = try deleteStaleUnreferencedArticles(moc)
+        try deleteStaleTalkPages(moc)
         return urls
     }
 
+    /**
+     
+     We only persist the last 50 most recently accessed talk pages, delete all others.
+     
+    */
+    private func deleteStaleTalkPages(_ moc: NSManagedObjectContext) throws {
+        let request: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "dateAccessed", ascending: false)]
+        request.fetchOffset = 50
+        
+        let oldTalkPages = try moc.fetch(request)
+        for talkPage in oldTalkPages {
+            moc.delete(talkPage)
+        }
+        
+        try moc.removeUnlinkedTalkPageTopicContent()
+        
+        if (moc.hasChanges) {
+            try moc.save()
+        }
+    }
     
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
         

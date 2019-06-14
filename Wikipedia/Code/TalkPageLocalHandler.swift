@@ -20,7 +20,15 @@ extension NSManagedObjectContext {
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "key == %@", databaseKey)
         
-        return try fetch(fetchRequest).first
+        let talkPage = try fetch(fetchRequest).first
+        talkPage?.dateAccessed = Date()
+        
+        do {
+            try save()
+            return talkPage
+        } catch {
+             return talkPage
+        }
     }
     
     func createMissingTalkPage(with url: URL, displayTitle: String) -> TalkPage? {
@@ -28,6 +36,7 @@ extension NSManagedObjectContext {
         let talkPage = TalkPage(context: self)
         talkPage.key = url.wmf_talkPageDatabaseKey
         talkPage.displayTitle = displayTitle
+        talkPage.dateAccessed = Date()
         
         do {
             try save()
@@ -47,6 +56,7 @@ extension NSManagedObjectContext {
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.displayTitle = networkTalkPage.displayTitle
+        talkPage.dateAccessed = Date()
         
         do {
             try addTalkPageTopics(to: talkPage, with: networkTalkPage)
@@ -66,6 +76,7 @@ extension NSManagedObjectContext {
         }
         
         localTalkPage.revisionId = NSNumber(value: revisionID)
+        localTalkPage.dateAccessed = Date()
         
         guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
             return nil
@@ -124,7 +135,7 @@ extension NSManagedObjectContext {
     func removeUnlinkedTalkPageTopicContent() throws {
         let request: NSFetchRequest<TalkPageTopicContent> = TalkPageTopicContent.fetchRequest()
         request.predicate = NSPredicate(format: "topics.@count == 0")
-        let results = try request.execute()
+        let results = try fetch(request)
         for result in results {
             delete(result)
         }
