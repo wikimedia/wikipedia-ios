@@ -26,6 +26,7 @@
 // Author: 夢蝶葬花
 // Author: 水獭很懒
 // Author: 王庭茂
+// Author: 科劳
 
 "about-content-license" = "内容许可协议";
 "about-content-license-details" = "除非另有声明，内容基于$1授权。";
@@ -186,12 +187,12 @@
 "edit-italic-remove-accessibility-label" = "移除斜体格式";
 "edit-link-accessibility-label" = "添加链接语法";
 "edit-link-remove-accessibility-label" = "移除链接语法";
+"edit-link-title" = "编辑链接";
 "edit-minor-learn-more-text" = "了解更多关于小编辑的信息";
 "edit-minor-text" = "标记为小编辑";
 "edit-ordered-list-accessibility-label" = "创建当前行的有序列表";
 "edit-ordered-list-remove-accessibility-label" = "从当前行中移除有序列表";
 "edit-published" = "已发布编辑";
-"edit-published-button-title" = "完成";
 "edit-published-subtitle" = "您刚刚使得维基百科变得更好";
 "edit-reference-accessibility-label" = "添加参考语法";
 "edit-reference-remove-accessibility-label" = "移除参考语法";
@@ -383,6 +384,7 @@
 "in-the-news-title" = "新闻动态";
 "info-box-close-text" = "关闭";
 "info-box-title" = "快速预览";
+"insert-link-title" = "插入链接";
 "insert-media-caption-description" = "显示在所有读者的项目旁边的标签。";
 "insert-media-image-position-setting-center" = "中心";
 "insert-media-image-position-setting-none" = "无";
@@ -665,6 +667,11 @@
 "table-of-contents-close-accessibility-label" = "关闭目录";
 "table-of-contents-heading" = "内容";
 "table-title-other" = "更多信息";
+"talk-page-info-active-conversations-generic" = "维基百科上的积极对话";
+"talk-page-new-banner-subtitle" = "记住，我们在这里都是人类";
+"talk-page-new-reply-success-text" = "你的答复被成功地发表了";
+"talk-page-new-subject-placeholder-text" = "主题";
+"talk-page-new-topic-title" = "新讨论";
 "theme-black-display-name" = "黑暗";
 "theme-dark-display-name" = "夜间";
 "theme-default-display-name" = "默认";

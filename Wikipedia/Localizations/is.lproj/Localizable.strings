@@ -51,6 +51,7 @@
 "account-creation-passwords-mismatched" = "Lykilorðin passa ekki saman.";
 "account-creation-saving" = "Vistar...";
 "account-creation-title" = "Búa til nýjan aðgang";
+"account-group-title" = "Aðgangur þinn";
 "action-add-to" = "Bæta við…";
 "action-add-to-reading-list" = "Bæta á leslista";
 "action-add-to-reading-list-short" = "Bæta við lista";
@@ -113,6 +114,7 @@
 "button-skip" = "Sleppa";
 "cancel" = "Hætta við";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Hreinsa";
 "close-button-accessibility-label" = "Loka";
 "compass-direction" = "klukkan $1 á áttavita";
 "continue-reading-empty-description" = "Kanna hvort Wikipedia sé með fleiri greinar til að lesa";
@@ -169,6 +171,7 @@
 "edit-italic-accessibility-label" = "Bættu við skáletrun";
 "edit-italic-remove-accessibility-label" = "Fjarlægðu skáletrun";
 "edit-link-accessibility-label" = "Bæta við málskipan fyrir tengil";
+"edit-link-display-text-title" = "Birta texta";
 "edit-link-remove-accessibility-label" = "Fjarlægja málskipan fyrir tengil";
 "edit-menu-item" = "Breyta";
 "edit-menu-item-could-not-find-selection-alert-message" = "Þetta gæti verið af því að textinn sem þú valdir sé ekki breytanlegur (t.d. titill greinar eða upplýsingareitur) nú eða vegna lengdar textans sem var valinn.";
@@ -178,7 +181,6 @@
 "edit-ordered-list-accessibility-label" = "Gerðu núverandi línu að röðuðum lista";
 "edit-ordered-list-remove-accessibility-label" = "Fjarlægðu raðaðan lista úr núverandi línu";
 "edit-published" = "Breyta útgefnu";
-"edit-published-button-title" = "Lokið";
 "edit-published-subtitle" = "Þú varst að gera Wikipedia betri fyrir alla";
 "edit-reference-accessibility-label" = "Bæta við málskipan fyrir tilvísun";
 "edit-reference-remove-accessibility-label" = "Fjarlægja málskipan fyrir tilvísun";
@@ -385,6 +387,21 @@
 "in-the-news-title" = "Í fréttum";
 "info-box-close-text" = "Loka";
 "info-box-title" = "Staðreyndir strax";
+"insert-action-title" = "Setja inn";
+"insert-media-alternative-text-title" = "Textalýsing";
+"insert-media-caption-title" = "Myndatexti";
+"insert-media-image-position-setting-center" = "Miðjað";
+"insert-media-image-position-setting-left" = "Vinstri";
+"insert-media-image-position-setting-none" = "Ekkert";
+"insert-media-image-position-setting-right" = "Hægri";
+"insert-media-image-preview-more-information-action-title" = "Nánari upplýsingar";
+"insert-media-image-preview-select-image-action-title" = "Veldu mynd";
+"insert-media-image-size-setting-custom" = "Sérsniðið";
+"insert-media-image-size-setting-default" = "Sjálfgefið";
+"insert-media-image-size-settings-px-unit-name" = "px";
+"insert-media-image-size-settings-title" = "Stærð myndar";
+"insert-media-image-type-setting-thumbnail" = "Smámynd";
+"insert-media-image-type-settings-title" = "Tegund myndar";
 "languages-settings-title" = "Tungumál";
 "languages-title" = "Skipta um tungumál";
 "languages-wikipedia" = "Tungumál á Wikipediu";
@@ -615,6 +632,7 @@
 "search-recent-title" = "Nýlega leitað";
 "search-result-redirected-from" = "Endurbeint frá: $1";
 "search-title" = "Leita";
+"settings-account" = "Aðgangur";
 "settings-appearance" = "Kjörstillingar við lestur";
 "settings-clear-cache" = "Hreinsa gögn úr skyndiminni";
 "settings-clear-cache-are-you-sure-message" = "Hreinsun gagna úr skyndiminni losar um það bil $1 af plássi. Það eyðir ekki vistuðu síðunum þínum.";
@@ -672,6 +690,10 @@
 "table-of-contents-close-accessibility-label" = "Loka efnisyfirliti";
 "table-of-contents-heading" = "Efni";
 "table-title-other" = "Nánari upplýsingar";
+"talk-page-new-subject-placeholder-text" = "Viðfangsefni";
+"talk-page-new-topic-title" = "Ný umræða";
+"talk-page-reply-title" = "Svara";
+"talk-page-topic-title" = "Umræða";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Dökkt";
 "theme-default-display-name" = "Sjálfgefið";

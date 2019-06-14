@@ -9,7 +9,9 @@ class SearchResultsViewController: ArticleCollectionViewController {
             reload()
         }
     }
-    
+
+    var delegatesSelection: Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         useNavigationBarVisibleHeightForScrollViewInsets = true
@@ -36,7 +38,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
         guard let title = results[indexPath.item].title,
-            results[indexPath.item].titleNamespace?.intValue ?? 0 == 3 else {
+            results[indexPath.item].pageNamespace == .userTalk else {
                 return nil
         }
         
@@ -63,6 +65,37 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return results.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
+        guard !delegatesSelection else {
+            return
+        }
+        
+        if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
+            let searchSiteURL = searchSiteURL {
+            
+            //replace localized namespace with canonical namespace so it's considered the same key in the database
+            let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: userTalkPageTitle)
+            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: searchSiteURL)
+            let talkPageContainer = TalkPageContainerViewController(title: title, siteURL: searchSiteURL, type: .user, dataStore: dataStore)
+            talkPageContainer.apply(theme: theme)
+            let article = dataStore.historyList.addPageToHistory(with: articleURL)
+            article?.update(with: results[indexPath.item])
+            wmf_push(talkPageContainer, animated: true)
+            return
+        }
+        
+        guard !isExternalURL(at: indexPath) else {
+            wmf_openExternalUrl(articleURL)
+            return
+        }
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {

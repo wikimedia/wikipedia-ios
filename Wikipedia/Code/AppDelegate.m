@@ -30,7 +30,8 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
         @"CurrentArticleDomain": defaultLanguage,
         @"Domain": defaultLanguage,
         @"LastHousekeepingDate": [NSDate date],
-        @"AccessSavedPagesMessageShown": @NO
+        @"AccessSavedPagesMessageShown": @NO,
+        @"WMFAutoSignTalkPageDiscussions": @YES
     }];
 }
 

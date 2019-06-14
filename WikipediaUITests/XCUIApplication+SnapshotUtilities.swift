@@ -133,7 +133,7 @@ extension XCUIElement {
                 if let item = items.first(where: {$0.predicate.evaluate(with: element.label)}) {
                     wmf_scrollElementToTop(element: element, yOffset: yOffset)
                     item.success(element)
-                    if let index = keys.index(of: item.key) {
+                    if let index = keys.firstIndex(of: item.key) {
                         keys.remove(at: index)
                     }
                     continue scrollLoop // Need to skip `wmf_scrollDown()` because other elements may already be onscreen and we don't want to scroll any of them offscreen. This lets the next pass(es) through the loop catch 'em.

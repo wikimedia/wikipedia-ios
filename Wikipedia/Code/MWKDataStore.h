@@ -16,7 +16,6 @@
 @class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
-@class WMFGlobalPreferencesController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -66,7 +65,6 @@ extern NSString *const WMFViewContextDidSave;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
-@property (readonly, strong, nonatomic) WMFGlobalPreferencesController *globalPreferencesController;
 @property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
 @property (readonly, strong, nonatomic) WMFArticleSummaryController *articleSummaryController;

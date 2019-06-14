@@ -88,6 +88,7 @@
 "action-unsaved-accessibility-notification" = "Стаття видалена із збережених";
 "action-update" = "Оновити";
 "add-articles-to-reading-list" = "Додати {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
+"add-citation-title" = "Додати джерело";
 "announcements-dismiss" = "Відхилити";
 "app-store-keywords" = "Вікіпедія, стаття, вікі, wiki, енциклопедія, інформація, знання, дослідження, інформація, читання, навчання";
 "app-store-release-notes" = "Тепер стрічка в додатку цілком налаштовувана та легша до використання. Поліпшена локалізація, підвищена продуктивність, деякі помилки виправлені.";
@@ -126,6 +127,7 @@
 "button-skip" = "Пропустити";
 "cancel" = "Скасувати";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Очистити";
 "close-button-accessibility-label" = "Закрити";
 "compass-direction" = "на $1 годину";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
@@ -182,7 +184,11 @@
 "edit-italic-accessibility-label" = "Додати курсивну гарнітуру";
 "edit-italic-remove-accessibility-label" = "Прибрати курсивну гарнітуру";
 "edit-link-accessibility-label" = "Додати посилання";
+"edit-link-display-text-title" = "Показати текст";
+"edit-link-link-target-title" = "Адреса посилання";
 "edit-link-remove-accessibility-label" = "Прибрати посилання";
+"edit-link-remove-link-title" = "Вилучити посилання";
+"edit-link-title" = "Редагувати посилання";
 "edit-menu-item" = "Редагувати";
 "edit-menu-item-could-not-find-selection-alert-message" = "Можливо, це сталося через те, що текст, який ви обрали, не можна редагувати (наприклад назва статті чи інфобоксу), або через довжину тексту, що була виділена";
 "edit-menu-item-could-not-find-selection-alert-title" = "Вибраний текст не знайдений";
@@ -191,7 +197,6 @@
 "edit-ordered-list-accessibility-label" = "Зробити нумерованим списком";
 "edit-ordered-list-remove-accessibility-label" = "Прибрати нумерований список";
 "edit-published" = "Редагування опубліковано";
-"edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Ви щойно зробили Вікіпедію ліпшою для усіх";
 "edit-reference-accessibility-label" = "Додати примітку";
 "edit-reference-remove-accessibility-label" = "Прибрати примітку";
@@ -231,7 +236,7 @@
 "editing-welcome-impartial-tone-title" = "Пишіть непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Аби надати доступ до знань людства кожному, ми потребуємо вашої участі у їхньому створенні завдяки вичитуванню, редагуванню статей і додаванню інформації на теми, що є найбільш релевантними для вас.";
 "editing-welcome-set-knowledge-free-title" = "Зробіть інформацію доступною всім";
-"empty-insert-media-title" = "Оберіть файл";
+"empty-insert-media-title" = "Оберіть файл з Вікісховища";
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
 "empty-no-feed-action-message" = "Ви все ще можете читати збережені сторінки";
 "empty-no-feed-message" = "Ви можете побачити рекомендовані статті, коли у вас є інтернет";
@@ -400,6 +405,7 @@
 "info-box-close-text" = "Закрити";
 "info-box-title" = "Табличка основної інформації";
 "insert-action-title" = "Вставити";
+"insert-link-title" = "Вставити посилання";
 "insert-media-alternative-text-description" = "Текстовий опис для читачів, які не можуть побачити зображення";
 "insert-media-alternative-text-placeholder" = "Опишіть це зображення";
 "insert-media-alternative-text-title" = "Альтернативний текст";

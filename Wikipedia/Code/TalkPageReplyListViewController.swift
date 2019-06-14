@@ -3,32 +3,92 @@ import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
-    func tappedReply(to discussion: TalkPageDiscussion, viewController: TalkPageReplyListViewController, lastSeenView: UIView, additionalPresentationAnimations: (() -> Void)?, additionalDismissalAnimations: (() -> Void)?)
+    func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
-    private let discussion: TalkPageDiscussion
-    private let dataStore: MWKDataStore
-    
-    private var fetchedResultsController: NSFetchedResultsController<TalkPageDiscussionItem>!
-    private var collectionViewUpdater: CollectionViewUpdater<TalkPageDiscussionItem>!
-    
-    private let reuseIdentifier = "ReplyListItemCollectionViewCell"
-    
     weak var delegate: TalkPageReplyListViewControllerDelegate?
     
-    private var disableScrolling = false {
+    private let topic: TalkPageTopic
+    private let dataStore: MWKDataStore
+    private var fetchedResultsController: NSFetchedResultsController<TalkPageReply>
+    
+    private let reuseIdentifier = "TalkPageReplyCell"
+    
+    private var collectionViewUpdater: CollectionViewUpdater<TalkPageReply>!
+
+    private lazy var beKindInputAccessoryView: BeKindInputAccessoryView = BeKindInputAccessoryView.wmf_viewFromClassNib()
+    
+    private lazy var publishButton: UIBarButtonItem = {
+        let publishButton = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(tappedPublish(_:)))
+        publishButton.tintColor = theme.colors.link
+        return publishButton
+    }()
+    
+    private var composeText: String?
+    private var footerView: TalkPageReplyFooterView?
+    private var originalFooterViewFrame: CGRect?
+    
+    private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
+    private var replyBarButtonItem: UIBarButtonItem!
+    
+    var repliesAreDisabled = true {
         didSet {
-            disableScrollingOffset = disableScrolling == true ? collectionView.contentOffset : nil
-            collectionView.showsVerticalScrollIndicator = disableScrolling ? false : true
+            footerView?.composeButtonIsDisabled = repliesAreDisabled
+            replyBarButtonItem.isEnabled = !repliesAreDisabled
         }
     }
-    private var disableScrollingOffset: CGPoint?
+
+    private var showingCompose = false {
+        didSet {
+            if showingCompose != oldValue {
+                footerView?.showingCompose = showingCompose
+                if let layoutCopy = layout.copy() as? ColumnarCollectionViewLayout {
+                    collectionView.setCollectionViewLayout(layoutCopy, animated: true)
+                    if showingCompose == true {
+                        scrollToBottom()
+                    }
+                } else {
+                    collectionView.reloadData()
+                    collectionView.layoutIfNeeded()
+                    scrollToBottom()
+                }
+                
+            }
+            
+            if showingCompose {
+                publishButton.isEnabled = false
+                navigationItem.rightBarButtonItem = publishButton
+                navigationItem.title = replyString
+                navigationBar.updateNavigationItems()
+            } else {
+                navigationItem.rightBarButtonItem = replyBarButtonItem
+                navigationBar.updateNavigationItems()
+            }
+            reloadInputViews()
+        }
+    }
     
-    required init(dataStore: MWKDataStore, discussion: TalkPageDiscussion) {
+    lazy private(set) var fakeProgressController: FakeProgressController = {
+        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        progressController.delay = 0.0
+        return progressController
+    }()
+    
+    private let replyString = WMFLocalizedString("talk-page-reply-title", value: "Reply", comment: "This header label is displayed at the top of a talk page thread once the user taps Reply.")
+    
+    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
+    
+    required init(dataStore: MWKDataStore, topic: TalkPageTopic, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
-        self.discussion = discussion
+        self.topic = topic
+        self.talkPageSemanticContentAttribute = talkPageSemanticContentAttribute
+        
+        let request: NSFetchRequest<TalkPageReply> = TalkPageReply.fetchRequest()
+        request.predicate = NSPredicate(format: "topic == %@",  topic)
+        request.sortDescriptors = [NSSortDescriptor(key: "sort", ascending: true)]
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
         super.init()
     }
@@ -40,14 +100,64 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        layoutManager.register(ReplyListItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        layoutManager.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier, addPlaceholder: true)
-        layoutManager.register(ReplyButtonFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReplyButtonFooterView.identifier, addPlaceholder: true)
+        registerCells()
+        setupCollectionViewUpdater()
+        setupBackgroundTap()
+        setupNavigationBar()
         
-        setupFetchedResultsController(with: dataStore)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
-        collectionViewUpdater?.performFetch()
+        collectionView.keyboardDismissMode = .interactive
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    override var inputAccessoryView: UIView? {
+        return showingCompose ? beKindInputAccessoryView : nil
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !topic.isRead {
+            topic.isRead = true
+            do {
+                try dataStore.viewContext.save()
+            } catch let error {
+                DDLogError("Error saving after marking topic as read: \(error)")
+            }
+        }
+    }
+    
+    func postDidBegin() {
+        fakeProgressController.start()
+        publishButton.isEnabled = false
+        footerView?.composeTextView.isUserInteractionEnabled = false
+    }
+    
+    func postDidEnd() {
+        fakeProgressController.stop()
+        publishButton.isEnabled = true
+        showingCompose = false
+        footerView?.resetCompose()
+    }
+    
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        
+        //animate content offset so text view is in window
+        guard let composeTextView = footerView?.composeTextView,
+        let newKeyboardFrame = newKeyboardFrame,
+        newKeyboardFrame.minY < (view.bounds.height - beKindInputAccessoryView.frame.height),
+        traitCollection.verticalSizeClass == .compact else {
+            return
+        }
+        
+        let convertedRect = view.convert(composeTextView.frame, from: composeTextView.superview)
+        let delta = convertedRect.minY - navigationBar.visibleHeight
+        
+        let contentOffset = collectionView.contentOffset
+
+        collectionView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y + delta), animated: true)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -65,21 +175,9 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         return sections[section].numberOfObjects
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        if let disableScrollingOffset = disableScrollingOffset,
-            disableScrolling {
-            collectionView.setContentOffset(disableScrollingOffset, animated: false)
-        } else {
-            super.scrollViewDidScroll(scrollView)
-        }
-        
-        
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ReplyListItemCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? TalkPageReplyCell else {
                 return UICollectionViewCell()
         }
         
@@ -89,7 +187,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 54)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReplyListItemCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? TalkPageReplyCell else {
             return estimate
         }
         configure(cell: placeholderCell, at: indexPath)
@@ -103,40 +201,25 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.identifier, for: indexPath) as? TalkPageHeaderView {
-                configure(header: header)
-                return header
-        }
         
         if kind == UICollectionView.elementKindSectionFooter,
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ReplyButtonFooterView.identifier, for: indexPath) as? ReplyButtonFooterView {
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageReplyFooterView.identifier, for: indexPath) as? TalkPageReplyFooterView {
+            self.footerView = footer
             configure(footer: footer)
+            self.footerView = footer
             return footer
         }
         
         return UICollectionReusableView()
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.identifier) as? TalkPageHeaderView else {
-            return estimate
-        }
-        
-        configure(header: header)
-        estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        return estimate
-    }
-    
+
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let footer = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReplyButtonFooterView.identifier) as? ReplyButtonFooterView else {
+        guard let footer = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: TalkPageReplyFooterView.identifier) as? TalkPageReplyFooterView else {
             return estimate
         }
         configure(footer: footer)
+        footer.composeTextView.inputAccessoryView = beKindInputAccessoryView
         estimate.height = footer.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
@@ -145,13 +228,16 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        beKindInputAccessoryView.apply(theme: theme)
     }
 }
+
+//MARK: CollectionViewUpdaterDelegate
 
 extension TalkPageReplyListViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? DiscussionListItemCollectionViewCell,
+            guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageTopicCell,
                 let title = fetchedResultsController.object(at: indexPath).text else {
                     continue
             }
@@ -165,85 +251,147 @@ extension TalkPageReplyListViewController: CollectionViewUpdaterDelegate {
     }
 }
 
+//MARK: Private
+
 private extension TalkPageReplyListViewController {
     
-    func setupFetchedResultsController(with dataStore: MWKDataStore) {
+    func registerCells() {
+        layoutManager.register(TalkPageReplyCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(TalkPageReplyFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: TalkPageReplyFooterView.identifier, addPlaceholder: true)
+    }
+    
+    func setupCollectionViewUpdater() {
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater?.delegate = self
+        collectionViewUpdater?.performFetch()
+    }
+    
+    func setupNavigationBar() {
+        navigationBar.isBarHidingEnabled = false
+        let replyImage = UIImage(named: "reply")
+        replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
+        replyBarButtonItem.tintColor = theme.colors.link
+        navigationItem.rightBarButtonItem = replyBarButtonItem
+        replyBarButtonItem.isEnabled = repliesAreDisabled
+        navigationBar.updateNavigationItems()
         
-        let request: NSFetchRequest<TalkPageDiscussionItem> = TalkPageDiscussionItem.fetchRequest()
-        request.predicate = NSPredicate(format: "discussion == %@",  discussion)
-        request.sortDescriptors = [NSSortDescriptor(key: "discussion", ascending: true)] //todo: I am forced to use this, does this keep original ordering?
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        if let headerView = TalkPageHeaderView.wmf_viewFromClassNib(),
+            let title = topic.title {
+            configure(header: headerView)
+            headerView.delegate = self
+            navigationBar.isBarHidingEnabled = false
+            navigationBar.isUnderBarViewHidingEnabled = true
+            useNavigationBarVisibleHeightForScrollViewInsets = true
+            navigationBar.addUnderNavigationBarView(headerView)
+            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+            navigationBar.title = title
+            updateScrollViewInsets()
+        }
+    }
+    
+    @objc func tappedPublish(_ sender: UIBarButtonItem) {
+        
+        guard let composeText = composeText,
+            composeText.count > 0 else {
+                assertionFailure("User should be able to tap Publish if they have not written a reply.")
+                return
+        }
+        view.endEditing(true)
+        delegate?.tappedPublish(topic: topic, composeText: composeText, viewController: self)
+    }
+    
+    @objc func tappedReplyNavigationItem(_ sender: UIBarButtonItem) {
+        
+        showingCompose = true
+    }
+    
+    func setupBackgroundTap() {
+        backgroundTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedBackground(_:)))
+        view.addGestureRecognizer(backgroundTapGestureRecognizer)
+    }
+    
+    @objc func tappedBackground(_ tapGestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     func configure(header: TalkPageHeaderView) {
         
-        guard let title = discussion.title else {
+        guard let title = topic.title else {
                 return
         }
         
-        let headerText = WMFLocalizedString("talk-page-discussion-title", value: "Discussion", comment: "This header label is displayed at the top of a talk page discussion thread.").localizedUppercase
+        let headerText = WMFLocalizedString("talk-page-topic-title", value: "Discussion", comment: "This header label is displayed at the top of a talk page topic thread.").localizedUppercase
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil)
+        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil, intro: nil)
         
+        header.delegate = self
         header.configure(viewModel: viewModel)
         header.layoutMargins = layout.itemLayoutMargins
+        header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         header.apply(theme: theme)
     }
     
-    func configure(footer: ReplyButtonFooterView) {
+    func configure(footer: TalkPageReplyFooterView) {
         footer.delegate = self
+        footer.showingCompose = showingCompose
         footer.layoutMargins = layout.itemLayoutMargins
         footer.apply(theme: theme)
+        footer.composeButtonIsDisabled = repliesAreDisabled
     }
     
-    func configure(cell: ReplyListItemCollectionViewCell, at indexPath: IndexPath) {
+    func configure(cell: TalkPageReplyCell, at indexPath: IndexPath) {
         let item = fetchedResultsController.object(at: indexPath)
         guard let title = item.text,
         item.depth >= 0 else {
+            assertionFailure("Invalid depth")
             return
         }
         
         cell.delegate = self
         cell.configure(title: title, depth: UInt(item.depth))
         cell.layoutMargins = layout.itemLayoutMargins
+        cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
         cell.apply(theme: theme)
+    }
+    
+    func scrollToBottom() {
+        let bottomOffset = CGPoint(x: 0, y: (collectionView.contentSize.height - collectionView.frame.size.height) + collectionView.adjustedContentInset.bottom)
+        scrollView?.setContentOffset(bottomOffset, animated: true)
     }
 }
 
-extension TalkPageReplyListViewController: ReplyListItemCollectionViewCellDelegate {
-    func tappedLink(_ url: URL, cell: ReplyListItemCollectionViewCell) {
+extension TalkPageReplyListViewController: TalkPageReplyCellDelegate {
+    func tappedLink(_ url: URL, cell: TalkPageReplyCell) {
         
         delegate?.tappedLink(url, viewController: self)
     }
 }
 
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
-    func tappedReply(from view: ReplyButtonFooterView, additionalPresentationAnimations:
-        (() -> Void)?, additionalDismissalAnimations: (() -> Void)?) {
-        
-        if let sections = fetchedResultsController.sections {
-            let lastSectionIndex = sections.count - 1
-            let lastSection = sections[lastSectionIndex]
-            let lastItemIndex = lastSection.numberOfObjects - 1
-            let indexPath = IndexPath(item: lastItemIndex, section: lastSectionIndex)
-            
-            if let lastCell = collectionView.cellForItem(at: indexPath) as? ReplyListItemCollectionViewCell {
-                disableScrolling = true
-                delegate?.tappedReply(to: discussion, viewController: self, lastSeenView: lastCell, additionalPresentationAnimations: additionalPresentationAnimations, additionalDismissalAnimations: additionalDismissalAnimations)
-                return
-            }
-        }
-        
-        assertionFailure("Reply Footer Delegate validation failure")
+    func composeTextDidChange(text: String?) {
+        publishButton.isEnabled = text?.count ?? 0 > 0
+        composeText = text
+    }
+    
+    func tappedReply(from view: TalkPageReplyFooterView) {
+
+        showingCompose = !showingCompose
+        originalFooterViewFrame = footerView?.frame
+    }
+    
+    var collectionViewFrame: CGRect {
+        return collectionView.frame
     }
 }
 
-extension TalkPageReplyListViewController: ReplyDismissDelegate {
-    func willDismiss() {
-        disableScrolling = false
+//MARK: TalkPageHeaderViewDelegate
+
+extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView) {
+        delegate?.tappedLink(url, viewController: self)
     }
     
-    func cancelDismiss() {
-        disableScrolling = true
+    func tappedIntro(headerView: TalkPageHeaderView) {
+        assertionFailure("Should not be able to tap intro text view from replies screen")
     }
 }

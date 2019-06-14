@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F203" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -72,20 +72,34 @@
     <entity name="TalkPage" representedClassName="TalkPage" syncable="YES" codeGenerationType="class">
         <attribute name="displayTitle" attributeType="String" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
-        <attribute name="languageCode" attributeType="String" syncable="YES"/>
-        <attribute name="revisionId" attributeType="Integer 64" minValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="discussions" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="TalkPageDiscussion" inverseName="talkPage" inverseEntity="TalkPageDiscussion" syncable="YES"/>
+        <attribute name="revisionId" optional="YES" attributeType="Integer 64" minValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="topics" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageTopic" inverseName="talkPage" inverseEntity="TalkPageTopic" syncable="YES"/>
     </entity>
-    <entity name="TalkPageDiscussion" representedClassName="TalkPageDiscussion" syncable="YES" codeGenerationType="class">
-        <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="title" attributeType="String" syncable="YES"/>
-        <relationship name="items" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="TalkPageDiscussionItem" inverseName="discussion" inverseEntity="TalkPageDiscussionItem" syncable="YES"/>
-        <relationship name="talkPage" maxCount="1" deletionRule="Deny" destinationEntity="TalkPage" inverseName="discussions" inverseEntity="TalkPage" syncable="YES"/>
-    </entity>
-    <entity name="TalkPageDiscussionItem" representedClassName="TalkPageDiscussionItem" syncable="YES" codeGenerationType="class">
+    <entity name="TalkPageReply" representedClassName="TalkPageReply" syncable="YES" codeGenerationType="class">
         <attribute name="depth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sha" attributeType="String" syncable="YES"/>
+        <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="text" attributeType="String" syncable="YES"/>
-        <relationship name="discussion" maxCount="1" deletionRule="Deny" destinationEntity="TalkPageDiscussion" inverseName="items" inverseEntity="TalkPageDiscussion" syncable="YES"/>
+        <relationship name="topic" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="replies" inverseEntity="TalkPageTopic" syncable="YES"/>
+    </entity>
+    <entity name="TalkPageTopic" representedClassName="TalkPageTopic" syncable="YES" codeGenerationType="class">
+        <attribute name="isIntro" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="relatedObjectsVersion" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="textSha" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopicContent" inverseName="topics" inverseEntity="TalkPageTopicContent" syncable="YES"/>
+        <relationship name="replies" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageReply" inverseName="topic" inverseEntity="TalkPageReply" syncable="YES"/>
+        <relationship name="talkPage" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPage" inverseName="topics" inverseEntity="TalkPage" syncable="YES"/>
+    </entity>
+    <entity name="TalkPageTopicContent" representedClassName="TalkPageTopicContent" syncable="YES" codeGenerationType="class">
+        <attribute name="isRead" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sha" attributeType="String" syncable="YES"/>
+        <relationship name="topics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="content" inverseEntity="TalkPageTopic" syncable="YES"/>
+        <fetchIndex name="bySHAIndex">
+            <fetchIndexElement property="sha" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -102,6 +116,7 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="ns" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary" syncable="YES"/>
         <attribute name="placesSortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -200,10 +215,11 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
-        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="120"/>
-        <element name="TalkPageDiscussion" positionX="-36" positionY="144" width="128" height="105"/>
-        <element name="TalkPageDiscussionItem" positionX="-27" positionY="153" width="128" height="90"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="480"/>
+        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="105"/>
+        <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
+        <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
+        <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="495"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="345"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>

@@ -185,7 +185,6 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case italic
         case reference
         case template
-        case anchor
         case indent
         case signature
         case orderedList
@@ -226,6 +225,9 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case replaceSelection
         case lineInfo
         case newlineAndIndent
+        case getLink
+        case insertOrEditLink
+        case removeLink
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
@@ -252,8 +254,61 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .template)
     }
 
-    func toggleAnchorSelection() {
-        execCommand(for: .anchor)
+    struct Link {
+        let page: String
+        let label: String?
+        let exists: Bool
+
+        init?(page: String?, label: String?, exists: Bool?) {
+            guard let page = page else {
+                assertionFailure("Attempting to create a Link without a page")
+                return nil
+            }
+            guard let exists = exists else {
+                assertionFailure("Attempting to create a Link without information about whether it's an existing link")
+                return nil
+            }
+            self.page = page
+            self.label = label
+            self.exists = exists
+        }
+
+        var hasLabel: Bool {
+            return label != nil
+        }
+
+        func articleURL(for siteURL: URL) -> URL? {
+            guard exists else {
+                return nil
+            }
+            return siteURL.wmf_URL(withTitle: page)
+        }
+    }
+
+    func getLink(completion: @escaping (Link?) -> Void) {
+        execCommand(for: .getLink) { result, error in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            guard let link = result as? [String: Any] else {
+                return
+            }
+            let page = link["page"] as? String
+            let label = link["label"] as? String
+            let exists = link["hasMarkup"] as? Bool
+            completion(Link(page: page, label: label, exists: exists))
+        }
+    }
+
+    func insertOrEditLink(page: String, label: String?) {
+        let labelOrNull = label.flatMap { "\"\($0)\"" } ?? "null"
+        let argument = "\"\(page)\", \(labelOrNull)".wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .insertOrEditLink, argument: argument)
+    }
+
+    func removeLink() {
+        execCommand(for: .removeLink)
     }
 
     func toggleIndentSelection() {

@@ -1,5 +1,6 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
+// Author: Abijeet Patro
 // Author: Les Meloures
 // Author: Macofe
 // Author: Nemo bis
@@ -46,6 +47,8 @@
 "account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
 "account-creation-title" = "En neie Benotzerkont uleeën";
+"account-group-title" = "Äre Benotzerkont";
+"account-talk-page-title" = "Är Diskussiounssäit";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
 "action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
@@ -67,6 +70,7 @@
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "action-update" = "Aktualiséieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
+"add-citation-title" = "Zitat dobäisetzen";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "article-about-title" = "Iwwer dësen Artikel";
@@ -107,11 +111,14 @@
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
 "edit-indent-accessibility-label" = "Déi Aktuell Linn eraréckelen";
+"edit-link-display-text-title" = "Text weisen";
+"edit-link-link-target-title" = "Linkzil";
+"edit-link-remove-link-title" = "Link ewechhuelen";
+"edit-link-title" = "Link änneren";
 "edit-menu-item" = "Änneren";
 "edit-minor-learn-more-text" = "Méi iwwer kleng Ännerunge gewuer ginn";
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
 "edit-published" = "Ännerung verëffentlecht";
-"edit-published-button-title" = "Fäerdeg";
 "edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaacht";
 "edit-strikethrough-remove-accessibility-label" = "Duerchsträichen ewech huelen";
 "edit-style-table-view-title" = "Stil";
@@ -124,7 +131,7 @@
 "edit-watch-list-learn-more-text" = "Méi iwwer Iwwerwaachungslëschte gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
-"empty-insert-media-title" = "E Fichier eraussichen";
+"empty-insert-media-title" = "E Fichier op Wikimedia Commons eraussichen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
@@ -234,6 +241,7 @@
 "info-box-close-text" = "Zoumaachen";
 "info-box-title" = "Séier Fakten";
 "insert-action-title" = "Drasetzen";
+"insert-link-title" = "Link drasetzen";
 "insert-media-alternative-text-placeholder" = "Beschreift dëst Bild";
 "insert-media-alternative-text-title" = "Alternativen Text";
 "insert-media-caption-title" = "Beschreiwung";
@@ -418,6 +426,7 @@
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "search-title" = "Sichen";
+"settings-account" = "Benotzerkont";
 "settings-appearance" = "Lies-Astellungen";
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
 "settings-clear-cache-are-you-sure-message" = "D'Läsche vun tëschegespäicherten Donnéeën mécht ongeféier $1 Plaz fräi. Är gespäichert Säite ginn net geläscht.";
@@ -464,6 +473,16 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-heading" = "Inhalter";
 "table-title-other" = "Méi Informatiounen";
+"talk-page-info-active-conversations-generic" = "Aktiv Gespréicher op Wikipedia";
+"talk-page-new-banner-subtitle" = "Denkt dru, mir sinn hei all Mënschen";
+"talk-page-new-banner-title" = "Sidd w.e.g. fein";
+"talk-page-new-reply-success-text" = "Är Äntwert gouf verëffentlecht";
+"talk-page-new-subject-placeholder-text" = "Sujet";
+"talk-page-new-topic-success-text" = "Är Diskussioun gouf verëffentlecht";
+"talk-page-new-topic-title" = "Nei Diskussioun";
+"talk-page-reply-title" = "Äntwerten";
+"talk-page-title-user-talk" = "Benotzerdiskussioun";
+"talk-page-topic-title" = "Diskussioun";
 "theme-black-display-name" = "Schwaarz";
 "theme-dark-display-name" = "Däischter";
 "theme-default-display-name" = "Standard";

@@ -23,20 +23,23 @@ class TalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        guard let title = TalkPageType.user.urlTitle(for: "Username", titleIncludesPrefix: false) else {
+        let siteURL = URL(string: "https://en.wikipedia.org")!
+        
+        let prefixedTitle = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: "Username", siteURL: siteURL)
+        guard let title = TalkPageType.user.urlTitle(for: prefixedTitle) else {
             XCTFail("Failure generating title")
             return
         }
         
-        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", host: Configuration.Domain.englishWikipedia, languageCode: "en", revisionID: 5) { (result) in
+        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", siteURL: siteURL, revisionID: 5) { (result) in
             
             fetchExpectation.fulfill()
 
             switch result {
             case .success(let talkPage):
-                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
+                XCTAssertEqual(talkPage.url.absoluteString, "https://appservice.wmflabs.org/en.wikipedia.org/v1/page/talk/User_talk:Username")
                 XCTAssertEqual(talkPage.revisionId, 5)
-            case .failure (let error):
+            case .failure:
                 XCTFail("Expected Success")
             }
         }
@@ -48,18 +51,18 @@ class TalkPageFetcherTests: XCTestCase {
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
-        guard let title = TalkPageType.user.urlTitle(for: "User talk:Username", titleIncludesPrefix: true) else {
+        guard let title = TalkPageType.user.urlTitle(for: "User talk:Username") else {
             XCTFail("Failure generating title")
             return
         }
         
-        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", host: Configuration.Domain.englishWikipedia, languageCode: "en", revisionID: 5) { (result) in
+        fetcher.fetchTalkPage(urlTitle: title, displayTitle: "Username", siteURL: URL(string: "https://en.wikipedia.org")!, revisionID: 5) { (result) in
             
             fetchExpectation.fulfill()
             
             switch result {
             case .success(let talkPage):
-                XCTAssertEqual(talkPage.url.absoluteString, "https://en.wikipedia.org/api/rest_v1/page/talk/User_talk:Username")
+                XCTAssertEqual(talkPage.url.absoluteString, "https://appservice.wmflabs.org/en.wikipedia.org/v1/page/talk/User_talk:Username")
                 XCTAssertEqual(talkPage.revisionId, 5)
             case .failure:
                 XCTFail("Expected Success")

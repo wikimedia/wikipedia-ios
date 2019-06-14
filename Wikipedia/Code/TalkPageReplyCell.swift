@@ -1,29 +1,47 @@
 
 import UIKit
 
-protocol ReplyListItemCollectionViewCellDelegate: class {
-    func tappedLink(_ url: URL, cell: ReplyListItemCollectionViewCell)
+protocol TalkPageReplyCellDelegate: class {
+    func tappedLink(_ url: URL, cell: TalkPageReplyCell)
 }
 
-class ReplyListItemCollectionViewCell: CollectionViewCell {
+class TalkPageReplyCell: CollectionViewCell {
+    
+    weak var delegate: TalkPageReplyCellDelegate?
+    
     private let titleTextView = UITextView()
     private let depthMarker = UIView()
-    weak var delegate: ReplyListItemCollectionViewCellDelegate?
+    private var depth: UInt = 0
+    
     private var theme: Theme?
     
-    private var depth: UInt = 0
+    private var isDeviceRTL: Bool {
+        return effectiveUserInterfaceLayoutDirection == .rightToLeft
+    }
+    
+    var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
+        didSet {
+            textAlignmentOverride = semanticContentAttributeOverride == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+            titleTextView.semanticContentAttribute = semanticContentAttributeOverride
+        }
+    }
+    
+    private var textAlignmentOverride: NSTextAlignment = .left {
+        didSet {
+            titleTextView.textAlignment = textAlignmentOverride
+        }
+    }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
-        let isRTL = semanticContentAttribute == .forceRightToLeft
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left + 5, bottom: layoutMargins.bottom, right: layoutMargins.right + 5)
+        let isRTL = semanticContentAttributeOverride == .forceRightToLeft
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left, bottom: 0, right: layoutMargins.right)
         
         var depthIndicatorOrigin: CGPoint?
         if depth > 0 {
             var depthIndicatorX = isRTL ? size.width - adjustedMargins.right : adjustedMargins.left
             
-            let depthAdjustmentMultiplier = CGFloat(12) //todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
+            let depthAdjustmentMultiplier = CGFloat(13) //todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
             if isRTL {
                 depthIndicatorX -= (CGFloat(depth) - 1) * depthAdjustmentMultiplier
             } else {
@@ -48,13 +66,17 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
             titleMaximumWidth = (size.width - adjustedMargins.right) - titleOrigin.x
         }
         
-        let titleTextViewFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: titleMaximumWidth, alignedBy: semanticContentAttribute, apply: apply)
+        let titleTextViewFrame = titleTextView.wmf_preferredFrame(at: titleOrigin, maximumWidth: titleMaximumWidth, alignedBy: semanticContentAttributeOverride, apply: apply)
         
         let finalHeight = adjustedMargins.top + titleTextViewFrame.size.height + adjustedMargins.bottom
         
         if let depthIndicatorOrigin = depthIndicatorOrigin,
             apply {
             depthMarker.frame = CGRect(origin: depthIndicatorOrigin, size: CGSize(width: 2, height: titleTextViewFrame.height))
+        }
+        
+        if (apply) {
+            titleTextView.textAlignment = textAlignmentOverride
         }
         
         return CGSize(width: size.width, height: finalHeight)
@@ -67,10 +89,9 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         
         let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
-        
-        //todo: we seem to be losing <b> tags (possibly more). Need to look into this.
-        let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: font, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil).wmf_trim()
-        titleTextView.attributedText = attributedString
+        let italicfont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        let attributedString = title.wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicfont, boldItalicFont: boldFont, color: titleTextView.textColor, linkColor:theme?.colors.link, handlingLists: true, handlingSuperSubscripts: true, withAdditionalBoldingForMatchingSubstring:nil, tagMapping: nil, additionalTagAttributes: nil)
+        setupTitle(for: attributedString)
         setNeedsLayout()
     }
     
@@ -82,9 +103,17 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
         depthMarker.frame = .zero
     }
     
+    private func setupTitle(for attributedText: NSAttributedString) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 7
+        let attrString = NSMutableAttributedString(attributedString: attributedText)
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSRange(location: 0, length: attrString.length))
+        titleTextView.attributedText = attrString
+    }
+    
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleTextView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        setupTitle(for: titleTextView.attributedText)
     }
     
     override func setup() {
@@ -97,17 +126,21 @@ class ReplyListItemCollectionViewCell: CollectionViewCell {
     }
 }
 
-extension ReplyListItemCollectionViewCell: Themeable {
+//MARK: Themeable
+
+extension TalkPageReplyCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         titleTextView.textColor = theme.colors.primaryText
         titleTextView.backgroundColor = theme.colors.paperBackground
-        depthMarker.backgroundColor = theme.colors.border
+        depthMarker.backgroundColor = theme.colors.depthMarker
         contentView.backgroundColor = theme.colors.paperBackground
     }
 }
 
-extension ReplyListItemCollectionViewCell: UITextViewDelegate {
+//MARK: UITextViewDelegate
+
+extension TalkPageReplyCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.tappedLink(URL, cell: self)
         return false

@@ -123,6 +123,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
 @property (nonatomic, strong) NavigationStateController *navigationStateController;
+@property (nonatomic, strong) WMFTalkPageReplyHintController *talkPageReplyHintController;
+@property (nonatomic, strong) WMFTalkPageTopicHintController *talkPageTopicHintController;
 
 @end
 
@@ -223,8 +225,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                              selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageReplyWasPublished:) name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageTopicWasPublished:) name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName object:nil];
+    
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
+    self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
+    self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -259,7 +267,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self.periodicWorkerController add:self.dataStore.readingListsController];
     [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
-    [self.periodicWorkerController add:self.dataStore.globalPreferencesController];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
@@ -267,7 +274,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
     [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
-    [self.backgroundFetcherController add:self.dataStore.globalPreferencesController];
 }
 
 - (void)loadMainUI {
@@ -453,7 +459,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             self.hasSyncErrorBeenShownThisSesssion = YES; //only show sync error once for multiple failed syncs
             [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                         sticky:YES
-                                         dismissPreviousAlerts:YES
+                                         dismissPreviousAlerts:NO
                                                    tapCallBack:nil];
         }
     }
@@ -529,6 +535,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return;
     }
     [self toggleHint:self.editHintController context:nil];
+}
+
+- (void)talkPageReplyWasPublished:(NSNotification *)note {
+    [self toggleHint:self.talkPageReplyHintController context:nil];
+}
+
+- (void)talkPageTopicWasPublished:(NSNotification *)note {
+    [self toggleHint:self.talkPageTopicHintController context:nil];
 }
 
 - (void)toggleHint:(HintController *)hintController context:(nullable NSDictionary<NSString *, id> *)context {

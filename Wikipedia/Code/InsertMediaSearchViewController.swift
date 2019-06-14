@@ -137,5 +137,6 @@ extension InsertMediaSearchViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
         searchBar.apply(theme: theme)
+        searchBar.tintColor = theme.colors.link
     }
 }

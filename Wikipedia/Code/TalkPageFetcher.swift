@@ -1,88 +1,111 @@
 
 class NetworkTalkPage {
     let url: URL
-    let discussions: [NetworkDiscussion]
-    let revisionId: Int64
+    let topics: [NetworkTopic]
+    var revisionId: Int?
     let displayTitle: String
-    let languageCode: String
     
-    init(url: URL, discussions: [NetworkDiscussion], revisionId: Int64, displayTitle: String, languageCode: String) {
+    init(url: URL, topics: [NetworkTopic], revisionId: Int?, displayTitle: String) {
         self.url = url
-        self.discussions = discussions
+        self.topics = topics
         self.revisionId = revisionId
         self.displayTitle = displayTitle
-        self.languageCode = languageCode
     }
 }
 
 class NetworkBase: Codable {
-    let topics: [NetworkDiscussion]
+    let topics: [NetworkTopic]
 }
 
-class NetworkDiscussion: Codable {
-    let text: String
-    let items: [NetworkDiscussionItem]
+class NetworkTopic:  NSObject, Codable {
+    let html: String
+    let replies: [NetworkReply]
     let sectionID: Int
+    let shas: NetworkTopicShas
+    var sort: Int?
     
     enum CodingKeys: String, CodingKey {
-        case text
-        case items = "replies"
+        case html
+        case shas
+        case replies
         case sectionID = "id"
     }
 }
 
-class NetworkDiscussionItem: Codable {
-    let text: String
+class NetworkTopicShas: Codable {
+    let html: String
+    let indicator: String
+}
+
+class NetworkReply: NSObject, Codable {
+    let html: String
     let depth: Int16
+    let sha: String
+    var sort: Int!
+    
+    enum CodingKeys: String, CodingKey {
+        case html
+        case depth
+        case sha
+    }
 }
 
 import Foundation
+import WMF
 
 enum TalkPageType {
     case user
     case article
     
-    var prefix: String {
+    func canonicalNamespacePrefix(for siteURL: URL) -> String? {
+        
+        //todo: PageNamespace
+        var namespaceRaw: String
         switch self {
-        case .user:
-            return "User talk:"
         case .article:
-            return "Talk:"
-        }
-    }
-    
-    func urlTitle(for title: String, titleIncludesPrefix: Bool) -> String? {
-        if !titleIncludesPrefix {
-
-            guard let underscoredTitle = title.wmf_denormalizedPageTitle(),
-                let underscoredPrefix = prefix.wmf_denormalizedPageTitle(),
-                let percentEncodedTitle = underscoredTitle.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) else {
-                return nil
-            }
-            
-            return underscoredPrefix + percentEncodedTitle
-        } else {
-            return title.wmf_denormalizedPageTitle()
-        }
-    }
-    
-    func displayTitle(for title: String, titleIncludesPrefix: Bool) -> String {
-        if !titleIncludesPrefix {
-            return title
+            namespaceRaw = "1"
+        case .user:
+            namespaceRaw = "3"
         }
         
-        //todo: There will be some language issues with this
-        return title.replacingOccurrences(of: prefix, with: "")
+        guard let namespace = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL)?.namespaces?[namespaceRaw] else {
+            return nil
+        }
+        
+        return namespace.canonicalName + ":"
     }
+    
+    func titleWithCanonicalNamespacePrefix(title: String, siteURL: URL) -> String {
+        return (canonicalNamespacePrefix(for: siteURL) ?? "") + title
+    }
+    
+    func titleWithoutNamespacePrefix(title: String) -> String {
+        if let firstColon = title.range(of: ":") {
+            var returnTitle = title
+            returnTitle.removeSubrange(title.startIndex..<firstColon.upperBound)
+            return returnTitle
+        } else {
+            return title
+        }
+    }
+    
+    func urlTitle(for title: String) -> String? {
+        assert(title.contains(":"), "Title must already be prefixed with namespace.")
+        return title.wmf_denormalizedPageTitle()
+    }
+}
+
+enum TalkPageFetcherError: Error {
+    case talkPageDoesNotExist
 }
 
 class TalkPageFetcher: Fetcher {
     
     private let sectionUploader = WikiTextSectionUploader()
     
-    func addDiscussion(to title: String, host: String, languageCode: String, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+    func addTopic(to title: String, siteURL: URL, subject: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
         
-        guard let url = articleURL(for: title, host: host) else {
+        guard let url = postURL(for: title, siteURL: siteURL) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
@@ -102,14 +125,15 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func addReply(to discussion: TalkPageDiscussion, title: String, host: String, languageCode: String, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
+    func addReply(to topic: TalkPageTopic, title: String, siteURL: URL, body: String, completion: @escaping (Result<[AnyHashable : Any], Error>) -> Void) {
         
-        guard let url = articleURL(for: title, host: host) else {
+        guard let url = postURL(for: title, siteURL: siteURL) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
+        
         //todo: should sectionID in CoreData be string?
-        sectionUploader.append(toSection: String(discussion.sectionID), text: body, forArticleURL: url) { (result, error) in
+        sectionUploader.append(toSection: String(topic.sectionID), text: body, forArticleURL: url) { (result, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -124,20 +148,23 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func taskURL(for urlTitle: String, host: String) -> URL? {
-        return taskURL(for: urlTitle, host: host, revisionID: nil)
-    }
-    
-    func fetchTalkPage(urlTitle: String, displayTitle: String, host: String, languageCode: String, revisionID: Int64, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
-        guard let taskURLWithRevID = taskURL(for: urlTitle, host: host, revisionID: revisionID),
-            let taskURLWithoutRevID = taskURL(for: urlTitle, host: host, revisionID: nil) else {
+    func fetchTalkPage(urlTitle: String, displayTitle: String, siteURL: URL, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
+        
+        guard let taskURLWithRevID = getURL(for: urlTitle, siteURL: siteURL, revisionID: revisionID),
+            let taskURLWithoutRevID = getURL(for: urlTitle, siteURL: siteURL, revisionID: nil) else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
     
         //todo: track tasks/cancel
         session.jsonDecodableTask(with: taskURLWithRevID) { (networkBase: NetworkBase?, response: URLResponse?, error: Error?) in
-
+            
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                statusCode == 404 {
+                completion(.failure(TalkPageFetcherError.talkPageDoesNotExist))
+                return
+            }
+            
             if let error = error {
                 completion(.failure(error))
                 return
@@ -148,32 +175,62 @@ class TalkPageFetcher: Fetcher {
                 return
             }
             
-            let filteredDiscussions = networkBase.topics.filter { $0.text.count > 0 }
-            
-            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, discussions: filteredDiscussions, revisionId: revisionID, displayTitle: displayTitle, languageCode: languageCode)
+            //update sort
+            //todo performance: should we go back to NSOrderedSets or move sort up into endpoint?
+            for (topicIndex, topic) in networkBase.topics.enumerated() {
+                
+                topic.sort = topicIndex
+                
+                for (replyIndex, reply) in topic.replies.enumerated() {
+                    reply.sort = replyIndex
+                }
+            }
+
+            let talkPage = NetworkTalkPage(url: taskURLWithoutRevID, topics: networkBase.topics, revisionId: revisionID, displayTitle: displayTitle)
             completion(.success(talkPage))
         }
     }
     
-    private func taskURL(for urlTitle: String, host: String, revisionID: Int64?) -> URL? {
+    func getURL(for urlTitle: String, siteURL: URL) -> URL? {
+        return getURL(for: urlTitle, siteURL: siteURL, revisionID: nil)
+    }
+}
+
+//MARK: Private
+
+private extension TalkPageFetcher {
+    
+    func getURL(for urlTitle: String, siteURL: URL, revisionID: Int?) -> URL? {
         
-        //note: assuming here urlTitle has already been percent endcoded & escaped
-        var pathComponents = ["page", "talk", urlTitle]
+        assert(urlTitle.contains(":"), "Title must already be prefixed with namespace.")
+        
+        guard let host = siteURL.host,
+        let percentEncodedUrlTitle = urlTitle.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed) else {
+            return nil
+        }
+        
+        var pathComponents = ["page", "talk", percentEncodedUrlTitle]
         if let revisionID = revisionID {
             pathComponents.append(String(revisionID))
         }
         
-        guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
+        guard let taskURL = configuration.wikipediaTalkPageAPIURLComponentsForHost(host, appending: pathComponents).url else {
             return nil
         }
         
         return taskURL
     }
     
-    private func articleURL(for urlTitle: String, host: String) -> URL? {
+    func postURL(for urlTitle: String, siteURL: URL) -> URL? {
         
-        //note: assuming here urlTitle has already been percent endcoded, prefixed & escaped
+        assert(urlTitle.contains(":"), "Title must already be prefixed with namespace.")
+        
+        guard let host = siteURL.host else {
+            return nil
+        }
+        
         let components = configuration.articleURLForHost(host, appending: [urlTitle])
         return components.url
     }
+    
 }

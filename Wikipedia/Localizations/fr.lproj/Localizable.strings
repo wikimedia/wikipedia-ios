@@ -22,6 +22,7 @@
 // Author: Thibaut120094
 // Author: Trial
 // Author: Urhixidur
+// Author: VIGNERON
 // Author: Verdy p
 // Author: Weft
 // Author: Wladek92
@@ -71,6 +72,11 @@
 "account-creation-passwords-mismatched" = "Les champs mot de passe ne correspondent pas.";
 "account-creation-saving" = "Enregistrement en cours…";
 "account-creation-title" = "Créer un nouveau compte";
+"account-group-title" = "Votre compte";
+"account-talk-page-title" = "Votre page de discussion";
+"account-talk-preferences-auto-sign-discussions" = "Discussions signées automatiquement";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "La signature automatique des discussions utilisera la signature définie dans les paramètres Signature";
+"account-talk-preferences-title" = "Préférences de la page de discussion";
 "action-add-to" = "Ajouter à…";
 "action-add-to-reading-list" = "Ajouter à la liste de lecture";
 "action-add-to-reading-list-short" = "Ajouter à la liste";
@@ -95,6 +101,7 @@
 "action-unsaved-accessibility-notification" = "Article non sauvegardé";
 "action-update" = "Mettre à jour";
 "add-articles-to-reading-list" = "Ajouter {{PLURAL:$1|$1 article|$1 articles}} à la liste de lecture";
+"add-citation-title" = "Ajouter une référence";
 "announcements-dismiss" = "Ignorer";
 "app-store-keywords" = "Wikipedia, référence, wiki, encyclopédie, information, connaissance, recherche, information, découverte, étude";
 "app-store-release-notes" = "Flux complètement personnalisables et plus faciles à lire. Localisation, améliorations des performances et corrections de bogues.";
@@ -133,6 +140,7 @@
 "button-skip" = "Passer";
 "cancel" = "Annuler";
 "cc-zero" = "licence Creative Commons Zéro";
+"clear-title-accessibility-label" = "Effacer";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
@@ -189,7 +197,11 @@
 "edit-italic-accessibility-label" = "Ajouter une mise en forme en italique";
 "edit-italic-remove-accessibility-label" = "Supprimer la mise en forme en italique";
 "edit-link-accessibility-label" = "Ajouter une syntaxe de lien";
+"edit-link-display-text-title" = "Afficher le texte";
+"edit-link-link-target-title" = "Lien cible";
 "edit-link-remove-accessibility-label" = "Supprimer la syntaxe de lien";
+"edit-link-remove-link-title" = "Supprimer un lien";
+"edit-link-title" = "Modifier le lien";
 "edit-menu-item" = "Modifier";
 "edit-menu-item-could-not-find-selection-alert-message" = "Cela peut être dû au fait que le texte que vous avez sélectionné n’est pas modifiable (par ex. titre d’article ou titres de boîte d’info) ou à cause de la longueur du texte qui a été mis en surbrillance";
 "edit-menu-item-could-not-find-selection-alert-title" = "Le texte que vous avez sélectionné n’a pas pu être localisé";
@@ -198,7 +210,6 @@
 "edit-ordered-list-accessibility-label" = "Faire de la ligne actuelle une liste ordonnée";
 "edit-ordered-list-remove-accessibility-label" = "Supprimer la liste ordonnée de la ligne actuelle";
 "edit-published" = "Modification publiée";
-"edit-published-button-title" = "Fait";
 "edit-published-subtitle" = "Vous venez tout juste de rendre Wikipédia meilleur pour tout le monde";
 "edit-reference-accessibility-label" = "Ajouter une syntaxe de référence";
 "edit-reference-remove-accessibility-label" = "Supprimer la syntaxe de référence";
@@ -238,7 +249,7 @@
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Voir l’arbre de connaissance";
-"empty-insert-media-title" = "Sélectionner un fichier";
+"empty-insert-media-title" = "Sélectionner un fichier de Wikimedia Commons";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
@@ -251,6 +262,7 @@
 "empty-no-saved-pages-message" = "Enregistrer des pages pour les lire ultérieurement, même hors ligne";
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
+"empty-talk-page-title" = "Aucun message n’a encore été posté pour cet utilisateur";
 "error-generic-description" = "Une erreur inattendue s’est produite";
 "error-generic-recovery-suggestion" = "Veuillez réessayer ultérieurement";
 "error-unknown" = "Une erreur inconnue est survenue";
@@ -333,7 +345,7 @@
 "explore-nearby-sub-heading-your-location" = "Votre emplacement";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Votre localisation par Wikipedia en $1";
 "explore-potd-heading" = "Image du jour";
-"explore-potd-sub-heading" = "De Wikimédia Communs";
+"explore-potd-sub-heading" = "De Wikimédia Commons";
 "explore-random-article-heading" = "Article au hasard";
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipédia";
@@ -407,6 +419,7 @@
 "info-box-close-text" = "Fermer";
 "info-box-title" = "Faits en bref";
 "insert-action-title" = "Insérer";
+"insert-link-title" = "Insérer un lien";
 "insert-media-alternative-text-description" = "Description textuelle pour les lecteurs qui ne peuvent voir l’image";
 "insert-media-alternative-text-placeholder" = "Décrire cette image";
 "insert-media-alternative-text-title" = "Texte alternatif";
@@ -662,6 +675,7 @@
 "search-recent-title" = "Récemment recherché";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "search-title" = "Rechercher";
+"settings-account" = "Compte";
 "settings-appearance" = "Préférences de lecture";
 "settings-clear-cache" = "Effacer les données en cache";
 "settings-clear-cache-are-you-sure-message" = "L’effacement des données en cache libérera environ $1 d’espace. Cela ne supprimera pas vos pages sauvegardées.";
@@ -719,6 +733,24 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-title-other" = "Plus d’information";
+"talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
+"talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer le sujet.";
+"talk-page-info-active-conversations" = "Conversations actives sur Wikipédia $1";
+"talk-page-info-active-conversations-generic" = "Conversations actives sur Wikipédia";
+"talk-page-new-banner-subtitle" = "Souvenez-vous que chacun est un être humain ici.";
+"talk-page-new-banner-title" = "Soyez gentil";
+"talk-page-new-reply-body-placeholder-text" = "Rédiger une réponse";
+"talk-page-new-reply-success-text" = "Votre réponse a été publiée avec succès";
+"talk-page-new-subject-placeholder-text" = "Sujet";
+"talk-page-new-topic-body-placeholder-text" = "Rédiger une nouvelle discussion";
+"talk-page-new-topic-success-text" = "Votre discussion a été publiée avec succès";
+"talk-page-new-topic-title" = "Nouvelle discussion";
+"talk-page-publish-terms-and-licenses" = "En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2, et acceptez de livrer vos contributions sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
+"talk-page-reply-title" = "Répondre";
+"talk-page-title-article-talk" = "Discussion de l'article";
+"talk-page-title-user-talk" = "Discussion de l’utilisateur";
+"talk-page-topic-title" = "Discussion";
+"talk-pages-reply-button-title" = "Répondre à cette discussion";
 "theme-black-display-name" = "Noir";
 "theme-dark-display-name" = "Sombre";
 "theme-default-display-name" = "Par défaut";
@@ -731,6 +763,7 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
+"unable-to-load-talk-page-title" = "Impossible de charger la page de discussion";
 "view-in-browser-footer-link" = "Afficher l’article dans le navigateur";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Explorer le fil";

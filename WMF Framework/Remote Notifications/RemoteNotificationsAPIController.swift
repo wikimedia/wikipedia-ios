@@ -38,6 +38,22 @@ class RemoteNotificationsAPIController: Fetcher {
                 case agent
                 case affectedPageID = "title"
             }
+
+            init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: CodingKeys.self)
+                wiki = try values.decode(String.self, forKey: .wiki)
+                type = try values.decode(String.self, forKey: .type)
+                category = try values.decode(String.self, forKey: .category)
+                do {
+                    id = String(try values.decode(Int.self, forKey: .id))
+                } catch {
+                    id = try? values.decode(String.self, forKey: .id)
+                }
+                message = try values.decode(Message.self, forKey: .message)
+                timestamp = try values.decode(Timestamp.self, forKey: .timestamp)
+                agent = try values.decode(Agent.self, forKey: .agent)
+                affectedPageID = try? values.decode(AffectedPageID.self, forKey: .affectedPageID)
+            }
         }
         struct Notifications: Decodable {
             let list: [Notification]

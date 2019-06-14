@@ -59,6 +59,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)accessibilityPerformEscape {
+    [self closeButtonPressed];
+    return YES;
+}
+
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
 

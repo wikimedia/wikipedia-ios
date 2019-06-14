@@ -389,7 +389,6 @@ public enum RequestError: Int, LocalizedError {
     case invalidParameters
     case unexpectedResponse
     case noNewData
-    case notAuthorized
     case timeout = 504
     
     public var errorDescription: String? {
@@ -407,7 +406,7 @@ public enum RequestError: Int, LocalizedError {
 }
 
 class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
-    let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
+    let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [], autoreleaseFrequency: .workItem, target: nil) // needs to be serial according the docs for NSURLSession
     let delegateQueue: OperationQueue
     var callbacks: [Int: Session.Callback] = [:]
     
@@ -417,14 +416,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func addCallback(callback: Session.Callback, for task: URLSessionTask) {
-        delegateDispatchQueue.async(flags: .barrier) {
+        delegateDispatchQueue.async {
             self.callbacks[task.taskIdentifier] = callback
-        }
-    }
-    
-    func removeDataCallback(for task: URLSessionTask) {
-        delegateDispatchQueue.async(flags: .barrier) {
-            self.callbacks.removeValue(forKey: task.taskIdentifier)
         }
     }
     
@@ -446,12 +439,12 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        defer {
-            removeDataCallback(for: task)
-        }
-        
         guard let callback = callbacks[task.taskIdentifier] else {
             return
+        }
+        
+        defer {
+            callbacks.removeValue(forKey: task.taskIdentifier)
         }
         
         if let error = error as NSError? {

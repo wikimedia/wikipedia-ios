@@ -5,9 +5,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.displayType = .largeTitle
+        navigationBar.displayType = displayType
         title = CommonStrings.searchTitle
-        if !areRecentSearchesEnabled {
+        if !areRecentSearchesEnabled, shouldSetTitleViewWhenRecentSearchesAreDisabled {
             navigationItem.titleView = UIView()
         }
         navigationBar.isTitleShrinkingEnabled = true
@@ -65,7 +65,20 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     @objc var areRecentSearchesEnabled: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
-    
+
+    var displayType: NavigationBarDisplayType = .largeTitle
+    var shouldSetSearchVisible: Bool = true
+    var shouldSetTitleViewWhenRecentSearchesAreDisabled: Bool = true
+
+    var shouldShowCancelButton: Bool = true
+    var delegatesSelection: Bool = false {
+        didSet {
+            resultsViewController.delegatesSelection = delegatesSelection
+        }
+    }
+
+    var showLanguageBar: Bool?
+
     var nonSearchAlpha: CGFloat = 1 {
         didSet {
             collectionView.alpha = nonSearchAlpha
@@ -76,17 +89,24 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     @objc var searchTerm: String? {
         set {
-            searchBar.text = searchTerm
+            searchBar.text = newValue
         }
         get {
             return searchBar.text
         }
     }
-    
+
+    private var _siteURL: URL?
+
     var siteURL: URL? {
-        return searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        get {
+            return _siteURL ?? searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        }
+        set {
+            _siteURL = newValue
+        }
     }
-    
+
     @objc func search() {
         search(for: searchTerm, suggested: false)
     }
@@ -176,9 +196,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         self.searchLanguageBarViewController = searchLanguageBarViewController
         return searchLanguageBarViewController
     }
-    
+
     private func updateLanguageBarVisibility() {
-        let showLanguageBar = UserDefaults.wmf.wmf_showSearchLanguageBar()
+        let showLanguageBar = self.showLanguageBar ?? UserDefaults.wmf.wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
             addChild(searchLanguageBarViewController)
@@ -293,7 +313,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
             self.resultsViewController.view.alpha = visible ? 1 : 0
-            self.searchBar.setShowsCancelButton(visible, animated: animated)
+            if self.shouldShowCancelButton {
+                self.searchBar.setShowsCancelButton(visible, animated: animated)
+            }
             self.view.layoutIfNeeded()
         }
         guard animated else {
@@ -345,7 +367,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         guard !isAnimatingSearchBarState else {
             return false
         }
-        setSearchVisible(true, animated: shouldAnimateSearchBar)
+        if shouldSetSearchVisible {
+            setSearchVisible(true, animated: shouldAnimateSearchBar)
+        }
         return true
     }
 
@@ -362,7 +386,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         
         if didClickSearchButton {
             didClickSearchButton = false
-        } else {
+        } else if shouldSetSearchVisible {
             setSearchVisible(false, animated: shouldAnimateSearchBar)
         }
         
@@ -541,9 +565,13 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 }
 
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath) {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
         funnel.logSearchResultTap(at: indexPath.item, source: source)
         saveLastSearch()
+        guard delegatesSelection else {
+            return
+        }
+        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
     }
 }
 

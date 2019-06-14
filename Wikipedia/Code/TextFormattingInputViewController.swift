@@ -21,16 +21,16 @@ class TextFormattingInputViewController: UIInputViewController {
 
     var selectedTextStyleType: TextStyleType?
     var selectedTextSizeType: TextSizeType?
-
-    enum InputViewType {
-        case textFormatting
-        case textStyle
-    }
     
     required init?(coder: NSCoder) {
         textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
         textFormattingTableViewController = TextFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
         super.init(coder: coder)
+    }
+
+    enum InputViewType {
+        case textFormatting
+        case textStyle
     }
 
     var inputViewType = InputViewType.textFormatting {
@@ -64,7 +64,6 @@ class TextFormattingInputViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         embedNavigationController()
-        addTopShadow()
         apply(theme: theme)
     }
 
@@ -74,12 +73,6 @@ class TextFormattingInputViewController: UIInputViewController {
         assert(containerView.subviews.isEmpty)
         containerView.addSubview(embeddedNavigationController.view)
         embeddedNavigationController.didMove(toParent: self)
-    }
-
-    private func addTopShadow() {
-        view.layer.shadowOffset = CGSize(width: 0, height: -2)
-        view.layer.shadowRadius = 10
-        view.layer.shadowOpacity = 1.0
     }
 
     // MARK: Text & button selection messages
@@ -98,7 +91,6 @@ class TextFormattingInputViewController: UIInputViewController {
         textFormattingTableViewController.disableButton(button: button)
         textStyleFormattingTableViewController.disableButton(button: button)
     }
-
 }
 
 extension TextFormattingInputViewController: Themeable {
@@ -110,7 +102,17 @@ extension TextFormattingInputViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.inputAccessoryBackground
-        view.layer.shadowColor = theme.colors.shadow.cgColor
+        if theme.hasInputAccessoryShadow {
+            view.layer.shadowOffset = CGSize(width: 0, height: -2)
+            view.layer.shadowRadius = 10
+            view.layer.shadowOpacity = 1.0
+            view.layer.shadowColor = theme.colors.shadow.cgColor
+        } else {
+            view.layer.shadowOffset = .zero
+            view.layer.shadowRadius = 0
+            view.layer.shadowOpacity = 0
+            view.layer.shadowColor = nil
+        }
         embeddedNavigationController.navigationBar.isTranslucent = false
         embeddedNavigationController.navigationBar.barTintColor = theme.colors.inputAccessoryBackground
         embeddedNavigationController.navigationBar.tintColor = theme.colors.inputAccessoryButtonTint

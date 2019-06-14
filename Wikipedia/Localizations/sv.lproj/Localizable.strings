@@ -63,6 +63,11 @@
 "account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
 "account-creation-title" = "Skapa ett nytt konto";
+"account-group-title" = "Ditt konto";
+"account-talk-page-title" = "Din diskussionssida";
+"account-talk-preferences-auto-sign-discussions" = "Signera diskussioner automatiskt";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatisk signering av diskussioner använder signaturen som definieras i signaturinställningarna";
+"account-talk-preferences-title" = "Inställningar för diskussionssida";
 "action-add-to" = "Lägg till i...";
 "action-add-to-reading-list" = "Lägg till i läslista";
 "action-add-to-reading-list-short" = "Lägg till i lista";
@@ -87,6 +92,7 @@
 "action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "action-update" = "Uppdatera";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
+"add-citation-title" = "Lägg till källa";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -125,6 +131,7 @@
 "button-skip" = "Hoppa över";
 "cancel" = "Avbryt";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Rensa";
 "close-button-accessibility-label" = "Stäng";
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
@@ -181,7 +188,11 @@
 "edit-italic-accessibility-label" = "Lägg till kursiverad formatering";
 "edit-italic-remove-accessibility-label" = "Ta bort kursiverad formatering";
 "edit-link-accessibility-label" = "Lägg till länksyntax";
+"edit-link-display-text-title" = "Visa text";
+"edit-link-link-target-title" = "Länkmål";
 "edit-link-remove-accessibility-label" = "Ta bort länksyntax";
+"edit-link-remove-link-title" = "Ta bort länk";
+"edit-link-title" = "Redigera länk";
 "edit-menu-item" = "Redigera";
 "edit-menu-item-could-not-find-selection-alert-message" = "Detta kan bero på att texten du markerade inte kan redigeras (t.ex. artikelns eller inforutans titel) eller p.g.a. längden på texten som markerades";
 "edit-menu-item-could-not-find-selection-alert-title" = "Texten du markerade kunde inte hittas";
@@ -190,7 +201,6 @@
 "edit-ordered-list-accessibility-label" = "Gör nuvarande rad till en ordnad lista";
 "edit-ordered-list-remove-accessibility-label" = "Ta bort ordnad lista från nuvarande rad";
 "edit-published" = "Redigeringen publicerades";
-"edit-published-button-title" = "Klar";
 "edit-published-subtitle" = "Du gjorde precis Wikipedia bättre för alla";
 "edit-reference-accessibility-label" = "Lägg till referenssyntax";
 "edit-reference-remove-accessibility-label" = "Ta bort referenssyntax";
@@ -230,7 +240,7 @@
 "editing-welcome-impartial-tone-title" = "Skriv med en neutral ton";
 "editing-welcome-set-knowledge-free-subtitle" = "För att alla ska få åtkomst till världens kunskap vill vi att du deltar genom att läsa, redigera och bidra till de ämnen som betyder mest för dig.";
 "editing-welcome-set-knowledge-free-title" = "Frigör kunskap";
-"empty-insert-media-title" = "Välj en fil";
+"empty-insert-media-title" = "Välj en fil från Wikimedia Commons";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
@@ -243,6 +253,7 @@
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
+"empty-talk-page-title" = "Inga meddelanden har ännu lagts upp för denna användare";
 "error-generic-description" = "Ett oväntat fel uppstod";
 "error-generic-recovery-suggestion" = "Försök igen senare";
 "error-unknown" = "Ett okänt fel uppstod";
@@ -399,6 +410,7 @@
 "info-box-close-text" = "Stäng";
 "info-box-title" = "Snabbfakta";
 "insert-action-title" = "Infoga";
+"insert-link-title" = "Infoga länk";
 "insert-media-alternative-text-description" = "Textbeskrivning för läsare som inte kan se bilden";
 "insert-media-alternative-text-placeholder" = "Beskriv denna bild";
 "insert-media-alternative-text-title" = "Alternativ text";
@@ -654,6 +666,7 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-title" = "Sök";
+"settings-account" = "Konto";
 "settings-appearance" = "Läsinställningar";
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
@@ -711,6 +724,24 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-title-other" = "Mer information";
+"talk-page-error-unable-to-post-reply" = "Internetanslutning saknas. Kunde inte skicka svaret.";
+"talk-page-error-unable-to-post-topic" = "Internetanslutning saknas. Kunde inte skicka ämnet.";
+"talk-page-info-active-conversations" = "Aktiva konversationer i Wikipedia på $1";
+"talk-page-info-active-conversations-generic" = "Aktiva konversationer i Wikipedia";
+"talk-page-new-banner-subtitle" = "Kom ihåg, alla här är människor";
+"talk-page-new-banner-title" = "Var snäll";
+"talk-page-new-reply-body-placeholder-text" = "Skriv svar";
+"talk-page-new-reply-success-text" = "Ditt svar publicerades";
+"talk-page-new-subject-placeholder-text" = "Ämne";
+"talk-page-new-topic-body-placeholder-text" = "Skapa ny diskussion";
+"talk-page-new-topic-success-text" = "Din diskussion publicerades";
+"talk-page-new-topic-title" = "Ny diskussion";
+"talk-page-publish-terms-and-licenses" = "Genom att spara ändringar samtycker du till $1användningsvillkoren$2 och att släppa ditt bidrag under licenserna $3CC BY-SA 3.0$4 och $5GFDL$6.";
+"talk-page-reply-title" = "Svara";
+"talk-page-title-article-talk" = "artikeldiskussion";
+"talk-page-title-user-talk" = "Användardiskussion";
+"talk-page-topic-title" = "Diskussion";
+"talk-pages-reply-button-title" = "Svara på denna diskussion";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörkt";
 "theme-default-display-name" = "Standard";
@@ -723,6 +754,7 @@
 "two-factor-login-title" = "Logga in på ditt konto";
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
+"unable-to-load-talk-page-title" = "Kan inte läsa in diskussionssida";
 "view-in-browser-footer-link" = "Visa artikeln i webbläsaren";
 "welcome-exploration-explore-feed-description" = "Dagens artiklar och lästips från vår gemenskap";
 "welcome-exploration-explore-feed-title" = "Utforskarflöde";

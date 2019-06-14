@@ -71,6 +71,11 @@
 "account-creation-passwords-mismatched" = "Hesla se neshodují.";
 "account-creation-saving" = "Ukládá se…";
 "account-creation-title" = "Vytvořit uživatelský účet";
+"account-group-title" = "Váš účet";
+"account-talk-page-title" = "Vaše diskusní stránka";
+"account-talk-preferences-auto-sign-discussions" = "Automaticky podepisovat příspěvky v diskusích";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatické podpisování příspěvků v diskusích bude používat podpis definovaný v Nastavení podpisu";
+"account-talk-preferences-title" = "Nastavení diskusí";
 "action-add-to" = "Přidat do…";
 "action-add-to-reading-list" = "Přidat do seznamu k přečtení";
 "action-add-to-reading-list-short" = "Přidat do seznamu";
@@ -95,6 +100,7 @@
 "action-unsaved-accessibility-notification" = "Zrušeno uložení článku";
 "action-update" = "Aktualizovat";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
+"add-citation-title" = "Přidat citaci";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informování, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
@@ -133,6 +139,7 @@
 "button-skip" = "Přeskočit";
 "cancel" = "Storno";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Vymazat";
 "close-button-accessibility-label" = "Zavřít";
 "compass-direction" = "ve $1 hodiny";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
@@ -189,7 +196,11 @@
 "edit-italic-accessibility-label" = "Přidat formátování kurzíva";
 "edit-italic-remove-accessibility-label" = "Odebrat formátování kurzíva";
 "edit-link-accessibility-label" = "Přidat syntaxi odkaz";
+"edit-link-display-text-title" = "Zobrazovaný text";
+"edit-link-link-target-title" = "Cíl odkazu";
 "edit-link-remove-accessibility-label" = "Odebrat syntaxi odkaz";
+"edit-link-remove-link-title" = "Odstranit odkaz";
+"edit-link-title" = "Upravit odkaz";
 "edit-menu-item" = "Editovat";
 "edit-menu-item-could-not-find-selection-alert-message" = "To může být způsobeno tím, že vybraný text není editovatelný (např. název článku nebo název infoboxu) nebo z důvodu délky zvýrazněného textu.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Vybraný text nelze nalézt";
@@ -198,7 +209,6 @@
 "edit-ordered-list-accessibility-label" = "Změnit aktuální řádek na číslovaný seznam";
 "edit-ordered-list-remove-accessibility-label" = "Odebrat číslovaný seznam z aktuálního řádku";
 "edit-published" = "Editace zveřejněna";
-"edit-published-button-title" = "Hotovo";
 "edit-published-subtitle" = "Právě jste vylepšili Wikipedii, encyklopedii pro každého";
 "edit-reference-accessibility-label" = "Přidat syntaxi reference";
 "edit-reference-remove-accessibility-label" = "Odebrat syntaxi reference";
@@ -238,7 +248,7 @@
 "editing-welcome-impartial-tone-title" = "Pište nestranně, nepropagujte";
 "editing-welcome-set-knowledge-free-subtitle" = "Abychom měli všichni přístup ke znalostem světa, potřebujeme, abyste se podíleli na jeho tvorbě čtením, editováním a přispěním k tématům, která jsou pro vás nejdůležitější a zajímají vás.";
 "editing-welcome-set-knowledge-free-title" = "Zdarma vytvářejte vědomosti";
-"empty-insert-media-title" = "Vybrat soubor";
+"empty-insert-media-title" = "Vybrat soubor z Wikimedia Commons";
 "empty-no-article-message" = "Omlouváme se, nepovedlo se načíst článek.";
 "empty-no-feed-action-message" = "Stále ještě můžete číst uložené stránky";
 "empty-no-feed-message" = "Když jste připojeni k internetu, tak můžete číst doporučené články.";
@@ -251,6 +261,7 @@
 "empty-no-saved-pages-message" = "Uložte si stránky pro jejich prohlížení později, a to i v režimu offline";
 "empty-no-saved-pages-title" = "Žádné uložené stránky";
 "empty-no-search-results-message" = "Nenalezeny žádné výsledky";
+"empty-talk-page-title" = "Tento uživatel zatím neodeslal žádné zprávy";
 "error-generic-description" = "Vyskytla se neočekávaná chyba";
 "error-generic-recovery-suggestion" = "Prosíme, zkuste to znovu";
 "error-unknown" = "Došlo k neznámé chybě.";
@@ -407,6 +418,7 @@
 "info-box-close-text" = "Zavřít";
 "info-box-title" = "Stručná fakta";
 "insert-action-title" = "Vložit";
+"insert-link-title" = "Vložit odkaz";
 "insert-media-alternative-text-description" = "Popis, který se zobrazí čtenářům, kteří neuvidí obrázek";
 "insert-media-alternative-text-placeholder" = "Popsat obrázek";
 "insert-media-alternative-text-title" = "Alternativní text";
@@ -662,6 +674,7 @@
 "search-recent-title" = "Poslední hledání";
 "search-result-redirected-from" = "Přesměrováno z „$1“";
 "search-title" = "Hledání";
+"settings-account" = "Účet";
 "settings-appearance" = "Nastavení čtení";
 "settings-clear-cache" = "Vymažte data uložená v cache";
 "settings-clear-cache-are-you-sure-message" = "Vymazání dat uložených v mezipaměti (cache) uvolní přibližně $1 místa. Vaše uložené články nebudou smazány.";
@@ -719,6 +732,24 @@
 "table-of-contents-close-accessibility-label" = "Schovat obsah";
 "table-of-contents-heading" = "Obsah";
 "table-title-other" = "Další informace";
+"talk-page-error-unable-to-post-reply" = "Nelze se připojit k interentu. Nelze odeslat odpověď.";
+"talk-page-error-unable-to-post-topic" = "Nelze se připojit k interentu. Nelze zveřejnit nové téma.";
+"talk-page-info-active-conversations" = "Aktivní diskuse na Wikipedii v jazyce $1";
+"talk-page-info-active-conversations-generic" = "Aktivní diskuse na Wikipedii";
+"talk-page-new-banner-subtitle" = "Pamatujte, že všichni jsme lidé";
+"talk-page-new-banner-title" = "Buďte přátelští";
+"talk-page-new-reply-body-placeholder-text" = "Odpovědět";
+"talk-page-new-reply-success-text" = "Vaše odpověď byla úspěšně zveřejněna";
+"talk-page-new-subject-placeholder-text" = "Předmět";
+"talk-page-new-topic-body-placeholder-text" = "Vytvořit novou diskusi";
+"talk-page-new-topic-success-text" = "Vaše diskuse byla úspěšně zveřejněna";
+"talk-page-new-topic-title" = "Nová diskuse";
+"talk-page-publish-terms-and-licenses" = "Uložením změn vyjadřujete souhlas s $1Podmínkami používání$2 a souhlasíte s uvolněním svého příspěvku pod licencemi $3CC BY-SA 3.0$4 a $5GFDL$6.";
+"talk-page-reply-title" = "Opověď";
+"talk-page-title-article-talk" = "Diskuse ke článku";
+"talk-page-title-user-talk" = "Diskuse s wikipedistou";
+"talk-page-topic-title" = "Diskuse";
+"talk-pages-reply-button-title" = "Odpovědět na tuto diskusi";
 "theme-black-display-name" = "Černé";
 "theme-dark-display-name" = "Tmavé";
 "theme-default-display-name" = "Standardní";
@@ -731,6 +762,7 @@
 "two-factor-login-title" = "Přihlaste se do svého účtu";
 "two-factor-login-with-backup-code" = "Použít jeden z vašich záložních kódů";
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
+"unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
 "view-in-browser-footer-link" = "Zobrazit článek v prohlížeči";
 "welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";

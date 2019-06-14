@@ -82,6 +82,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         if displayType == .largeTitle, let navigationItem = items.last {
             configureTitleBar(with: navigationItem)
         } else {
+            bar.setItems([], animated: false)
             bar.setItems(items, animated: false)
         }
         apply(theme: theme)
@@ -332,7 +333,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    @objc public var visibleHeight: CGFloat = 0
+    @objc dynamic public var visibleHeight: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
     public var shadowAlpha: CGFloat {
@@ -373,7 +374,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                     self.shadowAlpha = shadowAlpha
                 }
                 if (animated) {
-                    self.layoutSubviews()
+                    self.layoutIfNeeded()
                 }
                 additionalAnimations?()
             }

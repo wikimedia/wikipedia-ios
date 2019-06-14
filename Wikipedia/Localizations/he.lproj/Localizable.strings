@@ -1,6 +1,7 @@
 // Messages for Hebrew (עברית)
 // Exported from translatewiki.net
 // Author: Amire80
+// Author: Erelon
 // Author: Guycn2
 // Author: Inkbug
 // Author: LaG roiL
@@ -9,6 +10,7 @@
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Or
+// Author: Steeve815
 // Author: Strayblues
 // Author: YaronSh
 // Author: איתן96
@@ -59,6 +61,11 @@
 "account-creation-passwords-mismatched" = "הססמאות אינן זהות.";
 "account-creation-saving" = "שמירה...";
 "account-creation-title" = "יצירת חשבון חדש";
+"account-group-title" = "החשבון שלך";
+"account-talk-page-title" = "דף השיחה שלך";
+"account-talk-preferences-auto-sign-discussions" = "חתימה אוטומטית בדיונים";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "חתימה אוטומטית בדיונים תשתמש בחתימה שהוגדרה בהגדרות החתימה";
+"account-talk-preferences-title" = "העדפות דף שיחה";
 "action-add-to" = "הוספה ל־...";
 "action-add-to-reading-list" = "הוספה לרשימת קריאה";
 "action-add-to-reading-list-short" = "הוספה לרשימה";
@@ -83,6 +90,7 @@
 "action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
 "action-update" = "עדכון";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
+"add-citation-title" = "הוספת הערת שוליים";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
 "app-store-release-notes" = "הזנת ה\"לחקור\" ניתנת להתאמה אישית וקל יותר לקרוא אותה. שיפורי מיקום, ביצועים ותיקוני באגים.";
@@ -121,6 +129,7 @@
 "button-skip" = "לדלג";
 "cancel" = "ביטול";
 "cc-zero" = "קריאייטיב קומונז אפס";
+"clear-title-accessibility-label" = "ניקוי";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
@@ -177,7 +186,11 @@
 "edit-italic-accessibility-label" = "הוספת עיצוב נטוי";
 "edit-italic-remove-accessibility-label" = "הסרת עיצוב נטוי";
 "edit-link-accessibility-label" = "הוספת תחביר קישור";
+"edit-link-display-text-title" = "טקסט להצגה";
+"edit-link-link-target-title" = "יעד הקישור";
 "edit-link-remove-accessibility-label" = "הסרת תחביר קישור";
+"edit-link-remove-link-title" = "הסרת הקישור";
+"edit-link-title" = "עריכת קישור";
 "edit-menu-item" = "עריכה";
 "edit-menu-item-could-not-find-selection-alert-message" = "ייתכן שזה קרה כיוון שהטקסט שבחרת אינו זמין לעריכה (למשל: כותרת ערך או תיבות מידע) או עקב אורך הטקסט שסומן";
 "edit-menu-item-could-not-find-selection-alert-title" = "לא ניתן לאתר את הטקסט שבחרת";
@@ -186,7 +199,6 @@
 "edit-ordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימה ממוספרת";
 "edit-ordered-list-remove-accessibility-label" = "הסרת רשימה ממוספרת מהשורה הנוכחית";
 "edit-published" = "העריכה פורסמה";
-"edit-published-button-title" = "סיום";
 "edit-published-subtitle" = "שיפרת עכשיו את ויקיפדיה בשביל כולם";
 "edit-reference-accessibility-label" = "הוספת תחביר הערה";
 "edit-reference-remove-accessibility-label" = "הסרת תחביר הערה";
@@ -226,6 +238,7 @@
 "editing-welcome-impartial-tone-title" = "כתבו בנימה חסרת פניות";
 "editing-welcome-set-knowledge-free-subtitle" = "כדי להעניק לכולם גישה למידע עולמי, אנו רוצים לבקש ממך לקחת חלק בקריאה, עריכה ותרומה לנושאים שהכי נוגעים ללבך.";
 "editing-welcome-set-knowledge-free-title" = "להוציא את הידע לחופשי";
+"empty-insert-media-title" = "נא לבחור קובץ מוויקישיתוף";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
@@ -238,6 +251,7 @@
 "empty-no-saved-pages-message" = "אפשר לשמור דפים כדי לקרוא אותם אחר־כך, אפילו בלי חיבור לרשת";
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
 "empty-no-search-results-message" = "לא נמצאו תוצאות";
+"empty-talk-page-title" = "אין שיחות עבור משתמש זה";
 "error-generic-description" = "אירעה שגיאה בלתי־צפויה";
 "error-generic-recovery-suggestion" = "נא לנסות שוב מאוחר יותר";
 "error-unknown" = "אירעה שגיאה בלתי־ידועה";
@@ -393,6 +407,33 @@
 "in-the-news-title" = "בחדשות";
 "info-box-close-text" = "סגירה";
 "info-box-title" = "עובדות מהירות";
+"insert-action-title" = "הוספה";
+"insert-link-title" = "הוספת קישור";
+"insert-media-alternative-text-description" = "תיאור טקסט לקוראים שלא יכולים לראות את התמונה";
+"insert-media-alternative-text-placeholder" = "תיאור התמונה הזו";
+"insert-media-alternative-text-title" = "טקסט חלופי";
+"insert-media-caption-caption-placeholder" = "איך תמונה זו קשורה לערך?";
+"insert-media-caption-description" = "תווית שמופיעה לצד הפריט לטובת כל הקוראים";
+"insert-media-caption-title" = "כותרת";
+"insert-media-image-position-setting-center" = "מרכז";
+"insert-media-image-position-setting-left" = "שמאל";
+"insert-media-image-position-setting-none" = "אין";
+"insert-media-image-position-setting-right" = "ימין";
+"insert-media-image-position-settings-title" = "מיקום תמונה";
+"insert-media-image-preview-more-information-action-title" = "מידע נוסף";
+"insert-media-image-preview-select-image-action-title" = "בחירת תמונה";
+"insert-media-image-size-setting-custom" = "מותאם אישית";
+"insert-media-image-size-setting-default" = "ברירת מחדל";
+"insert-media-image-size-settings-px-unit-name" = "פיקסל";
+"insert-media-image-size-settings-title" = "גודל תמונה";
+"insert-media-image-type-setting-basic" = "בסיסית";
+"insert-media-image-type-setting-frame" = "מסגרת";
+"insert-media-image-type-setting-frameless" = "ללא מסגרת";
+"insert-media-image-type-setting-thumbnail" = "תמונה ממוזערת";
+"insert-media-image-type-settings-title" = "סוג תמונה";
+"insert-media-media-settings-title" = "הגדרות מדיה";
+"insert-media-title" = "הוספת מדיה";
+"insert-media-uploaded-image-title" = "העלאת תמונה";
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
@@ -623,6 +664,7 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
+"settings-account" = "חשבון";
 "settings-appearance" = "העדפות קריאה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
@@ -680,6 +722,24 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-title-other" = "מידע נוסף";
+"talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
+"talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם נושא.";
+"talk-page-info-active-conversations" = "שיחות פעילות בוויקיפדיה ה$1";
+"talk-page-info-active-conversations-generic" = "שיחות פעילות בוויקיפדיה";
+"talk-page-new-banner-subtitle" = "זכרו, כולנו כאן בני אדם";
+"talk-page-new-banner-title" = "היו מנומסים";
+"talk-page-new-reply-body-placeholder-text" = "תגובה חדשה";
+"talk-page-new-reply-success-text" = "התגובה שלך פורסמה בהצלחה";
+"talk-page-new-subject-placeholder-text" = "נושא";
+"talk-page-new-topic-body-placeholder-text" = "דיון חדש";
+"talk-page-new-topic-success-text" = "הדיון שלך פורסם בהצלחה";
+"talk-page-new-topic-title" = "דיון חדש";
+"talk-page-publish-terms-and-licenses" = "שמירת השינויים מהווה את הסכמתך ל$1תנאי השימוש$2 ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון $3CC BY-SA 3.0$4 ולרישיון $5GFDL$6.";
+"talk-page-reply-title" = "תגובה";
+"talk-page-title-article-talk" = "שיחת ערך";
+"talk-page-title-user-talk" = "שיחת משתמש";
+"talk-page-topic-title" = "דיון";
+"talk-pages-reply-button-title" = "השב לדיון זה";
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
 "theme-default-display-name" = "ברירת מחדל";
@@ -692,6 +752,7 @@
 "two-factor-login-title" = "כניסה לחשבון שלך";
 "two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
+"unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "view-in-browser-footer-link" = "הצגת הערך בדפדפן";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";
 "welcome-exploration-explore-feed-title" = "הזנת לחקור";
@@ -722,6 +783,10 @@
 "wikitext-downloading" = "טעינת תוכן...";
 "wikitext-preview-changes" = "אחזור תצוגה מקדימה של השינויים שלך...";
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";
+"wikitext-preview-link-external-preview-description" = "קישור זה מוביל לאתר חיצוני: $1";
+"wikitext-preview-link-external-preview-title" = "קישור חיצוני";
+"wikitext-preview-link-not-found-preview-description" = "לוויקיפדיה אין ערך בשם הזה";
+"wikitext-preview-link-not-found-preview-title" = "לא נמצא קישור פנימי";
 "wikitext-preview-link-preview-description" = "הקישור הזה מוביל לכתובת '$1'";
 "wikitext-preview-link-preview-title" = "תצוגה מקדימה של קישור";
 "wikitext-preview-save-changes-title" = "שמירת השינויים";

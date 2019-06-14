@@ -1,4 +1,4 @@
-// Messages for Javanese (Basa Jawa)
+// Messages for Javanese (Jawa)
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
 // Author: Macofe
@@ -49,6 +49,7 @@
 "account-creation-passwords-mismatched" = "Babagan tembung wadiné ora cocog.";
 "account-creation-saving" = "Nyimpen...";
 "account-creation-title" = "Gawé akun anyar";
+"account-group-title" = "Akun";
 "action-add-to" = "Tambahaké ing...";
 "action-add-to-reading-list" = "Wuwuhaké ing pratélan wacan";
 "action-add-to-reading-list-short" = "Tambahaké ing pratélan";
@@ -120,7 +121,6 @@
 "dim-images" = "Bleretaké gambar";
 "edit-clear-formatting-accessibility-label" = "Busek format";
 "edit-menu-item" = "Besut";
-"edit-published-button-title" = "Rampung";
 "edit-published-subtitle" = "Kowé wis ndadèkaké Wikipédia luwih becik tumrap wong akèh";
 "edit-style-table-view-title" = "Gagrag";
 "edit-summary-choice-fixed-grammar" = "Ndandani paramasastra";
@@ -364,6 +364,7 @@
 "search-recent-title" = "Mentas digolèki";
 "search-result-redirected-from" = "Dilih saka: $1";
 "search-title" = "Golèk";
+"settings-account" = "Akun";
 "settings-appearance" = "Pepilihaning wewacan";
 "settings-clear-cache" = "Resiki dhata ing telih";
 "settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing telih bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";
@@ -406,6 +407,10 @@
 "table-of-contents-close-accessibility-label" = "Tutup Pratélan isi";
 "table-of-contents-heading" = "Isi";
 "table-title-other" = "Katerangan liyané";
+"talk-page-new-banner-subtitle" = "Éling, awak dhéwé ing kéné kabèh manungsa";
+"talk-page-new-reply-success-text" = "Wangsulanmu wis kasil kababar";
+"talk-page-reply-title" = "Wangsuli";
+"talk-page-title-user-talk" = "Parembungan Panganggo";
 "theme-black-display-name" = "Ireng";
 "theme-dark-display-name" = "Peteng";
 "theme-default-display-name" = "Gawan";
