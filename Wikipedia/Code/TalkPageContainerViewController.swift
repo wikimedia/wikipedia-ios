@@ -137,7 +137,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
             switch viewState {
             case .initial:
                 self.scrollView?.isUserInteractionEnabled = true
-                navigationItem.rightBarButtonItem?.isEnabled = true
+                navigationItem.rightBarButtonItem?.isEnabled = false
             case .fetchLoading:
                 fakeProgressController.start()
                 navigationItem.rightBarButtonItem?.isEnabled = false
