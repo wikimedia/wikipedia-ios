@@ -14,7 +14,12 @@
 
         struct ViewController: Codable {
             var kind: Kind
-            var info: Info?
+            var info: Info
+            var children: [ViewController]
+
+            mutating func updateChildren(_ children: [ViewController]) {
+                self.children = children
+            }
 
             enum Kind: String, Codable {
                 case explore
@@ -24,6 +29,10 @@
                 case search
 
                 case article
+                case themeableNavigationController
+                case settings
+
+                case account
 
                 init?(from rawValue: String?) {
                     guard let rawValue = rawValue else {
@@ -53,14 +62,11 @@
             struct Info: Codable {
                 var key: String?
                 var index: Int?
+                var presentation: Presentation
 
-                init?(key: String? = nil, index: Int? = nil) {
-                    if key == nil, index == nil {
-                        return nil
-                    } else {
-                        self.key = key
-                        self.index = index
-                    }
+                enum Presentation: Int, Codable {
+                    case push
+                    case modal
                 }
             }
         }
@@ -81,26 +87,52 @@
             return
         }
         for viewController in navigationState.viewControllers {
-            switch (viewController.kind, viewController.info) {
-            case (let kind, let info?) where kind.isTab:
-                guard let index = info.index else {
-                    assertionFailure("View controllers in UITabController should have an associated index")
-                    continue
-                }
-                tabBarController.selectedIndex = index
-            case (.article, let info?):
-                guard let key = info.key else {
-                    assertionFailure("Article view controllers should have an associated key")
-                    continue
-                }
-                guard let articleURL = URLComponents(string: key)?.url else {
-                    continue
-                }
-                let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: Theme.standard)
-                navigationController.pushViewController(articleViewController, animated: false)
-            default:
-                continue
+            restore(viewController: viewController, for: tabBarController, navigationController: navigationController)
+        }
+    }
+
+    private func restore(viewController: ViewController, for tabBarController: UITabBarController, navigationController: UINavigationController) {
+        var newNavigationController: UINavigationController?
+        switch (viewController.kind) {
+        case let kind where kind.isTab:
+            guard let index = viewController.info.index else {
+                assertionFailure("View controllers in UITabController should have an associated index")
+                return
             }
+            tabBarController.selectedIndex = index
+        case .article:
+            guard let key = viewController.info.key else {
+                assertionFailure("Article view controllers should have an associated key")
+                return
+            }
+            guard let articleURL = URLComponents(string: key)?.url else {
+                return
+            }
+            let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: Theme.standard)
+            navigationController.pushViewController(articleViewController, animated: false)
+        case .themeableNavigationController:
+            let themeableNavigationController = WMFThemeableNavigationController()
+            if viewController.info.presentation == .modal {
+                navigationController.present(themeableNavigationController, animated: false)
+            } else {
+                navigationController.pushViewController(themeableNavigationController, animated: false)
+            }
+            newNavigationController = themeableNavigationController
+        case .settings:
+            let settingsVC = WMFSettingsViewController(dataStore: dataStore)
+            navigationController.pushViewController(settingsVC, animated: false)
+        case .account:
+            WMFAuthenticationManager.sharedInstance.attemptLogin {
+                let accountVC = AccountViewController()
+                accountVC.dataStore = self.dataStore
+                navigationController.pushViewController(accountVC, animated: false)
+            }
+        default:
+            assertionFailure()
+            return
+        }
+        for child in viewController.children {
+            restore(viewController: child, for: tabBarController, navigationController: newNavigationController ?? navigationController)
         }
     }
 
@@ -108,34 +140,71 @@
         assert(Thread.isMainThread, "Saving navigation state should be performed on the main thread")
         var viewControllers = [ViewController]()
         for viewController in navigationController.viewControllers {
-            let title: String?
-            let key: String?
-            let index: Int?
-            switch viewController {
-            case let tabBarController as UITabBarController:
-                title = tabBarController.selectedViewController?.title?.lowercased()
-                key = nil
-                index = tabBarController.selectedIndex
-            case let articleViewController as WMFArticleViewController:
-                title = "article"
-                // This has to happen after ArticleViewController sets articleURLWithFragment
-                let articleURL = articleViewController.articleURLWithFragment ?? articleViewController.articleURL
-                key = articleURL.wmf_articleDatabaseKey
-                index = nil
-            default:
-                assertionFailure("Unhandled viewController type")
-                title = nil
-                key = nil
-                index = nil
-            }
-            if let title = title, let kind = ViewController.Kind(from: title) {
-                assert(kind.isTab ? index != nil : true, "View controllers in UITabController should have an associated index")
-                viewControllers.append(ViewController(kind: kind, info: ViewController.Info(key: key, index: index)))
-            }
+            viewControllers.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
         }
         let navigationState = NavigationState(viewControllers: viewControllers)
         let encoder = PropertyListEncoder()
         let value = try? encoder.encode(navigationState) as NSData
         moc.wmf_setValue(value, forKey: key)
+    }
+
+    private func viewControllerToSave(from viewController: UIViewController, presentedVia presentation: ViewController.Info.Presentation) -> ViewController? {
+        let kind: ViewController.Kind?
+        let key: String?
+        let index: Int?
+
+        switch viewController {
+        case let tabBarController as UITabBarController:
+            kind = ViewController.Kind(from: tabBarController.selectedViewController?.title?.lowercased())
+            key = nil
+            index = tabBarController.selectedIndex
+        case let articleViewController as WMFArticleViewController:
+            kind = .article
+            // This has to happen after ArticleViewController sets articleURLWithFragment
+            let articleURL = articleViewController.articleURLWithFragment ?? articleViewController.articleURL
+            key = articleURL.wmf_articleDatabaseKey
+            index = nil
+        case is WMFThemeableNavigationController:
+            kind = .themeableNavigationController
+            key = nil
+            index = nil
+        case is WMFSettingsViewController:
+            kind = .settings
+            key = nil
+            index = nil
+        case is AccountViewController:
+            kind = .account
+            key = nil
+            index = nil
+        default:
+            assertionFailure("Unhandled viewController type")
+            kind = nil
+            key = nil
+            index = nil
+        }
+        if let kind = kind {
+            assert(kind.isTab ? index != nil : true, "View controllers in UITabController should have an associated index")
+            return ViewController(kind: kind, info: ViewController.Info(key: key, index: index, presentation: presentation), children: [])
+        } else {
+            return nil
+        }
+    }
+
+    private func viewControllersToSave(from viewController: UIViewController, presentedVia presentation: ViewController.Info.Presentation) -> [ViewController] {
+        var viewControllers = [ViewController]()
+        if var viewControllerToSave = viewControllerToSave(from: viewController, presentedVia: presentation) {
+            if let presentedViewController = viewController.presentedViewController {
+                viewControllerToSave.updateChildren(viewControllersToSave(from: presentedViewController, presentedVia: .modal))
+            }
+            if let navigationController = viewController as? UINavigationController {
+                var children = [ViewController]()
+                for viewController in navigationController.viewControllers {
+                    children.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
+                }
+                viewControllerToSave.updateChildren(children)
+            }
+            viewControllers.append(viewControllerToSave)
+        }
+        return viewControllers
     }
 }
