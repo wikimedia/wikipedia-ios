@@ -44,7 +44,7 @@ extern NSString *const WMFEditPublishedNotification;
                              theme:(WMFTheme *)theme;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
-@property (nonatomic, strong, readonly, nullable) NSURL *articleURLWithFragment;
+@property (nonatomic, strong, readonly, nullable) NSString *visibleSectionAnchor;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 

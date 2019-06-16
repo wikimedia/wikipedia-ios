@@ -169,7 +169,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
 @property (nonatomic, assign) BOOL restoreScrollPosition;
-@property (nonatomic, strong, readwrite, nullable) NSURL *articleURLWithFragment;
+@property (nonatomic, strong, readwrite, nullable) NSString *visibleSectionAnchor;
 
 @end
 
@@ -1568,6 +1568,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         [[NSUserDefaults wmf] wmf_setOpenArticleURL:url];
         self.articleURLWithFragment = url;
     }];
+}
+
+- (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section {
+    self.visibleSectionAnchor = section.anchor;
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {

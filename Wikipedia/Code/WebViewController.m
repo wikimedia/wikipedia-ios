@@ -780,6 +780,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
     [self scrollToFragment:section.anchor animated:animated];
+    [self.delegate webViewController:self didScrollToSection:section];
 }
 
 - (void)accessibilityCursorToSection:(MWKSection *)section {
