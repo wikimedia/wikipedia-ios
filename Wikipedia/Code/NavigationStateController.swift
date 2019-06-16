@@ -2,11 +2,12 @@ protocol DetailPresentingFromContentGroup {
     var contentGroupIDURIString: String? { get }
 }
 
-@objcMembers final class NavigationStateController: NSObject {
+@objc(WMFNavigationStateController)
+final class NavigationStateController: NSObject {
     private let key = "nav_state"
     private let dataStore: MWKDataStore
 
-    init(dataStore: MWKDataStore) {
+    @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
     }
@@ -106,7 +107,7 @@ protocol DetailPresentingFromContentGroup {
         }
     }
 
-    func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
+    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
             return
@@ -260,7 +261,7 @@ protocol DetailPresentingFromContentGroup {
         return object
     }
 
-    func saveNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
+    @objc func saveNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
         var viewControllers = [ViewController]()
         for viewController in navigationController.viewControllers {
             viewControllers.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))

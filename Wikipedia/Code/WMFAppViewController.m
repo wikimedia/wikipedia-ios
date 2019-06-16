@@ -122,7 +122,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
-@property (nonatomic, strong) NavigationStateController *navigationStateController;
+@property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
 @property (nonatomic, strong) WMFTalkPageReplyHintController *talkPageReplyHintController;
 @property (nonatomic, strong) WMFTalkPageTopicHintController *talkPageTopicHintController;
 
@@ -1361,9 +1361,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return self.session.dataStore;
 }
 
-- (NavigationStateController *)navigationStateController {
+- (WMFNavigationStateController *)navigationStateController {
     if (!_navigationStateController) {
-        _navigationStateController = [[NavigationStateController alloc] initWithDataStore:self.dataStore];
+        _navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
     }
     return _navigationStateController;
 }
