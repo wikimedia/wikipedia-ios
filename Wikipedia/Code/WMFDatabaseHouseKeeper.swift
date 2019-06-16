@@ -3,14 +3,14 @@ import Foundation
 @objc class WMFDatabaseHouseKeeper : NSObject {
     
     // Returns deleted URLs
-    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext) throws -> [URL] {
+    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
-        let urls = try deleteStaleUnreferencedArticles(moc)
+        let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
         return urls
     }
 
     
-    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
+    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
         /**
  
@@ -94,7 +94,10 @@ import Foundation
                 }
             }
         }
-        
+
+        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
+            referencedArticleKeys = referencedArticleKeys.union(preservedArticleKeys)
+        }
       
         /** 
   
@@ -112,7 +115,7 @@ import Foundation
             let referencedKeysPredicate = NSPredicate(format: "!(key IN %@)", referencedArticleKeys)
             articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
         }
-        
+
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
 
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
@@ -133,8 +136,6 @@ import Foundation
         if (moc.hasChanges) {
             try moc.save()
         }
-        
-        
         
         return urls
     }

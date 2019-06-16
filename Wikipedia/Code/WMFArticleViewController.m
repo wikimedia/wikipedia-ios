@@ -1286,7 +1286,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
         forceDownload:force
-        saveToDisk:NO
+        saveToDisk:YES
         priority:NSURLSessionTaskPriorityHigh
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
