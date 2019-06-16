@@ -1516,39 +1516,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Last Read Article
 
-//- (BOOL)shouldShowLastReadArticleOnLaunch {
-//    if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
-//        return NO;
-//    }
-//
-//    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
-//    if (!lastRead) {
-//        return NO;
-//    }
-//
-//#if WMF_TWEAKS_ENABLED
-//    if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
-//        return YES;
-//    }
-//
-//    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
-//    if (!resignActiveDate) {
-//        return NO;
-//    }
-//
-//    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeShowingExploreScreenOnLaunch) {
-//        if (![self mainViewControllerIsDisplayingContent] && [self selectedIndex] == WMFAppTabTypeMain) {
-//            return YES;
-//        }
-//    }
-//
-//    return NO;
-//#else
-//    return YES;
-//#endif
-//}
-//
-
 - (void)showLastReadArticleAnimated:(BOOL)animated {
     // TODO: Move this out of User Defaults and grab it from navigation state controller.
     NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
