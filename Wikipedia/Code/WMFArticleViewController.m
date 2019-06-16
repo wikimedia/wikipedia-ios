@@ -1566,7 +1566,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
         // TODO: Remove this
         [[NSUserDefaults wmf] wmf_setOpenArticleURL:url];
-        self.articleURLWithFragment = url;
     }];
 }
 
