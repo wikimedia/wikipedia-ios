@@ -28,7 +28,6 @@ extension NSManagedObjectContext {
         let talkPage = TalkPage(context: self)
         talkPage.key = url.wmf_talkPageDatabaseKey
         talkPage.displayTitle = displayTitle
-        talkPage.dateAccessed = Date()
         
         do {
             try save()
@@ -48,7 +47,6 @@ extension NSManagedObjectContext {
         talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.displayTitle = networkTalkPage.displayTitle
-        talkPage.dateAccessed = Date()
         
         do {
             try addTalkPageTopics(to: talkPage, with: networkTalkPage)
@@ -68,7 +66,6 @@ extension NSManagedObjectContext {
         }
         
         localTalkPage.revisionId = NSNumber(value: revisionID)
-        localTalkPage.dateAccessed = Date()
         
         guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
             return nil
