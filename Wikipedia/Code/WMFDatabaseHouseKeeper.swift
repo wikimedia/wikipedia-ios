@@ -116,7 +116,6 @@ import Foundation
 
         let oldNavigationStackArticlesToDelete: NSPredicate?
         if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
-            referencedArticleKeys = referencedArticleKeys.union(preservedArticleKeys)
             oldNavigationStackArticlesToDelete = NSPredicate(format: "viewedDate != NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE && !(key IN %@)", preservedArticleKeys)
         } else {
             oldNavigationStackArticlesToDelete = nil
