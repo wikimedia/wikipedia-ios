@@ -1517,7 +1517,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Last Read Article
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
-    // TODO: Move this out of User Defaults and grab it from navigation state controller.
     NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
     [self showArticleForURL:lastRead animated:animated];
 }
