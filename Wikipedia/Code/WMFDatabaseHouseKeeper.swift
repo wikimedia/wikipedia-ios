@@ -94,10 +94,6 @@ import Foundation
                 }
             }
         }
-
-        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
-            referencedArticleKeys = referencedArticleKeys.union(preservedArticleKeys)
-        }
       
         /** 
   
@@ -117,6 +113,19 @@ import Foundation
         }
 
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
+
+        let oldNavigationStackArticlesToDelete: NSPredicate?
+        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
+            referencedArticleKeys = referencedArticleKeys.union(preservedArticleKeys)
+            oldNavigationStackArticlesToDelete = NSPredicate(format: "viewedDate != NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE && !(key IN %@)", preservedArticleKeys)
+        } else {
+            oldNavigationStackArticlesToDelete = nil
+        }
+
+
+        if let oldNavigationStackArticlesToDelete = oldNavigationStackArticlesToDelete {
+            articlesToDeletePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [articlesToDeletePredicate, oldNavigationStackArticlesToDelete])
+        }
 
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         
