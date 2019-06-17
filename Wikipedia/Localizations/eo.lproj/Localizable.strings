@@ -60,6 +60,9 @@
 "account-creation-title" = "Krei novan konton";
 "account-group-title" = "Via Konto";
 "account-talk-page-title" = "Via diskutpaĝo";
+"account-talk-preferences-auto-sign-discussions" = "Aŭtomate subskribi en diskutoj";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Aŭtomata subskribado en diskutoj uzos la subskribon difinitan en la agordopaĝo Subskribo";
+"account-talk-preferences-title" = "Preferoj pri Diskutpaĝo";
 "action-add-to" = "Aldoni al...";
 "action-add-to-reading-list" = "Aldoni al legolisto";
 "action-add-to-reading-list-short" = "Aldoni al listo";
@@ -245,6 +248,7 @@
 "empty-no-saved-pages-message" = "Konservi paĝojn por vidi ilin poste, eksterrete";
 "empty-no-saved-pages-title" = "Neniuj konservitaj paĝoj ankoraŭ";
 "empty-no-search-results-message" = "Neniuj rezultoj trovitaj";
+"empty-talk-page-title" = "Neniu mesaĝo afiŝiĝis por ĉi tiu uzanto";
 "error-generic-description" = "Okazis neatendita eraro.";
 "error-generic-recovery-suggestion" = "Bonvolu provi denove poste";
 "error-unknown" = "Okazis nekonata eraro";
@@ -715,8 +719,13 @@
 "table-of-contents-close-accessibility-label" = "Fermi enhavtabelon";
 "table-of-contents-heading" = "Enhavaĵoj";
 "table-title-other" = "Pliaj informoj";
+"talk-page-error-unable-to-post-reply" = "Sen Interreta konekto. Ne povas afiŝi respondon.";
+"talk-page-error-unable-to-post-topic" = "Sen Interreta konekto. Ne povas afiŝi temon.";
 "talk-page-info-active-conversations" = "Aktivaj konversacioj ĉe $1 Vikipedio";
 "talk-page-info-active-conversations-generic" = "Aktivaj konversacioj ĉe Vikipedio";
+"talk-page-link-user-action-sheet-app" = "Vidi Uzantopaĝon en aplikaĵo";
+"talk-page-link-user-action-sheet-safari" = "Vidi Uzantopaĝon per Safari";
+"talk-page-link-user-action-sheet-title" = "Uzantopaĝoj";
 "talk-page-new-banner-subtitle" = "Rememoru ke ni ĉiuj estas homoj ĉi tie";
 "talk-page-new-banner-title" = "Bonvolu esti afabla";
 "talk-page-new-reply-body-placeholder-text" = "Respondi";
@@ -743,6 +752,7 @@
 "two-factor-login-title" = "Ensaluti en vian konton";
 "two-factor-login-with-backup-code" = "Uzi unu el viaj rezervaj kodoj";
 "two-factor-login-with-regular-code" = "Uzi la kontrolkodon";
+"unable-to-load-talk-page-title" = "Ne povas ŝargi diskutpaĝon";
 "view-in-browser-footer-link" = "Vidi la artikolon en retumilo";
 "welcome-exploration-explore-feed-description" = "Rekomendataj legaĵoj kaj ĉiutagaj artikoloj de nia komunumo";
 "welcome-exploration-explore-feed-title" = "Esplorfluo";

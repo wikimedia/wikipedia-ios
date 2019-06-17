@@ -726,6 +726,9 @@
 "talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם נושא.";
 "talk-page-info-active-conversations" = "שיחות פעילות בוויקיפדיה ה$1";
 "talk-page-info-active-conversations-generic" = "שיחות פעילות בוויקיפדיה";
+"talk-page-link-user-action-sheet-app" = "צפיה בדף שיחת משתמש מהאפליקציה";
+"talk-page-link-user-action-sheet-safari" = "צפיה בדף משתמש בדפדפן ספארי";
+"talk-page-link-user-action-sheet-title" = "דפי משתמש";
 "talk-page-new-banner-subtitle" = "זכרו, כולנו כאן בני אדם";
 "talk-page-new-banner-title" = "היו מנומסים";
 "talk-page-new-reply-body-placeholder-text" = "תגובה חדשה";

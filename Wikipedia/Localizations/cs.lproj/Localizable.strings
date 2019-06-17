@@ -736,6 +736,9 @@
 "talk-page-error-unable-to-post-topic" = "Nelze se připojit k interentu. Nelze zveřejnit nové téma.";
 "talk-page-info-active-conversations" = "Aktivní diskuse na Wikipedii v jazyce $1";
 "talk-page-info-active-conversations-generic" = "Aktivní diskuse na Wikipedii";
+"talk-page-link-user-action-sheet-app" = "Zobrazit diskusi uživatele v aplikaci";
+"talk-page-link-user-action-sheet-safari" = "Zobrazit diskusi uživatele v Safari";
+"talk-page-link-user-action-sheet-title" = "Uživatelské stránky";
 "talk-page-new-banner-subtitle" = "Pamatujte, že všichni jsme lidé";
 "talk-page-new-banner-title" = "Buďte přátelští";
 "talk-page-new-reply-body-placeholder-text" = "Odpovědět";

@@ -66,7 +66,7 @@
 "account-creation-saving" = "儲存中...";
 "account-creation-title" = "建立新帳號";
 "account-group-title" = "您的帳號";
-"account-talk-page-title" = "您的對話頁面";
+"account-talk-page-title" = "您的對話頁";
 "account-talk-preferences-auto-sign-discussions" = "自動簽名討論";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "討論的自動簽名，會使用在簽名設定裡所定義的簽名";
 "account-talk-preferences-title" = "對話頁偏好設定";
@@ -730,6 +730,9 @@
 "talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈主題。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
 "talk-page-info-active-conversations-generic" = "在維基百科上積極交談";
+"talk-page-link-user-action-sheet-app" = "在應用程式上檢視使用者對話頁";
+"talk-page-link-user-action-sheet-safari" = "在 Safari 上檢視使用者頁面";
+"talk-page-link-user-action-sheet-title" = "使用者頁面";
 "talk-page-new-banner-subtitle" = "請記得，在此我們也只是一般人";
 "talk-page-new-banner-title" = "請保持友善";
 "talk-page-new-reply-body-placeholder-text" = "撰寫回覆";

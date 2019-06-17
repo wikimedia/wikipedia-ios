@@ -739,6 +739,9 @@
 "talk-page-error-unable-to-post-topic" = "Nenhuma conexão com a internet. Não é possível postar o tópico.";
 "talk-page-info-active-conversations" = "Conversas ativas em $1 Wikipédia";
 "talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
+"talk-page-link-user-action-sheet-app" = "Visualizar a página de discussão do usuário no aplicativo";
+"talk-page-link-user-action-sheet-safari" = "Ver página do usuário no Safari";
+"talk-page-link-user-action-sheet-title" = "Páginas de usuário";
 "talk-page-new-banner-subtitle" = "Lembre-se, somos todos humanos aqui";
 "talk-page-new-banner-title" = "Por favor seja gentil";
 "talk-page-new-reply-body-placeholder-text" = "Compor resposta";

@@ -82,6 +82,7 @@
 "account-creation-passwords-mismatched" = "Las contraseñas no coinciden.";
 "account-creation-saving" = "Guardando…";
 "account-creation-title" = "Crear una cuenta nueva";
+"account-group-title" = "Tu cuenta";
 "action-add-to" = "Añadir a…";
 "action-add-to-reading-list" = "Añadir a una lista de lectura";
 "action-add-to-reading-list-short" = "Añadir a la lista";
@@ -677,6 +678,7 @@
 "search-recent-title" = "Búsquedas recientes";
 "search-result-redirected-from" = "Redirigido desde: $1";
 "search-title" = "Buscar";
+"settings-account" = "Cuenta";
 "settings-appearance" = "Preferencias de lectura";
 "settings-clear-cache" = "Borrar datos en antememoria";
 "settings-clear-cache-are-you-sure-message" = "El borrado de los datos almacenados en caché liberará alrededor de $1 de espacio. No eliminará tus páginas guardadas.";
@@ -734,6 +736,18 @@
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
 "table-of-contents-heading" = "Sumario";
 "table-title-other" = "Más información";
+"talk-page-info-active-conversations" = "Conversaciones activas en Wikipedia en $1";
+"talk-page-info-active-conversations-generic" = "Conversaciones activas en Wikipedia";
+"talk-page-link-user-action-sheet-safari" = "Ver página de usuario en Safari";
+"talk-page-link-user-action-sheet-title" = "Páginas de usuario";
+"talk-page-new-banner-title" = "Sé amable";
+"talk-page-new-reply-success-text" = "La respuesta se publicó correctamente";
+"talk-page-new-subject-placeholder-text" = "Asunto";
+"talk-page-new-topic-body-placeholder-text" = "Redactar discusión nueva";
+"talk-page-new-topic-title" = "Discusión nueva";
+"talk-page-reply-title" = "Responder";
+"talk-page-topic-title" = "Discusión";
+"talk-pages-reply-button-title" = "Responder a esta discusión";
 "theme-black-display-name" = "Negro";
 "theme-dark-display-name" = "Oscuro";
 "theme-default-display-name" = "Predeterminado";
