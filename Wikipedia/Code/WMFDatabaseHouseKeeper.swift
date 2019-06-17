@@ -112,8 +112,6 @@ import Foundation
             articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
         }
 
-        articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
-
         let oldNavigationStackArticlesToDelete: NSPredicate?
         if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
             oldNavigationStackArticlesToDelete = NSPredicate(format: "viewedDate != NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE && !(key IN %@)", preservedArticleKeys)
@@ -125,6 +123,8 @@ import Foundation
         if let oldNavigationStackArticlesToDelete = oldNavigationStackArticlesToDelete {
             articlesToDeletePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [articlesToDeletePredicate, oldNavigationStackArticlesToDelete])
         }
+
+        articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
 
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         
