@@ -122,12 +122,15 @@ extension NSManagedObjectContext {
     }
     
     func removeUnlinkedTalkPageTopicContent() throws {
-        let request: NSFetchRequest<TalkPageTopicContent> = TalkPageTopicContent.fetchRequest()
+        let request: NSFetchRequest<NSFetchRequestResult> = TalkPageTopicContent.fetchRequest()
         request.predicate = NSPredicate(format: "topics.@count == 0")
-        let results = try fetch(request)
-        for result in results {
-            delete(result)
-        }
+        let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
+        batchRequest.resultType = .resultTypeObjectIDs
+        
+        let result = try execute(batchRequest) as? NSBatchDeleteResult
+        let objectIDArray = result?.result as? [NSManagedObjectID]
+        let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [self])
     }
 }
 

@@ -16,20 +16,18 @@ import Foundation
      
     */
     private func deleteStaleTalkPages(_ moc: NSManagedObjectContext) throws {
-        let request: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
+        let request: NSFetchRequest<NSFetchRequestResult> = TalkPage.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "dateAccessed", ascending: false)]
         request.fetchOffset = 50
+        let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
+        batchRequest.resultType = .resultTypeObjectIDs
         
-        let oldTalkPages = try moc.fetch(request)
-        for talkPage in oldTalkPages {
-            moc.delete(talkPage)
-        }
+        let result = try moc.execute(batchRequest) as? NSBatchDeleteResult
+        let objectIDArray = result?.result as? [NSManagedObjectID]
+        let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [moc])
         
         try moc.removeUnlinkedTalkPageTopicContent()
-        
-        if (moc.hasChanges) {
-            try moc.save()
-        }
     }
     
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
