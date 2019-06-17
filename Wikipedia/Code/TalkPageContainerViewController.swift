@@ -12,7 +12,13 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     private var talkPage: TalkPage? {
         didSet {
-            introTopic = talkPage?.topics?.first(where: { ($0 as? TalkPageTopic)?.isIntro == true}) as? TalkPageTopic
+            guard let talkPage = self.talkPage else {
+                introTopic = nil
+                return
+            }
+            introTopic = talkPage.topics?.first(where: { ($0 as? TalkPageTopic)?.isIntro == true}) as? TalkPageTopic
+            talkPage.userDidAccess()
+            try? talkPage.managedObjectContext?.save()
         }
     }
     private var introTopic: TalkPageTopic?

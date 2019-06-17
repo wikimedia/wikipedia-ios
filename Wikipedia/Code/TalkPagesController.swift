@@ -349,4 +349,8 @@ extension TalkPage {
     var isMissing: Bool {
         return revisionId == nil
     }
+    
+    func userDidAccess() {
+        dateAccessed = Date()
+    }
 }

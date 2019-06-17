@@ -20,17 +20,9 @@ extension NSManagedObjectContext {
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "key == %@", databaseKey)
         
-        let talkPage = try fetch(fetchRequest).first
-        talkPage?.dateAccessed = Date()
-        
-        do {
-            try save()
-            return talkPage
-        } catch {
-             return talkPage
-        }
+        return try fetch(fetchRequest).first
     }
-    
+
     func createMissingTalkPage(with url: URL, displayTitle: String) -> TalkPage? {
         
         let talkPage = TalkPage(context: self)
