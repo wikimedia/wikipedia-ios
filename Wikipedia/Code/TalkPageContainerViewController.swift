@@ -26,77 +26,29 @@ fileprivate enum TalkPageContainerViewState {
 extension TalkPageContainerViewState: Equatable {
     
     public static func ==(lhs: TalkPageContainerViewState, rhs:TalkPageContainerViewState) -> Bool {
-        switch lhs {
-        case .initial:
-            switch rhs {
-            case .initial:
-                return true
-            default:
-                return false
-            }
-        case .fetchLoading:
-            switch rhs {
-            case .fetchLoading:
-                return true
-            default:
-                return false
-            }
-        case .fetchInitialResultData:
-            switch rhs {
-            case .fetchInitialResultData:
-                return true
-            default:
-                return false
-            }
-        case .fetchInitialResultEmpty:
-            switch rhs {
-            case .fetchInitialResultEmpty:
-                return true
-            default:
-                return false
-            }
-        case .fetchFinishedResultData:
-            switch rhs {
-            case .fetchFinishedResultData:
-                return true
-            default:
-                return false
-            }
-        case .fetchFinishedResultEmpty:
-            switch rhs {
-            case .fetchFinishedResultEmpty:
-                return true
-            default:
-                return false
-            }
-        case .fetchFailure:
-            switch rhs {
-            case .fetchFailure:
-                return true
-            default:
-                return false
-            }
-        case .linkLoading:
-            switch rhs {
-            case .linkLoading:
-                return true
-            default:
-                return false
-            }
-        case .linkFinished:
-            switch rhs {
-            case .linkFinished:
-                return true
-            default:
-                return false
-            }
-        case .linkFailure:
-            switch rhs {
-            case .linkFailure:
-                return true
-            default:
-                return false
-            }
+        switch (lhs, rhs) {
+        case (.initial, .initial):
+            return true
+        case (.fetchLoading, .fetchLoading):
+            return true
+        case (.fetchInitialResultData, .fetchInitialResultData):
+            return true
+        case (.fetchInitialResultEmpty, .fetchInitialResultEmpty):
+            return true
+        case (.fetchFinishedResultData, .fetchFinishedResultData):
+            return true
+        case (.fetchFinishedResultEmpty, .fetchFinishedResultEmpty):
+            return true
+        case (.fetchFailure, .fetchFailure):
+            return true
+        case (.linkLoading, .linkLoading):
+            return true
+        case (.linkFinished, .linkFinished):
+            return true
+        case (.linkFailure, .linkFailure):
+            return true
+        default:
+            return false
         }
     }
 }
