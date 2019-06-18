@@ -846,7 +846,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     assert([NSThread isMainThread]);
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         [self loadMainUI];
-        [self hideSplashViewAnimated:!didShowOnboarding];
         dispatch_block_t done = ^{
             [self finishResumingApp];
             if (completion) {
@@ -855,23 +854,30 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         };
 
         if (self.notificationUserInfoToShow) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
             self.notificationUserInfoToShow = nil;
             done();
         } else if (self.unprocessedUserActivity) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
         } else if (self.unprocessedShortcutItem) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self processShortcutItem:self.unprocessedShortcutItem
                            completion:^(BOOL didProcess) {
                                done();
                            }];
         } else if (NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
-            [self.navigationStateController restoreNavigationStateFor:self.navigationController in:self.dataStore.viewContext with:self.theme];
+            [self.navigationStateController restoreNavigationStateFor:self.navigationController in:self.dataStore.viewContext with:self.theme completion:^{
+                [self hideSplashViewAnimated:!didShowOnboarding];
+            }];
             done();
         } else if ([self shouldShowExploreScreenOnLaunch]) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];
             done();
         } else {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             done();
         }
     }];

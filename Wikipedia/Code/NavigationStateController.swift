@@ -18,15 +18,18 @@ final class NavigationStateController: NSObject {
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
 
-    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme) {
+    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
+            completion()
             return
         }
         guard let navigationState = moc.navigationState else {
+            completion()
             return
         }
         let restore = {
+            completion()
             for viewController in navigationState.viewControllers {
                 self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
             }
