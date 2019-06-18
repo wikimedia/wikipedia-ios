@@ -126,7 +126,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.textLabel.text = nil
         }
         
-        if let date = UserDefaults.wmf.wmf_appResignActiveDate() {
+        if let date = article.viewedDate {
             self.daysAgoView.isHidden = false
             self.daysAgoLabel.text = (date as NSDate).wmf_localizedRelativeDateStringFromLocalDateToNow()
         } else {
