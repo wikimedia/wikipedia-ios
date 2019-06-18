@@ -214,7 +214,7 @@ final class NavigationStateController: NSObject {
             info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
         case let talkPageReplyListVC as TalkPageReplyListViewController:
             kind = .talkPageReplyList
-            info = Info(talkPageTopicURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
+            info = Info(contentGroupIDURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
         case let readingListDetailVC as ReadingListDetailViewController:
             kind = .readingListDetail
             info = Info(readingListURIString: readingListDetailVC.readingList.objectID.uriRepresentation().absoluteString)
