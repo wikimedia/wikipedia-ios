@@ -12,6 +12,28 @@ import Foundation
         return urls
     }
 
+    // Returns articles to remove from disk
+    @objc func articleURLsToRemoveFromDiskInManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+        guard let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) else {
+            return []
+        }
+        
+        let articlesToRemoveFromDiskPredicate = NSPredicate(format: "isCached == TRUE && savedDate == NULL && !(key IN %@)", preservedArticleKeys)
+        let articlesToRemoveFromDiskFetchRequest = WMFArticle.fetchRequest()
+        articlesToRemoveFromDiskFetchRequest.predicate = articlesToRemoveFromDiskPredicate
+        let articlesToRemoveFromDisk = try moc.fetch(articlesToRemoveFromDiskFetchRequest)
+        
+        for article in articlesToRemoveFromDisk {
+            article.isCached = false
+        }
+        
+        if (moc.hasChanges) {
+            try moc.save()
+        }
+        
+        return articlesToRemoveFromDisk.compactMap { $0.url }
+    }
+
     /**
      
      We only persist the last 50 most recently accessed talk pages, delete all others.

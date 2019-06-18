@@ -2,9 +2,11 @@ public struct NavigationState: Codable {
     static let libraryKey = "nav_state"
 
     public var viewControllers: [ViewController]
-    
-    public init(viewControllers: [ViewController]) {
+    public var shouldAttemptLogin: Bool
+
+    public init(viewControllers: [ViewController], shouldAttemptLogin: Bool) {
         self.viewControllers = viewControllers
+        self.shouldAttemptLogin = shouldAttemptLogin
     }
     
     public struct ViewController: Codable {
@@ -65,9 +67,7 @@ public struct NavigationState: Codable {
             public var talkPageSiteURLString: String?
             public var talkPageTitle: String?
             public var talkPageTypeRawValue: Int?
-            
-            public var talkPageTopicURIString: String?
-            
+
             public var currentSavedViewRawValue: Int?
             
             public var readingListURIString: String?
@@ -78,14 +78,13 @@ public struct NavigationState: Codable {
             
             // TODO: Remove after moving to Swift 5.1 -
             // https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md
-            public init(selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, talkPageTopicURIString: String? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil) {
+            public init(selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil) {
                 self.selectedIndex = selectedIndex
                 self.articleKey = articleKey
                 self.articleSectionAnchor = articleSectionAnchor
                 self.talkPageSiteURLString = talkPageSiteURLString
                 self.talkPageTitle = talkPageTitle
                 self.talkPageTypeRawValue = talkPageTypeRawValue
-                self.talkPageTopicURIString = talkPageTopicURIString
                 self.currentSavedViewRawValue = currentSavedViewRawValue
                 self.readingListURIString = readingListURIString
                 self.searchTerm = searchTerm

@@ -1,4 +1,3 @@
-let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFAppSiteKey = "Domain"
@@ -80,18 +79,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc func wmf_dateForKey(_ key: String) -> Date? {
         return self.object(forKey: key) as? Date
-    }
-    
-    @objc func wmf_appBecomeActiveDate() -> Date? {
-        return self.wmf_dateForKey(WMFAppBecomeActiveDateKey)
-    }
-    
-    @objc func wmf_setAppBecomeActiveDate(_ date: Date?) {
-        if let date = date {
-            self.set(date, forKey: WMFAppBecomeActiveDateKey)
-        }else{
-            self.removeObject(forKey: WMFAppBecomeActiveDateKey)
-        }
     }
     
     @objc func wmf_appResignActiveDate() -> Date? {

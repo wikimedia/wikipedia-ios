@@ -7,6 +7,7 @@ protocol DetailPresentingFromContentGroup {
 @objc(WMFNavigationStateController)
 final class NavigationStateController: NSObject {
     private let dataStore: MWKDataStore
+    private var theme = Theme.standard
 
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -17,16 +18,28 @@ final class NavigationStateController: NSObject {
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
 
-    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
+    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
+            completion()
             return
         }
         guard let navigationState = moc.navigationState else {
+            completion()
             return
         }
-        for viewController in navigationState.viewControllers {
-            self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
+        let restore = {
+            completion()
+            for viewController in navigationState.viewControllers {
+                self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
+            }
+        }
+        if navigationState.shouldAttemptLogin {
+            WMFAuthenticationManager.sharedInstance.attemptLogin {
+                restore()
+            }
+        } else {
+            restore()
         }
     }
 
@@ -80,13 +93,13 @@ final class NavigationStateController: NSObject {
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: Theme.standard)
+                let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 pushOrPresent(randomArticleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: Theme.standard)
+                let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 pushOrPresent(articleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()
@@ -110,7 +123,7 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-                talkPageContainerVC.apply(theme: Theme.standard)
+                talkPageContainerVC.apply(theme: theme)
                 navigationController.isNavigationBarHidden = true
                 navigationController.pushViewController(talkPageContainerVC, animated: false)
             case (.talkPageReplyList, let info?):
@@ -130,7 +143,7 @@ final class NavigationStateController: NSObject {
             case (.detail, let info?):
                 guard
                     let contentGroup = managedObject(with: info.contentGroupIDURIString, in: moc) as? WMFContentGroup,
-                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: Theme.standard)
+                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
                 else {
                     return
                 }
@@ -157,12 +170,15 @@ final class NavigationStateController: NSObject {
         return object
     }
 
+    var shouldAttemptLogin: Bool = false
+
     @objc func saveNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
         var viewControllers = [ViewController]()
+        shouldAttemptLogin = false
         for viewController in navigationController.viewControllers {
             viewControllers.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
         }
-        moc.navigationState = NavigationState(viewControllers: viewControllers)
+        moc.navigationState = NavigationState(viewControllers: viewControllers, shouldAttemptLogin: shouldAttemptLogin)
     }
 
     private func viewControllerToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> ViewController? {
@@ -180,6 +196,16 @@ final class NavigationStateController: NSObject {
             default:
                 info = Info(selectedIndex: tabBarController.selectedIndex)
             }
+        case is WMFThemeableNavigationController:
+            kind = .themeableNavigationController
+            info = nil
+        case is WMFSettingsViewController:
+            kind = .settings
+            info = nil
+        case is AccountViewController:
+            kind = .account
+            info = nil
+            shouldAttemptLogin = true
         case let articleViewController as WMFArticleViewController:
             kind = viewController is WMFRandomArticleViewController ? .random : .article
             info = Info(articleKey: articleViewController.articleURL.wmf_articleDatabaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
@@ -188,7 +214,7 @@ final class NavigationStateController: NSObject {
             info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
         case let talkPageReplyListVC as TalkPageReplyListViewController:
             kind = .talkPageReplyList
-            info = Info(talkPageTopicURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
+            info = Info(contentGroupIDURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
         case let readingListDetailVC as ReadingListDetailViewController:
             kind = .readingListDetail
             info = Info(readingListURIString: readingListDetailVC.readingList.objectID.uriRepresentation().absoluteString)
