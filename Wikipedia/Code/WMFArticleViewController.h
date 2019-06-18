@@ -65,6 +65,7 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, getter=isSavingOpenArticleTitleEnabled) BOOL savingOpenArticleTitleEnabled;
 @property (nonatomic, getter=isAddingArticleToHistoryListEnabled) BOOL addingArticleToHistoryListEnabled;
 @property (nonatomic, getter=isPeekingAllowed) BOOL peekingAllowed;
+@property (nonatomic, getter=shouldRequestLatestRevisionOnInitialLoad) BOOL requestLatestRevisionOnInitialLoad;
 
 @property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
 
