@@ -981,6 +981,13 @@
 		830ECAD31FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ECACE1FBDD8C00080B1EF /* ReadingListsViewController.swift */; };
 		830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */; };
 		831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831C15C52099EB3A001B04BF /* WMFArticle+Errors.swift */; };
+		8320331B22B90528004A9EDA /* NavigationStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */; };
+		8320331C22B90528004A9EDA /* NavigationStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */; };
+		8320331D22B90529004A9EDA /* NavigationStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */; };
+		8320331E22B90529004A9EDA /* NavigationStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */; };
+		8320331F22B9052A004A9EDA /* NavigationStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */; };
+		8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */; };
+		8320332322B906A0004A9EDA /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320332222B906A0004A9EDA /* NavigationState.swift */; };
 		83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83222DB21F8E554800338BE5 /* WMFContent+CoreDataClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */; };
@@ -3877,6 +3884,7 @@
 		7ABE17342239DCF5006BA309 /* WelcomeAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationViewController.swift; sourceTree = "<group>"; };
 		7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationView.swift; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
+		7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStateController.swift; sourceTree = "<group>"; };
 		7AD5D452223874F600C01164 /* RelatedSearchFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedSearchFetcher.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
@@ -3924,6 +3932,8 @@
 		830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsTests.swift; sourceTree = "<group>"; };
 		831835301FD1AC490025DD3D /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		831C15C52099EB3A001B04BF /* WMFArticle+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Errors.swift"; sourceTree = "<group>"; };
+		8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSManagedObjectContext+NavigationState.swift"; path = "WMF Framework/NSManagedObjectContext+NavigationState.swift"; sourceTree = SOURCE_ROOT; };
+		8320332222B906A0004A9EDA /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationState.swift; path = "WMF Framework/NavigationState.swift"; sourceTree = SOURCE_ROOT; };
 		83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataProperties.h"; sourceTree = "<group>"; };
 		83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataClass.h"; sourceTree = "<group>"; };
 		83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -7077,6 +7087,9 @@
 				0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */,
 				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
 				83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */,
+				7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */,
+				8320332222B906A0004A9EDA /* NavigationState.swift */,
+				8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
 				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 			);
@@ -10963,6 +10976,7 @@
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
+				8320331B22B90528004A9EDA /* NavigationStateController.swift in Sources */,
 				D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				7A71567922699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				7A48EA0E21B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
@@ -11464,6 +11478,7 @@
 				D80ED39E1EE57F4800CE8C50 /* WMFLoginFunnel.m in Sources */,
 				670F766322B0C49100D87545 /* FakeLoading.swift in Sources */,
 				834CC34F21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
+				8320331F22B9052A004A9EDA /* NavigationStateController.swift in Sources */,
 				D80ED3A01EE57F4800CE8C50 /* MapUtilities.swift in Sources */,
 				D80ED3A21EE57F4800CE8C50 /* WKWebView+ElementLocation.m in Sources */,
 				D80ED3A31EE57F4800CE8C50 /* WMFImageInfoController.m in Sources */,
@@ -11510,6 +11525,7 @@
 				D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */,
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
+				8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
@@ -11729,6 +11745,7 @@
 				D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */,
 				D8E78FA61FB4C8740094B968 /* Session.swift in Sources */,
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
+				8320332322B906A0004A9EDA /* NavigationState.swift in Sources */,
 				83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */,
 				7A06020E20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift in Sources */,
 				D8726D431EBA052900A107D0 /* Localization.swift in Sources */,
@@ -12110,6 +12127,7 @@
 				67E8B096226A57EA00537BC9 /* TalkPageReplyListViewController.swift in Sources */,
 				7AFEB3F81FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				7A9524CE22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
+				8320331E22B90529004A9EDA /* NavigationStateController.swift in Sources */,
 				D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */,
 				D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */,
 				7A71567C22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
@@ -12619,6 +12637,7 @@
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
 				670F766022B0C48E00D87545 /* FakeLoading.swift in Sources */,
 				834CC34C21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
+				8320331C22B90528004A9EDA /* NavigationStateController.swift in Sources */,
 				D8CE260C1E698E2400DAE2E0 /* MapUtilities.swift in Sources */,
 				D8CE260E1E698E2400DAE2E0 /* WKWebView+ElementLocation.m in Sources */,
 				D8CE260F1E698E2400DAE2E0 /* WMFImageInfoController.m in Sources */,
@@ -13027,6 +13046,7 @@
 				7AEBAD472102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				670F766122B0C48F00D87545 /* FakeLoading.swift in Sources */,
 				D8EC3F091E9BDA35006712EB /* WMFLoginFunnel.m in Sources */,
+				8320331D22B90529004A9EDA /* NavigationStateController.swift in Sources */,
 				D8EC3F0B1E9BDA35006712EB /* MapUtilities.swift in Sources */,
 				D8EC3F0D1E9BDA35006712EB /* WKWebView+ElementLocation.m in Sources */,
 				D8EC3F0E1E9BDA35006712EB /* WMFImageInfoController.m in Sources */,

@@ -1,12 +1,14 @@
 import UIKit
 
-class ArticleURLListViewController: ArticleCollectionViewController {
+class ArticleURLListViewController: ArticleCollectionViewController, DetailPresentingFromContentGroup {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
+    let contentGroupIDURIString: String?
 
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
         self.articleKeys = Set<String>(articleURLs.compactMap { $0.wmf_articleDatabaseKey } )
+        self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init()
         feedFunnelContext = FeedFunnelContext(contentGroup)
         self.theme = theme

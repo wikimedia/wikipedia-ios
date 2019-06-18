@@ -11,7 +11,6 @@ extern NSString *const WMFIconShortcutTypeNearby;
 
 + (UIApplicationShortcutItem *)wmf_search;
 + (UIApplicationShortcutItem *)wmf_random;
-+ (nullable UIApplicationShortcutItem *)wmf_continueReading;
 + (UIApplicationShortcutItem *)wmf_nearby;
 
 @end
