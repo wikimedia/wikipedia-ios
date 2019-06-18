@@ -92,51 +92,49 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     private var viewState: TalkPageContainerViewState = .initial {
         didSet {
-            DispatchQueue.main.async {
-                switch self.viewState {
-                case .initial:
-                    self.scrollView?.isUserInteractionEnabled = true
-                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-                case .fetchLoading:
-                    self.fakeProgressController.start()
-                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-                case .fetchInitialResultData:
-                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-                    self.hideEmptyView()
-                case .fetchInitialResultEmpty:
-                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-                    self.wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
-                case .fetchFinishedResultData:
-                    self.fakeProgressController.stop()
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                    self.hideEmptyView()
-                case .fetchFinishedResultEmpty:
-                    self.fakeProgressController.stop()
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                    self.wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
-                case .fetchFailure (let error):
-                    self.fakeProgressController.stop()
-                    if oldValue != TalkPageContainerViewState.fetchInitialResultData {
-                        self.showEmptyView()
-                    }
-                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
-                case .linkLoading(let viewController):
-                    viewController.fakeProgressController.start()
-                    viewController.scrollView?.isUserInteractionEnabled = false
-                    viewController.navigationItem.rightBarButtonItem?.isEnabled = false
-                case .linkFinished(let viewController):
-                    viewController.fakeProgressController.stop()
-                    viewController.scrollView?.isUserInteractionEnabled = true
-                    viewController.navigationItem.rightBarButtonItem?.isEnabled = true
-                case .linkFailure(let viewController, let error):
-                    viewController.fakeProgressController.stop()
-                    viewController.scrollView?.isUserInteractionEnabled = true
-                    viewController.navigationItem.rightBarButtonItem?.isEnabled = true
-                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+            switch viewState {
+            case .initial:
+                self.scrollView?.isUserInteractionEnabled = true
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            case .fetchLoading:
+                fakeProgressController.start()
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            case .fetchInitialResultData:
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                hideEmptyView()
+            case .fetchInitialResultEmpty:
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+            case .fetchFinishedResultData:
+                fakeProgressController.stop()
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                hideEmptyView()
+            case .fetchFinishedResultEmpty:
+                fakeProgressController.stop()
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+            case .fetchFailure (let error):
+                fakeProgressController.stop()
+                if oldValue != TalkPageContainerViewState.fetchInitialResultData {
+                    showEmptyView()
                 }
-
-                self.replyListViewController?.repliesAreDisabled = self.viewState.repliesAreDisabled
+                showNoInternetConnectionAlertOrOtherWarning(from: error)
+            case .linkLoading(let viewController):
+                viewController.fakeProgressController.start()
+                viewController.scrollView?.isUserInteractionEnabled = false
+                viewController.navigationItem.rightBarButtonItem?.isEnabled = false
+            case .linkFinished(let viewController):
+                viewController.fakeProgressController.stop()
+                viewController.scrollView?.isUserInteractionEnabled = true
+                viewController.navigationItem.rightBarButtonItem?.isEnabled = true
+            case .linkFailure(let viewController, let error):
+                viewController.fakeProgressController.stop()
+                viewController.scrollView?.isUserInteractionEnabled = true
+                viewController.navigationItem.rightBarButtonItem?.isEnabled = true
+                showNoInternetConnectionAlertOrOtherWarning(from: error)
             }
+            
+            replyListViewController?.repliesAreDisabled = viewState.repliesAreDisabled
         }
     }
     
