@@ -59,7 +59,7 @@ class SavedViewController: ViewController {
     
     // MARK: - Toggling views
     
-    private enum View: Int {
+    enum View: Int {
         case savedArticles, readingLists
     }
     
@@ -69,7 +69,19 @@ class SavedViewController: ViewController {
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
 
-    private var currentView: View = .savedArticles {
+    func toggleCurrentView(_ newViewRawValue: Int) {
+        toggleButtons.first { $0.tag != newViewRawValue }?.isSelected = false
+        for button in toggleButtons {
+            if button.tag == newViewRawValue {
+                button.isSelected = true
+            } else {
+                button.isSelected = false
+            }
+        }
+        currentView = View(rawValue: newViewRawValue) ?? .savedArticles
+    }
+
+    private(set) var currentView: View = .savedArticles {
         didSet {
             searchBar.resignFirstResponder()
             switch currentView {
@@ -159,7 +171,9 @@ class SavedViewController: ViewController {
         
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
-        currentView = .savedArticles
+        if activeEditableCollection == nil {
+            currentView = .savedArticles
+        }
         
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
         allArticlesButton.setTitle(allArticlesButtonTitle, for: .normal)

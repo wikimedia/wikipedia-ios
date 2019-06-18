@@ -641,6 +641,15 @@ static uint64_t bundleHash() {
             return;
         }
     }
+    
+    
+    if (currentLibraryVersion < 8) {
+        NSUserDefaults *ud = [NSUserDefaults wmf];
+        [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
+        [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
+        [ud synchronize];
+        [moc wmf_setValue:@(8) forKey:WMFLibraryVersionKey];
+    }
 }
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
