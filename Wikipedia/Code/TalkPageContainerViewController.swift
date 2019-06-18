@@ -4,15 +4,21 @@ import UIKit
 @objc(WMFTalkPageContainerViewController)
 class TalkPageContainerViewController: ViewController, HintPresenting {
     
-    private let talkPageTitle: String
-    private let siteURL: URL
-    private let type: TalkPageType
+    let talkPageTitle: String
+    let siteURL: URL
+    let type: TalkPageType
     private let dataStore: MWKDataStore
     private let controller: TalkPageController
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     private var talkPage: TalkPage? {
         didSet {
-            introTopic = talkPage?.topics?.first(where: { ($0 as? TalkPageTopic)?.isIntro == true}) as? TalkPageTopic
+            guard let talkPage = self.talkPage else {
+                introTopic = nil
+                return
+            }
+            introTopic = talkPage.topics?.first(where: { ($0 as? TalkPageTopic)?.isIntro == true}) as? TalkPageTopic
+            talkPage.userDidAccess()
+            try? talkPage.managedObjectContext?.save()
         }
     }
     private var introTopic: TalkPageTopic?
@@ -72,6 +78,15 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+    }
+
+    func pushToReplyThread(topic: TalkPageTopic) {
+        let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
+        replyListViewController.delegate = self
+        replyListViewController.apply(theme: theme)
+        replyListViewController.repliesAreDisabled = repliesAreDisabled
+        self.replyListViewController = replyListViewController
+        navigationController?.pushViewController(replyListViewController, animated: true)
     }
 }
 
@@ -319,15 +334,6 @@ private extension TalkPageContainerViewController {
                 self.openURLInSafari(url: absoluteURL)
             }
         }
-    }
-
-    func pushToReplyThread(topic: TalkPageTopic) {
-        let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
-        replyListViewController.delegate = self
-        replyListViewController.apply(theme: theme)
-        replyListViewController.repliesAreDisabled = repliesAreDisabled
-        self.replyListViewController = replyListViewController
-        navigationController?.pushViewController(replyListViewController, animated: true)
     }
 }
 

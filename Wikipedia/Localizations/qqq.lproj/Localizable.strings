@@ -374,7 +374,6 @@
 "home-themes-prompt" = "Description on feed card that describes how to adjust reading preferences.";
 "home-title" = "Title for home interface.\n{{Identical|Explore}}";
 "home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
-"icon-shortcut-continue-reading-title" = "Title for app icon force touch shortcut to quickly re-open the last article the user was reading.";
 "icon-shortcut-nearby-title" = "Title for app icon force touch shortcut to quickly open the nearby articles interface.";
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article.\n{{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";

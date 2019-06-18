@@ -10,7 +10,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     
     weak var delegate: TalkPageReplyListViewControllerDelegate?
     
-    private let topic: TalkPageTopic
+    let topic: TalkPageTopic
     private let dataStore: MWKDataStore
     private var fetchedResultsController: NSFetchedResultsController<TalkPageReply>
     

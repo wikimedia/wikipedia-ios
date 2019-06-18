@@ -122,6 +122,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
+@property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
 @property (nonatomic, strong) WMFTalkPageReplyHintController *talkPageReplyHintController;
 @property (nonatomic, strong) WMFTalkPageTopicHintController *talkPageTopicHintController;
 
@@ -224,10 +225,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                              selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageReplyWasPublished:) name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageTopicWasPublished:) name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName object:nil];
-    
+
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
@@ -378,7 +379,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (![self uiIsLoaded]) {
         return;
     }
-
+    [self.navigationStateController saveNavigationStateFor:self.navigationController in:self.dataStore.viewContext];
     NSError *saveError = nil;
     if (![self.dataStore save:&saveError]) {
         DDLogError(@"Error saving dataStore: %@", saveError);
@@ -844,7 +845,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)resumeApp:(dispatch_block_t)completion {
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         [self loadMainUI];
-        [self hideSplashViewAnimated:!didShowOnboarding];
         dispatch_block_t done = ^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self finishResumingApp];
@@ -855,23 +855,33 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         };
 
         if (self.notificationUserInfoToShow) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
             self.notificationUserInfoToShow = nil;
             done();
         } else if (self.unprocessedUserActivity) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
         } else if (self.unprocessedShortcutItem) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self processShortcutItem:self.unprocessedShortcutItem
                            completion:^(BOOL didProcess) {
                                done();
                            }];
-        } else if ([self shouldShowLastReadArticleOnLaunch]) {
-            [self showLastReadArticleAnimated:NO];
-            done();
+        } else if (NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
+            [self.navigationStateController restoreNavigationStateFor:self.navigationController
+                                                                   in:self.dataStore.viewContext
+                                                                 with:self.theme
+                                                           completion:^{
+                                                               [self hideSplashViewAnimated:!didShowOnboarding];
+                                                               done();
+                                                           }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];
             done();
         } else {
+            [self hideSplashViewAnimated:!didShowOnboarding];
             done();
         }
     }];
@@ -921,7 +931,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         if (locationAuthorized != [defaults wmf_locationAuthorized]) {
             [self.dataStore.feedContentController updateContentSource:[WMFNearbyContentSource class] force:NO completion:NULL];
         }
-        if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
+        // TODO: If full navigation stack is not restored (so we're past the cutoff date), should we still force Continue reading card to appear?
+        if (!NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
     }
@@ -1007,13 +1018,23 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
-    NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
+    NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
+        housekeepingError = nil;
     }
 
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
+    }
+
+    NSArray<NSURL *> *articleURLsToRemoveFromDisk = [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on remove from disk fetch: %@", housekeepingError);
+    }
+
+    if (articleURLsToRemoveFromDisk.count > 0) {
+        [self.dataStore removeArticlesWithURLsFromCache:articleURLsToRemoveFromDisk];
     }
 
     if (self.backgroundTaskGroup) {
@@ -1359,6 +1380,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return self.session.dataStore;
 }
 
+- (WMFNavigationStateController *)navigationStateController {
+    if (!_navigationStateController) {
+        _navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
+    }
+    return _navigationStateController;
+}
+
 - (ExploreViewController *)exploreViewController {
     if (!_exploreViewController) {
         _exploreViewController = [[ExploreViewController alloc] init];
@@ -1507,40 +1535,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Last Read Article
 
-- (BOOL)shouldShowLastReadArticleOnLaunch {
-    if (!NSUserDefaults.wmf.shouldShowLastReadArticleOnResume) {
-        return NO;
-    }
-
-    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
-    if (!lastRead) {
-        return NO;
-    }
-
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
-        return YES;
-    }
-
-    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
-    if (!resignActiveDate) {
-        return NO;
-    }
-
-    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeShowingExploreScreenOnLaunch) {
-        if (![self mainViewControllerIsDisplayingContent] && [self selectedIndex] == WMFAppTabTypeMain) {
-            return YES;
-        }
-    }
-
-    return NO;
-#else
-    return YES;
-#endif
-}
-
 - (void)showLastReadArticleAnimated:(BOOL)animated {
-    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
+    NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
     [self showArticleForURL:lastRead animated:animated];
 }
 
@@ -1654,10 +1650,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (!self.isWaitingToResumeApp && [[navigationController viewControllers] count] == 1) {
-        [[NSUserDefaults wmf] wmf_setOpenArticleURL:nil];
-    }
-
     NSArray *viewControllers = navigationController.viewControllers;
     NSInteger count = viewControllers.count;
     NSMutableIndexSet *indiciesToRemove = [NSMutableIndexSet indexSet];
