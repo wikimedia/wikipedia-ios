@@ -1282,11 +1282,12 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self showProgressViewAnimated:YES];
 
     @weakify(self);
-    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
-        forceDownload:force
-        saveToDisk:YES
-        priority:NSURLSessionTaskPriorityHigh
-        failure:^(NSError *_Nonnull error) {
+    self.articleFetcherPromise = [self.articleFetcher fetchArticleWithURL:self.articleURL
+                                                            forceDownload:force
+                                                    checkForNewerRevision:force
+                                                               saveToDisk:YES
+                                                                 priority:NSURLSessionTaskPriorityHigh
+                                                                  failure:^(NSError *_Nonnull error) {
             @strongify(self);
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
             [self endRefreshing];

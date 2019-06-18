@@ -25,10 +25,8 @@ final class NavigationStateController: NSObject {
         guard let navigationState = moc.navigationState else {
             return
         }
-        WMFAuthenticationManager.sharedInstance.attemptLogin {
-            for viewController in navigationState.viewControllers {
-                self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
-            }
+        for viewController in navigationState.viewControllers {
+            self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
         }
     }
 
