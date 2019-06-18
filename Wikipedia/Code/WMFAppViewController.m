@@ -1011,10 +1011,20 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
+        housekeepingError = nil;
     }
-
+    
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
+    }
+    
+    NSArray<NSURL *> *articleURLsToRemoveFromDisk = [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on remove from disk fetch: %@", housekeepingError);
+    }
+
+    if (articleURLsToRemoveFromDisk.count > 0) {
+        [self.dataStore removeArticlesWithURLsFromCache:articleURLsToRemoveFromDisk];
     }
 
     if (self.backgroundTaskGroup) {

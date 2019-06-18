@@ -111,6 +111,7 @@
         <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="imageURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isCached" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
@@ -160,6 +161,10 @@
         </fetchIndex>
         <fetchIndex name="byDisplayTitleIndex">
             <fetchIndexElement property="displayTitle" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="isCachedIndex">
+            <fetchIndexElement property="isCached" type="Binary" order="descending"/>
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFContent" representedClassName="WMFContent" syncable="YES">
@@ -220,7 +225,7 @@
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
         <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="495"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="510"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="345"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
