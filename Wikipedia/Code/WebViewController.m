@@ -689,6 +689,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateMenuItems];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
@@ -780,6 +785,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
     [self scrollToFragment:section.anchor animated:animated];
+    [self.delegate webViewController:self didScrollToSection:section];
 }
 
 - (void)accessibilityCursorToSection:(MWKSection *)section {
@@ -856,7 +862,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [handler cacheSectionDataForArticle: self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
+}
 
+- (void)updateMenuItems {
     NSString *shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu");
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:shareMenuItemTitle
                                                           action:@selector(shareMenuItemTapped:)];

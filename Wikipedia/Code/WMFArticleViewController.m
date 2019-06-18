@@ -169,6 +169,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
 @property (nonatomic, assign) BOOL restoreScrollPosition;
+@property (nonatomic, strong, readwrite, nullable) NSString *visibleSectionAnchor;
 
 @end
 
@@ -364,7 +365,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)applicationWillResignActiveWithNotification:(NSNotification *)note {
     [self saveWebViewScrollOffset];
-    [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
 - (void)articleWasUpdatedWithNotification:(NSNotification *)note {
@@ -816,7 +816,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 
     if (self.viewDidAppearCompletion) {
         self.viewDidAppearCompletion();
@@ -1285,7 +1284,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
         forceDownload:force
-        saveToDisk:NO
+        saveToDisk:YES
         priority:NSURLSessionTaskPriorityHigh
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
@@ -1534,8 +1533,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 
     [self.delegate articleControllerDidLoadArticle:self];
-
-    [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
@@ -1548,23 +1545,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
-    if (self.navigationController.topViewController != self || !self.isSavingOpenArticleTitleEnabled) {
-        return;
-    }
-
-    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
-        if (error) {
-            // Reminder: an error is *expected* here when 1st loading an article. This is
-            // because 'saveOpenArticleTitleWithCurrentlyOnscreenFragment' is also called
-            // by 'viewDidAppear' (so the 'Continue reading' widget is kept up-to-date even
-            // when tapping the 'Back' button), but on 1st load the article is not yet
-            // fetched when this occurs.
-            return;
-        }
-        NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-        [[NSUserDefaults wmf] wmf_setOpenArticleURL:url];
-    }];
+- (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section {
+    self.visibleSectionAnchor = section.anchor;
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
