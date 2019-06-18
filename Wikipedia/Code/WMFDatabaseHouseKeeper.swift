@@ -6,6 +6,7 @@ import Foundation
     @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
         let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
+
         try deleteStaleTalkPages(moc)
 
         return urls
