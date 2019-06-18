@@ -7,6 +7,7 @@ protocol DetailPresentingFromContentGroup {
 @objc(WMFNavigationStateController)
 final class NavigationStateController: NSObject {
     private let dataStore: MWKDataStore
+    private var theme = Theme.standard
 
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -17,7 +18,7 @@ final class NavigationStateController: NSObject {
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
 
-    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
+    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
             return
@@ -82,13 +83,13 @@ final class NavigationStateController: NSObject {
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: Theme.standard)
+                let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 pushOrPresent(randomArticleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
-                let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: Theme.standard)
+                let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 pushOrPresent(articleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()
@@ -112,7 +113,7 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-                talkPageContainerVC.apply(theme: Theme.standard)
+                talkPageContainerVC.apply(theme: theme)
                 navigationController.isNavigationBarHidden = true
                 navigationController.pushViewController(talkPageContainerVC, animated: false)
             case (.talkPageReplyList, let info?):
@@ -132,7 +133,7 @@ final class NavigationStateController: NSObject {
             case (.detail, let info?):
                 guard
                     let contentGroup = managedObject(with: info.contentGroupIDURIString, in: moc) as? WMFContentGroup,
-                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: Theme.standard)
+                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
                 else {
                     return
                 }

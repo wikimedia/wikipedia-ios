@@ -866,7 +866,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                done();
                            }];
         } else if (NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
-            [self.navigationStateController restoreNavigationStateFor:self.navigationController in:self.dataStore.viewContext];
+            [self.navigationStateController restoreNavigationStateFor:self.navigationController in:self.dataStore.viewContext with:self.theme];
             done();
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self showExplore];
