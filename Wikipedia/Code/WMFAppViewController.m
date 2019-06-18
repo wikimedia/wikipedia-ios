@@ -843,14 +843,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 // resumeApp: should be called once and only once for every launch from a fully terminated state.
 // It should only be called when the app is active and being shown to the user
 - (void)resumeApp:(dispatch_block_t)completion {
-    assert([NSThread isMainThread]);
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         [self loadMainUI];
         dispatch_block_t done = ^{
-            [self finishResumingApp];
-            if (completion) {
-                completion();
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self finishResumingApp];
+                if (completion) {
+                    completion();
+                }
+            });
         };
 
         if (self.notificationUserInfoToShow) {
