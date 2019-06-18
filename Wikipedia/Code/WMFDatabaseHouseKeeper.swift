@@ -18,7 +18,7 @@ import Foundation
             return []
         }
         
-        let articlesToRemoveFromDiskPredicate = NSPredicate(format: "isCached == TRUE && !(key IN %@)", preservedArticleKeys)
+        let articlesToRemoveFromDiskPredicate = NSPredicate(format: "isCached == TRUE && savedDate == NULL && !(key IN %@)", preservedArticleKeys)
         let articlesToRemoveFromDiskFetchRequest = WMFArticle.fetchRequest()
         articlesToRemoveFromDiskFetchRequest.predicate = articlesToRemoveFromDiskPredicate
         let articlesToRemoveFromDisk = try moc.fetch(articlesToRemoveFromDiskFetchRequest)
