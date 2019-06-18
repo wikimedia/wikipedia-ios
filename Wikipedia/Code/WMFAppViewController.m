@@ -869,10 +869,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                done();
                            }];
         } else if (NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume) {
-            [self.navigationStateController restoreNavigationStateFor:self.navigationController in:self.dataStore.viewContext with:self.theme completion:^{
-                [self hideSplashViewAnimated:!didShowOnboarding];
-            }];
-            done();
+            [self.navigationStateController restoreNavigationStateFor:self.navigationController
+                                                                   in:self.dataStore.viewContext
+                                                                 with:self.theme
+                                                           completion:^{
+                                                               [self hideSplashViewAnimated:!didShowOnboarding];
+                                                               done();
+                                                           }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];
@@ -1020,11 +1023,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
-    
+
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
     }
-    
+
     NSArray<NSURL *> *articleURLsToRemoveFromDisk = [self.houseKeeper articleURLsToRemoveFromDiskInManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on remove from disk fetch: %@", housekeepingError);
