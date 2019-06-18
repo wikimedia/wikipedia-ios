@@ -164,6 +164,7 @@
         </fetchIndex>
         <fetchIndex name="isCachedIndex">
             <fetchIndexElement property="isCached" type="Binary" order="descending"/>
+            <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="key" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
