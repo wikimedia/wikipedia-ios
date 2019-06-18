@@ -209,8 +209,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 }
 
-- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
+- (nullable NSURLSessionTask *)fetchArticleWithURL:(NSURL *)url
                                                     forceDownload:(BOOL)forceDownload
+                                            checkForNewerRevision:(BOOL)checkForNewerRevision
                                                        saveToDisk:(BOOL)saveToDisk
                                                          priority:(float)priority
                                                           failure:(WMFErrorHandler)failure
@@ -266,7 +267,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
         }
         task = [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority failure:failure success:success];
-    } else {
+    } else if (checkForNewerRevision) {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                            resultLimit:1
                                                     endingWithRevision:cachedArticle.revisionId
@@ -287,17 +288,13 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                        }
                                                                    });
                                                                }];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            success(cachedArticle, url);
+        });
     }
     task.priority = priority;
     return task;
-}
-
-- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
-                                                               saveToDisk:(BOOL)saveToDisk
-                                                                 priority:(float)priority
-                                                                  failure:(WMFErrorHandler)failure
-                                                                  success:(WMFArticleHandler)success {
-    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO saveToDisk:saveToDisk priority:priority failure:failure success:success];
 }
 
 @end
