@@ -100,6 +100,7 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+                articleVC.shouldRequestLatestRevisionOnInitialLoad = false
                 pushOrPresent(articleVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()

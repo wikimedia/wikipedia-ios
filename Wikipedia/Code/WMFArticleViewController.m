@@ -213,6 +213,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                                                  });
                                                                              }
                                                                          }];
+        self.requestLatestRevisionOnInitialLoad = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
@@ -1282,8 +1283,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self showProgressViewAnimated:YES];
 
     @weakify(self);
-    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
+    self.articleFetcherPromise = [self.articleFetcher fetchArticleWithURL:self.articleURL
         forceDownload:force
+        checkForNewerRevision:force || self.requestLatestRevisionOnInitialLoad
         saveToDisk:YES
         priority:NSURLSessionTaskPriorityHigh
         failure:^(NSError *_Nonnull error) {
@@ -1341,6 +1343,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         }
         success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
+            self.requestLatestRevisionOnInitialLoad = NO;
             [self endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
             self.articleURL = articleURL;
@@ -1626,6 +1629,17 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
+        if (error) {
+            // Reminder: an error is *expected* here when 1st loading an article. This is
+            // because 'saveOpenArticleTitleWithCurrentlyOnscreenFragment' is also called
+            // by 'viewDidAppear' (so the 'Continue reading' widget is kept up-to-date even
+            // when tapping the 'Back' button), but on 1st load the article is not yet
+            // fetched when this occurs.
+            return;
+        }
+        self.visibleSectionAnchor = visibleSection.anchor;
+    }];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
