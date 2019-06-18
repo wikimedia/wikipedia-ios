@@ -287,6 +287,12 @@ final class NavigationStateController: NSObject {
             default:
                 info = Info(selectedIndex: tabBarController.selectedIndex)
             }
+        case is WMFThemeableNavigationController:
+            kind = .themeableNavigationController
+            info = nil
+        case is WMFSettingsViewController:
+            kind = .settings
+            info = nil
         case let articleViewController as WMFArticleViewController:
             kind = viewController is WMFRandomArticleViewController ? .random : .article
             info = Info(articleKey: articleViewController.articleURL.wmf_articleDatabaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
