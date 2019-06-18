@@ -9,7 +9,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     let type: TalkPageType
     private let dataStore: MWKDataStore
     private let controller: TalkPageController
-    let talkPageSemanticContentAttribute: UISemanticContentAttribute
+    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
     private var talkPage: TalkPage? {
         didSet {
             guard let talkPage = self.talkPage else {
