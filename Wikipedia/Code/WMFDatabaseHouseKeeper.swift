@@ -129,21 +129,14 @@ import Foundation
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
         var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE")
+        
+        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
+            referencedArticleKeys.formUnion(preservedArticleKeys)
+        }
+        
         if !referencedArticleKeys.isEmpty {
             let referencedKeysPredicate = NSPredicate(format: "!(key IN %@)", referencedArticleKeys)
             articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
-        }
-
-        let oldNavigationStackArticlesToDelete: NSPredicate?
-        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
-            oldNavigationStackArticlesToDelete = NSPredicate(format: "viewedDate != NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE && !(key IN %@)", preservedArticleKeys)
-        } else {
-            oldNavigationStackArticlesToDelete = nil
-        }
-
-
-        if let oldNavigationStackArticlesToDelete = oldNavigationStackArticlesToDelete {
-            articlesToDeletePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [articlesToDeletePredicate, oldNavigationStackArticlesToDelete])
         }
 
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
