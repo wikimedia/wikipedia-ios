@@ -31,7 +31,7 @@ final class NavigationStateController: NSObject {
                 self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
             }
         }
-        if navigationState.isLoggedIn {
+        if navigationState.shouldAttemptLogin {
             WMFAuthenticationManager.sharedInstance.attemptLogin {
                 restore()
             }
@@ -167,15 +167,15 @@ final class NavigationStateController: NSObject {
         return object
     }
 
-    var isLoggedIn: Bool = false
+    var shouldAttemptLogin: Bool = false
 
     @objc func saveNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
         var viewControllers = [ViewController]()
-        isLoggedIn = false
+        shouldAttemptLogin = false
         for viewController in navigationController.viewControllers {
             viewControllers.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
         }
-        moc.navigationState = NavigationState(viewControllers: viewControllers, isLoggedIn: isLoggedIn)
+        moc.navigationState = NavigationState(viewControllers: viewControllers, shouldAttemptLogin: shouldAttemptLogin)
     }
 
     private func viewControllerToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> ViewController? {
@@ -202,7 +202,7 @@ final class NavigationStateController: NSObject {
         case is AccountViewController:
             kind = .account
             info = nil
-            isLoggedIn = true
+            shouldAttemptLogin = true
         case let articleViewController as WMFArticleViewController:
             kind = viewController is WMFRandomArticleViewController ? .random : .article
             info = Info(articleKey: articleViewController.articleURL.wmf_articleDatabaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)

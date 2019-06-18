@@ -2,11 +2,11 @@ public struct NavigationState: Codable {
     static let libraryKey = "nav_state"
 
     public var viewControllers: [ViewController]
-    public var isLoggedIn: Bool
+    public var shouldAttemptLogin: Bool
 
-    public init(viewControllers: [ViewController], isLoggedIn: Bool) {
+    public init(viewControllers: [ViewController], shouldAttemptLogin: Bool) {
         self.viewControllers = viewControllers
-        self.isLoggedIn = isLoggedIn
+        self.shouldAttemptLogin = shouldAttemptLogin
     }
     
     public struct ViewController: Codable {
