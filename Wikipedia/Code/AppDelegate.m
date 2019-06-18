@@ -81,7 +81,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
-    NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume = [self shouldRestoreNavigationStackOnResume];
+    NSUserDefaults.wmf.shouldRestoreNavigationStackOnResume = [self shouldRestoreNavigationStackOnResumeAfterBecomingActive:[NSDate date]];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];
@@ -117,12 +117,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     }
 }
 
-- (BOOL)shouldRestoreNavigationStackOnResume {
+- (BOOL)shouldRestoreNavigationStackOnResumeAfterBecomingActive:(NSDate *)becomeActiveDate {
     NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;
     }
-    NSDate *becomeActiveDate = [[NSUserDefaults wmf] wmf_appBecomeActiveDate];
     NSDate *cutoffDate = [[NSCalendar wmf_utcGregorianCalendar] nextDateAfterDate:resignActiveDate matchingHour:5 minute:0 second:0 options:NSCalendarMatchStrictly];
     BOOL isBeforeCutoffDate = [becomeActiveDate compare:cutoffDate] == NSOrderedAscending;
     return isBeforeCutoffDate;
