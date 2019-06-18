@@ -1629,6 +1629,17 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
+        if (error) {
+            // Reminder: an error is *expected* here when 1st loading an article. This is
+            // because 'saveOpenArticleTitleWithCurrentlyOnscreenFragment' is also called
+            // by 'viewDidAppear' (so the 'Continue reading' widget is kept up-to-date even
+            // when tapping the 'Back' button), but on 1st load the article is not yet
+            // fetched when this occurs.
+            return;
+        }
+        self.visibleSectionAnchor = visibleSection.anchor;
+    }];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
