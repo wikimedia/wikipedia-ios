@@ -1526,7 +1526,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Last Read Article
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
-    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
+    NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
     [self showArticleForURL:lastRead animated:animated];
 }
 
@@ -1640,10 +1640,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (!self.isWaitingToResumeApp && [[navigationController viewControllers] count] == 1) {
-        [[NSUserDefaults wmf] wmf_setOpenArticleURL:nil];
-    }
-
     NSArray *viewControllers = navigationController.viewControllers;
     NSInteger count = viewControllers.count;
     NSMutableIndexSet *indiciesToRemove = [NSMutableIndexSet indexSet];

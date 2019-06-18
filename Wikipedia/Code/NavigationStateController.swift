@@ -1,10 +1,11 @@
+import WMF
+
 protocol DetailPresentingFromContentGroup {
     var contentGroupIDURIString: String? { get }
 }
 
 @objc(WMFNavigationStateController)
 final class NavigationStateController: NSObject {
-    private let key = "nav_state"
     private let dataStore: MWKDataStore
 
     @objc init(dataStore: MWKDataStore) {
@@ -16,103 +17,12 @@ final class NavigationStateController: NSObject {
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
 
-    private struct NavigationState: Codable {
-        var viewControllers: [ViewController]
-
-        struct ViewController: Codable {
-            var kind: Kind
-            var presentation: Presentation
-            var info: Info?
-            var children: [ViewController]
-
-            mutating func updateChildren(_ children: [ViewController]) {
-                self.children = children
-            }
-
-            init?(kind: Kind?, presentation: Presentation, info: Info? = nil, children: [ViewController] = []) {
-                guard let kind = kind else {
-                    return nil
-                }
-                self.kind = kind
-                self.presentation = presentation
-                self.info = info
-                self.children = children
-            }
-
-            enum Kind: Int, Codable {
-                case tab
-
-                case article
-                case random
-                case themeableNavigationController
-                case settings
-
-                case account
-                case talkPage
-                case talkPageReplyList
-
-                case readingListDetail
-
-                case detail
-
-                init?(from rawValue: Int?) {
-                    guard let rawValue = rawValue else {
-                        return nil
-                    }
-                    self.init(rawValue: rawValue)
-                }
-            }
-
-            enum Presentation: Int, Codable {
-                case push
-                case modal
-            }
-
-            struct Info: Codable {
-                var selectedIndex: Int?
-
-                var articleKey: String?
-                var articleSectionAnchor: String?
-
-                var talkPageSiteURLString: String?
-                var talkPageTitle: String?
-                var talkPageTypeRawValue: Int?
-
-                var talkPageTopicURIString: String?
-
-                var currentSavedViewRawValue: Int?
-
-                var readingListURIString: String?
-
-                var searchTerm: String?
-
-                var contentGroupIDURIString: String?
-
-                // TODO: Remove after moving to Swift 5.1 -
-                // https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md
-                init(selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, talkPageTopicURIString: String? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil) {
-                    self.selectedIndex = selectedIndex
-                    self.articleKey = articleKey
-                    self.articleSectionAnchor = articleSectionAnchor
-                    self.talkPageSiteURLString = talkPageSiteURLString
-                    self.talkPageTitle = talkPageTitle
-                    self.talkPageTypeRawValue = talkPageTypeRawValue
-                    self.talkPageTopicURIString = talkPageTopicURIString
-                    self.currentSavedViewRawValue = currentSavedViewRawValue
-                    self.readingListURIString = readingListURIString
-                    self.searchTerm = searchTerm
-                    self.contentGroupIDURIString = contentGroupIDURIString
-                }
-            }
-        }
-    }
-
     @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
             return
         }
-        guard let navigationState = navigationState(in: moc) else {
+        guard let navigationState = moc.navigationState else {
             return
         }
         WMFAuthenticationManager.sharedInstance.attemptLogin {
@@ -122,20 +32,8 @@ final class NavigationStateController: NSObject {
         }
     }
 
-    private func navigationState(in moc: NSManagedObjectContext) -> NavigationState? {
-        let keyValue = moc.wmf_keyValue(forKey: key)
-        guard let value = keyValue?.value as? Data else {
-            return nil
-        }
-        let decoder = PropertyListDecoder()
-        guard let navigationState = try? decoder.decode(NavigationState.self, from: value) else {
-            return nil
-        }
-        return navigationState
-    }
-
     func allPreservedArticleKeys(in moc: NSManagedObjectContext) -> [String]? {
-        return navigationState(in: moc)?.viewControllers.compactMap { $0.info?.articleKey }
+        return moc.navigationState?.viewControllers.compactMap { $0.info?.articleKey }
     }
 
     private func pushOrPresent(_ viewController: UIViewController, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
@@ -266,10 +164,7 @@ final class NavigationStateController: NSObject {
         for viewController in navigationController.viewControllers {
             viewControllers.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
         }
-        let navigationState = NavigationState(viewControllers: viewControllers)
-        let encoder = PropertyListEncoder()
-        let value = try? encoder.encode(navigationState) as NSData
-        moc.wmf_setValue(value, forKey: key)
+        moc.navigationState = NavigationState(viewControllers: viewControllers)
     }
 
     private func viewControllerToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> ViewController? {
