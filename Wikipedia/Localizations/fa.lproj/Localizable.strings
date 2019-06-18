@@ -30,6 +30,7 @@
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
+// Author: Yoosef Pooranvary
 // Author: درفش کاویانی
 
 "about-content-license" = "مجوز محتوی";
@@ -266,6 +267,7 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "روشن $1";
 "explore-feed-preferences-global-cards-title" = "نام‌های سراسری";
 "explore-feed-preferences-hide-card-action-title" = "مخفی کردن این کارت";
+"explore-feed-preferences-on-this-day-description" = "رویدادهای تاریخی در این روز";
 "explore-feed-preferences-randomizer-description" = "تولید مقالاتی تصادفی برای خواندن";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "خاموش کردن جستجو";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "خاموش کردن جستجو؟";
@@ -578,6 +580,7 @@
 "search-recent-title" = "جستجوهای اخیر";
 "search-result-redirected-from" = "تغییرمسیر از: $1";
 "search-title" = "جستجو";
+"settings-account" = "حساب کاربری";
 "settings-appearance" = "تنظیمات خواندن";
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
 "settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما را حذف نمی‌کند.";
@@ -623,6 +626,8 @@
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
 "table-title-other" = "اطلاعات بیشتر";
+"talk-page-new-subject-placeholder-text" = "موضوع";
+"talk-page-new-topic-title" = "بحث تازه";
 "talk-page-reply-title" = "پاسخ دادن";
 "talk-page-title-article-talk" = "بحث مقاله";
 "talk-page-title-user-talk" = "بحث کاربر";

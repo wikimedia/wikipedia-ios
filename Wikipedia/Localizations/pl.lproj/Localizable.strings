@@ -381,6 +381,9 @@
 "table-title-other" = "Więcej informacji";
 "talk-page-info-active-conversations" = "Aktywne dyskusje na $1 Wikipedii";
 "talk-page-info-active-conversations-generic" = "Aktywne dyskusje na Wikipedii";
+"talk-page-link-user-action-sheet-app" = "Zobacz stronę dyskusji użytkownika w aplikacji";
+"talk-page-link-user-action-sheet-safari" = "Zobacz stronę użytkownika w Safari";
+"talk-page-link-user-action-sheet-title" = "Strony użytkowników";
 "talk-page-new-banner-subtitle" = "Pamiętaj, wszyscy jesteśmy ludźmi";
 "talk-page-new-banner-title" = "Zachowuj się uprzejmie";
 "talk-page-new-reply-success-text" = "Twoja odpowiedź została pomyślnie opublikowana";

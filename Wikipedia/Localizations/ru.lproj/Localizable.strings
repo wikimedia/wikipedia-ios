@@ -32,6 +32,7 @@
 // Author: Okras
 // Author: Ping08
 // Author: Redredsonia
+// Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
 // Author: Wirbel78
@@ -748,6 +749,9 @@
 "talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать новое обсуждение.";
 "talk-page-info-active-conversations" = "Активные обсуждения в википедии $1";
 "talk-page-info-active-conversations-generic" = "Активные обсуждения в Википедии";
+"talk-page-link-user-action-sheet-app" = "Показывать страницу обсуждения участника";
+"talk-page-link-user-action-sheet-safari" = "Показать в Safari страницу участника";
+"talk-page-link-user-action-sheet-title" = "страницы пользователя";
 "talk-page-new-banner-subtitle" = "И не забывайте - вы общаетесь с живыми людьми, со всеми вытекающими отсюда последствиями :-)";
 "talk-page-new-banner-title" = "Будьте вежливы";
 "talk-page-new-reply-body-placeholder-text" = "Ответить";

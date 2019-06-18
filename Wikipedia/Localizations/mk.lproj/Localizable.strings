@@ -716,6 +716,9 @@
 "talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам темата.";
 "talk-page-info-active-conversations" = "Тековни разговори на Википедија на $1";
 "talk-page-info-active-conversations-generic" = "Тековни разговори на Википедија";
+"talk-page-link-user-action-sheet-app" = "Погл. разгов. страница во прилогот";
+"talk-page-link-user-action-sheet-safari" = "Погл. разгов. страница во Safari";
+"talk-page-link-user-action-sheet-title" = "Кориснички страници";
 "talk-page-new-banner-subtitle" = "Запомнете, сите тука сме луѓе";
 "talk-page-new-banner-title" = "Бидете учтиви";
 "talk-page-new-reply-body-placeholder-text" = "Напиши одговор";

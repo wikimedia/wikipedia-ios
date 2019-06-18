@@ -743,6 +743,9 @@
 "talk-page-error-unable-to-post-topic" = "インターネット接続がないためトピックを投稿できません。";
 "talk-page-info-active-conversations" = "$1 ウィキペディア上でのアクティブな会話";
 "talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";
+"talk-page-link-user-action-sheet-app" = "アプリ内で利用者の会話ページを表示";
+"talk-page-link-user-action-sheet-safari" = "利用者ページをSafariで見る";
+"talk-page-link-user-action-sheet-title" = "利用者ページ";
 "talk-page-new-banner-subtitle" = "ここではみな同じ人類であることを忘れないでください";
 "talk-page-new-banner-title" = "親切であってください";
 "talk-page-new-reply-body-placeholder-text" = "返事を組み立てる";

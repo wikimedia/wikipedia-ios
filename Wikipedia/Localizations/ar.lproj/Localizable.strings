@@ -734,6 +734,9 @@
 "talk-page-error-unable-to-post-topic" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر الموضوع.";
 "talk-page-info-active-conversations" = "النقاشات النشطة في $1 ويكيبيديا";
 "talk-page-info-active-conversations-generic" = "النقاشات النشطة في ويكيبيديا";
+"talk-page-link-user-action-sheet-app" = "عرض صفحة نقاش المستخدم في التطبيق";
+"talk-page-link-user-action-sheet-safari" = "عرض صفحة المستخدم في سفاري";
+"talk-page-link-user-action-sheet-title" = "صفحات المستخدمين";
 "talk-page-new-banner-subtitle" = "تذكر، كلنا أناسٌ هنا";
 "talk-page-new-banner-title" = "رجاءً كن لطيفاً";
 "talk-page-new-reply-body-placeholder-text" = "فم بصياغة رد";

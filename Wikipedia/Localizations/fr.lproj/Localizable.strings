@@ -737,6 +737,9 @@
 "talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer le sujet.";
 "talk-page-info-active-conversations" = "Conversations actives sur Wikipédia $1";
 "talk-page-info-active-conversations-generic" = "Conversations actives sur Wikipédia";
+"talk-page-link-user-action-sheet-app" = "Afficher la page de discussion de l’utilisateur dans l’application";
+"talk-page-link-user-action-sheet-safari" = "Afficher la page de l’utilisateur dans Safari";
+"talk-page-link-user-action-sheet-title" = "Pages utilisateur";
 "talk-page-new-banner-subtitle" = "Souvenez-vous que chacun est un être humain ici.";
 "talk-page-new-banner-title" = "Soyez gentil";
 "talk-page-new-reply-body-placeholder-text" = "Rédiger une réponse";
