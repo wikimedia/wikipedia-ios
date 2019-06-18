@@ -1,7 +1,6 @@
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
-let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
 let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
@@ -34,9 +33,6 @@ let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
 let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
 let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
 let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
-
-//Legacy Keys
-let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 @objc public enum WMFAppDefaultTabType: Int {
@@ -225,35 +221,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc func wmf_exploreDidPromptForLocationAuthorization() -> Bool {
         return self.bool(forKey: WMFExploreDidPromptForLocationAuthorization)
-    }
-    
-    
-    @objc func wmf_openArticleURL() -> URL? {
-        if let url = self.url(forKey: WMFOpenArticleURLKey) {
-            return url
-        }else if let data = self.data(forKey: WMFOpenArticleTitleKey){
-            if let title = NSKeyedUnarchiver.unarchiveObject(with: data) as? MWKTitle {
-                self.wmf_setOpenArticleURL(title.mobileURL)
-                return title.mobileURL
-            }else{
-                return nil
-            }
-        }else{
-            return nil
-        }
-    }
-    
-    @objc func wmf_setOpenArticleURL(_ url: URL?) {
-        guard let url = url else{
-            self.removeObject(forKey: WMFOpenArticleURLKey)
-            self.removeObject(forKey: WMFOpenArticleTitleKey)
-            return
-        }
-        guard !url.wmf_isNonStandardURL else{
-            return;
-        }
-        
-        self.set(url, forKey: WMFOpenArticleURLKey)
     }
 
     @objc func wmf_setShowSearchLanguageBar(_ enabled: Bool) {

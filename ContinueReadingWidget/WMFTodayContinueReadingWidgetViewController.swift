@@ -91,7 +91,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         let article: WMFArticle
         
-        if let openArticleURL = UserDefaults.wmf.wmf_openArticleURL(), let openArticle = session.dataStore.historyList.entry(for: openArticleURL) {
+        if let openArticleURL = session.dataStore.viewContext.openArticleURL, let openArticle = session.dataStore.historyList.entry(for: openArticleURL) {
             article = openArticle
         } else if let mostRecentHistoryEntry = session.dataStore.historyList.mostRecentEntry() {
             article = mostRecentHistoryEntry
