@@ -213,6 +213,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                                                  });
                                                                              }
                                                                          }];
+        self.requestLatestRevisionOnInitialLoad = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
@@ -1284,7 +1285,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchArticleWithURL:self.articleURL
                                                             forceDownload:force
-                                                    checkForNewerRevision:force
+                                                    checkForNewerRevision:force || self.requestLatestRevisionOnInitialLoad
                                                                saveToDisk:YES
                                                                  priority:NSURLSessionTaskPriorityHigh
                                                                   failure:^(NSError *_Nonnull error) {
@@ -1342,6 +1343,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         }
         success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
+            self.requestLatestRevisionOnInitialLoad = NO;
             [self endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
             self.articleURL = articleURL;
