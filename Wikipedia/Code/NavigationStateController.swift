@@ -26,10 +26,17 @@ final class NavigationStateController: NSObject {
         guard let navigationState = moc.navigationState else {
             return
         }
-        WMFAuthenticationManager.sharedInstance.attemptLogin {
+        let restore = {
             for viewController in navigationState.viewControllers {
                 self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
             }
+        }
+        if navigationState.isLoggedIn {
+            WMFAuthenticationManager.sharedInstance.attemptLogin {
+                restore()
+            }
+        } else {
+            restore()
         }
     }
 
@@ -160,12 +167,15 @@ final class NavigationStateController: NSObject {
         return object
     }
 
+    var isLoggedIn: Bool = false
+
     @objc func saveNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext) {
         var viewControllers = [ViewController]()
+        isLoggedIn = false
         for viewController in navigationController.viewControllers {
             viewControllers.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
         }
-        moc.navigationState = NavigationState(viewControllers: viewControllers)
+        moc.navigationState = NavigationState(viewControllers: viewControllers, isLoggedIn: isLoggedIn)
     }
 
     private func viewControllerToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> ViewController? {
@@ -189,6 +199,10 @@ final class NavigationStateController: NSObject {
         case is WMFSettingsViewController:
             kind = .settings
             info = nil
+        case is AccountViewController:
+            kind = .account
+            info = nil
+            isLoggedIn = true
         case let articleViewController as WMFArticleViewController:
             kind = viewController is WMFRandomArticleViewController ? .random : .article
             info = Info(articleKey: articleViewController.articleURL.wmf_articleDatabaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
