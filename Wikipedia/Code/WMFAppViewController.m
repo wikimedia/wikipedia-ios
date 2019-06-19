@@ -1484,46 +1484,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Splash
 
-- (UIImageView *)splashView {
-    if (!_splashView) {
-        _splashView = [[UIImageView alloc] init];
-        _splashView.contentMode = UIViewContentModeCenter;
-        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-            [_splashView setImage:[UIImage imageNamed:@"splashscreen-background"]];
-        }
-        _splashView.backgroundColor = [UIColor whiteColor];
-        [self.view wmf_addSubviewWithConstraintsToEdges:_splashView];
-        UIImage *wordmark = [UIImage imageNamed:@"wikipedia-wordmark"];
-        UIImageView *wordmarkView = [[UIImageView alloc] initWithImage:wordmark];
-        wordmarkView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_splashView addSubview:wordmarkView];
-        NSLayoutConstraint *centerXConstraint = [_splashView.centerXAnchor constraintEqualToAnchor:wordmarkView.centerXAnchor];
-        NSLayoutConstraint *centerYConstraint = [_splashView.centerYAnchor constraintEqualToAnchor:wordmarkView.centerYAnchor constant:12];
-        [_splashView addConstraints:@[centerXConstraint, centerYConstraint]];
-    }
-    return _splashView;
-}
-
 - (void)showSplashView {
-    self.splashView.hidden = NO;
-    self.splashView.alpha = 1.0;
+    [(WMFThemeableNavigationController *)self.navigationController showSplashView];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
-    NSTimeInterval duration = animated ? 0.15 : 0.0;
-    [UIView animateWithDuration:duration
-        delay:0
-        options:UIViewAnimationOptionAllowUserInteraction
-        animations:^{
-            self.splashView.alpha = 0.0;
-        }
-        completion:^(BOOL finished) {
-            self.splashView.hidden = YES;
-        }];
-}
-
-- (BOOL)isShowingSplashView {
-    return self.splashView.hidden == NO;
+    [(WMFThemeableNavigationController *)self.navigationController hideSplashViewAnimated:animated];
 }
 
 #pragma mark - Explore VC
