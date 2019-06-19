@@ -41,7 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
-static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
 
 static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progress = @"kvo_WMFArticleViewController_articleFetcherPromise_progress";
 
@@ -168,7 +167,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
 @property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
-@property (nonatomic, assign) BOOL restoreScrollPosition;
+@property (nullable, nonatomic, copy) NSString *initialFragment;
 @property (nonatomic, strong, readwrite, nullable) NSString *visibleSectionAnchor;
 
 @end
@@ -190,12 +189,16 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     self = [super init];
     if (self) {
-        self.restoreScrollPosition = [url fragment] != nil;
+        NSString *fragment = [url fragment];
+        if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+            self.initialFragment = fragment;
+        }
         self.theme = theme;
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
         components.query = nil;
+        components.fragment = nil;
         self.articleURL = components.URL;
         self.dataStore = dataStore;
 
@@ -774,7 +777,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
-
+    [self hideWebView];
     [self hideProgressViewAnimated:NO];
 
     self.eventLoggingCategory = EventLoggingCategoryArticle;
@@ -852,9 +855,14 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self.webViewController setFontSizeMultiplier:multiplier];
 }
 
-#pragma mark - WMFImageScaleTransitionProviding
-- (void)removeHeaderImageTransitionView {
-    if (!self.headerImageTransitionView) {
+#pragma mark - WebView hiding
+
+- (void)hideWebView {
+    self.webViewController.view.alpha = 0;
+}
+
+- (void)showWebView {
+    if (self.webViewController.view.alpha != 0) {
         return;
     }
     UIImageView *transitionView = self.headerImageTransitionView;
@@ -867,6 +875,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             [transitionView removeFromSuperview];
         }];
 }
+
+#pragma mark - WMFImageScaleTransitionProviding
 
 - (void)prepareViewsForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
     if (imageView && imageView.image) {
@@ -1339,7 +1349,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
-            [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
+            [self showWebView]; // show here on failure, on web view callback on success
         }
         success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
@@ -1518,8 +1528,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
-    [self removeHeaderImageTransitionView];
-
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
@@ -1530,22 +1538,24 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
-        if (!self.restoreScrollPosition) {
-            [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
-        }
     }
 
     [self.delegate articleControllerDidLoadArticle:self];
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
-    dispatch_block_t completion = self.articleContentLoadCompletion;
-    if (completion) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_block_t completion = self.articleContentLoadCompletion;
+        if (completion) {
             completion();
             self.articleContentLoadCompletion = nil;
-        });
-    }
+        }
+        if (self.initialFragment) {
+            [self.webViewController scrollToFragment:self.initialFragment animated:NO completion:NULL];
+            self.initialFragment = nil;
+        }
+        [self showWebView];
+    });
 }
 
 - (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section {
@@ -1616,10 +1626,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || (self.restoreScrollPosition && self.tableOfContentsViewController.viewIfLoaded != nil)) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
-        [self updateTableOfContentsHighlightWithScrollView:scrollView];
-        self.restoreScrollPosition = NO;
-    }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
@@ -1925,11 +1931,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
-        self.webViewController.webView.hidden = YES;
+        [self hideWebView];
+        self.initialFragment = sectionEditorViewController.section.anchor;
         __weak typeof(self) weakSelf = self;
         self.articleContentLoadCompletion = ^{
-            [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
-            weakSelf.webViewController.webView.hidden = NO;
             [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];
         };
         self.viewDidAppearCompletion = ^{
