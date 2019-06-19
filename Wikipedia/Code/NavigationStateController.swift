@@ -28,6 +28,7 @@ final class NavigationStateController: NSObject {
             completion()
             return
         }
+        self.theme = theme
         let restore = {
             completion()
             for viewController in navigationState.viewControllers {
@@ -47,7 +48,8 @@ final class NavigationStateController: NSObject {
         return moc.navigationState?.viewControllers.compactMap { $0.info?.articleKey }
     }
 
-    private func pushOrPresent(_ viewController: UIViewController, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
+    private func pushOrPresent(_ viewController: UIViewController & Themeable, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
+        viewController.apply(theme: theme)
         switch presentation {
         case .push:
             navigationController.pushViewController(viewController, animated: animated)
@@ -144,7 +146,7 @@ final class NavigationStateController: NSObject {
             case (.detail, let info?):
                 guard
                     let contentGroup = managedObject(with: info.contentGroupIDURIString, in: moc) as? WMFContentGroup,
-                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
+                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? UIViewController & Themeable
                 else {
                     return
                 }
