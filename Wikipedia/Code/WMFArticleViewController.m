@@ -1551,10 +1551,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             self.articleContentLoadCompletion = nil;
         }
         if (self.initialFragment) {
-            [self.webViewController scrollToFragment:self.initialFragment animated:NO completion:NULL];
+            [self.webViewController scrollToFragment:self.initialFragment
+                                            animated:NO
+                                          completion:^{
+                                              [self showWebView];
+                                          }];
             self.initialFragment = nil;
+        } else {
+            [self showWebView];
         }
-        [self showWebView];
     });
 }
 
