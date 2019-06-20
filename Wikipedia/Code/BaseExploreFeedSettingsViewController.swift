@@ -219,6 +219,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     }
 
     @objc open func exploreFeedPreferencesDidSave(_ notification: Notification) {
+        updateFeedBeforeViewDisappears = true
         guard displayType == .multipleLanguages else {
             return
         }
