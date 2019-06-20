@@ -874,6 +874,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
             exploreFeedSettingsViewController.showCloseButton = true
+            exploreFeedSettingsViewController.dataStore = self.dataStore
             exploreFeedSettingsViewController.apply(theme: self.theme)
             let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
             self.present(themeableNavigationController, animated: true)
