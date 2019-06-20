@@ -275,6 +275,7 @@ extension ExploreFeedSettingsViewController {
 extension ExploreFeedSettingsViewController {
 
     override func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
+        activeSwitch = sender
         let controlTag = sender.tag
         guard let feedContentController = feedContentController else {
             assertionFailure("feedContentController is nil")
