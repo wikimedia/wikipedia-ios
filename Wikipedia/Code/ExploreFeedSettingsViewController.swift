@@ -235,36 +235,31 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    private lazy var turnOnExploreAlertController: UIAlertController = {
+    private func turnOnExploreAlertController(turnedOn: @escaping () -> Void, cancelled: @escaping () -> Void) -> UIAlertController {
         let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-message", value: "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon", comment: "Message for alert that allows users to turn on the Explore tab"), preferredStyle: .alert)
         let turnOnExplore = UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
-            self.dataStore?.feedContentController.toggleAllContentGroupKinds(true) {
-                UserDefaults.wmf.defaultTabType = .explore
-            }
+            turnedOn()
+        })
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
+            cancelled()
         })
         alertController.addAction(turnOnExplore)
-        alertController.addAction(cancelAction)
+        alertController.addAction(cancel)
         return alertController
-    }()
+    }
 
-    private lazy var turnOffExploreAlertController: UIAlertController = {
+    private func turnOffExploreAlertController(turnedOff: @escaping () -> Void, cancelled: @escaping () -> Void) -> UIAlertController {
         let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-title", value: "Turn off the Explore tab?", comment: "Title for alert that allows users to turn off the Explore tab"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-message", value: "The Explore tab can be turned back on in Explore feed settings", comment: "Message for alert that allows users to turn off the Explore tab"), preferredStyle: .alert)
-        let turnOnExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .destructive, handler: { _ in
-            self.dataStore?.feedContentController.toggleAllContentGroupKinds(false) {
-                UserDefaults.wmf.defaultTabType = .settings
-            }
+        let turnOffExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .destructive, handler: { _ in
+            turnedOff()
         })
-        alertController.addAction(turnOnExplore)
-        alertController.addAction(cancelAction)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
+            cancelled()
+        })
+        alertController.addAction(turnOffExplore)
+        alertController.addAction(cancel)
         return alertController
-    }()
-
-    private lazy var cancelAction: UIAlertAction = {
-        return UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
-            self.reloadMasterSwitch()
-        })
-    }()
-
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -297,9 +292,21 @@ extension ExploreFeedSettingsViewController {
         }
         guard controlTag != -1 else { // master switch
             if sender.isOn {
-                present(turnOnExploreAlertController, animated: true)
+                present(turnOnExploreAlertController(turnedOn: {
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(true) {
+                        UserDefaults.wmf.defaultTabType = .explore
+                    }
+                }, cancelled: {
+                    sender.setOn(false, animated: true)
+                }), animated: true)
             } else {
-                present(turnOffExploreAlertController, animated: true)
+                present(turnOffExploreAlertController(turnedOff: {
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(false) {
+                        UserDefaults.wmf.defaultTabType = .settings
+                    }
+                }, cancelled: {
+                    sender.setOn(true, animated: true)
+                }), animated: true)
             }
             return
         }
