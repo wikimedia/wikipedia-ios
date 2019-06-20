@@ -86,6 +86,7 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
 
 extension FeedCardSettingsViewController {
     override func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
+        activeSwitch = sender
         let controlTag = sender.tag
         guard let feedContentController = feedContentController else {
             assertionFailure("feedContentController is nil")
