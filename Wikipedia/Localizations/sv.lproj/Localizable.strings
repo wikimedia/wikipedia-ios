@@ -13,6 +13,7 @@
 // Author: Lokal Profil
 // Author: Macofe
 // Author: Mhurd
+// Author: Mjälten
 // Author: Nemo bis
 // Author: Platinawolf
 // Author: Rockyfelle
@@ -395,7 +396,6 @@
 "home-themes-prompt" = "Justera dina läsinställningar inklusive textstorlek och tema från verktygsfältet eller i dina användarinställningar för en mer bekväm läsupplevelse.";
 "home-title" = "Utforska";
 "home-title-accessibility-label" = "Wikipedia, rulla upp till Utforska";
-"icon-shortcut-continue-reading-title" = "Fortsätt läsa";
 "icon-shortcut-nearby-title" = "Artiklar i närheten";
 "icon-shortcut-random-title" = "Slumpartikel";
 "icon-shortcut-search-title" = "Sök på Wikipedia";
@@ -728,6 +728,9 @@
 "talk-page-error-unable-to-post-topic" = "Internetanslutning saknas. Kunde inte skicka ämnet.";
 "talk-page-info-active-conversations" = "Aktiva konversationer i Wikipedia på $1";
 "talk-page-info-active-conversations-generic" = "Aktiva konversationer i Wikipedia";
+"talk-page-link-user-action-sheet-app" = "Visa Användarsnack sidan i appen";
+"talk-page-link-user-action-sheet-safari" = "Visa Användarsidan i Safari";
+"talk-page-link-user-action-sheet-title" = "Användarsidor";
 "talk-page-new-banner-subtitle" = "Kom ihåg, alla här är människor";
 "talk-page-new-banner-title" = "Var snäll";
 "talk-page-new-reply-body-placeholder-text" = "Skriv svar";

@@ -103,7 +103,7 @@
 "action-undo" = "واگردانی";
 "action-unsave" = "ذخیره‌نشده";
 "action-unsaved-accessibility-notification" = "مقالهٔ ذخیره نشده";
-"action-update" = "روزامدسازی";
+"action-update" = "روزآمدسازی";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 article|$1 articles}}  به فهرست خواندن";
 "add-citation-title" = "افزودن یادکرد";
 "announcements-dismiss" = "پنهان‌سازی";
@@ -347,7 +347,6 @@
 "home-themes-prompt" = "با تنظیم ترجیحات مطالعه شامل اندازه متن و پوسته از بخش ابزار مقاله یا در تنظیمات کاربری می‌توانید تجریهٔ یک مطالعهٔ مطبوع داشته باشید.";
 "home-title" = "مرور";
 "home-title-accessibility-label" = "ویکی‌پدیا، برای کاوش به بالا اسکرول کنید";
-"icon-shortcut-continue-reading-title" = "ادامه دادن به خواندن";
 "icon-shortcut-nearby-title" = "مقاله های نزدیک";
 "icon-shortcut-random-title" = "مقاله تصادفی";
 "icon-shortcut-search-title" = "جستجو در ویکی‌پدیا";
