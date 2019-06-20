@@ -177,5 +177,54 @@ class TalkPageLocalHandlerTests: XCTestCase {
             XCTFail("Unexpected number of replies")
         }
     }
+    
+    func testPerformanceTestUpdateTalkPages() {
+        //confirm no talk pages in DB
+        let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
+        
+        guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
+            XCTFail("Failure fetching initial talk pages")
+            return
+        }
+        
+        XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
+        
+        //add network talk page
+        guard let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeForPerformance, revisionId: 1) else {
+            XCTFail("Failure stubbing out network talk page")
+            return
+        }
+        
+        //create db talk page
+        guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
+            XCTFail("Failure to create db talk page")
+            return
+        }
+        
+        //confirm 162 topics
+        if let topics = dbTalkPage.topics {
+            XCTAssertEqual(topics.count, 162)
+        } else {
+            XCTFail("Unexpected number of topics")
+        }
+        
+        //get updated talk page
+        guard let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeUpdatedForPerformance, revisionId: 1) else {
+            XCTFail("Failure stubbing out network talk page")
+            return
+        }
+        
+        guard let updatedDbTalkPage = moc.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
+            XCTFail("Failure updating existing local talk page")
+            return
+        }
+        
+        //confirm 167 topics
+        if let topics = updatedDbTalkPage.topics {
+            XCTAssertEqual(topics.count, 167)
+        } else {
+            XCTFail("Unexpected number of topics")
+        }
+    }
 
 }
