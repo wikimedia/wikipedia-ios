@@ -154,6 +154,8 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     open var displayType: ExploreFeedSettingsDisplayType = .singleLanguage
     var activeSwitch: UISwitch?
 
+    var updateFeedBeforeViewDisappears: Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
