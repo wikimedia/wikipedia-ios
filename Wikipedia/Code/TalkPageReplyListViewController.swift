@@ -281,7 +281,7 @@ private extension TalkPageReplyListViewController {
             headerView.delegate = self
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
-            useNavigationBarVisibleHeightForScrollViewInsets = true
+            useNavigationBarVisibleHeightForScrollViewInsets = false
             navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
             navigationBar.title = title

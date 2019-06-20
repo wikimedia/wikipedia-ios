@@ -759,24 +759,26 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 #pragma mark - Scrolling
 
 - (void)scrollToFragment:(NSString *)fragment {
-    [self scrollToFragment:fragment animated:YES];
+    [self scrollToFragment:fragment animated:YES completion:NULL];
 }
 
-- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated {
+- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
-    } else {
-        if (!animated) {
-            [self.webView wmf_scrollToFragment:fragment];
-            return;
+        if (completion) {
+            completion();
         }
+    } else {
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                                                   animated:animated
                                                                                                 completion:^(BOOL finished){
+                                                                                                    if (completion) {
+                                                                                                        completion();
+                                                                                                    }
                                                                                                 }];
                                                      }
                                                  }];
@@ -784,7 +786,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
-    [self scrollToFragment:section.anchor animated:animated];
+    [self scrollToFragment:section.anchor animated:animated completion:NULL];
     [self.delegate webViewController:self didScrollToSection:section];
 }
 
