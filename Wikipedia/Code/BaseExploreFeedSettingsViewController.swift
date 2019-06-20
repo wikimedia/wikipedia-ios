@@ -151,8 +151,6 @@ enum ExploreFeedSettingsDisplayType: Equatable {
 class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     @objc var dataStore: MWKDataStore?
 
-    var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
-
     open var displayType: ExploreFeedSettingsDisplayType = .singleLanguage
 
     override func viewDidLoad() {
@@ -189,6 +187,10 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         return []
     }
 
+    lazy var allItems: [ExploreFeedSettingsItem] = {
+        return sections.compactMap { $0.items }.reduce([], +)
+    }()
+
     func getItem(at indexPath: IndexPath) -> ExploreFeedSettingsItem {
         let items = getSection(at: indexPath.section).items
         assert(items.indices.contains(indexPath.row), "Item at indexPath \(indexPath) doesn't exist")
@@ -203,13 +205,13 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     // MARK: - Notifications
 
     open func reload() {
-        for (cell, item) in cellsToItemsThatNeedReloading {
+        for item in allItems {
             item.updateDisclosureText(for: displayType)
             item.updateSubtitle(for: displayType)
             item.updateIsOn(for: displayType)
-            cell.disclosureText = item.disclosureText
-            cell.subtitle = item.subtitle
-            cell.disclosureSwitch.setOn(item.isOn, animated: true)
+        }
+        UIView.performWithoutAnimation {
+            tableView.reloadData()
         }
     }
 
@@ -255,7 +257,6 @@ extension BaseExploreFeedSettingsViewController {
         }
         let item = getItem(at: indexPath)
         configureCell(cell, item: item)
-        cellsToItemsThatNeedReloading[cell] = item
         return cell
     }
 
