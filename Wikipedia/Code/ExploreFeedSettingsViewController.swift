@@ -225,16 +225,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     // MARK: Toggling Explore feed
 
-    private func reloadMasterSwitch() {
-        for (cell, item) in cellsToItemsThatNeedReloading {
-            guard let master = item as? ExploreFeedSettingsMaster, master.type == .entireFeed else {
-                continue
-            }
-            master.updateIsOn(for: displayType)
-            cell.disclosureSwitch.setOn(master.isOn, animated: true)
-        }
-    }
-
     private func turnOnExploreAlertController(turnedOn: @escaping () -> Void, cancelled: @escaping () -> Void) -> UIAlertController {
         let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-message", value: "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon", comment: "Message for alert that allows users to turn on the Explore tab"), preferredStyle: .alert)
         let turnOnExplore = UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
