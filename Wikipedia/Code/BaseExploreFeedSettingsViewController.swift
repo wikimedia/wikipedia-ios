@@ -152,6 +152,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     @objc var dataStore: MWKDataStore?
 
     open var displayType: ExploreFeedSettingsDisplayType = .singleLanguage
+    var activeSwitch: UISwitch?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -222,9 +223,10 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     }
 
     @objc open func newExploreFeedPreferencesWereRejected(_ notification: Notification) {
-        DispatchQueue.main.async {
-            self.reload()
+        guard let activeSwitch = activeSwitch else {
+            return
         }
+        activeSwitch.setOn(!activeSwitch.isOn, animated: true)
     }
 
     // MARK: - Themeable
