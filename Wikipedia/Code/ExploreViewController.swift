@@ -891,15 +891,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all “%@” cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
             let feedContentController = self.dataStore.feedContentController
+            group.undoType = .contentGroupKind
+            self.wantsDeleteInsertOnNextItemUpdate = true
             feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false, completion: {
                 // If there's only one group left it means that we're about to show an alert about turning off the Explore tab. In those cases, we don't want to provide the option to undo.
                 guard feedContentController.countOfVisibleContentGroupKinds > 1 else {
                     return
                 }
                 FeedFunnel.shared.logFeedCardDismissed(for: FeedFunnelContext(group))
-                group.undoType = .contentGroupKind
-                self.wantsDeleteInsertOnNextItemUpdate = true
-                self.save()
             })
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
