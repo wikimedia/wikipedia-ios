@@ -256,6 +256,9 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
 extension ExploreFeedSettingsViewController {
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         guard displayType == .multipleLanguages else {
             return
         }
@@ -266,7 +269,6 @@ extension ExploreFeedSettingsViewController {
         let feedCardSettingsViewController = FeedCardSettingsViewController()
         feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: feedCard.contentGroupKind, theme: theme)
         navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
-        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
