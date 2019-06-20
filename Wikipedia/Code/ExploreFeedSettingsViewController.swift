@@ -159,7 +159,9 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        feedContentController?.updateFeedSourcesUserInitiated(true)
+        if updateFeedBeforeViewDisappears {
+            feedContentController?.updateFeedSourcesUserInitiated(true)
+        }
     }
 
     public var showCloseButton = false {
