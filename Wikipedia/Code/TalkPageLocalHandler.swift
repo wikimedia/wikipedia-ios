@@ -61,8 +61,7 @@ extension NSManagedObjectContext {
     
     func updateTalkPage(_ localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage) -> TalkPage? {
         
-        let startTime = CACurrentMediaTime()
-        print("🌹entered update talk page  \(Date())")
+        
         guard let revisionID = networkTalkPage.revisionId else {
             return nil
         }
@@ -100,12 +99,8 @@ extension NSManagedObjectContext {
             }
             try? removeUnlinkedTalkPageTopicContent()
             try save()
-            let timeElapsed = CACurrentMediaTime() - startTime
-            print("🌹left update talk page \(timeElapsed)")
             return localTalkPage
         } catch {
-            let timeElapsed = CACurrentMediaTime() - startTime
-            print("🌹left update talk page FROM CATCH  \(timeElapsed)")
             delete(localTalkPage)
             return nil
         }

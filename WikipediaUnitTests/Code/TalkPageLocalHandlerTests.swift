@@ -214,17 +214,31 @@ class TalkPageLocalHandlerTests: XCTestCase {
             return
         }
         
-        guard let updatedDbTalkPage = moc.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
-            XCTFail("Failure updating existing local talk page")
-            return
-        }
+        let startTime = CACurrentMediaTime()
+        
+//        measure {
+            guard let updatedDbTalkPage = moc.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
+                XCTFail("Failure updating existing local talk page")
+                return
+            }
+            
+            
+            let timeElapsed = CACurrentMediaTime() - startTime
+            print("🌹elapsed time:  \(timeElapsed)")
+    
+            if let topics = updatedDbTalkPage.topics {
+                XCTAssertEqual(topics.count, 167)
+            } else {
+                XCTFail("Unexpected number of topics")
+            }
+ //       }
         
         //confirm 167 topics
-        if let topics = updatedDbTalkPage.topics {
-            XCTAssertEqual(topics.count, 167)
-        } else {
-            XCTFail("Unexpected number of topics")
-        }
+//        if let topics = updatedDbTalkPage.topics {
+//            XCTAssertEqual(topics.count, 167)
+//        } else {
+//            XCTFail("Unexpected number of topics")
+//        }
     }
 
 }
