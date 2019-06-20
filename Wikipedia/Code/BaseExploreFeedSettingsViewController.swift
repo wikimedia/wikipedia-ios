@@ -217,6 +217,9 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     }
 
     @objc open func exploreFeedPreferencesDidSave(_ notification: Notification) {
+        guard displayType == .multipleLanguages else {
+            return
+        }
         DispatchQueue.main.async {
             self.reload()
         }
