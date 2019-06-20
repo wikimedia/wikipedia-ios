@@ -75,7 +75,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @return A set of language codes representing languages in which a given content group kind is visible in the feed.
  If a given content group kind is not visible in any languages, the set will be empty.
  */
-- (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
+- (NSArray<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
 /**
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.

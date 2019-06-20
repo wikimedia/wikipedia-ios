@@ -347,8 +347,8 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return [self.exploreFeedPreferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
 }
 
-- (NSSet<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
-    NSMutableSet *languageCodes = [NSMutableSet new];
+- (NSArray<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
+    NSMutableArray *languageCodes = [NSMutableArray new];
     [self.exploreFeedPreferences enumerateKeysAndObjectsUsingBlock:^(NSString *key, id _Nonnull value, BOOL * _Nonnull stop) {
         if (![value isKindOfClass:[NSDictionary class]] && [value containsObject:@(contentGroupKind)]) {
             [languageCodes addObject:[[NSURL URLWithString:key] wmf_language]];
