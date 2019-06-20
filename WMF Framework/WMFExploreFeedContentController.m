@@ -434,19 +434,19 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return defaultGlobalCardsPreferences;
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:YES completion:nil];
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed completion:nil];
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(dispatch_block_t)completion {
     [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn waitForCallbackFromCoordinator:waitForCallbackFromCoordinator apply:apply updateFeed:updateFeed completion:completion];
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL {
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:YES completion:nil];
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL updateFeed:(BOOL)updateFeed {
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed completion:nil];
 }
 
-- (void)toggleAllContentGroupKinds:(BOOL)on completion:(dispatch_block_t)completion {
+- (void)toggleAllContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed completion:(dispatch_block_t)completion {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         if (on) {
             return self.defaultExploreFeedPreferences;
@@ -459,7 +459,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [allTurnedOff setObject:globalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
             return allTurnedOff;
         }
-    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:NO apply:YES updateFeed:YES completion:completion];
+    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:NO apply:YES updateFeed:updateFeed completion:completion];
 }
 
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed {
@@ -524,7 +524,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     } willTurnOnContentGroupOrLanguage:isOn waitForCallbackFromCoordinator:waitForCallbackFromCoordinator apply:apply updateFeed:updateFeed completion:completion];
 }
 
-- (void)toggleGlobalContentGroupKinds:(BOOL)on {
+- (void)toggleGlobalContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed{
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
@@ -534,7 +534,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         }
         [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
         return newPreferences;
-    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:YES apply:YES updateFeed:YES completion:nil];
+    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed completion:nil];
 }
 
 - (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed {

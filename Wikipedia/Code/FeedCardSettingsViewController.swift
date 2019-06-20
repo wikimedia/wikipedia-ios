@@ -93,13 +93,13 @@ extension FeedCardSettingsViewController {
             return
         }
         guard controlTag != -1 else { // master switch
-            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
+            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
             return
         }
         guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {
             assertionFailure("No language for a given control tag")
             return
         }
-        feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, forSiteURL: language.siteURL)
+        feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, forSiteURL: language.siteURL, updateFeed: false)
     }
 }

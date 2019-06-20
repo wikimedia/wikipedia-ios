@@ -152,6 +152,11 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         tableView.layoutIfNeeded() // hax to recalculate the height of footers
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        feedContentController?.updateFeedSourcesUserInitiated(true)
+    }
+
     public var showCloseButton = false {
         didSet {
             if showCloseButton {
@@ -286,7 +291,7 @@ extension ExploreFeedSettingsViewController {
         guard controlTag != -1 else { // master switch
             if sender.isOn {
                 present(turnOnExploreAlertController(turnedOn: {
-                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(true) {
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(true, updateFeed: false) {
                         UserDefaults.wmf.defaultTabType = .explore
                     }
                 }, cancelled: {
@@ -294,7 +299,7 @@ extension ExploreFeedSettingsViewController {
                 }), animated: true)
             } else {
                 present(turnOffExploreAlertController(turnedOff: {
-                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(false) {
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(false, updateFeed: false) {
                         UserDefaults.wmf.defaultTabType = .settings
                     }
                 }, cancelled: {
@@ -304,7 +309,7 @@ extension ExploreFeedSettingsViewController {
             return
         }
         guard controlTag != -2 else { // global cards
-            feedContentController.toggleGlobalContentGroupKinds(sender.isOn)
+            feedContentController.toggleGlobalContentGroupKinds(sender.isOn, updateFeed: false)
             return
         }
         if displayType == .singleLanguage {
@@ -316,13 +321,13 @@ extension ExploreFeedSettingsViewController {
                 assertionFailure("Content group kind \(contentGroupKind) is not customizable nor global")
                 return
             }
-            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
+            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
         } else {
             guard let language = languages.first(where: { $0.controlTag == controlTag }) else {
                 assertionFailure("No language for given control tag")
                 return
             }
-            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, waitForCallbackFromCoordinator: true, updateFeed: true)
+            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, waitForCallbackFromCoordinator: true, updateFeed: false)
         }
     }
 }
