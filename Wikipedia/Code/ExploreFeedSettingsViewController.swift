@@ -132,7 +132,12 @@ private class FeedCard: ExploreFeedSettingsItem {
         if contentGroupKind.isGlobal {
             return WMFLocalizedString("explore-feed-preferences-global-cards-subtitle", value: "Not language specific", comment: "Subtitle describing non-language specific feed cards")
         } else {
-            return contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
+            let languageCodes = contentGroupKind.languageCodes
+            let existingLanguageCodes = subtitle?.lowercased().components(separatedBy: ", ")
+            guard existingLanguageCodes?.sorted() != languageCodes.sorted() else {
+                return subtitle ?? languageCodes.joined(separator: ", ").uppercased()
+            }
+            return languageCodes.joined(separator: ", ").uppercased()
         }
     }
 
