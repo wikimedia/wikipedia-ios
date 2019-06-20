@@ -393,7 +393,6 @@
 "home-themes-prompt" = "Ajuste as suas preferências de leitura, incluindo o tamanho do texto e o tema, a partir da barra de ferramentas do artigo ou nas suas configurações de utilizador, para uma leitura mais confortável.";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipédia, vá até o topo de Explorar";
-"icon-shortcut-continue-reading-title" = "Continuar a ler";
 "icon-shortcut-nearby-title" = "Artigos nas redondezas";
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
@@ -726,6 +725,9 @@
 "talk-page-error-unable-to-post-topic" = "Não há ligação à Internet. Não é possível publicar o tópico.";
 "talk-page-info-active-conversations" = "Conversas ativas na Wikipédia em $1";
 "talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
+"talk-page-link-user-action-sheet-app" = "Ver página de discussão do utilizador na aplicação";
+"talk-page-link-user-action-sheet-safari" = "Ver página do utilizador no Safari";
+"talk-page-link-user-action-sheet-title" = "Páginas de utilizador";
 "talk-page-new-banner-subtitle" = "Lembre-se, aqui somos todos seres humanos";
 "talk-page-new-banner-title" = "Seja gentil, por favor";
 "talk-page-new-reply-body-placeholder-text" = "Redigir resposta";

@@ -194,6 +194,7 @@
 "edit-italic-accessibility-label" = "Cursieve opmaak toevoegen";
 "edit-italic-remove-accessibility-label" = "Cursieve opmaak weghalen";
 "edit-link-remove-accessibility-label" = "Syntaxis van koppeling verwijderen";
+"edit-link-remove-link-title" = "Koppeling verwijderen";
 "edit-link-title" = "Koppeling bewerken";
 "edit-menu-item" = "Bewerken";
 "edit-minor-learn-more-text" = "Meer informatie over kleine bewerkingen";
@@ -211,12 +212,15 @@
 "edit-summary-learn-more-text" = "Meer informatie";
 "edit-summary-placeholder-text" = "Hoe hebt u de pagina verbeterd?";
 "edit-template-remove-accessibility-label" = "Syntaxis van sjabloon verwijderen";
+"edit-text-clear-formatting" = "Opmaak verwijderen";
 "edit-text-formatting-table-view-title" = "Tekstopmaak";
 "edit-text-size-table-view-title" = "Tekstgrootte";
 "edit-underline-accessibility-label" = "Onderstreep toevoegen";
 "edit-underline-remove-accessibility-label" = "Onderstrepen verwijderen";
 "edit-watch-list-learn-more-text" = "Meer over kijklijsten";
 "edit-watch-this-page-text" = "Deze pagina volgen";
+"editing-welcome-be-bold-title" = "Uw stem is belangrijk";
+"editing-welcome-citations-title" = "Citeer betrouwbare bronnen";
 "empty-insert-media-title" = "Selecteer een bestand van Wikimedia Commons";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
@@ -369,7 +373,6 @@
 "home-themes-prompt" = "Pas uw leesvoorkeuren aan, inclusief de tekstgrootte en het thema in de artikelwerkbalk of in uw gebruikersinstellingen voor een comfortabelere leeservaring.";
 "home-title" = "Verkennen";
 "home-title-accessibility-label" = "Wikipedia, scroll naar boven om te verkennen";
-"icon-shortcut-continue-reading-title" = "Verder lezen";
 "icon-shortcut-nearby-title" = "Pagina's in de buurt";
 "icon-shortcut-random-title" = "Willekeurige pagina";
 "icon-shortcut-search-title" = "Zoeken in Wikipedia";
@@ -387,6 +390,7 @@
 "insert-media-alternative-text-description" = "Beschrijving voor lezers die de afbeelding niet kunnen bekijken";
 "insert-media-alternative-text-placeholder" = "Beschrijf deze afbeelding";
 "insert-media-alternative-text-title" = "Alternatieve tekst";
+"insert-media-caption-caption-placeholder" = "Hoe is deze afbeelding gerelateerd aan het artikel?";
 "insert-media-caption-title" = "Bijschrift";
 "insert-media-image-position-setting-center" = "Centreren";
 "insert-media-image-position-setting-left" = "Links";
@@ -398,7 +402,12 @@
 "insert-media-image-size-setting-custom" = "Aangepast";
 "insert-media-image-size-setting-default" = "Standaard";
 "insert-media-image-size-settings-title" = "Afbeeldingsgrootte";
+"insert-media-image-type-setting-frame" = "Frame";
+"insert-media-image-type-setting-frameless" = "Zonder frame";
 "insert-media-image-type-setting-thumbnail" = "Miniatuur";
+"insert-media-image-type-settings-title" = "Soort afbeelding";
+"insert-media-media-settings-title" = "Mediainstellingen";
+"insert-media-title" = "Media invoegen";
 "insert-media-uploaded-image-title" = "Geplaatste afbeelding";
 "languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
@@ -682,7 +691,9 @@
 "table-title-other" = "Meer informatie";
 "talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
 "talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
+"talk-page-link-user-action-sheet-title" = "Gebruikerspagina's";
 "talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
+"talk-page-new-reply-success-text" = "Uw reactie is succesvol gepubliceerd";
 "talk-page-new-subject-placeholder-text" = "Onderwerp";
 "talk-page-new-topic-title" = "Nieuw overleg";
 "talk-page-reply-title" = "Reageren";

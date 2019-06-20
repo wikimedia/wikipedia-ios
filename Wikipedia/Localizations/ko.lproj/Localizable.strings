@@ -403,7 +403,6 @@
 "home-themes-prompt" = "글씨 크기, 문서 툴바를 포함한 테마 등 읽기 설정이나, 더 편안한 읽기 환경을 위한 사용자 환경설정을 조절해 보세요.";
 "home-title" = "탐색";
 "home-title-accessibility-label" = "위키백과, 탐색의 맨 위로 스크롤";
-"icon-shortcut-continue-reading-title" = "계속 읽기";
 "icon-shortcut-nearby-title" = "주변에 관한 문서";
 "icon-shortcut-random-title" = "임의 문서";
 "icon-shortcut-search-title" = "위키백과 검색";
@@ -736,6 +735,7 @@
 "talk-page-error-unable-to-post-topic" = "인터넷이 연결되어 있지 않습니다. 주제를 게시할 수 없습니다.";
 "talk-page-info-active-conversations" = "$1 위키백과에서 진행 중인 대화";
 "talk-page-info-active-conversations-generic" = "위키백과에서 진행 중인 대화";
+"talk-page-link-user-action-sheet-title" = "사용자 문서";
 "talk-page-new-banner-subtitle" = "여기서 우리 모두는 사람입니다";
 "talk-page-new-banner-title" = "공손한 태도로 임해 주십시오";
 "talk-page-new-reply-body-placeholder-text" = "답변 쓰기";
