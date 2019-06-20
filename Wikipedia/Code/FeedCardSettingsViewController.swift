@@ -63,23 +63,6 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    override func exploreFeedPreferencesDidSave(_ notification: Notification) {
-        guard let indexPaths = tableView.indexPathsForVisibleRows else {
-            return
-        }
-        for indexPath in indexPaths {
-            let item = getItem(at: indexPath)
-            guard item.disclosureType == .switch else {
-                continue
-            }
-            item.updateIsOn(for: displayType)
-            guard let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell else {
-                continue
-            }
-            cell.disclosureSwitch.setOn(item.isOn, animated: true)
-        }
-    }
-
 }
 
 // MARK: - WMFSettingsTableViewCellDelegate

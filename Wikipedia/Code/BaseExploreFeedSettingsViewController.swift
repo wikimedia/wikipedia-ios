@@ -190,8 +190,14 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         return []
     }
 
-    lazy var allItems: [ExploreFeedSettingsItem] = {
-        return sections.compactMap { $0.items }.reduce([], +)
+    lazy var itemsGroupedByIndexPaths: [IndexPath: ExploreFeedSettingsItem] = {
+        var dictionary = [IndexPath: ExploreFeedSettingsItem]()
+        for (sectionIndex, section) in sections.enumerated() {
+            for (itemIndex, item) in section.items.enumerated() {
+                dictionary[IndexPath(row: itemIndex, section: sectionIndex)] = item
+            }
+        }
+        return dictionary
     }()
 
     func getItem(at indexPath: IndexPath) -> ExploreFeedSettingsItem {
@@ -207,20 +213,23 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
 
     // MARK: - Notifications
 
-    open func reload() {
-        for item in allItems {
+    private func reload() {
+        for (indexPath, item) in itemsGroupedByIndexPaths {
+            item.updateIsOn(for: displayType)
             item.updateDisclosureText(for: displayType)
             item.updateSubtitle(for: displayType)
-            item.updateIsOn(for: displayType)
-        }
-        UIView.performWithoutAnimation {
-            tableView.reloadData()
+            guard let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell else {
+                continue
+            }
+            cell.disclosureSwitch.setOn(item.isOn, animated: true)
+            cell.disclosureText = item.disclosureText
+            cell.subtitle = item.subtitle
         }
     }
 
-    @objc open func exploreFeedPreferencesDidSave(_ notification: Notification) {
+    @objc private func exploreFeedPreferencesDidSave(_ notification: Notification) {
         updateFeedBeforeViewDisappears = true
-        guard displayType == .multipleLanguages else {
+        guard displayType != .singleLanguage else {
             return
         }
         DispatchQueue.main.async {
@@ -228,7 +237,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         }
     }
 
-    @objc open func newExploreFeedPreferencesWereRejected(_ notification: Notification) {
+    @objc private func newExploreFeedPreferencesWereRejected(_ notification: Notification) {
         guard let activeSwitch = activeSwitch else {
             return
         }
