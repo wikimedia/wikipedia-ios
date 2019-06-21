@@ -151,9 +151,10 @@ enum ExploreFeedSettingsDisplayType: Equatable {
 class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     @objc var dataStore: MWKDataStore?
 
-    var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
-
     open var displayType: ExploreFeedSettingsDisplayType = .singleLanguage
+    var activeSwitch: UISwitch?
+
+    var updateFeedBeforeViewDisappears: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,6 +190,16 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         return []
     }
 
+    lazy var itemsGroupedByIndexPaths: [IndexPath: ExploreFeedSettingsItem] = {
+        var dictionary = [IndexPath: ExploreFeedSettingsItem]()
+        for (sectionIndex, section) in sections.enumerated() {
+            for (itemIndex, item) in section.items.enumerated() {
+                dictionary[IndexPath(row: itemIndex, section: sectionIndex)] = item
+            }
+        }
+        return dictionary
+    }()
+
     func getItem(at indexPath: IndexPath) -> ExploreFeedSettingsItem {
         let items = getSection(at: indexPath.section).items
         assert(items.indices.contains(indexPath.row), "Item at indexPath \(indexPath) doesn't exist")
@@ -202,27 +213,35 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
 
     // MARK: - Notifications
 
-    open func reload() {
-        for (cell, item) in cellsToItemsThatNeedReloading {
+    private func reload() {
+        for (indexPath, item) in itemsGroupedByIndexPaths {
+            item.updateIsOn(for: displayType)
             item.updateDisclosureText(for: displayType)
             item.updateSubtitle(for: displayType)
-            item.updateIsOn(for: displayType)
+            guard let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell else {
+                continue
+            }
+            cell.disclosureSwitch.setOn(item.isOn, animated: true)
             cell.disclosureText = item.disclosureText
             cell.subtitle = item.subtitle
-            cell.disclosureSwitch.setOn(item.isOn, animated: true)
         }
     }
 
-    @objc open func exploreFeedPreferencesDidSave(_ notification: Notification) {
+    @objc private func exploreFeedPreferencesDidSave(_ notification: Notification) {
+        updateFeedBeforeViewDisappears = true
+        guard displayType != .singleLanguage else {
+            return
+        }
         DispatchQueue.main.async {
             self.reload()
         }
     }
 
-    @objc open func newExploreFeedPreferencesWereRejected(_ notification: Notification) {
-        DispatchQueue.main.async {
-            self.reload()
+    @objc private func newExploreFeedPreferencesWereRejected(_ notification: Notification) {
+        guard let activeSwitch = activeSwitch else {
+            return
         }
+        activeSwitch.setOn(!activeSwitch.isOn, animated: true)
     }
 
     // MARK: - Themeable
@@ -255,7 +274,6 @@ extension BaseExploreFeedSettingsViewController {
         }
         let item = getItem(at: indexPath)
         configureCell(cell, item: item)
-        cellsToItemsThatNeedReloading[cell] = item
         return cell
     }
 

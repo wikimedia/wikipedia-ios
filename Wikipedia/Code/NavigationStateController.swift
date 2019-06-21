@@ -234,6 +234,7 @@ final class NavigationStateController: NSObject {
 
     private func viewControllersToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> [ViewController] {
         var viewControllers = [ViewController]()
+        var append = true
         if var viewControllerToSave = viewControllerToSave(from: viewController, presentedVia: presentation) {
             if let presentedViewController = viewController.presentedViewController {
                 viewControllerToSave.updateChildren(viewControllersToSave(from: presentedViewController, presentedVia: .modal))
@@ -243,9 +244,12 @@ final class NavigationStateController: NSObject {
                 for viewController in navigationController.viewControllers {
                     children.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
                 }
+                append = !children.isEmpty
                 viewControllerToSave.updateChildren(children)
             }
-            viewControllers.append(viewControllerToSave)
+            if append {
+                viewControllers.append(viewControllerToSave)
+            }
         }
         return viewControllers
     }
