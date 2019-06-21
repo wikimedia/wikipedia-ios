@@ -407,7 +407,6 @@
 "home-themes-prompt" = "Ajusta tus preferencias de lectura (incluyendo tamaño del texto y tema) en la barra de herramientas del artículo o en tus preferencias de usuario para una experiencia de lectura más cómoda.";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, desplazarse a la parte superior de Explorar";
-"icon-shortcut-continue-reading-title" = "Continuar leyendo";
 "icon-shortcut-nearby-title" = "Artículos cercanos";
 "icon-shortcut-random-title" = "Artículo aleatorio";
 "icon-shortcut-search-title" = "Buscar en Wikipedia";
@@ -740,6 +739,7 @@
 "talk-page-info-active-conversations-generic" = "Conversaciones activas en Wikipedia";
 "talk-page-link-user-action-sheet-safari" = "Ver página de usuario en Safari";
 "talk-page-link-user-action-sheet-title" = "Páginas de usuario";
+"talk-page-new-banner-subtitle" = "Recuerda: aquí todos somos humanos";
 "talk-page-new-banner-title" = "Sé amable";
 "talk-page-new-reply-success-text" = "La respuesta se publicó correctamente";
 "talk-page-new-subject-placeholder-text" = "Asunto";
