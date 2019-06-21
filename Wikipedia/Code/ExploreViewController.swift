@@ -896,9 +896,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 group.undoType = .contentGroupKind
                 self.wantsDeleteInsertOnNextItemUpdate = true
             }
-            feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false, completion: {
-                FeedFunnel.shared.logFeedCardDismissed(for: FeedFunnelContext(group))
-            })
+            feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false)
+            FeedFunnel.shared.logFeedCardDismissed(for: FeedFunnelContext(group))
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         sheet.addAction(hideThisCard)

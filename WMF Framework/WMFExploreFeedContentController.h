@@ -48,7 +48,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed;
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(nullable dispatch_block_t)completion;
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed;
 
 /**
  Toggles a content group of given kind on or off for a given siteURL.
@@ -59,7 +59,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL updateFeed:(BOOL)updateFeed;
 
-- (void)toggleAllContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed completion:(nullable dispatch_block_t)completion;
+- (void)toggleAllContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed;
 
 /**
  Toggles non-language specific content group kinds (Because you read, Continue reading and Picture of the day)

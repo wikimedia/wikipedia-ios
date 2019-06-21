@@ -298,17 +298,15 @@ extension ExploreFeedSettingsViewController {
         guard controlTag != -1 else { // master switch
             if sender.isOn {
                 present(turnOnExploreAlertController(turnedOn: {
-                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(true, updateFeed: false) {
-                        UserDefaults.wmf.defaultTabType = .explore
-                    }
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(true, updateFeed: false)
+                    UserDefaults.wmf.defaultTabType = .explore
                 }, cancelled: {
                     sender.setOn(false, animated: true)
                 }), animated: true)
             } else {
                 present(turnOffExploreAlertController(turnedOff: {
-                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(false, updateFeed: false) {
-                        UserDefaults.wmf.defaultTabType = .settings
-                    }
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(false, updateFeed: false)
+                    UserDefaults.wmf.defaultTabType = .settings
                 }, cancelled: {
                     sender.setOn(true, animated: true)
                 }), animated: true)
