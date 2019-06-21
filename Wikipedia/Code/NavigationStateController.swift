@@ -243,9 +243,9 @@ final class NavigationStateController: NSObject {
                 var children = [ViewController]()
                 for viewController in navigationController.viewControllers {
                     let newChildren = viewControllersToSave(from: viewController, presentedVia: .push)
-                    append = !newChildren.isEmpty
                     children.append(contentsOf: newChildren)
                 }
+                append = !children.isEmpty
                 viewControllerToSave.updateChildren(children)
             }
             if append {
