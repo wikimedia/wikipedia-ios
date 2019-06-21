@@ -201,7 +201,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
-                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc save:NO completion:NULL];
+                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                                 if (![moc save:&saveError]) {
                                                     DDLogError(@"Error saving: %@", saveError);
                                                 }
@@ -247,7 +247,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                                 completion:^{
                                     [moc performBlock:^{
-                                        [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc save:NO completion:NULL];
+                                        [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                         NSError *saveError = nil;
                                         if ([moc hasChanges] && ![moc save:&saveError]) {
                                             DDLogError(@"Error saving: %@", saveError);
@@ -294,7 +294,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                     [moc performBlock:^{
                                         BOOL didUpdate = NO;
                                         if ([moc hasChanges]) {
-                                            [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc save:NO completion:NULL];
+                                            [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                             NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
                                             NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
                                             didUpdate = afterCount != beforeCount;
@@ -544,7 +544,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     if (apply) {
         WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:self.dataStore.feedImportContext save:YES completion:^{
+                NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+                [moc performBlock:^{
+                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                    [self save:moc];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [op finish];
                         if (updateFeed) {
@@ -633,59 +636,51 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return count;
 }
 
-- (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc save:(BOOL)save completion:(nullable dispatch_block_t)completion {
+- (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     NSError *error = nil;
     NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
     if (error) {
         DDLogError(@"Error fetching WMFContentGroup: %@", error);
     }
-    [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc save:save completion:completion];
+    [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc];
 }
 
-- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc save:(BOOL)save completion:(nullable dispatch_block_t)completion {
-    [moc performBlock:^{
-        for (NSManagedObject *object in objects) {
-            if (![object isKindOfClass:[WMFContentGroup class]]) {
+- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc {
+    for (NSManagedObject *object in objects) {
+        if (![object isKindOfClass:[WMFContentGroup class]]) {
+            continue;
+        }
+
+        WMFContentGroup *contentGroup = (WMFContentGroup *)object;
+        [contentGroup updateDailySortPriorityWithSiteURLSortOrder:self.sortOrderBySiteURLDatabaseKey];
+
+        // Skip collapsed cards, let them be visible
+        if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
+            continue;
+        }
+        BOOL isVisible;
+        NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
+        if ([self isGlobal:contentGroup.contentGroupKind]) {
+            NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
+            BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
+            isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
+        } else {
+            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+            NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
+            if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
                 continue;
             }
-
-            WMFContentGroup *contentGroup = (WMFContentGroup *)object;
-            [contentGroup updateDailySortPriorityWithSiteURLSortOrder:self.sortOrderBySiteURLDatabaseKey];
-
-            // Skip collapsed cards, let them be visible
-            if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
-                continue;
-            }
-            BOOL isVisible;
-            NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
-            if ([self isGlobal:contentGroup.contentGroupKind]) {
-                NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
-                BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
-                isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
+            if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
+                isVisible = !contentGroup.wasDismissed;
             } else {
-                NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
-                NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
-                if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
-                    continue;
-                }
-                if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
-                    isVisible = !contentGroup.wasDismissed;
-                } else {
-                    isVisible = NO;
-                }
-            }
-            if (isVisible != contentGroup.isVisible) {
-                contentGroup.isVisible = isVisible;
+                isVisible = NO;
             }
         }
-        if (save) {
-            [self save:moc];
+        if (isVisible != contentGroup.isVisible) {
+            contentGroup.isVisible = isVisible;
         }
-        if (completion) {
-            completion();
-        }
-    }];
+    }
 }
 
 - (void)save:(NSManagedObjectContext *)moc {
