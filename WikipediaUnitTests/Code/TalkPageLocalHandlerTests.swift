@@ -53,29 +53,71 @@ class TalkPageLocalHandlerTests: XCTestCase {
         XCTAssertNotNil(dbTalkPage.key)
         XCTAssertEqual(dbTalkPage.key, keyedUrlString, "Unexpected key")
         XCTAssertEqual(dbTalkPage.revisionId, 1, "Unexpected revisionId")
-        XCTAssertEqual(dbTalkPage.topics?.count, 1, "Unexpected topic count")
+        XCTAssertEqual(dbTalkPage.topics?.count, 6, "Unexpected topic count")
         
-        if let firstTopic = dbTalkPage.topics?.allObjects[0] as? TalkPageTopic {
-            XCTAssertEqual(firstTopic.title, "Would you please help me expand the Puppy cat article?", "Unexpected topic title")
-            XCTAssertEqual(firstTopic.replies?.count, 2, "Unexpected topic items count")
+        let topics = dbTalkPage.topics?.allObjects.sorted{ ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
+        
+        if let introTopic = topics?[0] as? TalkPageTopic {
+            XCTAssertEqual(introTopic.title, "", "Unexpected topic title")
+            XCTAssertEqual(introTopic.replies?.count, 1, "Unexpected replies count")
+            let replies = introTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
+            if let firstReply = replies?[0] as? TalkPageReply {
+                XCTAssertEqual(firstReply.text, "Hello!  This is some introduction text on my talk page. L8erz, <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 20:48, 21 June 2019 (UTC)", "Unexpected replies html")
+            } else {
+                XCTFail("Unexpected first reply type")
+            }
+        } else {
+            XCTFail("Unexpected intro topic type")
+        }
+        
+        if let firstTopic = topics?[1] as? TalkPageTopic {
+            XCTAssertEqual(firstTopic.title, "Let’s talk about talk pages", "Unexpected topic title")
+            XCTAssertEqual(firstTopic.replies?.count, 3, "Unexpected topic items count")
             
             let replies = firstTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
             if let firstReply = replies?[0] as? TalkPageReply {
-                XCTAssertEqual(firstReply.text, "Hi Pixiu! Glad we were able to meet at the Bay Area Puppercat Edit-a-thon last week. I noticed that the <a href=\'https://en.wikipedia.org/wiki/Puppy_cat\'>Puppy cat</a> could use some more information about ragdolls, do you think that this might be something you\'d be interested in contributing to? <a href=\'https://en.wikipedia.org/wiki/User:Fruzia\'>Fruzia</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Fruzia\'>talk</a>) 23:08. 20 March 2019 (UTC)", "Unexpected reply text")
+                XCTAssertEqual(firstReply.text, "Hello, I am testing a new topic from the <a href='./IOS' title='IOS'>iOS</a> app. It is fun. <a href='./Special:Contributions/47.184.10.84' title='Special:Contributions/47.184.10.84'>47.184.10.84</a> 20:50, 21 June 2019 (UTC)")
                 XCTAssertEqual(firstReply.depth, 0, "Unexpected reply depth")
             } else {
                 XCTFail("Unexpected first reply type")
             }
             
             if let secondReply = replies?[1] as? TalkPageReply {
-                XCTAssertEqual(secondReply.text, "Hi Fruzia, thanks for reaching out! I\'ll go and take a look at the article and see what I can contribute with the resources I have at paw <a href=\'https://en.wikipedia.org/wiki/User:Pixiu\'>Pixiu</a> (<a href=\'https://en.wikipedia.org/wiki/User_talk:Pixiu\'>talk</a>) 08:09. 21 March 2019 (UTC)", "Unexpected reply text")
+                XCTAssertEqual(secondReply.text, "Hello back! This is a nested reply. <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 20:51, 21 June 2019 (UTC)")
                 XCTAssertEqual(secondReply.depth, 1, "Unexpected reply depth")
             } else {
                 XCTFail("Unexpected second reply type")
             }
             
+            if let thirdReply = replies?[2] as? TalkPageReply {
+                XCTAssertEqual(thirdReply.text, "Yes I see, I am nested as well. <a href='./Special:Contributions/47.184.10.84' title='Special:Contributions/47.184.10.84'>47.184.10.84</a> 20:52, 21 June 2019 (UTC)")
+                XCTAssertEqual(thirdReply.depth, 2, "Unexpected reply depth")
+            } else {
+                XCTFail("Unexpected third reply type")
+            }
+            
         } else {
             XCTFail("Unexpected first topic type")
+        }
+        
+        if let secondTopic = topics?[2] as? TalkPageTopic {
+            XCTAssertEqual(secondTopic.title, "Subtopic time")
+            XCTAssertEqual(secondTopic.replies?.count, 2, "Unexpected topic items count")
+        }
+        
+        if let thirdTopic = topics?[3] as? TalkPageTopic {
+            XCTAssertEqual(thirdTopic.title, "Sub sub topic")
+            XCTAssertEqual(thirdTopic.replies?.count, 2, "Unexpected topic items count")
+        }
+        
+        if let fourthTopic = topics?[4] as? TalkPageTopic {
+            XCTAssertEqual(fourthTopic.title, "Topic <a href='./Part' title='Part'>Part</a> Deux")
+            XCTAssertEqual(fourthTopic.replies?.count, 9, "Unexpected topic items count")
+        }
+        
+        if let fifthTopic = topics?[5] as? TalkPageTopic {
+            XCTAssertEqual(fifthTopic.title, "Topic <a href='./Part' title='Part'>Part</a> Trois")
+            XCTAssertEqual(fifthTopic.replies?.count, 1, "Unexpected topic items count")
         }
         
         //confirm one talk page exists in DB
@@ -152,33 +194,93 @@ class TalkPageLocalHandlerTests: XCTestCase {
             return
         }
         
-        //confirm only 2 replies
-        if let firstTopic = dbTalkPage.topics?.allObjects[0] as? TalkPageTopic {
-            XCTAssertEqual(firstTopic.replies?.count, 2)
-        } else {
-            XCTFail("Unexpected number of replies")
+        //mark last topic as read to confirm it stays read after updating.
+        let topics = dbTalkPage.topics?.allObjects.sorted{ ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
+        if let fifthTopic = topics?[5] as? TalkPageTopic {
+            fifthTopic.content?.isRead = true
+            do {
+                try moc.save()
+            } catch {
+                XCTFail("Failure to save isRead flag")
+            }
         }
         
-        //get updated talk page
+        //get updated talk page payload
         guard let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .updated, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
         
+        //update local talk page with new talk page
         guard let updatedDbTalkPage = moc.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
             XCTFail("Failure updating existing local talk page")
             return
         }
         
-        //confirm 3 topic items
-        if let firstTopic = updatedDbTalkPage.topics?.allObjects[0] as? TalkPageTopic {
-            XCTAssertEqual(firstTopic.replies?.count, 3)
+        XCTAssertEqual(updatedDbTalkPage.topics?.count, 3, "Unexpected topic count")
+        
+        let updatedTopics = updatedDbTalkPage.topics?.allObjects.sorted{ ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
+        
+        if let introTopic = updatedTopics?[0] as? TalkPageTopic {
+            XCTAssertEqual(introTopic.title, "", "Unexpected topic title")
+            XCTAssertEqual(introTopic.replies?.count, 1, "Unexpected replies count")
+            let replies = introTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
+            if let firstReply = replies?[0] as? TalkPageReply {
+                XCTAssertEqual(firstReply.text, "Hello!  This is some introduction text on my talk page. L8erz, <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 20:48, 21 June 2019 (UTC)", "Unexpected replies html")
+            } else {
+                XCTFail("Unexpected first reply type")
+            }
         } else {
-            XCTFail("Unexpected number of replies")
+            XCTFail("Unexpected intro topic type")
         }
+        
+        if let firstTopic = updatedTopics?[1] as? TalkPageTopic {
+            XCTAssertEqual(firstTopic.title, "Topic <a href='./Part' title='Part'>Part</a> Deux", "Unexpected topic title")
+            XCTAssertEqual(firstTopic.replies?.count, 11, "Unexpected topic items count")
+            
+            let replies = firstTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
+            if let firstReply = replies?[0] as? TalkPageReply {
+                XCTAssertEqual(firstReply.text, "Also injecting something in the front because why not. 🤷‍♀️ <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 21:17, 21 June 2019 (UTC)")
+                XCTAssertEqual(firstReply.depth, 0, "Unexpected reply depth")
+            } else {
+                XCTFail("Unexpected first reply type")
+            }
+            
+            if let secondReply = replies?[1] as? TalkPageReply {
+                XCTAssertEqual(secondReply.text, "Ok try this on for size - can you put a link in a topic title from the iOS app? Only time will tell. <a href='./Special:Contributions/47.184.10.84' title='Special:Contributions/47.184.10.84'>47.184.10.84</a> 20:57, 21 June 2019 (UTC)")
+                XCTAssertEqual(secondReply.depth, 0, "Unexpected reply depth")
+            } else {
+                XCTFail("Unexpected second reply type")
+            }
+            
+            if let thirdReply = replies?[2] as? TalkPageReply {
+                XCTAssertEqual(thirdReply.text, "It certainly seems so. It is good we tested this my friend. <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 20:58, 21 June 2019 (UTC)")
+                XCTAssertEqual(thirdReply.depth, 1, "Unexpected reply depth")
+            } else {
+                XCTFail("Unexpected third reply type")
+            }
+            
+        } else {
+            XCTFail("Unexpected first topic type")
+        }
+        
+        if let secondTopic = updatedTopics?[2] as? TalkPageTopic {
+            XCTAssertEqual(secondTopic.title, "Topic <a href='./Part' title='Part'>Part</a> Trois")
+            XCTAssertEqual(secondTopic.replies?.count, 1, "Unexpected topic items count")
+            XCTAssertTrue(secondTopic.content?.isRead ?? false, "isRead flag flipped back to false after reorder.")
+        }
+        
+        //confirm one talk page exists in DB
+        guard let secondResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
+            XCTFail("Failure fetching saved talk pages")
+            return
+        }
+        
+        XCTAssertEqual(secondResults.count, 1, "Expected 1 talk page in DB")
+        XCTAssertEqual(secondResults.first, dbTalkPage)
     }
     
-    func testPerformanceTestUpdateTalkPages() {
+    func testPerformanceLargeToLargeUpdateTalkPages() {
         //confirm no talk pages in DB
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         
@@ -189,56 +291,65 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
-        //add network talk page
-        guard let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeForPerformance, revisionId: 1) else {
-            XCTFail("Failure stubbing out network talk page")
+        guard let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeForPerformance, revisionId: 1),
+            let updatedNetworkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeUpdatedForPerformance, revisionId: 1) else {
+            XCTFail("Failure stubbing out network talk pages")
             return
         }
         
-        //create db talk page
-        guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
-            XCTFail("Failure to create db talk page")
-            return
-        }
-        
-        //confirm 162 topics
-        if let topics = dbTalkPage.topics {
-            XCTAssertEqual(topics.count, 162)
-        } else {
-            XCTFail("Unexpected number of topics")
-        }
-        
-        //get updated talk page
-        guard let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeUpdatedForPerformance, revisionId: 1) else {
-            XCTFail("Failure stubbing out network talk page")
-            return
-        }
-        
-        let startTime = CACurrentMediaTime()
-        
-//        measure {
-            guard let updatedDbTalkPage = moc.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
-                XCTFail("Failure updating existing local talk page")
+        var i = 0
+        measure {
+            i += 1
+            
+            //create db talk page
+            guard let talkPage = moc.createTalkPage(with: networkTalkPage) else {
+                XCTFail("Failure to create db talk page")
                 return
             }
             
-            
-            let timeElapsed = CACurrentMediaTime() - startTime
-            print("🌹elapsed time:  \(timeElapsed)")
-    
-            if let topics = updatedDbTalkPage.topics {
-                XCTAssertEqual(topics.count, 167)
-            } else {
-                XCTFail("Unexpected number of topics")
+            //update local copy
+            guard let _ = moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) else {
+                XCTFail("Failure updating existing local talk page")
+                return
             }
- //       }
+        }
         
-        //confirm 167 topics
-//        if let topics = updatedDbTalkPage.topics {
-//            XCTAssertEqual(topics.count, 167)
-//        } else {
-//            XCTFail("Unexpected number of topics")
-//        }
+    }
+    
+    func testPerformanceSmallToLargeUpdateTalkPages() {
+        //confirm no talk pages in DB
+        let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
+        
+        guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
+            XCTFail("Failure fetching initial talk pages")
+            return
+        }
+        
+        XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
+        
+        guard let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .smallForPerformance, revisionId: 1),
+            let updatedNetworkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeUpdatedForPerformance, revisionId: 1) else {
+                XCTFail("Failure stubbing out network talk pages")
+                return
+        }
+        
+        var i = 0
+        measure {
+            i += 1
+            
+            //create db talk page
+            guard let talkPage = moc.createTalkPage(with: networkTalkPage) else {
+                XCTFail("Failure to create db talk page")
+                return
+            }
+            
+            //update local copy
+            guard let _ = moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) else {
+                XCTFail("Failure updating existing local talk page")
+                return
+            }
+        }
+        
     }
 
 }
