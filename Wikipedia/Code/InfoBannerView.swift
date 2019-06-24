@@ -86,8 +86,6 @@ class InfoBannerView: SetupView {
     }
 
     override func setup() {
-        preservesSuperviewLayoutMargins = false
-        insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
         titleLabel.numberOfLines = 0
         subtitleLabel.numberOfLines = 0

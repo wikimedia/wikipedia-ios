@@ -17,10 +17,6 @@ class TalkPageTopicNewViewController: ViewController {
     @IBOutlet private var divViews: [UIView]!
     @IBOutlet private var containerViews: [UIView]!
 
-    private var beKindViewTopConstraint: NSLayoutConstraint!
-    private var beKindViewBottomConstraint: NSLayoutConstraint!
-    private var beKindViewHeightConstraint: NSLayoutConstraint!
-
     private lazy var beKindInputAccessoryView: BeKindInputAccessoryView = {
         return BeKindInputAccessoryView.wmf_viewFromClassNib()
     }()
