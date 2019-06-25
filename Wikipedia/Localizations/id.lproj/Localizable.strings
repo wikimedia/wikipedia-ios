@@ -186,7 +186,6 @@
 "edit-ordered-list-accessibility-label" = "Buat daftar urutan baris saat ini";
 "edit-ordered-list-remove-accessibility-label" = "Hapus daftar yang diurutkan dari baris saat ini";
 "edit-published" = "Suntingan telah diterbitkan";
-"edit-published-button-title" = "Selesai";
 "edit-published-subtitle" = "Anda baru saja menjadikan Wikipedia lebih baik untuk semua orang";
 "edit-reference-accessibility-label" = "Tambahkan sintaks referensi";
 "edit-reference-remove-accessibility-label" = "Hapus sintaks referensi";
@@ -364,7 +363,6 @@
 "home-themes-prompt" = "Sesuaikan preferensi bacaan Anda termasuk ukuran teks dan tema dari bilah alat artikel atau di pengaturan pengguna Anda untuk pengalaman membaca yang lebih nyaman.";
 "home-title" = "Jelajah";
 "home-title-accessibility-label" = "Wikipedia, gulir ke bagian atas halaman Jelajah";
-"icon-shortcut-continue-reading-title" = "Lanjutkan membaca";
 "icon-shortcut-nearby-title" = "Artikel sekitar";
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Telusuri Wikipedia";

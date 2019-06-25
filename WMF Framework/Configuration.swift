@@ -36,6 +36,7 @@ public class Configuration: NSObject {
     
     struct Path {
         static let wikiResource = "/wiki/"
+        static let wikiResourceComponent = ["wiki"]
         static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
     }
@@ -66,9 +67,9 @@ public class Configuration: NSObject {
     required init(defaultSiteDomain: String, otherDomains: [String] = []) {
         self.defaultSiteDomain = defaultSiteDomain
         self.mediaWikiCookieDomain = Domain.mediaWiki.withDotPrefix
+        self.wikimediaCookieDomain = Domain.wikimedia.withDotPrefix
         self.wikipediaCookieDomain = Domain.wikipedia.withDotPrefix
         self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
-        self.wikimediaCookieDomain = Domain.wikimedia.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain, Domain.mediaWiki] + otherDomains
@@ -92,13 +93,31 @@ public class Configuration: NSObject {
         }
     }
     
-    func mediaWikiAPIURLComponentsBuilder(for host: String? = nil) -> APIURLComponentsBuilder {
+    func mediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
         var components = URLComponents()
         components.host = host ?? Domain.metaWiki
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
+    
+    func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
+        var components = URLComponents()
+        components.host = host
+        components.scheme = Scheme.https
+        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.wikiResourceComponent)
+    }
 
+    //todo: remove once endpoint is pushed to prod
+    public func wikipediaTalkPageAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let host = host ?? Domain.englishWikipedia
+        let baseComponents = [host, "v1"]
+        var components = URLComponents()
+        components.scheme = Scheme.https
+        components.host = "talk-pages-2.wmflabs.org"
+        let builder = APIURLComponentsBuilder(hostComponents: components, basePathComponents: baseComponents)
+        return builder.components(byAppending: pathComponents, queryParameters: nil)
+    }
+    
     @objc(wikipediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
     public func wikipediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
         let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(host)
@@ -113,14 +132,19 @@ public class Configuration: NSObject {
     
     @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
     public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilder(for: host)
+        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
         guard let queryParameters = queryParameters else {
             return builder.components()
         }
         return builder.components(queryParameters: queryParameters)
     }
     
-    public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
+    public func articleURLForHost(_ host: String, appending pathComponents: [String]) -> URLComponents {
+        let builder = articleURLComponentsBuilder(for: host)
+        return builder.components(byAppending: pathComponents)
+    }
+    
+    public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
         guard let wikiLanguage = wikiLanguage else {
             return mediaWikiAPIURForHost(nil, with: queryParameters)
         }
@@ -129,13 +153,13 @@ public class Configuration: NSObject {
     }
     
     public func wikidataAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilder(for: "www.\(Domain.wikidata)")
+        let builder = mediaWikiAPIURLComponentsBuilderForHost("www.\(Domain.wikidata)")
         return builder.components(queryParameters: queryParameters)
     }
 
     @objc(commonsAPIURLComponentsWithQueryParameters:)
     public func commonsAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilder(for: "commons.\(Domain.wikimedia)")
+        let builder = mediaWikiAPIURLComponentsBuilderForHost("commons.\(Domain.wikimedia)")
         return builder.components(queryParameters: queryParameters)
     }
 

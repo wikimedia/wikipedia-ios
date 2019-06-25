@@ -3,6 +3,7 @@
 // Author: 01miki10
 // Author: 4shadoww
 // Author: Alluk.
+// Author: Antsa
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: Laurianttila
@@ -64,6 +65,7 @@
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-title" = "Luo uusi tunnus";
+"account-talk-preferences-title" = "Keskustelusivujen asetukset";
 "action-add-to" = "Lisää...";
 "action-add-to-reading-list" = "Lisää lukulistaan";
 "action-add-to-reading-list-short" = "Lisää listaan";
@@ -126,6 +128,7 @@
 "button-skip" = "Ohita";
 "cancel" = "Peruuta";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Kumita/putsaa/tyhjennä/puhdista";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
@@ -179,7 +182,6 @@
 "edit-menu-item" = "Muokkaa";
 "edit-minor-text" = "Tämä on pieni muutos";
 "edit-published" = "Muokkaus julkaistu";
-"edit-published-button-title" = "Valmis";
 "edit-published-subtitle" = "Teit juuri Wikipediasta paremman kaikille";
 "edit-strikethrough-accessibility-label" = "Lisää yliviivaus";
 "edit-strikethrough-remove-accessibility-label" = "Poista yliviivaus";
@@ -346,7 +348,6 @@
 "home-themes-prompt" = "Säädä lukemisasetuksiasi, mukaan lukien tekstin kokoa ja teemaa artikkelipalkista tai käyttäjä asetuksistasi, jotta saat mukavamman lukukokemuksen.";
 "home-title" = "Tutki";
 "home-title-accessibility-label" = "Wikipedia, selaa Tutki-syötteen alkuun";
-"icon-shortcut-continue-reading-title" = "Jatka lukemista";
 "icon-shortcut-nearby-title" = "Lähellä olevat artikkelit";
 "icon-shortcut-random-title" = "Satunnainen artikkeli";
 "icon-shortcut-search-title" = "Etsi Wikipediasta";
@@ -674,6 +675,7 @@
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
+"unable-to-load-talk-page-title" = "Keskustelusivun lataaminen epäonnistui";
 "view-in-browser-footer-link" = "Lue artikkeli selaimessa";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";

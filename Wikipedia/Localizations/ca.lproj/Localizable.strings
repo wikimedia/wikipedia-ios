@@ -62,6 +62,11 @@
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
 "account-creation-title" = "Crea un compte nou";
+"account-group-title" = "El vostre compte";
+"account-talk-page-title" = "La vostra pàgina de discussió";
+"account-talk-preferences-auto-sign-discussions" = "Signa les discussions automàticament";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "La signatura automàtica de les discussions utilitzarà la signatura definida als paràmetres de signatura";
+"account-talk-preferences-title" = "Preferències de la pàgina de discussió";
 "action-add-to" = "Afegeix a…";
 "action-add-to-reading-list" = "Afegeix a la llista de lectura";
 "action-add-to-reading-list-short" = "Afegeix a la llista";
@@ -86,6 +91,7 @@
 "action-unsaved-accessibility-notification" = "Article no desat";
 "action-update" = "Actualitza";
 "add-articles-to-reading-list" = "Afegeix {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
+"add-citation-title" = "Afegeix una referència";
 "announcements-dismiss" = "Descarta";
 "app-store-keywords" = "Wikipedia, Viquipèdia, referència, wiki, enciclopèdia, informació, coneixement, recerca, exploració, aprenentatge";
 "app-store-release-notes" = "Canal d'exploració plenament configurable i fàcil de llegir. Localització, millores de rendiment i correccions d'errades.";
@@ -124,6 +130,7 @@
 "button-skip" = "Omet";
 "cancel" = "Cancel·la";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Neteja";
 "close-button-accessibility-label" = "Tanca";
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
@@ -180,7 +187,11 @@
 "edit-italic-accessibility-label" = "Afegeix format en cursiva";
 "edit-italic-remove-accessibility-label" = "Suprimeix format en cursiva";
 "edit-link-accessibility-label" = "Afegeix sintaxi d'enllaç";
+"edit-link-display-text-title" = "Text a mostrar";
+"edit-link-link-target-title" = "Destinació de l'enllaç";
 "edit-link-remove-accessibility-label" = "Suprimeix sintaxi d'enllaç";
+"edit-link-remove-link-title" = "Suprimeix l'enllaç";
+"edit-link-title" = "Modifica l'enllaç";
 "edit-menu-item" = "Edita";
 "edit-menu-item-could-not-find-selection-alert-message" = "Podria ser perquè el text que heu seleccionat no és editable (p. ex., el títol de l'article o els títols de les infotaules) o bé per la longitud del text que s'ha ressaltat";
 "edit-menu-item-could-not-find-selection-alert-title" = "No s’ha pogut trobar el text que heu seleccionat";
@@ -189,7 +200,6 @@
 "edit-ordered-list-accessibility-label" = "Fes la línia actual part d'una llista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Treu la línia actual de la llista ordenada";
 "edit-published" = "S'ha publicat la modificació";
-"edit-published-button-title" = "Fet";
 "edit-published-subtitle" = "Heu millorat la Viquipèdia per a tothom";
 "edit-reference-accessibility-label" = "Afegeix sintaxi de referència";
 "edit-reference-remove-accessibility-label" = "Suprimeix sintaxi de referència";
@@ -229,7 +239,7 @@
 "editing-welcome-impartial-tone-title" = "Escriviu amb un to imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Per tal de proporcionar accés al coneixement mundial, ens cal que hi participeu tot llegint, editant i contribuint en els temes que més us importin.";
 "editing-welcome-set-knowledge-free-title" = "Allibera el coneixement";
-"empty-insert-media-title" = "Selecciona un fitxer";
+"empty-insert-media-title" = "Selecciona un fitxer de Wikimedia Commons";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
@@ -242,6 +252,7 @@
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-search-results-message" = "No s'han trobat resultats";
+"empty-talk-page-title" = "Aquest usuari encara no ha enviat cap missatge.";
 "error-generic-description" = "S'ha produït un error inesperat";
 "error-generic-recovery-suggestion" = "Torneu-ho a provar més tard";
 "error-unknown" = "S'ha produït un error desconegut";
@@ -383,7 +394,6 @@
 "home-themes-prompt" = "Ajusteu les preferències de lectura, incloent-hi la mida del text i el tema, des de la barra d'eines de l'article o des de les vostres preferències d'usuari per a una experiència de lectura més còmode.";
 "home-title" = "Exploreu!";
 "home-title-accessibility-label" = "Viquipèdia, desplaceu-vos amunt a Exploreu";
-"icon-shortcut-continue-reading-title" = "Continua llegint";
 "icon-shortcut-nearby-title" = "Articles propers";
 "icon-shortcut-random-title" = "Article a l’atzar";
 "icon-shortcut-search-title" = "Cerca a la Viquipèdia";
@@ -398,6 +408,7 @@
 "info-box-close-text" = "Tanca";
 "info-box-title" = "Dades ràpides";
 "insert-action-title" = "Insereix";
+"insert-link-title" = "Insereix un enllaç";
 "insert-media-alternative-text-description" = "Text de descripció per als lectors que no poden veure la imatge";
 "insert-media-alternative-text-placeholder" = "Descriviu la imatge";
 "insert-media-alternative-text-title" = "Text alternatiu";
@@ -653,6 +664,7 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
+"settings-account" = "Compte";
 "settings-appearance" = "Preferències de lectura";
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";
@@ -710,6 +722,26 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
+"talk-page-error-unable-to-post-reply" = "No hi ha connexió a Internet. No es pot enviar la resposta.";
+"talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar el tema.";
+"talk-page-info-active-conversations" = "Converses actives a la Viquipèdia en $1";
+"talk-page-info-active-conversations-generic" = "Converses actives a la Viquipèdia";
+"talk-page-link-user-action-sheet-safari" = "Mostra la pàgina d’usuari al Safari";
+"talk-page-link-user-action-sheet-title" = "Pàgines d’usuari";
+"talk-page-new-banner-subtitle" = "Recordeu, aquí tothom és humà";
+"talk-page-new-banner-title" = "Sigueu respectuós/osa";
+"talk-page-new-reply-body-placeholder-text" = "Redacta una resposta";
+"talk-page-new-reply-success-text" = "La vostra resposta s'ha publicat amb èxit";
+"talk-page-new-subject-placeholder-text" = "Assumpte";
+"talk-page-new-topic-body-placeholder-text" = "Redacta una discussió nova";
+"talk-page-new-topic-success-text" = "La vostra discussió s'ha publicat amb èxit";
+"talk-page-new-topic-title" = "Discussió nova";
+"talk-page-publish-terms-and-licenses" = "En desar els canvis esteu d'acord amb els $1Termes d'ús$2 i esteu d'acord en alliberar la vostra contribució sota les llicències $3CC BY-SA 3.0$4 i $5GFDL$6.";
+"talk-page-reply-title" = "Respon";
+"talk-page-title-article-talk" = "Discussió de l'article";
+"talk-page-title-user-talk" = "Discussió de l'usuari";
+"talk-page-topic-title" = "Discussió";
+"talk-pages-reply-button-title" = "Respon la discussió";
 "theme-black-display-name" = "Negre";
 "theme-dark-display-name" = "Fosc";
 "theme-default-display-name" = "Per defecte";
@@ -722,6 +754,7 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
+"unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "view-in-browser-footer-link" = "Mostra l'article al navegador";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";

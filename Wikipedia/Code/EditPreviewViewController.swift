@@ -8,7 +8,8 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate {
     var section: MWKSection?
     var wikitext = ""
-    var funnel: EditFunnel?
+    var editFunnel: EditFunnel?
+    var loggedEditActions: NSMutableSet?
     var savedPagesFunnel: SavedPagesFunnel?
     var theme: Theme = .standard
     
@@ -80,8 +81,11 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        
-        funnel?.logPreview(section?.articleLanguage)
+
+        if let loggedEditActions = loggedEditActions, !loggedEditActions.contains(EditFunnel.Action.preview) {
+            editFunnel?.logEditPreviewForArticle(language: section?.articleLanguage)
+            loggedEditActions.add(EditFunnel.Action.preview)
+        }
         
         preview()
         

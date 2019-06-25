@@ -1,6 +1,5 @@
 #import "WebViewController.h"
 #import "WKWebView+ElementLocation.h"
-#import "EditFunnel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
 @import WMF;

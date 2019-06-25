@@ -19,14 +19,14 @@ extension WKWebView {
     }
     
     @objc func wmf_getSelectedTextEditInfo(completionHandler: ((SelectedTextEditInfo?, Error?) -> Void)? = nil) {
-        evaluateJavaScript("window.wmf.editTextSelection.getSelectedTextEditInfo()") { (result, error) in
+        evaluateJavaScript("window.wmf.editTextSelection.getSelectedTextEditInfo()") { [weak self] (result, error) in
             guard let error = error else {
                 guard let completionHandler = completionHandler else {
                     return
                 }
                 guard
                     let resultDict = result as? Dictionary<String, Any>,
-                    let selectedTextEditInfo = self.selectedTextEditInfo(from: resultDict)
+                    let selectedTextEditInfo = self?.selectedTextEditInfo(from: resultDict)
                 else {
                     DDLogError("Error handling 'getSelectedTextEditInfo()' dictionary response")
                     return

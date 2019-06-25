@@ -151,7 +151,11 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       NSManagedObjectContext *moc = self.dataStore.viewContext;
                                                                                       WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
                                                                                       article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
-                                                                                      article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      BOOL isCached = articleCacheError == nil && saveToDisk;
+                                                                                      article.isCached = isCached;
+                                                                                      if (isCached) {
+                                                                                          article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      }
                                                                                       article.wikidataID = mwkArticle.wikidataId;
                                                                                       if (summaryResponse) {
                                                                                           [article updateWithSummary:summaryResponse];
@@ -205,8 +209,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 }
 
-- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
+- (nullable NSURLSessionTask *)fetchArticleWithURL:(NSURL *)url
                                                     forceDownload:(BOOL)forceDownload
+                                            checkForNewerRevision:(BOOL)checkForNewerRevision
                                                        saveToDisk:(BOOL)saveToDisk
                                                          priority:(float)priority
                                                           failure:(WMFErrorHandler)failure
@@ -262,10 +267,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
         }
         task = [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority failure:failure success:success];
-    } else {
+    } else if (checkForNewerRevision) {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                            resultLimit:1
-                                                    endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue
+                                                    endingWithRevision:cachedArticle.revisionId
                                                                failure:failure
                                                                success:^(id _Nonnull results) {
                                                                    dispatch_async(dispatch_get_main_queue(), ^{
@@ -283,17 +288,13 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                        }
                                                                    });
                                                                }];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            success(cachedArticle, url);
+        });
     }
     task.priority = priority;
     return task;
-}
-
-- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
-                                                               saveToDisk:(BOOL)saveToDisk
-                                                                 priority:(float)priority
-                                                                  failure:(WMFErrorHandler)failure
-                                                                  success:(WMFArticleHandler)success {
-    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO saveToDisk:saveToDisk priority:priority failure:failure success:success];
 }
 
 @end

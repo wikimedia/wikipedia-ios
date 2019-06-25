@@ -3,14 +3,58 @@ import Foundation
 @objc class WMFDatabaseHouseKeeper : NSObject {
     
     // Returns deleted URLs
-    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext) throws -> [URL] {
+    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
-        let urls = try deleteStaleUnreferencedArticles(moc)
+        let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
+
+        try deleteStaleTalkPages(moc)
+
         return urls
     }
 
+    // Returns articles to remove from disk
+    @objc func articleURLsToRemoveFromDiskInManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+        guard let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) else {
+            return []
+        }
+        
+        let articlesToRemoveFromDiskPredicate = NSPredicate(format: "isCached == TRUE && savedDate == NULL && !(key IN %@)", preservedArticleKeys)
+        let articlesToRemoveFromDiskFetchRequest = WMFArticle.fetchRequest()
+        articlesToRemoveFromDiskFetchRequest.predicate = articlesToRemoveFromDiskPredicate
+        let articlesToRemoveFromDisk = try moc.fetch(articlesToRemoveFromDiskFetchRequest)
+        
+        for article in articlesToRemoveFromDisk {
+            article.isCached = false
+        }
+        
+        if (moc.hasChanges) {
+            try moc.save()
+        }
+        
+        return articlesToRemoveFromDisk.compactMap { $0.url }
+    }
+
+    /**
+     
+     We only persist the last 50 most recently accessed talk pages, delete all others.
+     
+    */
+    private func deleteStaleTalkPages(_ moc: NSManagedObjectContext) throws {
+        let request: NSFetchRequest<NSFetchRequestResult> = TalkPage.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "dateAccessed", ascending: false)]
+        request.fetchOffset = 50
+        let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
+        batchRequest.resultType = .resultTypeObjectIDs
+        
+        let result = try moc.execute(batchRequest) as? NSBatchDeleteResult
+        let objectIDArray = result?.result as? [NSManagedObjectID]
+        let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [moc])
+        
+        try moc.removeUnlinkedTalkPageTopicContent()
+    }
     
-    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext) throws -> [URL] {
+    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
         /**
  
@@ -94,7 +138,6 @@ import Foundation
                 }
             }
         }
-        
       
         /** 
   
@@ -108,11 +151,16 @@ import Foundation
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
         var articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && placesSortOrder == 0 && isExcludedFromFeed == FALSE")
+        
+        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
+            referencedArticleKeys.formUnion(preservedArticleKeys)
+        }
+        
         if !referencedArticleKeys.isEmpty {
             let referencedKeysPredicate = NSPredicate(format: "!(key IN %@)", referencedArticleKeys)
             articlesToDeletePredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[articlesToDeletePredicate,referencedKeysPredicate])
         }
-        
+
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
 
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
@@ -133,8 +181,6 @@ import Foundation
         if (moc.hasChanges) {
             try moc.save()
         }
-        
-        
         
         return urls
     }

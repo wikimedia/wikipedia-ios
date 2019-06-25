@@ -56,6 +56,7 @@
 "action-unsaved-accessibility-notification" = "लेख सङ्ग्रहबाट हटाइयो";
 "action-update" = "अद्यावधिक गर्नुहोस्";
 "announcements-dismiss" = "खारेज गर्नुहोस्";
+"app-store-subtitle" = "एक स्वतन्त्र विश्वकोश";
 "article-about-title" = "यस लेखको बारेमा।";
 "article-delete" = "हटाउने";
 "article-languages-filter-placeholder" = "भाषा खोज्नुहोस्";
@@ -155,7 +156,6 @@
 "home-news-footer" = "अधिक हालैका घटनाहरू";
 "home-themes-action-title" = "अभिरुचीहरू व्यवस्थापन गर्नुहोस्";
 "home-title" = "अन्वेषण";
-"icon-shortcut-continue-reading-title" = "पढ्ने कार्य जारी राख्नुहोस्";
 "icon-shortcut-nearby-title" = "नजिकैका लेखहरू";
 "icon-shortcut-random-title" = "कुनै लेख";
 "icon-shortcut-search-title" = "विकिपिडियामा खोज्नुहोस्";

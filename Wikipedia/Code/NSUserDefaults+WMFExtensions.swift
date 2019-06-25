@@ -1,7 +1,5 @@
-let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
-let WMFShouldShowLastReadArticleOnResume = "WMFShouldShowLastReadArticleOnResume"
-let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
+let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
 let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
@@ -34,9 +32,6 @@ let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
 let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
 let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
 let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
-
-//Legacy Keys
-let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 @objc public enum WMFAppDefaultTabType: Int {
@@ -50,6 +45,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
+        static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
     }
 
     @objc static let wmf: UserDefaults = {
@@ -85,18 +81,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         return self.object(forKey: key) as? Date
     }
     
-    @objc func wmf_appBecomeActiveDate() -> Date? {
-        return self.wmf_dateForKey(WMFAppBecomeActiveDateKey)
-    }
-    
-    @objc func wmf_setAppBecomeActiveDate(_ date: Date?) {
-        if let date = date {
-            self.set(date, forKey: WMFAppBecomeActiveDateKey)
-        }else{
-            self.removeObject(forKey: WMFAppBecomeActiveDateKey)
-        }
-    }
-    
     @objc func wmf_appResignActiveDate() -> Date? {
         return self.wmf_dateForKey(WMFAppResignActiveDateKey)
     }
@@ -109,12 +93,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
 
-    @objc var shouldShowLastReadArticleOnResume: Bool {
+    @objc var shouldRestoreNavigationStackOnResume: Bool {
         get {
-            return bool(forKey: WMFShouldShowLastReadArticleOnResume)
+            return bool(forKey: WMFShouldRestoreNavigationStackOnResume)
         }
         set {
-            set(newValue, forKey: WMFShouldShowLastReadArticleOnResume)
+            set(newValue, forKey: WMFShouldRestoreNavigationStackOnResume)
         }
     }
 
@@ -224,35 +208,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc func wmf_exploreDidPromptForLocationAuthorization() -> Bool {
         return self.bool(forKey: WMFExploreDidPromptForLocationAuthorization)
-    }
-    
-    
-    @objc func wmf_openArticleURL() -> URL? {
-        if let url = self.url(forKey: WMFOpenArticleURLKey) {
-            return url
-        }else if let data = self.data(forKey: WMFOpenArticleTitleKey){
-            if let title = NSKeyedUnarchiver.unarchiveObject(with: data) as? MWKTitle {
-                self.wmf_setOpenArticleURL(title.mobileURL)
-                return title.mobileURL
-            }else{
-                return nil
-            }
-        }else{
-            return nil
-        }
-    }
-    
-    @objc func wmf_setOpenArticleURL(_ url: URL?) {
-        guard let url = url else{
-            self.removeObject(forKey: WMFOpenArticleURLKey)
-            self.removeObject(forKey: WMFOpenArticleTitleKey)
-            return
-        }
-        guard !url.wmf_isNonStandardURL else{
-            return;
-        }
-        
-        self.set(url, forKey: WMFOpenArticleURLKey)
     }
 
     @objc func wmf_setShowSearchLanguageBar(_ enabled: Bool) {
@@ -527,6 +482,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.didShowEditingOnboarding)
+        }
+    }
+
+    var autoSignTalkPageDiscussions: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
         }
     }
 #if UI_TEST

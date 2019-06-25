@@ -44,6 +44,8 @@ extern NSString *const WMFEditPublishedNotification;
                              theme:(WMFTheme *)theme;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
+@property (nonatomic, strong, readonly, nullable) NSString *visibleSectionAnchor;
+
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
 @property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
@@ -63,6 +65,7 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, getter=isSavingOpenArticleTitleEnabled) BOOL savingOpenArticleTitleEnabled;
 @property (nonatomic, getter=isAddingArticleToHistoryListEnabled) BOOL addingArticleToHistoryListEnabled;
 @property (nonatomic, getter=isPeekingAllowed) BOOL peekingAllowed;
+@property (nonatomic, getter=shouldRequestLatestRevisionOnInitialLoad) BOOL requestLatestRevisionOnInitialLoad;
 
 @property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
 

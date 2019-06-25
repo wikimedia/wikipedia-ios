@@ -23,17 +23,18 @@
 
 + (WMFSettingsMenuItem *)itemForType:(WMFSettingsMenuItemType)type {
     switch (type) {
-        case WMFSettingsMenuItemType_Login: {
+        case WMFSettingsMenuItemType_LoginAccount: {
             NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
-            NSString *loginString = (userName) ? [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"main-menu-account-title-logged-in", nil, nil, @"Logged in as %1$@", @"Header text used when account is logged in. %1$@ will be replaced with current username."), userName] : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in.\n{{Identical|Log in}}");
+
+            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in.\n{{Identical|Log in}}");
 
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:loginString
                                                  iconName:@"settings-user"
                                                 iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9AA0A7)]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                           disclosureText:nil
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:userName
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Support: {

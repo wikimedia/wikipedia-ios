@@ -31,12 +31,14 @@
 // Author: Wiochman
 // Author: Woytecr
 
+"about-content-license" = "Licencja";
 "about-content-license-details" = "O ile nie zaznaczono inaczej, treść jest dostępna na licencji $1.";
 "about-content-license-details-share-alike-license" = "Licencja Creative Commons Uznanie autorstwa-Na tych samych warunkach";
 "about-contributors" = "Autorzy";
 "about-libraries" = "Użyte biblioteki";
 "about-libraries-complete-list" = "Pełna lista";
 "about-libraries-license" = "Licencja";
+"about-libraries-licenses-title" = "Kochamy otwartoźródłowe oprogramowanie $1";
 "about-places-maps-license-details-link-text" = "Zobacz szczegóły licencji";
 "about-product-of" = "Stworzone przez $1 z pomocą wolontariuszy takich jak Ty";
 "about-repositories" = "Repozytoria";
@@ -50,20 +52,15 @@
 "about-translators-details" = "Przetłumaczono przez wolontariusza na $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Nie możesz opublikować tej edycji. Wróć i popraw ją.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Blankowanie lub spamowanie artykułów";
-// Fuzzy
-"abuse-filter-warning-caps" = "Pisanie WIELKIMI LITERAMI";
+"abuse-filter-disallow-heading" = "Nie możesz opublikować tej edycji.";
+"abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną lub jako próbę wandalizmu. Cofnij się i zmień swoją edycję.";
+"abuse-filter-warning-blanking" = "Usuwanie sekcji lub całych artykułów";
+"abuse-filter-warning-caps" = "Tekst pisany wielkimi literami";
 "abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, na pewno chcesz ją opublikować?";
 "abuse-filter-warning-irrelevant" = "Nieodpowiednie linki zewnętrzne lub obrazy";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Powtaaaarzanie znaków";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Twoja edycja może zawierać jedną lub wiele z następujących czynności:";
+"abuse-filter-warning-repeat" = "Powtarzanie znaków";
+"abuse-filter-warning-spam" = "Dodawanie spamu do artykułów";
+"abuse-filter-warning-subheading" = "Twoja edycja może zawierać:";
 "account-creation-captcha-cannot-see-image" = "Nie widać obrazka? $1";
 "account-creation-captcha-obtaining" = "Uzyskiwanie nowego CAPTCHA...";
 "account-creation-captcha-request-account" = "Wniosek o założenie konta.";
@@ -76,22 +73,26 @@
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-title" = "Utwórz nowe konto";
+"account-group-title" = "Twoje konto";
+"account-talk-page-title" = "Twoja strona dyskusji";
 "action-add-to" = "Dodaj do...";
 "action-add-to-reading-list-short" = "Dodaj do listy";
 "action-cancel" = "Anuluj";
-// Fuzzy
 "action-find-in-page" = "Znajdź na stronie";
 "action-move-to" = "Przenieś do...";
 "action-read" = "Czytaj";
 "action-remove" = "Usuń";
+"action-replace" = "Zamień";
+"action-replace-all" = "Zamień wszystkie";
 "action-save" = "Zapisz";
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
+"action-share-accessibility" = "Udostępnij";
 "action-sort" = "Sortuj";
-// Fuzzy
 "action-undo" = "Cofnij";
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
+"add-citation-title" = "Dodaj przypis";
 "announcements-dismiss" = "Odrzuć";
 "app-store-subtitle" = "Wolna encyklopedia";
 "article-about-title" = "O tym artykule";
@@ -125,9 +126,14 @@
 "description-help-tips-title" = "Wskazówki dotyczące tworzenia opisów";
 "description-published-title" = "Opis opublikowany!";
 "description-welcome-start-editing-button" = "Rozpocznij edycję";
+"edit-link-display-text-title" = "Wyświetlany tekst";
+"edit-link-link-target-title" = "Adres linku";
+"edit-link-remove-link-title" = "Usuń link";
+"edit-link-title" = "Edytuj link";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
+// Fuzzy
 "empty-insert-media-title" = "Wybierz plik";
 "empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
 "empty-no-feed-action-message" = "Nadal możesz czytać zapisane strony";
@@ -206,7 +212,6 @@
 "home-news-footer" = "Więcej aktualnych wydarzeń";
 "home-themes-action-title" = "Zarządzaj preferencjami";
 "home-title" = "Odkryj";
-"icon-shortcut-continue-reading-title" = "Czytaj dalej";
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
@@ -216,6 +221,7 @@
 "in-the-news-title" = "W wiadomościach";
 "info-box-close-text" = "Zamknij";
 "info-box-title" = "Szybkie fakty";
+"insert-link-title" = "Wstaw link";
 "insert-media-alternative-text-placeholder" = "Opisz ten obraz";
 "insert-media-caption-description" = "Etykieta wyświetlana obok elementu dla wszystkich czytelników";
 "insert-media-caption-title" = "Podpis";
@@ -347,6 +353,7 @@
 "search-recent-title" = "Ostatnio wyszukiwane";
 "search-result-redirected-from" = "Przekierowanie z: $1";
 "search-title" = "Wyszukiwanie";
+"settings-account" = "Konto";
 "settings-clear-cache-cancel" = "Anuluj";
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
@@ -371,6 +378,23 @@
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
 "table-of-contents-heading" = "Zawartości";
 "table-title-other" = "Więcej informacji";
+"talk-page-info-active-conversations" = "Aktywne dyskusje na $1 Wikipedii";
+"talk-page-info-active-conversations-generic" = "Aktywne dyskusje na Wikipedii";
+"talk-page-link-user-action-sheet-app" = "Zobacz stronę dyskusji użytkownika w aplikacji";
+"talk-page-link-user-action-sheet-safari" = "Zobacz stronę użytkownika w Safari";
+"talk-page-link-user-action-sheet-title" = "Strony użytkowników";
+"talk-page-new-banner-subtitle" = "Pamiętaj, wszyscy jesteśmy ludźmi";
+"talk-page-new-banner-title" = "Zachowuj się uprzejmie";
+"talk-page-new-reply-success-text" = "Twoja odpowiedź została pomyślnie opublikowana";
+"talk-page-new-subject-placeholder-text" = "Temat";
+"talk-page-new-topic-success-text" = "Twoja dyskusja została pomyślnie opublikowana";
+"talk-page-new-topic-title" = "Nowa dyskusja";
+"talk-page-publish-terms-and-licenses" = "Zapisując zmiany akceptujesz $1Zasady Użytkownika$2 i zgadzasz się na publikowanie twojego wkładu na licencji $3CC BY-SA 3.0$4 i $5GFDL$6";
+"talk-page-reply-title" = "Odpowiedz";
+"talk-page-title-article-talk" = "dyskusja artykułu";
+"talk-page-title-user-talk" = "Dyskusja użytkownika";
+"talk-page-topic-title" = "Dyskusja";
+"talk-pages-reply-button-title" = "Odpowiedz na tę dyskusję";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "two-factor-login-continue" = "Kontynuuj logowanie";

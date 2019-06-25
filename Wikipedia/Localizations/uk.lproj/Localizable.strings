@@ -64,6 +64,11 @@
 "account-creation-passwords-mismatched" = "Паролі не збігаються.";
 "account-creation-saving" = "Збереження...";
 "account-creation-title" = "Створити обліковий запис";
+"account-group-title" = "Ваш обліковий запис";
+"account-talk-page-title" = "Ваша сторінка обговорення";
+"account-talk-preferences-auto-sign-discussions" = "Автоматичний підпис в обговореннях";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "В обговоренні використовуватиметься той підпис, що зазначений у ваших налаштуваннях";
+"account-talk-preferences-title" = "Налаштування сторінки обговорення";
 "action-add-to" = "Додати до...";
 "action-add-to-reading-list" = "Додати до читального списку";
 "action-add-to-reading-list-short" = "Додати до списку";
@@ -88,6 +93,7 @@
 "action-unsaved-accessibility-notification" = "Стаття видалена із збережених";
 "action-update" = "Оновити";
 "add-articles-to-reading-list" = "Додати {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
+"add-citation-title" = "Додати джерело";
 "announcements-dismiss" = "Відхилити";
 "app-store-keywords" = "Вікіпедія, стаття, вікі, wiki, енциклопедія, інформація, знання, дослідження, інформація, читання, навчання";
 "app-store-release-notes" = "Тепер стрічка в додатку цілком налаштовувана та легша до використання. Поліпшена локалізація, підвищена продуктивність, деякі помилки виправлені.";
@@ -126,6 +132,7 @@
 "button-skip" = "Пропустити";
 "cancel" = "Скасувати";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Очистити";
 "close-button-accessibility-label" = "Закрити";
 "compass-direction" = "на $1 годину";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
@@ -182,7 +189,11 @@
 "edit-italic-accessibility-label" = "Додати курсивну гарнітуру";
 "edit-italic-remove-accessibility-label" = "Прибрати курсивну гарнітуру";
 "edit-link-accessibility-label" = "Додати посилання";
+"edit-link-display-text-title" = "Показати текст";
+"edit-link-link-target-title" = "Адреса посилання";
 "edit-link-remove-accessibility-label" = "Прибрати посилання";
+"edit-link-remove-link-title" = "Вилучити посилання";
+"edit-link-title" = "Редагувати посилання";
 "edit-menu-item" = "Редагувати";
 "edit-menu-item-could-not-find-selection-alert-message" = "Можливо, це сталося через те, що текст, який ви обрали, не можна редагувати (наприклад назва статті чи інфобоксу), або через довжину тексту, що була виділена";
 "edit-menu-item-could-not-find-selection-alert-title" = "Вибраний текст не знайдений";
@@ -191,7 +202,6 @@
 "edit-ordered-list-accessibility-label" = "Зробити нумерованим списком";
 "edit-ordered-list-remove-accessibility-label" = "Прибрати нумерований список";
 "edit-published" = "Редагування опубліковано";
-"edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Ви щойно зробили Вікіпедію ліпшою для усіх";
 "edit-reference-accessibility-label" = "Додати примітку";
 "edit-reference-remove-accessibility-label" = "Прибрати примітку";
@@ -231,7 +241,7 @@
 "editing-welcome-impartial-tone-title" = "Пишіть непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Аби надати доступ до знань людства кожному, ми потребуємо вашої участі у їхньому створенні завдяки вичитуванню, редагуванню статей і додаванню інформації на теми, що є найбільш релевантними для вас.";
 "editing-welcome-set-knowledge-free-title" = "Зробіть інформацію доступною всім";
-"empty-insert-media-title" = "Оберіть файл";
+"empty-insert-media-title" = "Оберіть файл з Вікісховища";
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
 "empty-no-feed-action-message" = "Ви все ще можете читати збережені сторінки";
 "empty-no-feed-message" = "Ви можете побачити рекомендовані статті, коли у вас є інтернет";
@@ -244,6 +254,7 @@
 "empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду їх пізніше, навіть в автономному режимі";
 "empty-no-saved-pages-title" = "Ще не має збережених сторінок";
 "empty-no-search-results-message" = "Нічого не знайдено";
+"empty-talk-page-title" = "На сторінці обговорення користувача поки нема дописів";
 "error-generic-description" = "Сталася неочікувана помилка.";
 "error-generic-recovery-suggestion" = "Будь ласка, спробуйте пізніше";
 "error-unknown" = "Сталася невідома помилка.";
@@ -385,7 +396,6 @@
 "home-themes-prompt" = "Для комфортнішого читання налагодьте читальні налаштування (зокрема розмір шрифту та тему оформлення) на панелі управління статтею чи у ваших користувацьких налаштуваннях.";
 "home-title" = "Досліджуйте";
 "home-title-accessibility-label" = "Вікіпедія, прокрутити вгору розділу Досліджуйте";
-"icon-shortcut-continue-reading-title" = "Продовжити читання";
 "icon-shortcut-nearby-title" = "Статті про місця неподалік";
 "icon-shortcut-random-title" = "Випадкова стаття";
 "icon-shortcut-search-title" = "Пошук по Вікіпедії";
@@ -400,6 +410,7 @@
 "info-box-close-text" = "Закрити";
 "info-box-title" = "Табличка основної інформації";
 "insert-action-title" = "Вставити";
+"insert-link-title" = "Вставити посилання";
 "insert-media-alternative-text-description" = "Текстовий опис для читачів, які не можуть побачити зображення";
 "insert-media-alternative-text-placeholder" = "Опишіть це зображення";
 "insert-media-alternative-text-title" = "Альтернативний текст";
@@ -655,6 +666,7 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+"settings-account" = "Обліковий запис";
 "settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кешу вивільнить близько $1 місця. Вона не призведе до видалення ваших збережених статей.";
@@ -671,7 +683,7 @@
 "settings-notifications-push-notifications" = "Push-сповіщення";
 "settings-notifications-system-turn-on" = "Увімкнути сповіщення";
 "settings-notifications-trending" = "В тренді поточних подій";
-"settings-primary-language" = "Основний";
+"settings-primary-language" = "Основна";
 "settings-primary-language-details" = "Перша мова в цьому списку використовується як основна мова додатку.";
 "settings-search-footer-text" = "Після запуску додатку відкривати вкладинку «Пошук» замість вкладинки «Стрічка»";
 "settings-search-open-app-on-search" = "Відкрити додаток на вкладинці «Пошук»";
@@ -687,7 +699,7 @@
 "settings-storage-and-syncing-server-sync-title" = "Оновити синхронізовані читальні списки";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Показати список «Збережене» окремо серед читальних списків. Цей список буде показано на пристроях Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Показати збережений читальний список";
-"settings-storage-and-syncing-title" = "Зберігання та синхронізація статей";
+"settings-storage-and-syncing-title" = "Збереження та синхронізація статей";
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
 "share-a-fact-made-with" = "Створено за допомоги додатку Вікіпедія";
@@ -712,6 +724,27 @@
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
 "table-title-other" = "Більше інформації";
+"talk-page-error-unable-to-post-reply" = "Нема підключення до Інтернету. Неможливо оприлюднити відповідь.";
+"talk-page-error-unable-to-post-topic" = "Нема підключення до Інтернету. Неможливо оприлюднити нове обговорення.";
+"talk-page-info-active-conversations" = "Активні обговорення у Вікіпедії мовою $1";
+"talk-page-info-active-conversations-generic" = "Активні обговорення у Вікіпедії";
+"talk-page-link-user-action-sheet-app" = "Переглянути сторінку обговорення користувача в додатку";
+"talk-page-link-user-action-sheet-safari" = "Переглянути сторінку користувача в Safari";
+"talk-page-link-user-action-sheet-title" = "Сторінки користувача";
+"talk-page-new-banner-subtitle" = "Не забувайте, що всі ми тут — люди";
+"talk-page-new-banner-title" = "Будьте ввічливими";
+"talk-page-new-reply-body-placeholder-text" = "Відповісти";
+"talk-page-new-reply-success-text" = "Ваша відповідь успішно оприлюднена";
+"talk-page-new-subject-placeholder-text" = "Тема";
+"talk-page-new-topic-body-placeholder-text" = "Створити нове обговорення";
+"talk-page-new-topic-success-text" = "Ваше обговорення успішно оприлюднене";
+"talk-page-new-topic-title" = "Нове обговорення";
+"talk-page-publish-terms-and-licenses" = "Затверджуючи зміни, ви погоджуєтеся з $1Умовами використання$2 та оприлюднюєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-reply-title" = "Відповісти";
+"talk-page-title-article-talk" = "Обговорення статті";
+"talk-page-title-user-talk" = "Обговорення користувача";
+"talk-page-topic-title" = "Обговорення";
+"talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "theme-black-display-name" = "Чорна";
 "theme-dark-display-name" = "Темна";
 "theme-default-display-name" = "Усталена";
@@ -724,6 +757,7 @@
 "two-factor-login-title" = "Вхід до вашого облікового запису";
 "two-factor-login-with-backup-code" = "Використати один з ваших резервних кодів";
 "two-factor-login-with-regular-code" = "Використати код верифікації";
+"unable-to-load-talk-page-title" = "Неможливо завантажити сторінку обговорення";
 "view-in-browser-footer-link" = "Переглянути статтю в браузері";
 "welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";
 "welcome-exploration-explore-feed-title" = "Стрічка";

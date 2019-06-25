@@ -31,13 +31,18 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         
     }
 
-    @objc func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
         loginDismissedCompletion?()
     }
 
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
         save()
+    }
+
+    override func accessibilityPerformEscape() -> Bool {
+        closeButtonPushed(nil)
+        return true
     }
 
     override func viewDidLoad() {

@@ -9,6 +9,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme;
 
+- (void)showSplashView;
+- (void)hideSplashViewAnimated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

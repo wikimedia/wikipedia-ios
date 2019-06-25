@@ -32,10 +32,14 @@ class ArticleSummaryCoordinates: NSObject, Codable {
 
 @objc(WMFArticleSummary)
 public class ArticleSummary: NSObject, Codable {
+    public class Namespace: NSObject, Codable {
+        let id: Int?
+        let text: String?
+    }
     let id: Int?
     let revision: String?
     let index: Int?
-    let namespace: Int?
+    let namespace: Namespace?
     let title: String?
     let displayTitle: String?
     let articleDescription: String?
@@ -49,7 +53,7 @@ public class ArticleSummary: NSObject, Codable {
         case id = "pageid"
         case revision
         case index
-        case namespace = "ns"
+        case namespace
         case title
         case displayTitle = "displaytitle"
         case articleDescription = "description"

@@ -28,18 +28,6 @@ NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-short
                                                   userInfo:nil];
 }
 
-+ (nullable UIApplicationShortcutItem *)wmf_continueReading {
-    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
-    if (lastRead.wmf_title.length == 0) {
-        return nil;
-    }
-    return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeContinueReading
-                                            localizedTitle:WMFLocalizedStringWithDefaultValue(@"icon-shortcut-continue-reading-title", nil, nil, @"Continue reading", @"Title for app icon force touch shortcut to quickly re-open the last article the user was reading.")
-                                         localizedSubtitle:lastRead.wmf_title
-                                                      icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"home-continue-reading-mini"]
-                                                  userInfo:nil];
-}
-
 + (UIApplicationShortcutItem *)wmf_nearby {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeNearby
                                             localizedTitle:WMFLocalizedStringWithDefaultValue(@"icon-shortcut-nearby-title", nil, nil, @"Nearby articles", @"Title for app icon force touch shortcut to quickly open the nearby articles interface.")

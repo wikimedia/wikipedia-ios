@@ -12,7 +12,7 @@ open class SizeThatFitsView: SetupView {
         super.setup()
         translatesAutoresizingMaskIntoConstraints = false
         autoresizesSubviews = false
-        layoutSubviews()
+        setNeedsLayout()
     }
     
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.

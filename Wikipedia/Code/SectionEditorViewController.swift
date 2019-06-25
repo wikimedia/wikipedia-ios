@@ -10,7 +10,8 @@ class SectionEditorViewController: UIViewController {
     
     @objc var section: MWKSection?
     @objc var selectedTextEditInfo: SelectedTextEditInfo?
-    
+    @objc var dataStore: MWKDataStore?
+
     private var webView: SectionEditorWebView!
     private let sectionFetcher = WikiTextSectionFetcher()
     
@@ -34,7 +35,7 @@ class SectionEditorViewController: UIViewController {
     
     private var needsSelectLastSelection: Bool = false
     
-    @objc var editFunnel: EditFunnel?
+    @objc var editFunnel = EditFunnel.shared
     
     private var wikitext: String? {
         didSet {
@@ -192,6 +193,7 @@ class SectionEditorViewController: UIViewController {
             messagingController.webView = webView
             
             menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
+            menuItemsController.delegate = self
             webView.menuItemsDataSource = menuItemsController
             webView.menuItemsDelegate = menuItemsController
         }
@@ -202,6 +204,7 @@ class SectionEditorViewController: UIViewController {
             guard shouldFocusWebView else {
                 return
             }
+            logSectionReadyToEdit()
             focusWebViewIfReady()
         }
     }
@@ -231,6 +234,7 @@ class SectionEditorViewController: UIViewController {
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
+        editFunnel.logSectionHighlightToEditError(language: section?.articleLanguage)
         let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
         let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
@@ -307,8 +311,6 @@ class SectionEditorViewController: UIViewController {
                     else {
                         return
                 }
-                
-                self.editFunnel?.logStart(section.article?.url.wmf_language)
 
                 if let protectionStatus = section.article?.protection,
                     let allowedGroups = protectionStatus.allowedGroups(forAction: "edit") as? [String],
@@ -338,7 +340,7 @@ class SectionEditorViewController: UIViewController {
     // MARK: - Accessibility
     
     override func accessibilityPerformEscape() -> Bool {
-        navigationController?.popViewController(animated: true)
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
         return true
     }
     
@@ -348,6 +350,21 @@ class SectionEditorViewController: UIViewController {
             self.inputViewsController.didTransitionToNewCollection()
             self.focusNavigationView.updateLayout(for: newCollection)
         }
+    }
+
+    // MARK: Event logging
+
+    private var loggedEditActions: NSMutableSet = []
+    private func logSectionReadyToEdit() {
+        guard !loggedEditActions.contains(EditFunnel.Action.ready) else {
+            return
+        }
+        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: section?.articleLanguage)
+        loggedEditActions.add(EditFunnel.Action.ready)
+    }
+
+    private var editFunnelSource: EditFunnelSource {
+        return selectedTextEditInfo == nil ? .pencil : .highlight
     }
 }
 
@@ -381,7 +398,8 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.section = self.section
                     vc.wikitext = wikitext
                     vc.delegate = self
-                    vc.funnel = self.editFunnel
+                    vc.editFunnel = self.editFunnel
+                    vc.loggedEditActions = self.loggedEditActions
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
@@ -414,6 +432,9 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTextSelectionDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool) {
+        if isRangeSelected {
+            menuItemsController.setEditMenuItems()
+        }
         navigationItemController.textSelectionDidChange(isRangeSelected: isRangeSelected)
         inputViewsController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
@@ -497,7 +518,9 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme
-        vc.funnel = self.editFunnel
+        vc.editFunnel = self.editFunnel
+        vc.editFunnelSource = editFunnelSource
+        vc.loggedEditActions = loggedEditActions
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -568,16 +591,86 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerSc
         guard presentedViewController == nil else {
             return
         }
-        webView.scrollView.setContentOffset(newContentOffset, animated: true)
+        self.webView.scrollView.wmf_safeSetContentOffset(newContentOffset, animated: true, completion: nil)
     }
 }
 
 extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
-        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle, siteURL: section?.article?.url.wmf_site)
+        let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle?.wmf_stringByRemovingHTML(), siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
+        insertMediaViewController.apply(theme: theme)
+        let navigationController = UINavigationController(rootViewController: insertMediaViewController)
+        navigationController.isNavigationBarHidden = true
         present(navigationController, animated: true)
+    }
+
+    func showLinkWizard() {
+        guard let dataStore = dataStore else {
+            return
+        }
+        messagingController.getLink { link in
+            guard let link = link else {
+                assertionFailure("Link button should be disabled")
+                return
+            }
+            let siteURL = self.section?.article?.url.wmf_site
+            if link.exists {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore) else {
+                    return
+                }
+                editLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+                navigationController.isNavigationBarHidden = true
+                self.present(navigationController, animated: true)
+            } else {
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
+                insertLinkViewController.delegate = self
+                let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+                self.present(navigationController, animated: true)
+            }
+        }
+    }
+
+    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController) {
+        showLinkWizard()
+    }
+}
+
+extension SectionEditorViewController: SectionEditorMenuItemsControllerDelegate {
+    func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController) {
+        showLinkWizard()
+    }
+}
+
+extension SectionEditorViewController: EditLinkViewControllerDelegate {
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
+        messagingController.insertOrEditLink(page: linkTarget, label: displayText)
+        dismiss(animated: true)
+    }
+
+    func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
+        messagingController.removeLink()
+        dismiss(animated: true)
+    }
+
+    func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
+        dismiss(animated: true)
+    }
+}
+
+extension SectionEditorViewController: InsertLinkViewControllerDelegate {
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
+        messagingController.insertOrEditLink(page: page, label: label)
+        dismiss(animated: true)
     }
 }
 

@@ -99,7 +99,7 @@ open class Fetcher: NSObject {
     }
 
     @objc(performMediaWikiAPIGETForURL:withQueryParameters:cancellationKey:completionHandler:)
-    @discardableResult public func performMediaWikiAPIGET(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+    @discardableResult public func performMediaWikiAPIGET(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey?, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         let components = configuration.mediaWikiAPIURForHost(URL?.host, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.getJSONDictionary(from: components.url) { (result, response, error) in

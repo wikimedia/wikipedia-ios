@@ -1,7 +1,7 @@
 import WMF
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController {
+class NewsViewController: ColumnarCollectionViewController, DetailPresentingFromContentGroup {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
@@ -10,9 +10,12 @@ class NewsViewController: ColumnarCollectionViewController {
     let feedFunnelContext: FeedFunnelContext
     let cellImageViewHeight: CGFloat = 170
 
+    let contentGroupIDURIString: String?
+
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
+        contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
         self.theme = theme

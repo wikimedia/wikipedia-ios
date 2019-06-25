@@ -13,6 +13,7 @@
 @dynamic imageHeight;
 @dynamic imageURLString;
 @dynamic imageWidth;
+@dynamic isCached;
 @dynamic isDownloaded;
 @dynamic isExcludedFromFeed;
 @dynamic key;
@@ -35,5 +36,6 @@
 @dynamic readingLists;
 @dynamic previewReadingLists;
 @dynamic errorCodeNumber;
+@dynamic ns;
 
 @end

@@ -7,6 +7,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     init() {
         super.init(nibName: nil, bundle: nil)
     }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -143,6 +147,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
  
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIWindow.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIWindow.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIWindow.keyboardWillShowNotification, object: nil)
     }
 
     var isFirstAppearance = true
@@ -286,6 +292,14 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         
     @objc func keyboardDidHide(_ notification: Notification) {
         keyboardFrame = nil
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        //subclasses to override if needed
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        //subclasses to override if needed
     }
     
     // MARK: - Scrolling

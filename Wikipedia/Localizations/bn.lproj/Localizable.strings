@@ -117,8 +117,8 @@
 "description-published-button-title" = "সম্পন্ন";
 "description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
 "dim-images" = "অনুজ্জ্বল ছবি";
+"edit-link-title" = "সংযোগ সম্পাদনা";
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
-"edit-published-button-title" = "সম্পন্ন";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
 "edit-summary-choice-linked-words" = "লিংক সংযোজন";
@@ -203,7 +203,6 @@
 "home-news-footer" = "সংবাদে আরো";
 "home-themes-action-title" = "পছন্দসমূহ নিয়ন্ত্রণ করুন";
 "home-title" = "অন্বেষণ";
-"icon-shortcut-continue-reading-title" = "পড়া অব্যাহত রাখুন";
 "icon-shortcut-nearby-title" = "কাছাকাছি নিবন্ধ";
 "icon-shortcut-random-title" = "অজানা নিবন্ধ";
 "icon-shortcut-search-title" = "উইকিপিডিয়া অনুসন্ধান";

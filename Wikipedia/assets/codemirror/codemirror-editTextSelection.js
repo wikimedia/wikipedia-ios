@@ -6,92 +6,57 @@ class SelectedAndAdjacentText {
     this.textBeforeSelectedText = textBeforeSelectedText
     this.textAfterSelectedText = textAfterSelectedText
   }
+}
 
-  selectedWordCount() {
-    return this.selectedText.split(' ').length
-  }
-  
-  // If enough selected words there's no need for as many adjacent disambiguation words.
-  maxAdjacentWordsToUse() {
-    const selectedWordCount = this.selectedWordCount()
-    if (selectedWordCount < 4) {
-      return 4
-    }
-    if (selectedWordCount < 6) {
-      return 2
-    }
-    return 1
-  }
+const getNumberOfWordsFromBeginningOfString = (string, wordCount) => string.split(' ').slice(0, wordCount)
+const getNumberOfWordsFromEndOfString = (string, wordCount) => string.split(' ').slice(-wordCount)
 
-  regexForLocatingSelectedTextInWikitext(wikitext) {
-    const getWorkingRegexWithMostAdjacentWords = (regexGetter) => {
-      for (let i = this.maxAdjacentWordsToUse(); i >= 0; i--) {
-        const regex = regexGetter(i)
-        if (regex.test(wikitext)) {
-          return regex
-        }    
-      }
-      return null
-    }
-    const restrictiveRegex = getWorkingRegexWithMostAdjacentWords(this.getRestrictiveRegex.bind(this))
-    if (restrictiveRegex) {
-      return restrictiveRegex
-    }
-    const permissiveRegex = getWorkingRegexWithMostAdjacentWords(this.getPermissiveRegex.bind(this))
-    if (permissiveRegex) {
-      return permissiveRegex
-    }
-    return null
-  }
+const calculateScore = (wordsFromHTML, wordsFromWikitext) => wordsFromHTML.reduce((score, htmlWord, htmlWordIndex) => {
+  const indexOfHTMLWordInWikitextWords = wordsFromWikitext.indexOf(htmlWord);
+  const distance = indexOfHTMLWordInWikitextWords - htmlWordIndex; 
+  const wordScore = indexOfHTMLWordInWikitextWords === -1 ? 0 : (wordsFromWikitext.length - htmlWordIndex - distance);
+  return score + wordScore 
+}, 0) 
 
-  // Faster, less error prone - but has more trouble with skipping past some unexpectedly complicated wiki markup, so more prone to not finding any match.
-  getRestrictiveRegex(maxAdjacentWordsToUse) {
-    const atLeastOneNonWordPattern = '\\W+'
-    return this.regexForLocatingSelectedTextWithPatternForSpace(atLeastOneNonWordPattern, maxAdjacentWordsToUse)
-  }
-  
-  // Slower, more error prone - but has less trouble with skipping past some unexpectedly complicated wiki markup, so less prone to not finding any match.
-  getPermissiveRegex(maxAdjacentWordsToUse) {
-    const atLeastOneCharPattern = '.+'
-    return this.regexForLocatingSelectedTextWithPatternForSpace(atLeastOneCharPattern, maxAdjacentWordsToUse)
-  }
-    
-  regexForLocatingSelectedTextWithPatternForSpace(patternForSpace, maxAdjacentWordsToUse) {
-    const replaceSpaceWith = (s, replacement) => s.replace(/\s+/g, replacement)
+const wordsOnly = string => string.replace(/\(.*?\)/g, '').replace(/{{.*}}/g, '').replace(/\W+/g, ' ').trim()
+const adjacentComparisonWordCount = 6
+const adjacentCharsToGather = 200
 
-    // Keep only the last 'maxAdjacentWordsToUse' words of 'textBeforeSelectedText'
-    const shouldKeepWordBeforeSelection = (e, i, a) => (a.length - i - 1) < maxAdjacentWordsToUse
-    // Keep only the first 'maxAdjacentWordsToUse' words of 'textAfterSelectedText'
-    const shouldKeepWordAfterSelection = (e, i) => i < maxAdjacentWordsToUse
-    const wordsBefore = this.textBeforeSelectedText.split(' ').filter(shouldKeepWordBeforeSelection).join(' ')
-    const wordsAfter = this.textAfterSelectedText.split(' ').filter(shouldKeepWordAfterSelection).join(' ')
-
-    const selectedTextPattern = replaceSpaceWith(this.selectedText, patternForSpace)
-    const textBeforeSelectedTextPattern = replaceSpaceWith(wordsBefore, patternForSpace)
-    const textAfterSelectedTextPattern = replaceSpaceWith(wordsAfter, patternForSpace)
-
-    // Attempt to locate wikitext selection based on the non-wikitext context strings above.
-    const atLeastOneNonWordOrOptionalStringPattern = '(?:\\W+|.*)'
-    const pattern = `(${textBeforeSelectedTextPattern.length > 0 ? '.*?' : ''}${textBeforeSelectedTextPattern}${atLeastOneNonWordOrOptionalStringPattern})(${selectedTextPattern})${atLeastOneNonWordOrOptionalStringPattern}${textAfterSelectedTextPattern}`
-    const regex = new RegExp(pattern, 's')
-
-    return regex
-  }
+const scoreForMatch = (match, lastIndex, wordsBeforeFromHTML, wordsAfterFromHTML) => {
+  const wordsBeforeFromWikitext = getNumberOfWordsFromEndOfString(wordsOnly(match.input.substring(Math.max(0, match.index - adjacentCharsToGather), match.index)), adjacentComparisonWordCount)
+  const wordsAfterFromWikitext = getNumberOfWordsFromBeginningOfString(wordsOnly(match.input.substring(lastIndex, lastIndex + adjacentCharsToGather)), adjacentComparisonWordCount)
+  const wordsAfterScore = calculateScore(wordsAfterFromHTML, wordsAfterFromWikitext)
+  const wordsBeforeScore = calculateScore(wordsBeforeFromHTML.slice().reverse(), wordsBeforeFromWikitext.slice().reverse())
+  return wordsBeforeScore + wordsAfterScore
 }
 
 const wikitextRangeForSelectedAndAdjacentText = (selectedAndAdjacentText, wikitext) => {
-  const regex = selectedAndAdjacentText.regexForLocatingSelectedTextInWikitext(wikitext)
-  if (regex === null) {
+  const wordsBeforeFromHTML = getNumberOfWordsFromEndOfString(selectedAndAdjacentText.textBeforeSelectedText, adjacentComparisonWordCount)
+  const wordsAfterFromHTML = getNumberOfWordsFromBeginningOfString(selectedAndAdjacentText.textAfterSelectedText, adjacentComparisonWordCount)
+  const selectedTextRegexPattern = `(${selectedAndAdjacentText.selectedText.replace(/\s+/g, '(?:(?:\\[\\[[^\\]\\|]+\\|)|{{[^}]*}}|<[^>]*>|\\W)+')})`
+  const selectedTextRegex = new RegExp(selectedTextRegexPattern, 'gs')
+
+  let bestScoredMatch = null
+  while ((match = selectedTextRegex.exec(wikitext)) !== null) {
+    const thisMatchScore = scoreForMatch(match, selectedTextRegex.lastIndex, wordsBeforeFromHTML, wordsAfterFromHTML)
+    if (bestScoredMatch === null || thisMatchScore > bestScoredMatch.score) {
+      bestScoredMatch = {
+        match, 
+        score: thisMatchScore,
+        matchedWikitextBeforeSelection: {start: 0, end: match.index},
+        matchedWikitextSelection: {start: match.index, end: selectedTextRegex.lastIndex}
+      }    
+    }
+  }
+
+  if (bestScoredMatch === null) {
     return null
   }
-  const match = wikitext.match(regex)
-  if (match === null) {
-    return null
-  }
-  const matchedWikitextBeforeSelection = match[1]
-  const matchedWikitextSelection = match[2]
-  const wikitextRange = getWikitextRangeToSelect(matchedWikitextBeforeSelection, matchedWikitextSelection)
-  return wikitextRange
+
+  const matchedWikitextBeforeSelection = bestScoredMatch.match.input.substring(bestScoredMatch.matchedWikitextBeforeSelection.start, bestScoredMatch.matchedWikitextBeforeSelection.end)
+  const matchedWikitextSelection = bestScoredMatch.match.input.substring(bestScoredMatch.matchedWikitextSelection.start, bestScoredMatch.matchedWikitextSelection.end)
+
+  return getWikitextRangeToSelect(matchedWikitextBeforeSelection, matchedWikitextSelection)
 }
 
 const getWikitextRangeToSelect = (wikitextBeforeSelection, wikitextSelection) => {
@@ -109,19 +74,6 @@ const getWikitextRangeToSelect = (wikitextBeforeSelection, wikitextSelection) =>
   return {from, to}
 }
 
-const scrollToAndHighlightRange = (range, codemirror) => {
-  codemirror.setSelection(range.from, range.to, {scroll: false})
-  setTimeout(() => { // Slight pause needed to ensure keyboard height is accounted for.
-    scrollRangeIntoViewIfNeeded(range.from, range.to)
-  }, 250)
-    
-  /*
-  setTimeout(() => {
-    marker.clear()
-  }, 3000)
-  */
-}
-
 const highlightAndScrollToWikitextForSelectedAndAdjacentText = (selectedText, textBeforeSelectedText, textAfterSelectedText) => {
   const throwError = () => {throw('Could not determine range to highlight')} // The message doesn't matter here. It's not displayed.
   if (selectedText.trim().length === 0) {
@@ -133,5 +85,8 @@ const highlightAndScrollToWikitextForSelectedAndAdjacentText = (selectedText, te
   if (rangeToHighlight === null) {
     throwError()
   }
-  scrollToAndHighlightRange(rangeToHighlight, editor)
+
+  // Calling `setSelection` triggers our codemirror `cursorActivity` event, which will call our
+  // scrolling code as needed.
+  editor.setSelection(rangeToHighlight.from, rangeToHighlight.to, {scroll: false})
 }

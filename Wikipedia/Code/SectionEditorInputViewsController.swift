@@ -4,6 +4,7 @@ protocol SectionEditorInputViewsSource: class {
 
 protocol SectionEditorInputViewsControllerDelegate: AnyObject {
     func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
+    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
 }
 
 class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource, Themeable {
@@ -74,6 +75,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     var inputViewType: TextFormattingInputViewController.InputViewType?
+
     var suppressMenus: Bool = false {
         didSet {
             if suppressMenus {
@@ -83,8 +85,10 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     var inputViewController: UIInputViewController? {
-        guard let inputViewType = inputViewType,
-        !suppressMenus else {
+        guard
+            let inputViewType = inputViewType,
+            !suppressMenus
+        else {
             return nil
         }
         textFormattingInputViewController.inputViewType = inputViewType
@@ -249,7 +253,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapLink() {
-        messagingController.toggleAnchorSelection()
+        delegate?.sectionEditorInputViewsControllerDidTapLinkInsert(self)
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {

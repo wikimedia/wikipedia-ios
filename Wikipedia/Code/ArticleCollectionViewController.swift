@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath)
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath)
 }
 
 @objc(WMFArticleCollectionViewController)
@@ -31,6 +31,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    open func userTalkPageTitle(at indexPath: IndexPath) -> String? {
+        return nil
     }
     
     open func isExternalURL(at indexPath: IndexPath) -> Bool {
@@ -169,7 +173,9 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
+
+        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
+        
         guard !isExternalURL(at: indexPath) else {
             wmf_openExternalUrl(articleURL)
             return

@@ -51,6 +51,11 @@
 "account-creation-passwords-mismatched" = "Лозинките не се совпаѓаат.";
 "account-creation-saving" = "Зачувувам...";
 "account-creation-title" = "Создај нова сметка";
+"account-group-title" = "Ваша сметка";
+"account-talk-page-title" = "Ваша разговорна страница";
+"account-talk-preferences-auto-sign-discussions" = "Автопотпишување во разговори";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Автопотпишувањето ќе го става потписот зададен во нагодувањата";
+"account-talk-preferences-title" = "Нагодувања за разговорни страници";
 "action-add-to" = "Додај во...";
 "action-add-to-reading-list" = "Додај во список за читање";
 "action-add-to-reading-list-short" = "Додај во список";
@@ -75,6 +80,7 @@
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
+"add-citation-title" = "Додај навод";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -113,6 +119,7 @@
 "button-skip" = "Прескокни";
 "cancel" = "Откажи";
 "cc-zero" = "Криејтив комонс CC0";
+"clear-title-accessibility-label" = "Исчисти";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
@@ -169,7 +176,11 @@
 "edit-italic-accessibility-label" = "Стави закосено форматирање";
 "edit-italic-remove-accessibility-label" = "Отстрани закосено форматирање";
 "edit-link-accessibility-label" = "Стави синтакса за врска";
+"edit-link-display-text-title" = "Прикажи текст";
+"edit-link-link-target-title" = "Цел на врската";
 "edit-link-remove-accessibility-label" = "Отстрани синтакса за врска";
+"edit-link-remove-link-title" = "Отстрани врска";
+"edit-link-title" = "Уреди врска";
 "edit-menu-item" = "Уреди";
 "edit-menu-item-could-not-find-selection-alert-message" = "Ова може да се случува бидејќи текстот што го избравте не е уредлив (на пр. наслов на статија или наслови ви инфокутија), или пак поради големината на означениот текст.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Не можев да го пронајдам избраниот текст";
@@ -178,7 +189,6 @@
 "edit-ordered-list-accessibility-label" = "Направи го тековниот ред подреден список";
 "edit-ordered-list-remove-accessibility-label" = "Отстрани подреден список од тековниот ред";
 "edit-published" = "Уредувањето е објавено";
-"edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
 "edit-reference-accessibility-label" = "Стави синтакса за навод";
 "edit-reference-remove-accessibility-label" = "Отстрани синтакса за навод";
@@ -218,7 +228,7 @@
 "editing-welcome-impartial-tone-title" = "Пишувајте со непристрасен тон";
 "editing-welcome-set-knowledge-free-subtitle" = "Со цел да го направиме светското знаење пристапно за секого, ќе треба да учествувате во неовото создавање со читање и уредување на темите кои највеќе ви значат.";
 "editing-welcome-set-knowledge-free-title" = "Да го ослободиме знаењето";
-"empty-insert-media-title" = "Изберете податотека";
+"empty-insert-media-title" = "Изберете податотека од Ризницата";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
@@ -231,6 +241,7 @@
 "empty-no-saved-pages-message" = "Зачувајте ги страниците за да ги читате подоцна, дури и кога немате линија";
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-search-results-message" = "Не пронајдов ништо";
+"empty-talk-page-title" = "Корисников засега нема пораки.";
 "error-generic-description" = "Се појави неочекувана грешка";
 "error-generic-recovery-suggestion" = "Обидете се подоцна";
 "error-unknown" = "Се појави непозната грешка";
@@ -372,7 +383,6 @@
 "home-themes-prompt" = "Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања за поудобно читање.";
 "home-title" = "Истражете";
 "home-title-accessibility-label" = "Википедија, пролизгајте најгоре до Истражете";
-"icon-shortcut-continue-reading-title" = "Продолжете со читање";
 "icon-shortcut-nearby-title" = "Статии во близина";
 "icon-shortcut-random-title" = "Случајна статија";
 "icon-shortcut-search-title" = "Пребарај ја Википедија";
@@ -387,6 +397,7 @@
 "info-box-close-text" = "Затвори";
 "info-box-title" = "Кратки факти";
 "insert-action-title" = "Вметни";
+"insert-link-title" = "Вметни врска";
 "insert-media-alternative-text-description" = "Писмен опис за читателите кои не можат да ја видат сликата";
 "insert-media-alternative-text-placeholder" = "Опишете ја сликава";
 "insert-media-alternative-text-title" = "Алтернативен текст";
@@ -642,6 +653,7 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-title" = "Пребарување";
+"settings-account" = "Сметка";
 "settings-appearance" = "Нагодувања за читање";
 "settings-clear-cache" = "Исчисти меѓускладирани податоци";
 "settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
@@ -699,6 +711,27 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
+"talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам темата.";
+"talk-page-info-active-conversations" = "Тековни разговори на Википедија на $1";
+"talk-page-info-active-conversations-generic" = "Тековни разговори на Википедија";
+"talk-page-link-user-action-sheet-app" = "Погл. разгов. страница во прилогот";
+"talk-page-link-user-action-sheet-safari" = "Погл. разгов. страница во Safari";
+"talk-page-link-user-action-sheet-title" = "Кориснички страници";
+"talk-page-new-banner-subtitle" = "Запомнете, сите тука сме луѓе";
+"talk-page-new-banner-title" = "Бидете учтиви";
+"talk-page-new-reply-body-placeholder-text" = "Напиши одговор";
+"talk-page-new-reply-success-text" = "Одговорот е успешно објавен";
+"talk-page-new-subject-placeholder-text" = "Наслов";
+"talk-page-new-topic-body-placeholder-text" = "Состави нова расправа";
+"talk-page-new-topic-success-text" = "Расправата е успешно објавена.";
+"talk-page-new-topic-title" = "Нова расправа";
+"talk-page-publish-terms-and-licenses" = "Зачувувајќи ги промените, се согласувате со $1Условите на употреба$2, и дека ги објавувате вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6.";
+"talk-page-reply-title" = "Одговори";
+"talk-page-title-article-talk" = "разговор за статија";
+"talk-page-title-user-talk" = "Кориснички разговор";
+"talk-page-topic-title" = "Расправа";
+"talk-pages-reply-button-title" = "Одговори на расправата";
 "theme-black-display-name" = "Црн";
 "theme-dark-display-name" = "Темен";
 "theme-default-display-name" = "Основен";
@@ -711,6 +744,7 @@
 "two-factor-login-title" = "Најавете се со вашата сметка";
 "two-factor-login-with-backup-code" = "Користи еден од резервните кодови";
 "two-factor-login-with-regular-code" = "Користи потврден код";
+"unable-to-load-talk-page-title" = "Не можам да ја вчитам разговорната страница";
 "view-in-browser-footer-link" = "Отвори во прелистувач";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
 "welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
