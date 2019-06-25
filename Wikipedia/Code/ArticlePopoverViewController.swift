@@ -87,7 +87,7 @@ class ArticlePopoverViewController: UIViewController {
     }
     
     public func update() {
-        if showSaveAndShareTitles {
+        if !showSaveAndShareTitles {
             saveButton.saveButtonState = article.savedDate == nil ? .shortSave : .shortSaved
         }
         let saveTitle = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle
