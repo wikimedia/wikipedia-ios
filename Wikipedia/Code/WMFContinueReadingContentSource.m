@@ -34,7 +34,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    NSURL *lastRead = [self.userDataStore.historyList mostRecentEntryInManagedObjectContext:moc].URL;
+    NSURL *lastRead = [moc wmf_openArticleURL] ?: [self.userDataStore.historyList mostRecentEntryInManagedObjectContext:moc].URL;
 
     if (!lastRead) {
         completion();
@@ -58,7 +58,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
             }
             return;
         }
-        
+
         NSURL *savedURL = (NSURL *)groups.firstObject.contentPreview;
 
         if ([savedURL isEqual:lastRead]) {
@@ -76,11 +76,11 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
             }
             return;
         }
-        
+
         for (WMFContentGroup *group in groups) {
             [moc removeContentGroup:group];
         }
-        
+
         NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURLForArticleURL:lastRead];
         [moc fetchOrCreateGroupForURL:continueReadingURL
                                ofKind:WMFContentGroupKindContinueReading
