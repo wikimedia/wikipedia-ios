@@ -67,10 +67,19 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         delegate?.didBecomeActiveAfterCompletingActivity(ofType: completedActivityType)
         completedActivityType = nil
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            //
+        }) { _ in
+            self.updateScrollViewInsets()
+        }
+        super.willTransition(to: newCollection, with: coordinator)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
