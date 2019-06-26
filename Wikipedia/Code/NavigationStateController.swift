@@ -136,7 +136,7 @@ final class NavigationStateController: NSObject {
                 else {
                     return
                 }
-                talkPageContainerVC.pushToReplyThread(topic: talkPageTopic)
+                talkPageContainerVC.pushToReplyThread(topic: talkPageTopic, animated: false)
             case (.readingListDetail, let info?):
                 guard let readingList = managedObject(with: info.readingListURIString, in: moc) as? ReadingList else {
                     return
