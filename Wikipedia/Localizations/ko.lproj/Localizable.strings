@@ -735,6 +735,8 @@
 "talk-page-error-unable-to-post-topic" = "인터넷이 연결되어 있지 않습니다. 주제를 게시할 수 없습니다.";
 "talk-page-info-active-conversations" = "$1 위키백과에서 진행 중인 대화";
 "talk-page-info-active-conversations-generic" = "위키백과에서 진행 중인 대화";
+"talk-page-link-user-action-sheet-app" = "앱에서 사용자 토론 문서 보기";
+"talk-page-link-user-action-sheet-safari" = "사파리에서 사용자 문서 보기";
 "talk-page-link-user-action-sheet-title" = "사용자 문서";
 "talk-page-new-banner-subtitle" = "여기서 우리 모두는 사람입니다";
 "talk-page-new-banner-title" = "공손한 태도로 임해 주십시오";

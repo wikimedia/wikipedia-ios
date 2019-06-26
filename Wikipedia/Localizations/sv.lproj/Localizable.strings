@@ -67,7 +67,7 @@
 "account-group-title" = "Ditt konto";
 "account-talk-page-title" = "Din diskussionssida";
 "account-talk-preferences-auto-sign-discussions" = "Signera diskussioner automatiskt";
-"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatisk signering av diskussioner använder signaturen som definieras i signaturinställningarna";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "\nAutomatisk signering av diskussioner använder signaturen som definieras i signaturinställningarna";
 "account-talk-preferences-title" = "Inställningar för diskussionssida";
 "action-add-to" = "Lägg till i...";
 "action-add-to-reading-list" = "Lägg till i läslista";
