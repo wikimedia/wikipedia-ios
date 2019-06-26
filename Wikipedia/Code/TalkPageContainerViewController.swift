@@ -175,13 +175,13 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         view.backgroundColor = theme.colors.paperBackground
     }
 
-    func pushToReplyThread(topic: TalkPageTopic) {
+    func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
         let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
         replyListViewController.delegate = self
         replyListViewController.apply(theme: theme)
         replyListViewController.repliesAreDisabled = viewState.repliesAreDisabled
         self.replyListViewController = replyListViewController
-        navigationController?.pushViewController(replyListViewController, animated: true)
+        navigationController?.pushViewController(replyListViewController, animated: animated)
     }
 }
 
