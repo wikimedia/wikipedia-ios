@@ -80,14 +80,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
         if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
             let searchSiteURL = searchSiteURL {
             
-            //replace localized namespace with canonical namespace so it's considered the same key in the database
-            let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: userTalkPageTitle)
-            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: searchSiteURL)
-            let talkPageContainer = TalkPageContainerViewController(title: title, siteURL: searchSiteURL, type: .user, dataStore: dataStore)
-            talkPageContainer.apply(theme: theme)
             let article = dataStore.historyList.addPageToHistory(with: articleURL)
             article?.update(with: results[indexPath.item])
-            wmf_push(talkPageContainer, animated: true)
+            
+            pushUserTalkPage(title: userTalkPageTitle, siteURL: searchSiteURL)
             return
         }
         
