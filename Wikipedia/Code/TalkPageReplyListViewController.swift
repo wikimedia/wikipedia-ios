@@ -268,6 +268,7 @@ private extension TalkPageReplyListViewController {
     
     func setupNavigationBar() {
         navigationBar.isBarHidingEnabled = false
+        navigationBar.allowsUnderbarHitsFallThrough = true
         let replyImage = UIImage(named: "reply")
         replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
         replyBarButtonItem.tintColor = theme.colors.link

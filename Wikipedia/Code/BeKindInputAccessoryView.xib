@@ -25,8 +25,8 @@
             </subviews>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="FeZ-MC-Zh9" secondAttribute="bottom" id="6C0-mF-QhF"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="FeZ-MC-Zh9" secondAttribute="trailing" id="ZZN-un-VOQ"/>
-                <constraint firstItem="FeZ-MC-Zh9" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="oZ0-CI-ZHi"/>
+                <constraint firstAttribute="trailing" secondItem="FeZ-MC-Zh9" secondAttribute="trailing" id="ZZN-un-VOQ"/>
+                <constraint firstItem="FeZ-MC-Zh9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="oZ0-CI-ZHi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
