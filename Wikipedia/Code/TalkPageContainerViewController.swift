@@ -340,7 +340,7 @@ private extension TalkPageContainerViewController {
         self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
     }
     
-    func showUserActionSheet(siteURL: URL, absoluteURL: URL) {
+    func showUserActionSheet(siteURL: URL, absoluteURL: URL, sourceView: UIView, sourceRect: CGRect?) {
         
         let alertController = UIAlertController(title: WMFLocalizedString("talk-page-link-user-action-sheet-title", value: "User pages", comment: "Title of action sheet that displays when user taps a user page link in talk pages"), message: nil, preferredStyle: .actionSheet)
         let safariAction = UIAlertAction(title: WMFLocalizedString("talk-page-link-user-action-sheet-safari", value: "View User page in Safari", comment: "Title of action sheet button that takes user to a user page in Safari after tapping a user page link in talk pages."), style: .default) { (_) in
@@ -362,6 +362,13 @@ private extension TalkPageContainerViewController {
         alertController.addAction(talkAction)
         alertController.addAction(cancelAction)
         
+        let rect = sourceRect ?? sourceView.bounds
+        if let popover = alertController.popoverPresentationController {
+            popover.sourceView = sourceView
+            popover.sourceRect = rect
+            popover.permittedArrowDirections = .any
+        }
+        
         present(alertController, animated: true, completion: nil)
     }
     
@@ -381,7 +388,7 @@ private extension TalkPageContainerViewController {
         loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = !shouldDisable
     }
     
-    func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController) {
+    func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
         guard let absoluteURL = absoluteURL(for: url) else {
             showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
             return
@@ -414,7 +421,7 @@ private extension TalkPageContainerViewController {
                     let lastPathComponent = url.lastPathComponent
                     self.pushTalkPage(title: lastPathComponent, siteURL: siteURL)
                 case .user:
-                    self.showUserActionSheet(siteURL: siteURL, absoluteURL: absoluteURL)
+                    self.showUserActionSheet(siteURL: siteURL, absoluteURL: absoluteURL, sourceView: sourceView, sourceRect: sourceRect)
                 case .main:
                     self.wmf_pushArticle(with: absoluteURL, dataStore: self.dataStore, theme: self.theme, animated: true)
                 default:
@@ -520,14 +527,14 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         }
     }
     
-    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
-        tappedLink(url, loadingViewController: viewController)
+    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?) {
+        tappedLink(url, loadingViewController: viewController, sourceView: sourceView, sourceRect: sourceRect)
     }
 }
 
 extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView) {
-        tappedLink(url, loadingViewController: self)
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
+        tappedLink(url, loadingViewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
     
     func tappedIntro(headerView: TalkPageHeaderView) {

@@ -2,7 +2,7 @@
 import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
-    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
+    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?)
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController)
 }
 
@@ -361,9 +361,9 @@ private extension TalkPageReplyListViewController {
 }
 
 extension TalkPageReplyListViewController: TalkPageReplyCellDelegate {
-    func tappedLink(_ url: URL, cell: TalkPageReplyCell) {
+    func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?) {
         
-        delegate?.tappedLink(url, viewController: self)
+        delegate?.tappedLink(url, viewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
 }
 
@@ -387,8 +387,8 @@ extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
 //MARK: TalkPageHeaderViewDelegate
 
 extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView) {
-        delegate?.tappedLink(url, viewController: self)
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
+        delegate?.tappedLink(url, viewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
     
     func tappedIntro(headerView: TalkPageHeaderView) {
