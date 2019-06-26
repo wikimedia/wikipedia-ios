@@ -19,7 +19,10 @@ import UIKit
     
     public var eventLoggingLabel: EventLoggingLabel? = nil
     public var eventLoggingCategory: EventLoggingCategory = .feed
-    
+
+    public var showImage: Bool = true
+    public var showTitle: Bool = true
+
     public var saveButtonState: SaveButton.SaveButtonState = .shortSave {
         didSet {
             let saveTitle: String
@@ -48,8 +51,12 @@ import UIKit
             }
             let addToReadingListAction = UIAccessibilityCustomAction(name: CommonStrings.addToReadingListActionTitle, target: self, selector: #selector(addToReadingList(_:)))
             accessibilityCustomActions = [addToReadingListAction]
-            setTitle(saveTitle, for: .normal)
-            setImage(saveImage, for: .normal)
+            if showTitle {
+                setTitle(saveTitle, for: .normal)
+            }
+            if showImage {
+                setImage(saveImage, for: .normal)
+            }
             adjustsImageWhenHighlighted = false
         }
     }
