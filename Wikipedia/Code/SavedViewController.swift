@@ -179,6 +179,10 @@ class SavedViewController: ViewController {
         allArticlesButton.setTitle(allArticlesButtonTitle, for: .normal)
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
         readingListsButton.setTitle(readingListsButtonTitle, for: .normal)
+        allArticlesButton.titleLabel?.numberOfLines = 1
+        readingListsButton.titleLabel?.numberOfLines = 1
+        allArticlesButton.titleLabel?.lineBreakMode = .byTruncatingTail
+        readingListsButton.titleLabel?.lineBreakMode = .byTruncatingTail
 
         searchBar.delegate = self
         searchBar.returnKeyType = .search
