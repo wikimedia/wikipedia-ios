@@ -3,6 +3,8 @@ import Foundation
 
 extension UITextView {
     func frame(of textRange: NSRange) -> CGRect? {
+        
+        let oldSelectedRange = selectedRange
         selectedRange = textRange
         
         var rect: CGRect?
@@ -10,7 +12,8 @@ extension UITextView {
             rect = firstRect(for: uiTextRange)
         }
         
-        selectedRange = NSRange(location: 0, length: 0)
+        selectedRange = oldSelectedRange
+        
         return rect
     }
 }
