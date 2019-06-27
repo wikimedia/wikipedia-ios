@@ -235,6 +235,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         
         var top: CGFloat
         if showsNavigationBar {
+            navigationBar.layoutIfNeeded()
             if useNavigationBarVisibleHeightForScrollViewInsets {
                 top = navigationBar.visibleHeight
             } else {
