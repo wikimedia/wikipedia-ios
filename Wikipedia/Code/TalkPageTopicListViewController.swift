@@ -27,6 +27,8 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
 
     private var completedActivityType: UIActivity.ActivityType?
+    
+    var fromNavigationStateRestoration: Bool = false
 
     required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
@@ -57,6 +59,17 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         setupToolbar()
 
         NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if fromNavigationStateRestoration {
+            navigationBar.setNeedsLayout()
+            navigationBar.layoutIfNeeded()
+            updateScrollViewInsets()
+            fromNavigationStateRestoration = false
+        }
     }
 
     deinit {
