@@ -798,7 +798,7 @@
 "wikitext-preview-save-changes-title" = "儲存變更";
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";
-"wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";
+"wikitext-upload-result-unknown" = "無法確定 wiki 語法上傳結果。";
 "wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-anonymously-or-login" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1登入$2，您將擁有更多隱私。";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1，您將擁有更多隱私。";
