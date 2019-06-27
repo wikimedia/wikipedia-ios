@@ -214,18 +214,25 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         }
     }
  
+    // MARK - Responding to layout changes
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateScrollViewInsets()
     }
     
-    // MARK - Scroll View Insets
-    
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
-        self.updateScrollViewInsets()
+        view.layoutIfNeeded()
     }
     
+    override func viewLayoutMarginsDidChange() {
+        super.viewLayoutMarginsDidChange()
+        view.layoutIfNeeded()
+    }
+    
+    // MARK - Scroll View Insets
+
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
     
     public final func updateScrollViewInsets(preserveAnimation: Bool = false) {
@@ -235,7 +242,6 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         
         var top: CGFloat
         if showsNavigationBar {
-            navigationBar.layoutIfNeeded()
             if useNavigationBarVisibleHeightForScrollViewInsets {
                 top = navigationBar.visibleHeight
             } else {
