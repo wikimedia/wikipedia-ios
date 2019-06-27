@@ -155,7 +155,6 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         guard navigationMode == .bar else {
             if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
                 var updatedElements: [Any] = [closeButton]
@@ -216,6 +215,11 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
  
     // MARK - Responding to layout changes
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        navigationBar.layoutIfNeeded()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateScrollViewInsets()
@@ -223,12 +227,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
-        view.layoutIfNeeded()
-    }
-    
-    override func viewLayoutMarginsDidChange() {
-        super.viewLayoutMarginsDidChange()
-        view.layoutIfNeeded()
+        updateScrollViewInsets()
     }
     
     // MARK - Scroll View Insets
