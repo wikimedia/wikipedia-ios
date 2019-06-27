@@ -64,7 +64,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //T226732 - workaround for when navigation bar maxY doesn't include top safe area height when returning from state restoration which results in a scroll view inset bug
         if fromNavigationStateRestoration {
             navigationBar.setNeedsLayout()
             navigationBar.layoutIfNeeded()
