@@ -691,6 +691,7 @@
 "table-title-other" = "Meer informatie";
 "talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
 "talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
+"talk-page-link-user-action-sheet-safari" = "Gebruikerspagina bekijken in Safari";
 "talk-page-link-user-action-sheet-title" = "Gebruikerspagina's";
 "talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
 "talk-page-new-reply-success-text" = "Uw reactie is succesvol gepubliceerd";

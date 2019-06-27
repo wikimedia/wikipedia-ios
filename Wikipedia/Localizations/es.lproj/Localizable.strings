@@ -83,6 +83,7 @@
 "account-creation-saving" = "Guardando…";
 "account-creation-title" = "Crear una cuenta nueva";
 "account-group-title" = "Tu cuenta";
+"account-talk-page-title" = "Tu página de discusión";
 "action-add-to" = "Añadir a…";
 "action-add-to-reading-list" = "Añadir a una lista de lectura";
 "action-add-to-reading-list-short" = "Añadir a la lista";
@@ -741,6 +742,7 @@
 "talk-page-link-user-action-sheet-title" = "Páginas de usuario";
 "talk-page-new-banner-subtitle" = "Recuerda: aquí todos somos humanos";
 "talk-page-new-banner-title" = "Sé amable";
+"talk-page-new-reply-body-placeholder-text" = "Redactar respuesta";
 "talk-page-new-reply-success-text" = "La respuesta se publicó correctamente";
 "talk-page-new-subject-placeholder-text" = "Asunto";
 "talk-page-new-topic-body-placeholder-text" = "Redactar discusión nueva";
