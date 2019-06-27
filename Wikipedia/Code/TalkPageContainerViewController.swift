@@ -83,7 +83,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
     
     var hintController: HintController?
-    var fromNavigationStateRestoration: Bool = false
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -232,8 +231,6 @@ private extension TalkPageContainerViewController {
         if topicListViewController == nil {
             topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPageTitle: talkPageTitle, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
             topicListViewController?.apply(theme: theme)
-            topicListViewController?.fromNavigationStateRestoration = fromNavigationStateRestoration
-            fromNavigationStateRestoration = false
             let belowView: UIView = wmf_emptyView ?? navigationBar
             wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowView)
             topicListViewController?.delegate = self
