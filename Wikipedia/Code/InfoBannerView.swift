@@ -18,7 +18,7 @@ class InfoBannerView: SetupView {
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
         let isRTL = semanticContentAttribute == .forceRightToLeft
         
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left, bottom: layoutMargins.bottom, right: layoutMargins.right + 5)
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left + 13, bottom: layoutMargins.bottom, right: layoutMargins.right + 13)
         
         let iconImageSideLength = CGFloat(26)
         let iconTextSpacing = CGFloat(10)
@@ -86,8 +86,6 @@ class InfoBannerView: SetupView {
     }
 
     override func setup() {
-        preservesSuperviewLayoutMargins = false
-        insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
         titleLabel.numberOfLines = 0
         subtitleLabel.numberOfLines = 0

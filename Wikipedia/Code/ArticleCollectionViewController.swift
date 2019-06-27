@@ -91,6 +91,17 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         return articleURL(at: indexPath) != nil
     }
     
+    func pushUserTalkPage(title: String, siteURL: URL) {
+        //replace localized namespace with canonical namespace so it's considered the same key in the database
+        let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: title)
+        let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: siteURL)
+        let talkPageContainer = TalkPageContainerViewController(title: title, siteURL: siteURL, type: .user, dataStore: dataStore)
+        talkPageContainer.apply(theme: theme)
+        
+        wmf_push(talkPageContainer, animated: true)
+        return
+    }
+    
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
         cellLayoutEstimate = nil
         super.contentSizeCategoryDidChange(notification)
