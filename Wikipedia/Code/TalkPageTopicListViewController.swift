@@ -202,7 +202,7 @@ private extension TalkPageTopicListViewController {
         self.shareIcon = shareIcon
     }
     
-    @objc func tappedShare(_ sender: UIBarButtonItem) {
+    @objc func tappedShare(_ sender: UIButton) {
         var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
         guard let talkPageURL = talkPageURLComponents?.url else {
@@ -214,6 +214,13 @@ private extension TalkPageTopicListViewController {
                 self.completedActivityType = activityType
             }
         }
+        
+        if let popover = activityViewController.popoverPresentationController {
+            popover.sourceView = sender
+            popover.sourceRect = sender.bounds
+            popover.permittedArrowDirections = .down
+        }
+        
         present(activityViewController, animated: true)
     }
     
