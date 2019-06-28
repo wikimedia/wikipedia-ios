@@ -288,7 +288,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                         failure(error);
                     });
                 }
-                success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
+                success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull fetchedURL) {
                     dispatch_async(self.accessQueue, ^{
                         [self downloadImageDataForArticle:article
                             failure:^(NSError *error) {
