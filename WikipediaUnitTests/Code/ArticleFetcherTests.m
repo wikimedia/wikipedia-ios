@@ -39,6 +39,54 @@
     return [[NSProcessInfo processInfo] wmf_isTravis] ? @[] : [super testInvocations];
 }
 
+-(void)testMissingTitleReturnsExpectedError {
+    NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+    NSURL *dummyArticleURL = [siteURL wmf_URLWithTitle:@"Foo"];
+    NSURL *url = [NSURL wmf_desktopAPIURLForURL:siteURL];
+    
+    NSData *json = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"missing-title" ofType:@"json"];
+    
+    // TODO: refactor into convenience method
+    NSRegularExpression *anyRequestFromTestSite =
+    [NSRegularExpression regularExpressionWithPattern:
+     [NSString stringWithFormat:@"%@.*", [url absoluteString]]
+                                              options:0
+                                                error:nil];
+    
+    stubRequest(@"GET", anyRequestFromTestSite)
+    .andReturn(200)
+    .withHeaders(@{@"Content-Type": @"application/json"})
+    .withBody(json);
+    
+    NSRegularExpression *anySummaryRequest =
+    [NSRegularExpression regularExpressionWithPattern:@".*v1/page/summary/.*"
+                                              options:0
+                                                error:nil];
+    stubRequest(@"GET", anySummaryRequest).andReturn(404);
+
+    WMFArticleFetcher *fetcher = self.articleFetcher;
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
+    
+    [fetcher fetchArticleForURL:dummyArticleURL
+                     saveToDisk:YES
+                       priority:NSURLSessionTaskPriorityHigh
+                        failure:^(NSError *error) {
+                            
+                            XCTAssertEqual(error.domain, WMFNetworkingErrorDomain);
+                            XCTAssertEqual(error.code, WMFNetworkingError_APIError);
+                            XCTAssertTrue([error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]);
+                            
+                            [expectation fulfill];
+                        }
+                        success:^(MWKArticle *article, NSURL *articleURL) {
+                            
+                            XCTFail(@"Recieved success");
+                        }];
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout
+                                 handler:nil];
+}
+
 - (void)testSuccessfulFetchWritesArticleToDataStoreWithoutDuplicatingData {
     NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     NSURL *dummyArticleURL = [siteURL wmf_URLWithTitle:@"Foo"];
