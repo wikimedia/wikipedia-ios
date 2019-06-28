@@ -1,5 +1,8 @@
 extension WMFArticle {
     @objc public func update(withSummary summary: ArticleSummary) {
+        if let summaryKey = summary.articleURL?.wmf_articleDatabaseKey, summaryKey != key {
+            key = summaryKey
+        }
         if let original = summary.original {
             imageURLString = original.source
             imageWidth = NSNumber(value: original.width)
@@ -27,21 +30,24 @@ extension WMFArticle {
 }
 
 extension NSManagedObjectContext {
-    @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: ArticleSummary]) throws -> [WMFArticle] {
+    @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: ArticleSummary]) throws -> [String: WMFArticle] {
         let keys = summaryResponses.keys
         guard !keys.isEmpty else {
-            return []
+            return [:]
         }
         var keysToCreate = Set(keys)
         let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
         articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", Array(keys))
-        var articles = try self.fetch(articlesToUpdateFetchRequest)
-        for articleToUpdate in articles {
+        var articles: [String: WMFArticle] = [:]
+        articles.reserveCapacity(keys.count)
+        let fetchedArticles = try self.fetch(articlesToUpdateFetchRequest)
+        for articleToUpdate in fetchedArticles {
             guard let key = articleToUpdate.key,
                 let result = summaryResponses[key] else {
                     continue
             }
             articleToUpdate.update(withSummary: result)
+            articles[key] = articleToUpdate
             keysToCreate.remove(key)
         }
         for key in keysToCreate {
@@ -50,7 +56,7 @@ extension NSManagedObjectContext {
                     continue
             }
             article.update(withSummary: result)
-            articles.append(article)
+            articles[key] = article
         }
         try self.save()
         return articles

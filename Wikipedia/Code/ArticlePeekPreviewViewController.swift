@@ -22,11 +22,11 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [articleURL]) { (articles, _) in
-                guard let first = articles.first else {
+            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withURL: articleURL) { (article, _) in
+                guard let article = article else {
                     return
                 }
-                self.updateView(with: first)
+                self.updateView(with: article)
             }
             return
         }

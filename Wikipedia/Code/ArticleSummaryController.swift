@@ -10,9 +10,15 @@ public class ArticleSummaryController: NSObject {
         self.fetcher = fetcher
     }
     
-    public func updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: (([WMFArticle], Error?) -> Void)? = nil) {
+    public func updateOrCreateArticleSummaryForArticle(withURL articleURL: URL, completion: ((WMFArticle?, Error?) -> Void)? = nil) {
+        updateOrCreateArticleSummariesForArticles(withURLs: [articleURL], completion: { (byKey, error) in
+            completion?(byKey.first?.value, error)
+        })
+    }
+    
+    public func updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: (([String: WMFArticle], Error?) -> Void)? = nil) {
         guard let moc = dataStore?.viewContext else {
-            completion?([], RequestError.invalidParameters)
+            completion?([:], RequestError.invalidParameters)
             return
         }
         fetcher.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
@@ -22,7 +28,7 @@ public class ArticleSummaryController: NSObject {
                     completion?(articles, nil)
                 } catch let error {
                     DDLogError("Error fetching article summary responses: \(error.localizedDescription)")
-                    completion?([], error)
+                    completion?([:], error)
                 }
             }
         }

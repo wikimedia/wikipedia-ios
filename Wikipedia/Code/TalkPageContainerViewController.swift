@@ -400,7 +400,7 @@ private extension TalkPageContainerViewController {
         
         viewState = .linkLoading(loadingViewController: loadingViewController)
         
-        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [absoluteURL]) { [weak self, weak loadingViewController] (articles, error) in
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withURL: absoluteURL) { [weak self, weak loadingViewController] (article, error) in
             
             guard let self = self,
             let loadingViewController = loadingViewController else {
@@ -414,7 +414,7 @@ private extension TalkPageContainerViewController {
             
             self.viewState = .linkFinished(loadingViewController: loadingViewController)
             
-            if let namespace = articles.first?.pageNamespace,
+            if let namespace = article?.pageNamespace,
                 
                 //convert absoluteURL into a siteURL that TalkPageType.user.titleWithCanonicalNamespacePrefix will recognize to prefix the canonical name
                 let languageCode = absoluteURL.wmf_language,

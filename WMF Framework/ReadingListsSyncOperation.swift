@@ -393,7 +393,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         guard !isCancelled  else {
                             throw ReadingListsOperationError.cancelled
                         }
-                        let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
+                        let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
+                        let articles = Array(articlesByKey.values)
                         try readingListsController.add(articles: articles, to: list, in: moc)
                         if let defaultReadingList = moc.wmf_fetchDefaultReadingList() {
                             try readingListsController.add(articles: articles, to: defaultReadingList, in: moc)
@@ -766,14 +767,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             throw ReadingListsOperationError.cancelled
         }
         
-        let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
-        for article in articles {
-            guard let articleKey = article.key else {
-                continue
-            }
-            articlesByKey[articleKey] = article
-        }
-        
+        let updatedArticlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
+        articlesByKey.merge(updatedArticlesByKey, uniquingKeysWith: { (a, b) in return a })
         var finalReadingListsByEntryID: [Int64: ReadingList]
         if let readingListsByEntryID = readingListsByEntryID {
             finalReadingListsByEntryID = readingListsByEntryID
