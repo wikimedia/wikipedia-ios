@@ -122,6 +122,7 @@ private extension TalkPageReplyComposeView {
         composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
         insertSubview(finePrintTextView, belowSubview: composeTextView)
         finePrintTextView.isScrollEnabled = false
+        finePrintTextView.isEditable = false
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
 }
