@@ -35,7 +35,7 @@
             assert(false);
             break;
         case WMFContentGroupKindContinueReading:
-            URL = [WMFContentGroup continueReadingContentGroupURL];
+            URL = [WMFContentGroup continueReadingContentGroupURLForArticleURL:self.articleURL];
             break;
         case WMFContentGroupKindMainPage:
             URL = [WMFContentGroup mainPageURLForSiteURL:self.siteURL];
@@ -360,8 +360,22 @@
     return theURL;
 }
 
-+ (nullable NSURL *)continueReadingContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"continue-reading"];
++ (nullable NSURL *)continueReadingContentGroupURLForArticleURL:(NSURL *)url {
+    NSParameterAssert(url);
+    NSString *title = url.wmf_title;
+    NSString *domain = url.wmf_domain;
+    NSString *language = url.wmf_language;
+    NSParameterAssert(title);
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!title || !domain || !language) {
+        return nil;
+    }
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[self baseURL] resolvingAgainstBaseURL:NO];
+    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLArticleTitlePathComponentAllowedCharacterSet]];
+    NSString *path = [NSString pathWithComponents:@[@"/continue-reading", domain, language, encodedTitle]];
+    components.percentEncodedPath = path;
+    return components.URL;
 }
 
 + (nullable NSURL *)relatedPagesContentGroupURLForArticleURL:(NSURL *)url {
