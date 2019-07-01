@@ -22,7 +22,10 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withURL: articleURL) { (article, _) in
+            guard let key = articleURL.wmf_articleDatabaseKey else {
+                return
+            }
+            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
                 guard let article = article else {
                     return
                 }

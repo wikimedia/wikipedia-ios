@@ -35,8 +35,8 @@ extension ShareableArticlesProvider where Self: UIViewController & EventLoggingE
     func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory? = nil, eventLoggingLabel: EventLoggingLabel? = nil, sourceView: UIView?) -> Bool {
         if let article = article {
             return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
-        } else if let articleURL = articleURL {
-            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withURL: articleURL) { (article, _) in
+        } else if let articleURL = articleURL, let key = articleURL.wmf_articleDatabaseKey {
+            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
                 guard let article = article else {
                     return
                 }

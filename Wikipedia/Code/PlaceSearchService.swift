@@ -138,11 +138,11 @@ class PlaceSearchService
                     done()
                     return
                 }
-                let urls = savedPagesWithoutLocation.compactMap({ (article) -> URL? in
-                    return article.url
+                let keys = savedPagesWithoutLocation.compactMap({ (article) -> String? in
+                    return article.key
                 })
                 // Fetch summaries from the server and update WMFArticle objects
-                dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles, _) in
+                dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: keys) { (articles, _) in
                     done()
                 }
                 return

@@ -61,7 +61,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
     NSString *title = articleURL.wmf_titleWithUnderscores;
-    if (!title) {
+    NSString *key = articleURL.wmf_articleDatabaseKey;
+    if (!title || !key) {
         failure([WMFFetcher invalidParametersError]);
         return nil;
     }
@@ -71,7 +72,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block WMFArticleSummary *summaryResponse = nil;
     [taskGroup enter];
-    [self.summaryFetcher fetchSummaryFor:articleURL priority:priority completion:^(WMFArticleSummary * _Nullable summary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.summaryFetcher fetchSummaryForArticleWithKey:key priority:priority completion:^(WMFArticleSummary * _Nullable summary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         summaryResponse = summary;
         [taskGroup leave];
     }];

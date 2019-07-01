@@ -747,7 +747,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     articlesByKey[articleKey] = article
                 } else {
                     group.enter()
-                    summaryFetcher.fetchSummary(for: articleURL, completion: { (result, response, error) in
+                    summaryFetcher.fetchSummaryForArticle(with: articleKey, completion: { (result, response, error) in
                         guard let result = result else {
                             group.leave()
                             return
