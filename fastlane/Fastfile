@@ -90,6 +90,7 @@ platform :ios do
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
+        clean: true,
         devices: devices,
         scheme: scheme,
         disable_concurrent_testing: true,
