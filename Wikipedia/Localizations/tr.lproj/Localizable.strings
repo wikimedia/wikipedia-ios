@@ -76,6 +76,9 @@
 "account-creation-title" = "Yeni bir hesap oluştur";
 "account-group-title" = "Hesabınız";
 "account-talk-page-title" = "Mesaj sayfanız";
+"account-talk-preferences-auto-sign-discussions" = "Otomatik imza tartışmaları";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tartışmaların otomatik olarak imzalanması, İmza ayarlarında tanımlanan imzayı kullanır";
+"account-talk-preferences-title" = "Tartışma sayfası tercihleri";
 "action-add-to" = "Ekle...";
 "action-add-to-reading-list" = "Okuma listesine ekle";
 "action-add-to-reading-list-short" = "Listeye ekle";
@@ -248,7 +251,7 @@
 "editing-welcome-impartial-tone-title" = "Tarafsız bir bakış açısıyla yazın";
 "editing-welcome-set-knowledge-free-subtitle" = "Herkesin dünyadaki bilgiye erişimini sağlamak için en önemli olan konuları okumada, düzenlemede ve katkıda bulunmada size ihtiyacımız var.";
 "editing-welcome-set-knowledge-free-title" = "Bilgiyi özgür kıl";
-"empty-insert-media-title" = "Wikimedia Commons'dan bir dosya seç";
+"empty-insert-media-title" = "Wikimedia Commons'tan bir dosya seç";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
@@ -261,6 +264,7 @@
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
+"empty-talk-page-title" = "Bu kullanıcı için henüz hiç mesaj gönderilmedi";
 "error-generic-description" = "Beklenmedik bir sorun oluştu";
 "error-generic-recovery-suggestion" = "Lütfen tekrar deneyin";
 "error-unknown" = "Bilinmeyen bir hata oluştu";
@@ -343,7 +347,7 @@
 "explore-nearby-sub-heading-your-location" = "Konumunuz";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Konumunuz için $1 Vikipedi";
 "explore-potd-heading" = "Günün resmi";
-"explore-potd-sub-heading" = "Wikimedia Commons'dan";
+"explore-potd-sub-heading" = "Wikimedia Commons'tan";
 "explore-random-article-heading" = "Rastgele madde";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
@@ -730,8 +734,13 @@
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
 "table-title-other" = "Daha fazla bilgi";
+"talk-page-error-unable-to-post-reply" = "İnternet bağlantısı yok. Cevap gönderilemiyor.";
+"talk-page-error-unable-to-post-topic" = "İnternet bağlantısı yok. Konu gönderilemiyor.";
 "talk-page-info-active-conversations" = "$1 Vikipedi'de aktif sohbetler";
 "talk-page-info-active-conversations-generic" = "Vikipedi'de aktif sohbetler";
+"talk-page-link-user-action-sheet-app" = "Uygulamada kullanıcı mesaj sayfasını görüntüle";
+"talk-page-link-user-action-sheet-safari" = "Kullanıcı sayfasını Safari'de görüntüle";
+"talk-page-link-user-action-sheet-title" = "Kullanıcı sayfaları";
 "talk-page-new-banner-subtitle" = "Unutma, burada hepimiz insanız.";
 "talk-page-new-banner-title" = "Lütfen nazik ol";
 "talk-page-new-reply-body-placeholder-text" = "Cevap yaz";
@@ -758,6 +767,7 @@
 "two-factor-login-title" = "Hesabınızda oturum açın";
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
+"unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "view-in-browser-footer-link" = "Maddeyi tarayıcıda görüntüle";
 "welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
