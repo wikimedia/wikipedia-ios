@@ -2,7 +2,7 @@
 import UIKit
 
 protocol TalkPageHeaderViewDelegate: class {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView)
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?)
     func tappedIntro(headerView: TalkPageHeaderView)
 }
 
@@ -124,6 +124,21 @@ class TalkPageHeaderView: UIView {
         }
     }
     
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        let titleConvertedPoint = self.convert(point, to: titleTextView)
+        if titleTextView.point(inside: titleConvertedPoint, with: event) {
+            return true
+        }
+        
+        let introConvertedPoint = self.convert(point, to: introTextView)
+        if introTextView.point(inside: introConvertedPoint, with: event) {
+            return true
+        }
+        
+        return false
+    }
+    
     private func setupIntro(text: String) {
         let introFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         let boldIntroFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
@@ -185,7 +200,7 @@ extension TalkPageHeaderView: Themeable {
 
 extension TalkPageHeaderView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(URL, headerView: self)
+        delegate?.tappedLink(URL, headerView: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
         return false
     }
 }

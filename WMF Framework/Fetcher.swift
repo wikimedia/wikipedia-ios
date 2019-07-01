@@ -103,7 +103,8 @@ open class Fetcher: NSObject {
         let components = configuration.mediaWikiAPIURForHost(URL?.host, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.getJSONDictionary(from: components.url) { (result, response, error) in
-            completionHandler(result, response, error)
+            let returnError = error ?? WMFErrorForApiErrorObject(result?["error"] as? [AnyHashable : Any])
+            completionHandler(result, response, returnError)
             self.untrack(taskFor: key)
         }
         track(task: task, for: key)
