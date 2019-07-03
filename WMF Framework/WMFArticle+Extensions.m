@@ -120,6 +120,15 @@
     return [self fetchArticleWithKey:[articleURL wmf_articleDatabaseKey]];
 }
 
+- (NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
+    if (!key) {
+        return @[];
+    }
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    return [self executeFetchRequest:request error:nil];
+}
+
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key {
     if (!key) {
         return nil;

@@ -478,21 +478,24 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     [self updateFetchesInProcessCount];
 
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
-    [article updatePropertiesForError:error];
-    if (error) {
-        if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
-            NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
-            [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
-            [self stop];
-            article.isDownloaded = NO;
-        } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
-            article.isDownloaded = YES; // skip missing titles
+    NSError *fetchError = nil;
+    NSArray<WMFArticle *> *articles = [self.dataStore.viewContext fetchArticlesWithKey:[url wmf_articleDatabaseKey] error:&fetchError];
+    for (WMFArticle *article in articles) {
+        [article updatePropertiesForError:error];
+        if (error) {
+            if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
+                NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
+                [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+                [self stop];
+                article.isDownloaded = NO;
+            } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
+                article.isDownloaded = YES; // skip missing titles
+            } else {
+                article.isDownloaded = NO;
+            }
         } else {
-            article.isDownloaded = NO;
+            article.isDownloaded = YES;
         }
-    } else {
-        article.isDownloaded = YES;
     }
 
     NSError *saveError = nil;
