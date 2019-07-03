@@ -169,6 +169,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:YES]];
     request.fetchLimit = 1;
     NSError *fetchError = nil;
     WMFArticle *article = [[moc executeFetchRequest:request error:&fetchError] firstObject];
@@ -203,6 +204,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         NSFetchRequest *downloadedRequest = [WMFArticle fetchRequest];
         downloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate == nil && isDownloaded == YES"];
         downloadedRequest.fetchLimit = 1;
+        downloadedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:YES]];
         NSError *downloadedFetchError = nil;
         WMFArticle *articleToDelete = [[self.dataStore.viewContext executeFetchRequest:downloadedRequest error:&downloadedFetchError] firstObject];
         if (downloadedFetchError) {
