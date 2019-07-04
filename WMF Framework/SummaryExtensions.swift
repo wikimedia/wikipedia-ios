@@ -46,6 +46,8 @@ extension NSManagedObjectContext {
             return [:]
         }
         var keys: [String] = []
+        var redirectedKeys: [String: String] = [:]
+        var reverseRedirectedKeys: [String: String] = [:]
         keys.reserveCapacity(summaryResponses.count)
         for (key, summary) in summaryResponses {
             guard
@@ -55,6 +57,8 @@ extension NSManagedObjectContext {
                 keys.append(key)
                 continue
             }
+            redirectedKeys[key] = summaryKey
+            reverseRedirectedKeys[summaryKey] = key
             keys.append(summaryKey)
             do {
                 let articlesWithKey = try fetchArticles(withKey: key)
@@ -88,21 +92,26 @@ extension NSManagedObjectContext {
         articles.reserveCapacity(keys.count)
         let fetchedArticles = try self.fetch(articlesToUpdateFetchRequest)
         for articleToUpdate in fetchedArticles {
-            guard let key = articleToUpdate.key,
-                let result = summaryResponses[key] else {
+            guard let articleKey = articleToUpdate.key else {
                     continue
             }
+            let requestedKey = reverseRedirectedKeys[articleKey] ?? articleKey
+            guard let result = summaryResponses[requestedKey] else {
+                articles[requestedKey] = articleToUpdate
+                continue
+            }
             articleToUpdate.update(withSummary: result)
-            articles[key] = articleToUpdate
-            keysToCreate.remove(key)
+            articles[requestedKey] = articleToUpdate
+            keysToCreate.remove(articleKey)
         }
-        for key in keysToCreate {
-            guard let result = summaryResponses[key],
-                let article = self.createArticle(withKey: key) else {
+        for requestedKey in keysToCreate {
+            let key = redirectedKeys[requestedKey] ?? requestedKey
+            guard let result = summaryResponses[requestedKey], // responses are by requested key
+                let article = self.createArticle(withKey: key) else { // article should have redirected key
                     continue
             }
             article.update(withSummary: result)
-            articles[key] = article
+            articles[requestedKey] = article
         }
         try self.save()
         return articles
