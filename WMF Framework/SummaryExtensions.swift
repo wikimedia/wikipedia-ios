@@ -3,13 +3,13 @@ extension WMFArticle {
         // merge important keys not set by the summary
         let keysToMerge = ["isExcludedFromFeed", "readingLists", "savedDate", "viewedDate", "viewedDateWithoutTime", "viewedFragment", "viewedScrollPosition", "wasSignificantlyViewed", "previewReadingLists", "placesSortOrder", "pageViews"]
         for key in keysToMerge {
-            guard let value = article.primitiveValue(forKey: key) else {
+            guard let value = article.value(forKey: key) else {
                 continue
             }
             if let setValue = value as? NSSet, setValue.count == 0 {
                 continue
             }
-            setPrimitiveValue(value, forKey: key)
+            setValue(value, forKey: key)
         }
     }
     
