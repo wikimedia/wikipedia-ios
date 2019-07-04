@@ -55,6 +55,7 @@ extension NSManagedObjectContext {
                 keys.append(key)
                 continue
             }
+            keys.append(summaryKey)
             do {
                 let articlesWithKey = try fetchArticles(withKey: key)
                 let articlesWithSummaryKey = try fetchArticles(withKey: summaryKey)
@@ -76,7 +77,6 @@ extension NSManagedObjectContext {
                     delete(article)
                 }
                 canonicalArticle.key = summaryKey
-                keys.append(summaryKey)
             } catch let error {
                 DDLogError("Error fetching articles for merge: \(error)")
             }
