@@ -45,7 +45,6 @@ extension NSManagedObjectContext {
         guard !summaryResponses.isEmpty else {
             return [:]
         }
-        articles.reserveCapacity(summaryResponses.count)
         var keys: [String] = []
         keys.reserveCapacity(summaryResponses.count)
         for (key, summary) in summaryResponses {
