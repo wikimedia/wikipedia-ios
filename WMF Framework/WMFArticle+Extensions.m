@@ -120,7 +120,7 @@
     return [self fetchArticleWithKey:[articleURL wmf_articleDatabaseKey]];
 }
 
-- (NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
     if (!key) {
         return @[];
     }

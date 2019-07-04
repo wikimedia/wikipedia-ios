@@ -1,8 +1,19 @@
 extension WMFArticle {
-    @objc public func update(withSummary summary: ArticleSummary) {
-        if let summaryKey = summary.articleURL?.wmf_articleDatabaseKey, summaryKey != key {
-            key = summaryKey
+    func merge(_ article: WMFArticle) {
+        // merge important keys not set by the summary
+        let keysToMerge = ["isExcludedFromFeed", "readingLists", "savedDate", "viewedDate", "viewedDateWithoutTime", "viewedFragment", "viewedScrollPosition", "wasSignificantlyViewed", "previewReadingLists", "placesSortOrder", "pageViews"]
+        for key in keysToMerge {
+            guard let value = article.primitiveValue(forKey: key) else {
+                continue
+            }
+            if let setValue = value as? NSSet, setValue.count == 0 {
+                continue
+            }
+            setPrimitiveValue(value, forKey: key)
         }
+    }
+    
+    @objc public func update(withSummary summary: ArticleSummary) {
         if let original = summary.original {
             imageURLString = original.source
             imageWidth = NSNumber(value: original.width)
@@ -31,9 +42,45 @@ extension WMFArticle {
 
 extension NSManagedObjectContext {
     @objc public func wmf_createOrUpdateArticleSummmaries(withSummaryResponses summaryResponses: [String: ArticleSummary]) throws -> [String: WMFArticle] {
-        let keys = summaryResponses.keys
-        guard !keys.isEmpty else {
+        guard !summaryResponses.isEmpty else {
             return [:]
+        }
+        articles.reserveCapacity(summaryResponses.count)
+        var keys: [String] = []
+        keys.reserveCapacity(summaryResponses.count)
+        for (key, summary) in summaryResponses {
+            guard
+                let summaryKey = summary.key,
+                key != summaryKey // find the mismatched keys
+            else {
+                keys.append(key)
+                continue
+            }
+            do {
+                let articlesWithKey = try fetchArticles(withKey: key)
+                let articlesWithSummaryKey = try fetchArticles(withKey: summaryKey)
+                guard let canonicalArticle = articlesWithSummaryKey.first ?? articlesWithKey.first else {
+                    continue
+                }
+                for article in articlesWithKey {
+                    guard article.objectID != canonicalArticle.objectID else {
+                        continue
+                    }
+                    canonicalArticle.merge(article)
+                    delete(article)
+                }
+                for article in articlesWithSummaryKey {
+                    guard article.objectID != canonicalArticle.objectID else {
+                        continue
+                    }
+                    canonicalArticle.merge(article)
+                    delete(article)
+                }
+                canonicalArticle.key = summaryKey
+                keys.append(summaryKey)
+            } catch let error {
+                DDLogError("Error fetching articles for merge: \(error)")
+            }
         }
         var keysToCreate = Set(keys)
         let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
