@@ -2,6 +2,8 @@ extension WMFArticle {
     func merge(_ article: WMFArticle) {
         // merge important keys not set by the summary
         let keysToMerge = ["isExcludedFromFeed", "readingLists", "savedDate", "viewedDate", "viewedDateWithoutTime", "viewedFragment", "viewedScrollPosition", "wasSignificantlyViewed", "previewReadingLists", "placesSortOrder", "pageViews"]
+        // ensure these values still exist with an assertion. is there a way to use these directly?
+        assert([\WMFArticle.isExcludedFromFeed, \WMFArticle.readingLists, \WMFArticle.savedDate, \WMFArticle.viewedDate, \WMFArticle.viewedDateWithoutTime, \WMFArticle.viewedFragment, \WMFArticle.viewedScrollPosition, \WMFArticle.wasSignificantlyViewed, \WMFArticle.previewReadingLists, \WMFArticle.placesSortOrder, \WMFArticle.pageViews].count == keysToMerge.count)
         for key in keysToMerge {
             guard let value = article.value(forKey: key) else {
                 continue
