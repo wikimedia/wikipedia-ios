@@ -145,6 +145,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     [self update];
 }
 
+- (void)syncDidFinish:(NSNotification *)note {
+    [self update];
+}
+
 - (void)_update {
     if (self.isUpdating || !self.isRunning) {
         [self updateFetchesInProcessCount];
@@ -241,6 +245,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)observeSavedPages {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdated:) name:WMFArticleUpdatedNotification object:nil];
+    // WMFArticleUpdatedNotification aren't coming through when the articles are created from a background sync, so observe syncDidFinish as well to download articles synced down from the server
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncDidFinish:) name:WMFReadingListsController.syncDidFinishNotification object:nil];
 }
 
 - (void)unobserveSavedPages {
