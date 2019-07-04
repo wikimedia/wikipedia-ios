@@ -83,7 +83,7 @@ extension NSManagedObjectContext {
         }
         var keysToCreate = Set(keys)
         let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
-        articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", Array(keys))
+        articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", keys)
         var articles: [String: WMFArticle] = [:]
         articles.reserveCapacity(keys.count)
         let fetchedArticles = try self.fetch(articlesToUpdateFetchRequest)
