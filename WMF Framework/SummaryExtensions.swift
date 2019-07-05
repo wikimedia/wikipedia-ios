@@ -86,7 +86,6 @@ extension NSManagedObjectContext {
             return [:]
         }
         var keys: [String] = []
-        var redirectedKeys: [String: String] = [:]
         var reverseRedirectedKeys: [String: String] = [:]
         keys.reserveCapacity(summaryResponses.count)
         for (key, summary) in summaryResponses {
@@ -97,7 +96,6 @@ extension NSManagedObjectContext {
                 keys.append(key)
                 continue
             }
-            redirectedKeys[key] = summaryKey
             reverseRedirectedKeys[summaryKey] = key
             keys.append(summaryKey)
             do {
@@ -138,8 +136,8 @@ extension NSManagedObjectContext {
             articles[requestedKey] = articleToUpdate
             keysToCreate.remove(articleKey)
         }
-        for requestedKey in keysToCreate {
-            let key = redirectedKeys[requestedKey] ?? requestedKey
+        for key in keysToCreate {
+            let requestedKey = reverseRedirectedKeys[key] ?? key
             guard let result = summaryResponses[requestedKey], // responses are by requested key
                 let article = self.createArticle(withKey: key) else { // article should have redirected key
                     continue
