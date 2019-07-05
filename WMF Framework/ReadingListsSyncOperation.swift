@@ -814,10 +814,25 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 
-                guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
+                var entry = ReadingListEntry(context: moc)
+                
+                guard let remoteEntryKey = remoteEntry.articleKey, let articleKey = article.key else {
                     return
                 }
+                
                 entry.update(with: remoteEntry)
+                
+                // if there's a key mismatch, locally delete the bad entry and create a new one with the correct key
+                if remoteEntryKey != articleKey {
+                    entry.list = readingList
+                    entry.articleKey = remoteEntry.articleKey
+                    try? readingListsController.markLocalDeletion(for: [entry])
+                    entry = ReadingListEntry(context: moc)
+                    entry.update(with: remoteEntry)
+                    entry.readingListEntryID = nil
+                    entry.isUpdatedLocally = true
+                }
+                
                 if entry.createdDate == nil {
                     entry.createdDate = NSDate()
                 }
