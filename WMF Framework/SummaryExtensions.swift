@@ -1,17 +1,55 @@
 extension WMFArticle {
     func merge(_ article: WMFArticle) {
+        guard article.objectID != objectID else {
+            return
+        }
         // merge important keys not set by the summary
-        let keysToMerge = ["isExcludedFromFeed", "readingLists", "savedDate", "viewedDate", "viewedDateWithoutTime", "viewedFragment", "viewedScrollPosition", "wasSignificantlyViewed", "previewReadingLists", "placesSortOrder", "pageViews"]
+        let keysToMerge = ["savedDate", "placesSortOrder", "pageViews"]
         // ensure these values still exist with an assertion. is there a way to use these directly?
-        assert([\WMFArticle.isExcludedFromFeed, \WMFArticle.readingLists, \WMFArticle.savedDate, \WMFArticle.viewedDate, \WMFArticle.viewedDateWithoutTime, \WMFArticle.viewedFragment, \WMFArticle.viewedScrollPosition, \WMFArticle.wasSignificantlyViewed, \WMFArticle.previewReadingLists, \WMFArticle.placesSortOrder, \WMFArticle.pageViews].count == keysToMerge.count)
+        assert([\WMFArticle.savedDate, \WMFArticle.placesSortOrder, \WMFArticle.pageViews].count == keysToMerge.count)
         for key in keysToMerge {
-            guard let value = article.value(forKey: key) else {
+            guard let valueToMerge = article.value(forKey: key) else {
                 continue
             }
-            if let setValue = value as? NSSet, setValue.count == 0 {
+            // keep the later date when both have date values
+            if let dateValueToMerge = valueToMerge as? Date, let dateValue = value(forKey: key) as? Date, dateValue > dateValueToMerge {
                 continue
             }
-            setValue(value, forKey: key)
+            // prefer existing values
+            if value(forKey: key) != nil {
+               continue
+            }
+            setValue(valueToMerge, forKey: key)
+        }
+        
+        if let articleReadingLists = article.readingLists {
+            addReadingLists(articleReadingLists)
+        }
+        
+        if let articlePreviewReadingLists = article.previewReadingLists {
+            addPreviewReadingLists(articlePreviewReadingLists)
+        }
+        
+        if article.isExcludedFromFeed {
+            isExcludedFromFeed = true
+        }
+        
+        let mergeViewedProperties: Bool
+        if let viewedDateToMerge = article.viewedDate {
+            if let existingViewedDate = viewedDate, existingViewedDate > viewedDateToMerge {
+                mergeViewedProperties = false
+            } else {
+                mergeViewedProperties = true
+            }
+        } else {
+            mergeViewedProperties = false
+        }
+        
+        if mergeViewedProperties {
+            viewedDate = article.viewedDate
+            viewedFragment = article.viewedFragment
+            viewedScrollPosition = article.viewedScrollPosition
+            wasSignificantlyViewed = article.wasSignificantlyViewed
         }
     }
     
@@ -69,16 +107,10 @@ extension NSManagedObjectContext {
                     continue
                 }
                 for article in articlesWithKey {
-                    guard article.objectID != canonicalArticle.objectID else {
-                        continue
-                    }
                     canonicalArticle.merge(article)
                     delete(article)
                 }
                 for article in articlesWithSummaryKey {
-                    guard article.objectID != canonicalArticle.objectID else {
-                        continue
-                    }
                     canonicalArticle.merge(article)
                     delete(article)
                 }
