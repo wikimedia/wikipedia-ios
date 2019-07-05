@@ -263,6 +263,8 @@
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "နောက်ထပ် ရှာဖွေမှုရလဒ်";
+"find-previous-button-accessibility" = "ယခင် ရှာဖွေမှုရလဒ်";
 "find-replace-header" = "ရှာဖွေပြီး အစားထိုးရန်";
 "find-textfield-accessibility" = "ရှာပါ";
 "forgot-password-button-title" = "ပြန်စရန်";
