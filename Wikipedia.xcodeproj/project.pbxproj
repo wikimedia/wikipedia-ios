@@ -793,6 +793,7 @@
 		7ABE173D2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */; };
 		7ABE173E2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */; };
 		7ABE173F2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */; };
+		7AC4F41922D3EFE800F5F944 /* PageInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4F41822D3EFE800F5F944 /* PageInfoFetcher.swift */; };
 		7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
@@ -3891,6 +3892,7 @@
 		7ABE17232239BB54006BA309 /* WelcomePanelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomePanelViewController.xib; sourceTree = "<group>"; };
 		7ABE17342239DCF5006BA309 /* WelcomeAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationViewController.swift; sourceTree = "<group>"; };
 		7ABE173A2239DEF0006BA309 /* WelcomeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationView.swift; sourceTree = "<group>"; };
+		7AC4F41822D3EFE800F5F944 /* PageInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageInfoFetcher.swift; sourceTree = "<group>"; };
 		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
 		7AC92E65228D8C7B0035E7F0 /* NavigationStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStateController.swift; sourceTree = "<group>"; };
 		7AD5D452223874F600C01164 /* RelatedSearchFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedSearchFetcher.swift; sourceTree = "<group>"; };
@@ -8685,6 +8687,7 @@
 				D813FDA41EC34B2600FA4690 /* WMFArticle+Extensions.swift */,
 				831C15C52099EB3A001B04BF /* WMFArticle+Errors.swift */,
 				7A4170D8229EFC2A00251582 /* PageNamespace.swift */,
+				7AC4F41822D3EFE800F5F944 /* PageInfoFetcher.swift */,
 				D8987E001E325C7900E75DA6 /* WMFKeyValue+CoreDataClass.h */,
 				D8987E011E325C7A00E75DA6 /* WMFKeyValue+CoreDataClass.m */,
 				D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */,
@@ -11802,6 +11805,7 @@
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,
 				83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
+				7AC4F41922D3EFE800F5F944 /* PageInfoFetcher.swift in Sources */,
 				D8733C8B1ECA10930011E379 /* LabelGroupAccessibilityElement.swift in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				D8619BA71FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift in Sources */,
