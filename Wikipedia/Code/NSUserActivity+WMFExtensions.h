@@ -14,7 +14,8 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeAppearanceSettings,
     WMFUserActivityTypeContent,
     WMFUserActivityTypeGenericLink,
-    WMFUserActivityTypeSpecialPage
+    WMFUserActivityTypeSpecialPage,
+    WMFUserActivityTypeUserTalk
 };
 
 extern NSString *const WMFNavigateToActivityNotification;
