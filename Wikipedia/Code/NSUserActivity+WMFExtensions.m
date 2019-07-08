@@ -241,7 +241,22 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         return WMFUserActivityTypeSearchResults;
     } else {
         if ([self wmf_articleURL].wmf_isWikiResource) {
-            return WMFUserActivityTypeArticle;
+            if ([[[self wmf_articleURL] path] containsString:@":"]) {
+                __block WMFUserActivityType type = WMFUserActivityTypeArticle;
+                WMFTaskGroup *group = [WMFTaskGroup new];
+                [group enter];
+                [SessionSingleton.sharedInstance.dataStore.pageInfoFetcher fetchNamespaceValueForArticleWith:[self wmf_articleURL]
+                                                                                                  completion:^(NSNumber *_Nullable ns) {
+                                                                                                      [group leave];
+                                                                                                      if (ns.integerValue == PageNamespaceUserTalk) {
+                                                                                                          type = WMFUserActivityTypeUserTalk;
+                                                                                                      }
+                                                                                                  }];
+                [group wait];
+                return type;
+            } else {
+                return WMFUserActivityTypeArticle;
+            }
         } else {
             return WMFUserActivityTypeGenericLink;
         }
