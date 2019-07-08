@@ -214,7 +214,7 @@ private extension TalkPageFetcher {
             pathComponents.append(String(revisionID))
         }
         
-        guard let taskURL = configuration.wikipediaTalkPageAPIURLComponentsForHost(host, appending: pathComponents).url else {
+        guard let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(host, appending: pathComponents).url else {
             return nil
         }
         
