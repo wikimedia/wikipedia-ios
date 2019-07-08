@@ -27,9 +27,9 @@ public final class PageInfoFetcher: Fetcher {
             let language = url.wmf_language,
             let title = url.wmf_title,
             let url = configuration.mediaWikiAPIURLForWikiLanguage(language, with: ["action": "query", "format": "json", "titles": title]).url
-            else {
-                completion(nil)
-                return
+        else {
+            completion(nil)
+            return
         }
 
         session.jsonDecodableTask(with: url) { (pageInfo: PageInfo?, response, error) in
