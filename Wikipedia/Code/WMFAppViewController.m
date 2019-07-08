@@ -1284,7 +1284,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self wmf_openExternalUrl:[activity wmf_contentURL]];
             break;
         case WMFUserActivityTypeUserTalk: {
-            NSURL *url = [activity wmf_articleURL];
+            NSURL *url = [NSURL wmf_desktopURLForURL:[activity wmf_articleURL]];
             WMFTalkPageContainerViewController *talkPageContainer = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:url dataStore:self.dataStore];
             [talkPageContainer applyTheme:self.theme];
             [self wmf_pushViewController:talkPageContainer animated:YES];

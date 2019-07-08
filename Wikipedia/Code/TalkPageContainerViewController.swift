@@ -162,7 +162,6 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     @objc(userTalkPageContainerWithURL:dataStore:)
     static func userTalkPageContainer(url: URL, dataStore: MWKDataStore) -> TalkPageContainerViewController? {
         guard
-            let url = NSURL.wmf_desktopURL(for: url),
             let title = url.wmf_title,
             let siteURL = url.wmf_site
         else {
