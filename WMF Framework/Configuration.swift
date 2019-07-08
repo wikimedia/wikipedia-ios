@@ -106,18 +106,6 @@ public class Configuration: NSObject {
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.wikiResourceComponent)
     }
-
-    //todo: remove once endpoint is pushed to prod
-    public func wikipediaTalkPageAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let host = host ?? Domain.englishWikipedia
-        let baseComponents = [host, "v1"]
-        var components = URLComponents()
-        components.scheme = Scheme.https
-        components.host = "talk-pages-2.wmflabs.org"
-        let builder = APIURLComponentsBuilder(hostComponents: components, basePathComponents: baseComponents)
-        return builder.components(byAppending: pathComponents, queryParameters: nil)
-    }
-    
     @objc(wikipediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
     public func wikipediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
         let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(host)
