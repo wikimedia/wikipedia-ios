@@ -1163,6 +1163,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeGenericLink: {
             return YES;
         }
+        case WMFUserActivityTypeUserTalk: {
+            return YES;
+        }
         default:
             return NO;
             break;
