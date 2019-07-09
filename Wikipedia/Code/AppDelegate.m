@@ -133,6 +133,8 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
+    [self.appViewController showSplashViewIfNotShowing];
+
     BOOL result = [self.appViewController processUserActivity:userActivity
                                                      animated:NO
                                                    completion:^{
@@ -156,6 +158,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
             options:(NSDictionary<NSString *, id> *)options {
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url] ?: [NSUserActivity wmf_activityForURL:url];
     if (activity) {
+        [self.appViewController showSplashViewIfNotShowing];
         BOOL result = [self.appViewController processUserActivity:activity
                                                          animated:NO
                                                        completion:^{

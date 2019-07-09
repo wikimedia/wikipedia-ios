@@ -1488,6 +1488,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [(WMFThemeableNavigationController *)self.navigationController showSplashView];
 }
 
+- (void)showSplashViewIfNotShowing {
+    [(WMFThemeableNavigationController *)self.navigationController showSplashViewIfNotShowing];
+}
+
 - (void)hideSplashViewAnimated:(BOOL)animated {
     [(WMFThemeableNavigationController *)self.navigationController hideSplashViewAnimated:animated];
 }
