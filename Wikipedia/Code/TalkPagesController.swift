@@ -198,7 +198,6 @@ class TalkPageController {
             return
         }
         
-        //todo: conditional signature
         let wrappedBody = "<p>\n\n" + body + "\(signatureIfAutoSignEnabled)</p>"
         fetcher.addTopic(to: title, siteURL: siteURL, subject: subject, body: wrappedBody) { (result) in
             switch result {

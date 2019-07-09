@@ -5,8 +5,9 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
     //This is not a convenience initalizer because this allows us to not inherit
     //the super class initializer, so clients can't pass any arbitrary reading list to this
     //class
-    init(with dataStore: MWKDataStore) {
-        func fetchDefaultReadingListWithSortOrder() -> ReadingList {
+    
+    init?(with dataStore: MWKDataStore) {
+        func fetchDefaultReadingListWithSortOrder() -> ReadingList? {
             let fetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
             fetchRequest.fetchLimit = 1
             fetchRequest.propertiesToFetch = ["sortOrder"]
@@ -15,11 +16,14 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
             guard let readingLists = try? dataStore.viewContext.fetch(fetchRequest),
                 let defaultReadingList = readingLists.first else {
                 assertionFailure("Failed to fetch default reading list with sort order")
-                fatalError()
+                return nil
             }
             return defaultReadingList
         }
-        let readingList = fetchDefaultReadingListWithSortOrder()
+        guard let readingList = fetchDefaultReadingListWithSortOrder() else {
+            return nil
+        }
+        
         super.init(for: readingList, with: dataStore)
         emptyViewType = .noSavedPages
     }
