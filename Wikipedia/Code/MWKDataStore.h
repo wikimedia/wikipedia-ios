@@ -70,8 +70,6 @@ extern NSString *const WMFViewContextDidSave;
 @property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
 @property (readonly, strong, nonatomic) WMFArticleSummaryController *articleSummaryController;
 
-@property (readonly, strong, nonatomic) WMFPageInfoFetcher *pageInfoFetcher;
-
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
 
