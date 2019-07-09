@@ -138,7 +138,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     BOOL result = [self.appViewController processUserActivity:userActivity
                                                      animated:NO
                                                    completion:^{
-                                                       [self resumeAppIfNecessary];
+                                                       if (self.appNeedsResume) {
+                                                           [self resumeAppIfNecessary];
+                                                       } else {
+                                                           [self.appViewController hideSplashViewAnimated:YES];
+                                                       }
                                                    }];
     return result;
 }
@@ -162,7 +166,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
         BOOL result = [self.appViewController processUserActivity:activity
                                                          animated:NO
                                                        completion:^{
-                                                           [self resumeAppIfNecessary];
+                                                           if (self.appNeedsResume) {
+                                                               [self resumeAppIfNecessary];
+                                                           } else {
+                                                               [self.appViewController hideSplashViewAnimated:YES];
+                                                           }
                                                        }];
         return result;
     } else {
