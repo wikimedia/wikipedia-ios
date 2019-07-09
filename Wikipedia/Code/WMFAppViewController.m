@@ -860,10 +860,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             self.notificationUserInfoToShow = nil;
             done();
         } else if (self.unprocessedUserActivity) {
-            [self processUserActivity:self.unprocessedUserActivity animated:NO completion:^{
-                [self hideSplashViewAnimated:!didShowOnboarding];
-                done();
-            }];
+            [self processUserActivity:self.unprocessedUserActivity
+                             animated:NO
+                           completion:^{
+                               [self hideSplashViewAnimated:!didShowOnboarding];
+                               done();
+                           }];
         } else if (self.unprocessedShortcutItem) {
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self processShortcutItem:self.unprocessedShortcutItem
