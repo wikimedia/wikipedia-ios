@@ -16,7 +16,6 @@
 @class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
-@class WMFPageInfoFetcher;
 
 NS_ASSUME_NONNULL_BEGIN
 
