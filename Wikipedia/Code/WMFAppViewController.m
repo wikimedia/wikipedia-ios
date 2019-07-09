@@ -1262,7 +1262,32 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 done();
                 return NO;
             }
-            [self showArticleForURL:URL animated:animated completion:done];
+            if ([URL.path containsString:@":"]) {
+                [self.dataStore.articleSummaryController.fetcher fetchSummaryFor:URL
+                                                                        priority:DISPATCH_QUEUE_PRIORITY_HIGH
+                                                                      completion:^(WMFArticleSummary *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              if (error) {
+                                                                                  done();
+                                                                                  return;
+                                                                              }
+                                                                              if (summary.namespace.number.integerValue == PageNamespaceUserTalk) {
+                                                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                      NSURL *url = [NSURL wmf_desktopURLForURL:[activity wmf_articleURL]];
+                                                                                      WMFTalkPageContainerViewController *talkPageContainer = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:url dataStore:self.dataStore];
+                                                                                      [talkPageContainer applyTheme:self.theme];
+                                                                                      [self wmf_pushViewController:talkPageContainer animated:YES];
+                                                                                      [self.dataStore.historyList addPageToHistoryWithURL:url];
+                                                                                      done();
+                                                                                  });
+                                                                              } else {
+                                                                                  [self showArticleForURL:URL animated:animated completion:done];
+                                                                              }
+                                                                          });
+                                                                      }];
+            } else {
+                [self showArticleForURL:URL animated:animated completion:done];
+            }
             // don't call done block before this return, wait for completion ^
             return YES;
         } break;
