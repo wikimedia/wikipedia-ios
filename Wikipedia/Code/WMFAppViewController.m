@@ -1264,7 +1264,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             }
             if ([URL.path containsString:@":"]) {
                 [self.dataStore.articleSummaryController.fetcher fetchSummaryFor:URL
-                                                                        priority:DISPATCH_QUEUE_PRIORITY_HIGH
+                                                                        priority:NSURLSessionTaskPriorityHigh
                                                                       completion:^(WMFArticleSummary *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                                               if (error) {
