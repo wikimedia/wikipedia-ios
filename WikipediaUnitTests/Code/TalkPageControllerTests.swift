@@ -12,7 +12,7 @@ fileprivate class MockTalkPageFetcher: TalkPageFetcher {
     override func fetchTalkPage(urlTitle: String, displayTitle: String, siteURL: URL, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
         fetchCalled = true
-        if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://talk-pages-2.wmflabs.org/\(MockTalkPageFetcher.domain)/v1/page/talk/\(urlTitle)", revisionId: MockArticleRevisionFetcher.revisionId) {
+        if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://\(MockTalkPageFetcher.domain)/api/rest_v1/page/talk/\(urlTitle)", revisionId: MockArticleRevisionFetcher.revisionId) {
             completion(.success(networkTalkPage))
         } else {
             XCTFail("Expected network talk page from helper")
