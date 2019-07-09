@@ -1163,9 +1163,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeGenericLink: {
             return YES;
         }
-        case WMFUserActivityTypeUserTalk: {
-            return YES;
-        }
         default:
             return NO;
             break;
@@ -1283,14 +1280,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeSpecialPage:
             [self wmf_openExternalUrl:[activity wmf_contentURL]];
             break;
-        case WMFUserActivityTypeUserTalk: {
-            NSURL *url = [NSURL wmf_desktopURLForURL:[activity wmf_articleURL]];
-            WMFTalkPageContainerViewController *talkPageContainer = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:url dataStore:self.dataStore];
-            [talkPageContainer applyTheme:self.theme];
-            [self wmf_pushViewController:talkPageContainer animated:YES];
-            [self.dataStore.historyList addPageToHistoryWithURL:url];
-            break;
-        }
         default:
             done();
             return NO;
