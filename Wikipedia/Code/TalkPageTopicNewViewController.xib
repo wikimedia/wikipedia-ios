@@ -52,10 +52,10 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="tey-7u-fS8" secondAttribute="trailing" constant="20" symbolic="YES" id="Rys-zW-Mpg"/>
+                                        <constraint firstAttribute="trailing" secondItem="tey-7u-fS8" secondAttribute="trailing" constant="20" id="Rys-zW-Mpg"/>
                                         <constraint firstAttribute="bottom" secondItem="tey-7u-fS8" secondAttribute="bottom" constant="20" symbolic="YES" id="pdI-5R-Cb5"/>
                                         <constraint firstItem="tey-7u-fS8" firstAttribute="top" secondItem="thm-2U-JE9" secondAttribute="top" constant="20" symbolic="YES" id="wGT-3Q-6Fl"/>
-                                        <constraint firstItem="tey-7u-fS8" firstAttribute="leading" secondItem="thm-2U-JE9" secondAttribute="leading" constant="20" symbolic="YES" id="yqf-1T-nJE"/>
+                                        <constraint firstItem="tey-7u-fS8" firstAttribute="leading" secondItem="thm-2U-JE9" secondAttribute="leading" constant="20" id="yqf-1T-nJE"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6M-6e-GoT">
@@ -69,7 +69,7 @@
                                     <rect key="frame" x="0.0" y="71" width="414" height="565"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dNc-rx-jAZ" customClass="ThemeableTextView" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="20" width="374" height="525"/>
+                                            <rect key="frame" x="15" y="20" width="384" height="525"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -78,8 +78,8 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="dNc-rx-jAZ" firstAttribute="top" secondItem="JOb-y1-6IN" secondAttribute="top" constant="20" symbolic="YES" id="Nyx-HI-82E"/>
-                                        <constraint firstAttribute="trailing" secondItem="dNc-rx-jAZ" secondAttribute="trailing" constant="20" symbolic="YES" id="QhL-D1-fYs"/>
-                                        <constraint firstItem="dNc-rx-jAZ" firstAttribute="leading" secondItem="JOb-y1-6IN" secondAttribute="leading" constant="20" symbolic="YES" id="Tiv-fZ-QxI"/>
+                                        <constraint firstAttribute="trailing" secondItem="dNc-rx-jAZ" secondAttribute="trailing" constant="15" id="QhL-D1-fYs"/>
+                                        <constraint firstItem="dNc-rx-jAZ" firstAttribute="leading" secondItem="JOb-y1-6IN" secondAttribute="leading" constant="15" id="Tiv-fZ-QxI"/>
                                         <constraint firstAttribute="bottom" secondItem="dNc-rx-jAZ" secondAttribute="bottom" constant="20" symbolic="YES" id="uI3-L2-AsT"/>
                                         <constraint firstAttribute="height" constant="565" id="wsY-91-S0m"/>
                                     </constraints>
@@ -88,7 +88,7 @@
                                     <rect key="frame" x="0.0" y="636" width="414" height="225"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="185" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vRW-Pe-PZI">
-                                            <rect key="frame" x="20" y="20" width="374" height="185"/>
+                                            <rect key="frame" x="15" y="20" width="384" height="185"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -97,8 +97,8 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="vRW-Pe-PZI" secondAttribute="bottom" constant="20" symbolic="YES" id="0r1-Py-lx5"/>
-                                        <constraint firstAttribute="trailing" secondItem="vRW-Pe-PZI" secondAttribute="trailing" constant="20" symbolic="YES" id="AtI-Zw-ex1"/>
-                                        <constraint firstItem="vRW-Pe-PZI" firstAttribute="leading" secondItem="JON-m5-Ky9" secondAttribute="leading" constant="20" symbolic="YES" id="J4R-VO-FUr"/>
+                                        <constraint firstAttribute="trailing" secondItem="vRW-Pe-PZI" secondAttribute="trailing" constant="15" id="AtI-Zw-ex1"/>
+                                        <constraint firstItem="vRW-Pe-PZI" firstAttribute="leading" secondItem="JON-m5-Ky9" secondAttribute="leading" constant="15" id="J4R-VO-FUr"/>
                                         <constraint firstItem="vRW-Pe-PZI" firstAttribute="top" secondItem="JON-m5-Ky9" secondAttribute="top" constant="20" symbolic="YES" id="Q4f-li-RZB"/>
                                     </constraints>
                                 </view>

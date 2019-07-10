@@ -1,33 +1,6 @@
 {
   "stickers" : [
     {
-      "filename" : "Citation needed .sticker"
-    },
-    {
-      "filename" : "Astronaut.sticker"
-    },
-    {
-      "filename" : "Rabbit hole.sticker"
-    },
-    {
-      "filename" : "Blackhole.sticker"
-    },
-    {
-      "filename" : "International space station.sticker"
-    },
-    {
-      "filename" : "Anatomical heart.sticker"
-    },
-    {
-      "filename" : "Spacedog.sticker"
-    },
-    {
-      "filename" : "Scientific blackhole.sticker"
-    },
-    {
-      "filename" : "Schrodingers cat.sticker"
-    },
-    {
       "filename" : "Teamwork.sticker"
     },
     {
@@ -95,6 +68,33 @@
     },
     {
       "filename" : "World.sticker"
+    },
+    {
+      "filename" : "Citation needed .sticker"
+    },
+    {
+      "filename" : "Astronaut.sticker"
+    },
+    {
+      "filename" : "Rabbit hole.sticker"
+    },
+    {
+      "filename" : "Blackhole.sticker"
+    },
+    {
+      "filename" : "International space station.sticker"
+    },
+    {
+      "filename" : "Anatomical heart.sticker"
+    },
+    {
+      "filename" : "Spacedog.sticker"
+    },
+    {
+      "filename" : "Scientific blackhole.sticker"
+    },
+    {
+      "filename" : "Schrodingers cat.sticker"
     }
   ],
   "info" : {

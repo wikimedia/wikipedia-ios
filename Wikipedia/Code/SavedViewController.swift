@@ -11,7 +11,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
 @objc(WMFSavedViewController)
 class SavedViewController: ViewController {
 
-    private var savedArticlesViewController: SavedArticlesCollectionViewController!
+    private var savedArticlesViewController: SavedArticlesCollectionViewController?
     
     private lazy var readingListsViewController: ReadingListsViewController? = {
         guard let dataStore = dataStore else {
@@ -87,22 +87,25 @@ class SavedViewController: ViewController {
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsViewController)
+                setSavedArticlesViewControllerIfNeeded()
                 addSavedChildViewController(savedArticlesViewController)
-                savedArticlesViewController.editController.navigationDelegate = self
+                savedArticlesViewController?.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
-                scrollView = savedArticlesViewController.collectionView
+                scrollView = savedArticlesViewController?.collectionView
                 activeEditableCollection = savedArticlesViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .search
+                evaluateEmptyState()
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
-                savedArticlesViewController.editController.navigationDelegate = nil
+                savedArticlesViewController?.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
                 addSavedChildViewController(readingListsViewController)
                 scrollView = readingListsViewController?.collectionView
                 extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
+                evaluateEmptyState()
             }
         }
     }
@@ -179,6 +182,10 @@ class SavedViewController: ViewController {
         allArticlesButton.setTitle(allArticlesButtonTitle, for: .normal)
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
         readingListsButton.setTitle(readingListsButtonTitle, for: .normal)
+        allArticlesButton.titleLabel?.numberOfLines = 1
+        readingListsButton.titleLabel?.numberOfLines = 1
+        allArticlesButton.titleLabel?.lineBreakMode = .byTruncatingTail
+        readingListsButton.titleLabel?.lineBreakMode = .byTruncatingTail
 
         searchBar.delegate = self
         searchBar.returnKeyType = .search
@@ -192,9 +199,38 @@ class SavedViewController: ViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let savedArticlesWasNil = savedArticlesViewController == nil
+        setSavedArticlesViewControllerIfNeeded()
+        if let _ = savedArticlesViewController,
+            currentView == .savedArticles,
+            savedArticlesWasNil {
+            //reassign so activeEditableCollection gets reset
+            currentView = .savedArticles
+        }
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    private func setSavedArticlesViewControllerIfNeeded() {
+        if let dataStore = dataStore,
+            savedArticlesViewController == nil {
+            savedArticlesViewController = SavedArticlesCollectionViewController(with: dataStore)
+            savedArticlesViewController?.apply(theme: theme)
+        }
+    }
+    
+    private func evaluateEmptyState() {
+        if activeEditableCollection == nil {
+            wmf_showEmptyView(of: .noSavedPages, theme: theme, frame: view.bounds)
+        } else {
+            wmf_hideEmptyView()
+        }
     }
     
     // MARK: - Sorting and searching
@@ -233,7 +269,7 @@ class SavedViewController: ViewController {
         }
         view.backgroundColor = theme.colors.chromeBackground
         
-        savedArticlesViewController.apply(theme: theme)
+        savedArticlesViewController?.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
 

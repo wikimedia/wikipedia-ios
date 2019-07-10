@@ -39,16 +39,6 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     override func canDelete(at indexPath: IndexPath) -> Bool {
         return true
     }
-
-    override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
-        guard
-            let article = article(at: indexPath),
-            article.pageNamespace == .userTalk
-        else {
-            return nil
-        }
-        return article.displayTitle
-    }
     
     var deleteAllButtonText: String? = nil
     var deleteAllConfirmationText: String? = nil

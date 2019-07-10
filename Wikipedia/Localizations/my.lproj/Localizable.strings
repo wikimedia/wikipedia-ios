@@ -36,8 +36,7 @@
 "abuse-filter-warning-irrelevant" = "သင့်လျော်မှုမရှိသော ပြင်ပလင့်ခ်များ သို့မဟုတ် ပုံများ";
 "abuse-filter-warning-repeat" = "ထပ်ခါတလဲလဲ အက္ခရာများ";
 "abuse-filter-warning-spam" = "ဆောင်းပါးများသို့ လိုက်ဖွခြင်း";
-// Fuzzy
-"abuse-filter-warning-subheading" = "သင်၏တည်းဖြတ်မှုတွင် အောက်ပါထဲမှတစ်ခု သို့မဟုတ် တစ်ခုထက်ပိုသောအရာများ ပါဝင်နိုင်သည်:";
+"abuse-filter-warning-subheading" = "သင်၏တည်းဖြတ်မှုတွင် ပါဝင်နိုင်သည်မှာ:";
 "account-creation-captcha-cannot-see-image" = "ပုံကို မမြင်ရပါသလား $1";
 "account-creation-captcha-obtaining" = "CAPTCHA အသစ် ရယူနေသည်...";
 "account-creation-captcha-request-account" = "အကောင့်တစ်ခု တောင်းဆိုရန်";
@@ -264,6 +263,8 @@
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-next-button-accessibility" = "နောက်ထပ် ရှာဖွေမှုရလဒ်";
+"find-previous-button-accessibility" = "ယခင် ရှာဖွေမှုရလဒ်";
 "find-replace-header" = "ရှာဖွေပြီး အစားထိုးရန်";
 "find-textfield-accessibility" = "ရှာပါ";
 "forgot-password-button-title" = "ပြန်စရန်";
@@ -367,16 +368,14 @@
 "page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
 "page-history-title" = "ဆောင်းပါး ရာဇဝင်";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
-// Fuzzy
-"page-last-edited" = "$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်";
+"page-last-edited" = "{{PLURAL:$1|0=ယနေ့တည်းဖြတ်ခဲ့သည်|1=မနေ့ကတည်းဖြတ်ခဲ့သည်|$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်}}";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
 "page-protected-can-not-edit-title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
 "page-protected-other" = "ဤစာမျက်နှာအား အောက်ပါအဆင့်များသို့ ကာကွယ်ထားသည်: $1";
 "page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
-// Fuzzy
-"page-read-in-other-languages" = "အခြားဘာသာစကား $1 ခုဖြင့် ရရှိနိုင်သည်";
+"page-read-in-other-languages" = "{{PLURAL:$1|$1 အခြားဘာသာစကား|$1 အခြားဘာသာစကားများ}}တွင် ရရှိနိုင်သည်";
 "page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
 "page-talk-page" = "ဆွေးနွေးချက်စာမျက်နှာကို ကြည့်ရန်";
 "places-accessibility-clear-saved-searches" = "သိမ်းဆည်းခဲ့သော ရှာဖွေမှုများကို ရှင်းရန်";
@@ -423,8 +422,7 @@
 "reading-list-create-new-list-title" = "စာရင်းသစ်တစ်ခု ဖန်တီးရန်";
 "reading-list-deleted-accessibility-notification" = "စာဖတ်စာရင်း ဖျက်ပြီးပြီ";
 "reading-list-do-not-keep-button-title" = "ဟင်းအင်း၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲမှ ဖျက်လိုက်ပါ။";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "အကောင့်တစ်ခုလျင် $1 ဆောင်းပါးနှုန်း ကန့်သတ်ချက်ကို ကျော်လွန်သွားပါသည်။";
+"reading-list-entry-limit-exceeded-title" = "အကောင့်တစ်ခုလျင် {{PLURAL:$1|$1 ဆောင်းပါး|$1 ဆောင်းပါးများ}}နှုန်း ကျော်လွန်သွားပါသည်။";
 "reading-list-exists-with-same-name" = "စာဖတ်စာရင်းနာမည်မှာ အသုံးပြုပြီးသားဖြစ်သည်";
 "reading-list-keep-button-title" = "ဟုတ်ကဲ့၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲ မှတ်ထားပါ။";
 "reading-list-keep-subtitle" = "သင်၏ဝီကီပီးဒီးယားအကောင့်သို့ sync လုပ်ထားသော ဆောင်းပါးများ ရှိသည်။ အကောင့်မှထွက်ပါက သင့်စက်ပစ္စည်းထဲတွင် ယင်းတို့ကို ဆက်လက်ထားချင်ပါသလား။";

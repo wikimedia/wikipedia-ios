@@ -726,6 +726,7 @@
 "talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar el tema.";
 "talk-page-info-active-conversations" = "Converses actives a la Viquipèdia en $1";
 "talk-page-info-active-conversations-generic" = "Converses actives a la Viquipèdia";
+"talk-page-link-user-action-sheet-app" = "Mostra la pàgina de discussió d'usuari a l'aplicació";
 "talk-page-link-user-action-sheet-safari" = "Mostra la pàgina d’usuari al Safari";
 "talk-page-link-user-action-sheet-title" = "Pàgines d’usuari";
 "talk-page-new-banner-subtitle" = "Recordeu, aquí tothom és humà";

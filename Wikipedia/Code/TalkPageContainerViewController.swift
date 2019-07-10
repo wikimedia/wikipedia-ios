@@ -83,6 +83,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
     
     var hintController: HintController?
+    var fromNavigationStateRestoration: Bool = false
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -157,6 +158,23 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         
         super.init()
     }
+
+    @objc(userTalkPageContainerWithURL:dataStore:)
+    static func userTalkPageContainer(url: URL, dataStore: MWKDataStore) -> TalkPageContainerViewController? {
+        guard
+            let title = url.wmf_title,
+            let siteURL = url.wmf_site
+        else {
+            return nil
+        }
+        return TalkPageContainerViewController.userTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore)
+    }
+
+    static func userTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore) -> TalkPageContainerViewController {
+        let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: title)
+        let titleWithPrefix = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: siteURL)
+        return TalkPageContainerViewController(title: titleWithPrefix, siteURL: siteURL, type: .user, dataStore: dataStore)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -175,13 +193,13 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         view.backgroundColor = theme.colors.paperBackground
     }
 
-    func pushToReplyThread(topic: TalkPageTopic) {
+    func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
         let replyListViewController = TalkPageReplyListViewController(dataStore: dataStore, topic: topic, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
         replyListViewController.delegate = self
         replyListViewController.apply(theme: theme)
         replyListViewController.repliesAreDisabled = viewState.repliesAreDisabled
         self.replyListViewController = replyListViewController
-        navigationController?.pushViewController(replyListViewController, animated: true)
+        navigationController?.pushViewController(replyListViewController, animated: animated)
     }
 }
 
@@ -231,6 +249,8 @@ private extension TalkPageContainerViewController {
         if topicListViewController == nil {
             topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPageTitle: talkPageTitle, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
             topicListViewController?.apply(theme: theme)
+            topicListViewController?.fromNavigationStateRestoration = fromNavigationStateRestoration
+            fromNavigationStateRestoration = false
             let belowView: UIView = wmf_emptyView ?? navigationBar
             wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowView)
             topicListViewController?.delegate = self
@@ -263,6 +283,7 @@ private extension TalkPageContainerViewController {
             headerView.delegate = self
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
+            navigationBar.allowsUnderbarHitsFallThrough = true
             useNavigationBarVisibleHeightForScrollViewInsets = true
             navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
@@ -340,7 +361,7 @@ private extension TalkPageContainerViewController {
         self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
     }
     
-    func showUserActionSheet(siteURL: URL, absoluteURL: URL) {
+    func showUserActionSheet(siteURL: URL, absoluteURL: URL, sourceView: UIView, sourceRect: CGRect?) {
         
         let alertController = UIAlertController(title: WMFLocalizedString("talk-page-link-user-action-sheet-title", value: "User pages", comment: "Title of action sheet that displays when user taps a user page link in talk pages"), message: nil, preferredStyle: .actionSheet)
         let safariAction = UIAlertAction(title: WMFLocalizedString("talk-page-link-user-action-sheet-safari", value: "View User page in Safari", comment: "Title of action sheet button that takes user to a user page in Safari after tapping a user page link in talk pages."), style: .default) { (_) in
@@ -362,6 +383,13 @@ private extension TalkPageContainerViewController {
         alertController.addAction(talkAction)
         alertController.addAction(cancelAction)
         
+        let rect = sourceRect ?? sourceView.bounds
+        if let popover = alertController.popoverPresentationController {
+            popover.sourceView = sourceView
+            popover.sourceRect = rect
+            popover.permittedArrowDirections = .any
+        }
+        
         present(alertController, animated: true, completion: nil)
     }
     
@@ -381,15 +409,15 @@ private extension TalkPageContainerViewController {
         loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = !shouldDisable
     }
     
-    func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController) {
-        guard let absoluteURL = absoluteURL(for: url) else {
+    func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
+        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
             return
         }
         
         viewState = .linkLoading(loadingViewController: loadingViewController)
         
-        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [absoluteURL]) { [weak self, weak loadingViewController] (articles, error) in
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self, weak loadingViewController] (article, error) in
             
             guard let self = self,
             let loadingViewController = loadingViewController else {
@@ -403,7 +431,7 @@ private extension TalkPageContainerViewController {
             
             self.viewState = .linkFinished(loadingViewController: loadingViewController)
             
-            if let namespace = articles.first?.pageNamespace,
+            if let namespace = article?.pageNamespace,
                 
                 //convert absoluteURL into a siteURL that TalkPageType.user.titleWithCanonicalNamespacePrefix will recognize to prefix the canonical name
                 let languageCode = absoluteURL.wmf_language,
@@ -414,7 +442,7 @@ private extension TalkPageContainerViewController {
                     let lastPathComponent = url.lastPathComponent
                     self.pushTalkPage(title: lastPathComponent, siteURL: siteURL)
                 case .user:
-                    self.showUserActionSheet(siteURL: siteURL, absoluteURL: absoluteURL)
+                    self.showUserActionSheet(siteURL: siteURL, absoluteURL: absoluteURL, sourceView: sourceView, sourceRect: sourceRect)
                 case .main:
                     self.wmf_pushArticle(with: absoluteURL, dataStore: self.dataStore, theme: self.theme, animated: true)
                 default:
@@ -520,14 +548,14 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         }
     }
     
-    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController) {
-        tappedLink(url, loadingViewController: viewController)
+    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?) {
+        tappedLink(url, loadingViewController: viewController, sourceView: sourceView, sourceRect: sourceRect)
     }
 }
 
 extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView) {
-        tappedLink(url, loadingViewController: self)
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
+        tappedLink(url, loadingViewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
     
     func tappedIntro(headerView: TalkPageHeaderView) {

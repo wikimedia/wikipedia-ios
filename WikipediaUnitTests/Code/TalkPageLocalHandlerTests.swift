@@ -49,7 +49,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //assert db talk page values
-        let keyedUrlString = URL(string: urlString1)?.wmf_talkPageDatabaseKey
+        let keyedUrlString = URL(string: urlString1)?.wmf_databaseKey
         XCTAssertNotNil(dbTalkPage.key)
         XCTAssertEqual(dbTalkPage.key, keyedUrlString, "Unexpected key")
         XCTAssertEqual(dbTalkPage.revisionId, 1, "Unexpected revisionId")

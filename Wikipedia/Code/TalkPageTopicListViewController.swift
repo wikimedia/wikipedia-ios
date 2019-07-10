@@ -27,6 +27,8 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
 
     private var completedActivityType: UIActivity.ActivityType?
+    
+    var fromNavigationStateRestoration: Bool = false
 
     required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
@@ -58,6 +60,18 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //T226732 - workaround for when navigation bar maxY doesn't include top safe area height when returning from state restoration which results in a scroll view inset bug
+        if fromNavigationStateRestoration {
+            navigationBar.setNeedsLayout()
+            navigationBar.layoutIfNeeded()
+            updateScrollViewInsets()
+            fromNavigationStateRestoration = false
+        }
+    }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -67,10 +81,19 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         delegate?.didBecomeActiveAfterCompletingActivity(ofType: completedActivityType)
         completedActivityType = nil
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            //
+        }) { _ in
+            self.updateScrollViewInsets()
+        }
+        super.willTransition(to: newCollection, with: coordinator)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -180,7 +203,7 @@ private extension TalkPageTopicListViewController {
         self.shareIcon = shareIcon
     }
     
-    @objc func tappedShare(_ sender: UIBarButtonItem) {
+    @objc func tappedShare(_ sender: UIButton) {
         var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
         guard let talkPageURL = talkPageURLComponents?.url else {
@@ -192,6 +215,13 @@ private extension TalkPageTopicListViewController {
                 self.completedActivityType = activityType
             }
         }
+        
+        if let popover = activityViewController.popoverPresentationController {
+            popover.sourceView = sender
+            popover.sourceRect = sender.bounds
+            popover.permittedArrowDirections = .down
+        }
+        
         present(activityViewController, animated: true)
     }
     

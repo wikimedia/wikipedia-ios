@@ -112,7 +112,7 @@ extension APIReadingListEntry {
     }
     
     var articleKey: String? {
-        return articleURL?.wmf_articleDatabaseKey
+        return articleURL?.wmf_databaseKey
     }
 }
 

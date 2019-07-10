@@ -1,5 +1,5 @@
 // https://en.wikipedia.org/wiki/Wikipedia:Namespace
-public enum PageNamespace: Int {
+@objc public enum PageNamespace: Int {
     case main
     case talk
     case user
@@ -20,13 +20,13 @@ extension PageNamespace {
 }
 
 extension WMFArticle {
-    var pageNamespace: PageNamespace? {
+    public var pageNamespace: PageNamespace? {
         return PageNamespace(namespaceValue: ns?.intValue)
     }
 }
 
 extension MWKSearchResult {
-    var pageNamespace: PageNamespace? {
+    public var pageNamespace: PageNamespace? {
         return PageNamespace(namespaceValue: titleNamespace?.intValue)
     }
 }
