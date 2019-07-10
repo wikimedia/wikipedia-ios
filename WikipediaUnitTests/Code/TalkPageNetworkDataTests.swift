@@ -8,6 +8,7 @@ class TalkPageNetworkDataTests: XCTestCase {
     let session = Session.shared
 
     func testLocalJsonDecodesToTalkPage() {
+        
         do {
             let result: NetworkBase = try session.jsonDecodeData(data: TalkPageTestHelpers.TalkPageJSONType.original.json)
             let topics = result.topics

@@ -5,6 +5,7 @@ import XCTest
 
 fileprivate class MockSession: Session {
     override public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) {
+        
         do {
             let result: NetworkBase = try jsonDecodeData(data: TalkPageTestHelpers.TalkPageJSONType.original.json)
             completionHandler(result as? T, nil, nil)
