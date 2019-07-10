@@ -75,6 +75,13 @@
     self.splashView.alpha = 1.0;
 }
 
+- (void)showSplashViewIfNotShowing {
+    if (!self.splashView.hidden) {
+        return;
+    }
+    [self showSplashView];
+}
+
 - (void)hideSplashViewAnimated:(BOOL)animated {
     NSTimeInterval duration = animated ? 0.15 : 0.0;
     [UIView animateWithDuration:duration
