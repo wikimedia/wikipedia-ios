@@ -95,7 +95,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 }
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url {
-    NSString *key = [url wmf_articleDatabaseKey];
+    NSString *key = [url wmf_databaseKey];
     if (!key) {
         return nil;
     }

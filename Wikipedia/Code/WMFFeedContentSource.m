@@ -88,7 +88,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
                 if (!articleURL) {
                     return;
                 }
-                NSString *databaseKey = articleURL.wmf_articleDatabaseKey;
+                NSString *databaseKey = articleURL.wmf_databaseKey;
                 if (!databaseKey) {
                     return;
                 }
@@ -121,7 +121,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
                     if (!articleURL) {
                         return;
                     }
-                    NSString *databaseKey = articleURL.wmf_articleDatabaseKey;
+                    NSString *databaseKey = articleURL.wmf_databaseKey;
                     if (!databaseKey) {
                         return;
                     }
@@ -398,7 +398,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSArray<WMFFeedTopReadArticlePreview *> *articlePreviews = feedDay.topRead.articlePreviews;
     NSMutableDictionary<NSString *, WMFFeedTopReadArticlePreview *> *topReadArticlesByKey = [NSMutableDictionary dictionaryWithCapacity:articlePreviews.count];
     for (WMFFeedTopReadArticlePreview *articlePreview in articlePreviews) {
-        NSString *key = articlePreview.articleURL.wmf_articleDatabaseKey;
+        NSString *key = articlePreview.articleURL.wmf_databaseKey;
         if (!key) {
             continue;
         }
@@ -437,7 +437,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    NSString *key = articleURL.wmf_articleDatabaseKey;
+    NSString *key = articleURL.wmf_databaseKey;
     if (!key) {
         done();
         return;
@@ -476,12 +476,12 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
                   inManagedObjectContext:(NSManagedObjectContext *)moc
                                    force:(BOOL)force {
     if (!newsStory.featuredArticlePreview) {
-        NSString *articlePreviewKey = articlePreview.URL.wmf_articleDatabaseKey;
+        NSString *articlePreviewKey = articlePreview.URL.wmf_databaseKey;
         if (!articlePreviewKey) {
             return NO;
         }
         for (WMFFeedArticlePreview *preview in newsStory.articlePreviews) {
-            if ([preview.articleURL.wmf_articleDatabaseKey isEqualToString:articlePreviewKey]) {
+            if ([preview.articleURL.wmf_databaseKey isEqualToString:articlePreviewKey]) {
                 newsStory.featuredArticlePreview = preview;
                 break;
             } else {

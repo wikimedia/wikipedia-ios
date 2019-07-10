@@ -12,7 +12,7 @@ extension NSManagedObjectContext {
 
     func talkPage(for taskURL: URL) throws -> TalkPage? {
         
-        guard let databaseKey = taskURL.wmf_talkPageDatabaseKey else {
+        guard let databaseKey = taskURL.wmf_databaseKey else {
             throw TalkPageError.talkPageDatabaseKeyCreationFailure
         }
         
@@ -26,7 +26,7 @@ extension NSManagedObjectContext {
     func createMissingTalkPage(with url: URL, displayTitle: String) -> TalkPage? {
         
         let talkPage = TalkPage(context: self)
-        talkPage.key = url.wmf_talkPageDatabaseKey
+        talkPage.key = url.wmf_databaseKey
         talkPage.displayTitle = displayTitle
         
         do {
@@ -44,7 +44,7 @@ extension NSManagedObjectContext {
         }
         
         let talkPage = TalkPage(context: self)
-        talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
+        talkPage.key = networkTalkPage.url.wmf_databaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.displayTitle = networkTalkPage.displayTitle
         

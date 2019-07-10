@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSMutableArray<WMFContentGroup *> *validGroups = [NSMutableArray arrayWithCapacity:relatedPagesContentGroups.count];
 
         for (WMFContentGroup *contentGroup in relatedPagesContentGroups) {
-            NSString *articleKey = [[WMFContentGroup articleURLForRelatedPagesContentGroupURL:contentGroup.URL] wmf_articleDatabaseKey];
+            NSString *articleKey = [[WMFContentGroup articleURLForRelatedPagesContentGroupURL:contentGroup.URL] wmf_databaseKey];
             if (!articleKey) {
                 continue;
             }
@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
                             continue;
                         }
                         NSURL *URL = (NSURL *)object;
-                        NSString *key = [URL wmf_articleDatabaseKey];
+                        NSString *key = [URL wmf_databaseKey];
                         if (!key) {
                             continue;
                         }
@@ -219,13 +219,13 @@ NS_ASSUME_NONNULL_BEGIN
             }
             [moc performBlock:^{
                 NSError *summaryError = nil;
-                NSArray<WMFArticle *> *articles = [moc wmf_createOrUpdateArticleSummmariesWithSummaryResponses:summariesByKey error:&summaryError];
+                NSDictionary<NSString *, WMFArticle *> *articles = [moc wmf_createOrUpdateArticleSummmariesWithSummaryResponses:summariesByKey error:&summaryError];
                 if (summaryError) {
                     DDLogError(@"Error creating or updating summaries: %@", summaryError);
                     completion();
                     return;
                 }
-                NSArray<NSURL *> *articleURLs = [articles wmf_mapAndRejectNil:^id _Nullable(WMFArticle * _Nonnull obj) {
+                NSArray<NSURL *> *articleURLs = [articles.allValues wmf_mapAndRejectNil:^id _Nullable(WMFArticle * _Nonnull obj) {
                     return obj.URL;
                 }];
                 if ([articleURLs count] < 3 && completion) {

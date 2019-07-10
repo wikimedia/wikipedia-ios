@@ -410,14 +410,14 @@ private extension TalkPageContainerViewController {
     }
     
     func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
-        guard let absoluteURL = absoluteURL(for: url) else {
+        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
             return
         }
         
         viewState = .linkLoading(loadingViewController: loadingViewController)
         
-        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [absoluteURL]) { [weak self, weak loadingViewController] (articles, error) in
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self, weak loadingViewController] (article, error) in
             
             guard let self = self,
             let loadingViewController = loadingViewController else {
@@ -431,7 +431,7 @@ private extension TalkPageContainerViewController {
             
             self.viewState = .linkFinished(loadingViewController: loadingViewController)
             
-            if let namespace = articles.first?.pageNamespace,
+            if let namespace = article?.pageNamespace,
                 
                 //convert absoluteURL into a siteURL that TalkPageType.user.titleWithCanonicalNamespacePrefix will recognize to prefix the canonical name
                 let languageCode = absoluteURL.wmf_language,

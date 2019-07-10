@@ -117,7 +117,16 @@
 @implementation NSManagedObjectContext (WMFArticle)
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchArticleWithKey:[articleURL wmf_articleDatabaseKey]];
+    return [self fetchArticleWithKey:[articleURL wmf_databaseKey]];
+}
+
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
+    if (!key) {
+        return @[];
+    }
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    return [self executeFetchRequest:request error:nil];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key {
@@ -162,7 +171,7 @@
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchOrCreateArticleWithKey:[articleURL wmf_articleDatabaseKey]];
+    return [self fetchOrCreateArticleWithKey:[articleURL wmf_databaseKey]];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult {
