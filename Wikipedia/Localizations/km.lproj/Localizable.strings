@@ -1,6 +1,7 @@
 // Messages for Khmer (ភាសាខ្មែរ)
 // Exported from translatewiki.net
 // Author: Nemo bis
+// Author: Y.snsqr
 // Author: គីមស៊្រុន
 
 "about-content-license" = "អាជ្ញាប័ណ្ណអត្ថបទ";
@@ -21,7 +22,7 @@
 "about-translators" = "អ្នកបកប្រែ";
 "about-translators-details" = "ត្រូវបានបកប្រែដោយអ្នកស្ម័គ្រចិត្តនៅ $1";
 "about-wikimedia-foundation" = "មូលនិធិវិគីមេឌា";
-"about-wikipedia" = "វិគីភីឌា";
+"about-wikipedia" = "វិគីភីឌៀ";
 // Fuzzy
 "abuse-filter-disallow-heading" = "អ្នកមិនអាចបោះផ្សាយការកែប្រែនេះបានទេ។ សូមត្រឡប់ក្រោយរួចកែតម្រួវវា។";
 // Fuzzy
@@ -359,7 +360,7 @@
 "theme-dark-display-name" = "ងងឹត";
 "theme-default-display-name" = "តាមលំនាំដើម";
 "theme-sepia-display-name" = "កាគី";
-"top-read-header-generic" = "វិគីភីឌា";
+"top-read-header-generic" = "វិគីភីឌៀ";
 "top-read-header-with-language" = "វិគីភីឌា$1";
 "top-read-see-more" = "មើលអត្ថបទអានច្រើនជាងគេបន្ថែមទៀត";
 "two-factor-login-continue" = "បន្តកត់ឈ្មោះចូល";
