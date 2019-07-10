@@ -37,7 +37,8 @@ class TalkPageLocalHandlerTests: XCTestCase {
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
         //add network talk page
-        guard let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, revisionId: 1) else {
+        guard let json = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json"),
+            let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: json, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
@@ -143,7 +144,8 @@ class TalkPageLocalHandlerTests: XCTestCase {
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
         //add network talk page
-        guard let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, revisionId: 1) else {
+        guard let json = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json"),
+            let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: json, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
@@ -183,7 +185,8 @@ class TalkPageLocalHandlerTests: XCTestCase {
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
         //add network talk page
-        guard let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, revisionId: 1) else {
+        guard let originalJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json"),
+            let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: originalJson, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
@@ -206,7 +209,8 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //get updated talk page payload
-        guard let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .updated, revisionId: 1) else {
+        guard let updatedJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.updated.fileName, ofType: "json"),
+            let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: updatedJson, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
@@ -291,8 +295,10 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
-        guard let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeForPerformance, revisionId: 1),
-            let updatedNetworkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeUpdatedForPerformance, revisionId: 1) else {
+        guard let largeJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.largeForPerformance.fileName, ofType: "json"),
+            let largeUpdatedJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.largeUpdatedForPerformance.fileName, ofType: "json"),
+            let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: largeJson, revisionId: 1),
+            let updatedNetworkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: largeUpdatedJson, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk pages")
             return
         }
@@ -327,8 +333,10 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
-        guard let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .smallForPerformance, revisionId: 1),
-            let updatedNetworkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, jsonType: .largeUpdatedForPerformance, revisionId: 1) else {
+        guard let smallJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.smallForPerformance.fileName, ofType: "json"),
+            let largeUpdatedJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.largeUpdatedForPerformance.fileName, ofType: "json"),
+            let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: smallJson, revisionId: 1),
+            let updatedNetworkTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: largeUpdatedJson, revisionId: 1) else {
                 XCTFail("Failure stubbing out network talk pages")
                 return
         }

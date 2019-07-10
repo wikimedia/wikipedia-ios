@@ -13,8 +13,7 @@ class TalkPageTestHelpers {
         case smallForPerformance
         case largeUpdatedForPerformance
         
-        var json: Data {
-            
+        var fileName: String {
             var fileName: String
             switch self {
             case .original: fileName = "TalkPage-small"
@@ -24,21 +23,15 @@ class TalkPageTestHelpers {
             case .largeUpdatedForPerformance: fileName = "TalkPage-large-updated"
             }
             
-            guard let json = Bundle(for: XCTestCase.self).wmf_data(fromContentsOfFile: fileName, ofType: "json") else {
-                XCTFail("Failure pulling local talk page json")
-                return Data()
-            }
-            
-            return json
-        
+            return fileName
         }
     }
     
-    static func networkTalkPage(for urlString: String, jsonType: TalkPageJSONType = .original, revisionId: Int) -> NetworkTalkPage? {
+    static func networkTalkPage(for urlString: String, data: Data, revisionId: Int) -> NetworkTalkPage? {
         let session = Session.shared
         
         do {
-            let result: NetworkBase = try session.jsonDecodeData(data: jsonType.json)
+            let result: NetworkBase = try session.jsonDecodeData(data: data)
             
             
             //update sort

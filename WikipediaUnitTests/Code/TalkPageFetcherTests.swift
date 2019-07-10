@@ -4,10 +4,22 @@ import XCTest
 @testable import WMF
 
 fileprivate class MockSession: Session {
+    
+    private let data: Data
+    
+    required init(configuration: Configuration, data: Data) {
+        self.data = data
+        super.init(configuration: configuration)
+    }
+    
+    required init(configuration: Configuration) {
+        fatalError("init(configuration:) has not been implemented")
+    }
+    
     override public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) {
         
         do {
-            let result: NetworkBase = try jsonDecodeData(data: TalkPageTestHelpers.TalkPageJSONType.original.json)
+            let result: NetworkBase = try jsonDecodeData(data: data)
             completionHandler(result as? T, nil, nil)
         } catch (let error) {
             XCTFail("Talk Page json failed to decode \(error)")
@@ -16,8 +28,18 @@ fileprivate class MockSession: Session {
 }
 
 class TalkPageFetcherTests: XCTestCase {
-
-    fileprivate let mockSession = MockSession(configuration: Configuration.current)
+    
+    fileprivate var mockSession: MockSession!
+    
+    override func setUp() {
+        super.setUp()
+        
+        if let data = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") {
+            mockSession = MockSession(configuration: Configuration.current, data: data)
+        } else {
+            XCTFail("Failure setting up MockTalkPageFetcher")
+        }
+    }
     
     func testTalkPageFetchReturnsTalkPage() {
         let fetcher = TalkPageFetcher(session: mockSession, configuration: Configuration.current)

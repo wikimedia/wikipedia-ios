@@ -9,8 +9,13 @@ class TalkPageNetworkDataTests: XCTestCase {
 
     func testLocalJsonDecodesToTalkPage() {
         
+        guard let json = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") else {
+            XCTFail("Failure pulling local talk page json")
+            return
+        }
+        
         do {
-            let result: NetworkBase = try session.jsonDecodeData(data: TalkPageTestHelpers.TalkPageJSONType.original.json)
+            let result: NetworkBase = try session.jsonDecodeData(data: json)
             let topics = result.topics
             XCTAssertEqual(topics.count, 6, "Unexpected topic count")
             XCTAssertEqual(topics[1].html, "Let’s talk about talk pages", "Unexpected topic title")
