@@ -2,7 +2,7 @@ import Foundation
 
 @objc(WMFArticleSummaryController)
 public class ArticleSummaryController: NSObject {
-    let fetcher: ArticleSummaryFetcher
+    @objc public let fetcher: ArticleSummaryFetcher
     weak var dataStore: MWKDataStore?
     
     @objc required init(fetcher: ArticleSummaryFetcher, dataStore: MWKDataStore) {
