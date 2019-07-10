@@ -814,12 +814,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 
-                var entry = ReadingListEntry(context: moc)
-                
                 guard let remoteEntryKey = remoteEntry.articleKey, let articleKey = article.key else {
                     return
                 }
                 
+                var entry = ReadingListEntry(context: moc)
                 entry.update(with: remoteEntry)
                 
                 // if there's a key mismatch, locally delete the bad entry and create a new one with the correct key
