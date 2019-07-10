@@ -49,15 +49,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         expandedArticleView.frame = view.bounds
         view.addSubview(expandedArticleView)
 
-        emptyView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emptyView)
-        NSLayoutConstraint.activate([
-            emptyView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        view.wmf_addSubviewWithConstraintsToEdges(emptyView)
     }
     
     var isEmptyViewHidden = true {
