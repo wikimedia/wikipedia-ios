@@ -725,7 +725,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
-            let searchSuggestionArticleKey = searchSuggestionArticleURL.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
+            let searchSuggestionArticleKey = searchSuggestionArticleURL.wmf_databaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
         } else if currentSearch?.filter == .top {
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
@@ -743,10 +743,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                     }
                 }
                 let resultURL = resultToSelect?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = resultURL?.wmf_articleDatabaseKey
+                articleKeyToSelect = resultURL?.wmf_databaseKey
             } else {
                 let firstResultURL = searchResults.first?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = firstResultURL?.wmf_articleDatabaseKey
+                articleKeyToSelect = firstResultURL?.wmf_databaseKey
             }
         }
         
@@ -1936,7 +1936,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
                 let url = result.articleURL(forSiteURL: siteURL),
-                let key = url.wmf_articleDatabaseKey,
+                let key = url.wmf_databaseKey,
                 !set.contains(key) else {
                     return nil
             }

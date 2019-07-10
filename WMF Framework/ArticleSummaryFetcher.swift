@@ -82,7 +82,7 @@ public class ArticleSummary: NSObject, Codable {
     }
     
     var key: String? {
-        return articleURL?.wmf_articleDatabaseKey // don't use contentURLs.desktop?.page directly as it needs to be standardized
+        return articleURL?.wmf_databaseKey // don't use contentURLs.desktop?.page directly as it needs to be standardized
     }
 }
 

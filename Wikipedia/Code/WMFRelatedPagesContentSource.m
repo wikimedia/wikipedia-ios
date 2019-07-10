@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSMutableArray<WMFContentGroup *> *validGroups = [NSMutableArray arrayWithCapacity:relatedPagesContentGroups.count];
 
         for (WMFContentGroup *contentGroup in relatedPagesContentGroups) {
-            NSString *articleKey = [[WMFContentGroup articleURLForRelatedPagesContentGroupURL:contentGroup.URL] wmf_articleDatabaseKey];
+            NSString *articleKey = [[WMFContentGroup articleURLForRelatedPagesContentGroupURL:contentGroup.URL] wmf_databaseKey];
             if (!articleKey) {
                 continue;
             }
@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
                             continue;
                         }
                         NSURL *URL = (NSURL *)object;
-                        NSString *key = [URL wmf_articleDatabaseKey];
+                        NSString *key = [URL wmf_databaseKey];
                         if (!key) {
                             continue;
                         }

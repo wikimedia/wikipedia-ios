@@ -410,7 +410,7 @@ private extension TalkPageContainerViewController {
     }
     
     func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
-        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_talkPageDatabaseKey else {
+        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
             return
         }

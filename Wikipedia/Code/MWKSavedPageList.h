@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Toggle the save state for the article with `key`.
  *
- * @param key to toggle state for, either saving or un-saving it. Key is a standardized version of the article URL obtained by the key property on WMFArticle or from a URL with wmf_articleDatabaseKey
+ * @param key to toggle state for, either saving or un-saving it. Key is a standardized version of the article URL obtained by the key property on WMFArticle or from a URL with wmf_databaseKey
  * @return whether or not the key is now saved
  */
 - (BOOL)toggleSavedPageForKey:(NSString *)key;

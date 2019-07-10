@@ -383,7 +383,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 for i in 1...countOfEntriesToCreate {
                     taskGroup.enter()
                     randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
-                        if let key = result?.wmf_articleDatabaseKey, let summary = summary {
+                        if let key = result?.wmf_databaseKey, let summary = summary {
                            summaryResponses[key] = summary
                         }
                         taskGroup.leave()
@@ -735,7 +735,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 guard !isDeleted else {
                     return
                 }
-                guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey else {
+                guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_databaseKey else {
                     return
                 }
                 remoteEntriesToCreateLocallyByArticleKey[articleKey] = remoteEntry

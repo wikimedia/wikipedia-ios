@@ -133,7 +133,7 @@
 - (void)updateDailySortPriorityWithSiteURLSortOrder:(nullable NSDictionary<NSString *, NSNumber *> *)siteURLSortOrderLookup {
     
     NSNumber *siteURLSortOrderNumber = nil;
-    NSString *siteURLDatabaseKey = self.siteURL.wmf_articleDatabaseKey;
+    NSString *siteURLDatabaseKey = self.siteURL.wmf_databaseKey;
     
     if (siteURLDatabaseKey) {
         siteURLSortOrderNumber = siteURLSortOrderLookup[siteURLDatabaseKey];
@@ -239,7 +239,7 @@
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
-    self.siteURLString = siteURL.wmf_articleDatabaseKey;
+    self.siteURLString = siteURL.wmf_databaseKey;
 }
 
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
@@ -679,7 +679,7 @@
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_articleDatabaseKey];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_databaseKey];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -775,14 +775,14 @@
 
 - (nullable WMFContentGroup *)locationContentGroupWithSiteURL:(nullable NSURL *)siteURL withinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
-    NSString *siteURLString = siteURL.wmf_articleDatabaseKey;
+    NSString *siteURLString = siteURL.wmf_databaseKey;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                              withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
                                  CLLocation *groupLocation = group.location;
                                  if (!groupLocation) {
                                      return;
                                  }
-                                 NSString *groupSiteURLString = group.siteURL.wmf_articleDatabaseKey;
+                                 NSString *groupSiteURLString = group.siteURL.wmf_databaseKey;
                                  if (siteURLString && groupSiteURLString && ![siteURLString isEqualToString:groupSiteURLString]) {
                                      return;
                                  }

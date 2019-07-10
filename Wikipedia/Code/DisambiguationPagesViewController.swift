@@ -24,7 +24,7 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let request = WMFArticle.fetchRequest()
-        request.predicate = NSPredicate(format: "key IN %@", articleURLs.compactMap { $0.wmf_articleDatabaseKey })
+        request.predicate = NSPredicate(format: "key IN %@", articleURLs.compactMap { $0.wmf_databaseKey })
         request.sortDescriptors = [NSSortDescriptor(key: "key", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
@@ -40,7 +40,7 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
     
     func fetch() {
         fakeProgressController.start()
-        let articleKeys = articleURLs.compactMap { $0.wmf_articleDatabaseKey }
+        let articleKeys = articleURLs.compactMap { $0.wmf_databaseKey }
         self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: articleKeys) { (_, error) in
             self.fakeProgressController.finish()
             if let error = error {

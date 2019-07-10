@@ -63,7 +63,7 @@ struct PlaceSearch {
         get {
             var key = "\(type.rawValue)|\(filter.rawValue)|\(sortStyle.rawValue)"
             if let searchResult = searchResult {
-                if let siteURL = siteURL, let articleURL = searchResult.articleURL(forSiteURL: siteURL), let articleKey = articleURL.wmf_articleDatabaseKey {
+                if let siteURL = siteURL, let articleURL = searchResult.articleURL(forSiteURL: siteURL), let articleKey = articleURL.wmf_databaseKey {
                     key.append("|\(articleKey)")
                 } else {
                     let lang = siteURL?.wmf_language ?? ""

@@ -117,7 +117,7 @@
 @implementation NSManagedObjectContext (WMFArticle)
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchArticleWithKey:[articleURL wmf_articleDatabaseKey]];
+    return [self fetchArticleWithKey:[articleURL wmf_databaseKey]];
 }
 
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
@@ -171,7 +171,7 @@
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchOrCreateArticleWithKey:[articleURL wmf_articleDatabaseKey]];
+    return [self fetchOrCreateArticleWithKey:[articleURL wmf_databaseKey]];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult {

@@ -342,7 +342,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
     WMFImageController *imageController = [WMFImageController sharedInstance];
     NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
-    NSString *group = article.url.wmf_articleDatabaseKey;
+    NSString *group = article.url.wmf_databaseKey;
     if (!group || !legacyImageURLs.count) {
         if (completion) {
             completion();
@@ -355,7 +355,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatch_block_t doneMigration = ^{
         NSArray *imageURLsForSaving = [article imageURLsForSaving];
-        NSString *articleKey = article.url.wmf_articleDatabaseKey;
+        NSString *articleKey = article.url.wmf_databaseKey;
         if (!articleKey || imageURLsForSaving.count == 0) {
             success();
             return;
@@ -392,7 +392,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }
 
             NSArray *URLs = [info valueForKey:@"imageThumbURL"];
-            [self cacheImagesForArticleKey:article.url.wmf_articleDatabaseKey withURLsInBackground:URLs failure:failure success:success];
+            [self cacheImagesForArticleKey:article.url.wmf_databaseKey withURLsInBackground:URLs failure:failure success:success];
         }];
 }
 
@@ -487,7 +487,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     [self updateFetchesInProcessCount];
 
     NSError *fetchError = nil;
-    NSArray<WMFArticle *> *articles = [self.dataStore.viewContext fetchArticlesWithKey:[url wmf_articleDatabaseKey] error:&fetchError];
+    NSArray<WMFArticle *> *articles = [self.dataStore.viewContext fetchArticlesWithKey:[url wmf_databaseKey] error:&fetchError];
     for (WMFArticle *article in articles) {
         [article updatePropertiesForError:error];
         if (error) {

@@ -61,7 +61,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
     NSString *title = articleURL.wmf_titleWithUnderscores;
-    NSString *key = articleURL.wmf_articleDatabaseKey;
+    NSString *key = articleURL.wmf_databaseKey;
     if (!title || !key) {
         failure([WMFFetcher invalidParametersError]);
         return nil;
@@ -102,7 +102,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     };
 
     NSURLSessionTask *operation = [self performCancelableMediaWikiAPIGETForURL:articleURL
-                                                               cancellationKey:articleURL.wmf_articleDatabaseKey
+                                                               cancellationKey:articleURL.wmf_databaseKey
                                                            withQueryParameters:params
                                                              completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                                                                  articleResponse = result[@"mobileview"];
@@ -189,7 +189,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 #pragma mark - Operation Tracking / Cancelling
 
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL {
-    [self cancelTaskWithCancellationKey:articleURL.wmf_articleDatabaseKey];
+    [self cancelTaskWithCancellationKey:articleURL.wmf_databaseKey];
 }
 
 - (nullable MWKArticle *)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response error:(NSError **)error {

@@ -1263,7 +1263,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 return NO;
             }
             if ([URL.path containsString:@":"]) {
-                [self.dataStore.articleSummaryController.fetcher fetchSummaryForArticleWithKey:URL.wmf_articleDatabaseKey
+                [self.dataStore.articleSummaryController.fetcher fetchSummaryForArticleWithKey:URL.wmf_databaseKey
                                                                                       priority:NSURLSessionTaskPriorityHigh
                                                                                     completion:^(WMFArticleSummary *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                                                                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1333,8 +1333,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return nil;
     }
     WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
-    NSString *visibleKey = visibleArticleViewController.articleURL.wmf_articleDatabaseKey;
-    NSString *articleKey = articleURL.wmf_articleDatabaseKey;
+    NSString *visibleKey = visibleArticleViewController.articleURL.wmf_databaseKey;
+    NSString *articleKey = articleURL.wmf_databaseKey;
     if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
         completion();
         return visibleArticleViewController;

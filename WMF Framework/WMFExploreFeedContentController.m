@@ -344,7 +344,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
-    return [self.exploreFeedPreferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
+    return [self.exploreFeedPreferences objectForKey:siteURL.wmf_databaseKey] != nil;
 }
 
 - (NSArray<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
@@ -420,7 +420,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (NSDictionary *)defaultExploreFeedPreferences {
     NSMutableDictionary *defaultExploreFeedPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count + 1];
     for (NSURL *siteURL in self.preferredSiteURLs) {
-        [defaultExploreFeedPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
+        [defaultExploreFeedPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_databaseKey];
     }
     [defaultExploreFeedPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
     return defaultExploreFeedPreferences;
@@ -464,7 +464,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
-        NSString *key = siteURL.wmf_articleDatabaseKey;
+        NSString *key = siteURL.wmf_databaseKey;
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         if (isOn) {
             [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:key];
@@ -487,7 +487,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
         } else {
             for (NSURL *siteURL in siteURLs) {
-                NSString *key = siteURL.wmf_articleDatabaseKey;
+                NSString *key = siteURL.wmf_databaseKey;
                 NSSet *oldVisibleContentGroupKindNumbers = [newPreferences objectForKey:key];
                 NSMutableSet *newVisibleContentGroupKindNumbers;
 
@@ -663,7 +663,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
             isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
         } else {
-            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_databaseKey];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
             if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
                 continue;
@@ -695,7 +695,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     NSMutableDictionary<NSString *, NSNumber *> *updatedSortOrder = [NSMutableDictionary dictionaryWithCapacity:_siteURLs.count];
     NSInteger i = 0;
     for (NSURL *siteURL in _siteURLs) {
-        updatedSortOrder[siteURL.wmf_articleDatabaseKey] = @(i);
+        updatedSortOrder[siteURL.wmf_databaseKey] = @(i);
         i++;
     }
     self.sortOrderBySiteURLDatabaseKey = updatedSortOrder;
