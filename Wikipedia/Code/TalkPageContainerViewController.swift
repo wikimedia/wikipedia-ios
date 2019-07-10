@@ -158,6 +158,23 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         
         super.init()
     }
+
+    @objc(userTalkPageContainerWithURL:dataStore:)
+    static func userTalkPageContainer(url: URL, dataStore: MWKDataStore) -> TalkPageContainerViewController? {
+        guard
+            let title = url.wmf_title,
+            let siteURL = url.wmf_site
+        else {
+            return nil
+        }
+        return TalkPageContainerViewController.userTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore)
+    }
+
+    static func userTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore) -> TalkPageContainerViewController {
+        let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: title)
+        let titleWithPrefix = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: siteURL)
+        return TalkPageContainerViewController(title: titleWithPrefix, siteURL: siteURL, type: .user, dataStore: dataStore)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

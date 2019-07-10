@@ -32,14 +32,21 @@ class ArticleSummaryCoordinates: NSObject, Codable {
 
 @objc(WMFArticleSummary)
 public class ArticleSummary: NSObject, Codable {
-    public class Namespace: NSObject, Codable {
+    @objc public class Namespace: NSObject, Codable {
         let id: Int?
         let text: String?
+
+        @objc public var number: NSNumber? {
+            guard let id = id else {
+                return nil
+            }
+            return NSNumber(value: id)
+        }
     }
     let id: Int?
     let revision: String?
     let index: Int?
-    let namespace: Namespace?
+    @objc let namespace: Namespace?
     let title: String?
     let displayTitle: String?
     let articleDescription: String?
