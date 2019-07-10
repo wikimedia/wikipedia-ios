@@ -64,6 +64,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     
     var isEmptyViewHidden = true {
         didSet {
+            emptyView.isHidden = isEmptyViewHidden
             collapsedArticleView.isHidden = !isEmptyViewHidden
             expandedArticleView.isHidden = !isEmptyViewHidden
         }
