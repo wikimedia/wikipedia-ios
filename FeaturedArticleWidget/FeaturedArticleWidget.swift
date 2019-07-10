@@ -48,8 +48,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         expandedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         expandedArticleView.frame = view.bounds
         view.addSubview(expandedArticleView)
-        
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
 
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyView)
@@ -64,6 +62,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     
     var isEmptyViewHidden = true {
         didSet {
+            extensionContext?.widgetLargestAvailableDisplayMode = isEmptyViewHidden ? .expanded : .compact
             emptyView.isHidden = isEmptyViewHidden
             collapsedArticleView.isHidden = !isEmptyViewHidden
             expandedArticleView.isHidden = !isEmptyViewHidden
