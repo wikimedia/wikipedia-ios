@@ -860,8 +860,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             self.notificationUserInfoToShow = nil;
             done();
         } else if (self.unprocessedUserActivity) {
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
+            [self processUserActivity:self.unprocessedUserActivity
+                             animated:NO
+                           completion:^{
+                               [self hideSplashViewAnimated:!didShowOnboarding];
+                               done();
+                           }];
         } else if (self.unprocessedShortcutItem) {
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self processShortcutItem:self.unprocessedShortcutItem
@@ -1258,7 +1262,32 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 done();
                 return NO;
             }
-            [self showArticleForURL:URL animated:animated completion:done];
+            if ([URL.path containsString:@":"]) {
+                [self.dataStore.articleSummaryController.fetcher fetchSummaryFor:URL
+                                                                        priority:NSURLSessionTaskPriorityHigh
+                                                                      completion:^(WMFArticleSummary *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              if (error) {
+                                                                                  done();
+                                                                                  return;
+                                                                              }
+                                                                              if (summary.namespace.number.integerValue == PageNamespaceUserTalk) {
+                                                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                      NSURL *url = [NSURL wmf_desktopURLForURL:URL];
+                                                                                      WMFTalkPageContainerViewController *talkPageContainer = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:url dataStore:self.dataStore];
+                                                                                      [talkPageContainer applyTheme:self.theme];
+                                                                                      [self wmf_pushViewController:talkPageContainer animated:YES];
+                                                                                      [self.dataStore.historyList addPageToHistoryWithURL:url];
+                                                                                      done();
+                                                                                  });
+                                                                              } else {
+                                                                                  [self showArticleForURL:URL animated:animated completion:done];
+                                                                              }
+                                                                          });
+                                                                      }];
+            } else {
+                [self showArticleForURL:URL animated:animated completion:done];
+            }
             // don't call done block before this return, wait for completion ^
             return YES;
         } break;
@@ -1486,6 +1515,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSplashView {
     [(WMFThemeableNavigationController *)self.navigationController showSplashView];
+}
+
+- (void)showSplashViewIfNotShowing {
+    [(WMFThemeableNavigationController *)self.navigationController showSplashViewIfNotShowing];
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
