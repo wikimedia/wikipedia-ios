@@ -74,4 +74,36 @@ class WMFArticleTests: XCTestCase {
         XCTAssert(bViewedDate.timeIntervalSince1970 > 0, "Merging should take the later date")
         XCTAssert(a.viewedFragment == "b", "Merging should take the later viewed fragment")
     }
+    
+    func testMergeSavedDate() {
+        a.savedDate = Date(timeIntervalSince1970: 1)
+        b.savedDate = Date(timeIntervalSince1970: -1)
+        a.merge(b)
+        guard let savedDate = a.savedDate else {
+            XCTAssert(false, "Saved date should be set")
+            return
+        }
+        XCTAssert(savedDate.timeIntervalSince1970 > 0, "Merging should take the later date")
+    }
+    
+    func testMergeNilSavedDate() {
+        a.savedDate = Date(timeIntervalSince1970: 1)
+        b.savedDate = nil
+        a.merge(b)
+        XCTAssert(a.savedDate != nil, "Saved date should be set")
+    }
+    
+    func testMergeNonNilSavedDate() {
+        a.savedDate = nil
+        b.savedDate = Date(timeIntervalSince1970: 1)
+        a.merge(b)
+        XCTAssert(a.savedDate != nil, "Saved date should be set")
+    }
+    
+    func testMergeNonNilViewedDate() {
+        a.viewedDate = nil
+        b.viewedDate = Date(timeIntervalSince1970: 1)
+        a.merge(b)
+        XCTAssert(a.viewedDate != nil, "Viewed date should be set")
+    }
 }

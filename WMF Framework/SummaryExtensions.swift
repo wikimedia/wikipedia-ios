@@ -4,9 +4,7 @@ extension WMFArticle {
             return
         }
         // merge important keys not set by the summary
-        let keysToMerge = ["savedDate", "placesSortOrder", "pageViews"]
-        // ensure these values still exist with an assertion. is there a way to use these directly?
-        assert([\WMFArticle.savedDate, \WMFArticle.placesSortOrder, \WMFArticle.pageViews].count == keysToMerge.count)
+        let keysToMerge = [#keyPath(WMFArticle.savedDate), #keyPath(WMFArticle.placesSortOrder), #keyPath(WMFArticle.pageViews)]
         for key in keysToMerge {
             guard let valueToMerge = article.value(forKey: key) else {
                 continue
