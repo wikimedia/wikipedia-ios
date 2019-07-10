@@ -320,6 +320,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
+"featured-article-empty-title" = "No featured article available today";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
 "fetcher-error-generic" = "Something went wrong. Please try again later.";
