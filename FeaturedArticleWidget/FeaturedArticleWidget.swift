@@ -2,6 +2,26 @@ import UIKit
 import NotificationCenter
 import WMF
 
+private final class EmptyView: SetupView {
+    private let label = UILabel()
+
+    var theme: Theme = .widget
+
+    override func setup() {
+        super.setup()
+        label.text = WMFLocalizedString("featured-article-empty-title", value: "No Featured article available today", comment: "Title that displays when featured article is not available")
+        label.textColor = theme.colors.primaryText
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        wmf_addSubviewWithConstraintsToEdges(label)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+    }
+}
+
 class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     let collapsedArticleView = ArticleRightAlignedImageCollectionViewCell()
     let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
@@ -9,6 +29,8 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     var isExpanded = true
     
     var currentArticleKey: String?
+
+    private lazy var emptyView = EmptyView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
