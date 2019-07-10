@@ -9,7 +9,7 @@ private final class EmptyView: SetupView {
 
     override func setup() {
         super.setup()
-        label.text = WMFLocalizedString("featured-article-empty-title", value: "No Featured article available today", comment: "Title that displays when featured article is not available")
+        label.text = WMFLocalizedString("featured-article-empty-title", value: "No featured article available today", comment: "Title that displays when featured article is not available")
         label.textColor = theme.colors.primaryText
         label.textAlignment = .center
         label.numberOfLines = 0
