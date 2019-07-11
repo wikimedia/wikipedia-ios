@@ -4,6 +4,7 @@ import UIKit
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?)
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController)
+    func didTriggerRefresh(viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -100,6 +101,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        isRefreshControlEnabled = true
         registerCells()
         setupCollectionViewUpdater()
         setupBackgroundTap()
@@ -158,6 +160,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         let contentOffset = collectionView.contentOffset
 
         collectionView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y + delta), animated: true)
+    }
+    
+    override func refresh() {
+        delegate?.didTriggerRefresh(viewController: self)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

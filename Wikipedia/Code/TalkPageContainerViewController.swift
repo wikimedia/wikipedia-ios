@@ -76,6 +76,11 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var introTopic: TalkPageTopic?
     private var topicListViewController: TalkPageTopicListViewController?
     private var replyListViewController: TalkPageReplyListViewController?
+    private var emptyContainerViewController: ViewController?
+    private var emptyContainerScrollView: UIScrollView?
+    private var emptyContainerRefreshControl: UIRefreshControl?
+    private var emptyContainerTopConstraint: NSLayoutConstraint?
+    private var emptyView: WMFEmptyView?
     private var headerView: TalkPageHeaderView?
     private var addButton: UIBarButtonItem?
     
@@ -105,7 +110,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
                 hideEmptyView()
             case .fetchInitialResultEmpty:
                 navigationItem.rightBarButtonItem?.isEnabled = false
-                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+                showEmptyView(of: .emptyTalkPage)
             case .fetchFinishedResultData:
                 fakeProgressController.stop()
                 navigationItem.rightBarButtonItem?.isEnabled = true
@@ -113,11 +118,11 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
             case .fetchFinishedResultEmpty:
                 fakeProgressController.stop()
                 navigationItem.rightBarButtonItem?.isEnabled = true
-                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+                showEmptyView(of: .emptyTalkPage)
             case .fetchFailure (let error):
                 fakeProgressController.stop()
                 if oldValue != TalkPageContainerViewState.fetchInitialResultData {
-                    showEmptyView()
+                    showEmptyView(of: .unableToLoadTalkPage)
                 }
                 showNoInternetConnectionAlertOrOtherWarning(from: error)
             case .linkLoading(let viewController):
@@ -184,6 +189,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         super.viewDidLoad()
 
         setupNavigationBar()
+        setupEmptyContainerViewController()
         viewState = .initial
         fetch()
     }
@@ -191,6 +197,17 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if let emptyView = emptyView,
+            let headerView = headerView,
+            let emptyContainerTopConstraint = emptyContainerTopConstraint {
+            emptyView.offsetContentCenterY(withConstant: -headerView.frame.height)
+            emptyContainerTopConstraint.constant = navigationBar.visibleHeight
+        }
     }
 
     func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
@@ -207,12 +224,15 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 
 private extension TalkPageContainerViewController {
     
-    func fetch() {
+    func fetch(completion: (() -> Void)? = nil) {
         
         viewState = .fetchLoading
         
         controller.fetchTalkPage { [weak self] (result) in
             DispatchQueue.main.async {
+                
+                completion?()
+                
                 guard let self = self else {
                     return
                 }
@@ -224,24 +244,64 @@ private extension TalkPageContainerViewController {
                     self.talkPage = try? self.dataStore.viewContext.existingObject(with: fetchResult.objectID) as? TalkPage
                     if let talkPage = self.talkPage {
                         
+                        self.setupTopicListViewControllerIfNeeded(with: talkPage)
+                        
                         if let topics = talkPage.topics, topics.count > 0 {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultData : .fetchFinishedResultData
                         } else {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                         }
-                        self.setupTopicListViewControllerIfNeeded(with: talkPage)
+                        
                         if let headerView = self.headerView,
                             let introTopic = self.introTopic {
                             self.configure(header: headerView, introTopic: introTopic)
                             self.updateScrollViewInsets()
                         }
                     } else {
-                        self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
+                        self.viewState = fetchResult
+                            .isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                     }
                 case .failure(let error):
                     self.viewState = .fetchFailure(error: error)
                 }
             }
+        }
+    }
+    
+    func setupEmptyContainerViewController() {
+        if emptyContainerViewController == nil {
+            emptyContainerViewController = ViewController()
+            emptyContainerViewController?.apply(theme: theme)
+            emptyContainerViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+            addChild(emptyContainerViewController!)
+            view.addSubview(emptyContainerViewController!.view)
+            let topConstraint = emptyContainerViewController!.view.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBar.visibleHeight)
+            let bottomConstraint = emptyContainerViewController!.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            let leadingConstraint = emptyContainerViewController!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            let trailingConstraint = emptyContainerViewController!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+            emptyContainerViewController?.didMove(toParent: self)
+            let scrollView = UIScrollView()
+            scrollView.alwaysBounceVertical = true
+            emptyContainerViewController?.view.wmf_addSubviewWithConstraintsToEdges(scrollView)
+            emptyContainerViewController?.scrollView = scrollView
+/*todo: move elsewhere*/
+            let refreshControl = UIRefreshControl()
+            refreshControl.tintColor = self.theme.colors.refreshControlTint
+            refreshControl.layer.zPosition = -100
+            refreshControl.addTarget(self, action: #selector(refreshControlActivated), for: .valueChanged)
+            scrollView.addSubview(refreshControl)
+            scrollView.refreshControl = refreshControl
+            emptyContainerRefreshControl = refreshControl
+            emptyContainerScrollView = scrollView
+            emptyContainerTopConstraint = topConstraint
+            emptyContainerViewController?.view.isHidden = true
+        }
+    }
+    
+    @objc func refreshControlActivated() {
+        self.fetch {
+            self.emptyContainerRefreshControl?.endRefreshing()
         }
     }
     
@@ -251,7 +311,7 @@ private extension TalkPageContainerViewController {
             topicListViewController?.apply(theme: theme)
             topicListViewController?.fromNavigationStateRestoration = fromNavigationStateRestoration
             fromNavigationStateRestoration = false
-            let belowView: UIView = wmf_emptyView ?? navigationBar
+            let belowView: UIView = wmf_emptyView ?? emptyContainerViewController?.view ?? navigationBar
             wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowView)
             topicListViewController?.delegate = self
         }
@@ -459,13 +519,36 @@ private extension TalkPageContainerViewController {
 
 extension TalkPageContainerViewController {
     private func hideEmptyView() {
+        emptyView?.removeFromSuperview()
+        emptyView = nil
+        emptyContainerViewController?.view.isHidden = true
         navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
-        wmf_hideEmptyView()
+//        emptyView?.removeFromSuperview()
+//        emptyView = nil
     }
-
-    private func showEmptyView() {
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
-        wmf_showEmptyView(of: .unableToLoadTalkPage, theme: self.theme, frame: self.view.bounds)
+    
+    private func showEmptyView(of type: WMFEmptyViewType) {
+        
+        if type == .unableToLoadTalkPage {
+            navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
+        }
+        
+        if let emptyContainerVC = emptyContainerViewController,
+            let emptyView = emptyView(of: type, theme: self.theme, frame: emptyContainerVC.view.bounds),
+            let headerView = headerView {
+            emptyContainerScrollView?.addSubview(emptyView)
+            emptyContainerViewController?.view.isHidden = false
+            //emptyView.offsetContentCenterY(withConstant: headerView.frame.height)
+            self.emptyView = emptyView
+        }
+        
+//        if let topicListViewController = topicListViewController,
+//            let emptyView = emptyView(of: type, theme: self.theme, frame: topicListViewController.view.bounds),
+//            let headerView = headerView {
+//            emptyView.offsetContentCenterY(withConstant: headerView.frame.height)
+//            topicListViewController.collectionView.addSubview(emptyView)
+//            self.emptyView = emptyView
+//        }
     }
 
     private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
@@ -525,6 +608,10 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
             fetch()
         }
     }
+    
+    func didTriggerRefresh(viewController: TalkPageTopicListViewController) {
+        fetch { viewController.endRefreshing() }
+    }
 }
 
 //MARK: TalkPageReplyListViewControllerDelegate
@@ -550,6 +637,10 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?) {
         tappedLink(url, loadingViewController: viewController, sourceView: sourceView, sourceRect: sourceRect)
+    }
+    
+    func didTriggerRefresh(viewController: TalkPageReplyListViewController) {
+        fetch { viewController.endRefreshing() } 
     }
 }
 

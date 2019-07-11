@@ -5,6 +5,7 @@ protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
     func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?)
+    func didTriggerRefresh(viewController: TalkPageTopicListViewController)
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -54,6 +55,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isRefreshControlEnabled = true
         registerCells()
         setupCollectionViewUpdater()
         setupToolbar()
@@ -75,6 +77,10 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func refresh() {
+        delegate?.didTriggerRefresh(viewController: self)
     }
 
     @objc private func didBecomeActive() {

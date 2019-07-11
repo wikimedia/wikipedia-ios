@@ -109,7 +109,8 @@ class TalkPageController {
                             })
                         }
                     case .failure(let error):
-                        completion?(.failure(error))
+                        //let randomError = NSError(domain: "blah", code: 0, userInfo: nil)
+                        completion?(.failure(error)) //randomError
                     }
                 }
                 

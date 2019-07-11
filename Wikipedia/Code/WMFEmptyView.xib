@@ -79,6 +79,7 @@
                 <outlet property="labelStackView" destination="e0A-Uz-XiC" id="PUk-u8-2WA"/>
                 <outlet property="messageLabel" destination="yEx-fr-wkW" id="IPQ-i5-hJc"/>
                 <outlet property="stackView" destination="jDP-Yy-8ig" id="vXV-N0-78J"/>
+                <outlet property="stackViewCenterYConstraint" destination="gCe-wk-k9G" id="DV5-ey-pM6"/>
                 <outlet property="titleLabel" destination="bja-IW-pcW" id="Coj-AI-nQ0"/>
             </connections>
         </view>

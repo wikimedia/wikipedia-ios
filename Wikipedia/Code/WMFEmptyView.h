@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noSelectedImageToInsertEmptyView;
 + (instancetype)unableToLoadTalkPageEmptyView;
 + (instancetype)emptyTalkPageEmptyView;
+- (void)offsetContentCenterYWithConstant:(CGFloat)constant;
 
 NS_ASSUME_NONNULL_END
 
