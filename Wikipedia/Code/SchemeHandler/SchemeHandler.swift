@@ -59,7 +59,7 @@ extension SchemeHandler: WKURLSchemeHandler {
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
         assert(Thread.isMainThread)
         
-        var request = urlSchemeTask.request
+        let request = urlSchemeTask.request
         guard let requestURL = request.url else {
             urlSchemeTask.didFailWithError(SchemeHandlerError.invalidParameters)
             return
