@@ -239,7 +239,6 @@ private extension TalkPageContainerViewController {
         toolbar.barTintColor = theme.colors.chromeBackground
         
         let toolbarHeight = CGFloat(44)
-        //additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: toolbarHeight, right: 0)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(toolbar, belowSubview: navigationBar)
         let guide = view.safeAreaLayoutGuide

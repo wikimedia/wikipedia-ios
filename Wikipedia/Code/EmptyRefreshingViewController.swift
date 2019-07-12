@@ -7,7 +7,7 @@ protocol EmptyRefreshingViewControllerDelegate: class {
 class EmptyRefreshingViewController: ViewController {
     private let refreshControl = UIRefreshControl()
     private var emptyView: WMFEmptyView? = nil
-    var delegate: EmptyRefreshingViewControllerDelegate?
+    weak var delegate: EmptyRefreshingViewControllerDelegate?
     
     var type: WMFEmptyViewType? {
         didSet {
