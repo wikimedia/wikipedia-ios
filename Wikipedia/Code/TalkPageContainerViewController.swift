@@ -216,6 +216,11 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         toolbar.barTintColor = theme.colors.chromeBackground
         shareIcon?.apply(theme: theme)

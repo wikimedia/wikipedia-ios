@@ -149,6 +149,11 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         collectionView.backgroundColor = theme.colors.baseBackground
     }
 }

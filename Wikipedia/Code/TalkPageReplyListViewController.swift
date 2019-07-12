@@ -32,12 +32,12 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private var originalFooterViewFrame: CGRect?
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
-    private var replyBarButtonItem: UIBarButtonItem!
+    private var replyBarButtonItem: UIBarButtonItem?
     
     var repliesAreDisabled = true {
         didSet {
             footerView?.composeButtonIsDisabled = repliesAreDisabled
-            replyBarButtonItem.isEnabled = !repliesAreDisabled
+            replyBarButtonItem?.isEnabled = !repliesAreDisabled
         }
     }
 
@@ -233,6 +233,11 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         beKindInputAccessoryView.apply(theme: theme)
     }
@@ -277,9 +282,9 @@ private extension TalkPageReplyListViewController {
         navigationBar.allowsUnderbarHitsFallThrough = true
         let replyImage = UIImage(named: "reply")
         replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
-        replyBarButtonItem.tintColor = theme.colors.link
+        replyBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = replyBarButtonItem
-        replyBarButtonItem.isEnabled = repliesAreDisabled
+        replyBarButtonItem?.isEnabled = !repliesAreDisabled
         navigationBar.updateNavigationItems()
         
         if let headerView = TalkPageHeaderView.wmf_viewFromClassNib(),

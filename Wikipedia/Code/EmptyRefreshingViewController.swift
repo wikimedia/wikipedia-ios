@@ -55,6 +55,10 @@ class EmptyRefreshingViewController: ViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         scrollView?.backgroundColor = theme.colors.paperBackground
         refreshControl.tintColor = theme.colors.refreshControlTint
