@@ -64,10 +64,6 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     return [self emptyViewOfType:type action:nil theme:theme frame:frame];
 }
 
-+ (void)wmf_applyThemeToEmptyView:(WMFEmptyView *)emptyView withTheme:(WMFTheme *)theme {
-    [emptyView applyTheme:theme];
-}
-
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type action:(nullable SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
     [self wmf_hideEmptyView];
 

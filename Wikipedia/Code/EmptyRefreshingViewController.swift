@@ -62,9 +62,5 @@ class EmptyRefreshingViewController: ViewController {
         view.backgroundColor = theme.colors.paperBackground
         scrollView?.backgroundColor = theme.colors.paperBackground
         refreshControl.tintColor = theme.colors.refreshControlTint
-        if let emptyView = emptyView {
-            EmptyRefreshingViewController.wmf_applyTheme(to: emptyView, with: theme)
-        }
-        
     }
 }
