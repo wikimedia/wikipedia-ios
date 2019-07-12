@@ -16,7 +16,6 @@
 @property (nonatomic, strong) WMFTheme *theme;
 @property (nonatomic, strong) NSString *backgroundColorKeyPath;
 @property (nonatomic, strong) NSString *titleLabelTextColorKeyPath;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *stackViewCenterYConstraint;
 
 @end
 
@@ -45,10 +44,6 @@
     } else {
         return _titleLabelTextColorKeyPath;
     }
-}
-
-- (void)offsetContentCenterYWithConstant:(CGFloat)constant {
-    self.stackViewCenterYConstraint.constant = constant;
 }
 
 + (instancetype)emptyView {

@@ -62,6 +62,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let dataStore: MWKDataStore
     private let controller: TalkPageController
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
+    private let emptyViewController = EmptyRefreshingViewController()
     private var talkPage: TalkPage? {
         didSet {
             guard let talkPage = self.talkPage else {
@@ -76,13 +77,14 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var introTopic: TalkPageTopic?
     private var topicListViewController: TalkPageTopicListViewController?
     private var replyListViewController: TalkPageReplyListViewController?
-    private var emptyContainerViewController: ViewController?
-    private var emptyContainerScrollView: UIScrollView?
-    private var emptyContainerRefreshControl: UIRefreshControl?
     private var emptyContainerTopConstraint: NSLayoutConstraint?
     private var emptyView: WMFEmptyView?
     private var headerView: TalkPageHeaderView?
     private var addButton: UIBarButtonItem?
+    
+    private let toolbar = UIToolbar()
+    private var shareIcon: IconBarButtonItem?
+    private var completedActivityType: UIActivity.ActivityType?
     
     @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
     @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
@@ -160,7 +162,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         
         let language = siteURL.wmf_language
         talkPageSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
-        
+
         super.init()
     }
 
@@ -189,25 +191,34 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         super.viewDidLoad()
 
         setupNavigationBar()
-        setupEmptyContainerViewController()
+        setupToolbar()
+        setupEmptyViewController()
         viewState = .initial
         fetch()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        view.backgroundColor = theme.colors.paperBackground
+    @objc private func didBecomeActive() {
+        if completedActivityType == .openInSafari {
+            fetch()
+        }
+        completedActivityType = nil
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if let emptyView = emptyView,
-            let headerView = headerView,
-            let emptyContainerTopConstraint = emptyContainerTopConstraint {
-            emptyView.offsetContentCenterY(withConstant: -headerView.frame.height)
-            emptyContainerTopConstraint.constant = navigationBar.visibleHeight
+        if let emptyContainerTopConstraint = emptyContainerTopConstraint {
+            emptyContainerTopConstraint.constant =  navigationBar.visibleHeight
         }
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        toolbar.barTintColor = theme.colors.chromeBackground
+        shareIcon?.apply(theme: theme)
     }
 
     func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
@@ -223,6 +234,54 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 //MARK: Private
 
 private extension TalkPageContainerViewController {
+    
+    func setupToolbar() {
+        toolbar.barTintColor = theme.colors.chromeBackground
+        
+        let toolbarHeight = CGFloat(44)
+        //additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: toolbarHeight, right: 0)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(toolbar, belowSubview: navigationBar)
+        let guide = view.safeAreaLayoutGuide
+        let heightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor)
+        let bottomConstraint = guide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor)
+        
+        NSLayoutConstraint.activate([heightConstraint, leadingConstraint, trailingConstraint, bottomConstraint])
+        
+        let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
+        shareIcon.apply(theme: theme)
+        shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
+        
+        let spacer1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let spacer2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [spacer1, shareIcon, spacer2]
+        
+        self.shareIcon = shareIcon
+    }
+    
+    @objc func tappedShare(_ sender: UIButton) {
+        var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
+        guard let talkPageURL = talkPageURLComponents?.url else {
+            return
+        }
+        let activityViewController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
+        activityViewController.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
+            if completed {
+                self.completedActivityType = activityType
+            }
+        }
+        
+        if let popover = activityViewController.popoverPresentationController {
+            popover.sourceView = sender
+            popover.sourceRect = sender.bounds
+            popover.permittedArrowDirections = .down
+        }
+        
+        present(activityViewController, animated: true)
+    }
     
     func fetch(completion: (() -> Void)? = nil) {
         
@@ -268,53 +327,39 @@ private extension TalkPageContainerViewController {
         }
     }
     
-    func setupEmptyContainerViewController() {
-        if emptyContainerViewController == nil {
-            emptyContainerViewController = ViewController()
-            emptyContainerViewController?.apply(theme: theme)
-            emptyContainerViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-            addChild(emptyContainerViewController!)
-            view.addSubview(emptyContainerViewController!.view)
-            let topConstraint = emptyContainerViewController!.view.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBar.visibleHeight)
-            let bottomConstraint = emptyContainerViewController!.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            let leadingConstraint = emptyContainerViewController!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-            let trailingConstraint = emptyContainerViewController!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-            emptyContainerViewController?.didMove(toParent: self)
-            let scrollView = UIScrollView()
-            scrollView.alwaysBounceVertical = true
-            emptyContainerViewController?.view.wmf_addSubviewWithConstraintsToEdges(scrollView)
-            emptyContainerViewController?.scrollView = scrollView
-/*todo: move elsewhere*/
-            let refreshControl = UIRefreshControl()
-            refreshControl.tintColor = self.theme.colors.refreshControlTint
-            refreshControl.layer.zPosition = -100
-            refreshControl.addTarget(self, action: #selector(refreshControlActivated), for: .valueChanged)
-            scrollView.addSubview(refreshControl)
-            scrollView.refreshControl = refreshControl
-            emptyContainerRefreshControl = refreshControl
-            emptyContainerScrollView = scrollView
-            emptyContainerTopConstraint = topConstraint
-            emptyContainerViewController?.view.isHidden = true
-        }
-    }
-    
-    @objc func refreshControlActivated() {
-        self.fetch {
-            self.emptyContainerRefreshControl?.endRefreshing()
-        }
+    func setupEmptyViewController() {
+        emptyViewController.delegate = self
+        emptyViewController.apply(theme: theme)
+        let constraints = addChildViewController(childViewController: emptyViewController, belowSubview: toolbar, topAnchorPadding: navigationBar.visibleHeight)
+        emptyContainerTopConstraint = constraints.top
+        emptyViewController.view.isHidden = true
     }
     
     func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {
         if topicListViewController == nil {
-            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPageTitle: talkPageTitle, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
-            topicListViewController?.apply(theme: theme)
-            topicListViewController?.fromNavigationStateRestoration = fromNavigationStateRestoration
+            let topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPageTitle: talkPageTitle, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
+            topicListViewController.apply(theme: theme)
+            topicListViewController.fromNavigationStateRestoration = fromNavigationStateRestoration
             fromNavigationStateRestoration = false
-            let belowView: UIView = wmf_emptyView ?? emptyContainerViewController?.view ?? navigationBar
-            wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowView)
-            topicListViewController?.delegate = self
+            let _ = addChildViewController(childViewController: topicListViewController, belowSubview: emptyViewController.view, topAnchorPadding: 0)
+            topicListViewController.delegate = self
+            self.topicListViewController = topicListViewController
         }
+    }
+    
+    func addChildViewController(childViewController: UIViewController, belowSubview: UIView, topAnchorPadding: CGFloat) -> (top: NSLayoutConstraint, bottom: NSLayoutConstraint, leading: NSLayoutConstraint, trailing: NSLayoutConstraint) {
+        addChild(childViewController)
+        childViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(childViewController.view, belowSubview: belowSubview)
+        
+        let topConstraint = childViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: topAnchorPadding)
+        let bottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: toolbar.topAnchor)
+        let leadingConstraint = childViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailingConstraint = childViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        childViewController.didMove(toParent: self)
+        
+        return (top: topConstraint, bottom: bottomConstraint, leading: leadingConstraint, trailing: trailingConstraint)
     }
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
@@ -519,36 +564,17 @@ private extension TalkPageContainerViewController {
 
 extension TalkPageContainerViewController {
     private func hideEmptyView() {
-        emptyView?.removeFromSuperview()
-        emptyView = nil
-        emptyContainerViewController?.view.isHidden = true
+        emptyViewController.type = nil
+        emptyViewController.view.isHidden = true
         navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
-//        emptyView?.removeFromSuperview()
-//        emptyView = nil
     }
     
     private func showEmptyView(of type: WMFEmptyViewType) {
+
+        emptyViewController.type = type
+        emptyViewController.view.isHidden = false
         
-        if type == .unableToLoadTalkPage {
-            navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
-        }
-        
-        if let emptyContainerVC = emptyContainerViewController,
-            let emptyView = emptyView(of: type, theme: self.theme, frame: emptyContainerVC.view.bounds),
-            let headerView = headerView {
-            emptyContainerScrollView?.addSubview(emptyView)
-            emptyContainerViewController?.view.isHidden = false
-            //emptyView.offsetContentCenterY(withConstant: headerView.frame.height)
-            self.emptyView = emptyView
-        }
-        
-//        if let topicListViewController = topicListViewController,
-//            let emptyView = emptyView(of: type, theme: self.theme, frame: topicListViewController.view.bounds),
-//            let headerView = headerView {
-//            emptyView.offsetContentCenterY(withConstant: headerView.frame.height)
-//            topicListViewController.collectionView.addSubview(emptyView)
-//            self.emptyView = emptyView
-//        }
+        navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
     }
 
     private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
@@ -558,6 +584,20 @@ extension TalkPageContainerViewController {
             WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
         }  else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+        }
+    }
+    
+    private func syncViewState() {
+        //catches cases where view state may get out of sync with the topic data
+        if let talkPage = talkPage {
+            switch (viewState, talkPage.topics?.count ?? 0) {
+            case (.fetchFinishedResultData, 0):
+                viewState = .fetchFinishedResultEmpty
+            case (.fetchFinishedResultEmpty, 1..<Int.max):
+                viewState = .fetchFinishedResultData
+            default:
+                break
+            }
         }
     }
 }
@@ -581,6 +621,8 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
                 case .success(let result):
                     if result != .success {
                         self?.fetch()
+                    } else {
+                        self?.syncViewState()
                     }
                     self?.navigationController?.popViewController(animated: true)
                     NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
@@ -601,12 +643,6 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
         pushToReplyThread(topic: topic)
-    }
-
-    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?) {
-        if completedActivityType == .openInSafari {
-            fetch()
-        }
     }
     
     func didTriggerRefresh(viewController: TalkPageTopicListViewController) {
@@ -652,6 +688,14 @@ extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     func tappedIntro(headerView: TalkPageHeaderView) {
         if let introTopic = self.introTopic {
             pushToReplyThread(topic: introTopic)
+        }
+    }
+}
+
+extension TalkPageContainerViewController: EmptyRefreshingViewControllerDelegate {
+    func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
+        fetch {
+            refreshCompletion()
         }
     }
 }

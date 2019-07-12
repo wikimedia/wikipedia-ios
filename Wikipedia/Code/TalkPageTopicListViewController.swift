@@ -4,7 +4,6 @@ import UIKit
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
-    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?)
     func didTriggerRefresh(viewController: TalkPageTopicListViewController)
 }
 
@@ -21,13 +20,10 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageTopic>!
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
-    private var toolbar: UIToolbar?
-    private var shareIcon: IconBarButtonItem?
+    
     private let siteURL: URL
     private let type: TalkPageType
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
-
-    private var completedActivityType: UIActivity.ActivityType?
     
     var fromNavigationStateRestoration: Bool = false
 
@@ -58,9 +54,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         isRefreshControlEnabled = true
         registerCells()
         setupCollectionViewUpdater()
-        setupToolbar()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,11 +74,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
     override func refresh() {
         delegate?.didTriggerRefresh(viewController: self)
-    }
-
-    @objc private func didBecomeActive() {
-        delegate?.didBecomeActiveAfterCompletingActivity(ofType: completedActivityType)
-        completedActivityType = nil
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -162,8 +150,6 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         collectionView.backgroundColor = theme.colors.baseBackground
-        toolbar?.barTintColor = theme.colors.chromeBackground
-        shareIcon?.apply(theme: theme)
     }
 }
 
@@ -181,55 +167,7 @@ private extension TalkPageTopicListViewController {
         collectionViewUpdater?.performFetch()
     }
     
-    func setupToolbar() {
-        let toolbar = UIToolbar()
-        toolbar.barTintColor = theme.colors.chromeBackground
-        
-        let toolbarHeight = CGFloat(44)
-        additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: toolbarHeight, right: 0)
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(toolbar)
-        let guide = view.safeAreaLayoutGuide
-        let heightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
-        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
-        let trailingConstraint = view.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor)
-        let bottomConstraint = guide.bottomAnchor.constraint(equalTo: toolbar.topAnchor)
-        
-        NSLayoutConstraint.activate([heightConstraint, leadingConstraint, trailingConstraint, bottomConstraint])
-        
-        let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
-        shareIcon.apply(theme: theme)
-        shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
-        
-        let spacer1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let spacer2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.items = [spacer1, shareIcon, spacer2]
-
-        self.toolbar = toolbar
-        self.shareIcon = shareIcon
-    }
     
-    @objc func tappedShare(_ sender: UIButton) {
-        var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
-        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
-        guard let talkPageURL = talkPageURLComponents?.url else {
-            return
-        }
-        let activityViewController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
-        activityViewController.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
-            if completed {
-                self.completedActivityType = activityType
-            }
-        }
-        
-        if let popover = activityViewController.popoverPresentationController {
-            popover.sourceView = sender
-            popover.sourceRect = sender.bounds
-            popover.permittedArrowDirections = .down
-        }
-        
-        present(activityViewController, animated: true)
-    }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
         let topic = fetchedResultsController.object(at: indexPath)
