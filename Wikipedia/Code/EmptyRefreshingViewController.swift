@@ -1,6 +1,6 @@
 import Foundation
 
-protocol EmptyRefreshingViewControllerDelegate: class {
+protocol EmptyRefreshingViewControllerDelegate: AnyObject {
     func triggeredRefresh(refreshCompletion: @escaping () -> Void)
 }
 
