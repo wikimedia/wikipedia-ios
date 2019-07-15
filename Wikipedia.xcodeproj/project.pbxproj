@@ -105,6 +105,11 @@
 		670F766322B0C49100D87545 /* FakeLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeLoading.swift */; };
 		671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */; };
 		672B127822A450F000CC85A5 /* TalkPageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */; };
+		672C35EB22D8E7CA007B8D46 /* EmptyRefreshingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */; };
+		672C35EC22D8E7D2007B8D46 /* EmptyRefreshingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */; };
+		672C35ED22D8E7D2007B8D46 /* EmptyRefreshingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */; };
+		672C35EE22D8E7D2007B8D46 /* EmptyRefreshingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */; };
+		672C35EF22D8E7D3007B8D46 /* EmptyRefreshingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */; };
 		672F0558222F24FB00FB1084 /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		6734115022700A95005B31DA /* TalkPageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734114F22700A95005B31DA /* TalkPageControllerTests.swift */; };
 		6734115222700C47005B31DA /* TalkPageTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734115122700C47005B31DA /* TalkPageTestHelpers.swift */; };
@@ -3732,6 +3737,7 @@
 		670F765E22B0C10600D87545 /* FakeLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeLoading.swift; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
 		672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageHeaderView.xib; sourceTree = "<group>"; };
+		672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyRefreshingViewController.swift; sourceTree = "<group>"; };
 		672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBarButtonItem.swift; sourceTree = "<group>"; };
 		6734114F22700A95005B31DA /* TalkPageControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageControllerTests.swift; sourceTree = "<group>"; };
 		6734115122700C47005B31DA /* TalkPageTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTestHelpers.swift; sourceTree = "<group>"; };
@@ -7155,6 +7161,7 @@
 				D850A5391F8686DE006FD295 /* WMFThemeableNavigationController.m */,
 				67E06918223B32DF008550AC /* FocusNavigationView.xib */,
 				67E0691A223B32F1008550AC /* FocusNavigationView.swift */,
+				672C35EA22D8E7C9007B8D46 /* EmptyRefreshingViewController.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -10725,6 +10732,7 @@
 				6798331A22C174ED0073CE6F /* LinkOnlyTextView.swift in Sources */,
 				B0E8059A1C0CE2E40065EBC0 /* WMFSearchFunnel.m in Sources */,
 				41FCAA3621C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
+				672C35EB22D8E7CA007B8D46 /* EmptyRefreshingViewController.swift in Sources */,
 				7AB6F0FF22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
 				0EC0447F1C797DC20033D773 /* WMFImageURLActivitySource.swift in Sources */,
 				7A27EDA22279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
@@ -11385,6 +11393,7 @@
 				7A9F277A225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				D82E95891F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				D80ED34D1EE57F4800CE8C50 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
+				672C35EF22D8E7D3007B8D46 /* EmptyRefreshingViewController.swift in Sources */,
 				7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				B01E54B3206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D80ED34F1EE57F4800CE8C50 /* WMFReferencePageViewController.swift in Sources */,
@@ -11879,6 +11888,7 @@
 				6798331D22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				D8A42A581E815A9C00D8E281 /* WMFSearchFunnel.m in Sources */,
 				41FCAA3921C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
+				672C35EE22D8E7D2007B8D46 /* EmptyRefreshingViewController.swift in Sources */,
 				7AB6F10222AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
 				D8A42A591E815A9C00D8E281 /* WMFImageURLActivitySource.swift in Sources */,
 				7A27EDA52279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
@@ -12547,6 +12557,7 @@
 				7A9F2777225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95861F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
+				672C35EC22D8E7D2007B8D46 /* EmptyRefreshingViewController.swift in Sources */,
 				7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */,
@@ -12957,6 +12968,7 @@
 				7A9F2778225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
+				672C35ED22D8E7D2007B8D46 /* EmptyRefreshingViewController.swift in Sources */,
 				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
