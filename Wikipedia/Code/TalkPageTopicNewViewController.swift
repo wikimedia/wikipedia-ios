@@ -85,6 +85,7 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.inputAccessoryView = beKindInputAccessoryView
         bodyTextView.inputAccessoryView = beKindInputAccessoryView
         beKindInputAccessoryView.delegate = self
+        apply(theme: theme)
     }
 
     override var inputAccessoryView: UIView? {
@@ -137,6 +138,11 @@ class TalkPageTopicNewViewController: ViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         containerViews.forEach { $0.backgroundColor = theme.colors.paperBackground }
         divViews.forEach { $0.backgroundColor = theme.colors.border }
@@ -145,7 +151,6 @@ class TalkPageTopicNewViewController: ViewController {
         beKindInputAccessoryView.apply(theme: theme)
         subjectTextField.apply(theme: theme)
         bodyTextView.apply(theme: theme)
-        super.apply(theme: theme)
     }
 }
 

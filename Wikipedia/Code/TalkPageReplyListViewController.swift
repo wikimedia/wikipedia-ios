@@ -4,6 +4,7 @@ import UIKit
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?)
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController)
+    func didTriggerRefresh(viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -31,12 +32,12 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private var originalFooterViewFrame: CGRect?
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
-    private var replyBarButtonItem: UIBarButtonItem!
+    private var replyBarButtonItem: UIBarButtonItem?
     
     var repliesAreDisabled = true {
         didSet {
             footerView?.composeButtonIsDisabled = repliesAreDisabled
-            replyBarButtonItem.isEnabled = !repliesAreDisabled
+            replyBarButtonItem?.isEnabled = !repliesAreDisabled
         }
     }
 
@@ -100,6 +101,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        isRefreshControlEnabled = true
         registerCells()
         setupCollectionViewUpdater()
         setupBackgroundTap()
@@ -158,6 +160,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         let contentOffset = collectionView.contentOffset
 
         collectionView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y + delta), animated: true)
+    }
+    
+    override func refresh() {
+        delegate?.didTriggerRefresh(viewController: self)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -227,6 +233,11 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         beKindInputAccessoryView.apply(theme: theme)
     }
@@ -271,9 +282,9 @@ private extension TalkPageReplyListViewController {
         navigationBar.allowsUnderbarHitsFallThrough = true
         let replyImage = UIImage(named: "reply")
         replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
-        replyBarButtonItem.tintColor = theme.colors.link
+        replyBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = replyBarButtonItem
-        replyBarButtonItem.isEnabled = repliesAreDisabled
+        replyBarButtonItem?.isEnabled = !repliesAreDisabled
         navigationBar.updateNavigationItems()
         
         if let headerView = TalkPageHeaderView.wmf_viewFromClassNib(),
