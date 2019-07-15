@@ -329,6 +329,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Од Википедија на $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-randomizer" = "Случаен избирач";
+"featured-article-empty-title" = "Нема избрана статија за денес";
 "feed-news-notification-button-text" = "Вклучи известувања";
 "feed-news-notification-text" = "Овозможи известувања од статии за Википедија кога се тековни во вестите.";
 "fetcher-error-generic" = "Нешто не е во ред. Обидете се подоцна.";
