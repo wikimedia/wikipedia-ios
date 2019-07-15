@@ -11,9 +11,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
-- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type action:(nullable SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
-    [self wmf_hideEmptyView];
-
++ (nullable WMFEmptyView *)emptyViewOfType:(WMFEmptyViewType)type action:(SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
     WMFEmptyView *view = nil;
     switch (type) {
         case WMFEmptyViewTypeBlank:
@@ -51,14 +49,25 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeEmptyTalkPage:
             view = [WMFEmptyView emptyTalkPageEmptyView];
             break;
-
+            
         default:
-            return;
+            return nil;
     }
     [view applyTheme:theme];
-
+    
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     view.frame = frame;
+    return view;
+}
+
++ (nullable WMFEmptyView *)emptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame {
+    return [self emptyViewOfType:type action:nil theme:theme frame:frame];
+}
+
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type action:(nullable SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
+    [self wmf_hideEmptyView];
+
+    WMFEmptyView *view = [[self class] emptyViewOfType:type action:action theme:theme frame:frame];
 
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView *)self.view setScrollEnabled:NO];

@@ -96,11 +96,14 @@ class EditLinkViewController: ViewController {
 
     private func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [articleURL]) { (articles, _) in
-                guard let first = articles.first else {
+            guard let key = articleURL.wmf_databaseKey else {
+                return
+            }
+            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
+                guard let article = article else {
                     return
                 }
-                self.updateView(with: first)
+                self.updateView(with: article)
             }
             return
         }

@@ -62,6 +62,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private let dataStore: MWKDataStore
     private let controller: TalkPageController
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
+    private let emptyViewController = EmptyRefreshingViewController()
     private var talkPage: TalkPage? {
         didSet {
             guard let talkPage = self.talkPage else {
@@ -76,8 +77,14 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var introTopic: TalkPageTopic?
     private var topicListViewController: TalkPageTopicListViewController?
     private var replyListViewController: TalkPageReplyListViewController?
+    private var emptyContainerTopConstraint: NSLayoutConstraint?
+    private var emptyView: WMFEmptyView?
     private var headerView: TalkPageHeaderView?
     private var addButton: UIBarButtonItem?
+    
+    private let toolbar = UIToolbar()
+    private var shareIcon: IconBarButtonItem?
+    private var completedActivityType: UIActivity.ActivityType?
     
     @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
     @objc static let WMFTopicPublishedNotificationName = "WMFTopicPublishedNotificationName"
@@ -105,7 +112,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
                 hideEmptyView()
             case .fetchInitialResultEmpty:
                 navigationItem.rightBarButtonItem?.isEnabled = false
-                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+                showEmptyView(of: .emptyTalkPage)
             case .fetchFinishedResultData:
                 fakeProgressController.stop()
                 navigationItem.rightBarButtonItem?.isEnabled = true
@@ -113,11 +120,11 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
             case .fetchFinishedResultEmpty:
                 fakeProgressController.stop()
                 navigationItem.rightBarButtonItem?.isEnabled = true
-                wmf_showEmptyView(of: .emptyTalkPage, theme: self.theme, frame: self.view.bounds)
+                showEmptyView(of: .emptyTalkPage)
             case .fetchFailure (let error):
                 fakeProgressController.stop()
                 if oldValue != TalkPageContainerViewState.fetchInitialResultData {
-                    showEmptyView()
+                    showEmptyView(of: .unableToLoadTalkPage)
                 }
                 showNoInternetConnectionAlertOrOtherWarning(from: error)
             case .linkLoading(let viewController):
@@ -155,7 +162,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         
         let language = siteURL.wmf_language
         talkPageSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
-        
+
         super.init()
     }
 
@@ -184,13 +191,39 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         super.viewDidLoad()
 
         setupNavigationBar()
+        setupToolbar()
+        setupEmptyViewController()
         viewState = .initial
         fetch()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    @objc private func didBecomeActive() {
+        if completedActivityType == .openInSafari {
+            fetch()
+        }
+        completedActivityType = nil
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if let emptyContainerTopConstraint = emptyContainerTopConstraint {
+            emptyContainerTopConstraint.constant =  navigationBar.visibleHeight
+        }
     }
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
+        toolbar.barTintColor = theme.colors.chromeBackground
+        shareIcon?.apply(theme: theme)
     }
 
     func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
@@ -207,12 +240,62 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 
 private extension TalkPageContainerViewController {
     
-    func fetch() {
+    func setupToolbar() {
+        toolbar.barTintColor = theme.colors.chromeBackground
+        
+        let toolbarHeight = CGFloat(44)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(toolbar, belowSubview: navigationBar)
+        let guide = view.safeAreaLayoutGuide
+        let heightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
+        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
+        let trailingConstraint = view.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor)
+        let bottomConstraint = guide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor)
+        
+        NSLayoutConstraint.activate([heightConstraint, leadingConstraint, trailingConstraint, bottomConstraint])
+        
+        let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
+        shareIcon.apply(theme: theme)
+        shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
+        
+        let spacer1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let spacer2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [spacer1, shareIcon, spacer2]
+        
+        self.shareIcon = shareIcon
+    }
+    
+    @objc func tappedShare(_ sender: UIButton) {
+        var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
+        guard let talkPageURL = talkPageURLComponents?.url else {
+            return
+        }
+        let activityViewController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
+        activityViewController.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
+            if completed {
+                self.completedActivityType = activityType
+            }
+        }
+        
+        if let popover = activityViewController.popoverPresentationController {
+            popover.sourceView = sender
+            popover.sourceRect = sender.bounds
+            popover.permittedArrowDirections = .down
+        }
+        
+        present(activityViewController, animated: true)
+    }
+    
+    func fetch(completion: (() -> Void)? = nil) {
         
         viewState = .fetchLoading
         
         controller.fetchTalkPage { [weak self] (result) in
             DispatchQueue.main.async {
+                
+                completion?()
+                
                 guard let self = self else {
                     return
                 }
@@ -224,19 +307,22 @@ private extension TalkPageContainerViewController {
                     self.talkPage = try? self.dataStore.viewContext.existingObject(with: fetchResult.objectID) as? TalkPage
                     if let talkPage = self.talkPage {
                         
+                        self.setupTopicListViewControllerIfNeeded(with: talkPage)
+                        
                         if let topics = talkPage.topics, topics.count > 0 {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultData : .fetchFinishedResultData
                         } else {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                         }
-                        self.setupTopicListViewControllerIfNeeded(with: talkPage)
+                        
                         if let headerView = self.headerView,
                             let introTopic = self.introTopic {
                             self.configure(header: headerView, introTopic: introTopic)
                             self.updateScrollViewInsets()
                         }
                     } else {
-                        self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
+                        self.viewState = fetchResult
+                            .isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                     }
                 case .failure(let error):
                     self.viewState = .fetchFailure(error: error)
@@ -245,16 +331,39 @@ private extension TalkPageContainerViewController {
         }
     }
     
+    func setupEmptyViewController() {
+        emptyViewController.delegate = self
+        emptyViewController.apply(theme: theme)
+        let constraints = addChildViewController(childViewController: emptyViewController, belowSubview: toolbar, topAnchorPadding: navigationBar.visibleHeight)
+        emptyContainerTopConstraint = constraints.top
+        emptyViewController.view.isHidden = true
+    }
+    
     func setupTopicListViewControllerIfNeeded(with talkPage: TalkPage) {
         if topicListViewController == nil {
-            topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPageTitle: talkPageTitle, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
-            topicListViewController?.apply(theme: theme)
-            topicListViewController?.fromNavigationStateRestoration = fromNavigationStateRestoration
+            let topicListViewController = TalkPageTopicListViewController(dataStore: dataStore, talkPageTitle: talkPageTitle, talkPage: talkPage, siteURL: siteURL, type: type, talkPageSemanticContentAttribute: talkPageSemanticContentAttribute)
+            topicListViewController.apply(theme: theme)
+            topicListViewController.fromNavigationStateRestoration = fromNavigationStateRestoration
             fromNavigationStateRestoration = false
-            let belowView: UIView = wmf_emptyView ?? navigationBar
-            wmf_add(childController: topicListViewController, andConstrainToEdgesOfContainerView: view, belowSubview: belowView)
-            topicListViewController?.delegate = self
+            let _ = addChildViewController(childViewController: topicListViewController, belowSubview: emptyViewController.view, topAnchorPadding: 0)
+            topicListViewController.delegate = self
+            self.topicListViewController = topicListViewController
         }
+    }
+    
+    func addChildViewController(childViewController: UIViewController, belowSubview: UIView, topAnchorPadding: CGFloat) -> (top: NSLayoutConstraint, bottom: NSLayoutConstraint, leading: NSLayoutConstraint, trailing: NSLayoutConstraint) {
+        addChild(childViewController)
+        childViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(childViewController.view, belowSubview: belowSubview)
+        
+        let topConstraint = childViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: topAnchorPadding)
+        let bottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: toolbar.topAnchor)
+        let leadingConstraint = childViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailingConstraint = childViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        childViewController.didMove(toParent: self)
+        
+        return (top: topConstraint, bottom: bottomConstraint, leading: leadingConstraint, trailing: trailingConstraint)
     }
     
     @objc func tappedAdd(_ sender: UIBarButtonItem) {
@@ -410,14 +519,14 @@ private extension TalkPageContainerViewController {
     }
     
     func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
-        guard let absoluteURL = absoluteURL(for: url) else {
+        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
             return
         }
         
         viewState = .linkLoading(loadingViewController: loadingViewController)
         
-        self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [absoluteURL]) { [weak self, weak loadingViewController] (articles, error) in
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self, weak loadingViewController] (article, error) in
             
             guard let self = self,
             let loadingViewController = loadingViewController else {
@@ -431,7 +540,7 @@ private extension TalkPageContainerViewController {
             
             self.viewState = .linkFinished(loadingViewController: loadingViewController)
             
-            if let namespace = articles.first?.pageNamespace,
+            if let namespace = article?.pageNamespace,
                 
                 //convert absoluteURL into a siteURL that TalkPageType.user.titleWithCanonicalNamespacePrefix will recognize to prefix the canonical name
                 let languageCode = absoluteURL.wmf_language,
@@ -459,13 +568,17 @@ private extension TalkPageContainerViewController {
 
 extension TalkPageContainerViewController {
     private func hideEmptyView() {
+        emptyViewController.type = nil
+        emptyViewController.view.isHidden = true
         navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
-        wmf_hideEmptyView()
     }
+    
+    private func showEmptyView(of type: WMFEmptyViewType) {
 
-    private func showEmptyView() {
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 1, extendedViewPercentHidden: 1, topSpacingPercentHidden: 0, animated: true)
-        wmf_showEmptyView(of: .unableToLoadTalkPage, theme: self.theme, frame: self.view.bounds)
+        emptyViewController.type = type
+        emptyViewController.view.isHidden = false
+        
+        navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: true)
     }
 
     private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
@@ -475,6 +588,20 @@ extension TalkPageContainerViewController {
             WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
         }  else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+        }
+    }
+    
+    private func syncViewState() {
+        //catches cases where view state may get out of sync with the topic data
+        if let talkPage = talkPage {
+            switch (viewState, talkPage.topics?.count ?? 0) {
+            case (.fetchFinishedResultData, 0):
+                viewState = .fetchFinishedResultEmpty
+            case (.fetchFinishedResultEmpty, 1..<Int.max):
+                viewState = .fetchFinishedResultData
+            default:
+                break
+            }
         }
     }
 }
@@ -498,6 +625,8 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
                 case .success(let result):
                     if result != .success {
                         self?.fetch()
+                    } else {
+                        self?.syncViewState()
                     }
                     self?.navigationController?.popViewController(animated: true)
                     NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
@@ -519,11 +648,9 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController) {
         pushToReplyThread(topic: topic)
     }
-
-    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?) {
-        if completedActivityType == .openInSafari {
-            fetch()
-        }
+    
+    func didTriggerRefresh(viewController: TalkPageTopicListViewController) {
+        fetch { viewController.endRefreshing() }
     }
 }
 
@@ -551,6 +678,10 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?) {
         tappedLink(url, loadingViewController: viewController, sourceView: sourceView, sourceRect: sourceRect)
     }
+    
+    func didTriggerRefresh(viewController: TalkPageReplyListViewController) {
+        fetch { viewController.endRefreshing() } 
+    }
 }
 
 extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
@@ -561,6 +692,14 @@ extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     func tappedIntro(headerView: TalkPageHeaderView) {
         if let introTopic = self.introTopic {
             pushToReplyThread(topic: introTopic)
+        }
+    }
+}
+
+extension TalkPageContainerViewController: EmptyRefreshingViewControllerDelegate {
+    func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
+        fetch {
+            refreshCompletion()
         }
     }
 }

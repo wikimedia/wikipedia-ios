@@ -29,12 +29,8 @@ extension URL {
         return (self as NSURL).wmf_titleWithUnderscores
     }
     
-    public var wmf_articleDatabaseKey: String? {
-        return (self as NSURL).wmf_articleDatabaseKey
-    }
-    
-    public var wmf_talkPageDatabaseKey: String? {
-        return (self as NSURL).wmf_talkPageDatabaseKey
+    public var wmf_databaseKey: String? {
+        return (self as NSURL).wmf_databaseKey
     }
     
     public var wmf_site: URL? {
