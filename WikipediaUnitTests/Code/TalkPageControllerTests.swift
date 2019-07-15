@@ -8,11 +8,22 @@ fileprivate class MockTalkPageFetcher: TalkPageFetcher {
     static var name = "Username1"
     static var domain = "en.wikipedia.org"
     var fetchCalled = false
+    private let data: Data
+    
+    required init(session: Session, configuration: Configuration, data: Data) {
+        self.data = data
+        super.init(session: session, configuration: configuration)
+    }
+    
+    required init(session: Session, configuration: Configuration) {
+        fatalError("init(session:configuration:) has not been implemented")
+    }
     
     override func fetchTalkPage(urlTitle: String, displayTitle: String, siteURL: URL, revisionID: Int?, completion: @escaping (Result<NetworkTalkPage, Error>) -> Void) {
         
         fetchCalled = true
-        if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://\(MockTalkPageFetcher.domain)/api/rest_v1/page/talk/\(urlTitle)", revisionId: MockArticleRevisionFetcher.revisionId) {
+        
+        if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://\(MockTalkPageFetcher.domain)/api/rest_v1/page/talk/\(urlTitle)", data: data, revisionId: MockArticleRevisionFetcher.revisionId) {
             completion(.success(networkTalkPage))
         } else {
             XCTFail("Expected network talk page from helper")
@@ -66,7 +77,13 @@ class TalkPageControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         tempDataStore = MWKDataStore.temporary()
-        talkPageFetcher = MockTalkPageFetcher(session: Session.shared, configuration: Configuration.current)
+        
+        if let data = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") {
+            talkPageFetcher = MockTalkPageFetcher(session: Session.shared, configuration: Configuration.current, data: data)
+        } else {
+            XCTFail("Failure setting up MockTalkPageFetcher")
+        }
+        
         articleRevisionFetcher = MockArticleRevisionFetcher()
         talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         MockArticleRevisionFetcher.revisionId = 894272715
