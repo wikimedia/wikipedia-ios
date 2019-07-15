@@ -374,7 +374,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)articleWasUpdatedWithNotification:(NSNotification *)note {
     WMFArticle *article = [note object];
     NSString *articleKey = article.key;
-    NSString *myDatabaseKey = self.articleURL.wmf_articleDatabaseKey;
+    NSString *myDatabaseKey = self.articleURL.wmf_databaseKey;
     if (articleKey && myDatabaseKey && [articleKey isEqual:myDatabaseKey]) {
         [self updateSaveButtonStateForSaved:article.savedDate != nil];
     }

@@ -212,7 +212,7 @@ final class NavigationStateController: NSObject {
             shouldAttemptLogin = true
         case let articleViewController as WMFArticleViewController:
             kind = viewController is WMFRandomArticleViewController ? .random : .article
-            info = Info(articleKey: articleViewController.articleURL.wmf_articleDatabaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
+            info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
         case let talkPageContainerVC as TalkPageContainerViewController:
             kind = .talkPage
             info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)

@@ -347,6 +347,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "من ويكيبيديا $1";
 "explore-random-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
 "explore-randomizer" = "صفحات عشوائية";
+"featured-article-empty-title" = "لا توجد مقالة مختارة متوفرة اليوم";
 "feed-news-notification-button-text" = "أظهر الإشعارات";
 "feed-news-notification-text" = "تمكين الإخطارات ليتم إعلامك من قبل ويكيبيديا عندما تكون المقالات شائعة في الأخبار.";
 "fetcher-error-generic" = "هناك خطأ ما، الرجاء معاودة المحاولة في وقت لاحق.";

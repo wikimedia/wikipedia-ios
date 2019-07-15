@@ -45,8 +45,8 @@
     WMFArticle *losAngeles2 = [persistedList entryForURL:self->titleURLLAEn];
     WMFArticle *sanFrancisco2 = [persistedList entryForURL:self->titleURLSFFr];
 
-    XCTAssertEqualObjects(losAngeles2.key, self->titleURLLAEn.wmf_articleDatabaseKey);
-    XCTAssertEqualObjects(sanFrancisco2.key, self->titleURLSFFr.wmf_articleDatabaseKey);
+    XCTAssertEqualObjects(losAngeles2.key, self->titleURLLAEn.wmf_databaseKey);
+    XCTAssertEqualObjects(sanFrancisco2.key, self->titleURLSFFr.wmf_databaseKey);
 }
 
 - (void)testAddingIdenticalObjectUpdatesExistingEntryDate {
@@ -80,8 +80,8 @@
     [historyList addPageToHistoryWithURL:titleURLSFFr];
 
     WMFArticle *entry = [self->historyList mostRecentEntry];
-    XCTAssertEqualObjects(entry.key, self->titleURLSFFr.wmf_articleDatabaseKey);
-    XCTAssertNotEqualObjects(entry.key, self->titleURLSFEn.wmf_articleDatabaseKey);
+    XCTAssertEqualObjects(entry.key, self->titleURLSFFr.wmf_databaseKey);
+    XCTAssertNotEqualObjects(entry.key, self->titleURLSFEn.wmf_databaseKey);
 }
 
 - (void)testListOrdersByDateDescending {
@@ -105,7 +105,7 @@
     [historyList addPageToHistoryWithURL:titleURLSFEn];
 
     NSString *mostRecentKey = [self->historyList mostRecentEntry].key;
-    XCTAssertEqualObjects(mostRecentKey, self->titleURLSFEn.wmf_articleDatabaseKey);
+    XCTAssertEqualObjects(mostRecentKey, self->titleURLSFEn.wmf_databaseKey);
 }
 
 @end

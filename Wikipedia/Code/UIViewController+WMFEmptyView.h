@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
 - (void)wmf_applyThemeToEmptyView:(WMFTheme *)theme;
 @property (nonatomic, readonly, nullable) WMFEmptyView *wmf_emptyView;
 
++ (nullable WMFEmptyView *)emptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame;
 @end
 
 NS_ASSUME_NONNULL_END
