@@ -349,6 +349,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedie";
 "explore-randomizer" = "Náhodný článek";
+"featured-article-empty-title" = "Není dostupný doporučený článek";
 "feed-news-notification-button-text" = "Zapnout oznámení";
 "feed-news-notification-text" = "Posílat oznámení, která mají být oznámeny Wikipedií, když články jsou trendy v aktualitách.";
 "fetcher-error-generic" = "Něco se nepovedlo. Prosím zkuste to později znovu.";

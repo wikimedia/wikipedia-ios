@@ -339,6 +339,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "מתוך ויקיפדיה ב$1";
 "explore-random-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
 "explore-randomizer" = "הגרלה";
+"featured-article-empty-title" = "היום אין ערכים מומלצים זמינים";
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
 "fetcher-error-generic" = "משהו השתבש! נא לנסות שוב מאוחר יותר.";

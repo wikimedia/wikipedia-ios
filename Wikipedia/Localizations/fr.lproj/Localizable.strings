@@ -350,7 +350,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipédia";
 "explore-randomizer" = "Tirage aléatoire";
-"featured-article-empty-title" = "Aucune article en vedette disponible aujourd’hui";
+"featured-article-empty-title" = "Aucun article en vedette disponible aujourd’hui";
 "feed-news-notification-button-text" = "Activer les notifications";
 "feed-news-notification-text" = "Activer les notifications envoyées par Wikipédia quand des articles forment la tendance de l’actualité.";
 "fetcher-error-generic" = "Quelque chose s’est mal passé. Veuillez essayer de nouveau plus tard.";
