@@ -342,6 +342,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Från Wikipedia på $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Från Wikipedia";
 "explore-randomizer" = "Randomiserare";
+"featured-article-empty-title" = "Inga tillgängliga utmärkta artiklar idag";
 "feed-news-notification-button-text" = "Aktivera notiser";
 "feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära aktuella händelser.";
 "fetcher-error-generic" = "Någonting gick fel. Försök igen senare.";

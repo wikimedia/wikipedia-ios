@@ -156,6 +156,11 @@ class AccountViewController: SubSettingsViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = theme.colors.baseBackground
     }

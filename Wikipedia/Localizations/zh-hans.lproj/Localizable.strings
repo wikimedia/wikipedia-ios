@@ -3,6 +3,7 @@
 // Author: A Chinese Wikipedian
 // Author: Angrydog001
 // Author: Chixvv
+// Author: Cwek
 // Author: Davidzdh
 // Author: Endermoon
 // Author: GoForceX
@@ -72,6 +73,8 @@
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
 "account-creation-title" = "创建新账户";
+"account-group-title" = "您的帐户";
+"account-talk-page-title" = "你的讨论页";
 "action-add-to" = "添加至…";
 "action-add-to-reading-list" = "添加至阅读列表";
 "action-add-to-reading-list-short" = "添加至列表";
@@ -82,17 +85,21 @@
 "action-read" = "阅读";
 "action-redo" = "重做";
 "action-remove" = "移除";
+"action-replace" = "替换";
+"action-replace-all" = "替换所有";
 "action-save" = "保存";
 "action-saved" = "已保存";
 "action-saved-accessibility" = "已保存。激活以取消保存。";
 "action-saved-accessibility-notification" = "条目已保存供稍后使用";
 "action-share" = "分享";
+"action-share-accessibility" = "分享";
 "action-sort" = "排序";
 "action-undo" = "撤销";
 "action-unsave" = "未保存";
 "action-unsaved-accessibility-notification" = "条目未保存";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}至阅读列表";
+"add-citation-title" = "添加引用";
 "announcements-dismiss" = "关闭";
 "app-store-keywords" = "维基百科、参考资料、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
 "app-store-release-notes" = "完全可以自定义，并更容易阅读探索订阅源。本地化、性能改进与错误修复。";
@@ -131,6 +138,7 @@
 "button-skip" = "跳过";
 "cancel" = "取消";
 "cc-zero" = "知识共享CC0";
+"clear-title-accessibility-label" = "清空";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";

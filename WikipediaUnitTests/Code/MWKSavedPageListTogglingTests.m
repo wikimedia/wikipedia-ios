@@ -55,7 +55,7 @@
     [self.list toggleSavedPageForURL:unsavedURL];
 
     XCTAssertTrue([self.list isSaved:unsavedURL]);
-    XCTAssertEqualObjects([self.list entryForURL:unsavedURL].key, unsavedURL.wmf_articleDatabaseKey);
+    XCTAssertEqualObjects([self.list entryForURL:unsavedURL].key, unsavedURL.wmf_databaseKey);
 }
 
 - (void)testTogglePageWithEmptyTitleReturnsNilWithError {

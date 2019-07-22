@@ -362,6 +362,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
+"featured-article-empty-title" = "Сегодня нет избранных статей";
 "feed-news-notification-button-text" = "Включить уведомления";
 "feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
 "fetcher-error-generic" = "Что-то пошло не так. Пожалуйста, повторите попытку позже.";

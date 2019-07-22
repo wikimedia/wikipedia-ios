@@ -134,7 +134,7 @@ extension WMFContentGroup {
         var articleKeys: Set<String> = []
         articleKeys.reserveCapacity(countOfPreviewItems)
         for i in 0...countOfPreviewItems {
-            guard let key = previewArticleURLForItemAtIndex(i)?.wmf_articleDatabaseKey else {
+            guard let key = previewArticleURLForItemAtIndex(i)?.wmf_databaseKey else {
                 continue
             }
             articleKeys.insert(key)
