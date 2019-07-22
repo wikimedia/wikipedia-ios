@@ -66,6 +66,38 @@
 			<string>%1$d تاريخي واقعا</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ڏينھن اڳ سنواريل</string>
+			<key>zero</key>
+			<string>اڄ سنواريل</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ٻي ٻولي ۾ موجود</string>
+			<key>other</key>
+			<string>%1$d ٻين ٻولين ۾ موجود</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -108,8 +140,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>ڪالھ</string>
 			<key>other</key>
 			<string>%1$d ڏينھن اڳ</string>
 			<key>zero</key>
@@ -162,8 +192,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>گذريل سال</string>
 			<key>other</key>
 			<string>%1$d سالَ اڳ</string>
 			<key>zero</key>
