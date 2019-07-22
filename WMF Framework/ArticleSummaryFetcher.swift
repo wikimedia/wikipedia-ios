@@ -32,14 +32,21 @@ class ArticleSummaryCoordinates: NSObject, Codable {
 
 @objc(WMFArticleSummary)
 public class ArticleSummary: NSObject, Codable {
-    public class Namespace: NSObject, Codable {
+    @objc public class Namespace: NSObject, Codable {
         let id: Int?
         let text: String?
+
+        @objc public var number: NSNumber? {
+            guard let id = id else {
+                return nil
+            }
+            return NSNumber(value: id)
+        }
     }
     let id: Int?
     let revision: String?
     let index: Int?
-    let namespace: Namespace?
+    @objc let namespace: Namespace?
     let title: String?
     let displayTitle: String?
     let articleDescription: String?
@@ -73,21 +80,29 @@ public class ArticleSummary: NSObject, Codable {
         }
         return URL(string: urlString)
     }
+    
+    var key: String? {
+        return articleURL?.wmf_databaseKey // don't use contentURLs.desktop?.page directly as it needs to be standardized
+    }
 }
 
 
 @objc(WMFArticleSummaryFetcher)
 public class ArticleSummaryFetcher: Fetcher {
-    public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) {
-        articleURLs.asyncMapToDictionary(block: { (articleURL, asyncMapCompletion) in
-            fetchSummary(for: articleURL, priority: priority, completion: { (responseObject, response, error) in
-                asyncMapCompletion(articleURL.wmf_articleDatabaseKey, responseObject)
+    public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) {
+        articleKeys.asyncMapToDictionary(block: { (articleKey, asyncMapCompletion) in
+            fetchSummaryForArticle(with: articleKey, priority: priority, completion: { (responseObject, response, error) in
+                asyncMapCompletion(articleKey, responseObject)
             })
         }, completion: completion)
     }
     
-    @objc public func fetchSummary(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) {
-        guard let title = articleURL.wmf_percentEscapedTitle else {
+    @objc(fetchSummaryForArticleWithKey:priority:completion:)
+    public func fetchSummaryForArticle(with articleKey: String, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) {
+        guard
+            let articleURL = URL(string: articleKey),
+            let title = articleURL.wmf_percentEscapedTitle
+        else {
             completion(nil, nil, Fetcher.invalidParametersError)
             return
         }

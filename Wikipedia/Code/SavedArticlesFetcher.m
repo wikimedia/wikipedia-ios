@@ -145,6 +145,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     [self update];
 }
 
+- (void)syncDidFinish:(NSNotification *)note {
+    [self update];
+}
+
 - (void)_update {
     if (self.isUpdating || !self.isRunning) {
         [self updateFetchesInProcessCount];
@@ -169,6 +173,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:YES]];
     request.fetchLimit = 1;
     NSError *fetchError = nil;
     WMFArticle *article = [[moc executeFetchRequest:request error:&fetchError] firstObject];
@@ -203,6 +208,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         NSFetchRequest *downloadedRequest = [WMFArticle fetchRequest];
         downloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate == nil && isDownloaded == YES"];
         downloadedRequest.fetchLimit = 1;
+        downloadedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:YES]];
         NSError *downloadedFetchError = nil;
         WMFArticle *articleToDelete = [[self.dataStore.viewContext executeFetchRequest:downloadedRequest error:&downloadedFetchError] firstObject];
         if (downloadedFetchError) {
@@ -239,6 +245,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)observeSavedPages {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdated:) name:WMFArticleUpdatedNotification object:nil];
+    // WMFArticleUpdatedNotification aren't coming through when the articles are created from a background sync, so observe syncDidFinish as well to download articles synced down from the server
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncDidFinish:) name:WMFReadingListsController.syncDidFinishNotification object:nil];
 }
 
 - (void)unobserveSavedPages {
@@ -334,7 +342,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
     WMFImageController *imageController = [WMFImageController sharedInstance];
     NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
-    NSString *group = article.url.wmf_articleDatabaseKey;
+    NSString *group = article.url.wmf_databaseKey;
     if (!group || !legacyImageURLs.count) {
         if (completion) {
             completion();
@@ -347,7 +355,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatch_block_t doneMigration = ^{
         NSArray *imageURLsForSaving = [article imageURLsForSaving];
-        NSString *articleKey = article.url.wmf_articleDatabaseKey;
+        NSString *articleKey = article.url.wmf_databaseKey;
         if (!articleKey || imageURLsForSaving.count == 0) {
             success();
             return;
@@ -384,7 +392,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }
 
             NSArray *URLs = [info valueForKey:@"imageThumbURL"];
-            [self cacheImagesForArticleKey:article.url.wmf_articleDatabaseKey withURLsInBackground:URLs failure:failure success:success];
+            [self cacheImagesForArticleKey:article.url.wmf_databaseKey withURLsInBackground:URLs failure:failure success:success];
         }];
 }
 
@@ -478,21 +486,24 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     [self updateFetchesInProcessCount];
 
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
-    [article updatePropertiesForError:error];
-    if (error) {
-        if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
-            NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
-            [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
-            [self stop];
-            article.isDownloaded = NO;
-        } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
-            article.isDownloaded = YES; // skip missing titles
+    NSError *fetchError = nil;
+    NSArray<WMFArticle *> *articles = [self.dataStore.viewContext fetchArticlesWithKey:[url wmf_databaseKey] error:&fetchError];
+    for (WMFArticle *article in articles) {
+        [article updatePropertiesForError:error];
+        if (error) {
+            if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
+                NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
+                [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+                [self stop];
+                article.isDownloaded = NO;
+            } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
+                article.isDownloaded = YES; // skip missing titles
+            } else {
+                article.isDownloaded = NO;
+            }
         } else {
-            article.isDownloaded = NO;
+            article.isDownloaded = YES;
         }
-    } else {
-        article.isDownloaded = YES;
     }
 
     NSError *saveError = nil;

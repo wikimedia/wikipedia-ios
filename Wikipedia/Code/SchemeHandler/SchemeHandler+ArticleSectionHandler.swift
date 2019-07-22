@@ -23,7 +23,7 @@ extension SchemeHandler {
         static let imageWidthQueryItemName = "imageWidth"
         
         static func appSchemeURL(for articleURL: URL, targetImageWidth: Int) -> URL? {
-            guard let key = articleURL.wmf_articleDatabaseKey,
+            guard let key = articleURL.wmf_databaseKey,
                 let basePath = basePath else {
                     return nil
             }

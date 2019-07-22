@@ -343,6 +343,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
 "explore-random-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-randomizer" = "隨機條目產生器";
+"featured-article-empty-title" = "今日沒有可用的典範條目";
 "feed-news-notification-button-text" = "開啟通知";
 "feed-news-notification-text" = "啟用通知來透過維基百科在條目與趨勢新聞相關時獲得提醒。";
 "fetcher-error-generic" = "發生錯誤。請稍後再試。";

@@ -79,11 +79,11 @@ import Foundation
                 continue
             }
             
-            if let articleURLDatabaseKey = group.articleURL?.wmf_articleDatabaseKey {
+            if let articleURLDatabaseKey = group.articleURL?.wmf_databaseKey {
                 referencedArticleKeys.insert(articleURLDatabaseKey)
             }
 
-            if let previewURL = group.contentPreview as? NSURL, let key = previewURL.wmf_articleDatabaseKey {
+            if let previewURL = group.contentPreview as? NSURL, let key = previewURL.wmf_databaseKey {
                 referencedArticleKeys.insert(key)
             }
 
@@ -101,13 +101,13 @@ import Foundation
                 switch (group.contentType, obj) {
                     
                 case (.URL, let url as NSURL):
-                    guard let key = url.wmf_articleDatabaseKey else {
+                    guard let key = url.wmf_databaseKey else {
                         continue
                     }
                     referencedArticleKeys.insert(key)
                     
                 case (.topReadPreview, let preview as WMFFeedTopReadArticlePreview):
-                    guard let key = (preview.articleURL as NSURL).wmf_articleDatabaseKey else {
+                    guard let key = (preview.articleURL as NSURL).wmf_databaseKey else {
                         continue
                     }
                     referencedArticleKeys.insert(key)
@@ -117,7 +117,7 @@ import Foundation
                         continue
                     }
                     for preview in articlePreviews {
-                        guard let key = (preview.articleURL as NSURL).wmf_articleDatabaseKey else {
+                        guard let key = (preview.articleURL as NSURL).wmf_databaseKey else {
                             continue
                         }
                         referencedArticleKeys.insert(key)

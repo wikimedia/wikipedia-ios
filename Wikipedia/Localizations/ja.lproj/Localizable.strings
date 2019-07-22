@@ -356,6 +356,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1版ウィキペディアより";
 "explore-random-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-randomizer" = "おまかせ表示";
+"featured-article-empty-title" = "今日は秀逸な記事がありません";
 "feed-news-notification-button-text" = "通知をオンにする";
 "feed-news-notification-text" = "ニュースで記事が流行しているときに通知をWikipediaで通知できるようにする。";
 "fetcher-error-generic" = "問題が発生しました。しばらくしてから再度、操作をしてください。";

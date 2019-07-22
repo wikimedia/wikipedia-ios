@@ -352,6 +352,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "da Wikipédia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Aleatório";
+"featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
 "feed-news-notification-button-text" = "Ativar notificações";
 "feed-news-notification-text" = "Ative notificações para serem notificadas pela Wikipedia quando os artigos estiverem sendo divulgados nas notícias.";
 "fetcher-error-generic" = "Algo deu errado. Por favor, tente novamente mais tarde.";

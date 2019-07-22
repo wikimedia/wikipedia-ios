@@ -80,7 +80,12 @@ platform :ios do
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
-  lane :verify_pull_request do
+  lane :verify_pull_request do |options|
+    if options[:beta]
+      xcode_select("/Applications/Xcode-beta.app")
+    else
+      xcode_select("/Applications/Xcode.app")
+    end
     verify({configurations: configurations_to_test_on_pull})
   end
 

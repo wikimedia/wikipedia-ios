@@ -65,6 +65,8 @@
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-title" = "Luo uusi tunnus";
+"account-group-title" = "Oma käyttäjätunnus";
+"account-talk-page-title" = "Oma keskustelusivu";
 "account-talk-preferences-title" = "Keskustelusivujen asetukset";
 "action-add-to" = "Lisää...";
 "action-add-to-reading-list" = "Lisää lukulistaan";
@@ -90,6 +92,7 @@
 "action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
+"add-citation-title" = "Lisää viittaus";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -663,6 +666,7 @@
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
 "table-title-other" = "Lisätietoja";
+"talk-page-new-topic-title" = "Uusi keskustelu";
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";

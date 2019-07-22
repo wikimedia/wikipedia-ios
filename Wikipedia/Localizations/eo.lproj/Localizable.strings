@@ -336,6 +336,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De $1 Vikipedio";
 "explore-random-article-sub-heading-from-wikipedia" = "De Vikipedio";
 "explore-randomizer" = "Hazardumilo";
+"featured-article-empty-title" = "Neniu elstara artikolo estas havebla hodiaŭ";
 "feed-news-notification-button-text" = "Ŝalti sciigojn";
 "feed-news-notification-text" = "Ŝalti sciigojn por esti sciigita de Vikipedio kiam artikoloj estas popularaj en la novaĵoj.";
 "fetcher-error-generic" = "Io misfunkciis. Bonvolu reprovi poste.";

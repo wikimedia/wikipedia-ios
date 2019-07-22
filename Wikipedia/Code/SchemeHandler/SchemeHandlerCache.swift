@@ -27,7 +27,7 @@ extension SchemeHandlerCache: ArticleSectionHandlerCacheDelegate {
     }
     
     func cacheSectionData(for article: MWKArticle) {
-        guard let articleKey = (article.url as NSURL).wmf_articleDatabaseKey else {
+        guard let articleKey = (article.url as NSURL).wmf_databaseKey else {
             return
         }
         
