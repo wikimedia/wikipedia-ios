@@ -340,6 +340,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De la Viquipèdia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De la Viquipèdia";
 "explore-randomizer" = "Article a l’atzar";
+"featured-article-empty-title" = "No hi ha cap article destacat avui";
 "feed-news-notification-button-text" = "Activa les notificacions";
 "feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
 "fetcher-error-generic" = "Quelcom ha fallat. Torneu-ho a provar més tard.";
