@@ -57,11 +57,11 @@ extension TalkPageContainerViewState: Equatable {
 class TalkPageContainerViewController: ViewController, HintPresenting {
     
     let talkPageTitle: String
-    let siteURL: URL
+    private(set) var siteURL: URL
     let type: TalkPageType
     private let dataStore: MWKDataStore
-    private let controller: TalkPageController
-    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
+    private(set) var controller: TalkPageController
+    private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
     private let emptyViewController = EmptyRefreshingViewController()
     private var talkPage: TalkPage? {
         didSet {
@@ -84,6 +84,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     private let toolbar = UIToolbar()
     private var shareIcon: IconBarButtonItem?
+    private var languageIcon: IconBarButtonItem?
     private var completedActivityType: UIActivity.ActivityType?
     
     @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
@@ -224,6 +225,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         view.backgroundColor = theme.colors.paperBackground
         toolbar.barTintColor = theme.colors.chromeBackground
         shareIcon?.apply(theme: theme)
+        languageIcon?.apply(theme: theme)
     }
 
     func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
@@ -258,11 +260,25 @@ private extension TalkPageContainerViewController {
         shareIcon.apply(theme: theme)
         shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
         
-        let spacer1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let spacer2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.items = [spacer1, shareIcon, spacer2]
+        let languageIcon = IconBarButtonItem(iconName: "language", target: self, action: #selector(tappedLanguage(_:)), for: .touchUpInside)
+        languageIcon.apply(theme: theme)
+        languageIcon.accessibilityLabel = CommonStrings.accessibilityLanguagesTitle
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [spacer, languageIcon, spacer, shareIcon, spacer]
         
         self.shareIcon = shareIcon
+        self.languageIcon = languageIcon
+    }
+    
+    @objc func tappedLanguage(_ sender: UIButton) {
+        
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC?.delegate = self
+        if let themeable = languagesVC as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+        present(WMFThemeableNavigationController(rootViewController: languagesVC!, theme: self.theme), animated: true, completion: nil)
     }
     
     @objc func tappedShare(_ sender: UIButton) {
@@ -309,15 +325,14 @@ private extension TalkPageContainerViewController {
                         
                         self.setupTopicListViewControllerIfNeeded(with: talkPage)
                         
-                        if let topics = talkPage.topics, topics.count > 0 {
+                        if !talkPage.isEmpty {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultData : .fetchFinishedResultData
                         } else {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                         }
                         
-                        if let headerView = self.headerView,
-                            let introTopic = self.introTopic {
-                            self.configure(header: headerView, introTopic: introTopic)
+                        if let headerView = self.headerView {
+                            self.configure(header: headerView, introTopic: self.introTopic)
                             self.updateScrollViewInsets()
                         }
                     } else {
@@ -326,6 +341,7 @@ private extension TalkPageContainerViewController {
                     }
                 case .failure(let error):
                     self.viewState = .fetchFailure(error: error)
+                    self.topicListViewController = nil
                 }
             }
         }
@@ -562,6 +578,14 @@ private extension TalkPageContainerViewController {
             }
         }
     }
+    
+    func changeLanguage(siteURL: URL) {
+        controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
+        let language = siteURL.wmf_language
+        talkPageSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+        topicListViewController = nil
+        fetch()
+    }
 }
 
 // MARK: Empty & error states
@@ -684,6 +708,8 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     }
 }
 
+//MARK: TalkPageHeaderViewDelegate
+
 extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
         tappedLink(url, loadingViewController: self, sourceView: sourceView, sourceRect: sourceRect)
@@ -696,10 +722,25 @@ extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     }
 }
 
+//MARK: EmptyRefreshingViewControllerDelegate
+
 extension TalkPageContainerViewController: EmptyRefreshingViewControllerDelegate {
     func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
         fetch {
             refreshCompletion()
         }
+    }
+}
+
+//MARK: WMFPreferredLanguagesViewControllerDelegate
+
+extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDelegate {
+    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
+        let newSiteURL = language.siteURL()
+        if siteURL != newSiteURL {
+                siteURL = newSiteURL
+                changeLanguage(siteURL: siteURL)
+        }
+        controller.dismiss(animated: true, completion: nil)
     }
 }

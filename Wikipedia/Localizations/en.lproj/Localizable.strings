@@ -52,6 +52,7 @@
 "action-add-to-reading-list-short" = "Add to list";
 "action-cancel" = "Cancel";
 "action-find-in-page" = "Find in page";
+"action-language-accessibility" = "Change language";
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
 "action-read" = "Read";
