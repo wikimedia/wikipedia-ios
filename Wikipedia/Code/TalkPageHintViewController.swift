@@ -12,7 +12,7 @@ class TalkPageTopicHintViewController: HintViewController {
     
     override func configureSubviews() {
         defaultImageView.image = UIImage(named: "published-pencil")
-        defaultLabel.text = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")
+        defaultLabel.text = CommonStrings.successfullyPublishedDiscussion
     }
 }
 
