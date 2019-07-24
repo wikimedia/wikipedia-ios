@@ -77,7 +77,6 @@
     [moc performBlock:^{
         BOOL isLoggedIn = WMFSession.shared.isAuthenticated;
         [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-
             NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
             WMFContentGroup *group = [moc fetchOrCreateGroupForURL:URL
                                                             ofKind:WMFContentGroupKindAnnouncement
@@ -99,18 +98,23 @@
 - (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     NSUserDefaults *userDefaults = [NSUserDefaults wmf];
 
+    //Only make these visible for previous users of the app
+    //Meaning a new install will only see these after they close the app and reopen
+    if ([userDefaults wmf_appResignActiveDate] == nil) {
+        return;
+    }
+
     if (!userDefaults.wmf_didShowThemeCardInFeed) {
         NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
         [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         userDefaults.wmf_didShowThemeCardInFeed = YES;
     }
 
-    
-    if (moc.wmf_isSyncRemotelyEnabled && !userDefaults.wmf_didShowReadingListCardInFeed) {
+    if (moc.wmf_isSyncRemotelyEnabled && !userDefaults.wmf_didShowReadingListCardInFeed && !WMFSession.shared.isAuthenticated) {
         NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
         [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         userDefaults.wmf_didShowReadingListCardInFeed = YES;
-    } else if (!moc.wmf_isSyncRemotelyEnabled) {
+    } else {
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
 }
