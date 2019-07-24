@@ -30,20 +30,14 @@
 "about-translators-details" = "$1 تي رضاڪارن طرفان ترجمو ڪيل";
 "about-wikimedia-foundation" = "وڪيميڊيا تنظيم";
 "about-wikipedia" = "وڪيپيڊيا";
-// Fuzzy
-"abuse-filter-disallow-heading" = "توهان هي ترميم ڇاپي نٿا سگھو. براءِ مهرباني واپس وڃو ۽ انکي تبديل ڪريو.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "ھڪ خودڪاربڻايل ڇاڻيءَ ھن ترميم کي ممڪنہ طور تي غيرتعميري يا ھڪ وحشياڻي ڪوشش طور سڃاتو آھي.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "مضمون خالي ڪندي يا بگاڙيندي";
-// Fuzzy
-"abuse-filter-warning-caps" = "وڏن اکرن ۾ لکندي";
+"abuse-filter-disallow-heading" = "توهان هي ترميم ڇاپي نٿا سگھو.";
+"abuse-filter-disallow-unconstructive" = "ھڪ خودڪاربڻايل ڇاڻيءَ ھن ترميم کي ممڪنہ طور تي غيرتعميري يا ھڪ وحشياڻي ڪوشش طور سڃاتو آھي. مھرباني ڪري واپس وڃو ۽ پنھنجي ترميم کي بدلايو.";
+"abuse-filter-warning-blanking" = "حصا يا سڄا مضمون ڊاھيندي";
+"abuse-filter-warning-caps" = "وڏن اکر ۾ متن";
 "abuse-filter-warning-heading" = "هي هڪ غير تخليقي ترميم لڳي ٿي، ڇا توهان انکي ڇاپڻ چاهيو ٿا؟";
 "abuse-filter-warning-irrelevant" = "غيرمتعلق خارجي ڳنڍڻا يا عڪس";
-// Fuzzy
-"abuse-filter-warning-repeat" = "دهرائجندڙ لفظ";
-// Fuzzy
-"abuse-filter-warning-subheading" = "توهان جي ترميم ۾ هيٺين مان هڪ يا ٻه شيون ٿي سگھن ٿيون:";
+"abuse-filter-warning-repeat" = "دهرائجندڙ نشانيون";
+"abuse-filter-warning-subheading" = "توهان جي ترميم ۾ ٿي سگھي ٿو:";
 "account-creation-captcha-cannot-see-image" = "عڪس نٿا ڏسي سگھو؟ $1";
 "account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي...";
 "account-creation-captcha-request-account" = "کاتي جي درخواست ڏيو.";
@@ -56,28 +50,33 @@
 "account-creation-passwords-mismatched" = "ڳجھي لفظ جون جڳھون مشابھت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-title" = "نئون کاتو کوليو";
+"account-group-title" = "توهان جو کاتو";
+"account-talk-page-title" = "توھان جو بحث صفحو";
 "action-add-to" = "۾ وجھو…";
 "action-add-to-reading-list" = "پڙھڻ جي فھرست ۾ وجھو";
 "action-add-to-reading-list-short" = "فھرست ۾ شامل ڪريو";
 "action-cancel" = "رد";
-// Fuzzy
 "action-find-in-page" = "صفحي ۾ لھو";
 "action-move-to" = "ڏانهن چوريو";
 "action-move-to-reading-list" = "پڙھڻ جي فھرست ڏانھن چوريو";
 "action-read" = "پڙھو";
+"action-redo" = "وري-ڪريو";
 "action-remove" = "هٽايو";
+"action-replace" = "مٽايو";
+"action-replace-all" = "سڀ مٽايو";
 "action-save" = "سانڍيو";
 "action-saved" = "سانڍيل";
 "action-saved-accessibility" = "سانڍيل. اڻسانڍڻ لاءِ سرگرم ڪريو.";
 "action-saved-accessibility-notification" = "بعد لاءِ سانڍل مضمون";
 "action-share" = "ونڊيو";
+"action-share-accessibility" = "ونڊيو";
 "action-sort" = "مرتب";
-// Fuzzy
 "action-undo" = "اڻڪريو";
 "action-unsave" = "اڻسانڍيو";
 "action-unsaved-accessibility-notification" = "مضمون اڻسانڍيل";
 "action-update" = "تجديد";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ۾ وجھو";
+"add-citation-title" = "حوالو وجھو";
 "announcements-dismiss" = "برخاست";
 "app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، ڄاڻ چيڪلو، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
 "app-store-release-notes" = "مڪمل تبديل ٿيندڙ، ۽ پڙهڻ ۾ آسان ايڪسپلورر فيڊ. گھڻي زباني، ڪارڪردگي ۾ بهتري، ۽ ڪيتران ئي مسئلا حل ڪيا ويا.";
@@ -86,8 +85,7 @@
 "appearance-settings-adjust-text-sizing" = "مضمون جي متن جي ماپ ترتيبيو";
 "appearance-settings-expand-tables" = "جدول کوليو";
 "appearance-settings-expand-tables-footer" = "مضمون ۾ خانا، بشمول ترت معلومات، حوالا، حاشيا، ۽ خارجي ڳنڍڻا هميشه کليل هجن.";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "عڪسن جي غيرشفافيت گھري نظاري تي گھٽايو";
+"appearance-settings-image-dimming-footer" = "عڪسن جي غيرشفافيت گھري ۽ ڪاري نظاري تي گھٽايو";
 "appearance-settings-reading-themes" = "پڙھڻ جا نظارا";
 "appearance-settings-set-automatic-table-opening" = "جدول جون ترتيبون";
 "appearance-settings-text-sizing-example-text" = "اکرن جي ماپ تبديل ڪرڻ لاءِ سلائيڊر کي ڇڪيو. اوهان سسٽم جي اکرن تبديلي آڻي ايپ جي ٻين اکرن کي تبديل ڪري سگھو ٿا.";
@@ -117,6 +115,7 @@
 "button-skip" = "ڇڏيو";
 "cancel" = "رد";
 "cc-zero" = "ڪيريٽوو ڪامنز سي سي 0";
+"clear-title-accessibility-label" = "ختم ڪريو";
 "close-button-accessibility-label" = "بند ڪريو";
 "compass-direction" = " $1 بجي";
 "continue-reading-empty-description" = "وڪيپيڊيا کي وڌيڪ مضمون پڙھڻ لاءِ کوجيو";
@@ -158,9 +157,21 @@
 "description-welcome-promise-title" = "شروعات ڪرڻ سان، آئون واعدو ڪيان ٿو ته هن خصوصيت جو غلط استعمال نه ڪندس";
 "description-welcome-start-editing-button" = "سڌارڻ شروع ڪريو";
 "dim-images" = "ڊم عڪس";
+"edit-link-remove-link-title" = "ڳنڍڻو ھٽايو";
+"edit-link-title" = "ڳنڍڻو سنواريو";
+"edit-menu-item" = "سنواريو";
+"edit-minor-learn-more-text" = "معمولي ترميمن بابت وڌيڪ ڄاڻو";
+"edit-minor-text" = "ھيءَ ھڪ معمولي ترميم آھي";
+"edit-published" = "ترميم ڇاپجي وئي";
+"edit-style-table-view-title" = "اسلوب";
 "edit-summary-choice-fixed-grammar" = "گرامر ٺيڪ ڪيو";
 "edit-summary-choice-fixed-typos" = "هجي جون چڪون درست ڪيون ويون";
 "edit-summary-choice-linked-words" = "ڳنڍڻا وڌا";
+"edit-summary-learn-more-text" = "وڌيڪ ڄاڻو";
+"edit-summary-placeholder-text" = "توھان مضمون کي ڪيئن سڌاريو؟";
+"edit-text-size-table-view-title" = "متن جي ماپ";
+"edit-watch-this-page-text" = "هيءُ صفحو نظر ۾ رکو";
+"editing-welcome-be-bold-title" = "توھان جو آواز اھم آھي";
 "empty-no-article-message" = "معاف ڪجو، مضمون اتاري نہ سگهياسين.";
 "empty-no-feed-action-message" = "توھان اڃان بہ سانڍيل صفحا پڙھي سگھو ٿا";
 "empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
@@ -331,16 +342,14 @@
 "page-edit-history" = "پوري ترميمي سوانح";
 "page-history-title" = "مضون جي سوانح";
 "page-issues" = "صفحي جا مسئلا";
-// Fuzzy
-"page-last-edited" = "$1 ڏينهن اڳ ترميم ڪيل";
+"page-last-edited" = "{{PLURAL:$1|0=اڄ سنواريل|1=ڪالھ سنواريل|$1 ڏينھن اڳ سنواريل}}";
 "page-location" = "نقشي تي ڏسو";
 "page-protected-autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";
 "page-protected-can-not-edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
 "page-protected-can-not-edit-title" = "هيءُ صفحو تحفظيل آهي";
 "page-protected-other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
 "page-protected-sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
-// Fuzzy
-"page-read-in-other-languages" = "$1 ٻين ٻولين ۾ موجود";
+"page-read-in-other-languages" = "{{PLURAL:$1|$1 ٻي ٻولي|$1 ٻين ٻولين}} ۾ موجود";
 "page-similar-titles" = "ان جهڙا صفحا";
 "page-talk-page" = "بحث صفحو ڏسو";
 "pictured" = "تصوير لڳل";
@@ -417,19 +426,17 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "سيپيا نظارو";
 "reading-themes-controls-accessibility-text-size-slider" = "لکت جي ماپ جو سلائيڊر";
 "reference-title" = "حوالو $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=اڄ|ڪالھ|$1 ڏينھن اڳ}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=اڄ|1=ڪالھ|$1 ڏينھن اڳ}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ھاڻي|$1 ڪلاڪ اڳ|$1 ڪلاڪَ اڳ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=بلڪل ھاڻي|$1 منٽ اڳ|$1 منٽَ اڳ}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|گذريل سال|$1 سالَ اڳ}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|1=گذريل سال|$1 سالَ اڳ}}";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
+"reverted-edit-notification-read-more-action-title" = "وڌيڪ پڙهو";
 "saved-all-articles-title" = "سڀ مضمون";
 "saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگھجي";
 "saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
 "saved-reading-lists-title" = "پڙھڻ جون فھرستون";
-// Fuzzy
-"saved-search-default-text" = "ڳولا";
+"saved-search-default-text" = "سانڍيل مضمون ڳوليو";
 "saved-title" = "سانڍيل";
 "search-button-accessibility-label" = "وڪيپيڊيا ڳوليو";
 "search-clear-title" = "ختم ڪريو";
@@ -443,6 +450,7 @@
 "search-recent-title" = "تازو ڳولھيل";
 "search-result-redirected-from" = "$1: کان چوريل";
 "search-title" = "ڳوليو";
+"settings-account" = "کاتو";
 "settings-appearance" = "پڙھڻ جون ترجيحون";
 "settings-clear-cache" = "ڪيچڊ ڊيٽا صاف ڪريو";
 "settings-clear-cache-are-you-sure-message" = "ڪيچڊ ڊيٽا صاف ڪرڻ سان توھان $1 جڳھ بچندي. ان سان توھان جا سانڍيل صفحا نہ ڊھندا.";
@@ -486,6 +494,7 @@
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-heading" = "فھرست";
 "table-title-other" = "وڌيڪ معلومات";
+"talk-page-new-subject-placeholder-text" = "موضوع";
 "theme-black-display-name" = "ڪارو";
 "theme-dark-display-name" = "گھرو";
 "theme-default-display-name" = "ڏنل";
@@ -524,8 +533,10 @@
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
 "wikitext-preview-changes" = "توهان جي تبديلين جو پيش نگاھ آڻيندي...";
 "wikitext-preview-changes-none" = "ڪي به تبديليون نه ڪيون ويون هيون جن لاءِ پيش نگاھ ڏيکارجي.";
+"wikitext-preview-link-external-preview-title" = "خارجي ڳنڍڻو";
 "wikitext-preview-link-preview-description" = "ھي ڳنڍڻو '$1' ڏانھن وٺي ھلي ٿو";
 "wikitext-preview-link-preview-title" = "ڳنڍڻي جي پيشِ نگاھ";
+"wikitext-preview-save-changes-title" = "تبديليون سانڍيو";
 "wikitext-upload-captcha-error" = "CAPTCHA پڪ ۾ چُڪَ.";
 "wikitext-upload-captcha-needed" = "CAPTCHA پڪ جي ضرورت آھي.";
 "wikitext-upload-result-unknown" = "وڪي ٽيڪسٽ چاڙھہ جو نتيجو حاصل ڪرڻ کان قاصر.";
