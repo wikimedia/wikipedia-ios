@@ -104,11 +104,7 @@
         return;
     }
 
-    if (!userDefaults.wmf_didShowThemeCardInFeed) {
-        NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
-        [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
-        userDefaults.wmf_didShowThemeCardInFeed = YES;
-    }
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindTheme];
 
     if (moc.wmf_isSyncRemotelyEnabled && !userDefaults.wmf_didShowReadingListCardInFeed && !WMFSession.shared.isAuthenticated) {
         NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
