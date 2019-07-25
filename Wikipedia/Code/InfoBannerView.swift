@@ -51,6 +51,8 @@ class InfoBannerView: SetupView {
         iconImageView.image = UIImage.init(named: iconName)
         titleLabel.text = title
         subtitleLabel.text = subtitle
+        
+        accessibilityLabel = "\(title)\n\(subtitle)"
     }
     
     // MARK - Dynamic Type
@@ -92,6 +94,11 @@ class InfoBannerView: SetupView {
         addSubview(iconImageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
+        
+        titleLabel.isAccessibilityElement = false
+        subtitleLabel.isAccessibilityElement = false
+        
+        isAccessibilityElement = true
     }
 }
 

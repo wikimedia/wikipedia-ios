@@ -183,6 +183,7 @@ private extension TalkPageTopicListViewController {
         cell.configure(title: title, isRead: topic.isRead)
         cell.layoutMargins = layout.itemLayoutMargins
         cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
+        cell.accessibilityTraits = .button
         cell.apply(theme: theme)
     }
 }
