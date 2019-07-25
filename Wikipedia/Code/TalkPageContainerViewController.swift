@@ -604,13 +604,13 @@ private extension TalkPageContainerViewController {
             NotificationCenter.default.addObserver(self, selector: #selector(announcementDidFinish(notification:)), name: UIAccessibility.announcementDidFinishNotification, object: nil)
              UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.successfullyPublishedDiscussion)
         } else {
-            navigationController?.popViewController(animated: true)
-            NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+            
         }
     }
     
     @objc func announcementDidFinish(notification: NSNotification) {
         navigationController?.popViewController(animated: true)
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
     }
 }
 
@@ -684,7 +684,12 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
                         self.syncViewState()
                     }
                     
-                    self.finishPublishDiscussionSuccess()
+                    if !UIAccessibility.isVoiceOverRunning {
+                        self.navigationController?.popViewController(animated: true)
+                        NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+                    } else {
+                        viewController.announcePostSuccessful()
+                    }
                     
                 case .failure(let error):
                     self.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post discussion.", comment: "Error message appearing when user attempts to post a new talk page discussion while being offline"))
@@ -718,13 +723,25 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         viewController.postDidBegin()
         controller.addReply(to: topic, title: talkPageTitle, siteURL: siteURL, body: composeText) { (result) in
             DispatchQueue.main.async {
-                viewController.postDidEnd()
-                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
+                
+                if !UIAccessibility.isVoiceOverRunning {
+                    viewController.postDidEnd()
+                }
                 
                 switch result {
                 case .success:
-                    break
+                    if !UIAccessibility.isVoiceOverRunning {
+                        NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
+                    } else {
+                        viewController.announcePostSuccessful()
+                    }
+                    
                 case .failure(let error):
+                    
+                    if UIAccessibility.isVoiceOverRunning {
+                        viewController.postDidEnd()
+                    }
+                    
                     self.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-reply", value: "No internet connection. Unable to post reply.", comment: "Error message appearing when user attempts to post a new talk page reply while being offline"))
                 }
             }

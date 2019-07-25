@@ -122,6 +122,16 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.isUserInteractionEnabled = true
         bodyTextView.isUserInteractionEnabled = true
     }
+    
+    func announcePostSuccessful() {
+        NotificationCenter.default.addObserver(self, selector: #selector(announcementDidFinish(notification:)), name: UIAccessibility.announcementDidFinishNotification, object: nil)
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.successfullyPublishedDiscussion)
+    }
+    
+    @objc private func announcementDidFinish(notification: NSNotification) {
+         navigationController?.popViewController(animated: true)
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)

@@ -720,6 +720,7 @@
 "talk-page-new-banner-subtitle" = "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.";
 "talk-page-new-banner-title" = "Title text on banner that appears once user posts a new reply or discussion topic on their talk page.";
 "talk-page-new-body-textfield-accessibility-label" = "Accessibility label for discussion body text field.";
+"talk-page-new-reply-body-accessibility-label" = "Accessibility label for the talk page new reply text field.";
 "talk-page-new-reply-body-placeholder-text" = "Placeholder text which appears initially in the new reply field for talk pages.";
 "talk-page-new-reply-success-text" = "Banner text that appears after a new reply was successfully published on a talk page discussion.";
 "talk-page-new-subject-clear-button-accessibility" = "Accessibility label for the clear values X button in the talk page new subject textfield.";

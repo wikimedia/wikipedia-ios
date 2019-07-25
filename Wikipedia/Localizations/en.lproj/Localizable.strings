@@ -720,6 +720,7 @@
 "talk-page-new-banner-subtitle" = "Remember, we are all humans here";
 "talk-page-new-banner-title" = "Please be kind";
 "talk-page-new-body-textfield-accessibility-label" = "Discussion Body";
+"talk-page-new-reply-body-accessibility-label" = "Compose response";
 "talk-page-new-reply-body-placeholder-text" = "Compose response";
 "talk-page-new-reply-success-text" = "Your reply was successfully published";
 "talk-page-new-subject-clear-button-accessibility" = "Clear subject";
