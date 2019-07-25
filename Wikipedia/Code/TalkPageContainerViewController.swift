@@ -341,7 +341,6 @@ private extension TalkPageContainerViewController {
                     }
                 case .failure(let error):
                     self.viewState = .fetchFailure(error: error)
-                    self.resetTopicList()
                 }
             }
         }
@@ -368,8 +367,10 @@ private extension TalkPageContainerViewController {
     }
     
     func resetTopicList() {
-        self.topicListViewController?.view.removeFromSuperview()
-        self.topicListViewController = nil
+        topicListViewController?.willMove(toParent: nil)
+        topicListViewController?.view.removeFromSuperview()
+        topicListViewController?.removeFromParent()
+        topicListViewController = nil
     }
     
     func addChildViewController(childViewController: UIViewController, belowSubview: UIView, topAnchorPadding: CGFloat) -> (top: NSLayoutConstraint, bottom: NSLayoutConstraint, leading: NSLayoutConstraint, trailing: NSLayoutConstraint) {
@@ -632,12 +633,31 @@ extension TalkPageContainerViewController {
     }
 
     private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
+
         if (error as NSError).wmf_isNetworkConnectionError() {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+            }
+            
         } else if let talkPageError = error as? TalkPageError {
-            WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: talkPageError.localizedDescription)
+             } else {
+                WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            }
+            
         }  else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            }
+            
         }
     }
     
