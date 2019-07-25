@@ -599,20 +599,6 @@ private extension TalkPageContainerViewController {
             UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: self.headerView?.infoLabel);
         }
     }
-    
-    func finishPublishDiscussionSuccess() {
-        if UIAccessibility.isVoiceOverRunning {
-            NotificationCenter.default.addObserver(self, selector: #selector(announcementDidFinish(notification:)), name: UIAccessibility.announcementDidFinishNotification, object: nil)
-             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.successfullyPublishedDiscussion)
-        } else {
-            
-        }
-    }
-    
-    @objc func announcementDidFinish(notification: NSNotification) {
-        navigationController?.popViewController(animated: true)
-        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
-    }
 }
 
 // MARK: Empty & error states

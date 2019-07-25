@@ -72,9 +72,7 @@ class TalkPageTopicCell: CollectionViewCell {
         let unreadPronounciationAccessibilityAttribute = WMFLocalizedString("talk-page-discussion-unread-ipa-accessibility-attribute", value: "ʌnˈrɛd", comment: "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.")
         
         let readAccessibilityAttributedString = NSAttributedString(string: readAccessibilityText, attributes: [NSAttributedString.Key.accessibilitySpeechIPANotation: readPronounciationAccessibilityAttribute])
-        
         let unreadAccessibilityAttributedString = NSAttributedString(string: unreadAccessibilityText, attributes: [NSAttributedString.Key.accessibilitySpeechIPANotation: unreadPronounciationAccessibilityAttribute])
-        
         let readUnreadAccessibilityAttributedString = isRead ? readAccessibilityAttributedString : unreadAccessibilityAttributedString
         
         let mutableAttributedString = NSMutableAttributedString(attributedString: readUnreadAccessibilityAttributedString)
