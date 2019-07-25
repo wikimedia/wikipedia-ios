@@ -61,6 +61,7 @@
 "action-add-to-reading-list-short" = "Додај во список";
 "action-cancel" = "Откажи";
 "action-find-in-page" = "Најди на страницата";
+"action-language-accessibility" = "Смени јазик";
 "action-move-to" = "Премести во...";
 "action-move-to-reading-list" = "Премести во списокот за читање";
 "action-read" = "Прочитај";

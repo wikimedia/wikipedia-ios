@@ -1,5 +1,6 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
+// Author: Agilight
 // Author: Alexandr Efremov
 // Author: Av6
 // Author: Batumski brodyaga
@@ -32,6 +33,7 @@
 // Author: Okras
 // Author: Ping08
 // Author: Redredsonia
+// Author: Saimongoltinio
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -94,6 +96,7 @@
 "action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
 "action-find-in-page" = "Найти на странице";
+"action-language-accessibility" = "изменение языка";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
 "action-read" = "Читать";

@@ -149,7 +149,7 @@
 "description-edit-publish" = "Publicera beskrivning";
 "description-edit-title" = "Redigera beskrivning";
 "description-edit-warning" = "Försök att hålla beskrivningar korta så användare kan förstå artikeln ämne på ett ögonblick";
-"description-help-about-description" = "Titelbeskrivningar sammanfattar en artikel för att hjälpa läsare att förstå ämnet på ett ögonblick.";
+"description-help-about-description" = "Titelbeskrivningar sammanfattar en artikel för att hjälpa läsare förstå ämnet med ett ögonkast.";
 "description-help-about-title" = "Om";
 "description-help-about-wikidata" = "Om Wikidata";
 "description-help-more-info-description" = "Beskrivningar lagras och underhålls på Wikidata, ett projekt av Wikimedia Foundation som tillhandahåller en gratis, gemensam och flerspråkig sekundär databas som stödjer Wikipedia och andra projekt.";
@@ -169,7 +169,7 @@
 "description-published-title" = "Beskrivningen publicerades!";
 "description-welcome-concise-sub-title" = "Ideellt en rad, mellan två till tolv ord";
 "description-welcome-concise-title" = "Gör den kort";
-"description-welcome-descriptions-sub-title" = "Sammanfattar en artikel för att hjälpa läsare att förstå ämnet på ett ögonblick";
+"description-welcome-descriptions-sub-title" = "Sammanfattar en artikel för att hjälpa läsare förstå ämnet med ett ögonkast";
 "description-welcome-descriptions-title" = "Titelbeskrivningar";
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";

@@ -79,6 +79,7 @@
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
 "action-cancel" = "إلغاء";
 "action-find-in-page" = "البحث في الصفحة";
+"action-language-accessibility" = "تغيير اللغة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
 "action-read" = "اقرأ";

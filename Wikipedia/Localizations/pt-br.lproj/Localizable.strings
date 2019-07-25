@@ -84,6 +84,7 @@
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
 "action-find-in-page" = "Encontrar na página";
+"action-language-accessibility" = "Alterar idioma";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover à lista de leitura";
 "action-read" = "Ler";

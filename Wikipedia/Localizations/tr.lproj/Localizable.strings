@@ -353,6 +353,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
 "explore-randomizer" = "Rastgele";
+"featured-article-empty-title" = "Bugün için seçkin madde mevcut değil";
 "feed-news-notification-button-text" = "Bildirimleri aç";
 "feed-news-notification-text" = "Gündemde olan Vikipedi maddelerinden haberdar olmak için bildirimleri etkinleştirin.";
 "fetcher-error-generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
