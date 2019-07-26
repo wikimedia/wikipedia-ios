@@ -149,8 +149,8 @@
 
     // MARK: Preview
 
-    public func logEditPreviewForArticle(language: String?) {
-        log(event(action: .preview), language: language)
+    public func logEditPreviewForArticle(from source: EditFunnelSource, language: String?) {
+        log(event(action: .preview, source: source), language: language)
     }
 
     // MARK: Save attempt

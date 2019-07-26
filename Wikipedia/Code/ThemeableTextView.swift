@@ -70,7 +70,7 @@ class ThemeableTextView: UITextView {
         didSet {
             if isShowingPlaceholder {
                 text = placeholder
-                textColor = theme.colors.tertiaryText
+                textColor = theme.colors.secondaryText
             } else {
                 textColor = theme.colors.primaryText
             }
@@ -194,7 +194,7 @@ extension ThemeableTextView: Themeable {
         self.theme = theme
         clearButton?.tintColor = theme.colors.tertiaryText
         backgroundColor = theme.colors.paperBackground
-        textColor = isShowingPlaceholder ? theme.colors.tertiaryText : theme.colors.primaryText
+        textColor = isShowingPlaceholder ? theme.colors.secondaryText : theme.colors.primaryText
         keyboardAppearance = theme.keyboardAppearance
         if isUnderlined {
             layer.masksToBounds = false
