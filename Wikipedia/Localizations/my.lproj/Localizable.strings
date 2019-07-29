@@ -545,6 +545,7 @@
 "table-of-contents-heading" = "မာတိကာ";
 "table-title-other" = "နောက်ထပ် အချက်အလက်များ";
 "talk-page-error-unable-to-post-reply" = "အင်တာနက်ကွန်နက်ရှင် မရှိပါ။ အကြောင်းမပြန်နိုင်ပါ။";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "အင်တာနက်ကွန်နက်ရှင် မရှိပါ။ အကြောင်းအရာ မတင်နိုင်ပါ။";
 "talk-page-link-user-action-sheet-safari" = "အသုံးပြုသူစာမျက်နှာကို ဆာဖာရီတွင်ကြည့်ရန်";
 "talk-page-link-user-action-sheet-title" = "အသုံးပြုသူ စာမျက်နှာများ";

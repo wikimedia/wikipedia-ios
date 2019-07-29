@@ -720,6 +720,7 @@
 "table-of-contents-heading" = "Enhavaĵoj";
 "table-title-other" = "Pliaj informoj";
 "talk-page-error-unable-to-post-reply" = "Sen Interreta konekto. Ne povas afiŝi respondon.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Sen Interreta konekto. Ne povas afiŝi temon.";
 "talk-page-info-active-conversations" = "Aktivaj konversacioj ĉe $1 Vikipedio";
 "talk-page-info-active-conversations-generic" = "Aktivaj konversacioj ĉe Vikipedio";

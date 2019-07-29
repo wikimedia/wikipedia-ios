@@ -81,6 +81,7 @@
 "action-add-to-reading-list-short" = "목록에 추가";
 "action-cancel" = "취소";
 "action-find-in-page" = "문서에서 찾기";
+"action-language-accessibility" = "언어 변경";
 "action-move-to" = "이동...";
 "action-move-to-reading-list" = "읽기 목록으로 이동";
 "action-read" = "읽기";
@@ -732,6 +733,7 @@
 "table-of-contents-heading" = "목차";
 "table-title-other" = "자세한 정보";
 "talk-page-error-unable-to-post-reply" = "인터넷이 연결되어 있지 않습니다. 답변을 게시할 수 없습니다.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "인터넷이 연결되어 있지 않습니다. 주제를 게시할 수 없습니다.";
 "talk-page-info-active-conversations" = "$1 위키백과에서 진행 중인 대화";
 "talk-page-info-active-conversations-generic" = "위키백과에서 진행 중인 대화";

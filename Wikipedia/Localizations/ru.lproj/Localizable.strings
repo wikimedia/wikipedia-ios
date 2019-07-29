@@ -748,8 +748,13 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
+"talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
+"talk-page-discussion-read-accessibility-label" = "Прочитано";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
+"talk-page-discussion-unread-accessibility-label" = "Непрочитано";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
 "talk-page-error-unable-to-post-reply" = "Нет подключения к интернету. Невозможно опубликовать ответ.";
-"talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать новое обсуждение.";
+"talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать обсуждение.";
 "talk-page-info-active-conversations" = "Активные обсуждения в википедии $1";
 "talk-page-info-active-conversations-generic" = "Активные обсуждения в Википедии";
 "talk-page-link-user-action-sheet-app" = "Показывать страницу обсуждения участника";

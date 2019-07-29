@@ -714,6 +714,7 @@
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
 "talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам темата.";
 "talk-page-info-active-conversations" = "Тековни разговори на Википедија на $1";
 "talk-page-info-active-conversations-generic" = "Тековни разговори на Википедија";

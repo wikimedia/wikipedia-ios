@@ -737,6 +737,7 @@
 "table-of-contents-heading" = "Konu başlıkları";
 "table-title-other" = "Daha fazla bilgi";
 "talk-page-error-unable-to-post-reply" = "İnternet bağlantısı yok. Cevap gönderilemiyor.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "İnternet bağlantısı yok. Konu gönderilemiyor.";
 "talk-page-info-active-conversations" = "$1 Vikipedi'de aktif sohbetler";
 "talk-page-info-active-conversations-generic" = "Vikipedi'de aktif sohbetler";

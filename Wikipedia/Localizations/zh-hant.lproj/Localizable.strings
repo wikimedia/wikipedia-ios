@@ -728,6 +728,7 @@
 "table-of-contents-heading" = "內容";
 "table-title-other" = "更多資訊";
 "talk-page-error-unable-to-post-reply" = "沒有連結到網路，無法發佈回覆。";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈主題。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
 "talk-page-info-active-conversations-generic" = "在維基百科上積極交談";
