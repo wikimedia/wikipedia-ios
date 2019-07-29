@@ -77,6 +77,7 @@
 "action-add-to-reading-list-short" = "Aggiungi all'elenco";
 "action-cancel" = "Annulla";
 "action-find-in-page" = "Trova nella pagina";
+"action-language-accessibility" = "Cambia lingua";
 "action-move-to" = "Sposta in…";
 "action-move-to-reading-list" = "Sposta nell'elenco di lettura";
 "action-read" = "Leggi";
@@ -498,11 +499,13 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "table-title-other" = "Ulteriori informazioni";
+"talk-page-add-discussion-accessibility-label" = "Aggiungi discussione";
 "talk-page-info-active-conversations-generic" = "Conversazioni attive su Wikipedia";
 "talk-page-link-user-action-sheet-title" = "Pagine utente";
 "talk-page-new-banner-subtitle" = "Ricorda, siamo tutti umani qui";
 "talk-page-new-banner-title" = "Per favore, sii gentile";
 "talk-page-new-reply-success-text" = "La tua risposta è stata pubblicata con successo";
+"talk-page-new-subject-textfield-accessibility-label" = "Oggetto";
 "talk-page-new-topic-success-text" = "La tua discussione è stata pubblicata con successo";
 "talk-page-new-topic-title" = "Nuova discussione";
 "talk-page-reply-title" = "Rispondi";

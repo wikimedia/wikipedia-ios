@@ -71,6 +71,7 @@
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
 "action-find-in-page" = "Localizar na página";
+"action-language-accessibility" = "Alterar língua";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover para lista de leitura";
 "action-read" = "Ler";
@@ -723,6 +724,7 @@
 "table-of-contents-heading" = "Índice";
 "table-title-other" = "Mais informação";
 "talk-page-error-unable-to-post-reply" = "Não há ligação à Internet. Não é possível publicar a resposta.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Não há ligação à Internet. Não é possível publicar o tópico.";
 "talk-page-info-active-conversations" = "Conversas ativas na Wikipédia em $1";
 "talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";

@@ -723,6 +723,7 @@
 "table-of-contents-heading" = "תוכן עניינים";
 "table-title-other" = "מידע נוסף";
 "talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם נושא.";
 "talk-page-info-active-conversations" = "שיחות פעילות בוויקיפדיה ה$1";
 "talk-page-info-active-conversations-generic" = "שיחות פעילות בוויקיפדיה";

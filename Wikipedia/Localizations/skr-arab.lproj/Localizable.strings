@@ -21,6 +21,7 @@
 "action-cancel" = "منسوخ";
 // Fuzzy
 "action-find-in-page" = "ورقے وچ ڳولو";
+"action-language-accessibility" = "زبان وٹاؤ";
 "action-move-to" = "تے ون٘ڄو...";
 "action-read" = "پڑھو";
 "action-redo" = "ولدا کرو";
