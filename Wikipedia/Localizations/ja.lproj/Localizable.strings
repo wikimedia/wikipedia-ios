@@ -740,6 +740,7 @@
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
 "talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "インターネット接続がないためトピックを投稿できません。";
 "talk-page-info-active-conversations" = "$1 ウィキペディア上でのアクティブな会話";
 "talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";

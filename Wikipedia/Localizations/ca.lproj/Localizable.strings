@@ -72,6 +72,7 @@
 "action-add-to-reading-list-short" = "Afegeix a la llista";
 "action-cancel" = "Cancel·la";
 "action-find-in-page" = "Cerca a la pàgina";
+"action-language-accessibility" = "Canvia la llengua";
 "action-move-to" = "Mou a…";
 "action-move-to-reading-list" = "Mou a la llista de lectura";
 "action-read" = "Llegeix";
@@ -724,6 +725,7 @@
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
 "talk-page-error-unable-to-post-reply" = "No hi ha connexió a Internet. No es pot enviar la resposta.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar el tema.";
 "talk-page-info-active-conversations" = "Converses actives a la Viquipèdia en $1";
 "talk-page-info-active-conversations-generic" = "Converses actives a la Viquipèdia";

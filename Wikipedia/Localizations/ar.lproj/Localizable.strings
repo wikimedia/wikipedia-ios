@@ -79,6 +79,7 @@
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
 "action-cancel" = "إلغاء";
 "action-find-in-page" = "البحث في الصفحة";
+"action-language-accessibility" = "تغيير اللغة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
 "action-read" = "اقرأ";
@@ -730,8 +731,14 @@
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
 "table-title-other" = "مزيد من المعلومات";
+"talk-page-add-discussion-accessibility-label" = "أضف نقاشا";
+"talk-page-discussion-accessibility-hint" = "انقر نقرًا مزدوجًا لفتح موضوع نقاش";
+"talk-page-discussion-read-accessibility-label" = "قراءة";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "قراءة";
+"talk-page-discussion-unread-accessibility-label" = "غير مقروءة";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnrɛd";
 "talk-page-error-unable-to-post-reply" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر الرد.";
-"talk-page-error-unable-to-post-topic" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر الموضوع.";
+"talk-page-error-unable-to-post-topic" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر النقاش.";
 "talk-page-info-active-conversations" = "النقاشات النشطة في $1 ويكيبيديا";
 "talk-page-info-active-conversations-generic" = "النقاشات النشطة في ويكيبيديا";
 "talk-page-link-user-action-sheet-app" = "عرض صفحة نقاش المستخدم في التطبيق";
@@ -739,9 +746,13 @@
 "talk-page-link-user-action-sheet-title" = "صفحات المستخدمين";
 "talk-page-new-banner-subtitle" = "تذكر، كلنا أناسٌ هنا";
 "talk-page-new-banner-title" = "رجاءً كن لطيفاً";
+"talk-page-new-body-textfield-accessibility-label" = "هيئة النقاش";
+"talk-page-new-reply-body-accessibility-label" = "تأليف استجابة";
 "talk-page-new-reply-body-placeholder-text" = "فم بصياغة رد";
 "talk-page-new-reply-success-text" = "تم نشر ردك بنجاح";
+"talk-page-new-subject-clear-button-accessibility" = "مسح الموضوع";
 "talk-page-new-subject-placeholder-text" = "الموضوع";
+"talk-page-new-subject-textfield-accessibility-label" = "الموضوع";
 "talk-page-new-topic-body-placeholder-text" = "قم بصياغة نقاش جديد";
 "talk-page-new-topic-success-text" = "تم نشر نقاشك بنجاح";
 "talk-page-new-topic-title" = "نقاش حديد";

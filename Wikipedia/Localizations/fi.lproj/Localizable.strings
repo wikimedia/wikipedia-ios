@@ -73,6 +73,7 @@
 "action-add-to-reading-list-short" = "Lisää listaan";
 "action-cancel" = "Peruuta";
 "action-find-in-page" = "Etsi sivulta";
+"action-language-accessibility" = "Vaihda kieli";
 "action-move-to" = "Siirrä kohteeseen...";
 "action-move-to-reading-list" = "Siirrä lukulistaan";
 "action-read" = "Lue";
@@ -611,6 +612,7 @@
 "search-recent-title" = "Viimeisimmät haut";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "search-title" = "Haku";
+"settings-account" = "Käyttäjätunnus";
 "settings-appearance" = "Lukemisasetukset";
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
@@ -666,7 +668,9 @@
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
 "table-title-other" = "Lisätietoja";
+"talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-topic-title" = "Uusi keskustelu";
+"talk-page-title-user-talk" = "Keskustelu käyttäjästä";
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";

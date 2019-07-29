@@ -1,6 +1,7 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
 // Author: A Chinese Wikipedian
+// Author: A2B4C
 // Author: Angrydog001
 // Author: Chixvv
 // Author: Cwek
@@ -80,6 +81,7 @@
 "action-add-to-reading-list-short" = "添加至列表";
 "action-cancel" = "取消";
 "action-find-in-page" = "在页面中查找";
+"action-language-accessibility" = "更改语言";
 "action-move-to" = "移动至…";
 "action-move-to-reading-list" = "移动至阅读列表";
 "action-read" = "阅读";
