@@ -107,7 +107,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return capitalizedWikidataDescription
         }
         
-        let redirectFormat = WMFLocalizedString("search-result-redirected-from", value: "Redirected from: %1$@", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* %1$@ - article title the current search result redirected from")
+        let redirectFormat = WMFLocalizedString("search-result-redirected-from", value: "Redirected from: %1$@", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters: * %1$@ - article title the current search result redirected from")
         let redirectMessage = String.localizedStringWithFormat(redirectFormat, redirectFromTitle)
         
         guard let description = capitalizedWikidataDescription else {

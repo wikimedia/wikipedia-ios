@@ -22,7 +22,7 @@ NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-short
 
 + (UIApplicationShortcutItem *)wmf_random {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeRandom
-                                            localizedTitle:WMFLocalizedStringWithDefaultValue(@"icon-shortcut-random-title", nil, nil, @"Random article", @"Title for app icon force touch shortcut to quickly open a random article.\n{{Identical|Random article}}")
+                                            localizedTitle:WMFLocalizedStringWithDefaultValue(@"icon-shortcut-random-title", nil, nil, @"Random article", @"Title for app icon force touch shortcut to quickly open a random article. {{Identical|Random article}}")
                                          localizedSubtitle:@""
                                                       icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"random-quick-action"]
                                                   userInfo:nil];

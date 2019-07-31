@@ -555,7 +555,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (IconBarButtonItem *)showTableOfContentsToolbarItem {
     if (!_showTableOfContentsToolbarItem) {
         _showTableOfContentsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"toc" target: self action:@selector(showTableOfContents:) for: UIControlEventTouchUpInside];
-        _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}");
         [_showTableOfContentsToolbarItem applyTheme:self.theme];
         return _showTableOfContentsToolbarItem;
     }
@@ -572,7 +572,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             button.layer.masksToBounds = YES;
         }
 
-        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}");
 
         [_hideTableOfContentsToolbarItem applyTheme:self.theme];
     }
@@ -2148,7 +2148,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     };
 
     UIPreviewAction *shareAction =
-        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
+        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share {{Identical|Share}}")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {

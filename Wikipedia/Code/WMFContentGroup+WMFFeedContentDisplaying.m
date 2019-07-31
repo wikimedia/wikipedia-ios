@@ -19,11 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocation:
             return WMFLocalizedStringWithDefaultValue(@"explore-nearby-heading", nil, nil, @"Places near", @"Text for 'Nearby places' header. The next line of the header is the name of the nearest article.");
         case WMFContentGroupKindLocationPlaceholder:
-            return WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-heading", nil, nil, @"Places", @"Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia\n{{Identical|Place}}");
+            return WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-heading", nil, nil, @"Places", @"Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia {{Identical|Place}}");
         case WMFContentGroupKindPictureOfTheDay:
             return [WMFCommonStrings pictureOfTheDayTitle];
         case WMFContentGroupKindRandom:
-            return WMFLocalizedStringWithDefaultValue(@"explore-random-article-heading", nil, nil, @"Random article", @"Text for 'Random article' header\n{{Identical|Random article}}");
+            return WMFLocalizedStringWithDefaultValue(@"explore-random-article-heading", nil, nil, @"Random article", @"Text for 'Random article' header {{Identical|Random article}}");
         case WMFContentGroupKindFeaturedArticle:
             return [WMFCommonStrings featuredArticleTitle];
         case WMFContentGroupKindTopRead:
@@ -335,7 +335,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             return self.moreLikeTitle;
         case WMFContentGroupKindLocation:
-            return WMFLocalizedStringWithDefaultValue(@"main-menu-nearby", nil, nil, @"Nearby", @"Button for showing nearby articles.\n{{Identical|Nearby}}");
+            return WMFLocalizedStringWithDefaultValue(@"main-menu-nearby", nil, nil, @"Nearby", @"Button for showing nearby articles. {{Identical|Nearby}}");
         case WMFContentGroupKindLocationPlaceholder:
             break;
         case WMFContentGroupKindPictureOfTheDay:
