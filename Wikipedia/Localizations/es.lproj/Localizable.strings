@@ -737,6 +737,7 @@
 "table-of-contents-heading" = "Sumario";
 "table-title-other" = "Más información";
 "talk-page-error-unable-to-post-reply" = "No hay conexión a Internet. No se puede enviar la respuesta.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "No hay conexión a internet. No se puede publicar el tema.";
 "talk-page-info-active-conversations" = "Conversaciones activas en Wikipedia en $1";
 "talk-page-info-active-conversations-generic" = "Conversaciones activas en Wikipedia";

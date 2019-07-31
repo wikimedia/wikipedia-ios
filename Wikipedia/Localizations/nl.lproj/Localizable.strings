@@ -82,6 +82,7 @@
 "action-add-to-reading-list-short" = "Aan lijst toevoegen";
 "action-cancel" = "Annuleren";
 "action-find-in-page" = "Op pagina zoeken";
+"action-language-accessibility" = "Taal wijzigen";
 "action-move-to" = "Verplaatsen naar…";
 "action-move-to-reading-list" = "Naar leeslijst verplaatsen";
 "action-read" = "Lezen";
@@ -690,6 +691,7 @@
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
 "talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
 "talk-page-link-user-action-sheet-safari" = "Gebruikerspagina bekijken in Safari";
 "talk-page-link-user-action-sheet-title" = "Gebruikerspagina's";

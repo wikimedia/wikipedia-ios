@@ -119,7 +119,10 @@ private extension TalkPageReplyComposeView {
         composeTextView.isUnderlined = false
         composeTextView.isScrollEnabled = true
         composeTextView._delegate = self
-        composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
+        if !UIAccessibility.isVoiceOverRunning {
+            composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
+        }
+        composeTextView.accessibilityLabel = WMFLocalizedString("talk-page-new-reply-body-accessibility-label", value: "Compose response", comment: "Accessibility label for the talk page new reply text field.")
         insertSubview(finePrintTextView, belowSubview: composeTextView)
         finePrintTextView.isScrollEnabled = false
         finePrintTextView.isEditable = false

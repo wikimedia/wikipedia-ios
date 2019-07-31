@@ -57,11 +57,11 @@ extension TalkPageContainerViewState: Equatable {
 class TalkPageContainerViewController: ViewController, HintPresenting {
     
     let talkPageTitle: String
-    let siteURL: URL
+    private(set) var siteURL: URL
     let type: TalkPageType
     private let dataStore: MWKDataStore
-    private let controller: TalkPageController
-    private let talkPageSemanticContentAttribute: UISemanticContentAttribute
+    private(set) var controller: TalkPageController
+    private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
     private let emptyViewController = EmptyRefreshingViewController()
     private var talkPage: TalkPage? {
         didSet {
@@ -84,6 +84,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     private let toolbar = UIToolbar()
     private var shareIcon: IconBarButtonItem?
+    private var languageIcon: IconBarButtonItem?
     private var completedActivityType: UIActivity.ActivityType?
     
     @objc static let WMFReplyPublishedNotificationName = "WMFReplyPublishedNotificationName"
@@ -224,6 +225,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         view.backgroundColor = theme.colors.paperBackground
         toolbar.barTintColor = theme.colors.chromeBackground
         shareIcon?.apply(theme: theme)
+        languageIcon?.apply(theme: theme)
     }
 
     func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
@@ -258,11 +260,25 @@ private extension TalkPageContainerViewController {
         shareIcon.apply(theme: theme)
         shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
         
-        let spacer1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let spacer2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.items = [spacer1, shareIcon, spacer2]
+        let languageIcon = IconBarButtonItem(iconName: "language", target: self, action: #selector(tappedLanguage(_:)), for: .touchUpInside)
+        languageIcon.apply(theme: theme)
+        languageIcon.accessibilityLabel = CommonStrings.accessibilityLanguagesTitle
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [spacer, languageIcon, spacer, shareIcon, spacer]
         
         self.shareIcon = shareIcon
+        self.languageIcon = languageIcon
+    }
+    
+    @objc func tappedLanguage(_ sender: UIButton) {
+        
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC?.delegate = self
+        if let themeable = languagesVC as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+        present(WMFThemeableNavigationController(rootViewController: languagesVC!, theme: self.theme), animated: true, completion: nil)
     }
     
     @objc func tappedShare(_ sender: UIButton) {
@@ -309,15 +325,14 @@ private extension TalkPageContainerViewController {
                         
                         self.setupTopicListViewControllerIfNeeded(with: talkPage)
                         
-                        if let topics = talkPage.topics, topics.count > 0 {
+                        if !talkPage.isEmpty {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultData : .fetchFinishedResultData
                         } else {
                             self.viewState = fetchResult.isInitialLocalResult ? .fetchInitialResultEmpty : .fetchFinishedResultEmpty
                         }
                         
-                        if let headerView = self.headerView,
-                            let introTopic = self.introTopic {
-                            self.configure(header: headerView, introTopic: introTopic)
+                        if let headerView = self.headerView {
+                            self.configure(header: headerView, introTopic: self.introTopic)
                             self.updateScrollViewInsets()
                         }
                     } else {
@@ -351,6 +366,13 @@ private extension TalkPageContainerViewController {
         }
     }
     
+    func resetTopicList() {
+        topicListViewController?.willMove(toParent: nil)
+        topicListViewController?.view.removeFromSuperview()
+        topicListViewController?.removeFromParent()
+        topicListViewController = nil
+    }
+    
     func addChildViewController(childViewController: UIViewController, belowSubview: UIView, topAnchorPadding: CGFloat) -> (top: NSLayoutConstraint, bottom: NSLayoutConstraint, leading: NSLayoutConstraint, trailing: NSLayoutConstraint) {
         addChild(childViewController)
         childViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -376,6 +398,7 @@ private extension TalkPageContainerViewController {
     func setupAddBarButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAdd(_:)))
         addButton.tintColor = theme.colors.link
+        addButton.accessibilityLabel = WMFLocalizedString("talk-page-add-discussion-accessibility-label", value: "Add discussion", comment: "Accessibility label for a button that opens the add new discussion screen.")
         navigationItem.rightBarButtonItem = addButton
         navigationBar.updateNavigationItems()
         self.addButton = addButton
@@ -411,9 +434,9 @@ private extension TalkPageContainerViewController {
             headerText = WMFLocalizedString("talk-page-title-article-talk", value: "article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.").localizedUppercase
         }
         
-        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@ Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. %1$@ is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.")
+        let languageTextFormat = WMFLocalizedString("talk-page-info-active-conversations", value: "Active conversations on %1$@ Wikipedia", comment: "This information label is displayed at the top of a talk page discussion list. %1$@ is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.")
         
-        let genericInfoText = WMFLocalizedString("talk-page-info-active-conversations-generic", value: "Active conversations on Wikipedia", comment: "This information label is displayed at the top of a talk page topic list. This is fallback text in case a specific wiki language cannot be determined.")
+        let genericInfoText = WMFLocalizedString("talk-page-info-active-conversations-generic", value: "Active conversations on Wikipedia", comment: "This information label is displayed at the top of a talk page discussion list. This is fallback text in case a specific wiki language cannot be determined.")
         
         let infoText = stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: languageTextFormat, fallbackGenericString: genericInfoText)
         
@@ -562,6 +585,20 @@ private extension TalkPageContainerViewController {
             }
         }
     }
+    
+    func changeLanguage(siteURL: URL) {
+        controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
+        let language = siteURL.wmf_language
+        talkPageSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+        resetTopicList()
+        fetch { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: self.headerView?.infoLabel);
+        }
+    }
 }
 
 // MARK: Empty & error states
@@ -582,12 +619,31 @@ extension TalkPageContainerViewController {
     }
 
     private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
+
         if (error as NSError).wmf_isNetworkConnectionError() {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+            }
+            
         } else if let talkPageError = error as? TalkPageError {
-            WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: talkPageError.localizedDescription)
+             } else {
+                WMFAlertManager.sharedInstance.showWarningAlert(talkPageError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            }
+            
         }  else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
+            } else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+            }
+            
         }
     }
     
@@ -618,20 +674,31 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
         
         viewController.postDidBegin()
         controller.addTopic(toTalkPageWith: talkPage.objectID, title: talkPageTitle, siteURL: siteURL, subject: subject, body: body) { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
             DispatchQueue.main.async {
                 viewController.postDidEnd()
 
                 switch result {
                 case .success(let result):
                     if result != .success {
-                        self?.fetch()
+                        self.fetch()
                     } else {
-                        self?.syncViewState()
+                        self.syncViewState()
                     }
-                    self?.navigationController?.popViewController(animated: true)
-                    NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+                    
+                    if !UIAccessibility.isVoiceOverRunning {
+                        self.navigationController?.popViewController(animated: true)
+                        NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFTopicPublishedNotificationName), object: nil)
+                    } else {
+                        viewController.announcePostSuccessful()
+                    }
+                    
                 case .failure(let error):
-                    self?.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post topic.", comment: "Error message appearing when user attempts to post a new talk page topic while being offline"))
+                    self.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-topic", value: "No internet connection. Unable to post discussion.", comment: "Error message appearing when user attempts to post a new talk page discussion while being offline"))
                 }
             }
         }
@@ -662,13 +729,25 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
         viewController.postDidBegin()
         controller.addReply(to: topic, title: talkPageTitle, siteURL: siteURL, body: composeText) { (result) in
             DispatchQueue.main.async {
-                viewController.postDidEnd()
-                NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
+                
+                if !UIAccessibility.isVoiceOverRunning {
+                    viewController.postDidEnd()
+                }
                 
                 switch result {
                 case .success:
-                    break
+                    if !UIAccessibility.isVoiceOverRunning {
+                        NotificationCenter.default.post(name: Notification.Name(TalkPageContainerViewController.WMFReplyPublishedNotificationName), object: nil)
+                    } else {
+                        viewController.announcePostSuccessful()
+                    }
+                    
                 case .failure(let error):
+                    
+                    if UIAccessibility.isVoiceOverRunning {
+                        viewController.postDidEnd()
+                    }
+                    
                     self.showNoInternetConnectionAlertOrOtherWarning(from: error, noInternetConnectionAlertMessage: WMFLocalizedString("talk-page-error-unable-to-post-reply", value: "No internet connection. Unable to post reply.", comment: "Error message appearing when user attempts to post a new talk page reply while being offline"))
                 }
             }
@@ -684,6 +763,8 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     }
 }
 
+//MARK: TalkPageHeaderViewDelegate
+
 extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
         tappedLink(url, loadingViewController: self, sourceView: sourceView, sourceRect: sourceRect)
@@ -696,10 +777,25 @@ extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     }
 }
 
+//MARK: EmptyRefreshingViewControllerDelegate
+
 extension TalkPageContainerViewController: EmptyRefreshingViewControllerDelegate {
     func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
         fetch {
             refreshCompletion()
         }
+    }
+}
+
+//MARK: WMFPreferredLanguagesViewControllerDelegate
+
+extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDelegate {
+    func languagesController(_ controller: WMFLanguagesViewController!, didSelectLanguage language: MWKLanguageLink!) {
+        let newSiteURL = language.siteURL()
+        if siteURL != newSiteURL {
+                siteURL = newSiteURL
+                changeLanguage(siteURL: siteURL)
+        }
+        controller.dismiss(animated: true, completion: nil)
     }
 }

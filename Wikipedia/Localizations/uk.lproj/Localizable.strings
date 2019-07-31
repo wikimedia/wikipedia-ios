@@ -74,6 +74,7 @@
 "action-add-to-reading-list-short" = "Додати до списку";
 "action-cancel" = "Скасувати";
 "action-find-in-page" = "Знайти на сторінці";
+"action-language-accessibility" = "Змінити мову";
 "action-move-to" = "Перенести до...";
 "action-move-to-reading-list" = "Перенести до читального списку";
 "action-read" = "Читати";
@@ -726,6 +727,7 @@
 "table-of-contents-heading" = "Вміст";
 "table-title-other" = "Більше інформації";
 "talk-page-error-unable-to-post-reply" = "Нема підключення до Інтернету. Неможливо оприлюднити відповідь.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Нема підключення до Інтернету. Неможливо оприлюднити нове обговорення.";
 "talk-page-info-active-conversations" = "Активні обговорення у Вікіпедії мовою $1";
 "talk-page-info-active-conversations-generic" = "Активні обговорення у Вікіпедії";

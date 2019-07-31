@@ -631,6 +631,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (IconBarButtonItem *)languagesToolbarItem {
     if (!_languagesToolbarItem) {
         _languagesToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"language" target: self action:@selector(showLanguagePicker) for: UIControlEventTouchUpInside];
+        _languagesToolbarItem.accessibilityLabel = WMFCommonStrings.accessibilityLanguagesTitle;
         [_languagesToolbarItem applyTheme:self.theme];
     }
     return _languagesToolbarItem;

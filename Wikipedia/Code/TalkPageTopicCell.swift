@@ -57,8 +57,30 @@ class TalkPageTopicCell: CollectionViewCell {
     }
     
     func configure(title: String, isRead: Bool = true) {
+
         unreadView.isHidden = isRead
         configureTitleLabel(title: title)
+        
+        configureAccessibility(title: title, isRead: isRead)
+    }
+    
+    private func configureAccessibility(title: String, isRead: Bool) {
+        
+        let readAccessibilityText = WMFLocalizedString("talk-page-discussion-read-accessibility-label", value: "Read", comment: "Accessibility text for indicating that a discussion's contents have been read.")
+        let unreadAccessibilityText = WMFLocalizedString("talk-page-discussion-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that a discussion's contents have not been read.")
+        let readPronounciationAccessibilityAttribute = WMFLocalizedString("talk-page-discussion-read-ipa-accessibility-attribute", value: "rɛd", comment: "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.")
+        let unreadPronounciationAccessibilityAttribute = WMFLocalizedString("talk-page-discussion-unread-ipa-accessibility-attribute", value: "ʌnˈrɛd", comment: "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.")
+        
+        let readAccessibilityAttributedString = NSAttributedString(string: readAccessibilityText, attributes: [NSAttributedString.Key.accessibilitySpeechIPANotation: readPronounciationAccessibilityAttribute])
+        let unreadAccessibilityAttributedString = NSAttributedString(string: unreadAccessibilityText, attributes: [NSAttributedString.Key.accessibilitySpeechIPANotation: unreadPronounciationAccessibilityAttribute])
+        let readUnreadAccessibilityAttributedString = isRead ? readAccessibilityAttributedString : unreadAccessibilityAttributedString
+        
+        let mutableAttributedString = NSMutableAttributedString(attributedString: readUnreadAccessibilityAttributedString)
+        let titleAttributedString = NSAttributedString(string: "\(titleLabel.attributedText?.string ?? title). ")
+        mutableAttributedString.insert(titleAttributedString, at: 0)
+        accessibilityAttributedLabel = mutableAttributedString.copy() as? NSAttributedString
+        
+        accessibilityHint = WMFLocalizedString("talk-page-discussion-accessibility-hint", value: "Double tap to open discussion thread", comment: "Accessibility hint when user is on a discussion title cell.")
     }
     
     private func configureTitleLabel(title: String) {
@@ -77,6 +99,8 @@ class TalkPageTopicCell: CollectionViewCell {
         contentView.addSubview(dividerView)
         contentView.addSubview(unreadView)
         contentView.addSubview(chevronImageView)
+        titleLabel.isAccessibilityElement = false
+        isAccessibilityElement = true
         super.setup()
     }
 }

@@ -80,9 +80,11 @@ class AccountViewController: SubSettingsViewController {
         case .logout:
             cell.disclosureType = .viewControllerWithDisclosureText
             cell.disclosureText = item.type == .logout ? CommonStrings.logoutTitle : nil
+            cell.accessibilityTraits = .button
         case .talkPage:
             cell.disclosureType = .viewController
             cell.disclosureText = nil
+            cell.accessibilityTraits = .button
         case .talkPageAutoSignDiscussions:
             cell.disclosureType = .switch
             cell.selectionStyle = .none

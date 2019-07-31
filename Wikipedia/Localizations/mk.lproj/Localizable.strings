@@ -61,6 +61,7 @@
 "action-add-to-reading-list-short" = "Додај во список";
 "action-cancel" = "Откажи";
 "action-find-in-page" = "Најди на страницата";
+"action-language-accessibility" = "Смени јазик";
 "action-move-to" = "Премести во...";
 "action-move-to-reading-list" = "Премести во списокот за читање";
 "action-read" = "Прочитај";
@@ -713,6 +714,7 @@
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
 "talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам темата.";
 "talk-page-info-active-conversations" = "Тековни разговори на Википедија на $1";
 "talk-page-info-active-conversations-generic" = "Тековни разговори на Википедија";

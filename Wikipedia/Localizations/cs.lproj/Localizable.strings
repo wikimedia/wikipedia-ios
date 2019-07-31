@@ -81,6 +81,7 @@
 "action-add-to-reading-list-short" = "Přidat do seznamu";
 "action-cancel" = "Zrušit";
 "action-find-in-page" = "Najít na stránce";
+"action-language-accessibility" = "Změnit jazyk";
 "action-move-to" = "Přesunout do…";
 "action-move-to-reading-list" = "Přesunout do seznamu k přečtení";
 "action-read" = "Číst";
@@ -733,6 +734,7 @@
 "table-of-contents-heading" = "Obsah";
 "table-title-other" = "Další informace";
 "talk-page-error-unable-to-post-reply" = "Nelze se připojit k interentu. Nelze odeslat odpověď.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Nelze se připojit k interentu. Nelze zveřejnit nové téma.";
 "talk-page-info-active-conversations" = "Aktivní diskuse na Wikipedii v jazyce $1";
 "talk-page-info-active-conversations-generic" = "Aktivní diskuse na Wikipedii";

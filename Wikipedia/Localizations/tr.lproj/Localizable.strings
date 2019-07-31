@@ -353,6 +353,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
 "explore-randomizer" = "Rastgele";
+"featured-article-empty-title" = "Bugün için seçkin madde mevcut değil";
 "feed-news-notification-button-text" = "Bildirimleri aç";
 "feed-news-notification-text" = "Gündemde olan Vikipedi maddelerinden haberdar olmak için bildirimleri etkinleştirin.";
 "fetcher-error-generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
@@ -736,6 +737,7 @@
 "table-of-contents-heading" = "Konu başlıkları";
 "table-title-other" = "Daha fazla bilgi";
 "talk-page-error-unable-to-post-reply" = "İnternet bağlantısı yok. Cevap gönderilemiyor.";
+// Fuzzy
 "talk-page-error-unable-to-post-topic" = "İnternet bağlantısı yok. Konu gönderilemiyor.";
 "talk-page-info-active-conversations" = "$1 Vikipedi'de aktif sohbetler";
 "talk-page-info-active-conversations-generic" = "Vikipedi'de aktif sohbetler";
