@@ -223,7 +223,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
                                                }
                                                url = [url wmf_urlByPrependingSchemeIfSchemeless];
-                                               [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
+                                               [self.article.dataStore.articleSummaryController.fetcher fetchSummaryForArticleWithKey:[url wmf_databaseKey] priority:NSURLSessionTaskPriorityHigh completion:^(WMFArticleSummary * _Nullable summary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                   if (summary.namespace.number.integerValue == PageNamespaceMain) {
+                                                       [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
+                                                   } else {
+                                                       [self wmf_openExternalUrl:url];
+                                                   }
+                                               }];
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
