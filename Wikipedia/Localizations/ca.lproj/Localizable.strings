@@ -734,9 +734,11 @@
 "talk-page-link-user-action-sheet-title" = "Pàgines d’usuari";
 "talk-page-new-banner-subtitle" = "Recordeu, aquí tothom és humà";
 "talk-page-new-banner-title" = "Sigueu respectuós/osa";
+"talk-page-new-reply-body-accessibility-label" = "Redacta una resposta";
 "talk-page-new-reply-body-placeholder-text" = "Redacta una resposta";
 "talk-page-new-reply-success-text" = "La vostra resposta s'ha publicat amb èxit";
 "talk-page-new-subject-placeholder-text" = "Assumpte";
+"talk-page-new-subject-textfield-accessibility-label" = "Assumpte";
 "talk-page-new-topic-body-placeholder-text" = "Redacta una discussió nova";
 "talk-page-new-topic-success-text" = "La vostra discussió s'ha publicat amb èxit";
 "talk-page-new-topic-title" = "Discussió nova";

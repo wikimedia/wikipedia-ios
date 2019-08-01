@@ -732,9 +732,11 @@
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
 "table-of-contents-heading" = "목차";
 "table-title-other" = "자세한 정보";
+"talk-page-add-discussion-accessibility-label" = "토론 추가";
+"talk-page-discussion-read-accessibility-label" = "읽음";
+"talk-page-discussion-unread-accessibility-label" = "읽지 않음";
 "talk-page-error-unable-to-post-reply" = "인터넷이 연결되어 있지 않습니다. 답변을 게시할 수 없습니다.";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "인터넷이 연결되어 있지 않습니다. 주제를 게시할 수 없습니다.";
+"talk-page-error-unable-to-post-topic" = "인터넷이 연결되어 있지 않습니다. 토론을 게시할 수 없습니다.";
 "talk-page-info-active-conversations" = "$1 위키백과에서 진행 중인 대화";
 "talk-page-info-active-conversations-generic" = "위키백과에서 진행 중인 대화";
 "talk-page-link-user-action-sheet-app" = "앱에서 사용자 토론 문서 보기";
@@ -742,9 +744,13 @@
 "talk-page-link-user-action-sheet-title" = "사용자 문서";
 "talk-page-new-banner-subtitle" = "여기서 우리 모두는 사람입니다";
 "talk-page-new-banner-title" = "공손한 태도로 임해 주십시오";
+"talk-page-new-body-textfield-accessibility-label" = "토론 본문";
+"talk-page-new-reply-body-accessibility-label" = "답변 쓰기";
 "talk-page-new-reply-body-placeholder-text" = "답변 쓰기";
 "talk-page-new-reply-success-text" = "답변이 성공적으로 게시되었습니다";
+"talk-page-new-subject-clear-button-accessibility" = "제목 지우기";
 "talk-page-new-subject-placeholder-text" = "제목";
+"talk-page-new-subject-textfield-accessibility-label" = "제목";
 "talk-page-new-topic-body-placeholder-text" = "새 토론 쓰기";
 "talk-page-new-topic-success-text" = "토론이 성공적으로 게시되었습니다";
 "talk-page-new-topic-title" = "새 토론";

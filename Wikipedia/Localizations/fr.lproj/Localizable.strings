@@ -734,9 +734,14 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-title-other" = "Plus d’information";
+"talk-page-add-discussion-accessibility-label" = "Ajouter une discussion";
+"talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";
+"talk-page-discussion-read-accessibility-label" = "Lire";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-unread-accessibility-label" = "Non lu";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
 "talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer le sujet.";
+"talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer la discussion.";
 "talk-page-info-active-conversations" = "Conversations actives sur Wikipédia $1";
 "talk-page-info-active-conversations-generic" = "Conversations actives sur Wikipédia";
 "talk-page-link-user-action-sheet-app" = "Afficher la page de discussion de l’utilisateur dans l’application";
@@ -744,9 +749,13 @@
 "talk-page-link-user-action-sheet-title" = "Pages utilisateur";
 "talk-page-new-banner-subtitle" = "Souvenez-vous que chacun est un être humain ici.";
 "talk-page-new-banner-title" = "Soyez gentil";
+"talk-page-new-body-textfield-accessibility-label" = "Corps de la discussion";
+"talk-page-new-reply-body-accessibility-label" = "Composer une réponse";
 "talk-page-new-reply-body-placeholder-text" = "Rédiger une réponse";
 "talk-page-new-reply-success-text" = "Votre réponse a été publiée avec succès";
+"talk-page-new-subject-clear-button-accessibility" = "Effacer le sujet";
 "talk-page-new-subject-placeholder-text" = "Sujet";
+"talk-page-new-subject-textfield-accessibility-label" = "Sujet";
 "talk-page-new-topic-body-placeholder-text" = "Rédiger une nouvelle discussion";
 "talk-page-new-topic-success-text" = "Votre discussion a été publiée avec succès";
 "talk-page-new-topic-title" = "Nouvelle discussion";

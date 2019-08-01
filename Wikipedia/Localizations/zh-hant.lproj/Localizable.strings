@@ -727,9 +727,14 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
 "table-title-other" = "更多資訊";
+"talk-page-add-discussion-accessibility-label" = "新增討論";
+"talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
+"talk-page-discussion-read-accessibility-label" = "查看";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-unread-accessibility-label" = "未查看";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
 "talk-page-error-unable-to-post-reply" = "沒有連結到網路，無法發佈回覆。";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈主題。";
+"talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈討論。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
 "talk-page-info-active-conversations-generic" = "在維基百科上積極交談";
 "talk-page-link-user-action-sheet-app" = "在應用程式上檢視使用者對話頁";
@@ -737,9 +742,13 @@
 "talk-page-link-user-action-sheet-title" = "使用者頁面";
 "talk-page-new-banner-subtitle" = "請記得，在此我們也只是一般人";
 "talk-page-new-banner-title" = "請保持友善";
+"talk-page-new-body-textfield-accessibility-label" = "討論正文";
+"talk-page-new-reply-body-accessibility-label" = "撰寫回覆";
 "talk-page-new-reply-body-placeholder-text" = "撰寫回覆";
 "talk-page-new-reply-success-text" = "您的回覆已成功發佈";
+"talk-page-new-subject-clear-button-accessibility" = "清除主題";
 "talk-page-new-subject-placeholder-text" = "主題";
+"talk-page-new-subject-textfield-accessibility-label" = "主題";
 "talk-page-new-topic-body-placeholder-text" = "撰寫新的討論";
 "talk-page-new-topic-success-text" = "您的討論已成功發佈";
 "talk-page-new-topic-title" = "新討論";
