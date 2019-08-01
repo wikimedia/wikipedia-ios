@@ -223,14 +223,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
                                                }
                                                url = [url wmf_urlByPrependingSchemeIfSchemeless];
-                                               // If stringByRemovingPercentEncoding succeeds, we will be able to create a correct wmf_databaseKeyURL
-                                               // and use it to create an article url. If it fails, wmf_databaseKeyURL will be incorrect and we'll fail to
-                                               // create a correct article url.
-                                               if ([url.path stringByRemovingPercentEncoding]) {
-                                                   [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
-                                               } else if (url) {
-                                                   [self wmf_openExternalUrl:url];
-                                               }
+                                               [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
