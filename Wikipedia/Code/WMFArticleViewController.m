@@ -683,8 +683,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         return;
     }
     [self.navigationBar setProgress:progress animated:animated];
-
-    [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
 
 - (void)completeAndHideProgressWithCompletion:(nullable dispatch_block_t)completion {
@@ -1304,7 +1302,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
             [self endRefreshing];
             [self hideProgressViewAnimated:YES];
-            [self.delegate articleControllerDidLoadArticle:self];
 
             MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
             if (cachedFallback) {
@@ -1380,7 +1377,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                 [self articleDidLoad];
             } else {
                 [self hideProgressViewAnimated:YES];
-                [self.delegate articleControllerDidLoadArticle:self];
 
                 [self showExternalURL:articleURL];
 
@@ -1567,8 +1563,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
     }
-
-    [self.delegate articleControllerDidLoadArticle:self];
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
