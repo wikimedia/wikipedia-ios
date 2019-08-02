@@ -1308,13 +1308,28 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
             MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
             if (cachedFallback) {
-                self.article = cachedFallback;
-                if (![error wmf_isNetworkConnectionError]) {
-                    // don't show offline banner for cached articles
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                              sticky:NO
-                                               dismissPreviousAlerts:NO
-                                                         tapCallBack:NULL];
+                if (cachedFallback.ns == PageNamespaceMain) {
+                    self.article = cachedFallback;
+                    if (![error wmf_isNetworkConnectionError]) {
+                        // don't show offline banner for cached articles
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                  sticky:NO
+                                                   dismissPreviousAlerts:NO
+                                                             tapCallBack:NULL];
+                    }
+                } else {
+                    NSURL *cachedFallbackURL = cachedFallback.url;
+                    if (cachedFallbackURL) {
+                        [self showExternalURL:cachedFallbackURL];
+                    } else {
+                        if (![error wmf_isNetworkConnectionError]) {
+                            // don't show offline banner for cached articles
+                            [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                      sticky:NO
+                                                       dismissPreviousAlerts:NO
+                                                                 tapCallBack:NULL];
+                        }
+                    }
                 }
             } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
                 NSURL *externalURL = self.articleURL;
@@ -1354,13 +1369,25 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         }
         success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
-            self.requestLatestRevisionOnInitialLoad = NO;
             [self endRefreshing];
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-            self.articleURL = articleURL;
-            self.article = article;
-            self.articleFetcherPromise = nil;
-            [self articleDidLoad];
+            self.requestLatestRevisionOnInitialLoad = NO;
+
+            if (article.ns == PageNamespaceMain) {
+                [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+                self.articleURL = articleURL;
+                self.article = article;
+                self.articleFetcherPromise = nil;
+                [self articleDidLoad];
+            } else {
+                [self hideProgressViewAnimated:YES];
+                [self.delegate articleControllerDidLoadArticle:self];
+
+                [self showExternalURL:articleURL];
+
+                self.articleFetcherPromise = nil;
+                [self articleDidLoad];
+                [self showWebView];
+            }
         }];
 }
 
