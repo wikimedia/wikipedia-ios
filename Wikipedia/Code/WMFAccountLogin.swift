@@ -102,7 +102,12 @@ public class WMFAccountLogin: Fetcher {
                     status == "UI",
                     let requests = clientlogin["requests"] as? [AnyObject]
                 {
-                    if let passwordAuthRequest = requests.first(where:{$0["id"]! as! String == "MediaWiki\\Auth\\PasswordAuthenticationRequest"}),
+                    if let passwordAuthRequest = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("PasswordAuthenticationRequest")
+                    }),
                         let fields = passwordAuthRequest["fields"] as? [String : AnyObject],
                         let _ = fields["password"] as? [String : AnyObject],
                         let _ = fields["retype"] as? [String : AnyObject]
@@ -110,7 +115,12 @@ public class WMFAccountLogin: Fetcher {
                         failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
                         return
                     }
-                    if let OATHTokenRequest = requests.first(where:{$0["id"]! as! String == "TOTPAuthenticationRequest"}),
+                    if let OATHTokenRequest = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("TOTPAuthenticationRequest")
+                    }),
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
                         let _ = fields["OATHToken"] as? [String : AnyObject]
                     {
