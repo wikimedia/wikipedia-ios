@@ -11,6 +11,7 @@
 // Author: John Trololo
 // Author: Macofe
 // Author: Nemo bis
+// Author: Nharateh
 // Author: Niridya
 // Author: Od1n
 // Author: Orikrin1998
@@ -736,10 +737,10 @@
 "table-title-other" = "Plus d’information";
 "talk-page-add-discussion-accessibility-label" = "Ajouter une discussion";
 "talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";
-"talk-page-discussion-read-accessibility-label" = "Lire";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-read-accessibility-label" = "Lus";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "ly";
 "talk-page-discussion-unread-accessibility-label" = "Non lu";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "nɔ̃ˈly";
 "talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
 "talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer la discussion.";
 "talk-page-info-active-conversations" = "Conversations actives sur Wikipédia $1";

@@ -21,6 +21,7 @@
 // Author: Maxan
 // Author: Mordecool
 // Author: Nemo bis
+// Author: Nharateh
 // Author: Pedrofariasm
 // Author: Peter Fernando
 // Author: Raphaelras
@@ -739,9 +740,9 @@
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Toque duas vezes para abrir o tópico de discussão";
 "talk-page-discussion-read-accessibility-label" = "Ler";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "ˈlidu";
 "talk-page-discussion-unread-accessibility-label" = "Não lidas";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ˈnɐ̃w̃  ˈlidu";
 "talk-page-error-unable-to-post-reply" = "Nenhuma conexão com a internet. Não é possível postar resposta.";
 "talk-page-error-unable-to-post-topic" = "Nenhuma conexão com a internet. Não é possível postar a discussão.";
 "talk-page-info-active-conversations" = "Conversas ativas em $1 Wikipédia";

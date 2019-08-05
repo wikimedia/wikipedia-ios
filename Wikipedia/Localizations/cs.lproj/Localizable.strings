@@ -738,7 +738,7 @@
 "talk-page-discussion-read-accessibility-label" = "Přečteno";
 "talk-page-discussion-unread-accessibility-label" = "Nepřečteno";
 "talk-page-error-unable-to-post-reply" = "Nelze se připojit k interentu. Nelze odeslat odpověď.";
-"talk-page-error-unable-to-post-topic" = "Nelze se připojit k interentu. Nelze zveřejnit diskusi.";
+"talk-page-error-unable-to-post-topic" = "Nelze se připojit k internetu. Nelze zveřejnit diskusi.";
 "talk-page-info-active-conversations" = "Aktivní diskuse na Wikipedii v jazyce $1";
 "talk-page-info-active-conversations-generic" = "Aktivní diskuse na Wikipedii";
 "talk-page-link-user-action-sheet-app" = "Zobrazit diskusi uživatele v aplikaci";

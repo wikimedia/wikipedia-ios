@@ -730,9 +730,9 @@
 "talk-page-add-discussion-accessibility-label" = "新增討論";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
 "talk-page-discussion-read-accessibility-label" = "查看";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "已讀取";
 "talk-page-discussion-unread-accessibility-label" = "未查看";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "未讀取";
 "talk-page-error-unable-to-post-reply" = "沒有連結到網路，無法發佈回覆。";
 "talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈討論。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";

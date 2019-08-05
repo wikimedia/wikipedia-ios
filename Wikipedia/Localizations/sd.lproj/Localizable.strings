@@ -496,6 +496,11 @@
 "table-of-contents-heading" = "فھرست";
 "table-title-other" = "وڌيڪ معلومات";
 "talk-page-new-subject-placeholder-text" = "موضوع";
+"talk-page-new-subject-textfield-accessibility-label" = "موضوع";
+"talk-page-reply-title" = "ورندي ڏيو";
+"talk-page-title-article-talk" = "مضمون بحث";
+"talk-page-title-user-talk" = "واپرائيندڙ بحث";
+"talk-page-topic-title" = "گفتگو";
 "theme-black-display-name" = "ڪارو";
 "theme-dark-display-name" = "گھرو";
 "theme-default-display-name" = "ڏنل";
