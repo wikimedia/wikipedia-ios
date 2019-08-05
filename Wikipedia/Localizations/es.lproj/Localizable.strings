@@ -89,6 +89,7 @@
 "action-add-to-reading-list-short" = "Añadir a la lista";
 "action-cancel" = "Cancelar";
 "action-find-in-page" = "Buscar en la página";
+"action-language-accessibility" = "Cambiar idioma";
 "action-move-to" = "Mover a…";
 "action-move-to-reading-list" = "Mover a una lista de lectura";
 "action-read" = "Leer";
@@ -736,6 +737,7 @@
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
 "table-of-contents-heading" = "Sumario";
 "table-title-other" = "Más información";
+"talk-page-discussion-unread-accessibility-label" = "Sin leer";
 "talk-page-error-unable-to-post-reply" = "No hay conexión a Internet. No se puede enviar la respuesta.";
 // Fuzzy
 "talk-page-error-unable-to-post-topic" = "No hay conexión a internet. No se puede publicar el tema.";
@@ -745,6 +747,7 @@
 "talk-page-link-user-action-sheet-title" = "Páginas de usuario";
 "talk-page-new-banner-subtitle" = "Recuerda: aquí todos somos humanos";
 "talk-page-new-banner-title" = "Sé amable";
+"talk-page-new-reply-body-accessibility-label" = "Redactar respuesta";
 "talk-page-new-reply-body-placeholder-text" = "Redactar respuesta";
 "talk-page-new-reply-success-text" = "La respuesta se publicó correctamente";
 "talk-page-new-subject-placeholder-text" = "Asunto";

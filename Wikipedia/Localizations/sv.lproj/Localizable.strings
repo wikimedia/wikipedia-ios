@@ -729,7 +729,9 @@
 "talk-page-add-discussion-accessibility-label" = "Lägg till diskussion";
 "talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";
 "talk-page-discussion-read-accessibility-label" = "Läst";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "lɛ'st";
 "talk-page-discussion-unread-accessibility-label" = "Oläst";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʊ:'lɛ'st";
 "talk-page-error-unable-to-post-reply" = "Internetanslutning saknas. Kunde inte skicka svaret.";
 "talk-page-error-unable-to-post-topic" = "Internetanslutning saknas. Kunde inte skapa diskussion.";
 "talk-page-info-active-conversations" = "Aktiva konversationer i Wikipedia på $1";

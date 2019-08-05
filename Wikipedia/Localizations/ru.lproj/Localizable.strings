@@ -749,6 +749,7 @@
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
 "talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
+"talk-page-discussion-accessibility-hint" = "Нажмите дважды, чтобы открыть ветку обсуждения";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
 "talk-page-discussion-unread-accessibility-label" = "Непрочитано";
@@ -762,9 +763,13 @@
 "talk-page-link-user-action-sheet-title" = "страницы пользователя";
 "talk-page-new-banner-subtitle" = "И не забывайте - вы общаетесь с живыми людьми, со всеми вытекающими отсюда последствиями :-)";
 "talk-page-new-banner-title" = "Будьте вежливы";
+"talk-page-new-body-textfield-accessibility-label" = "Текст обсуждения";
+"talk-page-new-reply-body-accessibility-label" = "Написать ответ";
 "talk-page-new-reply-body-placeholder-text" = "Ответить";
 "talk-page-new-reply-success-text" = "Ваш ответ был опубликован";
+"talk-page-new-subject-clear-button-accessibility" = "Очистить тему";
 "talk-page-new-subject-placeholder-text" = "Тема";
+"talk-page-new-subject-textfield-accessibility-label" = "Тема";
 "talk-page-new-topic-body-placeholder-text" = "Создать новое обсуждение";
 "talk-page-new-topic-success-text" = "Ваше обсуждение было опубликовано";
 "talk-page-new-topic-title" = "Новое обсуждение";

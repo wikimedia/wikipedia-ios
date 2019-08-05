@@ -690,6 +690,8 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"talk-page-discussion-read-accessibility-label" = "Lezen";
+"talk-page-discussion-unread-accessibility-label" = "Ongelezen";
 "talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
 // Fuzzy
 "talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
