@@ -723,9 +723,14 @@
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-heading" = "Índice";
 "table-title-other" = "Mais informação";
+"talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
+"talk-page-discussion-accessibility-hint" = "Premir duas vezes para abrir o tópico de discussão";
+"talk-page-discussion-read-accessibility-label" = "Lido";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "ˈlidu";
+"talk-page-discussion-unread-accessibility-label" = "Não lido";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ˈnɐ̃w̃  ˈlidu";
 "talk-page-error-unable-to-post-reply" = "Não há ligação à Internet. Não é possível publicar a resposta.";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "Não há ligação à Internet. Não é possível publicar o tópico.";
+"talk-page-error-unable-to-post-topic" = "Não há ligação à Internet. Não é possível publicar a discussão.";
 "talk-page-info-active-conversations" = "Conversas ativas na Wikipédia em $1";
 "talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
 "talk-page-link-user-action-sheet-app" = "Ver página de discussão do utilizador na aplicação";
@@ -733,9 +738,13 @@
 "talk-page-link-user-action-sheet-title" = "Páginas de utilizador";
 "talk-page-new-banner-subtitle" = "Lembre-se, aqui somos todos seres humanos";
 "talk-page-new-banner-title" = "Seja gentil, por favor";
+"talk-page-new-body-textfield-accessibility-label" = "Corpo da discussão";
+"talk-page-new-reply-body-accessibility-label" = "Redigir resposta";
 "talk-page-new-reply-body-placeholder-text" = "Redigir resposta";
 "talk-page-new-reply-success-text" = "A sua resposta foi publicada";
+"talk-page-new-subject-clear-button-accessibility" = "Limpar o assunto";
 "talk-page-new-subject-placeholder-text" = "Assunto";
+"talk-page-new-subject-textfield-accessibility-label" = "Assunto";
 "talk-page-new-topic-body-placeholder-text" = "Redigir discussão nova";
 "talk-page-new-topic-success-text" = "A sua discussão foi publicada";
 "talk-page-new-topic-title" = "Discussão nova";

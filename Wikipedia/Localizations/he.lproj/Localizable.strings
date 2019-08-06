@@ -71,6 +71,7 @@
 "action-add-to-reading-list-short" = "הוספה לרשימה";
 "action-cancel" = "ביטול";
 "action-find-in-page" = "למצוא בדף";
+"action-language-accessibility" = "החלפת שפה";
 "action-move-to" = "העברה ל־...";
 "action-move-to-reading-list" = "העברה לרשימת קריאה";
 "action-read" = "קריאה";
@@ -722,9 +723,14 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-title-other" = "מידע נוסף";
+"talk-page-add-discussion-accessibility-label" = "הוספת דיון";
+"talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
+"talk-page-discussion-read-accessibility-label" = "נקרא";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "nikʁʔ";
+"talk-page-discussion-unread-accessibility-label" = "לא נקרא";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "lo nikʁʔ";
 "talk-page-error-unable-to-post-reply" = "אין חיבור לאינטרנט. לא ניתן לפרסם תגובה.";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם נושא.";
+"talk-page-error-unable-to-post-topic" = "אין חיבור לאינטרנט. לא ניתן לפרסם דיון.";
 "talk-page-info-active-conversations" = "שיחות פעילות בוויקיפדיה ה$1";
 "talk-page-info-active-conversations-generic" = "שיחות פעילות בוויקיפדיה";
 "talk-page-link-user-action-sheet-app" = "צפיה בדף שיחת משתמש מהאפליקציה";
@@ -732,9 +738,13 @@
 "talk-page-link-user-action-sheet-title" = "דפי משתמש";
 "talk-page-new-banner-subtitle" = "זכרו, כולנו כאן בני אדם";
 "talk-page-new-banner-title" = "היו מנומסים";
+"talk-page-new-body-textfield-accessibility-label" = "גוף הדיון";
+"talk-page-new-reply-body-accessibility-label" = "כתיבת תגובה";
 "talk-page-new-reply-body-placeholder-text" = "תגובה חדשה";
 "talk-page-new-reply-success-text" = "התגובה שלך פורסמה בהצלחה";
+"talk-page-new-subject-clear-button-accessibility" = "מחיקת הנושא";
 "talk-page-new-subject-placeholder-text" = "נושא";
+"talk-page-new-subject-textfield-accessibility-label" = "נושא";
 "talk-page-new-topic-body-placeholder-text" = "דיון חדש";
 "talk-page-new-topic-success-text" = "הדיון שלך פורסם בהצלחה";
 "talk-page-new-topic-title" = "דיון חדש";

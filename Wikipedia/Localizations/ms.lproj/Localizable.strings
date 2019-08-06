@@ -7,6 +7,7 @@
 // Author: Kurniasan
 // Author: Macofe
 // Author: Nemo bis
+// Author: Tofeiku
 
 "about-content-license" = "Lesen kandungan";
 "about-content-license-details" = "Kecuali ditentukan lain, kandungan tersedia di bawah $1.";
@@ -57,6 +58,7 @@
 "action-add-to-reading-list-short" = "Tambahkan kepada senarai";
 "action-cancel" = "Batalkan";
 "action-find-in-page" = "Cari dalam laman";
+"action-language-accessibility" = "Tukar bahasa";
 "action-move-to" = "Pindah ke...";
 "action-move-to-reading-list" = "Pindahkan ke senarai bacaan";
 "action-read" = "Baca";
@@ -637,6 +639,7 @@
 "table-of-contents-close-accessibility-label" = "Tutup jadual isi kandungan";
 "table-of-contents-heading" = "Kandungan";
 "table-title-other" = "Maklumat lanjut";
+"talk-page-add-discussion-accessibility-label" = "Tambah perbincangan";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Asali";
