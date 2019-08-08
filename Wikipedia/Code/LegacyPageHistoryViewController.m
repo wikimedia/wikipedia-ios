@@ -1,4 +1,4 @@
-#import "PageHistoryViewController.h"
+#import "LegacyPageHistoryViewController.h"
 #import "PageHistoryResultCell.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
@@ -6,7 +6,7 @@
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
-@interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface LegacyPageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) __block NSMutableArray<PageHistorySection *> *pageHistoryDataArray;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation PageHistoryViewController
+@implementation LegacyPageHistoryViewController
 
 - (NSString *)title {
     return WMFLocalizedStringWithDefaultValue(@"page-history-title", nil, nil, @"Article history", @"Header text for Page History interface.\n{{Identical|Article history}}");

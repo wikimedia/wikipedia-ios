@@ -9,7 +9,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import "PageHistoryViewController.h"
+#import "LegacyPageHistoryViewController.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
@@ -97,7 +97,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         EventLoggingSearchSourceProviding,
                                         DescriptionEditViewControllerDelegate,
                                         WMFHintPresenting,
-                                        SFSafariViewControllerDelegate>
+                                        SFSafariViewControllerDelegate,
+                                        WMFPageHistoryViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1240,11 +1241,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
-        if ([navigationTitle length] > 16) {
-            navigationTitle = nil;
-        }
-        self.navigationItem.title = navigationTitle;
+        [self setNavigationItemTitleForArticle:self.article];
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();
@@ -1254,6 +1251,14 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             [self.dataStore.historyList addPageToHistoryWithURL:self.articleURL];
         }
     });
+}
+
+- (void)setNavigationItemTitleForArticle:(MWKArticle *)article {
+    NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
+    if ([navigationTitle length] > 16) {
+        navigationTitle = nil;
+    }
+    self.navigationItem.title = navigationTitle;
 }
 
 - (void)endRefreshing {
@@ -1728,9 +1733,16 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showEditHistory {
-    PageHistoryViewController *editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
-    editHistoryVC.article = self.article;
-    [self presentViewControllerEmbeddedInNavigationController:editHistoryVC];
+    WMFPageHistoryViewController *editHistoryVC = [[WMFPageHistoryViewController alloc] init];
+    editHistoryVC.delegate = self;
+    self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title");;
+//    editHistoryVC.article = self.article;
+    [editHistoryVC applyTheme:self.theme];
+    [self wmf_pushViewController:editHistoryVC animated:YES];
+}
+
+- (void)pageHistoryViewControllerDidDisappear:(WMFPageHistoryViewController *)pageHistoryViewController {
+    [self setNavigationItemTitleForArticle:self.article];
 }
 
 - (void)showTalkPage {

@@ -2,7 +2,7 @@
 @import WMF.Swift;
 
 @class MWKArticle;
-@interface PageHistoryViewController : UIViewController <WMFThemeable>
+@interface LegacyPageHistoryViewController : UIViewController <WMFThemeable>
 
 @property (nonatomic, strong) MWKArticle *article;
 

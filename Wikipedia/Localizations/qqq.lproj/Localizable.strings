@@ -96,6 +96,7 @@
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-title" = "Generic article title";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.\n{{Identical|Back}}";
@@ -470,6 +471,7 @@
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
+"page-history-compare-title" = "Title for action button that allows users to contrast different items";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";
 "page-last-edited" = "Relative days since an article was last edited. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";

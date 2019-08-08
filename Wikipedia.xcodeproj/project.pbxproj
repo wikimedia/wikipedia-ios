@@ -728,6 +728,11 @@
 		7AA96D5E21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
 		7AA96D5F21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
 		7AA96D6021B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
+		7AB209F922FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
+		7AB209FA22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
+		7AB209FB22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
+		7AB209FC22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
+		7AB209FD22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
 		7AB6F0FF22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */; };
 		7AB6F10022AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */; };
 		7AB6F10122AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */; };
@@ -1585,7 +1590,7 @@
 		B0E806C41C0CEB380065EBC0 /* WMFSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */; };
 		B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */; };
-		B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
+		B0E806D21C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */; };
 		B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807101C0CEBF00065EBC0 /* WebViewController.m */; };
 		B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8071E1C0CEC8A0065EBC0 /* main.m */; };
 		B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807351C0CED810065EBC0 /* WMFLogFormatter.m */; };
@@ -1838,7 +1843,7 @@
 		D80ED2B21EE57F4800CE8C50 /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D80ED2B41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */; };
 		D80ED2B51EE57F4800CE8C50 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
-		D80ED2B61EE57F4800CE8C50 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
+		D80ED2B61EE57F4800CE8C50 /* LegacyPageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */; };
 		D80ED2B71EE57F4800CE8C50 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D80ED2B81EE57F4800CE8C50 /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		D80ED2BB1EE57F4800CE8C50 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
@@ -2445,7 +2450,7 @@
 		D8A42A981E815A9C00D8E281 /* UIView+WMFSnapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803901C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m */; };
 		D8A42A9A1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */; };
 		D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
-		D8A42A9C1E815A9C00D8E281 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
+		D8A42A9C1E815A9C00D8E281 /* LegacyPageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */; };
 		D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
@@ -2721,7 +2726,7 @@
 		D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */; };
 		D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
 		D8CE25241E698E2400DAE2E0 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		D8CE25251E698E2400DAE2E0 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
+		D8CE25251E698E2400DAE2E0 /* LegacyPageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */; };
 		D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		D8CE252E1E698E2400DAE2E0 /* WMFArticleRevisionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4DC1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m */; };
@@ -3012,7 +3017,7 @@
 		D8EC3E191E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */; };
 		D8EC3E1A1E9BDA35006712EB /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
 		D8EC3E1B1E9BDA35006712EB /* (null) in Sources */ = {isa = PBXBuildFile; };
-		D8EC3E1C1E9BDA35006712EB /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */; };
+		D8EC3E1C1E9BDA35006712EB /* LegacyPageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */; };
 		D8EC3E1D1E9BDA35006712EB /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D8EC3E1E1E9BDA35006712EB /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		D8EC3E251E9BDA35006712EB /* WMFArticleRevisionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4DC1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m */; };
@@ -3889,6 +3894,7 @@
 		7A9F06182266432200856321 /* InsertMediaSettingsTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsTextTableViewCell.xib; sourceTree = "<group>"; };
 		7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
 		7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingProvidingTableViewController.swift; sourceTree = "<group>"; };
+		7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHistoryViewController.swift; sourceTree = "<group>"; };
 		7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivity.ActivityType+CustomTypes.swift"; sourceTree = "<group>"; };
 		7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaViewController.swift; sourceTree = "<group>"; };
 		7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
@@ -4368,8 +4374,8 @@
 		B0E806CA1C0CEB6E0065EBC0 /* PageHistoryResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageHistoryResultCell.h; path = Wikipedia/Code/PageHistoryResultCell.h; sourceTree = SOURCE_ROOT; };
 		B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageHistoryResultCell.m; path = Wikipedia/Code/PageHistoryResultCell.m; sourceTree = SOURCE_ROOT; };
 		B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PageHistoryResultPrototypeView.xib; path = Wikipedia/Code/PageHistoryResultPrototypeView.xib; sourceTree = SOURCE_ROOT; };
-		B0E806CD1C0CEB6E0065EBC0 /* PageHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageHistoryViewController.h; path = Wikipedia/Code/PageHistoryViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageHistoryViewController.m; path = Wikipedia/Code/PageHistoryViewController.m; sourceTree = SOURCE_ROOT; };
+		B0E806CD1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LegacyPageHistoryViewController.h; path = Wikipedia/Code/LegacyPageHistoryViewController.h; sourceTree = SOURCE_ROOT; };
+		B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LegacyPageHistoryViewController.m; path = Wikipedia/Code/LegacyPageHistoryViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = Wikipedia/Code/WMFSharing.h; sourceTree = SOURCE_ROOT; };
 		B0E8070E1C0CEBF00065EBC0 /* WebViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController_Private.h; path = Wikipedia/Code/WebViewController_Private.h; sourceTree = SOURCE_ROOT; };
 		B0E8070F1C0CEBF00065EBC0 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Wikipedia/Code/WebViewController.h; sourceTree = SOURCE_ROOT; };
@@ -5636,8 +5642,9 @@
 				B0E806CA1C0CEB6E0065EBC0 /* PageHistoryResultCell.h */,
 				B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */,
 				B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */,
-				B0E806CD1C0CEB6E0065EBC0 /* PageHistoryViewController.h */,
-				B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */,
+				B0E806CD1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.h */,
+				B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */,
+				7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */,
 			);
 			name = PageHistory;
 			sourceTree = "<group>";
@@ -10837,7 +10844,7 @@
 				B0524B75214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				6734115422735788005B31DA /* TalkPageFetcher.swift in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
-				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
+				B0E806D21C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
 				B0C17B9921FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
@@ -11055,6 +11062,7 @@
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
+				7AB209F922FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
 				B01CFC5F1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -11233,7 +11241,7 @@
 				7A71566B226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D80ED2B51EE57F4800CE8C50 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				7ADF498B21B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
-				D80ED2B61EE57F4800CE8C50 /* PageHistoryViewController.m in Sources */,
+				D80ED2B61EE57F4800CE8C50 /* LegacyPageHistoryViewController.m in Sources */,
 				D80ED2B71EE57F4800CE8C50 /* WMFTitleInsetRespectingButton.m in Sources */,
 				6734EE7E22976BA400F00B05 /* TalkPageHintViewController.swift in Sources */,
 				B0524B69214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
@@ -11366,6 +11374,7 @@
 				83987AD420E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				83AE1C841F34BB5B004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				832289DF1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
+				7AB209FD22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6780DF472264350800D9069D /* RemoteSubHandler.swift in Sources */,
 				D80ED3321EE57F4800CE8C50 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7AF6F76A22395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
@@ -11992,7 +12001,7 @@
 				D8A42A9A1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				7A6ED50C20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
-				D8A42A9C1E815A9C00D8E281 /* PageHistoryViewController.m in Sources */,
+				D8A42A9C1E815A9C00D8E281 /* LegacyPageHistoryViewController.m in Sources */,
 				673411572273578A005B31DA /* TalkPageFetcher.swift in Sources */,
 				B0C17B9C21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */,
@@ -12213,6 +12222,7 @@
 				B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8A42B601E815A9C00D8E281 /* WMFHelpViewController.m in Sources */,
 				7A28126620D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
+				7AB209FC22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				B0D4917221F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D8A42B611E815A9C00D8E281 /* NSString+FormattedAttributedString.m in Sources */,
 				83FBE9781F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
@@ -12404,7 +12414,7 @@
 				6734EE7B22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */,
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				B0016CC421362DB300FA1096 /* SetupGradientView.swift in Sources */,
-				D8CE25251E698E2400DAE2E0 /* PageHistoryViewController.m in Sources */,
+				D8CE25251E698E2400DAE2E0 /* LegacyPageHistoryViewController.m in Sources */,
 				D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C7A0891F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
 				D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */,
@@ -12532,6 +12542,7 @@
 				83987AD120E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
+				7AB209FA22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6780DF442264350700D9069D /* RemoteSubHandler.swift in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7AF6F76722395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
@@ -12822,7 +12833,7 @@
 				83E776A520FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				D8EC3E1B1E9BDA35006712EB /* (null) in Sources */,
 				B0C7A0851F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
-				D8EC3E1C1E9BDA35006712EB /* PageHistoryViewController.m in Sources */,
+				D8EC3E1C1E9BDA35006712EB /* LegacyPageHistoryViewController.m in Sources */,
 				D8EC3E1D1E9BDA35006712EB /* WMFTitleInsetRespectingButton.m in Sources */,
 				6798332B22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */,
 				7A5A0545225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
@@ -12944,6 +12955,7 @@
 				D8EC3E8E1E9BDA35006712EB /* WMFSettingsMenuItem.m in Sources */,
 				D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
+				7AB209FB22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6780DF452264350700D9069D /* RemoteSubHandler.swift in Sources */,
 				D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */,
 				7AF6F76822395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
