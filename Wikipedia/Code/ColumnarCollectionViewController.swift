@@ -176,7 +176,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         return frame
     }
 
-    open var emptyViewTarget: AnyObject?
+    open weak var emptyViewTarget: AnyObject?
     open var emptyViewAction: Selector?
     
     open func isEmptyDidChange() {
