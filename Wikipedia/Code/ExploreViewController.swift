@@ -328,7 +328,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         resetRefreshControl()
-        wmf_showEmptyView(of: .noFeed, action: nil, theme: theme, frame: view.bounds)
+        wmf_showEmptyView(of: .noFeed, theme: theme, frame: view.bounds)
     }
     
     var isLoadingNewContent = false
