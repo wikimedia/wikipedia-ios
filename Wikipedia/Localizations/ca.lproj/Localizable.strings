@@ -724,9 +724,14 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
+"talk-page-add-discussion-accessibility-label" = "Afegeix una discussió";
+"talk-page-discussion-accessibility-hint" = "Feu un toc doble per obrir el fil de discussió";
+"talk-page-discussion-read-accessibility-label" = "Llegit";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "ʎəʒit";
+"talk-page-discussion-unread-accessibility-label" = "No llegit";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "no ʎəʒit";
 "talk-page-error-unable-to-post-reply" = "No hi ha connexió a Internet. No es pot enviar la resposta.";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar el tema.";
+"talk-page-error-unable-to-post-topic" = "No hi ha connexió a Internet. No es pot enviar la discussió.";
 "talk-page-info-active-conversations" = "Converses actives a la Viquipèdia en $1";
 "talk-page-info-active-conversations-generic" = "Converses actives a la Viquipèdia";
 "talk-page-link-user-action-sheet-app" = "Mostra la pàgina de discussió d'usuari a l'aplicació";
@@ -734,9 +739,13 @@
 "talk-page-link-user-action-sheet-title" = "Pàgines d’usuari";
 "talk-page-new-banner-subtitle" = "Recordeu, aquí tothom és humà";
 "talk-page-new-banner-title" = "Sigueu respectuós/osa";
+"talk-page-new-body-textfield-accessibility-label" = "Cos de la discussió";
+"talk-page-new-reply-body-accessibility-label" = "Redacta una resposta";
 "talk-page-new-reply-body-placeholder-text" = "Redacta una resposta";
 "talk-page-new-reply-success-text" = "La vostra resposta s'ha publicat amb èxit";
+"talk-page-new-subject-clear-button-accessibility" = "Neteja el tema";
 "talk-page-new-subject-placeholder-text" = "Assumpte";
+"talk-page-new-subject-textfield-accessibility-label" = "Assumpte";
 "talk-page-new-topic-body-placeholder-text" = "Redacta una discussió nova";
 "talk-page-new-topic-success-text" = "La vostra discussió s'ha publicat amb èxit";
 "talk-page-new-topic-title" = "Discussió nova";
