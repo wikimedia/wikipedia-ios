@@ -140,6 +140,7 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     
     @objc func hide() {
         findTextField.resignFirstResponder()
+        replaceTextField.resignFirstResponder()
         displayDelegate?.keyboardBarDidHide(self)
     }
     
