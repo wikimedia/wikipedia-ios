@@ -1336,7 +1336,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                                         completion:^(){
                                                                         }];
                 } else {
-                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
+                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
                                                dismissPreviousAlerts:NO
