@@ -16,6 +16,7 @@
 // Author: MrLeopold
 // Author: Ndecouck
 // Author: Nemo bis
+// Author: Optilete
 // Author: Patio
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
@@ -403,6 +404,7 @@
 "insert-media-image-size-setting-custom" = "Aangepast";
 "insert-media-image-size-setting-default" = "Standaard";
 "insert-media-image-size-settings-title" = "Afbeeldingsgrootte";
+"insert-media-image-type-setting-basic" = "Eenvoudig";
 "insert-media-image-type-setting-frame" = "Frame";
 "insert-media-image-type-setting-frameless" = "Zonder frame";
 "insert-media-image-type-setting-thumbnail" = "Miniatuur";
@@ -591,6 +593,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaxis Uitlichten";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstgrootteschuiver";
 "reference-title" = "Referentie $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|1=Gisteren|$1 dagen gelden}}";
@@ -697,6 +700,7 @@
 "talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
 "talk-page-link-user-action-sheet-safari" = "Gebruikerspagina bekijken in Safari";
 "talk-page-link-user-action-sheet-title" = "Gebruikerspagina's";
+"talk-page-new-banner-title" = "Wees vriendelijk";
 "talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
 "talk-page-new-reply-success-text" = "Uw reactie is succesvol gepubliceerd";
 "talk-page-new-subject-placeholder-text" = "Onderwerp";
