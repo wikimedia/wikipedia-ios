@@ -9,9 +9,17 @@ protocol PageHistoryViewControllerDelegate: AnyObject {
 class PageHistoryViewController: ViewController {
     @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
+    private lazy var statsViewController = PageHistoryStatsViewController(nibName: "PageHistoryStatsViewController", bundle: nil)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items"), style: .plain, target: self, action: #selector(compare(_:)))
+        title = CommonStrings.historyTabTitle
+
+        addChild(statsViewController)
+        navigationBar.addUnderNavigationBarView(statsViewController.view)
+        statsViewController.didMove(toParent: self)
+
         apply(theme: theme)
     }
 
@@ -32,5 +40,6 @@ class PageHistoryViewController: ViewController {
         }
         view.backgroundColor = theme.colors.baseBackground
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
     }
 }

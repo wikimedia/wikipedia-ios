@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageHistoryStatsViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="articleTitleLabel" destination="CmX-dP-uFU" id="fFQ-II-r2M"/>
+                <outlet property="statsLabel" destination="5Gq-NM-ZzR" id="WQT-A7-IWu"/>
+                <outlet property="titleLabel" destination="X37-tk-I1W" id="q6T-lN-FjM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="413" height="343"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UM3-FG-bbP">
+                    <rect key="frame" x="0.0" y="0.0" width="413" height="343"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCN-kR-Ul8" userLabel="Title + Main Stats View">
+                            <rect key="frame" x="0.0" y="0.0" width="413" height="80"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mdn-Xi-5HV" userLabel="Title + Main Stats Stack View">
+                                    <rect key="frame" x="0.0" y="0.0" width="263" height="80"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="REVISION HISTORY" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X37-tk-I1W">
+                                            <rect key="frame" x="0.0" y="0.0" width="263" height="28"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ching Shih" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmX-dP-uFU">
+                                            <rect key="frame" x="0.0" y="28" width="263" height="36"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="625 edits by 369 editors" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gq-NM-ZzR">
+                                            <rect key="frame" x="0.0" y="64" width="263" height="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-5Q-AWf" userLabel="Sparkline Container View">
+                                    <rect key="frame" x="263" y="0.0" width="150" height="80"/>
+                                    <color key="backgroundColor" red="0.98977058809999996" green="1" blue="0.17201744050000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="150" id="RyI-Jg-VZS"/>
+                                        <constraint firstAttribute="height" constant="80" id="jaB-Lt-VcW"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Mdn-Xi-5HV" secondAttribute="bottom" id="7hH-hJ-sgZ"/>
+                                <constraint firstItem="Mdn-Xi-5HV" firstAttribute="leading" secondItem="zCN-kR-Ul8" secondAttribute="leading" id="EtO-Li-JZN"/>
+                                <constraint firstItem="Mdn-Xi-5HV" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" id="YiG-tC-CbG"/>
+                                <constraint firstItem="s5E-5Q-AWf" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" id="cow-fz-FdZ"/>
+                                <constraint firstAttribute="trailing" secondItem="s5E-5Q-AWf" secondAttribute="trailing" id="ez5-Ne-luZ"/>
+                                <constraint firstItem="s5E-5Q-AWf" firstAttribute="leading" secondItem="Mdn-Xi-5HV" secondAttribute="trailing" id="jTk-tD-o4g"/>
+                                <constraint firstAttribute="bottom" secondItem="s5E-5Q-AWf" secondAttribute="bottom" id="lUt-5C-zgs"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7q-YP-Iub" userLabel="Detailed Stats Collection Container View">
+                            <rect key="frame" x="0.0" y="80" width="413" height="263"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UM3-FG-bbP" secondAttribute="bottom" id="5AF-oB-c8p"/>
+                <constraint firstItem="UM3-FG-bbP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wcr-HI-7sc"/>
+                <constraint firstAttribute="trailing" secondItem="UM3-FG-bbP" secondAttribute="trailing" id="hQp-VK-Ke9"/>
+                <constraint firstItem="UM3-FG-bbP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ijH-g4-ga5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="136.95652173913044" y="-32.477678571428569"/>
+        </view>
+    </objects>
+</document>

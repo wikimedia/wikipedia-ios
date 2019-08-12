@@ -733,6 +733,16 @@
 		7AB209FB22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
 		7AB209FC22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
 		7AB209FD22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */; };
+		7AB20A0C22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB20A0A22FC8432006FECB4 /* PageHistoryStatsViewController.swift */; };
+		7AB20A0D22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB20A0A22FC8432006FECB4 /* PageHistoryStatsViewController.swift */; };
+		7AB20A0E22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB20A0A22FC8432006FECB4 /* PageHistoryStatsViewController.swift */; };
+		7AB20A0F22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB20A0A22FC8432006FECB4 /* PageHistoryStatsViewController.swift */; };
+		7AB20A1022FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB20A0A22FC8432006FECB4 /* PageHistoryStatsViewController.swift */; };
+		7AB20A1122FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AB20A0B22FC8432006FECB4 /* PageHistoryStatsViewController.xib */; };
+		7AB20A1222FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AB20A0B22FC8432006FECB4 /* PageHistoryStatsViewController.xib */; };
+		7AB20A1322FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AB20A0B22FC8432006FECB4 /* PageHistoryStatsViewController.xib */; };
+		7AB20A1422FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AB20A0B22FC8432006FECB4 /* PageHistoryStatsViewController.xib */; };
+		7AB20A1522FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AB20A0B22FC8432006FECB4 /* PageHistoryStatsViewController.xib */; };
 		7AB6F0FF22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */; };
 		7AB6F10022AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */; };
 		7AB6F10122AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */; };
@@ -3895,6 +3905,8 @@
 		7A9F2775225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
 		7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingProvidingTableViewController.swift; sourceTree = "<group>"; };
 		7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHistoryViewController.swift; sourceTree = "<group>"; };
+		7AB20A0A22FC8432006FECB4 /* PageHistoryStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHistoryStatsViewController.swift; sourceTree = "<group>"; };
+		7AB20A0B22FC8432006FECB4 /* PageHistoryStatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageHistoryStatsViewController.xib; sourceTree = "<group>"; };
 		7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivity.ActivityType+CustomTypes.swift"; sourceTree = "<group>"; };
 		7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaViewController.swift; sourceTree = "<group>"; };
 		7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
@@ -5645,6 +5657,8 @@
 				B0E806CD1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.h */,
 				B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */,
 				7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */,
+				7AB20A0A22FC8432006FECB4 /* PageHistoryStatsViewController.swift */,
+				7AB20A0B22FC8432006FECB4 /* PageHistoryStatsViewController.xib */,
 			);
 			name = PageHistory;
 			sourceTree = "<group>";
@@ -9759,6 +9773,7 @@
 				D8D92B5D1DF22E1700B95311 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236D1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
+				7AB20A1122FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */,
 				D8D92B5C1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png in Resources */,
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
 				D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */,
@@ -9867,6 +9882,7 @@
 				B0D3E715214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D80ED3D51EE57F4800CE8C50 /* WMFRandomDiceButtonRoll.js in Resources */,
 				7AF0265F22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
+				7AB20A1522FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */,
 				B0C64A9A21F2801300C4CF3F /* EditPreviewViewController.storyboard in Resources */,
 				7A827662226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				D80ED3D61EE57F4800CE8C50 /* NotificationBackgroundSuccess.png in Resources */,
@@ -10025,6 +10041,7 @@
 				D8A42BC51E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B423701EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8A42BC61E815A9C00D8E281 /* NotificationBackgroundErrorIcon.png in Resources */,
+				7AB20A1422FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */,
 				D8A42BC71E815A9C00D8E281 /* WMFLanguageCell.xib in Resources */,
 				D801C9391EB93450001FA294 /* InfoPlist.strings in Resources */,
 				D8A42BCC1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
@@ -10136,6 +10153,7 @@
 				D8CE264C1E698E2400DAE2E0 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236E1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8CE264D1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon.png in Resources */,
+				7AB20A1222FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */,
 				D8CE264E1E698E2400DAE2E0 /* WMFLanguageCell.xib in Resources */,
 				D801C9371EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8CE26531E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
@@ -10247,6 +10265,7 @@
 				D8EC3F4C1E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236F1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8EC3F4D1E9BDA35006712EB /* NotificationBackgroundErrorIcon.png in Resources */,
+				7AB20A1322FC8432006FECB4 /* PageHistoryStatsViewController.xib in Resources */,
 				D8EC3F4E1E9BDA35006712EB /* WMFLanguageCell.xib in Resources */,
 				D801C9381EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8EC3F531E9BDA35006712EB /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
@@ -11116,6 +11135,7 @@
 				7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
+				7AB20A0C22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */,
 				6706A21722925FD2004774E2 /* InfoBannerView.swift in Sources */,
 				B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
@@ -11545,6 +11565,7 @@
 				D80ED3A61EE57F4800CE8C50 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABE17042239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				7ABAD6C320349B91006A364C /* Collection.swift in Sources */,
+				7AB20A1022FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */,
 				7AC809C921DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D80ED3A91EE57F4800CE8C50 /* WMFLoginViewController.swift in Sources */,
 				D80ED3AC1EE57F4800CE8C50 /* WebViewController.m in Sources */,
@@ -12276,6 +12297,7 @@
 				834CC34E21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				7AFEB1BF1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */,
+				7AB20A0F22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */,
 				8367A28220D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A9F061C2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
@@ -12713,6 +12735,7 @@
 				D8CE26121E698E2400DAE2E0 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABE17012239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				7ABAD6C020349B91006A364C /* Collection.swift in Sources */,
+				7AB20A0D22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */,
 				7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
 				D8CE26171E698E2400DAE2E0 /* WebViewController.m in Sources */,
@@ -13126,6 +13149,7 @@
 				D8EC3F111E9BDA35006712EB /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABE17022239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				7ABAD6C120349B91006A364C /* Collection.swift in Sources */,
+				7AB20A0E22FC8432006FECB4 /* PageHistoryStatsViewController.swift in Sources */,
 				7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
 				D8EC3F161E9BDA35006712EB /* WebViewController.m in Sources */,
