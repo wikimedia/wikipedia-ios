@@ -1733,12 +1733,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showEditHistory {
-    WMFPageHistoryViewController *editHistoryVC = [[WMFPageHistoryViewController alloc] init];
-    editHistoryVC.delegate = self;
-    self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title");;
-//    editHistoryVC.article = self.article;
-    [editHistoryVC applyTheme:self.theme];
-    [self wmf_pushViewController:editHistoryVC animated:YES];
+    NSString *title = self.article.url.wmf_title;
+    NSURL *url = self.article.url;
+    if (title && url) {
+        WMFPageHistoryViewController *editHistoryVC = [[WMFPageHistoryViewController alloc] initWithPageTitle:title pageURL:url];
+        editHistoryVC.delegate = self;
+        self.navigationItem.title = WMFLocalizedStringWithDefaultValue(@"article-title", nil, nil, @"Article", @"Generic article title");;
+        [editHistoryVC applyTheme:self.theme];
+        [self wmf_pushViewController:editHistoryVC animated:YES];
+    }
 }
 
 - (void)pageHistoryViewControllerDidDisappear:(WMFPageHistoryViewController *)pageHistoryViewController {

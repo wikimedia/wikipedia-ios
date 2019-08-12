@@ -7,9 +7,22 @@ protocol PageHistoryViewControllerDelegate: AnyObject {
 
 @objc(WMFPageHistoryViewController)
 class PageHistoryViewController: ViewController {
+    private let pageTitle: String
+    private let pageURL: URL
+
     @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
-    private lazy var statsViewController = PageHistoryStatsViewController(nibName: "PageHistoryStatsViewController", bundle: nil)
+    private lazy var statsViewController = PageHistoryStatsViewController(pageTitle: pageTitle)
+
+    @objc init(pageTitle: String, pageURL: URL) {
+        self.pageTitle = pageTitle
+        self.pageURL = pageURL
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,5 +54,6 @@ class PageHistoryViewController: ViewController {
         view.backgroundColor = theme.colors.baseBackground
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
+        statsViewController.apply(theme: theme)
     }
 }
