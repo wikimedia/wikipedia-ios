@@ -472,6 +472,8 @@
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
+"page-history-revision-history-title" = "Title for revision history view";
+"page-history-stats-text" = "Text for representing the number of edits that were made to an article and the number of editors who contributed to the creation of an article. $1 is replaced with the number of edits, $2 is replaced with the number of editors.";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";
 "page-last-edited" = "Relative days since an article was last edited. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";

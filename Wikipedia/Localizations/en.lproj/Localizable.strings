@@ -472,6 +472,8 @@
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-edit-history" = "Full edit history";
 "page-history-compare-title" = "Compare";
+"page-history-revision-history-title" = "Revision history";
+"page-history-stats-text" = "$1 edits by $2 editors";
 "page-history-title" = "Article history";
 "page-issues" = "Page issues";
 "page-last-edited" = "{{PLURAL:$1|0=Edited today|1=Edited yesterday|Edited $1 days ago}}";

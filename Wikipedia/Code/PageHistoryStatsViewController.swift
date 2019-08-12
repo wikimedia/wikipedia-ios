@@ -2,17 +2,32 @@ import UIKit
 
 class PageHistoryStatsViewController: UIViewController {
     private let pageTitle: String
-
+    private let locale: Locale
+    
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var pageTitleLabel: UILabel!
     @IBOutlet private weak var statsLabel: UILabel!
+
+    var pageStats: PageStats? {
+        didSet {
+            guard
+                let edits = pageStats?.edits,
+                let editors = pageStats?.editors
+            else {
+                return
+            }
+            // TODO: When localization script supports multiple plurals per string, update to use plurals.
+            statsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("page-history-stats-text", value: "%1$d edits by %2$d editors", comment: "Text for representing the number of edits that were made to an article and the number of editors who contributed to the creation of an article. %1$d is replaced with the number of edits, %2$d is replaced with the number of editors."), edits, editors)
+        }
+    }
 
     var theme = Theme.standard
 
     private var isFirstLayoutPass = true
 
-    required init(pageTitle: String) {
+    required init(pageTitle: String, locale: Locale = Locale.current) {
         self.pageTitle = pageTitle
+        self.locale = locale
         super.init(nibName: "PageHistoryStatsViewController", bundle: nil)
     }
 
@@ -22,6 +37,7 @@ class PageHistoryStatsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view").uppercased(with: locale)
         pageTitleLabel.text = pageTitle
     }
 

@@ -9,10 +9,11 @@ protocol PageHistoryViewControllerDelegate: AnyObject {
 class PageHistoryViewController: ViewController {
     private let pageTitle: String
     private let pageURL: URL
+    private let pageHistoryFetcher = PageHistoryFetcher()
 
     @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
-    private lazy var statsViewController = PageHistoryStatsViewController(pageTitle: pageTitle)
+    private lazy var statsViewController = PageHistoryStatsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_language))
 
     @objc init(pageTitle: String, pageURL: URL) {
         self.pageTitle = pageTitle
@@ -34,6 +35,20 @@ class PageHistoryViewController: ViewController {
         statsViewController.didMove(toParent: self)
 
         apply(theme: theme)
+
+        // TODO: Move networking
+
+        pageHistoryFetcher.fetchPageStats(pageTitle, pageURL: pageURL) { result in
+            switch result {
+            case .failure(let error):
+                // TODO: Handle error
+                print(error)
+            case .success(let pageStats):
+                DispatchQueue.main.async {
+                    self.statsViewController.pageStats = pageStats
+                }
+            }
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {

@@ -2,6 +2,8 @@ import Foundation
 import Mantle
 import WMF
 
+public typealias PageStats = PageHistoryFetcher.PageStats
+
 open class PageHistoryFetcher: WMFLegacyFetcher {
     @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
         var params: [String: AnyObject] = [
@@ -84,6 +86,38 @@ open class PageHistoryFetcher: WMFLegacyFetcher {
             
             return revisionsByDay
         })
+    }
+
+    public struct PageStats: Decodable {
+        let edits: Int?
+        let editors: Int?
+
+        enum CodingKeys: String, CodingKey {
+            case edits = "revisions"
+            case editors
+        }
+    }
+
+    public final func fetchPageStats(_ pageTitle: String, pageURL: URL, completion: @escaping (Result<PageStats, RequestError>) -> Void) {
+        guard let project = pageURL.wmf_site?.host else {
+            completion(.failure(.invalidParameters))
+            return
+        }
+        var apiURLComponents = URLComponents()
+        apiURLComponents.scheme = "https"
+        apiURLComponents.host = "xtools.wmflabs.org"
+        apiURLComponents.path = "/api/page/articleinfo/\(project)/\(pageTitle)"
+        guard let apiURL = apiURLComponents.url else {
+            completion(.failure(.invalidParameters))
+            return
+        }
+        session.jsonDecodableTask(with: apiURL) { (pageStats: PageStats?, _, _) in
+            guard let pageStats = pageStats else {
+                completion(.failure(.unexpectedResponse))
+                return
+            }
+            completion(.success(pageStats))
+        }
     }
 }
 
