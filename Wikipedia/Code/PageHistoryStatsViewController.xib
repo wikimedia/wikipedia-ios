@@ -54,7 +54,18 @@
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-5Q-AWf" userLabel="Sparkline Container View">
                                     <rect key="frame" x="189.5" y="0.0" width="223.5" height="115"/>
-                                    <color key="backgroundColor" red="0.98977058809999996" green="1" blue="0.17201744050000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GwZ-8c-SRM">
+                                            <rect key="frame" x="100.5" y="47.5" width="23" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="GwZ-8c-SRM" firstAttribute="centerY" secondItem="s5E-5Q-AWf" secondAttribute="centerY" id="9yE-5X-W8t"/>
+                                        <constraint firstItem="GwZ-8c-SRM" firstAttribute="centerX" secondItem="s5E-5Q-AWf" secondAttribute="centerX" id="aUj-vV-Osr"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <constraints>
