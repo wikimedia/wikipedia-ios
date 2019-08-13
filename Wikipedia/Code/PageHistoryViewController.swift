@@ -161,7 +161,7 @@ extension PageHistoryViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageHistoryCollectionViewCell.identifier, for: indexPath) as? PageHistoryCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.backgroundColor = UIColor.yellow
+        cell.apply(theme: theme)
         return cell
     }
 
@@ -183,6 +183,7 @@ extension PageHistoryViewController: UICollectionViewDataSource {
 extension PageHistoryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         // TODO: Make this dynamic
-        return CGSize(width: 100, height: 50)
+        // TODO: Scroll bar is below section header
+        return CGSize(width: 1, height: 50)
     }
 }
