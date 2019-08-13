@@ -161,6 +161,15 @@ extension PageHistoryViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageHistoryCollectionViewCell.identifier, for: indexPath) as? PageHistoryCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let item = pageHistorySections[indexPath.section].items[indexPath.item]
+        if let date = item.revisionDate {
+            // TODO: Local to UTC
+            cell.time = DateFormatter.wmf_shortTime()?.string(from: date)
+        }
+        // TODO: Use logged-in icon when available
+        cell.authorImage = item.isAnon ? UIImage(named: "bot") : UIImage(named: "anon")
+        cell.author = item.user
+        cell.sizeDiff = item.revisionSize > 0 ? "+\(item.revisionSize)" : "\(item.revisionSize)"
         cell.apply(theme: theme)
         return cell
     }

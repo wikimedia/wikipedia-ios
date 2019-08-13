@@ -14,10 +14,10 @@ class PageHistoryDetailedStatsViewController: UIViewController {
                 return
             }
             stats = [
-                Stat(title: "minor edits", image: #imageLiteral(resourceName: "m"), count: minorEdits),
-                Stat(title: "IP edits", image: #imageLiteral(resourceName: "logged-in"), count: 0),
-                Stat(title: "bot edits", image: #imageLiteral(resourceName: "bot"), count: 0),
-                Stat(title: "reverted edits", image: #imageLiteral(resourceName: "reverted"), count: 0)
+                Stat(title: "minor edits", image: UIImage(named: "m")!, count: minorEdits),
+                Stat(title: "IP edits", image: UIImage(named: "anon")!, count: 0),
+                Stat(title: "bot edits", image: UIImage(named: "bot")!, count: 0),
+                Stat(title: "reverted edits", image:UIImage(named: "reverted")!, count: 0)
             ]
             collectionView.reloadData()
         }
