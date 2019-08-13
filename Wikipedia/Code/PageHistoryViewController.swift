@@ -9,7 +9,7 @@ fileprivate class Layout: UICollectionViewFlowLayout {
             return
         }
         let countOfColumns: CGFloat = 1
-        sectionInset = UIEdgeInsets(top: 0, left: minimumInteritemSpacing + collectionView.layoutMargins.left - collectionView.contentInset.left, bottom: 0, right: collectionView.layoutMargins.right  - collectionView.contentInset.right + minimumInteritemSpacing)
+        sectionInset = UIEdgeInsets(top: 15, left: minimumInteritemSpacing + collectionView.layoutMargins.left - collectionView.contentInset.left, bottom: 15, right: collectionView.layoutMargins.right - collectionView.contentInset.right + minimumInteritemSpacing)
         let availableWidth = collectionView.bounds.width - minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - sectionInset.left - sectionInset.right
         itemSize = CGSize(width: availableWidth, height: 50)
     }
@@ -184,6 +184,6 @@ extension PageHistoryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         // TODO: Make this dynamic
         // TODO: Scroll bar is below section header
-        return CGSize(width: 1, height: 50)
+        return CGSize(width: layout.itemSize.width, height: 34)
     }
 }
