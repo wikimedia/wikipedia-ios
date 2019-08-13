@@ -7,8 +7,14 @@ class StatCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private weak var rightSeparator: UIView!
 
-    enum Separator {
-        case top, right
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        updateFonts()
+    }
+
+    private func updateFonts() {
+        imageLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
     func configure(with title: String, image: UIImage, imageText: String, isRightSeparatorHidden: Bool) {
@@ -22,5 +28,8 @@ class StatCollectionViewCell: UICollectionViewCell {
 extension StatCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         rightSeparator.backgroundColor = theme.colors.border
+        imageLabel.textColor = theme.colors.primaryText
+        titleLabel.textColor = theme.colors.secondaryText
+        imageView.tintColor = theme.colors.link
     }
 }
