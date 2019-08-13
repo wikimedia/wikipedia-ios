@@ -91,10 +91,12 @@ open class PageHistoryFetcher: WMFLegacyFetcher {
     public struct PageStats: Decodable {
         let edits: Int?
         let editors: Int?
+        let minorEdits: Int?
 
         enum CodingKeys: String, CodingKey {
             case edits = "revisions"
             case editors
+            case minorEdits = "minor_edits"
         }
     }
 

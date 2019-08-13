@@ -5,20 +5,29 @@ class PageHistoryDetailedStatsViewController: UIViewController {
 
     var theme = Theme.standard
 
+    private var stats: [Stat] = []
+
+    var pageStats: PageStats? {
+        didSet {
+            guard let minorEdits = pageStats?.minorEdits else {
+                stats = []
+                return
+            }
+            stats = [
+                Stat(title: "minor edits", image: #imageLiteral(resourceName: "m"), count: minorEdits),
+                Stat(title: "IP edits", image: #imageLiteral(resourceName: "logged-in"), count: 0),
+                Stat(title: "bot edits", image: #imageLiteral(resourceName: "bot"), count: 0),
+                Stat(title: "reverted edits", image: #imageLiteral(resourceName: "reverted"), count: 0)
+            ]
+            collectionView.reloadData()
+        }
+    }
+
     private struct Stat {
         let title: String
         let image: UIImage
         let count: Int
     }
-
-    private lazy var stats: [Stat] = {
-        // TODO: Localize
-        let minorEdits = Stat(title: "minor edits", image: #imageLiteral(resourceName: "m"), count: 1)
-        let ipEdits = Stat(title: "IP edits", image: #imageLiteral(resourceName: "logged-in"), count: 2)
-        let botEdits = Stat(title: "bot edits", image: #imageLiteral(resourceName: "bot"), count: 3)
-        let revertedEdits = Stat(title: "reverted edits", image: #imageLiteral(resourceName: "reverted"), count: 4)
-        return [minorEdits, ipEdits, botEdits, revertedEdits]
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
