@@ -17,6 +17,11 @@ class StatCollectionViewCell: UICollectionViewCell {
         titleLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
     func configure(with title: String, image: UIImage, imageText: String, isRightSeparatorHidden: Bool) {
         titleLabel.text = title
         imageView.image = image
