@@ -38,6 +38,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var allowsUnderbarHitsFallThrough: Bool = false //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
+
+    public var shadowColorKeyPath: KeyPath<Theme, UIColor> = \Theme.colors.chromeShadow
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -644,7 +646,7 @@ extension NavigationBar: Themeable {
         extendedView.backgroundColor = .clear
         underBarView.backgroundColor = .clear
         
-        shadow.backgroundColor = theme.colors.chromeShadow
+        shadow.backgroundColor = theme[keyPath: shadowColorKeyPath]
         
         progressView.progressViewStyle = .bar
         progressView.trackTintColor = .clear

@@ -32,6 +32,7 @@ class PageHistoryViewController: ViewController {
 
         addChild(statsViewController)
         navigationBar.addUnderNavigationBarView(statsViewController.view)
+        navigationBar.shadowColorKeyPath = \Theme.colors.border
         statsViewController.didMove(toParent: self)
 
         apply(theme: theme)
@@ -66,7 +67,7 @@ class PageHistoryViewController: ViewController {
             self.theme = theme
             return
         }
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
         statsViewController.apply(theme: theme)
