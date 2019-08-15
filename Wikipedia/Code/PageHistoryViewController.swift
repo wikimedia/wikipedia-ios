@@ -1,27 +1,12 @@
 import UIKit
 
-fileprivate class Layout: UICollectionViewFlowLayout {
-    override func invalidateLayout(with context: UICollectionViewLayoutInvalidationContext) {
-        defer {
-            super.invalidateLayout(with: context)
-        }
-        guard let collectionView = collectionView else {
-            return
-        }
-        let countOfColumns: CGFloat = 1
-        sectionInset = UIEdgeInsets(top: 15, left: minimumInteritemSpacing + collectionView.layoutMargins.left - collectionView.contentInset.left, bottom: 15, right: collectionView.layoutMargins.right - collectionView.contentInset.right + minimumInteritemSpacing)
-        let availableWidth = collectionView.bounds.width - minimumInteritemSpacing * (countOfColumns - 1) - collectionView.contentInset.left - collectionView.contentInset.right - sectionInset.left - sectionInset.right
-        itemSize = CGSize(width: availableWidth, height: 50)
-    }
-}
-
 @objc(WMFPageHistoryViewControllerDelegate)
 protocol PageHistoryViewControllerDelegate: AnyObject {
     func pageHistoryViewControllerDidDisappear(_ pageHistoryViewController: PageHistoryViewController)
 }
 
 @objc(WMFPageHistoryViewController)
-class PageHistoryViewController: ViewController {
+class PageHistoryViewController: ColumnarCollectionViewController {
     private let pageTitle: String
     private let pageURL: URL
 
@@ -42,11 +27,6 @@ class PageHistoryViewController: ViewController {
         return false;
     }
 
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: Layout())
-    private var layout: Layout {
-        return collectionView.collectionViewLayout as! Layout
-    }
-
     @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
     private lazy var statsViewController = PageHistoryStatsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_language))
@@ -64,6 +44,10 @@ class PageHistoryViewController: ViewController {
 
     private var pageHistorySections: [PageHistorySection] = []
 
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+        return .sections
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items"), style: .plain, target: self, action: #selector(compare(_:)))
@@ -75,11 +59,7 @@ class PageHistoryViewController: ViewController {
         statsViewController.didMove(toParent: self)
 
         collectionView.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier)
-        collectionView.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier)
         collectionView.dataSource = self
-        collectionView.delegate = self
-        scrollView = collectionView
-        scrollView?.contentInsetAdjustmentBehavior = .never
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
 
         apply(theme: theme)
@@ -147,17 +127,18 @@ class PageHistoryViewController: ViewController {
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
         statsViewController.apply(theme: theme)
     }
-}
 
-extension PageHistoryViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    // MARK: UICollectionViewDataSource
+
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return pageHistorySections.count
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pageHistorySections[section].items.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageHistoryCollectionViewCell.identifier, for: indexPath) as? PageHistoryCollectionViewCell else {
             return UICollectionViewCell()
         }
@@ -170,29 +151,21 @@ extension PageHistoryViewController: UICollectionViewDataSource {
         cell.authorImage = item.isAnon ? UIImage(named: "bot") : UIImage(named: "anon")
         cell.author = item.user
         cell.sizeDiff = item.revisionSize > 0 ? "+\(item.revisionSize)" : "\(item.revisionSize)"
+        cell.comment = item.parsedComment?.removingHTML
         cell.apply(theme: theme)
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard
-            kind == UICollectionView.elementKindSectionHeader,
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath) as? CollectionViewHeader
-        else {
-            return UICollectionReusableView()
-        }
+    override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
         header.style = .pageHistory
-        header.title = pageHistorySections[indexPath.section].sectionTitle
+        header.title = pageHistorySections[sectionIndex].sectionTitle
         header.titleTextColorKeyPath = \Theme.colors.secondaryText
         header.apply(theme: theme)
-        return header
     }
-}
 
-extension PageHistoryViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        // TODO: Make this dynamic
-        // TODO: Scroll bar is below section header
-        return CGSize(width: layout.itemSize.width, height: 34)
+    // MARK: Layout
+
+    override func metrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: boundsSize, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 0, interItemSpacing: 20)
     }
 }

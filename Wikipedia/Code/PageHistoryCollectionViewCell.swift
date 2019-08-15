@@ -1,6 +1,7 @@
 import UIKit
 
 class PageHistoryCollectionViewCell: CollectionViewCell {
+    private let roundedContent = UIView()
     private let timeLabel = UILabel()
     private let sizeDiffLabel = UILabel()
     private let authorImageView = UIImageView()
@@ -38,20 +39,30 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
     }
 
+    var comment: String? {
+        didSet {
+            commentLabel.text = comment
+            setNeedsLayout()
+        }
+    }
+
     override func setup() {
         super.setup()
-        layer.cornerRadius = 6
-        layer.masksToBounds = true
-        layer.borderWidth = 1
+        roundedContent.layer.cornerRadius = 6
+        roundedContent.layer.masksToBounds = true
+        roundedContent.layer.borderWidth = 1
 
-        contentView.addSubview(timeLabel)
-        contentView.addSubview(sizeDiffLabel)
+        roundedContent.addSubview(timeLabel)
+        roundedContent.addSubview(sizeDiffLabel)
         authorImageView.contentMode = .scaleAspectFit
-        contentView.addSubview(authorImageView)
-        contentView.addSubview(authorLabel)
+        roundedContent.addSubview(authorImageView)
+        roundedContent.addSubview(authorLabel)
         minorImageView.contentMode = .scaleAspectFit
-        contentView.addSubview(minorImageView)
-        contentView.addSubview(commentLabel)
+        roundedContent.addSubview(minorImageView)
+        commentLabel.numberOfLines = 2
+        commentLabel.lineBreakMode = .byTruncatingTail
+        roundedContent.addSubview(commentLabel)
+        contentView.addSubview(roundedContent)
     }
 
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -68,8 +79,12 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         let layoutMargins = calculatedLayoutMargins
 
         let widthMinusMargins = layoutWidth(for: size)
-        let leadingPaneAvailableWidth = widthMinusMargins / 3
-        let trailingPaneAvailableWidth = widthMinusMargins - leadingPaneAvailableWidth
+
+        roundedContent.frame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: bounds.height)
+
+        let availableWidth = widthMinusMargins - layoutMargins.left - layoutMargins.right
+        let leadingPaneAvailableWidth = availableWidth / 3
+        let trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth
 
         var leadingPaneOrigin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         var trailingPaneOrigin = CGPoint(x: layoutMargins.left + leadingPaneAvailableWidth, y: layoutMargins.top)
@@ -97,22 +112,27 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             authorImageView.frame = CGRect(x: trailingPaneOrigin.x, y: trailingPaneOrigin.y, width: imageViewDimension, height: imageViewDimension)
 
             if authorLabel.wmf_hasText {
-                let authorLabelFrameOrigin = CGPoint(x: authorImageView.frame.maxX + spacing * 4, y: trailingPaneOrigin.y)
-                let authorLabelFrame = authorLabel.wmf_preferredFrame(at: authorLabelFrameOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
-                trailingPaneOrigin.y += max(imageViewDimension + spacing, authorLabelFrame.layoutHeight(with: spacing))
+                let authorLabelFrameOrigin = CGPoint(x: authorImageView.frame.maxX + spacing * 3, y: trailingPaneOrigin.y)
+                let authorLabelFrame = authorLabel.wmf_preferredFrame(at: authorLabelFrameOrigin, maximumWidth: trailingPaneAvailableWidth - imageViewDimension, alignedBy: .forceLeftToRight, apply: apply)
+                trailingPaneOrigin.y += max(imageViewDimension + spacing * 2, authorLabelFrame.layoutHeight(with: spacing * 2))
             } else {
                 // TODO
             }
-
-            trailingPaneOrigin.y += authorImageView.frame.layoutHeight(with: spacing)
         }
 
-        return CGSize(width: size.width, height: max(leadingPaneOrigin.y, trailingPaneOrigin.y))
+        if commentLabel.wmf_hasText {
+            let commentLabelFrame = commentLabel.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
+            trailingPaneOrigin.y += commentLabelFrame.layoutHeight(with: spacing)
+        } else {
+            // TODO
+        }
+        return CGSize(width: size.width, height: max(leadingPaneOrigin.y, trailingPaneOrigin.y) + layoutMargins.bottom)
     }
 }
 
 extension PageHistoryCollectionViewCell: Themeable {
     func apply(theme: Theme) {
-        layer.borderColor = theme.colors.border.cgColor
+        roundedContent.layer.borderColor = theme.colors.border.cgColor
+        roundedContent.backgroundColor = theme.colors.paperBackground
     }
 }
