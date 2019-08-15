@@ -16,6 +16,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var batchComplete = false
     private var isLoadingData = false
 
+    private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
+
     var shouldLoadNewData: Bool {
         if batchComplete || isLoadingData {
             return false
@@ -86,6 +88,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         delegate?.pageHistoryViewControllerDidDisappear(self)
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        cellLayoutEstimate = nil
+    }
+
     private func getPageHistory() {
         isLoadingData = true
 
@@ -143,16 +150,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             return UICollectionViewCell()
         }
         let item = pageHistorySections[indexPath.section].items[indexPath.item]
-        if let date = item.revisionDate {
-            // TODO: Local to UTC
-            cell.time = DateFormatter.wmf_shortTime()?.string(from: date)
-        }
-        // TODO: Use logged-in icon when available
-        cell.authorImage = item.isAnon ? UIImage(named: "bot") : UIImage(named: "anon")
-        cell.author = item.user
-        cell.sizeDiff = item.revisionSize > 0 ? "+\(item.revisionSize)" : "\(item.revisionSize)"
-        cell.comment = item.parsedComment?.removingHTML
-        cell.apply(theme: theme)
+        configure(cell: cell, for: item, at: indexPath)
         return cell
     }
 
@@ -164,6 +162,37 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     // MARK: Layout
+
+    private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision, at indexPath: IndexPath) {
+        if let date = item.revisionDate {
+            // TODO: Local to UTC
+            cell.time = DateFormatter.wmf_shortTime()?.string(from: date)
+        }
+        // TODO: Use logged-in icon when available
+        cell.authorImage = item.isAnon ? UIImage(named: "bot") : UIImage(named: "anon")
+        cell.author = item.user
+        cell.sizeDiff = item.revisionSize
+        cell.comment = item.parsedComment?.removingHTML
+        cell.apply(theme: theme)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
+        if let estimate = cellLayoutEstimate {
+            return estimate
+        }
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 70)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier) as? PageHistoryCollectionViewCell else {
+            return estimate
+        }
+        let item = pageHistorySections[indexPath.section].items[indexPath.item]
+        configure(cell: placeholderCell, for: item, at: indexPath)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
+        return estimate
+    }
 
     override func metrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: boundsSize, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 0, interItemSpacing: 20)
