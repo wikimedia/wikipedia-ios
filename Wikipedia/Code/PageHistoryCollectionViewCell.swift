@@ -4,10 +4,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     private let roundedContent = UIView()
     private let timeLabel = UILabel()
     private let sizeDiffLabel = UILabel()
-    private let authorImageView = UIImageView()
-    private let authorLabel = UILabel()
     private let minorImageView = UIImageView()
     private let commentLabel = UILabel()
+    private let authorButton = AlignedImageButton()
 
     private let spacing: CGFloat = 3
 
@@ -18,23 +17,28 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
     }
 
-    var sizeDiff: String? {
+    var sizeDiff: Int? {
         didSet {
-            sizeDiffLabel.text = sizeDiff
+            guard let sizeDiff = sizeDiff else {
+                sizeDiffLabel.isHidden = true
+                return
+            }
+            sizeDiffLabel.isHidden = false
+            sizeDiffLabel.text = sizeDiff > 0 ? "+\(sizeDiff)" : "\(sizeDiff)"
             setNeedsLayout()
         }
     }
 
     var authorImage: UIImage? {
         didSet {
-            authorImageView.image = authorImage
+            authorButton.setImage(authorImage, for: .normal)
             setNeedsLayout()
         }
     }
 
     var author: String? {
         didSet {
-            authorLabel.text = author
+            authorButton.setTitle(author, for: .normal)
             setNeedsLayout()
         }
     }
@@ -54,9 +58,8 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
         roundedContent.addSubview(timeLabel)
         roundedContent.addSubview(sizeDiffLabel)
-        authorImageView.contentMode = .scaleAspectFit
-        roundedContent.addSubview(authorImageView)
-        roundedContent.addSubview(authorLabel)
+        authorButton.horizontalSpacing = 8
+        roundedContent.addSubview(authorButton)
         minorImageView.contentMode = .scaleAspectFit
         roundedContent.addSubview(minorImageView)
         commentLabel.numberOfLines = 2
@@ -67,9 +70,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        timeLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        sizeDiffLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        authorLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        timeLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        sizeDiffLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        authorButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         commentLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
@@ -80,7 +83,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
         let widthMinusMargins = layoutWidth(for: size)
 
-        roundedContent.frame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: bounds.height)
+        roundedContent.frame = CGRect(x: layoutMargins.left, y: 0, width: widthMinusMargins, height: bounds.height)
 
         let availableWidth = widthMinusMargins - layoutMargins.left - layoutMargins.right
         let leadingPaneAvailableWidth = availableWidth / 3
@@ -92,39 +95,35 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         if timeLabel.wmf_hasText {
             let timeLabelFrame = timeLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
             leadingPaneOrigin.y += timeLabelFrame.layoutHeight(with: spacing)
+            timeLabel.isHidden = false
         } else {
-            // TODO
+            timeLabel.isHidden = true
         }
+
+        print(size.height)
 
         if sizeDiffLabel.wmf_hasText {
             let sizeDiffLabelFrame = sizeDiffLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
             leadingPaneOrigin.y += sizeDiffLabelFrame.layoutHeight(with: spacing)
+            sizeDiffLabel.isHidden = false
         } else {
-            // TODO
+            sizeDiffLabel.isHidden = true
         }
 
-        authorImageView.isHidden = authorImageView.image == nil
-
-        if authorImageView.isHidden {
-            // TODO
+        if authorButton.titleLabel?.wmf_hasText ?? false {
+            let authorButtonFrame = authorButton.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
+            trailingPaneOrigin.y += authorButtonFrame.layoutHeight(with: spacing * 3)
+            authorButton.isHidden = false
         } else {
-            let imageViewDimension: CGFloat = 20
-            authorImageView.frame = CGRect(x: trailingPaneOrigin.x, y: trailingPaneOrigin.y, width: imageViewDimension, height: imageViewDimension)
-
-            if authorLabel.wmf_hasText {
-                let authorLabelFrameOrigin = CGPoint(x: authorImageView.frame.maxX + spacing * 3, y: trailingPaneOrigin.y)
-                let authorLabelFrame = authorLabel.wmf_preferredFrame(at: authorLabelFrameOrigin, maximumWidth: trailingPaneAvailableWidth - imageViewDimension, alignedBy: .forceLeftToRight, apply: apply)
-                trailingPaneOrigin.y += max(imageViewDimension + spacing * 2, authorLabelFrame.layoutHeight(with: spacing * 2))
-            } else {
-                // TODO
-            }
+            authorButton.isHidden = true
         }
 
         if commentLabel.wmf_hasText {
             let commentLabelFrame = commentLabel.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
             trailingPaneOrigin.y += commentLabelFrame.layoutHeight(with: spacing)
+            commentLabel.isHidden = false
         } else {
-            // TODO
+            commentLabel.isHidden = true
         }
         return CGSize(width: size.width, height: max(leadingPaneOrigin.y, trailingPaneOrigin.y) + layoutMargins.bottom)
     }
@@ -134,5 +133,16 @@ extension PageHistoryCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         roundedContent.layer.borderColor = theme.colors.border.cgColor
         roundedContent.backgroundColor = theme.colors.paperBackground
+        timeLabel.textColor = theme.colors.secondaryText
+        if let sizeDiff = sizeDiff {
+            if sizeDiff == 0 {
+                sizeDiffLabel.textColor = theme.colors.link
+            } else if sizeDiff > 0 {
+                sizeDiffLabel.textColor = theme.colors.accent
+            } else {
+                sizeDiffLabel.textColor = theme.colors.destructive
+            }
+        }
+        authorButton.setTitleColor(theme.colors.link, for: .normal)
     }
 }
