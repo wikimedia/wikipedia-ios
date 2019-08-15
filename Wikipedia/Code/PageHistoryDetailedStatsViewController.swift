@@ -53,6 +53,19 @@ class PageHistoryDetailedStatsViewController: UIViewController {
 
         apply(theme: theme)
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                let countOfColumns: CGFloat = 4
+                let availableWidth = self.collectionView.bounds.width - flowLayout.minimumInteritemSpacing * (countOfColumns - 1) - self.collectionView.contentInset.left - self.collectionView.contentInset.right - flowLayout.sectionInset.left - flowLayout.sectionInset.right
+                let dimension = floor(availableWidth / countOfColumns)
+                flowLayout.itemSize = CGSize(width: dimension, height: 60)
+            }
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        })
+    }
 }
 
 extension PageHistoryDetailedStatsViewController: UICollectionViewDataSource {
