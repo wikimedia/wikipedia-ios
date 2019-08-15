@@ -11,16 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFEditPublishedNotification;
 
-@protocol WMFArticleViewControllerDelegate <NSObject>
-
-- (void)articleController:(WMFArticleViewController *)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated;
-
-- (void)articleControllerDidLoadArticle:(WMFArticleViewController *)controller;
-
-- (void)articleControllerDidFailToLoadArticle:(WMFArticleViewController *)controller;
-
-@end
-
 @protocol WMFArticlePreviewingActionsDelegate <NSObject>
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
@@ -51,8 +41,6 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
-
-@property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
 @property (nonatomic) WMFTableOfContentsDisplayMode tableOfContentsDisplayMode;
 @property (nonatomic) WMFTableOfContentsDisplaySide tableOfContentsDisplaySide;
