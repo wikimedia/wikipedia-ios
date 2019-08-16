@@ -15,6 +15,7 @@
                 <outlet property="detailedStatsContainerView" destination="R7q-YP-Iub" id="DlX-7q-MHj"/>
                 <outlet property="pageTitleLabel" destination="CmX-dP-uFU" id="637-6h-5qy"/>
                 <outlet property="separator" destination="REp-2g-3HJ" id="aFr-5z-9ao"/>
+                <outlet property="sparklineView" destination="s5E-5Q-AWf" id="pA8-NK-DWn"/>
                 <outlet property="statsLabel" destination="5Gq-NM-ZzR" id="WQT-A7-IWu"/>
                 <outlet property="titleLabel" destination="X37-tk-I1W" id="q6T-lN-FjM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -51,20 +52,8 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-5Q-AWf" userLabel="Sparkline Container View">
-                            <rect key="frame" x="189.5" y="0.0" width="223.5" height="115"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GwZ-8c-SRM">
-                                    <rect key="frame" x="100.5" y="47.5" width="23" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="GwZ-8c-SRM" firstAttribute="centerY" secondItem="s5E-5Q-AWf" secondAttribute="centerY" id="9yE-5X-W8t"/>
-                                <constraint firstItem="GwZ-8c-SRM" firstAttribute="centerX" secondItem="s5E-5Q-AWf" secondAttribute="centerX" id="aUj-vV-Osr"/>
-                            </constraints>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-5Q-AWf" userLabel="Sparkline View" customClass="WMFSparklineView" customModule="WMF">
+                            <rect key="frame" x="189.5" y="0.0" width="208.5" height="90"/>
                         </view>
                     </subviews>
                     <constraints>
@@ -72,9 +61,9 @@
                         <constraint firstItem="Mdn-Xi-5HV" firstAttribute="leading" secondItem="zCN-kR-Ul8" secondAttribute="leading" constant="15" id="EtO-Li-JZN"/>
                         <constraint firstItem="Mdn-Xi-5HV" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" id="YiG-tC-CbG"/>
                         <constraint firstItem="s5E-5Q-AWf" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" id="cow-fz-FdZ"/>
-                        <constraint firstAttribute="trailing" secondItem="s5E-5Q-AWf" secondAttribute="trailing" id="ez5-Ne-luZ"/>
+                        <constraint firstAttribute="trailing" secondItem="s5E-5Q-AWf" secondAttribute="trailing" constant="15" id="ez5-Ne-luZ"/>
                         <constraint firstItem="s5E-5Q-AWf" firstAttribute="leading" secondItem="Mdn-Xi-5HV" secondAttribute="trailing" constant="25" id="jTk-tD-o4g"/>
-                        <constraint firstAttribute="bottom" secondItem="s5E-5Q-AWf" secondAttribute="bottom" id="lUt-5C-zgs"/>
+                        <constraint firstAttribute="bottom" secondItem="s5E-5Q-AWf" secondAttribute="bottom" constant="25" id="lUt-5C-zgs"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REp-2g-3HJ" userLabel="Separator View">

@@ -8,6 +8,8 @@ class PageHistoryStatsViewController: UIViewController {
     @IBOutlet private weak var pageTitleLabel: UILabel!
     @IBOutlet private weak var statsLabel: UILabel!
 
+    @IBOutlet private weak var sparklineView: WMFSparklineView!
+
     @IBOutlet private weak var separator: UIView!
 
     @IBOutlet private weak var detailedStatsContainerView: UIView!
@@ -50,6 +52,10 @@ class PageHistoryStatsViewController: UIViewController {
 
         titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view").uppercased(with: locale)
         pageTitleLabel.text = pageTitle
+
+        sparklineView.dataValues = [NSNumber.init(value: 1), NSNumber.init(value: 2), NSNumber.init(value: 3)]
+        sparklineView.showsVerticalGridlines = true
+        sparklineView.updateMinAndMaxFromDataValues()
 
         wmf_add(childController: detailedStatsViewController, andConstrainToEdgesOfContainerView: detailedStatsContainerView)
     }
