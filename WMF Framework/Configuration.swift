@@ -112,8 +112,8 @@ public class Configuration: NSObject {
         return builder.components(byAppending: pathComponents)
     }
     
-    @objc(wikimediaMobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
-    public func wikimediaMobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+    @objc(wikimediaMobileAppsServicesAPIURLComponentsAppendingPathComponents:)
+    public func wikimediaMobileAppsServicesAPIURLComponents(appending pathComponents: [String] = [""]) -> URLComponents {
         let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(Domain.wikimedia)
         return builder.components(byAppending: pathComponents)
     }
