@@ -102,7 +102,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         case .detail:
             additionalMargins = UIEdgeInsets(top: 45, left: 0, bottom: 35, right: 0)
         case .pageHistory:
-            additionalMargins = UIEdgeInsets(top: 0, left: 6, bottom: 10, right: 6)
+            additionalMargins = UIEdgeInsets(top: 10, left: 6, bottom: 30, right: 6)
         default:
             additionalMargins = .zero
         }

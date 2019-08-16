@@ -158,6 +158,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         header.style = .pageHistory
         header.title = pageHistorySections[sectionIndex].sectionTitle
         header.titleTextColorKeyPath = \Theme.colors.secondaryText
+        header.layoutMargins = .zero
         header.apply(theme: theme)
     }
 
