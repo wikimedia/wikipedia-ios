@@ -60,6 +60,8 @@ extern NSString *const WMFViewContextDidSave;
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *nullable))completion;
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
+@property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
+@property (readonly, nonatomic) BOOL failedToUpdateLocalConfig;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
