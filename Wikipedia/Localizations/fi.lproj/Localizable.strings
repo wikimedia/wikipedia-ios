@@ -183,6 +183,8 @@
 "edit-italic-remove-accessibility-label" = "Poista kursivoitu muotoilu";
 "edit-link-accessibility-label" = "Lisää linkkisyntaksi";
 "edit-link-remove-accessibility-label" = "Poista linkkisyntaksi";
+"edit-link-remove-link-title" = "Poista linkki";
+"edit-link-title" = "Muokkaa linkkiä";
 "edit-menu-item" = "Muokkaa";
 "edit-minor-text" = "Tämä on pieni muutos";
 "edit-published" = "Muokkaus julkaistu";
@@ -668,6 +670,8 @@
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
 "table-title-other" = "Lisätietoja";
+"talk-page-add-discussion-accessibility-label" = "Lisää keskustelu";
+"talk-page-discussion-read-accessibility-label" = "Lue";
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-topic-title" = "Uusi keskustelu";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";

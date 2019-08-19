@@ -726,8 +726,13 @@
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
 "table-title-other" = "Більше інформації";
+"talk-page-add-discussion-accessibility-label" = "Додати обговорення";
+"talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
+"talk-page-discussion-read-accessibility-label" = "Прочитане";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "прочитане";
+"talk-page-discussion-unread-accessibility-label" = "Непрочитане";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитане";
 "talk-page-error-unable-to-post-reply" = "Нема підключення до Інтернету. Неможливо оприлюднити відповідь.";
-// Fuzzy
 "talk-page-error-unable-to-post-topic" = "Нема підключення до Інтернету. Неможливо оприлюднити нове обговорення.";
 "talk-page-info-active-conversations" = "Активні обговорення у Вікіпедії мовою $1";
 "talk-page-info-active-conversations-generic" = "Активні обговорення у Вікіпедії";
@@ -736,9 +741,13 @@
 "talk-page-link-user-action-sheet-title" = "Сторінки користувача";
 "talk-page-new-banner-subtitle" = "Не забувайте, що всі ми тут — люди";
 "talk-page-new-banner-title" = "Будьте ввічливими";
+"talk-page-new-body-textfield-accessibility-label" = "Текст обговорення";
+"talk-page-new-reply-body-accessibility-label" = "Відповісти";
 "talk-page-new-reply-body-placeholder-text" = "Відповісти";
 "talk-page-new-reply-success-text" = "Ваша відповідь успішно оприлюднена";
+"talk-page-new-subject-clear-button-accessibility" = "Очистити тему";
 "talk-page-new-subject-placeholder-text" = "Тема";
+"talk-page-new-subject-textfield-accessibility-label" = "Тема";
 "talk-page-new-topic-body-placeholder-text" = "Створити нове обговорення";
 "talk-page-new-topic-success-text" = "Ваше обговорення успішно оприлюднене";
 "talk-page-new-topic-title" = "Нове обговорення";

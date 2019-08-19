@@ -88,6 +88,7 @@
 "action-add-to-reading-list-short" = "リストに追加";
 "action-cancel" = "キャンセル";
 "action-find-in-page" = "ページ内を検索";
+"action-language-accessibility" = "言語を変更";
 "action-move-to" = "次へ移動…";
 "action-move-to-reading-list" = "あとで読むリストに保存";
 "action-read" = "読む";
@@ -739,9 +740,14 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
+"talk-page-add-discussion-accessibility-label" = "議論を追加";
+"talk-page-discussion-accessibility-hint" = "ダブルタップすると議論のスレッドが開きます";
+"talk-page-discussion-read-accessibility-label" = "既読";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "kidoku";
+"talk-page-discussion-unread-accessibility-label" = "未読";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "midoku";
 "talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "インターネット接続がないためトピックを投稿できません。";
+"talk-page-error-unable-to-post-topic" = "インターネット接続がないため議論を投稿できません。";
 "talk-page-info-active-conversations" = "$1 ウィキペディア上でのアクティブな会話";
 "talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";
 "talk-page-link-user-action-sheet-app" = "アプリ内で利用者の会話ページを表示";
@@ -749,9 +755,12 @@
 "talk-page-link-user-action-sheet-title" = "利用者ページ";
 "talk-page-new-banner-subtitle" = "ここではみな同じ人類であることを忘れないでください";
 "talk-page-new-banner-title" = "親切であってください";
+"talk-page-new-reply-body-accessibility-label" = "返事を組み立てる";
 "talk-page-new-reply-body-placeholder-text" = "返事を組み立てる";
 "talk-page-new-reply-success-text" = "返事は無事公開されました";
+"talk-page-new-subject-clear-button-accessibility" = "件名を消去";
 "talk-page-new-subject-placeholder-text" = "件名";
+"talk-page-new-subject-textfield-accessibility-label" = "件名";
 "talk-page-new-topic-body-placeholder-text" = "新しい議論を組み立てる";
 "talk-page-new-topic-success-text" = "議論は無事公開されました";
 "talk-page-new-topic-title" = "新規議論";

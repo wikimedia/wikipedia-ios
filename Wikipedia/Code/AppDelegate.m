@@ -117,6 +117,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)shouldRestoreNavigationStackOnResumeAfterBecomingActive:(NSDate *)becomeActiveDate {
+    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf].wmf_openAppOnSearchTab;
+    if (shouldOpenAppOnSearchTab) {
+        return NO;
+    }
+
     NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;

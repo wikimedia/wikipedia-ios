@@ -9,10 +9,23 @@ NSString *const WMFArticleSaveToDiskDidFailErrorKey = @"WMFArticleSavedToDiskWit
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
+NSString *const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
+NSInteger const WMFSavePageImageDownloadError = 1;
+
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFSavedArticlesFetcherLogLevel
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface NSError (SavedArticlesFetcherErrors)
+
+/**
+ *  @return Generic error used to indicate one or more images failed to download for the article or its gallery.
+ */
++ (instancetype)wmf_savedPageImageDownloadErrorWithUnderlyingError:(nullable NSError *)error;
+
+@end
+
 
 @interface SavedArticlesFetcher ()
 
@@ -322,7 +335,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     dispatch_block_t doneMigration = ^{
         [self fetchAllImagesInArticle:article
             failure:^(NSError *error) {
-                failure([NSError wmf_savedPageImageDownloadError]);
+                failure([NSError wmf_savedPageImageDownloadErrorWithUnderlyingError:error]);
             }
             success:^{
                 if (success) {
@@ -498,6 +511,14 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 article.isDownloaded = NO;
             } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
                 article.isDownloaded = YES; // skip missing titles
+            } else if ([error.domain isEqualToString:WMFSavedPageErrorDomain]) {
+                NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
+                if (error.code == WMFSavePageImageDownloadError && [NSPOSIXErrorDomain isEqualToString:underlyingError.domain]) {
+                    article.isDownloaded = YES; // skip image download errors
+                    // This image is failing with POSIX error 100 causing stuck downloading bug, could be more widespread: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Odakyu_odawara.svg/18px-Odakyu_odawara.svg.png
+                } else {
+                    article.isDownloaded = NO;
+                }
             } else {
                 article.isDownloaded = NO;
             }
@@ -515,16 +536,17 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 @end
 
-static NSString *const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
-
 @implementation NSError (SavedArticlesFetcherErrors)
 
-+ (instancetype)wmf_savedPageImageDownloadError {
++ (instancetype)wmf_savedPageImageDownloadErrorWithUnderlyingError:(nullable NSError *)underlyingError {
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
+    userInfo[NSLocalizedDescriptionKey] = WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.");
+    if (underlyingError) {
+        userInfo[NSUnderlyingErrorKey] = underlyingError;
+    }
     return [NSError errorWithDomain:WMFSavedPageErrorDomain
-                               code:1
-                           userInfo:@{
-                               NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
-                           }];
+                               code:WMFSavePageImageDownloadError
+                           userInfo:userInfo];
 }
 
 @end
