@@ -2,6 +2,11 @@ protocol SectionEditorInputViewsSource: class {
     var inputViewController: UIInputViewController? { get }
 }
 
+protocol SectionEditorInputViewsControllerDelegate: AnyObject {
+    func sectionEditorInputViewsControllerDidTapMediaInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
+    func sectionEditorInputViewsControllerDidTapLinkInsert(_ sectionEditorInputViewsController: SectionEditorInputViewsController)
+}
+
 class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource, Themeable {
     let webView: SectionEditorWebView
     let messagingController: SectionEditorWebViewMessagingController
@@ -9,9 +14,11 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
-    private let findAndReplaceView: FindAndReplaceKeyboardBar? = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
+    let findAndReplaceView: FindAndReplaceKeyboardBar? = FindAndReplaceKeyboardBar.wmf_viewFromClassNib()
 
     private var isRangeSelected = false
+
+    weak var delegate: SectionEditorInputViewsControllerDelegate?
 
     init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController, findAndReplaceDisplayDelegate: FindAndReplaceKeyboardBarDisplayDelegate) {
         self.webView = webView
@@ -68,6 +75,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     var inputViewType: TextFormattingInputViewController.InputViewType?
+
     var suppressMenus: Bool = false {
         didSet {
             if suppressMenus {
@@ -77,8 +85,10 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
     }
 
     var inputViewController: UIInputViewController? {
-        guard let inputViewType = inputViewType,
-        !suppressMenus else {
+        guard
+            let inputViewType = inputViewType,
+            !suppressMenus
+        else {
             return nil
         }
         textFormattingInputViewController.inputViewType = inputViewType
@@ -153,6 +163,7 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
         
         messagingController.clearSearch()
         keyboardBar.reset()
+        keyboardBar.hide()
         inputAccessoryViewType = previousInputAccessoryViewType
         if keyboardBar.isVisible {
             messagingController.selectLastFocusedMatch()
@@ -164,6 +175,10 @@ class SectionEditorInputViewsController: NSObject, SectionEditorInputViewsSource
 // MARK: TextFormattingDelegate
 
 extension SectionEditorInputViewsController: TextFormattingDelegate {
+    func textFormattingProvidingDidTapMediaInsert() {
+        delegate?.sectionEditorInputViewsControllerDidTapMediaInsert(self)
+    }
+
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {
         messagingController.setTextSize(newSize: newSize.rawValue)
     }
@@ -239,7 +254,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapLink() {
-        messagingController.toggleAnchorSelection()
+        delegate?.sectionEditorInputViewsControllerDidTapLinkInsert(self)
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {

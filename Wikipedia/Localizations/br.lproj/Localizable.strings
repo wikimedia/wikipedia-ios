@@ -121,7 +121,6 @@
 "description-help-tips-title" = "Kuzulioù evit krouiñ deskrivadurioù";
 "description-help-title" = "Sikour da zeskrivañ an titl";
 "description-published-button-title" = "Graet";
-"edit-published-button-title" = "Graet";
 "edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
 "edit-summary-choice-fixed-typos" = "Vi-koukoug reizhet";
@@ -184,7 +183,6 @@
 "feed-news-notification-text" = "Bremañ e c'hallit resev kemennadennoù diwar-benn pennadoù Wikipedia diouzh ar c'hiz er c'heleier.";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
 "field-alert-password-confirm-mismatch" = "Ar gerioù-tremen ne glotont ket an eil gant egile";
-"field-alert-password-invalid" = "N'eo ket mat ar ger-tremen-mañ";
 "field-alert-token-invalid" = "Kod direizh";
 "field-alert-username-unavailable" = "Ne c'haller ket kaout an anv implijer-mañ";
 "field-backup-token-title" = "Kod saveteiñ";
@@ -224,7 +222,6 @@
 "home-nearby-location-footer" = "Tostoc'h da $1";
 "home-title" = "Ergerzhet";
 "home-title-accessibility-label" = "Wikipedia, riklañ war-zu al laez evit Ergerzhiñ.";
-"icon-shortcut-continue-reading-title" = "Kenderc'hel da lenn";
 "icon-shortcut-nearby-title" = "Pennadoù nes";
 "icon-shortcut-random-title" = "Ur pennad dre zegouezh";
 "icon-shortcut-search-title" = "Klask e Wikipedia";

@@ -66,6 +66,7 @@
 "edit-summary-learn-more-text" = "Uzzināt vairāk";
 "edit-text-clear-formatting" = "Notīrīt formatējamu";
 "edit-watch-this-page-text" = "Uzraudzīt šo lapu";
+"empty-insert-media-title" = "Izvēlēties failu";
 "empty-no-search-results-message" = "Nav atrasts neviens rezultāts";
 "explore-another-random" = "Vēl viens nejaušs raksts";
 "explore-continue-reading-heading" = "Turpini lasīt";
@@ -77,7 +78,6 @@
 "explore-randomizer" = "Nejauša lapa";
 "feed-news-notification-button-text" = "Ieslēgt paziņojumus";
 "field-alert-captcha-invalid" = "Nederīgs CAPTCHA";
-"field-alert-password-invalid" = "Nederīga parole";
 "field-alert-token-invalid" = "Nederīgs kods";
 "field-captcha-placeholder" = "CAPTCHA teksts";
 "field-email-title" = "E-pasts";
@@ -206,4 +206,4 @@
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";
 "wikitext-upload-save" = "Publicē...";
 "wikitext-upload-save-sign-in" = "Pieslēgties";
-"wikitext-upload-save-terms-name" = "Izmantošanas noteikumi";
+"wikitext-upload-save-terms-name" = "Lietošanas noteikumi";

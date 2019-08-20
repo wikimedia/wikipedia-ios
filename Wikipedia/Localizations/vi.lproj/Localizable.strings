@@ -233,7 +233,6 @@
 "feed-news-notification-text" = "Nhận thông báo về các bài Wikipedia vào lúc thịnh hành về tin tức.";
 "field-alert-captcha-invalid" = "CAPTCHA không hợp lệ";
 "field-alert-password-confirm-mismatch" = "Mật khẩu không khớp";
-"field-alert-password-invalid" = "Mật khẩu không hợp lệ";
 "field-alert-token-invalid" = "Mã không hợp lệ";
 "field-alert-username-unavailable" = "Tên người dùng không khả dụng";
 "field-backup-token-title" = "Mã sao lưu";
@@ -276,7 +275,6 @@
 "home-themes-prompt" = "Điều chỉnh tùy chọn Đọc bài, thí dụ kích thước văn bản và giao diện, dùng thanh công cụ bài viết hoặc trong Cài đặt để đọc bài một cách thoải mái hơn.";
 "home-title" = "Thám hiểm";
 "home-title-accessibility-label" = "Wikipedia, cuộn lên đầu Thám hiểm";
-"icon-shortcut-continue-reading-title" = "Đọc tiếp";
 "icon-shortcut-nearby-title" = "Bài viết lân cận";
 "icon-shortcut-random-title" = "Bài viết ngẫu nhiên";
 "icon-shortcut-search-title" = "Tìm trong Wikipedia";

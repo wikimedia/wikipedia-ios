@@ -57,6 +57,8 @@
 "account-creation-passwords-mismatched" = "Os contrasinais non coinciden.";
 "account-creation-saving" = "Gardando...";
 "account-creation-title" = "Crear unha nova conta";
+"account-group-title" = "A súa conta";
+"account-talk-page-title" = "A súa páxina de conversa";
 "action-add-to" = "Engadir a...";
 "action-add-to-reading-list" = "Engadir á lista de lectura";
 "action-add-to-reading-list-short" = "Engadir á lista";
@@ -81,6 +83,7 @@
 "action-unsaved-accessibility-notification" = "Artigo sen gardar";
 "action-update" = "Actualizar";
 "add-articles-to-reading-list" = "Engadir {{PLURAL:$1|$1 artigo|$1 artigos}} á lista de lectura";
+"add-citation-title" = "Engadir unha referencia";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, Galipedia, referencia, wiki, enciclopedia, info, coñecemento, investigación, información, explorar, aprender";
 "app-store-release-notes" = "Canle de exploración completamente configurable e doada de ler. Localización, melloras de rendemento e corrección de erros.";
@@ -119,6 +122,7 @@
 "button-skip" = "Omitir";
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Pechar";
 "compass-direction" = "ás $1";
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
@@ -175,7 +179,11 @@
 "edit-italic-accessibility-label" = "Engadir cursivas";
 "edit-italic-remove-accessibility-label" = "Eliminar cursivas";
 "edit-link-accessibility-label" = "Engadir sintaxe de ligazón";
+"edit-link-display-text-title" = "Amosar texto";
+"edit-link-link-target-title" = "Destino da ligazón";
 "edit-link-remove-accessibility-label" = "Eliminar sintaxe de ligazón";
+"edit-link-remove-link-title" = "Eliminar ligazón";
+"edit-link-title" = "Editar ligazón";
 "edit-menu-item" = "Editar";
 "edit-menu-item-could-not-find-selection-alert-message" = "Isto pode ocorrer porque o texto que seleccionou non é editable (por exemplo, o título do artigo ou títulos de caixas informativas) ou debido á lonxitude do texto destacado";
 "edit-menu-item-could-not-find-selection-alert-title" = "O texto que seleccionou non pode ser localizado";
@@ -184,7 +192,6 @@
 "edit-ordered-list-accessibility-label" = "Converter a liña actual nunha lista ordenada";
 "edit-ordered-list-remove-accessibility-label" = "Eliminar a lista ordenada da liña actual";
 "edit-published" = "Edición publicada";
-"edit-published-button-title" = "Feito";
 "edit-published-subtitle" = "Acaba de facer a Wikipedia mellor para todos";
 "edit-reference-accessibility-label" = "Engadir sintaxe de referencia";
 "edit-reference-remove-accessibility-label" = "Eliminar sintaxe de referencia";
@@ -224,6 +231,7 @@
 "editing-welcome-impartial-tone-title" = "Escriba nun ton imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos acceso ó coñecemento mundial, precisamos que participe na súa creación, lendo, editando e contribuíndo nos asuntos que máis lle interesan.";
 "editing-welcome-set-knowledge-free-title" = "Liberar o coñecemento";
+"empty-insert-media-title" = "Seleccionar un ficheiro de Wikimedia Commons";
 "empty-no-article-message" = "Sentímolo, non foi posible cargar o artigo";
 "empty-no-feed-action-message" = "Aínda pode ler as páxinas gardadas";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
@@ -329,7 +337,6 @@
 "fetcher-error-unexpected-response" = "A aplicación recibiu unha resposta inesperada do servidor. Por favor, ténteo de novo máis tarde.";
 "field-alert-captcha-invalid" = "O CAPTCHA non é válido";
 "field-alert-password-confirm-mismatch" = "Os contrasinais non coinciden";
-"field-alert-password-invalid" = "O contrasinal non é válido";
 "field-alert-token-invalid" = "Código non válido";
 "field-alert-username-unavailable" = "O nome de usuario non está dispoñible";
 "field-backup-token-title" = "Código de copia de seguridade";
@@ -378,7 +385,6 @@
 "home-themes-prompt" = "Axuste as súas preferencias de lectura (incluíndo tamaño do texto e tema) na barra de ferramentas do artigo ou nas súas preferencias de usuario para unha experiencia de lectura máis confortable.";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, subir a Explorar";
-"icon-shortcut-continue-reading-title" = "Continuar lendo";
 "icon-shortcut-nearby-title" = "Artigos próximos";
 "icon-shortcut-random-title" = "Artigo ao chou";
 "icon-shortcut-search-title" = "Procurar na Wikipedia";
@@ -392,6 +398,32 @@
 "in-the-news-title" = "Actualidade";
 "info-box-close-text" = "Pechar";
 "info-box-title" = "Datos rápidos";
+"insert-action-title" = "Inserir";
+"insert-link-title" = "Inserir ligazón";
+"insert-media-alternative-text-description" = "Descrición de texto para lectores que non poden ver a imaxe";
+"insert-media-alternative-text-placeholder" = "Describir esta imaxe";
+"insert-media-alternative-text-title" = "Texto alternativo";
+"insert-media-caption-caption-placeholder" = "Como se relaciona esta imaxe co artigo?";
+"insert-media-caption-title" = "Lenda";
+"insert-media-image-position-setting-center" = "Centro";
+"insert-media-image-position-setting-left" = "Esquerda";
+"insert-media-image-position-setting-none" = "Ningunha";
+"insert-media-image-position-setting-right" = "Dereita";
+"insert-media-image-position-settings-title" = "Posición da imaxe";
+"insert-media-image-preview-more-information-action-title" = "Máis información";
+"insert-media-image-preview-select-image-action-title" = "Seleccionar imaxe";
+"insert-media-image-size-setting-custom" = "Personalizado";
+"insert-media-image-size-setting-default" = "Por defecto";
+"insert-media-image-size-settings-px-unit-name" = "px";
+"insert-media-image-size-settings-title" = "Tamaño da imaxe";
+"insert-media-image-type-setting-basic" = "Básico";
+"insert-media-image-type-setting-frame" = "Marco";
+"insert-media-image-type-setting-frameless" = "Sen marco";
+"insert-media-image-type-setting-thumbnail" = "Miniatura";
+"insert-media-image-type-settings-title" = "Tipo de imaxe";
+"insert-media-media-settings-title" = "Configuración multimedia";
+"insert-media-title" = "Inserir multimedia";
+"insert-media-uploaded-image-title" = "Imaxe cargada";
 "languages-settings-title" = "Linguas";
 "languages-title" = "Cambiar lingua";
 "languages-wikipedia" = "Linguas de Wikipedia";
@@ -622,6 +654,7 @@
 "search-recent-title" = "Procurado recentemente";
 "search-result-redirected-from" = "Redirixido de: $1";
 "search-title" = "Procurar";
+"settings-account" = "Conta";
 "settings-appearance" = "Preferencias de lectura";
 "settings-clear-cache" = "Borrar os datos da caché";
 "settings-clear-cache-are-you-sure-message" = "Se se borran os datos da caché liberaranse preto de $1 de espazo. Non borrará as súas páxinas gardadas.";
@@ -721,6 +754,7 @@
 "wikitext-downloading" = "Cargando o contido...";
 "wikitext-preview-changes" = "Xenerando previsualización dos teus cambios…";
 "wikitext-preview-changes-none" = "Non se fixeron cambios que revisar.";
+"wikitext-preview-link-external-preview-title" = "Ligazón externa";
 "wikitext-preview-link-preview-description" = "Esta ligazón leva a '$1'";
 "wikitext-preview-link-preview-title" = "Previsualización da ligazón";
 "wikitext-preview-save-changes-title" = "Gardar os cambios";

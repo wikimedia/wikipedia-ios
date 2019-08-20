@@ -30,20 +30,15 @@
 "about-translators-details" = "Traducida por voluntarios en $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Nun puedes espublizar esta edición. Por favor vuelve atrás y cámbiala.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Dexar en blanco los artículos o facer spam";
-// Fuzzy
-"abuse-filter-warning-caps" = "Escribir TOO EN MAYÚSCULES";
+"abuse-filter-disallow-heading" = "Nun puedes espublizar esta edición";
+"abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu. Vuelvi atrás y cambia la edición.";
+"abuse-filter-warning-blanking" = "Desaniciar secciones o artículos completos";
+"abuse-filter-warning-caps" = "Testu too en mayúscules";
 "abuse-filter-warning-heading" = "Esto nun paez una edición constructiva. ¿Tas seguro de que quies espublizala?";
 "abuse-filter-warning-irrelevant" = "Enllaces o imaxes esternos irrelevantes";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Caráuteres repeeeetíos";
-// Fuzzy
-"abuse-filter-warning-subheading" = "La to edición puede contener unu o más de los siguientes:";
+"abuse-filter-warning-repeat" = "Caráuteres repetíos";
+"abuse-filter-warning-spam" = "Añadir puxarra a artículos";
+"abuse-filter-warning-subheading" = "La to edición puede contener:";
 "account-creation-captcha-cannot-see-image" = "¿Nun puedes ver la imaxe? $1";
 "account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu...";
 "account-creation-captcha-request-account" = "Solicitar una cuenta.";
@@ -60,24 +55,27 @@
 "action-add-to-reading-list" = "Añadir a llista de llectura";
 "action-add-to-reading-list-short" = "Amestar a la llista";
 "action-cancel" = "Encaboxar";
-// Fuzzy
 "action-find-in-page" = "Alcontrar na páxina";
 "action-move-to" = "Treslladar a…";
 "action-move-to-reading-list" = "Treslladar a llista de llectura";
 "action-read" = "Lleer";
+"action-redo" = "Refacer";
 "action-remove" = "Desaniciar";
+"action-replace" = "Sustituir";
+"action-replace-all" = "Sustituir toos";
 "action-save" = "Guardar";
 "action-saved" = "Guardáu";
 "action-saved-accessibility" = "Guardao. Activa pa recuperar.";
 "action-saved-accessibility-notification" = "Artículu guardáu pa dempués";
 "action-share" = "Compartir";
+"action-share-accessibility" = "Compartir";
 "action-sort" = "Ordenar";
-// Fuzzy
 "action-undo" = "Desfacer";
 "action-unsave" = "Nun guardar";
 "action-unsaved-accessibility-notification" = "Artículu ensin guardar";
 "action-update" = "Anovar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
+"add-citation-title" = "Amestar una cita";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, información, conocimientu, investigación, esploración, deprendimientu";
 "app-store-release-notes" = "Canal d'esploración completamente configurable y fácil de lleer. Allugamientu, ameyoramientos de rindimientu y correición d'errores.";
@@ -86,8 +84,7 @@
 "appearance-settings-adjust-text-sizing" = "Axustar el tamañu del testu del artículu";
 "appearance-settings-expand-tables" = "Ampliar tables";
 "appearance-settings-expand-tables-footer" = "Definir que toles tables de tolos artículos tean abiertes de manera predeterminada, incluyendo les Fiches, Referencies, Notes y Enllaces esternos.";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "Amenorgar la opacidá de les imaxes na tema escura.";
+"appearance-settings-image-dimming-footer" = "Amenorgar la opacidá de les imaxes nes temes escura y prieta.";
 "appearance-settings-reading-themes" = "Lleyendo temes";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tables";
 "appearance-settings-text-sizing-example-text" = "Arrastra el control pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
@@ -116,10 +113,16 @@
 "button-saved-remove" = "Quitar de los guardaos";
 "button-skip" = "Saltar";
 "cancel" = "Encaboxar";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Zarrar";
 "compass-direction" = "a les $1 en puntu";
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
+"description-add-link-title" = "Amestar una descripción del títulu";
+"description-add-title" = "Amestar descripción";
+"description-edit-for-article" = "Descripción de títulu pa $1";
+"description-edit-learn-more" = "Más información";
+"description-edit-length-warning" = "$1 / $2";
 "description-help-about-title" = "Tocante a";
 "dim-images" = "Amenorgar el rellume d'imáxenes";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
@@ -167,8 +170,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Independiente de la llingua";
 "explore-feed-preferences-global-cards-title" = "Tarxetes globales";
 "explore-feed-preferences-hide-card-action-title" = "Tapecer esta tarxeta";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Tapecer toles tarxetes %@";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Tapecer toles tarxetes «%@»";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobro actividaes de recién";
 "explore-feed-preferences-languages-footer-text" = "Tapecer toles tarxetes de la canal d'esploración en tolos idiomes desactivará la llingüeta Esplorar.";
 "explore-feed-preferences-on-this-day-description" = "Acontecimientos históricos de güei";
@@ -208,7 +210,6 @@
 "feed-news-notification-text" = "Activa los avisos pa recibir avisos de Wikipedia cuando los artículos seyan tendencia nes noticies.";
 "field-alert-captcha-invalid" = "CAPTCHA inválidu";
 "field-alert-password-confirm-mismatch" = "Les contraseñes nun casen";
-"field-alert-password-invalid" = "Contraseña inválida";
 "field-alert-token-invalid" = "Códigu inválidu";
 "field-alert-username-unavailable" = "El nome d'usuariu nun ta disponible";
 "field-backup-token-title" = "Códigu de respaldu";
@@ -251,7 +252,6 @@
 "home-themes-prompt" = "Axusta les preferencies de Llectura, incluyendo'l tamañu del testu y tema, dende la barra de ferramientes del artículu o na configuración d'usuariu pa una esperiencia de llectura más cómoda.";
 "home-title" = "Esplorar";
 "home-title-accessibility-label" = "Wikipedia, subir al entamu d'Esplorar";
-"icon-shortcut-continue-reading-title" = "Siguir lleyendo";
 "icon-shortcut-nearby-title" = "Artículos cercanos";
 "icon-shortcut-random-title" = "Artículu al debalu";
 "icon-shortcut-search-title" = "Guetar na Wikipedia";
@@ -314,16 +314,14 @@
 "page-edit-history" = "Historial d'edición completu";
 "page-history-title" = "Historial del artículu";
 "page-issues" = "Problemes de la páxina";
-// Fuzzy
-"page-last-edited" = "Editáu fai $1 díes";
+"page-last-edited" = "{{PLURAL:$1|0=Editáu güei|1=Editáu ayeri|Editáu hai $1 díes}}";
 "page-location" = "Ver nun mapa";
 "page-protected-autoconfirmed" = "Esta páxina ta semiprotexida.";
 "page-protected-can-not-edit" = "Nun tienes los permisos pa editar esta páxina";
 "page-protected-can-not-edit-title" = "Esta páxina ta protexida";
 "page-protected-other" = "Esta páxina ta protexida colos siguientes niveles: $1";
 "page-protected-sysop" = "Esta páxina ta protexida dafechu.";
-// Fuzzy
-"page-read-in-other-languages" = "Disponible'n $1 idiomes más";
+"page-read-in-other-languages" = "Disponible'n {{PLURAL:$1|$1 idioma más|$1 idiomes más}}";
 "page-similar-titles" = "Páxines asemeyaes";
 "page-talk-page" = "Ver la páxina d'alderique";
 "pictured" = "con semeya";
@@ -380,8 +378,7 @@
 "reading-list-deleted-accessibility-notification" = "Desaniciada la llista de llectura";
 "reading-list-do-not-keep-button-title" = "Non, desaniciar los artículos del preséu";
 "reading-list-entry-limit-exceeded-message" = "Por favor, reduz el númberu d'artículos d'esta llista a $1 pa siguir sincronizando tolos artículos de la mesma.";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "Pasasti la llende de $1 artículos per cuenta.";
+"reading-list-entry-limit-exceeded-title" = "Pasasti la llende de {{PLURAL:$1|$1 artículu|$1 artículos}} per cuenta.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|L'artículu nun puede|Los artículos nun pueden}} añadise a esta llista. Llegasti a la llende de $2 artículos por llista de llectura pa $3";
 "reading-list-exists-with-same-name" = "El nome de la llista de llectura yá ta usándose";
 "reading-list-generic-error" = "Asocedió un error inesperáu al anovar les llistes de llectura.";
@@ -394,8 +391,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hai una llende de 5000 artículos ensin ordenar. Ordena los artículos qu'esisten en llistes pa siguir cola sincronización de los artículos ensin lleer.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Llegóse a la llende d'artículos ensin ordenar";
 "reading-list-list-limit-exceeded-message" = "Esta llista de llectura y los artículos guardaos nella nun se sincronizarán, reduz el númberu de llistes a $1 pa siguir sincronizando esta llista.";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "Pasasti la llende de $1 llistes de llectura per cuenta.";
+"reading-list-list-limit-exceeded-title" = "Pasasti la llende de {{PLURAL:$1|$1 llista|$1 llistes}} de llectura per cuenta.";
 "reading-list-list-limit-reached" = "Aportasti a la llende de $1 llistes de llectura per cuenta";
 "reading-list-login-button-title" = "Anicia sesión pa sincronizar los artículos guardaos";
 "reading-list-login-or-create-account-button-title" = "Aniciar sesión o crear una cuenta";
@@ -445,20 +441,17 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Control de tamañu del testu";
 "reference-title" = "Referencia $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Güei|Ayeri|Hai $1 díes}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Güei|1=Ayeri|Hai $1 díes}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recién|Hai $1 hora|Hai $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Hai $1 minutu|Hai $1 minutos}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Esti añu|L'añu pasáu|hai $1 años}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Esti añu|1=L'añu pasáu|Hai $1 años}}";
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "saved-all-articles-title" = "Tolos artículos";
 "saved-default-reading-list-tag" = "Esta llista nun puede desaniciase";
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";
 "saved-pages-progress-syncing" = "Descarga d'artículos en cursu…";
 "saved-reading-lists-title" = "Llistes de llectura";
-// Fuzzy
-"saved-search-default-text" = "Buscar";
+"saved-search-default-text" = "Buscar n'artículos guardaos";
 "saved-title" = "Guardada";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Dexar de guardar {{PLURAL:$1|esti artículu desaniciarálu|estos artículos desaniciarálos}} de toles llistes de llectura asociaes";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "¿Dexar de guardar {{PLURAL:$1|l'artículu|los artículos}}?";

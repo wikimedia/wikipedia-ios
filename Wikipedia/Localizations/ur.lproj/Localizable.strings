@@ -142,7 +142,6 @@
 "edit-bold-accessibility-label" = "جِلی فارمیٹنگ شامل کریں۔";
 "edit-bold-remove-accessibility-label" = "جِلی فارمیٹنگ ہٹائیں";
 "edit-published" = "ترمیم شائع ہوگئی";
-"edit-published-button-title" = "مکمل شدہ";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
 "edit-summary-choice-linked-words" = "روابط شامل کیے";
@@ -192,7 +191,6 @@
 "feed-news-notification-button-text" = "اطلاع ناموں کو فعال کریں";
 "field-alert-captcha-invalid" = "غیر موافق کیپچا";
 "field-alert-password-confirm-mismatch" = "دونوں پاس ورڈ یکساں نہیں ہیں";
-"field-alert-password-invalid" = "نادرست پاس ورڈ";
 "field-alert-token-invalid" = "نادرست کوڈ";
 "field-alert-username-unavailable" = "یہ صارف نام دستیاب نہیں ہے";
 "field-backup-token-title" = "احتیاطی کوڈ";
@@ -226,7 +224,6 @@
 "home-nearby-location-footer" = "زیادہ پاس $1 سے";
 "home-news-footer" = "مزید حالیہ واقعات";
 "home-title" = "ایکسپلور";
-"icon-shortcut-continue-reading-title" = "مطالعہ جاری رکھیں";
 "icon-shortcut-nearby-title" = "قریبی مضامین";
 "icon-shortcut-random-title" = "تصادفی مضمون";
 "icon-shortcut-search-title" = "ویکیپیڈیا میں تلاش";

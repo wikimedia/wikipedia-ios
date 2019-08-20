@@ -5,7 +5,6 @@ import UIKit
 
 // TODO: Standardize on returning CancellationKey or URLSessionTask
 // TODO: Centralize cancellation and remove other cancellation implementations (ReadingListsAPI)
-// TODO: Remove CSRFTokenOperation and create other new methods here for token generation and use
 // TODO: Think about utilizing a request buildler instead of so many separate functions
 // TODO: Utilize Result type where possible (Swift only)
 
@@ -28,7 +27,7 @@ open class Fetcher: NSObject {
         self.configuration = configuration
     }
     
-    @discardableResult public func requestMediaWikiAPIAuthToken(for URL: URL?, type: TokenType, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (FetcherResult<Token, Error>) -> Swift.Void) -> URLSessionTask? {
+    @discardableResult public func requestMediaWikiAPIAuthToken(for URL: URL?, type: TokenType, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (Result<Token, Error>) -> Swift.Void) -> URLSessionTask? {
         let parameters = [
             "action": "query",
             "meta": "tokens",
@@ -37,7 +36,7 @@ open class Fetcher: NSObject {
         ]
         return performMediaWikiAPIPOST(for: URL, with: parameters) { (result, response, error) in
             if let error = error {
-                completionHandler(FetcherResult.failure(error))
+                completionHandler(Result.failure(error))
                 return
             }
             guard
@@ -45,14 +44,14 @@ open class Fetcher: NSObject {
                 let tokens = query["tokens"] as? [String: Any],
                 let tokenValue = tokens[type.stringValue + "token"] as? String
                 else {
-                    completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
+                    completionHandler(Result.failure(RequestError.unexpectedResponse))
                     return
             }
             guard !tokenValue.isEmpty else {
-                completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
+                completionHandler(Result.failure(RequestError.unexpectedResponse))
                 return
             }
-            completionHandler(FetcherResult.success(Token(value: tokenValue, type: type)))
+            completionHandler(Result.success(Token(value: tokenValue, type: type)))
         }
     }
     
@@ -104,7 +103,8 @@ open class Fetcher: NSObject {
         let components = configuration.mediaWikiAPIURForHost(URL?.host, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.getJSONDictionary(from: components.url) { (result, response, error) in
-            completionHandler(result, response, error)
+            let returnError = error ?? WMFErrorForApiErrorObject(result?["error"] as? [AnyHashable : Any])
+            completionHandler(result, response, returnError)
             self.untrack(taskFor: key)
         }
         track(task: task, for: key)
@@ -198,9 +198,4 @@ public class Token: NSObject {
         self.type = type
         self.isAuthorized = value != "+\\"
     }
-}
-
-public enum FetcherResult<Success, Error> {
-    case success(Success)
-    case failure(Error)
 }

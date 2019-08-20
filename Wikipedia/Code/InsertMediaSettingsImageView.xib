@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InsertMediaSettingsImageView" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="142"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kx7-Dd-yct">
+                    <rect key="frame" x="12" y="12" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Kx7-Dd-yct" secondAttribute="height" multiplier="1:1" id="WIg-mb-JUA"/>
+                        <constraint firstAttribute="width" constant="100" id="jMa-Do-67b"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploaded image" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bz6-Hh-8a4">
+                    <rect key="frame" x="124" y="12" width="238" height="15.666666666666664"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKk-Mb-Kll" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                    <rect key="frame" x="124" y="35.666666666666664" width="238" height="33.999999999999993"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="performTitleAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ell-Pj-XBu"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14T-il-gWI" userLabel="Separator View">
+                    <rect key="frame" x="0.0" y="141.66666666666666" width="374" height="0.33333333333334281"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="1CP-0j-waf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="14T-il-gWI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4dc-iX-jus"/>
+                <constraint firstItem="Bz6-Hh-8a4" firstAttribute="leading" secondItem="Kx7-Dd-yct" secondAttribute="trailing" constant="12" id="7MM-yp-vKF"/>
+                <constraint firstItem="Kx7-Dd-yct" firstAttribute="leading" secondItem="xPE-QP-X0o" secondAttribute="leading" constant="12" id="8cj-Uq-Xvk"/>
+                <constraint firstItem="14T-il-gWI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kx7-Dd-yct" secondAttribute="bottom" constant="12" id="BOu-3q-fSE"/>
+                <constraint firstItem="Kx7-Dd-yct" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="EkL-ic-CTI"/>
+                <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" constant="12" id="Fot-mO-4n1"/>
+                <constraint firstAttribute="trailing" secondItem="14T-il-gWI" secondAttribute="trailing" id="Lsg-ci-8dH"/>
+                <constraint firstItem="Bz6-Hh-8a4" firstAttribute="top" secondItem="Kx7-Dd-yct" secondAttribute="top" id="MAy-bq-qES"/>
+                <constraint firstItem="fKk-Mb-Kll" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" id="TyB-Fr-i0v"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fKk-Mb-Kll" secondAttribute="bottom" constant="12" id="Uu8-6w-HAX"/>
+                <constraint firstItem="fKk-Mb-Kll" firstAttribute="leading" secondItem="Bz6-Hh-8a4" secondAttribute="leading" id="a9V-IO-vIm"/>
+                <constraint firstItem="fKk-Mb-Kll" firstAttribute="top" secondItem="Bz6-Hh-8a4" secondAttribute="bottom" constant="8" id="jLn-kD-M4d"/>
+                <constraint firstAttribute="bottom" secondItem="14T-il-gWI" secondAttribute="bottom" id="shL-y3-cFw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="xPE-QP-X0o"/>
+            <connections>
+                <outlet property="headingLabel" destination="Bz6-Hh-8a4" id="zTc-Ey-E7b"/>
+                <outlet property="imageView" destination="Kx7-Dd-yct" id="C6V-vh-zp9"/>
+                <outlet property="separatorView" destination="14T-il-gWI" id="Ldk-i0-sP1"/>
+                <outlet property="titleButton" destination="fKk-Mb-Kll" id="niv-e5-7r6"/>
+            </connections>
+            <point key="canvasLocation" x="31.884057971014496" y="-210.26785714285714"/>
+        </view>
+    </objects>
+</document>

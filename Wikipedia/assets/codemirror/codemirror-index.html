@@ -25,16 +25,17 @@
 
 
 <body class="cm-mw-light">
-  <script>    
-
+  <script>        
     let editor
 
     const rangesIntersect = (range1, range2) => {
-      if (range1.start > range2.start + (range2.end - range2.start)) return false
-        if (range2.start > range1.start + (range1.end - range1.start)) return false
-          const isSelected = ((Math.abs(range1.start - range1.end) > 0) && (Math.abs(range2.start - range2.end) > 0))
-          if ((range1.start === range2.end) || (range1.end === range2.start) && isSelected) return false
-            return true
+      if (range1.start === range1.end) { // treat a zero length range inside of another range as intersecting
+        return range1.start > range2.start && range1.start < range2.end
+      } else if (range2.start === range2.end) {
+        return range2.start > range1.start && range2.start < range1.end
+      } else {
+        return Math.max(range1.start, range2.start) < Math.min(range1.end, range2.end)
+      }
     }
 
     const getSelectionRange = (doc) => {
@@ -253,9 +254,7 @@
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
       const lineTokens = enrichedLineTokens(doc, selectionRange.line)
-      
       let result = []
-
 
       // Determine which html tag buttons are selected.
       
@@ -303,9 +302,6 @@
       }
       if (typesArray.includes('em')) {
         result.push(buttonPayload('italic'))
-      }
-      if (typesArray.includes('mw-link-ground') || typesArray.includes('mw-template-link-ground')) {
-        result.push(buttonPayload('link'))
       }
       if (typesArray.includes('mw-template-ground')) {
         result.push(buttonPayload('template'))
@@ -359,6 +355,16 @@
       if (shouldDisableClearFormattingButton(doc)) {
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
+      const selectionRange = RangeHelper.getItemRangeFromSelection(editor)
+      const allMarkupItems = RangeHelper.markupItemsForItemRangeLines(editor, selectionRange)
+      const markupItems = RangeHelper.getMarkupItemsIntersectingSelection(editor, allMarkupItems, selectionRange)
+      if (markupItems.length !== 0) {
+        buttonsToDisable.push(buttonPayload('media'))
+      }
+
+      if (!getLink(markupItems)) {
+        buttonsToDisable.push(buttonPayload('link'))
+      }
 
       return buttonsToDisable
     }
@@ -405,10 +411,8 @@
     }
   
     const scaleBodyText = (textSizeAdjustment) => {
-      document.querySelector('body').style['font-size'] = (textSizeAdjustment/100.0) + 'em'
+      document.body.style['font-size'] = (textSizeAdjustment/100.0) + 'em'
     }
-    
-    let cursorActivityScrollTimer
     
     const setupCodemirrorWithSettings = (codeMirrorSettings, callback) => {
       editor = CodeMirror(document.body, codeMirrorSettings)
@@ -421,11 +425,8 @@
     const notifyNativeAboutChangesAndScrollIfNeeded = (doc) => {
       if (!doc.isReplacing) {
           sendNativeMessages(doc)
-          clearTimeout(cursorActivityScrollTimer)
-          cursorActivityScrollTimer = setTimeout(() => {
-            scrollCursorIntoViewIfNeeded()        
-          }, 25)
-        }
+          scrollCursorIntoViewIfNeeded()        
+      }
     }
 
     const setupCodemirror = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => {
@@ -504,30 +505,76 @@
       }
       const lineIndex = fromPos.line
       const line = editor.getLine(lineIndex)
-	  
       var lastOpenMatchBeforeSelection = {distance: -1}
       var firstOpenMatchAfterSelection = {distance: -1}
+      var firstOpenMatchWithinSelection = {distance: -1}
+	    var openMatchEncompassingStartOfSelection = {}
+      var openMatchEncompassingEndOfSelection = {}
       line.replace(new RegExp(openingMarkup, 'g'), (match, index) => {
-        if (index + match.length <= fromPos.ch) {
-          lastOpenMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
+        const endIndex = index + match.length
+        if (index <= fromPos.ch && endIndex >= fromPos.ch) {
+          openMatchEncompassingStartOfSelection = {match: match, offset: index - fromPos.ch}
+        }
+        if (endIndex <= fromPos.ch) {
+          lastOpenMatchBeforeSelection = {match: match, distance: fromPos.ch - endIndex}
+        }
+        if (index >= fromPos.ch && endIndex <= toPos.ch && firstOpenMatchWithinSelection.distance === -1) {
+          firstOpenMatchWithinSelection = {match: match, distance: index - fromPos.ch}
         }
         if (index >= toPos.ch && firstOpenMatchAfterSelection.distance === -1) {
           firstOpenMatchAfterSelection = {match: match, distance: index - toPos.ch}	
+        }
+        if (index <= toPos.ch && endIndex >= toPos.ch) {
+          openMatchEncompassingEndOfSelection = {match: match, offset: index - toPos.ch}
         }
       })
 	  
       var lastCloseMatchBeforeSelection = {distance: -1}
       var firstCloseMatchAfterSelection = {distance: -1}
+      var firstCloseMatchWithinSelection = {distance: -1}
+	    var closeMatchEncompassingStartOfSelection = {}
+      var closeMatchEncompassingEndOfSelection = {}
       line.replace(new RegExp(closingMarkup, 'g'), (match, index) => {
-        if (index + match.length <= fromPos.ch) {
-          lastCloseMatchBeforeSelection = {match: match, distance: fromPos.ch - index - match.length}
+        const endIndex = index + match.length
+        if (index <= fromPos.ch && endIndex >= fromPos.ch) {
+          closeMatchEncompassingStartOfSelection = {match: match, offset: index - fromPos.ch}
+        }
+        if (endIndex <= fromPos.ch) {
+          lastCloseMatchBeforeSelection = {match: match, distance: fromPos.ch - endIndex}
+        }
+        if (index >= fromPos.ch && endIndex <= toPos.ch && firstCloseMatchWithinSelection.distance === -1) {
+          firstCloseMatchWithinSelection = {match: match, distance: toPos.ch - endIndex}
         }
         if (index >= toPos.ch && firstCloseMatchAfterSelection.distance === -1) {
           firstCloseMatchAfterSelection = {match: match, distance: index - toPos.ch}	
         }
+        if (index <= toPos.ch && endIndex >= toPos.ch) {
+          closeMatchEncompassingEndOfSelection = {match: match, offset: index - toPos.ch}
+        }
       })
       const isWrapped = lastOpenMatchBeforeSelection.distance !== -1 && (lastCloseMatchBeforeSelection.distance === -1 || lastOpenMatchBeforeSelection.distance < lastCloseMatchBeforeSelection.distance) // exclude equal distances to rule out self-contained tags, for example <ref name=blah/>
-      return {isWrapped: isWrapped, selectionLength: toPos.ch - fromPos.ch, openMatch: lastOpenMatchBeforeSelection.match, closeMatch: firstCloseMatchAfterSelection.match, openDistance: lastOpenMatchBeforeSelection.distance, closeDistance: firstCloseMatchAfterSelection.distance, priorCloseDistance: lastCloseMatchBeforeSelection.distance, nextOpenDistance: firstOpenMatchAfterSelection.distance, priorCloseMatch: lastCloseMatchBeforeSelection.match, nextOpenMatch: firstOpenMatchAfterSelection.match}
+      return {
+        isWrapped: isWrapped,
+        selectionLength: toPos.ch - fromPos.ch,
+        openMatch: lastOpenMatchBeforeSelection.match,
+        closeMatch: firstCloseMatchAfterSelection.match,
+        openDistance: lastOpenMatchBeforeSelection.distance,
+        closeDistance: firstCloseMatchAfterSelection.distance,
+        priorCloseDistance: lastCloseMatchBeforeSelection.distance,
+        nextOpenDistance: firstOpenMatchAfterSelection.distance,
+        priorCloseMatch: lastCloseMatchBeforeSelection.match,
+        nextOpenMatch: firstOpenMatchAfterSelection.match,
+        openWithinDistance: firstOpenMatchWithinSelection.distance,
+        closeWithinDistance: firstCloseMatchWithinSelection.distance,
+        openMatchEncompassingStartOffset: openMatchEncompassingStartOfSelection.offset,
+        openMatchEncompassingStart: openMatchEncompassingStartOfSelection.match,
+        openMatchEncompassingEndOffset: openMatchEncompassingEndOfSelection.offset,
+        openMatchEncompassingEnd: openMatchEncompassingEndOfSelection.match,
+        closeMatchEncompassingStartOffset: closeMatchEncompassingStartOfSelection.offset,
+        closeMatchEncompassingStart: closeMatchEncompassingStartOfSelection.match,
+        closeMatchEncompassingEndOffset: closeMatchEncompassingEndOfSelection.offset,
+        closeMatchEncompassingEnd: closeMatchEncompassingEndOfSelection.match
+      }
     }
     
     const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
@@ -629,6 +676,160 @@
         }
       }
     }
+
+    class LinkElementPosition {
+      /**
+      * LinkElementPosition constructor.
+      * @param {!{line: number, ch: number}} from
+      * @param {!{line: number, ch: number}} to
+      */
+      constructor(from, to) {
+        this.from = from
+        this.to = to
+      }
+    }
+
+    class Link {
+      /**
+      * Link constructor.
+      * @param {!string} page
+      * @param {?string} label
+      * @param {!boolean} hasMarkup
+      * @param {!LinkElementPosition} innerPosition
+      */
+      constructor(page, label, hasMarkup, innerPosition) {
+        this.page = page
+        this.label = label
+        this.hasMarkup = hasMarkup
+        this.innerPosition = innerPosition
+        if (hasMarkup) {
+          this.outerPosition = new LinkElementPosition({ line: innerPosition.from.line, ch: innerPosition.from.ch - anchorLength }, { line: innerPosition.to.line, ch: innerPosition.to.ch + anchorLength })
+        }
+        if (label) {
+          this.pageWithPipePosition = new LinkElementPosition({ line: innerPosition.from.line, ch: innerPosition.from.ch }, { line: innerPosition.from.line, ch: innerPosition.from.ch + page.length + 1 }) // add pipe
+        }
+      }
+    }
+
+    const linkFromTextBetweenAnchorMarkup = (text, innerPosition) => {
+      if (!text) {
+        return null
+      }
+      if (!innerPosition) {
+        console.warn("Mising innerPosition in linkFromTextBetweenAnchorMarkup; innerPosition must be defined to construct a new Link")
+        return null
+      }
+      const textSplitByPipe = text.split("|")
+      if (textSplitByPipe.length == 0 || textSplitByPipe.length > 2) {
+        return null
+      }
+      
+      const page = textSplitByPipe[0]
+      const label = textSplitByPipe[1]
+
+      return new Link(page, label, true, innerPosition)
+    }
+
+    const linkFromWord = () => {
+      const word = editor.findWordAt(editor.getCursor())
+      const text = editor.getRange(word.anchor, word.head)
+      return new Link(text, null, false, new LinkElementPosition(word.anchor, word.head))
+    }
+
+    const linkFromSelectionWrapInfo = () => {
+      const info = selectionWrapInfo(openAnchorRegex, closeAnchorRegex)
+      const anchor = editor.getCursor('anchor')
+      const head = editor.getCursor('head')
+
+      if (info.openDistance === 0 && info.closeDistance === 0) {
+        const innerPosition = new LinkElementPosition(anchor, head)
+        return linkFromTextBetweenAnchorMarkup(editor.getSelection(), innerPosition)
+      } else {
+        let from;
+        let to;
+
+        if (info.openMatchEncompassingStartOffset !== undefined && (info.closeMatchEncompassingEndOffset || info.closeDistance !== -1) && info.closeWithinDistance <= 0) {
+          let fromCh
+          if (info.openMatchEncompassingStartOffset === 0) {
+            fromCh = anchor.ch + anchorLength
+          } else if (info.openMatchEncompassingStartOffset + anchorLength === 0) {
+            fromCh = anchor.ch
+          } else {
+            fromCh = anchor.ch - info.openMatchEncompassingStartOffset
+          }
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch + (info.closeMatchEncompassingEndOffset || info.closeDistance)
+          to = { line: head.line, ch: toCh }
+        } else if (info.closeMatchEncompassingEndOffset !== undefined && (info.openMatchEncompassingStartOffset || info.openDistance !== -1) && info.openWithinDistance <= 0) {
+          const fromCh = anchor.ch - (info.openMatchEncompassingStartOffset || info.openDistance)
+          from = { line: anchor.line, ch: fromCh }
+          let toCh
+          if (info.closeMatchEncompassingEndOffset === 0) {
+            toCh = head.ch
+          } else if (info.closeMatchEncompassingEndOffset + anchorLength === 0) {
+            toCh = head.ch - anchorLength
+          } else {
+            toCh = head.ch + info.closeMatchEncompassingEndOffset
+          }
+          to = { line: head.line, ch: toCh }
+        } else if (info.isWrapped && info.closeDistance !== -1 && info.openDistance !== -1 && (info.nextOpenDistance >= info.closeDistance) || info.nextOpenDistance === -1) {
+          const fromCh = anchor.ch - info.openDistance
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch + info.closeDistance
+          to = { line: head.line, ch: toCh }
+        } else if (info.openWithinDistance !== -1 && info.closeWithinDistance !== -1) {
+          const fromCh = anchor.ch + info.openWithinDistance + anchorLength
+          from = { line: anchor.line, ch: fromCh }
+          const toCh = head.ch - info.closeWithinDistance - anchorLength
+          to = { line: head.line, ch: toCh }
+        }
+
+        if (from && to) {
+          const maybePipedText = editor.getRange(from, to)
+          const innerPosition = new LinkElementPosition(from, to)
+          return linkFromTextBetweenAnchorMarkup(maybePipedText, innerPosition)
+        } else {
+          return null
+        }
+      }
+    }
+
+    const getLink = (markupItems, keepInStateStore = true) => {
+      const selection = editor.getSelection()
+      const buttonNames = RangeHelper.rangeUtilities.getButtonNamesFromMarkupItems(markupItems)
+      let link
+      if (selection.length === 0) {
+        if (buttonNames.includes("link")) {
+          link = linkFromSelectionWrapInfo()
+        } else {
+          const leading = {
+            from: { line: editor.getCursor().line, ch: editor.getCursor().ch },
+            to: { line: editor.getCursor().line, ch: editor.getCursor().ch + anchorLength }
+          }
+          const trailing = {
+            from: { line: editor.getCursor().line, ch: editor.getCursor().ch - anchorLength },
+            to: { line: editor.getCursor().line, ch: editor.getCursor().ch }
+          }
+          const leadingText = editor.getRange(leading.from, leading.to)
+          const trailingText = editor.getRange(trailing.from, trailing.to)
+          const isMarkup = (text) => text === "]]" || text === "[["
+          if (isMarkup(leadingText) || isMarkup(trailingText)) {
+            link = linkFromSelectionWrapInfo()
+          } else {
+            link = linkFromWord()
+          }
+        }
+      } else {
+        if (buttonNames.length === 0) {
+          const innerPosition = {from: editor.getCursor('anchor'), to: editor.getCursor('head')}
+          link = new Link(selection, null, false, innerPosition)
+        } else if (buttonNames.length === 1 && buttonNames.includes('link')) {
+          link = linkFromSelectionWrapInfo()
+        }
+      }
+      stateStore.link = link
+      return link
+    }
     
     const toggleMarkup = (button, openingMarkup, closingMarkup, defaultOpeningMarkup, defaultClosingMarkup) => {
       if (closingMarkup === undefined) {
@@ -665,11 +866,23 @@
         }
       }
     }
+
+    const stateStore = {} // local state object to avoid relying on cm
     
     const wmf = {}
     
     wmf.getWikitext = () => editor.getValue()
-    wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
+    wmf.setWikitext = (wikitext, completion) => {
+      editor.startOperation()
+      editor.setValue(wikitext)
+      editor.endOperation()
+      if (!completion) {
+        return
+      }
+      requestAnimationFrame(() => {
+        completion()
+      })
+    }
     wmf.setup = (language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback) => setupCodemirror(language, direction, themeName, textSizeAdjustment, isSyntaxHighlighted, callback)
     wmf.applyTheme = (themeName) => applyTheme(themeName)
     wmf.highlightAndScrollToWikitextForSelectedAndAdjacentText = highlightAndScrollToWikitextForSelectedAndAdjacentText
@@ -791,14 +1004,18 @@
       scrollRangeIntoViewIfNeeded(editor.getCursor('from'), editor.getCursor('to'))
     }
 
+    let scrollTimer
     const scrollRangeIntoViewIfNeeded = (from, to) => {
-      const offset = verticalOffsetNeededToScrollRangeIntoView(from, to)
-      if (offset === 0) {
-        return
-      }
-      // WKWebView doesn't currently support `window.scrollTo` with `behavior: smooth`,
-      // so let native land do the scrolling.
-      window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
+      clearTimeout(scrollTimer)
+      scrollTimer = setTimeout(() => {
+        const offset = verticalOffsetNeededToScrollRangeIntoView(from, to)
+        if (offset === 0) {
+          return
+        }
+        // WKWebView doesn't currently support `window.scrollTo` with `behavior: smooth`,
+        // so let native land do the scrolling.
+        window.webkit.messageHandlers.smoothScrollToYOffsetMessage.postMessage(offset)
+      }, 250)
     }
 
     const presentReplaceAllCount = () => {
@@ -830,7 +1047,8 @@
 	
     const openAnchorRegex = /\[\[/
     const closeAnchorRegex = /\]\]/
-    
+    const anchorLength = 2
+
     const openTemplateRegex = /\{\{/
     const closeTemplateRegex = /\}\}/
   
@@ -906,9 +1124,6 @@
       },
       template: () => {
         toggleMarkup('template', openTemplateRegex, closeTemplateRegex, '{{', '}}')
-      },
-      anchor: () => {
-        toggleMarkup('anchor', openAnchorRegex, closeAnchorRegex, '[[', ']]')
       },
       comment: () => {
         toggleMarkup('comment', '<!--', '-->')
@@ -1049,6 +1264,86 @@
       },
       clearFormatting: () => {
         RangeHelper.rangeClearFormatting.clearFormatting(editor)
+      },
+      replaceSelection: (text) => {
+        editor.replaceSelection(text)
+      },
+      replaceSelection: (text) => editor.replaceSelection(text),
+      lineInfo: () => {
+        const cursorPosition = editor.getCursor('anchor')
+        return {
+          hasLineTokens: editor.getLineTokens(cursorPosition.line).length > 0,
+          isAtLineEnd: editor.getLine(cursorPosition.line).length === cursorPosition.ch
+        }
+      },
+      newlineAndIndent: () => editor.execCommand('newlineAndIndent'),
+      getLink: () => stateStore.link,
+      insertOrEditLink: (page, label) => {
+        const link = stateStore.link
+        if (!link) {
+          console.warn("Attempting to insert or edit link with no link in stateStore")
+          return
+        }
+        if (link.hasMarkup) { // existing link
+          if (link.label) {
+            if (label) { // modify an exsiting label
+              const pageWithLabel = `${page}|${label}`
+              editor.replaceRange(pageWithLabel, link.innerPosition.from, link.innerPosition.to) 
+            } else { // modify an existing link with a label
+              const pageWithExistingLabel = `${page}|${link.label}`
+              editor.replaceRange(pageWithExistingLabel, link.innerPosition.from, link.innerPosition.to)
+            }
+          } else {
+            if (label) { // add a label to an existing link with no label
+              const pageWithLabel = `${page}|${label}`
+              editor.replaceRange(pageWithLabel, link.innerPosition.from, link.innerPosition.to)
+            } else { // modify existing link
+              editor.replaceRange(page, link.innerPosition.from, link.innerPosition.to)
+            }
+          }
+        } else { // new link
+          if (label) {
+            const newPageWithLabel = `[[${page}|${label}]]`
+            editor.replaceRange(newPageWithLabel, link.innerPosition.from, link.innerPosition.to)
+          } else {
+            const shouldAddLabel = (link.page.length > 0) && (link.page.toLowerCase() !== page.toLowerCase())
+            let newPageWithMaybeLabel
+            if (shouldAddLabel) {
+              newPageWithMaybeLabel = `[[${page}|${link.page}]]`
+            } else {
+              newPageWithMaybeLabel = link.page.length > 0 ? `[[${link.page}]]` : `[[${page}]]`
+            }
+            editor.replaceRange(newPageWithMaybeLabel, link.innerPosition.from, link.innerPosition.to)
+          }
+        }
+      },
+      removeLink: () => {
+        const link = stateStore.link
+        if (!link) {
+          console.warn("Attempting to remove link with no link in stateStore")
+          return
+        }
+        const innerPosition = link.innerPosition
+        const outerPosition = link.outerPosition
+        if (!innerPosition || !outerPosition) {
+          console.warn("Attempting to remove link with no innerPosition or outerPosition")
+          return
+        }
+        const removePageWithPipeIfPresent = () => {
+          if (link.pageWithPipePosition) {
+            const from = { line: link.pageWithPipePosition.from.line, ch: link.pageWithPipePosition.from.ch - anchorLength }
+            const to = { line: link.pageWithPipePosition.to.line, ch: link.pageWithPipePosition.to.ch - anchorLength }
+            editor.replaceRange("", from, to)
+          }
+        }
+        const openingMarkupPosition = new LinkElementPosition({ line: outerPosition.from.line, ch: outerPosition.from.ch }, { line: innerPosition.from.line, ch: innerPosition.from.ch })
+        const closingMarkupPosition = new LinkElementPosition({ line: outerPosition.to.line, ch: outerPosition.to.ch - (anchorLength * 2) }, { line: innerPosition.to.line, ch: innerPosition.to.ch })
+        const removePageAndMarkup = () => {
+          editor.replaceRange("", openingMarkupPosition.from, openingMarkupPosition.to)
+          editor.replaceRange("", closingMarkupPosition.from, closingMarkupPosition.to)
+          removePageWithPipeIfPresent()
+        }
+        editor.operation(removePageAndMarkup)
       }
     }
 

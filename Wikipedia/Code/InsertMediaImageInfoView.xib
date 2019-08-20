@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InsertMediaImageInfoView" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="248"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="XYv-PB-v5Y">
+                    <rect key="frame" x="12" y="56" width="351" height="150"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZJ-TG-IzS">
+                            <rect key="frame" x="0.0" y="0.0" width="351" height="20.333333333333332"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6i-Tu-inn">
+                            <rect key="frame" x="0.0" y="32.333333333333321" width="351" height="85.666666666666686"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YL-8I-B18">
+                            <rect key="frame" x="0.0" y="130" width="351" height="20"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NiH-z3-XBT">
+                                    <rect key="frame" x="0.0" y="0.0" width="331" height="20"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2W-Fe-5kb" customClass="WMFLicenseView">
+                                            <rect key="frame" x="0.0" y="0.0" width="16" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="16" placeholder="YES" id="9y1-Ha-m41"/>
+                                            </constraints>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1D0-Ni-yXU">
+                                            <rect key="frame" x="23.999999999999996" y="0.0" width="41.666666666666657" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="s2W-Fe-5kb" firstAttribute="leading" secondItem="NiH-z3-XBT" secondAttribute="leading" id="9zV-2a-tdT"/>
+                                        <constraint firstItem="s2W-Fe-5kb" firstAttribute="top" secondItem="NiH-z3-XBT" secondAttribute="top" id="GOo-a5-eva"/>
+                                        <constraint firstItem="1D0-Ni-yXU" firstAttribute="top" secondItem="s2W-Fe-5kb" secondAttribute="top" id="Xu1-lC-EBr"/>
+                                        <constraint firstItem="1D0-Ni-yXU" firstAttribute="bottom" secondItem="s2W-Fe-5kb" secondAttribute="bottom" id="bPf-OY-8LR"/>
+                                        <constraint firstItem="1D0-Ni-yXU" firstAttribute="leading" secondItem="s2W-Fe-5kb" secondAttribute="trailing" constant="8" id="gVi-Wg-Mts"/>
+                                        <constraint firstAttribute="bottom" secondItem="s2W-Fe-5kb" secondAttribute="bottom" id="saW-zL-fj6"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49a-sU-vMB">
+                                    <rect key="frame" x="331" y="0.0" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="APt-rJ-PFB"/>
+                                        <constraint firstAttribute="width" secondItem="49a-sU-vMB" secondAttribute="height" multiplier="1:1" id="LYX-Cx-Bem"/>
+                                    </constraints>
+                                    <state key="normal" image="info-white">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="showMoreInformation:" destination="iN0-l3-epB" eventType="touchUpInside" id="x6u-jF-NlM"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="ZTW-tL-eUf"/>
+                    <variation key="heightClass=compact" spacing="1"/>
+                </stackView>
+            </subviews>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="XYv-PB-v5Y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="Jxb-Mb-YN7">
+                    <variation key="heightClass=compact" constant="6"/>
+                </constraint>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XYv-PB-v5Y" secondAttribute="bottom" constant="8" id="RFN-QT-Lg6">
+                    <variation key="heightClass=compact" constant="4"/>
+                </constraint>
+                <constraint firstItem="XYv-PB-v5Y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="bnK-Nf-j0h"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XYv-PB-v5Y" secondAttribute="trailing" constant="12" id="gqI-SQ-T4l"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="J6i-Tu-inn" id="qew-Md-Ppc"/>
+                <outlet property="licenseLabel" destination="1D0-Ni-yXU" id="jiB-ce-Pw2"/>
+                <outlet property="licenseView" destination="s2W-Fe-5kb" id="Es5-Im-CnZ"/>
+                <outlet property="moreInformationButton" destination="49a-sU-vMB" id="ZeJ-Aa-bto"/>
+                <outlet property="titleLabel" destination="ZZJ-TG-IzS" id="oFj-Zl-6ff"/>
+                <outletCollection property="gestureRecognizers" destination="bdS-nS-JIx" appends="YES" id="JTy-bH-Jgg"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="-156"/>
+        </view>
+        <tapGestureRecognizer id="bdS-nS-JIx">
+            <connections>
+                <action selector="showMoreInformation:" destination="iN0-l3-epB" id="WrQ-hF-nR3"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="info-white" width="16" height="16"/>
+    </resources>
+</document>

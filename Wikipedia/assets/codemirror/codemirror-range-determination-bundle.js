@@ -1,7 +1,4 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const ItemRange = require('./codemirror-range-objects').ItemRange
-const ItemLocation = require('./codemirror-range-objects').ItemLocation
-
 const getItemRangeFromSelection = require('./codemirror-range-utilities').getItemRangeFromSelection
 const getMarkupItemsIntersectingSelection = require('./codemirror-range-utilities').getMarkupItemsIntersectingSelection
 const getButtonNamesFromMarkupItems = require('./codemirror-range-utilities').getButtonNamesFromMarkupItems
@@ -21,7 +18,7 @@ const canClearFormatting = (codeMirror) => {
   }
 
   const buttonNames = buttonNamesInSelectionRange(codeMirror, selectionRange)
-  if (buttonNames.includes('reference') || buttonNames.includes('template')) {
+  if (buttonNames.includes('reference') || buttonNames.includes('template') || buttonNames.includes('template-argument') || buttonNames.includes('template-name') || buttonNames.includes('template-delimiter')) {
     return false
   }
   
@@ -254,7 +251,7 @@ const pruneWhitespaceOnlyMarkupItems = (codeMirror) => {
 
 exports.clearFormatting = clearFormatting
 exports.canClearFormatting = canClearFormatting
-},{"./codemirror-range-determination":5,"./codemirror-range-objects":7,"./codemirror-range-utilities":9}],2:[function(require,module,exports){
+},{"./codemirror-range-determination":5,"./codemirror-range-utilities":9}],2:[function(require,module,exports){
 const markupItemsForLineTokens = require('./codemirror-range-determination').markupItemsForLineTokens
 
 // Uncomment the chunk below to add debugging buttons to top of article wikitext editor.
@@ -405,17 +402,19 @@ const tokenTypes = (token) => {
 }
 
 const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
-  const soughtTokenTypes = new Set(['mw-apostrophes-bold', 'mw-apostrophes-italic', 'mw-link-bracket', 'mw-section-header', 'mw-template-bracket'])  
+  const soughtBoundaryTokenTypes = new Set(['mw-apostrophes-bold', 'mw-apostrophes-italic', 'mw-link-bracket', 'mw-section-header', 'mw-template-bracket'])  
+  const soughtTokenTypes = new Set(['mw-template-bracket', 'mw-template-name', 'mw-template-argument-name', 'mw-template-delimiter'])
 
   let trackedTypes = new Set()
   let outputMarkupItems = []
   
   const tokenWithEnrichedInHtmlTagArray = (token, index, tokens) => {
     
+    const boundaryTypes = intersection(tokenTypes(token), soughtBoundaryTokenTypes)
     const types = intersection(tokenTypes(token), soughtTokenTypes)
-    
-    const typesToStopTracking = Array.from(intersection(trackedTypes, types))
-    const typesToStartTracking = Array.from(difference(types, trackedTypes))
+  
+    const typesToStopTracking = Array.from(intersection(trackedTypes, boundaryTypes))
+    const typesToStartTracking = Array.from(difference(boundaryTypes, trackedTypes))
     
     const addMarkupItemWithRangeStarts = (type) => {
       const inner = new ItemRange(new ItemLocation(line, token.end), new ItemLocation(line, -1))
@@ -434,8 +433,16 @@ const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
       }
     }
     
+    const addCompleteMarkupRanges = (type) => {
+      const inner = new ItemRange(new ItemLocation(line, token.start), new ItemLocation(line, token.end))
+      const outer = new ItemRange(new ItemLocation(line, token.start), new ItemLocation(line, token.end))
+      const markupItem = new MarkupItem(type, inner, outer)
+      outputMarkupItems.push(markupItem)
+    }
+    
     typesToStartTracking.forEach(addMarkupItemWithRangeStarts)
     typesToStopTracking.forEach(updateMarkupItemRangeEnds)
+    types.forEach(addCompleteMarkupRanges)
     
     typesToStopTracking.forEach(tag => trackedTypes.delete(tag))
     typesToStartTracking.forEach(tag => trackedTypes.add(tag))
@@ -615,6 +622,10 @@ RangeHelper.rangeDetermination = require('./codemirror-range-determination')
 RangeHelper.rangeObjects = require('./codemirror-range-objects')
 RangeHelper.rangeUtilities = require('./codemirror-range-utilities')
 RangeHelper.rangeClearFormatting = require('./codemirror-range-clear-formatting')
+RangeHelper.getMarkupItemsIntersectingSelection = require('./codemirror-range-utilities').getMarkupItemsIntersectingSelection
+RangeHelper.getItemRangeFromSelection = require('./codemirror-range-utilities').getItemRangeFromSelection
+RangeHelper.markupItemsForItemRangeLines = require('./codemirror-range-determination').markupItemsForItemRangeLines
+
 
 window.RangeHelper = RangeHelper
 },{"./codemirror-range-clear-formatting":1,"./codemirror-range-debugging":2,"./codemirror-range-determination":5,"./codemirror-range-objects":7,"./codemirror-range-utilities":9}],7:[function(require,module,exports){
@@ -641,6 +652,15 @@ class MarkupItem {
     }
     if (type === 'mw-template-bracket') {
       return 'template'
+    }
+    if (type === 'mw-template-argument-name') {
+      return 'template-argument'
+    }
+    if (type === 'mw-template-name') {
+      return 'template-name'
+    }
+    if (type == 'mw-template-delimiter') {
+      return 'template-delimiter'
     }
     if (type === 'mw-apostrophes-italic') {
       return 'italic'

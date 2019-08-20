@@ -32,7 +32,7 @@ public class WMFAuthenticationManager: Fetcher {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic private(set) var loggedInUsername: String? = nil
+    @objc dynamic public private(set) var loggedInUsername: String? = nil
     
     /**
      *  Returns YES if a user is logged in, NO otherwise
@@ -65,23 +65,7 @@ public class WMFAuthenticationManager: Fetcher {
     @objc public static let sharedInstance = WMFAuthenticationManager()
     
     var loginSiteURL: URL? {
-        var baseURL: URL?
-        if let host = KeychainCredentialsManager.shared.host {
-            var components = URLComponents()
-            components.host = host
-            components.scheme = "https"
-            baseURL = components.url
-        }
-        
-        if baseURL == nil {
-            baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-        }
-        
-        if baseURL == nil {
-            baseURL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
-        }
-        
-        return baseURL
+        return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
     public func attemptLogin(completion: @escaping AuthenticationResultHandler) {
@@ -125,7 +109,6 @@ public class WMFAuthenticationManager: Fetcher {
                 self.loggedInUsername = normalizedUserName
                 KeychainCredentialsManager.shared.username = normalizedUserName
                 KeychainCredentialsManager.shared.password = password
-                KeychainCredentialsManager.shared.host = siteURL.host
                 self.session.cloneCentralAuthCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 completion(.success(result))
@@ -223,7 +206,7 @@ public class WMFAuthenticationManager: Fetcher {
         let postDidLogOutNotification = {
             NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
         }
-        performMediaWikiAPIPOST(for: loginSiteURL, with: ["action": "logout", "format": "json"]) { (result, response, error) in
+        performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"]) { (result, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.

@@ -111,7 +111,6 @@
 "explore-randomizer" = "தற்போக்கான்";
 "field-alert-captcha-invalid" = "செல்லாத காப்சா";
 "field-alert-password-confirm-mismatch" = "கடவுச் சொற்கள் பொருந்தவில்லை";
-"field-alert-password-invalid" = "செல்லாத கடவுச்சொல்";
 "field-alert-token-invalid" = "செல்லத்தகாத குறி";
 "field-alert-username-unavailable" = "பயனர்பெயர் கிடைக்கவில்லை";
 "field-backup-token-title" = "நிரற்றொடர் காப்புநகல்";
@@ -148,7 +147,6 @@
 "home-news-footer" = "மேலும் தற்போதய நிக்ழ்வுகள்";
 "home-themes-action-title" = "விருப்பத்தேர்வுகளை நிர்வகி";
 "home-title" = "சுற்றிப்பார்";
-"icon-shortcut-continue-reading-title" = "தொடர்ந்து படிக்கவும்";
 "icon-shortcut-nearby-title" = "அருகாமை கட்டுரைகள்";
 "icon-shortcut-random-title" = "தொடர்பற்ற கட்டுரை";
 "icon-shortcut-search-title" = "விக்கிப்பீடியாவில் தேடவும்";

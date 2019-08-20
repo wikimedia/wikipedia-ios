@@ -34,19 +34,24 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL] ?: self.userDataStore.historyList.mostRecentEntry.URL;
+    NSURL *lastRead = [moc wmf_openArticleURL] ?: [self.userDataStore.historyList mostRecentEntryInManagedObjectContext:moc].URL;
+
+    if (!lastRead) {
+        completion();
+        return;
+    }
 
     NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
 
-    BOOL shouldShowContinueReading = lastRead &&
-                                     fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
+    BOOL shouldShowContinueReading = fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle || force;
 
-    NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURL];
     [moc performBlock:^{
-        WMFContentGroup *group = [moc contentGroupForURL:continueReadingURL];
+        NSArray<WMFContentGroup *> *groups = [moc contentGroupsOfKind:WMFContentGroupKindContinueReading];
         if (!shouldShowContinueReading) {
-            if (group) {
-                [moc removeContentGroup:group];
+            if (groups.count > 0) {
+                for (WMFContentGroup *group in groups) {
+                    [moc removeContentGroup:group];
+                }
             }
             if (completion) {
                 completion();
@@ -54,7 +59,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
             return;
         }
 
-        NSURL *savedURL = (NSURL *)group.contentPreview;
+        NSURL *savedURL = (NSURL *)groups.firstObject.contentPreview;
 
         if ([savedURL isEqual:lastRead]) {
             if (completion) {
@@ -65,13 +70,18 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
         WMFArticle *userData = [moc fetchArticleWithURL:lastRead];
 
-        if (userData == nil) {
+        if (userData == nil || userData.isExcludedFromFeed) {
             if (completion) {
                 completion();
             }
             return;
         }
 
+        for (WMFContentGroup *group in groups) {
+            [moc removeContentGroup:group];
+        }
+
+        NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURLForArticleURL:lastRead];
         [moc fetchOrCreateGroupForURL:continueReadingURL
                                ofKind:WMFContentGroupKindContinueReading
                               forDate:userData.viewedDate

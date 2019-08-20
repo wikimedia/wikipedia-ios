@@ -13,7 +13,8 @@ class UnderlineButton: AutoLayoutSafeMultiLineButton {
 
     override func setup() {
         super.setup()
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
+        let adjustedTitleInsets = UIEdgeInsets(top: titleEdgeInsets.top, left: titleEdgeInsets.left, bottom: titleEdgeInsets.bottom + underlineHeight, right: titleEdgeInsets.right)
+        titleEdgeInsets = adjustedTitleInsets
         configureStyle()
     }
 

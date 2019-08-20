@@ -95,7 +95,7 @@
 			<key>one</key>
 			<string>Tilgjengelig på %1$d annet språk</string>
 			<key>other</key>
-			<string>Tilgjengelig på %1$dandre språk</string>
+			<string>Tilgjengelig på %1$d andre språk</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

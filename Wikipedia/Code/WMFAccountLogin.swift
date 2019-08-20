@@ -4,7 +4,7 @@ public enum WMFAccountLoginError: LocalizedError {
     case statusNotPass(String?)
     case temporaryPasswordNeedsChange(String?)
     case needsOathTokenFor2FA(String?)
-    case wrongPassword
+    case wrongPassword(String?)
     case wrongToken
     public var errorDescription: String? {
         switch self {
@@ -16,8 +16,8 @@ public enum WMFAccountLoginError: LocalizedError {
             return message
         case .needsOathTokenFor2FA(let message?):
             return message
-        case .wrongPassword:
-            return WMFLocalizedString("field-alert-password-invalid", value:"Invalid password", comment:"Alert shown if password is not correct")
+        case .wrongPassword(let message?):
+            return message
         case .wrongToken:
             return WMFLocalizedString("field-alert-token-invalid", value:"Invalid code", comment:"Alert shown if token is not correct")
         default:
@@ -89,7 +89,7 @@ public class WMFAccountLogin: Fetcher {
                 if let messageCode = clientlogin["messagecode"] as? String {
                     switch(messageCode) {
                     case "wrongpassword":
-                        failure(WMFAccountLoginError.wrongPassword)
+                        failure(WMFAccountLoginError.wrongPassword(message))
                         return
                     case "oathauth-login-failed":
                         failure(WMFAccountLoginError.wrongToken)
@@ -102,7 +102,12 @@ public class WMFAccountLogin: Fetcher {
                     status == "UI",
                     let requests = clientlogin["requests"] as? [AnyObject]
                 {
-                    if let passwordAuthRequest = requests.first(where:{$0["id"]! as! String == "MediaWiki\\Auth\\PasswordAuthenticationRequest"}),
+                    if let passwordAuthRequest = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("PasswordAuthenticationRequest")
+                    }),
                         let fields = passwordAuthRequest["fields"] as? [String : AnyObject],
                         let _ = fields["password"] as? [String : AnyObject],
                         let _ = fields["retype"] as? [String : AnyObject]
@@ -110,7 +115,12 @@ public class WMFAccountLogin: Fetcher {
                         failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
                         return
                     }
-                    if let OATHTokenRequest = requests.first(where:{$0["id"]! as! String == "TOTPAuthenticationRequest"}),
+                    if let OATHTokenRequest = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("TOTPAuthenticationRequest")
+                    }),
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
                         let _ = fields["OATHToken"] as? [String : AnyObject]
                     {

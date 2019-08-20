@@ -15,6 +15,20 @@
     return [NSURL URLWithString:key];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations" // this is the only section of code where the "deprecated" but not really deprecated displayTitleHTMLString should be used
+
+- (void)setDisplayTitleHTML:(NSString *)displayTitleHTML {
+    self.displayTitleHTMLString = displayTitleHTML;
+    self.displayTitle = displayTitleHTML.wmf_stringByRemovingHTML;
+}
+
+- (NSString *)displayTitleHTML {
+    return self.displayTitleHTMLString ?: self.displayTitle ?: self.URL.wmf_title ?: @"";
+}
+
+#pragma clang diagnostic pop
+
 - (nullable NSURL *)thumbnailURL {
     NSString *thumbnailURLString = self.thumbnailURLString;
     if (!thumbnailURLString) {
@@ -92,6 +106,10 @@
     if (searchResult.geoType != nil) {
         self.geoTypeNumber = searchResult.geoType;
     }
+    if (searchResult.titleNamespace != nil) {
+        self.ns = searchResult.titleNamespace;
+        self.isExcludedFromFeed = self.isExcludedFromFeed || self.ns.integerValue != 0;
+    }
 }
 
 @end
@@ -99,7 +117,16 @@
 @implementation NSManagedObjectContext (WMFArticle)
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchArticleWithKey:[articleURL wmf_articleDatabaseKey]];
+    return [self fetchArticleWithKey:[articleURL wmf_databaseKey]];
+}
+
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
+    if (!key) {
+        return @[];
+    }
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    return [self executeFetchRequest:request error:nil];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key {
@@ -144,7 +171,7 @@
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchOrCreateArticleWithKey:[articleURL wmf_articleDatabaseKey]];
+    return [self fetchOrCreateArticleWithKey:[articleURL wmf_databaseKey]];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult {

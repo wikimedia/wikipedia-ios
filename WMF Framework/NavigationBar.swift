@@ -2,7 +2,9 @@
     case backVisible
     case largeTitle
     case modal
+    case hidden
 }
+
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
@@ -33,6 +35,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public var isExtendedViewHidingEnabled: Bool = false
     @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
+    public var allowsUnderbarHitsFallThrough: Bool = false //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
     
@@ -80,6 +83,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         if displayType == .largeTitle, let navigationItem = items.last {
             configureTitleBar(with: navigationItem)
         } else {
+            bar.setItems([], animated: false)
             bar.setItems(items, animated: false)
         }
         apply(theme: theme)
@@ -182,6 +186,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
     var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
+    var underBarViewTopBottomConstraint: NSLayoutConstraint!
     
     override open func setup() {
         super.setup()
@@ -243,6 +248,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         underBarViewTopBarBottomConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+        underBarViewTopBottomConstraint = topAnchor.constraint(equalTo: underBarView.topAnchor)
         
         let underBarViewLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
         let underBarViewTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
@@ -269,9 +275,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         shadowTopExtendedViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
         shadowTopUnderBarViewBottomConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
-        
 
-        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
+        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewTopBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
         addConstraints(updatedConstraints)
         
         updateTitleBarConstraints()
@@ -329,7 +334,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    @objc public var visibleHeight: CGFloat = 0
+    @objc dynamic public var visibleHeight: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
     public var shadowAlpha: CGFloat {
@@ -370,7 +375,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                     self.shadowAlpha = shadowAlpha
                 }
                 if (animated) {
-                    self.layoutSubviews()
+                    self.layoutIfNeeded()
                 }
                 additionalAnimations?()
             }
@@ -395,9 +400,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     private func updateTitleBarConstraints() {
         let isUsingTitleBarInsteadOfNavigationBar = displayType == .largeTitle
         underBarViewTopTitleBarBottomConstraint.isActive = isUsingTitleBarInsteadOfNavigationBar
-        underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar
-        bar.isHidden = isUsingTitleBarInsteadOfNavigationBar
-        titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar
+        underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar && displayType != .hidden
+        underBarViewTopBottomConstraint.isActive = displayType == .hidden
+        bar.isHidden = isUsingTitleBarInsteadOfNavigationBar || displayType == .hidden
+        titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar || displayType == .hidden
         updateBarTopSpacing()
         setNeedsUpdateConstraints()
     }
@@ -572,6 +578,21 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        if allowsUnderbarHitsFallThrough
+            && underBarView.frame.contains(point)
+            && !bar.frame.contains(point) {
+            
+            for subview in underBarView.subviews {
+                let convertedPoint = self.convert(point, to: subview)
+                if subview.point(inside: convertedPoint, with: event) {
+                    return true
+                }
+            }
+            
+            return false
+        }
+        
         return point.y <= visibleHeight
     }
     

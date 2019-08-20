@@ -23,6 +23,7 @@
 #import "WikiTextSectionFetcher.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "PreviewHtmlFetcher.h"
+#import "MWKImageInfoFetcher.h"
 
 #import "WikiTextSectionUploader.h"
 #import "WMFArticleJSONCompilationHelper.h"
@@ -30,6 +31,9 @@
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"
+#import "WMFArticleRevisionFetcher.h"
+#import "WMFRevisionQueryResults.h"
+#import "WMFArticleRevision.h"
 
 // View Controllers
 #import "WMFThemeableNavigationController.h"
@@ -40,6 +44,7 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
+#import "WMFEmptyView.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
@@ -66,7 +71,6 @@
 #import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
-#import "EditFunnel.h"
 
 // Third Party
 #import "TUSafariActivity.h"

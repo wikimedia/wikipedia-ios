@@ -16,10 +16,12 @@
 "account-creation-missing-fields" = "نواں کھاتہ کھولݨ کیتے تہاکں ورتݨ آلا ناں، پاسورڈ تے پاسورڈ دی تصدیق درج کرݨی پوسی۔";
 "account-creation-saving" = "بچیندا پئے۔۔۔";
 "account-creation-title" = "نواں کھاتہ کھولو";
+"account-group-title" = "تہاݙا کھاتہ";
 "action-add-to" = "شامل کرو۔۔۔";
 "action-cancel" = "منسوخ";
 // Fuzzy
 "action-find-in-page" = "ورقے وچ ڳولو";
+"action-language-accessibility" = "زبان وٹاؤ";
 "action-move-to" = "تے ون٘ڄو...";
 "action-read" = "پڑھو";
 "action-redo" = "ولدا کرو";
@@ -66,6 +68,7 @@
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
 "dim-images" = "مدھم تصویر";
+"edit-link-title" = "روابط وچ ترمیم کرو";
 "edit-menu-item" = "لکھو";
 "edit-style-table-view-title" = "سٹائل";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";
@@ -119,6 +122,14 @@
 "in-the-news-notification-share-action-title" = "شیئر";
 "in-the-news-title" = "خبراں وچ";
 "info-box-close-text" = "بند کرو";
+"insert-action-title" = "درج کرو";
+"insert-media-caption-title" = "عنوان";
+"insert-media-image-position-setting-left" = "کھٻے";
+"insert-media-image-position-setting-none" = "کوئی وی کائنی";
+"insert-media-image-preview-more-information-action-title" = "ٻیاں معلومات";
+"insert-media-image-size-setting-default" = "پہلے کنوں طے تھیا ہویا";
+"insert-media-image-type-setting-basic" = "بنیادی";
+"insert-media-image-type-setting-frame" = "فریم";
 "languages-settings-title" = "زباناں";
 "languages-title" = "زبان وٹاؤ";
 "license-footer-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
@@ -130,7 +141,7 @@
 "main-menu-heading-debug" = "ڈی بگ";
 "main-menu-heading-legal" = "رازداری تے شرائط";
 "main-menu-nearby" = "نیڑے";
-"main-menu-privacy-policy" = "پرائیویسی پالیسی";
+"main-menu-privacy-policy" = "رازداری پالیسی";
 "main-menu-title" = "ٻئے";
 "menu-cancel-accessibility-label" = "منسوخ";
 "more-languages-tooltip-title" = "زباناں شامل کرو";
@@ -170,6 +181,7 @@
 "search-recent-clear-confirmation-sub-heading" = "اے کم واپس نی تھی سڳدا";
 "search-recent-clear-delete-all" = "سارے مٹاؤ";
 "search-title" = "ڳولو";
+"settings-account" = "کھاتہ";
 "settings-appearance" = "پڑھݨ ترجیحاں";
 "settings-clear-cache-cancel" = "منسوخ";
 "settings-clear-cache-ok" = "کیشی صاف کرو";
@@ -188,6 +200,10 @@
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "table-title-other" = "ٻیاں معلومات";
+"talk-page-add-discussion-accessibility-label" = "بحث شامل کرو";
+"talk-page-new-subject-placeholder-text" = "موضوع";
+"talk-page-new-subject-textfield-accessibility-label" = "موضوع";
+"talk-page-reply-title" = "جواب";
 "theme-black-display-name" = "کالا";
 "theme-dark-display-name" = "گہرا";
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";

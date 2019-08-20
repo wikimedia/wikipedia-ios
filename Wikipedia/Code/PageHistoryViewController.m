@@ -59,6 +59,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)accessibilityPerformEscape {
+    [self closeButtonPressed];
+    return YES;
+}
+
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
 
@@ -135,7 +140,7 @@
     label.text = self.pageHistoryDataArray[section].sectionTitle;
     [label wmf_configureSubviewsForDynamicType];
 
-    [view wmf_addSubview:label withConstraintsToEdgesWithInsets:UIEdgeInsetsMake(0, 10, 0, 10) priority:UILayoutPriorityRequired];
+    [view wmf_addSubview:label withConstraintsToEdgesWithInsets:UIEdgeInsetsMake(0, 10, 0, 10) priority:UILayoutPriorityRequired belowSubview:nil];
 
     return view;
 }

@@ -25,7 +25,10 @@ enum WebViewMessagingError: LocalizedError {
         return CommonStrings.genericErrorDescription
     }
 }
-    
+
+enum CompletionType {
+    case wikitext
+}
 
 class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler {
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonMessageDelegate?
@@ -35,12 +38,17 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     weak var scrollDelegate: SectionEditorWebViewMessagingControllerScrollDelegate?
 
     weak var webView: WKWebView!
+    
+    var completions: [CompletionType: (Error?) -> Void] = [:]
 
     // MARK: - Receiving messages
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
-
+        case (Message.Name.didSetWikitextMessage, let result as [String: Any]):
+            assert(Thread.isMainThread)
+            completions[.wikitext]?(result["error"] != nil ? WebViewMessagingError.generic : nil)
+            completions.removeValue(forKey: .wikitext)
         case (Message.Name.replaceAllCountMessage, let count as Int):
             alertDelegate?.sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(self, replacedCount: count)
         case (Message.Name.smoothScrollToYOffsetMessage, let yOffset as CGFloat):
@@ -132,12 +140,16 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     }
 
     func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        assert(Thread.isMainThread)
         let escapedWikitext = wikitext.wmf_stringBySanitizingForBacktickDelimitedJavascript()
-        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
-            guard let completionHandler = completionHandler else {
+        completions[.wikitext] = completionHandler
+        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`, () => {  window.webkit.messageHandlers.didSetWikitextMessage.postMessage({}); });") { (_, error) in
+            guard let error = error, let completionHandler = completionHandler else {
                 return
             }
             completionHandler(error)
+            assert(Thread.isMainThread)
+            self.completions.removeValue(forKey: .wikitext)
         }
     }
 
@@ -173,7 +185,6 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case italic
         case reference
         case template
-        case anchor
         case indent
         case signature
         case orderedList
@@ -211,14 +222,20 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         case selectLastFocusedMatch
         case selectLastSelection
         case clearFormatting
+        case replaceSelection
+        case lineInfo
+        case newlineAndIndent
+        case getLink
+        case insertOrEditLink
+        case removeLink
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
         return "window.wmf.commands.\(commandType.rawValue)(\(argument ?? ""));"
     }
 
-    private func execCommand(for commandType: CodeMirrorCommandType, argument: Any? = nil) {
-        webView.evaluateJavaScript(commandJS(for: commandType, argument: argument), completionHandler: nil)
+    private func execCommand(for commandType: CodeMirrorCommandType, argument: Any? = nil, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript(commandJS(for: commandType, argument: argument), completionHandler: completionHandler)
     }
 
     func toggleBoldSelection() {
@@ -237,8 +254,61 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .template)
     }
 
-    func toggleAnchorSelection() {
-        execCommand(for: .anchor)
+    struct Link {
+        let page: String
+        let label: String?
+        let exists: Bool
+
+        init?(page: String?, label: String?, exists: Bool?) {
+            guard let page = page else {
+                assertionFailure("Attempting to create a Link without a page")
+                return nil
+            }
+            guard let exists = exists else {
+                assertionFailure("Attempting to create a Link without information about whether it's an existing link")
+                return nil
+            }
+            self.page = page
+            self.label = label
+            self.exists = exists
+        }
+
+        var hasLabel: Bool {
+            return label != nil
+        }
+
+        func articleURL(for siteURL: URL) -> URL? {
+            guard exists else {
+                return nil
+            }
+            return siteURL.wmf_URL(withTitle: page)
+        }
+    }
+
+    func getLink(completion: @escaping (Link?) -> Void) {
+        execCommand(for: .getLink) { result, error in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            guard let link = result as? [String: Any] else {
+                return
+            }
+            let page = link["page"] as? String
+            let label = link["label"] as? String
+            let exists = link["hasMarkup"] as? Bool
+            completion(Link(page: page, label: label, exists: exists))
+        }
+    }
+
+    func insertOrEditLink(page: String, label: String?) {
+        let labelOrNull = label.flatMap { "\"\($0)\"" } ?? "null"
+        let argument = "\"\(page)\", \(labelOrNull)".wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .insertOrEditLink, argument: argument)
+    }
+
+    func removeLink() {
+        execCommand(for: .removeLink)
     }
 
     func toggleIndentSelection() {
@@ -304,8 +374,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         execCommand(for: .comment)
     }
 
-    func focus() {
-        execCommand(for: .focus)
+    func focus(_ completion: (() -> Void)? = nil) {
+        execCommand(for: .focus) { (_, _) in
+            completion?()
+        }
     }
 
     func focusWithoutScroll() {
@@ -390,6 +462,42 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     func clearFormatting() {
         execCommand(for: .clearFormatting)
     }
+
+    func replaceSelection(text: String) {
+        let escapedText = text.wmf_stringBySanitizingForBacktickDelimitedJavascript()
+        execCommand(for: .replaceSelection, argument: "`\(escapedText)`")
+    }
+
+    struct LineInfo {
+        let hasLineTokens: Bool
+        let isAtLineEnd: Bool
+    }
+
+    func getLineInfo(_ completion: @escaping (LineInfo?) -> Void) {
+        execCommand(for: .lineInfo) { result, error in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            guard let result = result as? [String: Bool] else {
+                completion(nil)
+                return
+            }
+            guard
+                let hasLineTokens = result["hasLineTokens"],
+                let isAtLineEnd = result["isAtLineEnd"]
+                else {
+                    assertionFailure("Unexpected result structure")
+                    completion(nil)
+                    return
+            }
+            completion(LineInfo(hasLineTokens: hasLineTokens, isAtLineEnd: isAtLineEnd))
+        }
+    }
+
+    func newlineAndIndent() {
+        execCommand(for: .newlineAndIndent)
+    }
 }
 
 extension SectionEditorWebViewMessagingController {
@@ -405,6 +513,7 @@ extension SectionEditorWebViewMessagingController {
             static let findInPageFocusedMatchID = "findInPageFocusedMatchID"
             static let smoothScrollToYOffsetMessage = "smoothScrollToYOffsetMessage"
             static let replaceAllCountMessage = "replaceAllCountMessage"
+            static let didSetWikitextMessage = "didSetWikitextMessage"
         }
         struct Body {
             struct Key {

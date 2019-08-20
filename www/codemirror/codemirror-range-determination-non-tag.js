@@ -27,17 +27,19 @@ const tokenTypes = (token) => {
 }
 
 const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
-  const soughtTokenTypes = new Set(['mw-apostrophes-bold', 'mw-apostrophes-italic', 'mw-link-bracket', 'mw-section-header', 'mw-template-bracket'])  
+  const soughtBoundaryTokenTypes = new Set(['mw-apostrophes-bold', 'mw-apostrophes-italic', 'mw-link-bracket', 'mw-section-header', 'mw-template-bracket'])  
+  const soughtTokenTypes = new Set(['mw-template-bracket', 'mw-template-name', 'mw-template-argument-name', 'mw-template-delimiter'])
 
   let trackedTypes = new Set()
   let outputMarkupItems = []
   
   const tokenWithEnrichedInHtmlTagArray = (token, index, tokens) => {
     
+    const boundaryTypes = intersection(tokenTypes(token), soughtBoundaryTokenTypes)
     const types = intersection(tokenTypes(token), soughtTokenTypes)
-    
-    const typesToStopTracking = Array.from(intersection(trackedTypes, types))
-    const typesToStartTracking = Array.from(difference(types, trackedTypes))
+  
+    const typesToStopTracking = Array.from(intersection(trackedTypes, boundaryTypes))
+    const typesToStartTracking = Array.from(difference(boundaryTypes, trackedTypes))
     
     const addMarkupItemWithRangeStarts = (type) => {
       const inner = new ItemRange(new ItemLocation(line, token.end), new ItemLocation(line, -1))
@@ -56,8 +58,16 @@ const nonTagMarkupItemsForLineTokens = (lineTokens, line) => {
       }
     }
     
+    const addCompleteMarkupRanges = (type) => {
+      const inner = new ItemRange(new ItemLocation(line, token.start), new ItemLocation(line, token.end))
+      const outer = new ItemRange(new ItemLocation(line, token.start), new ItemLocation(line, token.end))
+      const markupItem = new MarkupItem(type, inner, outer)
+      outputMarkupItems.push(markupItem)
+    }
+    
     typesToStartTracking.forEach(addMarkupItemWithRangeStarts)
     typesToStopTracking.forEach(updateMarkupItemRangeEnds)
+    types.forEach(addCompleteMarkupRanges)
     
     typesToStopTracking.forEach(tag => trackedTypes.delete(tag))
     typesToStartTracking.forEach(tag => trackedTypes.add(tag))

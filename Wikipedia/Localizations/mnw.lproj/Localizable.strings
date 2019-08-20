@@ -259,7 +259,6 @@
 "feed-news-notification-text" = "နကဵု ဝဳကဳပဳယာ ကဵု နု ပ္ဍဲနုတိဝှိကေရှေန် ဟွံဂွံ အခိင်လိက်ပရေင်ဂှ် မကတဵုဒှ်ဒၟံင် ပ္ဍဲပရိုင်၊၊";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "မလိက်ပၞုက် ဟွံကိတ်";
-"field-alert-password-invalid" = "မလိက်ပၞုက် ဟွံလုပ်အဝေါင်";
 "field-alert-token-invalid" = "ကုဒ် ဟွံလုပ်အဝေါင်";
 "field-alert-username-unavailable" = "ယၟုမသုင်စောဲ ဟွံလုပ်အဝေါင်";
 "field-backup-token-title" = "ကေတ်အရီုအဗင် ကုတ်";
@@ -302,7 +301,6 @@
 "home-themes-prompt" = "ပလေဝ် ဒၞာဲစရင်မၞး မဒးဂၞပ် သီုကဵု ဇမၞော်မအက္ခရ် ပရူပရာ နူကြိယာ လိက်ပရေင် ဟွံသေင်မ္ဂး နူဒၞာဲမဖျေဟ်ဒၞာဲ သွက်ဂွံဗှ်စှ်ေဗီု၊၊";
 "home-title" = "စဳစောတ်";
 "home-title-accessibility-label" = "ဝဳကဳပဳဒဳယာ ရုဲစှ် Explore လတူ";
-"icon-shortcut-continue-reading-title" = "ဆက် ဗှ်";
 "icon-shortcut-nearby-title" = "လိက်ပရေင် ဗဒါဲ";
 "icon-shortcut-random-title" = "လိက်ပရေင် ဇယောမ် (ဇျောမ်)";
 "icon-shortcut-search-title" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";

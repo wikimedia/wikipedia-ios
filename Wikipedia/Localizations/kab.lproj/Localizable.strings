@@ -132,7 +132,6 @@
 "feed-news-notification-text" = "Rmed ilɣa yettwaznen sɣur Wikipedia ticki imagraden skanayen talɣa n isallen.";
 "field-alert-captcha-invalid" = "Yir CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Awalen uffiren ur menṭaḍen ara";
-"field-alert-password-invalid" = "Yir awal uffir";
 "field-alert-token-invalid" = "Yir tangalt";
 "field-alert-username-unavailable" = "Ulac isem n useqdac";
 "field-backup-token-title" = "Tangalt n tririt";
@@ -176,7 +175,6 @@
 "home-themes-prompt" = "Seggem ismenyifen-ik n tɣuri (ula d teɣzi n uḍris d usentel) seg ufeggag n ifecka n umagrad neɣ deg ismenyifen-ik n useqdac i tɣuri ifazen.";
 "home-title" = "Snirem";
 "home-title-accessibility-label" = "Wikipedia, sedrurem d asawen akken ad waliḍ";
-"icon-shortcut-continue-reading-title" = "Kemmel taɣuri";
 "icon-shortcut-nearby-title" = "Imagraden icuban";
 "icon-shortcut-random-title" = "Amagrad agacuran";
 "icon-shortcut-search-title" = "Nadi di Wikipedia";

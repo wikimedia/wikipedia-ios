@@ -122,7 +122,6 @@
 "feed-news-notification-text" = "Sad možete primati obavještenja o člancima na Wikipediji koji su aktualni na vijestima.";
 "field-alert-captcha-invalid" = "Neispravna CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lozinke se ne poklapaju";
-"field-alert-password-invalid" = "Neispravna lozinka";
 "field-alert-token-invalid" = "Neispravni kôd";
 "field-alert-username-unavailable" = "Korisničko ime nije dostupno";
 "field-backup-token-title" = "Rezervni kôd";
@@ -164,7 +163,6 @@
 "home-news-footer" = "Više vijesti";
 "home-title" = "Istraži";
 "home-title-accessibility-label" = "Wikipedia, pomjerite se na vrh ekrana Istraži";
-"icon-shortcut-continue-reading-title" = "Nastavi s čitanjem";
 "icon-shortcut-nearby-title" = "Članci o objektima u blizini";
 "icon-shortcut-random-title" = "Nasumičan članak";
 "icon-shortcut-search-title" = "Pretraži Wikipediju";

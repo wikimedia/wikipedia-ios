@@ -441,8 +441,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                               "contentDiv.style.marginLeft='%ipx';"
                               "contentDiv.style.marginRight='%ipx';"
                               "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);"
-                              "var body = document.getElementsByTagName('body')[0];"
-                              "body.style.paddingTop='%ipx';";
+                              "document.body.style.paddingTop='%ipx';";
 
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
@@ -690,6 +689,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateMenuItems];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
@@ -755,24 +759,26 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 #pragma mark - Scrolling
 
 - (void)scrollToFragment:(NSString *)fragment {
-    [self scrollToFragment:fragment animated:YES];
+    [self scrollToFragment:fragment animated:YES completion:NULL];
 }
 
-- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated {
+- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
-    } else {
-        if (!animated) {
-            [self.webView wmf_scrollToFragment:fragment];
-            return;
+        if (completion) {
+            completion();
         }
+    } else {
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                                                   animated:animated
                                                                                                 completion:^(BOOL finished){
+                                                                                                    if (completion) {
+                                                                                                        completion();
+                                                                                                    }
                                                                                                 }];
                                                      }
                                                  }];
@@ -780,7 +786,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
-    [self scrollToFragment:section.anchor animated:animated];
+    [self scrollToFragment:section.anchor animated:animated completion:NULL];
+    [self.delegate webViewController:self didScrollToSection:section];
 }
 
 - (void)accessibilityCursorToSection:(MWKSection *)section {
@@ -857,7 +864,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [handler cacheSectionDataForArticle: self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
+}
 
+- (void)updateMenuItems {
     NSString *shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu");
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:shareMenuItemTitle
                                                           action:@selector(shareMenuItemTapped:)];

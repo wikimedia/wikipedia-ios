@@ -7,6 +7,7 @@
 // Author: Haytham morsy
 // Author: Hhaboh162002
 // Author: Hocinend1
+// Author: Kassem7899
 // Author: Macofe
 // Author: Maroen1990
 // Author: Meno25
@@ -68,11 +69,17 @@
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
 "account-creation-title" = "أنشئ حسابًا جديدًا";
+"account-group-title" = "حسابك";
+"account-talk-page-title" = "صفحة النقاش الخاصة بك";
+"account-talk-preferences-auto-sign-discussions" = "التوقيع التلقائي للنقاشات";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "سيستخدم التوقيع التلقائي للمناقشات التوقيع المحدد في إعدادات التوقيع";
+"account-talk-preferences-title" = "تفضيلات صفحة النقاش";
 "action-add-to" = "أضف إلى…";
 "action-add-to-reading-list" = "أضف إلى قائمة القراءة";
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
 "action-cancel" = "إلغاء";
 "action-find-in-page" = "البحث في الصفحة";
+"action-language-accessibility" = "تغيير اللغة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
 "action-read" = "اقرأ";
@@ -92,6 +99,7 @@
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
+"add-citation-title" = "إضافة استشهاد";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
@@ -130,6 +138,7 @@
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
 "cc-zero" = "المشاع الإبداعي CC0";
+"clear-title-accessibility-label" = "امسح";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
@@ -186,7 +195,11 @@
 "edit-italic-accessibility-label" = "إضافة تنسيق مائل";
 "edit-italic-remove-accessibility-label" = "إزالة التنسيق المائل";
 "edit-link-accessibility-label" = "إضافة صيغة الوصلة";
+"edit-link-display-text-title" = "نص العرض";
+"edit-link-link-target-title" = "رابط الهدف";
 "edit-link-remove-accessibility-label" = "إزالة صيغة الوصلة";
+"edit-link-remove-link-title" = "إزالة الرابط";
+"edit-link-title" = "عدل الوصلة";
 "edit-menu-item" = "تعديل";
 "edit-menu-item-could-not-find-selection-alert-message" = "قد يكون هذا لأن النص الذي حددته غير قابل للتحرير (على سبيل المثال، عنوان مقالة أو عناوين صندوق معلومات) أو بسبب طول النص الذي تم تمييزه";
 "edit-menu-item-could-not-find-selection-alert-title" = "تعذر تحديد موقع النص الذي حددته";
@@ -195,7 +208,6 @@
 "edit-ordered-list-accessibility-label" = "جعل الخط الحالي قائمة مرتبة";
 "edit-ordered-list-remove-accessibility-label" = "إزالة قائمة مرتبة من الخط الحالي";
 "edit-published" = "تم نشر التعديل";
-"edit-published-button-title" = "تم";
 "edit-published-subtitle" = "أنت فقط جعلت ويكيبيديا أفضل للجميع";
 "edit-reference-accessibility-label" = "أضف صيغة مرجع";
 "edit-reference-remove-accessibility-label" = "إزالة صيغة المرجع";
@@ -235,6 +247,7 @@
 "editing-welcome-impartial-tone-title" = "اكتب بنبرة محايدة";
 "editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
 "editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
+"empty-insert-media-title" = "حدد ملفا من ويكيميديا ​​كومنز";
 "empty-no-article-message" = "عذرا , غير قادر على تحميل الموضوع";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-feed-message" = "يمكنك مشاهدة مواضيعك المفضلة عندما تتصل بالانترنت";
@@ -247,6 +260,7 @@
 "empty-no-saved-pages-message" = "احفظ الصفحات لمطالعتها لاحقا، حتى بدون اتصال بالإنترنت";
 "empty-no-saved-pages-title" = "لا صفحات محفوظة بعد";
 "empty-no-search-results-message" = "لا توجد نتائج";
+"empty-talk-page-title" = "لم يتم نشر رسائل لهذا المستخدم بعد";
 "error-generic-description" = "حدث خطأ غير متوقع";
 "error-generic-recovery-suggestion" = "من فضلك حاول مرة أخرى لاحقا";
 "error-unknown" = "حدث خطأ غير معروف";
@@ -334,13 +348,13 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "من ويكيبيديا $1";
 "explore-random-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
 "explore-randomizer" = "صفحات عشوائية";
+"featured-article-empty-title" = "لا توجد مقالة مختارة متوفرة اليوم";
 "feed-news-notification-button-text" = "أظهر الإشعارات";
 "feed-news-notification-text" = "تمكين الإخطارات ليتم إعلامك من قبل ويكيبيديا عندما تكون المقالات شائعة في الأخبار.";
 "fetcher-error-generic" = "هناك خطأ ما، الرجاء معاودة المحاولة في وقت لاحق.";
 "fetcher-error-unexpected-response" = "تلقى التطبيق استجابة غير متوقعة من الخادم، الرجاء معاودة المحاولة في وقت لاحق.";
 "field-alert-captcha-invalid" = "تحقق بشري خاطئ";
 "field-alert-password-confirm-mismatch" = "كلمتا السر لا تتطابقان";
-"field-alert-password-invalid" = "كلمة سر خاطئة";
 "field-alert-token-invalid" = "رمز خاطئ";
 "field-alert-username-unavailable" = "اسم المستخدم غير متاح";
 "field-backup-token-title" = "رمز احتياطي";
@@ -389,7 +403,6 @@
 "home-themes-prompt" = "اضبط تفضيلات قراءتك بما في ذلك حجم النص والمظهر من شريط أدوات المقالة أو في إعدادات المستخدم لتجربة قراءة أكثر راحة.";
 "home-title" = "استكشف";
 "home-title-accessibility-label" = "ويكيبيديا، اذهب لبداية الاستكشاف";
-"icon-shortcut-continue-reading-title" = "مواصلة القراءة";
 "icon-shortcut-nearby-title" = "مقالات مجاورة";
 "icon-shortcut-random-title" = "مقالة عشوائية";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
@@ -403,6 +416,33 @@
 "in-the-news-title" = "في الأخبار";
 "info-box-close-text" = "إغلاق";
 "info-box-title" = "معلومات سريعة";
+"insert-action-title" = "إدراج";
+"insert-link-title" = "إدراج وصلة";
+"insert-media-alternative-text-description" = "وصف النص للقراء الذين لا يستطيعون رؤية الصورة";
+"insert-media-alternative-text-placeholder" = "صف هذه الصورة";
+"insert-media-alternative-text-title" = "نص بديل";
+"insert-media-caption-caption-placeholder" = "كيف ترتبط هذه الصورة بالمقالة؟";
+"insert-media-caption-description" = "التسمية التي تظهر بجوار العنصر لجميع القراء";
+"insert-media-caption-title" = "الشرح";
+"insert-media-image-position-setting-center" = "وسط";
+"insert-media-image-position-setting-left" = "يسار";
+"insert-media-image-position-setting-none" = "لا شيء";
+"insert-media-image-position-setting-right" = "يمين";
+"insert-media-image-position-settings-title" = "مكان الصورة";
+"insert-media-image-preview-more-information-action-title" = "معلومات أكثر";
+"insert-media-image-preview-select-image-action-title" = "اختر صورة";
+"insert-media-image-size-setting-custom" = "مخصص";
+"insert-media-image-size-setting-default" = "افتراضي";
+"insert-media-image-size-settings-px-unit-name" = "بك";
+"insert-media-image-size-settings-title" = "حجم الصورة";
+"insert-media-image-type-setting-basic" = "أساسي";
+"insert-media-image-type-setting-frame" = "إطار";
+"insert-media-image-type-setting-frameless" = "بلا إطار";
+"insert-media-image-type-setting-thumbnail" = "تصغير";
+"insert-media-image-type-settings-title" = "نوع الصورة";
+"insert-media-media-settings-title" = "إعدادات الوسائط";
+"insert-media-title" = "إدراج وسائط";
+"insert-media-uploaded-image-title" = "تم رفع الصورة";
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
@@ -633,6 +673,7 @@
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "search-title" = "بحث";
+"settings-account" = "حساب";
 "settings-appearance" = "تفضيلات القراءة";
 "settings-clear-cache" = "مسح المحتوى المخزن";
 "settings-clear-cache-are-you-sure-message" = "مسح المحتوى المخزن سيتيح حوالي مساحة $1. هذا لن يحذف المقالات المحفوظة.";
@@ -690,6 +731,37 @@
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
 "table-title-other" = "مزيد من المعلومات";
+"talk-page-add-discussion-accessibility-label" = "أضف نقاشا";
+"talk-page-discussion-accessibility-hint" = "انقر نقرًا مزدوجًا لفتح موضوع نقاش";
+"talk-page-discussion-read-accessibility-label" = "قراءة";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "قراءة";
+"talk-page-discussion-unread-accessibility-label" = "غير مقروءة";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnrɛd";
+"talk-page-error-unable-to-post-reply" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر الرد.";
+"talk-page-error-unable-to-post-topic" = "لا يوجد اتصال بالإنترنت؛ غير قادر على نشر النقاش.";
+"talk-page-info-active-conversations" = "النقاشات النشطة في $1 ويكيبيديا";
+"talk-page-info-active-conversations-generic" = "النقاشات النشطة في ويكيبيديا";
+"talk-page-link-user-action-sheet-app" = "عرض صفحة نقاش المستخدم في التطبيق";
+"talk-page-link-user-action-sheet-safari" = "عرض صفحة المستخدم في سفاري";
+"talk-page-link-user-action-sheet-title" = "صفحات المستخدمين";
+"talk-page-new-banner-subtitle" = "تذكر، كلنا أناسٌ هنا";
+"talk-page-new-banner-title" = "رجاءً كن لطيفاً";
+"talk-page-new-body-textfield-accessibility-label" = "هيئة النقاش";
+"talk-page-new-reply-body-accessibility-label" = "تأليف استجابة";
+"talk-page-new-reply-body-placeholder-text" = "فم بصياغة رد";
+"talk-page-new-reply-success-text" = "تم نشر ردك بنجاح";
+"talk-page-new-subject-clear-button-accessibility" = "مسح الموضوع";
+"talk-page-new-subject-placeholder-text" = "الموضوع";
+"talk-page-new-subject-textfield-accessibility-label" = "الموضوع";
+"talk-page-new-topic-body-placeholder-text" = "قم بصياغة نقاش جديد";
+"talk-page-new-topic-success-text" = "تم نشر نقاشك بنجاح";
+"talk-page-new-topic-title" = "نقاش حديد";
+"talk-page-publish-terms-and-licenses" = "بحفظك للتغييرات، أنت توافق على  $1شروط الاستخدام$2  وعلى إصدار مساهمتك تحت رخصتا  \n $3CC BY-SA 3.0$4 و $5GFDL$6.";
+"talk-page-reply-title" = "رد";
+"talk-page-title-article-talk" = "نقاش المقالة";
+"talk-page-title-user-talk" = "نقاش المستخدم";
+"talk-page-topic-title" = "نقاش";
+"talk-pages-reply-button-title" = "رد على هذا النقاش";
 "theme-black-display-name" = "أسود";
 "theme-dark-display-name" = "غامق";
 "theme-default-display-name" = "الافتراضية";
@@ -702,6 +774,7 @@
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
 "two-factor-login-with-backup-code" = "استخدم رمزًا من الرموز الاحتياطية";
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
+"unable-to-load-talk-page-title" = "غير قادر على تحميل صفحة النقاش";
 "view-in-browser-footer-link" = "اعرض المقالة في المتصفح";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
 "welcome-exploration-explore-feed-title" = "خلاصة الاستكشاف";
@@ -732,6 +805,10 @@
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-preview-changes" = "جار جلب عرض التغييرات التي قمت بها...";
 "wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";
+"wikitext-preview-link-external-preview-description" = "هذا الرابط يؤدي إلى موقع خارجي: $1";
+"wikitext-preview-link-external-preview-title" = "وصلة خارجية";
+"wikitext-preview-link-not-found-preview-description" = "ليست لدى ويكيبيديا مقالة بهذا الاسم الدقيق";
+"wikitext-preview-link-not-found-preview-title" = "لم يتم العثور على رابط داخلي";
 "wikitext-preview-link-preview-description" = "هذه الوصلة تصل إلى '$1'";
 "wikitext-preview-link-preview-title" = "معاينة الوصلة";
 "wikitext-preview-save-changes-title" = "حفظ التغييرات";

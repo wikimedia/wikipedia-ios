@@ -9,13 +9,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<WMFArticle *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSString *displayTitle; // Don't use this property, use displayTitleHTML. It will set the plain text version to displayTitle.
-@property (nullable, nonatomic, copy) NSString *displayTitleHTMLString; // Don't use this property, use displayTitleHTML
+@property (nullable, nonatomic, copy) NSString *displayTitleHTMLString __attribute__((deprecated));  // This is used for storage of the displayTitleHTML but is "deprecated" in the sense that you shouldn't use this property, you should use displayTitleHTML which will set this and the display title
 @property (nonatomic, copy) NSNumber *geoDimensionNumber;
 @property (nonatomic, copy) NSNumber *geoTypeNumber;
 @property (nonatomic, copy) NSNumber *imageHeight;
 @property (nullable, nonatomic, copy) NSString *imageURLString; // original image URL
 @property (nonatomic, copy) NSNumber *imageWidth;
-@property (nonatomic) BOOL isDownloaded;
+@property (nonatomic) BOOL isCached; // is cached for quick re-viewing
+@property (nonatomic) BOOL isDownloaded; // is fully downloaded for offline viewing
 @property (nonatomic) BOOL isExcludedFromFeed;
 @property (nullable, nonatomic, copy) NSString *key;
 @property (nonatomic) double latitude;  //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
@@ -37,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *previewReadingLists;
 @property (nullable, nonatomic, copy) NSNumber *errorCodeNumber;
+@property (nullable, nonatomic, copy) NSNumber *ns;
 
 @end
 

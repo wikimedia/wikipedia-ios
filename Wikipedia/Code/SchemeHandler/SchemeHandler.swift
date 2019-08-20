@@ -15,6 +15,7 @@ final class SchemeHandler: NSObject {
     @objc let scheme: String
     private let session: Session
     private var activeSessionTasks: [URLRequest: URLSessionTask] = [:]
+    private var activeCacheOperations: [URLRequest: Operation] = [:]
     private var activeSchemeTasks = NSMutableSet(array: [])
     
     private let cache: SchemeHandlerCache
@@ -22,6 +23,7 @@ final class SchemeHandler: NSObject {
     private let articleSectionHandler: ArticleSectionHandler
     private let apiHandler: APIHandler
     private let defaultHandler: DefaultHandler
+    private let cacheQueue: OperationQueue = OperationQueue()
     
     @objc public static let shared = SchemeHandler(scheme: WMFURLSchemeHandlerScheme, session: Session.shared)
     
@@ -129,9 +131,15 @@ extension SchemeHandler: WKURLSchemeHandler {
                 removeSchemeTask(urlSchemeTask: urlSchemeTask)
                 return
             }
-            DispatchQueue.global(qos: .userInitiated).async {
+            // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by this block operation
+            // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
+            let op = BlockOperation { [weak urlSchemeTask] in
                 if let cachedResponse = self.defaultHandler.cachedResponseForURL(defaultURL) {
                     DispatchQueue.main.async {
+                        guard let urlSchemeTask = urlSchemeTask else {
+                            return
+                        }
+                        self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
                         urlSchemeTask.didReceive(cachedResponse.response)
                         urlSchemeTask.didReceive(cachedResponse.data)
                         urlSchemeTask.didFinish()
@@ -140,9 +148,15 @@ extension SchemeHandler: WKURLSchemeHandler {
                     return
                 }
                 DispatchQueue.main.async {
+                    guard let urlSchemeTask = urlSchemeTask else {
+                        return
+                    }
+                    self.activeCacheOperations.removeValue(forKey: urlSchemeTask.request)
                     self.kickOffDataTask(handler: self.defaultHandler, url: defaultURL, urlSchemeTask: urlSchemeTask)
                 }
             }
+            activeCacheOperations[urlSchemeTask.request] = op
+            cacheQueue.addOperation(op)
         }
     }
     
@@ -151,19 +165,21 @@ extension SchemeHandler: WKURLSchemeHandler {
         
         removeSchemeTask(urlSchemeTask: urlSchemeTask)
         
-        guard let task = activeSessionTasks[urlSchemeTask.request] else {
-            return
+        if let task = activeSessionTasks[urlSchemeTask.request] {
+            removeSessionTask(request: urlSchemeTask.request)
+
+            switch task.state {
+            case .canceling:
+                fallthrough
+            case .completed:
+                break
+            default:
+                task.cancel()
+            }
         }
         
-        removeSessionTask(request: urlSchemeTask.request)
-        
-        switch task.state {
-        case .canceling:
-            fallthrough
-        case .completed:
-            break
-        default:
-            task.cancel()
+        if let op = activeCacheOperations.removeValue(forKey: urlSchemeTask.request) {
+            op.cancel()
         }
     }
 }
@@ -173,9 +189,14 @@ private extension SchemeHandler {
         guard schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
             return
         }
-        
-        let callback = Session.Callback(response: {  response in
+       
+        // IMPORTANT: Ensure the urlSchemeTask is not strongly captured by the callback blocks.
+        // Otherwise it will sometimes be deallocated on a non-main thread, causing a crash https://phabricator.wikimedia.org/T224113
+        let callback = Session.Callback(response: {  [weak urlSchemeTask] response in
             DispatchQueue.main.async {
+                guard let urlSchemeTask = urlSchemeTask else {
+                    return
+                }
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
@@ -188,15 +209,21 @@ private extension SchemeHandler {
                     urlSchemeTask.didReceive(response)
                 }
             }
-        }, data: { data in
+        }, data: { [weak urlSchemeTask] data in
             DispatchQueue.main.async {
+                guard let urlSchemeTask = urlSchemeTask else {
+                    return
+                }
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
                 urlSchemeTask.didReceive(data)
             }
-        }, success: {
+        }, success: { [weak urlSchemeTask] in
             DispatchQueue.main.async {
+                guard let urlSchemeTask = urlSchemeTask else {
+                    return
+                }
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
@@ -204,8 +231,11 @@ private extension SchemeHandler {
                 self.removeSessionTask(request: urlSchemeTask.request)
                 self.removeSchemeTask(urlSchemeTask: urlSchemeTask)
             }
-        }) { error in
+        }) { [weak urlSchemeTask] error in
             DispatchQueue.main.async {
+                guard let urlSchemeTask = urlSchemeTask else {
+                    return
+                }
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }

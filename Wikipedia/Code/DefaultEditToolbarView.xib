@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,42 +36,49 @@
                                                             <rect key="frame" x="60.000000000000007" y="0.0" width="109.66666666666669" height="44"/>
                                                             <subviews>
                                                                 <button opaque="NO" tag="28" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t52-tF-NuA" userLabel="Format Text Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="11" width="17.333333333333332" height="22"/>
+                                                                    <rect key="frame" x="0.0" y="11" width="15" height="22"/>
                                                                     <state key="normal" image="text-formatting"/>
                                                                     <connections>
                                                                         <action selector="formatText:" destination="iN0-l3-epB" eventType="touchUpInside" id="Cu4-x9-6NR"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="29" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVB-pz-I3S" userLabel="Format Text Style Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="23.333333333333329" y="11" width="19.333333333333329" height="22"/>
+                                                                    <rect key="frame" x="21" y="11" width="17" height="22"/>
                                                                     <state key="normal" image="text-formatting-style"/>
                                                                     <connections>
                                                                         <action selector="formatTextStyle:" destination="iN0-l3-epB" eventType="touchUpInside" id="1Zw-wT-rnd"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-Wy-agF" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="48.666666666666671" y="12" width="0.6666666666666643" height="20"/>
+                                                                    <rect key="frame" x="44" y="12" width="0.3333333333333357" height="20"/>
                                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
                                                                 <button opaque="NO" tag="9" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-By-Bqb" userLabel="Citation Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="55.333333333333329" y="11" width="9" height="22"/>
+                                                                    <rect key="frame" x="50.333333333333329" y="11" width="8" height="22"/>
                                                                     <state key="normal" image="text-formatting-add-citation"/>
                                                                     <connections>
                                                                         <action selector="toggleCitation:" destination="iN0-l3-epB" eventType="touchUpInside" id="RWg-r0-cOq"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usu-sH-MMC" userLabel="Link Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="70.333333333333343" y="11" width="11.666666666666671" height="22"/>
+                                                                    <rect key="frame" x="64.333333333333329" y="11" width="10" height="22"/>
                                                                     <state key="normal" image="text-formatting-link"/>
                                                                     <connections>
                                                                         <action selector="toggleLink:" destination="iN0-l3-epB" eventType="touchUpInside" id="sdE-HW-jkI"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="10" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXZ-uI-C7O" userLabel="Template Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="88" y="11" width="9.6666666666666714" height="22"/>
+                                                                    <rect key="frame" x="80.333333333333343" y="11" width="10" height="22"/>
                                                                     <state key="normal" image="text-formatting-curly-brackets"/>
                                                                     <connections>
                                                                         <action selector="toggleTemplate:" destination="iN0-l3-epB" eventType="touchUpInside" id="RWl-f2-2Vd"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="31" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nk-YM-OBo" userLabel="Media Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                    <rect key="frame" x="96.333333333333343" y="11" width="1.3333333333333286" height="22"/>
+                                                                    <state key="normal" image="insert-media/toolbar-icon"/>
+                                                                    <connections>
+                                                                        <action selector="insertMedia:" destination="iN0-l3-epB" eventType="touchUpInside" id="Y1W-Cl-5S5"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="sz5-NF-B4w" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
@@ -338,6 +345,7 @@
                 <outletCollection property="buttons" destination="ycB-mS-qZ3" collectionClass="NSMutableArray" id="b2f-0B-g8H"/>
                 <outletCollection property="buttons" destination="MjG-se-XpY" collectionClass="NSMutableArray" id="euE-8S-y9R"/>
                 <outletCollection property="separatorViews" destination="bkM-bA-d3o" collectionClass="NSMutableArray" id="Grh-Yo-vCr"/>
+                <outletCollection property="buttons" destination="9Nk-YM-OBo" collectionClass="NSMutableArray" id="2r6-O6-VfS"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>
@@ -349,6 +357,7 @@
         <image name="directionRight" width="11" height="18"/>
         <image name="directionUp" width="19" height="12"/>
         <image name="find-in-page" width="19" height="25"/>
+        <image name="insert-media/toolbar-icon" width="20" height="20"/>
         <image name="text-formatting" width="27" height="18"/>
         <image name="text-formatting-add-citation" width="14" height="18"/>
         <image name="text-formatting-curly-brackets" width="18" height="16"/>

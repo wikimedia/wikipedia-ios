@@ -34,20 +34,15 @@
 "about-translators-details" = "$1(e)n boluntarioek itzulita";
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu. Mesedez itzul zaitez eta alda ezazu.";
+"abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau argitaratu";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Iragazki automatizatu batek potentzialki mingarria edo bandalismoa izan daitezkeen aldaketak identifikatu ditu.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Artikulu hutsak edo spamming estekak";
-// Fuzzy
-"abuse-filter-warning-caps" = "CAPS guztiak idazten";
+"abuse-filter-warning-blanking" = "Artikulu osoak edo atalak ezabatu";
+"abuse-filter-warning-caps" = "Testua letra larrietan bakarrik";
 "abuse-filter-warning-heading" = "Hau editatze ezezaguna izan daiteke. Ziur al zaude argitaratu nahi duzula?";
 "abuse-filter-warning-irrelevant" = "Garrantzirik gabeko kanpo-loturak edo argazkiak";
-// Fuzzy
 "abuse-filter-warning-repeat" = "Errepikatutako karaktereak";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Zure aldaketak hurrengotariko baten bat eduki dezake:";
+"abuse-filter-warning-subheading" = "Zure aldaketak hauetako bat eduki dezake:";
 "account-creation-captcha-cannot-see-image" = "Ezin duzu argazkia ikusi? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA berria lortzen...";
 "account-creation-captcha-request-account" = "Eskatu kontua.";
@@ -64,8 +59,7 @@
 "action-add-to-reading-list" = "Gehitu irakurketa zerrendara";
 "action-add-to-reading-list-short" = "Zerrendara gehitu";
 "action-cancel" = "Utzi";
-// Fuzzy
-"action-find-in-page" = "Aurkitu orrialdean";
+"action-find-in-page" = "Orrialdean bilatu";
 "action-move-to" = "Horra mugitu...";
 "action-move-to-reading-list" = "Irakurketa zerrendara mugitu";
 "action-read" = "Irakurri";
@@ -76,7 +70,6 @@
 "action-saved-accessibility-notification" = "Gerorako gorde da artikulua";
 "action-share" = "Partekatu";
 "action-sort" = "Sailkatu";
-// Fuzzy
 "action-undo" = "Desegin";
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
@@ -171,8 +164,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Hizkuntza zehaztasun gabea";
 "explore-feed-preferences-global-cards-title" = "Txartel globalak";
 "explore-feed-preferences-hide-card-action-title" = "Txartel hau ezkutatu";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "%@ txartel guztiak ezkutatu";
+"explore-feed-preferences-hide-feed-cards-action-title" = "“%@” txartel guztiak ezkutatu";
 "explore-feed-preferences-in-the-news-description" = "Eguneko ekitaldiei buruzko artikuluak";
 "explore-feed-preferences-on-this-day-description" = "Gaurko eguneko historian zehar gertaturiko ekitaldiak";
 "explore-feed-preferences-places-description" = "Wikipedia artikuluak zure kokapenetik hurbil";
@@ -213,7 +205,6 @@
 "feed-news-notification-text" = "Jakinarazpenak gaitu, Wikipediak jakinarazteko gehien irakurritako artikuluak agertzen zaizkizunean.";
 "field-alert-captcha-invalid" = "CAPTCHA baliogabetuta";
 "field-alert-password-confirm-mismatch" = "Pasahitzak ez datoz bat.";
-"field-alert-password-invalid" = "Pasahitz okerra";
 "field-alert-token-invalid" = "Kode okerra";
 "field-alert-username-unavailable" = "Erabiltzaile-izena ez dago erabilgarri";
 "field-backup-token-title" = "Babeskopia kodea";
@@ -250,14 +241,12 @@
 "home-more-like-footer" = "$1 bezalako artikulu gehiago";
 "home-nearby-footer" = "Zure kokapenetik gertuko leku gehiago";
 "home-nearby-location-footer" = "Zure kokapenetik gertuko gehiago $1";
-// Fuzzy
-"home-news-footer" = "Berrietako gehiago";
+"home-news-footer" = "Oraingo gertakari gehiago";
 "home-reading-list-prompt" = "Gordetako artikuluak irakurketa-zerrendatan antola eta sinkroniza daitezke gailuetan zehar. Hasi saioa zure irakurketa-zerrendak zure erabiltzaile prefentzietan gordetzeko baimena eman ahal izateko.";
 "home-themes-action-title" = "Lehentasunak aukeratu";
 "home-themes-prompt" = "Zure irakurketa lehentasunak hitzartu testuaren neurria eta gaia artikuluaren erraminta atalean edo erabiltzailearen doitze atalean, irakurketa esperientzia erosoagoa izateko.";
 "home-title" = "Esploratu";
 "home-title-accessibility-label" = "Wikipedia, joan Arakatzailearen goialdera";
-"icon-shortcut-continue-reading-title" = "Irakurtzen jarraitu";
 "icon-shortcut-nearby-title" = "Inguruko artikuluak";
 "icon-shortcut-random-title" = "Ausazko artikulua";
 "icon-shortcut-search-title" = "Bilatu Wikipedian";
@@ -463,8 +452,7 @@
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
 "saved-pages-progress-syncing" = "Artikuluen jaistea abian...";
 "saved-reading-lists-title" = "Irakurketa zerrendak";
-// Fuzzy
-"saved-search-default-text" = "Bilatu";
+"saved-search-default-text" = "Gordetako artikuluetan bilatu";
 "saved-title" = "Gordea";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ezabatzekotan {{PLURAL:$1|artikulu honek ezabatuko du|artikulu hauek ezabatuko dute}} asoziatutako irakurketa zerrenda guztietatik";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|artikulu $1|$1 artikuluak}} ezabatu?";
@@ -497,8 +485,7 @@
 "settings-notifications-system-turn-on" = "Jakinarazpenak piztu";
 "settings-notifications-trending" = "Modan dauden gaurko gertakariak";
 "settings-primary-language" = "Primarioa";
-// Fuzzy
-"settings-primary-language-details" = "Zerrenda honetan erabilitako lehenengo hizkuntza aplikazio honetarako ere erabiltzen den hizkuntza da. Hizkuntza hau aldatzerakoan, eguneroko edukia ere aldatuko da (adibidez, Nabarmendutako Artikulua) Arakatzailean agertzen dena.";
+"settings-primary-language-details" = "Zerrenda honetan erabilitako lehenengo hizkuntza aplikazio honetarako ere erabiltzen den hizkuntza da.";
 "settings-search-open-app-on-search" = "Zabaldu aplikazioa Bilaketa leihoan";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Baimendu Wikimediari zure gordetako artikuluak eta irakurketa-zerrendak zure kontuko lehentasunetan gordetzen saioa sinkronizatzeko hasten duzunean.";
 "settings-storage-and-syncing-enable-sync-title" = "Gordetako artikuluak eta zerrendak sinkronizatu";

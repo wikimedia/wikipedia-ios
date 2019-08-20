@@ -9,7 +9,9 @@ class SearchResultsViewController: ArticleCollectionViewController {
             reload()
         }
     }
-    
+
+    var delegatesSelection: Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         useNavigationBarVisibleHeightForScrollViewInsets = true
@@ -34,6 +36,15 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return .search
     }
     
+    override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
+        guard let title = results[indexPath.item].title,
+            results[indexPath.item].pageNamespace == .userTalk else {
+                return nil
+        }
+        
+        return title
+    }
+    
     override func isExternalURL(at indexPath: IndexPath) -> Bool {
         return results[indexPath.item].titleNamespace?.intValue ?? 0 != 0
     }
@@ -54,6 +65,33 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return results.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
+        guard !delegatesSelection else {
+            return
+        }
+        
+        if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
+            let searchSiteURL = searchSiteURL {
+            
+            let article = dataStore.historyList.addPageToHistory(with: articleURL)
+            article?.update(with: results[indexPath.item])
+            
+            pushUserTalkPage(title: userTalkPageTitle, siteURL: searchSiteURL)
+            return
+        }
+        
+        guard !isExternalURL(at: indexPath) else {
+            wmf_openExternalUrl(articleURL)
+            return
+        }
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {

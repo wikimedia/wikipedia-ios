@@ -187,7 +187,6 @@
 "edit-ordered-list-accessibility-label" = "Gjør linjen til en nummerert (ordnet) liste";
 "edit-ordered-list-remove-accessibility-label" = "Fjern listeformatering fra den valgte linjen";
 "edit-published" = "Redigering publisert";
-"edit-published-button-title" = "Ferdig";
 "edit-published-subtitle" = "Du gjorde nettopp Wikipedia bedre for alle";
 "edit-reference-accessibility-label" = "Legg til referansesyntaks";
 "edit-reference-remove-accessibility-label" = "Fjern referansesyntaks";
@@ -332,7 +331,6 @@
 "fetcher-error-unexpected-response" = "Appen mottok en uventet respons fra serveren. Prøv igjen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passordene er ikke like";
-"field-alert-password-invalid" = "Ugyldig passord";
 "field-alert-token-invalid" = "Ugyldig kode";
 "field-alert-username-unavailable" = "Brukernavnet er ikke tilgjengelig";
 "field-backup-token-title" = "Reservekode";
@@ -381,7 +379,6 @@
 "home-themes-prompt" = "Tilpass lesepreferansene dine inkludert tekststørrelsen og drakten fra artikkelverktøylinjen eller i brukerinnstillingene dine for en behageligere leseopplevelse.";
 "home-title" = "Utforsk";
 "home-title-accessibility-label" = "Wikipedia, rull til begynnelsen av Utforsk";
-"icon-shortcut-continue-reading-title" = "Fortsett å lese";
 "icon-shortcut-nearby-title" = "Nære artikler";
 "icon-shortcut-random-title" = "Tilfeldig artikkel";
 "icon-shortcut-search-title" = "Søk i Wikipedia";
@@ -458,7 +455,7 @@
 "page-protected-can-not-edit-title" = "Denne siden er beskyttet";
 "page-protected-other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
 "page-protected-sysop" = "Denne siden er beskyttet.";
-"page-read-in-other-languages" = "Tilgjengelig på {{PLURAL:$1|$1 annet språk|$1andre språk}}";
+"page-read-in-other-languages" = "Tilgjengelig på {{PLURAL:$1|$1 annet språk|$1 andre språk}}";
 "page-similar-titles" = "Lignende sider";
 "page-talk-page" = "Vis diskusjonsside";
 "pictured" = "bildet";

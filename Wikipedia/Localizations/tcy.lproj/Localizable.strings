@@ -56,10 +56,11 @@
 "edit-bold-remove-accessibility-label" = "ದಪ್ಪಾಕ್ಷರದ ರೂಪನ ದೆಪ್ಪುಲೆ";
 "edit-direction-left-accessibility-label" = "ಸೂಚಶರ ದತ್ತ್'ಗ್ ಪಂದಾಲೆ";
 "edit-italic-accessibility-label" = "ಓರೆಅಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
+// Fuzzy
+"edit-link-title" = "ಕೊಂಡಿ";
 "edit-minor-learn-more-text" = "ಎಲ್ಯ ಸಂಪಾದಲೆನ ಬಗ್ಗೆ ಎಚ್ಚ ಕಲ್ಪುಲೆ.";
 "edit-minor-text" = "ಉಂದು ಎಲ್ಯ ಬದಲಾವಣೆ";
 "edit-published" = "ಸಂಪಾದ ಪ್ರಕಟಿಂಡ್";
-"edit-published-button-title" = "ಆಂಡ್.";
 "edit-published-subtitle" = "ಈರ್ ಇತ್ತೆ ವಿಕಿಪೀಡಿಯೊನು  ಮಾತೆರೆಗಾದ್ ಸುಧಾರಿಸಾಯೆರ್.";
 "edit-reference-accessibility-label" = "ಉಲ್ಲೇಖ ಪದರಚನೆ ಸೇರಾಲೆ";
 "edit-strikethrough-accessibility-label" = "ಅಡ್ಡಗೀಟ್ ಸೇರಾಲೆ";
@@ -84,7 +85,6 @@
 "explore-potd-heading" = "ದಿನೊತ್ತಾ ಪೆಟೊ";
 "field-alert-captcha-invalid" = "CAPTCHA ಸರಿ ಒಂದುಜೀ";
 "field-alert-password-confirm-mismatch" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
-"field-alert-password-invalid" = "ಪ್ರವೇಶ ಪದೊ ಸರಿ ಇಜ್ಜಿ";
 "field-alert-username-unavailable" = "ಬಳಕೆದಾರೋ ಪುದರ್ ತಿಕೊಂತಿಜ್ಜಿ";
 "field-captcha-placeholder" = "CAPTCHA ಪದೋ";
 "field-email-placeholder" = "example@example.org";

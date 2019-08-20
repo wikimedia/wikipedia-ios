@@ -93,7 +93,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 }
 
 - (void)wmf_preventTextFromExpandingOnRotation {
-    [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
+    [self evaluateJavaScript:@"document.body.style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
 }
 
 @end

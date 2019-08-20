@@ -101,7 +101,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
     @synchronized(queue) {
-        NSString *key = article.url.wmf_articleDatabaseKey;
+        NSString *key = article.url.wmf_databaseKey;
         if (!key) {
             return;
         }
@@ -135,7 +135,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
     @synchronized(queue) {
-        NSString *key = article.url.wmf_articleDatabaseKey;
+        NSString *key = article.url.wmf_databaseKey;
         NSOperation *op = operations[key];
         [op cancel];
         [operations removeObjectForKey:key];
@@ -640,6 +640,15 @@ static uint64_t bundleHash() {
             DDLogError(@"Error enabling file protection: %@", fileProtectionError);
             return;
         }
+    }
+    
+    
+    if (currentLibraryVersion < 8) {
+        NSUserDefaults *ud = [NSUserDefaults wmf];
+        [ud removeObjectForKey:@"WMFOpenArticleURLKey"];
+        [ud removeObjectForKey:@"WMFOpenArticleTitleKey"];
+        [ud synchronize];
+        [moc wmf_setValue:@(8) forKey:WMFLibraryVersionKey];
     }
 }
 
@@ -1192,7 +1201,7 @@ static uint64_t bundleHash() {
 }
 
 - (void)addArticleToMemoryCache:(MWKArticle *)article {
-    [self addArticleToMemoryCache:article forKey:article.url.wmf_articleDatabaseKey];
+    [self addArticleToMemoryCache:article forKey:article.url.wmf_databaseKey];
 }
 
 #pragma mark - load methods
@@ -1202,11 +1211,11 @@ static uint64_t bundleHash() {
 }
 
 - (MWKArticle *)memoryCachedArticleWithURL:(NSURL *)url {
-    return [self memoryCachedArticleWithKey:url.wmf_articleDatabaseKey];
+    return [self memoryCachedArticleWithKey:url.wmf_databaseKey];
 }
 
 - (nullable MWKArticle *)existingArticleWithURL:(NSURL *)url {
-    NSString *key = [url wmf_articleDatabaseKey];
+    NSString *key = [url wmf_databaseKey];
     MWKArticle *existingArticle =
         [self memoryCachedArticleWithKey:key] ?: [self articleFromDiskWithURL:url];
     if (existingArticle) {
@@ -1396,7 +1405,7 @@ static uint64_t bundleHash() {
         dispatch_async(self.cacheRemovalQueue, ^{
             NSMutableArray<NSURL *> *articleURLsToRemove = [NSMutableArray arrayWithCapacity:10];
             [self iterateOverArticleURLs:^(NSURL *articleURL) {
-                NSString *key = articleURL.wmf_articleDatabaseKey;
+                NSString *key = articleURL.wmf_databaseKey;
                 if (!key) {
                     return;
                 }
@@ -1569,7 +1578,7 @@ static uint64_t bundleHash() {
                 }
             });
         };
-        NSString *groupKey = articleURL.wmf_articleDatabaseKey;
+        NSString *groupKey = articleURL.wmf_databaseKey;
         if (groupKey) {
             [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey completion:combinedCompletion];
         } else {
@@ -1695,7 +1704,7 @@ static uint64_t bundleHash() {
 }
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
-    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey] inManagedObjectContext:moc];
+    return [self fetchArticleWithKey:[URL wmf_databaseKey] inManagedObjectContext:moc];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
@@ -1720,7 +1729,7 @@ static uint64_t bundleHash() {
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSString *language = URL.wmf_language;
     NSString *title = URL.wmf_title;
-    NSString *key = [URL wmf_articleDatabaseKey];
+    NSString *key = [URL wmf_databaseKey];
     if (!language || !title || !key) {
         return nil;
     }
@@ -1737,7 +1746,7 @@ static uint64_t bundleHash() {
 }
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL {
-    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey]];
+    return [self fetchArticleWithKey:[URL wmf_databaseKey]];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key {

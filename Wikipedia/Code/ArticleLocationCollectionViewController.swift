@@ -1,6 +1,6 @@
 import UIKit
 
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController, DetailPresentingFromContentGroup {
     var articleURLs: [URL] {
         didSet {
             collectionView.reloadData()
@@ -11,9 +11,12 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     private var feedFunnelContext: FeedFunnelContext?
     private var previewedIndexPath: IndexPath?
 
+    let contentGroupIDURIString: String?
+
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
+        contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init()
         self.theme = theme
         if contentGroup != nil {

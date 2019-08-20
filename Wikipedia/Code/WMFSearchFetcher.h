@@ -23,6 +23,12 @@ extern NSUInteger const WMFMaxSearchResultLimit;
                            failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success;
 
+- (void)fetchFilesForSearchTerm:(NSString *)searchTerm
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+           appendToPreviousResults:(nullable WMFSearchResults *)results
+                           failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success;
 @end
 
 NS_ASSUME_NONNULL_END

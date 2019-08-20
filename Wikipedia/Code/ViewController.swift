@@ -7,6 +7,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     init() {
         super.init(nibName: nil, bundle: nil)
     }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -22,7 +26,11 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         return NavigationBarHider()
     }()
 
-    var keyboardFrame: CGRect?
+    var keyboardFrame: CGRect? {
+        didSet {
+            keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
+        }
+    }
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
     
@@ -139,6 +147,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
  
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIWindow.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIWindow.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIWindow.keyboardWillShowNotification, object: nil)
     }
 
     var isFirstAppearance = true
@@ -218,7 +228,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
     
-    public final func updateScrollViewInsets() {
+    public final func updateScrollViewInsets(preserveAnimation: Bool = false) {
         guard let scrollView = scrollView, scrollView.contentInsetAdjustmentBehavior == .never else {
             return
         }
@@ -250,8 +260,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
         }
-        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
-        if scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled) {
+        let contentInset = UIEdgeInsets(top: top, left: scrollView.contentInset.left, bottom: bottom, right: scrollView.contentInset.right)
+        if scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled, preserveAnimation: preserveAnimation) {
             scrollViewInsetsDidChange()
         }
     }
@@ -274,12 +284,22 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             let windowFrame = window.convert(endFrame, from: nil)
             keyboardFrame = window.convert(windowFrame, to: view)
         }
+    }
+
+    open func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         updateScrollViewInsets()
     }
         
     @objc func keyboardDidHide(_ notification: Notification) {
         keyboardFrame = nil
-        updateScrollViewInsets()
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        //subclasses to override if needed
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        //subclasses to override if needed
     }
     
     // MARK: - Scrolling

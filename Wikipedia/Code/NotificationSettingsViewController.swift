@@ -156,7 +156,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
         }
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    @objc func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = WMFTableHeaderFooterLabelView.wmf_viewFromClassNib() else {
             return nil
         }
@@ -167,15 +167,15 @@ class NotificationSettingsViewController: SubSettingsViewController {
         return header;
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard let header = WMFTableHeaderFooterLabelView.wmf_viewFromClassNib() else {
             return 0
         }
         header.text = sections[section].headerTitle
-        return header.height(withExpectedWidth: self.view.frame.width)
+        return header.height(withExpectedWidth: self.view.frame.width - tableView.separatorInset.left - tableView.separatorInset.right)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = sections[indexPath.section].items[indexPath.item] as? NotificationSettingsButtonItem else {
             return
         }
@@ -185,7 +185,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
     }
     
     
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    @objc func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return sections[indexPath.section].items[indexPath.item] as? NotificationSettingsSwitchItem == nil
     }
     

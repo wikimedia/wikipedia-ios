@@ -11,16 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFEditPublishedNotification;
 
-@protocol WMFArticleViewControllerDelegate <NSObject>
-
-- (void)articleController:(WMFArticleViewController *)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated;
-
-- (void)articleControllerDidLoadArticle:(WMFArticleViewController *)controller;
-
-- (void)articleControllerDidFailToLoadArticle:(WMFArticleViewController *)controller;
-
-@end
-
 @protocol WMFArticlePreviewingActionsDelegate <NSObject>
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController;
@@ -44,13 +34,13 @@ extern NSString *const WMFEditPublishedNotification;
                              theme:(WMFTheme *)theme;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
+@property (nonatomic, strong, readonly, nullable) NSString *visibleSectionAnchor;
+
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
 @property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
-
-@property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
 @property (nonatomic) WMFTableOfContentsDisplayMode tableOfContentsDisplayMode;
 @property (nonatomic) WMFTableOfContentsDisplaySide tableOfContentsDisplaySide;
@@ -63,6 +53,7 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, getter=isSavingOpenArticleTitleEnabled) BOOL savingOpenArticleTitleEnabled;
 @property (nonatomic, getter=isAddingArticleToHistoryListEnabled) BOOL addingArticleToHistoryListEnabled;
 @property (nonatomic, getter=isPeekingAllowed) BOOL peekingAllowed;
+@property (nonatomic, getter=shouldRequestLatestRevisionOnInitialLoad) BOOL requestLatestRevisionOnInitialLoad;
 
 @property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
 

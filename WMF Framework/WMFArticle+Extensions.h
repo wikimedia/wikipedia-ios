@@ -32,11 +32,13 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
     WMFArticleActionShare,
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFArticle (WMFExtensions)
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
-@property (nonatomic, readonly, nullable) NSString *displayTitle;
+@property (nonatomic, copy, nonnull) NSString *displayTitleHTML;
 
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
 
@@ -62,6 +64,8 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key;
 
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error;
+
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key;
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key;
@@ -75,3 +79,5 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 - (nullable WMFArticle *)fetchArticleWithWikidataID:(nullable NSString *)wikidataID;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -64,7 +64,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             let indexPath = IndexPath(item: i, section: 0)
             guard
                 let articleURL = articleURL(at: indexPath),
-                let articleKey = articleURL.wmf_articleDatabaseKey,
+                let articleKey = articleURL.wmf_databaseKey,
                 changedArticleKey == articleKey,
                 let cell = collectionView.cellForItem(at: indexPath)
             else {
@@ -668,7 +668,7 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
             }
             cell.updateForLocationEnabled()
         }
-        dataStore.feedContentController.updateNearbyForce(false, completion: nil)
+        dataStore.feedContentController.updateContentSource(WMFNearbyContentSource.self, force: false, completion: nil)
     }
 }
 

@@ -11,6 +11,10 @@ protocol SectionEditorMenuItemsDelegate: class {
     func sectionEditorWebViewDidTapTemplate(_ sectionEditorWebView: SectionEditorWebView)
 }
 
+protocol SectionEditorMenuItemsControllerDelegate: AnyObject {
+    func sectionEditorMenuItemsControllerDidTapLink(_ sectionEditorMenuItemsController: SectionEditorMenuItemsController)
+}
+
 class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSource {
     let messagingController: SectionEditorWebViewMessagingController
 
@@ -20,24 +24,39 @@ class SectionEditorMenuItemsController: NSObject, SectionEditorMenuItemsDataSour
         setEditMenuItems()
     }
 
+    weak var delegate: SectionEditorMenuItemsControllerDelegate?
+
     // Keep original menu items
     // so that we can bring them back
     // when web view disappears
     var originalMenuItems: [UIMenuItem]?
 
-    private func setEditMenuItems() {
-        originalMenuItems = UIMenuController.shared.menuItems
-        UIMenuController.shared.menuItems = menuItems
+    func setEditMenuItems() {
+        if (originalMenuItems == nil){
+            originalMenuItems = UIMenuController.shared.menuItems
+        }
+        var menuItems = self.menuItems
+        messagingController.getLink { link in
+            defer {
+                UIMenuController.shared.menuItems = menuItems
+            }
+            guard let link = link else {
+                return
+            }
+            let title = link.exists ? CommonStrings.editLinkTitle : CommonStrings.insertLinkTitle
+            let linkItem = UIMenuItem(title: title, action: #selector(SectionEditorWebView.toggleLink(menuItem:)))
+            menuItems.append(linkItem)
+        }
     }
 
-    lazy var menuItems: [UIMenuItem] = {
-        let addCitation = UIMenuItem(title: "Add Citation", action: #selector(SectionEditorWebView.toggleCitation(menuItem:)))
-        let addLink = UIMenuItem(title: "Add Link", action: #selector(SectionEditorWebView.toggleLink(menuItem:)))
+    var menuItems: [UIMenuItem] = {
+        let addCitation = UIMenuItem(title: WMFLocalizedString("add-citation-title", value: "Add citation", comment: "Title for add citation action"), action: #selector(SectionEditorWebView.toggleCitation(menuItem:)))
         let addTemplate = UIMenuItem(title: "｛ ｝", action: #selector(SectionEditorWebView.toggleTemplate(menuItem:)))
         let makeBold = UIMenuItem(title: "𝗕", action: #selector(SectionEditorWebView.toggleBoldface(menuItem:)))
         let makeItalic = UIMenuItem(title: "𝐼", action: #selector(SectionEditorWebView.toggleItalics(menuItem:)))
-        return [addCitation, addLink, addTemplate, makeBold, makeItalic]
+        return [addCitation, addTemplate, makeBold, makeItalic]
     }()
+
 
     lazy var availableMenuActions: [Selector] = {
         let actions = [
@@ -74,7 +93,7 @@ extension SectionEditorMenuItemsController: SectionEditorMenuItemsDelegate {
     }
 
     func sectionEditorWebViewDidTapLink(_ sectionEditorWebView: SectionEditorWebView) {
-        messagingController.toggleAnchorSelection()
+        delegate?.sectionEditorMenuItemsControllerDidTapLink(self)
     }
 
     func sectionEditorWebViewDidTapTemplate(_ sectionEditorWebView: SectionEditorWebView) {

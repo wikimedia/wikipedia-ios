@@ -61,7 +61,7 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 - (void)updateDailySortPriorityWithSiteURLSortOrder:(nullable NSDictionary<NSString *, NSNumber *> *)siteURLSortOrder;
 
 + (nullable NSURL *)mainPageURLForSiteURL:(NSURL *)URL;
-+ (nullable NSURL *)continueReadingContentGroupURL;
++ (nullable NSURL *)continueReadingContentGroupURLForArticleURL:(NSURL *)articleURL;
 + (nullable NSURL *)relatedPagesContentGroupURLForArticleURL:(NSURL *)articleURL;
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url;
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier;

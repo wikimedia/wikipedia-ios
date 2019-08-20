@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated;
 
-- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated;
+- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 - (void)accessibilityCursorToSection:(MWKSection *)section;
 
@@ -89,6 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)url didSave:(BOOL)didSave;
 - (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article;
+- (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section;
 
 @end
 

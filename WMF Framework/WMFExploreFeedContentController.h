@@ -27,7 +27,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 - (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion;
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion;
 
-- (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
+- (void)updateContentSource:(nonnull Class)class force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 // Preferences
 
@@ -46,9 +46,9 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param contentGroupKind The kind of the content group that is about to be toggled on or off in the feed.
  @param isOn A flag indicating whether the group should be visible in the feed or not.
  */
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed;
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(nullable dispatch_block_t)completion;
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed;
 
 /**
  Toggles a content group of given kind on or off for a given siteURL.
@@ -57,16 +57,16 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param isOn A flag indicating whether the group should be visible in the feed or not.
  @param siteURL A Wikipedia site url for which a content group of given kind will be visible or hidden in the feed.
  */
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL updateFeed:(BOOL)updateFeed;
 
-- (void)toggleAllContentGroupKinds:(BOOL)on completion:(nullable dispatch_block_t)completion;
+- (void)toggleAllContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed;
 
 /**
  Toggles non-language specific content group kinds (Because you read, Continue reading and Picture of the day)
 
  @param on A flag indicating whether non-language specific groups should be visible in the feed.
  */
-- (void)toggleGlobalContentGroupKinds:(BOOL)on;
+- (void)toggleGlobalContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed;
 
 /**
  Returns a set of language codes representing languages in which a given content group kind is visible in the feed.
@@ -75,7 +75,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @return A set of language codes representing languages in which a given content group kind is visible in the feed.
  If a given content group kind is not visible in any languages, the set will be empty.
  */
-- (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
+- (NSArray<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
 /**
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.

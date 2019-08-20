@@ -66,6 +66,38 @@
 			<string>%1$d သမိုင်းဝင်ဖြစ်ရပ်များ</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ရက်အကြာက တည်းဖြတ်ခဲ့သည်</string>
+			<key>zero</key>
+			<string>ယနေ့တည်းဖြတ်ခဲ့သည်</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d အခြားဘာသာစကားတွင် ရရှိနိုင်သည်</string>
+			<key>other</key>
+			<string>%1$d အခြားဘာသာစကားများတွင် ရရှိနိုင်သည်</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +112,22 @@
 			<string>%1$d ဆောင်းပါး</string>
 			<key>other</key>
 			<string>%1$d ဆောင်းပါးများ</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>အကောင့်တစ်ခုလျင် %1$d ဆောင်းပါးနှုန်း ကျော်လွန်သွားပါသည်။</string>
+			<key>other</key>
+			<string>အကောင့်တစ်ခုလျင် %1$d ဆောင်းပါးများနှုန်း ကျော်လွန်သွားပါသည်။</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -124,8 +172,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>မနေ့က</string>
 			<key>other</key>
 			<string>%1$d ရက်အကြာက</string>
 			<key>zero</key>
@@ -178,8 +224,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>ယခင်နှစ်</string>
 			<key>other</key>
 			<string>%1$d နှစ်အကြာက</string>
 			<key>zero</key>

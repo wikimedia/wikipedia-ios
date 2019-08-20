@@ -160,7 +160,6 @@
 "feed-news-notification-text" = "जब समाचारों में लेख रुझान पर हों, तब विकिपीडिया द्वारा सक्षम सूचनाएं अधिसूचित होनी चाहिए।";
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स मैच नहीं हो रहे";
-"field-alert-password-invalid" = "अमान्य पासवर्ड";
 "field-alert-token-invalid" = "अमान्य कोड";
 "field-alert-username-unavailable" = "यह सदस्य नाम उपलब्ध नहीं";
 "field-backup-token-title" = "बैकअप कोड";
@@ -204,7 +203,6 @@
 "home-themes-prompt" = "एक अधिक आरामदायक पठन अनुभव करने के लिए लेख उपकरण पट्टी से विषय और आपके उपयोगकर्ता सेटिंग्स में पढ़ने की वरीयताओं को(टेक्स्ट का आकार सहित) समायोजित करें।";
 "home-title" = "छानबीन";
 "home-title-accessibility-label" = "विकिपीडिया, खोज के ऊपरी हिस्से पर जाएँ";
-"icon-shortcut-continue-reading-title" = "पढ़ना जारी रखें";
 "icon-shortcut-nearby-title" = "पास के लेख";
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";

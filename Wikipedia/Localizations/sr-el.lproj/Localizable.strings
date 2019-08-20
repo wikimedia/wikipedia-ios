@@ -260,7 +260,6 @@
 "feed-news-notification-text" = "Omogućite obaveštenja da biste saznali kada članci postanu trenutni u vestima.";
 "field-alert-captcha-invalid" = "Nevažeća CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lozinke se ne poklapaju";
-"field-alert-password-invalid" = "Nevažeća lozinka";
 "field-alert-token-invalid" = "Nevažeći kôd";
 "field-alert-username-unavailable" = "Korisničko ime nije dostupno";
 "field-backup-token-title" = "Rezervni kôd";
@@ -303,7 +302,6 @@
 "home-themes-prompt" = "Prilagodite podešavanja za čitanje (uključujući veličinu teksta i temu) u traci za upravljanje člancima ili u vašim podešavanjima.";
 "home-title" = "Istraži";
 "home-title-accessibility-label" = "Vikipedija, pomerite na vrh fida „Istraži”";
-"icon-shortcut-continue-reading-title" = "Nastavi čitanje";
 "icon-shortcut-nearby-title" = "Članci o objektima u blizini";
 "icon-shortcut-random-title" = "Slučajni članak";
 "icon-shortcut-search-title" = "Pretraži Vikipediju";

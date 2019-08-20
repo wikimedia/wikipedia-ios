@@ -19,7 +19,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSUserHistory", version: 18222579)
+        super.init(schema: "MobileWikiAppiOSUserHistory", version: 19074748)
     }
     
     private func event() -> Dictionary<String, Any> {

@@ -61,7 +61,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
     NSString *title = articleURL.wmf_titleWithUnderscores;
-    if (!title) {
+    NSString *key = articleURL.wmf_databaseKey;
+    if (!title || !key) {
         failure([WMFFetcher invalidParametersError]);
         return nil;
     }
@@ -71,7 +72,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block WMFArticleSummary *summaryResponse = nil;
     [taskGroup enter];
-    [self.summaryFetcher fetchSummaryFor:articleURL priority:priority completion:^(WMFArticleSummary * _Nullable summary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.summaryFetcher fetchSummaryForArticleWithKey:key priority:priority completion:^(WMFArticleSummary * _Nullable summary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         summaryResponse = summary;
         [taskGroup leave];
     }];
@@ -101,7 +102,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     };
 
     NSURLSessionTask *operation = [self performCancelableMediaWikiAPIGETForURL:articleURL
-                                                               cancellationKey:articleURL.wmf_articleDatabaseKey
+                                                               cancellationKey:articleURL.wmf_databaseKey
                                                            withQueryParameters:params
                                                              completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                                                                  articleResponse = result[@"mobileview"];
@@ -151,7 +152,11 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       NSManagedObjectContext *moc = self.dataStore.viewContext;
                                                                                       WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
                                                                                       article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
-                                                                                      article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      BOOL isCached = articleCacheError == nil && saveToDisk;
+                                                                                      article.isCached = isCached;
+                                                                                      if (isCached) {
+                                                                                          article.isDownloaded = NO; // isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      }
                                                                                       article.wikidataID = mwkArticle.wikidataId;
                                                                                       if (summaryResponse) {
                                                                                           [article updateWithSummary:summaryResponse];
@@ -184,7 +189,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 #pragma mark - Operation Tracking / Cancelling
 
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL {
-    [self cancelTaskWithCancellationKey:articleURL.wmf_articleDatabaseKey];
+    [self cancelTaskWithCancellationKey:articleURL.wmf_databaseKey];
 }
 
 - (nullable MWKArticle *)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response error:(NSError **)error {
@@ -205,8 +210,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 }
 
-- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
+- (nullable NSURLSessionTask *)fetchArticleWithURL:(NSURL *)url
                                                     forceDownload:(BOOL)forceDownload
+                                            checkForNewerRevision:(BOOL)checkForNewerRevision
                                                        saveToDisk:(BOOL)saveToDisk
                                                          priority:(float)priority
                                                           failure:(WMFErrorHandler)failure
@@ -262,10 +268,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
         }
         task = [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority failure:failure success:success];
-    } else {
+    } else if (checkForNewerRevision) {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                            resultLimit:1
-                                                    endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue
+                                                    endingWithRevision:cachedArticle.revisionId
                                                                failure:failure
                                                                success:^(id _Nonnull results) {
                                                                    dispatch_async(dispatch_get_main_queue(), ^{
@@ -283,17 +289,13 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                        }
                                                                    });
                                                                }];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            success(cachedArticle, url);
+        });
     }
     task.priority = priority;
     return task;
-}
-
-- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
-                                                               saveToDisk:(BOOL)saveToDisk
-                                                                 priority:(float)priority
-                                                                  failure:(WMFErrorHandler)failure
-                                                                  success:(WMFArticleHandler)success {
-    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO saveToDisk:saveToDisk priority:priority failure:failure success:success];
 }
 
 @end

@@ -30,7 +30,7 @@ struct SectionEditorButton {
         case textFormattingMenu
         case textStyleMenu
         case clearFormatting
-
+        case media
         
         var accessibilityLabel: String? {
             switch self {
@@ -90,6 +90,8 @@ struct SectionEditorButton {
                 return WMFLocalizedString("edit-text-style-accessibility-label", value: "Show text style menu", comment: "Accessibility label for text style menu")
             case .clearFormatting:
                 return nil
+            case .media:
+                return CommonStrings.insertMediaTitle
             }
         }
         
@@ -185,6 +187,8 @@ struct SectionEditorButton {
                 self = .textStyleMenu
             case 30:
                 self = .clearFormatting
+            case 31:
+                self = .media
             default:
                 return nil
             }
@@ -235,6 +239,8 @@ struct SectionEditorButton {
                     self = .increaseIndentDepth
                 case "clearFormatting":
                     self = .clearFormatting
+                case "media":
+                    self = .media
                 default:
                     return nil
                 }

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: GBeecham
 // Author: Kwekubo
+// Author: Smirkybec
 // Author: Tem
 
 "about-content-license" = "Ceadúnas inneachair";
@@ -28,10 +29,8 @@
 "about-wikipedia" = "Vicipéid";
 // Fuzzy
 "abuse-filter-warning-blanking" = "Ailt a fholmhú nó turscar a sheoladh";
-// Fuzzy
-"abuse-filter-warning-caps" = "Scríobh i gCEANNLITREACHA";
-// Fuzzy
-"abuse-filter-warning-repeat" = "Carachtair a ath-chlóóóóscriobh";
+"abuse-filter-warning-caps" = "Scríobh i gceannlitreacha";
+"abuse-filter-warning-repeat" = "Carachtair a athscríobh i ndiaidh a chéile";
 "account-creation-captcha-cannot-see-image" = "Nach bhfuil tú in ann an íomhá a fhéachaint? $1";
 "account-creation-captcha-obtaining" = "CAPTCHA nua a fháil...";
 "account-creation-captcha-request-account" = "Déan iarratas ar cuntas.";
@@ -44,11 +43,11 @@
 "account-creation-passwords-mismatched" = "Níl réimsí na bpasfhocal ag teacht le chéile.";
 "account-creation-saving" = "Ag sábháil...";
 "account-creation-title" = "Cruthaigh cuntas nua";
+"account-group-title" = "Do Chuntas";
 "action-add-to" = "Cuir le...";
 "action-add-to-reading-list" = "Cuir ar liosta léitheoireachta";
 "action-add-to-reading-list-short" = "Cuir ar liosta";
 "action-cancel" = "Cealaigh";
-// Fuzzy
 "action-find-in-page" = "Aimsigh sa leathanach";
 "action-move-to" = "Bog chuig...";
 "action-move-to-reading-list" = "Bog chuig liosta léitheoireachta";
@@ -204,7 +203,6 @@
 "feed-news-notification-button-text" = "Cas air fógraí";
 "field-alert-captcha-invalid" = "CAPTCHA neamhbhailí";
 "field-alert-password-confirm-mismatch" = "Níl na pasfhocail ag teacht le chéile";
-"field-alert-password-invalid" = "Pasfhocal neamhbhailí";
 "field-alert-token-invalid" = "Cód neamhbhailí";
 "field-alert-username-unavailable" = "Níl ainm úsáideora ar fáil";
 "field-backup-token-title" = "Cód cúltaca";
@@ -245,7 +243,6 @@
 "home-themes-action-title" = "Bainistigh sainroghanna";
 "home-title" = "Taiscéal";
 "home-title-accessibility-label" = "Vicipéid, scrollaigh go barr Taiscéal";
-"icon-shortcut-continue-reading-title" = "Lean ort ag léamh";
 "icon-shortcut-nearby-title" = "Ailt in aice láimhe";
 "icon-shortcut-random-title" = "Alt randamach";
 "icon-shortcut-search-title" = "Cuardaigh Vicipéid";
@@ -259,6 +256,9 @@
 "in-the-news-title" = "Sa nuacht";
 "info-box-close-text" = "Dún";
 "info-box-title" = "Fíricí Gasta";
+"insert-action-title" = "Ionsáigh";
+"insert-media-image-preview-more-information-action-title" = "Tuilleadh eolais";
+"insert-media-image-size-setting-default" = "Réamhshocrú";
 "languages-settings-title" = "Teangacha";
 "languages-title" = "Athraigh teanga";
 "languages-wikipedia" = "Teangacha Vicipéide";
@@ -312,8 +312,7 @@
 "page-protected-autoconfirmed" = "Tá an leathanach seo leath-chosanta.";
 "page-protected-can-not-edit-title" = "Tá an leathanach seo cosanta.";
 "page-protected-sysop" = "Tá an leathanach seo cosanta go hiomlán.";
-// Fuzzy
-"page-read-in-other-languages" = "Ar fáil i $1 teanga eile";
+"page-read-in-other-languages" = "Ar fáil i {{PLURAL:$1|dteanga amháin eile|$1 teanga eile}}";
 "page-similar-titles" = "Leathanaigh den chineál céanna";
 "page-talk-page" = "Féach ar leathanach plé";
 "pictured" = "sa phictiúr";
@@ -389,12 +388,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Téama séipia";
 "reading-themes-controls-accessibility-text-size-slider" = "Barra sleamhnáin na clómhéide";
 "reference-title" = "Tagairt $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Inniu|Inné|$1 lá ó shin}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Inniu|1=Inné|$1 lá ó shin}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Le déanaí|$1 uair amháin ó shin|$1 uair ó shin}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Díreach anois|$1 nóiméad amháin ó shin|$1 nóiméad ó shin}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=An bhliain seo|An bhliain seo caite|$1 bliana ó shin}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=I mbliana|1=I mbliana|$1 bliana ó shin}}";
 "reverted-edit-back-to-article-button-title" = "Siar go halt";
 "reverted-edit-notification-read-more-action-title" = "Léigh tuilleadh";
 "reverted-edit-thanks-for-editing-title" = "Go raibh maith agat as Vicipéid a chur in eagar!";

@@ -1,5 +1,6 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
+// Author: Agilight
 // Author: Alexandr Efremov
 // Author: Av6
 // Author: Batumski brodyaga
@@ -32,6 +33,8 @@
 // Author: Okras
 // Author: Ping08
 // Author: Redredsonia
+// Author: Saimongoltinio
+// Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
 // Author: Wirbel78
@@ -83,11 +86,17 @@
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
 "account-creation-title" = "Создайте новую учётную запись";
+"account-group-title" = "Ваша учётная запись";
+"account-talk-page-title" = "Ваша страница обсуждения";
+"account-talk-preferences-auto-sign-discussions" = "Автоматическая подпись в обсуждениях";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "В автоматическом подписывании обсуждений будет использовать та подпись, которая установлена в Настройках";
+"account-talk-preferences-title" = "Настройки страницы обсуждения";
 "action-add-to" = "Добавить в…";
 "action-add-to-reading-list" = "Добавить в список для чтения";
 "action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
 "action-find-in-page" = "Найти на странице";
+"action-language-accessibility" = "изменение языка";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
 "action-read" = "Читать";
@@ -107,6 +116,7 @@
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
 "action-update" = "Обновить";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
+"add-citation-title" = "Добавить ссылку на источник";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -145,6 +155,7 @@
 "button-skip" = "Пропустить";
 "cancel" = "Отмена";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Очистить";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
@@ -201,7 +212,11 @@
 "edit-italic-accessibility-label" = "Добавить наклонное начертание";
 "edit-italic-remove-accessibility-label" = "Убрать наклонное начертание";
 "edit-link-accessibility-label" = "Добавить ссылку";
+"edit-link-display-text-title" = "Показать текст";
+"edit-link-link-target-title" = "Адрес ссылки";
 "edit-link-remove-accessibility-label" = "Убрать ссылку";
+"edit-link-remove-link-title" = "Убрать ссылку";
+"edit-link-title" = "Редактировать ссылку";
 "edit-menu-item" = "Редактировать";
 "edit-menu-item-could-not-find-selection-alert-message" = "Это произошло, скорее всего, из-за длины подсвеченного текста или из-за того, что выбранный текст не является редактируемым (например, заголовок статьи, заголовок инфотаблички)";
 "edit-menu-item-could-not-find-selection-alert-title" = "Выбранный текст не найден";
@@ -210,7 +225,6 @@
 "edit-ordered-list-accessibility-label" = "Сделать нумерованным списком";
 "edit-ordered-list-remove-accessibility-label" = "Убрать нумерованный список";
 "edit-published" = "Правка опубликована";
-"edit-published-button-title" = "Готово";
 "edit-published-subtitle" = "Вы только что сделали Википедию лучше для всех";
 "edit-reference-accessibility-label" = "Добавить примечание";
 "edit-reference-remove-accessibility-label" = "Убрать примечание";
@@ -250,6 +264,7 @@
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
+"empty-insert-media-title" = "Выберите файл на Викискладе";
 "empty-no-article-message" = "К сожалению, не удалось скачать статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
@@ -262,6 +277,7 @@
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-search-results-message" = "Ничего не найдено";
+"empty-talk-page-title" = "Участник ещё не публиковал обсуждений";
 "error-generic-description" = "Произошла непредвиденная ошибка";
 "error-generic-recovery-suggestion" = "Пожалуйста, повторите позже";
 "error-unknown" = "Произошла неизвестная ошибка";
@@ -349,13 +365,13 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
+"featured-article-empty-title" = "Сегодня нет избранных статей";
 "feed-news-notification-button-text" = "Включить уведомления";
 "feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
 "fetcher-error-generic" = "Что-то пошло не так. Пожалуйста, повторите попытку позже.";
 "fetcher-error-unexpected-response" = "От сервера получен непредвиденный ответ. Пожалуйста, попробуйте позже.";
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
-"field-alert-password-invalid" = "Неверный пароль";
 "field-alert-token-invalid" = "Неверный код";
 "field-alert-username-unavailable" = "Имя пользователя не доступно";
 "field-backup-token-title" = "Сделать резервную копию кода";
@@ -404,7 +420,6 @@
 "home-themes-prompt" = "Для более комфортного чтения установите настройки чтения (в том числе размер текста и тему оформления) в панели управления статьи или в ваших настройках пользователя.";
 "home-title" = "Лента";
 "home-title-accessibility-label" = "Промотать к верхней части ленты";
-"icon-shortcut-continue-reading-title" = "Продолжить чтение";
 "icon-shortcut-nearby-title" = "Статьи о том, что есть поблизости";
 "icon-shortcut-random-title" = "Случайная статья";
 "icon-shortcut-search-title" = "Поиск по Википедии";
@@ -418,6 +433,33 @@
 "in-the-news-title" = "В новостях";
 "info-box-close-text" = "Закрыть";
 "info-box-title" = "Краткие факты";
+"insert-action-title" = "Вставить";
+"insert-link-title" = "Вставить ссылку";
+"insert-media-alternative-text-description" = "Текстовое описание для читателей, которые не могут увидеть изображения";
+"insert-media-alternative-text-placeholder" = "Опишите это изображение";
+"insert-media-alternative-text-title" = "Альтернативный текст";
+"insert-media-caption-caption-placeholder" = "Как это изображение относится к статье?";
+"insert-media-caption-description" = "Текст, показываемый после файла всем читателям";
+"insert-media-caption-title" = "Описание";
+"insert-media-image-position-setting-center" = "По центру";
+"insert-media-image-position-setting-left" = "Слева";
+"insert-media-image-position-setting-none" = "Без определённой центровки";
+"insert-media-image-position-setting-right" = "Справа";
+"insert-media-image-position-settings-title" = "Центровка изображения";
+"insert-media-image-preview-more-information-action-title" = "Дополнительная информация";
+"insert-media-image-preview-select-image-action-title" = "Выбрать изображение";
+"insert-media-image-size-setting-custom" = "Размер вручную";
+"insert-media-image-size-setting-default" = "По умолчанию";
+"insert-media-image-size-settings-px-unit-name" = "пкс";
+"insert-media-image-size-settings-title" = "Размер изображения";
+"insert-media-image-type-setting-basic" = "Базовый";
+"insert-media-image-type-setting-frame" = "Рамка";
+"insert-media-image-type-setting-frameless" = "Без рамки";
+"insert-media-image-type-setting-thumbnail" = "миниатюра";
+"insert-media-image-type-settings-title" = "Тип изображения";
+"insert-media-media-settings-title" = "Параметры медиафайла";
+"insert-media-title" = "Вставить медиа-файл";
+"insert-media-uploaded-image-title" = "Загруженное изображение";
 "languages-settings-title" = "Языки";
 "languages-title" = "Изменить язык";
 "languages-wikipedia" = "Языки Википедии";
@@ -559,7 +601,7 @@
 "reading-list-login-subtitle" = "Войдите в систему или создайте учётную запись, чтобы ваши сохранённые статьи и списки чтения были синхронизированы между устройствами и сохранены в пользовательских настройках.";
 "reading-list-login-title" = "Синхронизировать сохраненные статьи?";
 "reading-list-name-user-created-annotation" = "_[участник создан]";
-"reading-list-new-list-description-placeholder" = "Необязательное короткое описание";
+"reading-list-new-list-description-placeholder" = "Необязательное краткое описание";
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
 "reading-list-sync-disabled-panel-message" = "Синхронизация списков чтения была выключена в вашей учётной записи на другом устройстве. Вы можете её включить снова перейдя в настройки.";
 "reading-list-sync-disabled-panel-title" = "Синхронизация отключена";
@@ -648,6 +690,7 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
+"settings-account" = "Учётная запись";
 "settings-appearance" = "Настройки чтения";
 "settings-clear-cache" = "Очистить кэш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
@@ -705,6 +748,37 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
+"talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
+"talk-page-discussion-accessibility-hint" = "Нажмите дважды, чтобы открыть ветку обсуждения";
+"talk-page-discussion-read-accessibility-label" = "Прочитано";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
+"talk-page-discussion-unread-accessibility-label" = "Непрочитано";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
+"talk-page-error-unable-to-post-reply" = "Нет подключения к интернету. Невозможно опубликовать ответ.";
+"talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать обсуждение.";
+"talk-page-info-active-conversations" = "Активные обсуждения в википедии $1";
+"talk-page-info-active-conversations-generic" = "Активные обсуждения в Википедии";
+"talk-page-link-user-action-sheet-app" = "Показывать страницу обсуждения участника";
+"talk-page-link-user-action-sheet-safari" = "Показать в Safari страницу участника";
+"talk-page-link-user-action-sheet-title" = "страницы пользователя";
+"talk-page-new-banner-subtitle" = "И не забывайте - вы общаетесь с живыми людьми, со всеми вытекающими отсюда последствиями :-)";
+"talk-page-new-banner-title" = "Будьте вежливы";
+"talk-page-new-body-textfield-accessibility-label" = "Текст обсуждения";
+"talk-page-new-reply-body-accessibility-label" = "Написать ответ";
+"talk-page-new-reply-body-placeholder-text" = "Ответить";
+"talk-page-new-reply-success-text" = "Ваш ответ был опубликован";
+"talk-page-new-subject-clear-button-accessibility" = "Очистить тему";
+"talk-page-new-subject-placeholder-text" = "Тема";
+"talk-page-new-subject-textfield-accessibility-label" = "Тема";
+"talk-page-new-topic-body-placeholder-text" = "Создать новое обсуждение";
+"talk-page-new-topic-success-text" = "Ваше обсуждение было опубликовано";
+"talk-page-new-topic-title" = "Новое обсуждение";
+"talk-page-publish-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и публикуете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-reply-title" = "Ответ";
+"talk-page-title-article-talk" = "Обсуждение статьи";
+"talk-page-title-user-talk" = "Обсуждение участника";
+"talk-page-topic-title" = "Обсуждение";
+"talk-pages-reply-button-title" = "Ответить в этом обсуждении";
 "theme-black-display-name" = "Чёрное";
 "theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";
@@ -717,6 +791,7 @@
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
+"unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
 "view-in-browser-footer-link" = "Просмотреть статью в браузере";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
@@ -747,6 +822,10 @@
 "wikitext-downloading" = "Загрузка содержимого…";
 "wikitext-preview-changes" = "Получение предварительного просмотра внесённых изменений…";
 "wikitext-preview-changes-none" = "Не было внесено никаких изменений, которые можно было бы просмотреть.";
+"wikitext-preview-link-external-preview-description" = "Эта ссылка ведёт на внешний ресурс: $1";
+"wikitext-preview-link-external-preview-title" = "Внешняя ссылка";
+"wikitext-preview-link-not-found-preview-description" = "В Википедии нет статьи с таким заголовком";
+"wikitext-preview-link-not-found-preview-title" = "Внутрення ссылка не найдена";
 "wikitext-preview-link-preview-description" = "Эта ссылка ведёт на '$1'";
 "wikitext-preview-link-preview-title" = "Предпросмотр ссылки";
 "wikitext-preview-save-changes-title" = "Сохранить изменения";

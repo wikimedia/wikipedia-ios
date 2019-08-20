@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditPreviewInternalLinkViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="Sce-E4-ZEM" id="poG-0c-bFU"/>
+                <outlet property="containerView" destination="LBy-N3-43n" id="9ar-tz-xOX"/>
+                <outlet property="tapGestureRecignizer" destination="NwK-NY-AW1" id="YmP-cs-COA"/>
+                <outlet property="tapView" destination="lP8-IR-vmI" id="Ky4-vL-OUy"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xi8-Yq-mPl">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lP8-IR-vmI">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-N3-43n">
+                                    <rect key="frame" x="16" y="284" width="382" height="328"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="328" placeholder="YES" id="tg4-vm-hVM">
+                                            <variation key="heightClass=compact" constant="100"/>
+                                        </constraint>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="14"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sce-E4-ZEM">
+                                    <rect key="frame" x="16" y="624" width="382" height="48"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="contentEdgeInsets" minX="24" minY="15" maxX="24" maxY="15"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="dismissAnimated:" destination="-1" eventType="touchUpInside" id="dRw-nP-Rnz"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstItem="Sce-E4-ZEM" firstAttribute="leading" secondItem="LBy-N3-43n" secondAttribute="leading" id="0ia-Tb-5cn"/>
+                                <constraint firstItem="LBy-N3-43n" firstAttribute="centerX" secondItem="lP8-IR-vmI" secondAttribute="centerX" priority="999" id="HWz-iP-BMQ"/>
+                                <constraint firstItem="Sce-E4-ZEM" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" id="RDd-hc-D5b"/>
+                                <constraint firstItem="LBy-N3-43n" firstAttribute="centerY" secondItem="lP8-IR-vmI" secondAttribute="centerY" priority="999" id="VOb-BY-w6e"/>
+                                <constraint firstItem="LBy-N3-43n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0Qr-og-G0P" secondAttribute="top" constant="12" id="Zv5-nZ-JQD"/>
+                                <constraint firstItem="Sce-E4-ZEM" firstAttribute="top" secondItem="LBy-N3-43n" secondAttribute="bottom" constant="12" id="aKb-nf-tUW"/>
+                                <constraint firstItem="LBy-N3-43n" firstAttribute="leading" secondItem="0Qr-og-G0P" secondAttribute="leading" constant="16" id="cRo-gZ-Roi"/>
+                                <constraint firstItem="0Qr-og-G0P" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Sce-E4-ZEM" secondAttribute="bottom" constant="12" id="dVL-Ji-r8x"/>
+                                <constraint firstItem="0Qr-og-G0P" firstAttribute="trailing" secondItem="LBy-N3-43n" secondAttribute="trailing" constant="16" id="z80-nG-fHu"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="0Qr-og-G0P"/>
+                            <variation key="heightClass=compact">
+                                <mask key="constraints">
+                                    <include reference="VOb-BY-w6e"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=compact">
+                                <mask key="constraints">
+                                    <exclude reference="z80-nG-fHu"/>
+                                    <exclude reference="cRo-gZ-Roi"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=regular">
+                                <mask key="constraints">
+                                    <exclude reference="z80-nG-fHu"/>
+                                    <exclude reference="cRo-gZ-Roi"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <mask key="constraints">
+                                    <exclude reference="z80-nG-fHu"/>
+                                    <exclude reference="cRo-gZ-Roi"/>
+                                </mask>
+                            </variation>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="NwK-NY-AW1" appends="YES" id="U02-ck-e4A"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="lP8-IR-vmI" firstAttribute="top" secondItem="Xi8-Yq-mPl" secondAttribute="top" id="2mB-0s-zwx"/>
+                        <constraint firstAttribute="trailing" secondItem="lP8-IR-vmI" secondAttribute="trailing" id="63M-2Z-c2z"/>
+                        <constraint firstItem="lP8-IR-vmI" firstAttribute="width" secondItem="Xi8-Yq-mPl" secondAttribute="width" id="KYU-rQ-gJN"/>
+                        <constraint firstItem="lP8-IR-vmI" firstAttribute="height" secondItem="Xi8-Yq-mPl" secondAttribute="height" priority="250" id="N0N-iz-9Ff"/>
+                        <constraint firstAttribute="bottom" secondItem="lP8-IR-vmI" secondAttribute="bottom" id="SCP-xm-Jwx"/>
+                        <constraint firstItem="lP8-IR-vmI" firstAttribute="leading" secondItem="Xi8-Yq-mPl" secondAttribute="leading" id="xdW-9L-XUE"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3964041096" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Xi8-Yq-mPl" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" priority="250" id="93h-wZ-rh9"/>
+                <constraint firstItem="Xi8-Yq-mPl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="I68-1l-4C8"/>
+                <constraint firstAttribute="trailing" secondItem="Xi8-Yq-mPl" secondAttribute="trailing" id="Qnh-aG-Zcn"/>
+                <constraint firstItem="Xi8-Yq-mPl" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="ccf-TB-fs1"/>
+                <constraint firstItem="Xi8-Yq-mPl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dea-3C-YPN"/>
+                <constraint firstAttribute="bottom" secondItem="Xi8-Yq-mPl" secondAttribute="bottom" id="jJj-ss-3TL"/>
+                <constraint firstItem="LBy-N3-43n" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="vN6-SQ-OJG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="vN6-SQ-OJG"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=compact">
+                <mask key="constraints">
+                    <include reference="vN6-SQ-OJG"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=regular">
+                <mask key="constraints">
+                    <include reference="vN6-SQ-OJG"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=regular">
+                <mask key="constraints">
+                    <include reference="vN6-SQ-OJG"/>
+                </mask>
+            </variation>
+        </view>
+        <tapGestureRecognizer id="NwK-NY-AW1"/>
+    </objects>
+</document>

@@ -45,5 +45,8 @@
                                  failure:(WMFErrorHandler)failure
                                  success:(WMFSuccessIdHandler)success;
 
+- (void)fetchImageInfoForCommonsFiles:(NSArray *)filenames
+                              failure:(WMFErrorHandler)failure
+                              success:(WMFSuccessIdHandler)success;
 
 @end

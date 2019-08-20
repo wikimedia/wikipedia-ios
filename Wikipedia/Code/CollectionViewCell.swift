@@ -26,7 +26,7 @@ open class CollectionViewCell: UICollectionViewCell {
         backgroundView = UIView()
         selectedBackgroundView = UIView()
         reset()
-        layoutSubviews()
+        setNeedsLayout()
     }
     
     open func reset() {
