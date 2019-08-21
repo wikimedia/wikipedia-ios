@@ -1630,6 +1630,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
         }
         self.checkingRemoteConfig = NO;
+        [self endRemoteConfigCheckBackgroundTask];
     }];
 }
 
