@@ -55,7 +55,7 @@
 "action-language-accessibility" = "Accessibility title for the 'Language' toolbar button on articles and talk pages.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
-"action-read" = "Title for the 'Read' action\n{{Identical|Read}}")";
+"action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-redo" = "Title text and accessibility label for redo action on buttons or info sheets.";
 "action-remove" = "Title of the action that removes the selection from the current context.";
 "action-replace" = "Title of the replace all action.";
@@ -790,7 +790,7 @@
 "wikitext-upload-result-unknown" = "Alert text shown when the result of saving section wikitext changes is unknown";
 "wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}";
 "wikitext-upload-save-anonymously-or-login" = "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting.";
-"wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text")";
+"wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
