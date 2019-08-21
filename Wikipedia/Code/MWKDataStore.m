@@ -60,7 +60,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) NSURL *containerURL;
 
-@property (readwrite, nonatomic) BOOL failedToUpdateLocalConfig;
+@property (readwrite, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
 @end
 
@@ -1652,9 +1652,9 @@ static uint64_t bundleHash() {
                                         NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
                                         if (self.isLocalConfigUpdateAllowed) {
                                             [self updateReadingListsLimits:readingListsConfig];
-                                            self.failedToUpdateLocalConfig = NO;
+                                            self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionReadingLists;
                                         } else {
-                                            self.failedToUpdateLocalConfig = YES;
+                                            self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionReadingLists;
                                         }
                                         [taskGroup leave];
                                     });
@@ -1673,9 +1673,9 @@ static uint64_t bundleHash() {
                                         }
                                         if (self.isLocalConfigUpdateAllowed) {
                                             [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                            self.failedToUpdateLocalConfig = NO;
+                                            self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionGeneric;
                                         } else {
-                                            self.failedToUpdateLocalConfig = YES;
+                                            self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionGeneric;
                                         }
                                         [taskGroup leave];
                                     });

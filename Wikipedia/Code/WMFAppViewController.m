@@ -1615,7 +1615,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.checkingRemoteConfig = YES;
     CFAbsoluteTime lastCheckTime = (CFAbsoluteTime)[[self.dataStore.viewContext wmf_numberValueForKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey] doubleValue];
     CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
-    BOOL shouldCheckRemoteConfig = now - lastCheckTime >= WMFRemoteAppConfigCheckInterval || self.dataStore.failedToUpdateLocalConfig;
+    BOOL shouldCheckRemoteConfig = now - lastCheckTime >= WMFRemoteAppConfigCheckInterval || self.dataStore.remoteConfigsThatFailedUpdate != 0;
     if (!shouldCheckRemoteConfig) {
         self.checkingRemoteConfig = NO;
         return;
