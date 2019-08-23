@@ -9,7 +9,6 @@ protocol WMFReadingThemesControlsViewControllerDelegate: class {
 @objc(WMFReadingThemesControlsViewController)
 class ReadingThemesControlsViewController: UIViewController {
     
-    @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let nibName = "ReadingThemesControlsViewController"
     
     var theme = Theme.standard

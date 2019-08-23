@@ -189,8 +189,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     }
     
     func userDidSelect(theme: Theme) {
-        let userInfo = ["theme": theme]
-        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: Theme.didChangeNotification, object: theme)
     }
     
     @objc public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
