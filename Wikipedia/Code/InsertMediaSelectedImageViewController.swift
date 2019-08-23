@@ -92,5 +92,7 @@ extension InsertMediaSelectedImageViewController: Themeable {
         }
         view.backgroundColor = theme.colors.baseBackground
         activityIndicator.style = theme.isDark ? .white : .gray
+        wmf_applyTheme(toEmptyView: theme)
+        selectedView.apply(theme: theme)
     }
 }

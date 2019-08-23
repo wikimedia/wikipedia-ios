@@ -61,5 +61,6 @@ extension InsertMediaSelectedImageView: Themeable {
         backgroundColor = theme.colors.baseBackground
         imageInfoContainerView.backgroundColor = backgroundColor
         imageView.backgroundColor = .clear
+        imageInfoView.apply(theme: theme)
     }
 }

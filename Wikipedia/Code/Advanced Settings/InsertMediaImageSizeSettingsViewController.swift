@@ -102,6 +102,7 @@ final class InsertMediaImageSizeSettingsViewController: ViewController {
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorColor = theme.colors.border
+        tableView.reloadData()
     }
 }
 

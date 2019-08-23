@@ -67,6 +67,7 @@ final class InsertMediaImageTypeSettingsViewController: ViewController {
         let selectedBackgroundView = UIView()
         selectedBackgroundView.backgroundColor = theme.colors.midBackground
         cell.selectedBackgroundView = selectedBackgroundView
+        tableView.reloadData()
     }
 
     // MARK: - Themeable

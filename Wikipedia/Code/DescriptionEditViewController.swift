@@ -265,6 +265,7 @@ import UIKit
         warningCharacterCountLabel.textColor = theme.colors.descriptionWarning
         publishDescriptionButton.apply(theme: theme)
         descriptionTextView.keyboardAppearance = theme.keyboardAppearance
+        descriptionTextView.reloadInputViews()
     }
 }
 
