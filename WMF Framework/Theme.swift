@@ -485,15 +485,3 @@ private extension Themeable where Self: UITraitEnvironment {
         self.adjustTheme(previousTraitCollection)
     }
 }
-
-@objc public extension UIView {
-    func adjustTheme(_ previousTraitCollection: UITraitCollection?) {
-        guard
-            #available(iOS 12.0, *),
-            let self = self as? (Themeable & UITraitEnvironment)
-        else {
-            return
-        }
-        self.adjustTheme(previousTraitCollection)
-    }
-}
