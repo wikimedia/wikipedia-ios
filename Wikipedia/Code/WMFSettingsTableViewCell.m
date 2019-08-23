@@ -127,16 +127,6 @@
     [self.delegate settingsTableViewCell:self didToggleDisclosureSwitch:sender];
 }
 
-- (void)setIconColor:(UIColor *)iconColor {
-    _iconColor = iconColor;
-    self.titleIcon.tintColor = iconColor;
-}
-
-- (void)setIconBackgroundColor:(UIColor *)iconBackgroundColor {
-    _iconBackgroundColor = iconBackgroundColor;
-    self.titleIcon.backgroundColor = iconBackgroundColor;
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     //HAX: reset the titleIcon's background color so it remains during the selection cell selection animation.
@@ -198,7 +188,9 @@
     self.subtitleLabel.textColor = theme.colors.secondaryText;
     self.disclosureLabel.textColor = theme.colors.secondaryText;
     self.iconBackgroundColor = theme.colors.iconBackground == NULL ? self.iconBackgroundColor : theme.colors.iconBackground;
+    self.titleIcon.backgroundColor = self.iconBackgroundColor;
     self.iconColor = theme.colors.icon == NULL ? self.iconColor : theme.colors.icon;
+    self.titleIcon.tintColor = self.iconColor;
     self.disclosureIcon.tintColor = theme.colors.secondaryText;
     self.disclosureSwitch.backgroundColor = theme.colors.paperBackground;
     self.labelBackgroundColor = [UIColor clearColor];
