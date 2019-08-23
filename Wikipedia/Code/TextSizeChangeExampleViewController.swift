@@ -13,6 +13,11 @@ class TextSizeChangeExampleViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.textSizeChanged(notification:)), name: NSNotification.Name(rawValue: FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil)
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)

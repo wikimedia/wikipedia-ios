@@ -13,6 +13,11 @@ class WMFScrollViewController: UIViewController {
         wmf_endAdjustingScrollViewInsetsForKeyboard()
         super.viewWillDisappear(animated)
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     private var coverView: UIView?
     func setViewControllerUserInteraction(enabled: Bool) {

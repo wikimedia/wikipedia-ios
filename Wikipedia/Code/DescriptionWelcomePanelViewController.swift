@@ -35,6 +35,11 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
         
         view.wmf_configureSubviewsForDynamicType()
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     private func embedContainerControllerView() {
         let containerController = DescriptionWelcomeContentsViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard() 

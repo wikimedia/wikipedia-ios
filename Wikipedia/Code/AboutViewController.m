@@ -147,6 +147,11 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self updateNavigationBar];
 }
 
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self adjustTheme:previousTraitCollection];
+}
+
 - (void)closeButtonPressed {
     [self.presentingViewController dismissViewControllerAnimated:YES
                                                       completion:nil];
@@ -348,6 +353,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
         return;
     }
     self.view.backgroundColor = theme.colors.paperBackground;
+    [self.webView wmf_setTextFontColor:self.theme];
+    [self.webView wmf_setLogoStyleWithTheme:self.theme];
 }
 
 @end

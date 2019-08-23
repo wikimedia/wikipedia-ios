@@ -271,6 +271,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         view.backgroundColor = theme.colors.paperBackground
         beKindInputAccessoryView.apply(theme: theme)
+        headerView?.apply(theme: theme)
     }
 }
 

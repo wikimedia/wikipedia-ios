@@ -19,6 +19,11 @@ class DescriptionWelcomeContentsViewController: UIViewController, Themeable {
         apply(theme: theme)
         view.wmf_configureSubviewsForDynamicType()
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     private func updateUIStrings(){
         switch pageType {

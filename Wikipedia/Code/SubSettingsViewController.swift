@@ -8,6 +8,11 @@ class SubSettingsViewController: ViewController {
         super.viewDidLoad()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
+
     override var nibName: String? {
         return "SubSettingsViewController"
     }

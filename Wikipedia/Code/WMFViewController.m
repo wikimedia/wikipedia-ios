@@ -97,6 +97,11 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
     [self updateScrollViewInsets];
 }
 
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self adjustTheme:previousTraitCollection];
+}
+
 - (CGFloat)toolbarHeightForCurrentSafeAreaInsets {
     return self.view.safeAreaInsets.top == 0 ? WMFToolbarConstrainedHeight : WMFToolbarHeight;
 }

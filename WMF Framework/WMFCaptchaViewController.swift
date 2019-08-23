@@ -162,6 +162,11 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         
         apply(theme: theme)
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     @objc func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
         wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))

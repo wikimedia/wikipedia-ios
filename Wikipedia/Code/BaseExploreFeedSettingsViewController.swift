@@ -166,6 +166,11 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(newExploreFeedPreferencesWereRejected(_:)), name: NSNotification.Name.WMFNewExploreFeedPreferencesWereRejected, object: nil)
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
+
     var preferredLanguages: [MWKLanguageLink] {
         return MWKLanguageLinkController.sharedInstance().preferredLanguages
     }
@@ -252,6 +257,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
             return
         }
         tableView.backgroundColor = theme.colors.baseBackground
+        tableView.reloadData()
     }
 
 }

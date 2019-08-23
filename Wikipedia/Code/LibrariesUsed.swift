@@ -72,6 +72,11 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         }
         libraries = librariesUsed(from: plistPath)
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     private func librariesUsed(from plistPath: String) -> [LibraryUsed] {
         guard

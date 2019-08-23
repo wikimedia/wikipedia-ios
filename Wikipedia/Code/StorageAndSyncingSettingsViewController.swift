@@ -174,6 +174,7 @@ class StorageAndSyncingSettingsViewController: SubSettingsViewController {
         }
         tableView.backgroundColor = theme.colors.baseBackground
         eraseSavedArticlesView?.apply(theme: theme)
+        tableView.reloadData()
     }
 }
 

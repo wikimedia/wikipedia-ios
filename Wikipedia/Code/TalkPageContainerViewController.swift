@@ -226,6 +226,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         toolbar.barTintColor = theme.colors.chromeBackground
         shareIcon?.apply(theme: theme)
         languageIcon?.apply(theme: theme)
+        topicListViewController?.apply(theme: theme)
+        replyListViewController?.apply(theme: theme)
+        headerView?.apply(theme: theme)
     }
 
     func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {

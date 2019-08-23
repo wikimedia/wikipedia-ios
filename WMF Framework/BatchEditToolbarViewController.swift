@@ -33,6 +33,11 @@ public final class BatchEditToolbarViewController: UIViewController {
         }
         apply(theme: theme)
     }
+
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
 }
 
 extension BatchEditToolbarViewController: Themeable {

@@ -31,6 +31,11 @@ class DescriptionWelcomeContainerViewController: UIViewController, Themeable {
             hasAlreadyFadedInAndUp = true
         }
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     private func shouldFadeInAndUp() -> Bool {
         switch pageType {

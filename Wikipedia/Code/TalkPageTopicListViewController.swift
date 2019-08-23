@@ -155,6 +155,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
         }
         
         collectionView.backgroundColor = theme.colors.baseBackground
+        collectionView.reloadData()
     }
 }
 

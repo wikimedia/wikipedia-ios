@@ -75,6 +75,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+        collectionView.reloadData()
     }
 
     // MARK: - UIViewControllerPreviewingDelegate

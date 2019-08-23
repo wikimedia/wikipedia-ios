@@ -26,6 +26,11 @@ class DescriptionWelcomeInitialViewController: UIViewController, Themeable {
         super.viewDidLoad()
         apply(theme: theme)
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     override var prefersStatusBarHidden: Bool {
         return false
