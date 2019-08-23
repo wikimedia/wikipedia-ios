@@ -175,10 +175,10 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        title = CommonStrings.exploreFeedTitle
         assert(!preferredLanguages.isEmpty)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
+        super.viewDidLoad()
+        title = CommonStrings.exploreFeedTitle
     }
 
     @objc private func closeButtonPressed() {
