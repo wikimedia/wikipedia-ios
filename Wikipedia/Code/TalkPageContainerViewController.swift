@@ -9,9 +9,9 @@ fileprivate enum TalkPageContainerViewState {
     case fetchFinishedResultData
     case fetchFinishedResultEmpty
     case fetchFailure(error: Error)
-    case linkLoading(loadingViewController: FakeLoading & ViewController)
-    case linkFinished(loadingViewController: FakeLoading & ViewController)
-    case linkFailure(loadingViewController: FakeLoading & ViewController, error: Error)
+    case linkLoading(loadingViewController: AnimationLoading & ViewController, cancelBlock: (() -> Void))
+    case linkFinished(loadingViewController: AnimationLoading & ViewController)
+    case linkFailure(loadingViewController: AnimationLoading & ViewController, error: Error)
     
     var repliesAreDisabled: Bool {
         switch self {
@@ -92,6 +92,10 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     var hintController: HintController?
     var fromNavigationStateRestoration: Bool = false
+    private var cancellationKey: String?
+    
+    //AnimationLoading
+    var loadingAnimationViewController: LoadingAnimationViewController?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -128,16 +132,16 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
                     showEmptyView(of: .unableToLoadTalkPage)
                 }
                 showNoInternetConnectionAlertOrOtherWarning(from: error)
-            case .linkLoading(let viewController):
-                viewController.fakeProgressController.start()
+            case .linkLoading(let viewController, let cancelBlock):
+                viewController.showLoadingAnimation(with: cancelBlock)
                 viewController.scrollView?.isUserInteractionEnabled = false
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = false
             case .linkFinished(let viewController):
-                viewController.fakeProgressController.stop()
+                viewController.hideLoadingAnimation()
                 viewController.scrollView?.isUserInteractionEnabled = true
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = true
             case .linkFailure(let viewController, let error):
-                viewController.fakeProgressController.stop()
+                viewController.hideLoadingAnimation()
                 viewController.scrollView?.isUserInteractionEnabled = true
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = true
                 showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -529,7 +533,7 @@ private extension TalkPageContainerViewController {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    func toggleLinkDeterminationState(loadingViewController: FakeLoading & ViewController, shouldDisable: Bool) {
+    func toggleLinkDeterminationState(loadingViewController: FakeProgressLoading & ViewController, shouldDisable: Bool) {
         
         if shouldDisable {
             loadingViewController.fakeProgressController.start()
@@ -541,20 +545,21 @@ private extension TalkPageContainerViewController {
         loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = !shouldDisable
     }
     
-    func tappedLink(_ url: URL, loadingViewController: FakeLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
+    func tappedLink(_ url: URL, loadingViewController: AnimationLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
         guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
             return
         }
         
-        viewState = .linkLoading(loadingViewController: loadingViewController)
-        
-        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self, weak loadingViewController] (article, error) in
+        self.cancellationKey = self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self, weak loadingViewController] (article, error) in
             
             guard let self = self,
-            let loadingViewController = loadingViewController else {
+            let loadingViewController = loadingViewController,
+            let _ = self.cancellationKey else {
                 return
             }
+            
+            self.cancellationKey = nil
             
             if let error = error {
                 self.viewState = .linkFailure(loadingViewController: loadingViewController, error: error)
@@ -584,6 +589,16 @@ private extension TalkPageContainerViewController {
                 self.openURLInSafari(url: absoluteURL)
             }
         }
+        
+        //loading state
+        let cancelBlock = {
+            if let cancellationKey = self.cancellationKey {
+                self.dataStore.articleSummaryController.fetcher.cancel(taskFor: cancellationKey)
+                self.viewState = .linkFinished(loadingViewController: loadingViewController)
+                self.cancellationKey = nil
+            }
+        }
+        self.viewState = .linkLoading(loadingViewController: loadingViewController, cancelBlock: cancelBlock)
     }
     
     func changeLanguage(siteURL: URL) {
@@ -798,4 +813,8 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
         }
         controller.dismiss(animated: true, completion: nil)
     }
+}
+
+extension TalkPageContainerViewController: AnimationLoading {
+    
 }

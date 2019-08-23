@@ -32,6 +32,7 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
+#import "WMFArticlePassthroughResponse.h"
 
 #import "Wikipedia-Swift.h"
 
@@ -150,12 +151,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 // Reading Themes
 @property (nonatomic, strong) WMFReadingThemesControlsArticlePresenter *readingThemesControlsPresenter;
 
-/**
- *  We need to do this to prevent auto loading from occuring,
- *  if we do something to the article like edit it and force a reload
- */
-@property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
-
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
 @property (nonatomic, getter=isWaitingUntilViewDidAppearToShowToolbar) BOOL waitingUntilViewDidAppearToShowToolbar;
@@ -169,6 +164,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 @property (nullable, nonatomic, copy) NSString *initialFragment;
 @property (nonatomic, strong, readwrite, nullable) NSString *visibleSectionAnchor;
+
+@property (nonatomic, strong, nullable) LoadingAnimationViewController *loadingAnimationViewController;
 
 @end
 
@@ -812,6 +809,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     if (!self.skipFetchOnViewDidAppear) {
         [self fetchArticleIfNeeded];
+    } else if (self.processArticleViewStateOnViewDidAppear && self.articlePassthroughResponse) {
+        self.article = self.articlePassthroughResponse.article;
+        [self processArticleFetchResultWithSuccess:self.articlePassthroughResponse.success article:self.article articleURL:self.articleURL error:self.articlePassthroughResponse.error force:self.articlePassthroughResponse.force];
+        self.articlePassthroughResponse = nil;
+        self.processArticleViewStateOnViewDidAppear = NO;
     }
     self.skipFetchOnViewDidAppear = NO;
     [self startSignificantlyViewedTimer];
@@ -1278,6 +1280,142 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     return _articleFetcherPromise;
 }
 
+- (NSURLSessionTask *)fetchArticleWithURL:(NSURL *)url forceDownload:(BOOL)force checkForNewerRevision:(BOOL)checkForNewerRevision WithSuccess:(void (^)(MWKArticle *, NSURL *))successBlock andError:(void (^)(NSError *))errorBlock {
+    
+    return [self.articleFetcher fetchArticleWithURL:url
+                                                            forceDownload:force
+                                                    checkForNewerRevision:force || self.requestLatestRevisionOnInitialLoad
+                                                               saveToDisk:YES
+                                                                 priority:NSURLSessionTaskPriorityHigh
+                                                                  failure:^(NSError *_Nonnull error) {
+                                                                      if (errorBlock) {
+                                                                          errorBlock(error);
+                                                                      }
+                                                                  } success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
+                                                                      if (successBlock) {
+                                                                          successBlock(article, articleURL);
+                                                                      }
+                                                                  }];
+}
+
+- (NSURL *)externalURLForArticleFetchResultWithSuccess:(BOOL)isSuccess article:(nullable MWKArticle *)article articleURL:(nullable NSURL *)articleURL error:(nullable NSError *)error force:(BOOL)force {
+    
+    if ((isSuccess && (!article || !articleURL)) ||
+        (!isSuccess && !error)) {
+            NSAssert(false, @"Unexpected fetch result state");
+        return nil;
+    }
+    
+    if (isSuccess) {
+        if (article.ns != PageNamespaceMain) {
+            return articleURL;
+        }
+    } else {
+        MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
+        NSURL *cachedFallbackURL = cachedFallback.url;
+        if (cachedFallback) {
+            if (cachedFallback.ns != PageNamespaceMain && cachedFallbackURL) {
+                return cachedFallbackURL;
+            }
+        } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
+            return articleURL;
+        }
+    }
+    
+    return nil;
+}
+
+- (void)processArticleFetchResultWithSuccess:(BOOL)isSuccess article:(nullable MWKArticle *)article articleURL:(nullable NSURL *)articleURL error:(nullable NSError *)error force:(BOOL)force {
+    if (isSuccess) {
+        [self endRefreshing];
+        self.requestLatestRevisionOnInitialLoad = NO;
+        
+        if (article.ns == PageNamespaceMain) {
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+            self.articleURL = articleURL;
+            self.article = article;
+            self.articleFetcherPromise = nil;
+            [self articleDidLoad];
+        } else {
+            [self hideProgressViewAnimated:YES];
+            
+            NSAssert(false, @"Shouldn't reach this point, external URLs are handled earlier now.");
+            //[self showExternalURL:articleURL];
+            
+            self.articleFetcherPromise = nil;
+            [self articleDidLoad];
+            [self showWebView];
+        }
+    } else {
+        DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+        [self endRefreshing];
+        [self hideProgressViewAnimated:YES];
+        
+        MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
+        if (cachedFallback) {
+            if (cachedFallback.ns == PageNamespaceMain) {
+                self.article = cachedFallback;
+                if (![error wmf_isNetworkConnectionError]) {
+                    // don't show offline banner for cached articles
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                              sticky:NO
+                                               dismissPreviousAlerts:NO
+                                                         tapCallBack:NULL];
+                }
+            } else {
+                NSURL *cachedFallbackURL = cachedFallback.url;
+                if (cachedFallbackURL) {
+                    NSAssert(false, @"Shouldn't reach this point, external URLs are handled earlier now.");
+                    //[self showExternalURL:cachedFallbackURL];
+                } else {
+                    if (![error wmf_isNetworkConnectionError]) {
+                        // don't show offline banner for cached articles
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                  sticky:NO
+                                                   dismissPreviousAlerts:NO
+                                                             tapCallBack:NULL];
+                    }
+                }
+            }
+        } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
+            NSURL *externalURL = self.articleURL;
+            if (externalURL) {
+                NSAssert(false, @"Shouldn't reach this point, external URLs are handled earlier now.");
+                //[self showExternalURL:externalURL];
+            } else {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                          sticky:NO
+                                           dismissPreviousAlerts:NO
+                                                     tapCallBack:NULL];
+            }
+            return;
+        } else {
+            if (force && [error wmf_isNetworkConnectionError]) {
+                [self wmf_showNoInternetConnectionPanelViewControllerWithTheme:self.theme
+                                                       primaryButtonTapHandler:^(id sender) {
+                                                           [self dismissPresentedViewController];
+                                                       }
+                                                                    completion:^(){
+                                                                    }];
+            } else {
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                          sticky:NO
+                                           dismissPreviousAlerts:NO
+                                                     tapCallBack:NULL];
+            }
+            
+            if ([error wmf_isNetworkConnectionError]) {
+                [self.reachabilityNotifier start];
+            }
+        }
+    }
+    
+    self.articleFetcherPromise = nil;
+    [self articleDidLoad];
+    [self showWebView]; // show here on failure, on web view callback on success
+}
+
 - (void)fetchArticleForce:(BOOL)force {
     // ** Always call articleDidLoad after the article loads or fails & before returning from this method **
     WMFAssertMainThread(@"Not on main thread!");
@@ -1292,99 +1430,27 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self showProgressViewAnimated:YES];
 
     @weakify(self);
-    self.articleFetcherPromise = [self.articleFetcher fetchArticleWithURL:self.articleURL
-        forceDownload:force
-        checkForNewerRevision:force || self.requestLatestRevisionOnInitialLoad
-        saveToDisk:YES
-        priority:NSURLSessionTaskPriorityHigh
-        failure:^(NSError *_Nonnull error) {
-            @strongify(self);
-            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-            [self endRefreshing];
-            [self hideProgressViewAnimated:YES];
-
-            MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
-            if (cachedFallback) {
-                if (cachedFallback.ns == PageNamespaceMain) {
-                    self.article = cachedFallback;
-                    if (![error wmf_isNetworkConnectionError]) {
-                        // don't show offline banner for cached articles
-                        [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                  sticky:NO
-                                                   dismissPreviousAlerts:NO
-                                                             tapCallBack:NULL];
-                    }
-                } else {
-                    NSURL *cachedFallbackURL = cachedFallback.url;
-                    if (cachedFallbackURL) {
-                        [self showExternalURL:cachedFallbackURL];
-                    } else {
-                        if (![error wmf_isNetworkConnectionError]) {
-                            // don't show offline banner for cached articles
-                            [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                      sticky:NO
-                                                       dismissPreviousAlerts:NO
-                                                                 tapCallBack:NULL];
-                        }
-                    }
-                }
-            } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
-                NSURL *externalURL = self.articleURL;
-                if (externalURL) {
-                    [self showExternalURL:externalURL];
-                } else {
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                              sticky:NO
-                                               dismissPreviousAlerts:NO
-                                                         tapCallBack:NULL];
-                }
-                return;
-            } else {
-                if (force && [error wmf_isNetworkConnectionError]) {
-                    [self wmf_showNoInternetConnectionPanelViewControllerWithTheme:self.theme
-                                                           primaryButtonTapHandler:^(id sender) {
-                                                               [self dismissPresentedViewController];
-                                                           }
-                                                                        completion:^(){
-                                                                        }];
-                } else {
-                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                              sticky:NO
-                                               dismissPreviousAlerts:NO
-                                                         tapCallBack:NULL];
-                }
-
-                if ([error wmf_isNetworkConnectionError]) {
-                    [self.reachabilityNotifier start];
-                }
-            }
-
-            self.articleFetcherPromise = nil;
-            [self articleDidLoad];
-            [self showWebView]; // show here on failure, on web view callback on success
+    self.articleFetcherPromise = [self fetchArticleWithURL:self.articleURL forceDownload:force checkForNewerRevision:force || self.requestLatestRevisionOnInitialLoad WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull articleURL) {
+        @strongify(self);
+        
+        NSURL *url = [self externalURLForArticleFetchResultWithSuccess:YES article:article articleURL:articleURL error:nil force:force];
+        if (url) {
+            [self showExternalURL:url];
+        } else {
+            [self processArticleFetchResultWithSuccess:YES article:article articleURL:articleURL error:nil force:force];
         }
-        success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
-            @strongify(self);
-            [self endRefreshing];
-            self.requestLatestRevisionOnInitialLoad = NO;
-
-            if (article.ns == PageNamespaceMain) {
-                [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-                self.articleURL = articleURL;
-                self.article = article;
-                self.articleFetcherPromise = nil;
-                [self articleDidLoad];
-            } else {
-                [self hideProgressViewAnimated:YES];
-
-                [self showExternalURL:articleURL];
-
-                self.articleFetcherPromise = nil;
-                [self articleDidLoad];
-                [self showWebView];
-            }
-        }];
+        
+        
+    } andError:^(NSError * _Nonnull error) {
+        @strongify(self);
+        
+        NSURL *url = [self externalURLForArticleFetchResultWithSuccess:NO article:nil articleURL:self.articleURL error:error force:force];
+        if (url) {
+            [self showExternalURL:url];
+        } else {
+            [self processArticleFetchResultWithSuccess:NO article:nil articleURL:self.articleURL error:error force:force];
+        }
+    }];
 }
 
 - (void)fetchArticle {
@@ -1594,7 +1660,54 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    [self pushArticleViewControllerWithURL:url animated:YES];
+    
+    BOOL force = NO;
+    
+    //is checkForNewerRevision right?
+    NSURLSessionTask *task = [self fetchArticleWithURL:url forceDownload:force checkForNewerRevision:YES WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull articleURL) {
+        
+        if (self.loadingAnimationViewController == nil) {
+            //has already been cancelled
+            return;
+        }
+        
+        [self objcHideLoadingAnimationWith:self.loadingAnimationViewController];
+        self.loadingAnimationViewController = nil;
+        
+        BOOL isSuccess = YES;
+        NSURL *url = [self externalURLForArticleFetchResultWithSuccess:isSuccess article:article articleURL:articleURL error:nil force:force];
+        if (url) {
+            [self wmf_openExternalUrl:url];
+        } else {
+            [self pushPrepopulatedArticleViewControllerWithSuccess:isSuccess article:article articleURL:articleURL error:nil force:force animated:YES];
+        }
+    } andError:^(NSError * _Nonnull error) {
+        
+        if (self.loadingAnimationViewController == nil) {
+            //has already been cancelled
+            return;
+        }
+        
+        [self objcHideLoadingAnimationWith:self.loadingAnimationViewController];
+        self.loadingAnimationViewController = nil;
+        
+        BOOL isSuccess = NO;
+        NSURL *url = [self externalURLForArticleFetchResultWithSuccess:isSuccess article:nil articleURL:nil error:error force:force];
+        if (url) {
+            [self wmf_openExternalUrl:url];
+        } else {
+            [self pushPrepopulatedArticleViewControllerWithSuccess:isSuccess article:nil articleURL:url error:error force:force animated:YES];
+        }
+    }];
+    [task resume];
+    
+    @weakify(self);
+    self.loadingAnimationViewController = [self objcShowLoadingAnimationWith:^{
+        @strongify(self);
+        [task cancel];
+        [self objcHideLoadingAnimationWith:self.loadingAnimationViewController];
+        self.loadingAnimationViewController = nil;
+    }];
 }
 
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {
@@ -2238,6 +2351,17 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         [[WMFArticleViewController alloc] initWithArticleURL:url
                                                    dataStore:self.dataStore
                                                        theme:self.theme];
+    [self pushArticleViewController:articleViewController animated:animated];
+}
+
+- (void)pushPrepopulatedArticleViewControllerWithSuccess:(BOOL)success article:(nullable MWKArticle *)article articleURL:(NSURL *)url error:(nullable NSError *)error force:(BOOL)force animated:(BOOL)animated {
+    WMFArticleViewController *articleViewController =
+    [[WMFArticleViewController alloc] initWithArticleURL:url
+                                               dataStore:self.dataStore
+                                                   theme:self.theme];
+    articleViewController.processArticleViewStateOnViewDidAppear = YES;
+    articleViewController.skipFetchOnViewDidAppear = YES;
+    articleViewController.articlePassthroughResponse = [[WMFArticlePassthroughResponse alloc] initWithArticle:article success:success error:error force:force];
     [self pushArticleViewController:articleViewController animated:animated];
 }
 

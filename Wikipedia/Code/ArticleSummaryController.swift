@@ -10,18 +10,20 @@ public class ArticleSummaryController: NSObject {
         self.fetcher = fetcher
     }
     
-    public func updateOrCreateArticleSummaryForArticle(withKey articleKey: String, completion: ((WMFArticle?, Error?) -> Void)? = nil) {
-        updateOrCreateArticleSummariesForArticles(withKeys: [articleKey], completion: { (byKey, error) in
+    @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: String, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> String? {
+        let keys = updateOrCreateArticleSummariesForArticles(withKeys: [articleKey], completion: { (byKey, error) in
             completion?(byKey.first?.value, error)
         })
+        return keys.first
     }
     
-    public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [String], completion: (([String: WMFArticle], Error?) -> Void)? = nil) {
+    @discardableResult public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [String], completion: (([String: WMFArticle], Error?) -> Void)? = nil) -> [String] {
         guard let moc = dataStore?.viewContext else {
             completion?([:], RequestError.invalidParameters)
-            return
+            return []
         }
-        fetcher.fetchArticleSummaryResponsesForArticles(withKeys: articleKeys) { (summaryResponses) in
+        
+        return fetcher.fetchArticleSummaryResponsesForArticles(withKeys: articleKeys) { (summaryResponses) in
             moc.perform {
                 do {
                     let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
