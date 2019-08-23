@@ -154,7 +154,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeTheme:)
-                                                 name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
+                                                 name:WMFTheme.didChangeNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleFontSizeWasUpdated:)
@@ -1858,7 +1858,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)changeTheme:(NSNotification *)note {
-    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
+    WMFTheme *theme = (WMFTheme *)note.object;
 
     if (self.theme != theme) {
         [self applyTheme:theme];

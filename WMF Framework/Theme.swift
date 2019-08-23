@@ -454,3 +454,7 @@ public protocol Themeable : class {
     @objc(applyTheme:)
     func apply(theme: Theme) //this might be better as a var theme: Theme { get set } - common VC superclasses could check for viewIfLoaded and call an update method in the setter. This would elminate the need for the viewIfLoaded logic in every applyTheme:
 }
+
+@objc public extension Theme {
+    @objc static let didChangeNotification = NSNotification.Name(rawValue: "WMFThemeDidChangeNotification")
+}

@@ -10,7 +10,6 @@ protocol WMFReadingThemesControlsViewControllerDelegate: class {
 class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
-    @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     @objc static let nibName = "ReadingThemesControlsViewController"
     
     var theme = Theme.standard
@@ -195,8 +194,7 @@ class ReadingThemesControlsViewController: UIViewController {
     }
     
     func userDidSelect(theme: Theme) {
-        let userInfo = ["theme": theme]
-        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: Theme.didChangeNotification, object: theme)
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {
