@@ -37,6 +37,13 @@ class SectionEditorViewController: UIViewController {
     
     @objc var editFunnel = EditFunnel.shared
     
+    var keyboardFrame: CGRect? {
+        didSet {
+            keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
+        }
+    }
+    private var isInFindReplaceActionSheetMode = false
+    
     private var wikitext: String? {
         didSet {
             setWikitextToWebViewIfReady()
@@ -85,17 +92,50 @@ class SectionEditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         selectLastSelectionIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         super.viewWillDisappear(animated)
     }
     
     @objc func keyboardDidHide() {
         inputViewsController.resetFormattingAndStyleSubmenus()
+    }
+    
+    @objc func keyboardWillChangeFrame(_ notification: Notification) {
+        if let window = view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let windowFrame = window.convert(endFrame, from: nil)
+            keyboardFrame = window.convert(windowFrame, to: view)
+        }
+    }
+    
+    private func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+
+        guard let newKeyboardFrame = newKeyboardFrame else {
+            webView.scrollView.contentInset.bottom = 0
+            return
+        }
+        
+        if let oldKeyboardFrame = oldKeyboardFrame,
+            oldKeyboardFrame.height == newKeyboardFrame.height {
+            return
+        }
+        
+        //inflate content inset if needed to get around adjustedContentInset bugs
+        if let findAndReplaceView = inputViewsController.findAndReplaceView,
+            ((findAndReplaceView.isVisible ||
+                (isInFindReplaceActionSheetMode && newKeyboardFrame.height > 0)) &&
+                webView.scrollView.contentInset.bottom != newKeyboardFrame.height) {
+            webView.scrollView.contentInset.bottom = newKeyboardFrame.height
+            isInFindReplaceActionSheetMode = false
+        } else {
+            webView.scrollView.contentInset.bottom = 0
+        }
     }
     
     private func setupFocusNavigationView() {
@@ -376,6 +416,7 @@ extension SectionEditorViewController: UIScrollViewDelegate {
             return
         }
         previousAdjustedContentInset = newAdjustedContentInset
+        
         messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
     }
 }
@@ -400,6 +441,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     vc.delegate = self
                     vc.editFunnel = self.editFunnel
                     vc.loggedEditActions = self.loggedEditActions
+                    vc.editFunnelSource = self.editFunnelSource
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
@@ -487,6 +529,7 @@ extension SectionEditorViewController: FindAndReplaceKeyboardBarDisplayDelegate 
         alertController.popoverPresentationController?.sourceView = keyboardBar.replaceSwitchButton
         alertController.popoverPresentationController?.sourceRect = keyboardBar.replaceSwitchButton.bounds
         
+        isInFindReplaceActionSheetMode = true
         present(alertController, animated: true, completion: nil)
     }
 }

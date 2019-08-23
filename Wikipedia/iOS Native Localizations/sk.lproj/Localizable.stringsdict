@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Pridať %1$d článok k zoznamu na prečítanie</string>
+			<key>other</key>
+			<string>Pridať %1$d články k zoznamu na prečítanie</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -21,6 +21,7 @@
 "action-cancel" = "منسوخ";
 // Fuzzy
 "action-find-in-page" = "ورقے وچ ڳولو";
+"action-language-accessibility" = "زبان وٹاؤ";
 "action-move-to" = "تے ون٘ڄو...";
 "action-read" = "پڑھو";
 "action-redo" = "ولدا کرو";
@@ -199,7 +200,9 @@
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "table-title-other" = "ٻیاں معلومات";
+"talk-page-add-discussion-accessibility-label" = "بحث شامل کرو";
 "talk-page-new-subject-placeholder-text" = "موضوع";
+"talk-page-new-subject-textfield-accessibility-label" = "موضوع";
 "talk-page-reply-title" = "جواب";
 "theme-black-display-name" = "کالا";
 "theme-dark-display-name" = "گہرا";

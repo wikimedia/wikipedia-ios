@@ -80,13 +80,13 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordField.placeholder = WMFLocalizedString("field-password-placeholder", value:"enter password", comment:"Placeholder text shown inside password field until user taps on it")
         passwordRepeatField.placeholder = WMFLocalizedString("field-password-confirm-placeholder", value:"re-enter password", comment:"Placeholder text shown inside confirm password field until user taps on it")
         emailField.placeholder = WMFLocalizedString("field-email-placeholder", value:"example@example.org", comment:"Placeholder text shown inside email address field until user taps on it")
-        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
-        passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field\n{{Identical|Password}}")
+        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field {{Identical|Username}}")
+        passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field {{Identical|Password}}")
         passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
         emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
         passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
 
-        loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button\n{{Identical|Log in}}"))
+        loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button {{Identical|Log in}}"))
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
         titleLabel.text = WMFLocalizedString("account-creation-title", value:"Create a new account", comment:"Title for account creation interface")
@@ -212,7 +212,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func login() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         let username = usernameField.text ?? ""
         let password = passwordField.text ?? ""
         WMFAuthenticationManager.sharedInstance.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
@@ -290,7 +290,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func createAccount() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form.\n{{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         let creationFailure: WMFErrorHandler = {error in
             DispatchQueue.main.async {

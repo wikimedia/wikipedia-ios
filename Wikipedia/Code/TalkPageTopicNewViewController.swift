@@ -122,6 +122,16 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.isUserInteractionEnabled = true
         bodyTextView.isUserInteractionEnabled = true
     }
+    
+    func announcePostSuccessful() {
+        NotificationCenter.default.addObserver(self, selector: #selector(announcementDidFinish(notification:)), name: UIAccessibility.announcementDidFinishNotification, object: nil)
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.successfullyPublishedDiscussion)
+    }
+    
+    @objc private func announcementDidFinish(notification: NSNotification) {
+         navigationController?.popViewController(animated: true)
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -171,10 +181,15 @@ private extension TalkPageTopicNewViewController {
     
     func setupTextInputViews() {
         subjectTextField.isUnderlined = false
+        subjectTextField.accessibilityLabel = WMFLocalizedString("talk-page-new-subject-textfield-accessibility-label", value: "Subject", comment: "Accessibility label for subject text field.")
+        bodyTextView.accessibilityLabel = WMFLocalizedString("talk-page-new-body-textfield-accessibility-label", value: "Discussion Body", comment: "Accessibility label for discussion body text field.")
         bodyTextView.isUnderlined = false
         bodyTextView._delegate = self
         
         subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new topic subject field for talk pages.")
+        
+        let clearAccessibilityLabel = WMFLocalizedString("talk-page-new-subject-clear-button-accessibility", value: "Clear subject", comment: "Accessibility label for the clear values X button in the talk page new subject textfield.")
+        subjectTextField.clearAccessibilityLabel = clearAccessibilityLabel
         
         subjectTextField.addTarget(self, action: #selector(evaluatePublishButtonState), for: .editingChanged)
     }
@@ -212,7 +227,7 @@ private extension TalkPageTopicNewViewController {
             if let oldText = oldText, oldText.count > 0 {
                 bodyTextView.text = oldText
                 bodyTextView.placeholder = nil
-            } else if bodyTextView.isShowingPlaceholder {
+            } else if bodyTextView.isShowingPlaceholder && !UIAccessibility.isVoiceOverRunning {
                 bodyTextView.placeholder = bodyPlaceholder
             } else {
                 bodyTextView.text = nil

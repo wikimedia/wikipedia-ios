@@ -10,6 +10,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
     var wikitext = ""
     var editFunnel: EditFunnel?
     var loggedEditActions: NSMutableSet?
+    var editFunnelSource: EditFunnelSource = .unknown
     var savedPagesFunnel: SavedPagesFunnel?
     var theme: Theme = .standard
     
@@ -73,7 +74,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}")
+        navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
         
         previewWebViewContainer.externalLinksOpenerDelegate = self
         
@@ -82,8 +83,9 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
 
-        if let loggedEditActions = loggedEditActions, !loggedEditActions.contains(EditFunnel.Action.preview) {
-            editFunnel?.logEditPreviewForArticle(language: section?.articleLanguage)
+        if let loggedEditActions = loggedEditActions,
+            !loggedEditActions.contains(EditFunnel.Action.preview) {
+            editFunnel?.logEditPreviewForArticle(from: editFunnelSource, language: section?.articleLanguage)
             loggedEditActions.add(EditFunnel.Action.preview)
         }
         

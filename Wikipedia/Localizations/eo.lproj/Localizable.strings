@@ -68,6 +68,7 @@
 "action-add-to-reading-list-short" = "Aldoni al listo";
 "action-cancel" = "Nuligi";
 "action-find-in-page" = "Trovi en paĝo";
+"action-language-accessibility" = "Ŝanĝi lingvon";
 "action-move-to" = "Movi al...";
 "action-move-to-reading-list" = "Movi al legolisto";
 "action-read" = "Legi";
@@ -719,8 +720,14 @@
 "table-of-contents-close-accessibility-label" = "Fermi enhavtabelon";
 "table-of-contents-heading" = "Enhavaĵoj";
 "table-title-other" = "Pliaj informoj";
+"talk-page-add-discussion-accessibility-label" = "Aldoni diskuton";
+"talk-page-discussion-accessibility-hint" = "Duoble frapetu por malfermi diskutan fadenon";
+"talk-page-discussion-read-accessibility-label" = "Legita";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "leˈgita";
+"talk-page-discussion-unread-accessibility-label" = "Nelegita";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "neleˈgita";
 "talk-page-error-unable-to-post-reply" = "Sen Interreta konekto. Ne povas afiŝi respondon.";
-"talk-page-error-unable-to-post-topic" = "Sen Interreta konekto. Ne povas afiŝi temon.";
+"talk-page-error-unable-to-post-topic" = "Sen Interreta konekto. Ne povas afiŝi diskuton.";
 "talk-page-info-active-conversations" = "Aktivaj konversacioj ĉe $1 Vikipedio";
 "talk-page-info-active-conversations-generic" = "Aktivaj konversacioj ĉe Vikipedio";
 "talk-page-link-user-action-sheet-app" = "Vidi Uzantopaĝon en aplikaĵo";
@@ -728,9 +735,13 @@
 "talk-page-link-user-action-sheet-title" = "Uzantopaĝoj";
 "talk-page-new-banner-subtitle" = "Rememoru ke ni ĉiuj estas homoj ĉi tie";
 "talk-page-new-banner-title" = "Bonvolu esti afabla";
+"talk-page-new-body-textfield-accessibility-label" = "Ĉefparto de Diskuto";
+"talk-page-new-reply-body-accessibility-label" = "Verki respondon";
 "talk-page-new-reply-body-placeholder-text" = "Respondi";
 "talk-page-new-reply-success-text" = "Via respondo sukcese publikiĝis";
+"talk-page-new-subject-clear-button-accessibility" = "Vakigi temon";
 "talk-page-new-subject-placeholder-text" = "Temo";
+"talk-page-new-subject-textfield-accessibility-label" = "Temo";
 "talk-page-new-topic-body-placeholder-text" = "Fari novan diskuton";
 "talk-page-new-topic-success-text" = "Via diskuto sukcese publikiĝis";
 "talk-page-new-topic-title" = "Nova diskuto";

@@ -41,7 +41,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [[WMFLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"article-languages-label", nil, nil, @"Choose language", @"Header label for per-article language selector screen.\n{{Identical|Choose language}}");
+    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"article-languages-label", nil, nil, @"Choose language", @"Header label for per-article language selector screen. {{Identical|Choose language}}");
     languagesVC.editing = NO;
     return languagesVC;
 }
@@ -564,7 +564,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     languagesVC.articleURL = url;
     languagesVC.editing = NO;
     languagesVC.showExploreFeedCustomizationSettings = NO;
-    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"languages-title", nil, nil, @"Change language", @"Title for language picker\n{{Identical|Language}}");
+    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"languages-title", nil, nil, @"Change language", @"Title for language picker {{Identical|Language}}");
 
     return languagesVC;
 }

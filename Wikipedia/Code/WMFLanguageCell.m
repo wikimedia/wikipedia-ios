@@ -71,7 +71,7 @@
 - (void)setIsPrimary:(BOOL)isPrimary {
     _isPrimary = isPrimary;
     if (isPrimary) {
-        self.primaryLabel.text = [WMFLocalizedStringWithDefaultValue(@"settings-primary-language", nil, nil, @"Primary", @"Label shown next to primary language\n{{Identical|Primary}}") uppercaseStringWithLocale:[NSLocale currentLocale]];
+        self.primaryLabel.text = [WMFLocalizedStringWithDefaultValue(@"settings-primary-language", nil, nil, @"Primary", @"Label shown next to primary language {{Identical|Primary}}") uppercaseStringWithLocale:[NSLocale currentLocale]];
         self.primaryLabelContainerView.backgroundColor = self.theme.colors.secondaryText;
     } else {
         self.primaryLabel.text = nil;

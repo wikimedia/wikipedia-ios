@@ -19,7 +19,7 @@ class TalkPageHeaderView: UIView {
     
     @IBOutlet private var headerLabel: UILabel!
     @IBOutlet private(set) var titleTextView: UITextView!
-    @IBOutlet private var infoLabel: UILabel!
+    @IBOutlet private(set) var infoLabel: UILabel!
     @IBOutlet private var introTextView: UITextView!
     
     private var viewModel: ViewModel?
@@ -92,6 +92,8 @@ class TalkPageHeaderView: UIView {
         introTextView.textContainer.lineFragmentPadding = 0
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedIntro(sender:)))
         introTextView.addGestureRecognizer(tapGestureRecognizer)
+        headerLabel.accessibilityTraits = .header
+        titleTextView.accessibilityTraits = .header
     }
     
     func configure(viewModel: ViewModel) {

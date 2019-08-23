@@ -4,12 +4,20 @@ import UIKit
 open class ThemeableTextField: UITextField, Themeable {
     var theme = Theme.standard
     @objc public var isUnderlined = true
+    private var clearButton: UIButton?
+    public var clearAccessibilityLabel: String? {
+        get {
+            return clearButton?.accessibilityLabel
+        } set {
+            clearButton?.accessibilityLabel = newValue
+        }
+    }
     
     func setup() {
         let image = #imageLiteral(resourceName: "clear-mini")
-        let clearButton = UIButton(frame: CGRect(origin: .zero, size: image.size))
-        clearButton.setImage(image, for: .normal)
-        clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        clearButton = UIButton(frame: CGRect(origin: .zero, size: image.size))
+        clearButton?.setImage(image, for: .normal)
+        clearButton?.addTarget(self, action: #selector(clear), for: .touchUpInside)
         rightView = clearButton
         rightViewMode = .whileEditing
         textAlignment = .natural
@@ -32,7 +40,7 @@ open class ThemeableTextField: UITextField, Themeable {
             guard let newPlaceholder = placeholder else {
                 return
             }
-            attributedPlaceholder = NSAttributedString(string: newPlaceholder, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.tertiaryText])
+            attributedPlaceholder = NSAttributedString(string: newPlaceholder, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.secondaryText])
         }
     }
     
@@ -54,7 +62,6 @@ open class ThemeableTextField: UITextField, Themeable {
        
         _clear()
     }
-    
     
     @objc(applyTheme:)
     public func apply(theme: Theme) {

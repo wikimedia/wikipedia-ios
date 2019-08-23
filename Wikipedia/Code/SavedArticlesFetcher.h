@@ -8,15 +8,6 @@ extern NSString *const WMFArticleSaveToDiskDidFailNotification;
 extern NSString *const WMFArticleSaveToDiskDidFailErrorKey;
 extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
-@interface NSError (SavedArticlesFetcherErrors)
-
-/**
- *  @return Generic error used to indicate one or more images failed to download for the article or its gallery.
- */
-+ (instancetype)wmf_savedPageImageDownloadError;
-
-@end
-
 @interface SavedArticlesFetcher : WMFLegacyFetcher <NSProgressReporting>
 
 @property (nonatomic, strong) NSProgress *progress;
