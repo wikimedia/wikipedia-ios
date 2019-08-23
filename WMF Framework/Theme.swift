@@ -458,3 +458,39 @@ public protocol Themeable : class {
 @objc public extension Theme {
     @objc static let didChangeNotification = NSNotification.Name(rawValue: "WMFThemeDidChangeNotification")
 }
+
+private extension Themeable where Self: UITraitEnvironment {
+    @available(iOS 12.0, *)
+    func adjustTheme(_ previousTraitCollection: UITraitCollection?) {
+        let newUserInterfaceStyle = traitCollection.userInterfaceStyle
+        guard previousTraitCollection?.userInterfaceStyle != newUserInterfaceStyle else {
+            return
+        }
+        let newTheme: Theme = newUserInterfaceStyle == .dark ? .black : .standard
+        NotificationCenter.default.post(name: Theme.didChangeNotification, object: newTheme)
+    }
+}
+
+@objc public extension UIViewController {
+    func adjustTheme(_ previousTraitCollection: UITraitCollection?) {
+        guard
+            #available(iOS 12.0, *),
+            let self = self as? (Themeable & UITraitEnvironment)
+        else {
+            return
+        }
+        self.adjustTheme(previousTraitCollection)
+    }
+}
+
+@objc public extension UIView {
+    func adjustTheme(_ previousTraitCollection: UITraitCollection?) {
+        guard
+            #available(iOS 12.0, *),
+            let self = self as? (Themeable & UITraitEnvironment)
+        else {
+            return
+        }
+        self.adjustTheme(previousTraitCollection)
+    }
+}
