@@ -85,7 +85,7 @@ open class ThemeableTextField: UITextField, Themeable {
             layer.shadowOpacity = 0.0
             layer.shadowRadius = 0.0
         }
-
+        reloadInputViews()
     }
 }
 
