@@ -218,6 +218,11 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         super.viewDidLayoutSubviews()
         updateScrollViewInsets()
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     // MARK - Scroll View Insets
     

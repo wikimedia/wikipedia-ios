@@ -120,6 +120,11 @@ class ShareViewController: UIViewController, Themeable {
         })
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
+
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

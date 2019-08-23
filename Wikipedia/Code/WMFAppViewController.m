@@ -233,6 +233,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
+
+    [self adjustTheme:nil];
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self adjustTheme:previousTraitCollection];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

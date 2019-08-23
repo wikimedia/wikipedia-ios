@@ -36,6 +36,11 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         
         createReadingListButton.isEnabled = false
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         view.endEditing(false)

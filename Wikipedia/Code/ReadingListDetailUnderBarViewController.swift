@@ -44,6 +44,7 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
         articleCountLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         titleTextField.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)

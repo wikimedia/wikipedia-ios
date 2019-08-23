@@ -61,6 +61,7 @@ class SearchBarExtendedViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
         if let textStyle = dataSource?.textStyle(for: button) {
             button.titleLabel?.font = UIFont.wmf_font(textStyle, compatibleWithTraitCollection: traitCollection)
         }

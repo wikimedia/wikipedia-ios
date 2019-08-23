@@ -67,6 +67,11 @@ class SavedProgressViewController: UIViewController, Themeable {
             self?.view.isHidden = isHidden
         })
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustTheme(previousTraitCollection)
+    }
     
     func apply(theme: Theme) {
         self.theme = theme
