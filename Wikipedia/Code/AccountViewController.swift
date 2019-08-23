@@ -70,10 +70,14 @@ class AccountViewController: SubSettingsViewController {
             let item = sections[safeIndex: indexPath.section]?.items[safeIndex: indexPath.row] else {
                 return UITableViewCell()
         }
-        
+
+        cell.apply(theme)
+
+        if theme.colors.icon == nil {
+            cell.iconColor = item.iconColor
+            cell.iconBackgroundColor = item.iconBackgroundColor
+        }
         cell.iconName = item.iconName
-        cell.iconColor = item.iconColor
-        cell.iconBackgroundColor = item.iconBackgroundColor
         cell.title = item.title
         
         switch item.type {
@@ -91,8 +95,6 @@ class AccountViewController: SubSettingsViewController {
             cell.disclosureSwitch.isOn = UserDefaults.wmf.autoSignTalkPageDiscussions
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         }
-        
-        cell.apply(theme)
         
         return cell
     }
@@ -165,5 +167,6 @@ class AccountViewController: SubSettingsViewController {
         
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = theme.colors.baseBackground
+        tableView.reloadData()
     }
 }
