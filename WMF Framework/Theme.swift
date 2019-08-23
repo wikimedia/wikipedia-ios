@@ -467,6 +467,9 @@ private extension Themeable where Self: UITraitEnvironment {
             return
         }
         let newTheme: Theme = newUserInterfaceStyle == .dark ? .black : .standard
+        guard newTheme != UserDefaults.wmf.wmf_appTheme else {
+            return
+        }
         NotificationCenter.default.post(name: Theme.didChangeNotification, object: newTheme)
     }
 }
