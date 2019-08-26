@@ -3,20 +3,21 @@ import Foundation
 
 protocol AnimationLoading: class {
     var loadingAnimationViewController: LoadingAnimationViewController? { get set }
-    func showLoadingAnimation(with cancelBlock: @escaping () -> Void)
+    func showLoadingAnimation(theme: Theme, cancelBlock: @escaping () -> Void)
     func hideLoadingAnimation()
 }
 
 fileprivate let timeoutSeconds = 0.25
 
 extension AnimationLoading where Self: UIViewController {
-    func showLoadingAnimation(with cancelBlock: @escaping () -> Void) {
+    func showLoadingAnimation(theme: Theme, cancelBlock: @escaping () -> Void) {
         if loadingAnimationViewController == nil {
             loadingAnimationViewController = LoadingAnimationViewController.init(nibName: "LoadingAnimationViewController", bundle: nil)
             loadingAnimationViewController?.cancelBlock = cancelBlock
             wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view)
         }
         
+        loadingAnimationViewController?.apply(theme: theme)
         loadingAnimationViewController?.view.isHidden = true
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + timeoutSeconds) { [weak self] in
@@ -44,11 +45,12 @@ extension AnimationLoading where Self: UIViewController {
 
 @objc extension UIViewController {
     
-    @objc func objcShowLoadingAnimation(with cancelBlock: @escaping () -> Void) -> LoadingAnimationViewController {
+    @objc func objcShowLoadingAnimation(theme: Theme, cancelBlock: @escaping () -> Void) -> LoadingAnimationViewController {
         let loadingAnimationViewController = LoadingAnimationViewController.init(nibName: "LoadingAnimationViewController", bundle: nil)
         loadingAnimationViewController.cancelBlock = cancelBlock
         wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view)
         
+        loadingAnimationViewController.apply(theme: theme)
         loadingAnimationViewController.view.isHidden = true
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + timeoutSeconds) {
             

@@ -133,7 +133,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
                 }
                 showNoInternetConnectionAlertOrOtherWarning(from: error)
             case .linkLoading(let viewController, let cancelBlock):
-                viewController.showLoadingAnimation(with: cancelBlock)
+                viewController.showLoadingAnimation(theme: theme, cancelBlock: cancelBlock)
                 viewController.scrollView?.isUserInteractionEnabled = false
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = false
             case .linkFinished(let viewController):

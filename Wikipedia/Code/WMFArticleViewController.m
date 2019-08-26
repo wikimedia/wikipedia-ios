@@ -1670,10 +1670,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             //has already been cancelled
             return;
         }
-        
+
         [self objcHideLoadingAnimationWith:self.loadingAnimationViewController];
         self.loadingAnimationViewController = nil;
-        
+
         BOOL isSuccess = YES;
         NSURL *url = [self externalURLForArticleFetchResultWithSuccess:isSuccess article:article articleURL:articleURL error:nil force:force];
         if (url) {
@@ -1702,7 +1702,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [task resume];
     
     @weakify(self);
-    self.loadingAnimationViewController = [self objcShowLoadingAnimationWith:^{
+    self.loadingAnimationViewController = [self objcShowLoadingAnimationWithTheme:self.theme cancelBlock:^{
         @strongify(self);
         [task cancel];
         [self objcHideLoadingAnimationWith:self.loadingAnimationViewController];
