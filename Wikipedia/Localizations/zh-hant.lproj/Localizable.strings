@@ -20,6 +20,7 @@
 // Author: Wehwei
 // Author: Wwycheuk
 // Author: 烈羽
+// Author: 神樂坂秀吉
 
 "about-content-license" = "內容許可協議";
 "about-content-license-details" = "內容皆基於$1授權，除非另有聲明。";
@@ -729,10 +730,10 @@
 "table-title-other" = "更多資訊";
 "talk-page-add-discussion-accessibility-label" = "新增討論";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
-"talk-page-discussion-read-accessibility-label" = "查看";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "已讀取";
-"talk-page-discussion-unread-accessibility-label" = "未查看";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "未讀取";
+"talk-page-discussion-read-accessibility-label" = "已讀";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "i˨˩˦tu˧˥";
+"talk-page-discussion-unread-accessibility-label" = "未讀";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "weɪ˥˩tu˧˥";
 "talk-page-error-unable-to-post-reply" = "沒有連結到網路，無法發佈回覆。";
 "talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈討論。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
