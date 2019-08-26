@@ -69,7 +69,7 @@ extern NSString *const WMFEditPublishedNotification;
 // *  viewDidAppear fetch is skipped, article is set and fetch response flags are processed into view state changes.
 // */
 @property (nonatomic, assign) BOOL processArticleViewStateOnViewDidAppear;
-@property (nonatomic, strong) WMFArticlePassthroughResponse *articlePassthroughResponse;
+@property (nonatomic, strong, nullable) WMFArticlePassthroughResponse *articlePassthroughResponse;
 
 - (UIButton *)titleButton;
 

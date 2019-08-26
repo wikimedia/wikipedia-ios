@@ -1665,7 +1665,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     
     //is checkForNewerRevision right?
     NSURLSessionTask *task = [self fetchArticleWithURL:url forceDownload:force checkForNewerRevision:YES WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull articleURL) {
-        
+
         if (self.loadingAnimationViewController == nil) {
             //has already been cancelled
             return;
@@ -1687,10 +1687,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             //has already been cancelled
             return;
         }
-        
+
         [self objcHideLoadingAnimationWith:self.loadingAnimationViewController];
         self.loadingAnimationViewController = nil;
-        
+
         BOOL isSuccess = NO;
         NSURL *url = [self externalURLForArticleFetchResultWithSuccess:isSuccess article:nil articleURL:nil error:error force:force];
         if (url) {

@@ -421,6 +421,7 @@
 "languages-wikipedia" = "Title for list of Wikipedia languages";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "license-footer-text" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
+"link-loading-title" = "Title displayed in loading overlay after link is tapped.";
 "logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
 "logged-out-log-back-in-button-title" = "Title for button allowing user to log back in to their account";
 "logged-out-subtitle" = "Subtitle for letting user know there was a problem authenticating their account.";

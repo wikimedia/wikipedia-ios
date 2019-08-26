@@ -12,8 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingAnimationViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundImageView" destination="uSf-gW-LsC" id="nKB-TF-Of1"/>
                 <outlet property="backgroundView" destination="ccB-rU-eQK" id="Okt-Hn-jVf"/>
                 <outlet property="cancelButton" destination="OLC-wp-pya" id="TME-hK-vLJ"/>
+                <outlet property="loadingPageLabel" destination="IXD-Pd-cu9" id="n7P-R7-rRe"/>
                 <outlet property="satelliteImageView" destination="Jkm-da-NjX" id="Yzd-WY-vO5"/>
                 <outlet property="view" destination="iN0-l3-epB" id="pBN-Gy-ehO"/>
             </connections>
@@ -27,7 +29,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLC-wp-pya">
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLC-wp-pya">
                     <rect key="frame" x="175" y="800" width="64" height="36"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                     <state key="normal" title="Cancel">
@@ -37,30 +39,58 @@
                         <action selector="tappedCancel:" destination="-1" eventType="touchUpInside" id="bWw-Fd-QFu"/>
                     </connections>
                 </button>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/bg" translatesAutoresizingMaskIntoConstraints="NO" id="uSf-gW-LsC">
-                    <rect key="frame" x="199" y="440" width="16" height="16"/>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/earth" translatesAutoresizingMaskIntoConstraints="NO" id="sXi-qv-zuE">
-                    <rect key="frame" x="199" y="440" width="16" height="16"/>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/satellite" translatesAutoresizingMaskIntoConstraints="NO" id="Jkm-da-NjX">
-                    <rect key="frame" x="199" y="440" width="16" height="16"/>
-                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="jXR-7v-nXK">
+                    <rect key="frame" x="110" y="328" width="194" height="240.5"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVa-aM-5gx">
+                            <rect key="frame" x="0.0" y="0.0" width="194" height="194"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/bg" translatesAutoresizingMaskIntoConstraints="NO" id="uSf-gW-LsC">
+                                    <rect key="frame" x="0.0" y="0.0" width="194" height="194"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="194" id="Q9q-BA-c7I"/>
+                                        <constraint firstAttribute="width" constant="194" id="yjy-mv-IlV"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/earth" translatesAutoresizingMaskIntoConstraints="NO" id="sXi-qv-zuE">
+                                    <rect key="frame" x="47.5" y="47.5" width="99" height="99"/>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading/satellite" translatesAutoresizingMaskIntoConstraints="NO" id="Jkm-da-NjX">
+                                    <rect key="frame" x="0.0" y="0.0" width="194" height="194"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerY" secondItem="Jkm-da-NjX" secondAttribute="centerY" id="CUU-Dd-4Pq"/>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerY" secondItem="uSf-gW-LsC" secondAttribute="centerY" id="EHh-lu-fKB"/>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerX" secondItem="uSf-gW-LsC" secondAttribute="centerX" id="Fbv-hY-e4k"/>
+                                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerX" secondItem="Jkm-da-NjX" secondAttribute="centerX" id="Pok-yT-Hh7"/>
+                                <constraint firstAttribute="bottom" secondItem="uSf-gW-LsC" secondAttribute="bottom" id="Ptv-ee-bZN"/>
+                                <constraint firstItem="uSf-gW-LsC" firstAttribute="top" secondItem="IVa-aM-5gx" secondAttribute="top" id="l1Q-uf-4R1"/>
+                                <constraint firstItem="uSf-gW-LsC" firstAttribute="leading" secondItem="IVa-aM-5gx" secondAttribute="leading" id="mth-a1-FA2"/>
+                                <constraint firstAttribute="trailing" secondItem="uSf-gW-LsC" secondAttribute="trailing" id="vrm-N3-eyX"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Loading page..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IXD-Pd-cu9">
+                            <rect key="frame" x="0.0" y="220" width="194" height="20.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="OLC-wp-pya" secondAttribute="bottom" constant="26" id="2IL-MI-xVO"/>
                 <constraint firstItem="ccB-rU-eQK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4sM-F7-MNu"/>
-                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerX" secondItem="uSf-gW-LsC" secondAttribute="centerX" id="Cc0-he-sMf"/>
                 <constraint firstItem="OLC-wp-pya" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CyU-Du-1X8"/>
                 <constraint firstAttribute="trailing" secondItem="ccB-rU-eQK" secondAttribute="trailing" id="PYb-OG-Zgf"/>
-                <constraint firstItem="uSf-gW-LsC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="YuU-Db-Iqg"/>
-                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerY" secondItem="uSf-gW-LsC" secondAttribute="centerY" id="b84-VL-57a"/>
-                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerY" secondItem="Jkm-da-NjX" secondAttribute="centerY" id="bAt-nM-pll"/>
-                <constraint firstItem="sXi-qv-zuE" firstAttribute="centerX" secondItem="Jkm-da-NjX" secondAttribute="centerX" id="bgq-yZ-dop"/>
+                <constraint firstItem="jXR-7v-nXK" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="999" id="Tkc-lI-cz0"/>
+                <constraint firstItem="jXR-7v-nXK" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="X9E-Bo-Cmj"/>
+                <constraint firstItem="OLC-wp-pya" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jXR-7v-nXK" secondAttribute="bottom" constant="30" id="bP9-Ie-xPv"/>
                 <constraint firstAttribute="bottom" secondItem="ccB-rU-eQK" secondAttribute="bottom" id="gga-6Q-3Xn"/>
                 <constraint firstItem="ccB-rU-eQK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kIw-re-pGv"/>
-                <constraint firstItem="uSf-gW-LsC" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sAE-7A-1dp"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="136" y="78"/>
@@ -69,6 +99,6 @@
     <resources>
         <image name="loading/bg" width="194" height="194"/>
         <image name="loading/earth" width="99" height="99"/>
-        <image name="loading/satellite" width="178" height="183"/>
+        <image name="loading/satellite" width="194" height="194"/>
     </resources>
 </document>

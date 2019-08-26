@@ -7,7 +7,7 @@ protocol AnimationLoading: class {
     func hideLoadingAnimation()
 }
 
-fileprivate let timeoutSeconds = 0.25
+fileprivate let timeoutSeconds = 0.5
 
 extension AnimationLoading where Self: UIViewController {
     func showLoadingAnimation(theme: Theme, cancelBlock: @escaping () -> Void) {

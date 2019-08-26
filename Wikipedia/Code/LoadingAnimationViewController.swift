@@ -7,12 +7,15 @@ class LoadingAnimationViewController: UIViewController {
     @IBOutlet private var satelliteImageView: UIImageView!
     @IBOutlet private var backgroundView: UIView!
     @IBOutlet private var cancelButton: UIButton!
+    @IBOutlet private var backgroundImageView: UIImageView!
+    @IBOutlet private var loadingPageLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         cancelButton.setTitle(CommonStrings.cancelActionTitle, for: .normal)
+        loadingPageLabel.text = WMFLocalizedString("link-loading-title", value: "Loading page...", comment: "Title displayed in loading overlay after link is tapped.")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,5 +62,7 @@ extension LoadingAnimationViewController: Themeable {
     func apply(theme: Theme) {
         backgroundView.backgroundColor = theme.colors.paperBackground
         cancelButton.setTitleColor(theme.colors.link, for: .normal)
+        backgroundImageView.tintColor = theme.colors.animationBackground
+        loadingPageLabel.textColor = theme.colors.primaryText
     }
 }
