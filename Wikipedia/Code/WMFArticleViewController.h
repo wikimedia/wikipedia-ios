@@ -2,7 +2,6 @@
 @class MWKDataStore;
 @class WMFShareFunnel;
 @class WMFArticleViewController;
-@class WMFArticlePassthroughResponse;
 #import "WMFViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WebViewController.h"
@@ -63,13 +62,6 @@ extern NSString *const WMFEditPublishedNotification;
 // *  if we do something to the article like edit it and force a reload
 // */
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
-
-///**
-// *  Used article has been fetched on a previous article screen (from tapping on links).
-// *  viewDidAppear fetch is skipped, article is set and fetch response flags are processed into view state changes.
-// */
-@property (nonatomic, assign) BOOL processArticleViewStateOnViewDidAppear;
-@property (nonatomic, strong, nullable) WMFArticlePassthroughResponse *articlePassthroughResponse;
 
 - (UIButton *)titleButton;
 
