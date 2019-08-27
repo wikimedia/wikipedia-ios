@@ -3,17 +3,16 @@ import Foundation
 
 protocol AnimationLoading: class {
     var loadingAnimationViewController: LoadingAnimationViewController? { get set }
-    func showLoadingAnimation(theme: Theme, cancelBlock: @escaping () -> Void)
+    func showLoadingAnimation(theme: Theme)
     func hideLoadingAnimation()
 }
 
 fileprivate let timeoutSeconds = 0.5
 
 extension AnimationLoading where Self: UIViewController {
-    func showLoadingAnimation(theme: Theme, cancelBlock: @escaping () -> Void) {
+    func showLoadingAnimation(theme: Theme) {
         if loadingAnimationViewController == nil {
             loadingAnimationViewController = LoadingAnimationViewController.init(nibName: "LoadingAnimationViewController", bundle: nil)
-            loadingAnimationViewController?.cancelBlock = cancelBlock
             wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view)
         }
         

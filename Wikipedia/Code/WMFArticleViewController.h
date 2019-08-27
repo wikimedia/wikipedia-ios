@@ -6,6 +6,7 @@
 #import "WMFTableOfContentsDisplay.h"
 #import "WebViewController.h"
 #import "WMFImageGalleryViewController.h"
+@class ResolveDestinationContainerViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -64,6 +65,9 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
 
 - (UIButton *)titleButton;
+
+@property (nonatomic, strong, nullable) ResolveDestinationContainerViewController *resolveDestinationContainerVC;
+
 
 @end
 

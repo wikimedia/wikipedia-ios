@@ -125,11 +125,10 @@ final class NavigationStateController: NSObject {
                 else {
                     return
                 }
-                let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-                talkPageContainerVC.apply(theme: theme)
+                
+                let resolveDestinationVC = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: type, fromNavigationStateRestoration: true, theme: theme)
                 navigationController.isNavigationBarHidden = true
-                talkPageContainerVC.fromNavigationStateRestoration = true
-                navigationController.pushViewController(talkPageContainerVC, animated: false)
+                navigationController.pushViewController(resolveDestinationVC, animated: false)
             case (.talkPageReplyList, let info?):
                 guard
                     let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,

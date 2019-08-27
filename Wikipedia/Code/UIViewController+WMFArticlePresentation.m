@@ -22,14 +22,24 @@ NS_ASSUME_NONNULL_BEGIN
         url = [url wmf_URLWithFragment:nil];
     }
 
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
-    vc.articleLoadCompletion = articleLoadCompletion;
-    [self wmf_pushArticleViewController:vc animated:animated];
-    return vc;
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
+    articleVC.articleLoadCompletion = articleLoadCompletion;
+    
+    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithDataStore:dataStore theme:theme delegate:(id<ResolveDestinationContainerDelegate>)articleVC url:url embedOnAppearance:YES];
+    articleVC.resolveDestinationContainerVC = resolveDestinationContainerVC;
+    [self wmf_pushViewController:resolveDestinationContainerVC animated:animated];
+    return articleVC;
 }
 
 - (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme animated:(BOOL)animated {
-    [self wmf_pushArticleWithURL:url dataStore:dataStore theme:theme restoreScrollPosition:NO animated:animated];
+    
+    url = [url wmf_URLWithFragment:nil];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
+    
+    //todo: this ResolveDestinationContainerDelegate cast does not seem ideal.
+    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithDataStore:dataStore theme:theme delegate:(id<ResolveDestinationContainerDelegate>)articleVC url:url embedOnAppearance:YES];
+    articleVC.resolveDestinationContainerVC = resolveDestinationContainerVC;
+    [self wmf_pushViewController:resolveDestinationContainerVC animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {

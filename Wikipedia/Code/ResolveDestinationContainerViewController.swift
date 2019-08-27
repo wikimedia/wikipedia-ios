@@ -2,17 +2,17 @@
 import Foundation
 import SafariServices
 
-protocol DestinationContainerArticle {
+@objc protocol DestinationContainerArticle {
     var namespace: Int { get }
-    var url: URL { get }
+    var destinationContainerURL: URL! { get }
 }
 
-protocol DestinationContainerDelegateError: Error {
+protocol ResolveDestinationContainerDelegateError: Error {
     var cachedFallbackArticle: DestinationContainerArticle? { get }
     var isUnexpectedResponseError: Bool { get }
 }
 
-extension NSError: DestinationContainerDelegateError {
+extension NSError: ResolveDestinationContainerDelegateError {
     
     var cachedFallbackArticle: DestinationContainerArticle? {
         if let cachedFallback = userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] as? DestinationContainerArticle {
@@ -27,13 +27,18 @@ extension NSError: DestinationContainerDelegateError {
     }
 }
 
-protocol DestinationContainerDelegate: class {
-    func loadEmbedFetch(url: URL, success: (DestinationContainerArticle?, URL?) -> Void, error: (NSError?) -> Void) -> URLSessionTask
-    func linkPushFetch(url: URL, success: (DestinationContainerArticle?, URL?) -> Void, error: (NSError?) -> Void) -> URLSessionTask
-    func viewController(for containerArticle: DestinationContainerArticle) -> UIViewController
+@objc protocol ResolveDestinationContainerDelegate: class {
+    func loadEmbedFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
+    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
     var reachabilityNotifier: ReachabilityNotifier? { get }
-    func showDefaultEmbedFailure(error: NSError)
+    func handleCustomSuccess(article: DestinationContainerArticle, url: URL) -> Bool
+    func showDefaultEmbedFailure(error: NSError, container: ResolveDestinationContainerViewController)
     func showDefaultLinkFailure(error: NSError)
+    var resolveDestinationContainerVC: ResolveDestinationContainerViewController? { get }
+}
+
+protocol ResolveDestinationContainerTaskTrackingDelegate: ResolveDestinationContainerDelegate {
+    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> (String, Fetcher)?
 }
 
 class ResolveDestinationContainerViewController: UIViewController {
@@ -43,13 +48,14 @@ class ResolveDestinationContainerViewController: UIViewController {
         case linkPush
     }
     
-    private weak var delegate: DestinationContainerDelegate?
+    //intentionally not weak. we want to keep this in memory while we determine if we want to embed it or not.
+    private var delegate: ResolveDestinationContainerDelegate?
     private let url: URL
     private let embedOnLoad: Bool
     private let dataStore: MWKDataStore
     private let theme: Theme
     
-    init(dataStore: MWKDataStore, theme: Theme, delegate: DestinationContainerDelegate, url: URL, embedOnAppearance: Bool) {
+    @objc init(dataStore: MWKDataStore, theme: Theme, delegate: ResolveDestinationContainerDelegate, url: URL, embedOnAppearance: Bool) {
         self.dataStore = dataStore
         self.theme = theme
         self.delegate = delegate
@@ -66,32 +72,57 @@ class ResolveDestinationContainerViewController: UIViewController {
         super.viewDidLoad()
         
         if (embedOnLoad) {
-            delegate?.loadEmbedFetch(url: url, success: { [weak self] (article, url) in
+            delegate?.loadEmbedFetch(url: url, successHandler: { [weak self] (article, url) in
                 
                 guard let self = self else { return }
-                
-                guard let article = article,
-                    let url = url else {
-                        assertionFailure("Missing article or url or both")
-                        return
-                }
                 
                 self.processSuccess(article: article, url: url, source: .loadEmbed)
             }) { [weak self] (error) in
                 
                 guard let self = self else { return }
                 
-                guard let error = error else {
-                    assertionFailure("Missing Error object")
-                    return
-                }
-                
-                self.processFailure(error: error, source: .loadEmbed, originalURL: url)
+                self.processFailure(error: error, source: .loadEmbed, originalURL: self.url)
             }
         }
     }
     
+    @objc func tappedLink(url: URL) {
+        
+        if let taskTrackingDelegate = delegate as? ResolveDestinationContainerTaskTrackingDelegate {
+            taskTrackingDelegate.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
+                
+                guard let self = self else { return }
+                
+                self.processSuccess(article: article, url: url, source: .linkPush)
+            }) { [weak self] (error) in
+                
+                guard let self = self else { return }
+                
+                self.processFailure(error: error, source: .linkPush, originalURL: url)
+            }
+            
+            return
+        }
+        
+        delegate?.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
+            
+            guard let self = self else { return }
+            
+            self.processSuccess(article: article, url: url, source: .linkPush)
+        }, errorHandler: { [weak self] (error) in
+            
+            guard let self = self else { return }
+            
+            self.processFailure(error: error, source: .linkPush, originalURL: url)
+        })
+    }
+    
     private func processSuccess(article: DestinationContainerArticle, url: URL, source: ProcessSource) {
+        
+        if let delegate = delegate,
+            delegate.handleCustomSuccess(article: article, url: url) {
+            return
+        }
         
         switch article.namespace {
         case PageNamespace.main.rawValue:
@@ -107,23 +138,26 @@ class ResolveDestinationContainerViewController: UIViewController {
         
         if let cachedFallbackArticle = error.cachedFallbackArticle {
             
-            let cachedFallbackURL = cachedFallbackArticle.url
-            
-            switch cachedFallbackArticle.namespace {
-            case PageNamespace.main.rawValue:
-                showArticleViewController(containerArticle: cachedFallbackArticle, url: cachedFallbackURL, source: source)
-                
+            if let cachedFallbackURL = cachedFallbackArticle.destinationContainerURL {
+                switch cachedFallbackArticle.namespace {
+                case PageNamespace.main.rawValue:
+                    showArticleViewController(containerArticle: cachedFallbackArticle, url: cachedFallbackURL, source: source)
+                    
+                    if !error.wmf_isNetworkConnectionError() {
+                        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
+                    }
+                    
+                case PageNamespace.userTalk.rawValue:
+                    showTalkPage(containerArticle: cachedFallbackArticle, url: cachedFallbackURL, source: source)
+                default:
+                    showExternal(url: cachedFallbackURL, source: source)
+                    
+                }
+            } else {
                 if !error.wmf_isNetworkConnectionError() {
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
                 }
-                
-            case PageNamespace.userTalk.rawValue:
-                showTalkPage(containerArticle: cachedFallbackArticle, url: cachedFallbackURL, source: source)
-            default:
-                showExternal(url: cachedFallbackURL, source: source)
-            
             }
-            
         } else if error.isUnexpectedResponseError {
             
             showExternal(url: url, source: source)
@@ -132,30 +166,16 @@ class ResolveDestinationContainerViewController: UIViewController {
             
             switch source {
             case .loadEmbed:
-                //articleVC's
-                delegate?.showDefaultEmbedFailure(error: error)
-                
-                //articleVC will be:
-                //                    wmf_showEmptyView(of: WMFEmptyViewType.articleDidNotLoad, theme: theme, frame: view.bounds)
-                //                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
-                //container?.embed(self)?
+                delegate?.showDefaultEmbedFailure(error: error, container: self)
 
-                
                 if error.wmf_isNetworkConnectionError() {
                     delegate?.reachabilityNotifier?.start()
                 }
             case .linkPush:
                 delegate?.showDefaultLinkFailure(error: error)
-                //articleVC will be:
-                //                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
-                //talk page container will be:
-                //self.viewState = .linkFailure(loadingViewController: loadingViewController, error: error)
             }
-            //
             
         }
-        
-        
     }
     
     private func showExternal(url: URL, source: ProcessSource) {
@@ -172,22 +192,33 @@ class ResolveDestinationContainerViewController: UIViewController {
     
     private func showArticleViewController(containerArticle: DestinationContainerArticle, url: URL, source: ProcessSource) {
         
-        //not necessarily this, coming from talk page will be article summary
+        //todo: not necessarily this, coming from talk page will be article summary
         guard let mwkArticle = containerArticle as? MWKArticle else {
             assertionFailure("Unexpected article type")
             return
         }
         
-        let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
-        articleVC.skipFetchOnViewDidAppear = true
-        articleVC.article = mwkArticle
-        
         switch source {
         case .loadEmbed:
-            wmf_add(childController: articleVC, andConstrainToEdgesOfContainerView: view)
+            if let articleVC = delegate as? WMFArticleViewController {
+                articleVC.skipFetchOnViewDidAppear = true
+                wmf_add(childController: articleVC, andConstrainToEdgesOfContainerView: view)
+                articleVC.article = mwkArticle
+            } else {
+                assertionFailure("For now expect delegate to be embeddable WMFArticleViewController")
+            }
         case .linkPush:
-            //todo: actually we should be pushing another container with a prepopulated article VC. if it's not an mwkArticle (might be article summary from talk page) push a non-prepopulated article VC.
-            wmf_push(articleVC, animated: true)
+            //todo: fix the as!
+            
+            let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
+            let resolveDestinationVC = ResolveDestinationContainerViewController(dataStore: dataStore, theme: theme, delegate: articleVC as! ResolveDestinationContainerDelegate, url: url, embedOnAppearance: true)
+            articleVC.resolveDestinationContainerVC = resolveDestinationVC
+            articleVC.articleLoadCompletion = {
+                articleVC.article = mwkArticle
+            }
+            
+            articleVC.skipFetchOnViewDidAppear = true
+            wmf_push(resolveDestinationVC, animated: true)
         }
     }
     
@@ -206,14 +237,13 @@ class ResolveDestinationContainerViewController: UIViewController {
         
         let titleWithTalkPageNamespace = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: title, siteURL: siteURL)
         
-        let talkPageVC = TalkPageContainerViewController(title: titleWithTalkPageNamespace, siteURL: siteURL, type: .user, dataStore: dataStore)
-        
         switch source {
         case .loadEmbed:
+            let talkPageVC = TalkPageContainerViewController(title: titleWithTalkPageNamespace, siteURL: siteURL, type: .user, dataStore: dataStore)
             wmf_add(childController: talkPageVC, andConstrainToEdgesOfContainerView: view)
         case .linkPush:
-            //todo: actually we should be pushing another container with a pre-embedded talk page vc
-            self.navigationController?.pushViewController(talkPageVC, animated: true)
+            let containerVC = TalkPageContainerViewController.containedTalkPageContainer(title: titleWithTalkPageNamespace, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
+            self.navigationController?.pushViewController(containerVC, animated: true)
         }
     }
 }
@@ -222,4 +252,16 @@ extension ResolveDestinationContainerViewController: SFSafariViewControllerDeleg
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.navigationController?.popViewController(animated: true)
     }
+}
+
+extension MWKArticle: DestinationContainerArticle {
+    var destinationContainerURL: URL! {
+        return self.url
+    }
+    
+    var namespace: Int {
+        return ns
+    }
+    
+    
 }

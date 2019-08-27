@@ -9,9 +9,9 @@ fileprivate enum TalkPageContainerViewState {
     case fetchFinishedResultData
     case fetchFinishedResultEmpty
     case fetchFailure(error: Error)
-    case linkLoading(loadingViewController: AnimationLoading & ViewController, cancelBlock: (() -> Void))
-    case linkFinished(loadingViewController: AnimationLoading & ViewController)
-    case linkFailure(loadingViewController: AnimationLoading & ViewController, error: Error)
+    case linkLoading(loadingViewController: ViewController)
+    case linkFinished(loadingViewController: ViewController)
+    case linkFailure(loadingViewController: ViewController, error: Error)
     
     var repliesAreDisabled: Bool {
         switch self {
@@ -94,8 +94,10 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     var fromNavigationStateRestoration: Bool = false
     private var cancellationKey: String?
     
-    //AnimationLoading
-    var loadingAnimationViewController: LoadingAnimationViewController?
+    private var currentLoadingViewController: ViewController?
+    private var currentSourceView: UIView?
+    private var currentSourceRect: CGRect?
+    var resolveDestinationContainerVC: ResolveDestinationContainerViewController?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -132,16 +134,13 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
                     showEmptyView(of: .unableToLoadTalkPage)
                 }
                 showNoInternetConnectionAlertOrOtherWarning(from: error)
-            case .linkLoading(let viewController, let cancelBlock):
-                viewController.showLoadingAnimation(theme: theme, cancelBlock: cancelBlock)
+            case .linkLoading(let viewController):
                 viewController.scrollView?.isUserInteractionEnabled = false
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = false
             case .linkFinished(let viewController):
-                viewController.hideLoadingAnimation()
                 viewController.scrollView?.isUserInteractionEnabled = true
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = true
             case .linkFailure(let viewController, let error):
-                viewController.hideLoadingAnimation()
                 viewController.scrollView?.isUserInteractionEnabled = true
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = true
                 showNoInternetConnectionAlertOrOtherWarning(from: error)
@@ -170,22 +169,33 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
 
         super.init()
     }
-
-    @objc(userTalkPageContainerWithURL:dataStore:)
-    static func userTalkPageContainer(url: URL, dataStore: MWKDataStore) -> TalkPageContainerViewController? {
+    
+    @objc(containedUserTalkPageContainerWithURL:dataStore:theme:)
+    static func containedUserTalkPageContainer(url: URL, dataStore: MWKDataStore, theme: Theme) -> ResolveDestinationContainerViewController? {
         guard
             let title = url.wmf_title,
             let siteURL = url.wmf_site
-        else {
-            return nil
+            else {
+                return nil
         }
-        return TalkPageContainerViewController.userTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore)
+        return TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
     }
 
-    static func userTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore) -> TalkPageContainerViewController {
+    private static func talkPageContainer(title: String, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore) -> TalkPageContainerViewController {
         let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: title)
         let titleWithPrefix = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: siteURL)
-        return TalkPageContainerViewController(title: titleWithPrefix, siteURL: siteURL, type: .user, dataStore: dataStore)
+        return TalkPageContainerViewController(title: titleWithPrefix, siteURL: siteURL, type: type, dataStore: dataStore)
+    }
+    
+    static func containedTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore, type: TalkPageType, fromNavigationStateRestoration: Bool = false, theme: Theme) -> ResolveDestinationContainerViewController {
+        let talkPageContainerVC = talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
+        //todo: fix theme, fix siteURL
+        let resolveDestinationContainerVC = ResolveDestinationContainerViewController(dataStore: dataStore, theme: .black, delegate: talkPageContainerVC, url: siteURL, embedOnAppearance: false)
+        talkPageContainerVC.resolveDestinationContainerVC = resolveDestinationContainerVC
+        talkPageContainerVC.fromNavigationStateRestoration = fromNavigationStateRestoration
+        talkPageContainerVC.theme = theme
+        resolveDestinationContainerVC.wmf_add(childController: talkPageContainerVC, andConstrainToEdgesOfContainerView: resolveDestinationContainerVC.view)
+        return resolveDestinationContainerVC
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -492,9 +502,8 @@ private extension TalkPageContainerViewController {
     
     func pushTalkPage(title: String, siteURL: URL) {
         
-        let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: .user, dataStore: self.dataStore)
-        talkPageContainerVC.apply(theme: self.theme)
-        self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
+        let resolveDestinationVC = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
+        self.navigationController?.pushViewController(resolveDestinationVC, animated: true)
     }
     
     func showUserActionSheet(siteURL: URL, absoluteURL: URL, sourceView: UIView, sourceRect: CGRect?) {
@@ -545,60 +554,16 @@ private extension TalkPageContainerViewController {
         loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = !shouldDisable
     }
     
-    func tappedLink(_ url: URL, loadingViewController: AnimationLoading & ViewController, sourceView: UIView, sourceRect: CGRect?) {
-        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
-            showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
-            return
-        }
+    func tappedLink(_ url: URL, loadingViewController: ViewController, sourceView: UIView, sourceRect: CGRect?) {
         
-        self.cancellationKey = self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self, weak loadingViewController] (article, error) in
-            
-            guard let self = self,
-            let loadingViewController = loadingViewController,
-            let _ = self.cancellationKey else {
-                return
-            }
-            
-            self.cancellationKey = nil
-            
-            if let error = error {
-                self.viewState = .linkFailure(loadingViewController: loadingViewController, error: error)
-                return
-            }
-            
-            self.viewState = .linkFinished(loadingViewController: loadingViewController)
-            
-            if let namespace = article?.pageNamespace,
-                
-                //convert absoluteURL into a siteURL that TalkPageType.user.titleWithCanonicalNamespacePrefix will recognize to prefix the canonical name
-                let languageCode = absoluteURL.wmf_language,
-                let siteURL = MWKLanguageLinkController.sharedInstance().language(forLanguageCode: languageCode)?.siteURL() {
-                
-                switch namespace {
-                case .userTalk:
-                    let lastPathComponent = url.lastPathComponent
-                    self.pushTalkPage(title: lastPathComponent, siteURL: siteURL)
-                case .user:
-                    self.showUserActionSheet(siteURL: siteURL, absoluteURL: absoluteURL, sourceView: sourceView, sourceRect: sourceRect)
-                case .main:
-                    self.wmf_pushArticle(with: absoluteURL, dataStore: self.dataStore, theme: self.theme, animated: true)
-                default:
-                    self.openURLInSafari(url: absoluteURL)
-                }
-            } else {
-                self.openURLInSafari(url: absoluteURL)
-            }
-        }
+        self.currentLoadingViewController = loadingViewController
+        self.currentSourceView = sourceView
+        self.currentSourceRect = sourceRect
         
-        //loading state
-        let cancelBlock = {
-            if let cancellationKey = self.cancellationKey {
-                self.dataStore.articleSummaryController.fetcher.cancel(taskFor: cancellationKey)
-                self.viewState = .linkFinished(loadingViewController: loadingViewController)
-                self.cancellationKey = nil
-            }
-        }
-        self.viewState = .linkLoading(loadingViewController: loadingViewController, cancelBlock: cancelBlock)
+        self.viewState = .linkLoading(loadingViewController: loadingViewController)
+        
+        resolveDestinationContainerVC?.tappedLink(url: url)
+  
     }
     
     func changeLanguage(siteURL: URL) {
@@ -815,6 +780,94 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
     }
 }
 
-extension TalkPageContainerViewController: AnimationLoading {
+extension TalkPageContainerViewController: ResolveDestinationContainerTaskTrackingDelegate {
     
+    func loadEmbedFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
+        assertionFailure("not setup for load embed")
+        return nil
+    }
+    
+    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
+        
+        assertionFailure("not setup for session task link push fetch")
+        return nil
+    }
+    
+    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> (String, Fetcher)? {
+        guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
+            //todo how to handle this
+            //showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
+            return nil
+        }
+        
+        let cancellationKey = self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+            if let article = article {
+                successHandler(article, absoluteURL)
+                return
+            }
+            
+            //todo: use generic error with this, not NSError
+            if let error = error {
+                errorHandler(error as NSError)
+            }
+        }
+        
+        if let cancellationKey = cancellationKey {
+            return (cancellationKey, self.dataStore.articleSummaryController.fetcher)
+        }
+        
+        return nil
+        
+    }
+    
+    var reachabilityNotifier: ReachabilityNotifier? {
+        return nil
+    }
+    
+    func showDefaultEmbedFailure(error: NSError, container: ResolveDestinationContainerViewController) {
+        assertionFailure("not setup for load embed")
+        return
+    }
+    
+    func showDefaultLinkFailure(error: NSError) {
+        if let loadingViewController = currentLoadingViewController {
+            viewState = .linkFailure(loadingViewController: loadingViewController, error: error)
+        }
+        currentLoadingViewController = nil
+    }
+    
+    func handleCustomSuccess(article: DestinationContainerArticle, url: URL) -> Bool {
+        
+        defer {
+            self.currentLoadingViewController = nil
+            self.currentSourceView = nil
+            self.currentSourceRect = nil
+        }
+        
+        guard let loadingViewController = self.currentLoadingViewController,
+        let sourceView = self.currentSourceView,
+            let sourceRect = self.currentSourceRect else {
+                return false
+        }
+
+        self.viewState = .linkFinished(loadingViewController: loadingViewController)
+        
+        switch article.namespace {
+        case PageNamespace.user.rawValue:
+            self.showUserActionSheet(siteURL: siteURL, absoluteURL: url, sourceView: sourceView, sourceRect: sourceRect)
+            return true
+        default:
+            return false;
+        }
+    }
+}
+
+extension WMFArticle: DestinationContainerArticle {
+    public var namespace: Int {
+        return pageNamespace?.rawValue ?? -1
+    }
+    
+    public var destinationContainerURL: URL! {
+        return self.url
+    }
 }
