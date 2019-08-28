@@ -22,14 +22,14 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
-        titleLabel.text = WMFLocalizedString("forgot-password-title", value:"Reset password", comment:"Title for reset password interface\n{{Identical|Reset password}}")
+        titleLabel.text = WMFLocalizedString("forgot-password-title", value:"Reset password", comment:"Title for reset password interface {{Identical|Reset password}}")
         subTitleLabel.text = WMFLocalizedString("forgot-password-instructions", value:"Fill in one of the fields below to receive password reset instructions via email", comment:"Instructions for resetting password")
         usernameField.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
         emailField.placeholder = WMFLocalizedString("field-email-placeholder", value:"example@example.org", comment:"Placeholder text shown inside email address field until user taps on it")
-        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
-        emailTitleLabel.text = WMFLocalizedString("field-email-title", value:"Email", comment:"Noun. Title for email address field.\n{{Identical|E-mail}}")
-        resetPasswordButton.setTitle(WMFLocalizedString("forgot-password-button-title", value:"Reset", comment:"Title for reset password button\n{{Identical|Reset}}"), for: .normal)
-        orLabel.text = WMFLocalizedString("forgot-password-username-or-email-title", value:"Or", comment:"Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}")
+        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field {{Identical|Username}}")
+        emailTitleLabel.text = WMFLocalizedString("field-email-title", value:"Email", comment:"Noun. Title for email address field. {{Identical|E-mail}}")
+        resetPasswordButton.setTitle(WMFLocalizedString("forgot-password-button-title", value:"Reset", comment:"Title for reset password button {{Identical|Reset}}"), for: .normal)
+        orLabel.text = WMFLocalizedString("forgot-password-username-or-email-title", value:"Or", comment:"Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}")
         
         view.wmf_configureSubviewsForDynamicType()
         
