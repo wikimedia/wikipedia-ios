@@ -122,6 +122,7 @@ class ResolveDestinationContainerViewController: UIViewController {
                 
                 self?.hideLoading()
                 
+                //todo: named tuple items
                 if let result = result {
                     result.1.cancel(taskFor: result.0)
                 }

@@ -189,8 +189,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     static func containedTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore, type: TalkPageType, fromNavigationStateRestoration: Bool = false, theme: Theme) -> ResolveDestinationContainerViewController {
         let talkPageContainerVC = talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-        //todo: fix theme, fix siteURL
-        let resolveDestinationContainerVC = ResolveDestinationContainerViewController(dataStore: dataStore, theme: .black, delegate: talkPageContainerVC, url: siteURL, embedOnAppearance: false)
+        let resolveDestinationContainerVC = ResolveDestinationContainerViewController(dataStore: dataStore, theme: theme, delegate: talkPageContainerVC, url: siteURL, embedOnAppearance: false)
         talkPageContainerVC.resolveDestinationContainerVC = resolveDestinationContainerVC
         talkPageContainerVC.fromNavigationStateRestoration = fromNavigationStateRestoration
         talkPageContainerVC.theme = theme
