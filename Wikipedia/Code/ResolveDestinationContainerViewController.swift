@@ -35,6 +35,7 @@ extension NSError: ResolveDestinationContainerDelegateError {
     func showDefaultEmbedFailure(error: NSError, container: ResolveDestinationContainerViewController)
     func showDefaultLinkFailure(error: NSError)
     var resolveDestinationContainerVC: ResolveDestinationContainerViewController? { get }
+    @objc optional var customAnimationContainerViewController: UIViewController? { get }
 }
 
 protocol ResolveDestinationContainerTaskTrackingDelegate: ResolveDestinationContainerDelegate {
@@ -55,6 +56,8 @@ class ResolveDestinationContainerViewController: UIViewController {
     private let dataStore: MWKDataStore
     private let theme: Theme
     
+    private let loadingAnimationViewController = LoadingAnimationViewController(nibName: "LoadingAnimationViewController", bundle: nil)
+    
     @objc init(dataStore: MWKDataStore, theme: Theme, delegate: ResolveDestinationContainerDelegate, url: URL, embedOnAppearance: Bool) {
         self.dataStore = dataStore
         self.theme = theme
@@ -71,50 +74,108 @@ class ResolveDestinationContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        apply(theme: theme)
+        
         if (embedOnLoad) {
-            delegate?.loadEmbedFetch(url: url, successHandler: { [weak self] (article, url) in
+            let task = delegate?.loadEmbedFetch(url: url, successHandler: { [weak self] (article, url) in
                 
                 guard let self = self else { return }
                 
+                self.hideLoading()
                 self.processSuccess(article: article, url: url, source: .loadEmbed)
             }) { [weak self] (error) in
                 
                 guard let self = self else { return }
                 
+                self.hideLoading()
                 self.processFailure(error: error, source: .loadEmbed, originalURL: self.url)
             }
+            
+            loadingAnimationViewController.cancelBlock = { [weak self] in
+                self?.hideLoading()
+                task?.cancel()
+                self?.navigationController?.popViewController(animated: true)
+            }
+            
+            scheduleLoadingAnimation()
         }
     }
     
     @objc func tappedLink(url: URL) {
         
         if let taskTrackingDelegate = delegate as? ResolveDestinationContainerTaskTrackingDelegate {
-            taskTrackingDelegate.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
+            let result = taskTrackingDelegate.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
                 
                 guard let self = self else { return }
                 
+                self.hideLoading()
                 self.processSuccess(article: article, url: url, source: .linkPush)
             }) { [weak self] (error) in
                 
                 guard let self = self else { return }
                 
+                self.hideLoading()
                 self.processFailure(error: error, source: .linkPush, originalURL: url)
             }
             
+            loadingAnimationViewController.cancelBlock = { [weak self] in
+                
+                self?.hideLoading()
+                
+                if let result = result {
+                    result.1.cancel(taskFor: result.0)
+                }
+                
+            }
+            
+            scheduleLoadingAnimation()
             return
         }
         
-        delegate?.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
+        let task = delegate?.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
             
             guard let self = self else { return }
             
+            self.hideLoading()
             self.processSuccess(article: article, url: url, source: .linkPush)
+            
         }, errorHandler: { [weak self] (error) in
             
             guard let self = self else { return }
             
+            self.hideLoading()
             self.processFailure(error: error, source: .linkPush, originalURL: url)
+            
         })
+        
+        loadingAnimationViewController.cancelBlock = { [weak self] in
+            self?.hideLoading()
+            task?.cancel()
+        }
+        
+        scheduleLoadingAnimation()
+    }
+    
+    private func scheduleLoadingAnimation() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoading), object: nil)
+        perform(#selector(showLoading), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc private func showLoading() {
+        
+        if let customContainer = delegate?.customAnimationContainerViewController as? UIViewController {
+            customContainer.wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: customContainer.view)
+        } else {
+            wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view)
+        }
+        
+    }
+    
+    @objc private func hideLoading() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoading), object: nil)
+        loadingAnimationViewController.willMove(toParent: nil)
+        loadingAnimationViewController.view.removeFromSuperview()
+        loadingAnimationViewController.removeFromParent()
     }
     
     private func processSuccess(article: DestinationContainerArticle, url: URL, source: ProcessSource) {
@@ -191,33 +252,32 @@ class ResolveDestinationContainerViewController: UIViewController {
     }
     
     private func showArticleViewController(containerArticle: DestinationContainerArticle, url: URL, source: ProcessSource) {
-        
-        //todo: not necessarily this, coming from talk page will be article summary
-        guard let mwkArticle = containerArticle as? MWKArticle else {
-            assertionFailure("Unexpected article type")
-            return
-        }
-        
+
         switch source {
         case .loadEmbed:
-            if let articleVC = delegate as? WMFArticleViewController {
+            if let articleVC = delegate as? WMFArticleViewController,
+                let mwkArticle = containerArticle as? MWKArticle {
                 articleVC.skipFetchOnViewDidAppear = true
                 wmf_add(childController: articleVC, andConstrainToEdgesOfContainerView: view)
                 articleVC.article = mwkArticle
             } else {
-                assertionFailure("For now expect delegate to be embeddable WMFArticleViewController")
+                assertionFailure("Issue pushing article view controller")
             }
         case .linkPush:
-            //todo: fix the as!
             
+            //todo: fix the as!
             let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
             let resolveDestinationVC = ResolveDestinationContainerViewController(dataStore: dataStore, theme: theme, delegate: articleVC as! ResolveDestinationContainerDelegate, url: url, embedOnAppearance: true)
             articleVC.resolveDestinationContainerVC = resolveDestinationVC
-            articleVC.articleLoadCompletion = {
-                articleVC.article = mwkArticle
+            
+            if let mwkArticle = containerArticle as? MWKArticle {
+                articleVC.articleLoadCompletion = {
+                    articleVC.article = mwkArticle
+                }
+                
+                articleVC.skipFetchOnViewDidAppear = true
             }
             
-            articleVC.skipFetchOnViewDidAppear = true
             wmf_push(resolveDestinationVC, animated: true)
         }
     }
@@ -264,4 +324,11 @@ extension MWKArticle: DestinationContainerArticle {
     }
     
     
+}
+
+extension ResolveDestinationContainerViewController: Themeable {
+    func apply(theme: Theme) {
+        view.backgroundColor = theme.colors.paperBackground
+        loadingAnimationViewController.theme = theme
+    }
 }

@@ -10,10 +10,15 @@ class LoadingAnimationViewController: UIViewController {
     @IBOutlet private var backgroundImageView: UIImageView!
     @IBOutlet private var loadingPageLabel: UILabel!
     
+    var theme: Theme?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if let theme = theme {
+            apply(theme: theme)
+        }
+        
         cancelButton.setTitle(CommonStrings.cancelActionTitle, for: .normal)
         loadingPageLabel.text = WMFLocalizedString("link-loading-title", value: "Loading page...", comment: "Title displayed in loading overlay after link is tapped.")
     }

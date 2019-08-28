@@ -159,11 +159,6 @@
 		676028F1231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
 		676028F2231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
 		676028F3231038F80018EAD9 /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */; };
-		676028F523103AF40018EAD9 /* AnimationLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028F423103AF40018EAD9 /* AnimationLoading.swift */; };
-		676028F623103AF40018EAD9 /* AnimationLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028F423103AF40018EAD9 /* AnimationLoading.swift */; };
-		676028F723103AF40018EAD9 /* AnimationLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028F423103AF40018EAD9 /* AnimationLoading.swift */; };
-		676028F823103AF40018EAD9 /* AnimationLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028F423103AF40018EAD9 /* AnimationLoading.swift */; };
-		676028F923103AF40018EAD9 /* AnimationLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676028F423103AF40018EAD9 /* AnimationLoading.swift */; };
 		676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */; };
 		676070A42280987C00A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A52280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
@@ -3773,7 +3768,6 @@
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingAnimationViewController.xib; sourceTree = "<group>"; };
 		676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationViewController.swift; sourceTree = "<group>"; };
-		676028F423103AF40018EAD9 /* AnimationLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationLoading.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		677E49B122A03859002D40D6 /* LanguageLinkNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageLinkNamespace.swift; sourceTree = "<group>"; };
@@ -6414,7 +6408,6 @@
 			children = (
 				676028E82310389C0018EAD9 /* LoadingAnimationViewController.xib */,
 				676028EE231038F80018EAD9 /* LoadingAnimationViewController.swift */,
-				676028F423103AF40018EAD9 /* AnimationLoading.swift */,
 			);
 			name = Loading;
 			sourceTree = "<group>";
@@ -10811,7 +10804,6 @@
 				67DB110A22613F2700F789B0 /* SchemeHandlerCache.swift in Sources */,
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
-				676028F523103AF40018EAD9 /* AnimationLoading.swift in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
@@ -11536,7 +11528,6 @@
 				D80ED3861EE57F4800CE8C50 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				D80ED3871EE57F4800CE8C50 /* NSAttributedString+WMFModify.m in Sources */,
 				D82117FA1EE587650076C040 /* Mapbox+Extensions.swift in Sources */,
-				676028F923103AF40018EAD9 /* AnimationLoading.swift in Sources */,
 				D80ED3881EE57F4800CE8C50 /* WMFSettingsViewController.m in Sources */,
 				83FBE9791F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				83836ED01F615E5B007D1A05 /* ShareViewController.swift in Sources */,
@@ -11976,7 +11967,6 @@
 				7A715664226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				67DB11222261820500F789B0 /* SchemeHandler+BaseSubHandler.swift in Sources */,
 				7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				676028F823103AF40018EAD9 /* AnimationLoading.swift in Sources */,
 				D8A42A681E815A9C00D8E281 /* WikidataFetcher.swift in Sources */,
 				D8A42A691E815A9C00D8E281 /* UIButton+WMFButton.m in Sources */,
 				D8A42A6A1E815A9C00D8E281 /* WMFTableOfContentsAnimator.swift in Sources */,
@@ -12708,7 +12698,6 @@
 				B0F929A01F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D8CE25F01E698E2400DAE2E0 /* WMFAccountCreationViewController.swift in Sources */,
 				D8CE25F11E698E2400DAE2E0 /* UIImage+WMFFocalImageDrawing.m in Sources */,
-				676028F623103AF40018EAD9 /* AnimationLoading.swift in Sources */,
 				D8CE25F31E698E2400DAE2E0 /* NSAttributedString+WMFModify.m in Sources */,
 				D8CE25F41E698E2400DAE2E0 /* WMFSettingsViewController.m in Sources */,
 				D8CE25F61E698E2400DAE2E0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
@@ -13123,7 +13112,6 @@
 				D8EC3EEB1E9BDA35006712EB /* WMFImageGalleryViewController.m in Sources */,
 				D8EC3EEF1E9BDA35006712EB /* WMFAccountCreationViewController.swift in Sources */,
 				D8EC3EF01E9BDA35006712EB /* UIImage+WMFFocalImageDrawing.m in Sources */,
-				676028F723103AF40018EAD9 /* AnimationLoading.swift in Sources */,
 				83FBE9771F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				83836ECE1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				D8EC3EF21E9BDA35006712EB /* NSAttributedString+WMFModify.m in Sources */,

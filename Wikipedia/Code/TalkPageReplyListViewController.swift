@@ -37,9 +37,6 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private var shouldFocusVoiceOver = false
     private var headerView: TalkPageHeaderView?
     
-    //AnimationLoading
-    var loadingAnimationViewController: LoadingAnimationViewController?
-    
     var repliesAreDisabled = true {
         didSet {
             footerView?.composeButtonIsDisabled = repliesAreDisabled
@@ -440,8 +437,4 @@ extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
     func tappedIntro(headerView: TalkPageHeaderView) {
         assertionFailure("Should not be able to tap intro text view from replies screen")
     }
-}
-
-extension TalkPageReplyListViewController: AnimationLoading {
-    
 }

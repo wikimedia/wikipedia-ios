@@ -491,7 +491,7 @@ private extension TalkPageContainerViewController {
             var pathComponents = Array(url.pathComponents.dropFirst()) // replace ./ with wiki/
             pathComponents.insert("/wiki/", at: 0)
             
-            absoluteUrl = siteURL.wmf_URL(withPath: pathComponents.joined(), isMobile: true)
+            absoluteUrl = siteURL.wmf_URL(withPath: pathComponents.joined(), isMobile: false)
             
         } else if url.host != nil && url.scheme != nil {
             absoluteUrl = url
@@ -782,6 +782,10 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
 
 extension TalkPageContainerViewController: ResolveDestinationContainerTaskTrackingDelegate {
     
+    var customAnimationContainerViewController: UIViewController? {
+        return currentLoadingViewController
+    }
+    
     func loadEmbedFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
         assertionFailure("not setup for load embed")
         return nil
@@ -809,7 +813,12 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
             //todo: use generic error with this, not NSError
             if let error = error {
                 errorHandler(error as NSError)
+            } else {
+                //both nil, custom error
+                //todo: better error
+                errorHandler(NSError(domain: Fetcher.unexpectedResponseError.domain, code:Fetcher.unexpectedResponseError.code, userInfo: nil))
             }
+            
         }
         
         if let cancellationKey = cancellationKey {

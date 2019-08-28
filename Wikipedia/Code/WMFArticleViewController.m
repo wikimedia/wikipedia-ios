@@ -165,7 +165,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nullable, nonatomic, copy) NSString *initialFragment;
 @property (nonatomic, strong, readwrite, nullable) NSString *visibleSectionAnchor;
 
-@property (nonatomic, strong, nullable) LoadingAnimationViewController *loadingAnimationViewController;
 @end
 
 @implementation WMFArticleViewController
