@@ -114,7 +114,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
+        searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}")
         searchBar.delegate = self
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal

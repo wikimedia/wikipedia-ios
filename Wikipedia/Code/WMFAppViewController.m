@@ -634,6 +634,34 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self setBackgroundTaskIdentifier:identifier forKey:@"feed"];
 }
 
+- (UIBackgroundTaskIdentifier)remoteConfigCheckBackgroundTaskIdentifier {
+    return [self backgroundTaskIdentifierForKey:@"remoteConfigCheck"];
+}
+
+- (void)setRemoteConfigCheckBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
+    [self setBackgroundTaskIdentifier:identifier forKey:@"remoteConfigCheck"];
+}
+
+- (void)startRemoteConfigCheckBackgroundTask:(dispatch_block_t)expirationHandler {
+    if (self.remoteConfigCheckBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        return;
+    }
+    self.remoteConfigCheckBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        if (expirationHandler) {
+            expirationHandler();
+        }
+    }];
+}
+
+- (void)endRemoteConfigCheckBackgroundTask {
+    if (self.remoteConfigCheckBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        return;
+    }
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.remoteConfigCheckBackgroundTaskIdentifier;
+    self.remoteConfigCheckBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
+}
+
 - (void)startHousekeepingBackgroundTask {
     if (self.housekeepingBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
@@ -1586,16 +1614,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.checkingRemoteConfig = YES;
     CFAbsoluteTime lastCheckTime = (CFAbsoluteTime)[[self.dataStore.viewContext wmf_numberValueForKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey] doubleValue];
     CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
-    if (now - lastCheckTime >= WMFRemoteAppConfigCheckInterval) {
-        [self.dataStore updateLocalConfigurationFromRemoteConfigurationWithCompletion:^(NSError *error) {
-            if (!error) {
-                [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
-            }
-            self.checkingRemoteConfig = NO;
-        }];
-    } else {
+    BOOL shouldCheckRemoteConfig = now - lastCheckTime >= WMFRemoteAppConfigCheckInterval || self.dataStore.remoteConfigsThatFailedUpdate != 0;
+    if (!shouldCheckRemoteConfig) {
         self.checkingRemoteConfig = NO;
+        return;
     }
+    self.dataStore.isLocalConfigUpdateAllowed = YES;
+    [self startRemoteConfigCheckBackgroundTask:^{
+        self.dataStore.isLocalConfigUpdateAllowed = NO;
+        [self endRemoteConfigCheckBackgroundTask];
+    }];
+    [self.dataStore updateLocalConfigurationFromRemoteConfigurationWithCompletion:^(NSError *error) {
+        if (!error && self.dataStore.isLocalConfigUpdateAllowed) {
+            [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
+        }
+        self.checkingRemoteConfig = NO;
+        [self endRemoteConfigCheckBackgroundTask];
+    }];
 }
 
 #pragma mark - UITabBarControllerDelegate

@@ -151,7 +151,7 @@ class AccountViewController: SubSettingsViewController {
             self.delegate?.accountViewControllerDidTapLogout(self)
             self.navigationController?.popViewController(animated: true)
         }
-        let cancelAction = UIAlertAction(title: WMFLocalizedString("main-menu-account-logout-cancel", value: "Cancel", comment: "Button text for hiding the log out menu.\n{{Identical|Cancel}}"), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: WMFLocalizedString("main-menu-account-logout-cancel", value: "Cancel", comment: "Button text for hiding the log out menu. {{Identical|Cancel}}"), style: .cancel, handler: nil)
         alertController.addAction(logoutAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)

@@ -554,7 +554,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return progressView.progress
         }
         set {
-            progressView.progress = progress
+            progressView.progress = newValue
         }
     }
     
