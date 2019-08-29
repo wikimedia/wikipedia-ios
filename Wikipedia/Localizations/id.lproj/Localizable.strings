@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arief
 // Author: Arifin.wijaya
+// Author: ArlandGa
 // Author: BaconSenpai
 // Author: Beeyan
 // Author: Bennylin
@@ -651,6 +652,9 @@
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-heading" = "Konten";
 "table-title-other" = "Informasi lebih lanjut";
+"talk-page-discussion-read-accessibility-label" = "Baca";
+"talk-page-discussion-unread-accessibility-label" = "Belum dibaca";
+"talk-page-new-reply-body-accessibility-label" = "Susun tanggapan";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Baku";

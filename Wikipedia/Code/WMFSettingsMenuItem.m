@@ -26,7 +26,7 @@
         case WMFSettingsMenuItemType_LoginAccount: {
             NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
 
-            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in.\n{{Identical|Log in}}");
+            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in. {{Identical|Log in}}");
 
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
@@ -110,7 +110,7 @@
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"main-menu-privacy-policy", nil, nil, @"Privacy policy", @"Button text for showing privacy policy\n{{Identical|Privacy policy}}")
+                                                    title:WMFLocalizedStringWithDefaultValue(@"main-menu-privacy-policy", nil, nil, @"Privacy policy", @"Button text for showing privacy policy {{Identical|Privacy policy}}")
                                                  iconName:@"settings-privacy"
                                                 iconColor:[UIColor wmf_colorWithHex:0x884FDC]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
@@ -120,7 +120,7 @@
         case WMFSettingsMenuItemType_Terms: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"main-menu-terms-of-use", nil, nil, @"Terms of Use", @"Button text for showing site terms of use\n{{Identical|Terms of use}}")
+                                                    title:WMFLocalizedStringWithDefaultValue(@"main-menu-terms-of-use", nil, nil, @"Terms of Use", @"Button text for showing site terms of use {{Identical|Terms of use}}")
                                                  iconName:@"settings-terms"
                                                 iconColor:[UIColor wmf_colorWithHex:0x99A1A7]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink

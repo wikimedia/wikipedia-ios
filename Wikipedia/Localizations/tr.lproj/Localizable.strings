@@ -4,6 +4,7 @@
 // Author: Alikaan
 // Author: Alpkant
 // Author: Ayrıntılı Bilgi
+// Author: BaRaN6161 TURK
 // Author: Botansahin
 // Author: Bulgu
 // Author: HakanIST
@@ -85,6 +86,7 @@
 "action-add-to-reading-list-short" = "Listeye ekle";
 "action-cancel" = "Çıkış";
 "action-find-in-page" = "Sayfada bul";
+"action-language-accessibility" = "Dil değiştir";
 "action-move-to" = "Taşı...";
 "action-move-to-reading-list" = "Okuma listesine taşı";
 "action-read" = "Oku";
@@ -353,6 +355,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
 "explore-randomizer" = "Rastgele";
+"featured-article-empty-title" = "Bugün için seçkin madde mevcut değil";
 "feed-news-notification-button-text" = "Bildirimleri aç";
 "feed-news-notification-text" = "Gündemde olan Vikipedi maddelerinden haberdar olmak için bildirimleri etkinleştirin.";
 "fetcher-error-generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
@@ -735,8 +738,14 @@
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
 "table-title-other" = "Daha fazla bilgi";
+"talk-page-add-discussion-accessibility-label" = "Tartışma ekle";
+"talk-page-discussion-accessibility-hint" = "Tartışma başlığını açmak için iki kez hafifçe vurun";
+"talk-page-discussion-read-accessibility-label" = "Oku";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-unread-accessibility-label" = "Okunmamış";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
 "talk-page-error-unable-to-post-reply" = "İnternet bağlantısı yok. Cevap gönderilemiyor.";
-"talk-page-error-unable-to-post-topic" = "İnternet bağlantısı yok. Konu gönderilemiyor.";
+"talk-page-error-unable-to-post-topic" = "İnternet bağlantısı yok. Tartışma gönderilemiyor.";
 "talk-page-info-active-conversations" = "$1 Vikipedi'de aktif sohbetler";
 "talk-page-info-active-conversations-generic" = "Vikipedi'de aktif sohbetler";
 "talk-page-link-user-action-sheet-app" = "Uygulamada kullanıcı mesaj sayfasını görüntüle";
@@ -744,9 +753,13 @@
 "talk-page-link-user-action-sheet-title" = "Kullanıcı sayfaları";
 "talk-page-new-banner-subtitle" = "Unutma, burada hepimiz insanız.";
 "talk-page-new-banner-title" = "Lütfen nazik ol";
+"talk-page-new-body-textfield-accessibility-label" = "Tartışma Organı";
+"talk-page-new-reply-body-accessibility-label" = "Cevap oluştur";
 "talk-page-new-reply-body-placeholder-text" = "Cevap yaz";
 "talk-page-new-reply-success-text" = "Cevabınız başarıyla yayımlandı";
+"talk-page-new-subject-clear-button-accessibility" = "Konuyu temizle";
 "talk-page-new-subject-placeholder-text" = "Konu";
+"talk-page-new-subject-textfield-accessibility-label" = "Konu";
 "talk-page-new-topic-body-placeholder-text" = "Yeni tartışma oluştur";
 "talk-page-new-topic-success-text" = "Tartışmanız başarıyla yayımlandı";
 "talk-page-new-topic-title" = "Yeni tartışma";

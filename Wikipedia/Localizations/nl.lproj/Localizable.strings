@@ -16,6 +16,7 @@
 // Author: MrLeopold
 // Author: Ndecouck
 // Author: Nemo bis
+// Author: Optilete
 // Author: Patio
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
@@ -82,6 +83,7 @@
 "action-add-to-reading-list-short" = "Aan lijst toevoegen";
 "action-cancel" = "Annuleren";
 "action-find-in-page" = "Op pagina zoeken";
+"action-language-accessibility" = "Taal wijzigen";
 "action-move-to" = "Verplaatsen naar…";
 "action-move-to-reading-list" = "Naar leeslijst verplaatsen";
 "action-read" = "Lezen";
@@ -193,6 +195,7 @@
 "edit-indent-accessibility-label" = "Huidige streep inspringen";
 "edit-italic-accessibility-label" = "Cursieve opmaak toevoegen";
 "edit-italic-remove-accessibility-label" = "Cursieve opmaak weghalen";
+"edit-link-display-text-title" = "Weergavetekst";
 "edit-link-remove-accessibility-label" = "Syntaxis van koppeling verwijderen";
 "edit-link-remove-link-title" = "Koppeling verwijderen";
 "edit-link-title" = "Koppeling bewerken";
@@ -402,6 +405,7 @@
 "insert-media-image-size-setting-custom" = "Aangepast";
 "insert-media-image-size-setting-default" = "Standaard";
 "insert-media-image-size-settings-title" = "Afbeeldingsgrootte";
+"insert-media-image-type-setting-basic" = "Eenvoudig";
 "insert-media-image-type-setting-frame" = "Frame";
 "insert-media-image-type-setting-frameless" = "Zonder frame";
 "insert-media-image-type-setting-thumbnail" = "Miniatuur";
@@ -590,6 +594,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaxis Uitlichten";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstgrootteschuiver";
 "reference-title" = "Referentie $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|1=Gisteren|$1 dagen gelden}}";
@@ -632,6 +637,7 @@
 "search-recent-title" = "Recente zoekopdrachten";
 "search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "search-title" = "Zoeken";
+"settings-account" = "Account";
 "settings-appearance" = "Leesvoorkeuren";
 "settings-clear-cache" = "Cache legen";
 "settings-clear-cache-are-you-sure-message" = "Door het legen van de cache komt er $1 beschikbaar. Er worden geen opgeslagen pagina's verwijderd.";
@@ -689,13 +695,19 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"talk-page-discussion-read-accessibility-label" = "Lezen";
+"talk-page-discussion-unread-accessibility-label" = "Ongelezen";
 "talk-page-error-unable-to-post-reply" = "Geen internetverbinding. Het was niet mogelijk een antwoord te plaatsen.";
-"talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk het onderwerp te plaatsen.";
+"talk-page-error-unable-to-post-topic" = "Geen internetverbinding. Het was niet mogelijk de discussie te plaatsen.";
+"talk-page-info-active-conversations" = "Actieve gesprekken op Wikipedia in het $1";
+"talk-page-info-active-conversations-generic" = "Actieve gesprekken op Wikipedia";
 "talk-page-link-user-action-sheet-safari" = "Gebruikerspagina bekijken in Safari";
 "talk-page-link-user-action-sheet-title" = "Gebruikerspagina's";
+"talk-page-new-banner-title" = "Wees vriendelijk";
 "talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
 "talk-page-new-reply-success-text" = "Uw reactie is succesvol gepubliceerd";
 "talk-page-new-subject-placeholder-text" = "Onderwerp";
+"talk-page-new-subject-textfield-accessibility-label" = "Onderwerp";
 "talk-page-new-topic-title" = "Nieuw overleg";
 "talk-page-reply-title" = "Reageren";
 "talk-page-topic-title" = "Overleg";

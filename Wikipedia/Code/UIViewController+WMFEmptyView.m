@@ -11,7 +11,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
-+ (nullable WMFEmptyView *)emptyViewOfType:(WMFEmptyViewType)type action:(SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
++ (nullable WMFEmptyView *)emptyViewOfType:(WMFEmptyViewType)type target:(nullable id)target action:(SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
     WMFEmptyView *view = nil;
     switch (type) {
         case WMFEmptyViewTypeBlank:
@@ -36,7 +36,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
             view = [WMFEmptyView noHistoryEmptyView];
             break;
         case WMFEmptyViewTypeNoReadingLists:
-            view = [WMFEmptyView noReadingListsEmptyViewWithTarget:self action:action];
+            view = [WMFEmptyView noReadingListsEmptyViewWithTarget:target action:action];
             break;
         case WMFEmptyViewTypeNoInternetConnection:
             view = [WMFEmptyView noInternetConnectionEmptyView];
@@ -61,13 +61,13 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
 }
 
 + (nullable WMFEmptyView *)emptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame {
-    return [self emptyViewOfType:type action:nil theme:theme frame:frame];
+    return [self emptyViewOfType:type target:nil action:nil theme:theme frame:frame];
 }
 
-- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type action:(nullable SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type target:(nullable id)target action:(nullable SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
     [self wmf_hideEmptyView];
 
-    WMFEmptyView *view = [[self class] emptyViewOfType:type action:action theme:theme frame:frame];
+    WMFEmptyView *view = [[self class] emptyViewOfType:type target:target action:action theme:theme frame:frame];
 
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView *)self.view setScrollEnabled:NO];
@@ -87,7 +87,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
 }
 
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame; {
-    [self wmf_showEmptyViewOfType:type action:nil theme:theme frame:frame];
+    [self wmf_showEmptyViewOfType:type target:nil action:nil theme:theme frame:frame];
 }
 
 - (void)wmf_hideEmptyView {

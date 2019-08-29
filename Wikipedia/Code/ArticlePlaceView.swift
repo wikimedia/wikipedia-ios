@@ -365,7 +365,7 @@ class ArticlePlaceView: MapAnnotationView {
             zPosition = 2
             let countString = "\(articleCount)"
             countLabel.text = countString
-            accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("places-accessibility-group", value:"%1$@ articles", comment:"Accessibility label for a map icon - %1$@ is replaced with the number of articles in the group\n{{Identical|Article}}"), countString)
+            accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("places-accessibility-group", value:"%1$@ articles", comment:"Accessibility label for a map icon - %1$@ is replaced with the number of articles in the group {{Identical|Article}}"), countString)
         }
         updateDotAndImageHiddenState(with: articleCount)
     }
