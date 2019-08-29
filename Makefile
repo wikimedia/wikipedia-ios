@@ -42,7 +42,7 @@ npm:
 	@cd www && rm -rf 'node_modules' && npm install && cd ..
 
 usebetatools: ## Assumes Xcode-beta binary is in /Applications
-	sudo xcode-select -switch /Applications/Xcode-beta.app/Contents/Developer && ./scripts/carthage_update
+	sudo xcode-select -switch /Applications/Xcode-beta.app/Contents/Developer
 
 usenonbetatools: ## Assumes Xcode binary is in /Applications
-	sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer && ./scripts/carthage_update
+	sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
