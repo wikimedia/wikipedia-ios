@@ -74,7 +74,7 @@ class EditPreviewViewController: UIViewController, Themeable, WMFOpenExternalLin
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}")
+        navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
         
         previewWebViewContainer.externalLinksOpenerDelegate = self
         

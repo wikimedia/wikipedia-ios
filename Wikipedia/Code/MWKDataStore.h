@@ -39,6 +39,11 @@ extern NSString *const WMFBackgroundContextDidSave;
 extern NSString *const WMFFeedImportContextDidSave;
 extern NSString *const WMFViewContextDidSave;
 
+typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
+    RemoteConfigOptionReadingLists = 1 << 0,
+    RemoteConfigOptionGeneric = 1 << 1
+};
+
 @interface MWKDataStore : NSObject
 
 /**
@@ -60,6 +65,8 @@ extern NSString *const WMFViewContextDidSave;
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *nullable))completion;
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
+@property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
+@property (readonly, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
