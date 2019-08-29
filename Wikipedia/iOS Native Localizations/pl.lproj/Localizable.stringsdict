@@ -70,6 +70,22 @@
 			<string>artykułów</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Przekroczyłeś limit %1$d artykułu na konto.</string>
+			<key>other</key>
+			<string>Przekroczyłeś limit %1$d artykułów na konto.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,8 +112,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Wczoraj</string>
 			<key>other</key>
 			<string>%1$d dni temu</string>
 			<key>zero</key>
