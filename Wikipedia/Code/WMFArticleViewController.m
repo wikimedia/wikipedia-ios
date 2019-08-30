@@ -1291,6 +1291,12 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                             }];
 }
 
+- (void)kickoffProgressView {
+    [self updateProgress:0.1 animated:NO];
+    [self showProgressViewAnimated:YES];
+    
+}
+
 - (void)processArticleFetchResultWithSuccess:(BOOL)isSuccess article:(nullable MWKArticle *)article articleURL:(nullable NSURL *)articleURL error:(nullable NSError *)error force:(BOOL)force {
     if (isSuccess) {
         [self endRefreshing];
@@ -1387,8 +1393,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         return;
     }
     
-    [self updateProgress:0.1 animated:NO]; //initial progress is 0.1, incorporated with totalProgressWithArticleFetcherProgress
-    [self showProgressViewAnimated:YES];
+    [self kickoffProgressView]; //initial progress is 0.1, incorporated with totalProgressWithArticleFetcherProgress
     
     @weakify(self);
     self.articleFetcherPromise = [self fetchArticleWithURL:self.articleURL forceDownload:force checkForNewerRevision:force || self.requestLatestRevisionOnInitialLoad WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull articleURL) {

@@ -68,6 +68,7 @@ extern NSString *const WMFEditPublishedNotification;
 
 @property (nonatomic, strong, nullable) ResolveDestinationContainerViewController *resolveDestinationContainerVC;
 
+- (void)kickoffProgressView;
 
 @end
 

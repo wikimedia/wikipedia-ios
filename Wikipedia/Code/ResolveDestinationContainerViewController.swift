@@ -261,6 +261,7 @@ class ResolveDestinationContainerViewController: UIViewController {
                 articleVC.skipFetchOnViewDidAppear = true
                 wmf_add(childController: articleVC, andConstrainToEdgesOfContainerView: view)
                 articleVC.article = mwkArticle
+                articleVC.kickoffProgressView()
             } else {
                 assertionFailure("Issue pushing article view controller")
             }
@@ -274,6 +275,7 @@ class ResolveDestinationContainerViewController: UIViewController {
             if let mwkArticle = containerArticle as? MWKArticle {
                 articleVC.articleLoadCompletion = {
                     articleVC.article = mwkArticle
+                    articleVC.kickoffProgressView()
                 }
                 
                 articleVC.skipFetchOnViewDidAppear = true
