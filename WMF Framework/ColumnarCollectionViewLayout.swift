@@ -239,7 +239,6 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
                 return
             }
             attributes.zIndex = -1
-            attributes.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             attributes.alpha = 0
             return
         }
@@ -275,7 +274,6 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return attributes
         }
         attributes.zIndex = -1
-        attributes.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         attributes.alpha = 0
         return attributes
     }
