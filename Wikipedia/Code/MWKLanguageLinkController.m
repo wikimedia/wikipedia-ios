@@ -20,7 +20,7 @@ static NSArray *WMFUnsupportedLanguages() {
     static NSArray *unsupportedLanguageCodes;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        unsupportedLanguageCodes = @[@"am", @"dv", @"lez", @"arc", @"got", @"ti"];
+        unsupportedLanguageCodes = @[@"am", @"lez", @"arc", @"got", @"ti"];
     });
     return unsupportedLanguageCodes;
 }

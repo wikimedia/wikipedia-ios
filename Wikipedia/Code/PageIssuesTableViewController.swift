@@ -11,7 +11,7 @@ class PageIssuesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = WMFLocalizedString("page-issues", value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
+        self.title = WMFLocalizedString("page-issues", value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
         
         self.tableView.estimatedRowHeight = 90.0
         self.tableView.rowHeight = UITableView.automaticDimension
