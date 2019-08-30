@@ -60,6 +60,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) NSURL *containerURL;
 
+@property (readwrite, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
+
 @end
 
 @implementation MWKDataStore
@@ -1648,7 +1650,12 @@ static uint64_t bundleHash() {
                                         }
                                         NSDictionary *generalProps = [siteInfo valueForKeyPath:@"query.general"];
                                         NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
-                                        [self updateReadingListsLimits:readingListsConfig];
+                                        if (self.isLocalConfigUpdateAllowed) {
+                                            [self updateReadingListsLimits:readingListsConfig];
+                                            self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionReadingLists;
+                                        } else {
+                                            self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionReadingLists;
+                                        }
                                         [taskGroup leave];
                                     });
                                 }];
@@ -1664,7 +1671,12 @@ static uint64_t bundleHash() {
                                             [taskGroup leave];
                                             return;
                                         }
-                                        [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
+                                        if (self.isLocalConfigUpdateAllowed) {
+                                            [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
+                                            self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionGeneric;
+                                        } else {
+                                            self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionGeneric;
+                                        }
                                         [taskGroup leave];
                                     });
                                 }];
