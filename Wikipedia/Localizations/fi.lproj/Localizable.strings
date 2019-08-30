@@ -367,6 +367,8 @@
 "in-the-news-title" = "Uutisissa";
 "info-box-close-text" = "Sulje";
 "info-box-title" = "Pikafaktoja";
+"insert-action-title" = "Lisää";
+"insert-link-title" = "Lisää linkki";
 "insert-media-alternative-text-title" = "Vaihtoehtoinen teksti";
 "insert-media-caption-title" = "Kuvateksti";
 "insert-media-image-position-setting-center" = "Keski";
@@ -672,9 +674,15 @@
 "table-title-other" = "Lisätietoja";
 "talk-page-add-discussion-accessibility-label" = "Lisää keskustelu";
 "talk-page-discussion-read-accessibility-label" = "Lue";
+"talk-page-discussion-unread-accessibility-label" = "Lukematon";
+"talk-page-link-user-action-sheet-safari" = "Näytä käyttäjäsivu Safarissa";
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
+"talk-page-new-banner-subtitle" = "Muista, me kaikki olemme ihmisiä täällä";
 "talk-page-new-topic-title" = "Uusi keskustelu";
+"talk-page-reply-title" = "Vastaa";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";
+"talk-page-topic-title" = "Keskustelu";
+"talk-pages-reply-button-title" = "Vastaa tähän keskusteluun";
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";
@@ -718,7 +726,9 @@
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
+"wikitext-preview-link-external-preview-description" = "Tämä linkki ohjaa ulkoiselle sivustolle: $1";
 "wikitext-preview-link-external-preview-title" = "Ulkoinen linkki";
+"wikitext-preview-link-not-found-preview-description" = "Wikipediassa ei ole tämännimistä artikkelia";
 "wikitext-preview-link-preview-description" = "Tämä linkki vie osoitteeseen '$1'";
 "wikitext-preview-link-preview-title" = "Linkin esikatselu";
 "wikitext-preview-save-changes-title" = "Tallenna muutokset";
