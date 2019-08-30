@@ -40,6 +40,7 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
 @property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
+@property (nonatomic, strong, nullable) dispatch_block_t viewDidLoadCompletion;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
 

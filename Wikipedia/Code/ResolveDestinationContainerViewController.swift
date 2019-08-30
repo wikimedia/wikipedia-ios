@@ -39,7 +39,7 @@ extension NSError: ResolveDestinationContainerDelegateError {
 }
 
 protocol ResolveDestinationContainerTaskTrackingDelegate: ResolveDestinationContainerDelegate {
-    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> (String, Fetcher)?
+    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)?
 }
 
 class ResolveDestinationContainerViewController: UIViewController {
@@ -88,7 +88,7 @@ class ResolveDestinationContainerViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.hideLoading()
-                self.processFailure(error: error, source: .loadEmbed, originalURL: self.url)
+                self.processFailure(error: error, source: .loadEmbed, url: self.url)
             }
             
             loadingAnimationViewController.cancelBlock = { [weak self] in
@@ -110,12 +110,12 @@ class ResolveDestinationContainerViewController: UIViewController {
                 
                 self.hideLoading()
                 self.processSuccess(article: article, url: url, source: .linkPush)
-            }) { [weak self] (error) in
+            }) { [weak self] (error, url) in
                 
                 guard let self = self else { return }
                 
                 self.hideLoading()
-                self.processFailure(error: error, source: .linkPush, originalURL: url)
+                self.processFailure(error: error, source: .linkPush, url: url)
             }
             
             loadingAnimationViewController.cancelBlock = { [weak self] in
@@ -145,7 +145,7 @@ class ResolveDestinationContainerViewController: UIViewController {
             guard let self = self else { return }
             
             self.hideLoading()
-            self.processFailure(error: error, source: .linkPush, originalURL: url)
+            self.processFailure(error: error, source: .linkPush, url: url)
             
         })
         
@@ -196,7 +196,7 @@ class ResolveDestinationContainerViewController: UIViewController {
         }
     }
     
-    private func processFailure(error: NSError, source: ProcessSource, originalURL: URL) {
+    private func processFailure(error: NSError, source: ProcessSource, url: URL) {
         
         if let cachedFallbackArticle = error.cachedFallbackArticle {
             
@@ -248,7 +248,11 @@ class ResolveDestinationContainerViewController: UIViewController {
             safariVC.delegate = self
             wmf_add(childController: safariVC, andConstrainToEdgesOfContainerView: view)
         case .linkPush:
-            wmf_openExternalUrl(url)
+            if let customContainer = delegate?.customAnimationContainerViewController as? UIViewController {
+                customContainer.wmf_openExternalUrl(url)
+            } else {
+                wmf_openExternalUrl(url)
+            }
         }
     }
     
@@ -273,9 +277,8 @@ class ResolveDestinationContainerViewController: UIViewController {
             articleVC.resolveDestinationContainerVC = resolveDestinationVC
             
             if let mwkArticle = containerArticle as? MWKArticle {
-                articleVC.articleLoadCompletion = {
+                articleVC.viewDidLoadCompletion = {
                     articleVC.article = mwkArticle
-                    articleVC.kickoffProgressView()
                 }
                 
                 articleVC.skipFetchOnViewDidAppear = true

@@ -796,7 +796,7 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
         return nil
     }
     
-    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> (String, Fetcher)? {
+    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)? {
         guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             //todo how to handle this
             //showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
@@ -811,11 +811,11 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
             
             //todo: use generic error with this, not NSError
             if let error = error {
-                errorHandler(error as NSError)
+                errorHandler(error as NSError, absoluteURL)
             } else {
                 //both nil, custom error
                 //todo: better error
-                errorHandler(NSError(domain: Fetcher.unexpectedResponseError.domain, code:Fetcher.unexpectedResponseError.code, userInfo: nil))
+                errorHandler(NSError(domain: Fetcher.unexpectedResponseError.domain, code:Fetcher.unexpectedResponseError.code, userInfo: nil), absoluteURL)
             }
             
         }
