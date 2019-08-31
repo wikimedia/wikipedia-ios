@@ -45,7 +45,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         button.setImage(UIImage(named: "close"), for: .normal)
         button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
-        button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents\n{{Identical|Close}}")
+        button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents {{Identical|Close}}")
         button.accessibilityLabel = WMFLocalizedString("table-of-contents-close-accessibility-label", value:"Close Table of contents", comment:"Accessibility label for closing table of contents")
 
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -7,21 +7,21 @@
 // Author: Nemo bis
 // Author: Tweety
 
-"about-content-license" = "مواد جو لائسنس";
-"about-content-license-details" = "مواد $1 جي تحت موجود آھي، نہ تہ ٻي صورت ۾ وضاحت ڪيل آھي.";
-"about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز اٽريبيوشن-شيئرالائيڪ لائسنس";
+"about-content-license" = "مواد جو اجازتنامو";
+"about-content-license-details" = "مواد $1 ھيٺ موجود آھي، نہ تہ ٻي صورت ۾ واضع ڪيل آھي.";
+"about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز انتساب-ھڪجھڙي-ونڊ اجازتنامو";
 "about-contributors" = "ڀاڱيدارَ";
 "about-libraries" = "مستعمل لائبريريون";
 "about-libraries-complete-list" = "مڪمل فھرست";
-"about-libraries-license" = "لائسنس";
+"about-libraries-license" = "اجازتنامو";
 "about-libraries-licenses-title" = "اسان اوپن سورس سافٽويئر $1 سان پيار ڪريون ٿا";
-"about-places-maps-license" = "نقشي جو لائسنس وجهو";
+"about-places-maps-license" = "جڳھن جي نقشن جو اجازتنامو";
 "about-places-maps-license-details" = "مهرباني ڪري ايپل پاران مهيا ڪيل اپيل نقشو استعمال ڪيو. $1.";
-"about-places-maps-license-details-link-text" = "لائسنس جو معلومات هتي ڏسو";
+"about-places-maps-license-details-link-text" = "اجازتنامي جي تفصيلن لاءِ ھتي ڏسو";
 "about-product-of" = "توھان جھڙن رضاڪارن جي مدد سان $1 پاران ٺھيل";
 "about-repositories" = "ڀنڊارون";
-"about-repositories-app-source-license" = "سورس ڪوڊ $1 تحت موجود آھي.";
-"about-repositories-app-source-license-mit" = "ايمآءِٽي لائسنس";
+"about-repositories-app-source-license" = "سورس ڪوڊ $1 ھيٺ موجود آھي.";
+"about-repositories-app-source-license-mit" = "ايم.آئِٽي اجازتنامو";
 "about-send-feedback" = "ايپ جي پذيرائي موڪليو";
 "about-testers" = "آزمائيندڙ";
 "about-testers-details" = "$1 پاران ڪيواي ٽيسٽ ڪيل";
@@ -53,6 +53,8 @@
 "account-creation-title" = "نئون کاتو کوليو";
 "account-group-title" = "توهان جو کاتو";
 "account-talk-page-title" = "توھان جو بحث صفحو";
+"account-talk-preferences-auto-sign-discussions" = "پاڻمرادو-دستخط-ٿيل تبصرا";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "تبصرن جو پاڻمرادو-دستخط-ڪرڻ دستخط ترتيبن ۾ وصف-ڪيل دستخط استعمال ڪندو";
 "account-talk-preferences-title" = "بحث صفحو ترجيحون";
 "action-add-to" = "۾ وجھو…";
 "action-add-to-reading-list" = "پڙھڻ جي فھرست ۾ وجھو";
@@ -128,7 +130,7 @@
 "description-edit-for-article" = "$1 لاءِ عنوان جي تشريح";
 "description-edit-learn-more" = "وڌيڪ سکو";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "عنوان جي تشريح ۾ تبديلي ڪندي، آئون $1 تحت راضي آهيان ۽ پنهنجي ڀاڱيداري $2 اجازتنامي تحت جاري ڪيان ٿو.";
+"description-edit-license" = "عنوان جي تشريح بدلائيندي، آئون $1 سان ۽ پنھنجون ڀاڱيداريون بغير رد ڪئي $2 اجازتنامي ھيٺ جاري ڪرڻ لاءِ راضي آھيان.";
 "description-edit-pencil-introduction" = "تعارف سنواريو";
 "description-edit-pencil-title" = "عنوان جي تشريح شامل ڪريو";
 "description-edit-placeholder-title" = "مختصر تشريح بهتر آهي";
@@ -174,7 +176,7 @@
 "edit-link-remove-link-title" = "ڳنڍڻو ھٽايو";
 "edit-link-title" = "ڳنڍڻو سنواريو";
 "edit-menu-item" = "سنواريو";
-"edit-minor-learn-more-text" = "معمولي ترميمن بابت وڌيڪ ڄاڻو";
+"edit-minor-learn-more-text" = "معمولي سنوارن بابت وڌيڪ ڄاڻو";
 "edit-minor-text" = "ھيءَ ھڪ معمولي سنوار آھي";
 "edit-ordered-list-accessibility-label" = "ھاڻوڪي سٽ کي ترتيبيل فھرست ٺاھيو";
 "edit-ordered-list-remove-accessibility-label" = "ترتيبيل فھرست کي ھاڻوڪي سٽ تان ھٽايو";
@@ -311,6 +313,7 @@
 "field-token-title" = "تصديقي ڪوڊ";
 "field-username-placeholder" = "واهپنانءُ داخل ڪيو";
 "field-username-title" = "واھپنانءُ";
+"find-clear-button-accessibility" = "لڌل صاف ڪريو";
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "لھڻ جو اڳيون نتيجو";
 "find-previous-button-accessibility" = "لھڻ جو پويون نتيجو";
@@ -380,7 +383,7 @@
 "languages-title" = "ٻولي تبديل ڪريو";
 "languages-wikipedia" = "وڪيپيڊيا ٻوليون";
 "license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "مواد $1 جي تحت ميسر آهي نہ تہ ٻي صورت ۾ نوٽ ٿيل آھي.";
+"license-footer-text" = "مواد $1 ھيٺ موجود آهي نہ تہ ٻي صورت واضع ڪيل آھي.";
 "logged-out-continue-without-logging-in-button-title" = "داخل ٿيڻ سواءِ جاري رکو";
 "logged-out-log-back-in-button-title" = "پنھنجي کاتي ۾ واپس داخل ٿيو";
 "logged-out-title" = "توھان خارج ٿي چڪا آھيو";
@@ -503,12 +506,14 @@
 "reading-list-unable-to-update" = "توھان جي پڙھڻ جي فھرست چاڙھڻ وقت ڪا غير متوقع چڪ پيش آئي. مھرباني ڪري بعد ۾ ٻيھر ڪوشش ڪريو.";
 "reading-list-with-provided-name-not-found" = "\"$1\" نالي پڙھڻ جي فھرست نہ لڌي. براءِ مھرباني ان ڳالھ جي پڪ ڪريو تہ توھان درست نالو ھنيو آھي.";
 "reading-lists-article-added-confirmation" = "مضمون \"$1\" ۾ وڌو ويو";
+"reading-lists-article-queued-to-be-downloaded" = "مضمون کي لاھڻ لاءِ قطاريو ويو";
 "reading-lists-conflicting-reading-list-name-updated" = "توھان جي فھرست '$1' کي '$2' نالو ڏنو ويو آھي";
 "reading-lists-count" = "{{PLURAL:$1|$1 پڙھڻ جي فھرست|$1 پڙھڻ جون فھرستون}}";
 "reading-lists-default-list-description" = "توھان جي سانڍيل مضمونن جي لاءِ ڏنل فھرست";
 "reading-lists-default-list-title" = "سانڍيل";
 "reading-lists-delete-reading-list-alert-message" = "ھي عمل اڻڪريل نٿو ٿي سگھو. صرف {{PLURAL:$1|ھن فھرست|ھنن فھرستن}} ۾ سانڍيل مضمون انسانڍجي ويندا.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فھرست|فھرستون}} ڊاھيو؟";
+"reading-lists-sort-saved-articles" = "سانڍيل مضمون مرتب ڪريو";
 "reading-themes-controls-accessibility-black-theme-button" = "ڪارو نظارو";
 "reading-themes-controls-accessibility-brightness-slider" = "چمڪداري سلائيڊر";
 "reading-themes-controls-accessibility-dark-theme-button" = "گھرو نظارو";
@@ -574,6 +579,7 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "سڀني سانڍيل مضمونن کي مِٽايو؟";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "مِٽايو";
 "settings-storage-and-syncing-erase-saved-articles-title" = "سانڍيل مضمون مِٽايو";
+"settings-storage-and-syncing-show-default-reading-list-title" = "سانڍيل پڙھڻ فھرست ڏيکاريو";
 "settings-support" = "وڪيپيڊيا جي مدد ڪريو";
 "settings-title" = "ترتيبون";
 "share-a-fact-made-with" = "وڪيپيڊيا ايپ سان ٺھيل";
@@ -598,8 +604,18 @@
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-heading" = "فھرست";
 "table-title-other" = "وڌيڪ معلومات";
+"talk-page-add-discussion-accessibility-label" = "تبصرو وجھو";
+"talk-page-discussion-accessibility-hint" = "تبصرو ڏور کولڻ لاءِ ٻٽو ڇھو";
 "talk-page-discussion-read-accessibility-label" = "پڙھو";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "اڻپڙھو";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-error-unable-to-post-reply" = "انٽرنيٽ ڳانڍاپو ناھي. ورندي موڪلڻ ۾ ناڪام.";
+"talk-page-error-unable-to-post-topic" = "انٽرنيٽ ڳانڍاپو ناھي. تبصرو موڪلڻ ۾ ناڪام.";
+"talk-page-info-active-conversations" = "$1 وڪيپيڊيا تي سرگرم مڪالما";
+"talk-page-info-active-conversations-generic" = "وڪيپيڊيا تي سرگرم مڪالما ڏسو";
+"talk-page-link-user-action-sheet-app" = "ايپ ۾ واپرائيندڙ بحث صفحو ڏسو";
+"talk-page-link-user-action-sheet-safari" = "سفاري ۾ واپرائيندڙ صفحو ڏسو";
 "talk-page-link-user-action-sheet-title" = "واپرائيندڙ صفحا";
 "talk-page-new-banner-subtitle" = "ياد رھي، ھتي اسان سڀ انسان آھيون";
 "talk-page-new-banner-title" = "مھرباني ڪري رحمدل ٿيو";
@@ -613,6 +629,7 @@
 "talk-page-new-topic-body-placeholder-text" = "نئين گفتگو جوڙيو";
 "talk-page-new-topic-success-text" = "توھان جي گفتگو ڪاميابيءَ سان ڇپجي وئي";
 "talk-page-new-topic-title" = "نئين گفتگو";
+"talk-page-publish-terms-and-licenses" = "تبديليون سانڍڻ سان، توھان $1استعمال جي شرطن$2 سان راضي آھيو، ۽ پنھنجي ڀاڱيداري $3سيسي بي.واءِ-ايس.اي 3.0$4 ۽ $5جي.ايفڊي.ايل$6 اجازتنامن ھيٺ جاري ڪرڻ لاءِ راضي آھيو.";
 "talk-page-reply-title" = "ورندي ڏيو";
 "talk-page-title-article-talk" = "مضمون بحث";
 "talk-page-title-user-talk" = "واپرائيندڙ بحث";
@@ -629,6 +646,7 @@
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
 "two-factor-login-with-backup-code" = "پنھنجو ڪوبہ بيڪ اپ ڪوڊ استعمال ڪريو";
 "two-factor-login-with-regular-code" = "تصديقي ڪوڊ استعمال ڪيو";
+"unable-to-load-talk-page-title" = "بحث صفحو لاھڻ ۾ ناڪام";
 "view-in-browser-footer-link" = "مضمون کي جھانگوءَ ۾ ڏسو";
 "welcome-exploration-explore-feed-description" = "اسان جي نيات طرفان سفارش ڪيل پڙھائي ۽ روزانو مضمون";
 "welcome-exploration-explore-feed-title" = "پھچ کوجيو";
@@ -639,8 +657,10 @@
 "welcome-explore-continue-button" = "شروع ڪريو";
 "welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
+"welcome-intro-free-encyclopedia-description" = "وڪيپيڊيا رضاڪارن پاران گڏجي لکيل آھي ۽ ان ۾ تقريبن 300 ٻولين ۾ 40 ملين مضمون آھن.";
 "welcome-intro-free-encyclopedia-more" = "وڪيپيڊيا بابت وڌيڪ ڄاڻو";
 "welcome-intro-free-encyclopedia-more-about" = "وڪيپيڊيا بابت";
+"welcome-intro-free-encyclopedia-more-description" = "دنيا جي سڀني ٻولين ۾ آزاد ڄاڻ-چيڪلو ٺاھڻ لاءِ وڪيپيڊيا ھڪ عالمي رٿا آھي. اڻڌري، باحوالا معلومات جي ڀاڱيداري ڪري عملً ڪوبہ انٽرنيٽ رسائي سان شامل ٿيڻ لاءِ آزاد آھي.";
 "welcome-intro-free-encyclopedia-title" = "مفت انسائيڪلوپيڊيا";
 "welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
 "welcome-languages-add-or-edit-button" = "ترجيحي ٻوليون وجھو يا سنواريو";
@@ -651,6 +671,7 @@
 "welcome-notifications-tell-me-more-title" = "اطلاعن بابت وڌيڪ";
 "welcome-send-data-helps-title" = "ايپ کي بھتر بڻائڻ ۾ مدد ڪري";
 "welcome-send-data-learn-more" = "ميڙيل ڊيٽا بابت وڌيڪ ڄاڻو";
+"welcome-send-data-sub-title" = "ايپ کي بھتر بڻائڻ ۾ مدد ڪريو ان جي استعمال بابت وڪيميڊيا فائونڊيشن کي ڄاڻائي ڪري. حاصل ڪيل ڊيٽا گنمام آھي.";
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
 "wikitext-download-failed" = "تازو ترين ورزن حاصل ڪرڻ ۾ نالائق.";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
@@ -667,6 +688,8 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA پڪ جي ضرورت آھي.";
 "wikitext-upload-result-unknown" = "وڪي ٽيڪسٽ چاڙھہ جو نتيجو حاصل ڪرڻ کان قاصر.";
 "wikitext-upload-save" = "ڇاپيندي...";
+"wikitext-upload-save-anonymously-or-login" = "سنوارون توھان جي ڊوائيس جي آئِپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1داخل ٿيو$2 ٿا تہ توھان کي وڌيڪ نويڪلائي ھوندي.";
 "wikitext-upload-save-anonymously-warning" = "سنوارون توھان جي ڊوائيس جي آءِپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1 توھان کي وڌيڪ نويڪلائي آھي.";
 "wikitext-upload-save-sign-in" = "داخل ٿيو";
+"wikitext-upload-save-terms-and-licenses" = "تبديليون ڇاپڻ سان توھان $1استعمال جي شرطن$2، ۽ بغير رد ڪئي پنھنجون ڀاڱيداريون $3سيسي بي.واءِ-ايس.اي$4 لائسنس ۽ $5جي.ايفڊي.ايل$6 ھيٺ جاري ڪرڻ لاءِ راضي آھيو. توھان راضي آھيو تہ ڪو ھائپرڳنڍڻو يا يوآرايل ڪريئيٽو ڪامنز اجازتنامي ھيٺ ڪافي انتساب آھي.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
