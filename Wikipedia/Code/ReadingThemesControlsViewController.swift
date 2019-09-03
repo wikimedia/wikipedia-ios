@@ -42,6 +42,8 @@ class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet var syntaxHighlightingContainerView: UIView!
     @IBOutlet var syntaxHighlightingLabel: UILabel!
     @IBOutlet var syntaxHighlightingSwitch: UISwitch!
+
+    private var isFirstLayout = true
     
     var visible = false
     var showsSyntaxHighlighting: Bool = false {
@@ -155,6 +157,18 @@ class ReadingThemesControlsViewController: UIViewController {
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
+    }
+
+    private func updateFonts() {
         syntaxHighlightingLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     

@@ -13,7 +13,8 @@ class WMFWelcomeLanguageIntrinsicTableView: UITableView {
 }
 
 class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
-    
+    private var isFirstLayout = true
+
     private var theme = Theme.standard
     
     @IBOutlet private var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
@@ -75,6 +76,18 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         moreLanguagesButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 }

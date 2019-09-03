@@ -26,6 +26,8 @@ import UIKit
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
 
+    private var isFirstLayout = true
+
     // MARK: Event logging
     @objc var editFunnel: EditFunnel?
     @objc var editFunnelSource: EditFunnelSource = .unknown
@@ -108,9 +110,21 @@ import UIKit
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         subTitleLabel.attributedText = subTitleLabelAttributedString
         licenseLabel.attributedText = licenseLabelAttributedString
         loginLabel.attributedText = loginLabelAttributedString
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 
     private var subTitleLabelAttributedString: NSAttributedString {

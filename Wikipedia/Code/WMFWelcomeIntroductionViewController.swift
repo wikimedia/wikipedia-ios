@@ -1,7 +1,7 @@
 
 class WMFWelcomeIntroductionViewController: UIViewController {
     private var theme = Theme.standard
-
+    private var isFirstLayout = true
     @IBOutlet private var descriptionLabel:UILabel!
     @IBOutlet private var learnMoreButton:UIButton!
     
@@ -20,7 +20,19 @@ class WMFWelcomeIntroductionViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 
     @IBAction func showLearnMoreAlert(withSender sender: AnyObject) {

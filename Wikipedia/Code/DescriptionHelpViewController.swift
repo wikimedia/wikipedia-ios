@@ -31,6 +31,8 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private var imageViews: [UIImageView]!
     @IBOutlet private var dividerViews: [UIView]!
 
+    private var isFirstLayout = true
+
     @objc public init(theme: Theme) {
         super.init()
         self.theme = theme
@@ -98,6 +100,18 @@ class DescriptionHelpViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
+    }
+
+    private func updateFonts() {
         allLabels.forEach {
             $0.set(dynamicTextStyle: .body)
         }

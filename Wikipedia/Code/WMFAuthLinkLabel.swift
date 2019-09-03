@@ -9,7 +9,8 @@ struct WMFAuthLinkLabelStrings {
 
 class WMFAuthLinkLabel: UILabel, Themeable {
     fileprivate var theme = Theme.standard
-    
+    private var isFirstLayout = true
+
     override open func awakeFromNib() {
         super.awakeFromNib()
         textColor = theme.colors.link
@@ -36,6 +37,14 @@ class WMFAuthLinkLabel: UILabel, Themeable {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         update()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            update()
+            isFirstLayout = false
+        }
     }
     
     fileprivate func update() {

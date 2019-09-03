@@ -845,10 +845,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    //TODO: Is this needed? iBooks doesn't dismiss the popover on rotation.
-    //    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
-    //        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    //    }
     [self registerForPreviewingIfAvailable];
     NSNumber *multiplier = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];

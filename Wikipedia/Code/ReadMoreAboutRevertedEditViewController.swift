@@ -18,6 +18,8 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     @objc public weak var delegate: ReadMoreAboutRevertedEditViewControllerDelegate?
 
+    private var isFirstLayout = true
+
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -80,6 +82,10 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         contentTextView.attributedText = contentTextViewText
@@ -88,6 +94,10 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
         contentTextViewHeightConstraint.constant = contentTextView.sizeThatFits(contentTextView.frame.size).height
     }
 }

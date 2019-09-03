@@ -9,6 +9,8 @@ class WMFWelcomeExplorationViewController: UIViewController {
 
     @IBOutlet private var onThisDayTitleLabel:UILabel!
     @IBOutlet private var onThisDayDescriptionLabel:UILabel!
+
+    private var isFirstLayout = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +30,20 @@ class WMFWelcomeExplorationViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+        updateFonts()
+    }
+
+    private func updateFonts() {
         exploreTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         placesTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         onThisDayTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 }

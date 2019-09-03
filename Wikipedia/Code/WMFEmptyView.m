@@ -16,6 +16,7 @@
 @property (nonatomic, strong) WMFTheme *theme;
 @property (nonatomic, strong) NSString *backgroundColorKeyPath;
 @property (nonatomic, strong) NSString *titleLabelTextColorKeyPath;
+@property (nonatomic, strong) BOOL isFirstLayout;
 
 @end
 
@@ -26,6 +27,7 @@
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
+    self.isFirstLayout = YES;
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:self.theme];
 }
@@ -210,9 +212,15 @@
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    [self updateFonts];
+    [self updateImageView];
+}
 
+- (void)updateFonts {
     self.button.titleLabel.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle semiboldBody] compatibleWithTraitCollection:self.traitCollection];
+}
 
+- (void)updateImageView {
     if (![self.imageView superview]) {
         return;
     }
@@ -223,6 +231,11 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+
+    if (self.isFirstLayout) {
+        [self updateFonts];
+        [self updateImageView];
+    }
 
     if (![self.actionLine superview]) {
         return;

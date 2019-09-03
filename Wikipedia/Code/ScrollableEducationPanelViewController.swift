@@ -109,6 +109,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             view.setNeedsLayout()
         }
     }
+
+    private var isFirstLayout = true
     
     init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
@@ -176,7 +178,19 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         secondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
     
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {

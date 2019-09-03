@@ -43,7 +43,8 @@ enum TextSizeType: String {
 
 class TextFormattingProvidingTableViewController: UITableViewController, TextFormattingProviding {
     weak var delegate: TextFormattingDelegate?
-
+    private var isFirstLayout = true
+    
     var theme = Theme.standard
 
     open var titleLabelText: String? {
@@ -115,6 +116,14 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateTitleLabel()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateTitleLabel()
+            isFirstLayout = false
+        }
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {

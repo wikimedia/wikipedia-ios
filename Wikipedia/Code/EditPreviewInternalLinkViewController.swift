@@ -11,6 +11,8 @@ class EditPreviewInternalLinkViewController: UIViewController {
     private let dataStore: MWKDataStore
     private var theme = Theme.standard
 
+    private var isFirstLayout = true
+
     init(articleURL: URL, dataStore: MWKDataStore) {
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -23,7 +25,19 @@ class EditPreviewInternalLinkViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         button.titleLabel?.font = UIFont.wmf_font(.title3, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 
     override func viewDidLoad() {

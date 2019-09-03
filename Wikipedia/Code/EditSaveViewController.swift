@@ -53,6 +53,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var abuseFilterCode = ""
     private var summaryText = ""
 
+    private var isFirstLayout = true
+
     private var mode: NavigationMode = .preview {
         didSet {
             updateNavigation(for: mode)
@@ -424,6 +426,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateTextViews()
+            isFirstLayout = false
+        }
         adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView()
     }
 }

@@ -4,6 +4,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
     @IBOutlet weak var eventsLabel: UILabel!
     @IBOutlet weak var onLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
+    private var isFirstLayout = true
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -13,7 +14,19 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         onLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
     
     func configureFor(eventCount: Int, firstEvent: WMFFeedOnThisDayEvent?, lastEvent: WMFFeedOnThisDayEvent?, midnightUTCDate: Date) {

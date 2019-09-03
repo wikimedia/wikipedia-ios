@@ -61,6 +61,8 @@ class TalkPageHeaderView: UIView {
             introTextView.textAlignment = textAlignmentOverride
         }
     }
+
+    private var isFirstLayout = true
     
     override init(frame: CGRect) {
         assertionFailure("init(frame) not setup for TalkPageHeaderView")
@@ -164,6 +166,14 @@ class TalkPageHeaderView: UIView {
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setNeedsLayout()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            updateFonts(with: traitCollection)
+            isFirstLayout = false
+        }
     }
     
     var contentSizeCategory: UIContentSizeCategory?

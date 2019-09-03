@@ -1,6 +1,7 @@
 final class InsertMediaLabelTableFooterView: SetupView, Themeable {
     private let label = UILabel()
     private let separator = UIView()
+    private var isFirstLayout = true
 
     init(text: String) {
         label.text = text
@@ -31,7 +32,11 @@ final class InsertMediaLabelTableFooterView: SetupView, Themeable {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        label.font  = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
+        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
     func apply(theme: Theme) {
@@ -43,6 +48,10 @@ final class InsertMediaLabelTableFooterView: SetupView, Themeable {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
         label.preferredMaxLayoutWidth = label.bounds.width
     }
 }

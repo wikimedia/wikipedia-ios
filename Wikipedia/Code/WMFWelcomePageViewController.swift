@@ -13,7 +13,8 @@ public protocol WMFWelcomeNavigationDelegate: class{
 }
 
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate {
-
+    private var isFirstLayout = true
+    
     private var theme = Theme.standard
     
     @objc var completionBlock: (() -> Void)?
@@ -130,8 +131,20 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         skipButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         nextButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

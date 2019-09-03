@@ -37,8 +37,17 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateDistanceLabelBackgroundBorder()
+    }
+
+    private func updateDistanceLabelBackgroundBorder() {
         let displayScale = max(1, traitCollection.displayScale)
         distanceLabelBackground.layer.borderWidth = 1.0 / displayScale
+    }
+
+    override func updateFirstLayout(with traitCollection: UITraitCollection) {
+        super.updateFirstLayout(with: traitCollection)
+        updateDistanceLabelBackgroundBorder()
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

@@ -12,6 +12,8 @@ class InfoBannerView: SetupView {
             updateFonts(with: traitCollection)
         }
     }
+
+    private var isFirstLayout = true
     
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
@@ -66,6 +68,14 @@ class InfoBannerView: SetupView {
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setNeedsLayout()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            updateFonts(with: traitCollection)
+            isFirstLayout = false
+        }
     }
     
     var contentSizeCategory: UIContentSizeCategory?

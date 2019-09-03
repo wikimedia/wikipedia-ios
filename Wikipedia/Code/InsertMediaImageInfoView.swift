@@ -16,6 +16,8 @@ final class InsertMediaImageInfoView: UIView {
         }
     }
 
+    private var isFirstLayout = true
+
     func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, showLicenseName: Bool = true, showMoreInformationButton: Bool = true, keepBackgroundClear: Bool = false, theme: Theme) {
         titleLabel.text = searchResult.displayTitle
         moreInformationURL = searchResult.imageInfo?.filePageURL
@@ -42,6 +44,18 @@ final class InsertMediaImageInfoView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
+    }
+
+    private func updateFonts() {
         titleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         descriptionLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         licenseLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)

@@ -31,6 +31,8 @@ class HintViewController: UIViewController {
 
     var theme = Theme.standard
 
+    private var isFirstLayout = true
+
     enum ViewType {
         case `default`
         case confirmation
@@ -74,6 +76,10 @@ class HintViewController: UIViewController {
     private var previousHeight: CGFloat = 0.0
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
         if previousHeight != view.frame.size.height {
             delegate?.hintViewControllerHeightDidChange(self)
         }
@@ -86,6 +92,10 @@ class HintViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         defaultLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
         confirmationLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
     }

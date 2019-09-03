@@ -4,7 +4,8 @@ class WelcomePanelLabelContentViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
     private let text: String
     private var theme = Theme.standard
-
+    private var isFirstLayout = true
+    
     init(text: String) {
         self.text = text
         super.init(nibName: "WelcomePanelLabelContentViewController", bundle: Bundle.main)
@@ -21,7 +22,19 @@ class WelcomePanelLabelContentViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        label.font  = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
+        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 }
 
