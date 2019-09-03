@@ -139,25 +139,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
 
         if item is AppearanceSettingsDimSwitchItem {
             cell.disclosureType = .switch
-            cell.disclosureSwitch.isEnabled = false
             cell.disclosureSwitch.isOn = UserDefaults.wmf.wmf_isImageDimmingEnabled
-            
-            let currentAppThemeName = UserDefaults.wmf.themeName
-            switch currentAppThemeName {
-            case Theme.blackDimmed.name:
-                fallthrough
-            case Theme.black.name:
-                fallthrough
-            case  Theme.darkDimmed.name:
-                fallthrough
-            case Theme.dark.name:
-                let currentAppTheme = Theme.withName(currentAppThemeName) ?? Theme.standard
-                cell.disclosureSwitch.isEnabled = true
-                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
-                userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn).name)
-            default:
-                break
-            }
+            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-image-dimming"
             cell.iconBackgroundColor = .wmf_lightGray
             cell.iconColor = .white
@@ -243,9 +226,9 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     }
     
     @objc func applyImageDimmingChange(isOn: NSNumber) {
-        let currentTheme = UserDefaults.wmf.theme(compatibleWith: traitCollection)
+        let currentTheme = UserDefaults.wmf.themeName
         UserDefaults.wmf.wmf_isImageDimmingEnabled = isOn.boolValue
-        userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue).name)
+        userDidSelect(theme: currentTheme)
     }
     
     @objc func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
