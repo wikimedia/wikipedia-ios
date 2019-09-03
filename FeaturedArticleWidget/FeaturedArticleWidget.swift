@@ -107,10 +107,8 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         
         currentArticleKey = articleKey
         isEmptyViewHidden = true
-        guard let theme = theme else {
-            completionHandler(.noData)
-            return
-        }
+        
+        let theme = self.theme ?? Theme.widgetLight
         collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false)
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
