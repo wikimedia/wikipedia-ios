@@ -1,6 +1,7 @@
 #import "WMFThemeableNavigationController.h"
 #import "WMFAppViewController.h"
 
+
 @interface WMFThemeableNavigationController ()
 
 @property (nonatomic, strong) WMFTheme *theme;
@@ -24,10 +25,6 @@
 
 - (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme {
     return [self initWithRootViewController:rootViewController theme:theme isEditorStyle:NO];
-}
-
-- (void)dealloc {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -100,31 +97,9 @@
                      }];
 }
 
-- (void)_debounceTraitCollectionThemeUpdate {
-    if (@available(iOS 12.0, *)) {
-        WMFTheme *theme = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight ? WMFTheme.light : WMFTheme.black;
-        if (self.theme == theme) {
-            return;
-        }
-        for (UIViewController *vc in self.viewControllers) {
-            if (![vc isKindOfClass:[WMFAppViewController class]]) {
-                continue;
-            }
-            [(WMFAppViewController *)vc applyTheme:theme];
-        }
-    }
-}
-
-- (void)debounceTraitCollectionThemeUpdate {
-    if (@available(iOS 12.0, *)) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_debounceTraitCollectionThemeUpdate) object:nil];
-        [self performSelector:@selector(_debounceTraitCollectionThemeUpdate) withObject:nil afterDelay:0.3];
-    }
-}
-
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    [self debounceTraitCollectionThemeUpdate];
+    [self.themeableNavigationControllerDelegate themeableNavigationControllerTraitCollectionDidChange:self];
 }
 
 @end

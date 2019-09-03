@@ -62,7 +62,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
 static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
@@ -139,6 +139,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSUserDefaults wmf] removeObserver:self forKeyPath:[WMFUserDefaultsKey defaultTabType]];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)viewDidLoad {
@@ -153,7 +154,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(changeTheme:)
+                                             selector:@selector(userDidChangeTheme:)
                                                  name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -724,6 +725,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.waitingToResumeApp = waitToResumeApp;
 
     WMFThemeableNavigationController *articleNavigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self];
+    articleNavigationController.themeableNavigationControllerDelegate = self;
     articleNavigationController.delegate = self;
     articleNavigationController.interactivePopGestureRecognizer.delegate = self;
     articleNavigationController.extendedLayoutIncludesOpaqueBars = YES;
@@ -1892,14 +1894,35 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (void)changeTheme:(NSNotification *)note {
-    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
-
+- (void)setAppTheme:(WMFTheme *)theme {
     if (self.theme != theme) {
         [self applyTheme:theme];
         [[NSUserDefaults wmf] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
     }
+}
+
+- (void)userDidChangeTheme:(NSNotification *)note {
+    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
+    [self setAppTheme:theme];
+}
+
+- (void)updateThemeFromCurrentTraitCollection {
+    if (@available(iOS 12.0, *)) {
+        WMFTheme *theme = self.navigationController.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight ? WMFTheme.light : WMFTheme.black;
+        [self setAppTheme:theme];
+    }
+}
+
+- (void)debounceTraitCollectionThemeUpdate {
+    if (@available(iOS 12.0, *)) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateThemeFromCurrentTraitCollection) object:nil];
+        [self performSelector:@selector(updateThemeFromCurrentTraitCollection) withObject:nil afterDelay:0.3];
+    }
+}
+
+- (void)themeableNavigationControllerTraitCollectionDidChange:(nonnull WMFThemeableNavigationController *)navigationController {
+    [self debounceTraitCollectionThemeUpdate];
 }
 
 #pragma mark - WMFWorkerControllerDelegate
