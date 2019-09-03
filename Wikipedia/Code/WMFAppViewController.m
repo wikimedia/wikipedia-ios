@@ -144,7 +144,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.theme = [[NSUserDefaults wmf] wmf_appTheme];
+    self.theme = [[NSUserDefaults wmf] themeCompatibleWith:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -1894,30 +1894,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (void)setAppTheme:(WMFTheme *)theme {
+- (void)updateAppThemeIfNecessary {
+    // self.navigationController is the App's root view controller so rely on its trait collection
+    WMFTheme *theme = [NSUserDefaults.wmf themeCompatibleWith:self.navigationController.traitCollection];
     if (self.theme != theme) {
         [self applyTheme:theme];
-        [[NSUserDefaults wmf] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
     }
 }
 
 - (void)userDidChangeTheme:(NSNotification *)note {
-    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
-    [self setAppTheme:theme];
-}
-
-- (void)updateThemeFromCurrentTraitCollection {
-    if (@available(iOS 12.0, *)) {
-        WMFTheme *theme = self.navigationController.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight ? WMFTheme.light : WMFTheme.black;
-        [self setAppTheme:theme];
-    }
+    NSString *themeName = (NSString *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey];
+    [NSUserDefaults.wmf setThemeName:themeName];
+    [self updateAppThemeIfNecessary];
 }
 
 - (void)debounceTraitCollectionThemeUpdate {
     if (@available(iOS 12.0, *)) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateThemeFromCurrentTraitCollection) object:nil];
-        [self performSelector:@selector(updateThemeFromCurrentTraitCollection) withObject:nil afterDelay:0.3];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
+        [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
     }
 }
 
