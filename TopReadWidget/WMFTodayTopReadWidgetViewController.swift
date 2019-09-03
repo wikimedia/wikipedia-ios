@@ -142,11 +142,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateView()
-    }
-    
     @objc func updateView() {
         guard viewIfLoaded != nil else {
             return
