@@ -1,6 +1,6 @@
 import UIKit
 
-open class WMFArticlePreviewViewController: UIViewController {
+open class WMFArticlePreviewViewController: UIViewController, Themeable {
 
     public var titleTextStyle: DynamicTextStyle = .headline
     public var titleTextColor: UIColor = .black {
@@ -66,5 +66,17 @@ open class WMFArticlePreviewViewController: UIViewController {
             self.imageView.alpha = self.collapseImageAndWidenLabels ? 0 : 1
             self.view.layoutIfNeeded()
         }
+    }
+    
+    public func apply(theme: Theme) {
+        guard viewIfLoaded != nil else {
+            return
+        }
+        titleTextColor = theme.colors.primaryText
+        subtitleLabel.textColor = theme.colors.secondaryText
+        rankLabel.textColor = theme.colors.secondaryText
+        viewCountLabel.textColor =  theme.colors.overlayText
+        viewCountAndSparklineContainerView.backgroundColor = theme.colors.overlayBackground
+        separatorView.backgroundColor = theme.colors.border
     }
 }

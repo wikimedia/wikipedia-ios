@@ -2,7 +2,7 @@ import UIKit
 import NotificationCenter
 import WMF
 
-class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
+class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProviding {
     
     // Model
     var siteURL: URL!
@@ -62,8 +62,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
-
-    var theme: Theme = .widget
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,10 +128,39 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         perform(#selector(updateView), with: nil, afterDelay: 0.1)
     }
     
+    func updateThemeFromTraitCollection() {
+        let compatibleTheme = Theme.widgetThemeCompatible(with: traitCollection)
+        guard theme !== compatibleTheme else {
+            return
+        }
+        apply(theme: compatibleTheme)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        footerLabel.textColor = theme.colors.primaryText
+        headerLabel.textColor = theme.colors.primaryText
+        headerSeparatorView.backgroundColor = theme.colors.border
+        footerSeparatorView.backgroundColor = theme.colors.border
+        for vc in articlePreviewViewControllers {
+            vc.apply(theme: theme)
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateThemeFromTraitCollection()
+        updateView()
+    }
+    
     @objc func updateView() {
         guard viewIfLoaded != nil else {
             return
         }
+        updateThemeFromTraitCollection()
         if let context = self.extensionContext {
             var updatedIsExpanded: Bool?
             updatedIsExpanded = context.widgetActiveDisplayMode == .expanded
@@ -164,12 +191,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             headerText = WMFLocalizedString("top-read-header-generic", value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
         }
 
-        headerLabel.textColor = theme.colors.primaryText
+
         headerLabel.text = headerText.uppercased()
         headerLabel.isAccessibilityElement = false
         footerLabel.text = WMFLocalizedString("top-read-see-more", value:"See more top read", comment: "Text for footer button allowing the user to see more top read articles").uppercased()
-        footerLabel.textColor = theme.colors.primaryText
-        
+
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
         for result in results[0...(maximumRowCount - 1)] {
@@ -191,9 +217,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
         }
 
-        headerSeparatorView.backgroundColor = theme.colors.border
-        footerSeparatorView.backgroundColor = theme.colors.border
-
         var i = 0
         while i < count {
             var vc: WMFArticlePreviewViewController
@@ -209,11 +232,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.didMove(toParent: self)
             }
             let result = results[i]
-            
-            vc.titleTextColor = theme.colors.primaryText
-            vc.subtitleLabel.textColor = theme.colors.secondaryText
-            vc.rankLabel.textColor = theme.colors.secondaryText
-            vc.viewCountLabel.textColor =  theme.colors.overlayText
+            vc.apply(theme: theme ?? Theme.widgetLight)
 
             vc.titleHTML = result.displayTitleHTML
             if let wikidataDescription = result.wikidataDescription {
@@ -226,7 +245,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("rank-accessibility-label", value:"Number %1$@", comment: "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. %1$@ is replaced with the ranking {{Identical|Number}}"), rankString)
             if let articlePreview = self.userStore.fetchArticle(with: result.articleURL) {
-                vc.viewCountAndSparklineContainerView.backgroundColor = theme.colors.overlayBackground
                 if var viewCounts = articlePreview.pageViewsSortedByDate, viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
@@ -270,8 +288,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             } else {
                 vc.separatorView.isHidden = false
             }
-            vc.separatorView.backgroundColor = theme.colors.border
-            
+
             i += 1
         }
         
@@ -284,9 +301,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         stackViewHeightConstraint.isActive = true
         
         stackViewHeightConstraint.constant = size.height
-        
-        view.layoutIfNeeded()
-        
+                
         let headerHeight = headerViewHeightConstraint.constant
         let footerHeight = footerViewHeightConstraint.constant
         
