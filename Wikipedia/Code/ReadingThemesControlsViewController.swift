@@ -11,6 +11,7 @@ class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeNameKey = "themeName"
+    @objc static let WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey = "isImageDimmingEnabled"
     @objc static let nibName = "ReadingThemesControlsViewController"
     
     var theme = Theme.standard

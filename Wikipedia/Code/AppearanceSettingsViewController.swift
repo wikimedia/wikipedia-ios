@@ -182,8 +182,11 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         }
     }
     
-    func userDidSelect(theme: String) {
-        let userInfo = [ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey: theme]
+    func userDidSelect(theme: String, isImageDimmingEnabled: Bool? = nil) {
+        var userInfo: [String: Any] = [ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey: theme]
+        if let isImageDimmingEnabled = isImageDimmingEnabled {
+            userInfo[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey] = NSNumber(booleanLiteral: isImageDimmingEnabled)
+        }
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     
@@ -227,8 +230,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     
     @objc func applyImageDimmingChange(isOn: NSNumber) {
         let currentTheme = UserDefaults.wmf.themeName
-        UserDefaults.wmf.wmf_isImageDimmingEnabled = isOn.boolValue
-        userDidSelect(theme: currentTheme)
+        userDidSelect(theme: currentTheme, isImageDimmingEnabled: isOn.boolValue)
     }
     
     @objc func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {

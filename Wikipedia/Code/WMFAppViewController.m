@@ -1905,6 +1905,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)userDidChangeTheme:(NSNotification *)note {
     NSString *themeName = (NSString *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey];
+    NSNumber *isImageDimmingEnabledNumber = (NSNumber *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey];
+    if (isImageDimmingEnabledNumber) {
+        [NSUserDefaults.wmf setWmf_isImageDimmingEnabled:isImageDimmingEnabledNumber.boolValue];
+    }
     [NSUserDefaults.wmf setThemeName:themeName];
     [self updateAppThemeIfNecessary];
 }
