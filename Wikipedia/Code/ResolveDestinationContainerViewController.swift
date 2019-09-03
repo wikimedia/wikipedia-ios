@@ -25,6 +25,15 @@ extension NSError: ResolveDestinationContainerDelegateError {
     var isUnexpectedResponseError: Bool {
         return domain == Fetcher.unexpectedResponseError.domain && code == Fetcher.unexpectedResponseError.code
     }
+    
+    var isCancelledError: Bool {
+        return domain == NSURLErrorDomain &&
+        code == NSURLErrorCancelled
+    }
+    
+    var isInvalidParameterError: Bool {
+        return self == Fetcher.invalidParametersError
+    }
 }
 
 @objc protocol ResolveDestinationContainerDelegate: class {
@@ -198,8 +207,7 @@ class ResolveDestinationContainerViewController: UIViewController {
     
     private func processFailure(error: NSError, source: ProcessSource, url: URL) {
         
-        if error.domain == NSURLErrorDomain &&
-            error.code == NSURLErrorCancelled { //error came via cancelled fetch, no need to propogate to user
+        if error.isCancelledError { //error came via cancelled fetch, no need to propogate to user
             return
         }
         
@@ -225,7 +233,7 @@ class ResolveDestinationContainerViewController: UIViewController {
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
                 }
             }
-        } else if error.isUnexpectedResponseError {
+        } else if error.isUnexpectedResponseError || error.isInvalidParameterError {
             
             showExternal(url: url, source: source)
             
