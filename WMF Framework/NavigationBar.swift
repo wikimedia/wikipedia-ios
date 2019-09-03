@@ -88,6 +88,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         apply(theme: theme)
     }
+
+    private var isFirstLayout = true
     
     private var cachedTitleViewItem: UIBarButtonItem?
     private var titleView: UIView?
@@ -287,6 +289,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateShadowHeightConstraintConstant()
+    }
+
+    private func updateShadowHeightConstraintConstant() {
         guard traitCollection.displayScale > 0 else {
             return
         }
@@ -464,6 +470,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     public override func layoutSubviews() {
         super.layoutSubviews()
+        if isFirstLayout {
+            updateShadowHeightConstraintConstant()
+            isFirstLayout = false
+        }
         let navigationBarPercentHidden = _navigationBarPercentHidden
         let extendedViewPercentHidden = _extendedViewPercentHidden
         let underBarViewPercentHidden = _underBarViewPercentHidden

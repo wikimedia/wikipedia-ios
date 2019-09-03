@@ -3,6 +3,7 @@ import UIKit
 public class CreateNewReadingListButtonView: UIView {
     @IBOutlet weak var button: AlignedImageButton!
     @IBOutlet private weak var separator: UIView!
+    private var isFirstLayout = true
 
     public override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,7 +19,19 @@ public class CreateNewReadingListButtonView: UIView {
 
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         button.titleLabel?.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 
 }

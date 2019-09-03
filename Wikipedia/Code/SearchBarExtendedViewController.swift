@@ -44,6 +44,8 @@ class SearchBarExtendedViewController: UIViewController {
     weak var delegate: SearchBarExtendedViewControllerDelegate?
     
     private var theme = Theme.standard
+
+    private var isFirstLayout = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +63,20 @@ class SearchBarExtendedViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         if let textStyle = dataSource?.textStyle(for: button) {
             button.titleLabel?.font = UIFont.wmf_font(textStyle, compatibleWithTraitCollection: traitCollection)
+        }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
         }
     }
 }

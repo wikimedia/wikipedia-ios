@@ -7,6 +7,8 @@ private final class EmptyView: SetupView {
 
     var theme: Theme = .widget
 
+    private var isFirstLayout = true
+
     override func setup() {
         super.setup()
         label.text = WMFLocalizedString("featured-article-empty-title", value: "No featured article available today", comment: "Title that displays when featured article is not available")
@@ -18,7 +20,19 @@ private final class EmptyView: SetupView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
 }
 
