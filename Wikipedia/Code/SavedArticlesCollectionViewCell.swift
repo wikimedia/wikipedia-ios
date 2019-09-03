@@ -98,7 +98,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }
 
     override func updateFirstLayout(with traitCollection: UITraitCollection) {
-        super.updateFonts(with: traitCollection)
+        super.updateFirstLayout(with: traitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
     }
     
