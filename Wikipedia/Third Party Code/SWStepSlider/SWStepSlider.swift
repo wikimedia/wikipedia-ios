@@ -189,6 +189,10 @@ open class SWStepSlider: UIControl {
             self.sendActions(for: .valueChanged)
         }
     }
+
+    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return !(gestureRecognizer is UIPanGestureRecognizer)
+    }
     
     // MARK: - Helper
     func deltaValue(_ deltaLocation: CGFloat) -> Int {
