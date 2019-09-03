@@ -2,7 +2,7 @@ import UIKit
 import NotificationCenter
 import WMF
 
-class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding, Themeable {
+class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var daysAgoView: UIView!
@@ -18,19 +18,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
     
     var articleURL: URL?
-
-    var theme: Theme?
-
-    func updateThemeFromTraitCollection() {
-        let compatibleTheme = Theme.widgetThemeCompatible(with: traitCollection)
-        guard theme !== compatibleTheme else {
-            return
-        }
-        apply(theme: compatibleTheme)
-    }
     
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
@@ -44,8 +34,6 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        updateThemeFromTraitCollection()
         
         imageView.accessibilityIgnoresInvertColors = true
         
@@ -174,7 +162,6 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        updateThemeFromTraitCollection()
         _ = updateView()
     }
 

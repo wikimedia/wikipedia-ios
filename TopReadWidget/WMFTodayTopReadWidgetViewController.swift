@@ -128,14 +128,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         perform(#selector(updateView), with: nil, afterDelay: 0.1)
     }
     
-    func updateThemeFromTraitCollection() {
-        let compatibleTheme = Theme.widgetThemeCompatible(with: traitCollection)
-        guard theme !== compatibleTheme else {
-            return
-        }
-        apply(theme: compatibleTheme)
-    }
-    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
@@ -152,7 +144,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        updateThemeFromTraitCollection()
         updateView()
     }
     
@@ -160,7 +151,6 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         guard viewIfLoaded != nil else {
             return
         }
-        updateThemeFromTraitCollection()
         if let context = self.extensionContext {
             var updatedIsExpanded: Bool?
             updatedIsExpanded = context.widgetActiveDisplayMode == .expanded
