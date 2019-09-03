@@ -11,7 +11,7 @@ fileprivate enum TalkPageContainerViewState {
     case fetchFailure(error: Error)
     case linkLoading(loadingViewController: ViewController)
     case linkFinished(loadingViewController: ViewController)
-    case linkFailure(loadingViewController: ViewController, error: Error)
+    case linkFailure(loadingViewController: ViewController)
     
     var repliesAreDisabled: Bool {
         switch self {
@@ -140,10 +140,9 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
             case .linkFinished(let viewController):
                 viewController.scrollView?.isUserInteractionEnabled = true
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = true
-            case .linkFailure(let viewController, let error):
+            case .linkFailure(let viewController):
                 viewController.scrollView?.isUserInteractionEnabled = true
                 viewController.navigationItem.rightBarButtonItem?.isEnabled = true
-                showNoInternetConnectionAlertOrOtherWarning(from: error)
             }
             
             replyListViewController?.repliesAreDisabled = viewState.repliesAreDisabled
@@ -803,21 +802,26 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
             return nil
         }
         
-        let cancellationKey = self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, error) in
+        let cancellationKey = self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { [weak self] (article, error) in
             if let article = article {
-                successHandler(article, absoluteURL)
+                DispatchQueue.main.async {
+                    successHandler(article, absoluteURL)
+                }
                 return
             }
             
-            //todo: use generic error with this, not NSError
-            if let error = error {
-                errorHandler(error as NSError, absoluteURL)
-            } else {
-                //both nil, custom error
-                //todo: better error
-                errorHandler(NSError(domain: Fetcher.unexpectedResponseError.domain, code:Fetcher.unexpectedResponseError.code, userInfo: nil), absoluteURL)
-            }
             
+            DispatchQueue.main.async {
+            
+                let calculatedError = error ?? NSError(domain: Fetcher.unexpectedResponseError.domain, code:Fetcher.unexpectedResponseError.code, userInfo: nil)
+                errorHandler(calculatedError as NSError, absoluteURL)
+                
+                //reset loading state
+                if let loadingViewController = self?.currentLoadingViewController {
+                    self?.viewState = .linkFailure(loadingViewController: loadingViewController)
+                    self?.currentLoadingViewController = nil
+                }
+            }
         }
         
         if let cancellationKey = cancellationKey {
@@ -838,10 +842,7 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
     }
     
     func showDefaultLinkFailure(error: NSError) {
-        if let loadingViewController = currentLoadingViewController {
-            viewState = .linkFailure(loadingViewController: loadingViewController, error: error)
-        }
-        currentLoadingViewController = nil
+        //no-op
     }
     
     func handleCustomSuccess(article: DestinationContainerArticle, url: URL) -> Bool {

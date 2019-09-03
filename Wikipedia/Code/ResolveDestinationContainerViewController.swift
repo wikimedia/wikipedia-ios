@@ -198,6 +198,11 @@ class ResolveDestinationContainerViewController: UIViewController {
     
     private func processFailure(error: NSError, source: ProcessSource, url: URL) {
         
+        if error.domain == NSURLErrorDomain &&
+            error.code == NSURLErrorCancelled { //error came via cancelled fetch, no need to propogate to user
+            return
+        }
+        
         if let cachedFallbackArticle = error.cachedFallbackArticle {
             
             if let cachedFallbackURL = cachedFallbackArticle.destinationContainerURL {

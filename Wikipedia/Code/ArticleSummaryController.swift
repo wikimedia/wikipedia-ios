@@ -11,27 +11,43 @@ public class ArticleSummaryController: NSObject {
     }
     
     @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: String, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> String? {
-        let keys = updateOrCreateArticleSummariesForArticles(withKeys: [articleKey], completion: { (byKey, error) in
-            completion?(byKey.first?.value, error)
-        })
-        return keys.first
+        
+        let cancellationKey = fetcher.fetchSummaryForArticle(with: articleKey) { [weak self] (articleSummary, urlResponse, error) in
+            guard let articleSummary = articleSummary,
+                error == nil else {
+                completion?(nil, error)
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self?.processSummaryResponses(with: [articleKey: articleSummary]) { (result, error) in
+                    completion?(result[articleKey], error)
+                }
+            }
+        }
+        return cancellationKey
     }
     
     @discardableResult public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [String], completion: (([String: WMFArticle], Error?) -> Void)? = nil) -> [String] {
+
+        return fetcher.fetchArticleSummaryResponsesForArticles(withKeys: articleKeys) { [weak self] (summaryResponses) in
+            self?.processSummaryResponses(with: summaryResponses, completion: completion)
+        }
+    }
+    
+    private func processSummaryResponses(with summaryResponses: [String: ArticleSummary], completion: (([String: WMFArticle], Error?) -> Void)? = nil) {
         guard let moc = dataStore?.viewContext else {
             completion?([:], RequestError.invalidParameters)
-            return []
+            return
         }
         
-        return fetcher.fetchArticleSummaryResponsesForArticles(withKeys: articleKeys) { (summaryResponses) in
-            moc.perform {
-                do {
-                    let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
-                    completion?(articles, nil)
-                } catch let error {
-                    DDLogError("Error fetching article summary responses: \(error.localizedDescription)")
-                    completion?([:], error)
-                }
+        moc.perform {
+            do {
+                let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
+                completion?(articles, nil)
+            } catch let error {
+                DDLogError("Error fetching article summary responses: \(error.localizedDescription)")
+                completion?([:], error)
             }
         }
     }
