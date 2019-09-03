@@ -16,7 +16,7 @@
 @property (nonatomic, strong) WMFTheme *theme;
 @property (nonatomic, strong) NSString *backgroundColorKeyPath;
 @property (nonatomic, strong) NSString *titleLabelTextColorKeyPath;
-@property (nonatomic, strong) BOOL isFirstLayout;
+@property (nonatomic) BOOL isFirstLayout;
 
 @end
 
@@ -235,6 +235,7 @@
     if (self.isFirstLayout) {
         [self updateFonts];
         [self updateImageView];
+        self.isFirstLayout = NO;
     }
 
     if (![self.actionLine superview]) {
