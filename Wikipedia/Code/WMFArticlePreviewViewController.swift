@@ -1,6 +1,6 @@
 import UIKit
 
-open class WMFArticlePreviewViewController: UIViewController, Themeable {
+open class WMFArticlePreviewViewController: ExtensionViewController {
 
     public var titleTextStyle: DynamicTextStyle = .headline
     public var titleTextColor: UIColor = .black {
@@ -68,7 +68,8 @@ open class WMFArticlePreviewViewController: UIViewController, Themeable {
         }
     }
     
-    public func apply(theme: Theme) {
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
