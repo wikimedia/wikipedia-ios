@@ -50,11 +50,13 @@
 "account-creation-saving" = "Nyimpen...";
 "account-creation-title" = "Gawé akun anyar";
 "account-group-title" = "Akun";
+"account-talk-page-title" = "Parembuganmu";
 "action-add-to" = "Tambahaké ing...";
 "action-add-to-reading-list" = "Wuwuhaké ing pratélan wacan";
 "action-add-to-reading-list-short" = "Tambahaké ing pratélan";
 "action-cancel" = "Wurung";
 "action-find-in-page" = "Golèk ing kaca";
+"action-language-accessibility" = "Owah basa";
 "action-move-to" = "Lih menyang...";
 "action-move-to-reading-list" = "Lih menyang pratélan wacan";
 "action-read" = "Waca";
@@ -73,6 +75,8 @@
 "action-unsave" = "Wurung nyimpen";
 "action-unsaved-accessibility-notification" = "Artikel wurung disimpen";
 "action-update" = "Anyari";
+"add-articles-to-reading-list" = "Lebokaké {{PLURAL:$1|$1 artikel}} ing pratélan wacan";
+"add-citation-title" = "Wuwuh sitiran";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Larasaké ukurané tulisan ing artikel";
 "appearance-settings-reading-themes" = "Cakrik wacan";
@@ -90,7 +94,7 @@
 "article-unable-to-load-section" = "Ora bisa ngamot pérangan iki. Jajal mot manèh kacané saperlu niliki yèn masalahé wis didandani apa durung.";
 "back-button-accessibility-label" = "Bali";
 "button-next" = "Sabanjuré";
-"button-ok" = "Oké";
+"button-ok" = "YA";
 "button-publish" = "Babar";
 "button-read-now" = "Waca saiki";
 "button-report-a-bug" = "Lapuraké ama";
@@ -100,6 +104,7 @@
 "button-skip" = "Lumpati";
 "cancel" = "Wurung";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Resiki";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "nalika pukul $1 thèng";
 "continue-reading-empty-description" = "Dlajahi Wikipédia supaya bisa maca werna-werna artikelé";
