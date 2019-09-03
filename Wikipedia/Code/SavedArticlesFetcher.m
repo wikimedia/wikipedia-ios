@@ -168,19 +168,20 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         return;
     }
     self.updating = YES;
-    if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-        self.backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:@"SavedArticlesFetch"
-                                                                                   expirationHandler:^{
-                                                                                       [self cancelAllRequests];
-                                                                                       [self stop];
-                                                                                   }];
-    }
     dispatch_block_t endBackgroundTask = ^{
         if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
             [UIApplication.sharedApplication endBackgroundTask:self.backgroundTaskIdentifier];
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         }
     };
+    if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        self.backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:@"SavedArticlesFetch"
+                                                                                   expirationHandler:^{
+                                                                                       [self cancelAllRequests];
+                                                                                       [self stop];
+                                                                                       endBackgroundTask();
+                                                                                   }];
+    }
     NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
 
