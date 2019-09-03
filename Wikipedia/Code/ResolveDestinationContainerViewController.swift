@@ -76,6 +76,17 @@ class ResolveDestinationContainerViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @objc init(articleViewController: WMFArticleViewController, embedOnAppearance: Bool) {
+        self.dataStore = articleViewController.dataStore
+        self.theme = articleViewController.theme
+        //todo: remove the as?
+        self.delegate = articleViewController as? ResolveDestinationContainerDelegate
+        self.url = articleViewController.articleURL
+        self.embedOnLoad = embedOnAppearance
+        super.init(nibName: nil, bundle: nil)
+        articleViewController.resolveDestinationContainerVC = self
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

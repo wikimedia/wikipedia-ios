@@ -180,7 +180,11 @@ extension ArticleLocationCollectionViewController {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: previewedIndexPath?.item, maxViewed: maxViewed)
         }
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        wmf_push(viewControllerToCommit, animated: true)
+        if let articleViewController = viewControllerToCommit as? WMFArticleViewController {
+            wmf_push(articleViewController, animated: true)
+        } else {
+            wmf_push(viewControllerToCommit, animated: true)
+        }
     }
 }
 

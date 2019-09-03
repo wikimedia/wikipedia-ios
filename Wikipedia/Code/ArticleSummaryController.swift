@@ -31,7 +31,9 @@ public class ArticleSummaryController: NSObject {
     @discardableResult public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [String], completion: (([String: WMFArticle], Error?) -> Void)? = nil) -> [String] {
 
         return fetcher.fetchArticleSummaryResponsesForArticles(withKeys: articleKeys) { [weak self] (summaryResponses) in
-            self?.processSummaryResponses(with: summaryResponses, completion: completion)
+            DispatchQueue.main.async {
+                self?.processSummaryResponses(with: summaryResponses, completion: completion)
+            }
         }
     }
     

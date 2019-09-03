@@ -2253,11 +2253,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)pushArticleViewControllerWithURL:(NSURL *)url animated:(BOOL)animated {
-    WMFArticleViewController *articleViewController =
-    [[WMFArticleViewController alloc] initWithArticleURL:url
-                                               dataStore:self.dataStore
-                                                   theme:self.theme];
-    [self pushArticleViewController:articleViewController animated:animated];
+    
+    [self wmf_pushArticleWithURL:url dataStore:self.dataStore theme:self.theme animated:animated];
 }
 
 #pragma mark - One-time toolbar item popover tips

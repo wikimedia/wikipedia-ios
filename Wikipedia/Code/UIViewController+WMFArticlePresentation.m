@@ -25,8 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
     articleVC.articleLoadCompletion = articleLoadCompletion;
     
-    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithDataStore:dataStore theme:theme delegate:(id<ResolveDestinationContainerDelegate>)articleVC url:url embedOnAppearance:YES];
-    articleVC.resolveDestinationContainerVC = resolveDestinationContainerVC;
+    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithArticleViewController:articleVC embedOnAppearance:YES];
     [self wmf_pushViewController:resolveDestinationContainerVC animated:animated];
     return articleVC;
 }
@@ -35,14 +34,17 @@ NS_ASSUME_NONNULL_BEGIN
     
     url = [url wmf_URLWithFragment:nil];
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
+    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithArticleViewController:articleVC embedOnAppearance:YES];
     
-    //todo: this ResolveDestinationContainerDelegate cast does not seem ideal.
-    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithDataStore:dataStore theme:theme delegate:(id<ResolveDestinationContainerDelegate>)articleVC url:url embedOnAppearance:YES];
-    articleVC.resolveDestinationContainerVC = resolveDestinationContainerVC;
     [self wmf_pushViewController:resolveDestinationContainerVC animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
+    
+    //embed in ResolveDestinationContainerViewController first
+
+    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithArticleViewController:viewController embedOnAppearance:YES];
+    
     if (self.parentViewController != nil && self.parentViewController.navigationController) {
         [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
@@ -52,9 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                          [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
                                                      }];
     } else if (self.navigationController != nil) {
-        [self.navigationController pushViewController:viewController animated:animated];
+        [self.navigationController pushViewController:resolveDestinationContainerVC animated:animated];
     } else if ([self isKindOfClass:[UINavigationController class]]) {
-        [(UINavigationController *)self pushViewController:viewController animated:animated];
+        [(UINavigationController *)self pushViewController:resolveDestinationContainerVC animated:animated];
     }
 }
 
