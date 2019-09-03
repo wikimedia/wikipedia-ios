@@ -6,10 +6,19 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     public var areSeparatorsAlignedWithLabels: Bool = false
 
     public var singlePixelDimension: CGFloat = 0.5
-    
+
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateSinglePixelDimension()
+    }
+
+    private func updateSinglePixelDimension() {
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+    }
+
+    open override func updateFirstLayout(with traitCollection: UITraitCollection) {
+        super.updateFirstLayout(with: traitCollection)
+        updateSinglePixelDimension()
     }
     
     override open func setup() {

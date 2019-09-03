@@ -276,6 +276,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         updateEffectiveArticleSemanticContentAttribute()
         super.traitCollectionDidChange(previousTraitCollection)
     }
+
+    open override func updateFirstLayout(with traitCollection: UITraitCollection) {
+        super.updateFirstLayout(with: traitCollection)
+        updateEffectiveArticleSemanticContentAttribute()
+    }
     
     // MARK - Accessibility
     

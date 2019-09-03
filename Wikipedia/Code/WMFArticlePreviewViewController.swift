@@ -13,6 +13,8 @@ open class WMFArticlePreviewViewController: UIViewController {
             updateTitle()
         }
     }
+
+    private var isFirstLayout = true
     
     private func updateTitle() {
         titleLabel.attributedText = titleHTML?.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
@@ -39,7 +41,6 @@ open class WMFArticlePreviewViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    
     open override func viewDidLoad() {
         rankLabel.textColor = .wmf_darkGray
         separatorView.backgroundColor = .wmf_darkGray
@@ -57,6 +58,14 @@ open class WMFArticlePreviewViewController: UIViewController {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts()
+    }
+
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isFirstLayout {
+            updateFonts()
+            isFirstLayout = false
+        }
     }
     
     @objc open var collapseImageAndWidenLabels: Bool = true {

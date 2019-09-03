@@ -11,6 +11,8 @@ import UIKit
 // 3. Handling RTL content on LTR devices and vice versa
 
 open class CollectionViewCell: UICollectionViewCell {
+    private var isFrstLayout = true
+
     // MARK - Methods for subclassing
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
@@ -128,6 +130,10 @@ open class CollectionViewCell: UICollectionViewCell {
     
     // MARK - Layout
 
+    open func updateFirstLayout(with traitCollection: UITraitCollection) {
+        updateFonts(with: traitCollection)
+    }
+
     open override func layoutMarginsDidChange() {
         super.layoutMarginsDidChange()
         setNeedsLayout()
@@ -135,6 +141,10 @@ open class CollectionViewCell: UICollectionViewCell {
 
     final override public func layoutSubviews() {
         super.layoutSubviews()
+        if isFrstLayout {
+            updateFirstLayout(with: traitCollection)
+            isFrstLayout = false
+        }
         contentView.frame = bounds
         backgroundView?.frame = bounds
         selectedBackgroundView?.frame = bounds
