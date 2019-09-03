@@ -286,7 +286,9 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         stackViewHeightConstraint.isActive = true
         
         stackViewHeightConstraint.constant = size.height
-                
+
+        view.layoutIfNeeded()
+        
         let headerHeight = headerViewHeightConstraint.constant
         let footerHeight = footerViewHeightConstraint.constant
         
