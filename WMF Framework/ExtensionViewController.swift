@@ -1,23 +1,24 @@
 import UIKit
 
 open class ExtensionViewController: UIViewController, Themeable {
-    public final var theme: Theme?
+    public final var theme: Theme = Theme.widgetLight
     
     open func apply(theme: Theme) {
         self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
     }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        updateThemeFromTraitCollection()
+        updateThemeFromTraitCollection(force: true)
+        apply(theme: theme)
     }
     
-    private func updateThemeFromTraitCollection() {
+    private func updateThemeFromTraitCollection(force: Bool = false) {
         let compatibleTheme = Theme.widgetThemeCompatible(with: traitCollection)
         guard theme !== compatibleTheme else {
+            if (force) {
+                apply(theme: theme)
+            }
             return
         }
         apply(theme: compatibleTheme)

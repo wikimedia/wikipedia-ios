@@ -217,12 +217,12 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
                 vc.didMove(toParent: self)
             }
             let result = results[i]
-            vc.apply(theme: theme ?? Theme.widgetLight)
+            vc.apply(theme: theme)
 
             vc.titleHTML = result.displayTitleHTML
             if let wikidataDescription = result.wikidataDescription {
                 vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
-            }else{
+            } else {
                 vc.subtitleLabel.text = result.snippet
             }
             vc.imageView.wmf_reset()
