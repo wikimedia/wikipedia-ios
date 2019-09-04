@@ -125,7 +125,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc var themeAnalyticsName: String {
         let name = string(forKey: WMFAppThemeName)
-        guard name != "standard" else {
+        guard name != nil, name != "standard" else {
             return "default"
         }
         return Theme.withName(name)?.displayName ?? Theme.light.displayName
@@ -133,7 +133,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc var themeDisplayName: String {
         let name = string(forKey: WMFAppThemeName)
-        guard name != "standard" else {
+        guard name != nil, name != "standard" else {
             return CommonStrings.defaultThemeDisplayName
         }
         return Theme.withName(name)?.displayName ?? Theme.light.displayName
@@ -142,7 +142,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc(themeCompatibleWith:)
     func theme(compatibleWith traitCollection: UITraitCollection) -> Theme {
         let name = string(forKey: WMFAppThemeName)
-        guard name != "standard" else {
+        guard name != nil, name != "standard" else {
             if #available(iOSApplicationExtension 12.0, *) {
                 return traitCollection.userInterfaceStyle == .light ? .light : Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled)
             } else {
