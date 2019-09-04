@@ -1681,6 +1681,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
+- (void)webViewScrollView:(UIScrollView *)scrollView didScrollToFragment:(NSString *)fragment {
+    [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:true];
+}
+
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
