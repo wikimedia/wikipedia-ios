@@ -785,6 +785,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                                                                     if (completion) {
                                                                                                         completion();
                                                                                                     }
+                                                                                                    [self.delegate webViewScrollView:self.webView.scrollView didScrollToFragment:fragment];
                                                                                                 }];
                                                      } else if (completion) {
                                                          completion();
