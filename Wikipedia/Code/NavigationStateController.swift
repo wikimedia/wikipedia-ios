@@ -222,17 +222,9 @@ final class NavigationStateController: NSObject {
                 break
             }
             
-            switch delegate {
-            case let articleViewController as WMFArticleViewController:
-                kind = viewController is WMFRandomArticleViewController ? .random : .article
-                info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
-            case let talkPageContainerVC as TalkPageContainerViewController:
-                kind = .talkPage
-                info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
-            default:
-                kind = nil
-                info = nil
-            }
+            let result = determineKindInfoForArticleOrTalk(obj: delegate)
+            kind = result.kind
+            info = result.info
         
         case let talkPageReplyListVC as TalkPageReplyListViewController:
             kind = .talkPageReplyList
@@ -244,11 +236,31 @@ final class NavigationStateController: NSObject {
             kind = .detail
             info = Info(contentGroupIDURIString: detailPresenting.contentGroupIDURIString)
         default:
-            kind = nil
-            info = nil
+            let result = determineKindInfoForArticleOrTalk(obj: viewController)
+            kind = result.kind
+            info = result.info
         }
 
         return ViewController(kind: kind, presentation: presentation, info: info)
+    }
+    
+    private func determineKindInfoForArticleOrTalk(obj: Any) -> (kind: ViewController.Kind?, info: Info?) {
+        
+        let kind: ViewController.Kind?
+        let info: Info?
+        switch obj {
+            case let articleViewController as WMFArticleViewController:
+                kind = obj is WMFRandomArticleViewController ? .random : .article
+                info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
+            case let talkPageContainerVC as TalkPageContainerViewController:
+                kind = .talkPage
+                info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
+        default:
+            kind = nil
+            info = nil
+        }
+        
+        return (kind: kind, info: info)
     }
 
     private func viewControllersToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> [ViewController] {

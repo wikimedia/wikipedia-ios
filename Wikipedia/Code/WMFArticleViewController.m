@@ -1616,8 +1616,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    
-    [self.resolveDestinationContainerVC tappedLinkWithUrl:url];
+    if (self.resolveDestinationContainerVC) {
+          [self.resolveDestinationContainerVC tappedLinkWithUrl:url];
+    } else {
+        [self pushArticleViewControllerWithURL:url animated:YES];
+    }
 }
 
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {

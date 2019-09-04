@@ -788,6 +788,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                                                                         completion();
                                                                                                     }
                                                                                                 }];
+                                                     } else {
+                                                         if (completion) {
+                                                             completion();
+                                                         }
                                                      }
                                                  }];
     }
