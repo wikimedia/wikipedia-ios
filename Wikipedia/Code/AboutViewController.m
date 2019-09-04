@@ -131,7 +131,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;
-    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
+    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:@"#top"];
     self.webView = wv;
 
     self.webView.opaque = NO;
