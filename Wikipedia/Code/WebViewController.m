@@ -44,6 +44,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @property (nonatomic, getter=isAfterFirstUserScrollInteraction) BOOL afterFirstUserScrollInteraction;
 
+@property (nonatomic, assign) BOOL indexHTMLDocumentLoadedFired;
+
 @end
 
 @implementation WebViewController
@@ -310,6 +312,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
         self.afterFirstUserScrollInteraction = NO;
+        self.indexHTMLDocumentLoadedFired = YES;
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
         BOOL collapseTables = ![[NSUserDefaults wmf] wmf_isAutomaticTableOpeningEnabled];
@@ -687,6 +690,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (interactivePopGR) {
         [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:interactivePopGR];
     }
+
+    //catches state restoration bug where web view never loads if article is deeper in the stack
+    if (!self.indexHTMLDocumentLoadedFired && self.article && self.articleURL) {
+        [self setArticle:self.article articleURL:self.articleURL];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -775,7 +783,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                                                   animated:animated
-                                                                                                completion:^(BOOL finished){
+                                                                                                completion:^(BOOL finished) {
                                                                                                     if (completion) {
                                                                                                         completion();
                                                                                                     }
@@ -861,7 +869,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
     SchemeHandler *handler = [SchemeHandler shared];
-    [handler cacheSectionDataForArticle: self.article];
+    [handler cacheSectionDataForArticle:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 }
