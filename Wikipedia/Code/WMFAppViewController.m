@@ -1526,13 +1526,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         WMFWelcomeInitialViewController *vc = [WMFWelcomeInitialViewController wmf_viewControllerFromWelcomeStoryboard];
-
+        [vc applyTheme:self.theme];
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {
                 completion(YES);
             }
         };
+        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:vc animated:NO completion:NULL];
     } else {
         if (completion) {
@@ -1865,7 +1866,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.savedViewController applyTheme:theme];
     [self.recentArticlesViewController applyTheme:theme];
     [self.searchViewController applyTheme:theme];
-
+    
+    if ([self.presentedViewController conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id)self.presentedViewController applyTheme:theme];
+    }
+    
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
     [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];

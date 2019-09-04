@@ -12,9 +12,27 @@ public protocol WMFWelcomeNavigationDelegate: class{
     func showNextWelcomePage(_ sender: AnyObject)
 }
 
-class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate {
+class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate, Themeable {
 
     private var theme = Theme.standard
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        nextButton.setTitleColor(theme.colors.link, for: .normal)
+        nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
+        nextButton.setTitleColor(theme.colors.link, for: .highlighted)
+        pageControl?.pageIndicatorTintColor = theme.colors.pageIndicator
+        pageControl?.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
+        for child in pageControllers {
+            guard let themeable = child as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
+    }
     
     @objc var completionBlock: (() -> Void)?
     
@@ -49,6 +67,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         let controller = WMFWelcomeContainerViewController.wmf_viewControllerFromWelcomeStoryboard()
         controller.welcomeNavigationDelegate = self
         controller.welcomePageType = type
+        controller.apply(theme: theme)
         return controller
     }
     
@@ -86,6 +105,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
+        
+        apply(theme: theme)
     }
     
     private func configureAndAddNextButton(){
@@ -95,9 +116,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         nextButton.titleLabel?.numberOfLines = 1
         nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
-        nextButton.setTitleColor(theme.colors.link, for: .normal)
-        nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
-        nextButton.setTitleColor(theme.colors.link, for: .highlighted)
+
         view.addSubview(nextButton)
         nextButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
@@ -138,8 +157,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
             pageControl.isUserInteractionEnabled = false
-            pageControl.pageIndicatorTintColor = theme.colors.pageIndicator
-            pageControl.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
         }
     }
 
