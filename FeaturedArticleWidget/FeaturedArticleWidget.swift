@@ -2,15 +2,16 @@ import UIKit
 import NotificationCenter
 import WMF
 
-private final class EmptyView: SetupView {
+private final class EmptyView: SetupView, Themeable {
     private let label = UILabel()
 
-    var theme: Theme = .widget
+    func apply(theme: Theme) {
+        label.textColor = theme.colors.primaryText
+    }
 
     override func setup() {
         super.setup()
         label.text = WMFLocalizedString("featured-article-empty-title", value: "No featured article available today", comment: "Title that displays when featured article is not available")
-        label.textColor = theme.colors.primaryText
         label.textAlignment = .center
         label.numberOfLines = 0
         updateFonts()
@@ -27,7 +28,7 @@ private final class EmptyView: SetupView {
     }
 }
 
-class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
+class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
     let collapsedArticleView = ArticleRightAlignedImageCollectionViewCell()
     let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
 
@@ -57,6 +58,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         view.wmf_addSubviewWithConstraintsToEdges(emptyView)
     }
     
+    
     var isEmptyViewHidden = true {
         didSet {
             extensionContext?.widgetLargestAvailableDisplayMode = isEmptyViewHidden ? .expanded : .compact
@@ -80,6 +82,18 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         return dataStore.fetchArticle(with: articleURL)
     }
     
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        emptyView.apply(theme: theme)
+        collapsedArticleView.apply(theme: theme)
+        collapsedArticleView.tintColor = theme.colors.link
+        expandedArticleView.apply(theme: theme)
+        expandedArticleView.tintColor = theme.colors.link
+    }
+    
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         defer {
             updateView()
@@ -98,9 +112,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         
         currentArticleKey = articleKey
         isEmptyViewHidden = true
-
-        let theme:Theme = .widget
-
+        
         collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false)
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
