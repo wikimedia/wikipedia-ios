@@ -795,9 +795,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
     [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 
-    BOOL isVisibleInline = [[NSUserDefaults wmf] wmf_isTableOfContentsVisibleInline];
-
-    self.tableOfContentsDisplayState = self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline ? isVisibleInline ? WMFTableOfContentsDisplayStateInlineVisible : WMFTableOfContentsDisplayStateInlineHidden : WMFTableOfContentsDisplayStateModalHidden;
+    [self calculateTableOfContentsDisplayState];
 
     [self updateToolbar];
 
@@ -836,6 +834,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.reachabilityNotifier stop];
+}
+
+- (void)calculateTableOfContentsDisplayState {
+    BOOL isVisibleInline = [[NSUserDefaults wmf] wmf_isTableOfContentsVisibleInline];
+    self.tableOfContentsDisplayState = self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline ? isVisibleInline ? WMFTableOfContentsDisplayStateInlineVisible : WMFTableOfContentsDisplayStateInlineHidden : WMFTableOfContentsDisplayStateModalHidden;
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -2360,13 +2363,18 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (NSURLSessionTask * _Nullable)loadEmbedFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<DestinationContainerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
+    @weakify(self);
     return [self fetchArticleWithURL:url forceDownload:NO checkForNewerRevision:NO WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull url) {
+        @strongify(self);
         if (successHandler) {
             successHandler(article, url);
+            [self articleDidLoad];
         }
     } andError:^(NSError * _Nonnull error) {
+        @strongify(self);
         if (errorHandler) {
             errorHandler(error);
+            [self articleDidLoad];
         }
     }];
 }

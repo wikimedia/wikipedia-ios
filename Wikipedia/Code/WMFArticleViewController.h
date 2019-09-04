@@ -102,6 +102,7 @@ extern NSString *const WMFEditPublishedNotification;
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems;
 
 - (void)updateToolbarItemEnabledState;
+- (void)calculateTableOfContentsDisplayState;
 
 @end
 

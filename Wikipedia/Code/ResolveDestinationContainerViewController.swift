@@ -59,7 +59,7 @@ class ResolveDestinationContainerViewController: UIViewController {
     }
     
     //intentionally not weak. we want to keep this in memory while we determine if we want to embed it or not.
-    private var delegate: ResolveDestinationContainerDelegate?
+    private(set) var delegate: ResolveDestinationContainerDelegate?
     private let url: URL
     private let embedOnLoad: Bool
     private let dataStore: MWKDataStore

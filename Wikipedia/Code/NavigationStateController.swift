@@ -96,14 +96,18 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-                pushOrPresent(randomArticleVC, navigationController: navigationController, presentation: viewController.presentation)
+                randomArticleVC.calculateTableOfContentsDisplayState()
+                let resolveDestinationViewController = ResolveDestinationContainerViewController(articleViewController: randomArticleVC, embedOnAppearance: true)
+                pushOrPresent(resolveDestinationViewController, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
                 let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 articleVC.shouldRequestLatestRevisionOnInitialLoad = false
-                pushOrPresent(articleVC, navigationController: navigationController, presentation: viewController.presentation)
+                articleVC.calculateTableOfContentsDisplayState()
+                let resolveDestinationViewController = ResolveDestinationContainerViewController(articleViewController: articleVC, embedOnAppearance: true)
+                pushOrPresent(resolveDestinationViewController, navigationController: navigationController, presentation: viewController.presentation)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()
                 pushOrPresent(themeableNavigationController, navigationController: navigationController, presentation: viewController.presentation)
@@ -132,7 +136,8 @@ final class NavigationStateController: NSObject {
             case (.talkPageReplyList, let info?):
                 guard
                     let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
-                    let talkPageContainerVC = navigationController.viewControllers.last as? TalkPageContainerViewController
+                    let resolveDestinationVC = navigationController.viewControllers.last as? ResolveDestinationContainerViewController,
+                    let talkPageContainerVC = resolveDestinationVC.delegate as? TalkPageContainerViewController
                 else {
                     return
                 }
@@ -209,12 +214,26 @@ final class NavigationStateController: NSObject {
             kind = .account
             info = nil
             shouldAttemptLogin = true
-        case let articleViewController as WMFArticleViewController:
-            kind = viewController is WMFRandomArticleViewController ? .random : .article
-            info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
-        case let talkPageContainerVC as TalkPageContainerViewController:
-            kind = .talkPage
-            info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
+        case let resolveDestinationViewController as ResolveDestinationContainerViewController:
+            
+            guard let delegate = resolveDestinationViewController.delegate else {
+                kind = nil
+                info = nil
+                break
+            }
+            
+            switch delegate {
+            case let articleViewController as WMFArticleViewController:
+                kind = viewController is WMFRandomArticleViewController ? .random : .article
+                info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
+            case let talkPageContainerVC as TalkPageContainerViewController:
+                kind = .talkPage
+                info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
+            default:
+                kind = nil
+                info = nil
+            }
+        
         case let talkPageReplyListVC as TalkPageReplyListViewController:
             kind = .talkPageReplyList
             info = Info(contentGroupIDURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
