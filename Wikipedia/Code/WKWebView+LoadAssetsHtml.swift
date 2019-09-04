@@ -91,7 +91,6 @@ extension WKWebView {
             <style type='text/css'>
                 body {
                     font-size: \(fontSize.intValue)%;
-                    line-height: \(fontSize.intValue)%;
                 }
             </style>
             <base href="\(baseURL.absoluteString)">
