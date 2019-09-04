@@ -27,13 +27,12 @@ open class CollectionViewCell: UICollectionViewCell {
         contentView.autoresizesSubviews = false
         backgroundView = UIView()
         selectedBackgroundView = UIView()
-        updateFonts(with: traitCollection)
         reset()
         setNeedsLayout()
     }
     
     open func reset() {
-
+        
     }
     
     public var labelBackgroundColor: UIColor? {
