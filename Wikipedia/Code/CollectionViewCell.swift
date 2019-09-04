@@ -11,8 +11,6 @@ import UIKit
 // 3. Handling RTL content on LTR devices and vice versa
 
 open class CollectionViewCell: UICollectionViewCell {
-    private var isFrstLayout = true
-
     // MARK - Methods for subclassing
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
