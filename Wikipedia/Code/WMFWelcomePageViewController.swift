@@ -26,6 +26,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.setTitleColor(theme.colors.link, for: .highlighted)
         pageControl?.pageIndicatorTintColor = theme.colors.pageIndicator
         pageControl?.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
+        skipButton.setTitleColor(theme.colors.unselected, for: .normal)
+
         for child in pageControllers {
             guard let themeable = child as? Themeable else {
                 continue
@@ -135,7 +137,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         skipButton.titleLabel?.numberOfLines = 1
         skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
-        skipButton.setTitleColor(UIColor(0xA2A9B1), for: .normal)
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
