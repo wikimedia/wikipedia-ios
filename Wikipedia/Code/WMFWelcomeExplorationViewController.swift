@@ -10,8 +10,6 @@ class WMFWelcomeExplorationViewController: UIViewController {
     @IBOutlet private var onThisDayTitleLabel:UILabel!
     @IBOutlet private var onThisDayDescriptionLabel:UILabel!
 
-    private var isFirstLayout = true
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
@@ -24,7 +22,7 @@ class WMFWelcomeExplorationViewController: UIViewController {
 
         onThisDayTitleLabel.text = WMFLocalizedString("welcome-exploration-on-this-day-title", value:"On this day", comment:"Title for On this day")
         onThisDayDescriptionLabel.text = WMFLocalizedString("welcome-exploration-on-this-day-description", value:"Travel back in time to learn what happened today in history", comment:"Description for On this day")
-        
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
 
@@ -37,13 +35,5 @@ class WMFWelcomeExplorationViewController: UIViewController {
         exploreTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         placesTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         onThisDayTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 }

@@ -32,8 +32,6 @@ class SavedViewController: ViewController {
     @IBOutlet var toggleButtons: [UIButton]!
     @IBOutlet weak var progressContainerView: UIView!
 
-    private var isFirstLayout = true
-
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
         return SystemBarButton(with: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
     }()
@@ -199,6 +197,8 @@ class SavedViewController: ViewController {
         actionButtonType = .sort
         
         super.viewDidLoad()
+
+        updateFonts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,14 +221,6 @@ class SavedViewController: ViewController {
 
     private func updateFonts() {
         actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {

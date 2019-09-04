@@ -110,8 +110,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
 
-    private var isFirstLayout = true
-    
     init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
@@ -143,6 +141,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         
         closeButton.setImage(UIImage(named:"places-auth-close")?.withRenderingMode(.alwaysTemplate), for: .normal)
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+
+        updateFonts()
         
         apply(theme: theme)
     }
@@ -183,14 +183,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     private func updateFonts() {
         secondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
     
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {

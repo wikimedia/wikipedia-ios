@@ -780,8 +780,8 @@ NS_ASSUME_NONNULL_BEGIN
             galleryImage.imageInfo = info;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self updateOverlayInformation];
+                [self fetchImageForPhoto:galleryImage];
             });
-            [self fetchImageForPhoto:galleryImage];
         }];
 }
 

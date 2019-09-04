@@ -43,8 +43,6 @@ class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet var syntaxHighlightingLabel: UILabel!
     @IBOutlet var syntaxHighlightingSwitch: UISwitch!
 
-    private var isFirstLayout = true
-    
     var visible = false
     var showsSyntaxHighlighting: Bool = false {
         didSet {
@@ -91,7 +89,8 @@ class ReadingThemesControlsViewController: UIViewController {
         syntaxHighlightingSwitch.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-syntax-highlighting-switch", value: "Syntax Highlighting", comment: "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: UIScreen.brightnessDidChangeNotification, object: nil)
-        
+
+        updateFonts()
         evaluateShowsSyntaxHighlightingState()
         evaluateSyntaxHighlightingSelectedState()
         updatePreferredContentSize()
@@ -158,14 +157,6 @@ class ReadingThemesControlsViewController: UIViewController {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     private func updateFonts() {

@@ -1,7 +1,6 @@
 class TextFormattingTableViewCell: UITableViewCell {
     let topSeparator = UIView()
     let bottomSeparator = UIView()
-    private var isFirstLayout = true
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -9,6 +8,7 @@ class TextFormattingTableViewCell: UITableViewCell {
         configureSeparator()
         backgroundView = UIView()
         selectedBackgroundView = UIView()
+        updateFonts()
     }
 
     private func addSeparator() {
@@ -39,14 +39,6 @@ class TextFormattingTableViewCell: UITableViewCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     open func updateFonts() {

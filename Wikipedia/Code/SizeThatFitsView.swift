@@ -5,7 +5,6 @@ import UIKit
 
 @objc(WMFSizeThatFitsView)
 open class SizeThatFitsView: SetupView {
-    private var isFirstLayout = true
 
     // MARK - Methods for subclassing
     
@@ -14,6 +13,7 @@ open class SizeThatFitsView: SetupView {
         super.setup()
         translatesAutoresizingMaskIntoConstraints = false
         autoresizesSubviews = false
+        updateFonts(with: traitCollection)
         setNeedsLayout()
     }
     
@@ -34,10 +34,6 @@ open class SizeThatFitsView: SetupView {
     
     final override public func layoutSubviews() {
         super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts(with: traitCollection)
-            isFirstLayout = false
-        }
         let size = bounds.size
         let _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()

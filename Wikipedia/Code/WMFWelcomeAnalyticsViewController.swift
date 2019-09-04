@@ -9,8 +9,6 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     @IBOutlet private var descriptionLabel:UILabel!
     @IBOutlet private var learnMoreButton:UIButton!
 
-    private var isFirstLayout = true
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +30,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         } else {
             toggle.isOn = false
         }
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
     
@@ -59,14 +58,6 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
 
     private func updateFonts() {
         learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     @IBAction func showPrivacyAlert(withSender sender: AnyObject) {

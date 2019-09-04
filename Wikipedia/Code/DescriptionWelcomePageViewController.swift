@@ -29,8 +29,6 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         nextButton.setTitleColor(theme.colors.link, for: .highlighted)
     }
 
-    private var isFirstLayout = true
-    
     @objc var completionBlock: (() -> Void)?
     
     func showNextWelcomePage(_ sender: AnyObject){
@@ -87,7 +85,8 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
-        
+
+        updateFonts()
         apply(theme: theme)
     }
     
@@ -135,14 +134,6 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
     private func updateFonts() {
         skipButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         nextButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

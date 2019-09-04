@@ -4,7 +4,6 @@ import UIKit
 // wrappers around a SizeThatFitsView that determines cell & header/footer size.
 
 class SizeThatFitsReusableView: UICollectionReusableView {
-    private var isFirstLayout = true
 
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
@@ -12,6 +11,7 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         preservesSuperviewLayoutMargins = false
         insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
+        updateFonts(with: traitCollection)
         reset()
         setNeedsLayout()
     }
@@ -62,10 +62,6 @@ class SizeThatFitsReusableView: UICollectionReusableView {
     
     final override public func layoutSubviews() {
         super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts(with: traitCollection)
-            isFirstLayout = false
-        }
         let size = bounds.size
         let _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()

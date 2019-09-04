@@ -31,8 +31,6 @@ class HintViewController: UIViewController {
 
     var theme = Theme.standard
 
-    private var isFirstLayout = true
-
     enum ViewType {
         case `default`
         case confirmation
@@ -65,6 +63,9 @@ class HintViewController: UIViewController {
         
         safeAreaBottomConstraint.isActive = extendsUnderSafeArea
         viewBottomConstraint.isActive = !extendsUnderSafeArea
+
+        updateFonts()
+        
         view.setNeedsLayout()
     }
 
@@ -76,10 +77,6 @@ class HintViewController: UIViewController {
     private var previousHeight: CGFloat = 0.0
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
         if previousHeight != view.frame.size.height {
             delegate?.hintViewControllerHeightDidChange(self)
         }

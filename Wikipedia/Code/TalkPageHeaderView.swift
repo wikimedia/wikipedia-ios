@@ -62,8 +62,6 @@ class TalkPageHeaderView: UIView {
         }
     }
 
-    private var isFirstLayout = true
-    
     override init(frame: CGRect) {
         assertionFailure("init(frame) not setup for TalkPageHeaderView")
         super.init(frame: frame)
@@ -96,6 +94,7 @@ class TalkPageHeaderView: UIView {
         introTextView.addGestureRecognizer(tapGestureRecognizer)
         headerLabel.accessibilityTraits = .header
         titleTextView.accessibilityTraits = .header
+        updateFonts(with: traitCollection)
     }
     
     func configure(viewModel: ViewModel) {
@@ -166,14 +165,6 @@ class TalkPageHeaderView: UIView {
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setNeedsLayout()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts(with: traitCollection)
-            isFirstLayout = false
-        }
     }
     
     var contentSizeCategory: UIContentSizeCategory?

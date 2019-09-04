@@ -16,7 +16,6 @@
 @property (nonatomic, strong) WMFTheme *theme;
 @property (nonatomic, strong) NSString *backgroundColorKeyPath;
 @property (nonatomic, strong) NSString *titleLabelTextColorKeyPath;
-@property (nonatomic) BOOL isFirstLayout;
 
 @end
 
@@ -27,7 +26,8 @@
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-    self.isFirstLayout = YES;
+    [self updateFonts];
+    [self updateImageView];
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:self.theme];
 }
@@ -231,12 +231,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
-    if (self.isFirstLayout) {
-        [self updateFonts];
-        [self updateImageView];
-        self.isFirstLayout = NO;
-    }
 
     if (![self.actionLine superview]) {
         return;

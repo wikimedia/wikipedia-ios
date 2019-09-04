@@ -7,23 +7,13 @@ class EraseSavedArticlesView: UIView {
     
     private var theme = Theme.standard
 
-    private var isFirstLayout = true
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts()
     }
 
-    private func updateFonts() {
+    func updateFonts() {
         button.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 }
 

@@ -9,7 +9,6 @@ struct WMFAuthLinkLabelStrings {
 
 class WMFAuthLinkLabel: UILabel, Themeable {
     fileprivate var theme = Theme.standard
-    private var isFirstLayout = true
 
     override open func awakeFromNib() {
         super.awakeFromNib()
@@ -17,6 +16,7 @@ class WMFAuthLinkLabel: UILabel, Themeable {
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
         textAlignment = .natural
+        update()
     }
 
     /// Some auth labels display a string from two localized strings, each styled differently.
@@ -37,14 +37,6 @@ class WMFAuthLinkLabel: UILabel, Themeable {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         update()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isFirstLayout {
-            update()
-            isFirstLayout = false
-        }
     }
     
     fileprivate func update() {

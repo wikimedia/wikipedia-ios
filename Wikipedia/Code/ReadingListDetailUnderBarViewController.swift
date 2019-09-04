@@ -25,8 +25,6 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     
     private var firstResponder: UITextField? = nil
 
-    private var isFirstLayout = true
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +38,7 @@ class ReadingListDetailUnderBarViewController: UIViewController {
         descriptionTextField.delegate = self
         alertTitleLabel?.numberOfLines = 0
         alertMessageLabel?.numberOfLines = 0
+        updateFonts()
         apply(theme: theme)
     }
     
@@ -54,14 +53,6 @@ class ReadingListDetailUnderBarViewController: UIViewController {
         descriptionTextField.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         alertTitleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
         alertMessageLabel?.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
     
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.

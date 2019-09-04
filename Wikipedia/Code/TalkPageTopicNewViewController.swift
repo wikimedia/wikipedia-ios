@@ -34,8 +34,6 @@ class TalkPageTopicNewViewController: ViewController {
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var publishButton: UIBarButtonItem!
 
-    private var isFirstLayout = true
-    
     private var bodyPlaceholder: String {
         return WMFLocalizedString("talk-page-new-topic-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new topic body field for talk pages.")
     }
@@ -87,6 +85,7 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.inputAccessoryView = beKindInputAccessoryView
         bodyTextView.inputAccessoryView = beKindInputAccessoryView
         beKindInputAccessoryView.delegate = self
+        updateFonts()
         apply(theme: theme)
     }
 
@@ -96,10 +95,6 @@ class TalkPageTopicNewViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
         beKindInputAccessoryView.containerHeight = view.bounds.height
         setBodyHeightIfNeeded()
         updateContentInsets()

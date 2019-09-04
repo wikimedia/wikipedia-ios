@@ -1,7 +1,6 @@
 final class InsertMediaLabelTableFooterView: SetupView, Themeable {
     private let label = UILabel()
     private let separator = UIView()
-    private var isFirstLayout = true
 
     init(text: String) {
         label.text = text
@@ -28,6 +27,7 @@ final class InsertMediaLabelTableFooterView: SetupView, Themeable {
         let labelBottomConstraint = label.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 15)
         let labelTopConstraint = label.topAnchor.constraint(equalTo: topAnchor, constant: 5)
         NSLayoutConstraint.activate([separatorLeadingConstraint, separatorTrailingConstraint, separatorTopConstraint, separatorHeightConstraint, labelLeadingConstraint, labelTrailingConstraint, labelBottomConstraint, labelTopConstraint])
+        updateFonts()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -48,10 +48,6 @@ final class InsertMediaLabelTableFooterView: SetupView, Themeable {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
         label.preferredMaxLayoutWidth = label.bounds.width
     }
 }

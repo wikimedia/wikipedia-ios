@@ -18,8 +18,6 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     @objc public weak var delegate: ReadMoreAboutRevertedEditViewControllerDelegate?
 
-    private var isFirstLayout = true
-
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +32,7 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
 
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
 
         apply(theme: theme)
@@ -94,10 +93,6 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
         contentTextViewHeightConstraint.constant = contentTextView.sizeThatFits(contentTextView.frame.size).height
     }
 }

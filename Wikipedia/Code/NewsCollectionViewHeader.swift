@@ -3,10 +3,9 @@ import UIKit
 class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
     @IBOutlet weak var label: UILabel!
 
-    private var isFirstLayout = true
-
     override func awakeFromNib() {
         super.awakeFromNib()
+        updateFonts()
         wmf_configureSubviewsForDynamicType()
     }
     
@@ -22,13 +21,5 @@ class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
 
     private func updateFonts() {
         label.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 }

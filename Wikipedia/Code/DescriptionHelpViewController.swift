@@ -31,8 +31,6 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private var imageViews: [UIImageView]!
     @IBOutlet private var dividerViews: [UIView]!
 
-    private var isFirstLayout = true
-
     @objc public init(theme: Theme) {
         super.init()
         self.theme = theme
@@ -69,6 +67,7 @@ class DescriptionHelpViewController: ViewController {
 
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"About Wikidata label text")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")
+        updateFonts()
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
@@ -101,14 +100,6 @@ class DescriptionHelpViewController: ViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     private func updateFonts() {

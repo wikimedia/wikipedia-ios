@@ -13,8 +13,6 @@ class InfoBannerView: SetupView {
         }
     }
 
-    private var isFirstLayout = true
-    
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
@@ -69,14 +67,6 @@ class InfoBannerView: SetupView {
         super.traitCollectionDidChange(previousTraitCollection)
         setNeedsLayout()
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts(with: traitCollection)
-            isFirstLayout = false
-        }
-    }
     
     var contentSizeCategory: UIContentSizeCategory?
     fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
@@ -109,6 +99,8 @@ class InfoBannerView: SetupView {
         subtitleLabel.isAccessibilityElement = false
         
         isAccessibilityElement = true
+
+        updateFonts(with: traitCollection)
     }
 }
 

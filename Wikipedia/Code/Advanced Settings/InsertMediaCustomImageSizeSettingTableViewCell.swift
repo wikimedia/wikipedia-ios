@@ -4,7 +4,6 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var textFieldLabel: UILabel!
     @IBOutlet weak var textField: ThemeableTextField!
-    private var isFirstLayout = true
 
     private var theme = Theme.standard
 
@@ -14,6 +13,7 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
         textField.text = textFieldText
         textField.isUnderlined = false
         textField.rightView = nil
+        updateFonts()
         apply(theme: theme)
     }
 
@@ -26,14 +26,6 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
         titleLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         textFieldLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         textField.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     override var isUserInteractionEnabled: Bool {

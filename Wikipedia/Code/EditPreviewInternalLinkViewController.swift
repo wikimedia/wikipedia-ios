@@ -11,8 +11,6 @@ class EditPreviewInternalLinkViewController: UIViewController {
     private let dataStore: MWKDataStore
     private var theme = Theme.standard
 
-    private var isFirstLayout = true
-
     init(articleURL: URL, dataStore: MWKDataStore) {
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -32,14 +30,6 @@ class EditPreviewInternalLinkViewController: UIViewController {
         button.titleLabel?.font = UIFont.wmf_font(.title3, compatibleWithTraitCollection: traitCollection)
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         button.layer.cornerRadius = 8
@@ -47,6 +37,7 @@ class EditPreviewInternalLinkViewController: UIViewController {
         wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme, containerView: containerView)
         tapGestureRecignizer.delegate = self
         tapGestureRecignizer.addTarget(self, action: #selector(dismissAnimated(_:)))
+        updateFonts()
         apply(theme: theme)
     }
 

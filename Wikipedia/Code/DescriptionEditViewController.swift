@@ -26,8 +26,6 @@ import UIKit
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
 
-    private var isFirstLayout = true
-
     // MARK: Event logging
     @objc var editFunnel: EditFunnel?
     @objc var editFunnelSource: EditFunnelSource = .unknown
@@ -63,6 +61,7 @@ import UIKit
         
         isPlaceholderLabelHidden = shouldHidePlaceholder()
         updateWarningLabelsForDescriptionCount()
+        updateFonts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,14 +116,6 @@ import UIKit
         subTitleLabel.attributedText = subTitleLabelAttributedString
         licenseLabel.attributedText = licenseLabelAttributedString
         loginLabel.attributedText = loginLabelAttributedString
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     private var subTitleLabelAttributedString: NSAttributedString {

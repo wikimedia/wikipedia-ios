@@ -89,8 +89,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         apply(theme: theme)
     }
 
-    private var isFirstLayout = true
-    
     private var cachedTitleViewItem: UIBarButtonItem?
     private var titleView: UIView?
     
@@ -283,7 +281,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         updateTitleBarConstraints()
         updateShadowConstraints()
-
+        updateShadowHeightConstraintConstant()
+        
         setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
     }
     
@@ -470,10 +469,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        if isFirstLayout {
-            updateShadowHeightConstraintConstant()
-            isFirstLayout = false
-        }
         let navigationBarPercentHidden = _navigationBarPercentHidden
         let extendedViewPercentHidden = _extendedViewPercentHidden
         let underBarViewPercentHidden = _underBarViewPercentHidden

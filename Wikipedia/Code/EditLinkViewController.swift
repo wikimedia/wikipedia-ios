@@ -40,8 +40,6 @@ class EditLinkViewController: ViewController {
 
     private lazy var doneButton = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
 
-    private var isFirstLayout = true
-
     init?(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
         guard
             let siteURL = siteURL ?? MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale(),
@@ -88,6 +86,7 @@ class EditLinkViewController: ViewController {
             }
             self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
         })
+        updateFonts()
         apply(theme: theme)
     }
 
@@ -147,10 +146,6 @@ class EditLinkViewController: ViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
         displayTextViewHeightConstraint.constant = displayTextView.sizeThatFits(CGSize(width: displayTextView.bounds.width, height: UIView.noIntrinsicMetric)).height
         updateLinkTargetContainer()
     }

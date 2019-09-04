@@ -13,8 +13,7 @@ public protocol WMFWelcomeNavigationDelegate: class{
 }
 
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate {
-    private var isFirstLayout = true
-    
+
     private var theme = Theme.standard
     
     @objc var completionBlock: (() -> Void)?
@@ -87,6 +86,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
+
+        updateFonts()
     }
     
     private func configureAndAddNextButton(){
@@ -137,14 +138,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     private func updateFonts() {
         skipButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         nextButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

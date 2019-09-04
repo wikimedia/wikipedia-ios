@@ -1,7 +1,6 @@
 
 class WMFWelcomeIntroductionViewController: UIViewController {
     private var theme = Theme.standard
-    private var isFirstLayout = true
     @IBOutlet private var descriptionLabel:UILabel!
     @IBOutlet private var learnMoreButton:UIButton!
     
@@ -14,7 +13,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
         learnMoreButton.setTitle(WMFLocalizedString("welcome-intro-free-encyclopedia-more", value:"Learn more about Wikipedia", comment:"Text for link for learning more about Wikipedia on introductory welcome screen"), for: .normal)
         
         learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
-        
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
 
@@ -25,14 +24,6 @@ class WMFWelcomeIntroductionViewController: UIViewController {
 
     private func updateFonts() {
         learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     @IBAction func showLearnMoreAlert(withSender sender: AnyObject) {

@@ -21,8 +21,6 @@ final class WelcomePageViewController: UIPageViewController {
 
     private var theme = Theme.standard
 
-    private var isFirstLayout = true
-
     required init(viewControllers: [UIViewController]) {
         allViewControllers = viewControllers
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
@@ -44,6 +42,7 @@ final class WelcomePageViewController: UIPageViewController {
             }
         }
         addPageControlButtons()
+        updateFonts()
         apply(theme: theme)
     }
 
@@ -120,14 +119,6 @@ final class WelcomePageViewController: UIPageViewController {
         let buttonFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         nextButton.titleLabel?.font = buttonFont
         skipButton.titleLabel?.font = buttonFont
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
     }
 
     private var direction: UIPageViewController.NavigationDirection {

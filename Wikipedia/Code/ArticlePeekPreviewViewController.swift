@@ -9,8 +9,6 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
 
-    private var isFirstLayout = true
-
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -68,6 +66,8 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         view.addSubview(activityIndicatorView)
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
+
+        expandedArticleView.updateFonts(with: traitCollection)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,10 +77,6 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isFirstLayout {
-            expandedArticleView.updateFonts(with: traitCollection)
-            isFirstLayout = false
-        }
         expandedArticleView.frame = view.bounds
         activityIndicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         updatePreferredContentSize(for: view.bounds.width)

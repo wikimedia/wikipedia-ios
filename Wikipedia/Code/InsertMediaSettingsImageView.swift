@@ -5,8 +5,7 @@ final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var headingLabel: UILabel!
     @IBOutlet private weak var titleButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private weak var separatorView: UIView!
-    private var isFirstLayout = true
-    
+
     var image: UIImage? {
         didSet {
             imageView.image = image
@@ -31,6 +30,7 @@ final class InsertMediaSettingsImageView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.accessibilityIgnoresInvertColors = true
+        updateFonts()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -45,10 +45,6 @@ final class InsertMediaSettingsImageView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if isFirstLayout {
-            updateFonts()
-            isFirstLayout = false
-        }
         headingLabel.preferredMaxLayoutWidth = headingLabel.bounds.width
     }
 
