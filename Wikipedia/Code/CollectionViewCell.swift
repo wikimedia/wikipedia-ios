@@ -27,6 +27,7 @@ open class CollectionViewCell: UICollectionViewCell {
         contentView.autoresizesSubviews = false
         backgroundView = UIView()
         selectedBackgroundView = UIView()
+        updateFonts(with: traitCollection)
         reset()
         setNeedsLayout()
     }
@@ -130,10 +131,6 @@ open class CollectionViewCell: UICollectionViewCell {
     
     // MARK - Layout
 
-    open func updateFirstLayout(with traitCollection: UITraitCollection) {
-        updateFonts(with: traitCollection)
-    }
-
     open override func layoutMarginsDidChange() {
         super.layoutMarginsDidChange()
         setNeedsLayout()
@@ -141,10 +138,6 @@ open class CollectionViewCell: UICollectionViewCell {
 
     final override public func layoutSubviews() {
         super.layoutSubviews()
-        if isFrstLayout {
-            updateFirstLayout(with: traitCollection)
-            isFrstLayout = false
-        }
         contentView.frame = bounds
         backgroundView?.frame = bounds
         selectedBackgroundView?.frame = bounds

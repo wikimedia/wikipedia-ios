@@ -15,11 +15,6 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     private func updateSinglePixelDimension() {
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
     }
-
-    open override func updateFirstLayout(with traitCollection: UITraitCollection) {
-        super.updateFirstLayout(with: traitCollection)
-        updateSinglePixelDimension()
-    }
     
     override open func setup() {
         imageView.layer.cornerRadius = 3
@@ -27,6 +22,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         contentView.addSubview(bottomSeparator)
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
+        updateSinglePixelDimension()
         super.setup()
     }
     

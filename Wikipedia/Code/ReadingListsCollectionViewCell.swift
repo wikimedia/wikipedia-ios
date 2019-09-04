@@ -41,11 +41,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
     }
-
-    override func updateFirstLayout(with traitCollection: UITraitCollection) {
-        super.updateFirstLayout(with: traitCollection)
-        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
-    }
     
     override func setup() {
         imageView.layer.cornerRadius = 3
@@ -85,6 +80,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         imageGrid.layer.cornerRadius = 3
         imageGrid.masksToBounds = true
         contentView.addSubview(imageGrid)
+
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
         
         super.setup()
     }

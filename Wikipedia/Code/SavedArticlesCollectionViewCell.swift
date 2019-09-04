@@ -96,11 +96,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         configuredTags = []
         collectionView.reloadData()
     }
-
-    override func updateFirstLayout(with traitCollection: UITraitCollection) {
-        super.updateFirstLayout(with: traitCollection)
-        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
-    }
     
     override func setup() {
         imageView.layer.cornerRadius = 3
@@ -114,6 +109,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         wmf_configureSubviewsForDynamicType()
         placeholderCell.isHidden = true
 
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+        
         super.setup()
     }
     
