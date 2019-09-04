@@ -773,14 +773,16 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight + 10)
-                                                                                                  animated:animated
-                                                                                                completion:^(BOOL finished){
-                                                                                                    if (completion) {
-                                                                                                        completion();
-                                                                                                    }
-                                                                                                    [self.delegate webViewScrollView:self.webView.scrollView didScrollToFragment:fragment];
-                                                                                                }];
+                                                         dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+                                                             [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight + 10)
+                                                                                                      animated:animated
+                                                                                                    completion:^(BOOL finished){
+                                                                                                        if (completion) {
+                                                                                                            completion();
+                                                                                                        }
+                                                                                                        [self.delegate webViewScrollView:self.webView.scrollView didScrollToFragment:fragment];
+                                                                                                    }];
+                                                         });
                                                      }
                                                  }];
     }
