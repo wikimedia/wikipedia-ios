@@ -32,6 +32,7 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
 
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
 
         apply(theme: theme)
@@ -80,6 +81,10 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         contentTextView.attributedText = contentTextViewText
