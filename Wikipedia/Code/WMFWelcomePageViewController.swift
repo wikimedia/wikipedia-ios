@@ -24,8 +24,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.setTitleColor(theme.colors.link, for: .normal)
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
         nextButton.setTitleColor(theme.colors.link, for: .highlighted)
-        pageControl?.pageIndicatorTintColor = theme.colors.pageIndicator
-        pageControl?.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
+        themeToPageControl()
         skipButton.setTitleColor(theme.colors.unselected, for: .normal)
 
         for child in pageControllers {
@@ -34,6 +33,17 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             }
             themeable.apply(theme: theme)
         }
+    }
+
+    private func themeToPageControl() {
+        guard
+            viewIfLoaded != nil,
+            view.window != nil
+        else {
+            return
+        }
+        pageControl?.pageIndicatorTintColor = theme.colors.pageIndicator
+        pageControl?.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
     }
     
     @objc var completionBlock: (() -> Void)?
@@ -158,6 +168,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
             pageControl.isUserInteractionEnabled = false
+            themeToPageControl()
         }
     }
 
