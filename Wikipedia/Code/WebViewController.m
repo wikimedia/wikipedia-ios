@@ -773,7 +773,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
+                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight + 10)
                                                                                                   animated:animated
                                                                                                 completion:^(BOOL finished){
                                                                                                     if (completion) {
