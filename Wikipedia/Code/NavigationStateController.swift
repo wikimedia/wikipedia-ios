@@ -86,6 +86,8 @@ final class NavigationStateController: NSObject {
                 searchViewController.setSearchVisible(true, animated: false)
                 searchViewController.searchTerm = info.searchTerm
                 searchViewController.search()
+            case let exploreViewController as ExploreViewController:
+                exploreViewController.contentOffsetToRestore = info.contentOffset
             default:
                 break
             }
@@ -198,7 +200,13 @@ final class NavigationStateController: NSObject {
             case let searchViewController as SearchViewController:
                 info = Info(selectedIndex: tabBarController.selectedIndex, searchTerm: searchViewController.searchTerm)
             default:
-                info = Info(selectedIndex: tabBarController.selectedIndex)
+                let contentOffset: CGPoint?
+                if let exploreViewController = tabBarController.selectedViewController as? ExploreViewController, let exploreFontentOffset = exploreViewController.scrollView?.contentOffset {
+                    contentOffset = exploreFontentOffset
+                } else {
+                    contentOffset = nil
+                }
+                info = Info(selectedIndex: tabBarController.selectedIndex, contentOffset: contentOffset)
             }
         case is WMFThemeableNavigationController:
             kind = .themeableNavigationController

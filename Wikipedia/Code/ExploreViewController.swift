@@ -3,6 +3,8 @@ import WMF
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding, EventLoggingEventValuesProviding {
 
+    public var contentOffsetToRestore: CGPoint?
+
     // MARK - UIViewController
     
     override func viewDidLoad() {
@@ -36,7 +38,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
@@ -54,6 +55,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionViewUpdater?.isGranularUpdatingEnabled = true
+        if let contentOffsetToRestore = contentOffsetToRestore {
+            scrollView?.setContentOffset(contentOffsetToRestore, animated: false)
+            self.contentOffsetToRestore = nil
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

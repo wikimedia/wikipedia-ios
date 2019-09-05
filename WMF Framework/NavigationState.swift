@@ -75,10 +75,12 @@ public struct NavigationState: Codable {
             public var searchTerm: String?
             
             public var contentGroupIDURIString: String?
+
+            public var contentOffset: CGPoint?
             
             // TODO: Remove after moving to Swift 5.1 -
             // https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md
-            public init(selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil) {
+            public init(selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil, contentOffset: CGPoint? = nil) {
                 self.selectedIndex = selectedIndex
                 self.articleKey = articleKey
                 self.articleSectionAnchor = articleSectionAnchor
@@ -89,6 +91,7 @@ public struct NavigationState: Codable {
                 self.readingListURIString = readingListURIString
                 self.searchTerm = searchTerm
                 self.contentGroupIDURIString = contentGroupIDURIString
+                self.contentOffset = contentOffset
             }
         }
     }
