@@ -61,6 +61,7 @@ import UIKit
         
         isPlaceholderLabelHidden = shouldHidePlaceholder()
         updateWarningLabelsForDescriptionCount()
+        updateFonts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +109,10 @@ import UIKit
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         subTitleLabel.attributedText = subTitleLabelAttributedString
         licenseLabel.attributedText = licenseLabelAttributedString
         loginLabel.attributedText = loginLabelAttributedString

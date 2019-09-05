@@ -86,6 +86,7 @@ class EditLinkViewController: ViewController {
             }
             self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
         })
+        updateFonts()
         apply(theme: theme)
     }
 
@@ -129,6 +130,10 @@ class EditLinkViewController: ViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         displayTextLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         linkTargetLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         displayTextView.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)

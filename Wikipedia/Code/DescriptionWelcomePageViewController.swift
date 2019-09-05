@@ -28,7 +28,7 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
         nextButton.setTitleColor(theme.colors.link, for: .highlighted)
     }
-    
+
     @objc var completionBlock: (() -> Void)?
     
     func showNextWelcomePage(_ sender: AnyObject){
@@ -85,7 +85,8 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
-        
+
+        updateFonts()
         apply(theme: theme)
     }
     
@@ -127,6 +128,10 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         skipButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         nextButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }

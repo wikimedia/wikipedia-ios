@@ -13,7 +13,6 @@ class WMFWelcomeLanguageIntrinsicTableView: UITableView {
 }
 
 class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
-    
     private var theme = Theme.standard
     
     @IBOutlet private var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
@@ -31,6 +30,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         languageTableView.rowHeight = UITableView.automaticDimension
         languageTableView.estimatedRowHeight = 30
         languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
     
@@ -75,6 +75,10 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         moreLanguagesButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 }

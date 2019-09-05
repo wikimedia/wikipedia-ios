@@ -14,11 +14,16 @@ private final class EmptyView: SetupView, Themeable {
         label.text = WMFLocalizedString("featured-article-empty-title", value: "No featured article available today", comment: "Title that displays when featured article is not available")
         label.textAlignment = .center
         label.numberOfLines = 0
+        updateFonts()
         wmf_addSubviewWithConstraintsToEdges(label)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
     }
 }

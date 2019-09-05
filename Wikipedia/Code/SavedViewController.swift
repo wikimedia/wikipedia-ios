@@ -197,6 +197,8 @@ class SavedViewController: ViewController {
         actionButtonType = .sort
         
         super.viewDidLoad()
+
+        updateFonts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -214,6 +216,10 @@ class SavedViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     

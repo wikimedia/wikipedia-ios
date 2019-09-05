@@ -61,7 +61,7 @@ class TalkPageHeaderView: UIView {
             introTextView.textAlignment = textAlignmentOverride
         }
     }
-    
+
     override init(frame: CGRect) {
         assertionFailure("init(frame) not setup for TalkPageHeaderView")
         super.init(frame: frame)
@@ -94,6 +94,7 @@ class TalkPageHeaderView: UIView {
         introTextView.addGestureRecognizer(tapGestureRecognizer)
         headerLabel.accessibilityTraits = .header
         titleTextView.accessibilityTraits = .header
+        updateFonts(with: traitCollection)
     }
     
     func configure(viewModel: ViewModel) {
