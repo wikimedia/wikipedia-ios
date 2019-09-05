@@ -87,7 +87,7 @@ final class NavigationStateController: NSObject {
                 searchViewController.searchTerm = info.searchTerm
                 searchViewController.search()
             case let exploreViewController as ExploreViewController:
-                exploreViewController.contentOffsetToRestore = info.contentOffset
+                exploreViewController.presentedContentGroupKey = info.presentedContentGroupKey
             default:
                 break
             }
@@ -200,7 +200,7 @@ final class NavigationStateController: NSObject {
             case let searchViewController as SearchViewController:
                 info = Info(selectedIndex: tabBarController.selectedIndex, searchTerm: searchViewController.searchTerm)
             case let exploreViewController as ExploreViewController:
-                info = Info(selectedIndex: tabBarController.selectedIndex, contentOffset: exploreViewController.scrollView?.contentOffset)
+                info = Info(selectedIndex: tabBarController.selectedIndex, presentedContentGroupKey: exploreViewController.presentedContentGroupKey)
             default:
                 info = Info(selectedIndex: tabBarController.selectedIndex)
             }

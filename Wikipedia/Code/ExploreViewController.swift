@@ -3,7 +3,7 @@ import WMF
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding, EventLoggingEventValuesProviding {
 
-    public var contentOffsetToRestore: CGPoint?
+    public var presentedContentGroupKey: String?
 
     // MARK - UIViewController
     
@@ -55,10 +55,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionViewUpdater?.isGranularUpdatingEnabled = true
-        if let contentOffsetToRestore = contentOffsetToRestore {
-            scrollView?.setContentOffset(contentOffsetToRestore, animated: false)
-            self.contentOffsetToRestore = nil
+        restoreScrollPositionIfNeeded()
+    }
+
+    private func restoreScrollPositionIfNeeded() {
+        guard
+            let presentedContentGroupKey = presentedContentGroupKey,
+            let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
+            let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
+        else {
+            return
         }
+        collectionView.scrollToItem(at: indexPath, at: [], animated: false)
+        self.presentedContentGroupKey = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -230,6 +239,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>?
     
     private var wantsDeleteInsertOnNextItemUpdate: Bool = false
+
+    public var firstFullyVisibleContentGroupKey: String? {
+        let indexPath = collectionView.indexPathsForVisibleItems.first { (indexPath) -> Bool in
+            guard let frame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
+                return false
+            }
+            return collectionView.bounds.contains(frame)
+        }
+        guard let firstVisibleGroupIndexPath = indexPath else {
+            return nil
+        }
+        return groupKey(at: firstVisibleGroupIndexPath)
+    }
 
     private func setupFetchedResultsController() {
         let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
@@ -434,6 +456,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
+        presentedContentGroupKey = group.key
+
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
             wmf_push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
             return
@@ -580,7 +604,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         let context = FeedFunnelContext(contentGroup)
-
+        presentedContentGroupKey = contentGroup.key
         switch contentGroup.detailType {
         case .gallery:
             present(vc, animated: true)
