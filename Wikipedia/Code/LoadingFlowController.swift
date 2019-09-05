@@ -8,7 +8,7 @@ import SafariServices
 }
 
 protocol LoadingFlowControllerTaskTrackingDelegate: LoadingFlowControllerFetchDelegate {
-    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)?
+    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (cancellationKey: String, fetcher: Fetcher)?
 }
 
 @objc protocol LoadingFlowControllerChildProtocol: class {
@@ -113,9 +113,8 @@ class LoadingFlowController: UIViewController {
                 
                 self?.hideLoading()
                 
-                //todo: named tuple items
                 if let result = result {
-                    result.1.cancel(taskFor: result.0)
+                    result.fetcher.cancel(taskFor: result.cancellationKey)
                 }
                 
             }
@@ -323,12 +322,7 @@ extension LoadingFlowController: Themeable {
 
 //MARK: Error Handling
 
-protocol LoadingFlowControllerFetchDelegateError: Error {
-    var cachedFallbackArticle: LoadingFlowControllerArticle? { get }
-    var isUnexpectedResponseError: Bool { get }
-}
-
-extension NSError: LoadingFlowControllerFetchDelegateError {
+extension NSError {
     
     var cachedFallbackArticle: LoadingFlowControllerArticle? {
         if let cachedFallback = userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] as? LoadingFlowControllerArticle {

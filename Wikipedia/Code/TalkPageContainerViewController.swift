@@ -791,10 +791,9 @@ extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDele
         return nil
     }
     
-    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)? {
+    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (cancellationKey: String, fetcher: Fetcher)? {
         guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
-            //todo how to handle this
-            //showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
+            errorHandler(TalkPageError.unableToDetermineAbsoluteURL as NSError, url)
             return nil
         }
         
@@ -821,7 +820,7 @@ extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDele
         }
         
         if let cancellationKey = cancellationKey {
-            return (cancellationKey, self.dataStore.articleSummaryController.fetcher)
+            return (cancellationKey: cancellationKey, fetcher: self.dataStore.articleSummaryController.fetcher)
         }
         
         return nil
@@ -846,7 +845,7 @@ extension TalkPageContainerViewController: LoadingFlowControllerChildProtocol {
     }
     
     func showDefaultLinkFailure(error: NSError) {
-        //no-op
+        showNoInternetConnectionAlertOrOtherWarning(from: error)
     }
     
     func handleCustomSuccess(article: LoadingFlowControllerArticle, url: URL) -> Bool {
