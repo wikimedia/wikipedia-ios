@@ -405,6 +405,9 @@ public class Theme: NSObject {
         return DeviceInfo.shared.isOlderDevice ? 0 : 0.13
     }()
     
+    @objc public static let defaultThemeName = "standard"
+    @objc public static let defaultAnalyticsThemeName = "default"
+    
     @objc public static let light = Theme(colors: .light, imageOpacity: 1, cardBorderWidthInPixels: Theme.lightCardBorderWidthInPixels, cardShadowOpacity: defaultCardShadowOpacity, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, hasInputAccessoryShadow: true, name: "light", displayName: WMFLocalizedString("theme-light-display-name", value: "Light", comment: "Light theme name presented to the user"), analyticsName: "light", webName: "light")
     
     @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, hasInputAccessoryShadow: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"), analyticsName: "sepia", webName: "sepia")

@@ -71,12 +71,26 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             }
         }
 
-        let defaultThemeItem = AppearanceSettingsCheckmarkItem(title: CommonStrings.defaultThemeDisplayName, subtitle: WMFLocalizedString("theme-default-explanation", value:"Matches system theme", comment: "Explains that the default theme matches the iOS system theme setting"), theme: "standard", checkmarkAction: { [weak self] in
-            self?.userDidSelect(theme: "standard")
+        let subtitle: String?
+        if #available(iOS 13, *) {
+            subtitle =  WMFLocalizedString("theme-default-explanation", value:"Matches system theme", comment: "Explains that the default theme matches the iOS system theme setting")
+        } else {
+            subtitle = nil
+        }
+        
+        let defaultThemeItem = AppearanceSettingsCheckmarkItem(title: CommonStrings.defaultThemeDisplayName, subtitle: subtitle, theme: Theme.defaultThemeName, checkmarkAction: { [weak self] in
+            self?.userDidSelect(theme: Theme.defaultThemeName)
         })
         
+        let items: [AppearanceSettingsCheckmarkItem]
+        if #available(iOS 13, *) {
+            items = [defaultThemeItem, checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)]
+        } else {
+            items = [defaultThemeItem, checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)]
+        }
+        
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [defaultThemeItem, checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)])
+            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: items)
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on the dark and black themes", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: ImageDimmingExampleViewController(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, subtitle: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle, subtitle: nil)])
         
