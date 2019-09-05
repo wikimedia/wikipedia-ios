@@ -1846,6 +1846,24 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return navigationControllers;
 }
 
+- (void)applyTheme:(WMFTheme *)theme toPresentedViewController:(UIViewController *)viewController {
+
+    if (viewController == nil) {
+        return;
+    }
+
+    if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)viewController applyTheme:theme];
+    }
+
+    if ([viewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navController = (UINavigationController *)viewController.presentedViewController;
+        [self applyTheme:theme toNavigationControllers:@[navController]];
+    } else {
+        [self applyTheme:theme toPresentedViewController:viewController.presentedViewController];
+    }
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     if (theme == nil) {
         return;
@@ -1861,11 +1879,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.savedViewController applyTheme:theme];
     [self.recentArticlesViewController applyTheme:theme];
     [self.searchViewController applyTheme:theme];
-    
-    if ([self.presentedViewController conformsToProtocol:@protocol(WMFThemeable)]) {
-        [(id)self.presentedViewController applyTheme:theme];
-    }
-    
+
+    [self applyTheme:theme toPresentedViewController:self.presentedViewController];
+
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
     [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];

@@ -7,6 +7,12 @@ class WMFWelcomePanelViewController: ThemeableViewController {
         }
         scrollView.apply(theme: theme)
         nextButton.backgroundColor = theme.colors.link
+        for child in children {
+            guard let themeable = child as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
     }
     
     @IBOutlet private var containerView:UIView!
