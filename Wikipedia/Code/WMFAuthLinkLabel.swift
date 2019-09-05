@@ -9,13 +9,14 @@ struct WMFAuthLinkLabelStrings {
 
 class WMFAuthLinkLabel: UILabel, Themeable {
     fileprivate var theme = Theme.standard
-    
+
     override open func awakeFromNib() {
         super.awakeFromNib()
         textColor = theme.colors.link
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
         textAlignment = .natural
+        update()
     }
 
     /// Some auth labels display a string from two localized strings, each styled differently.

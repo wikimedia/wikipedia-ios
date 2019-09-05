@@ -13,7 +13,7 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
             updateTitle()
         }
     }
-    
+
     private func updateTitle() {
         titleLabel.attributedText = titleHTML?.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
     }
@@ -39,11 +39,11 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
         super.init(coder: aDecoder)
     }
     
-    
     open override func viewDidLoad() {
         rankLabel.textColor = .wmf_darkGray
         separatorView.backgroundColor = .wmf_darkGray
         imageView.accessibilityIgnoresInvertColors = true
+        updateFonts()
     }
 
     open override func awakeFromNib() {

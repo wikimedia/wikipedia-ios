@@ -66,6 +66,8 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         view.addSubview(activityIndicatorView)
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
+
+        expandedArticleView.updateFonts(with: traitCollection)
     }
     
     override func viewWillAppear(_ animated: Bool) {

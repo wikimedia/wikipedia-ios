@@ -109,6 +109,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         wmf_configureSubviewsForDynamicType()
         placeholderCell.isHidden = true
 
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+        
         super.setup()
     }
     

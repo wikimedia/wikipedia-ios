@@ -16,7 +16,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
 
     @IBOutlet private var descriptionLabel:UILabel!
     @IBOutlet private var learnMoreButton:UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +34,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         } else {
             toggle.isOn = false
         }
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
     
@@ -56,6 +57,10 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 

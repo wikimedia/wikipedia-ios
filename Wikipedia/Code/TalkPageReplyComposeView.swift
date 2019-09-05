@@ -102,7 +102,8 @@ class TalkPageReplyComposeView: SizeThatFitsView {
         updateFonts(with: traitCollection)
     }
     
-    func updateFonts(with traitCollection: UITraitCollection) {
+    override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
         composeTextView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }

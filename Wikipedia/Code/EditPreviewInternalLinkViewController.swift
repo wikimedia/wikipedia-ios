@@ -23,6 +23,10 @@ class EditPreviewInternalLinkViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         button.titleLabel?.font = UIFont.wmf_font(.title3, compatibleWithTraitCollection: traitCollection)
     }
 
@@ -33,6 +37,7 @@ class EditPreviewInternalLinkViewController: UIViewController {
         wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme, containerView: containerView)
         tapGestureRecignizer.delegate = self
         tapGestureRecignizer.addTarget(self, action: #selector(dismissAnimated(_:)))
+        updateFonts()
         apply(theme: theme)
     }
 

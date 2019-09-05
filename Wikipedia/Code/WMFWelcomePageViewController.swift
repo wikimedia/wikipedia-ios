@@ -117,7 +117,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
-        
+        updateFonts()
         apply(theme: theme)
     }
     
@@ -160,6 +160,10 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         skipButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         nextButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }

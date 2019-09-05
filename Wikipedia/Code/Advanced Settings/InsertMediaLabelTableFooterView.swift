@@ -27,11 +27,16 @@ final class InsertMediaLabelTableFooterView: SetupView, Themeable {
         let labelBottomConstraint = label.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 15)
         let labelTopConstraint = label.topAnchor.constraint(equalTo: topAnchor, constant: 5)
         NSLayoutConstraint.activate([separatorLeadingConstraint, separatorTrailingConstraint, separatorTopConstraint, separatorHeightConstraint, labelLeadingConstraint, labelTrailingConstraint, labelBottomConstraint, labelTopConstraint])
+        updateFonts()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        label.font  = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
+        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
     func apply(theme: Theme) {

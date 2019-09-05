@@ -20,6 +20,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         distanceLabelBackground.layer.cornerRadius = 2.0
         titleLabel.numberOfLines = 0
         descriptionLabel.numberOfLines = 2
+        updateDistanceLabelBackgroundBorder()
     }
     
     override func reset() {
@@ -37,6 +38,10 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateDistanceLabelBackgroundBorder()
+    }
+
+    private func updateDistanceLabelBackgroundBorder() {
         let displayScale = max(1, traitCollection.displayScale)
         distanceLabelBackground.layer.borderWidth = 1.0 / displayScale
     }
