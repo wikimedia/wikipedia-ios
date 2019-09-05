@@ -4,6 +4,7 @@ import WMF
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding, EventLoggingEventValuesProviding {
 
     public var presentedContentGroupKey: String?
+    public var shouldRestoreScrollPosition = false
 
     // MARK - UIViewController
     
@@ -60,6 +61,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     private func restoreScrollPositionIfNeeded() {
         guard
+            shouldRestoreScrollPosition,
             let presentedContentGroupKey = presentedContentGroupKey,
             let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
             let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
@@ -67,6 +69,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         collectionView.scrollToItem(at: indexPath, at: [], animated: false)
+        self.shouldRestoreScrollPosition = false
         self.presentedContentGroupKey = nil
     }
     

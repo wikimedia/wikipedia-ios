@@ -88,6 +88,7 @@ final class NavigationStateController: NSObject {
                 searchViewController.search()
             case let exploreViewController as ExploreViewController:
                 exploreViewController.presentedContentGroupKey = info.presentedContentGroupKey
+                exploreViewController.shouldRestoreScrollPosition = true
             default:
                 break
             }
