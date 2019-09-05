@@ -201,8 +201,8 @@ final class NavigationStateController: NSObject {
                 info = Info(selectedIndex: tabBarController.selectedIndex, searchTerm: searchViewController.searchTerm)
             default:
                 let contentOffset: CGPoint?
-                if let exploreViewController = tabBarController.selectedViewController as? ExploreViewController, let exploreFontentOffset = exploreViewController.scrollView?.contentOffset {
-                    contentOffset = exploreFontentOffset
+                if let exploreViewController = tabBarController.selectedViewController as? ExploreViewController, let exploreContentOffset = exploreViewController.scrollView?.contentOffset {
+                    contentOffset = exploreContentOffset
                 } else {
                     contentOffset = nil
                 }
