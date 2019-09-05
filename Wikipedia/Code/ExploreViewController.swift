@@ -240,19 +240,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private var wantsDeleteInsertOnNextItemUpdate: Bool = false
 
-    public var firstFullyVisibleContentGroupKey: String? {
-        let indexPath = collectionView.indexPathsForVisibleItems.first { (indexPath) -> Bool in
-            guard let frame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
-                return false
-            }
-            return collectionView.bounds.contains(frame)
-        }
-        guard let firstVisibleGroupIndexPath = indexPath else {
-            return nil
-        }
-        return groupKey(at: firstVisibleGroupIndexPath)
-    }
-
     private func setupFetchedResultsController() {
         let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
