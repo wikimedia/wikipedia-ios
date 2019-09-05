@@ -778,19 +778,20 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
     }
 }
 
-extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDelegate {
-    
-    func loadEmbedFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
+extension TalkPageContainerViewController: WMFLoadingFlowControllerFetchDelegate {
+    func loadEmbedFetch(with url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (Error) -> Void) -> URLSessionTask? {
         assertionFailure("not setup for load embed")
         return nil
     }
     
-    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
-        
+    func linkPushFetch(with url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (Error) -> Void) -> URLSessionTask? {
         assertionFailure("not setup for session task link push fetch")
         return nil
     }
-    
+}
+
+extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDelegate {
+
     func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (cancellationKey: String, fetcher: Fetcher)? {
         guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             errorHandler(TalkPageError.unableToDetermineAbsoluteURL as NSError, url)
@@ -829,26 +830,25 @@ extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDele
     
 }
 
-extension TalkPageContainerViewController: LoadingFlowControllerChildProtocol {
-    
-    var customNavAnimationHandler: UIViewController? {
-        return currentLoadingViewController
-    }
-    
+extension TalkPageContainerViewController: WMFLoadingFlowControllerChildProtocol {
     var reachabilityNotifier: ReachabilityNotifier? {
         return nil
     }
     
-    func showDefaultEmbedFailure(error: NSError) {
+    var customNavAnimationHandler: UIViewController? {
+        return currentLoadingViewController
+    }
+
+    func showDefaultEmbedFailureWithError(_ error: Error) {
         assertionFailure("not setup for load embed")
         return
     }
     
-    func showDefaultLinkFailure(error: NSError) {
+    func showDefaultLinkFailureWithError(_ error: Error) {
         showNoInternetConnectionAlertOrOtherWarning(from: error)
     }
     
-    func handleCustomSuccess(article: LoadingFlowControllerArticle, url: URL) -> Bool {
+    func handleCustomSuccess(with article: LoadingFlowControllerArticle, url: URL) -> Bool {
         
         defer {
             self.currentLoadingViewController = nil

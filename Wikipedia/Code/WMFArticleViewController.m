@@ -97,9 +97,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         EventLoggingSearchSourceProviding,
                                         DescriptionEditViewControllerDelegate,
                                         WMFHintPresenting,
-                                        SFSafariViewControllerDelegate,
-                                        LoadingFlowControllerFetchDelegate,
-                                        LoadingFlowControllerChildProtocol>
+                                        SFSafariViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -2352,7 +2350,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-#pragma mark - LoadingFlowControllerFetchDelegate
+#pragma mark - WMFLoadingFlowControllerFetchDelegate
 
 - (NSURLSessionTask * _Nullable)linkPushFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<LoadingFlowControllerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
     return [self fetchArticleWithURL:url forceDownload:NO checkForNewerRevision:NO WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull url) {
@@ -2383,7 +2381,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 }
 
-#pragma mark - LoadingFlowControllerChildProtocol
+#pragma mark - WMFLoadingFlowControllerChildProtocol
+
+- (UIViewController * _Nullable)customNavAnimationHandler {
+    return nil;
+}
+
+- (BOOL)handleCustomSuccessWithArticle:(id<LoadingFlowControllerArticle>)article url:(NSURL *)url {
+    return NO;
+}
 
 - (void)showDefaultEmbedFailureWithError:(NSError *)error {
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
@@ -2392,10 +2398,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)showDefaultLinkFailureWithError:(NSError *)error {
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:nil];
-}
-
-- (BOOL)handleCustomSuccessWithArticle:(id<LoadingFlowControllerArticle>)article url:(NSURL *)url {
-    return NO;
 }
 
 @end

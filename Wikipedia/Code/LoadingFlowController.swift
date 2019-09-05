@@ -1,23 +1,8 @@
 
 import Foundation
 import SafariServices
-
-@objc protocol LoadingFlowControllerFetchDelegate: class {
-    func loadEmbedFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
-    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
-}
-
-protocol LoadingFlowControllerTaskTrackingDelegate: LoadingFlowControllerFetchDelegate {
+protocol LoadingFlowControllerTaskTrackingDelegate: class {
     func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (cancellationKey: String, fetcher: Fetcher)?
-}
-
-@objc protocol LoadingFlowControllerChildProtocol: class {
-    var reachabilityNotifier: ReachabilityNotifier? { get }
-    func handleCustomSuccess(article: LoadingFlowControllerArticle, url: URL) -> Bool
-    func showDefaultEmbedFailure(error: NSError)
-    func showDefaultLinkFailure(error: NSError)
-    var loadingFlowController: LoadingFlowController? { get }
-    @objc optional var customNavAnimationHandler: UIViewController? { get }
 }
 
 class LoadingFlowController: UIViewController {
@@ -27,8 +12,8 @@ class LoadingFlowController: UIViewController {
         case linkPush
     }
     
-    let flowChild: LoadingFlowControllerChildProtocol
-    private let fetchDelegate: LoadingFlowControllerFetchDelegate
+    let flowChild: WMFLoadingFlowControllerChildProtocol
+    private let fetchDelegate: WMFLoadingFlowControllerFetchDelegate
     private let url: URL
     private let dataStore: MWKDataStore
     private let theme: Theme
@@ -36,7 +21,7 @@ class LoadingFlowController: UIViewController {
     
     private let loadingAnimationViewController = LoadingAnimationViewController(nibName: "LoadingAnimationViewController", bundle: nil)
     
-    init(dataStore: MWKDataStore, theme: Theme, fetchDelegate: LoadingFlowControllerFetchDelegate, flowChild: LoadingFlowControllerChildProtocol, url: URL, embedOnLoad: Bool) {
+    init(dataStore: MWKDataStore, theme: Theme, fetchDelegate: WMFLoadingFlowControllerFetchDelegate, flowChild: WMFLoadingFlowControllerChildProtocol, url: URL, embedOnLoad: Bool) {
         self.dataStore = dataStore
         self.theme = theme
         self.fetchDelegate = fetchDelegate
@@ -49,9 +34,8 @@ class LoadingFlowController: UIViewController {
     @objc init(articleViewController: WMFArticleViewController, embedOnLoad: Bool) {
         self.dataStore = articleViewController.dataStore
         self.theme = articleViewController.theme
-        //todo: remove the as!
-        self.fetchDelegate = articleViewController as! LoadingFlowControllerFetchDelegate
-        self.flowChild = articleViewController as! LoadingFlowControllerChildProtocol
+        self.fetchDelegate = articleViewController
+        self.flowChild = articleViewController
         self.url = articleViewController.articleURL
         self.embedOnLoad = embedOnLoad
         super.init(nibName: nil, bundle: nil)
@@ -68,7 +52,7 @@ class LoadingFlowController: UIViewController {
         apply(theme: theme)
         
         if (embedOnLoad) {
-            let task = fetchDelegate.loadEmbedFetch(url: url, successHandler: { [weak self] (article, url) in
+            let task = fetchDelegate.loadEmbedFetch(with: url, successHandler: { [weak self] (article, url) in
                 
                 guard let self = self else { return }
                 
@@ -79,7 +63,7 @@ class LoadingFlowController: UIViewController {
                 guard let self = self else { return }
                 
                 self.hideLoading()
-                self.processFailure(error: error, source: .loadEmbed, url: self.url)
+                self.processFailure(error: error as NSError, source: .loadEmbed, url: self.url)
             }
             
             loadingAnimationViewController.cancelBlock = { [weak self] in
@@ -123,7 +107,7 @@ class LoadingFlowController: UIViewController {
             return
         }
         
-        let task = fetchDelegate.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
+        let task = fetchDelegate.linkPushFetch(with: url, successHandler: { [weak self] (article, url) in
             
             guard let self = self else { return }
             
@@ -135,7 +119,7 @@ class LoadingFlowController: UIViewController {
             guard let self = self else { return }
             
             self.hideLoading()
-            self.processFailure(error: error, source: .linkPush, url: url)
+            self.processFailure(error: error as NSError, source: .linkPush, url: url)
             
         })
         
@@ -154,7 +138,7 @@ class LoadingFlowController: UIViewController {
     
     @objc private func showLoading() {
         
-        if let customAnimationContainer = flowChild.customNavAnimationHandler as? UIViewController {
+        if let customAnimationContainer = flowChild.customNavAnimationHandler {
             customAnimationContainer.wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: customAnimationContainer.view)
         } else {
             wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view)
@@ -171,7 +155,7 @@ class LoadingFlowController: UIViewController {
     
     private func processSuccess(article: LoadingFlowControllerArticle, url: URL, source: ProcessSource) {
         
-        if flowChild.handleCustomSuccess(article: article, url: url) {
+        if flowChild.handleCustomSuccess(with: article, url: url) {
             return
         }
         
@@ -221,13 +205,13 @@ class LoadingFlowController: UIViewController {
             
             switch source {
             case .loadEmbed:
-                flowChild.showDefaultEmbedFailure(error: error)
+                flowChild.showDefaultEmbedFailureWithError(error)
 
                 if error.wmf_isNetworkConnectionError() {
                     flowChild.reachabilityNotifier?.start()
                 }
             case .linkPush:
-                flowChild.showDefaultLinkFailure(error: error)
+                flowChild.showDefaultLinkFailureWithError(error)
             }
             
         }
@@ -241,7 +225,7 @@ class LoadingFlowController: UIViewController {
             safariVC.delegate = self
             wmf_add(childController: safariVC, andConstrainToEdgesOfContainerView: view)
         case .linkPush:
-            if let customNavHandler = flowChild.customNavAnimationHandler as? UIViewController {
+            if let customNavHandler = flowChild.customNavAnimationHandler {
                 customNavHandler.wmf_openExternalUrl(url)
             } else {
                 wmf_openExternalUrl(url)
@@ -264,9 +248,8 @@ class LoadingFlowController: UIViewController {
             }
         case .linkPush:
             
-            //todo: fix the as!
             let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
-            let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: articleVC as! LoadingFlowControllerFetchDelegate, flowChild: articleVC as! LoadingFlowControllerChildProtocol, url: url, embedOnLoad: true)
+            let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: articleVC, flowChild: articleVC, url: url, embedOnLoad: true)
             articleVC.loadingFlowController = loadingFlowController
             
             if let mwkArticle = article as? MWKArticle {
