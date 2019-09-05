@@ -199,14 +199,10 @@ final class NavigationStateController: NSObject {
                 info = Info(selectedIndex: tabBarController.selectedIndex, currentSavedViewRawValue: savedViewController.currentView.rawValue)
             case let searchViewController as SearchViewController:
                 info = Info(selectedIndex: tabBarController.selectedIndex, searchTerm: searchViewController.searchTerm)
+            case let exploreViewController as ExploreViewController:
+                info = Info(selectedIndex: tabBarController.selectedIndex, contentOffset: exploreViewController.scrollView?.contentOffset)
             default:
-                let contentOffset: CGPoint?
-                if let exploreViewController = tabBarController.selectedViewController as? ExploreViewController, let exploreContentOffset = exploreViewController.scrollView?.contentOffset {
-                    contentOffset = exploreContentOffset
-                } else {
-                    contentOffset = nil
-                }
-                info = Info(selectedIndex: tabBarController.selectedIndex, contentOffset: contentOffset)
+                info = Info(selectedIndex: tabBarController.selectedIndex)
             }
         case is WMFThemeableNavigationController:
             kind = .themeableNavigationController
