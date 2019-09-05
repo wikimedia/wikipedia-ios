@@ -1022,6 +1022,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+
     [self updateTableOfContentsDisplayModeWithTraitCollection:newCollection];
     [self setupTableOfContentsViewController];
 }
@@ -1110,7 +1111,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         case WMFTableOfContentsDisplayModeModal:
         default:
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
-            [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+            if (!self.presentedViewController) {
+                [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+            }
     }
     [self updateToolbar];
 }
