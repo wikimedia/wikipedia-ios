@@ -97,7 +97,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var currentLoadingViewController: ViewController?
     private var currentSourceView: UIView?
     private var currentSourceRect: CGRect?
-    var resolveDestinationContainerVC: ResolveDestinationContainerViewController?
+    weak var loadingFlowController: LoadingFlowController?
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
         let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -170,7 +170,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     }
     
     @objc(containedUserTalkPageContainerWithURL:dataStore:theme:)
-    static func containedUserTalkPageContainer(url: URL, dataStore: MWKDataStore, theme: Theme) -> ResolveDestinationContainerViewController? {
+    static func containedUserTalkPageContainer(url: URL, dataStore: MWKDataStore, theme: Theme) -> LoadingFlowController? {
         guard
             let title = url.wmf_title,
             let siteURL = url.wmf_site
@@ -186,14 +186,14 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         return TalkPageContainerViewController(title: titleWithPrefix, siteURL: siteURL, type: type, dataStore: dataStore)
     }
     
-    static func containedTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore, type: TalkPageType, fromNavigationStateRestoration: Bool = false, theme: Theme) -> ResolveDestinationContainerViewController {
+    static func containedTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore, type: TalkPageType, fromNavigationStateRestoration: Bool = false, theme: Theme) -> LoadingFlowController {
         let talkPageContainerVC = talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-        let resolveDestinationContainerVC = ResolveDestinationContainerViewController(dataStore: dataStore, theme: theme, delegate: talkPageContainerVC, url: siteURL, embedOnAppearance: false)
-        talkPageContainerVC.resolveDestinationContainerVC = resolveDestinationContainerVC
+        let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: talkPageContainerVC, flowChild: talkPageContainerVC, url: siteURL, embedOnLoad: false)
+        talkPageContainerVC.loadingFlowController = loadingFlowController
         talkPageContainerVC.fromNavigationStateRestoration = fromNavigationStateRestoration
         talkPageContainerVC.theme = theme
-        resolveDestinationContainerVC.wmf_add(childController: talkPageContainerVC, andConstrainToEdgesOfContainerView: resolveDestinationContainerVC.view)
-        return resolveDestinationContainerVC
+        loadingFlowController.wmf_add(childController: talkPageContainerVC, andConstrainToEdgesOfContainerView: loadingFlowController.view)
+        return loadingFlowController
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -500,8 +500,8 @@ private extension TalkPageContainerViewController {
     
     func pushTalkPage(title: String, siteURL: URL) {
         
-        let resolveDestinationVC = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
-        self.navigationController?.pushViewController(resolveDestinationVC, animated: true)
+        let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
+        self.navigationController?.pushViewController(loadingFlowController, animated: true)
     }
     
     func showUserActionSheet(siteURL: URL, absoluteURL: URL, sourceView: UIView, sourceRect: CGRect?) {
@@ -560,7 +560,7 @@ private extension TalkPageContainerViewController {
         
         self.viewState = .linkLoading(loadingViewController: loadingViewController)
         
-        resolveDestinationContainerVC?.tappedLink(url: url)
+        loadingFlowController?.tappedLink(url: url)
   
     }
     
@@ -778,24 +778,20 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
     }
 }
 
-extension TalkPageContainerViewController: ResolveDestinationContainerTaskTrackingDelegate {
+extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDelegate {
     
-    var customAnimationContainerViewController: UIViewController? {
-        return currentLoadingViewController
-    }
-    
-    func loadEmbedFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
+    func loadEmbedFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
         assertionFailure("not setup for load embed")
         return nil
     }
     
-    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
+    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask? {
         
         assertionFailure("not setup for session task link push fetch")
         return nil
     }
     
-    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)? {
+    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)? {
         guard let absoluteURL = absoluteURL(for: url), let key = absoluteURL.wmf_databaseKey else {
             //todo how to handle this
             //showNoInternetConnectionAlertOrOtherWarning(from: TalkPageError.unableToDetermineAbsoluteURL)
@@ -832,11 +828,19 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
         
     }
     
+}
+
+extension TalkPageContainerViewController: LoadingFlowControllerChildProtocol {
+    
+    var customNavAnimationHandler: UIViewController? {
+        return currentLoadingViewController
+    }
+    
     var reachabilityNotifier: ReachabilityNotifier? {
         return nil
     }
     
-    func showDefaultEmbedFailure(error: NSError, container: ResolveDestinationContainerViewController) {
+    func showDefaultEmbedFailure(error: NSError) {
         assertionFailure("not setup for load embed")
         return
     }
@@ -845,7 +849,7 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
         //no-op
     }
     
-    func handleCustomSuccess(article: DestinationContainerArticle, url: URL) -> Bool {
+    func handleCustomSuccess(article: LoadingFlowControllerArticle, url: URL) -> Bool {
         
         defer {
             self.currentLoadingViewController = nil
@@ -868,15 +872,5 @@ extension TalkPageContainerViewController: ResolveDestinationContainerTaskTracki
         default:
             return false;
         }
-    }
-}
-
-extension WMFArticle: DestinationContainerArticle {
-    public var namespace: Int {
-        return pageNamespace?.rawValue ?? -1
-    }
-    
-    public var destinationContainerURL: URL! {
-        return self.url
     }
 }

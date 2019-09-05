@@ -6,7 +6,7 @@
 #import "WMFTableOfContentsDisplay.h"
 #import "WebViewController.h"
 #import "WMFImageGalleryViewController.h"
-@class ResolveDestinationContainerViewController;
+@class LoadingFlowController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -67,7 +67,7 @@ extern NSString *const WMFEditPublishedNotification;
 
 - (UIButton *)titleButton;
 
-@property (nonatomic, strong, nullable) ResolveDestinationContainerViewController *resolveDestinationContainerVC;
+@property (nonatomic, weak, nullable) LoadingFlowController *loadingFlowController;
 
 - (void)kickoffProgressView;
 

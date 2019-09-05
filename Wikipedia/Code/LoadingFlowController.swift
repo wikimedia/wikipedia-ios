@@ -2,89 +2,60 @@
 import Foundation
 import SafariServices
 
-@objc protocol DestinationContainerArticle {
-    var namespace: Int { get }
-    var destinationContainerURL: URL! { get }
+@objc protocol LoadingFlowControllerFetchDelegate: class {
+    func loadEmbedFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
+    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
 }
 
-protocol ResolveDestinationContainerDelegateError: Error {
-    var cachedFallbackArticle: DestinationContainerArticle? { get }
-    var isUnexpectedResponseError: Bool { get }
+protocol LoadingFlowControllerTaskTrackingDelegate: LoadingFlowControllerFetchDelegate {
+    func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)?
 }
 
-extension NSError: ResolveDestinationContainerDelegateError {
-    
-    var cachedFallbackArticle: DestinationContainerArticle? {
-        if let cachedFallback = userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] as? DestinationContainerArticle {
-            return cachedFallback
-        } else {
-            return nil
-        }
-    }
-    
-    var isUnexpectedResponseError: Bool {
-        return domain == Fetcher.unexpectedResponseError.domain && code == Fetcher.unexpectedResponseError.code
-    }
-    
-    var isCancelledError: Bool {
-        return domain == NSURLErrorDomain &&
-        code == NSURLErrorCancelled
-    }
-    
-    var isInvalidParameterError: Bool {
-        return self == Fetcher.invalidParametersError
-    }
-}
-
-@objc protocol ResolveDestinationContainerDelegate: class {
-    func loadEmbedFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
-    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError) -> Void) -> URLSessionTask?
+@objc protocol LoadingFlowControllerChildProtocol: class {
     var reachabilityNotifier: ReachabilityNotifier? { get }
-    func handleCustomSuccess(article: DestinationContainerArticle, url: URL) -> Bool
-    func showDefaultEmbedFailure(error: NSError, container: ResolveDestinationContainerViewController)
+    func handleCustomSuccess(article: LoadingFlowControllerArticle, url: URL) -> Bool
+    func showDefaultEmbedFailure(error: NSError)
     func showDefaultLinkFailure(error: NSError)
-    var resolveDestinationContainerVC: ResolveDestinationContainerViewController? { get }
-    @objc optional var customAnimationContainerViewController: UIViewController? { get }
+    var loadingFlowController: LoadingFlowController? { get }
+    @objc optional var customNavAnimationHandler: UIViewController? { get }
 }
 
-protocol ResolveDestinationContainerTaskTrackingDelegate: ResolveDestinationContainerDelegate {
-    func linkPushFetch(url: URL, successHandler: @escaping (DestinationContainerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (String, Fetcher)?
-}
-
-class ResolveDestinationContainerViewController: UIViewController {
+class LoadingFlowController: UIViewController {
     
     enum ProcessSource {
         case loadEmbed
         case linkPush
     }
     
-    //intentionally not weak. we want to keep this in memory while we determine if we want to embed it or not.
-    private(set) var delegate: ResolveDestinationContainerDelegate?
+    let flowChild: LoadingFlowControllerChildProtocol
+    private let fetchDelegate: LoadingFlowControllerFetchDelegate
     private let url: URL
-    private let embedOnLoad: Bool
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private let embedOnLoad: Bool
     
     private let loadingAnimationViewController = LoadingAnimationViewController(nibName: "LoadingAnimationViewController", bundle: nil)
     
-    @objc init(dataStore: MWKDataStore, theme: Theme, delegate: ResolveDestinationContainerDelegate, url: URL, embedOnAppearance: Bool) {
+    init(dataStore: MWKDataStore, theme: Theme, fetchDelegate: LoadingFlowControllerFetchDelegate, flowChild: LoadingFlowControllerChildProtocol, url: URL, embedOnLoad: Bool) {
         self.dataStore = dataStore
         self.theme = theme
-        self.delegate = delegate
+        self.fetchDelegate = fetchDelegate
+        self.flowChild = flowChild
         self.url = url
-        self.embedOnLoad = embedOnAppearance
+        self.embedOnLoad = embedOnLoad
         super.init(nibName: nil, bundle: nil)
     }
     
-    @objc init(articleViewController: WMFArticleViewController, embedOnAppearance: Bool) {
+    @objc init(articleViewController: WMFArticleViewController, embedOnLoad: Bool) {
         self.dataStore = articleViewController.dataStore
         self.theme = articleViewController.theme
-        //todo: remove the as?
-        self.delegate = articleViewController as? ResolveDestinationContainerDelegate
+        //todo: remove the as!
+        self.fetchDelegate = articleViewController as! LoadingFlowControllerFetchDelegate
+        self.flowChild = articleViewController as! LoadingFlowControllerChildProtocol
         self.url = articleViewController.articleURL
-        self.embedOnLoad = embedOnAppearance
+        self.embedOnLoad = embedOnLoad
         super.init(nibName: nil, bundle: nil)
-        articleViewController.resolveDestinationContainerVC = self
+        articleViewController.loadingFlowController = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -97,7 +68,7 @@ class ResolveDestinationContainerViewController: UIViewController {
         apply(theme: theme)
         
         if (embedOnLoad) {
-            let task = delegate?.loadEmbedFetch(url: url, successHandler: { [weak self] (article, url) in
+            let task = fetchDelegate.loadEmbedFetch(url: url, successHandler: { [weak self] (article, url) in
                 
                 guard let self = self else { return }
                 
@@ -123,7 +94,7 @@ class ResolveDestinationContainerViewController: UIViewController {
     
     @objc func tappedLink(url: URL) {
         
-        if let taskTrackingDelegate = delegate as? ResolveDestinationContainerTaskTrackingDelegate {
+        if let taskTrackingDelegate = fetchDelegate as? LoadingFlowControllerTaskTrackingDelegate {
             let result = taskTrackingDelegate.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
                 
                 guard let self = self else { return }
@@ -153,7 +124,7 @@ class ResolveDestinationContainerViewController: UIViewController {
             return
         }
         
-        let task = delegate?.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
+        let task = fetchDelegate.linkPushFetch(url: url, successHandler: { [weak self] (article, url) in
             
             guard let self = self else { return }
             
@@ -184,8 +155,8 @@ class ResolveDestinationContainerViewController: UIViewController {
     
     @objc private func showLoading() {
         
-        if let customContainer = delegate?.customAnimationContainerViewController as? UIViewController {
-            customContainer.wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: customContainer.view)
+        if let customAnimationContainer = flowChild.customNavAnimationHandler as? UIViewController {
+            customAnimationContainer.wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: customAnimationContainer.view)
         } else {
             wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view)
         }
@@ -199,18 +170,17 @@ class ResolveDestinationContainerViewController: UIViewController {
         loadingAnimationViewController.removeFromParent()
     }
     
-    private func processSuccess(article: DestinationContainerArticle, url: URL, source: ProcessSource) {
+    private func processSuccess(article: LoadingFlowControllerArticle, url: URL, source: ProcessSource) {
         
-        if let delegate = delegate,
-            delegate.handleCustomSuccess(article: article, url: url) {
+        if flowChild.handleCustomSuccess(article: article, url: url) {
             return
         }
         
         switch article.namespace {
         case PageNamespace.main.rawValue:
-            showArticleViewController(containerArticle: article, url: url, source: source)
+            showArticleViewController(article: article, url: url, source: source)
         case PageNamespace.userTalk.rawValue:
-            showTalkPage(containerArticle: article, url: url, source: source)
+            showTalkPage(url: url, source: source)
         default:
             showExternal(url: url, source: source)
         }
@@ -224,17 +194,17 @@ class ResolveDestinationContainerViewController: UIViewController {
         
         if let cachedFallbackArticle = error.cachedFallbackArticle {
             
-            if let cachedFallbackURL = cachedFallbackArticle.destinationContainerURL {
+            if let cachedFallbackURL = cachedFallbackArticle.loadingFlowURL {
                 switch cachedFallbackArticle.namespace {
                 case PageNamespace.main.rawValue:
-                    showArticleViewController(containerArticle: cachedFallbackArticle, url: cachedFallbackURL, source: source)
+                    showArticleViewController(article: cachedFallbackArticle, url: cachedFallbackURL, source: source)
                     
                     if !error.wmf_isNetworkConnectionError() {
                         WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
                     }
                     
                 case PageNamespace.userTalk.rawValue:
-                    showTalkPage(containerArticle: cachedFallbackArticle, url: cachedFallbackURL, source: source)
+                    showTalkPage(url: cachedFallbackURL, source: source)
                 default:
                     showExternal(url: cachedFallbackURL, source: source)
                     
@@ -252,13 +222,13 @@ class ResolveDestinationContainerViewController: UIViewController {
             
             switch source {
             case .loadEmbed:
-                delegate?.showDefaultEmbedFailure(error: error, container: self)
+                flowChild.showDefaultEmbedFailure(error: error)
 
                 if error.wmf_isNetworkConnectionError() {
-                    delegate?.reachabilityNotifier?.start()
+                    flowChild.reachabilityNotifier?.start()
                 }
             case .linkPush:
-                delegate?.showDefaultLinkFailure(error: error)
+                flowChild.showDefaultLinkFailure(error: error)
             }
             
         }
@@ -272,20 +242,20 @@ class ResolveDestinationContainerViewController: UIViewController {
             safariVC.delegate = self
             wmf_add(childController: safariVC, andConstrainToEdgesOfContainerView: view)
         case .linkPush:
-            if let customContainer = delegate?.customAnimationContainerViewController as? UIViewController {
-                customContainer.wmf_openExternalUrl(url)
+            if let customNavHandler = flowChild.customNavAnimationHandler as? UIViewController {
+                customNavHandler.wmf_openExternalUrl(url)
             } else {
                 wmf_openExternalUrl(url)
             }
         }
     }
     
-    private func showArticleViewController(containerArticle: DestinationContainerArticle, url: URL, source: ProcessSource) {
+    private func showArticleViewController(article: LoadingFlowControllerArticle, url: URL, source: ProcessSource) {
 
         switch source {
         case .loadEmbed:
-            if let articleVC = delegate as? WMFArticleViewController,
-                let mwkArticle = containerArticle as? MWKArticle {
+            if let articleVC = flowChild as? WMFArticleViewController,
+                let mwkArticle = article as? MWKArticle {
                 articleVC.skipFetchOnViewDidAppear = true
                 wmf_add(childController: articleVC, andConstrainToEdgesOfContainerView: view)
                 articleVC.article = mwkArticle
@@ -297,10 +267,10 @@ class ResolveDestinationContainerViewController: UIViewController {
             
             //todo: fix the as!
             let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
-            let resolveDestinationVC = ResolveDestinationContainerViewController(dataStore: dataStore, theme: theme, delegate: articleVC as! ResolveDestinationContainerDelegate, url: url, embedOnAppearance: true)
-            articleVC.resolveDestinationContainerVC = resolveDestinationVC
+            let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: articleVC as! LoadingFlowControllerFetchDelegate, flowChild: articleVC as! LoadingFlowControllerChildProtocol, url: url, embedOnLoad: true)
+            articleVC.loadingFlowController = loadingFlowController
             
-            if let mwkArticle = containerArticle as? MWKArticle {
+            if let mwkArticle = article as? MWKArticle {
                 articleVC.viewDidLoadCompletion = {
                     articleVC.article = mwkArticle
                 }
@@ -308,11 +278,11 @@ class ResolveDestinationContainerViewController: UIViewController {
                 articleVC.skipFetchOnViewDidAppear = true
             }
             
-            wmf_push(resolveDestinationVC, animated: true)
+            wmf_push(loadingFlowController, animated: true)
         }
     }
     
-    private func showTalkPage(containerArticle: DestinationContainerArticle, url: URL, source: ProcessSource) {
+    private func showTalkPage(url: URL, source: ProcessSource) {
         
         guard let siteURL = url.wmf_site else {
             assertionFailure("Issue determining siteURL for talk page.")
@@ -338,27 +308,73 @@ class ResolveDestinationContainerViewController: UIViewController {
     }
 }
 
-extension ResolveDestinationContainerViewController: SFSafariViewControllerDelegate {
+extension LoadingFlowController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
-extension MWKArticle: DestinationContainerArticle {
-    var destinationContainerURL: URL! {
-        return self.url
+extension LoadingFlowController: Themeable {
+    func apply(theme: Theme) {
+        view.backgroundColor = theme.colors.paperBackground
+        loadingAnimationViewController.theme = theme
+    }
+}
+
+//MARK: Error Handling
+
+protocol LoadingFlowControllerFetchDelegateError: Error {
+    var cachedFallbackArticle: LoadingFlowControllerArticle? { get }
+    var isUnexpectedResponseError: Bool { get }
+}
+
+extension NSError: LoadingFlowControllerFetchDelegateError {
+    
+    var cachedFallbackArticle: LoadingFlowControllerArticle? {
+        if let cachedFallback = userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] as? LoadingFlowControllerArticle {
+            return cachedFallback
+        } else {
+            return nil
+        }
     }
     
+    var isUnexpectedResponseError: Bool {
+        return domain == Fetcher.unexpectedResponseError.domain && code == Fetcher.unexpectedResponseError.code
+    }
+    
+    var isCancelledError: Bool {
+        return domain == NSURLErrorDomain &&
+        code == NSURLErrorCancelled
+    }
+    
+    var isInvalidParameterError: Bool {
+        return self == Fetcher.invalidParametersError
+    }
+}
+
+//MARK: LoadingFlowControllerArticle
+
+@objc protocol LoadingFlowControllerArticle {
+    var namespace: Int { get }
+    var loadingFlowURL: URL! { get }
+}
+
+extension MWKArticle: LoadingFlowControllerArticle {
     var namespace: Int {
         return ns
     }
     
-    
+    var loadingFlowURL: URL! {
+        return url
+    }
 }
 
-extension ResolveDestinationContainerViewController: Themeable {
-    func apply(theme: Theme) {
-        view.backgroundColor = theme.colors.paperBackground
-        loadingAnimationViewController.theme = theme
+extension WMFArticle: LoadingFlowControllerArticle {
+    public var namespace: Int {
+        return pageNamespace?.rawValue ?? -1
+    }
+    
+    var loadingFlowURL: URL! {
+        return url
     }
 }

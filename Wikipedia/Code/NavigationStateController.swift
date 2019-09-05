@@ -97,8 +97,8 @@ final class NavigationStateController: NSObject {
                 }
                 let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 randomArticleVC.calculateTableOfContentsDisplayState()
-                let resolveDestinationViewController = ResolveDestinationContainerViewController(articleViewController: randomArticleVC, embedOnAppearance: true)
-                pushOrPresent(resolveDestinationViewController, navigationController: navigationController, presentation: viewController.presentation)
+                let loadingFlowController = LoadingFlowController(articleViewController: randomArticleVC, embedOnLoad: true)
+                pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
                     return
@@ -106,8 +106,8 @@ final class NavigationStateController: NSObject {
                 let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 articleVC.shouldRequestLatestRevisionOnInitialLoad = false
                 articleVC.calculateTableOfContentsDisplayState()
-                let resolveDestinationViewController = ResolveDestinationContainerViewController(articleViewController: articleVC, embedOnAppearance: true)
-                pushOrPresent(resolveDestinationViewController, navigationController: navigationController, presentation: viewController.presentation)
+                let loadingFlowController = LoadingFlowController(articleViewController: articleVC, embedOnLoad: true)
+                pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()
                 pushOrPresent(themeableNavigationController, navigationController: navigationController, presentation: viewController.presentation)
@@ -130,14 +130,14 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 
-                let resolveDestinationVC = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: type, fromNavigationStateRestoration: true, theme: theme)
+                let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: type, fromNavigationStateRestoration: true, theme: theme)
                 navigationController.isNavigationBarHidden = true
-                navigationController.pushViewController(resolveDestinationVC, animated: false)
+                navigationController.pushViewController(loadingFlowController, animated: false)
             case (.talkPageReplyList, let info?):
                 guard
                     let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
-                    let resolveDestinationVC = navigationController.viewControllers.last as? ResolveDestinationContainerViewController,
-                    let talkPageContainerVC = resolveDestinationVC.delegate as? TalkPageContainerViewController
+                    let loadingFlowController = navigationController.viewControllers.last as? LoadingFlowController,
+                    let talkPageContainerVC = loadingFlowController.flowChild as? TalkPageContainerViewController
                 else {
                     return
                 }
@@ -214,15 +214,9 @@ final class NavigationStateController: NSObject {
             kind = .account
             info = nil
             shouldAttemptLogin = true
-        case let resolveDestinationViewController as ResolveDestinationContainerViewController:
-            
-            guard let delegate = resolveDestinationViewController.delegate else {
-                kind = nil
-                info = nil
-                break
-            }
-            
-            let result = determineKindInfoForArticleOrTalk(obj: delegate)
+        case let loadingFlowController as LoadingFlowController:
+
+            let result = determineKindInfoForArticleOrTalk(obj: loadingFlowController.flowChild)
             kind = result.kind
             info = result.info
         

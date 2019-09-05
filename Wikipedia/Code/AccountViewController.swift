@@ -117,9 +117,9 @@ class AccountViewController: SubSettingsViewController {
                 let siteURL = language.siteURL()
                 let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
                 
-                let resolveDestinationVC = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
+                let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
                 
-                self.navigationController?.pushViewController(resolveDestinationVC, animated: true)
+                self.navigationController?.pushViewController(loadingFlowController, animated: true)
             }
         default:
             break

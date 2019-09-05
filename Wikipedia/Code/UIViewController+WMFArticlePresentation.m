@@ -25,8 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
     articleVC.articleLoadCompletion = articleLoadCompletion;
     
-    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithArticleViewController:articleVC embedOnAppearance:YES];
-    [self wmf_pushViewController:resolveDestinationContainerVC animated:animated];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedOnLoad:YES];
+    [self wmf_pushViewController:loadingFlowController animated:animated];
     return articleVC;
 }
 
@@ -34,16 +34,16 @@ NS_ASSUME_NONNULL_BEGIN
     
     url = [url wmf_URLWithFragment:nil];
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
-    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithArticleViewController:articleVC embedOnAppearance:YES];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedOnLoad:YES];
     
-    [self wmf_pushViewController:resolveDestinationContainerVC animated:animated];
+    [self wmf_pushViewController:loadingFlowController animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
     
-    //embed in ResolveDestinationContainerViewController first
+    //embed in LoadingFlowController first
 
-    ResolveDestinationContainerViewController *resolveDestinationContainerVC = [[ResolveDestinationContainerViewController alloc] initWithArticleViewController:viewController embedOnAppearance:YES];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController embedOnLoad:YES];
     
     if (self.parentViewController != nil && self.parentViewController.navigationController) {
         [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
@@ -54,9 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                          [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
                                                      }];
     } else if (self.navigationController != nil) {
-        [self.navigationController pushViewController:resolveDestinationContainerVC animated:animated];
+        [self.navigationController pushViewController:loadingFlowController animated:animated];
     } else if ([self isKindOfClass:[UINavigationController class]]) {
-        [(UINavigationController *)self pushViewController:resolveDestinationContainerVC animated:animated];
+        [(UINavigationController *)self pushViewController:loadingFlowController animated:animated];
     }
 }
 

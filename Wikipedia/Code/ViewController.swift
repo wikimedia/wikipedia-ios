@@ -177,7 +177,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             navigationBar = parentVC.navigationBar
         }  else if let navigationController = navigationController {
             ownsNavigationBar = true
-            showsNavigationBar = (parent is UITabBarController || parent == navigationController || parent is ResolveDestinationContainerViewController) && navigationController.isNavigationBarHidden
+            showsNavigationBar = (parent is UITabBarController || parent == navigationController || parent is LoadingFlowController) && navigationController.isNavigationBarHidden
             navigationBar.updateNavigationItems()
         } else {
             showsNavigationBar = false

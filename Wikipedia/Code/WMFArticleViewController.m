@@ -98,7 +98,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         DescriptionEditViewControllerDelegate,
                                         WMFHintPresenting,
                                         SFSafariViewControllerDelegate,
-                                        ResolveDestinationContainerDelegate>
+                                        LoadingFlowControllerFetchDelegate,
+                                        LoadingFlowControllerChildProtocol>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1616,8 +1617,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    if (self.resolveDestinationContainerVC) {
-          [self.resolveDestinationContainerVC tappedLinkWithUrl:url];
+    if (self.loadingFlowController) {
+          [self.loadingFlowController tappedLinkWithUrl:url];
     } else {
         [self pushArticleViewControllerWithURL:url animated:YES];
     }
@@ -2351,9 +2352,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-#pragma mark - ResolveDestinationContainerDelegate
+#pragma mark - LoadingFlowControllerFetchDelegate
 
-- (NSURLSessionTask * _Nullable)linkPushFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<DestinationContainerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
+- (NSURLSessionTask * _Nullable)linkPushFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<LoadingFlowControllerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
     return [self fetchArticleWithURL:url forceDownload:NO checkForNewerRevision:NO WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull url) {
         if (successHandler) {
             successHandler(article, url);
@@ -2365,7 +2366,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 }
 
-- (NSURLSessionTask * _Nullable)loadEmbedFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<DestinationContainerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
+- (NSURLSessionTask * _Nullable)loadEmbedFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<LoadingFlowControllerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
     @weakify(self);
     return [self fetchArticleWithURL:url forceDownload:NO checkForNewerRevision:NO WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull url) {
         @strongify(self);
@@ -2382,16 +2383,18 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 }
 
-- (void)showDefaultEmbedFailureWithError:(NSError * _Nonnull)error container:(ResolveDestinationContainerViewController *)container {
+#pragma mark - LoadingFlowControllerChildProtocol
+
+- (void)showDefaultEmbedFailureWithError:(NSError *)error {
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
-    [container wmf_addWithChildController:self andConstrainToEdgesOfContainerView:container.view belowSubview:nil];
+    [self.loadingFlowController wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
 }
 
-- (void)showDefaultLinkFailureWithError:(NSError * _Nonnull)error {
+- (void)showDefaultLinkFailureWithError:(NSError *)error {
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:nil];
 }
 
-- (BOOL)handleCustomSuccessWithArticle:(id<DestinationContainerArticle>)article url:(NSURL *)url {
+- (BOOL)handleCustomSuccessWithArticle:(id<LoadingFlowControllerArticle>)article url:(NSURL *)url {
     return NO;
 }
 
