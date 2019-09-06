@@ -2,7 +2,6 @@
 import UIKit
 
 class ActionButton: SetupButton {
-    
     override func setup() {
         super.setup()
         contentEdgeInsets = UIEdgeInsets(top: layoutMargins.top + 1, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 1, right: layoutMargins.right + 7)

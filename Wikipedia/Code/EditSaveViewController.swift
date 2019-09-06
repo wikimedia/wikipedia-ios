@@ -136,7 +136,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             editFunnel?.logSectionEditSummaryShown(source: editFunnelSource, language: section?.articleLanguage)
             loggedEditActions.add(EditFunnel.Action.editSummaryShown)
         }
-        
+        updateTextViews()
         apply(theme: theme)
     }
 

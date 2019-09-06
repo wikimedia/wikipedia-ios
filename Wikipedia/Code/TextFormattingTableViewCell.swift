@@ -8,6 +8,7 @@ class TextFormattingTableViewCell: UITableViewCell {
         configureSeparator()
         backgroundView = UIView()
         selectedBackgroundView = UIView()
+        updateFonts()
     }
 
     private func addSeparator() {

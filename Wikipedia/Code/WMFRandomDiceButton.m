@@ -42,6 +42,9 @@
     self.label.textAlignment = NSTextAlignmentCenter;
     self.label.text = [WMFCommonStrings randomizerTitle];
     [self addSubview:self.label];
+
+    [self.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
+    [self.heightAnchor constraintEqualToConstant:self.frame.size.height].active = YES;
 }
 
 - (void)roll {

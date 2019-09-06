@@ -30,7 +30,7 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     open func reset() {
-
+        
     }
     
     public var labelBackgroundColor: UIColor? {
