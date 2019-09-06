@@ -1589,8 +1589,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     });
 }
 
-- (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section {
-    self.visibleSectionAnchor = section.anchor;
+- (void)webViewController:(WebViewController *)controller didScrollToFragment:(NSString *)fragment {
+    self.visibleSectionAnchor = fragment;
+    [self updateTOCHighlightIfNecessaryWithScrollView:controller.webView.scrollView force:true];
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
@@ -1678,10 +1679,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:false];
     [self.navigationBarHider scrollViewDidScroll:scrollView];
-}
-
-- (void)webViewScrollView:(UIScrollView *)scrollView didScrollToFragment:(NSString *)fragment {
-    [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:true];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

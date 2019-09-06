@@ -763,36 +763,28 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
-    if (fragment.length == 0) {
-        // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
+    dispatch_block_t combinedCompletion = ^{
+        WMFAssertMainThread(@"Completion expected to be called on the main thread");
+        [self.delegate webViewController:self didScrollToFragment:fragment];
         if (completion) {
             completion();
         }
+    };
+    if (fragment.length == 0) {
+        // No section so scroll to top. (Used when "Introduction" is selected.)
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
+        combinedCompletion();
     } else {
-        [self.webView getScrollViewRectForHtmlElementWithId:fragment
-                                                 completion:^(CGRect rect) {
-                                                     if (!CGRectIsNull(rect)) {
-                                                         dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
-                                                             [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight + 10)
-                                                                                                      animated:animated
-                                                                                                    completion:^(BOOL finished) {
-                                                                                                        if (completion) {
-                                                                                                            completion();
-                                                                                                        }
-                                                                                                        [self.delegate webViewScrollView:self.webView.scrollView didScrollToFragment:fragment];
-                                                                                                    }];
-                                                         });
-                                                     } else if (completion) {
-                                                         completion();
-                                                     }
-                                                 }];
+        long inset = (long)self.webView.scrollView.contentInset.top;
+        NSString *js = [NSString stringWithFormat:@"document.getElementById(`%@`).scrollIntoView(); window.scrollBy(0, 0 - %li);", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], inset];
+        [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            combinedCompletion();
+        }];
     }
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
     [self scrollToFragment:section.anchor animated:animated completion:NULL];
-    [self.delegate webViewController:self didScrollToSection:section];
 }
 
 - (void)accessibilityCursorToSection:(MWKSection *)section {

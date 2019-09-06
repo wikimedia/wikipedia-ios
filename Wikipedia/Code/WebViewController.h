@@ -80,7 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapEditMenuItemInMenuController:(UIMenuController *)menuController;
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
-- (void)webViewScrollView:(UIScrollView *)scrollView didScrollToFragment:(NSString *)fragment;
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset;
 - (void)webViewController:(WebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
@@ -90,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)url didSave:(BOOL)didSave;
 - (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article;
-- (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section;
+- (void)webViewController:(WebViewController *)controller didScrollToFragment:(NSString *)fragment;
 
 @end
 
