@@ -106,7 +106,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
 
     // MARK: - UIViewControllerAnimatedTransitioning
     open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+        return 0.4
     }
     
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning)  {
