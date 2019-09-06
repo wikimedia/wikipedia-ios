@@ -47,11 +47,16 @@ extension UIBezierPath {
 }
 
 
-open class WMFSparklineView : UIView {
+open class WMFSparklineView : UIView, Themeable {
     var sparklineLayer = CAShapeLayer()
     var gridlineLayer = CAShapeLayer()
     var gradientLayer = CAGradientLayer()
     let useLogScale = true
+    
+    public func apply(theme: Theme) {
+        gridlineLayer.strokeColor = theme.colors.border.cgColor
+        gradientLayer.colors = [theme.colors.rankGradientStart.cgColor, theme.colors.rankGradientEnd.cgColor]
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -116,22 +121,21 @@ open class WMFSparklineView : UIView {
     }
     
     func setup() {
+        apply(theme: Theme.standard)
+
         gridlineLayer.fillColor = UIColor.clear.cgColor
         gridlineWidth = 0.5
-        gridlineLayer.strokeColor = UIColor(white: 0.6, alpha: 0.2).cgColor
         layer.addSublayer(gridlineLayer)
         
         sparklineLayer.fillColor = UIColor.clear.cgColor
         sparklineWidth = 1.5
         sparklineLayer.strokeColor = UIColor.black.cgColor
     
-        let startColor = UIColor(red: 51.0/255.0, green:  102.0/255.0, blue: 204.0/255.0, alpha: 1.0).cgColor
-        let endColor = UIColor(red: 0.0/255.0, green:  175.0/255.0, blue: 137.0/255.0, alpha: 1.0).cgColor
-        gradientLayer.colors = [startColor, endColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
         gradientLayer.mask = sparklineLayer
         layer.addSublayer(gradientLayer)
+        
     }
     
     override open func layoutSubviews() {

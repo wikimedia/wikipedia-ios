@@ -62,7 +62,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
 static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
@@ -137,11 +137,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSUserDefaults wmf] removeObserver:self forKeyPath:[WMFUserDefaultsKey defaultTabType]];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.theme = [[NSUserDefaults wmf] wmf_appTheme];
+    self.theme = [[NSUserDefaults wmf] themeCompatibleWith:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -151,7 +152,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(changeTheme:)
+                                             selector:@selector(userDidChangeTheme:)
                                                  name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -282,7 +283,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self configureTabController];
 
     self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-
+    
     [self applyTheme:self.theme];
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
@@ -721,14 +722,17 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
+
     WMFThemeableNavigationController *articleNavigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self];
+    articleNavigationController.themeableNavigationControllerDelegate = self;
     articleNavigationController.delegate = self;
     articleNavigationController.interactivePopGestureRecognizer.delegate = self;
     articleNavigationController.extendedLayoutIncludesOpaqueBars = YES;
     [articleNavigationController setNavigationBarHidden:YES animated:NO];
     [window setRootViewController:articleNavigationController];
     [window makeKeyAndVisible];
-
+    [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:articleNavigationController];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -1522,13 +1526,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         WMFWelcomeInitialViewController *vc = [WMFWelcomeInitialViewController wmf_viewControllerFromWelcomeStoryboard];
-
+        [vc applyTheme:self.theme];
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
             if (completion) {
                 completion(YES);
             }
         };
+        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:vc animated:NO completion:NULL];
     } else {
         if (completion) {
@@ -1843,6 +1848,24 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return navigationControllers;
 }
 
+- (void)applyTheme:(WMFTheme *)theme toPresentedViewController:(UIViewController *)viewController {
+
+    if (viewController == nil) {
+        return;
+    }
+
+    if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)viewController applyTheme:theme];
+    }
+
+    if ([viewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navController = (UINavigationController *)viewController.presentedViewController;
+        [self applyTheme:theme toNavigationControllers:@[navController]];
+    } else {
+        [self applyTheme:theme toPresentedViewController:viewController.presentedViewController];
+    }
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     if (theme == nil) {
         return;
@@ -1858,6 +1881,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.savedViewController applyTheme:theme];
     [self.recentArticlesViewController applyTheme:theme];
     [self.searchViewController applyTheme:theme];
+
+    [self applyTheme:theme toPresentedViewController:self.presentedViewController];
 
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
@@ -1887,14 +1912,48 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (void)changeTheme:(NSNotification *)note {
-    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
-
+- (void)updateAppThemeIfNecessary {
+    // self.navigationController is the App's root view controller so rely on its trait collection
+    WMFTheme *theme = [NSUserDefaults.wmf themeCompatibleWith:self.navigationController.traitCollection];
     if (self.theme != theme) {
         [self applyTheme:theme];
-        [[NSUserDefaults wmf] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
     }
+}
+
+- (void)userDidChangeTheme:(NSNotification *)note {
+    NSString *themeName = (NSString *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey];
+    NSNumber *isImageDimmingEnabledNumber = (NSNumber *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey];
+    if (isImageDimmingEnabledNumber) {
+        [NSUserDefaults.wmf setWmf_isImageDimmingEnabled:isImageDimmingEnabledNumber.boolValue];
+    }
+    [NSUserDefaults.wmf setThemeName:themeName];
+    [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:self.navigationController];
+    [self updateAppThemeIfNecessary];
+}
+
+- (void)updateUserInterfaceStyleOfViewControllerForCurrentTheme:(UIViewController *)viewController {
+    if (@available(iOS 13.0, *)) {
+        NSString *themeName = [NSUserDefaults.wmf themeName];
+        if ([themeName isEqualToString:WMFTheme.defaultThemeName]) {
+            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+        } else if ([themeName isEqualToString:WMFTheme.light.name] || [themeName isEqualToString:WMFTheme.sepia.name]){
+            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        } else {
+            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        }
+    }
+}
+
+- (void)debounceTraitCollectionThemeUpdate {
+    if (@available(iOS 12.0, *)) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
+        [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
+    }
+}
+
+- (void)themeableNavigationControllerTraitCollectionDidChange:(nonnull WMFThemeableNavigationController *)navigationController {
+    [self debounceTraitCollectionThemeUpdate];
 }
 
 #pragma mark - WMFWorkerControllerDelegate

@@ -79,5 +79,6 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
         viewCountLabel.textColor =  theme.colors.overlayText
         viewCountAndSparklineContainerView.backgroundColor = theme.colors.overlayBackground
         separatorView.backgroundColor = theme.colors.border
+        sparklineView.apply(theme: theme)
     }
 }
