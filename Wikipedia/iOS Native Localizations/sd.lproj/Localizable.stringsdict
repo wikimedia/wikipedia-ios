@@ -141,9 +141,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ھي عمل اڻڪريل نٿو ٿي سگھو. صرف ھن فھرست ۾ سانڍيل مضمون انسانڍجي ويندا.</string>
+			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھن فھرست ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
 			<key>other</key>
-			<string>ھي عمل اڻڪريل نٿو ٿي سگھو. صرف ھنن فھرستن ۾ سانڍيل مضمون انسانڍجي ويندا.</string>
+			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھنن فھرستن ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
