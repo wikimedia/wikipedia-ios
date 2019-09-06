@@ -763,25 +763,19 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
-    dispatch_block_t combinedCompletion = ^{
-        WMFAssertMainThread(@"Completion expected to be called on the main thread");
-        [self.delegate webViewController:self didScrollToFragment:fragment];
-        if (completion) {
-            completion();
-        }
-    };
     if (fragment.length == 0) {
-        // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
-        combinedCompletion();
-    } else {
-        long inset = (long)self.delegate.navigationBar.visibleHeight;
-        NSString *js = [NSString stringWithFormat:@"document.getElementById(`%@`).scrollIntoView(); window.scrollBy(0, 0 - %li);", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], inset];
-        [self.webView evaluateJavaScript:js
-                       completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-                           combinedCompletion();
-                       }];
+        fragment = @"section_heading_and_content_block_0";
     }
+    long inset = (long)self.delegate.navigationBar.visibleHeight;
+    NSString *js = [NSString stringWithFormat:@"document.getElementById(`%@`).scrollIntoView(true); window.scrollBy(0, 0 - %li);", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], inset];
+    [self.webView evaluateJavaScript:js
+                   completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+                       WMFAssertMainThread(@"Completion expected to be called on the main thread");
+                       [self.delegate webViewController:self didScrollToFragment:fragment];
+                       if (completion) {
+                           completion();
+                       }
+                   }];
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
