@@ -49,7 +49,11 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             } else {
                 scrollToFooterSection(for: item)
             }
-            self.dismiss(animated: true, completion: dismissVCCompletionHandler)
+            
+            // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
+            dispatchOnMainQueueAfterDelayInSeconds(0.1) {
+                self.dismiss(animated: true, completion: dismissVCCompletionHandler)
+            }
         }        
     }
 
