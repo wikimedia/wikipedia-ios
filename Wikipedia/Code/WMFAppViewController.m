@@ -107,6 +107,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) WMFTheme *theme;
 
+@property (nonatomic, strong) UINavigationController *settingsNavigationController;
+
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
 
 @property (nonatomic, strong, readwrite) NSDate *syncStartDate;
@@ -1845,6 +1847,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (navC) {
         [navigationControllers addObject:navC];
     }
+    if (_settingsNavigationController) {
+        [navigationControllers addObject:_settingsNavigationController];
+    }
     return navigationControllers;
 }
 
@@ -2061,12 +2066,26 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return _settingsViewController;
 }
 
+- (nonnull UINavigationController *)settingsNavigationController {
+    if (!_settingsNavigationController) {
+        WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
+        [self applyTheme:self.theme toNavigationControllers:@[navController]];
+        _settingsNavigationController = navController;
+    }
+
+    if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
+        _settingsNavigationController.viewControllers = @[self.settingsViewController];
+    }
+
+    return _settingsNavigationController;
+}
+
 - (void)showSettingsWithSubViewController:(nullable UIViewController *)subViewController animated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
     [self dismissPresentedViewControllers];
 
     if (subViewController) {
-        [self.navigationController pushViewController:subViewController animated:NO];
+        [self.settingsNavigationController pushViewController:subViewController animated:NO];
     }
 
     switch ([NSUserDefaults wmf].defaultTabType) {
@@ -2077,7 +2096,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             }
             break;
         default:
-            [self.navigationController pushViewController:self.settingsViewController animated:YES];
+            [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
             break;
     }
 }
