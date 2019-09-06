@@ -285,7 +285,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self configureTabController];
 
     self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
+
     [self applyTheme:self.theme];
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
@@ -724,7 +724,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
-
     WMFThemeableNavigationController *articleNavigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self];
     articleNavigationController.themeableNavigationControllerDelegate = self;
     articleNavigationController.delegate = self;
@@ -734,7 +733,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [window setRootViewController:articleNavigationController];
     [window makeKeyAndVisible];
     [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:articleNavigationController];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -1942,7 +1941,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         NSString *themeName = [NSUserDefaults.wmf themeName];
         if ([themeName isEqualToString:WMFTheme.defaultThemeName]) {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-        } else if ([themeName isEqualToString:WMFTheme.light.name] || [themeName isEqualToString:WMFTheme.sepia.name]){
+        } else if ([themeName isEqualToString:WMFTheme.light.name] || [themeName isEqualToString:WMFTheme.sepia.name]) {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
         } else {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
@@ -2071,6 +2070,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
+        _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
