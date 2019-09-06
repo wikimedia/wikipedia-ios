@@ -191,7 +191,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: talkPageContainerVC, flowChild: talkPageContainerVC, url: siteURL, embedOnLoad: false)
         talkPageContainerVC.loadingFlowController = loadingFlowController
         talkPageContainerVC.fromNavigationStateRestoration = fromNavigationStateRestoration
-        talkPageContainerVC.theme = theme
+        talkPageContainerVC.apply(theme: theme)
         loadingFlowController.wmf_add(childController: talkPageContainerVC, andConstrainToEdgesOfContainerView: loadingFlowController.view)
         return loadingFlowController
     }
@@ -238,6 +238,10 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         toolbar.barTintColor = theme.colors.chromeBackground
         shareIcon?.apply(theme: theme)
         languageIcon?.apply(theme: theme)
+        topicListViewController?.apply(theme: theme)
+        replyListViewController?.apply(theme: theme)
+        emptyViewController.apply(theme: theme)
+        headerView?.apply(theme: theme)
     }
 
     func pushToReplyThread(topic: TalkPageTopic, animated: Bool = true) {
@@ -831,11 +835,12 @@ extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDele
 }
 
 extension TalkPageContainerViewController: WMFLoadingFlowControllerChildProtocol {
+    
     var reachabilityNotifier: ReachabilityNotifier? {
         return nil
     }
     
-    var customNavAnimationHandler: UIViewController? {
+    var customNavAnimationHandler: (UIViewController & Themeable)? {
         return currentLoadingViewController
     }
 

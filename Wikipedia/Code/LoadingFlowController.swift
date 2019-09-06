@@ -16,7 +16,7 @@ class LoadingFlowController: UIViewController {
     private let fetchDelegate: WMFLoadingFlowControllerFetchDelegate
     private let url: URL
     private let dataStore: MWKDataStore
-    private let theme: Theme
+    private var theme: Theme
     private let embedOnLoad: Bool
     
     private let loadingAnimationViewController = LoadingAnimationViewController(nibName: "LoadingAnimationViewController", bundle: nil)
@@ -74,6 +74,10 @@ class LoadingFlowController: UIViewController {
             
             scheduleLoadingAnimation()
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return theme.preferredStatusBarStyle
     }
     
     @objc func tappedLink(url: URL) {
@@ -143,7 +147,6 @@ class LoadingFlowController: UIViewController {
         } else {
             wmf_add(childController: loadingAnimationViewController, andConstrainToEdgesOfContainerView: view)
         }
-        
     }
     
     @objc private func hideLoading() {
@@ -281,8 +284,7 @@ class LoadingFlowController: UIViewController {
         
         switch source {
         case .loadEmbed:
-            let talkPageVC = TalkPageContainerViewController(title: titleWithTalkPageNamespace, siteURL: siteURL, type: .user, dataStore: dataStore)
-            wmf_add(childController: talkPageVC, andConstrainToEdgesOfContainerView: view)
+            assertionFailure("Talk page container not setup to embed")
         case .linkPush:
             let containerVC = TalkPageContainerViewController.containedTalkPageContainer(title: titleWithTalkPageNamespace, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
             self.navigationController?.pushViewController(containerVC, animated: true)
@@ -297,9 +299,18 @@ extension LoadingFlowController: SFSafariViewControllerDelegate {
 }
 
 extension LoadingFlowController: Themeable {
+    
     func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
-        loadingAnimationViewController.theme = theme
+        loadingAnimationViewController.apply(theme: theme)
+        flowChild.apply(theme: theme)
+        flowChild.customNavAnimationHandler?.apply(theme: theme)
+        wmf_applyTheme(toEmptyView: theme)
     }
 }
 

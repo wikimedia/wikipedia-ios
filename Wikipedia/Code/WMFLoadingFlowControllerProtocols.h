@@ -7,11 +7,11 @@
 @protocol LoadingFlowControllerArticle;
 @class LoadingFlowController;
 
-@protocol WMFLoadingFlowControllerChildProtocol <NSObject>
+@protocol WMFLoadingFlowControllerChildProtocol <NSObject, WMFThemeable>
 
 @required
 @property (nonatomic, strong, readonly) WMFReachabilityNotifier * _Nullable reachabilityNotifier;
-@property (nonatomic, strong, readonly) UIViewController * _Nullable customNavAnimationHandler;
+@property (nonatomic, strong, readonly) UIViewController<WMFThemeable> * _Nullable customNavAnimationHandler;
 @property (nonatomic, weak) LoadingFlowController * _Nullable loadingFlowController;
 - (BOOL)handleCustomSuccessWithArticle:(id<LoadingFlowControllerArticle> _Nonnull)article url:(NSURL * _Nonnull)url;
 - (void)showDefaultEmbedFailureWithError:(NSError * _Nonnull)error;

@@ -2383,7 +2383,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 #pragma mark - WMFLoadingFlowControllerChildProtocol
 
-- (UIViewController * _Nullable)customNavAnimationHandler {
+- (UIViewController<WMFThemeable> * _Nullable)customNavAnimationHandler {
     return nil;
 }
 
@@ -2392,8 +2392,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 }
 
 - (void)showDefaultEmbedFailureWithError:(NSError *)error {
-    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
-    [self.loadingFlowController wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
+    [self.loadingFlowController wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.loadingFlowController.view.bounds];
 }
 
 - (void)showDefaultLinkFailureWithError:(NSError *)error {
