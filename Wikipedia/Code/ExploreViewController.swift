@@ -3,6 +3,9 @@ import WMF
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding, EventLoggingEventValuesProviding {
 
+    public var presentedContentGroupKey: String?
+    public var shouldRestoreScrollPosition = false
+
     // MARK - UIViewController
     
     override func viewDidLoad() {
@@ -36,7 +39,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
@@ -54,6 +56,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionViewUpdater?.isGranularUpdatingEnabled = true
+        restoreScrollPositionIfNeeded()
+    }
+
+    private func restoreScrollPositionIfNeeded() {
+        guard
+            shouldRestoreScrollPosition,
+            let presentedContentGroupKey = presentedContentGroupKey,
+            let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
+            let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
+        else {
+            return
+        }
+        collectionView.scrollToItem(at: indexPath, at: [], animated: false)
+        self.shouldRestoreScrollPosition = false
+        self.presentedContentGroupKey = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -429,6 +446,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
+        presentedContentGroupKey = group.key
+
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
             wmf_push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
             return
@@ -575,7 +594,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         let context = FeedFunnelContext(contentGroup)
-
+        presentedContentGroupKey = contentGroup.key
         switch contentGroup.detailType {
         case .gallery:
             present(vc, animated: true)
