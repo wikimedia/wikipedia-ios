@@ -154,7 +154,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.layoutIfNeeded() // hax to recalculate the height of footers
+        tableView.reloadData()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
