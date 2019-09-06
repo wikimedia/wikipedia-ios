@@ -775,11 +775,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
         combinedCompletion();
     } else {
-        long inset = (long)self.webView.scrollView.contentInset.top;
+        long inset = (long)self.delegate.navigationBar.visibleHeight;
         NSString *js = [NSString stringWithFormat:@"document.getElementById(`%@`).scrollIntoView(); window.scrollBy(0, 0 - %li);", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], inset];
-        [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            combinedCompletion();
-        }];
+        [self.webView evaluateJavaScript:js
+                       completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+                           combinedCompletion();
+                       }];
     }
 }
 
