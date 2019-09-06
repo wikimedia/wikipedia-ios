@@ -43,7 +43,7 @@ struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
 @objc(WMFAppearanceSettingsViewController)
 final class AppearanceSettingsViewController: SubSettingsViewController {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
-
+    private let themeNamesWithImageDimming: Set<String> = [Theme.black.name, Theme.dark.name, Theme.blackDimmed.name]
     var sections = [AppearanceSettingsSection]()
 
     @objc static var disclosureText: String {
@@ -153,6 +153,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
 
         if item is AppearanceSettingsDimSwitchItem {
             cell.disclosureType = .switch
+            cell.disclosureSwitch.isEnabled = themeNamesWithImageDimming.contains(UserDefaults.wmf.themeName)
             cell.disclosureSwitch.isOn = UserDefaults.wmf.wmf_isImageDimmingEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-image-dimming"
@@ -162,7 +163,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         }
         else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
             cell.disclosureType = .switch
-            cell.disclosureSwitch.isEnabled = true
+            cell.disclosureSwitch.isEnabled = UserDefaults.wmf.themeName == Theme.dark.name || UserDefaults.wmf.themeName == Theme.black.name || UserDefaults.wmf.themeName == Theme.blackDimmed.name
             cell.disclosureSwitch.isOn = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-tables-expand"
