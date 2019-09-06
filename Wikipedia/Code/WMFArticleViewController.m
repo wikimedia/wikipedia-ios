@@ -192,7 +192,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self) {
         NSString *fragment = [url fragment];
         if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-            self.initialFragment = fragment;
+            self.initialFragment = [fragment stringByRemovingPercentEncoding];
         }
         self.restoreScrollPosition = fragment != nil;
         self.theme = theme;
