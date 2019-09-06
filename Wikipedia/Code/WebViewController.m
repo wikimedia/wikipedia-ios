@@ -764,32 +764,22 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
     if (fragment.length == 0) {
-        // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
-        if (completion) {
-            completion();
-        }
-    } else {
-        [self.webView getScrollViewRectForHtmlElementWithId:fragment
-                                                 completion:^(CGRect rect) {
-                                                     if (!CGRectIsNull(rect)) {
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
-                                                                                                  animated:animated
-                                                                                                completion:^(BOOL finished) {
-                                                                                                    if (completion) {
-                                                                                                        completion();
-                                                                                                    }
-                                                                                                }];
-                                                     } else if (completion) {
-                                                         completion();
-                                                     }
-                                                 }];
+        fragment = @"section_heading_and_content_block_0";
     }
+    long inset = (long)self.delegate.navigationBar.visibleHeight;
+    NSString *js = [NSString stringWithFormat:@"document.getElementById(`%@`).scrollIntoView(true); window.scrollBy(0, 0 - %li);", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], inset];
+    [self.webView evaluateJavaScript:js
+                   completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+                       WMFAssertMainThread(@"Completion expected to be called on the main thread");
+                       [self.delegate webViewController:self didScrollToFragment:fragment];
+                       if (completion) {
+                           completion();
+                       }
+                   }];
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
     [self scrollToFragment:section.anchor animated:animated completion:NULL];
-    [self.delegate webViewController:self didScrollToSection:section];
 }
 
 - (void)accessibilityCursorToSection:(MWKSection *)section {
