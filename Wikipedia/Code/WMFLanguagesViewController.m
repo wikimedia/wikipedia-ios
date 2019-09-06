@@ -469,7 +469,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController nonPreferredLanguagesViewController];
     languagesVC.delegate = self;
     [languagesVC applyTheme:self.theme];
-    [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:languagesVC theme:self.theme] animated:YES completion:NULL];
+    [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:languagesVC theme:self.theme style:WMFThemeableNavigationControllerStyleSheet] animated:YES completion:NULL];
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
