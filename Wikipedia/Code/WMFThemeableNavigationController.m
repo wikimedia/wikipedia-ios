@@ -1,4 +1,6 @@
 #import "WMFThemeableNavigationController.h"
+#import "WMFAppViewController.h"
+
 
 @interface WMFThemeableNavigationController ()
 
@@ -57,9 +59,14 @@
         if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
             [_splashView setImage:[UIImage imageNamed:@"splashscreen-background"]];
         }
-        _splashView.backgroundColor = [UIColor whiteColor];
+        if (@available(iOS 13.0, *)) {
+            _splashView.backgroundColor = [UIColor systemBackgroundColor];
+        } else {
+            _splashView.backgroundColor = [UIColor whiteColor];
+
+        }
         [self.view wmf_addSubviewWithConstraintsToEdges:_splashView];
-        UIImage *wordmark = [UIImage imageNamed:@"wikipedia-wordmark"];
+        UIImage *wordmark = [UIImage imageNamed:@"splashscreen-wordmark"];
         UIImageView *wordmarkView = [[UIImageView alloc] initWithImage:wordmark];
         wordmarkView.translatesAutoresizingMaskIntoConstraints = NO;
         [_splashView addSubview:wordmarkView];
@@ -93,6 +100,11 @@
                      completion:^(BOOL finished) {
                          self.splashView.hidden = YES;
                      }];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self.themeableNavigationControllerDelegate themeableNavigationControllerTraitCollectionDidChange:self];
 }
 
 @end

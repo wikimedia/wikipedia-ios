@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFThemeableTextField)
 open class ThemeableTextField: UITextField, Themeable {
-    var theme = Theme.standard
+    var theme = Theme.light
     @objc public var isUnderlined = true
     private var clearButton: UIButton?
     public var clearAccessibilityLabel: String? {

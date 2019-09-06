@@ -1,6 +1,19 @@
 
-class WMFWelcomePanelViewController: UIViewController {
-    private var theme = Theme.standard
+class WMFWelcomePanelViewController: ThemeableViewController {
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        scrollView.apply(theme: theme)
+        nextButton.backgroundColor = theme.colors.link
+        for child in children {
+            guard let themeable = child as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
+    }
     
     @IBOutlet private var containerView:UIView!
     @IBOutlet private var titleLabel:UILabel!
@@ -19,7 +32,7 @@ class WMFWelcomePanelViewController: UIViewController {
             titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .medium)
         }
         
-        nextButton.backgroundColor = theme.colors.link
+        
         embedContainerControllerView()
         updateUIStrings()
 
@@ -32,13 +45,14 @@ class WMFWelcomePanelViewController: UIViewController {
     
     private func embedContainerControllerView() {
         if let containerController = containerController {
+            containerController.apply(theme: theme)
             addChild(containerController)
             containerView.wmf_addSubviewWithConstraintsToEdges(containerController.view)
             containerController.didMove(toParent: self)
         }
     }
     
-    private lazy var containerController: UIViewController? = {
+    private lazy var containerController: ThemeableViewController? = {
         switch welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionViewController.wmf_viewControllerFromWelcomeStoryboard()
@@ -85,10 +99,17 @@ private extension UIScrollView {
     }
 }
 
-class WMFWelcomePanelGradientScrollView : UIScrollView {
+class WMFWelcomePanelGradientScrollView : UIScrollView, Themeable {
+    func apply(theme: Theme) {
+        fadeColor = theme.colors.paperBackground
+        clear = theme.colors.paperBackground.withAlphaComponent(0)
+        bottomGradientView.setStart(fadeColor, end: clear)
+        topGradientView.setStart(fadeColor, end: clear)
+    }
+    
     private let fadeHeight: CGFloat = 8
-    private let fadeColor = UIColor.white
-    private let clear = UIColor.white.withAlphaComponent(0)
+    private var fadeColor = UIColor.white
+    private var clear = UIColor.white.withAlphaComponent(0)
     private lazy var topGradientView: WMFGradientView = {
         let gradient = WMFGradientView()
         gradient.translatesAutoresizingMaskIntoConstraints = false

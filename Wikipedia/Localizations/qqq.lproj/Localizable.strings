@@ -738,6 +738,8 @@
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";
 "theme-default-display-name" = "Default theme name presented to the user";
+"theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
+"theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
 "top-read-header-generic" = "Wikipedia {{Identical|Wikipedia}}";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia {{Identical|Wikipedia}}";

@@ -26,7 +26,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let userDefaults = UserDefaults.wmf
         
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
-        let theme = userDefaults.wmf_appTheme.analyticsName
+        let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
         let isNewsNotificationEnabled = userDefaults.wmf_inTheNewsNotificationsEnabled()
         let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab

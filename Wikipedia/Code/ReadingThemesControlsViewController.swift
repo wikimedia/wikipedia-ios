@@ -10,7 +10,8 @@ protocol WMFReadingThemesControlsViewControllerDelegate: class {
 class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
-    @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
+    @objc static let WMFUserDidSelectThemeNotificationThemeNameKey = "themeName"
+    @objc static let WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey = "isImageDimmingEnabled"
     @objc static let nibName = "ReadingThemesControlsViewController"
     
     var theme = Theme.standard
@@ -150,7 +151,7 @@ class ReadingThemesControlsViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
-        let currentTheme = UserDefaults.wmf.wmf_appTheme
+        let currentTheme = UserDefaults.wmf.theme(compatibleWith: traitCollection)
         apply(theme: currentTheme)
     }
     
@@ -200,7 +201,7 @@ class ReadingThemesControlsViewController: UIViewController {
     }
     
     func userDidSelect(theme: Theme) {
-        let userInfo = ["theme": theme]
+        let userInfo = [ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey: theme.name]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     

@@ -1,5 +1,5 @@
 
-class WMFWelcomeExplorationViewController: UIViewController {
+class WMFWelcomeExplorationViewController: ThemeableViewController {
 
     @IBOutlet private var exploreTitleLabel:UILabel!
     @IBOutlet private var exploreDescriptionLabel:UILabel!

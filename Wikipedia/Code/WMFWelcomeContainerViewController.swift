@@ -1,5 +1,18 @@
 
-class WMFWelcomeContainerViewController: UIViewController {
+class WMFWelcomeContainerViewController: ThemeableViewController {
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        for child in children {
+            guard let themeable = child as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
+    }
     
     @IBOutlet private var bottomContainerView:UIView!
     @IBOutlet private var overallContainerStackView:UIStackView!
@@ -73,8 +86,10 @@ class WMFWelcomeContainerViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? WMFWelcomePanelViewController {
             vc.welcomePageType = welcomePageType
+            vc.apply(theme: theme)
         } else if let vc = segue.destination as? WMFWelcomeAnimationViewController{
             vc.welcomePageType = welcomePageType
+            vc.apply(theme: theme)
         }
     }
     
