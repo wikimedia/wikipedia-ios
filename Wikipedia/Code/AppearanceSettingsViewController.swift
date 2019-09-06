@@ -163,6 +163,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         }
         else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
             cell.disclosureType = .switch
+            cell.disclosureSwitch.isEnabled = true
             cell.disclosureSwitch.isOn = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-tables-expand"
