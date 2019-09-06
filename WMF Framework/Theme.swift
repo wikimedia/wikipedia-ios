@@ -381,16 +381,7 @@ public class Theme: NSObject {
     }
     
     @objc public lazy var searchFieldBackgroundImage: UIImage? = {
-        let height: CGFloat
-        let cornerRadius: CGFloat
-        if #available(iOS 13, *) {
-            height = 30
-            cornerRadius = 7
-        } else {
-            height = 36
-            cornerRadius = 10
-        }
-        return Theme.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: cornerRadius, height: height)
+        return Theme.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: 10, height: 36)
     }()
 
     @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedString.Key: Any] = {
