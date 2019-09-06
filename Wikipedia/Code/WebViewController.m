@@ -791,6 +791,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                    count:self.article.sections.count
+                                                insetTop:self.delegate.navigationBar.visibleHeight
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
@@ -804,6 +805,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"pagelib_footer_container_section_"
                                                    count:2
+                                                insetTop:self.delegate.navigationBar.visibleHeight
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
