@@ -775,7 +775,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                                                   animated:animated
-                                                                                                completion:^(BOOL finished){
+                                                                                                completion:^(BOOL finished) {
                                                                                                     if (completion) {
                                                                                                         completion();
                                                                                                     }
@@ -863,7 +863,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
     SchemeHandler *handler = [SchemeHandler shared];
-    [handler cacheSectionDataForArticle: self.article];
+    [handler cacheSectionDataForArticle:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 }
