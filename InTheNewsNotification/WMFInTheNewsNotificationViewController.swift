@@ -34,6 +34,7 @@ class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotific
         statusLabel.textColor = theme.colors.accent
         readerCountLabel.textColor = theme.colors.accent
         timeLabel.textColor = theme.colors.secondaryText
+        sparklineView.apply(theme: theme)
     }
 
     var articleURL: URL?

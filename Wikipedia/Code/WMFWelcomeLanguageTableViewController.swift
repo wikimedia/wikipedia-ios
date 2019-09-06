@@ -12,8 +12,16 @@ class WMFWelcomeLanguageIntrinsicTableView: UITableView {
     }
 }
 
-class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
-    private var theme = Theme.standard
+class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        languageTableView.reloadData()
+        moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
+    }
     
     @IBOutlet private var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
     @IBOutlet private var moreLanguagesButton:UIButton!
@@ -26,7 +34,6 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         
         languageTableView.alwaysBounceVertical = false
         moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-or-edit-button", value:"Add or edit preferred languages", comment:"Title for button for managing languages"), for: .normal)
-        moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
         languageTableView.rowHeight = UITableView.automaticDimension
         languageTableView.estimatedRowHeight = 30
         languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
@@ -49,22 +56,17 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
         cell.languageName = langLink.name
         cell.isPrimary = indexPath.row == 0
+        (cell as Themeable).apply(theme: theme)
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // https://stackoverflow.com/a/3991688/135557
-        cell.backgroundColor = .clear
-        cell.backgroundView?.backgroundColor = .clear
-        cell.contentView.backgroundColor = .clear
     }
     
     @IBAction func addLanguages(withSender sender: AnyObject) {
-        let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
-        langsVC?.showExploreFeedCustomizationSettings = false
-        langsVC?.delegate = self
-        let navC = WMFThemeableNavigationController(rootViewController: langsVC!, theme: Theme.standard)
-        present(navC, animated: true, completion: nil)
+        if let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController() {
+            langsVC.showExploreFeedCustomizationSettings = false
+            langsVC.delegate = self
+            let navC = WMFThemeableNavigationController(rootViewController: langsVC, theme: self.theme)
+            present(navC, animated: true, completion: nil)
+        }
     }
     
     func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages:[MWKLanguageLink]){

@@ -738,6 +738,8 @@
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
 "theme-default-display-name" = "Default";
+"theme-default-explanation" = "Matches system theme";
+"theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

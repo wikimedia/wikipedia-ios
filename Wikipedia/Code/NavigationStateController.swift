@@ -54,6 +54,7 @@ final class NavigationStateController: NSObject {
         case .push:
             navigationController.pushViewController(viewController, animated: animated)
         case .modal:
+            viewController.modalPresentationStyle = .overFullScreen
             navigationController.present(viewController, animated: animated)
         }
     }
