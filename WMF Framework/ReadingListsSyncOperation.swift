@@ -383,7 +383,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 for i in 1...countOfEntriesToCreate {
                     taskGroup.enter()
                     randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
-                        if let key = result?.wmf_articleDatabaseKey, let summary = summary {
+                        if let key = result?.wmf_databaseKey, let summary = summary {
                            summaryResponses[key] = summary
                         }
                         taskGroup.leave()
@@ -393,7 +393,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         guard !isCancelled  else {
                             throw ReadingListsOperationError.cancelled
                         }
-                        let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
+                        let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
+                        let articles = Array(articlesByKey.values)
                         try readingListsController.add(articles: articles, to: list, in: moc)
                         if let defaultReadingList = moc.wmf_fetchDefaultReadingList() {
                             try readingListsController.add(articles: articles, to: defaultReadingList, in: moc)
@@ -734,7 +735,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 guard !isDeleted else {
                     return
                 }
-                guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey else {
+                guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_databaseKey else {
                     return
                 }
                 remoteEntriesToCreateLocallyByArticleKey[articleKey] = remoteEntry
@@ -746,7 +747,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     articlesByKey[articleKey] = article
                 } else {
                     group.enter()
-                    summaryFetcher.fetchSummary(for: articleURL, completion: { (result, response, error) in
+                    summaryFetcher.fetchSummaryForArticle(with: articleKey, completion: { (result, response, error) in
                         guard let result = result else {
                             group.leave()
                             return
@@ -766,14 +767,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             throw ReadingListsOperationError.cancelled
         }
         
-        let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
-        for article in articles {
-            guard let articleKey = article.key else {
-                continue
-            }
-            articlesByKey[articleKey] = article
-        }
-        
+        let updatedArticlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
+        articlesByKey.merge(updatedArticlesByKey, uniquingKeysWith: { (a, b) in return a })
         var finalReadingListsByEntryID: [Int64: ReadingList]
         if let readingListsByEntryID = readingListsByEntryID {
             finalReadingListsByEntryID = readingListsByEntryID
@@ -819,10 +814,20 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 
-                guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
-                    return
-                }
+                var entry = ReadingListEntry(context: moc)
                 entry.update(with: remoteEntry)
+    
+                // if there's a key mismatch, locally delete the bad entry and create a new one with the correct key
+                if remoteEntry.articleKey != article.key {
+                    entry.list = readingList
+                    entry.articleKey = remoteEntry.articleKey
+                    try? readingListsController.markLocalDeletion(for: [entry])
+                    entry = ReadingListEntry(context: moc)
+                    entry.update(with: remoteEntry)
+                    entry.readingListEntryID = nil
+                    entry.isUpdatedLocally = true
+                }
+                
                 if entry.createdDate == nil {
                     entry.createdDate = NSDate()
                 }

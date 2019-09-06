@@ -17,10 +17,6 @@ class TalkPageTopicNewViewController: ViewController {
     @IBOutlet private var divViews: [UIView]!
     @IBOutlet private var containerViews: [UIView]!
 
-    private var beKindViewTopConstraint: NSLayoutConstraint!
-    private var beKindViewBottomConstraint: NSLayoutConstraint!
-    private var beKindViewHeightConstraint: NSLayoutConstraint!
-
     private lazy var beKindInputAccessoryView: BeKindInputAccessoryView = {
         return BeKindInputAccessoryView.wmf_viewFromClassNib()
     }()
@@ -37,13 +33,13 @@ class TalkPageTopicNewViewController: ViewController {
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var publishButton: UIBarButtonItem!
-    
+
     private var bodyPlaceholder: String {
         return WMFLocalizedString("talk-page-new-topic-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new topic body field for talk pages.")
     }
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.") //todo: gfd or gfdl?
+        let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
         
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
@@ -89,6 +85,8 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.inputAccessoryView = beKindInputAccessoryView
         bodyTextView.inputAccessoryView = beKindInputAccessoryView
         beKindInputAccessoryView.delegate = self
+        updateFonts()
+        apply(theme: theme)
     }
 
     override var inputAccessoryView: UIView? {
@@ -125,6 +123,16 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.isUserInteractionEnabled = true
         bodyTextView.isUserInteractionEnabled = true
     }
+    
+    func announcePostSuccessful() {
+        NotificationCenter.default.addObserver(self, selector: #selector(announcementDidFinish(notification:)), name: UIAccessibility.announcementDidFinishNotification, object: nil)
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.successfullyPublishedDiscussion)
+    }
+    
+    @objc private func announcementDidFinish(notification: NSNotification) {
+         navigationController?.popViewController(animated: true)
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -141,6 +149,11 @@ class TalkPageTopicNewViewController: ViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         containerViews.forEach { $0.backgroundColor = theme.colors.paperBackground }
         divViews.forEach { $0.backgroundColor = theme.colors.border }
@@ -149,7 +162,6 @@ class TalkPageTopicNewViewController: ViewController {
         beKindInputAccessoryView.apply(theme: theme)
         subjectTextField.apply(theme: theme)
         bodyTextView.apply(theme: theme)
-        super.apply(theme: theme)
     }
 }
 
@@ -170,10 +182,15 @@ private extension TalkPageTopicNewViewController {
     
     func setupTextInputViews() {
         subjectTextField.isUnderlined = false
+        subjectTextField.accessibilityLabel = WMFLocalizedString("talk-page-new-subject-textfield-accessibility-label", value: "Subject", comment: "Accessibility label for subject text field.")
+        bodyTextView.accessibilityLabel = WMFLocalizedString("talk-page-new-body-textfield-accessibility-label", value: "Discussion Body", comment: "Accessibility label for discussion body text field.")
         bodyTextView.isUnderlined = false
         bodyTextView._delegate = self
         
         subjectTextField.placeholder = WMFLocalizedString("talk-page-new-subject-placeholder-text", value: "Subject", comment: "Placeholder text which appears initially in the new topic subject field for talk pages.")
+        
+        let clearAccessibilityLabel = WMFLocalizedString("talk-page-new-subject-clear-button-accessibility", value: "Clear subject", comment: "Accessibility label for the clear values X button in the talk page new subject textfield.")
+        subjectTextField.clearAccessibilityLabel = clearAccessibilityLabel
         
         subjectTextField.addTarget(self, action: #selector(evaluatePublishButtonState), for: .editingChanged)
     }
@@ -211,7 +228,7 @@ private extension TalkPageTopicNewViewController {
             if let oldText = oldText, oldText.count > 0 {
                 bodyTextView.text = oldText
                 bodyTextView.placeholder = nil
-            } else if bodyTextView.isShowingPlaceholder {
+            } else if bodyTextView.isShowingPlaceholder && !UIAccessibility.isVoiceOverRunning {
                 bodyTextView.placeholder = bodyPlaceholder
             } else {
                 bodyTextView.text = nil

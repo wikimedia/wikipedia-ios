@@ -7,7 +7,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
 
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
-        self.articleKeys = Set<String>(articleURLs.compactMap { $0.wmf_articleDatabaseKey } )
+        self.articleKeys = Set<String>(articleURLs.compactMap { $0.wmf_databaseKey } )
         self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init()
         feedFunnelContext = FeedFunnelContext(contentGroup)

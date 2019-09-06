@@ -1,4 +1,5 @@
-class WMFWelcomeAnimationViewController: UIViewController {
+class WMFWelcomeAnimationViewController: ThemeableViewController {
+    
     var welcomePageType:WMFWelcomePageType = .intro
     private var hasAlreadyAnimated = false
     
@@ -21,6 +22,14 @@ class WMFWelcomeAnimationViewController: UIViewController {
             animationView.beginAnimations()
         }
         hasAlreadyAnimated = true
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        animationView?.apply(theme: theme)
     }
 }
 
@@ -79,6 +88,14 @@ class WMFWelcomeAnimationBackgroundViewController: WMFWelcomeAnimationViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wmf_addHorizontalAndVerticalParallax(amount: 12)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.paperBackground
     }
 }
 

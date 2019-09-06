@@ -99,6 +99,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         super.viewDidLoad()
         layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier, addPlaceholder: true)
         emptyViewType = .noReadingLists
+        emptyViewTarget = self
         emptyViewAction = #selector(presentCreateReadingListViewController)
         setupEditController()
         // Remove peek & pop for now

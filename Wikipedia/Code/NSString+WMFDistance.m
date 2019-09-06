@@ -31,7 +31,7 @@
             // Show in miles if over 0.1 miles.
             NSNumber *displayDistance = @(distance / 5280.0f);
             NSString *distanceIntString = [NSString stringWithFormat:@"%.2f", displayDistance.floatValue];
-            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-miles", nil, nil, @"%1$@ miles", @"Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* %1$@ - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}\n{{Identical|Mile}}"), distanceIntString];
+            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-miles", nil, nil, @"%1$@ miles", @"Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* %1$@ - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}"), distanceIntString];
         } else {
             // Show in feet if under 0.1 miles.
             NSString *distanceIntString = [NSString stringWithFormat:@"%.f", distance];

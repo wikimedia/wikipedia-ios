@@ -1,4 +1,4 @@
-// Messages for Sundanese (Basa Sunda)
+// Messages for Sundanese (Sunda)
 // Exported from translatewiki.net
 // Author: Dipusparaga
 // Author: Kandar
@@ -183,7 +183,6 @@
 "home-themes-prompt" = "Luyukeun préférénsi bacaan anjeun kaasup ukuran téks jeung téma tina bilah alat artikel atawa di pangaturan pamaké anjeun pikeun pangalaman maca nu leuwih tumaninah.";
 "home-title" = "Langlang";
 "home-title-accessibility-label" = "Wikipédia, gilirkeun ka luhur kaca Langlangan";
-"icon-shortcut-continue-reading-title" = "Teruskeun Maca";
 "icon-shortcut-nearby-title" = "Artikel sabudeureun";
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Paluruh Wikipédia";

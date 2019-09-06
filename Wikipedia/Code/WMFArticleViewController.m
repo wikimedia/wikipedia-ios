@@ -142,6 +142,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
 @property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
 @property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
+@property (nonatomic, assign) BOOL restoreScrollPosition;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
@@ -191,8 +192,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self) {
         NSString *fragment = [url fragment];
         if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-            self.initialFragment = fragment;
+            self.initialFragment = [fragment stringByRemovingPercentEncoding];
         }
+        self.restoreScrollPosition = fragment != nil;
         self.theme = theme;
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
@@ -374,7 +376,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (void)articleWasUpdatedWithNotification:(NSNotification *)note {
     WMFArticle *article = [note object];
     NSString *articleKey = article.key;
-    NSString *myDatabaseKey = self.articleURL.wmf_articleDatabaseKey;
+    NSString *myDatabaseKey = self.articleURL.wmf_databaseKey;
     if (articleKey && myDatabaseKey && [articleKey isEqual:myDatabaseKey]) {
         [self updateSaveButtonStateForSaved:article.savedDate != nil];
     }
@@ -555,7 +557,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (IconBarButtonItem *)showTableOfContentsToolbarItem {
     if (!_showTableOfContentsToolbarItem) {
         _showTableOfContentsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"toc" target: self action:@selector(showTableOfContents:) for: UIControlEventTouchUpInside];
-        _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}");
         [_showTableOfContentsToolbarItem applyTheme:self.theme];
         return _showTableOfContentsToolbarItem;
     }
@@ -572,7 +574,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             button.layer.masksToBounds = YES;
         }
 
-        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}");
 
         [_hideTableOfContentsToolbarItem applyTheme:self.theme];
     }
@@ -631,6 +633,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (IconBarButtonItem *)languagesToolbarItem {
     if (!_languagesToolbarItem) {
         _languagesToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"language" target: self action:@selector(showLanguagePicker) for: UIControlEventTouchUpInside];
+        _languagesToolbarItem.accessibilityLabel = WMFCommonStrings.accessibilityLanguagesTitle;
         [_languagesToolbarItem applyTheme:self.theme];
     }
     return _languagesToolbarItem;
@@ -682,8 +685,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         return;
     }
     [self.navigationBar setProgress:progress animated:animated];
-
-    [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
 
 - (void)completeAndHideProgressWithCompletion:(nullable dispatch_block_t)completion {
@@ -846,10 +847,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    //TODO: Is this needed? iBooks doesn't dismiss the popover on rotation.
-    //    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
-    //        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    //    }
     [self registerForPreviewingIfAvailable];
     NSNumber *multiplier = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];
@@ -1025,6 +1022,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+
     [self updateTableOfContentsDisplayModeWithTraitCollection:newCollection];
     [self setupTableOfContentsViewController];
 }
@@ -1113,7 +1111,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         case WMFTableOfContentsDisplayModeModal:
         default:
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
-            [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+            if (!self.presentedViewController) {
+                [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+            }
     }
     [self updateToolbar];
 }
@@ -1303,17 +1303,31 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
             [self endRefreshing];
             [self hideProgressViewAnimated:YES];
-            [self.delegate articleControllerDidLoadArticle:self];
 
             MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
             if (cachedFallback) {
-                self.article = cachedFallback;
-                if (![error wmf_isNetworkConnectionError]) {
-                    // don't show offline banner for cached articles
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                              sticky:NO
-                                               dismissPreviousAlerts:NO
-                                                         tapCallBack:NULL];
+                if (cachedFallback.ns == PageNamespaceMain) {
+                    self.article = cachedFallback;
+                    if (![error wmf_isNetworkConnectionError]) {
+                        // don't show offline banner for cached articles
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                  sticky:NO
+                                                   dismissPreviousAlerts:NO
+                                                             tapCallBack:NULL];
+                    }
+                } else {
+                    NSURL *cachedFallbackURL = cachedFallback.url;
+                    if (cachedFallbackURL) {
+                        [self showExternalURL:cachedFallbackURL];
+                    } else {
+                        if (![error wmf_isNetworkConnectionError]) {
+                            // don't show offline banner for cached articles
+                            [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                      sticky:NO
+                                                       dismissPreviousAlerts:NO
+                                                                 tapCallBack:NULL];
+                        }
+                    }
                 }
             } else if ([error.domain isEqualToString:WMFFetcher.unexpectedResponseError.domain] && error.code == WMFFetcher.unexpectedResponseError.code) {
                 NSURL *externalURL = self.articleURL;
@@ -1335,7 +1349,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                                         completion:^(){
                                                                         }];
                 } else {
-                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
+                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
                                                dismissPreviousAlerts:NO
@@ -1353,13 +1367,24 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         }
         success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
             @strongify(self);
-            self.requestLatestRevisionOnInitialLoad = NO;
             [self endRefreshing];
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-            self.articleURL = articleURL;
-            self.article = article;
-            self.articleFetcherPromise = nil;
-            [self articleDidLoad];
+            self.requestLatestRevisionOnInitialLoad = NO;
+
+            if (article.ns == PageNamespaceMain) {
+                [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+                self.articleURL = articleURL;
+                self.article = article;
+                self.articleFetcherPromise = nil;
+                [self articleDidLoad];
+            } else {
+                [self hideProgressViewAnimated:YES];
+
+                [self showExternalURL:articleURL];
+
+                self.articleFetcherPromise = nil;
+                [self articleDidLoad];
+                [self showWebView];
+            }
         }];
 }
 
@@ -1538,9 +1563,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
+        if (!self.restoreScrollPosition) {
+            [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+        }
     }
-
-    [self.delegate articleControllerDidLoadArticle:self];
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
@@ -1630,7 +1656,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || (self.restoreScrollPosition && self.tableOfContentsViewController.viewIfLoaded != nil)) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+        [self updateTableOfContentsHighlightWithScrollView:scrollView];
+        self.restoreScrollPosition = NO;
+    }
+
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
@@ -2148,7 +2182,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     };
 
     UIPreviewAction *shareAction =
-        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
+        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share {{Identical|Share}}")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {

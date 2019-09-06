@@ -42,6 +42,7 @@ final class WelcomePageViewController: UIPageViewController {
             }
         }
         addPageControlButtons()
+        updateFonts()
         apply(theme: theme)
     }
 
@@ -111,6 +112,10 @@ final class WelcomePageViewController: UIPageViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         let buttonFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         nextButton.titleLabel?.font = buttonFont
         skipButton.titleLabel?.font = buttonFont

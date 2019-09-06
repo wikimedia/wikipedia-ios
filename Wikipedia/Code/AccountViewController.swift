@@ -80,9 +80,11 @@ class AccountViewController: SubSettingsViewController {
         case .logout:
             cell.disclosureType = .viewControllerWithDisclosureText
             cell.disclosureText = item.type == .logout ? CommonStrings.logoutTitle : nil
+            cell.accessibilityTraits = .button
         case .talkPage:
             cell.disclosureType = .viewController
             cell.disclosureText = nil
+            cell.accessibilityTraits = .button
         case .talkPageAutoSignDiscussions:
             cell.disclosureType = .switch
             cell.selectionStyle = .none
@@ -148,7 +150,7 @@ class AccountViewController: SubSettingsViewController {
             self.delegate?.accountViewControllerDidTapLogout(self)
             self.navigationController?.popViewController(animated: true)
         }
-        let cancelAction = UIAlertAction(title: WMFLocalizedString("main-menu-account-logout-cancel", value: "Cancel", comment: "Button text for hiding the log out menu.\n{{Identical|Cancel}}"), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: WMFLocalizedString("main-menu-account-logout-cancel", value: "Cancel", comment: "Button text for hiding the log out menu. {{Identical|Cancel}}"), style: .cancel, handler: nil)
         alertController.addAction(logoutAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
@@ -156,6 +158,11 @@ class AccountViewController: SubSettingsViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         tableView.backgroundColor = theme.colors.baseBackground
     }

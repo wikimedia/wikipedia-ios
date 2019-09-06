@@ -61,6 +61,7 @@
 "action-add-to-reading-list-short" = "Додај во список";
 "action-cancel" = "Откажи";
 "action-find-in-page" = "Најди на страницата";
+"action-language-accessibility" = "Смени јазик";
 "action-move-to" = "Премести во...";
 "action-move-to-reading-list" = "Премести во списокот за читање";
 "action-read" = "Прочитај";
@@ -329,6 +330,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Од Википедија на $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-randomizer" = "Случаен избирач";
+"featured-article-empty-title" = "Нема избрана статија за денес";
 "feed-news-notification-button-text" = "Вклучи известувања";
 "feed-news-notification-text" = "Овозможи известувања од статии за Википедија кога се тековни во вестите.";
 "fetcher-error-generic" = "Нешто не е во ред. Обидете се подоцна.";
@@ -383,7 +385,6 @@
 "home-themes-prompt" = "Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања за поудобно читање.";
 "home-title" = "Истражете";
 "home-title-accessibility-label" = "Википедија, пролизгајте најгоре до Истражете";
-"icon-shortcut-continue-reading-title" = "Продолжете со читање";
 "icon-shortcut-nearby-title" = "Статии во близина";
 "icon-shortcut-random-title" = "Случајна статија";
 "icon-shortcut-search-title" = "Пребарај ја Википедија";
@@ -712,8 +713,14 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"talk-page-add-discussion-accessibility-label" = "Додај расправа";
+"talk-page-discussion-accessibility-hint" = "Допрете двапати за да ја отворите расправата";
+"talk-page-discussion-read-accessibility-label" = "Прочитано";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
+"talk-page-discussion-unread-accessibility-label" = "Непрочитано";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
 "talk-page-error-unable-to-post-reply" = "Не сте поврзани со семрежјето. Не можам да го објавам одговорот.";
-"talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам темата.";
+"talk-page-error-unable-to-post-topic" = "Не сте поврзани со семрежјето. Не можам да ја објавам расправата.";
 "talk-page-info-active-conversations" = "Тековни разговори на Википедија на $1";
 "talk-page-info-active-conversations-generic" = "Тековни разговори на Википедија";
 "talk-page-link-user-action-sheet-app" = "Погл. разгов. страница во прилогот";
@@ -721,9 +728,13 @@
 "talk-page-link-user-action-sheet-title" = "Кориснички страници";
 "talk-page-new-banner-subtitle" = "Запомнете, сите тука сме луѓе";
 "talk-page-new-banner-title" = "Бидете учтиви";
+"talk-page-new-body-textfield-accessibility-label" = "Текст на расправата";
+"talk-page-new-reply-body-accessibility-label" = "Напиши одговор";
 "talk-page-new-reply-body-placeholder-text" = "Напиши одговор";
 "talk-page-new-reply-success-text" = "Одговорот е успешно објавен";
+"talk-page-new-subject-clear-button-accessibility" = "Исчисти наслов";
 "talk-page-new-subject-placeholder-text" = "Наслов";
+"talk-page-new-subject-textfield-accessibility-label" = "Наслов";
 "talk-page-new-topic-body-placeholder-text" = "Состави нова расправа";
 "talk-page-new-topic-success-text" = "Расправата е успешно објавена.";
 "talk-page-new-topic-title" = "Нова расправа";

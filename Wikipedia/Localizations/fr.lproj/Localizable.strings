@@ -11,6 +11,7 @@
 // Author: John Trololo
 // Author: Macofe
 // Author: Nemo bis
+// Author: Nharateh
 // Author: Niridya
 // Author: Od1n
 // Author: Orikrin1998
@@ -82,6 +83,7 @@
 "action-add-to-reading-list-short" = "Ajouter à la liste";
 "action-cancel" = "Annuler";
 "action-find-in-page" = "Trouver dans la page";
+"action-language-accessibility" = "Modifier la langue";
 "action-move-to" = "Déplacer vers…";
 "action-move-to-reading-list" = "Déplacer vers la liste de lecture";
 "action-read" = "Lire";
@@ -350,6 +352,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipédia";
 "explore-randomizer" = "Tirage aléatoire";
+"featured-article-empty-title" = "Aucun article en vedette disponible aujourd’hui";
 "feed-news-notification-button-text" = "Activer les notifications";
 "feed-news-notification-text" = "Activer les notifications envoyées par Wikipédia quand des articles forment la tendance de l’actualité.";
 "fetcher-error-generic" = "Quelque chose s’est mal passé. Veuillez essayer de nouveau plus tard.";
@@ -404,7 +407,6 @@
 "home-themes-prompt" = "Ajustez vos préférences de lecture (y compris la taille du texte et le thème) depuis la barre d’outil de l’article ou dans vos préférences utilisateur pour améliorer la lisibilité.";
 "home-title" = "Explorer";
 "home-title-accessibility-label" = "Wikipédia, faire défiler vers le haut pour Explorer";
-"icon-shortcut-continue-reading-title" = "Continuer à lire";
 "icon-shortcut-nearby-title" = "Articles voisins";
 "icon-shortcut-random-title" = "Article au hasard";
 "icon-shortcut-search-title" = "Rechercher dans Wikipédia";
@@ -733,8 +735,14 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-title-other" = "Plus d’information";
+"talk-page-add-discussion-accessibility-label" = "Ajouter une discussion";
+"talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";
+"talk-page-discussion-read-accessibility-label" = "Lus";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "ly";
+"talk-page-discussion-unread-accessibility-label" = "Non lu";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "nɔ̃ˈly";
 "talk-page-error-unable-to-post-reply" = "Aucune connexion internet. Impossible d’envoyer la réponse.";
-"talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer le sujet.";
+"talk-page-error-unable-to-post-topic" = "Aucune connexion internet. Impossible d’envoyer la discussion.";
 "talk-page-info-active-conversations" = "Conversations actives sur Wikipédia $1";
 "talk-page-info-active-conversations-generic" = "Conversations actives sur Wikipédia";
 "talk-page-link-user-action-sheet-app" = "Afficher la page de discussion de l’utilisateur dans l’application";
@@ -742,9 +750,13 @@
 "talk-page-link-user-action-sheet-title" = "Pages utilisateur";
 "talk-page-new-banner-subtitle" = "Souvenez-vous que chacun est un être humain ici.";
 "talk-page-new-banner-title" = "Soyez gentil";
+"talk-page-new-body-textfield-accessibility-label" = "Corps de la discussion";
+"talk-page-new-reply-body-accessibility-label" = "Composer une réponse";
 "talk-page-new-reply-body-placeholder-text" = "Rédiger une réponse";
 "talk-page-new-reply-success-text" = "Votre réponse a été publiée avec succès";
+"talk-page-new-subject-clear-button-accessibility" = "Effacer le sujet";
 "talk-page-new-subject-placeholder-text" = "Sujet";
+"talk-page-new-subject-textfield-accessibility-label" = "Sujet";
 "talk-page-new-topic-body-placeholder-text" = "Rédiger une nouvelle discussion";
 "talk-page-new-topic-success-text" = "Votre discussion a été publiée avec succès";
 "talk-page-new-topic-title" = "Nouvelle discussion";

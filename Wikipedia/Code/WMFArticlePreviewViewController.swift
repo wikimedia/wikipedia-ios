@@ -1,6 +1,6 @@
 import UIKit
 
-open class WMFArticlePreviewViewController: UIViewController {
+open class WMFArticlePreviewViewController: ExtensionViewController {
 
     public var titleTextStyle: DynamicTextStyle = .headline
     public var titleTextColor: UIColor = .black {
@@ -13,7 +13,7 @@ open class WMFArticlePreviewViewController: UIViewController {
             updateTitle()
         }
     }
-    
+
     private func updateTitle() {
         titleLabel.attributedText = titleHTML?.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
     }
@@ -39,11 +39,11 @@ open class WMFArticlePreviewViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    
     open override func viewDidLoad() {
         rankLabel.textColor = .wmf_darkGray
         separatorView.backgroundColor = .wmf_darkGray
         imageView.accessibilityIgnoresInvertColors = true
+        updateFonts()
     }
 
     open override func awakeFromNib() {
@@ -66,5 +66,19 @@ open class WMFArticlePreviewViewController: UIViewController {
             self.imageView.alpha = self.collapseImageAndWidenLabels ? 0 : 1
             self.view.layoutIfNeeded()
         }
+    }
+    
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        titleTextColor = theme.colors.primaryText
+        subtitleLabel.textColor = theme.colors.secondaryText
+        rankLabel.textColor = theme.colors.secondaryText
+        viewCountLabel.textColor =  theme.colors.overlayText
+        viewCountAndSparklineContainerView.backgroundColor = theme.colors.overlayBackground
+        separatorView.backgroundColor = theme.colors.border
+        sparklineView.apply(theme: theme)
     }
 }

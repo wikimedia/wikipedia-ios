@@ -1,5 +1,5 @@
 
-class WMFWelcomeExplorationViewController: UIViewController {
+class WMFWelcomeExplorationViewController: ThemeableViewController {
 
     @IBOutlet private var exploreTitleLabel:UILabel!
     @IBOutlet private var exploreDescriptionLabel:UILabel!
@@ -9,7 +9,7 @@ class WMFWelcomeExplorationViewController: UIViewController {
 
     @IBOutlet private var onThisDayTitleLabel:UILabel!
     @IBOutlet private var onThisDayDescriptionLabel:UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
@@ -22,13 +22,16 @@ class WMFWelcomeExplorationViewController: UIViewController {
 
         onThisDayTitleLabel.text = WMFLocalizedString("welcome-exploration-on-this-day-title", value:"On this day", comment:"Title for On this day")
         onThisDayDescriptionLabel.text = WMFLocalizedString("welcome-exploration-on-this-day-description", value:"Travel back in time to learn what happened today in history", comment:"Description for On this day")
-        
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+        updateFonts()
+    }
+
+    private func updateFonts() {
         exploreTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         placesTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         onThisDayTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)

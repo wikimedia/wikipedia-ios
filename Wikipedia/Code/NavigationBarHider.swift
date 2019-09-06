@@ -158,6 +158,9 @@ public class NavigationBarHider: NSObject {
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
         
+        //the maximum amount targetOffsetY is expected to get considering bounds + content size & insets
+        let maxTargetOffsetY = scrollView.contentSize.height - (scrollView.bounds.height - scrollView.contentInset.top - scrollView.contentInset.bottom)
+
         if targetOffsetY < totalHideableHeight {
             if navigationBar.shouldTransformUnderBarViewWithBar { // transform whole bar together
                 if targetOffsetY < 0.5 * totalHideableHeight {
@@ -166,7 +169,7 @@ public class NavigationBarHider: NSObject {
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             } else {
-                if targetOffsetY < 0.5 * underBarViewHideableHeight { // show everything if underbar view is less than half hidden
+                if targetOffsetY < 0.5 * underBarViewHideableHeight && targetOffsetY < maxTargetOffsetY { // show everything if underbar view is less than half hidden and we are not at the bottom
                     targetContentOffset.pointee = CGPoint(x: 0, y: top)
                 } else if targetOffsetY < underBarViewHideableHeight + 0.5 * extendedViewHideableHeight { // just hide underbar view if it's more than half hidden and extended view is less than half hidden
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + underBarViewHideableHeight)

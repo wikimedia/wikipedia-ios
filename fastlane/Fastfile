@@ -6,16 +6,16 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone X', os: '12.2'},
+  {device: 'iPhone X', os: '12.4'},
   {device: 'iPad Air 2', os: '11.4'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone X', os: '12.2', scheme: "WikipediaRTL"}
+  {device: 'iPhone X', os: '12.4', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
-  {device: 'iPhone X', os: '12.2', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone X', os: '12.4', scheme: "Beta Cluster Tests"}
 ]
 
 def get_devices_by_scheme_from_options(options)
@@ -38,6 +38,12 @@ def get_version_number_from_options(options)
   scheme = options[:scheme] || 'Wikipedia'
   config = options[:configuration] || 'Release'
   return get_version_number(target: scheme, configuration: config)
+end
+
+def clean_out_reference_images
+  UI.header "Step: Clear previous reference images"
+  UI.command "FileUtils.rm_rf(Dir.glob('../WikipediaUnitTests/ReferenceImages_64/*'))"
+  FileUtils.rm_rf(Dir.glob('../WikipediaUnitTests/ReferenceImages_64/*'))
 end
 
 platform :ios do
@@ -80,7 +86,12 @@ platform :ios do
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
-  lane :verify_pull_request do
+  lane :verify_pull_request do |options|
+    if options[:beta]
+      xcode_select("/Applications/Xcode-beta.app")
+    else
+      xcode_select("/Applications/Xcode.app")
+    end
     verify({configurations: configurations_to_test_on_pull})
   end
 
@@ -107,6 +118,7 @@ platform :ios do
   
   desc "Records visual tests."
   lane :record_visual_tests do |options|
+    clean_out_reference_images
     options[:configurations] ||= configurations_to_test 
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|

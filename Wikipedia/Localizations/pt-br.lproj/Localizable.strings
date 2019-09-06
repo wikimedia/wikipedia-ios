@@ -21,6 +21,7 @@
 // Author: Maxan
 // Author: Mordecool
 // Author: Nemo bis
+// Author: Nharateh
 // Author: Pedrofariasm
 // Author: Peter Fernando
 // Author: Raphaelras
@@ -84,6 +85,7 @@
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
 "action-find-in-page" = "Encontrar na página";
+"action-language-accessibility" = "Alterar idioma";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover à lista de leitura";
 "action-read" = "Ler";
@@ -352,6 +354,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "da Wikipédia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Aleatório";
+"featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
 "feed-news-notification-button-text" = "Ativar notificações";
 "feed-news-notification-text" = "Ative notificações para serem notificadas pela Wikipedia quando os artigos estiverem sendo divulgados nas notícias.";
 "fetcher-error-generic" = "Algo deu errado. Por favor, tente novamente mais tarde.";
@@ -404,9 +407,8 @@
 "home-reading-list-prompt" = "Seus artigos salvos agora podem ser organizados em listas de leitura e sincronizados em dispositivos. Faça login para permitir que suas listas de leitura sejam salvas nas preferências do usuário.";
 "home-themes-action-title" = "Gerenciar preferências";
 "home-themes-prompt" = "Ajuste suas preferências de leitura, incluindo tamanho e tema do texto, na barra de ferramentas do artigo ou nas configurações do usuário para uma experiência de leitura mais confortável.";
-"home-title" = "explorar";
+"home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, desloque-se para o topo da Explorar";
-"icon-shortcut-continue-reading-title" = "Continue lendo";
 "icon-shortcut-nearby-title" = "Artigos próximos";
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
@@ -735,8 +737,14 @@
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
 "table-title-other" = "Mais informações";
+"talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
+"talk-page-discussion-accessibility-hint" = "Toque duas vezes para abrir o tópico de discussão";
+"talk-page-discussion-read-accessibility-label" = "Ler";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "ˈlidu";
+"talk-page-discussion-unread-accessibility-label" = "Não lidas";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ˈnɐ̃w̃  ˈlidu";
 "talk-page-error-unable-to-post-reply" = "Nenhuma conexão com a internet. Não é possível postar resposta.";
-"talk-page-error-unable-to-post-topic" = "Nenhuma conexão com a internet. Não é possível postar o tópico.";
+"talk-page-error-unable-to-post-topic" = "Nenhuma conexão com a internet. Não é possível postar a discussão.";
 "talk-page-info-active-conversations" = "Conversas ativas em $1 Wikipédia";
 "talk-page-info-active-conversations-generic" = "Conversas ativas na Wikipédia";
 "talk-page-link-user-action-sheet-app" = "Visualizar a página de discussão do usuário no aplicativo";
@@ -744,9 +752,13 @@
 "talk-page-link-user-action-sheet-title" = "Páginas de usuário";
 "talk-page-new-banner-subtitle" = "Lembre-se, somos todos humanos aqui";
 "talk-page-new-banner-title" = "Por favor seja gentil";
+"talk-page-new-body-textfield-accessibility-label" = "Corpo de discussão";
+"talk-page-new-reply-body-accessibility-label" = "Compor resposta";
 "talk-page-new-reply-body-placeholder-text" = "Compor resposta";
 "talk-page-new-reply-success-text" = "Sua resposta foi publicada com sucesso";
+"talk-page-new-subject-clear-button-accessibility" = "Limpar assunto";
 "talk-page-new-subject-placeholder-text" = "Assunto";
+"talk-page-new-subject-textfield-accessibility-label" = "Assunto";
 "talk-page-new-topic-body-placeholder-text" = "Compor nova discussão";
 "talk-page-new-topic-success-text" = "Sua discussão foi publicada com sucesso";
 "talk-page-new-topic-title" = "Nova discussão";

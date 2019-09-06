@@ -86,6 +86,7 @@ class EditLinkViewController: ViewController {
             }
             self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
         })
+        updateFonts()
         apply(theme: theme)
     }
 
@@ -96,11 +97,14 @@ class EditLinkViewController: ViewController {
 
     private func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [articleURL]) { (articles, _) in
-                guard let first = articles.first else {
+            guard let key = articleURL.wmf_databaseKey else {
+                return
+            }
+            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
+                guard let article = article else {
                     return
                 }
-                self.updateView(with: first)
+                self.updateView(with: article)
             }
             return
         }
@@ -126,6 +130,10 @@ class EditLinkViewController: ViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         displayTextLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         linkTargetLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         displayTextView.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)

@@ -57,6 +57,8 @@
 "account-creation-title" = "Új fiók létrehozása";
 "account-group-title" = "Fiókod";
 "account-talk-page-title" = "Vitalapod";
+"account-talk-preferences-auto-sign-discussions" = "Hozzászólások automatikus aláírása";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "A hozzászólások automatikus aláírása az Aláírásbeállításokban megadott aláírást használja";
 "account-talk-preferences-title" = "Vitalapok beállításai";
 "action-add-to" = "Hozzáadás ide...";
 "action-add-to-reading-list" = "Hozzáadás az olvasólistához";
@@ -82,8 +84,10 @@
 "action-unsaved-accessibility-notification" = "Szócikk eltávolítva";
 "action-update" = "Frissítés";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 szócikk|$1 szócikk}} hozzáadása az olvasólistához";
+"add-citation-title" = "Forráshivatkozás hozzáadása";
 "announcements-dismiss" = "Kihagyás";
 "app-store-keywords" = "Wikipédia, hivatkozás, wiki, enciklopédia, infó, tudás, kutatás, információ, felfedezés, tanulás";
+"app-store-release-notes" = "Teljesen testreszabható és könnyebben olvasható Felfedezés hírfolyam. Fordítási és teljesítményjavítások, hibajavítások.";
 "app-store-short-description" = "Töltsd le a Wikipédia alkalmazást, ezzel felfedezheted a közeli helyeket, elolvashatod a szócikkeket akkor is, ha offline vagy, és testreszabhatod az olvasási élményt befolyásoló beállításokat.";
 "app-store-subtitle" = "A szabad enciklopédia";
 "appearance-settings-adjust-text-sizing" = "A szócikk szövegméretének beállítása";
@@ -306,7 +310,6 @@
 "home-themes-action-title" = "Beállítások kezelése";
 "home-title" = "Felfedezés";
 "home-title-accessibility-label" = "Wikipédia, görgetés a Felfedezés tetejére";
-"icon-shortcut-continue-reading-title" = "Olvasás folytatása";
 "icon-shortcut-nearby-title" = "Közeli szócikkek";
 "icon-shortcut-random-title" = "Lap találomra";
 "icon-shortcut-search-title" = "Keresés a Wikipédiában";

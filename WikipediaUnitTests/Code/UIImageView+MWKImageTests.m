@@ -33,7 +33,7 @@
     NSString *testURLString = @"http://test/request.png";
     self.testURL = [NSURL URLWithString:testURLString];
 
-    UIImage *testImage = [UIImage imageNamed:@"wikipedia-wordmark"];
+    UIImage *testImage = [UIImage imageNamed:@"splashscreen-wordmark"];
     self.stubbedData = UIImagePNGRepresentation(testImage);
 
     [[LSNocilla sharedInstance] start];

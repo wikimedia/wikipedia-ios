@@ -3,6 +3,9 @@ import WMF
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding, EventLoggingEventValuesProviding {
 
+    public var presentedContentGroupKey: String?
+    public var shouldRestoreScrollPosition = false
+
     // MARK - UIViewController
     
     override func viewDidLoad() {
@@ -36,7 +39,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
@@ -54,6 +56,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionViewUpdater?.isGranularUpdatingEnabled = true
+        restoreScrollPositionIfNeeded()
+    }
+
+    private func restoreScrollPositionIfNeeded() {
+        guard
+            shouldRestoreScrollPosition,
+            let presentedContentGroupKey = presentedContentGroupKey,
+            let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
+            let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
+        else {
+            return
+        }
+        collectionView.scrollToItem(at: indexPath, at: [], animated: false)
+        self.shouldRestoreScrollPosition = false
+        self.presentedContentGroupKey = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -328,7 +345,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         resetRefreshControl()
-        wmf_showEmptyView(of: .noFeed, action: nil, theme: theme, frame: view.bounds)
+        wmf_showEmptyView(of: .noFeed, theme: theme, frame: view.bounds)
     }
     
     var isLoadingNewContent = false
@@ -428,6 +445,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let group = group(at: indexPath) else {
             return
         }
+
+        presentedContentGroupKey = group.key
 
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
             wmf_push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
@@ -575,7 +594,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         let context = FeedFunnelContext(contentGroup)
-
+        presentedContentGroupKey = contentGroup.key
         switch contentGroup.detailType {
         case .gallery:
             present(vc, animated: true)
@@ -874,6 +893,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
             exploreFeedSettingsViewController.showCloseButton = true
+            exploreFeedSettingsViewController.dataStore = self.dataStore
             exploreFeedSettingsViewController.apply(theme: self.theme)
             let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
             self.present(themeableNavigationController, animated: true)
@@ -890,16 +910,13 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all “%@” cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
             let feedContentController = self.dataStore.feedContentController
-            feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false, completion: {
-                // If there's only one group left it means that we're about to show an alert about turning off the Explore tab. In those cases, we don't want to provide the option to undo.
-                guard feedContentController.countOfVisibleContentGroupKinds > 1 else {
-                    return
-                }
-                FeedFunnel.shared.logFeedCardDismissed(for: FeedFunnelContext(group))
+            // If there's only one group left it means that we're about to show an alert about turning off the Explore tab. In those cases, we don't want to provide the option to undo.
+            if feedContentController.countOfVisibleContentGroupKinds > 1 {
                 group.undoType = .contentGroupKind
                 self.wantsDeleteInsertOnNextItemUpdate = true
-                self.save()
-            })
+            }
+            feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false)
+            FeedFunnel.shared.logFeedCardDismissed(for: FeedFunnelContext(group))
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         sheet.addAction(hideThisCard)

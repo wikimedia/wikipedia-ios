@@ -131,7 +131,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;
-    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
+    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:@"#top"];
     self.webView = wv;
 
     self.webView.opaque = NO;
@@ -141,7 +141,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
 
-    self.buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-cancel-accessibility-label", nil, nil, @"Cancel", @"Accessible label text for toolbar cancel button\n{{Identical|Cancel}}");
+    self.buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-cancel-accessibility-label", nil, nil, @"Cancel", @"Accessible label text for toolbar cancel button {{Identical|Cancel}}");
     self.buttonCaretLeft.accessibilityLabel = WMFCommonStrings.accessibilityBackTitle;
 
     [self updateNavigationBar];
@@ -170,9 +170,9 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (NSString *)title {
     if ([self isDisplayingLicense]) {
-        return WMFLocalizedStringWithDefaultValue(@"about-libraries-license", nil, nil, @"License", @"About page link title that will display a license for a library used in the app\n{{Identical|License}}");
+        return WMFLocalizedStringWithDefaultValue(@"about-libraries-license", nil, nil, @"License", @"About page link title that will display a license for a library used in the app {{Identical|License}}");
     }
-    return WMFLocalizedStringWithDefaultValue(@"about-title", nil, nil, @"About", @"Title for credits page\n{{Identical|About}}");
+    return WMFLocalizedStringWithDefaultValue(@"about-title", nil, nil, @"About", @"Title for credits page {{Identical|About}}");
 }
 
 #pragma mark - Accessors
@@ -224,14 +224,14 @@ static NSString *const kWMFContributorsKey = @"contributors";
     };
 
     setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);
-    setDivHTML(@"wikipedia", WMFLocalizedStringWithDefaultValue(@"about-wikipedia", nil, nil, @"Wikipedia", @"Wikipedia\n{{Identical|Wikipedia}}"));
-    setDivHTML(@"contributors_title", WMFLocalizedStringWithDefaultValue(@"about-contributors", nil, nil, @"Contributors", @"Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Contributor}}"));
+    setDivHTML(@"wikipedia", WMFLocalizedStringWithDefaultValue(@"about-wikipedia", nil, nil, @"Wikipedia", @"Wikipedia {{Identical|Wikipedia}}"));
+    setDivHTML(@"contributors_title", WMFLocalizedStringWithDefaultValue(@"about-contributors", nil, nil, @"Contributors", @"Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Contributor}}"));
     setDivHTML(@"contributors_body", self.contributors);
-    setDivHTML(@"translators_title", WMFLocalizedStringWithDefaultValue(@"about-translators", nil, nil, @"Translators", @"Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Translator}}"));
+    setDivHTML(@"translators_title", WMFLocalizedStringWithDefaultValue(@"about-translators", nil, nil, @"Translators", @"Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Translator}}"));
     setDivHTML(@"testers_title", WMFLocalizedStringWithDefaultValue(@"about-testers", nil, nil, @"Testers", @"Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations."));
     setDivHTML(@"libraries_title", WMFLocalizedStringWithDefaultValue(@"about-libraries", nil, nil, @"Libraries used", @"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations."));
     setDivHTML(@"libraries_body", [[self class] linkHTMLForURLString:@"wmflicense://licenses" title:WMFLocalizedStringWithDefaultValue(@"about-libraries-complete-list", nil, nil, @"Complete list", @"Title for link to complete list of libraries use by the app")]);
-    setDivHTML(@"repositories_title", WMFLocalizedStringWithDefaultValue(@"about-repositories", nil, nil, @"Repositories", @"Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. \n{{Identical|Repository}}"));
+    setDivHTML(@"repositories_title", WMFLocalizedStringWithDefaultValue(@"about-repositories", nil, nil, @"Repositories", @"Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.  {{Identical|Repository}}"));
     setDivHTML(@"repositories_body", self.repositoryLinks);
 
     setDivHTML(@"repositories_subtitle", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-repositories-app-source-license", nil, nil, @"Source code available under the %1$@.", @"Text explaining the app source licensing. %1$@ is the message {{msg-wikimedia|about-repositories-app-source-license-mit}}."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsMITKey] title:WMFLocalizedStringWithDefaultValue(@"about-repositories-app-source-license-mit", nil, nil, @"MIT License", @"Name of the \"MIT\" license")]]);

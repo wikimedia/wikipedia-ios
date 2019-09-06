@@ -12,13 +12,13 @@ class InfoBannerView: SetupView {
             updateFonts(with: traitCollection)
         }
     }
-    
+
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
         let isRTL = semanticContentAttribute == .forceRightToLeft
         
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left, bottom: layoutMargins.bottom, right: layoutMargins.right + 5)
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left + 13, bottom: layoutMargins.bottom, right: layoutMargins.right + 13)
         
         let iconImageSideLength = CGFloat(26)
         let iconTextSpacing = CGFloat(10)
@@ -51,6 +51,8 @@ class InfoBannerView: SetupView {
         iconImageView.image = UIImage.init(named: iconName)
         titleLabel.text = title
         subtitleLabel.text = subtitle
+        
+        accessibilityLabel = "\(title)\n\(subtitle)"
     }
     
     // MARK - Dynamic Type
@@ -86,14 +88,19 @@ class InfoBannerView: SetupView {
     }
 
     override func setup() {
-        preservesSuperviewLayoutMargins = false
-        insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
         titleLabel.numberOfLines = 0
         subtitleLabel.numberOfLines = 0
         addSubview(iconImageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
+        
+        titleLabel.isAccessibilityElement = false
+        subtitleLabel.isAccessibilityElement = false
+        
+        isAccessibilityElement = true
+
+        updateFonts(with: traitCollection)
     }
 }
 

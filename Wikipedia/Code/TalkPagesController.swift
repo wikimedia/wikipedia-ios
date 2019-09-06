@@ -64,7 +64,7 @@ class TalkPageController {
             do {
                 guard let localTalkPage = try self.moc.talkPage(for: taskURL) else {
                     
-                    self.createTalkPage(with: urlTitle, taskURL: taskURL, in: self.moc, completion: { (result) in
+                    self.fetchAndCreateLocalTalkPage(with: urlTitle, taskURL: taskURL, in: self.moc, completion: { (result) in
                         
                         switch result {
                         case .success(let response):
@@ -119,73 +119,6 @@ class TalkPageController {
             }
         }
     }
-    
-    func createTalkPage(with urlTitle: String, taskURL: URL, in moc: NSManagedObjectContext, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
-        //If no local talk page to reference, fetch latest revision ID & latest talk page in grouped calls.
-        //Update network talk page with latest revision & save to db
-        
-        let taskGroup = WMFTaskGroup()
-        
-        taskGroup.enter()
-        
-        var revisionID: Int?
-        
-        fetchLatestRevisionID(endingWithRevision: nil, urlTitle: urlTitle) { (result) in
-            
-            switch result {
-            case .success(let resultRevisionID):
-                revisionID = resultRevisionID
-            case .failure:
-                break
-            }
-            
-            taskGroup.leave()
-        }
-        
-        taskGroup.enter()
-        
-        var networkTalkPage: NetworkTalkPage?
-        var talkPageDoesNotExist: Bool = false
-        fetchTalkPage(revisionID: nil) { (result) in
-            switch result {
-            case .success(let resultNetworkTalkPage):
-                networkTalkPage = resultNetworkTalkPage
-            case .failure(let error):
-                if let talkPageFetcherError = error as? TalkPageFetcherError,
-                    talkPageFetcherError == .talkPageDoesNotExist {
-                    talkPageDoesNotExist = true
-                }
-            }
-            
-            taskGroup.leave()
-        }
-        
-        taskGroup.waitInBackground {
-            moc.perform {
-                if talkPageDoesNotExist {
-                    if let newLocalTalkPage = moc.createMissingTalkPage(with: taskURL, displayTitle: self.displayTitle) {
-                        completion?(.success(newLocalTalkPage.objectID))
-                    } else {
-                        completion?(.failure(TalkPageError.createLocalTalkPageFailure))
-                    }
-                } else {
-                    
-                    guard let revisionID = revisionID,
-                        let networkTalkPage = networkTalkPage else {
-                            completion?(.failure(TalkPageError.freshFetchTaskGroupFailure))
-                            return
-                    }
-                    
-                    networkTalkPage.revisionId = revisionID
-                    if let newLocalTalkPage = moc.createTalkPage(with: networkTalkPage) {
-                        completion?(.success(newLocalTalkPage.objectID))
-                    } else {
-                        completion?(.failure(TalkPageError.createLocalTalkPageFailure))
-                    }
-                }
-            }
-        }
-    }
 
     private var signatureIfAutoSignEnabled: String {
         return UserDefaults.wmf.autoSignTalkPageDiscussions ? " ~~~~" : ""
@@ -198,7 +131,6 @@ class TalkPageController {
             return
         }
         
-        //todo: conditional signature
         let wrappedBody = "<p>\n\n" + body + "\(signatureIfAutoSignEnabled)</p>"
         fetcher.addTopic(to: title, siteURL: siteURL, subject: subject, body: wrappedBody) { (result) in
             switch result {
@@ -314,6 +246,73 @@ private extension TalkPageController {
         }
         
         fetcher.fetchTalkPage(urlTitle: urlTitle, displayTitle: displayTitle, siteURL: siteURL, revisionID: revisionID, completion: completion)
+    }
+    
+    func fetchAndCreateLocalTalkPage(with urlTitle: String, taskURL: URL, in moc: NSManagedObjectContext, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
+        //If no local talk page to reference, fetch latest revision ID & latest talk page in grouped calls.
+        //Update network talk page with latest revision & save to db
+        
+        let taskGroup = WMFTaskGroup()
+        
+        taskGroup.enter()
+        
+        var revisionID: Int?
+        
+        fetchLatestRevisionID(endingWithRevision: nil, urlTitle: urlTitle) { (result) in
+            
+            switch result {
+            case .success(let resultRevisionID):
+                revisionID = resultRevisionID
+            case .failure:
+                break
+            }
+            
+            taskGroup.leave()
+        }
+        
+        taskGroup.enter()
+        
+        var networkTalkPage: NetworkTalkPage?
+        var talkPageDoesNotExist: Bool = false
+        fetchTalkPage(revisionID: nil) { (result) in
+            switch result {
+            case .success(let resultNetworkTalkPage):
+                networkTalkPage = resultNetworkTalkPage
+            case .failure(let error):
+                if let talkPageFetcherError = error as? TalkPageFetcherError,
+                    talkPageFetcherError == .talkPageDoesNotExist {
+                    talkPageDoesNotExist = true
+                }
+            }
+            
+            taskGroup.leave()
+        }
+        
+        taskGroup.waitInBackground {
+            moc.perform {
+                if talkPageDoesNotExist {
+                    if let newLocalTalkPage = moc.createMissingTalkPage(with: taskURL, displayTitle: self.displayTitle) {
+                        completion?(.success(newLocalTalkPage.objectID))
+                    } else {
+                        completion?(.failure(TalkPageError.createLocalTalkPageFailure))
+                    }
+                } else {
+                    
+                    guard let revisionID = revisionID,
+                        let networkTalkPage = networkTalkPage else {
+                            completion?(.failure(TalkPageError.freshFetchTaskGroupFailure))
+                            return
+                    }
+                    
+                    networkTalkPage.revisionId = revisionID
+                    if let newLocalTalkPage = moc.createTalkPage(with: networkTalkPage) {
+                        completion?(.success(newLocalTalkPage.objectID))
+                    } else {
+                        completion?(.failure(TalkPageError.createLocalTalkPageFailure))
+                    }
+                }
+            }
+        }
     }
     
     func fetchAndUpdateLocalTalkPage(with moid: NSManagedObjectID, revisionID: Int, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {

@@ -77,7 +77,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Redigerades för %1$d dagar sedan</string>
+			<string>Redigerades för %1$d dygn sedan</string>
 			<key>zero</key>
 			<string>Redigerades idag</string>
 		</dict>
@@ -221,9 +221,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%1$d dagar sedan</string>
+			<string>%1$d dygn sedan</string>
 			<key>zero</key>
-			<string>I dag</string>
+			<string>Idag</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>

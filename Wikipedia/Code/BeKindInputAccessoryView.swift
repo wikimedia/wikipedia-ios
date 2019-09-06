@@ -16,6 +16,25 @@ class BeKindInputAccessoryView: UIView, Themeable{
     
     var containerHeight: CGFloat?
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        autoresizingMask = .flexibleHeight
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        let superSize = super.intrinsicContentSize
+        return CGSize(width: superSize.width, height: heightConstraint.constant)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         beKindView.configure(iconName: "heart-icon", title: CommonStrings.talkPageNewBannerTitle, subtitle: CommonStrings.talkPageNewBannerSubtitle)
@@ -23,7 +42,7 @@ class BeKindInputAccessoryView: UIView, Themeable{
     }
 
     func apply(theme: Theme) {
-        backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.hintBackground
         beKindView.apply(theme: theme)
     }
     
@@ -38,6 +57,7 @@ class BeKindInputAccessoryView: UIView, Themeable{
         if heightConstraint.constant != heightThatFits {
             heightConstraint.constant = heightThatFits
             delegate?.didUpdateHeight(view: self)
+            invalidateIntrinsicContentSize()
         }
         
     }

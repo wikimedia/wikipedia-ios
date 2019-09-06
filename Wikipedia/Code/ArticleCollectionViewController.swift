@@ -90,6 +90,13 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     open func canShare(at indexPath: IndexPath) -> Bool {
         return articleURL(at: indexPath) != nil
     }
+
+    func pushUserTalkPage(title: String, siteURL: URL) {
+        let talkPageContainer = TalkPageContainerViewController.userTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore)
+        talkPageContainer.apply(theme: theme)
+        wmf_push(talkPageContainer, animated: true)
+        return
+    }
     
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
         cellLayoutEstimate = nil

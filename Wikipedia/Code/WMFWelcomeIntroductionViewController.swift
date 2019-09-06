@@ -1,6 +1,12 @@
 
-class WMFWelcomeIntroductionViewController: UIViewController {
-    private var theme = Theme.standard
+class WMFWelcomeIntroductionViewController: ThemeableViewController {
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
+    }
 
     @IBOutlet private var descriptionLabel:UILabel!
     @IBOutlet private var learnMoreButton:UIButton!
@@ -13,13 +19,16 @@ class WMFWelcomeIntroductionViewController: UIViewController {
 
         learnMoreButton.setTitle(WMFLocalizedString("welcome-intro-free-encyclopedia-more", value:"Learn more about Wikipedia", comment:"Text for link for learning more about Wikipedia on introductory welcome screen"), for: .normal)
         
-        learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
-        
+        updateFonts()
         view.wmf_configureSubviewsForDynamicType()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 

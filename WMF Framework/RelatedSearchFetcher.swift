@@ -44,7 +44,7 @@ final class RelatedSearchFetcher: Fetcher {
             }
             
             let summaryKeysWithValues: [(String, ArticleSummary)] = summaries.compactMap { (summary) -> (String, ArticleSummary)? in
-                guard let articleKey = summary.articleURL?.wmf_articleDatabaseKey else {
+                guard let articleKey = summary.articleURL?.wmf_databaseKey else {
                     return nil
                 }
                 return (articleKey, summary)

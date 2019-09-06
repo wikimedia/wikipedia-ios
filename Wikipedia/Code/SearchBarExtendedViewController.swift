@@ -44,7 +44,7 @@ class SearchBarExtendedViewController: UIViewController {
     weak var delegate: SearchBarExtendedViewControllerDelegate?
     
     private var theme = Theme.standard
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -52,6 +52,7 @@ class SearchBarExtendedViewController: UIViewController {
         searchBar.placeholder = dataSource?.placeholder(for: searchBar)
         separatorView.isHidden = dataSource?.isSeparatorViewHidden(above: searchBar) ?? false
         buttonType = dataSource?.buttonType(for: button, currentButtonType: buttonType)
+        updateFonts()
         apply(theme: theme)
     }
     
@@ -61,6 +62,10 @@ class SearchBarExtendedViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         if let textStyle = dataSource?.textStyle(for: button) {
             button.titleLabel?.font = UIFont.wmf_font(textStyle, compatibleWithTraitCollection: traitCollection)
         }

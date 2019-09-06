@@ -302,7 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
         // don't do this elsewhere
         // self.theme needs to be set before the [super init] call
         // this is easiest way to do it for now
-        self.theme = NSUserDefaults.wmf.wmf_appTheme;
+        self.theme = [NSUserDefaults.wmf themeCompatibleWith:self.traitCollection];
     }
     vc.scalingImageView.imageView.alpha = self.theme.imageOpacity;
     return vc;
@@ -780,8 +780,8 @@ NS_ASSUME_NONNULL_BEGIN
             galleryImage.imageInfo = info;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self updateOverlayInformation];
+                [self fetchImageForPhoto:galleryImage];
             });
-            [self fetchImageForPhoto:galleryImage];
         }];
 }
 

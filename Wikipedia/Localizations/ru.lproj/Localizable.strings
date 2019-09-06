@@ -1,5 +1,6 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
+// Author: Agilight
 // Author: Alexandr Efremov
 // Author: Av6
 // Author: Batumski brodyaga
@@ -32,6 +33,7 @@
 // Author: Okras
 // Author: Ping08
 // Author: Redredsonia
+// Author: Saimongoltinio
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -94,6 +96,7 @@
 "action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
 "action-find-in-page" = "Найти на странице";
+"action-language-accessibility" = "изменение языка";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
 "action-read" = "Читать";
@@ -362,6 +365,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
+"featured-article-empty-title" = "Сегодня нет избранных статей";
 "feed-news-notification-button-text" = "Включить уведомления";
 "feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
 "fetcher-error-generic" = "Что-то пошло не так. Пожалуйста, повторите попытку позже.";
@@ -416,7 +420,6 @@
 "home-themes-prompt" = "Для более комфортного чтения установите настройки чтения (в том числе размер текста и тему оформления) в панели управления статьи или в ваших настройках пользователя.";
 "home-title" = "Лента";
 "home-title-accessibility-label" = "Промотать к верхней части ленты";
-"icon-shortcut-continue-reading-title" = "Продолжить чтение";
 "icon-shortcut-nearby-title" = "Статьи о том, что есть поблизости";
 "icon-shortcut-random-title" = "Случайная статья";
 "icon-shortcut-search-title" = "Поиск по Википедии";
@@ -745,8 +748,14 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
+"talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
+"talk-page-discussion-accessibility-hint" = "Нажмите дважды, чтобы открыть ветку обсуждения";
+"talk-page-discussion-read-accessibility-label" = "Прочитано";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "прочитано";
+"talk-page-discussion-unread-accessibility-label" = "Непрочитано";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "непрочитано";
 "talk-page-error-unable-to-post-reply" = "Нет подключения к интернету. Невозможно опубликовать ответ.";
-"talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать новое обсуждение.";
+"talk-page-error-unable-to-post-topic" = "Нет подключения к интернету. Невозможно опубликовать обсуждение.";
 "talk-page-info-active-conversations" = "Активные обсуждения в википедии $1";
 "talk-page-info-active-conversations-generic" = "Активные обсуждения в Википедии";
 "talk-page-link-user-action-sheet-app" = "Показывать страницу обсуждения участника";
@@ -754,9 +763,13 @@
 "talk-page-link-user-action-sheet-title" = "страницы пользователя";
 "talk-page-new-banner-subtitle" = "И не забывайте - вы общаетесь с живыми людьми, со всеми вытекающими отсюда последствиями :-)";
 "talk-page-new-banner-title" = "Будьте вежливы";
+"talk-page-new-body-textfield-accessibility-label" = "Текст обсуждения";
+"talk-page-new-reply-body-accessibility-label" = "Написать ответ";
 "talk-page-new-reply-body-placeholder-text" = "Ответить";
 "talk-page-new-reply-success-text" = "Ваш ответ был опубликован";
+"talk-page-new-subject-clear-button-accessibility" = "Очистить тему";
 "talk-page-new-subject-placeholder-text" = "Тема";
+"talk-page-new-subject-textfield-accessibility-label" = "Тема";
 "talk-page-new-topic-body-placeholder-text" = "Создать новое обсуждение";
 "talk-page-new-topic-success-text" = "Ваше обсуждение было опубликовано";
 "talk-page-new-topic-title" = "Новое обсуждение";

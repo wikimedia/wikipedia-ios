@@ -28,7 +28,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rOV-M5-omn">
                             <rect key="frame" x="0.0" y="34.5" width="315" height="71"/>
                             <subviews>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hul-aA-JV5">
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hul-aA-JV5" customClass="LinkOnlyTextView" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="315" height="40.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -56,9 +56,9 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="TTg-py-ooM" secondAttribute="bottom" constant="20" symbolic="YES" id="IUN-Ba-U8A"/>
-                <constraint firstAttribute="trailing" secondItem="TTg-py-ooM" secondAttribute="trailing" constant="20" symbolic="YES" id="Mma-Oe-ICN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TTg-py-ooM" secondAttribute="trailing" constant="20" id="Mma-Oe-ICN"/>
                 <constraint firstItem="TTg-py-ooM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="Ztz-0r-QX5"/>
-                <constraint firstItem="TTg-py-ooM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="oaR-f1-qxY"/>
+                <constraint firstItem="TTg-py-ooM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="oaR-f1-qxY"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

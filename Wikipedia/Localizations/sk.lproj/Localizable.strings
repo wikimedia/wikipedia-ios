@@ -9,6 +9,7 @@
 // Author: Nemo bis
 // Author: Patriccck
 // Author: Rudko
+// Author: TWatz
 // Author: TomášPolonec
 
 "about-content-license" = "Licencia obsahu";
@@ -34,20 +35,15 @@
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
 "about-wikimedia-foundation" = "Nadáciou Wikimedia";
 "about-wikipedia" = "Wikipédia";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Túto úpravu nie je možné uložiť. Prosím, vráťte sa späť a zmeňte ju.";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "Automatický filter označil túto úpravu ako potencionálne nekonštruktívnu alebo ako pokus o vandalizmus.";
-// Fuzzy
-"abuse-filter-warning-blanking" = "Vymazávanie článkov alebo spam";
-// Fuzzy
+"abuse-filter-disallow-heading" = "Túto úpravu nie je možné zverejniť";
+"abuse-filter-disallow-unconstructive" = "Automatický filter označil túto úpravu ako potencionálne nekonštruktívnu alebo ako pokus o vandalizmus. Prosím, vráťte sa a zmeňte svoju úpravu";
+"abuse-filter-warning-blanking" = "Vymazávanie sekcií alebo celých článkov";
 "abuse-filter-warning-caps" = "Píšete veľkými písmenami";
 "abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
 "abuse-filter-warning-irrelevant" = "Irelevantné odkazy alebo obrázky";
-// Fuzzy
 "abuse-filter-warning-repeat" = "Opakovanie znakov";
-// Fuzzy
-"abuse-filter-warning-subheading" = "Vaša úprava môže obsahovať niektorú z nasledujúcich chýb:";
+"abuse-filter-warning-spam" = "Pridávanie spamu do článkov";
+"abuse-filter-warning-subheading" = "Vaša úprava možno obsahuje:";
 "account-creation-captcha-cannot-see-image" = "Nevidíte obrázok? $1";
 "account-creation-captcha-obtaining" = "Generuje sa nová CAPTCHA...";
 "account-creation-captcha-request-account" = "Požiadať o účet";
@@ -60,11 +56,17 @@
 "account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
 "account-creation-saving" = "Ukladanie...";
 "account-creation-title" = "Vytvoriť nový účet";
+"account-group-title" = "Váš účet";
+"account-talk-page-title" = "Vaša diskusná stránka";
+"account-talk-preferences-auto-sign-discussions" = "Automaticky podpisovať nové diskusné príspevky";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "V diskusných príspevkoch sa bude používať podpis určený v Nastaveniach podpisu";
+"account-talk-preferences-title" = "Nastavenia diskusií";
 "action-add-to" = "Pridať do…";
 "action-add-to-reading-list" = "Pridať do zoznamu na prečítanie";
 "action-add-to-reading-list-short" = "Pridať do zoznamu";
 "action-cancel" = "Zrušiť";
 "action-find-in-page" = "Nájsť na stránke";
+"action-language-accessibility" = "Zmeniť jazyk";
 "action-move-to" = "Presunúť do…";
 "action-move-to-reading-list" = "Presunúť do zoznamu na prečítanie";
 "action-read" = "Čítať";
@@ -74,6 +76,7 @@
 "action-replace-all" = "Nahradiť všetky";
 "action-save" = "Uložiť";
 "action-saved" = "Uložené";
+"action-saved-accessibility" = "Uložené. Aktivujte pre odstránenie z uložených";
 "action-saved-accessibility-notification" = "Článok bol uložený na neskôr";
 "action-share" = "Zdieľať";
 "action-share-accessibility" = "Zdieľať";
@@ -82,10 +85,20 @@
 "action-unsave" = "Zrušiť uloženie";
 "action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
+"add-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články}} k zoznamu na prečítanie";
+"add-citation-title" = "Pridať citáciu";
 "announcements-dismiss" = "Zrušiť";
 "app-store-keywords" = "Wikipédia, referencie, wiki, encyklopédia, informácie, vedomosti, výskum, informácie, objaviť, učenie";
+"app-store-release-notes" = "Plne prispôsobiteľné a jednoduchšie čítanie zdroja informácií. Lokalizácia, vylepšenie výkonu a opravy chýb.";
 "app-store-short-description" = "Stiahnite si aplikáciu Wikipédie pre objavovanie miest v blízkosti vás, na preberanie článkov do vášho zariadenia a prispôsobenie čítanie článkov.";
 "app-store-subtitle" = "Slobodná encyklopédia";
+"appearance-settings-adjust-text-sizing" = "Prispôsobiť veľkosť písma článku";
+"appearance-settings-expand-tables" = "Rozbaliť tabuľky";
+"appearance-settings-expand-tables-footer" = "Otvárať všetky tabuľky v článkoch automaticky včítane rýchlych faktov, referencií, poznámok a externých odkazov";
+"appearance-settings-image-dimming-footer" = "Znížiť priehľadnosť obrázkov v tmavej a čiernej téme";
+"appearance-settings-reading-themes" = "Čítacie témy";
+"appearance-settings-set-automatic-table-opening" = "Nastavenia tabuliek";
+"appearance-settings-text-sizing-example-text" = "Posuňte posuvníkom pre zmenu veľkosti písma článku. Pre zmenu veľkosti písma v iných častiach aplikácie zmeňte veľkosť písma v systémových nastaveniach.";
 "appearance-settings-theme-options" = "Nastavenia témy vzhľadu";
 "article-about-title" = "O tomto článku";
 "article-delete" = "Vymazať";
@@ -97,8 +110,10 @@
 "article-read-more-title" = "Ďalšie informácie";
 "article-save-error-not-enough-space" = "Na vašom zariadení nemáte dostatok miesta na uloženie tohto článku";
 "article-share" = "Zdieľať";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Ovládače čítacích tém";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
 "back-button-accessibility-label" = "Späť";
+"back-button-popover-title" = "Ťuknite pre návrat";
 "button-next" = "Ďalej";
 "button-ok" = "OK";
 "button-publish" = "Uverejniť";
@@ -110,18 +125,30 @@
 "button-skip" = "Preskočiť";
 "cancel" = "Zrušiť";
 "cc-zero" = "Creative Commons CC0";
+"clear-title-accessibility-label" = "Vyčistiť";
 "close-button-accessibility-label" = "Zavrieť";
 "compass-direction" = "na $1. hodine";
 "continue-reading-empty-description" = "Prehľadávať ďalšie články na Wikipédii";
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
 "description-add-link-title" = "Pridať popis článku";
 "description-add-title" = "Pridať popis";
+"description-edit-for-article" = "Popis článku $1";
 "description-edit-learn-more" = "Ďalšie informácie";
 "description-edit-length-warning" = "$1/$2";
+"description-edit-license" = "Zmenou popisu článku súhlasím s $1 a neodvolateľne uvoľňujem moje príspevky pod licenciou $2.";
+"description-edit-pencil-introduction" = "Upraviť úvod";
+"description-edit-pencil-title" = "Upraviť popis článku";
+"description-edit-placeholder-title" = "Najlepšie sú krátke popisy";
+"description-edit-publish" = "Zverejniť popis";
 "description-edit-title" = "Upraviť popis";
+"description-edit-warning" = "Pokúste sa ponechať popisy krátke, aby používatelia pochopili tému článku na prvý pohľad";
+"description-help-about-description" = "Tento popis zhŕňa članok tak, aby bol pochopiteľný na prvý pohľad.";
 "description-help-about-title" = "O aplikácii";
 "description-help-about-wikidata" = "O Wikiúdajoch";
+"description-help-more-info-description" = "Popisy sú uložené vo Wikiúdajoch, ktoré sú projektom Wikimedia Foundation, ktorý poskytuje slobodnú, spoločne vytváranú, viacjazyčnú sekundárnu databázu podporujúcu Wikipédiu a ďalšie projekty.";
 "description-help-more-info-title" = "Viac informácií";
+"description-help-tips-description" = "Popis by mal byť najviac len jeden riadok, 2 až 12 slov dlhý. Nezačína sa veľkým písmenom, iba ak je prvé slovo vlastné podstatné meno.";
+"description-help-tips-example-description-one" = "popis článku o Mone Lise";
 "description-help-tips-example-title-one" = "obraz od Leonarda Da Vinciho";
 "description-help-tips-example-title-two" = "najvyššia hora na Zemi";
 "description-help-tips-for-example" = "Napríklad:";
@@ -218,7 +245,6 @@
 "home-button-explore-accessibility-label" = "Wikipédie, späť na Objaviť";
 "home-more-like-footer" = "Viac článkov ako $1";
 "home-title" = "Objaviť";
-"icon-shortcut-continue-reading-title" = "Pokračovať v čítaní";
 "icon-shortcut-nearby-title" = "Články v okolí";
 "icon-shortcut-random-title" = "Náhodný článok";
 "icon-shortcut-search-title" = "Hľadať";

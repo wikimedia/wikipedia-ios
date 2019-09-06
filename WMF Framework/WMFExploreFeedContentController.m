@@ -72,7 +72,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)setDataStore:(MWKDataStore *)dataStore {
     _dataStore = dataStore;
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateExploreFeedPreferencesFromDidSaveNotification:) name:WMFFeedImportContextDidSave object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateExploreFeedPreferencesFromDidSaveNotification:) name:WMFViewContextDidSave object:nil];
 }
 
 - (NSDictionary *)exploreFeedPreferences {
@@ -344,11 +344,11 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
-    return [self.exploreFeedPreferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
+    return [self.exploreFeedPreferences objectForKey:siteURL.wmf_databaseKey] != nil;
 }
 
-- (NSSet<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
-    NSMutableSet *languageCodes = [NSMutableSet new];
+- (NSArray<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
+    NSMutableArray *languageCodes = [NSMutableArray new];
     [self.exploreFeedPreferences enumerateKeysAndObjectsUsingBlock:^(NSString *key, id _Nonnull value, BOOL * _Nonnull stop) {
         if (![value isKindOfClass:[NSDictionary class]] && [value containsObject:@(contentGroupKind)]) {
             [languageCodes addObject:[[NSURL URLWithString:key] wmf_language]];
@@ -420,7 +420,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (NSDictionary *)defaultExploreFeedPreferences {
     NSMutableDictionary *defaultExploreFeedPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count + 1];
     for (NSURL *siteURL in self.preferredSiteURLs) {
-        [defaultExploreFeedPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
+        [defaultExploreFeedPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_databaseKey];
     }
     [defaultExploreFeedPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
     return defaultExploreFeedPreferences;
@@ -434,19 +434,19 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return defaultGlobalCardsPreferences;
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:YES completion:nil];
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed];
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(dispatch_block_t)completion {
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn waitForCallbackFromCoordinator:waitForCallbackFromCoordinator apply:apply updateFeed:updateFeed completion:completion];
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn waitForCallbackFromCoordinator:waitForCallbackFromCoordinator apply:apply updateFeed:updateFeed];
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL {
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:YES completion:nil];
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL updateFeed:(BOOL)updateFeed {
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed];
 }
 
-- (void)toggleAllContentGroupKinds:(BOOL)on completion:(dispatch_block_t)completion {
+- (void)toggleAllContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         if (on) {
             return self.defaultExploreFeedPreferences;
@@ -459,12 +459,12 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [allTurnedOff setObject:globalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
             return allTurnedOff;
         }
-    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:NO apply:YES updateFeed:YES completion:completion];
+    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:NO apply:YES updateFeed:updateFeed];
 }
 
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
-        NSString *key = siteURL.wmf_articleDatabaseKey;
+        NSString *key = siteURL.wmf_databaseKey;
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         if (isOn) {
             [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:key];
@@ -474,10 +474,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             }
         }
         return newPreferences;
-    } willTurnOnContentGroupOrLanguage:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed completion:nil];
+    } willTurnOnContentGroupOrLanguage:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed];
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(dispatch_block_t)completion {
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         if ([self isGlobal:contentGroupKind]) {
@@ -487,7 +487,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
         } else {
             for (NSURL *siteURL in siteURLs) {
-                NSString *key = siteURL.wmf_articleDatabaseKey;
+                NSString *key = siteURL.wmf_databaseKey;
                 NSSet *oldVisibleContentGroupKindNumbers = [newPreferences objectForKey:key];
                 NSMutableSet *newVisibleContentGroupKindNumbers;
 
@@ -521,10 +521,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             }
         }
         return newPreferences;
-    } willTurnOnContentGroupOrLanguage:isOn waitForCallbackFromCoordinator:waitForCallbackFromCoordinator apply:apply updateFeed:updateFeed completion:completion];
+    } willTurnOnContentGroupOrLanguage:isOn waitForCallbackFromCoordinator:waitForCallbackFromCoordinator apply:apply updateFeed:updateFeed];
 }
 
-- (void)toggleGlobalContentGroupKinds:(BOOL)on {
+- (void)toggleGlobalContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed{
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
@@ -534,29 +534,31 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         }
         [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
         return newPreferences;
-    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:YES apply:YES updateFeed:YES completion:nil];
+    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed];
 }
 
 - (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
-    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
-            [moc performBlock:^{
-                [moc wmf_setValue:newExploreFeedPreferences forKey:WMFExploreFeedPreferencesKey];
-                if (apply) {
+    WMFAssertMainThread(@"Saving explore feed preferences should be performed on the main thread");
+    [self.dataStore.viewContext wmf_setValue:newExploreFeedPreferences forKey:WMFExploreFeedPreferencesKey];
+    [self save:self.dataStore.viewContext];
+    if (apply) {
+        WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+                [moc performBlock:^{
                     [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
-                }
-                [self save:moc];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (updateFeed) {
-                        [self updateFeedSourcesUserInitiated:NO completion:nil];
-                    }
-                    [op finish];
-                });
-            }];
-        });
-    }];
-    [self.operationQueue addOperation:op];
+                    [self save:moc];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [op finish];
+                        if (updateFeed) {
+                            [self updateFeedSourcesUserInitiated:NO completion:nil];
+                        }
+                    });
+                }];
+            });
+        }];
+        [self.operationQueue addOperation:op];
+    }
 }
 
 - (void)rejectNewExploreFeedPreferences {
@@ -565,33 +567,19 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     });
 }
 
-- (void)updateExploreFeedPreferences:(NSDictionary *(^)(NSDictionary *newPreferences))update willTurnOnContentGroupOrLanguage:(BOOL)willTurnOnContentGroupOrLanguage waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(dispatch_block_t)completion {
-    WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
-    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
-            [moc performBlock:^{
-                NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
-                assert(oldPreferences);
-                NSDictionary *newPreferences = update(oldPreferences);
-                if (waitForCallbackFromCoordinator) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.exploreFeedPreferencesUpdateCoordinator configureWithOldExploreFeedPreferences:oldPreferences newExploreFeedPreferences:newPreferences willTurnOnContentGroupOrLanguage:willTurnOnContentGroupOrLanguage updateFeed:updateFeed];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:WMFExploreFeedPreferencesDidChangeNotification object:self.exploreFeedPreferencesUpdateCoordinator];
-                    });
-                } else {
-                    [self saveNewExploreFeedPreferences:newPreferences apply:apply updateFeed:updateFeed];
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (completion) {
-                        completion();
-                    }
-                    [op finish];
-                });
-            }];
-        });
-    }];
-    [self.operationQueue addOperation:op];
+- (void)updateExploreFeedPreferences:(NSDictionary *(^)(NSDictionary *newPreferences))update willTurnOnContentGroupOrLanguage:(BOOL)willTurnOnContentGroupOrLanguage waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSManagedObjectContext *moc = self.dataStore.viewContext;
+        NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
+        assert(oldPreferences);
+        NSDictionary *newPreferences = update(oldPreferences);
+        if (waitForCallbackFromCoordinator) {
+            [self.exploreFeedPreferencesUpdateCoordinator configureWithOldExploreFeedPreferences:oldPreferences newExploreFeedPreferences:newPreferences willTurnOnContentGroupOrLanguage:willTurnOnContentGroupOrLanguage updateFeed:updateFeed];
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFExploreFeedPreferencesDidChangeNotification object:self.exploreFeedPreferencesUpdateCoordinator];
+        } else {
+            [self saveNewExploreFeedPreferences:newPreferences apply:apply updateFeed:updateFeed];
+        }
+    });
 }
 
 - (void)dismissCollapsedContentGroups {
@@ -660,10 +648,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if (![object isKindOfClass:[WMFContentGroup class]]) {
             continue;
         }
-        
+
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
         [contentGroup updateDailySortPriorityWithSiteURLSortOrder:self.sortOrderBySiteURLDatabaseKey];
-        
+
         // Skip collapsed cards, let them be visible
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
@@ -675,7 +663,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
             isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
         } else {
-            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_databaseKey];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
             if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
                 continue;
@@ -707,7 +695,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     NSMutableDictionary<NSString *, NSNumber *> *updatedSortOrder = [NSMutableDictionary dictionaryWithCapacity:_siteURLs.count];
     NSInteger i = 0;
     for (NSURL *siteURL in _siteURLs) {
-        updatedSortOrder[siteURL.wmf_articleDatabaseKey] = @(i);
+        updatedSortOrder[siteURL.wmf_databaseKey] = @(i);
         i++;
     }
     self.sortOrderBySiteURLDatabaseKey = updatedSortOrder;

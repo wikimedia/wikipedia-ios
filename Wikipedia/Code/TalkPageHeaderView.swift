@@ -2,7 +2,7 @@
 import UIKit
 
 protocol TalkPageHeaderViewDelegate: class {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView)
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?)
     func tappedIntro(headerView: TalkPageHeaderView)
 }
 
@@ -19,7 +19,7 @@ class TalkPageHeaderView: UIView {
     
     @IBOutlet private var headerLabel: UILabel!
     @IBOutlet private(set) var titleTextView: UITextView!
-    @IBOutlet private var infoLabel: UILabel!
+    @IBOutlet private(set) var infoLabel: UILabel!
     @IBOutlet private var introTextView: UITextView!
     
     private var viewModel: ViewModel?
@@ -61,7 +61,7 @@ class TalkPageHeaderView: UIView {
             introTextView.textAlignment = textAlignmentOverride
         }
     }
-    
+
     override init(frame: CGRect) {
         assertionFailure("init(frame) not setup for TalkPageHeaderView")
         super.init(frame: frame)
@@ -92,6 +92,9 @@ class TalkPageHeaderView: UIView {
         introTextView.textContainer.lineFragmentPadding = 0
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedIntro(sender:)))
         introTextView.addGestureRecognizer(tapGestureRecognizer)
+        headerLabel.accessibilityTraits = .header
+        titleTextView.accessibilityTraits = .header
+        updateFonts(with: traitCollection)
     }
     
     func configure(viewModel: ViewModel) {
@@ -122,6 +125,21 @@ class TalkPageHeaderView: UIView {
         } else {
             introTextView.isHidden = true
         }
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        let titleConvertedPoint = self.convert(point, to: titleTextView)
+        if titleTextView.point(inside: titleConvertedPoint, with: event) {
+            return true
+        }
+        
+        let introConvertedPoint = self.convert(point, to: introTextView)
+        if introTextView.point(inside: introConvertedPoint, with: event) {
+            return true
+        }
+        
+        return false
     }
     
     private func setupIntro(text: String) {
@@ -185,7 +203,7 @@ extension TalkPageHeaderView: Themeable {
 
 extension TalkPageHeaderView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(URL, headerView: self)
+        delegate?.tappedLink(URL, headerView: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
         return false
     }
 }

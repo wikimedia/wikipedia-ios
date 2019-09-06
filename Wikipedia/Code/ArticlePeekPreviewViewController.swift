@@ -22,11 +22,14 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withURLs: [articleURL]) { (articles, _) in
-                guard let first = articles.first else {
+            guard let key = articleURL.wmf_databaseKey else {
+                return
+            }
+            dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
+                guard let article = article else {
                     return
                 }
-                self.updateView(with: first)
+                self.updateView(with: article)
             }
             return
         }
@@ -36,6 +39,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     public func updatePreferredContentSize(for contentWidth: CGFloat) {
         var updatedContentSize = expandedArticleView.sizeThatFits(CGSize(width: contentWidth, height: UIView.noIntrinsicMetric), apply: true)
         updatedContentSize.width = contentWidth // extra protection to ensure this stays == width
+        parent?.preferredContentSize = updatedContentSize
         preferredContentSize = updatedContentSize
     }
     
@@ -62,6 +66,8 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         view.addSubview(activityIndicatorView)
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
+
+        expandedArticleView.updateFonts(with: traitCollection)
     }
     
     override func viewWillAppear(_ animated: Bool) {

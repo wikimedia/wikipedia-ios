@@ -12,7 +12,7 @@ class TalkPageTopicHintViewController: HintViewController {
     
     override func configureSubviews() {
         defaultImageView.image = UIImage(named: "published-pencil")
-        defaultLabel.text = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")
+        defaultLabel.text = CommonStrings.successfullyPublishedDiscussion
     }
 }
 
@@ -25,7 +25,7 @@ class TalkPageReplyHintViewController: HintViewController {
     
     override func configureSubviews() {
         defaultImageView.image = UIImage(named: "published-pencil")
-        defaultLabel.text = WMFLocalizedString("talk-page-new-reply-success-text", value: "Your reply was successfully published", comment: "Banner text that appears after a new reply was successfully published on a talk page discussion.")
+        defaultLabel.text = CommonStrings.successfullyPublishedReply
     }
 }
 

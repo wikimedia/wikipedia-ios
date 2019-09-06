@@ -26,11 +26,16 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag
         accessibilityElements = [headerLabel as Any, textView as Any, textView.clearButton as Any, footerLabel as Any]
+        updateFonts()
         return textView
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         headerLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         footerLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         textView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)

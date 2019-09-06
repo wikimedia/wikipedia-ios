@@ -40,13 +40,7 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         self.theme = theme
         displayType = .detail(contentGroupKind)
     }
-
-    // MARK: Items
-
-    private lazy var masterSwitch: ExploreFeedSettingsMaster = {
-        return ExploreFeedSettingsMaster(for: .singleFeedCard(contentGroupKind))
-    }()
-
+    
     // MARK: Sections
 
     private lazy var togglingFeedCardFooterText: String = {
@@ -54,7 +48,7 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
     }()
 
     private lazy var mainSection: ExploreFeedSettingsSection = {
-        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [masterSwitch])
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [ExploreFeedSettingsMaster(for: .singleFeedCard(contentGroupKind))])
     }()
 
     private lazy var languagesSection: ExploreFeedSettingsSection = {
@@ -75,19 +69,20 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
 
 extension FeedCardSettingsViewController {
     override func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
+        activeSwitch = sender
         let controlTag = sender.tag
         guard let feedContentController = feedContentController else {
             assertionFailure("feedContentController is nil")
             return
         }
         guard controlTag != -1 else { // master switch
-            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
+            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
             return
         }
         guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {
             assertionFailure("No language for a given control tag")
             return
         }
-        feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, forSiteURL: language.siteURL)
+        feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, forSiteURL: language.siteURL, updateFeed: false)
     }
 }

@@ -4,7 +4,7 @@ import UIKit
 protocol TalkPageTopicListDelegate: class {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
-    func didBecomeActiveAfterCompletingActivity(ofType completedActivityType: UIActivity.ActivityType?)
+    func didTriggerRefresh(viewController: TalkPageTopicListViewController)
 }
 
 class TalkPageTopicListViewController: ColumnarCollectionViewController {
@@ -20,13 +20,12 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
     private var collectionViewUpdater: CollectionViewUpdater<TalkPageTopic>!
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
-    private var toolbar: UIToolbar?
-    private var shareIcon: IconBarButtonItem?
+    
     private let siteURL: URL
     private let type: TalkPageType
     private let talkPageSemanticContentAttribute: UISemanticContentAttribute
-
-    private var completedActivityType: UIActivity.ActivityType?
+    
+    var fromNavigationStateRestoration: Bool = false
 
     required init(dataStore: MWKDataStore, talkPageTitle: String, talkPage: TalkPage, siteURL: URL, type: TalkPageType, talkPageSemanticContentAttribute: UISemanticContentAttribute) {
         self.dataStore = dataStore
@@ -52,25 +51,43 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isRefreshControlEnabled = true
         registerCells()
         setupCollectionViewUpdater()
-        setupToolbar()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //T226732 - workaround for when navigation bar maxY doesn't include top safe area height when returning from state restoration which results in a scroll view inset bug
+        if fromNavigationStateRestoration {
+            navigationBar.setNeedsLayout()
+            navigationBar.layoutIfNeeded()
+            updateScrollViewInsets()
+            fromNavigationStateRestoration = false
+        }
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
-    @objc private func didBecomeActive() {
-        delegate?.didBecomeActiveAfterCompletingActivity(ofType: completedActivityType)
-        completedActivityType = nil
-    }
     
+    override func refresh() {
+        delegate?.didTriggerRefresh(viewController: self)
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            //
+        }) { _ in
+            self.updateScrollViewInsets()
+        }
+        super.willTransition(to: newCollection, with: coordinator)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -132,9 +149,12 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         collectionView.backgroundColor = theme.colors.baseBackground
-        toolbar?.barTintColor = theme.colors.chromeBackground
-        shareIcon?.apply(theme: theme)
     }
 }
 
@@ -152,48 +172,7 @@ private extension TalkPageTopicListViewController {
         collectionViewUpdater?.performFetch()
     }
     
-    func setupToolbar() {
-        let toolbar = UIToolbar()
-        toolbar.barTintColor = theme.colors.chromeBackground
-        
-        let toolbarHeight = CGFloat(44)
-        additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: toolbarHeight, right: 0)
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(toolbar)
-        let guide = view.safeAreaLayoutGuide
-        let heightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
-        let leadingConstraint = view.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor)
-        let trailingConstraint = view.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor)
-        let bottomConstraint = guide.bottomAnchor.constraint(equalTo: toolbar.topAnchor)
-        
-        NSLayoutConstraint.activate([heightConstraint, leadingConstraint, trailingConstraint, bottomConstraint])
-        
-        let shareIcon = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
-        shareIcon.apply(theme: theme)
-        shareIcon.accessibilityLabel = CommonStrings.accessibilityShareTitle
-        
-        let spacer1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let spacer2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.items = [spacer1, shareIcon, spacer2]
-
-        self.toolbar = toolbar
-        self.shareIcon = shareIcon
-    }
     
-    @objc func tappedShare(_ sender: UIBarButtonItem) {
-        var talkPageURLComponents = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
-        talkPageURLComponents?.path = "/wiki/\(talkPageTitle)"
-        guard let talkPageURL = talkPageURLComponents?.url else {
-            return
-        }
-        let activityViewController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
-        activityViewController.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
-            if completed {
-                self.completedActivityType = activityType
-            }
-        }
-        present(activityViewController, animated: true)
-    }
     
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
         let topic = fetchedResultsController.object(at: indexPath)
@@ -204,6 +183,7 @@ private extension TalkPageTopicListViewController {
         cell.configure(title: title, isRead: topic.isRead)
         cell.layoutMargins = layout.itemLayoutMargins
         cell.semanticContentAttributeOverride = talkPageSemanticContentAttribute
+        cell.accessibilityTraits = .button
         cell.apply(theme: theme)
     }
 }

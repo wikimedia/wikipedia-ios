@@ -81,6 +81,7 @@
 "action-add-to-reading-list-short" = "Přidat do seznamu";
 "action-cancel" = "Zrušit";
 "action-find-in-page" = "Najít na stránce";
+"action-language-accessibility" = "Změnit jazyk";
 "action-move-to" = "Přesunout do…";
 "action-move-to-reading-list" = "Přesunout do seznamu k přečtení";
 "action-read" = "Číst";
@@ -349,6 +350,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedie";
 "explore-randomizer" = "Náhodný článek";
+"featured-article-empty-title" = "Není dostupný doporučený článek";
 "feed-news-notification-button-text" = "Zapnout oznámení";
 "feed-news-notification-text" = "Posílat oznámení, která mají být oznámeny Wikipedií, když články jsou trendy v aktualitách.";
 "fetcher-error-generic" = "Něco se nepovedlo. Prosím zkuste to později znovu.";
@@ -403,7 +405,6 @@
 "home-themes-prompt" = "Upravte si předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
 "home-title" = "Objevit";
 "home-title-accessibility-label" = "Wikipedie, přejít na začátek kanálu Objevit";
-"icon-shortcut-continue-reading-title" = "Pokračovat ve čtení";
 "icon-shortcut-nearby-title" = "Blízké články";
 "icon-shortcut-random-title" = "Náhodný článek";
 "icon-shortcut-search-title" = "Hledat ve Wikipedii";
@@ -732,8 +733,14 @@
 "table-of-contents-close-accessibility-label" = "Schovat obsah";
 "table-of-contents-heading" = "Obsah";
 "table-title-other" = "Další informace";
+"talk-page-add-discussion-accessibility-label" = "Přidat diskusi";
+"talk-page-discussion-accessibility-hint" = "Dvakrát poklepejte pro založení nového vlákna";
+"talk-page-discussion-read-accessibility-label" = "Přečteno";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "pr̝ɛt͡ʃtɛŋo";
+"talk-page-discussion-unread-accessibility-label" = "Nepřečteno";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "nɛpr̝ɛt͡ʃtɛŋo";
 "talk-page-error-unable-to-post-reply" = "Nelze se připojit k interentu. Nelze odeslat odpověď.";
-"talk-page-error-unable-to-post-topic" = "Nelze se připojit k interentu. Nelze zveřejnit nové téma.";
+"talk-page-error-unable-to-post-topic" = "Nelze se připojit k internetu. Nelze zveřejnit diskusi.";
 "talk-page-info-active-conversations" = "Aktivní diskuse na Wikipedii v jazyce $1";
 "talk-page-info-active-conversations-generic" = "Aktivní diskuse na Wikipedii";
 "talk-page-link-user-action-sheet-app" = "Zobrazit diskusi uživatele v aplikaci";
@@ -741,9 +748,13 @@
 "talk-page-link-user-action-sheet-title" = "Uživatelské stránky";
 "talk-page-new-banner-subtitle" = "Pamatujte, že všichni jsme lidé";
 "talk-page-new-banner-title" = "Buďte přátelští";
+"talk-page-new-body-textfield-accessibility-label" = "Text diskuse";
+"talk-page-new-reply-body-accessibility-label" = "Odpovědět";
 "talk-page-new-reply-body-placeholder-text" = "Odpovědět";
 "talk-page-new-reply-success-text" = "Vaše odpověď byla úspěšně zveřejněna";
+"talk-page-new-subject-clear-button-accessibility" = "Vymazat nadpis";
 "talk-page-new-subject-placeholder-text" = "Předmět";
+"talk-page-new-subject-textfield-accessibility-label" = "Nadpis";
 "talk-page-new-topic-body-placeholder-text" = "Vytvořit novou diskusi";
 "talk-page-new-topic-success-text" = "Vaše diskuse byla úspěšně zveřejněna";
 "talk-page-new-topic-title" = "Nová diskuse";

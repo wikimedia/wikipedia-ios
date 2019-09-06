@@ -12,7 +12,7 @@ extension NSManagedObjectContext {
 
     func talkPage(for taskURL: URL) throws -> TalkPage? {
         
-        guard let databaseKey = taskURL.wmf_talkPageDatabaseKey else {
+        guard let databaseKey = taskURL.wmf_databaseKey else {
             throw TalkPageError.talkPageDatabaseKeyCreationFailure
         }
         
@@ -26,7 +26,7 @@ extension NSManagedObjectContext {
     func createMissingTalkPage(with url: URL, displayTitle: String) -> TalkPage? {
         
         let talkPage = TalkPage(context: self)
-        talkPage.key = url.wmf_talkPageDatabaseKey
+        talkPage.key = url.wmf_databaseKey
         talkPage.displayTitle = displayTitle
         
         do {
@@ -44,7 +44,7 @@ extension NSManagedObjectContext {
         }
         
         let talkPage = TalkPage(context: self)
-        talkPage.key = networkTalkPage.url.wmf_talkPageDatabaseKey
+        talkPage.key = networkTalkPage.url.wmf_databaseKey
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.displayTitle = networkTalkPage.displayTitle
         
@@ -61,6 +61,7 @@ extension NSManagedObjectContext {
     
     func updateTalkPage(_ localTalkPage: TalkPage, with networkTalkPage: NetworkTalkPage) -> TalkPage? {
         
+        
         guard let revisionID = networkTalkPage.revisionId else {
             return nil
         }
@@ -73,17 +74,30 @@ extension NSManagedObjectContext {
         
         let oldTopicSetShas = Set(topicShas)
         let newTopicSetShas = Set(networkTalkPage.topics.map { $0.shas.html })
-        
+
         //delete old topics
         let topicShasToDelete = oldTopicSetShas.subtracting(newTopicSetShas)
-        
-        for deleteSha in topicShasToDelete {
-            if let localTopic = localTalkPage.topics?.filter({ ($0 as? TalkPageTopic)?.textSha == deleteSha }).first as? TalkPageTopic {
-                delete(localTopic)
+
+        let localTopicsToDelete = localTalkPage.topics?.filter({ (item) -> Bool in
+            guard let topic = item as? TalkPageTopic,
+                let textSha = topic.textSha else {
+                    return false
+            }
+
+            return topicShasToDelete.contains(textSha)
+        })
+
+        if let localTopicsToDelete = localTopicsToDelete {
+            for topic in localTopicsToDelete {
+                guard let topic = topic as? TalkPageTopic else {
+                    continue
+                }
+
+                delete(topic)
             }
         }
         
-        //udpate common topics
+        //update common topics
         let commonTopicShas = oldTopicSetShas.intersection(newTopicSetShas)
         do  {
             try updateCommonTopics(localTalkPage: localTalkPage, with: networkTalkPage, commonTopicShas: commonTopicShas)
@@ -91,24 +105,29 @@ extension NSManagedObjectContext {
             //add new topics
             let topicShasToInsert = newTopicSetShas.subtracting(oldTopicSetShas)
             
-            for insertSha in topicShasToInsert {
-                if let networkTopic = networkTalkPage.topics.filter({ $0.shas.html == insertSha }).first {
-                    try addTalkPageTopic(to: localTalkPage, with: networkTopic)
-                }
+            let insertNetworkTopics = networkTalkPage.topics.filter { topicShasToInsert.contains($0.shas.html) }
+            for insertNetworkTopic in insertNetworkTopics {
+                try addTalkPageTopic(to: localTalkPage, with: insertNetworkTopic)
             }
+            
             try? removeUnlinkedTalkPageTopicContent()
+            
             try save()
+            
             return localTalkPage
         } catch {
             delete(localTalkPage)
             return nil
         }
+        
+        
     }
     
     func fetchOrCreateTalkPageTopicContent(with sha: String, for topic: TalkPageTopic) throws {
         guard topic.content?.sha != sha else {
             return
         }
+        
         let request: NSFetchRequest<TalkPageTopicContent> = TalkPageTopicContent.fetchRequest()
         request.predicate = NSPredicate(format: "sha == %@", sha)
         let results = try fetch(request)
@@ -187,10 +206,23 @@ private extension NSManagedObjectContext {
             
             //delete old replies
             let replyShasToDelete = oldSetReplyShas.subtracting(newSetReplyShas)
-            
-            for deleteSha in replyShasToDelete {
-                if let localReply = localTopic.replies?.filter({ ($0 as? TalkPageReply)?.sha == deleteSha }).first as? TalkPageReply {
-                    delete(localReply)
+
+            let localRepliesToDelete = localTopic.replies?.filter({ (item) -> Bool in
+                guard let reply = item as? TalkPageReply,
+                    let textSha = reply.sha else {
+                        return false
+                }
+
+                return replyShasToDelete.contains(textSha)
+            })
+
+            if let localRepliesToDelete = localRepliesToDelete {
+                for reply in localRepliesToDelete {
+                    guard let reply = reply as? TalkPageTopic else {
+                        continue
+                    }
+
+                    delete(reply)
                 }
             }
             
@@ -225,11 +257,11 @@ private extension NSManagedObjectContext {
             //add new replies
             let replyShasToInsert = newSetReplyShas.subtracting(oldSetReplyShas)
             
-            for insertSha in replyShasToInsert {
-                if let networkReply = networkTopic.replies.filter({ $0.sha == insertSha }).first {
-                    addTalkPageReply(to: localTopic, with: networkReply)
-                }
+            let insertNetworkReplies = networkTopic.replies.filter { replyShasToInsert.contains($0.sha) }
+            for insertNetworkReply in insertNetworkReplies {
+                addTalkPageReply(to: localTopic, with: insertNetworkReply)
             }
+
         }
     }
     
@@ -240,6 +272,7 @@ private extension NSManagedObjectContext {
     }
     
     func addTalkPageTopic(to talkPage: TalkPage, with networkTopic: NetworkTopic) throws {
+
         let topic = TalkPageTopic(context: self)
         topic.title = networkTopic.html
         topic.sectionID = Int64(networkTopic.sectionID)
@@ -252,12 +285,13 @@ private extension NSManagedObjectContext {
         }
         
         topic.textSha = networkTopic.shas.html
-        try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: topic)
         
+        try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: topic)
+
         for reply in networkTopic.replies {
             addTalkPageReply(to: topic, with: reply)
         }
-        
+
         topic.talkPage = talkPage
     }
     

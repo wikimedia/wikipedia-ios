@@ -4,7 +4,7 @@ import UserNotificationsUI
 import WMF
 import CocoaLumberjackSwift
 
-class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension {
+class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotificationContentExtension {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var statusView: UIVisualEffectView!
@@ -24,6 +24,19 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
     
     var marginWidthForVisibleImageView: CGFloat = 0
     
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        articleTitleLabel.textColor = theme.colors.primaryText
+        articleSubtitleLabel.textColor = theme.colors.secondaryText
+        statusLabel.textColor = theme.colors.accent
+        readerCountLabel.textColor = theme.colors.accent
+        timeLabel.textColor = theme.colors.secondaryText
+        sparklineView.apply(theme: theme)
+    }
+
     var articleURL: URL?
     
     var imageViewHidden = false {
@@ -143,4 +156,5 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             })
         }
     }
+
 }

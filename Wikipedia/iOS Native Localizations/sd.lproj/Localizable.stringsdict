@@ -66,6 +66,38 @@
 			<string>%1$d تاريخي واقعا</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ڏينھن اڳ سنواريل</string>
+			<key>zero</key>
+			<string>اڄ سنواريل</string>
+		</dict>
+	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ٻي ٻولي ۾ موجود</string>
+			<key>other</key>
+			<string>%1$d ٻين ٻولين ۾ موجود</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -98,7 +130,7 @@
 			<string>%1$d پڙھڻ جون فھرستون</string>
 		</dict>
 	</dict>
-	<key>relative-date-days-ago</key>
+	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -109,7 +141,37 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>ڪالھ</string>
+			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھن فھرست ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+			<key>other</key>
+			<string>ھي عمل اڻڪري نٿو سگھجي. رڳو ھنن فھرستن ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>فھرست ڊاھيو؟</string>
+			<key>other</key>
+			<string>فھرستون ڊاھيو؟</string>
+		</dict>
+	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
 			<key>other</key>
 			<string>%1$d ڏينھن اڳ</string>
 			<key>zero</key>
@@ -162,12 +224,58 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>گذريل سال</string>
 			<key>other</key>
 			<string>%1$d سالَ اڳ</string>
 			<key>zero</key>
 			<string>ھن سال</string>
+		</dict>
+	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d شيءِ مٽائجي وئي</string>
+			<key>other</key>
+			<string>%1$d شيون مٽائجي ويون</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>نہ-سانڍڻ ھن مضمون کي سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو</string>
+			<key>other</key>
+			<string>نہ-سانڍڻ ھنن مضمونن کي سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>مضمون اڻسانڍيو؟</string>
+			<key>other</key>
+			<string>مضمون اڻسانڍيو؟</string>
 		</dict>
 	</dict>
 </dict>

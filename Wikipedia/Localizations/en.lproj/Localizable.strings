@@ -52,6 +52,7 @@
 "action-add-to-reading-list-short" = "Add to list";
 "action-cancel" = "Cancel";
 "action-find-in-page" = "Find in page";
+"action-language-accessibility" = "Change language";
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
 "action-read" = "Read";
@@ -320,6 +321,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
+"featured-article-empty-title" = "No featured article available today";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
 "fetcher-error-generic" = "Something went wrong. Please try again later.";
@@ -702,8 +704,14 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
+"talk-page-add-discussion-accessibility-label" = "Add discussion";
+"talk-page-discussion-accessibility-hint" = "Double tap to open discussion thread";
+"talk-page-discussion-read-accessibility-label" = "Read";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-unread-accessibility-label" = "Unread";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
 "talk-page-error-unable-to-post-reply" = "No internet connection. Unable to post reply.";
-"talk-page-error-unable-to-post-topic" = "No internet connection. Unable to post topic.";
+"talk-page-error-unable-to-post-topic" = "No internet connection. Unable to post discussion.";
 "talk-page-info-active-conversations" = "Active conversations on $1 Wikipedia";
 "talk-page-info-active-conversations-generic" = "Active conversations on Wikipedia";
 "talk-page-link-user-action-sheet-app" = "View User Talk page in app";
@@ -711,9 +719,13 @@
 "talk-page-link-user-action-sheet-title" = "User pages";
 "talk-page-new-banner-subtitle" = "Remember, we are all humans here";
 "talk-page-new-banner-title" = "Please be kind";
+"talk-page-new-body-textfield-accessibility-label" = "Discussion Body";
+"talk-page-new-reply-body-accessibility-label" = "Compose response";
 "talk-page-new-reply-body-placeholder-text" = "Compose response";
 "talk-page-new-reply-success-text" = "Your reply was successfully published";
+"talk-page-new-subject-clear-button-accessibility" = "Clear subject";
 "talk-page-new-subject-placeholder-text" = "Subject";
+"talk-page-new-subject-textfield-accessibility-label" = "Subject";
 "talk-page-new-topic-body-placeholder-text" = "Compose new discussion";
 "talk-page-new-topic-success-text" = "Your discussion was successfully published";
 "talk-page-new-topic-title" = "New discussion";
@@ -726,6 +738,8 @@
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
 "theme-default-display-name" = "Default";
+"theme-default-explanation" = "Matches system theme";
+"theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

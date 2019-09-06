@@ -2,7 +2,7 @@
 import UIKit
 
 protocol TalkPageReplyCellDelegate: class {
-    func tappedLink(_ url: URL, cell: TalkPageReplyCell)
+    func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?)
 }
 
 class TalkPageReplyCell: CollectionViewCell {
@@ -142,7 +142,7 @@ extension TalkPageReplyCell: Themeable {
 
 extension TalkPageReplyCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(URL, cell: self)
+        delegate?.tappedLink(URL, cell: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
         return false
     }
 }

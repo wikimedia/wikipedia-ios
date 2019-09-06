@@ -172,7 +172,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
             return 0
         }
         header.text = sections[section].headerTitle
-        return header.height(withExpectedWidth: self.view.frame.width)
+        return header.height(withExpectedWidth: self.view.frame.width - tableView.separatorInset.left - tableView.separatorInset.right)
     }
     
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

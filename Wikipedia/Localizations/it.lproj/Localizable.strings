@@ -1,6 +1,7 @@
 // Messages for Italian (italiano)
 // Exported from translatewiki.net
 // Author: Alexmar983
+// Author: Annibale covini gerolamo
 // Author: Anto
 // Author: Bertaz
 // Author: Beta16
@@ -76,6 +77,7 @@
 "action-add-to-reading-list-short" = "Aggiungi all'elenco";
 "action-cancel" = "Annulla";
 "action-find-in-page" = "Trova nella pagina";
+"action-language-accessibility" = "Cambia lingua";
 "action-move-to" = "Sposta in…";
 "action-move-to-reading-list" = "Sposta nell'elenco di lettura";
 "action-read" = "Leggi";
@@ -231,6 +233,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Una pagina a caso";
+"featured-article-empty-title" = "Nessuna voce in vetrina disponibile oggi";
 "feed-news-notification-button-text" = "Attiva le notifiche";
 "fetcher-error-generic" = "Qualcosa è andato storto. Riprova più tardi.";
 "field-alert-captcha-invalid" = "CAPTCHA non valido";
@@ -272,7 +275,6 @@
 "home-nearby-footer" = "Altri luoghi vicini alla tua posizione";
 "home-nearby-location-footer" = "Altro nelle vicinanze di $1";
 "home-title" = "Esplora";
-"icon-shortcut-continue-reading-title" = "Continua a leggere";
 "icon-shortcut-nearby-title" = "Voci nelle vicinanze";
 "icon-shortcut-random-title" = "Voce a caso";
 "icon-shortcut-search-title" = "Cerca su Wikipedia";
@@ -497,11 +499,13 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "table-title-other" = "Ulteriori informazioni";
+"talk-page-add-discussion-accessibility-label" = "Aggiungi discussione";
 "talk-page-info-active-conversations-generic" = "Conversazioni attive su Wikipedia";
 "talk-page-link-user-action-sheet-title" = "Pagine utente";
 "talk-page-new-banner-subtitle" = "Ricorda, siamo tutti umani qui";
 "talk-page-new-banner-title" = "Per favore, sii gentile";
 "talk-page-new-reply-success-text" = "La tua risposta è stata pubblicata con successo";
+"talk-page-new-subject-textfield-accessibility-label" = "Oggetto";
 "talk-page-new-topic-success-text" = "La tua discussione è stata pubblicata con successo";
 "talk-page-new-topic-title" = "Nuova discussione";
 "talk-page-reply-title" = "Rispondi";

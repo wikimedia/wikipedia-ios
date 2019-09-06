@@ -35,6 +35,7 @@ final class InsertMediaImageInfoView: UIView {
         } else {
             licenseLabel.isHidden = true
         }
+        updateFonts()
         setNeedsLayout()
         self.keepBackgroundClear = keepBackgroundClear
         apply(theme: theme)
@@ -42,6 +43,10 @@ final class InsertMediaImageInfoView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         titleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         descriptionLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         licenseLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)

@@ -9,10 +9,23 @@ NSString *const WMFArticleSaveToDiskDidFailErrorKey = @"WMFArticleSavedToDiskWit
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
+NSString *const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
+NSInteger const WMFSavePageImageDownloadError = 1;
+
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFSavedArticlesFetcherLogLevel
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface NSError (SavedArticlesFetcherErrors)
+
+/**
+ *  @return Generic error used to indicate one or more images failed to download for the article or its gallery.
+ */
++ (instancetype)wmf_savedPageImageDownloadErrorWithUnderlyingError:(nullable NSError *)error;
+
+@end
+
 
 @interface SavedArticlesFetcher ()
 
@@ -145,30 +158,36 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     [self update];
 }
 
+- (void)syncDidFinish:(NSNotification *)note {
+    [self update];
+}
+
 - (void)_update {
     if (self.isUpdating || !self.isRunning) {
         [self updateFetchesInProcessCount];
         return;
     }
     self.updating = YES;
-    if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-        self.backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:@"SavedArticlesFetch"
-                                                                                   expirationHandler:^{
-                                                                                       [self cancelAllRequests];
-                                                                                       [self stop];
-                                                                                   }];
-    }
     dispatch_block_t endBackgroundTask = ^{
         if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
             [UIApplication.sharedApplication endBackgroundTask:self.backgroundTaskIdentifier];
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         }
     };
+    if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        self.backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:@"SavedArticlesFetch"
+                                                                                   expirationHandler:^{
+                                                                                       [self cancelAllRequests];
+                                                                                       [self stop];
+                                                                                       endBackgroundTask();
+                                                                                   }];
+    }
     NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
 
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:YES]];
     request.fetchLimit = 1;
     NSError *fetchError = nil;
     WMFArticle *article = [[moc executeFetchRequest:request error:&fetchError] firstObject];
@@ -203,6 +222,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         NSFetchRequest *downloadedRequest = [WMFArticle fetchRequest];
         downloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate == nil && isDownloaded == YES"];
         downloadedRequest.fetchLimit = 1;
+        downloadedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:YES]];
         NSError *downloadedFetchError = nil;
         WMFArticle *articleToDelete = [[self.dataStore.viewContext executeFetchRequest:downloadedRequest error:&downloadedFetchError] firstObject];
         if (downloadedFetchError) {
@@ -239,6 +259,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)observeSavedPages {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdated:) name:WMFArticleUpdatedNotification object:nil];
+    // WMFArticleUpdatedNotification aren't coming through when the articles are created from a background sync, so observe syncDidFinish as well to download articles synced down from the server
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncDidFinish:) name:WMFReadingListsController.syncDidFinishNotification object:nil];
 }
 
 - (void)unobserveSavedPages {
@@ -288,7 +310,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                         failure(error);
                     });
                 }
-                success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull articleURL) {
+                success:^(MWKArticle *_Nonnull article, NSURL *_Nonnull fetchedURL) {
                     dispatch_async(self.accessQueue, ^{
                         [self downloadImageDataForArticle:article
                             failure:^(NSError *error) {
@@ -314,7 +336,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     dispatch_block_t doneMigration = ^{
         [self fetchAllImagesInArticle:article
             failure:^(NSError *error) {
-                failure([NSError wmf_savedPageImageDownloadError]);
+                failure([NSError wmf_savedPageImageDownloadErrorWithUnderlyingError:error]);
             }
             success:^{
                 if (success) {
@@ -334,7 +356,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)migrateLegacyImagesInArticle:(MWKArticle *)article completion:(dispatch_block_t)completion {
     WMFImageController *imageController = [WMFImageController sharedInstance];
     NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
-    NSString *group = article.url.wmf_articleDatabaseKey;
+    NSString *group = article.url.wmf_databaseKey;
     if (!group || !legacyImageURLs.count) {
         if (completion) {
             completion();
@@ -347,7 +369,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     dispatch_block_t doneMigration = ^{
         NSArray *imageURLsForSaving = [article imageURLsForSaving];
-        NSString *articleKey = article.url.wmf_articleDatabaseKey;
+        NSString *articleKey = article.url.wmf_databaseKey;
         if (!articleKey || imageURLsForSaving.count == 0) {
             success();
             return;
@@ -384,7 +406,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }
 
             NSArray *URLs = [info valueForKey:@"imageThumbURL"];
-            [self cacheImagesForArticleKey:article.url.wmf_articleDatabaseKey withURLsInBackground:URLs failure:failure success:success];
+            [self cacheImagesForArticleKey:article.url.wmf_databaseKey withURLsInBackground:URLs failure:failure success:success];
         }];
 }
 
@@ -478,21 +500,32 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     [self updateFetchesInProcessCount];
 
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
-    [article updatePropertiesForError:error];
-    if (error) {
-        if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
-            NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
-            [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
-            [self stop];
-            article.isDownloaded = NO;
-        } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
-            article.isDownloaded = YES; // skip missing titles
+    NSError *fetchError = nil;
+    NSArray<WMFArticle *> *articles = [self.dataStore.viewContext fetchArticlesWithKey:[url wmf_databaseKey] error:&fetchError];
+    for (WMFArticle *article in articles) {
+        [article updatePropertiesForError:error];
+        if (error) {
+            if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
+                NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
+                [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+                [self stop];
+                article.isDownloaded = NO;
+            } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
+                article.isDownloaded = YES; // skip missing titles
+            } else if ([error.domain isEqualToString:WMFSavedPageErrorDomain]) {
+                NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
+                if (error.code == WMFSavePageImageDownloadError && [NSPOSIXErrorDomain isEqualToString:underlyingError.domain]) {
+                    article.isDownloaded = YES; // skip image download errors
+                    // This image is failing with POSIX error 100 causing stuck downloading bug, could be more widespread: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Odakyu_odawara.svg/18px-Odakyu_odawara.svg.png
+                } else {
+                    article.isDownloaded = NO;
+                }
+            } else {
+                article.isDownloaded = NO;
+            }
         } else {
-            article.isDownloaded = NO;
+            article.isDownloaded = YES;
         }
-    } else {
-        article.isDownloaded = YES;
     }
 
     NSError *saveError = nil;
@@ -504,16 +537,17 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 @end
 
-static NSString *const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
-
 @implementation NSError (SavedArticlesFetcherErrors)
 
-+ (instancetype)wmf_savedPageImageDownloadError {
++ (instancetype)wmf_savedPageImageDownloadErrorWithUnderlyingError:(nullable NSError *)underlyingError {
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
+    userInfo[NSLocalizedDescriptionKey] = WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.");
+    if (underlyingError) {
+        userInfo[NSUnderlyingErrorKey] = underlyingError;
+    }
     return [NSError errorWithDomain:WMFSavedPageErrorDomain
-                               code:1
-                           userInfo:@{
-                               NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
-                           }];
+                               code:WMFSavePageImageDownloadError
+                           userInfo:userInfo];
 }
 
 @end

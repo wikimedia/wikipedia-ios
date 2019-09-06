@@ -21,9 +21,9 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         
         title = CommonStrings.historyTabTitle
         
-        deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}")
+        deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history {{Identical|Clear}}")
         deleteAllConfirmationText =  WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
-        deleteAllCancelText = WMFLocalizedString("history-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
+        deleteAllCancelText = WMFLocalizedString("history-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action {{Identical|Cancel}}")
         deleteAllText = WMFLocalizedString("history-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action")
         isDeleteAllVisible = true
     }
@@ -63,11 +63,31 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         return ((date as NSDate).wmf_midnightUTCDateFromLocal as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
     }
     
+    override func userTalkPageTitle(at indexPath: IndexPath) -> String? {
+        guard let article = article(at: indexPath),
+            let namespace = article.pageNamespace,
+            namespace == .userTalk else {
+                return nil
+        }
+        
+        return article.displayTitle
+    }
+    
     override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
         header.style = .history
         header.title = titleForHeaderInSection(sectionIndex)
         header.apply(theme: theme)
         header.layoutMargins = layout.itemLayoutMargins
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+         if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
+            let siteURL = articleURL(at: indexPath)?.wmf_site {
+                pushUserTalkPage(title: userTalkPageTitle, siteURL: siteURL)
+                return
+        }
+        
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
     }
 
     override func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {

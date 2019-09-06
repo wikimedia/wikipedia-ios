@@ -132,7 +132,12 @@ private class FeedCard: ExploreFeedSettingsItem {
         if contentGroupKind.isGlobal {
             return WMFLocalizedString("explore-feed-preferences-global-cards-subtitle", value: "Not language specific", comment: "Subtitle describing non-language specific feed cards")
         } else {
-            return contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
+            let languageCodes = contentGroupKind.languageCodes
+            let existingLanguageCodes = subtitle?.lowercased().components(separatedBy: ", ")
+            guard existingLanguageCodes?.sorted() != languageCodes.sorted() else {
+                return subtitle ?? languageCodes.joined(separator: ", ").uppercased()
+            }
+            return languageCodes.joined(separator: ", ").uppercased()
         }
     }
 
@@ -149,7 +154,14 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.layoutIfNeeded() // hax to recalculate the height of footers
+        tableView.reloadData()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if updateFeedBeforeViewDisappears {
+            feedContentController?.updateFeedSourcesUserInitiated(true)
+        }
     }
 
     public var showCloseButton = false {
@@ -225,52 +237,40 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     // MARK: Toggling Explore feed
 
-    private func reloadMasterSwitch() {
-        for (cell, item) in cellsToItemsThatNeedReloading {
-            guard let master = item as? ExploreFeedSettingsMaster, master.type == .entireFeed else {
-                continue
-            }
-            master.updateIsOn(for: displayType)
-            cell.disclosureSwitch.setOn(master.isOn, animated: true)
-        }
-    }
-
-    private lazy var turnOnExploreAlertController: UIAlertController = {
+    private func turnOnExploreAlertController(turnedOn: @escaping () -> Void, cancelled: @escaping () -> Void) -> UIAlertController {
         let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-message", value: "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon", comment: "Message for alert that allows users to turn on the Explore tab"), preferredStyle: .alert)
         let turnOnExplore = UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
-            self.dataStore?.feedContentController.toggleAllContentGroupKinds(true) {
-                UserDefaults.wmf.defaultTabType = .explore
-            }
+            turnedOn()
+        })
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
+            cancelled()
         })
         alertController.addAction(turnOnExplore)
-        alertController.addAction(cancelAction)
+        alertController.addAction(cancel)
         return alertController
-    }()
+    }
 
-    private lazy var turnOffExploreAlertController: UIAlertController = {
+    private func turnOffExploreAlertController(turnedOff: @escaping () -> Void, cancelled: @escaping () -> Void) -> UIAlertController {
         let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-title", value: "Turn off the Explore tab?", comment: "Title for alert that allows users to turn off the Explore tab"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-message", value: "The Explore tab can be turned back on in Explore feed settings", comment: "Message for alert that allows users to turn off the Explore tab"), preferredStyle: .alert)
-        let turnOnExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .destructive, handler: { _ in
-            self.dataStore?.feedContentController.toggleAllContentGroupKinds(false) {
-                UserDefaults.wmf.defaultTabType = .settings
-            }
+        let turnOffExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .destructive, handler: { _ in
+            turnedOff()
         })
-        alertController.addAction(turnOnExplore)
-        alertController.addAction(cancelAction)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
+            cancelled()
+        })
+        alertController.addAction(turnOffExplore)
+        alertController.addAction(cancel)
         return alertController
-    }()
-
-    private lazy var cancelAction: UIAlertAction = {
-        return UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
-            self.reloadMasterSwitch()
-        })
-    }()
-
+    }
 }
 
 // MARK: - UITableViewDelegate
 
 extension ExploreFeedSettingsViewController {
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         guard displayType == .multipleLanguages else {
             return
         }
@@ -281,7 +281,6 @@ extension ExploreFeedSettingsViewController {
         let feedCardSettingsViewController = FeedCardSettingsViewController()
         feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: feedCard.contentGroupKind, theme: theme)
         navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
-        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -290,6 +289,7 @@ extension ExploreFeedSettingsViewController {
 extension ExploreFeedSettingsViewController {
 
     override func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
+        activeSwitch = sender
         let controlTag = sender.tag
         guard let feedContentController = feedContentController else {
             assertionFailure("feedContentController is nil")
@@ -297,14 +297,24 @@ extension ExploreFeedSettingsViewController {
         }
         guard controlTag != -1 else { // master switch
             if sender.isOn {
-                present(turnOnExploreAlertController, animated: true)
+                present(turnOnExploreAlertController(turnedOn: {
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(true, updateFeed: false)
+                    UserDefaults.wmf.defaultTabType = .explore
+                }, cancelled: {
+                    sender.setOn(false, animated: true)
+                }), animated: true)
             } else {
-                present(turnOffExploreAlertController, animated: true)
+                present(turnOffExploreAlertController(turnedOff: {
+                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(false, updateFeed: false)
+                    UserDefaults.wmf.defaultTabType = .settings
+                }, cancelled: {
+                    sender.setOn(true, animated: true)
+                }), animated: true)
             }
             return
         }
         guard controlTag != -2 else { // global cards
-            feedContentController.toggleGlobalContentGroupKinds(sender.isOn)
+            feedContentController.toggleGlobalContentGroupKinds(sender.isOn, updateFeed: false)
             return
         }
         if displayType == .singleLanguage {
@@ -316,13 +326,13 @@ extension ExploreFeedSettingsViewController {
                 assertionFailure("Content group kind \(contentGroupKind) is not customizable nor global")
                 return
             }
-            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
+            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
         } else {
             guard let language = languages.first(where: { $0.controlTag == controlTag }) else {
                 assertionFailure("No language for given control tag")
                 return
             }
-            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, waitForCallbackFromCoordinator: true, updateFeed: true)
+            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, waitForCallbackFromCoordinator: true, updateFeed: false)
         }
     }
 }

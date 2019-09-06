@@ -50,6 +50,7 @@
 "account-creation-title" = "Kurti naują paskyrą";
 // Fuzzy
 "action-find-in-page" = "Rasti puslapyje";
+"action-language-accessibility" = "Keisti kalbą";
 "action-saved" = "Išsaugota";
 "article-about-title" = "Apie šį straipsnį";
 "article-languages-filter-placeholder" = "Rasti kalbą";
@@ -128,7 +129,6 @@
 "home-nearby-footer" = "Daugiau iš šalia jūsų vietovės";
 "home-nearby-location-footer" = "Daugiau netoliese $1";
 "home-title" = "Naršyti";
-"icon-shortcut-continue-reading-title" = "Skaityti toliau";
 "icon-shortcut-nearby-title" = "Netoli esančių objektų straipsniai";
 "icon-shortcut-random-title" = "Atsitiktinis straipsnis";
 "icon-shortcut-search-title" = "Ieškoti Vikipedijoje";
@@ -243,6 +243,9 @@
 "table-of-contents-close-accessibility-label" = "Uždaryti Turinio lentelę";
 "table-of-contents-heading" = "Turinys";
 "table-title-other" = "Daugiau informacijos";
+"talk-page-discussion-read-accessibility-label" = "Skaitytas";
+"talk-page-discussion-unread-accessibility-label" = "Neskaitytas";
+"talk-page-new-reply-body-accessibility-label" = "Rašyti atsakymą";
 "theme-black-display-name" = "Juoda";
 "top-read-header-generic" = "Vikipedija";
 "top-read-header-with-language" = "$1 Vikipedija";

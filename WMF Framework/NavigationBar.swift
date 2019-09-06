@@ -35,6 +35,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public var isExtendedViewHidingEnabled: Bool = false
     @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
+    public var allowsUnderbarHitsFallThrough: Bool = false //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
     
@@ -87,7 +88,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         apply(theme: theme)
     }
-    
+
     private var cachedTitleViewItem: UIBarButtonItem?
     private var titleView: UIView?
     
@@ -280,12 +281,17 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         updateTitleBarConstraints()
         updateShadowConstraints()
-
+        updateShadowHeightConstraintConstant()
+        
         setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateShadowHeightConstraintConstant()
+    }
+
+    private func updateShadowHeightConstraintConstant() {
         guard traitCollection.displayScale > 0 else {
             return
         }
@@ -540,7 +546,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return progressView.progress
         }
         set {
-            progressView.progress = progress
+            progressView.progress = newValue
         }
     }
     
@@ -577,6 +583,21 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        if allowsUnderbarHitsFallThrough
+            && underBarView.frame.contains(point)
+            && !bar.frame.contains(point) {
+            
+            for subview in underBarView.subviews {
+                let convertedPoint = self.convert(point, to: subview)
+                if subview.point(inside: convertedPoint, with: event) {
+                    return true
+                }
+            }
+            
+            return false
+        }
+        
         return point.y <= visibleHeight
     }
     

@@ -35,7 +35,7 @@
             assert(false);
             break;
         case WMFContentGroupKindContinueReading:
-            URL = [WMFContentGroup continueReadingContentGroupURL];
+            URL = [WMFContentGroup continueReadingContentGroupURLForArticleURL:self.articleURL];
             break;
         case WMFContentGroupKindMainPage:
             URL = [WMFContentGroup mainPageURLForSiteURL:self.siteURL];
@@ -133,7 +133,7 @@
 - (void)updateDailySortPriorityWithSiteURLSortOrder:(nullable NSDictionary<NSString *, NSNumber *> *)siteURLSortOrderLookup {
     
     NSNumber *siteURLSortOrderNumber = nil;
-    NSString *siteURLDatabaseKey = self.siteURL.wmf_articleDatabaseKey;
+    NSString *siteURLDatabaseKey = self.siteURL.wmf_databaseKey;
     
     if (siteURLDatabaseKey) {
         siteURLSortOrderNumber = siteURLSortOrderLookup[siteURLDatabaseKey];
@@ -239,7 +239,7 @@
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
-    self.siteURLString = siteURL.wmf_articleDatabaseKey;
+    self.siteURLString = siteURL.wmf_databaseKey;
 }
 
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
@@ -360,8 +360,22 @@
     return theURL;
 }
 
-+ (nullable NSURL *)continueReadingContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"continue-reading"];
++ (nullable NSURL *)continueReadingContentGroupURLForArticleURL:(NSURL *)url {
+    NSParameterAssert(url);
+    NSString *title = url.wmf_title;
+    NSString *domain = url.wmf_domain;
+    NSString *language = url.wmf_language;
+    NSParameterAssert(title);
+    NSParameterAssert(domain);
+    NSParameterAssert(language);
+    if (!title || !domain || !language) {
+        return nil;
+    }
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[self baseURL] resolvingAgainstBaseURL:NO];
+    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLArticleTitlePathComponentAllowedCharacterSet]];
+    NSString *path = [NSString pathWithComponents:@[@"/continue-reading", domain, language, encodedTitle]];
+    components.percentEncodedPath = path;
+    return components.URL;
 }
 
 + (nullable NSURL *)relatedPagesContentGroupURLForArticleURL:(NSURL *)url {
@@ -665,7 +679,7 @@
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_articleDatabaseKey];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_databaseKey];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -761,14 +775,14 @@
 
 - (nullable WMFContentGroup *)locationContentGroupWithSiteURL:(nullable NSURL *)siteURL withinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
-    NSString *siteURLString = siteURL.wmf_articleDatabaseKey;
+    NSString *siteURLString = siteURL.wmf_databaseKey;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                              withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
                                  CLLocation *groupLocation = group.location;
                                  if (!groupLocation) {
                                      return;
                                  }
-                                 NSString *groupSiteURLString = group.siteURL.wmf_articleDatabaseKey;
+                                 NSString *groupSiteURLString = group.siteURL.wmf_databaseKey;
                                  if (siteURLString && groupSiteURLString && ![siteURLString isEqualToString:groupSiteURLString]) {
                                      return;
                                  }

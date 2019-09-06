@@ -22,7 +22,7 @@ extension WKWebView {
         guard
             let fileName = fileName,
             let baseURL = baseURL,
-            let articleDatabaseKey = baseURL.wmf_articleDatabaseKey
+            let articleDatabaseKey = baseURL.wmf_databaseKey
         else {
             DDLogError("window, proxyServer, baseURL or fileName not found");
             return
@@ -90,7 +90,7 @@ extension WKWebView {
         return """
             <style type='text/css'>
                 body {
-                    -webkit-text-size-adjust: \(fontSize)%;
+                    font-size: \(fontSize.intValue)%;
                 }
             </style>
             <base href="\(baseURL.absoluteString)">

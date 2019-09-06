@@ -24,7 +24,7 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     private var theme: Theme = Theme.standard
     
     private var firstResponder: UITextField? = nil
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,12 +38,16 @@ class ReadingListDetailUnderBarViewController: UIViewController {
         descriptionTextField.delegate = self
         alertTitleLabel?.numberOfLines = 0
         alertMessageLabel?.numberOfLines = 0
-        
+        updateFonts()
         apply(theme: theme)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         articleCountLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         titleTextField.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)

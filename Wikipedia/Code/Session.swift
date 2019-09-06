@@ -211,7 +211,7 @@ import Foundation
         guard let url = url else {
             return nil
         }
-        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
+        guard let request = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers) else {
             return nil
         }
         

@@ -6,9 +6,13 @@ class EraseSavedArticlesView: UIView {
     @IBOutlet weak var footerLabel: UILabel!
     
     private var theme = Theme.standard
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    func updateFonts() {
         button.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
 }

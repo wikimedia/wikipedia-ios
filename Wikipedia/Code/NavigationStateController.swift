@@ -28,6 +28,7 @@ final class NavigationStateController: NSObject {
             completion()
             return
         }
+        self.theme = theme
         let restore = {
             completion()
             for viewController in navigationState.viewControllers {
@@ -47,11 +48,13 @@ final class NavigationStateController: NSObject {
         return moc.navigationState?.viewControllers.compactMap { $0.info?.articleKey }
     }
 
-    private func pushOrPresent(_ viewController: UIViewController, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
+    private func pushOrPresent(_ viewController: UIViewController & Themeable, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
+        viewController.apply(theme: theme)
         switch presentation {
         case .push:
             navigationController.pushViewController(viewController, animated: animated)
         case .modal:
+            viewController.modalPresentationStyle = .overFullScreen
             navigationController.present(viewController, animated: animated)
         }
     }
@@ -84,6 +87,9 @@ final class NavigationStateController: NSObject {
                 searchViewController.setSearchVisible(true, animated: false)
                 searchViewController.searchTerm = info.searchTerm
                 searchViewController.search()
+            case let exploreViewController as ExploreViewController:
+                exploreViewController.presentedContentGroupKey = info.presentedContentGroupKey
+                exploreViewController.shouldRestoreScrollPosition = true
             default:
                 break
             }
@@ -126,6 +132,7 @@ final class NavigationStateController: NSObject {
                 let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
                 talkPageContainerVC.apply(theme: theme)
                 navigationController.isNavigationBarHidden = true
+                talkPageContainerVC.fromNavigationStateRestoration = true
                 navigationController.pushViewController(talkPageContainerVC, animated: false)
             case (.talkPageReplyList, let info?):
                 guard
@@ -134,7 +141,7 @@ final class NavigationStateController: NSObject {
                 else {
                     return
                 }
-                talkPageContainerVC.pushToReplyThread(topic: talkPageTopic)
+                talkPageContainerVC.pushToReplyThread(topic: talkPageTopic, animated: false)
             case (.readingListDetail, let info?):
                 guard let readingList = managedObject(with: info.readingListURIString, in: moc) as? ReadingList else {
                     return
@@ -144,7 +151,7 @@ final class NavigationStateController: NSObject {
             case (.detail, let info?):
                 guard
                     let contentGroup = managedObject(with: info.contentGroupIDURIString, in: moc) as? WMFContentGroup,
-                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
+                    let detailVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? UIViewController & Themeable
                 else {
                     return
                 }
@@ -194,6 +201,8 @@ final class NavigationStateController: NSObject {
                 info = Info(selectedIndex: tabBarController.selectedIndex, currentSavedViewRawValue: savedViewController.currentView.rawValue)
             case let searchViewController as SearchViewController:
                 info = Info(selectedIndex: tabBarController.selectedIndex, searchTerm: searchViewController.searchTerm)
+            case let exploreViewController as ExploreViewController:
+                info = Info(selectedIndex: tabBarController.selectedIndex, presentedContentGroupKey: exploreViewController.presentedContentGroupKey)
             default:
                 info = Info(selectedIndex: tabBarController.selectedIndex)
             }
@@ -209,7 +218,7 @@ final class NavigationStateController: NSObject {
             shouldAttemptLogin = true
         case let articleViewController as WMFArticleViewController:
             kind = viewController is WMFRandomArticleViewController ? .random : .article
-            info = Info(articleKey: articleViewController.articleURL.wmf_articleDatabaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
+            info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
         case let talkPageContainerVC as TalkPageContainerViewController:
             kind = .talkPage
             info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
@@ -232,6 +241,7 @@ final class NavigationStateController: NSObject {
 
     private func viewControllersToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> [ViewController] {
         var viewControllers = [ViewController]()
+        var append = true
         if var viewControllerToSave = viewControllerToSave(from: viewController, presentedVia: presentation) {
             if let presentedViewController = viewController.presentedViewController {
                 viewControllerToSave.updateChildren(viewControllersToSave(from: presentedViewController, presentedVia: .modal))
@@ -241,9 +251,12 @@ final class NavigationStateController: NSObject {
                 for viewController in navigationController.viewControllers {
                     children.append(contentsOf: viewControllersToSave(from: viewController, presentedVia: .push))
                 }
+                append = !children.isEmpty
                 viewControllerToSave.updateChildren(children)
             }
-            viewControllers.append(viewControllerToSave)
+            if append {
+                viewControllers.append(viewControllerToSave)
+            }
         }
         return viewControllers
     }

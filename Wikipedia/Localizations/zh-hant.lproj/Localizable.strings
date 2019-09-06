@@ -19,7 +19,9 @@
 // Author: Simon Shek
 // Author: Wehwei
 // Author: Wwycheuk
+// Author: 予弦
 // Author: 烈羽
+// Author: 神樂坂秀吉
 
 "about-content-license" = "內容許可協議";
 "about-content-license-details" = "內容皆基於$1授權，除非另有聲明。";
@@ -75,6 +77,7 @@
 "action-add-to-reading-list-short" = "加入至清單";
 "action-cancel" = "取消";
 "action-find-in-page" = "在頁面裡尋找";
+"action-language-accessibility" = "變更語言";
 "action-move-to" = "移動至…";
 "action-move-to-reading-list" = "移動至閱讀清單";
 "action-read" = "閱讀";
@@ -343,6 +346,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
 "explore-random-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-randomizer" = "隨機條目產生器";
+"featured-article-empty-title" = "今日沒有可用的典範條目";
 "feed-news-notification-button-text" = "開啟通知";
 "feed-news-notification-text" = "啟用通知來透過維基百科在條目與趨勢新聞相關時獲得提醒。";
 "fetcher-error-generic" = "發生錯誤。請稍後再試。";
@@ -397,7 +401,6 @@
 "home-themes-prompt" = "請從您的使用者設定裡條目工具列，來調整您在文字大小與主題方面的閱讀偏好設定，以獲得更舒適的閱讀體驗。";
 "home-title" = "探索";
 "home-title-accessibility-label" = "維基百科，滾動至探索頁面頂端";
-"icon-shortcut-continue-reading-title" = "繼續閱讀";
 "icon-shortcut-nearby-title" = "附近地點相關條目";
 "icon-shortcut-random-title" = "隨機條目";
 "icon-shortcut-search-title" = "搜尋維基百科";
@@ -726,8 +729,14 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
 "table-title-other" = "更多資訊";
+"talk-page-add-discussion-accessibility-label" = "新增討論";
+"talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
+"talk-page-discussion-read-accessibility-label" = "已讀";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "i˨˩˦tu˧˥";
+"talk-page-discussion-unread-accessibility-label" = "未讀";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "weɪ˥˩tu˧˥";
 "talk-page-error-unable-to-post-reply" = "沒有連結到網路，無法發佈回覆。";
-"talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈主題。";
+"talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈討論。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
 "talk-page-info-active-conversations-generic" = "在維基百科上積極交談";
 "talk-page-link-user-action-sheet-app" = "在應用程式上檢視使用者對話頁";
@@ -735,9 +744,13 @@
 "talk-page-link-user-action-sheet-title" = "使用者頁面";
 "talk-page-new-banner-subtitle" = "請記得，在此我們也只是一般人";
 "talk-page-new-banner-title" = "請保持友善";
+"talk-page-new-body-textfield-accessibility-label" = "討論正文";
+"talk-page-new-reply-body-accessibility-label" = "撰寫回覆";
 "talk-page-new-reply-body-placeholder-text" = "撰寫回覆";
 "talk-page-new-reply-success-text" = "您的回覆已成功發佈";
+"talk-page-new-subject-clear-button-accessibility" = "清除主題";
 "talk-page-new-subject-placeholder-text" = "主題";
+"talk-page-new-subject-textfield-accessibility-label" = "主題";
 "talk-page-new-topic-body-placeholder-text" = "撰寫新的討論";
 "talk-page-new-topic-success-text" = "您的討論已成功發佈";
 "talk-page-new-topic-title" = "新討論";
@@ -799,7 +812,7 @@
 "wikitext-preview-save-changes-title" = "儲存變更";
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";
-"wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";
+"wikitext-upload-result-unknown" = "無法確定 wiki 語法上傳結果。";
 "wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-anonymously-or-login" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1登入$2，您將擁有更多隱私。";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1，您將擁有更多隱私。";

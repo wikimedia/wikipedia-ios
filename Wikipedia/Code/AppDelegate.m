@@ -117,6 +117,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)shouldRestoreNavigationStackOnResumeAfterBecomingActive:(NSDate *)becomeActiveDate {
+    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf].wmf_openAppOnSearchTab;
+    if (shouldOpenAppOnSearchTab) {
+        return NO;
+    }
+
     NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;
@@ -133,10 +138,16 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
+    [self.appViewController showSplashViewIfNotShowing];
+
     BOOL result = [self.appViewController processUserActivity:userActivity
                                                      animated:NO
                                                    completion:^{
-                                                       [self resumeAppIfNecessary];
+                                                       if (self.appNeedsResume) {
+                                                           [self resumeAppIfNecessary];
+                                                       } else {
+                                                           [self.appViewController hideSplashViewAnimated:YES];
+                                                       }
                                                    }];
     return result;
 }
@@ -156,10 +167,15 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
             options:(NSDictionary<NSString *, id> *)options {
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url] ?: [NSUserActivity wmf_activityForURL:url];
     if (activity) {
+        [self.appViewController showSplashViewIfNotShowing];
         BOOL result = [self.appViewController processUserActivity:activity
                                                          animated:NO
                                                        completion:^{
-                                                           [self resumeAppIfNecessary];
+                                                           if (self.appNeedsResume) {
+                                                               [self resumeAppIfNecessary];
+                                                           } else {
+                                                               [self.appViewController hideSplashViewAnimated:YES];
+                                                           }
                                                        }];
         return result;
     } else {

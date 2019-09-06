@@ -80,14 +80,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
         if let userTalkPageTitle = userTalkPageTitle(at: indexPath),
             let searchSiteURL = searchSiteURL {
             
-            //replace localized namespace with canonical namespace so it's considered the same key in the database
-            let strippedTitle = TalkPageType.user.titleWithoutNamespacePrefix(title: userTalkPageTitle)
-            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: strippedTitle, siteURL: searchSiteURL)
-            let talkPageContainer = TalkPageContainerViewController(title: title, siteURL: searchSiteURL, type: .user, dataStore: dataStore)
-            talkPageContainer.apply(theme: theme)
             let article = dataStore.historyList.addPageToHistory(with: articleURL)
             article?.update(with: results[indexPath.item])
-            wmf_push(talkPageContainer, animated: true)
+            
+            pushUserTalkPage(title: userTalkPageTitle, siteURL: searchSiteURL)
             return
         }
         
@@ -111,7 +107,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return capitalizedWikidataDescription
         }
         
-        let redirectFormat = WMFLocalizedString("search-result-redirected-from", value: "Redirected from: %1$@", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* %1$@ - article title the current search result redirected from")
+        let redirectFormat = WMFLocalizedString("search-result-redirected-from", value: "Redirected from: %1$@", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters: * %1$@ - article title the current search result redirected from")
         let redirectMessage = String.localizedStringWithFormat(redirectFormat, redirectFromTitle)
         
         guard let description = capitalizedWikidataDescription else {

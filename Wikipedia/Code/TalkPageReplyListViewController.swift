@@ -2,8 +2,9 @@
 import UIKit
 
 protocol TalkPageReplyListViewControllerDelegate: class {
-    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController)
+    func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?)
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController)
+    func didTriggerRefresh(viewController: TalkPageReplyListViewController)
 }
 
 class TalkPageReplyListViewController: ColumnarCollectionViewController {
@@ -31,19 +32,25 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     private var originalFooterViewFrame: CGRect?
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
-    private var replyBarButtonItem: UIBarButtonItem!
+    private var replyBarButtonItem: UIBarButtonItem?
+    
+    private var shouldFocusVoiceOver = false
+    private var headerView: TalkPageHeaderView?
     
     var repliesAreDisabled = true {
         didSet {
             footerView?.composeButtonIsDisabled = repliesAreDisabled
-            replyBarButtonItem.isEnabled = !repliesAreDisabled
+            replyBarButtonItem?.isEnabled = !repliesAreDisabled
         }
     }
 
     private var showingCompose = false {
         didSet {
             if showingCompose != oldValue {
+                
+                shouldFocusVoiceOver = true
                 footerView?.showingCompose = showingCompose
+                
                 if let layoutCopy = layout.copy() as? ColumnarCollectionViewLayout {
                     collectionView.setCollectionViewLayout(layoutCopy, animated: true)
                     if showingCompose == true {
@@ -55,6 +62,8 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
                     scrollToBottom()
                 }
                 
+                let nextFocus = showingCompose ? footerView?.composeTextView: nil
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: nextFocus)
             }
             
             if showingCompose {
@@ -100,6 +109,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        isRefreshControlEnabled = true
         registerCells()
         setupCollectionViewUpdater()
         setupBackgroundTap()
@@ -141,6 +151,17 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         footerView?.resetCompose()
     }
     
+    func announcePostSuccessful() {
+        NotificationCenter.default.addObserver(self, selector: #selector(announcementDidFinish(notification:)), name: UIAccessibility.announcementDidFinishNotification, object: nil)
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.successfullyPublishedReply)
+    }
+    
+    @objc private func announcementDidFinish(notification: NSNotification) {
+        postDidEnd()
+        UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: headerView?.titleTextView)
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
+    }
+    
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
         
@@ -158,6 +179,10 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         let contentOffset = collectionView.contentOffset
 
         collectionView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y + delta), animated: true)
+    }
+    
+    override func refresh() {
+        delegate?.didTriggerRefresh(viewController: self)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -212,6 +237,18 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         return UICollectionReusableView()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        
+        if elementKind == UICollectionView.elementKindSectionFooter,
+            let footer = view as? TalkPageReplyFooterView {
+            if shouldFocusVoiceOver {
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: footer.composeTextView)
+                shouldFocusVoiceOver = false
+            }
+        }
+        
+    }
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
@@ -227,6 +264,11 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
         view.backgroundColor = theme.colors.paperBackground
         beKindInputAccessoryView.apply(theme: theme)
     }
@@ -268,23 +310,23 @@ private extension TalkPageReplyListViewController {
     
     func setupNavigationBar() {
         navigationBar.isBarHidingEnabled = false
+        navigationBar.allowsUnderbarHitsFallThrough = true
         let replyImage = UIImage(named: "reply")
         replyBarButtonItem = UIBarButtonItem(image: replyImage, style: .plain, target: self, action: #selector(tappedReplyNavigationItem(_:)))
-        replyBarButtonItem.tintColor = theme.colors.link
+        replyBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem = replyBarButtonItem
-        replyBarButtonItem.isEnabled = repliesAreDisabled
+        replyBarButtonItem?.isEnabled = !repliesAreDisabled
         navigationBar.updateNavigationItems()
         
         if let headerView = TalkPageHeaderView.wmf_viewFromClassNib(),
             let title = topic.title {
-            configure(header: headerView)
-            headerView.delegate = self
+            configure(headerView: headerView)
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
-            useNavigationBarVisibleHeightForScrollViewInsets = true
+            useNavigationBarVisibleHeightForScrollViewInsets = false
             navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-            navigationBar.title = title
+            navigationBar.title = title.removingHTML
             updateScrollViewInsets()
         }
     }
@@ -314,7 +356,7 @@ private extension TalkPageReplyListViewController {
         view.endEditing(true)
     }
     
-    func configure(header: TalkPageHeaderView) {
+    func configure(headerView: TalkPageHeaderView) {
         
         guard let title = topic.title else {
                 return
@@ -324,11 +366,12 @@ private extension TalkPageReplyListViewController {
         
         let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: title, info: nil, intro: nil)
         
-        header.delegate = self
-        header.configure(viewModel: viewModel)
-        header.layoutMargins = layout.itemLayoutMargins
-        header.semanticContentAttributeOverride = talkPageSemanticContentAttribute
-        header.apply(theme: theme)
+        headerView.delegate = self
+        headerView.configure(viewModel: viewModel)
+        headerView.layoutMargins = layout.itemLayoutMargins
+        headerView.semanticContentAttributeOverride = talkPageSemanticContentAttribute
+        headerView.apply(theme: theme)
+        self.headerView = headerView
     }
     
     func configure(footer: TalkPageReplyFooterView) {
@@ -361,9 +404,9 @@ private extension TalkPageReplyListViewController {
 }
 
 extension TalkPageReplyListViewController: TalkPageReplyCellDelegate {
-    func tappedLink(_ url: URL, cell: TalkPageReplyCell) {
+    func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?) {
         
-        delegate?.tappedLink(url, viewController: self)
+        delegate?.tappedLink(url, viewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
 }
 
@@ -387,8 +430,8 @@ extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
 //MARK: TalkPageHeaderViewDelegate
 
 extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView) {
-        delegate?.tappedLink(url, viewController: self)
+    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
+        delegate?.tappedLink(url, viewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
     
     func tappedIntro(headerView: TalkPageHeaderView) {

@@ -137,6 +137,9 @@ static NSMutableDictionary *globalDesignDictionary;
     do {
         presentedViewController = viewController.presentedViewController;
         if (presentedViewController) {
+            if (presentedViewController.popoverPresentationController != nil) {
+                break;
+            }
             viewController = presentedViewController;
         }
     } while (presentedViewController != nil);

@@ -20,7 +20,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
         //since this is just colors it shouldn't affect sizing
         let colorTheme = theme ?? Theme.light
         
-        let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.") //todo: gfd or gfdl?
+        let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
         
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
@@ -102,7 +102,8 @@ class TalkPageReplyComposeView: SizeThatFitsView {
         updateFonts(with: traitCollection)
     }
     
-    func updateFonts(with traitCollection: UITraitCollection) {
+    override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
         composeTextView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
@@ -119,9 +120,13 @@ private extension TalkPageReplyComposeView {
         composeTextView.isUnderlined = false
         composeTextView.isScrollEnabled = true
         composeTextView._delegate = self
-        composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
+        if !UIAccessibility.isVoiceOverRunning {
+            composeTextView.placeholder = WMFLocalizedString("talk-page-new-reply-body-placeholder-text", value: "Compose response", comment: "Placeholder text which appears initially in the new reply field for talk pages.")
+        }
+        composeTextView.accessibilityLabel = WMFLocalizedString("talk-page-new-reply-body-accessibility-label", value: "Compose response", comment: "Accessibility label for the talk page new reply text field.")
         insertSubview(finePrintTextView, belowSubview: composeTextView)
         finePrintTextView.isScrollEnabled = false
+        finePrintTextView.isEditable = false
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
 }
