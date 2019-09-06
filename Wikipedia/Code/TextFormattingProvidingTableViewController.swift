@@ -91,6 +91,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         }
         setCloseButton()
         navigationItem.backBarButtonItem?.title = titleLabelText
+        updateTitleLabel()
         apply(theme: theme)
     }
 

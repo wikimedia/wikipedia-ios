@@ -7,6 +7,7 @@ final class InsertMediaSettingsButtonView: UIView {
     var buttonTitle: String? {
         didSet {
             button.setTitle(buttonTitle, for: .normal)
+            updateFonts()
         }
     }
 
@@ -14,6 +15,10 @@ final class InsertMediaSettingsButtonView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         button.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 

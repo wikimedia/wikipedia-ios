@@ -12,7 +12,7 @@ class InfoBannerView: SetupView {
             updateFonts(with: traitCollection)
         }
     }
-    
+
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
         let semanticContentAttribute: UISemanticContentAttribute = traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
@@ -99,6 +99,8 @@ class InfoBannerView: SetupView {
         subtitleLabel.isAccessibilityElement = false
         
         isAccessibilityElement = true
+
+        updateFonts(with: traitCollection)
     }
 }
 

@@ -26,6 +26,8 @@
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
+    [self updateFonts];
+    [self updateImageView];
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:self.theme];
 }
@@ -210,9 +212,15 @@
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    [self updateFonts];
+    [self updateImageView];
+}
 
+- (void)updateFonts {
     self.button.titleLabel.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle semiboldBody] compatibleWithTraitCollection:self.traitCollection];
+}
 
+- (void)updateImageView {
     if (![self.imageView superview]) {
         return;
     }

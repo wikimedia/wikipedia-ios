@@ -13,6 +13,7 @@ class WelcomePanelLabelContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = text
+        updateFonts()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -21,7 +22,11 @@ class WelcomePanelLabelContentViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        label.font  = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
+        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
     }
 }
 

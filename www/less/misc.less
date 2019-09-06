@@ -15,12 +15,13 @@ span.IPA + small {
 
 .content {
     font-family: -apple-system, HelveticaNeue;
-    font-size: 16px;
-    padding-bottom:16px;
+    font-size: 1em;
+    padding-bottom: 1em;
 }
 
 .content p {
-    line-height:27px;
+    line-height: 1.685em;
+    font-size: .942em;
 }
 
 // Tablet override
@@ -36,7 +37,7 @@ span.IPA + small {
 }
 
 .content_block {
-    font-size: 16px;
+    font-size: 1em;
 }
 
 // Section heading font name (but not size)
@@ -46,8 +47,9 @@ span.IPA + small {
 
 // Title heading size & padding
 #section_heading_and_content_block_0 h1 {
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin-top: 0.55em;
+    margin-bottom: 0.18em;
+    font-size: 1.6em;
 }
 
 /*
@@ -79,11 +81,11 @@ span.IPA + small {
     width: auto !important;
 }
 
-/* 
-   Override to collapsed table container border styling  
-   which is currently used by the collapse table  
+/*
+   Override to collapsed table container border styling
+   which is currently used by the collapse table
    transform we are using from the wikimedia-page-library.
-   
+
    TODO: migrate this to wikimedia-page-library with '.pagelib-platform-ios' specifier
 */
 .pagelib_collapse_table_container {
@@ -102,7 +104,7 @@ span.IPA + small {
     img, video {
       filter: invert(100%);
     }
-    /* 
+    /*
     Image backgrounds.
         Footer 'Read more' item images.
         Other places...
@@ -110,19 +112,19 @@ span.IPA + small {
     div[style*='background-image'] {
       filter: invert(100%);
     }
-    /* 
+    /*
     Math formulas.
         'en > Quadratic equation'
     */
     img.mwe-math-fallback-image-inline {
       filter: invert(0%);
-    }    
-    /* 
+    }
+    /*
     Images needing white backgrounds.
         'en > Quadratic equation'
         'en > Barack Obama > 2004 U.S. Senate campaign'
     */
     img.pagelib_theme_image_presumes_white_background {
       background: #fff;
-    }  
+    }
 }
