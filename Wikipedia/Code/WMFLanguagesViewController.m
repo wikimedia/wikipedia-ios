@@ -397,6 +397,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     if (self.viewIfLoaded == nil) {
         return;
     }
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = theme.isDark ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
+    }
     self.view.backgroundColor = theme.colors.baseBackground;
     UIColor *backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = backgroundColor;
