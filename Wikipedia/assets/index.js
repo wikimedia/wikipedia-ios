@@ -314,7 +314,7 @@ exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount, insetTop)
 
 exports.getElementToMakeFirstOnScreenElement = (fragment, parentElementPrefix) => {
   var element = document.getElementById(fragment)
-  // needed so the same element which `getIndexOfFirstOnScreenElement` looks for is scrolled to top (if the fragment is for a TOC item)
+  // needed so same element which `getIndexOfFirstOnScreenElement` looks for can be scrolled to top (if fragment is for a TOC item)
   if (element.parentElement.id && element.parentElement.id.startsWith(parentElementPrefix)) {
     element = element.parentElement
   }
@@ -323,7 +323,7 @@ exports.getElementToMakeFirstOnScreenElement = (fragment, parentElementPrefix) =
 
 exports.makeElementFirstOnScreenElement = (element, insetTop) => {
   element.scrollIntoView(true)
-  // `- 1` needed so when element is scrolled to the top it's far enough onscreen so `getIndexOfFirstOnScreenElement` will determine that it is currently the first onscreen element (if the fragment is for a TOC item)
+  // `- 1` needed so when element is scrolled to top it's far enough onscreen so `getIndexOfFirstOnScreenElement` will determine that it is currently the first onscreen element (if fragment is for a TOC item)
   window.scrollBy(0, -Math.max(0, insetTop - 1))
 }
 
