@@ -31,7 +31,7 @@ exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount, insetTop)
 
 exports.getElementToMakeFirstOnScreenElement = (fragment, parentElementPrefix) => {
   var element = document.getElementById(fragment)
-  // needed so the same element which `getIndexOfFirstOnScreenElement` looks for is scrolled to top (if the case the fragment is for a TOC item)
+  // needed so the same element which `getIndexOfFirstOnScreenElement` looks for is scrolled to top (if the fragment is for a TOC item)
   if (element.parentElement.id && element.parentElement.id.startsWith(parentElementPrefix)) {
     element = element.parentElement
   }
