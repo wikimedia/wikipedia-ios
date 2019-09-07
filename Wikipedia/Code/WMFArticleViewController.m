@@ -1757,7 +1757,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme isEditorStyle:[viewController isKindOfClass:[WMFSectionEditorViewController class]]];
+    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme style:[viewController isKindOfClass:[WMFSectionEditorViewController class]] ? WMFThemeableNavigationControllerStyleEditor : WMFThemeableNavigationControllerStyleSheet];
     [self presentViewController:navC animated:YES completion:nil];
 }
 

@@ -6,16 +6,16 @@
 
 @property (nonatomic, strong) WMFTheme *theme;
 @property (nonatomic, readonly) UIImageView *splashView;
-@property (nonatomic, getter=isEditorStyle) BOOL editorStyle;
+@property (nonatomic) WMFThemeableNavigationControllerStyle style;
 @end
 
 @implementation WMFThemeableNavigationController
 @synthesize splashView = _splashView;
 
-- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme isEditorStyle:(BOOL)isEditorStyle {
+- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme style:(WMFThemeableNavigationControllerStyle)style {
     self = [super initWithRootViewController:rootViewController];
     if (self) {
-        self.editorStyle = isEditorStyle;
+        self.style = style;
         self.theme = theme;
         [self applyTheme:theme];
         [rootViewController applyTheme:theme];
@@ -24,7 +24,7 @@
 }
 
 - (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme {
-    return [self initWithRootViewController:rootViewController theme:theme isEditorStyle:NO];
+    return [self initWithRootViewController:rootViewController theme:theme style:WMFThemeableNavigationControllerStyleDefault];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -36,12 +36,19 @@
     self.navigationBar.barTintColor = theme.colors.chromeBackground;
     self.navigationBar.translucent = NO;
     self.navigationBar.tintColor = theme.colors.chromeText;
-    if (self.isEditorStyle) {
-        [self.navigationBar setBackgroundImage:theme.editorNavigationBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
-
-    } else {
-        [self.navigationBar setBackgroundImage:theme.navigationBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    UIImage *backgroundImage = nil;
+    switch (self.style) {
+        case WMFThemeableNavigationControllerStyleEditor:
+            backgroundImage = theme.editorNavigationBarBackgroundImage;
+            break;
+        case WMFThemeableNavigationControllerStyleSheet:
+            backgroundImage = theme.sheetNavigationBarBackgroundImage;
+            break;
+        default:
+            backgroundImage = theme.navigationBarBackgroundImage;
+            break;
     }
+    [self.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setTitleTextAttributes:theme.navigationBarTitleTextAttributes];
 
     self.toolbar.barTintColor = theme.colors.chromeBackground;
