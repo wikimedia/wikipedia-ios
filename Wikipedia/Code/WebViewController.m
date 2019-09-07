@@ -767,8 +767,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         fragment = @"section_heading_and_content_block_0";
     }
 
-    NSString *elementScrollingJS = [NSString stringWithFormat:@"window.wmf.elementLocation.makeElementFirstOnScreenElement(window.wmf.elementLocation.getElementToMakeFirstOnScreenElement(`%@`, 'section_heading_and_content_block_'), %li);",
-                                                              [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], (long)self.delegate.navigationBar.visibleHeight];
+    NSString *elementJS = [NSString stringWithFormat:@"window.wmf.elementLocation.getElementToMakeFirstOnScreenElement(`%@`, 'section_heading_and_content_block_')", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript]];
+    NSString *elementScrollingJS = [NSString stringWithFormat:@"window.wmf.elementLocation.makeElementFirstOnScreenElement(%@, %li)", elementJS, (long)self.delegate.navigationBar.visibleHeight];
 
     [self.webView evaluateJavaScript:elementScrollingJS
                    completionHandler:^(id _Nullable result, NSError *_Nullable error) {
