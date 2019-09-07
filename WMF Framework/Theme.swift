@@ -327,6 +327,10 @@ public class Theme: NSObject {
         return UIImage.wmf_image(from: colors.paperBackground)
     }()
     
+    @objc public lazy var sheetNavigationBarBackgroundImage: UIImage = {
+        return UIImage.wmf_image(from: colors.chromeBackground)
+    }()
+    
     @objc public lazy var editorNavigationBarBackgroundImage: UIImage = {
         return UIImage.wmf_image(from: colors.inputAccessoryBackground)
     }()
