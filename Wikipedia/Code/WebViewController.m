@@ -766,9 +766,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (fragment.length == 0) {
         fragment = @"section_heading_and_content_block_0";
     }
-    long inset = (long)self.delegate.navigationBar.visibleHeight;
-    NSString *js = [NSString stringWithFormat:@"document.getElementById(`%@`).scrollIntoView(true); window.scrollBy(0, 0 - %li);", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], inset];
-    [self.webView evaluateJavaScript:js
+
+    NSString *elementScrollingJS = [NSString stringWithFormat:@"window.wmf.elementLocation.makeElementFirstOnScreenElement(window.wmf.elementLocation.getElementToMakeFirstOnScreenElement(`%@`, 'section_heading_and_content_block_'), %li);",
+                                                              [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], (long)self.delegate.navigationBar.visibleHeight];
+
+    [self.webView evaluateJavaScript:elementScrollingJS
                    completionHandler:^(id _Nullable result, NSError *_Nullable error) {
                        WMFAssertMainThread(@"Completion expected to be called on the main thread");
                        [self.delegate webViewController:self didScrollToFragment:fragment];
