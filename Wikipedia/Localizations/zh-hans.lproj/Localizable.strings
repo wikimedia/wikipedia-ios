@@ -706,6 +706,7 @@
 "theme-black-display-name" = "黑暗";
 "theme-dark-display-name" = "夜间";
 "theme-default-display-name" = "默认";
+"theme-light-display-name" = "日间";
 "theme-sepia-display-name" = "棕黑";
 "top-read-header-generic" = "维基百科";
 "top-read-header-with-language" = "$1维基百科";

@@ -760,6 +760,8 @@
 "theme-black-display-name" = "Чорна";
 "theme-dark-display-name" = "Темна";
 "theme-default-display-name" = "Усталена";
+"theme-default-explanation" = "Підлаштовано під вигляд системи";
+"theme-light-display-name" = "Світла";
 "theme-sepia-display-name" = "Сепія";
 "top-read-header-generic" = "Вікіпедія";
 "top-read-header-with-language" = "$1 Вікіпедія";
