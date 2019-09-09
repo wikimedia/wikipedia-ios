@@ -763,6 +763,8 @@
 "theme-black-display-name" = "漆黑";
 "theme-dark-display-name" = "陰暗";
 "theme-default-display-name" = "預設";
+"theme-default-explanation" = "匹配系統主題";
+"theme-light-display-name" = "明亮";
 "theme-sepia-display-name" = "深褐";
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
