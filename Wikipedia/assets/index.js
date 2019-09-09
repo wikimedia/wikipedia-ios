@@ -305,16 +305,32 @@ exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount, insetTop)
       continue
     }
     const rect = this.getElementRect(div)
-    if (rect.Y >= -1 || rect.Y + rect.Height >= insetTop) {
+    if (rect.Y > insetTop || rect.Y + rect.Height > insetTop) {
       return i
     }
   }
   return -1
 }
 
+exports.getElementToMakeFirstOnScreenElement = (fragment, parentElementPrefix) => {
+  var element = document.getElementById(fragment)
+  // needed so same element which `getIndexOfFirstOnScreenElement` looks for can be scrolled to top (if fragment is for a TOC item)
+  if (element.parentElement.id && element.parentElement.id.startsWith(parentElementPrefix)) {
+    element = element.parentElement
+  }
+  return element
+}
+
+exports.makeElementFirstOnScreenElement = (element, insetTop) => {
+  element.scrollIntoView(true)
+  // `- 1` needed so when element is scrolled to top it's far enough onscreen so `getIndexOfFirstOnScreenElement` will determine that it is currently the first onscreen element (if fragment is for a TOC item)
+  window.scrollBy(0, -Math.max(0, insetTop - 1))
+}
+
 exports.getElementFromPoint = (x, y) => document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
 
 exports.isElementTopOnscreen = element => element.getBoundingClientRect().top < 0
+
 },{}],5:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/

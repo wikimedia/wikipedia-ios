@@ -766,9 +766,16 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (fragment.length == 0) {
         fragment = @"section_heading_and_content_block_0";
     }
-    long inset = (long)self.delegate.navigationBar.visibleHeight;
-    NSString *js = [NSString stringWithFormat:@"document.getElementById(`%@`).scrollIntoView(true); window.scrollBy(0, 0 - %li);", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript], inset];
-    [self.webView evaluateJavaScript:js
+    long offset;
+    if (@available(iOS 12.0, *)) {
+        offset = (long)self.delegate.navigationBar.visibleHeight;
+    } else {
+        offset = (long)(0 - self.webView.scrollView.contentInset.top);
+    }
+    NSString *elementJS = [NSString stringWithFormat:@"window.wmf.elementLocation.getElementToMakeFirstOnScreenElement(`%@`, 'section_heading_and_content_block_')", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript]];
+    NSString *elementScrollingJS = [NSString stringWithFormat:@"window.wmf.elementLocation.makeElementFirstOnScreenElement(%@, %li)", elementJS, offset];
+
+    [self.webView evaluateJavaScript:elementScrollingJS
                    completionHandler:^(id _Nullable result, NSError *_Nullable error) {
                        WMFAssertMainThread(@"Completion expected to be called on the main thread");
                        [self.delegate webViewController:self didScrollToFragment:fragment];
@@ -791,6 +798,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                    count:self.article.sections.count
+                                                insetTop:self.delegate.navigationBar.visibleHeight
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
@@ -804,6 +812,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"pagelib_footer_container_section_"
                                                    count:2
+                                                insetTop:self.delegate.navigationBar.visibleHeight
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
