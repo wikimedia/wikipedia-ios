@@ -766,9 +766,14 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (fragment.length == 0) {
         fragment = @"section_heading_and_content_block_0";
     }
-
+    long offset;
+    if (@available(iOS 12.0, *)) {
+        offset = (long)self.delegate.navigationBar.visibleHeight;
+    } else {
+        offset = (long)(0 - self.webView.scrollView.contentInset.top);
+    }
     NSString *elementJS = [NSString stringWithFormat:@"window.wmf.elementLocation.getElementToMakeFirstOnScreenElement(`%@`, 'section_heading_and_content_block_')", [fragment wmf_stringBySanitizingForBacktickDelimitedJavascript]];
-    NSString *elementScrollingJS = [NSString stringWithFormat:@"window.wmf.elementLocation.makeElementFirstOnScreenElement(%@, %li)", elementJS, (long)self.delegate.navigationBar.visibleHeight];
+    NSString *elementScrollingJS = [NSString stringWithFormat:@"window.wmf.elementLocation.makeElementFirstOnScreenElement(%@, %li)", elementJS, offset];
 
     [self.webView evaluateJavaScript:elementScrollingJS
                    completionHandler:^(id _Nullable result, NSError *_Nullable error) {
