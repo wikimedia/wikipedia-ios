@@ -769,6 +769,8 @@
 "theme-black-display-name" = "Noir";
 "theme-dark-display-name" = "Sombre";
 "theme-default-display-name" = "Par défaut";
+"theme-default-explanation" = "Correspond au thème du système";
+"theme-light-display-name" = "Clair";
 "theme-sepia-display-name" = "Sépia";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia en $1";

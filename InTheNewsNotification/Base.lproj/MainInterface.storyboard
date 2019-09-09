@@ -198,6 +198,8 @@
                         <outlet property="summaryLabel" destination="GcN-lo-r42" id="cBy-7L-VSi"/>
                         <outlet property="summaryLabelLeadingMargin" destination="dgb-mh-YoT" id="Vjv-0W-iA1"/>
                         <outlet property="timeLabel" destination="dKK-rP-yXi" id="wnY-Rw-CJl"/>
+                        <outletCollection property="separators" destination="1tI-ow-vuf" collectionClass="NSMutableArray" id="lex-Dy-RSU"/>
+                        <outletCollection property="separators" destination="h2l-vC-XkM" collectionClass="NSMutableArray" id="LJV-na-XJB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>

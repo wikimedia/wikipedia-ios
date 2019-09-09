@@ -41,6 +41,7 @@
 // Author: Yuryleb
 // Author: Zpizza
 // Author: Александр Сигачёв
+// Author: Марио
 
 "about-content-license" = "Лицензия содержимого";
 "about-content-license-details" = "Если не указано иное, содержание доступно в соответствии с $1.";
@@ -782,6 +783,8 @@
 "theme-black-display-name" = "Чёрное";
 "theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";
+"theme-default-explanation" = "Матчи системной темы";
+"theme-light-display-name" = "Свет";
 "theme-sepia-display-name" = "Сепия";
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "Раздел Википедии: $1";
