@@ -145,7 +145,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             return
         }
         createReadingListViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme, style: .sheet)
         createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
     }
