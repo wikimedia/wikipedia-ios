@@ -131,11 +131,15 @@
 "edit-summary-choice-fixed-grammar" = "Ndandani paramasastra";
 "edit-summary-choice-fixed-typos" = "Ndandani salah tik";
 "edit-summary-choice-linked-words" = "Nambahi pranala";
+"edit-watch-this-page-text" = "Awasi kaca iki";
+"editing-welcome-set-knowledge-free-title" = "Mardikakaké kawruh";
+"empty-insert-media-title" = "Pilih barkas saka Wikimedia Commons";
 "empty-no-article-message" = "Nyuwun pangapura, ora bisa ngamot artikel";
 "empty-no-feed-action-message" = "Panjenengan isih bisa maca kaca kang kasimpen";
 "empty-no-feed-message" = "Kowé bisa ndeleng artikel kang kaprayogakaké yèn wis nyambung Internèt";
 "empty-no-history-message" = "Ngetutaké apa kang wis panjenengan waca ing kéné";
 "empty-no-history-title" = "Ora ana sajarah kang bisa tinuduhaké";
+"empty-no-reading-lists-message" = "Gawé pratélan tumrap papan-papan kang arep kojajah, rembug-rembug kang kosenengi, lan akèh liyané";
 "empty-no-saved-pages-message" = "Simpen kaca kanggo dideleng mengko, kapara ing jaban jaringan";
 "empty-no-saved-pages-title" = "Durung ana kaca kang kasimpen";
 "empty-no-search-results-message" = "Ora tinemu";
@@ -145,6 +149,9 @@
 "explore-continue-reading-heading" = "Bacutaké maca";
 "explore-enable-location-title" = "Dlajahi artikel-artikel ing caketé pernahé panjenengan saiki";
 "explore-featured-article-heading" = "Artikel pinilih";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Saka Wikipédia $1";
+"explore-featured-article-sub-heading-from-wikipedia" = "Saka Wikipédia";
+"explore-feed-customize-accessibility-title" = "Larasaké";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Mati";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Murub kabèh";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Murub";
@@ -154,8 +161,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Ora mirunggan marang basa tinamtu";
 "explore-feed-preferences-global-cards-title" = "Kertu sajagat";
 "explore-feed-preferences-hide-card-action-title" = "Dhelikaké kertu iki";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Dhelikaké kabèh kertu %@";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Dhelikaké kabèh kertu “%@”";
 "explore-feed-preferences-in-the-news-description" = "Artikel bab kadadéan dinané iki";
 "explore-feed-preferences-languages-footer-text" = "Ndhelikaké kabèh kertu pakan Dlajah ing kabèh basa bakal matèni tab Dlajah.";
 "explore-feed-preferences-on-this-day-description" = "Kadadéan duk nguni ing tanggal iki";
@@ -285,16 +291,14 @@
 "page-edit-history" = "Sajarah besutan wutuh";
 "page-history-title" = "Sajarah artikel";
 "page-issues" = "Masalah kaca";
-// Fuzzy
-"page-last-edited" = "Dibesut $1 dina kapungkur";
+"page-last-edited" = "{{PLURAL:$1|0=Kabesut dina iki|1=Kabesut wingi|Kabesut $1 dina kapungkur}}";
 "page-location" = "Deleng ing petha";
 "page-protected-autoconfirmed" = "Kaca iki wis semu direksa.";
 "page-protected-can-not-edit" = "Panjenengan ora duwé hak mbesut kaca iki";
 "page-protected-can-not-edit-title" = "Kaca iki direksa";
 "page-protected-other" = "Kaca iki wis direksa tumeka tataran iki: $1";
 "page-protected-sysop" = "Kaca iki wis kareksa wutuh.";
-// Fuzzy
-"page-read-in-other-languages" = "Ana ing $1 basa liyané";
+"page-read-in-other-languages" = "Cumawis ing {{PLURAL:$1|$1 basa liyané}}";
 "page-similar-titles" = "Kaca sairib";
 "page-talk-page" = "Deleng kaca parembugan";
 "pictured" = "digambar";
@@ -338,12 +342,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Ules sèpia";
 "reading-themes-controls-accessibility-text-size-slider" = "Panggeser ukuran tèks";
 "reference-title" = "Rujukan $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Dina iki|Wingi|$1 dina kapungkur}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Dina iki|1=Wingi|$1 dina kapungkur}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mentas waé|$1 jam kapungkur}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mentas waé|$1 menit kapungkur}}";
-// Fuzzy
-"relative-date-years-ago" = "{{PLURAL:$1|0=Taun iki|Taun wingi|$1 taun kapungkur}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Taun iki|1=Taun wingi|$1 taun kapungkur}}";
 "replace-button-accessibility" = "Ayahi $1.";
 "replace-infolabel-method-replace" = "Ganti";
 "replace-infolabel-method-replace-all" = "Ganti kabèh";
@@ -385,8 +387,7 @@
 "settings-notifications-system-turn-on" = "Urubaké Wara-wara";
 "settings-notifications-trending" = "Prastawa saiki sing mumbul";
 "settings-primary-language" = "Pokok";
-// Fuzzy
-"settings-primary-language-details" = "Basa pisanan ing pratélan iki dianggo minangka basa pokok mungguh ing aplikasiné. Ngganti basa iki bakal ngganti isi padinané (kayata Artikel Pinilih) sing katon ing Dlajah.";
+"settings-primary-language-details" = "Basa kapisan ing pratélan iki kaanggo minangka basa pokok tumrap aplikasiné.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Busek";
 "settings-support" = "Sengkuyung Wikipédia";
 "settings-title" = "Setèlan";

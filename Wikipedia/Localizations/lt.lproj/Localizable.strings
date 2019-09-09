@@ -247,6 +247,8 @@
 "talk-page-discussion-unread-accessibility-label" = "Neskaitytas";
 "talk-page-new-reply-body-accessibility-label" = "Rašyti atsakymą";
 "theme-black-display-name" = "Juoda";
+"theme-default-explanation" = "Sutampa su sistemos tema";
+"theme-light-display-name" = "Šviesi";
 "top-read-header-generic" = "Vikipedija";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-see-more" = "Žiūrėti daugiau skaitomiausių";

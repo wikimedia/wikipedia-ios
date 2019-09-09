@@ -4001,6 +4001,8 @@
 		83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardViewController.swift; sourceTree = "<group>"; };
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
 		83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+HTML.m"; sourceTree = "<group>"; };
+		83CF71432326D47E009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		83CF71442326D48A009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummaryFetcher.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
@@ -9684,6 +9686,7 @@
 				"ku-Latn",
 				fil,
 				ga,
+				sl,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -13476,6 +13479,7 @@
 				D801C9261EB8E131001FA294 /* zh-hant */,
 				D85C145A1F388582002186A5 /* kab */,
 				8361AEC621949665006B00B0 /* ga */,
+				83CF71432326D47E009DEC00 /* sl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -13583,6 +13587,7 @@
 				D8FFF6932031CB3E00A028E0 /* cy */,
 				D8FFF6942031CB4000A028E0 /* tcy */,
 				8361AEC721949670006B00B0 /* ga */,
+				83CF71442326D48A009DEC00 /* sl */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

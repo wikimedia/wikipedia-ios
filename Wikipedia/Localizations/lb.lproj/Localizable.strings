@@ -492,6 +492,7 @@
 "theme-black-display-name" = "Schwaarz";
 "theme-dark-display-name" = "Däischter";
 "theme-default-display-name" = "Standard";
+"theme-light-display-name" = "Hell";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Méi dacks geliesen Artikele weisen";
