@@ -21,6 +21,7 @@
 // Author: Peter Bowman
 // Author: Pio387
 // Author: Py64
+// Author: Rail
 // Author: Railfail536
 // Author: Stojex
 // Author: The Polish
@@ -305,6 +306,7 @@
 "explore-feed-preferences-potd-description" = "Wyróżniony obraz z Wikimedia Commons";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
 "explore-feed-preferences-related-pages-description" = "Sugestie oparte na historii czytania";
+"explore-feed-preferences-show-randomizer-title" = "Pokaż kartę Randomizera";
 "explore-feed-preferences-top-read-description" = "Najczęściej dzisiaj czytane artykuły";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Wyłącz kanał Eksploruj";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Wyłączyć kanał Eksploruj?";
@@ -398,6 +400,7 @@
 "insert-link-title" = "Wstaw link";
 "insert-media-alternative-text-placeholder" = "Opisz ten obraz";
 "insert-media-alternative-text-title" = "Tekst alternatywny";
+"insert-media-caption-caption-placeholder" = "Jak ten obraz odnosi się do artykułu?";
 "insert-media-caption-description" = "Etykieta wyświetlana obok elementu dla wszystkich czytelników";
 "insert-media-caption-title" = "Podpis";
 "insert-media-image-position-setting-center" = "Wyśrodkowane";
@@ -514,20 +517,46 @@
 "preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "rank-accessibility-label" = "Liczba $1";
 "readers-accessibility-label" = "$1 czytelników";
+"reading-list-add-hint-title" = "Dodać \"$1\" do listy czytania?";
+"reading-list-add-saved-button-title" = "Tak, dodaj je do mojej listy";
 "reading-list-add-saved-subtitle" = "W Twojej aplikacji w Wikipedii są zapisane artykuły. Czy chcesz je zachować i połączyć z listami do czytania zsynchronizowanymi z Twoim kontem?";
 "reading-list-add-saved-title" = "Znaleziono zapisane artykuły";
 "reading-list-api-error-entry-limit" = "Wpis nie został zsynchronizowany, ponieważ osiągnięto limit liczby wpisów na tej liście.";
+"reading-list-api-error-generic" = "Wystąpił nieoczekiwany błąd podczas synchronizacji list do czytania.";
+"reading-list-api-error-list-limit" = "Ta lista nie jest zsynchronizowana, ponieważ osiągnąłeś limit liczby zsynchronizowanych list.";
+"reading-list-create-new-list-button-title" = "Utwórz listę do czytania";
 "reading-list-create-new-list-description" = "Opis";
+"reading-list-create-new-list-reading-list-name" = "Nazwa listy do czytania";
 "reading-list-create-new-list-title" = "Utwórz nową listę";
+"reading-list-deleted-accessibility-notification" = "Lista do czytania została usunięta";
 "reading-list-do-not-keep-button-title" = "Nie, usuń artykuły z urządzenia";
+"reading-list-entry-limit-exceeded-message" = "Zmniejsz liczbę artykułów na tej liście do $1, aby wznowić synchronizację wszystkich artykułów na tej liście.";
 "reading-list-entry-limit-exceeded-title" = "Przekroczyłeś limit {{PLURAL:$1|$1 artykułu|$1 artykułów}} na konto.";
+"reading-list-generic-error" = "Wystąpił nieoczekiwany błąd podczas synchronizacji list do czytania.";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
+"reading-list-keep-subtitle" = "Istnieją artykuły zsynchronizowane z Twoim kontem Wikipedia. Czy chcesz je zachować na tym urządzeniu po wylogowaniu?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Wyłączenie synchronizacji spowoduje usunięcie tych artykułów z konta. Jeśli usuniesz je z urządzenia, nie będzie można ich odzyskać, włączając ponownie synchronizację w przyszłości.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Nie, usuń artykuły z urządzenia i mojego konta w Wikipedii";
 "reading-list-keep-title" = "Zachować na urządzeniu zapisane artykuły?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortuj artykuły";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Istnieje limit 5000 nieposortowanych artykułów. Posortuj istniejące artykuły na listy, aby kontynuować synchronizowanie nieposortowanych artykułów.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Limit trafień dla nieposortowanych artykułów";
+"reading-list-list-limit-exceeded-message" = "Ta lista do czytania i zapisane na niej artykuły nie zostaną zsynchronizowane. Zmniejsz liczbę list do $1, aby wznowić synchronizację tej listy.";
+"reading-list-list-limit-exceeded-title" = "Przekroczono limit {{PLURAL:$1|$1 lista czytelnicza |$1 list czytelniczych}} na konto.";
+"reading-list-list-limit-reached" = "Osiągnięto limit list czytania $1 na konto";
+"reading-list-login-button-title" = "Zaloguj się, aby zsynchronizować twoje zapisane artykuły";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
+"reading-list-login-or-create-account-title" = "Zaloguj się, aby zsynchronizować zapisane artykuły";
+"reading-list-login-subtitle" = "Zaloguj się lub utwórz konto, aby umożliwić synchronizację zapisanych artykułów i list do czytania na różnych urządzeniach i zapisać je w preferencjach użytkownika.";
+"reading-list-login-title" = "Zsynchronizować zapisane artykuły?";
+"reading-list-name-user-created-annotation" = "_ [użytkownik utworzył]";
 "reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
+"reading-list-new-list-name-placeholder" = "tytuł listy do czytania";
+"reading-list-sync-disabled-panel-message" = "Synchronizacja listy czytania została wyłączona dla Twojego konta Wikipedia na innym urządzeniu. Możesz ponownie włączyć synchronizację, aktualizując ustawienia.";
 "reading-list-sync-disabled-panel-title" = "Synchronizacja wyłączona";
 "reading-list-sync-enable-button-title" = "Włącz synchronizację";
+"reading-list-sync-enable-subtitle" = "Zapisane artykuły i listy do czytania można teraz zapisać na koncie w Wikipedii i zsynchronizować z aplikacjami Wikipedii.";
+"reading-list-sync-enable-title" = "Włączyć synchronizację list czytelniczych?";
 "reading-list-unable-to-remove-entry" = "Wystąpił nieoczekiwany błąd podczas usuwania pozycji z listy czytelniczej. Spróbuj ponownie później.";
 "reading-list-unable-to-update" = "Wystąpił nieoczekiwany błąd podczas aktualizowania listy czytelniczej. Spróbuj ponownie później.";
 "reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";
@@ -545,6 +574,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dzisiaj|1=Wczoraj|$1 dni temu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Ostatnio|$1 godzinę temu|$1 godziny temu|$1 godzin temu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Przed chwilą|$1 minutę temu|$1 minuty temu|$1 minut temu}}";
+"replace-buttons-replace-accessibility" = "Zamień pojedyncze wystąpienie";
 "replace-buttons-replace-all-accessibility" = "Zastąp wszystkie wystąpienia";
 "replace-infolabel-method-replace" = "Zamień";
 "replace-infolabel-method-replace-all" = "Zamień wszystkie";
@@ -637,6 +667,7 @@
 "talk-page-new-reply-success-text" = "Twoja odpowiedź została pomyślnie opublikowana";
 "talk-page-new-subject-placeholder-text" = "Temat";
 "talk-page-new-subject-textfield-accessibility-label" = "Temat";
+"talk-page-new-topic-body-placeholder-text" = "Utwórz nową dyskusję";
 "talk-page-new-topic-success-text" = "Twoja dyskusja została pomyślnie opublikowana";
 "talk-page-new-topic-title" = "Nowa dyskusja";
 "talk-page-publish-terms-and-licenses" = "Zapisując zmiany akceptujesz $1Zasady Użytkownika$2 i zgadzasz się na publikowanie twojego wkładu na licencji $3CC BY-SA 3.0$4 i $5GFDL$6";
@@ -648,6 +679,8 @@
 "theme-black-display-name" = "Czarny";
 "theme-dark-display-name" = "Ciemna";
 "theme-default-display-name" = "Domyślnie";
+"theme-default-explanation" = "Dopasowane do motywu systemowego";
+"theme-light-display-name" = "Jasna";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wkipedia";
@@ -669,6 +702,7 @@
 "welcome-languages-add-or-edit-button" = "Dodaj lub edytuj preferowane języki";
 "welcome-languages-description" = "Na Twoim urządzeniu znaleźliśmy następujące języki:";
 "welcome-languages-search-title" = "Wyszukuj w prawie 300 językach";
+"welcome-notifications-tell-me-more-creation" = "Powiadomienia są tworzone i dostarczane na Twoje urządzenie przez aplikację, a nie z naszych serwerów (lub stron trzecich).";
 "welcome-notifications-tell-me-more-storage" = "Preferencje powiadomień są przechowywane na urządzeniu i nie są oparte na danych osobowych ani działaniach.";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
 "welcome-send-data-helps-title" = "Pomóż ulepszyć tę aplikację";

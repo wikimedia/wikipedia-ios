@@ -747,6 +747,8 @@
 "theme-black-display-name" = "Црн";
 "theme-dark-display-name" = "Темен";
 "theme-default-display-name" = "Основен";
+"theme-default-explanation" = "Одговара на системскиот изглед";
+"theme-light-display-name" = "Светол";
 "theme-sepia-display-name" = "Сипа";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
