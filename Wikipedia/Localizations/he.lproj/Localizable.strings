@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Amire80
 // Author: Erelon
+// Author: Falling star
 // Author: Guycn2
 // Author: Inkbug
 // Author: LaG roiL
@@ -757,6 +758,7 @@
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
 "theme-default-display-name" = "ברירת מחדל";
+"theme-light-display-name" = "בהיר";
 "theme-sepia-display-name" = "ספיה";
 "top-read-header-generic" = "ויקיפדיה";
 "top-read-header-with-language" = "ויקיפדיה ב$1";

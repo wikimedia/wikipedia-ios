@@ -765,6 +765,8 @@
 "theme-black-display-name" = "블랙";
 "theme-dark-display-name" = "어두움";
 "theme-default-display-name" = "기본값";
+"theme-default-explanation" = "시스템 테마에 일치시킵니다";
+"theme-light-display-name" = "밝음";
 "theme-sepia-display-name" = "세피아";
 "top-read-header-generic" = "위키백과";
 "top-read-header-with-language" = "$1 위키백과";

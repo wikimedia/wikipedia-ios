@@ -767,6 +767,8 @@
 "theme-black-display-name" = "Černé";
 "theme-dark-display-name" = "Tmavé";
 "theme-default-display-name" = "Standardní";
+"theme-default-explanation" = "Přizpůsobeno vzhledu systému";
+"theme-light-display-name" = "Světlý";
 "theme-sepia-display-name" = "Sépie";
 "top-read-header-generic" = "Wikipedie";
 "top-read-header-with-language" = "Wikipedie v jazyce $1";

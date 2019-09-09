@@ -771,6 +771,8 @@
 "theme-black-display-name" = "Preto";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Padrão";
+"theme-default-explanation" = "Corresponde ao tema do sistema";
+"theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sépia";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
