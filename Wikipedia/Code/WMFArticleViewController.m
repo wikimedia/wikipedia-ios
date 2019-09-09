@@ -192,7 +192,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self) {
         NSString *fragment = [url fragment];
         if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-            self.initialFragment = fragment;
+            self.initialFragment = [fragment stringByRemovingPercentEncoding];
         }
         self.restoreScrollPosition = fragment != nil;
         self.theme = theme;
@@ -1746,7 +1746,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme isEditorStyle:[viewController isKindOfClass:[WMFSectionEditorViewController class]]];
+    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme style:[viewController isKindOfClass:[WMFSectionEditorViewController class]] ? WMFThemeableNavigationControllerStyleEditor : WMFThemeableNavigationControllerStyleSheet];
     [self presentViewController:navC animated:YES completion:nil];
 }
 
