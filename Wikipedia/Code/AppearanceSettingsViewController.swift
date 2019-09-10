@@ -129,6 +129,11 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
                 cell.backgroundColor = vc.view.backgroundColor
             }
             
+            if let dimming = vc as? ImageDimmingExampleViewController {
+                dimming.view.backgroundColor = self.theme.isDark ? self.theme.colors.paperBackground : .black
+                dimming.isImageDimmed = UserDefaults.wmf.wmf_isImageDimmingEnabled
+            }
+            
             cell.selectionStyle = .none
             return cell
         }
@@ -245,6 +250,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     @objc func applyImageDimmingChange(isOn: NSNumber) {
         let currentTheme = UserDefaults.wmf.themeName
         userDidSelect(theme: currentTheme, isImageDimmingEnabled: isOn.boolValue)
+        tableView.reloadData()
     }
     
     @objc func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
