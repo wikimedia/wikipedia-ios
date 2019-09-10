@@ -177,14 +177,6 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
         guard tapGR.state == .recognized else {
             return
         }
-        guard let article = self.article, let articleURL = article.url else {
-            return
-        }
-
-        let URL = articleURL as NSURL?
-        let URLToOpen = URL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
-
-        self.extensionContext?.open(URLToOpen)
+        openApp(with: self.article?.url)
     }
-    
 }

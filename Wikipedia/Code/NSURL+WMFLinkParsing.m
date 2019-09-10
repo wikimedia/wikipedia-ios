@@ -112,19 +112,6 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return components.URL;
 }
 
-- (NSURL *)wmf_wikipediaSchemeURLWithTitle:(NSString *)title {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    components.wmf_title = title;
-    components.scheme = @"wikipedia";
-    return components.URL;
-}
-
-- (NSURL *)wmf_wikipediaSchemeURL {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    components.scheme = @"wikipedia";
-    return components.URL;
-}
-
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(nullable NSString *)fragment query:(nullable NSString *)query {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;

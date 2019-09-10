@@ -13,6 +13,17 @@ extension CharacterSet {
 }
 
 extension URL {
+    /**
+    * Return a new URL similar to the URL you call this method on but replace the scheme with the internal scheme (wikipedia://)
+    *
+    * @return A new URL based on the URL you call this method on but with wikipedia:// as the scheme
+    **/
+    public var replacingSchemeWithWikipediaScheme: URL? {
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        components?.scheme = "wikipedia"
+        return components?.url
+    }
+    
     public var wmf_percentEscapedTitle: String? {
         return wmf_titleWithUnderscores?.addingPercentEncoding(withAllowedCharacters: .wmf_articleTitlePathComponentAllowed)
     }

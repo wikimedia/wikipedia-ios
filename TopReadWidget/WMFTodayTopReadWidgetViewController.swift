@@ -378,10 +378,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     }
     
     func showAllTopReadInApp() {
-        guard let URL = groupURL else {
-            return
-        }
-        self.extensionContext?.open(URL)
+        openApp(with: groupURL)
     }
     
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -392,9 +389,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
             showAllTopReadInApp()
             return
         }
-        
-        let result = results[index]
-        self.extensionContext?.open(result.articleURL)
+        openApp(with: results[index].articleURL, fallback: groupURL)
     }
     
 }
