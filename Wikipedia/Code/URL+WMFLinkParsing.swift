@@ -13,11 +13,8 @@ extension CharacterSet {
 }
 
 extension URL {
-    /**
-    * Return a new URL similar to the URL you call this method on but replace the scheme with the internal scheme (wikipedia://)
-    *
-    * @return A new URL based on the URL you call this method on but with wikipedia:// as the scheme
-    **/
+    
+    /// Returns a new URL with the existing scheme replaced with the wikipedia:// scheme
     public var replacingSchemeWithWikipediaScheme: URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
         components?.scheme = "wikipedia"
