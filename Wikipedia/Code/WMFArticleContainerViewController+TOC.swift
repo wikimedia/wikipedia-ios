@@ -51,7 +51,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             }
             
             // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
-            dispatchOnMainQueueAfterDelayInSeconds(0.25) {
+            dispatchOnMainQueueAfterDelayInSeconds(0.15) {
                 self.dismiss(animated: true, completion: dismissVCCompletionHandler)
             }
         }        
