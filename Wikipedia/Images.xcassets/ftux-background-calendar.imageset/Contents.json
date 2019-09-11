@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "ftux-background-calendar.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "group8.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {

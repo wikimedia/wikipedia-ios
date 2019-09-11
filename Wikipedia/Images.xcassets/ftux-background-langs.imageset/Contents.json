@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "ftux-background-langs.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "languageIcon.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {
