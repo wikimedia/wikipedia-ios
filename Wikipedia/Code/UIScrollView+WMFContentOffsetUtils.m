@@ -24,13 +24,18 @@
                        NSStringFromCGPoint(offset), self);
         }
 #endif
-        [UIView animateWithDuration:(animated ? 0.3f : 0.0f)
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState
-                         animations:^{
-                             [self setContentOffset:offset animated:NO];
-                         }
-                         completion:completion];
+        if (animated) {
+            [UIView animateWithDuration:0.3
+                             animations:^{
+                                 [self setContentOffset:offset animated:YES];
+                             }
+                             completion:completion];
+        } else {
+            [self setContentOffset:offset animated:NO];
+            if (completion) {
+                completion(YES);
+            }
+        }
     } else {
         DDLogError(@"Ignoring invalid offset %@ for scroll view %@", NSStringFromCGPoint(offset), self);
         if (completion) {
