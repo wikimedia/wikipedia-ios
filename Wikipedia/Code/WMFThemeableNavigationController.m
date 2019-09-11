@@ -1,7 +1,6 @@
 #import "WMFThemeableNavigationController.h"
 #import "WMFAppViewController.h"
 
-
 @interface WMFThemeableNavigationController ()
 
 @property (nonatomic, strong) WMFTheme *theme;
@@ -18,6 +17,7 @@
         self.style = style;
         self.theme = theme;
         [self applyTheme:theme];
+        self.modalPresentationStyle = UIModalPresentationOverFullScreen; // before removing this, ensure alert messages presented with RMessageView (or whatever replaced it) have the proper offset https://phabricator.wikimedia.org/T232604
         [rootViewController applyTheme:theme];
     }
     return self;
@@ -70,7 +70,6 @@
             _splashView.backgroundColor = [UIColor systemBackgroundColor];
         } else {
             _splashView.backgroundColor = [UIColor whiteColor];
-
         }
         [self.view wmf_addSubviewWithConstraintsToEdges:_splashView];
         UIImage *wordmark = [UIImage imageNamed:@"splashscreen-wordmark"];
@@ -99,14 +98,14 @@
 - (void)hideSplashViewAnimated:(BOOL)animated {
     NSTimeInterval duration = animated ? 0.15 : 0.0;
     [UIView animateWithDuration:duration
-                          delay:0
-                        options:UIViewAnimationOptionAllowUserInteraction
-                     animations:^{
-                         self.splashView.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished) {
-                         self.splashView.hidden = YES;
-                     }];
+        delay:0
+        options:UIViewAnimationOptionAllowUserInteraction
+        animations:^{
+            self.splashView.alpha = 0.0;
+        }
+        completion:^(BOOL finished) {
+            self.splashView.hidden = YES;
+        }];
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
