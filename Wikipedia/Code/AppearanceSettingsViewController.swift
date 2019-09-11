@@ -130,7 +130,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             }
             
             if let dimming = vc as? ImageDimmingExampleViewController {
-                dimming.view.backgroundColor = self.theme.isDark ? self.theme.colors.paperBackground : .black
+                dimming.view.backgroundColor = self.theme.isDark ? self.theme.colors.paperBackground : .thermosphere
                 dimming.isImageDimmed = UserDefaults.wmf.wmf_isImageDimmingEnabled
             }
             
