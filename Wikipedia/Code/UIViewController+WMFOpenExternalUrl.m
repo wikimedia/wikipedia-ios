@@ -12,11 +12,10 @@
     if (!url) {
         return;
     }
-    url = url.wmf_URLByMakingiOSCompatibilityAdjustments;
+    url = url.wmf_URLByMakingiOSCompatibilityAdjustments.wmf_urlByPrependingSchemeIfSchemeless;
     // Routing all external URLs to Safari to fix https://phabricator.wikimedia.org/T232648
     // Preserve the forceSafari
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
 }
-
 
 @end
