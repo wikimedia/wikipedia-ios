@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "ftux-background-map-dot.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "combinedShape.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {
