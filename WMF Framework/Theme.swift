@@ -53,7 +53,7 @@ public extension UIColor {
     fileprivate static let blue50 = UIColor(0x3366CC)
     fileprivate static let lightBlue = UIColor(0xEAF3FF)
     fileprivate static let mesosphere = UIColor(0x43464A)
-    fileprivate static let thermosphere = UIColor(0x2E3136)
+    static let thermosphere = UIColor(0x2E3136)
     fileprivate static let stratosphere = UIColor(0x6699FF)
     fileprivate static let exosphere = UIColor(0x27292D)
     fileprivate static let accent = UIColor(0x00AF89)
