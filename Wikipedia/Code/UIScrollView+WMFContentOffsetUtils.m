@@ -28,7 +28,7 @@
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.contentOffset = offset;
+                             [self setContentOffset:offset animated:NO];
                          }
                          completion:completion];
     } else {
