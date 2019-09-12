@@ -529,7 +529,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         done();
         return;
     }
-    if (CGPointEqualToPoint(offset, scrollView.contentOffset)) {
+    if (WMFDistanceBetweenPoints(offset, scrollView.contentOffset) < 2) {
         done();
         return;
     }

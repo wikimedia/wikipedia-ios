@@ -51,4 +51,32 @@
     XCTAssertEqualRectsWithAccuracy(transformedRect, convertedAndNormalizedRect, 0.0001);
 }
 
+- (void)testDistance {
+    CGFloat accuracy = 0.001;
+    CGPoint a = CGPointMake(0, 0);
+    CGPoint b = CGPointMake(0, 0);
+    CGFloat distance = WMFDistanceBetweenPoints(a, b);
+    XCTAssertEqualWithAccuracy(distance, 0, accuracy);
+    a = CGPointMake(0, 0);
+    b = CGPointMake(0, NAN);
+    distance = WMFDistanceBetweenPoints(a, b);
+    XCTAssertTrue(isnan(distance));
+    a = CGPointMake(INFINITY, 0);
+    b = CGPointMake(0, 0);
+    distance = WMFDistanceBetweenPoints(a, b);
+    XCTAssertTrue(isinf(distance));
+    a = CGPointMake(0, 0);
+    b = CGPointMake(0, 1);
+    distance = WMFDistanceBetweenPoints(a, b);
+    XCTAssertEqualWithAccuracy(distance, 1, accuracy);
+    a = CGPointMake(10, 0);
+    b = CGPointMake(0, 0);
+    distance = WMFDistanceBetweenPoints(a, b);
+    XCTAssertEqualWithAccuracy(distance, 10, accuracy);
+    a = CGPointMake(2.5, 1.3);
+    b = CGPointMake(24601.9, 77.4);
+    distance = WMFDistanceBetweenPoints(a, b);
+    XCTAssertEqualWithAccuracy(distance, 24599.5177, accuracy);
+}
+
 @end
