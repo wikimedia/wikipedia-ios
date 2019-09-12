@@ -12,7 +12,7 @@ class TextFormattingTableViewCell: UITableViewCell {
 
     private func addSeparator() {
         topSeparator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(topSeparator)
+        addSubview(topSeparator)
     }
 
     private func configureSeparator() {
