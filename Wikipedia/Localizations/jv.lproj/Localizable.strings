@@ -20,7 +20,7 @@
 "about-repositories" = "Panyimpenan";
 "about-repositories-app-source-license" = "Kodhe sumber cumepak ing pangayomané $1.";
 "about-repositories-app-source-license-mit" = "Lisènsi MIT";
-"about-send-feedback" = "Kirim saran aplikasi";
+"about-send-feedback" = "Kirimi pamrayoga aplikasi";
 "about-testers" = "Pandhadhar";
 "about-testers-details" = "Jaminan Kwalitèt dipriksa déning $1";
 "about-title" = "Ngenani";
@@ -377,7 +377,7 @@
 "settings-clear-cache-are-you-sure-title" = "Resiki dhata ing telih?";
 "settings-clear-cache-cancel" = "Wurung";
 "settings-clear-cache-ok" = "Busak cache";
-"settings-help-and-feedback" = "Pitulung lan saran";
+"settings-help-and-feedback" = "Pitulung lan pamrayoga";
 "settings-language-bar" = "Tuduhaké basa ing panggolèkan";
 "settings-my-languages" = "Basa-basaku";
 "settings-notifications" = "Wara-wara";

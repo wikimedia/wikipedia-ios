@@ -758,6 +758,7 @@
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
 "theme-default-display-name" = "ברירת מחדל";
+"theme-default-explanation" = "בהתאם לערכת העיצוב של המערכת";
 "theme-light-display-name" = "בהיר";
 "theme-sepia-display-name" = "ספיה";
 "top-read-header-generic" = "ויקיפדיה";
