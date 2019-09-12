@@ -760,6 +760,8 @@
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörkt";
 "theme-default-display-name" = "Standard";
+"theme-default-explanation" = "Matchar systemtemat";
+"theme-light-display-name" = "Ljust";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
