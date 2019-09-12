@@ -28,4 +28,16 @@ open class ExtensionViewController: UIViewController, Themeable {
         super.traitCollectionDidChange(previousTraitCollection)
         updateThemeFromTraitCollection()
     }
+    
+    public func openAppInActivity(with activityType: WMFUserActivityType) {
+        self.extensionContext?.open(NSUserActivity.wmf_baseURLForActivity(of: activityType))
+    }
+    
+    public func openApp(with url: URL?, fallback fallbackURL: URL? = nil) {
+        guard let wikipediaSchemeURL = url?.replacingSchemeWithWikipediaScheme ?? fallbackURL else {
+            openAppInActivity(with: .explore)
+            return
+        }
+        self.extensionContext?.open(wikipediaSchemeURL)
+    }
 }
