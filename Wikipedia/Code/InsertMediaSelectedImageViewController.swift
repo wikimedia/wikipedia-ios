@@ -1,5 +1,3 @@
-import SafariServices
-
 protocol InsertMediaSelectedImageViewControllerDelegate: AnyObject {
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, didSetSelectedImage selectedImage: UIImage?, from searchResult: InsertMediaSearchResult)
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, willSetSelectedImageFrom searchResult: InsertMediaSearchResult)

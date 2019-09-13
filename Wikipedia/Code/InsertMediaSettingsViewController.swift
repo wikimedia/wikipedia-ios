@@ -1,5 +1,4 @@
 import UIKit
-import SafariServices
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
