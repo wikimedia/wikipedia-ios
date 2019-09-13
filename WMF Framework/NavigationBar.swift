@@ -125,6 +125,17 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             titleBarItems.append(rightBarButtonItem)
         }
         titleBar.setItems(titleBarItems, animated: false)
+        
+        
+        // HAX: workaround for iOS 13 constraint breakage warnings
+        if #available(iOS 13, *) {
+            guard let contentView = titleBar.subviews.first, String(describing: type(of: contentView)) == "_UIToolbarContentView" else {
+                return
+            }
+            contentView.constraints
+                .filter { $0.priority == .required && $0.firstAttribute == .leading || $0.firstAttribute == .trailing }
+                .forEach { $0.priority = .defaultHigh }
+        }
     }
     
     // HAX: barButtonItem that we're getting from the navigationItem will not be shown on iOS 11 so we need to recreate it
