@@ -1163,10 +1163,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidEndScrollingAnimation:)]) {
         [self.delegate webViewController:self scrollViewDidEndScrollingAnimation:scrollView];
     }
-    for (dispatch_block_t completion in self.scrollViewAnimationCompletions) {
-        completion();
+    if (self.scrollViewAnimationCompletions.count < 1) {
+        return;
     }
-    [self.scrollViewAnimationCompletions removeAllObjects];
+    self.scrollViewAnimationCompletions[0]();
+    [self.scrollViewAnimationCompletions removeObjectAtIndex:0];
 }
 
 #pragma mark - WKNavigationDelegate
