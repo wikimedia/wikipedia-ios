@@ -666,7 +666,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return;
     }
     _webView = webView;
-    _webView.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    _webView.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
 
 #pragma mark - UIViewController
