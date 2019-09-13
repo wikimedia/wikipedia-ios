@@ -1,5 +1,4 @@
 import UIKit
-import SafariServices
 
 fileprivate class FlowLayout: UICollectionViewFlowLayout {
     override init() {
