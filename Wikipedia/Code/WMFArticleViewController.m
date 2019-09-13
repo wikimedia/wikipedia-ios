@@ -96,8 +96,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
                                         DescriptionEditViewControllerDelegate,
-                                        WMFHintPresenting,
-                                        SFSafariViewControllerDelegate>
+                                        WMFHintPresenting>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1396,14 +1395,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self fetchArticleForce:NO];
 }
 
-// Shows external URL as a child VC - works around an issue where pushing a SFSafariViewController
-// while removing this VC from the stack would put the app in a state where it needed to be force quit
 - (void)showExternalURL:(NSURL *)externalURL {
-    SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:externalURL];
-    vc.delegate = self;
-    [self addChildViewController:vc];
-    [self.view wmf_addSubviewWithConstraintsToEdges:vc.view];
-    [vc didMoveToParentViewController:self];
+    // For https://phabricator.wikimedia.org/T232648
+    [self wmf_openExternalUrl:externalURL useSafari:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Share
