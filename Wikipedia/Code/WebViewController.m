@@ -549,7 +549,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     It appears the only reliable way to get a callback after the default
     animation is to use scrollViewDidEndScrollingAnimation
     */
-    [self.scrollViewAnimationCompletions addObject:completion];
+    [self.scrollViewAnimationCompletions addObject:done];
     [scrollView setContentOffset:offset animated:YES];
 }
 
