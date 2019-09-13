@@ -8,7 +8,7 @@
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
-    fileprivate let titleBar: UIToolbar = UIToolbar(frame: CGRect.infinite) // HAX: 'CGRect.infinite' is workaround for iOS 13 constraint breakage warnings
+    fileprivate let titleBar: UIToolbar = UIToolbar(frame: .infinite) // HAX: `.infinite` is workaround for iOS 13 constraint breakage warnings
     fileprivate let bar: UINavigationBar = UINavigationBar()
     fileprivate let underBarView: UIView = UIView() // this is always visible below the navigation bar
     fileprivate let extendedView: UIView = UIView()
