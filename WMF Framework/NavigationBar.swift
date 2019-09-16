@@ -20,11 +20,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
 
     convenience public init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
-        titleBar.frame = bounds
     }
 
-    private override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
+        titleBar.frame = bounds
     }
     
     required init?(coder aDecoder: NSCoder) {
