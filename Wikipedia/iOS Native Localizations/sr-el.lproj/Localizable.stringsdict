@@ -72,6 +72,22 @@
 			<string>%1$d istorijskih događaja</string>
 		</dict>
 	</dict>
+	<key>page-last-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Uređeno pre %1$d dana</string>
+			<key>zero</key>
+			<string>Uređeno danas</string>
+		</dict>
+	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -90,6 +106,22 @@
 			<string>%1$d članaka</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Prekoračili ste ograničenje od %1$d članka po nalogu.</string>
+			<key>other</key>
+			<string>Prekoračili ste ograničenje od %1$d članaka po nalogu.</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -104,6 +136,22 @@
 			<string>Članak se ne može dodati na listu. Dostigli ste ograničenje od %2$d članaka po listi za čitanje za %3$@.</string>
 			<key>other</key>
 			<string>Članci se ne mogu dodati na listu. Dostigli ste ograničenje od %2$d članaka po listi za čitanje za %3$@.</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Prekoračili ste ograničenje od %1$d liste za čitanje po nalogu.</string>
+			<key>other</key>
+			<string>Prekoračili ste ograničenje od %1$d lista za čitanje po nalogu.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -166,8 +214,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>juče</string>
 			<key>other</key>
 			<string>pre %1$d dana</string>
 			<key>zero</key>
@@ -222,14 +268,28 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>few</key>
-			<string>pre %1$d godine</string>
 			<key>one</key>
-			<string>prošle godine</string>
+			<string>pre %1$d godine</string>
 			<key>other</key>
 			<string>pre %1$d godina</string>
 			<key>zero</key>
 			<string>ove godine</string>
+		</dict>
+	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d izmenjena stavka</string>
+			<key>other</key>
+			<string>%1$d izmenjene stavke</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>

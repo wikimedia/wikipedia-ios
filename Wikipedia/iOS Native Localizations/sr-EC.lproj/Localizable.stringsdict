@@ -214,8 +214,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>јуче</string>
 			<key>other</key>
 			<string>пре %1$d дана</string>
 			<key>zero</key>
@@ -270,14 +268,28 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>few</key>
-			<string>пре %1$d године</string>
 			<key>one</key>
-			<string>прошле године</string>
+			<string>пре %1$d године</string>
 			<key>other</key>
 			<string>пре %1$d година</string>
 			<key>zero</key>
 			<string>ове године</string>
+		</dict>
+	</dict>
+	<key>replace-replace-all-results-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d измењена ставка</string>
+			<key>other</key>
+			<string>%1$d измењене ставке</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
