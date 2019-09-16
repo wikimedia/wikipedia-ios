@@ -24,6 +24,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        assert(frame != .zero, "Non-zero frame required to prevent iOS 13 constraint breakage")
         titleBar.frame = bounds
     }
     
