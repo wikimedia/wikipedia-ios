@@ -25,7 +25,7 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
 
 - (void)setup {
     self.theme = [WMFTheme standard];
-    self.navigationBar = [[WMFNavigationBar alloc] initWithFrame:CGRectZero];
+    self.navigationBar = [[WMFNavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 }
 
 - (instancetype)init {

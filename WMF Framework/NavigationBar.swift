@@ -8,7 +8,7 @@
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
-    fileprivate let titleBar: UIToolbar = UIToolbar(frame: .infinite) // HAX: `.infinite` is workaround for iOS 13 constraint breakage
+    fileprivate let titleBar: UIToolbar = UIToolbar()
     fileprivate let bar: UINavigationBar = UINavigationBar()
     fileprivate let underBarView: UIView = UIView() // this is always visible below the navigation bar
     fileprivate let extendedView: UIView = UIView()
@@ -17,7 +17,17 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     fileprivate let backgroundView: UIView = UIView()
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
-    
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        assert(frame != .zero, "Frame should be non-zero")
+        titleBar.frame = bounds
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public var isAdjustingHidingFromContentInsetChangesEnabled: Bool = true
     
     public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment

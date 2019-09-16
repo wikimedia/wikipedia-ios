@@ -17,7 +17,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     // keep objc until WMFAppViewController is rewritten in Swift
     // it checks at run time for VCs that respond to navigationBar
     @objc lazy var navigationBar: NavigationBar = {
-        return NavigationBar()
+        return NavigationBar.init(frame: CGRect(x:0, y:0, width:320, height:44))
     }()
     
     lazy var navigationBarHider: NavigationBarHider = {
