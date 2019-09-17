@@ -1,5 +1,6 @@
 #import <WMF/WMFGeometry.h>
 #include <CoreGraphics/CGAffineTransform.h>
+#include "math.h"
 
 #pragma mark - Aggregate Operations
 
@@ -61,4 +62,10 @@ CGAffineTransform WMFAffineCoreGraphicsToUIKitTransformMake(CGSize size) {
 
 CGAffineTransform WMFAffineUIKitToCoreGraphicsTransformMake(CGSize size) {
     return CGAffineTransformInvert(WMFAffineCoreGraphicsToUIKitTransformMake(size));
+}
+
+#pragma mark - Distance
+
+CGFloat WMFDistanceBetweenPoints(CGPoint a, CGPoint b) {
+    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }
