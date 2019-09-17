@@ -758,6 +758,8 @@
 "theme-black-display-name" = "Negre";
 "theme-dark-display-name" = "Fosc";
 "theme-default-display-name" = "Per defecte";
+"theme-default-explanation" = "Correspon amb el tema del sistema";
+"theme-light-display-name" = "Clar";
 "theme-sepia-display-name" = "Sèpia";
 "top-read-header-generic" = "Viquipèdia";
 "top-read-header-with-language" = "Viquipèdia en $1";
