@@ -35,8 +35,6 @@
 
 #import "Wikipedia-Swift.h"
 
-@import SafariServices;
-
 NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
@@ -2115,7 +2113,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [articleViewController wmf_addPeekableChildViewControllerFor:url dataStore:self.dataStore theme:self.theme containerView:nil];
             return articleViewController;
         } else {
-            return [[SFSafariViewController alloc] initWithURL:url];
+            return nil;
         }
     }
     return nil;
@@ -2277,12 +2275,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                width:230.0f
                                                             duration:3.0];
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
-}
-
-#pragma mark - SFSafariViewControllerDelegate
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - EventLoggingSearchSourceProviding
