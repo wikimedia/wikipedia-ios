@@ -164,14 +164,9 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         super.traitCollectionDidChange(previousTraitCollection)
         _ = updateView()
     }
-
+    
     @IBAction func continueReading(_ sender: AnyObject) {
-        let URL = articleURL as NSURL?
-        let URLToOpen = URL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
-        
-        self.extensionContext?.open(URLToOpen)
+        openApp(with: articleURL)
     }
-
-
 }
 

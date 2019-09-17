@@ -1,5 +1,4 @@
 import UIKit
-import SafariServices
 
 fileprivate class FlowLayout: UICollectionViewFlowLayout {
     override init() {
@@ -276,7 +275,7 @@ extension InsertMediaSearchResultsCollectionViewController: UIViewControllerPrev
             self.delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult)
         }
         previewingViewController.moreInformationAction = { url in
-            self.present(SFSafariViewController(url: url), animated: true)
+            self.wmf_openExternalUrl(url, useSafari: true)
         }
         previewingViewController.apply(theme: theme)
         return previewingViewController

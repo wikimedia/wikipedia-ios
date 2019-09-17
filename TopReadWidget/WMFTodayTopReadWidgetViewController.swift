@@ -14,6 +14,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     var userStore: MWKDataStore!
     var contentSource: WMFFeedContentSource!
 
+    @IBOutlet weak var chevronImageView: UIImageView!
     
     let databaseDateFormatter = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()
     let headerDateFormatter = DateFormatter.wmf_shortMonthNameDayOfMonthNumber()
@@ -133,13 +134,14 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         guard viewIfLoaded != nil else {
             return
         }
-        footerLabel.textColor = theme.colors.primaryText
+        footerLabel.textColor = theme.colors.secondaryText
         headerLabel.textColor = theme.colors.primaryText
         headerSeparatorView.backgroundColor = theme.colors.border
         footerSeparatorView.backgroundColor = theme.colors.border
         for vc in articlePreviewViewControllers {
             vc.apply(theme: theme)
         }
+        chevronImageView.tintColor = theme.colors.secondaryText
     }
     
     @objc func updateView() {
@@ -376,10 +378,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     }
     
     func showAllTopReadInApp() {
-        guard let URL = groupURL else {
-            return
-        }
-        self.extensionContext?.open(URL)
+        openApp(with: groupURL)
     }
     
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -390,9 +389,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
             showAllTopReadInApp()
             return
         }
-        
-        let result = results[index]
-        self.extensionContext?.open(result.articleURL)
+        openApp(with: results[index].articleURL, fallback: groupURL)
     }
     
 }

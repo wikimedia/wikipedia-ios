@@ -46,5 +46,12 @@ extension WelcomeViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.midBackground
+        
+        for child in children {
+            guard let themeable = child as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
     }
 }

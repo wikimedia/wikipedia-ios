@@ -57,14 +57,14 @@
 "account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa...";
 "account-creation-captcha-request-account" = "Pyydä käyttäjätunnusta.";
 "account-creation-captcha-title" = "CAPTCHA-turvallisuustarkistus";
-"account-creation-create-account" = "Luo tunnuksesi";
+"account-creation-create-account" = "Luo käyttäjätunnuksesi";
 "account-creation-have-account" = "Onko sinulla jo tunnus? $1";
 "account-creation-log-in" = "Kirjaudu sisään.";
 "account-creation-logging-in" = "Kirjaudutaan...";
 "account-creation-missing-fields" = "Tunnuksen luomiseen vaaditaan käyttäjänimi, salasana ja salasanan vahvistus.";
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
-"account-creation-title" = "Luo uusi tunnus";
+"account-creation-title" = "Luo uusi käyttäjätunnus";
 "account-group-title" = "Oma käyttäjätunnus";
 "account-talk-page-title" = "Oma keskustelusivu";
 "account-talk-preferences-title" = "Keskustelusivujen asetukset";
@@ -182,6 +182,7 @@
 "edit-italic-accessibility-label" = "Lisää kursivoitu muotoilu";
 "edit-italic-remove-accessibility-label" = "Poista kursivoitu muotoilu";
 "edit-link-accessibility-label" = "Lisää linkkisyntaksi";
+"edit-link-link-target-title" = "Linkin kohde";
 "edit-link-remove-accessibility-label" = "Poista linkkisyntaksi";
 "edit-link-remove-link-title" = "Poista linkki";
 "edit-link-title" = "Muokkaa linkkiä";
@@ -678,6 +679,8 @@
 "talk-page-link-user-action-sheet-safari" = "Näytä käyttäjäsivu Safarissa";
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-banner-subtitle" = "Muista, me kaikki olemme ihmisiä täällä";
+"talk-page-new-subject-placeholder-text" = "Aihe";
+"talk-page-new-subject-textfield-accessibility-label" = "Aihe";
 "talk-page-new-topic-title" = "Uusi keskustelu";
 "talk-page-reply-title" = "Vastaa";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";

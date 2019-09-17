@@ -35,8 +35,6 @@
 
 #import "Wikipedia-Swift.h"
 
-@import SafariServices;
-
 NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
@@ -96,8 +94,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
                                         DescriptionEditViewControllerDelegate,
-                                        WMFHintPresenting,
-                                        SFSafariViewControllerDelegate>
+                                        WMFHintPresenting>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -186,7 +183,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self) {
         NSString *fragment = [url fragment];
         if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-            self.initialFragment = fragment;
+            self.initialFragment = [fragment stringByRemovingPercentEncoding];
         }
         self.restoreScrollPosition = fragment != nil;
         self.theme = theme;
@@ -1417,14 +1414,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self fetchArticleForce:NO];
 }
 
-// Shows external URL as a child VC - works around an issue where pushing a SFSafariViewController
-// while removing this VC from the stack would put the app in a state where it needed to be force quit
 - (void)showExternalURL:(NSURL *)externalURL {
-    SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:externalURL];
-    vc.delegate = self;
-    [self addChildViewController:vc];
-    [self.view wmf_addSubviewWithConstraintsToEdges:vc.view];
-    [vc didMoveToParentViewController:self];
+    // For https://phabricator.wikimedia.org/T232648
+    [self wmf_openExternalUrl:externalURL useSafari:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Share
@@ -1771,7 +1764,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme isEditorStyle:[viewController isKindOfClass:[WMFSectionEditorViewController class]]];
+    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme style:[viewController isKindOfClass:[WMFSectionEditorViewController class]] ? WMFThemeableNavigationControllerStyleEditor : WMFThemeableNavigationControllerStyleSheet];
     [self presentViewController:navC animated:YES completion:nil];
 }
 
@@ -2145,7 +2138,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [articleViewController wmf_addPeekableChildViewControllerFor:url dataStore:self.dataStore theme:self.theme containerView:nil];
             return articleViewController;
         } else {
-            return [[SFSafariViewController alloc] initWithURL:url];
+            return nil;
         }
     }
     return nil;
@@ -2303,12 +2296,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                width:230.0f
                                                             duration:3.0];
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
-}
-
-#pragma mark - SFSafariViewControllerDelegate
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - EventLoggingSearchSourceProviding

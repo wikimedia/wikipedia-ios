@@ -54,6 +54,7 @@ final class NavigationStateController: NSObject {
         case .push:
             navigationController.pushViewController(viewController, animated: animated)
         case .modal:
+            viewController.modalPresentationStyle = .overFullScreen
             navigationController.present(viewController, animated: animated)
         }
     }
@@ -86,6 +87,9 @@ final class NavigationStateController: NSObject {
                 searchViewController.setSearchVisible(true, animated: false)
                 searchViewController.searchTerm = info.searchTerm
                 searchViewController.search()
+            case let exploreViewController as ExploreViewController:
+                exploreViewController.presentedContentGroupKey = info.presentedContentGroupKey
+                exploreViewController.shouldRestoreScrollPosition = true
             default:
                 break
             }
@@ -201,6 +205,8 @@ final class NavigationStateController: NSObject {
                 info = Info(selectedIndex: tabBarController.selectedIndex, currentSavedViewRawValue: savedViewController.currentView.rawValue)
             case let searchViewController as SearchViewController:
                 info = Info(selectedIndex: tabBarController.selectedIndex, searchTerm: searchViewController.searchTerm)
+            case let exploreViewController as ExploreViewController:
+                info = Info(selectedIndex: tabBarController.selectedIndex, presentedContentGroupKey: exploreViewController.presentedContentGroupKey)
             default:
                 info = Info(selectedIndex: tabBarController.selectedIndex)
             }

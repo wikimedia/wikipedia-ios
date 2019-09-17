@@ -93,7 +93,7 @@
 "appearance-settings-image-dimming-footer" = "عڪسن جي غيرشفافيت گھري ۽ ڪاري نظاري تي گھٽايو";
 "appearance-settings-reading-themes" = "پڙھڻ جا نظارا";
 "appearance-settings-set-automatic-table-opening" = "جدول جون ترتيبون";
-"appearance-settings-text-sizing-example-text" = "اکرن جي ماپ تبديل ڪرڻ لاءِ سلائيڊر کي ڇڪيو. اوهان سسٽم جي اکرن تبديلي آڻي ايپ جي ٻين اکرن کي تبديل ڪري سگھو ٿا.";
+"appearance-settings-text-sizing-example-text" = "اکرن جي ماپ بدلائڻ لاءِ ترڪائيندڙ کي ڇڪيو. پنھنجي سرشتي جي متن کي ڪتب آڻيندي ايپ جي ٻين متن ايراضين کي بدلايو.";
 "appearance-settings-theme-options" = "نظارن جا چارا";
 "article-about-title" = "هن مضمون بابت";
 "article-delete" = "ڊاھيو";
@@ -214,7 +214,7 @@
 "empty-no-history-title" = "ڏيکارڻ لاءِ ڪابہ سوانح ناھي";
 "empty-no-reading-lists-message" = "سفر جي جڳھن، پسنديده عنوانن، ۽ گھڻي ڪجھ لاءِ فھرستون سرجيو";
 "empty-no-reading-lists-title" = "سانڍيل مضمونن کي پڙھڻ جي فھرستن سان منظم ڪريو";
-"empty-no-saved-pages-in-reading-list-message" = "صفحن کي هن فهرست ۾ محفوظ ڪيو، جيئن اهي هتي آئينده ظاهر ٿين";
+"empty-no-saved-pages-in-reading-list-message" = "صفحن کي ھتي ظاھر ٿيڻ لاءِ هن فھرست ۾ محفوظ ڪريو.";
 "empty-no-saved-pages-in-reading-list-title" = "ھن فھرست ۾ ڪي بہ صفحا سانڍيل ناھن";
 "empty-no-saved-pages-message" = "بعد ۾ ڏسڻ لاءِ صفحا سانڍيو ، ڀلي آف لائين بہ";
 "empty-no-saved-pages-title" = "اڃان ڪي بہ صفحا سانڍيل نہ آهن";
@@ -388,7 +388,7 @@
 "insert-media-title" = "ميڊيا وجھو";
 "insert-media-uploaded-image-title" = "عڪس چاڙھيو";
 "languages-settings-title" = "ٻوليون";
-"languages-title" = "ٻولي تبديل ڪريو";
+"languages-title" = "ٻولي بدلايو";
 "languages-wikipedia" = "وڪيپيڊيا ٻوليون";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "مواد $1 ھيٺ موجود آهي نہ تہ ٻي صورت واضع ڪيل آھي.";
@@ -422,10 +422,10 @@
 "nearby-distance-label-feet" = "$1 فوٽ";
 "nearby-distance-label-km" = "$1 ڪلوميٽر";
 "nearby-distance-label-meters" = "$1 ميٽر";
-"nearby-distance-label-miles" = "$1 ميل";
+"nearby-distance-label-miles" = "$1 ميلَ";
 "new-password-instructions" = "توھان ھڪ عارضي ڳجھي لفظ سان داخل ٿيا. داخل ٿيڻ کي مڪمل ڪرڻ لاءِ ھڪ نئون ڳجھولفظ ترتيب ڪريو.";
 "new-password-title" = "پنھنجو ڳجھولفظ طي ڪريو";
-"no-email-account-alert" = "براءِ مھرباني پنھنجي ڊوائس تي ڪو ايميل کاتو سيٽ اپ ڪريو ۽ ٻيھر ڪوشش ڪريو.";
+"no-email-account-alert" = "مھرباني ڪري پنھنجي ڊوائس تي ڪو برقٽپال کاتو سيٽ اپ ڪريو ۽ ٻيھر ڪوشش ڪريو.";
 "no-internet-connection" = "انٽرنيٽ ڳانڍاپو ناھي";
 "no-internet-connection-article-reload-button" = "آخري سانڍيل ورزن ڏانھن ورو";
 "number-billions" = "$1B";
@@ -521,7 +521,7 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 پڙھڻ جي فھرست|$1 پڙھڻ جون فھرستون}}";
 "reading-lists-default-list-description" = "توھان جي سانڍيل مضمونن جي لاءِ ڏنل فھرست";
 "reading-lists-default-list-title" = "سانڍيل";
-"reading-lists-delete-reading-list-alert-message" = "ھي عمل اڻڪريل نٿو ٿي سگھو. صرف {{PLURAL:$1|ھن فھرست|ھنن فھرستن}} ۾ سانڍيل مضمون انسانڍجي ويندا.";
+"reading-lists-delete-reading-list-alert-message" = "ھي عمل اڻڪري نٿو سگھجي. رڳو {{PLURAL:$1|ھن فھرست|ھنن فھرستن}} ۾ سانڍيل مضمون اڻسانڍجي ويندا.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فھرست|فھرستون}} ڊاھيو؟";
 "reading-lists-sort-saved-articles" = "سانڍيل مضمون مرتب ڪريو";
 "reading-themes-controls-accessibility-black-theme-button" = "ڪارو نظارو";
@@ -655,6 +655,8 @@
 "theme-black-display-name" = "ڪارو";
 "theme-dark-display-name" = "گھرو";
 "theme-default-display-name" = "ڏنل";
+"theme-default-explanation" = "سرشتي جي نظاري سان ملي ٿو";
+"theme-light-display-name" = "هلڪو";
 "theme-sepia-display-name" = "سيپيا";
 "top-read-header-generic" = "وڪيپيڊيا";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
@@ -692,8 +694,8 @@
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
 "wikitext-download-failed" = "تازو ترين ورزن حاصل ڪرڻ ۾ نالائق.";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
-"wikitext-preview-changes" = "توهان جي تبديلين جو پيش نگاھ آڻيندي...";
-"wikitext-preview-changes-none" = "ڪي به تبديليون نه ڪيون ويون هيون جن لاءِ پيش نگاھ ڏيکارجي.";
+"wikitext-preview-changes" = "توهان جي تبديلين جي پيش-نگاھ آڻيندي...";
+"wikitext-preview-changes-none" = "ڪي بہ تبديليون نہ ڪيون ويون ھيون جون پيش-نگاھ ڪجي.";
 "wikitext-preview-link-external-preview-description" = "ھي ڳنڍڻو ڪنھن خارجي ويب-سرزمين ڏانھن وڃي ٿو:$1";
 "wikitext-preview-link-external-preview-title" = "خارجي ڳنڍڻو";
 "wikitext-preview-link-not-found-preview-description" = "وڪيپيڊيا کي بلڪل ھن نالي سان ڪو مضمون ڪونھي";

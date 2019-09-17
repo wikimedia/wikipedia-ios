@@ -22,6 +22,8 @@ class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotific
     @IBOutlet weak var articleTitleLabelLeadingMargin: NSLayoutConstraint!
     @IBOutlet weak var summaryLabelLeadingMargin: NSLayoutConstraint!
     
+    @IBOutlet var separators: [UIView]!
+    
     var marginWidthForVisibleImageView: CGFloat = 0
     
     override func apply(theme: Theme) {
@@ -29,11 +31,16 @@ class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotific
         guard viewIfLoaded != nil else {
             return
         }
+        summaryLabel.textColor = theme.colors.primaryText
         articleTitleLabel.textColor = theme.colors.primaryText
         articleSubtitleLabel.textColor = theme.colors.secondaryText
         statusLabel.textColor = theme.colors.accent
         readerCountLabel.textColor = theme.colors.accent
         timeLabel.textColor = theme.colors.secondaryText
+        sparklineView.apply(theme: theme)
+        for separator in separators {
+            separator.backgroundColor = theme.colors.border
+        }
     }
 
     var articleURL: URL?
@@ -145,8 +152,7 @@ class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotific
         case UNNotificationDefaultActionIdentifier:
             fallthrough
         default:
-            let wikipediaURL = articleURL as NSURL
-            guard let wikipediaSchemeURL = wikipediaURL.wmf_wikipediaScheme else {
+            guard let wikipediaSchemeURL = articleURL.replacingSchemeWithWikipediaScheme else {
                 completion(.dismiss)
                 break
             }

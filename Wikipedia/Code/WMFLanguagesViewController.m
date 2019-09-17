@@ -397,6 +397,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     if (self.viewIfLoaded == nil) {
         return;
     }
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = theme.isDark ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
+    }
     self.view.backgroundColor = theme.colors.baseBackground;
     UIColor *backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = backgroundColor;
@@ -466,7 +469,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController nonPreferredLanguagesViewController];
     languagesVC.delegate = self;
     [languagesVC applyTheme:self.theme];
-    [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:languagesVC theme:self.theme] animated:YES completion:NULL];
+    [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:languagesVC theme:self.theme style:WMFThemeableNavigationControllerStyleSheet] animated:YES completion:NULL];
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {

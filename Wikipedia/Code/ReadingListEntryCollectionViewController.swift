@@ -354,7 +354,7 @@ extension ReadingListEntryCollectionViewController {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme, style: .sheet)
             navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {
@@ -374,7 +374,7 @@ extension ReadingListEntryCollectionViewController {
             completion(true)
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme, style: .sheet)
             navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {

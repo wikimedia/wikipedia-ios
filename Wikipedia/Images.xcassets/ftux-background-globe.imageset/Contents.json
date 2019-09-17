@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "ftux-background-globe.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "iconExplore.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {

@@ -1,5 +1,6 @@
 @import UIKit;
 @import UserNotifications;
+@class WMFTheme;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)processUserActivity:(NSUserActivity *)activity animated:(BOOL)animated completion:(dispatch_block_t)done;
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
+
+- (void)applyTheme:(WMFTheme *)theme;
 
 @end
 
