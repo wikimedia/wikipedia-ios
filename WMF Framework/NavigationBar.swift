@@ -17,7 +17,21 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     fileprivate let backgroundView: UIView = UIView()
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
+
+    convenience public init() {
+        self.init(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        assert(frame.size != .zero, "Non-zero frame size required to prevent iOS 13 constraint breakage")
+        titleBar.frame = bounds
+    }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public var isAdjustingHidingFromContentInsetChangesEnabled: Bool = true
     
     public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
