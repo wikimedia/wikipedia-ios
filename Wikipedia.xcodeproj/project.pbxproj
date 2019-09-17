@@ -1962,7 +1962,6 @@
 		D80ED3AF1EE57F4800CE8C50 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		D80ED3B01EE57F4800CE8C50 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		D80ED3B21EE57F4800CE8C50 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
-		D80ED3B41EE57F4800CE8C50 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
 		D80ED3B51EE57F4800CE8C50 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D80ED3B61EE57F4800CE8C50 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D80ED3B71EE57F4800CE8C50 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
@@ -2675,9 +2674,6 @@
 		D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
 		D8CC94DA217897FB007293E7 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CC94D9217897FB007293E7 /* NSManagedObject+Extensions.swift */; };
 		D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
-		D8CD97601E83F68400ECCA9D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
-		D8CD97611E83F68900ECCA9D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
-		D8CD97621E83F68E00ECCA9D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
 		D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */; };
 		D8CD97681E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */; };
 		D8CD976B1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */; };
@@ -3135,7 +3131,6 @@
 		D8EC3F191E9BDA35006712EB /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		D8EC3F1A1E9BDA35006712EB /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		D8EC3F1C1E9BDA35006712EB /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
-		D8EC3F1E1E9BDA35006712EB /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
 		D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
@@ -5261,7 +5256,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CD97601E83F68400ECCA9D /* SafariServices.framework in Frameworks */,
 				D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
@@ -5284,7 +5278,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D80ED3B41EE57F4800CE8C50 /* SafariServices.framework in Frameworks */,
 				D80ED3B51EE57F4800CE8C50 /* libsqlite3.tbd in Frameworks */,
 				D80ED3B61EE57F4800CE8C50 /* QuartzCore.framework in Frameworks */,
 				D80ED3B71EE57F4800CE8C50 /* libxml2.tbd in Frameworks */,
@@ -5379,7 +5372,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CD97621E83F68E00ECCA9D /* SafariServices.framework in Frameworks */,
 				D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
 				D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */,
@@ -5409,7 +5401,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CD97611E83F68900ECCA9D /* SafariServices.framework in Frameworks */,
 				D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */,
@@ -5433,7 +5424,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8EC3F1E1E9BDA35006712EB /* SafariServices.framework in Frameworks */,
 				D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */,
