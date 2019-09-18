@@ -151,7 +151,7 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         }
     }
     
-    @objc @IBAction func skipButtonTapped(_ sender: UIButton) {
+    @objc func skipButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion:completionBlock)
     }
     
