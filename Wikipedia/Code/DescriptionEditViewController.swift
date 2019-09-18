@@ -218,8 +218,8 @@ import UIKit
         }
         
         dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, forWikidataID: wikidataID, language: language) { error in
-            let presentingVC = self.presentingViewController
             DispatchQueue.main.async {
+                let presentingVC = self.presentingViewController
                 self.enableProgressiveButton(true)
                 if let error = error {
                     let apiErrorCode = (error as? WikidataAPIResult.APIError)?.code
