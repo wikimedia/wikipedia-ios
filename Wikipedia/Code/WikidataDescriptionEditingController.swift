@@ -1,6 +1,10 @@
 public struct WikidataAPIResult: Decodable {
     public struct APIError: Error, Decodable {
         public let code, info: String?
+
+        public var localizedDescription: String {
+            return info ?? CommonStrings.unknownError
+        }
     }
     let error: APIError?
     let success: Int?
