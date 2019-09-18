@@ -50,6 +50,9 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         let controller = DescriptionWelcomeContainerViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
         controller.welcomeNavigationDelegate = self
         controller.pageType = type
+        controller.nextButtonAction = { [weak self] sender in
+            self?.skipButtonTapped(sender)
+        }
         return controller
     }
     
