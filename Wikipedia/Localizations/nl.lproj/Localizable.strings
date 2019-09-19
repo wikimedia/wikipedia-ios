@@ -18,6 +18,7 @@
 // Author: Nemo bis
 // Author: Optilete
 // Author: Patio
+// Author: Robin van der Linde
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
 // Author: Romaine
@@ -714,6 +715,7 @@
 "theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
+"theme-light-display-name" = "Licht";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in het $1";
