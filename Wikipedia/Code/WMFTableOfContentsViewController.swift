@@ -224,8 +224,8 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         tableOfContentsFunnel.logOpen()
     }
     
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         deselectAllRows()
     }
     

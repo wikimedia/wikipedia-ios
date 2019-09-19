@@ -113,3 +113,9 @@ extern CGAffineTransform WMFAffineUIKitToCoreGraphicsTransformMake(CGSize size);
  * @note Inverse of `WMFAffineUIKitToCoreGraphicsTransformMake`
  */
 extern CGAffineTransform WMFAffineCoreGraphicsToUIKitTransformMake(CGSize size);
+
+
+/**
+* @return The distance between two points
+*/
+extern CGFloat WMFDistanceBetweenPoints(CGPoint a, CGPoint b);

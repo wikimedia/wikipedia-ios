@@ -26,10 +26,12 @@
 // Author: VulpesVulpes825
 // Author: Wxyveronica
 // Author: Yfdyh000
+// Author: 予弦
 // Author: 佛壁灯
 // Author: 夢蝶葬花
 // Author: 水獭很懒
 // Author: 王庭茂
+// Author: 神樂坂秀吉
 // Author: 科劳
 
 "about-content-license" = "内容许可协议";
@@ -686,8 +688,10 @@
 "table-of-contents-heading" = "内容";
 "table-title-other" = "更多信息";
 "talk-page-add-discussion-accessibility-label" = "添加讨论";
-"talk-page-discussion-read-accessibility-label" = "阅读";
+"talk-page-discussion-read-accessibility-label" = "已读";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "i˨˩˦tu˧˥";
 "talk-page-discussion-unread-accessibility-label" = "未读";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "weɪ˥˩tu˧˥";
 "talk-page-info-active-conversations-generic" = "维基百科上的积极对话";
 "talk-page-new-banner-subtitle" = "记住，我们在这里都是人类";
 "talk-page-new-reply-success-text" = "你的答复被成功地发表了";
@@ -702,6 +706,7 @@
 "theme-black-display-name" = "黑暗";
 "theme-dark-display-name" = "夜间";
 "theme-default-display-name" = "默认";
+"theme-light-display-name" = "日间";
 "theme-sepia-display-name" = "棕黑";
 "top-read-header-generic" = "维基百科";
 "top-read-header-with-language" = "$1维基百科";

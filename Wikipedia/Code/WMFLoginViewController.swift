@@ -51,7 +51,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
-        loginButton.setTitle(WMFLocalizedString("main-menu-account-login", value:"Log in", comment:"Button text for logging in.\n{{Identical|Log in}}"), for: .normal)
+        loginButton.setTitle(WMFLocalizedString("main-menu-account-login", value:"Log in", comment:"Button text for logging in. {{Identical|Log in}}"), for: .normal)
         
         createAccountButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("login-no-account", value:"Don't have an account? %1$@", comment:"Text for create account button. %1$@ is the message {{msg-wikimedia|login-account-join-wikipedia}}"), substitutionString: WMFLocalizedString("login-join-wikipedia", value:"Join Wikipedia.", comment:"Join Wikipedia text to be used as part of a create account button"))
         
@@ -65,8 +65,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         passwordField.placeholder = WMFLocalizedString("field-password-placeholder", value:"enter password", comment:"Placeholder text shown inside password field until user taps on it")
 
         titleLabel.text = WMFLocalizedString("login-title", value:"Log in to your account", comment:"Title for log in interface")
-        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
-        passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field\n{{Identical|Password}}")
+        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field {{Identical|Username}}")
+        passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field {{Identical|Password}}")
     
         view.wmf_configureSubviewsForDynamicType()
         
@@ -156,7 +156,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         passwordAlertLabel.isHidden = true
         setViewControllerUserInteraction(enabled: false)
         disableProgressiveButton()
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         guard let username = usernameField.text, let password = passwordField.text else {
             assertionFailure("One or more of the required parameters are nil")
             return
@@ -222,7 +222,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
             changePasswordVC?.userName = self.usernameField!.text
             changePasswordVC?.apply(theme: self.theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: changePasswordVC!, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: changePasswordVC!, theme: self.theme, style: .sheet)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -241,7 +241,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
             twoFactorViewController.apply(theme: self.theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: twoFactorViewController, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: twoFactorViewController, theme: self.theme, style: .sheet)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -256,7 +256,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         dismiss(animated: true, completion: {
-            let navigationController = WMFThemeableNavigationController(rootViewController: forgotPasswordVC, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: forgotPasswordVC, theme: self.theme, style: .sheet)
             forgotPasswordVC.apply(theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
@@ -277,7 +277,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         dismiss(animated: true, completion: {
             createAcctVC.funnel = CreateAccountFunnel()
             createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
-            let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme, style: .sheet)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }

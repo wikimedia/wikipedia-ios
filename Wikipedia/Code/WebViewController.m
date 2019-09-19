@@ -34,7 +34,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @property (nonatomic, strong) NSArray *findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
-@property (nonatomic) BOOL disableMinimizeFindInPage;
 @property (nonatomic, readwrite, retain) WMFFindAndReplaceKeyboardBar *inputAccessoryView;
 @property (weak, nonatomic) IBOutlet UIView *statusBarUnderlayView;
 
@@ -43,6 +42,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, strong) WMFTheme *theme;
 
 @property (nonatomic, getter=isAfterFirstUserScrollInteraction) BOOL afterFirstUserScrollInteraction;
+
+@property (nonatomic, strong) NSMutableArray<dispatch_block_t> *scrollViewAnimationCompletions; // called on scrollViewDidEndScrollingAnimation
 
 @end
 
@@ -59,6 +60,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (self) {
         self.session = [SessionSingleton sharedInstance];
         self.headerFadingEnabled = YES;
+        self.scrollViewAnimationCompletions = [NSMutableArray arrayWithCapacity:1];
     }
     return self;
 }
@@ -73,6 +75,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (self) {
         self.session = aSession;
         self.headerFadingEnabled = YES;
+        self.scrollViewAnimationCompletions = [NSMutableArray arrayWithCapacity:1];
     }
     return self;
 }
@@ -283,7 +286,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleReferenceClickedScriptMessage:(NSDictionary *)messageDict {
     NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
     self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] wmf_map:^id(NSDictionary *referenceDict) {
-        return [[WMFReference alloc] initWithScriptMessageDict:referenceDict yOffset:self.webView.scrollView.contentInset.top];
+        CGFloat offset;
+        if (@available(iOS 12.0, *)) {
+            offset = 0;
+        } else {
+            offset = self.webView.scrollView.contentInset.top;
+        }
+        return [[WMFReference alloc] initWithScriptMessageDict:referenceDict yOffset:offset];
     }];
 
     NSAssert(messageDict[@"selectedIndex"], @"Expected key 'selectedIndex' not found in script message dictionary");
@@ -411,12 +420,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                    }];
 }
 
-- (void)minimizeFindInPage {
-    if (!self.disableMinimizeFindInPage) {
-        [[self findInPageKeyboardBar] hide];
-    }
-}
-
 - (void)viewLayoutMarginsDidChange {
     [super viewLayoutMarginsDidChange];
     [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
@@ -461,15 +464,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self wmf_dismissReferencePopoverAnimated:NO completion:nil];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    self.disableMinimizeFindInPage = YES;
-    [coordinator animateAlongsideTransition:nil
-                                 completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-                                     self.disableMinimizeFindInPage = NO;
-                                 }];
-}
-
 - (void)setFindInPageMatches:(NSArray *)findInPageMatches {
     _findInPageMatches = findInPageMatches;
     [self updateFindInPageKeyboardBar];
@@ -508,6 +502,41 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (void)scrollToOffset:(CGPoint)offset animated:(BOOL)animated completion:(dispatch_block_t)completion {
+    assert([NSThread isMainThread]);
+    UIScrollView *scrollView = self.webView.scrollView;
+    dispatch_block_t done = ^{
+        if (completion) {
+            completion();
+        }
+    };
+    if (isnan(offset.x) || isinf(offset.x) || isnan(offset.y) || isinf(offset.y)) {
+        done();
+        return;
+    }
+    if (WMFDistanceBetweenPoints(offset, scrollView.contentOffset) < 2) {
+        done();
+        return;
+    }
+    if (!animated) {
+        [scrollView setContentOffset:offset animated:NO];
+        done();
+        return;
+    }
+    /*
+    Setting scrollView.contentOffset inside of an animation block
+    results in a broken animation https://phabricator.wikimedia.org/T232689
+    Calling [scrollView setContentOffset:offset animated:YES] inside
+    of an animation block fixes the animation but doesn't guarantee
+    the content offset will be updated when the animation's completion
+    block is called.
+    It appears the only reliable way to get a callback after the default
+    animation is to use scrollViewDidEndScrollingAnimation
+    */
+    [self.scrollViewAnimationCompletions addObject:done];
+    [scrollView setContentOffset:offset animated:YES];
+}
+
 - (void)scrollToAndFocusOnSelectedMatch {
     if (self.findInPageSelectedMatchIndex >= self.findInPageMatches.count) {
         return;
@@ -520,7 +549,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId
                                              completion:^(CGRect rect) {
                                                  @strongify(self);
-                                                 self.disableMinimizeFindInPage = YES;
                                                  CGFloat matchScrollOffsetY = CGRectGetMinY(rect);
                                                  CGFloat keyboardBarOriginY = [self.findInPageKeyboardBar.window convertPoint:CGPointZero fromView:self.findInPageKeyboardBar].y;
                                                  CGFloat contentInsetTop = self.webView.scrollView.contentInset.top;
@@ -533,11 +561,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  }
                                                  newOffsetY += [self.webView iOS12yOffsetHack];
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
-                                                 [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
-                                                                                          animated:YES
-                                                                                        completion:^(BOOL done) {
-                                                                                            self.disableMinimizeFindInPage = NO;
-                                                                                        }];
+                                                 [self scrollToOffset:centeredOffset
+                                                             animated:YES
+                                                           completion:nil];
                                              }];
 
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
@@ -640,6 +666,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return;
     }
     _webView = webView;
+    _webView.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
 
 #pragma mark - UIViewController
@@ -773,13 +800,15 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
-                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
-                                                                                                  animated:animated
-                                                                                                completion:^(BOOL finished){
-                                                                                                    if (completion) {
-                                                                                                        completion();
-                                                                                                    }
-                                                                                                }];
+                                                         [self scrollToOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
+                                                                     animated:animated
+                                                                   completion:^{
+                                                                       if (completion) {
+                                                                           completion();
+                                                                       }
+                                                                   }];
+                                                     } else if (completion) {
+                                                         completion();
                                                      }
                                                  }];
     }
@@ -861,7 +890,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
     SchemeHandler *handler = [SchemeHandler shared];
-    [handler cacheSectionDataForArticle: self.article];
+    [handler cacheSectionDataForArticle:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 }
@@ -944,9 +973,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGRect windowCoordsRefGroupRect = [self windowCoordsReferenceGroupRect];
     UIView *firstPanel = [controller firstPanelView];
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
-
-        windowCoordsRefGroupRect = CGRectOffset(windowCoordsRefGroupRect, 0, [self.webView iOS12yOffsetHack]);
-
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
         CGRect refGroupRectInWindowCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:nil];
         if (CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)) {
@@ -959,11 +985,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             }
             CGFloat delta = self.webView.scrollView.contentOffset.y - newOffsetY;
             CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
-            [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
-                                                     animated:YES
-                                                   completion:^(BOOL finished) {
-                                                       controller.backgroundView.clearRect = CGRectOffset(windowCoordsRefGroupRect, 0, delta);
-                                                   }];
+            [self scrollToOffset:centeredOffset
+                        animated:YES
+                      completion:^{
+                          controller.backgroundView.clearRect = CGRectOffset(windowCoordsRefGroupRect, 0, delta);
+                      }];
         } else {
             controller.backgroundView.clearRect = windowCoordsRefGroupRect;
         }
@@ -1071,7 +1097,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
-    [self minimizeFindInPage];
     if (@available(iOS 12.0, *)) {
         // Somewhere along the line the webView.scrollView.contentOffset is set to 0,0 on iOS 12 and there's nothing useful in the stack trace
         // Workaround this issue by correcting it to the top offset if it occurs before the first user scroll event
@@ -1119,6 +1144,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidEndScrollingAnimation:)]) {
         [self.delegate webViewController:self scrollViewDidEndScrollingAnimation:scrollView];
     }
+    if (self.scrollViewAnimationCompletions.count < 1) {
+        return;
+    }
+    self.scrollViewAnimationCompletions[0]();
+    [self.scrollViewAnimationCompletions removeObjectAtIndex:0];
 }
 
 #pragma mark - WKNavigationDelegate

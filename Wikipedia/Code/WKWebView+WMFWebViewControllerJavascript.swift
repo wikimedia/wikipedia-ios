@@ -78,9 +78,9 @@ fileprivate struct FooterLocalizedStrings: JSONEncodable {
     var menuCoordinateTitle: String = ""
     init(for article: MWKArticle) {
         let lang = (article.url as NSURL).wmf_language
-        readMoreHeading = WMFLocalizedString("article-read-more-title", language: lang, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").uppercased(with: Locale.current)
+        readMoreHeading = WMFLocalizedString("article-read-more-title", language: lang, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}").uppercased(with: Locale.current)
         licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: lang, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1")
-        licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: lang, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}")
+        licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: lang, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0 {{Identical|CC BY-SA}}")
         viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: lang, value: "View article in browser", comment: "Link to view article in browser")
         menuHeading = WMFLocalizedString("article-about-title", language: lang, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").uppercased(with: Locale.current)
         menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: lang, value: "Available in {{PLURAL:%1$d|%1$d other language|%1$d other languages}}", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), article.languagecount)
@@ -89,7 +89,7 @@ fileprivate struct FooterLocalizedStrings: JSONEncodable {
         menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: lang, value: "{{PLURAL:%1$d|0=Edited today|1=Edited yesterday|Edited %1$d days ago}}", comment: "Relative days since an article was last edited. 0 = today, singular = yesterday. %1$d will be replaced with the number of days ago."), days)
         menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: lang, value: "Full edit history", comment: "Label for button used to show an article's complete edit history")
         menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: lang, value: "View talk page", comment: "Label for button linking out to an article's talk page")
-        menuPageIssuesTitle = WMFLocalizedString("page-issues", language: lang, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
+        menuPageIssuesTitle = WMFLocalizedString("page-issues", language: lang, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
         menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: lang, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
         menuCoordinateTitle = WMFLocalizedString("page-location", language: lang, value: "View on a map", comment: "Label for button used to show an article on the map")
     }
@@ -101,8 +101,8 @@ fileprivate struct CollapseTablesLocalizedStrings: JSONEncodable {
     var tableFooterTitle: String = ""
     init(for lang: String?) {
         tableInfoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
-        tableOtherTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}")
-        tableFooterTitle = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}")
+        tableOtherTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form {{Identical|More information}}")
+        tableFooterTitle = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it {{Identical|Close}}")
     }
 }
 

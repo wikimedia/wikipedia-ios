@@ -67,6 +67,7 @@ class DescriptionHelpViewController: ViewController {
 
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"About Wikidata label text")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")
+        updateFonts()
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
@@ -98,6 +99,10 @@ class DescriptionHelpViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         allLabels.forEach {
             $0.set(dynamicTextStyle: .body)
         }

@@ -720,7 +720,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             dispatch_async(dispatch_get_main_queue(), ^{
                 WMFContentGroup *newsContentGroup = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindNews];
                 if (newsContentGroup) {
-                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.contentPreview;
+                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.fullContent.object;
                     if (stories.count > 0) {
                         NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
                         WMFFeedNewsStory *randomStory = stories[randomIndex];

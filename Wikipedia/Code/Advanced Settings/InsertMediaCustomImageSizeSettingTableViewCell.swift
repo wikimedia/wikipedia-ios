@@ -13,11 +13,16 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
         textField.text = textFieldText
         textField.isUnderlined = false
         textField.rightView = nil
+        updateFonts()
         apply(theme: theme)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         titleLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         textFieldLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         textField.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)

@@ -80,6 +80,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         imageGrid.layer.cornerRadius = 3
         imageGrid.masksToBounds = true
         contentView.addSubview(imageGrid)
+
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
         
         super.setup()
     }

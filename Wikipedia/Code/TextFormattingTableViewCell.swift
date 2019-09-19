@@ -1,6 +1,5 @@
 class TextFormattingTableViewCell: UITableViewCell {
     let topSeparator = UIView()
-    let bottomSeparator = UIView()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -8,11 +7,12 @@ class TextFormattingTableViewCell: UITableViewCell {
         configureSeparator()
         backgroundView = UIView()
         selectedBackgroundView = UIView()
+        updateFonts()
     }
 
     private func addSeparator() {
         topSeparator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(topSeparator)
+        addSubview(topSeparator)
     }
 
     private func configureSeparator() {

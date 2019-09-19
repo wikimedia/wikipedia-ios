@@ -1,5 +1,3 @@
-import SafariServices
-
 protocol InsertMediaSelectedImageViewControllerDelegate: AnyObject {
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, didSetSelectedImage selectedImage: UIImage?, from searchResult: InsertMediaSearchResult)
     func insertMediaSelectedImageViewController(_ insertMediaSelectedImageViewController: InsertMediaSelectedImageViewController, willSetSelectedImageFrom searchResult: InsertMediaSearchResult)
@@ -67,7 +65,7 @@ extension InsertMediaSelectedImageViewController: InsertMediaSearchResultsCollec
         }
         if selectedView.moreInformationAction == nil {
             selectedView.moreInformationAction = { [weak self] url in
-                self?.present(SFSafariViewController(url: url), animated: true)
+                self?.wmf_openExternalUrl(url, useSafari: true)
             }
         }
         selectedView.configure(with: imageURL, searchResult: searchResult, theme: theme) { error in

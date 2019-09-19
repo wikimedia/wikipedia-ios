@@ -741,6 +741,11 @@
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
 "talk-page-add-discussion-accessibility-label" = "議論を追加";
+"talk-page-discussion-accessibility-hint" = "ダブルタップすると議論のスレッドが開きます";
+"talk-page-discussion-read-accessibility-label" = "既読";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "kʲidokɯ";
+"talk-page-discussion-unread-accessibility-label" = "未読";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "mʲidokɯ̹";
 "talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
 "talk-page-error-unable-to-post-topic" = "インターネット接続がないため議論を投稿できません。";
 "talk-page-info-active-conversations" = "$1 ウィキペディア上でのアクティブな会話";

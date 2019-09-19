@@ -162,6 +162,7 @@ class StorageAndSyncingSettingsViewController: SubSettingsViewController {
         eraseSavedArticlesView?.titleLabel.text = CommonStrings.eraseAllSavedArticles
         eraseSavedArticlesView?.button.setTitle(WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-button-title", value: "Erase", comment: "Title of the settings button that enables erasing saved articles"), for: .normal)
         eraseSavedArticlesView?.button.addTarget(self, action: #selector(eraseSavedArticles), for: .touchUpInside)
+        eraseSavedArticlesView?.updateFonts()
        return eraseSavedArticlesView
     }()
 

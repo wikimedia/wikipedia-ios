@@ -10,7 +10,8 @@ protocol WMFReadingThemesControlsViewControllerDelegate: class {
 class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
-    @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
+    @objc static let WMFUserDidSelectThemeNotificationThemeNameKey = "themeName"
+    @objc static let WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey = "isImageDimmingEnabled"
     @objc static let nibName = "ReadingThemesControlsViewController"
     
     var theme = Theme.standard
@@ -42,7 +43,7 @@ class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet var syntaxHighlightingContainerView: UIView!
     @IBOutlet var syntaxHighlightingLabel: UILabel!
     @IBOutlet var syntaxHighlightingSwitch: UISwitch!
-    
+
     var visible = false
     var showsSyntaxHighlighting: Bool = false {
         didSet {
@@ -89,7 +90,8 @@ class ReadingThemesControlsViewController: UIViewController {
         syntaxHighlightingSwitch.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-syntax-highlighting-switch", value: "Syntax Highlighting", comment: "Accessibility text for the syntax highlighting toggle in the Reading Themes Controls popover")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: UIScreen.brightnessDidChangeNotification, object: nil)
-        
+
+        updateFonts()
         evaluateShowsSyntaxHighlightingState()
         evaluateSyntaxHighlightingSelectedState()
         updatePreferredContentSize()
@@ -149,12 +151,16 @@ class ReadingThemesControlsViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
-        let currentTheme = UserDefaults.wmf.wmf_appTheme
+        let currentTheme = UserDefaults.wmf.theme(compatibleWith: traitCollection)
         apply(theme: currentTheme)
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         syntaxHighlightingLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     
@@ -195,7 +201,7 @@ class ReadingThemesControlsViewController: UIViewController {
     }
     
     func userDidSelect(theme: Theme) {
-        let userInfo = ["theme": theme]
+        let userInfo = [ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey: theme.name]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     

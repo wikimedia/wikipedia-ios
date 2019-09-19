@@ -736,7 +736,9 @@
 "talk-page-add-discussion-accessibility-label" = "Přidat diskusi";
 "talk-page-discussion-accessibility-hint" = "Dvakrát poklepejte pro založení nového vlákna";
 "talk-page-discussion-read-accessibility-label" = "Přečteno";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "pr̝ɛt͡ʃtɛŋo";
 "talk-page-discussion-unread-accessibility-label" = "Nepřečteno";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "nɛpr̝ɛt͡ʃtɛŋo";
 "talk-page-error-unable-to-post-reply" = "Nelze se připojit k interentu. Nelze odeslat odpověď.";
 "talk-page-error-unable-to-post-topic" = "Nelze se připojit k internetu. Nelze zveřejnit diskusi.";
 "talk-page-info-active-conversations" = "Aktivní diskuse na Wikipedii v jazyce $1";
@@ -765,6 +767,8 @@
 "theme-black-display-name" = "Černé";
 "theme-dark-display-name" = "Tmavé";
 "theme-default-display-name" = "Standardní";
+"theme-default-explanation" = "Přizpůsobeno vzhledu systému";
+"theme-light-display-name" = "Světlý";
 "theme-sepia-display-name" = "Sépie";
 "top-read-header-generic" = "Wikipedie";
 "top-read-header-with-language" = "Wikipedie v jazyce $1";

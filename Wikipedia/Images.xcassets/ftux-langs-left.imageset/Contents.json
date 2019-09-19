@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "ftux-langs-left.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "noshadow.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {

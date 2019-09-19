@@ -33,7 +33,7 @@ class TalkPageTopicNewViewController: ViewController {
     
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer!
     private var publishButton: UIBarButtonItem!
-    
+
     private var bodyPlaceholder: String {
         return WMFLocalizedString("talk-page-new-topic-body-placeholder-text", value: "Compose new discussion", comment: "Placeholder text which appears initially in the new topic body field for talk pages.")
     }
@@ -85,6 +85,7 @@ class TalkPageTopicNewViewController: ViewController {
         subjectTextField.inputAccessoryView = beKindInputAccessoryView
         bodyTextView.inputAccessoryView = beKindInputAccessoryView
         beKindInputAccessoryView.delegate = self
+        updateFonts()
         apply(theme: theme)
     }
 

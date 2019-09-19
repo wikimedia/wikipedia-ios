@@ -623,7 +623,7 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
 "reading-themes-controls-syntax-highlighting" = "Syntaxmarkering";
 "reference-title" = "Referens $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|1=I går|$1 dygn sedan}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Idag|1=Igår|$1 dygn sedan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|1=Senaste året|$1 år sedan}}";
@@ -760,6 +760,8 @@
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörkt";
 "theme-default-display-name" = "Standard";
+"theme-default-explanation" = "Matchar systemtemat";
+"theme-light-display-name" = "Ljust";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

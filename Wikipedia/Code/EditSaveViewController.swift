@@ -136,7 +136,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             editFunnel?.logSectionEditSummaryShown(source: editFunnelSource, language: section?.articleLanguage)
             loggedEditActions.add(EditFunnel.Action.editSummaryShown)
         }
-        
+        updateTextViews()
         apply(theme: theme)
     }
 
@@ -225,7 +225,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func save() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
         editFunnel?.logSectionSaveAttempt(source: editFunnelSource, language: section?.articleLanguage)
 

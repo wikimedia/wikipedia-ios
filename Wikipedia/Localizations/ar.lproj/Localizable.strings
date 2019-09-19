@@ -765,6 +765,8 @@
 "theme-black-display-name" = "أسود";
 "theme-dark-display-name" = "غامق";
 "theme-default-display-name" = "الافتراضية";
+"theme-default-explanation" = "يطابق موضوع النظام";
+"theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
 "top-read-header-generic" = "ويكيبيديا";
 "top-read-header-with-language" = "$1 ويكيبيديا";

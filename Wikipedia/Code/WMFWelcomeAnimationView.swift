@@ -1,7 +1,12 @@
 import Foundation
 
-open class WMFWelcomeAnimationView : UIView {
+open class WMFWelcomeAnimationView : UIView, Themeable {
+    var theme: Theme = Theme.standard
     
+    public func apply(theme: Theme) {
+        self.theme = theme
+        backgroundColor = hasCircleBackground ? theme.colors.midBackground : .clear
+    }
     // Reminder - these transforms are on WMFWelcomeAnimationView 
     // so they can scale proportionally to the view size.
     
@@ -49,7 +54,7 @@ open class WMFWelcomeAnimationView : UIView {
     public var hasCircleBackground: Bool = false {
         didSet {
             if hasCircleBackground {
-                backgroundColor = UIColor(0xdee6f6)
+                backgroundColor = theme.colors.midBackground
                 layer.masksToBounds = true
             } else {
                 // backgroundColor = UIColor(0xdddddd)

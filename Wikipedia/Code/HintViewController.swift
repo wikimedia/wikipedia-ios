@@ -63,6 +63,9 @@ class HintViewController: UIViewController {
         
         safeAreaBottomConstraint.isActive = extendsUnderSafeArea
         viewBottomConstraint.isActive = !extendsUnderSafeArea
+
+        updateFonts()
+        
         view.setNeedsLayout()
     }
 
@@ -86,6 +89,10 @@ class HintViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+
+    private func updateFonts() {
         defaultLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
         confirmationLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
     }

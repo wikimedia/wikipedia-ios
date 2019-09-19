@@ -407,7 +407,7 @@
 "home-reading-list-prompt" = "Seus artigos salvos agora podem ser organizados em listas de leitura e sincronizados em dispositivos. Faça login para permitir que suas listas de leitura sejam salvas nas preferências do usuário.";
 "home-themes-action-title" = "Gerenciar preferências";
 "home-themes-prompt" = "Ajuste suas preferências de leitura, incluindo tamanho e tema do texto, na barra de ferramentas do artigo ou nas configurações do usuário para uma experiência de leitura mais confortável.";
-"home-title" = "explorar";
+"home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, desloque-se para o topo da Explorar";
 "icon-shortcut-nearby-title" = "Artigos próximos";
 "icon-shortcut-random-title" = "Artigo aleatório";
@@ -771,6 +771,8 @@
 "theme-black-display-name" = "Preto";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Padrão";
+"theme-default-explanation" = "Corresponde ao tema do sistema";
+"theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sépia";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
