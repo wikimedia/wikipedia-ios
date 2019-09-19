@@ -689,6 +689,7 @@
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";
+"theme-light-display-name" = "Vaalea";
 "theme-sepia-display-name" = "Seepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
