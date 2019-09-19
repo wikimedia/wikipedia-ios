@@ -16,6 +16,8 @@ class DescriptionWelcomeContainerViewController: UIViewController, Themeable {
     
     private var hasAlreadyFadedInAndUp = false
     private var needsDeviceAdjustments = true
+
+    var nextButtonAction: ((UIButton) -> Void)?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,6 +60,7 @@ class DescriptionWelcomeContainerViewController: UIViewController, Themeable {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? DescriptionWelcomePanelViewController {
+            vc.nextButtonAction = nextButtonAction
             vc.pageType = pageType
             vc.apply(theme: theme)
         } else if let vc = segue.destination as? DescriptionWelcomeImageViewController{
