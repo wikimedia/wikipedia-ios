@@ -15,7 +15,7 @@ class PageHistoryDetailedStatsViewController: UIViewController {
             }
             stats = [
                 Stat(title: "minor edits", image: UIImage(named: "m")!, count: minorEdits),
-                Stat(title: "IP edits", image: UIImage(named: "anon")!, count: 0),
+                Stat(title: "IP edits", image: UIImage(named: "anon")!, count: 5000),
                 Stat(title: "bot edits", image: UIImage(named: "bot")!, count: 0),
                 Stat(title: "reverted edits", image:UIImage(named: "reverted")!, count: 0)
             ]
@@ -27,6 +27,10 @@ class PageHistoryDetailedStatsViewController: UIViewController {
         let title: String
         let image: UIImage
         let count: Int
+    }
+
+    private func displayCount(_ count: Int) -> String {
+        return NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: count))
     }
 
     override func viewDidLoad() {
@@ -78,7 +82,7 @@ extension PageHistoryDetailedStatsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let stat = stats[indexPath.item]
-        cell.configure(with: stat.title, image: stat.image, imageText: "\(stat.count)", isRightSeparatorHidden: indexPath.item == stats.count - 1)
+        cell.configure(with: stat.title, image: stat.image, imageText: displayCount(stat.count), isRightSeparatorHidden: indexPath.item == stats.count - 1)
         cell.apply(theme: theme)
         return cell
     }
