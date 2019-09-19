@@ -1586,6 +1586,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     self.visibleSectionAnchor = section.anchor;
 }
 
+- (void)webViewController:(WebViewController *)controller didScrollToFragment:(NSString *)fragment {
+    self.visibleSectionAnchor = fragment;
+    [self updateTOCHighlightIfNecessaryWithScrollView:controller.webView.scrollView force:true];
+}
+
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
     [self showEditorForSectionOrTitleDescription:section];
 }
@@ -1620,7 +1625,24 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 }
 
-- (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+
+- (void)updateTOCHighlightIfNecessaryWithScrollView:(UIScrollView *)scrollView force:(BOOL)force {
+    if (!self.tableOfContentsViewController.viewIfLoaded) {
+        return;
+    }
+    if (!self.isUpdateTableOfContentsSectionOnScrollEnabled) {
+        return;
+    }
+    if (!force) {
+        BOOL sectionUpdateScrollDistanceExceeded = ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance;
+        if (!sectionUpdateScrollDistanceExceeded) {
+            return;
+        }
+        if (!(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || self.restoreScrollPosition)) {
+            return;
+        }
+    }
     self.sectionToRestoreScrollOffset = nil;
     @weakify(self);
 
@@ -1640,6 +1662,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 
     self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+    self.restoreScrollPosition = NO;
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -1649,15 +1672,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
-
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
-
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || (self.restoreScrollPosition && self.tableOfContentsViewController.viewIfLoaded != nil)) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
-        [self updateTableOfContentsHighlightWithScrollView:scrollView];
-        self.restoreScrollPosition = NO;
-    }
-
+    [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:false];
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
@@ -1690,9 +1706,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled) {
-        [self updateTableOfContentsHighlightWithScrollView:scrollView];
-    }
+    [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:true];
     [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 

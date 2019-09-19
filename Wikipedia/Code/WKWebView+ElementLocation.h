@@ -13,6 +13,6 @@
  *  by count index (if prefix is "things_" and count is 3 it will check "thing_0", "thing_1"
  *  and "thing_2") to see if they are onscreen. Completion block is passed index of first one found to be so.
  */
-- (void)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count completion:(void (^)(id index, NSError *error))completion;
+- (void)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count insetTop:(NSInteger)insetTop completion:(void (^)(id index, NSError *error))completion;
 
 @end

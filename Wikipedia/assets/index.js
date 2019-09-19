@@ -301,14 +301,14 @@ exports.getElementRect = element => {
   }
 }
 
-exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount) => {
+exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount, insetTop) => {
   for (let i = 0; i < elementCount; ++i) {
     const div = document.getElementById(elementPrefix + i)
     if (div === null) {
       continue
     }
     const rect = this.getElementRect(div)
-    if (rect.Y >= -1 || rect.Y + rect.Height >= 50) {
+    if (rect.Y > (insetTop + 1) || (rect.Y + rect.Height) > (insetTop + 1)) {
       return i
     }
   }
@@ -318,13 +318,9 @@ exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount) => {
 exports.getElementFromPoint = (x, y) => document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
 
 exports.isElementTopOnscreen = element => element.getBoundingClientRect().top < 0
-<<<<<<< HEAD
-},{}],5:[function(require,module,exports){
-=======
 
-},{}],6:[function(require,module,exports){
->>>>>>> df4fbd5c3... Fix collection & hiding of hatnotes and page issues
-// Based on the excellent blog post:
+},{}],5:[function(require,module,exports){
+  // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
 let PreviousFocusMatchSpanId = null

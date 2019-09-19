@@ -806,6 +806,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                                        if (completion) {
                                                                            completion();
                                                                        }
+                                                                       dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+                                                                           [self.delegate webViewController:self didScrollToFragment:fragment];
+                                                                       });
                                                                    }];
                                                      } else if (completion) {
                                                          completion();
@@ -825,9 +828,19 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self.webView wmf_accessibilityCursorToFragment:section.anchor];
 }
 
+- (CGFloat) insetTop {
+    // HAX: something odd going on with iOS 11...
+    CGFloat insetTop = self.delegate.navigationBar.subviews.firstObject.frame.origin.y;
+    if (@available(iOS 12, *)) {
+        insetTop = self.delegate.navigationBar.visibleHeight;
+    }
+    return insetTop;
+}
+
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                    count:self.article.sections.count
+                                                insetTop:[self insetTop]
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
@@ -841,6 +854,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"pagelib_footer_container_section_"
                                                    count:2
+                                                insetTop:[self insetTop]
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
