@@ -94,6 +94,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
                                         DescriptionEditViewControllerDelegate,
+                                        WMFPageHistoryViewControllerDelegate,
                                         WMFHintPresenting>
 
 // Data
