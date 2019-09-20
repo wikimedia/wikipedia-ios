@@ -385,6 +385,7 @@ let locales: Set<String> =  {
         let additional = filenames.compactMap { $0.components(separatedBy: ".").first?.lowercased() }
         identifiers += additional
     }
+    identifiers += ["ku"] // iOS 13 added support for ku but macOS 10.14 doesn't include it, add it manually
     return Set<String>(identifiers)
 }()
 
