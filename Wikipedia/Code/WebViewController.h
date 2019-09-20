@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)url didSave:(BOOL)didSave;
 - (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article;
-- (void)webViewController:(WebViewController *)controller didScrollToAnchor:(NSString *)anchor;
+- (void)webViewController:(WebViewController *)controller didScrollToAnchor:(nullable NSString *)anchor;
 
 @end
 

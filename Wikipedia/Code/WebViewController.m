@@ -792,6 +792,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         if (completion) {
             completion();
         }
+        [self.delegate webViewController:self didScrollToAnchor:anchor];
     } else {
         [self.webView getScrollViewRectForHtmlElementWithId:anchor
                                                  completion:^(CGRect rect) {
