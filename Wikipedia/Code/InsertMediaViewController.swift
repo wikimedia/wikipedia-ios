@@ -156,6 +156,9 @@ final class InsertMediaViewController: ViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         selectedImageViewController.apply(theme: theme)
         searchViewController.apply(theme: theme)
         searchResultsCollectionViewController.apply(theme: theme)
