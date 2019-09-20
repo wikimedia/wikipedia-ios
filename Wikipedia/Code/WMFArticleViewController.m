@@ -1538,14 +1538,14 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)scrollToAnchor:(NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
     self.updateTableOfContentsSectionOnScrollEnabled = NO;
-    [self.webViewController scrollToAnchor:self.initialFragment
-                                    animated:NO
-                                  completion:^{
-                                     self.updateTableOfContentsSectionOnScrollEnabled = YES;
-        if (completion) {
-            completion();
-        }
-                                  }];
+    [self.webViewController scrollToAnchor:anchor
+                                  animated:animated
+                                completion:^{
+                                    self.updateTableOfContentsSectionOnScrollEnabled = YES;
+                                    if (completion) {
+                                        completion();
+                                    }
+                                }];
 }
 
 #pragma mark - WMFWebViewControllerDelegate
@@ -1585,10 +1585,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         }
         if (self.initialFragment) {
             [self scrollToAnchor:self.initialFragment
-                                            animated:NO
-                                          completion:^{
-                                              [self showWebView];
-                                          }];
+                        animated:NO
+                      completion:^{
+                          [self showWebView];
+                      }];
             self.initialFragment = nil;
         } else {
             [self showWebView];
