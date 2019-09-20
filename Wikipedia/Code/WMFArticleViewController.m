@@ -1536,7 +1536,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 #pragma mark - Scrolling to anchors
 
-- (void)scrollToAnchor:(NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
+- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
     self.updateTableOfContentsSectionOnScrollEnabled = NO;
     [self.webViewController scrollToAnchor:anchor
                                   animated:animated

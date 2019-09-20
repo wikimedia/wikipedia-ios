@@ -230,7 +230,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
-                                                   [self scrollToAnchor:[href substringFromIndex:1] animated:YES];
+                                                   [self scrollToAnchor:[href substringFromIndex:1] animated:YES completion:NULL];
                                                } else {
                                                    if ([href hasPrefix:@"//"]) {
                                                        // Expand protocol-relative link to https -- secure by default!
@@ -785,11 +785,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 #pragma mark - Scrolling
 
-- (void)scrollToAnchor:(NSString *)anchor animated:(BOOL)animated {
-    [self scrollToAnchor:anchor animated:animated completion:NULL];
-}
-
-- (void)scrollToAnchor:(NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
+- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
     if (anchor.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
@@ -925,7 +921,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
                                            NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
                                            if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
-                                               [self scrollToAnchor:URL.fragment animated:YES];
+                                               [self scrollToAnchor:URL.fragment animated:YES completion:NULL];
                                            } else if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
 #pragma warning Assuming that the url is on the same language wiki - what about other wikis ?
                                                [self.delegate webViewController:self

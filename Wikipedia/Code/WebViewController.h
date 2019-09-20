@@ -46,8 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
-- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated;
-
 - (void)accessibilityCursorToSection:(MWKSection *)section;
 
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion;

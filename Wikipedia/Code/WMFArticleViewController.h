@@ -59,6 +59,8 @@ extern NSString *const WMFEditPublishedNotification;
 
 - (UIButton *)titleButton;
 
+- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
+
 @end
 
 @interface WMFArticleViewController (WMFBrowserViewControllerInterface)
