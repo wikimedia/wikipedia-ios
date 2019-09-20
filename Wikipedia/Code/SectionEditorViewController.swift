@@ -643,7 +643,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle?.wmf_stringByRemovingHTML(), siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
-        let navigationController = UINavigationController(rootViewController: insertMediaViewController)
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
         navigationController.isNavigationBarHidden = true
         present(navigationController, animated: true)
     }
@@ -664,18 +664,12 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 }
                 editLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
-                if #available(iOS 13.0, *) {
-                    navigationController.modalPresentationStyle = .automatic
-                }
                 navigationController.isNavigationBarHidden = true
                 self.present(navigationController, animated: true)
             } else {
                 let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
                 insertLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
-                if #available(iOS 13.0, *) {
-                    navigationController.modalPresentationStyle = .automatic
-                }
                 self.present(navigationController, animated: true)
             }
         }
