@@ -668,12 +668,18 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
                 }
                 editLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
+                if #available(iOS 13.0, *) {
+                    navigationController.modalPresentationStyle = .automatic
+                }
                 navigationController.isNavigationBarHidden = true
                 self.present(navigationController, animated: true)
             } else {
                 let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
                 insertLinkViewController.delegate = self
                 let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+                if #available(iOS 13.0, *) {
+                    navigationController.modalPresentationStyle = .automatic
+                }
                 self.present(navigationController, animated: true)
             }
         }
