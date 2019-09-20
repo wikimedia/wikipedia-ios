@@ -165,7 +165,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
 @property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
-@property (nullable, nonatomic, copy) NSString *initialFragment;
+@property (nullable, nonatomic, copy) NSString *initialAnchor;
 @property (nonatomic, strong, readwrite, nullable) NSString *visibleSectionAnchor;
 
 @end
@@ -189,7 +189,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self) {
         NSString *fragment = [url fragment];
         if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-            self.initialFragment = [fragment stringByRemovingPercentEncoding];
+            self.initialAnchor = [fragment stringByRemovingPercentEncoding];
         }
         self.restoreScrollPosition = fragment != nil;
         self.theme = theme;
@@ -1583,13 +1583,13 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             completion();
             self.articleContentLoadCompletion = nil;
         }
-        if (self.initialFragment) {
-            [self scrollToAnchor:self.initialFragment
+        if (self.initialAnchor) {
+            [self scrollToAnchor:self.initialAnchor
                         animated:NO
                       completion:^{
                           [self showWebView];
                       }];
-            self.initialFragment = nil;
+            self.initialAnchor = nil;
         } else {
             [self showWebView];
         }
@@ -1992,7 +1992,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
         [self hideWebView];
-        self.initialFragment = sectionEditorViewController.section.anchor;
+        self.initialAnchor = sectionEditorViewController.section.anchor;
         __weak typeof(self) weakSelf = self;
         self.articleContentLoadCompletion = ^{
             [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];
