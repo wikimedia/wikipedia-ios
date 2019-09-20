@@ -88,6 +88,7 @@ extension InsertMediaSelectedImageViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
+        wmf_applyTheme(toEmptyView: theme)
         view.backgroundColor = theme.colors.baseBackground
         activityIndicator.style = theme.isDark ? .white : .gray
     }
