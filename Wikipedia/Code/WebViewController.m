@@ -799,6 +799,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     } else {
         [self.webView getScrollViewRectForHtmlElementWithId:anchor
                                                  completion:^(CGRect rect) {
+                                                     WMFAssertMainThread(@"Callback expected on the main thread");
                                                      if (!CGRectIsNull(rect)) {
                                                          [self scrollToOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                      animated:animated
