@@ -230,7 +230,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
-                                                   [self scrollToFragment:[href substringFromIndex:1]];
+                                                   [self scrollToAnchor:[href substringFromIndex:1] animated:YES];
                                                } else {
                                                    if ([href hasPrefix:@"//"]) {
                                                        // Expand protocol-relative link to https -- secure by default!
@@ -785,19 +785,19 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 #pragma mark - Scrolling
 
-- (void)scrollToFragment:(NSString *)fragment {
-    [self scrollToFragment:fragment animated:YES completion:NULL];
+- (void)scrollToAnchor:(NSString *)anchor animated:(BOOL)animated {
+    [self scrollToAnchor:anchor animated:animated completion:NULL];
 }
 
-- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
-    if (fragment.length == 0) {
+- (void)scrollToAnchor:(NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
+    if (anchor.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
         if (completion) {
             completion();
         }
     } else {
-        [self.webView getScrollViewRectForHtmlElementWithId:fragment
+        [self.webView getScrollViewRectForHtmlElementWithId:anchor
                                                  completion:^(CGRect rect) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self scrollToOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
@@ -806,20 +806,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                                        if (completion) {
                                                                            completion();
                                                                        }
-                                                                       dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
-                                                                           [self.delegate webViewController:self didScrollToFragment:fragment];
-                                                                       });
+                                                                        [self.delegate webViewController:self didScrollToAnchor:anchor];
                                                                    }];
                                                      } else if (completion) {
                                                          completion();
                                                      }
                                                  }];
     }
-}
-
-- (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
-    [self scrollToFragment:section.anchor animated:animated completion:NULL];
-    [self.delegate webViewController:self didScrollToSection:section];
 }
 
 - (void)accessibilityCursorToSection:(MWKSection *)section {
@@ -931,7 +924,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
                                            NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
                                            if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
-                                               [self scrollToFragment:URL.fragment];
+                                               [self scrollToAnchor:URL.fragment animated:YES];
                                            } else if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
 #pragma warning Assuming that the url is on the same language wiki - what about other wikis ?
                                                [self.delegate webViewController:self
