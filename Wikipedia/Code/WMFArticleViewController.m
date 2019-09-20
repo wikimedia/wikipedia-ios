@@ -1596,10 +1596,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     });
 }
 
-- (void)webViewController:(WebViewController *)controller didScrollToAnchor:(NSString *)anchor {
+- (void)webViewController:(WebViewController *)controller didScrollToAnchor:(nullable NSString *)anchor {
     self.visibleSectionAnchor = anchor;
     MWKSection *section = [self.article.sections sectionWithAnchor:anchor];
     if (!section) {
+        [self updateTOCHighlightIfNecessaryWithScrollView:controller.webView.scrollView force:true];
         return;
     }
     [self selectAndScrollToTableOfContentsItemForSection:section animated:NO];
