@@ -246,6 +246,7 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.backgroundColor = view.backgroundColor
         imageView.apply(theme: theme)
         buttonView.apply(theme: theme)
+        tableView.reloadData()
     }
 }
 
