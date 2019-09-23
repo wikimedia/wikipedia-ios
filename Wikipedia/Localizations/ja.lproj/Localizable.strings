@@ -755,6 +755,7 @@
 "talk-page-link-user-action-sheet-title" = "利用者ページ";
 "talk-page-new-banner-subtitle" = "ここではみな同じ人類であることを忘れないでください";
 "talk-page-new-banner-title" = "親切であってください";
+"talk-page-new-body-textfield-accessibility-label" = "議論の本文";
 "talk-page-new-reply-body-accessibility-label" = "返事を組み立てる";
 "talk-page-new-reply-body-placeholder-text" = "返事を組み立てる";
 "talk-page-new-reply-success-text" = "返事は無事公開されました";
@@ -773,6 +774,8 @@
 "theme-black-display-name" = "黒";
 "theme-dark-display-name" = "ダーク";
 "theme-default-display-name" = "既定";
+"theme-default-explanation" = "システムのテーマと照合";
+"theme-light-display-name" = "明るくする";
 "theme-sepia-display-name" = "セピア";
 "top-read-header-generic" = "ウィキペディア";
 "top-read-header-with-language" = "$1ウィキペディア";
