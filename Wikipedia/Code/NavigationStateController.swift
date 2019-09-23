@@ -101,7 +101,7 @@ final class NavigationStateController: NSObject {
                 }
                 let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 randomArticleVC.calculateTableOfContentsDisplayState()
-                let loadingFlowController = LoadingFlowController(articleViewController: randomArticleVC, embedOnLoad: true)
+                let loadingFlowController = LoadingFlowController(articleViewController: randomArticleVC, embedType: .afterFetch)
                 pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
@@ -110,7 +110,7 @@ final class NavigationStateController: NSObject {
                 let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 articleVC.shouldRequestLatestRevisionOnInitialLoad = false
                 articleVC.calculateTableOfContentsDisplayState()
-                let loadingFlowController = LoadingFlowController(articleViewController: articleVC, embedOnLoad: true)
+                let loadingFlowController = LoadingFlowController(articleViewController: articleVC, embedType: .afterFetch)
                 pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()

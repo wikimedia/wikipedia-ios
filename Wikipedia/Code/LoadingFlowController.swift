@@ -5,6 +5,12 @@ protocol LoadingFlowControllerTaskTrackingDelegate: class {
     func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (cancellationKey: String, fetcher: Fetcher)?
 }
 
+@objc enum LoadingFlowControllerEmbedType: Int {
+    case immediately //allows WMFArticleViewController to fetch article the old way, via it's viewDidAppear method.
+    case afterFetch
+    case none
+}
+
 class LoadingFlowController: UIViewController {
     
     enum ProcessSource {
@@ -17,29 +23,36 @@ class LoadingFlowController: UIViewController {
     private let url: URL
     private let dataStore: MWKDataStore
     private var theme: Theme
-    private let embedOnLoad: Bool
+    private let embedType: LoadingFlowControllerEmbedType
     
     private let loadingAnimationViewController = LoadingAnimationViewController(nibName: "LoadingAnimationViewController", bundle: nil)
     
-    init(dataStore: MWKDataStore, theme: Theme, fetchDelegate: WMFLoadingFlowControllerFetchDelegate, flowChild: WMFLoadingFlowControllerChildProtocol, url: URL, embedOnLoad: Bool) {
+    init(dataStore: MWKDataStore, theme: Theme, fetchDelegate: WMFLoadingFlowControllerFetchDelegate, flowChild: WMFLoadingFlowControllerChildProtocol, url: URL, embedType: LoadingFlowControllerEmbedType = .none) {
         self.dataStore = dataStore
         self.theme = theme
         self.fetchDelegate = fetchDelegate
         self.flowChild = flowChild
         self.url = url
-        self.embedOnLoad = embedOnLoad
+        self.embedType = embedType
         super.init(nibName: nil, bundle: nil)
     }
     
-    @objc init(articleViewController: WMFArticleViewController, embedOnLoad: Bool) {
+    init(articleViewController: WMFArticleViewController, embedType: LoadingFlowControllerEmbedType) {
         self.dataStore = articleViewController.dataStore
         self.theme = articleViewController.theme
         self.fetchDelegate = articleViewController
         self.flowChild = articleViewController
         self.url = articleViewController.articleURL
-        self.embedOnLoad = embedOnLoad
+        
+        self.embedType = embedType
+        
         super.init(nibName: nil, bundle: nil)
         articleViewController.loadingFlowController = self
+    }
+    
+    @objc convenience init(articleViewController: WMFArticleViewController, embedTypeNumber: NSNumber) {
+        let embedType = LoadingFlowControllerEmbedType(rawValue: embedTypeNumber.intValue) ?? .none
+        self.init(articleViewController: articleViewController, embedType: embedType)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,7 +64,8 @@ class LoadingFlowController: UIViewController {
         
         apply(theme: theme)
         
-        if (embedOnLoad) {
+        switch embedType {
+        case .afterFetch:
             let task = fetchDelegate.loadEmbedFetch(with: url, successHandler: { [weak self] (article, url) in
                 
                 guard let self = self else { return }
@@ -73,6 +87,12 @@ class LoadingFlowController: UIViewController {
             }
             
             scheduleLoadingAnimation()
+        case .immediately:
+            if let flowChild = flowChild as? UIViewController {
+                wmf_add(childController: flowChild, andConstrainToEdgesOfContainerView: view)
+            }
+        default:
+            break
         }
     }
     
@@ -252,7 +272,7 @@ class LoadingFlowController: UIViewController {
         case .linkPush:
             
             let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
-            let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: articleVC, flowChild: articleVC, url: url, embedOnLoad: true)
+            let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: articleVC, flowChild: articleVC, url: url, embedType: .afterFetch)
             articleVC.loadingFlowController = loadingFlowController
             
             if let mwkArticle = article as? MWKArticle {
@@ -292,11 +312,15 @@ class LoadingFlowController: UIViewController {
     }
 }
 
+//MARK: SFSafariViewControllerDelegate
+
 extension LoadingFlowController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.navigationController?.popViewController(animated: true)
     }
 }
+
+//MARK: Themeable
 
 extension LoadingFlowController: Themeable {
     
@@ -313,6 +337,27 @@ extension LoadingFlowController: Themeable {
         wmf_applyTheme(toEmptyView: theme)
     }
 }
+
+//MARK: ImageScaleTransitionProviding
+
+extension LoadingFlowController: ImageScaleTransitionProviding {
+    var imageScaleTransitionView: UIImageView? {
+        if let imageScaleTransitioningChild = flowChild as? ImageScaleTransitionProviding {
+            return imageScaleTransitioningChild.imageScaleTransitionView
+        }
+        
+        return nil
+    }
+    
+    func prepareViewsForIncomingImageScaleTransition(with imageView: UIImageView?) {
+        if let imageScaleTransitioningChild = flowChild as? ImageScaleTransitionProviding {
+            imageScaleTransitioningChild.prepareViewsForIncomingImageScaleTransition?(with: imageView)
+        }
+        
+        return
+    }
+}
+
 
 //MARK: Error Handling
 

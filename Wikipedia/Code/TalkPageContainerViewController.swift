@@ -188,7 +188,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     static func containedTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore, type: TalkPageType, fromNavigationStateRestoration: Bool = false, theme: Theme) -> LoadingFlowController {
         let talkPageContainerVC = talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-        let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: talkPageContainerVC, flowChild: talkPageContainerVC, url: siteURL, embedOnLoad: false)
+        let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: talkPageContainerVC, flowChild: talkPageContainerVC, url: siteURL)
         talkPageContainerVC.loadingFlowController = loadingFlowController
         talkPageContainerVC.fromNavigationStateRestoration = fromNavigationStateRestoration
         talkPageContainerVC.apply(theme: theme)

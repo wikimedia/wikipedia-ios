@@ -7,6 +7,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFArticlePresentation)
 
+- (NSNumber *)embedTypeNumber {
+    //NSInteger embedTypeInt =  [self conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)] ? LoadingFlowControllerEmbedTypeImmediately : LoadingFlowControllerEmbedTypeAfterFetch;
+    NSInteger embedTypeInt = LoadingFlowControllerEmbedTypeImmediately;
+    return [NSNumber numberWithInteger:embedTypeInt];
+}
+
 - (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
     return [self wmf_pushArticleWithURL:url
                               dataStore:dataStore
@@ -24,8 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
     articleVC.articleLoadCompletion = articleLoadCompletion;
-    
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedOnLoad:YES];
+
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedTypeNumber: [self embedTypeNumber]];
     [self wmf_pushViewController:loadingFlowController animated:animated];
     return articleVC;
 }
@@ -34,20 +40,23 @@ NS_ASSUME_NONNULL_BEGIN
     
     url = [url wmf_URLWithFragment:nil];
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedOnLoad:YES];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedTypeNumber: [self embedTypeNumber]];
     
     [self wmf_pushViewController:loadingFlowController animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
+
+    if (self.parentViewController != nil && self.parentViewController.navigationController) {
+        [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
+        return;
+    }
     
     //embed in LoadingFlowController first
 
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController embedOnLoad:YES];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController embedTypeNumber: [self embedTypeNumber]];
     
-    if (self.parentViewController != nil && self.parentViewController.navigationController) {
-        [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
-    } else if (self.presentingViewController != nil) {
+    if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
         [presentingViewController dismissViewControllerAnimated:YES
                                                      completion:^{
