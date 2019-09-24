@@ -70,6 +70,7 @@ extern NSString *const WMFEditPublishedNotification;
 
 @property (nonatomic, weak) LoadingFlowController * _Nullable loadingFlowController;
 
+- (void)articleDidLoad;
 - (void)kickoffProgressView;
 
 @end

@@ -188,7 +188,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     
     static func containedTalkPageContainer(title: String, siteURL: URL, dataStore: MWKDataStore, type: TalkPageType, fromNavigationStateRestoration: Bool = false, theme: Theme) -> LoadingFlowController {
         let talkPageContainerVC = talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-        let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: talkPageContainerVC, flowChild: talkPageContainerVC, url: siteURL, embedType: .immediately)
+        let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: talkPageContainerVC, flowChild: talkPageContainerVC, url: siteURL)
         talkPageContainerVC.loadingFlowController = loadingFlowController
         talkPageContainerVC.fromNavigationStateRestoration = fromNavigationStateRestoration
         talkPageContainerVC.apply(theme: theme)
@@ -835,17 +835,8 @@ extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDele
 
 extension TalkPageContainerViewController: WMFLoadingFlowControllerChildProtocol {
     
-    var reachabilityNotifier: ReachabilityNotifier? {
-        return nil
-    }
-    
     var customNavAnimationHandler: (UIViewController & Themeable)? {
         return currentLoadingViewController
-    }
-
-    func showDefaultEmbedFailureWithError(_ error: Error) {
-        assertionFailure("not setup for load embed")
-        return
     }
     
     func showDefaultLinkFailureWithError(_ error: Error) {

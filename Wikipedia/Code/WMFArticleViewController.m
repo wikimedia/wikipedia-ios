@@ -806,6 +806,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
     self.skipFetchOnViewDidAppear = NO;
     [self startSignificantlyViewedTimer];
+    
+    if (self.viewDidLoadCompletion) {
+        self.viewDidLoadCompletion();
+        self.viewDidLoadCompletion = nil;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -2363,23 +2368,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (NSURLSessionTask * _Nullable)loadEmbedFetchWithUrl:(NSURL * _Nonnull)url successHandler:(void (^ _Nonnull)(id<LoadingFlowControllerArticle> _Nonnull, NSURL * _Nonnull))successHandler errorHandler:(void (^ _Nonnull)(NSError * _Nonnull))errorHandler {
-    @weakify(self);
-    return [self fetchArticleWithURL:url forceDownload:NO checkForNewerRevision:NO WithSuccess:^(MWKArticle * _Nonnull article, NSURL * _Nonnull url) {
-        @strongify(self);
-        if (successHandler) {
-            successHandler(article, url);
-            [self articleDidLoad];
-        }
-    } andError:^(NSError * _Nonnull error) {
-        @strongify(self);
-        if (errorHandler) {
-            errorHandler(error);
-            [self articleDidLoad];
-        }
-    }];
-}
-
 #pragma mark - WMFLoadingFlowControllerChildProtocol
 
 - (UIViewController<WMFThemeable> * _Nullable)customNavAnimationHandler {
@@ -2388,10 +2376,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (BOOL)handleCustomSuccessWithArticle:(id<LoadingFlowControllerArticle>)article url:(NSURL *)url {
     return NO;
-}
-
-- (void)showDefaultEmbedFailureWithError:(NSError *)error {
-    [self.loadingFlowController wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.loadingFlowController.view.bounds];
 }
 
 - (void)showDefaultLinkFailureWithError:(NSError *)error {

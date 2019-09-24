@@ -7,11 +7,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFArticlePresentation)
 
-- (NSNumber *)embedTypeNumber {
-    NSInteger embedTypeInt =  [self conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)] ? LoadingFlowControllerEmbedTypeImmediately : LoadingFlowControllerEmbedTypeAfterFetch;
-    return [NSNumber numberWithInteger:embedTypeInt];
-}
-
 - (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
     return [self wmf_pushArticleWithURL:url
                               dataStore:dataStore
@@ -30,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
     articleVC.articleLoadCompletion = articleLoadCompletion;
 
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedTypeNumber: [self embedTypeNumber]];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC];
     [self wmf_pushViewController:loadingFlowController animated:animated];
     return articleVC;
 }
@@ -39,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     url = [url wmf_URLWithFragment:nil];
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC embedTypeNumber: [self embedTypeNumber]];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC];
     
     [self wmf_pushViewController:loadingFlowController animated:animated];
 }
@@ -53,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     //embed in LoadingFlowController first
 
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController embedTypeNumber: [viewController embedTypeNumber]];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController];
     
     if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
