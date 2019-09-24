@@ -8,8 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation UIViewController (WMFArticlePresentation)
 
 - (NSNumber *)embedTypeNumber {
-    //NSInteger embedTypeInt =  [self conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)] ? LoadingFlowControllerEmbedTypeImmediately : LoadingFlowControllerEmbedTypeAfterFetch;
-    NSInteger embedTypeInt = LoadingFlowControllerEmbedTypeImmediately;
+    NSInteger embedTypeInt =  [self conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)] ? LoadingFlowControllerEmbedTypeImmediately : LoadingFlowControllerEmbedTypeAfterFetch;
     return [NSNumber numberWithInteger:embedTypeInt];
 }
 
@@ -54,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     //embed in LoadingFlowController first
 
-    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController embedTypeNumber: [self embedTypeNumber]];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController embedTypeNumber: [viewController embedTypeNumber]];
     
     if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;

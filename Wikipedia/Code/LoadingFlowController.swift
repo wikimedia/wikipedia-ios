@@ -1,14 +1,12 @@
 
 import Foundation
-import SafariServices
 protocol LoadingFlowControllerTaskTrackingDelegate: class {
     func linkPushFetch(url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (NSError, URL) -> Void) -> (cancellationKey: String, fetcher: Fetcher)?
 }
 
 @objc enum LoadingFlowControllerEmbedType: Int {
-    case immediately //allows WMFArticleViewController to fetch article the old way, via it's viewDidAppear method.
+    case immediately
     case afterFetch
-    case none
 }
 
 class LoadingFlowController: UIViewController {
@@ -27,7 +25,7 @@ class LoadingFlowController: UIViewController {
     
     private let loadingAnimationViewController = LoadingAnimationViewController(nibName: "LoadingAnimationViewController", bundle: nil)
     
-    init(dataStore: MWKDataStore, theme: Theme, fetchDelegate: WMFLoadingFlowControllerFetchDelegate, flowChild: WMFLoadingFlowControllerChildProtocol, url: URL, embedType: LoadingFlowControllerEmbedType = .none) {
+    init(dataStore: MWKDataStore, theme: Theme, fetchDelegate: WMFLoadingFlowControllerFetchDelegate, flowChild: WMFLoadingFlowControllerChildProtocol, url: URL, embedType: LoadingFlowControllerEmbedType) {
         self.dataStore = dataStore
         self.theme = theme
         self.fetchDelegate = fetchDelegate
@@ -51,7 +49,7 @@ class LoadingFlowController: UIViewController {
     }
     
     @objc convenience init(articleViewController: WMFArticleViewController, embedTypeNumber: NSNumber) {
-        let embedType = LoadingFlowControllerEmbedType(rawValue: embedTypeNumber.intValue) ?? .none
+        let embedType = LoadingFlowControllerEmbedType(rawValue: embedTypeNumber.intValue) ?? .immediately
         self.init(articleViewController: articleViewController, embedType: embedType)
     }
     
@@ -244,9 +242,8 @@ class LoadingFlowController: UIViewController {
         
         switch source {
         case .loadEmbed:
-            let safariVC = SFSafariViewController(url: url)
-            safariVC.delegate = self
-            wmf_add(childController: safariVC, andConstrainToEdgesOfContainerView: view)
+            wmf_openExternalUrl(url, useSafari: false)
+            navigationController?.popViewController(animated: true)
         case .linkPush:
             if let customNavHandler = flowChild.customNavAnimationHandler {
                 customNavHandler.wmf_openExternalUrl(url)
@@ -272,7 +269,7 @@ class LoadingFlowController: UIViewController {
         case .linkPush:
             
             let articleVC = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
-            let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: articleVC, flowChild: articleVC, url: url, embedType: .afterFetch)
+            let loadingFlowController = LoadingFlowController(dataStore: dataStore, theme: theme, fetchDelegate: articleVC, flowChild: articleVC, url: url, embedType: .immediately)
             articleVC.loadingFlowController = loadingFlowController
             
             if let mwkArticle = article as? MWKArticle {
@@ -309,14 +306,6 @@ class LoadingFlowController: UIViewController {
             let containerVC = TalkPageContainerViewController.containedTalkPageContainer(title: titleWithTalkPageNamespace, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
             self.navigationController?.pushViewController(containerVC, animated: true)
         }
-    }
-}
-
-//MARK: SFSafariViewControllerDelegate
-
-extension LoadingFlowController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.navigationController?.popViewController(animated: true)
     }
 }
 
