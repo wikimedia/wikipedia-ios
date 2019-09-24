@@ -119,6 +119,7 @@ open class Fetcher: NSObject {
         let key = cancellationKey ?? UUID().uuidString
         let task = session.jsonDecodableTask(with: taskURL, headers: headers, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
             completionHandler(result, response, error)
+            self.untrack(taskFor: key)
         }
         track(task: task, for: key)
         return key

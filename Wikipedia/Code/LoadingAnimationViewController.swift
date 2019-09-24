@@ -20,6 +20,8 @@ class LoadingAnimationViewController: UIViewController {
         cancelButton.setTitle(CommonStrings.cancelActionTitle, for: .normal)
         loadingPageLabel.text = WMFLocalizedString("link-loading-title", value: "Loading page...", comment: "Title displayed in loading overlay after link is tapped.")
         view.accessibilityViewIsModal = true
+        
+        updateFonts()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,6 +45,10 @@ class LoadingAnimationViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
+    
+    private func updateFonts() {
         cancelButton.titleLabel?.font = UIFont.wmf_font(.semiboldTitle3, compatibleWithTraitCollection: traitCollection)
         loadingPageLabel.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
     }

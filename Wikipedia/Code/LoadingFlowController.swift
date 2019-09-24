@@ -270,7 +270,7 @@ extension LoadingFlowController: ImageScaleTransitionProviding {
 
 //MARK: Error Handling
 
-extension NSError {
+private extension NSError {
     
     var cachedFallbackArticle: LoadingFlowControllerArticle? {
         if let cachedFallback = userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] as? LoadingFlowControllerArticle {

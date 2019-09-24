@@ -781,6 +781,8 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
     }
 }
 
+//MARK: WMFLoadingFlowControllerFetchDelegate
+
 extension TalkPageContainerViewController: WMFLoadingFlowControllerFetchDelegate {
     func loadEmbedFetch(with url: URL, successHandler: @escaping (LoadingFlowControllerArticle, URL) -> Void, errorHandler: @escaping (Error) -> Void) -> URLSessionTask? {
         assertionFailure("not setup for load embed")
@@ -792,6 +794,8 @@ extension TalkPageContainerViewController: WMFLoadingFlowControllerFetchDelegate
         return nil
     }
 }
+
+//MARK: LoadingFlowControllerTaskTrackingDelegate
 
 extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDelegate {
 
@@ -833,6 +837,8 @@ extension TalkPageContainerViewController: LoadingFlowControllerTaskTrackingDele
     
 }
 
+//MARK: WMFLoadingFlowControllerChildProtocol
+
 extension TalkPageContainerViewController: WMFLoadingFlowControllerChildProtocol {
     
     var customNavAnimationHandler: (UIViewController & Themeable)? {
@@ -867,4 +873,9 @@ extension TalkPageContainerViewController: WMFLoadingFlowControllerChildProtocol
             return false;
         }
     }
+}
+
+//MARK: FakeProgressLoading
+
+extension TalkPageContainerViewController: FakeProgressLoading {
 }
