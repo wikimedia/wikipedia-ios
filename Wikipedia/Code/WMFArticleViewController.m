@@ -165,7 +165,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
 @property (nullable, nonatomic, readwrite) dispatch_block_t viewDidAppearCompletion;
 
-@property (nullable, nonatomic, copy) NSString *initialFragment;
+@property (nullable, nonatomic, copy) NSString *initialAnchor;
 @property (nonatomic, strong, readwrite, nullable) NSString *visibleSectionAnchor;
 
 @end
@@ -189,7 +189,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self) {
         NSString *fragment = [url fragment];
         if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-            self.initialFragment = [fragment stringByRemovingPercentEncoding];
+            self.initialAnchor = [fragment stringByRemovingPercentEncoding];
         }
         self.restoreScrollPosition = fragment != nil;
         self.theme = theme;
@@ -1051,8 +1051,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
 
             [self layoutForSize:self.view.bounds.size];
-            if (self.sectionToRestoreScrollOffset) {
-                [self.webViewController scrollToSection:self.currentSection animated:NO];
+            if (self.anchorToRestoreScrollOffset) {
+                [self scrollToAnchor:self.anchorToRestoreScrollOffset animated:NO completion:NULL];
             } else {
                 scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
             }
@@ -1534,6 +1534,20 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     [self.readingThemesControlsPresenter objCShowReadingThemesControlsPopupOn:self theme:self.theme];
 }
 
+#pragma mark - Scrolling to anchors
+
+- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
+    self.updateTableOfContentsSectionOnScrollEnabled = NO;
+    [self.webViewController scrollToAnchor:anchor
+                                  animated:animated
+                                completion:^{
+                                    self.updateTableOfContentsSectionOnScrollEnabled = YES;
+                                    if (completion) {
+                                        completion();
+                                    }
+                                }];
+}
+
 #pragma mark - WMFWebViewControllerDelegate
 
 - (void)webViewController:(WebViewController *)controller
@@ -1569,21 +1583,27 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             completion();
             self.articleContentLoadCompletion = nil;
         }
-        if (self.initialFragment) {
-            [self.webViewController scrollToFragment:self.initialFragment
-                                            animated:NO
-                                          completion:^{
-                                              [self showWebView];
-                                          }];
-            self.initialFragment = nil;
+        if (self.initialAnchor) {
+            [self scrollToAnchor:self.initialAnchor
+                        animated:NO
+                      completion:^{
+                          [self showWebView];
+                      }];
+            self.initialAnchor = nil;
         } else {
             [self showWebView];
         }
     });
 }
 
-- (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section {
-    self.visibleSectionAnchor = section.anchor;
+- (void)webViewController:(WebViewController *)controller didScrollToAnchor:(nullable NSString *)anchor {
+    self.visibleSectionAnchor = anchor;
+    MWKSection *section = [self.article.sections sectionWithAnchor:anchor];
+    if (!section) {
+        [self updateTOCHighlightIfNecessaryWithScrollView:controller.webView.scrollView force:true];
+        return;
+    }
+    [self selectAndScrollToTableOfContentsItemForSection:section animated:NO];
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
@@ -1620,8 +1640,25 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 }
 
-- (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
-    self.sectionToRestoreScrollOffset = nil;
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+
+- (void)updateTOCHighlightIfNecessaryWithScrollView:(UIScrollView *)scrollView force:(BOOL)force {
+    if (!self.tableOfContentsViewController.viewIfLoaded) {
+        return;
+    }
+    if (!self.isUpdateTableOfContentsSectionOnScrollEnabled) {
+        return;
+    }
+    if (!force) {
+        BOOL sectionUpdateScrollDistanceExceeded = ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance;
+        if (!sectionUpdateScrollDistanceExceeded) {
+            return;
+        }
+        if (!(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || self.restoreScrollPosition)) {
+            return;
+        }
+    }
+    self.anchorToRestoreScrollOffset = nil;
     @weakify(self);
 
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
@@ -1640,6 +1677,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }];
 
     self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+    self.restoreScrollPosition = NO;
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -1649,15 +1687,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
-static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
-
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
-
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || (self.restoreScrollPosition && self.tableOfContentsViewController.viewIfLoaded != nil)) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
-        [self updateTableOfContentsHighlightWithScrollView:scrollView];
-        self.restoreScrollPosition = NO;
-    }
-
+    [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:false];
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
@@ -1690,9 +1721,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled) {
-        [self updateTableOfContentsHighlightWithScrollView:scrollView];
-    }
+    [self updateTOCHighlightIfNecessaryWithScrollView:scrollView force:true];
     [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
@@ -1964,7 +1993,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
         [self hideWebView];
-        self.initialFragment = sectionEditorViewController.section.anchor;
+        self.initialAnchor = sectionEditorViewController.section.anchor;
         __weak typeof(self) weakSelf = self;
         self.articleContentLoadCompletion = ^{
             [weakSelf wmf_showEditPublishedPanelViewControllerWithTheme:weakSelf.theme];

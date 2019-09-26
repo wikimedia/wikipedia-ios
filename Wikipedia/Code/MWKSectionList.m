@@ -176,14 +176,14 @@
     return nil;
 }
 
-- (MWKSection *)sectionWithFragment:(NSString *)fragment {
-    NSString *lowercaseFragment = [[fragment lowercaseString] precomposedStringWithCanonicalMapping];
-    if (lowercaseFragment == nil) {
-        return nil;
+- (MWKSection *)sectionWithAnchor:(NSString *)anchor {
+    NSString *lowercaseAnchor = [[anchor lowercaseString] precomposedStringWithCanonicalMapping];
+    if (lowercaseAnchor.length == 0) {
+        return self.sections.firstObject;
     }
     for (MWKSection *section in self.sections) {
-        NSString *lowercaseAnchor = [[section.anchor lowercaseString] precomposedStringWithCanonicalMapping];
-        if ([lowercaseAnchor isEqualToString:lowercaseFragment]) {
+        NSString *lowercaseSectionAnchor = [[section.anchor lowercaseString] precomposedStringWithCanonicalMapping];
+        if ([lowercaseSectionAnchor isEqualToString:lowercaseAnchor]) {
             return section;
         }
     }
