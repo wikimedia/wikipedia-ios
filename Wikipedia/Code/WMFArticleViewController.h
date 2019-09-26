@@ -51,7 +51,7 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
 
 @property (nonatomic, strong, nullable) MWKSection *currentSection;               //doesn't actually update the view, only here for access from Swift category
-@property (nonatomic, strong, nullable) MWKSection *sectionToRestoreScrollOffset; //doesn't actually update the view, only here for access from Swift category
+@property (nonatomic, strong, nullable) NSString *anchorToRestoreScrollOffset; //doesn't actually update the view, only here for access from Swift category
 
 @property (nonatomic, getter=isSavingOpenArticleTitleEnabled) BOOL savingOpenArticleTitleEnabled;
 @property (nonatomic, getter=isAddingArticleToHistoryListEnabled) BOOL addingArticleToHistoryListEnabled;
@@ -72,6 +72,7 @@ extern NSString *const WMFEditPublishedNotification;
 
 - (void)articleDidLoad;
 - (void)kickoffProgressView;
+- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 @end
 

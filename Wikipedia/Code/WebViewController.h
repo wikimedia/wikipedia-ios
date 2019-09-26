@@ -37,16 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 
 /**
- *  Scroll to the @c anchor of the given section.
+ *  Scroll to the @c anchor provided
  *
- *  @param section  The section to scroll to.
+ *  @param anchor  The anchor to scroll to.
  *  @param animated Whether or not to animate.
+ *  @param completion called when the scroll completes.
  *
- *  @see scrollToFragment:animated:
  */
-- (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated;
-
-- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
+- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 - (void)accessibilityCursorToSection:(MWKSection *)section;
 
@@ -89,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)url didSave:(BOOL)didSave;
 - (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article;
-- (void)webViewController:(WebViewController *)controller didScrollToSection:(MWKSection *)section;
+- (void)webViewController:(WebViewController *)controller didScrollToAnchor:(nullable NSString *)anchor;
 
 @end
 
