@@ -54,8 +54,8 @@
            }];
 }
 
-- (void)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count completion:(void (^)(id index, NSError *error))completion {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu)", [prefix wmf_stringBySanitizingForJavaScript], (unsigned long)count]
+- (void)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count insetTop:(NSInteger)insetTop completion:(void (^)(id index, NSError *error))completion {
+    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu, %li)", [prefix wmf_stringBySanitizingForJavaScript], (unsigned long)count, (long)insetTop]
            completionHandler:^(id _Nullable index, NSError *_Nullable error) {
                completion(index, error);
            }];
