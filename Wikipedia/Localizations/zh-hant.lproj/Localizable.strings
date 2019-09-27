@@ -616,7 +616,7 @@
 "reading-lists-list-not-synced-limit-exceeded" = "因超出上限，清單無法同步";
 "reading-lists-sort-saved-articles" = "排序已儲存條目";
 "reading-lists-split-notification" = "在各閱讀清單裡含有 $1 個條目的上限限制。現有清單在超過此限制時，會被拆分成多個清單。";
-"reading-lists-sync-error-no-internet-connection" = "當網際網路連接可用時，同部便會恢復";
+"reading-lists-sync-error-no-internet-connection" = "當網際網路連接可用時，同步便會恢復";
 "reading-themes-controls-accessibility-black-theme-button" = "漆黑主題";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑動桿";
 "reading-themes-controls-accessibility-dark-theme-button" = "陰暗主題";
