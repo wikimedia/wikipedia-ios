@@ -1,6 +1,7 @@
 import UIKit
 
 class PageHistoryDetailedStatsViewController: UIViewController {
+    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     var theme = Theme.standard
@@ -20,6 +21,7 @@ class PageHistoryDetailedStatsViewController: UIViewController {
                 Stat(title: "reverted edits", image:UIImage(named: "reverted")!, count: 0)
             ]
             collectionView.reloadData()
+            activityIndicator.isHidden = true
         }
     }
 
@@ -35,6 +37,7 @@ class PageHistoryDetailedStatsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // TODO: Move out into separate types
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "StatCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: StatCollectionViewCell.identifier)
@@ -43,6 +46,9 @@ class PageHistoryDetailedStatsViewController: UIViewController {
         let collectionViewHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 60)
         collectionViewHeightConstraint.isActive = true
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+        addActivityIndicator()
+        activityIndicator.style = theme.isDark ? .white : .gray
+        activityIndicator.startAnimating()
 
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.scrollDirection = .horizontal
@@ -56,6 +62,15 @@ class PageHistoryDetailedStatsViewController: UIViewController {
         }
 
         apply(theme: theme)
+    }
+
+    private func addActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(activityIndicator, aboveSubview: collectionView)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -96,5 +111,6 @@ extension PageHistoryDetailedStatsViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = view.backgroundColor
+        activityIndicator.style = theme.isDark ? .white : .gray
     }
 }
