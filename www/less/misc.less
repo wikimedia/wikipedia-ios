@@ -133,3 +133,8 @@ span.IPA + small {
 div[id=content_block_0] table.ambox {
   display: none;
 }
+
+/* Prevent text size increase on landscape on non-iPads: T233254 and https://stackoverflow.com/a/2711132 */
+body {
+  -webkit-text-size-adjust: 100%;
+}
