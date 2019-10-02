@@ -390,6 +390,7 @@
 "insert-media-image-type-settings-title" = "Kuvan tyyppi";
 "insert-media-media-settings-title" = "Media-asetukset";
 "insert-media-title" = "Lisää media";
+"insert-media-uploaded-image-title" = "Tallennettu kuva";
 "languages-settings-title" = "Kielet";
 "languages-title" = "Kielenvaihto";
 "languages-wikipedia" = "Wikipedian kielet";
@@ -679,6 +680,8 @@
 "talk-page-link-user-action-sheet-safari" = "Näytä käyttäjäsivu Safarissa";
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-banner-subtitle" = "Muista, me kaikki olemme ihmisiä täällä";
+"talk-page-new-reply-body-accessibility-label" = "Kirjoita vastaus";
+"talk-page-new-reply-body-placeholder-text" = "Kirjoita vastaus";
 "talk-page-new-subject-placeholder-text" = "Aihe";
 "talk-page-new-subject-textfield-accessibility-label" = "Aihe";
 "talk-page-new-topic-title" = "Uusi keskustelu";
