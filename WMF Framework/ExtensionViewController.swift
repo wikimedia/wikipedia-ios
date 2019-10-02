@@ -7,10 +7,12 @@ open class ExtensionViewController: UIViewController, Themeable {
         self.theme = theme
     }
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        updateThemeFromTraitCollection(force: true)
-        apply(theme: theme)
+    var isFirstLayout = true
+    
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateThemeFromTraitCollection(force: isFirstLayout)
+        isFirstLayout = false
     }
     
     private func updateThemeFromTraitCollection(force: Bool = false) {
