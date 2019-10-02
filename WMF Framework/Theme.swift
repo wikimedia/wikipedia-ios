@@ -430,9 +430,9 @@ public class Theme: NSObject {
 
     @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: Theme.dimmedImageOpacity, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, hasInputAccessoryShadow: false, name: "black-dimmed", displayName: Theme.black.displayName,  analyticsName: "black", webName: "dark")
 
-    @objc public static let widgetLight = Theme(colors: .widgetLight, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, hasInputAccessoryShadow: false, name: "", displayName: "", analyticsName: "", webName: "light")
+    @objc public static let widgetLight = Theme(colors: .widgetLight, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, hasInputAccessoryShadow: false, name: "widget-light", displayName: "", analyticsName: "", webName: "light")
     
-    @objc public static let widgetDark = Theme(colors: .widgetDark, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, hasInputAccessoryShadow: false, name: "", displayName: "", analyticsName: "", webName: "light")
+    @objc public static let widgetDark = Theme(colors: .widgetDark, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, hasInputAccessoryShadow: false, name: "widget-dark", displayName: "", analyticsName: "", webName: "black")
     
     public class func widgetThemeCompatible(with traitCollection: UITraitCollection) -> Theme {
         if #available(iOSApplicationExtension 12.0, *) {
