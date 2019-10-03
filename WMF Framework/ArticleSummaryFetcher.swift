@@ -89,30 +89,37 @@ public class ArticleSummary: NSObject, Codable {
 
 @objc(WMFArticleSummaryFetcher)
 public class ArticleSummaryFetcher: Fetcher {
-    public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) {
+    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: ArticleSummary]) -> Void) -> [String] {
+        
+        var cancellationKeys: [String] = []
         articleKeys.asyncMapToDictionary(block: { (articleKey, asyncMapCompletion) in
-            fetchSummaryForArticle(with: articleKey, priority: priority, completion: { (responseObject, response, error) in
+            let key = fetchSummaryForArticle(with: articleKey, priority: priority, completion: { (responseObject, response, error) in
                 asyncMapCompletion(articleKey, responseObject)
             })
+            if let key = key {
+                cancellationKeys.append(key)
+            }
         }, completion: completion)
+        
+        return cancellationKeys
     }
     
     @objc(fetchSummaryForArticleWithKey:priority:completion:)
-    public func fetchSummaryForArticle(with articleKey: String, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) {
+    @discardableResult public func fetchSummaryForArticle(with articleKey: String, priority: Float = URLSessionTask.defaultPriority, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> CancellationKey? {
         guard
             let articleURL = URL(string: articleKey),
             let title = articleURL.wmf_percentEscapedTitle
         else {
             completion(nil, nil, Fetcher.invalidParametersError)
-            return
+            return nil
         }
+        
         let pathComponents = ["page", "summary", title]
-        let taskURL = configuration.wikipediaMobileAppsServicesAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url
-        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
-        let headers = ["Accept": "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\""]
-        session.jsonDecodableTask(with: taskURL, headers: headers, priority: priority) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
+        let key = performMobileAppsServicesGET(for: articleURL, pathComponents: pathComponents, priority: priority, cancellationKey: articleKey) { (summary: ArticleSummary?, response: URLResponse?, error: Error?) in
             completion(summary, response, error)
         }
+        
+        return key
     }
 }
 

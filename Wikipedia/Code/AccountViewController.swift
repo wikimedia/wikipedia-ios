@@ -116,9 +116,10 @@ class AccountViewController: SubSettingsViewController {
                 let language = MWKLanguageLinkController.sharedInstance().appLanguage {
                 let siteURL = language.siteURL()
                 let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
-                let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: .user, dataStore: dataStore)
-                talkPageContainerVC.apply(theme: theme)
-                self.navigationController?.pushViewController(talkPageContainerVC, animated: true)
+                
+                let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
+                
+                self.navigationController?.pushViewController(loadingFlowController, animated: true)
             }
         default:
             break

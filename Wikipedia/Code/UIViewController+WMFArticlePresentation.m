@@ -22,29 +22,44 @@ NS_ASSUME_NONNULL_BEGIN
         url = [url wmf_URLWithFragment:nil];
     }
 
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
-    vc.articleLoadCompletion = articleLoadCompletion;
-    [self wmf_pushArticleViewController:vc animated:animated];
-    return vc;
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
+    articleVC.articleLoadCompletion = articleLoadCompletion;
+
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC];
+    [self wmf_pushViewController:loadingFlowController animated:animated];
+    return articleVC;
 }
 
 - (void)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme animated:(BOOL)animated {
-    [self wmf_pushArticleWithURL:url dataStore:dataStore theme:theme restoreScrollPosition:NO animated:animated];
+    
+    url = [url wmf_URLWithFragment:nil];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:articleVC];
+    
+    [self wmf_pushViewController:loadingFlowController animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
+
     if (self.parentViewController != nil && self.parentViewController.navigationController) {
         [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
-    } else if (self.presentingViewController != nil) {
+        return;
+    }
+    
+    //embed in LoadingFlowController first
+
+    LoadingFlowController *loadingFlowController = [[LoadingFlowController alloc] initWithArticleViewController:viewController];
+    
+    if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
         [presentingViewController dismissViewControllerAnimated:YES
                                                      completion:^{
                                                          [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
                                                      }];
     } else if (self.navigationController != nil) {
-        [self.navigationController pushViewController:viewController animated:animated];
+        [self.navigationController pushViewController:loadingFlowController animated:animated];
     } else if ([self isKindOfClass:[UINavigationController class]]) {
-        [(UINavigationController *)self pushViewController:viewController animated:animated];
+        [(UINavigationController *)self pushViewController:loadingFlowController animated:animated];
     }
 }
 
