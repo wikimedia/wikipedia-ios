@@ -100,14 +100,18 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 let randomArticleVC = WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-                pushOrPresent(randomArticleVC, navigationController: navigationController, presentation: viewController.presentation)
+                randomArticleVC.calculateTableOfContentsDisplayState()
+                let loadingFlowController = LoadingFlowController(articleViewController: randomArticleVC)
+                pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
             case (.article, let info?):
                 guard let articleURL = articleURL(from: info) else {
                     return
                 }
                 let articleVC = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
                 articleVC.shouldRequestLatestRevisionOnInitialLoad = false
-                pushOrPresent(articleVC, navigationController: navigationController, presentation: viewController.presentation)
+                articleVC.calculateTableOfContentsDisplayState()
+                let loadingFlowController = LoadingFlowController(articleViewController: articleVC)
+                pushOrPresent(loadingFlowController, navigationController: navigationController, presentation: viewController.presentation)
             case (.themeableNavigationController, _):
                 let themeableNavigationController = WMFThemeableNavigationController()
                 pushOrPresent(themeableNavigationController, navigationController: navigationController, presentation: viewController.presentation)
@@ -129,15 +133,15 @@ final class NavigationStateController: NSObject {
                 else {
                     return
                 }
-                let talkPageContainerVC = TalkPageContainerViewController(title: title, siteURL: siteURL, type: type, dataStore: dataStore)
-                talkPageContainerVC.apply(theme: theme)
+                
+                let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: type, fromNavigationStateRestoration: true, theme: theme)
                 navigationController.isNavigationBarHidden = true
-                talkPageContainerVC.fromNavigationStateRestoration = true
-                navigationController.pushViewController(talkPageContainerVC, animated: false)
+                navigationController.pushViewController(loadingFlowController, animated: false)
             case (.talkPageReplyList, let info?):
                 guard
                     let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
-                    let talkPageContainerVC = navigationController.viewControllers.last as? TalkPageContainerViewController
+                    let loadingFlowController = navigationController.viewControllers.last as? LoadingFlowController,
+                    let talkPageContainerVC = loadingFlowController.flowChild as? TalkPageContainerViewController
                 else {
                     return
                 }
@@ -216,12 +220,12 @@ final class NavigationStateController: NSObject {
             kind = .account
             info = nil
             shouldAttemptLogin = true
-        case let articleViewController as WMFArticleViewController:
-            kind = viewController is WMFRandomArticleViewController ? .random : .article
-            info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
-        case let talkPageContainerVC as TalkPageContainerViewController:
-            kind = .talkPage
-            info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
+        case let loadingFlowController as LoadingFlowController:
+
+            let result = determineKindInfoForArticleOrTalk(obj: loadingFlowController.flowChild)
+            kind = result.kind
+            info = result.info
+        
         case let talkPageReplyListVC as TalkPageReplyListViewController:
             kind = .talkPageReplyList
             info = Info(contentGroupIDURIString: talkPageReplyListVC.topic.objectID.uriRepresentation().absoluteString)
@@ -232,11 +236,31 @@ final class NavigationStateController: NSObject {
             kind = .detail
             info = Info(contentGroupIDURIString: detailPresenting.contentGroupIDURIString)
         default:
-            kind = nil
-            info = nil
+            let result = determineKindInfoForArticleOrTalk(obj: viewController)
+            kind = result.kind
+            info = result.info
         }
 
         return ViewController(kind: kind, presentation: presentation, info: info)
+    }
+    
+    private func determineKindInfoForArticleOrTalk(obj: Any) -> (kind: ViewController.Kind?, info: Info?) {
+        
+        let kind: ViewController.Kind?
+        let info: Info?
+        switch obj {
+            case let articleViewController as WMFArticleViewController:
+                kind = obj is WMFRandomArticleViewController ? .random : .article
+                info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey, articleSectionAnchor: articleViewController.visibleSectionAnchor)
+            case let talkPageContainerVC as TalkPageContainerViewController:
+                kind = .talkPage
+                info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
+        default:
+            kind = nil
+            info = nil
+        }
+        
+        return (kind: kind, info: info)
     }
 
     private func viewControllersToSave(from viewController: UIViewController, presentedVia presentation: Presentation) -> [ViewController] {

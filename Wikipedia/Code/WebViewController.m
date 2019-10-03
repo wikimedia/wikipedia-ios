@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @property (nonatomic, getter=isAfterFirstUserScrollInteraction) BOOL afterFirstUserScrollInteraction;
 
+@property (nonatomic, assign) BOOL indexHTMLDocumentLoadedFired;
+
 @property (nonatomic, strong) NSMutableArray<dispatch_block_t> *scrollViewAnimationCompletions; // called on scrollViewDidEndScrollingAnimation
 
 @end
@@ -319,6 +321,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
         self.afterFirstUserScrollInteraction = NO;
+        self.indexHTMLDocumentLoadedFired = YES;
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
         BOOL collapseTables = ![[NSUserDefaults wmf] wmf_isAutomaticTableOpeningEnabled];
@@ -713,6 +716,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     UIGestureRecognizer *interactivePopGR = self.navigationController.interactivePopGestureRecognizer;
     if (interactivePopGR) {
         [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:interactivePopGR];
+    }
+
+    //catches state restoration bug where web view never loads if article is deeper in the stack
+    if (!self.indexHTMLDocumentLoadedFired && self.article && self.articleURL) {
+        [self setArticle:self.article articleURL:self.articleURL];
     }
 }
 
