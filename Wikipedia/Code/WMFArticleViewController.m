@@ -89,7 +89,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                         WMFArticlePreviewingActionsDelegate,
                                         ReadingListsAlertControllerDelegate,
                                         EventLoggingEventValuesProviding,
-                                        WMFSearchButtonProviding,
                                         WMFImageScaleTransitionProviding,
                                         UIGestureRecognizerDelegate,
                                         EventLoggingSearchSourceProviding,
@@ -763,6 +762,8 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
+    
+    self.navigationItem.rightBarButtonItem = [WMFAppSearchBarButtonItem newAppSearchBarButtonItem];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];

@@ -27,8 +27,6 @@
 #import "WMFDailyStatsLoggingFunnel.h"
 
 #import "UIViewController+WMFOpenExternalUrl.h"
-
-#import "WMFSearchButton.h"
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
@@ -1225,9 +1223,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return YES;
     }
     self.unprocessedUserActivity = nil;
-    [self dismissPresentedViewControllers];
 
     WMFUserActivityType type = [activity wmf_type];
+    
+    if (type != WMFUserActivityTypeSearch) {
+        [self dismissPresentedViewControllers];
+    }
+    
     switch (type) {
         case WMFUserActivityTypeExplore:
             [self setSelectedIndex:WMFAppTabTypeMain];
@@ -1345,6 +1347,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             break;
     }
     done();
+    [NSUserActivity wmf_makeActivityActive:activity];
     return YES;
 }
 
@@ -1676,13 +1679,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
-    if ([viewController conformsToProtocol:@protocol(WMFSearchButtonProviding)] && viewController.navigationItem.rightBarButtonItem == nil) {
-        WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearchInCurrentNavigationController)];
-        viewController.navigationItem.rightBarButtonItem = searchButton;
-        if ([viewController isKindOfClass:[ExploreViewController class]]) {
-            viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
-        }
-    }
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
@@ -2019,7 +2015,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self dismissReadingThemesPopoverIfActive];
 
-    UINavigationController *nc = (UINavigationController *)self.navigationController;
+    UINavigationController *nc = self.presentedViewController == self.settingsNavigationController ? self.settingsNavigationController : self.navigationController;
     if (!nc) {
         return;
     }
