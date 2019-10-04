@@ -1950,7 +1950,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)debounceTraitCollectionThemeUpdate {
-    if (@available(iOS 12.0, *)) {
+    if (@available(iOS 13.0, *)) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
         [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
     }
