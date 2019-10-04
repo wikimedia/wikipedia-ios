@@ -102,7 +102,7 @@
 "app-store-subtitle" = "Den fria encyklopedin";
 "appearance-settings-adjust-text-sizing" = "Justera artikelns textstorlek";
 "appearance-settings-expand-tables" = "Expandera tabeller";
-"appearance-settings-expand-tables-footer" = "Ändra alla tabeller på alla artiklar att vara öppna som standard, inklusive snabbfakta, referenser, anteckningar och externa länkar.";
+"appearance-settings-expand-tables-footer" = "Låt alla tabeller på alla artiklar vara öppna som standard, inklusive snabbfakta, referenser, anteckningar och externa länkar.";
 "appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i det mörka och svarta temat";
 "appearance-settings-reading-themes" = "Lästeman";
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
