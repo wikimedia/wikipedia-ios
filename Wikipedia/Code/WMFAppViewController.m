@@ -1938,18 +1938,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)updateUserInterfaceStyleOfViewControllerForCurrentTheme:(UIViewController *)viewController {
     if (@available(iOS 13.0, *)) {
         NSString *themeName = [NSUserDefaults.wmf themeName];
-        if ([themeName isEqualToString:WMFTheme.defaultThemeName]) {
+        if ([WMFTheme isDefaultThemeName:themeName]) {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-        } else if ([themeName isEqualToString:WMFTheme.light.name] || [themeName isEqualToString:WMFTheme.sepia.name]) {
-            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        } else {
+        } else if ([WMFTheme isDarkThemeName:themeName]) {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        } else {
+            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
         }
     }
 }
 
 - (void)debounceTraitCollectionThemeUpdate {
-    if (@available(iOS 12.0, *)) {
+    if (@available(iOS 13.0, *)) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
         [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
     }
