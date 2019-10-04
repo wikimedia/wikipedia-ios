@@ -35,7 +35,7 @@
 "about-repositories" = "Репозиторії";
 "about-repositories-app-source-license" = "Вихідний код доступний під $1.";
 "about-repositories-app-source-license-mit" = "Ліцензія MIT";
-"about-send-feedback" = "Надіслати відгук про програму";
+"about-send-feedback" = "Надіслати відгук про додаток";
 "about-testers" = "Тестери";
 "about-testers-details" = "QA-тестування від $1";
 "about-title" = "Про";
@@ -98,7 +98,7 @@
 "announcements-dismiss" = "Відхилити";
 "app-store-keywords" = "Вікіпедія, стаття, вікі, wiki, енциклопедія, інформація, знання, дослідження, інформація, читання, навчання";
 "app-store-release-notes" = "Тепер стрічка в додатку цілком налаштовувана та легша до використання. Поліпшена локалізація, підвищена продуктивність, деякі помилки виправлені.";
-"app-store-short-description" = "Завантажте додаток Вікіпедія, аби дослідити місця поблизу, зберігати статті оф-лайн і підлаштувати своє читання";
+"app-store-short-description" = "Завантажте додаток Вікіпедії, аби дослідити місця поблизу, зберігати статті офлайн і підлаштувати своє читання";
 "app-store-subtitle" = "Вільна енциклопедія";
 "appearance-settings-adjust-text-sizing" = "Налаштувати розмір тексту статті";
 "appearance-settings-expand-tables" = "Розгорнути таблиці";
@@ -479,7 +479,7 @@
 "new-password-title" = "Встановіть свій пароль";
 "no-email-account-alert" = "Будь ласка, налаштуйте обліковий запис електронної пошти на вашому пристрої і спробуйте знову.";
 "no-internet-connection" = "Немає з'єднання з інтернетом";
-"no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але не може бути завантажена через відсутність підключення до Інтернету";
+"no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але вона не може бути завантажена через відсутність підключення до Інтернету";
 "no-internet-connection-article-reload-button" = "Повернутися до останньої збереженої версії";
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
@@ -539,7 +539,7 @@
 "places-unknown-distance" = "невідома відстань";
 "potd-description-prefix" = "Зображення дня за $1";
 "potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
-"preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся застосунком, аби вдосконалити його";
+"preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся додатком, аби вдосконалити його";
 "preference-title-eventlogging-opt-in" = "Надсилати звіти про використання";
 "rank-accessibility-label" = "Номер $1";
 "readers-accessibility-label" = "$1 читачів";
