@@ -6,6 +6,8 @@
 #import "WMFTableOfContentsDisplay.h"
 #import "WebViewController.h"
 #import "WMFImageGalleryViewController.h"
+#import "WMFLoadingFlowControllerProtocols.h"
+@class LoadingFlowController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +29,7 @@ extern NSString *const WMFEditPublishedNotification;
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : WMFViewController <WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate>
+@interface WMFArticleViewController : WMFViewController <WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate, WMFLoadingFlowControllerChildProtocol, WMFLoadingFlowControllerFetchDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
@@ -39,6 +41,7 @@ extern NSString *const WMFEditPublishedNotification;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
 @property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
+@property (nonatomic, strong, nullable) dispatch_block_t viewDidLoadCompletion;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle *article;
 
@@ -57,8 +60,18 @@ extern NSString *const WMFEditPublishedNotification;
 
 @property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
 
+///**
+// *  We need to do this to prevent auto loading from occuring,
+// *  if we do something to the article like edit it and force a reload
+// */
+@property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
+
 - (UIButton *)titleButton;
 
+@property (nonatomic, weak) LoadingFlowController * _Nullable loadingFlowController;
+
+- (void)articleDidLoad;
+- (void)kickoffProgressView;
 - (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 @end
@@ -92,6 +105,7 @@ extern NSString *const WMFEditPublishedNotification;
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems;
 
 - (void)updateToolbarItemEnabledState;
+- (void)calculateTableOfContentsDisplayState;
 
 @end
 
