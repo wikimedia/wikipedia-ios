@@ -9,6 +9,7 @@ import UIKit
     @objc public static let subheadline = DynamicTextStyle(.system, .subheadline)
     @objc public static let semiboldSubheadline = DynamicTextStyle(.system, .subheadline, .semibold)
     public static let mediumSubheadline = DynamicTextStyle(.system, .subheadline, .medium)
+    public static let boldSubheadline = DynamicTextStyle(.system, .subheadline, .bold)
     
     public static let headline = DynamicTextStyle(.system, .headline)
     public static let mediumHeadline = DynamicTextStyle(.system, .headline, .medium)

@@ -152,6 +152,16 @@
 "description-welcome-descriptions-title" = "Title descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
+"diff-compare-header-from-info-heading" = "From";
+"diff-compare-header-heading" = "Compare Revisions";
+"diff-compare-header-subtitle" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} by {{PLURAL:$1|$1 user|$1 users}} not shown";
+"diff-compare-header-to-info-heading" = "From";
+"diff-compare-title" = "Compare Revisions";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edit|$1 edits}}";
+"diff-single-header-editor-title" = "Editor information";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte added|$1 bytes added}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte removed|$1 bytes removed}}";
+"diff-single-header-summary-heading" = "Edit summary";
 "dim-images" = "Dim images";
 "edit-bold-accessibility-label" = "Add bold formatting";
 "edit-bold-remove-accessibility-label" = "Remove bold formatting";

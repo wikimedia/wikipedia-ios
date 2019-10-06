@@ -152,6 +152,16 @@
 "description-welcome-descriptions-title" = "Title text explaining title descriptions";
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
+"diff-compare-header-from-info-heading" = "Heading label in from revision info box when comparing two revisions.";
+"diff-compare-header-heading" = "Heading label in header when comparing two revisions.";
+"diff-compare-header-subtitle" = "Subtitle label in header when comparing two revisions. $1 is replaced with the number of intermediate revisions between chosen revisions to compare, and $1 is replaced by the number of editors that made those intermediate revisions.";
+"diff-compare-header-to-info-heading" = "Heading label in to revision info box when comparing two revisions.";
+"diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
+"diff-single-header-editor-number-edits-format" = "Label to show the number of total edits made by the editor when viewing a single revision. $1 is replaced with the editor's number of edits.";
+"diff-single-header-editor-title" = "Title label in header editor view when viewing a single revision.";
+"diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
+"diff-single-header-subtitle-bytes-removed" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were removed in this revision.";
+"diff-single-header-summary-heading" = "Heading label in header summary view when viewing a single revision.";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
 "edit-bold-remove-accessibility-label" = "Accessibility label for the button that removes bold formatting to the current selection";

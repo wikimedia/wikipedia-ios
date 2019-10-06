@@ -127,6 +127,17 @@
             theme:self.theme];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger r = arc4random_uniform(2) + 1;
+    DiffContainerViewController *containerVC;
+    if (r % 2 == 0) {
+       containerVC = [DiffContainerViewController stubSingleContainerViewControllerWithTheme:self.theme];
+    } else {
+        containerVC = [DiffContainerViewController stubCompareContainerViewControllerWithTheme:self.theme];
+    }
+    [self.navigationController pushViewController:containerVC animated:true];
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = self.theme.colors.baseBackground;
