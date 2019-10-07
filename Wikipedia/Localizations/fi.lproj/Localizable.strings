@@ -182,6 +182,7 @@
 "edit-italic-accessibility-label" = "Lisää kursivoitu muotoilu";
 "edit-italic-remove-accessibility-label" = "Poista kursivoitu muotoilu";
 "edit-link-accessibility-label" = "Lisää linkkisyntaksi";
+"edit-link-display-text-title" = "Näytä teksti";
 "edit-link-link-target-title" = "Linkin kohde";
 "edit-link-remove-accessibility-label" = "Poista linkkisyntaksi";
 "edit-link-remove-link-title" = "Poista linkki";
@@ -396,6 +397,7 @@
 "languages-wikipedia" = "Wikipedian kielet";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
+"link-loading-title" = "Ladataan sivua...";
 "logged-out-continue-without-logging-in-button-title" = "Jatka kirjautumatta";
 "logged-out-log-back-in-button-title" = "Kirjaudu takaisin tunnuksellesi";
 "logged-out-title" = "Olet kirjautunut ulos";
