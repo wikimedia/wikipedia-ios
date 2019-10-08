@@ -23,6 +23,12 @@ class PageHistoryStatsViewController: UIViewController {
         }
     }
 
+    func set(totalEditCount: Int, firstEditDate: Date) {
+        let firstEditYear = String(Calendar.current.component(.year, from: firstEditDate))
+        statsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("page-history-stats-text", value: "%1$d edits since %2$@", comment: "Text for representing the number of edits that were made to an article and the number of editors who contributed to the creation of an article. %1$d is replaced with the number of edits, %2$d is replaced with the number of editors."), totalEditCount, firstEditYear)
+        setViewHidden(statsLabel, hidden: false)
+    }
+
     var timeseriesOfEditsCounts: [NSNumber] = [] {
         didSet {
             if timeseriesOfEditsCounts.isEmpty != sparklineView.isHidden {
