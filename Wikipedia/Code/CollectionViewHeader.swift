@@ -82,8 +82,6 @@ class CollectionViewHeader: SizeThatFitsReusableView {
             fallthrough
         case .explore:
             titleTextStyle = .boldTitle2
-        case .pageHistory:
-            titleTextStyle = .semiboldSubheadline
         default:
             titleTextStyle = .semiboldHeadline
         }
