@@ -113,6 +113,16 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     }
 
     public final func fetchPageStats(_ pageTitle: String, pageURL: URL, completion: @escaping (Result<PageStats, RequestError>) -> Void) {
+    // MARK: Edit counts
+
+    public enum EditCountType: String {
+        case editors
+        case edits
+        case revertedEdits = "revertededits"
+        case botEdits = "botedits"
+        case anonEdits = "anonedits"
+        case userEdits
+    }
         guard let project = pageURL.wmf_site?.host else {
             completion(.failure(.invalidParameters))
             return
