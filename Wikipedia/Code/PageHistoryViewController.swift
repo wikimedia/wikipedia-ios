@@ -210,11 +210,22 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision, at indexPath: IndexPath) {
         if let date = item.revisionDate {
-            // TODO: Local to UTC
-            cell.time = DateFormatter.wmf_shortTime()?.string(from: date)
+            if (date as NSDate).wmf_isTodayUTC() {
+                let diff = Calendar.current.dateComponents([.second, .minute, .hour], from: date, to: Date())
+                if let hours = diff.hour {
+                    // TODO: Localize
+                    cell.time = "\(hours)h ago"
+                } else if let minutes = diff.minute {
+                    cell.time = "\(minutes)m ago"
+                } else if let seconds = diff.second {
+                    cell.time = "\(seconds)s ago"
+                }
+            } else if let dateString = DateFormatter.wmf_24hshortTime()?.string(from: date)  {
+                cell.time = "\(dateString) UTC"
+            }
         }
         // TODO: Use logged-in icon when available
-        cell.authorImage = item.isAnon ? UIImage(named: "bot") : UIImage(named: "anon")
+        cell.authorImage = item.isAnon ? UIImage(named: "anon") : UIImage(named: "user-edit")
         cell.author = item.user
         cell.sizeDiff = item.revisionSize
         cell.comment = item.parsedComment?.removingHTML
