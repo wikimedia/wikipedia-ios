@@ -13,20 +13,28 @@ class PageHistoryDetailedStatsViewController: UIViewController {
 
     private var stats: [Stat] = []
 
-    var pageStats: PageStats? {
+    var editCountsGroupedByType: EditCountsGroupedByType? {
         didSet {
-            guard let minorEdits = pageStats?.minorEdits else {
-                stats = []
+            stats = []
+            defer {
+                collectionView.reloadData()
+                activityIndicator.isHidden = true
+            }
+            guard let editCounts = editCountsGroupedByType else {
                 return
             }
-            stats = [
-                Stat(title: "minor edits", image: UIImage(named: "m")!, count: minorEdits),
-                Stat(title: "IP edits", image: UIImage(named: "anon")!, count: 5000),
-                Stat(title: "bot edits", image: UIImage(named: "bot")!, count: 0),
-                Stat(title: "reverted edits", image:UIImage(named: "reverted")!, count: 0)
-            ]
-            collectionView.reloadData()
-            activityIndicator.isHidden = true
+            if case let userEdits?? = editCounts[.userEdits] {
+                stats.append(Stat(title: "user edits", image: UIImage(named: "user-edit")!, count: userEdits))
+            }
+            if case let anonEdits?? = editCounts[.anonEdits] {
+                stats.append(Stat(title: "IP edits", image: UIImage(named: "anon")!, count: anonEdits))
+            }
+            if case let botEdits?? = editCounts[.botEdits] {
+                stats.append(Stat(title: "bot edits", image: UIImage(named: "bot")!, count: botEdits))
+            }
+            if case let revertedEdits?? = editCounts[.revertedEdits] {
+                stats.append(Stat(title: "reverted edits", image: UIImage(named: "reverted")!, count: revertedEdits))
+            }
             delegate?.pageHistoryDetailedStatsViewControllerDidDetermineIfStatsAreAvailable(areStatsAvailable: !stats.isEmpty)
         }
     }
