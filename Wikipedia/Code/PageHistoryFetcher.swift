@@ -88,15 +88,27 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         })
     }
 
-    public struct PageStats: Decodable {
-        let edits: Int?
-        let editors: Int?
-        let minorEdits: Int?
+    // MARK: Creation date
 
-        enum CodingKeys: String, CodingKey {
-            case edits = "revisions"
-            case editors
-            case minorEdits = "minor_edits"
+    public func fetchPageCreationDate(for pageTitle: String, pageURL: URL, completion: @escaping (Result<Date, RequestError>) -> Void) {
+        let params: [String: AnyObject] = [
+            "action": "query" as AnyObject,
+            "prop": "revisions" as AnyObject,
+            "rvlimit": 1 as AnyObject,
+            "rvdir": "newer" as AnyObject,
+            "titles": pageTitle as AnyObject,
+            "format": "json" as AnyObject
+        ]
+        performMediaWikiAPIGET(for: pageURL, withQueryParameters: params) { (result, response, error) in
+            guard let result = result, let results = self.parseSections(result) else {
+                completion(.failure(.unexpectedResponse))
+                return
+            }
+            guard let firstRevision = results.items().first?.items.first, let firstRevisionDate = firstRevision.revisionDate else {
+                completion(.failure(.unexpectedResponse))
+                return
+            }
+            completion(.success(firstRevisionDate))
         }
     }
 
