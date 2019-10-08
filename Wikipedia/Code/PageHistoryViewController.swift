@@ -69,14 +69,49 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         // TODO: Move networking
 
-        pageHistoryFetcher.fetchPageStats(pageTitle, pageURL: pageURL) { result in
+        pageHistoryFetcher.fetchPageCreationDate(for: pageTitle, pageURL: pageURL) { result in
             switch result {
             case .failure(let error):
                 // TODO: Handle error
                 print(error)
-            case .success(let pageStats):
+            case .success(let firstEditDate):
+                self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { result in
+                    switch result {
+                    case .failure(let error):
+                        // TODO: Handle error
+                        print(error)
+                    case .success(let editCounts):
+                        if case let totalEditCount?? = editCounts[.edits] {
+                            DispatchQueue.main.async {
+                                self.statsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        pageHistoryFetcher.fetchEditCounts(.edits, .anonEdits, .botEdits, .revertedEdits, for: pageTitle, pageURL: pageURL) { result in
+            switch result {
+            case .failure(let error):
+                // TODO: Handle error
+                print(error)
+            case .success(let editCountsGroupedByType):
                 DispatchQueue.main.async {
-                    self.statsViewController.pageStats = pageStats
+                    self.statsViewController.editCountsGroupedByType = editCountsGroupedByType
+                }
+            }
+        }
+
+        pageHistoryFetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { result in
+            switch result {
+            case .failure(let error):
+                // TODO: Handle error
+                print(error)
+                self.statsViewController.timeseriesOfEditsCounts = []
+            case .success(let timeseriesOfEditCounts):
+                DispatchQueue.main.async {
+                    self.statsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
                 }
             }
         }
