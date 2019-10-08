@@ -17,20 +17,12 @@ class PageHistoryStatsViewController: UIViewController {
     @IBOutlet private weak var detailedStatsContainerView: UIView!
     private lazy var detailedStatsViewController = PageHistoryDetailedStatsViewController()
 
-    var pageStats: PageStats? {
+    var editCountsGroupedByType: EditCountsGroupedByType? {
         didSet {
-            guard
-                let edits = pageStats?.edits,
-                let editors = pageStats?.editors
-            else {
-                statsLabel.isHidden = true
-                return
-            }
-            // TODO: When localization script supports multiple plurals per string, update to use plurals.
-            statsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("page-history-stats-text", value: "%1$d edits by %2$d editors", comment: "Text for representing the number of edits that were made to an article and the number of editors who contributed to the creation of an article. %1$d is replaced with the number of edits, %2$d is replaced with the number of editors."), edits, editors)
-            statsLabel.isHidden = false
+            detailedStatsViewController.editCountsGroupedByType = editCountsGroupedByType
+        }
+    }
 
-            detailedStatsViewController.pageStats = pageStats
     var timeseriesOfEditsCounts: [NSNumber] = [] {
         didSet {
             if timeseriesOfEditsCounts.isEmpty != sparklineView.isHidden {
