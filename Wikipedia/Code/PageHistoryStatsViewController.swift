@@ -9,6 +9,8 @@ class PageHistoryStatsViewController: UIViewController {
     @IBOutlet private weak var statsLabel: UILabel!
 
     @IBOutlet private weak var sparklineView: WMFSparklineView!
+    private lazy var visibleSparklineViewWidthConstraint = sparklineView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.4)
+    private lazy var hiddenSparklineViewWidthConstraint = sparklineView.widthAnchor.constraint(equalToConstant: 0)
 
     @IBOutlet private weak var separator: UIView!
 
@@ -29,6 +31,14 @@ class PageHistoryStatsViewController: UIViewController {
             statsLabel.isHidden = false
 
             detailedStatsViewController.pageStats = pageStats
+    var timeseriesOfEditsCounts: [NSNumber] = [] {
+        didSet {
+            if timeseriesOfEditsCounts.isEmpty != sparklineView.isHidden {
+                setSparklineViewHidden(timeseriesOfEditsCounts.isEmpty)
+            }
+            setViewHidden(sparklineView, hidden: timeseriesOfEditsCounts.isEmpty)
+            sparklineView.dataValues = timeseriesOfEditsCounts
+            sparklineView.updateMinAndMaxFromDataValues()
         }
     }
 
@@ -46,9 +56,20 @@ class PageHistoryStatsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func setSparklineViewHidden(_ hidden: Bool) {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.2) {
+            self.sparklineView.isHidden = hidden
+            self.visibleSparklineViewWidthConstraint.isActive = !hidden
+            self.hiddenSparklineViewWidthConstraint.isActive = hidden
+            self.sparklineView.alpha = hidden ? 0 : 1
+            self.view.setNeedsLayout()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         statsLabel.isHidden = true
+        setSparklineViewHidden(false)
 
         titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view").uppercased(with: locale)
         pageTitleLabel.text = pageTitle
