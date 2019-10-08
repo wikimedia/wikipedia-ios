@@ -16,6 +16,7 @@
 // Author: Mjälten
 // Author: Nemo bis
 // Author: Platinawolf
+// Author: Pyscowicz
 // Author: Rockyfelle
 // Author: Skalman
 // Author: WikiPhoenix
@@ -443,6 +444,7 @@
 "languages-wikipedia" = "Wikipediaspråk";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
+"link-loading-title" = "Laddar sida...";
 "logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
 "logged-out-log-back-in-button-title" = "Logga in på ditt konto igen";
 "logged-out-subtitle" = "Ett problem uppstod när ditt konto autentiserades. Du måste logga in igen för att synkronisera dina läslistor och redigera under ditt användarnamn.";
