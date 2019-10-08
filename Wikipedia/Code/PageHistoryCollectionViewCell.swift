@@ -104,8 +104,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             timeLabel.isHidden = true
         }
 
-        print(size.height)
-
         if sizeDiffLabel.wmf_hasText {
             let sizeDiffLabelFrame = sizeDiffLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
             leadingPaneOrigin.y += sizeDiffLabelFrame.layoutHeight(with: spacing)
