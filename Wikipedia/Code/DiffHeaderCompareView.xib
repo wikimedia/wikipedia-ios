@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7q-o7-dgo">
+                <view clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Y7q-o7-dgo">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="351" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="KF2-9l-hqU">
@@ -48,13 +48,8 @@
                         <constraint firstItem="KF2-9l-hqU" firstAttribute="top" secondItem="Y7q-o7-dgo" secondAttribute="top" id="Sto-FI-ZNA"/>
                         <constraint firstAttribute="trailing" secondItem="KF2-9l-hqU" secondAttribute="trailing" id="Tgl-HL-MbW"/>
                         <constraint firstItem="KF2-9l-hqU" firstAttribute="leading" secondItem="Y7q-o7-dgo" secondAttribute="leading" id="fDK-5t-keh"/>
-                        <constraint firstAttribute="height" priority="999" constant="351" id="wfw-la-sAz"/>
+                        <constraint firstAttribute="height" constant="351" id="wfw-la-sAz"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="wfw-la-sAz"/>
-                        </mask>
-                    </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNf-oz-9Gp" userLabel="Div View">
                     <rect key="frame" x="205.5" y="0.0" width="1" height="351"/>

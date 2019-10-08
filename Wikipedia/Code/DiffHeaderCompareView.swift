@@ -42,8 +42,6 @@ class DiffHeaderCompareView: UIView {
     }
     
     func update(_ viewModel: DiffHeaderCompareViewModel) {
-        print("🦕\(viewModel.scrollYOffset)")
-        print("🌹\(viewModel.beginSquishYOffset)")
         self.viewModel = viewModel
         fromItemView.update(viewModel.fromModel)
         toItemView.update(viewModel.toModel)
@@ -54,9 +52,10 @@ class DiffHeaderCompareView: UIView {
         } else {
             innerHeightConstraint.constant = maxHeight
         }
-
-        print("😁\(innerHeightConstraint.constant)")
-
-        innerHeightConstraint.isActive = true
+        
+        //theming
+        backgroundColor = viewModel.theme.colors.paperBackground
+        contentView.backgroundColor = viewModel.theme.colors.paperBackground
+        divView.backgroundColor = viewModel.theme.colors.chromeShadow
     }
 }

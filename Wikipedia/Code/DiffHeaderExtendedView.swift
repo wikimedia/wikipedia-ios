@@ -32,14 +32,14 @@ class DiffHeaderExtendedView: UIView {
     
     func update(_ viewModel: DiffHeaderViewModel) {
         switch viewModel.type {
-        case .compareRevision(let compareViewModel):
+        case .compare(let compareViewModel):
             summaryView.isHidden = true
             editorView.isHidden = true
             editorDivView.isHidden = true
             compareView.isHidden = false
             compareDivView.isHidden = false
             compareView.update(compareViewModel)
-        case .singleRevision(let editorViewModel, let summaryViewModel):
+        case .single(let editorViewModel, let summaryViewModel, _):
             summaryView.isHidden = false
             editorView.isHidden = false
             editorDivView.isHidden = false
@@ -47,6 +47,13 @@ class DiffHeaderExtendedView: UIView {
             compareDivView.isHidden = true
             summaryView.update(summaryViewModel)
             editorView.update(editorViewModel)
+        }
+        
+        //theming
+        backgroundColor = viewModel.theme.colors.paperBackground
+        
+        for view in divViews {
+            view.backgroundColor = viewModel.theme.colors.chromeShadow
         }
     }
 }

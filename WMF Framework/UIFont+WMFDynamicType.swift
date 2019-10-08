@@ -20,6 +20,7 @@ import UIKit
     public static let mediumFootnote = DynamicTextStyle(.system, .footnote, .medium)
     @objc public static let semiboldFootnote = DynamicTextStyle(.system, .footnote, .semibold)
     public static let italicFootnote = DynamicTextStyle(.system, .footnote, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
+    public static let boldFootnote = DynamicTextStyle(.system, .footnote, .bold)
 
     public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
     public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
@@ -27,6 +28,8 @@ import UIKit
     public static let boldTitle2 = DynamicTextStyle(.system, .title2, .bold)
 
     public static let callout = DynamicTextStyle(.system, .callout)
+    public static let semiboldCallout = DynamicTextStyle(.system, .callout, .semibold)
+    public static let italicCallout = DynamicTextStyle(.system, .callout, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
     
     public static let title2 = DynamicTextStyle(.system, .title2)
     public static let title3 = DynamicTextStyle(.system, .title3)
@@ -36,6 +39,7 @@ import UIKit
     public static let italicBody = DynamicTextStyle(.system, .body, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
 
     public static let caption1 = DynamicTextStyle(.system, .caption1)
+    public static let mediumCaption1 = DynamicTextStyle(.system, .caption1, .medium)
     public static let caption2 = DynamicTextStyle(.system, .caption2)
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
     public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [UIFontDescriptor.SymbolicTraits.traitItalic])

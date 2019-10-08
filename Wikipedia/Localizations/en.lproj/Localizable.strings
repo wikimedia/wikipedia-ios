@@ -152,10 +152,12 @@
 "description-welcome-descriptions-title" = "Title descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
-"diff-compare-header-from-info-heading" = "From";
+"diff-compare-header-from-info-heading" = "From:";
 "diff-compare-header-heading" = "Compare Revisions";
-"diff-compare-header-subtitle" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}} by {{PLURAL:$1|$1 user|$1 users}} not shown";
-"diff-compare-header-to-info-heading" = "From";
+"diff-compare-header-subtitle-format" = "$1 by $2 not shown";
+"diff-compare-header-subtitle-num-revisions" = "{{PLURAL:$1|$1 intermediate revision|$1 intermediate revisions}}";
+"diff-compare-header-subtitle-num-users" = "{{PLURAL:$1|$1 user|$1 users}}";
+"diff-compare-header-to-info-heading" = "To:";
 "diff-compare-title" = "Compare Revisions";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edit|$1 edits}}";
 "diff-single-header-editor-title" = "Editor information";

@@ -19,13 +19,6 @@ class DiffHeaderEditorView: UIView {
         commonInit()
     }
     
-    private func commonInit() {
-        Bundle.main.loadNibNamed(DiffHeaderEditorView.wmf_nibName(), owner: self, options: nil)
-            addSubview(contentView)
-            contentView.frame = self.bounds
-            contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    }
-    
     func update(_ viewModel: DiffHeaderEditorViewModel) {
         headingLabel.text = viewModel.heading
         usernameLabel.text = viewModel.username
@@ -34,6 +27,7 @@ class DiffHeaderEditorView: UIView {
         } else {
             userIconImageView.isHidden = true //TONITODO: get asset for this
         }
+        //tonitodo: tappable usericon and username label
         switch viewModel.state {
         case .loadedNumberOfEdits(let numberOfEdits):
             numberOfEditsLabel.text = String.localizedStringWithFormat(viewModel.numberOfEditsFormat, numberOfEdits)
@@ -41,5 +35,36 @@ class DiffHeaderEditorView: UIView {
         default:
             numberOfEditsLabel.isHidden =  true
         } //TONITODO: activity indicator and stuff
+        updateFonts(with: traitCollection)
+        
+        //theming
+        backgroundColor = viewModel.theme.colors.paperBackground
+        contentView.backgroundColor = viewModel.theme.colors.paperBackground
+        headingLabel.textColor = viewModel.theme.colors.secondaryText
+        usernameLabel.textColor = viewModel.theme.colors.link
+        userIconImageView.tintColor = viewModel.theme.colors.link
+        numberOfEditsLabel.textColor = viewModel.theme.colors.secondaryText
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts(with: traitCollection)
+    }
+}
+
+private extension DiffHeaderEditorView {
+    
+    func commonInit() {
+        Bundle.main.loadNibNamed(DiffHeaderEditorView.wmf_nibName(), owner: self, options: nil)
+            addSubview(contentView)
+            contentView.frame = self.bounds
+            contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    }
+    
+    func updateFonts(with traitCollection: UITraitCollection) {
+    
+        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldCallout, compatibleWithTraitCollection: traitCollection)
+        numberOfEditsLabel.font = UIFont.wmf_font(DynamicTextStyle.callout, compatibleWithTraitCollection: traitCollection)
     }
 }

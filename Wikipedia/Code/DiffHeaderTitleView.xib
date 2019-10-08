@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiffHeaderTitleView" customModule="Wikipedia">
             <connections>
                 <outlet property="contentView" destination="986-LW-TJg" id="Paq-hp-4wf"/>
-                <outlet property="headerLabel" destination="k4A-Rp-76R" id="mwn-vF-fb4"/>
+                <outlet property="headingLabel" destination="k4A-Rp-76R" id="8ko-xd-o83"/>
                 <outlet property="subtitleLabel" destination="hLV-Zy-Vf1" id="QcL-jr-BdW"/>
                 <outlet property="titleLabel" destination="Iei-Gy-V5M" id="2US-tE-5S1"/>
             </connections>
@@ -20,23 +21,23 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="271"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oys-rN-36t">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="271"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oys-rN-36t">
+                    <rect key="frame" x="15" y="9" width="384" height="237"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4A-Rp-76R">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iei-Gy-V5M">
-                            <rect key="frame" x="0.0" y="20.5" width="414" height="20.5"/>
+                            <rect key="frame" x="0.0" y="30.5" width="384" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLV-Zy-Vf1">
-                            <rect key="frame" x="0.0" y="41" width="414" height="230"/>
+                            <rect key="frame" x="0.0" y="61" width="384" height="176"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -44,12 +45,11 @@
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="oys-rN-36t" secondAttribute="bottom" id="3Sd-hd-ma8"/>
-                <constraint firstItem="oys-rN-36t" firstAttribute="top" secondItem="986-LW-TJg" secondAttribute="top" id="BOy-lf-XgY"/>
-                <constraint firstItem="oys-rN-36t" firstAttribute="leading" secondItem="986-LW-TJg" secondAttribute="leading" id="FaD-Ix-cj9"/>
-                <constraint firstAttribute="trailing" secondItem="oys-rN-36t" secondAttribute="trailing" id="KxM-Lh-xk2"/>
+                <constraint firstAttribute="bottom" secondItem="oys-rN-36t" secondAttribute="bottom" constant="25" id="3Sd-hd-ma8"/>
+                <constraint firstItem="oys-rN-36t" firstAttribute="top" secondItem="986-LW-TJg" secondAttribute="top" constant="9" id="BOy-lf-XgY"/>
+                <constraint firstItem="oys-rN-36t" firstAttribute="leading" secondItem="Ey6-xp-urG" secondAttribute="leading" constant="15" id="FaD-Ix-cj9"/>
+                <constraint firstItem="Ey6-xp-urG" firstAttribute="trailing" secondItem="oys-rN-36t" secondAttribute="trailing" constant="15" id="KxM-Lh-xk2"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

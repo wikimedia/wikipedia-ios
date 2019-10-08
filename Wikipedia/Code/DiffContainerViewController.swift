@@ -28,14 +28,14 @@ class DiffContainerViewController: ViewController {
     @objc static func stubCompareContainerViewController(theme: Theme) -> DiffContainerViewController {
         let revisionModel1 = StubRevisionModel(revisionId: 123, summary: "Summary 1", username: "fancypants", timestamp: Date(timeInterval: -(60*60*24*3), since: Date()))
         let revisionModel2 = StubRevisionModel(revisionId: 234, summary: "Summary 2", username: "funtimez2019", timestamp: Date(timeInterval: -(60*60*24*2), since: Date()))
-        let stubCompareVC = DiffContainerViewController(type: .compare(articleTitle: "Dog", numIntermediateRevisions: 5, numIntermediateEditors: 2, scrollYOffset: 0, beginSquishYOffset: 0), fromModel: revisionModel1, toModel: revisionModel2, theme: theme)
+        let stubCompareVC = DiffContainerViewController(type: .compare(articleTitle: "Dog", numberOfIntermediateRevisions: 1, numberOfIntermediateUsers: 1), fromModel: revisionModel1, toModel: revisionModel2, theme: theme)
         return stubCompareVC
     }
     
     @objc static func stubSingleContainerViewController(theme: Theme) -> DiffContainerViewController {
         let revisionModel1 = StubRevisionModel(revisionId: 123, summary: "Summary 1", username: "fancypants", timestamp: Date(timeInterval: -(60*60*24*3), since: Date()))
         let revisionModel2 = StubRevisionModel(revisionId: 234, summary: "Summary 2", username: "funtimez2019", timestamp: Date(timeInterval: -(60*60*24*2), since: Date()))
-        let stubSingleVC = DiffContainerViewController(type: .single(byteDifference: 6), fromModel: revisionModel1, toModel: revisionModel2, theme: theme)
+        let stubSingleVC = DiffContainerViewController(type: .single(byteDifference: -6), fromModel: revisionModel1, toModel: revisionModel2, theme: theme)
         return stubSingleVC
     }
     
@@ -60,7 +60,6 @@ class DiffContainerViewController: ViewController {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
-        apply(theme: theme)
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,14 +69,13 @@ class DiffContainerViewController: ViewController {
             return
         }
         
-        switch containerViewModel.type {
-        case .compare(_, _, _, _, let existingSquishYOffset):
-            
-            let newBeginSquishYOffset = headerTitleView.frame.height
-            if existingSquishYOffset != newBeginSquishYOffset {
-                containerViewModel = generateNewContainerModel(changeScrollYOffset: nil, beginSquishYOffset: newBeginSquishYOffset, changeListViewModel: nil)
+        let newBeginSquishYOffset = headerTitleView.frame.height
+        switch containerViewModel.headerViewModel.type {
+        case .compare(let compareViewModel):
+            if compareViewModel.beginSquishYOffset != newBeginSquishYOffset {
+                compareViewModel.beginSquishYOffset = newBeginSquishYOffset
+                headerExtendedView?.update(containerViewModel.headerViewModel)
             }
-            
         default:
             break
         }
@@ -96,7 +94,7 @@ class DiffContainerViewController: ViewController {
         
         //let changeCompareViewModel = DiffListChangeViewModel(type: .compareRevision("Line 1"), items: [item1])
         //let changeSingleViewModel = DiffListChangeViewModel(type: .singleRevison("Pirates"), items: [item1])
-        let contextViewModel = DiffListContextViewModel(lines: "Line 1-2", isExpanded: false, items: ["Testing here now", ""])
+        let contextViewModel = DiffListContextViewModel(lines: "Line 1-2", isExpanded: false, items: ["Testing here now", ""], theme: theme)
         
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: [contextViewModel, contextViewModel, contextViewModel, contextViewModel, contextViewModel, contextViewModel, contextViewModel, contextViewModel])
     }
@@ -113,7 +111,11 @@ class DiffContainerViewController: ViewController {
         }
         
         super.apply(theme: theme)
-        view.backgroundColor = theme.colors.paperBackground
+
+        if containerViewModel.theme != theme {
+            containerViewModel.theme = theme
+            update(containerViewModel)
+        }
     }
     
 }
@@ -121,7 +123,7 @@ class DiffContainerViewController: ViewController {
 private extension DiffContainerViewController {
     func update(_ containerViewModel: DiffContainerViewModel) {
         
-        navigationBar.title = containerViewModel.title
+        navigationBar.title = containerViewModel.navBarTitle
         if let listViewModel = containerViewModel.listViewModel {
             setupDiffListViewControllerIfNeeded()
             diffListViewController?.update(listViewModel)
@@ -131,12 +133,15 @@ private extension DiffContainerViewController {
         }
         
         setupHeaderViewIfNeeded()
-        headerTitleView?.update(containerViewModel.headerViewModel)
+        headerTitleView?.update(containerViewModel.headerViewModel.title)
         headerExtendedView?.update(containerViewModel.headerViewModel)
         navigationBar.isExtendedViewHidingEnabled = containerViewModel.headerViewModel.isExtendedViewHidingEnabled
         view.setNeedsLayout()
         view.layoutIfNeeded()
         updateScrollViewInsets()
+        
+        //theming
+        view.backgroundColor = containerViewModel.theme.colors.paperBackground
     }
     
     func setupHeaderViewIfNeeded() {
@@ -148,6 +153,7 @@ private extension DiffContainerViewController {
             navigationBar.allowsUnderbarHitsFallThrough = true
             navigationBar.addUnderNavigationBarView(headerTitleView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+            navigationBar.isShadowBelowUnderBarView = true
             
             self.headerTitleView = headerTitleView
         }
@@ -181,78 +187,24 @@ extension DiffContainerViewController: DiffListDelegate {
         self.scrollViewDidScroll(scrollView)
         
         switch containerViewModel.headerViewModel.type {
-        case .compareRevision:
+        case .compare(let compareViewModel):
             let newScrollYOffset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-            containerViewModel = generateNewContainerModel(changeScrollYOffset: newScrollYOffset, beginSquishYOffset: nil, changeListViewModel: nil)
+            if compareViewModel.scrollYOffset != newScrollYOffset {
+                compareViewModel.scrollYOffset = newScrollYOffset
+                headerExtendedView?.update(containerViewModel.headerViewModel)
+            }
         default:
             break
         }
     }
     
     func diffListDidTapIndexPath(_ indexPath: IndexPath) {
-        if var listViewModel = containerViewModel.listViewModel,
+        if let listViewModel = containerViewModel.listViewModel,
         listViewModel.count > indexPath.item,
-            let contextViewModel = listViewModel[indexPath.item] as? DiffListContextViewModel {
-            let newModel = DiffListContextViewModel(lines: contextViewModel.lines, isExpanded: !contextViewModel.isExpanded, items: contextViewModel.items)
-            listViewModel[indexPath.item] = newModel
-            containerViewModel = generateNewContainerModel(changeScrollYOffset: nil, beginSquishYOffset: nil, changeListViewModel: listViewModel)
+        let contextViewModel = listViewModel[indexPath.item] as? DiffListContextViewModel {
+            
+            contextViewModel.isExpanded.toggle()
+            diffListViewController?.update(listViewModel)
         }
-    }
-}
-
-private extension DiffContainerViewController {
-    func generateNewContainerModel(changeScrollYOffset: CGFloat?, beginSquishYOffset: CGFloat?, changeListViewModel: [DiffListGroupViewModel]?) -> DiffContainerViewModel {
-        
-        guard changeScrollYOffset != nil ||
-            changeListViewModel != nil ||
-            beginSquishYOffset != nil else {
-                //change nothing, return current
-                return containerViewModel
-        }
-        
-        let newListViewModel: [DiffListGroupViewModel]?
-        if let changeListViewModel = changeListViewModel {
-            newListViewModel = changeListViewModel
-        } else {
-            newListViewModel = containerViewModel.listViewModel
-        }
-        
-        switch containerViewModel.headerViewModel.type {
-        case .compareRevision(let existingModel):
-            
-            let newScrollYOffset: CGFloat
-            if let changeScrollYOffset = changeScrollYOffset {
-                newScrollYOffset = changeScrollYOffset
-            } else {
-                newScrollYOffset = existingModel.scrollYOffset
-            }
-            
-            let newBeginSquishYOffset: CGFloat
-            if let beginSquishYOffset = beginSquishYOffset {
-                newBeginSquishYOffset = beginSquishYOffset
-            } else {
-                newBeginSquishYOffset = existingModel.beginSquishYOffset
-            }
-            
-            switch type {
-            case .compare(let existingArticleTitle, let existingNumIntermediateRevisions, let existingNumIntermediateEditors, _, _):
-                
-                //reset view model
-                return DiffContainerViewModel(type: .compare(articleTitle: existingArticleTitle, numIntermediateRevisions: existingNumIntermediateRevisions, numIntermediateEditors: existingNumIntermediateEditors, scrollYOffset: newScrollYOffset, beginSquishYOffset: newBeginSquishYOffset), fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: newListViewModel)
-            default:
-                break
-            }
-            
-            
-
-        case .singleRevision:
-            switch type {
-            case .single(let existingByteDifference):
-                return DiffContainerViewModel(type: .single(byteDifference: existingByteDifference), fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: newListViewModel)
-                default: break
-            }
-        }
-        
-        return self.containerViewModel
     }
 }
