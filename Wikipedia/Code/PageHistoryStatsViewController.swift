@@ -54,6 +54,12 @@ class PageHistoryStatsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func setViewHidden(_ element: UIView, hidden: Bool) {
+        UIView.animate(withDuration: 0.2) {
+            element.alpha = hidden ? 0 : 1
+        }
+    }
+
     private func setSparklineViewHidden(_ hidden: Bool) {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.2) {
@@ -64,10 +70,11 @@ class PageHistoryStatsViewController: UIViewController {
             self.view.setNeedsLayout()
         }
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        statsLabel.isHidden = true
         setSparklineViewHidden(false)
+        setViewHidden(statsLabel, hidden: true)
 
         titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view").uppercased(with: locale)
         pageTitleLabel.text = pageTitle
