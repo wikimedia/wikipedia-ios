@@ -9,7 +9,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         var params: [String: AnyObject] = [
             "action": "query" as AnyObject,
             "prop": "revisions" as AnyObject,
-            "rvprop": "ids|timestamp|user|size|parsedcomment" as AnyObject,
+            "rvprop": "ids|timestamp|user|size|parsedcomment|flags" as AnyObject,
             "rvlimit": 51 as AnyObject,
             "rvdir": "older" as AnyObject,
             "titles": requestParams.title as AnyObject,
