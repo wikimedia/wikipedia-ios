@@ -456,6 +456,7 @@
 "languages-wikipedia" = "Vikipedi dilleri";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
+"link-loading-title" = "Sayfa yükleniyor...";
 "logged-out-continue-without-logging-in-button-title" = "Giriş yapmadan devam et";
 "logged-out-log-back-in-button-title" = "Hesabınıza tekrar giriş yapın";
 "logged-out-subtitle" = "Hesabınızı doğrulamada bir sorun oluştu. Okuma listelerinizi senkronize etmek ve kullanıcı adınızla düzenleme yapmak için lütfen tekrar giriş yapın.";
@@ -742,10 +743,8 @@
 "talk-page-add-discussion-accessibility-label" = "Tartışma ekle";
 "talk-page-discussion-accessibility-hint" = "Tartışma başlığını açmak için iki kez hafifçe vurun";
 "talk-page-discussion-read-accessibility-label" = "Oku";
-// Fuzzy
 "talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Okunmamış";
-// Fuzzy
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
 "talk-page-error-unable-to-post-reply" = "İnternet bağlantısı yok. Cevap gönderilemiyor.";
 "talk-page-error-unable-to-post-topic" = "İnternet bağlantısı yok. Tartışma gönderilemiyor.";
@@ -775,6 +774,8 @@
 "theme-black-display-name" = "Siyah";
 "theme-dark-display-name" = "Koyu";
 "theme-default-display-name" = "Varsayılan";
+"theme-default-explanation" = "Maçlar sistem teması";
+"theme-light-display-name" = "Açık";
 "theme-sepia-display-name" = "Sepya";
 "top-read-header-generic" = "Vikipedi";
 "top-read-header-with-language" = "$1 Vikipedi";

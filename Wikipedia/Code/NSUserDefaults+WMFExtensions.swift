@@ -143,8 +143,8 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     func theme(compatibleWith traitCollection: UITraitCollection) -> Theme {
         let name = string(forKey: WMFAppThemeName)
         guard name != nil, name != Theme.defaultThemeName else {
-            if #available(iOSApplicationExtension 12.0, *) {
-                return traitCollection.userInterfaceStyle == .light ? .light : Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled)
+            if #available(iOSApplicationExtension 13.0, *) {
+                return traitCollection.userInterfaceStyle == .dark ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
             } else {
                 return .light
             }

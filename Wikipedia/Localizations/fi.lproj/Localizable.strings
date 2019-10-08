@@ -182,6 +182,7 @@
 "edit-italic-accessibility-label" = "Lisää kursivoitu muotoilu";
 "edit-italic-remove-accessibility-label" = "Poista kursivoitu muotoilu";
 "edit-link-accessibility-label" = "Lisää linkkisyntaksi";
+"edit-link-display-text-title" = "Näytä teksti";
 "edit-link-link-target-title" = "Linkin kohde";
 "edit-link-remove-accessibility-label" = "Poista linkkisyntaksi";
 "edit-link-remove-link-title" = "Poista linkki";
@@ -390,11 +391,13 @@
 "insert-media-image-type-settings-title" = "Kuvan tyyppi";
 "insert-media-media-settings-title" = "Media-asetukset";
 "insert-media-title" = "Lisää media";
+"insert-media-uploaded-image-title" = "Tallennettu kuva";
 "languages-settings-title" = "Kielet";
 "languages-title" = "Kielenvaihto";
 "languages-wikipedia" = "Wikipedian kielet";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
+"link-loading-title" = "Ladataan sivua...";
 "logged-out-continue-without-logging-in-button-title" = "Jatka kirjautumatta";
 "logged-out-log-back-in-button-title" = "Kirjaudu takaisin tunnuksellesi";
 "logged-out-title" = "Olet kirjautunut ulos";
@@ -679,6 +682,8 @@
 "talk-page-link-user-action-sheet-safari" = "Näytä käyttäjäsivu Safarissa";
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-banner-subtitle" = "Muista, me kaikki olemme ihmisiä täällä";
+"talk-page-new-reply-body-accessibility-label" = "Kirjoita vastaus";
+"talk-page-new-reply-body-placeholder-text" = "Kirjoita vastaus";
 "talk-page-new-subject-placeholder-text" = "Aihe";
 "talk-page-new-subject-textfield-accessibility-label" = "Aihe";
 "talk-page-new-topic-title" = "Uusi keskustelu";
@@ -689,6 +694,7 @@
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";
+"theme-light-display-name" = "Vaalea";
 "theme-sepia-display-name" = "Seepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

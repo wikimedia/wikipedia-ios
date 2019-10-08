@@ -87,8 +87,21 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
         if displayType == .backVisible {
-            if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.firstIndex(of: vc), index > 0 {
-                items.append(nc.viewControllers[index - 1].navigationItem)
+            
+            if let vc = delegate, let nc = vc.navigationController {
+                
+                var indexToAppend: Int = 0
+                if let index = nc.viewControllers.firstIndex(of: vc), index > 0 {
+                    indexToAppend = index
+                } else if let parentVC = vc.parent,
+                    let index = nc.viewControllers.firstIndex(of: parentVC),
+                    index > 0 {
+                    indexToAppend = index
+                }
+                
+                if indexToAppend > 0 {
+                    items.append(nc.viewControllers[indexToAppend].navigationItem)
+                }
             }
         }
         
@@ -356,6 +369,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc dynamic public var visibleHeight: CGFloat = 0
+    @objc dynamic public var insetTop: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
     public var shadowAlpha: CGFloat {
@@ -539,6 +553,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
+    
+        // HAX: something odd going on with iOS 11...
+        insetTop = backgroundView.frame.origin.y
+        if #available(iOS 12, *) {
+            insetTop = visibleHeight
+        }
     }
     
     

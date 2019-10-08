@@ -27,8 +27,6 @@
 #import "WMFDailyStatsLoggingFunnel.h"
 
 #import "UIViewController+WMFOpenExternalUrl.h"
-
-#import "WMFSearchButton.h"
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
@@ -1225,9 +1223,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return YES;
     }
     self.unprocessedUserActivity = nil;
-    [self dismissPresentedViewControllers];
 
     WMFUserActivityType type = [activity wmf_type];
+    
+    if (type != WMFUserActivityTypeSearch) {
+        [self dismissPresentedViewControllers];
+    }
+    
     switch (type) {
         case WMFUserActivityTypeExplore:
             [self setSelectedIndex:WMFAppTabTypeMain];
@@ -1305,9 +1307,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                             if (summary.namespace.number.integerValue == PageNamespaceUserTalk) {
                                                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                                                     NSURL *url = [NSURL wmf_desktopURLForURL:URL];
-                                                                                                    WMFTalkPageContainerViewController *talkPageContainer = [WMFTalkPageContainerViewController userTalkPageContainerWithURL:url dataStore:self.dataStore];
-                                                                                                    [talkPageContainer applyTheme:self.theme];
-                                                                                                    [self wmf_pushViewController:talkPageContainer animated:YES];
+                                                                                                    LoadingFlowController *loadingFlowController = [WMFTalkPageContainerViewController containedUserTalkPageContainerWithURL:url dataStore:self.dataStore theme:self.theme];
+                                                                                                    [self wmf_pushViewController:loadingFlowController animated:YES];
                                                                                                     [self.dataStore.historyList addPageToHistoryWithURL:url];
                                                                                                     done();
                                                                                                 });
@@ -1346,6 +1347,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             break;
     }
     done();
+    [NSUserActivity wmf_makeActivityActive:activity];
     return YES;
 }
 
@@ -1677,13 +1679,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
-    if ([viewController conformsToProtocol:@protocol(WMFSearchButtonProviding)] && viewController.navigationItem.rightBarButtonItem == nil) {
-        WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearchInCurrentNavigationController)];
-        viewController.navigationItem.rightBarButtonItem = searchButton;
-        if ([viewController isKindOfClass:[ExploreViewController class]]) {
-            viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
-        }
-    }
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
@@ -1939,18 +1934,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)updateUserInterfaceStyleOfViewControllerForCurrentTheme:(UIViewController *)viewController {
     if (@available(iOS 13.0, *)) {
         NSString *themeName = [NSUserDefaults.wmf themeName];
-        if ([themeName isEqualToString:WMFTheme.defaultThemeName]) {
+        if ([WMFTheme isDefaultThemeName:themeName]) {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-        } else if ([themeName isEqualToString:WMFTheme.light.name] || [themeName isEqualToString:WMFTheme.sepia.name]) {
-            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        } else {
+        } else if ([WMFTheme isDarkThemeName:themeName]) {
             viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        } else {
+            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
         }
     }
 }
 
 - (void)debounceTraitCollectionThemeUpdate {
-    if (@available(iOS 12.0, *)) {
+    if (@available(iOS 13.0, *)) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
         [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
     }
@@ -2020,7 +2015,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self dismissReadingThemesPopoverIfActive];
 
-    UINavigationController *nc = (UINavigationController *)self.navigationController;
+    UINavigationController *nc = self.presentedViewController == self.settingsNavigationController ? self.settingsNavigationController : self.navigationController;
     if (!nc) {
         return;
     }

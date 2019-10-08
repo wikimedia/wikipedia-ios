@@ -57,6 +57,7 @@
 "action-add-to-reading-list-short" = "စာရင်းသို့ ပေါင်းထည့်ရန်";
 "action-cancel" = "မလုပ်တော့ပါ";
 "action-find-in-page" = "စာမျက်နှာတွင် ရှာဖွေရန်";
+"action-language-accessibility" = "ဘာသာစကား ပြောင်းလဲရန်";
 "action-move-to" = "ရွှေ့ပြောင်းရန်...";
 "action-move-to-reading-list" = "စာဖတ်စာရင်းသို့ ရွေ့ပြောင်းရန်";
 "action-read" = "ဖတ်ရန်";
@@ -147,6 +148,10 @@
 "description-welcome-promise-title" = "စတင်ခြင်းဖြင့် ဤသွင်ပြင်လက္ခဏာကို အလွဲသုံးစားမလုပ်ပါကြောင်း ကတိပြုပါသည်";
 "description-welcome-start-editing-button" = "စတင် တည်းဖြတ်ခြင်း";
 "dim-images" = "ရုပ်ပုံများကို မှိန်ထားရန်";
+"edit-direction-down-accessibility-label" = "ကာဆာကို အောက်သို့ရွေ့ရန်";
+"edit-direction-left-accessibility-label" = "ကာဆာကို ဘယ်သို့ရွေ့ရန်";
+"edit-direction-right-accessibility-label" = "ကာဆာကို ညာသို့ရွေ့ရန်";
+"edit-direction-up-accessibility-label" = "ကာဆာကို အပေါ်သို့ရွေ့ရန်";
 "edit-link-display-text-title" = "ပြသ စာသား";
 "edit-link-remove-link-title" = "လင့်ခ် ဖယ်ရှားရန်";
 "edit-link-title" = "လင့်ခ်ကို တည်းဖြတ်ရန်";
@@ -155,6 +160,7 @@
 "edit-minor-text" = "အရေးမကြီးသော ​ပြင်​ဆင်​မှု ​ဖြစ်​သည်​";
 "edit-published" = "တည်းဖြတ်မှု လွှင့်တင်ပြီး";
 "edit-published-subtitle" = "သင်သည် လူတိုင်းအတွက် ဝီကီပီးဒီးယားကို ပိုမိုကောင်းမွန်အောင် လုပ်ဆောင်ခဲ့သည်";
+"edit-summary-add-summary-text" = "တည်းဖြတ်မှု အကျဉ်းချုပ်တစ်ခု ထည့်ပေါင်းရန်";
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
 "edit-summary-choice-fixed-typos" = "စာလုံးပေါင်း ပြင်ခဲ့သည်";
 "edit-summary-choice-linked-words" = "လင့်ခ်များပေါင်းထည့်ခဲ့သည်";
@@ -544,15 +550,20 @@
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";
 "table-of-contents-heading" = "မာတိကာ";
 "table-title-other" = "နောက်ထပ် အချက်အလက်များ";
+"talk-page-add-discussion-accessibility-label" = "ဆွေးနွေးချက် ပေါင်းထည့်ရန်";
+"talk-page-discussion-read-accessibility-label" = "ဖတ်ရန်";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "ဖတ်ပြီး";
+"talk-page-discussion-unread-accessibility-label" = "မဖတ်ရသေး";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "မဖတ်ရသေး";
 "talk-page-error-unable-to-post-reply" = "အင်တာနက်ကွန်နက်ရှင် မရှိပါ။ အကြောင်းမပြန်နိုင်ပါ။";
-// Fuzzy
-"talk-page-error-unable-to-post-topic" = "အင်တာနက်ကွန်နက်ရှင် မရှိပါ။ အကြောင်းအရာ မတင်နိုင်ပါ။";
+"talk-page-error-unable-to-post-topic" = "အင်တာနက်ကွန်နက်ရှင် မရှိပါ။ ဆွေးနွေးချက် မတင်နိုင်ပါ။";
 "talk-page-link-user-action-sheet-safari" = "အသုံးပြုသူစာမျက်နှာကို ဆာဖာရီတွင်ကြည့်ရန်";
 "talk-page-link-user-action-sheet-title" = "အသုံးပြုသူ စာမျက်နှာများ";
 "talk-page-new-banner-subtitle" = "မိမိတို့အားလုံးသည် လူသားများဖြစ်ကြသည်ကို သတိရပါ";
 "talk-page-new-banner-title" = "ကျေးဇူးပြု၍ ကြင်နာပါ";
 "talk-page-new-reply-success-text" = "သင်၏အကြောင်းပြန်စာကို အောင်မြင်စွာလွှင့်တင်ခဲ့သည်";
 "talk-page-new-subject-placeholder-text" = "အကြောင်းအရာ";
+"talk-page-new-subject-textfield-accessibility-label" = "အကြောင်းအရာ";
 "talk-page-new-topic-success-text" = "သင်၏ဆွေးနွေးချက်ကို အောင်မြင်စွာလွှင့်တင်ခဲ့သည်";
 "talk-page-new-topic-title" = "ဆွေးနွေးချက် အသစ်";
 "talk-page-reply-title" = "အကြောင်းပြန်ရန်";

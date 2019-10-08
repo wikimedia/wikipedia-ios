@@ -284,8 +284,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     fileprivate func getCaptcha() {
         let captchaFailure: WMFErrorHandler = {error in
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            self.funnel?.logError(error.localizedDescription)
+            DispatchQueue.main.async {
+                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.funnel?.logError(error.localizedDescription)
+            }
         }
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in

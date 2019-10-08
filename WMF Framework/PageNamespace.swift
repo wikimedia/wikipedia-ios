@@ -8,6 +8,7 @@
     case projectTalk
     case file
     case fileTalk
+    case unknown = -1
 }
 
 extension PageNamespace {

@@ -92,9 +92,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     }
 
     func pushUserTalkPage(title: String, siteURL: URL) {
-        let talkPageContainer = TalkPageContainerViewController.userTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore)
-        talkPageContainer.apply(theme: theme)
-        wmf_push(talkPageContainer, animated: true)
+        let loadingFlowController = TalkPageContainerViewController.containedTalkPageContainer(title: title, siteURL: siteURL, dataStore: dataStore, type: .user, theme: theme)
+        wmf_push(loadingFlowController, animated: true)
         return
     }
     
@@ -219,7 +218,12 @@ extension ArticleCollectionViewController {
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        wmf_push(viewControllerToCommit, animated: true)
+        
+        if let articleViewController = viewControllerToCommit as? WMFArticleViewController {
+            wmf_push(articleViewController, animated: true)
+        } else {
+            wmf_push(viewControllerToCommit, animated: true)
+        }
     }
 }
 

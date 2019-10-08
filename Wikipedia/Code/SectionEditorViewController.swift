@@ -647,7 +647,7 @@ extension SectionEditorViewController: SectionEditorInputViewsControllerDelegate
         let insertMediaViewController = InsertMediaViewController(articleTitle: section?.article?.displaytitle?.wmf_stringByRemovingHTML(), siteURL: section?.article?.url.wmf_site)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
-        let navigationController = UINavigationController(rootViewController: insertMediaViewController)
+        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
         navigationController.isNavigationBarHidden = true
         present(navigationController, animated: true)
     }

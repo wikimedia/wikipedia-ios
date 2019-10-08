@@ -14,6 +14,10 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 
 @implementation NSUserActivity (WMFExtensions)
 
++ (void)wmf_navigateToActivity:(NSUserActivity *)activity {
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:activity];
+}
+
 + (void)wmf_makeActivityActive:(NSUserActivity *)activity {
     static NSUserActivity *_current = nil;
 

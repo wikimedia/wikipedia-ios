@@ -271,6 +271,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
         
         view.backgroundColor = theme.colors.paperBackground
         beKindInputAccessoryView.apply(theme: theme)
+        headerView?.apply(theme: theme)
     }
 }
 
@@ -403,12 +404,16 @@ private extension TalkPageReplyListViewController {
     }
 }
 
+//MARK: TalkPageReplyCellDelegate
+
 extension TalkPageReplyListViewController: TalkPageReplyCellDelegate {
     func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?) {
         
         delegate?.tappedLink(url, viewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
 }
+
+//MARK: ReplyButtonFooterViewDelegate
 
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
     func composeTextDidChange(text: String?) {
@@ -437,4 +442,9 @@ extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
     func tappedIntro(headerView: TalkPageHeaderView) {
         assertionFailure("Should not be able to tap intro text view from replies screen")
     }
+}
+
+//MARK: FakeProgressLoading
+
+extension TalkPageReplyListViewController: FakeProgressLoading {
 }

@@ -194,6 +194,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
         guard viewIfLoaded != nil else {
             return
         }
+        view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
     }

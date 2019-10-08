@@ -23,8 +23,8 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         case .inline:
             if let section = item as? MWKSection {
                 self.currentSection = section
-                self.sectionToRestoreScrollOffset = section
-                self.webViewController.scroll(to: section, animated: true)
+                self.anchorToRestoreScrollOffset = section.anchor
+                self.scroll(toAnchor: section.anchor, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursor(to: section)
                 }
@@ -39,7 +39,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             if let section = item as? MWKSection {
                 self.currentSection = section
                 // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
-                self.webViewController.scroll(to: section, animated: true)
+                self.scroll(toAnchor: section.anchor, animated: true)
                 dismissVCCompletionHandler = {
                     // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
                     dispatchOnMainQueueAfterDelayInSeconds(1) {
@@ -60,9 +60,9 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
     private func scrollToFooterSection(for item: TableOfContentsItem) {
         switch item {
         case is TableOfContentsAboutThisArticleItem:
-            self.webViewController.scroll(toFragment: "pagelib_footer_container_menu", animated: true)
+            self.scroll(toAnchor: "pagelib_footer_container_menu", animated: true)
         case is TableOfContentsReadMoreItem:
-            self.webViewController.scroll(toFragment: "pagelib_footer_container_readmore", animated: true)
+            self.scroll(toAnchor: "pagelib_footer_container_readmore", animated: true)
         default:
             assertionFailure("Unsupported selection of TOC item \(item)")
             break

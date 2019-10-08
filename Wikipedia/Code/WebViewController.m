@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @property (nonatomic, getter=isAfterFirstUserScrollInteraction) BOOL afterFirstUserScrollInteraction;
 
+@property (nonatomic, assign) BOOL indexHTMLDocumentLoadedFired;
+
 @property (nonatomic, strong) NSMutableArray<dispatch_block_t> *scrollViewAnimationCompletions; // called on scrollViewDidEndScrollingAnimation
 
 @end
@@ -230,7 +232,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
-                                                   [self scrollToFragment:[href substringFromIndex:1]];
+                                                   [self scrollToAnchor:[href substringFromIndex:1] animated:YES completion:NULL];
                                                } else {
                                                    if ([href hasPrefix:@"//"]) {
                                                        // Expand protocol-relative link to https -- secure by default!
@@ -319,6 +321,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
         self.afterFirstUserScrollInteraction = NO;
+        self.indexHTMLDocumentLoadedFired = YES;
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
         BOOL collapseTables = ![[NSUserDefaults wmf] wmf_isAutomaticTableOpeningEnabled];
@@ -714,6 +717,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (interactivePopGR) {
         [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:interactivePopGR];
     }
+
+    //catches state restoration bug where web view never loads if article is deeper in the stack
+    if (!self.indexHTMLDocumentLoadedFired && self.article && self.articleURL) {
+        [self setArticle:self.article articleURL:self.articleURL];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -785,20 +793,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 #pragma mark - Scrolling
 
-- (void)scrollToFragment:(NSString *)fragment {
-    [self scrollToFragment:fragment animated:YES completion:NULL];
-}
-
-- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
-    if (fragment.length == 0) {
+- (void)scrollToAnchor:(nullable NSString *)anchor animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
+    if (anchor.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
         if (completion) {
             completion();
         }
+        [self.delegate webViewController:self didScrollToAnchor:anchor];
     } else {
-        [self.webView getScrollViewRectForHtmlElementWithId:fragment
+        [self.webView getScrollViewRectForHtmlElementWithId:anchor
                                                  completion:^(CGRect rect) {
+                                                     WMFAssertMainThread(@"Callback expected on the main thread");
                                                      if (!CGRectIsNull(rect)) {
                                                          [self scrollToOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self.webView iOS12yOffsetHack] + self.delegate.navigationBar.hiddenHeight)
                                                                      animated:animated
@@ -806,17 +812,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                                        if (completion) {
                                                                            completion();
                                                                        }
+                                                                        [self.delegate webViewController:self didScrollToAnchor:anchor];
                                                                    }];
                                                      } else if (completion) {
                                                          completion();
                                                      }
                                                  }];
     }
-}
-
-- (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
-    [self scrollToFragment:section.anchor animated:animated completion:NULL];
-    [self.delegate webViewController:self didScrollToSection:section];
 }
 
 - (void)accessibilityCursorToSection:(MWKSection *)section {
@@ -828,6 +830,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                    count:self.article.sections.count
+                                                insetTop:self.delegate.navigationBar.insetTop
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
@@ -841,6 +844,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"pagelib_footer_container_section_"
                                                    count:2
+                                                insetTop:self.delegate.navigationBar.insetTop
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
                                                       completion(nil, error);
@@ -926,7 +930,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
                                            NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
                                            if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
-                                               [self scrollToFragment:URL.fragment];
+                                               [self scrollToAnchor:URL.fragment animated:YES completion:NULL];
                                            } else if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
 #pragma warning Assuming that the url is on the same language wiki - what about other wikis ?
                                                [self.delegate webViewController:self
