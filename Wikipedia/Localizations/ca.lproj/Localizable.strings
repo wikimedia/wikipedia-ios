@@ -441,6 +441,7 @@
 "languages-wikipedia" = "Llengües de la Viquipèdia";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Contingut disponible sota $1 a menys que s'indiqui el contrari.";
+"link-loading-title" = "S’està carregant la pàgina…";
 "logged-out-continue-without-logging-in-button-title" = "Continua sense iniciar una sessió";
 "logged-out-log-back-in-button-title" = "Torna a iniciar la sessió amb el vostre compte";
 "logged-out-subtitle" = "S'ha produït un problema en autenticar el vostre compte. Per tal de sincronitzar les vostres llistes de lectura i editar amb el vostre nom d'usuari, torneu a iniciar una sessió.";

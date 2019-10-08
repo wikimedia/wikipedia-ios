@@ -443,6 +443,7 @@
 "languages-wikipedia" = "Мови Вікіпедії";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
+"link-loading-title" = "Завантаження сторінки…";
 "logged-out-continue-without-logging-in-button-title" = "Продовжити без входу";
 "logged-out-log-back-in-button-title" = "Назад до входу з обліковим записом";
 "logged-out-subtitle" = "Відбулася помилка при автентифікації вашого облікового запису. Вам потрібно повторно увійти, аби можна було узгодити читальні списки та редагувати під вашим ім'ям користувача.";
