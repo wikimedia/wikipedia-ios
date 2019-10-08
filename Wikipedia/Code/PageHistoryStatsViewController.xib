@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,33 +25,44 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCN-kR-Ul8" userLabel="Title + Main Stats View">
-                    <rect key="frame" x="0.0" y="20" width="413" height="115"/>
+                    <rect key="frame" x="0.0" y="20" width="413" height="160"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mdn-Xi-5HV" userLabel="Title + Main Stats Stack View">
-                            <rect key="frame" x="15" y="0.0" width="149.5" height="90"/>
+                            <rect key="frame" x="15" y="0.0" width="193" height="135"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="REVISION HISTORY" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X37-tk-I1W">
-                                    <rect key="frame" x="0.0" y="0.0" width="149.5" height="18"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="193" height="18"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Ching Shih" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmX-dP-uFU">
-                                    <rect key="frame" x="0.0" y="28" width="149.5" height="36"/>
+                                    <rect key="frame" x="0.0" y="28" width="193" height="41"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="625 edits by 369 editors" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gq-NM-ZzR">
-                                    <rect key="frame" x="0.0" y="74" width="149.5" height="16"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IG-iH-z9d">
+                                    <rect key="frame" x="0.0" y="79" width="193" height="56"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="625 edits by 369 editors" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gq-NM-ZzR">
+                                            <rect key="frame" x="0.0" y="8" width="193" height="48"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="5Gq-NM-ZzR" firstAttribute="leading" secondItem="6IG-iH-z9d" secondAttribute="leading" id="8BT-hz-NWi"/>
+                                        <constraint firstAttribute="trailing" secondItem="5Gq-NM-ZzR" secondAttribute="trailing" id="Urs-VW-4Tw"/>
+                                        <constraint firstItem="5Gq-NM-ZzR" firstAttribute="top" secondItem="6IG-iH-z9d" secondAttribute="top" constant="8" id="mGM-o5-brC"/>
+                                        <constraint firstAttribute="bottom" secondItem="5Gq-NM-ZzR" secondAttribute="bottom" id="mk9-Fp-bgf"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-5Q-AWf" userLabel="Sparkline View" customClass="WMFSparklineView" customModule="WMF">
-                            <rect key="frame" x="189.5" y="0.0" width="208.5" height="90"/>
+                            <rect key="frame" x="233" y="0.0" width="165" height="135"/>
                         </view>
                     </subviews>
                     <constraints>
@@ -67,13 +76,13 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REp-2g-3HJ" userLabel="Separator View">
-                    <rect key="frame" x="0.0" y="135" width="413" height="0.5"/>
+                    <rect key="frame" x="0.0" y="180" width="413" height="0.5"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="5kY-YE-izh"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7q-YP-Iub" userLabel="Detailed Stats Container View">
-                    <rect key="frame" x="0.0" y="135.5" width="413" height="248.5"/>
+                    <rect key="frame" x="0.0" y="180.5" width="413" height="203.5"/>
                 </view>
             </subviews>
             <constraints>
