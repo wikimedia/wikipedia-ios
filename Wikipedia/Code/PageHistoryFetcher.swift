@@ -4,8 +4,8 @@ import WMF
 
 public typealias PageStats = PageHistoryFetcher.PageStats
 
-open class PageHistoryFetcher: WMFLegacyFetcher {
-    @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
+public final class PageHistoryFetcher: WMFLegacyFetcher {
+    @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
         var params: [String: AnyObject] = [
             "action": "query" as AnyObject,
             "prop": "revisions" as AnyObject,
