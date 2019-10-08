@@ -430,6 +430,7 @@
 "languages-wikipedia" = "Јазици на Википедија";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
+"link-loading-title" = "Ја вчитувам страницата...";
 "logged-out-continue-without-logging-in-button-title" = "Продолжи без најава";
 "logged-out-log-back-in-button-title" = "Назад на најава со сметката";
 "logged-out-subtitle" = "Се јави проблем при заверката на вашата сметка. Ќе треба повторно да се најавите за може да се усогласат списоците за читање и да уредувате под вашето корисничко име.";

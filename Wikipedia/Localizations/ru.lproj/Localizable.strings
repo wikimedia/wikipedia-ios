@@ -20,6 +20,7 @@
 // Author: JoeWalshWMF
 // Author: Kaganer
 // Author: Kareyac
+// Author: Katunchik
 // Author: Kopcap94
 // Author: Macofe
 // Author: Mailman
@@ -466,6 +467,7 @@
 "languages-wikipedia" = "Языки Википедии";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Содержимое доступно по лицензии $1";
+"link-loading-title" = "Загрузка страницы…";
 "logged-out-continue-without-logging-in-button-title" = "Продолжить без входа";
 "logged-out-log-back-in-button-title" = "Войдите повторно в свою учётную запись";
 "logged-out-subtitle" = "Произошла ошибка при аутентификации вашей учётной записи. Вам нужно повторно войти, чтобы была возможность синхронизировать списки для чтения и редактировать под вашим именем участника.";
