@@ -113,6 +113,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
 
         if authorButton.titleLabel?.wmf_hasText ?? false {
+            if apply {
+                authorButton.setImage(authorImage, for: .normal)
+            }
             let authorButtonFrame = authorButton.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
             trailingPaneOrigin.y += authorButtonFrame.layoutHeight(with: spacing * 3)
             authorButton.isHidden = false
