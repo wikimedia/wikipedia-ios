@@ -98,7 +98,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
         if timeLabel.wmf_hasText {
             let timeLabelFrame = timeLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
-            leadingPaneOrigin.y += timeLabelFrame.layoutHeight(with: spacing)
+            leadingPaneOrigin.y += timeLabelFrame.layoutHeight(with: spacing * 2)
             timeLabel.isHidden = false
         } else {
             timeLabel.isHidden = true
