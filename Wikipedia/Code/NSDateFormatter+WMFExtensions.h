@@ -27,6 +27,8 @@
  */
 + (NSDateFormatter *)wmf_shortTimeFormatter;
 
++ (NSDateFormatter *)wmf_24hshortTimeFormatter;
+
 /**
  * Create an short-style time formatter with the given locale.
  * @warning This method is exposed for testing only, use @c +wmf_shortTimeFormatter instead.
