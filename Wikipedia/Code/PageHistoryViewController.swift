@@ -191,8 +191,16 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
+        let section = pageHistorySections[sectionIndex]
+        let sectionTitle: String?
+
+        if sectionIndex == 0, let date = section.items.first?.revisionDate {
+            sectionTitle = (date as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
+        } else {
+            sectionTitle = section.sectionTitle
+        }
         header.style = .pageHistory
-        header.title = pageHistorySections[sectionIndex].sectionTitle
+        header.title = sectionTitle
         header.titleTextColorKeyPath = \Theme.colors.secondaryText
         header.layoutMargins = .zero
         header.apply(theme: theme)
