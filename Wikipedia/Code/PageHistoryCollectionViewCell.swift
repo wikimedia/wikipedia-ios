@@ -31,7 +31,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     var authorImage: UIImage? {
         didSet {
-            authorButton.setImage(authorImage, for: .normal)
             setNeedsLayout()
         }
     }
