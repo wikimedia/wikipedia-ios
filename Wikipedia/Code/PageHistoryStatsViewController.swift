@@ -81,6 +81,7 @@ class PageHistoryStatsViewController: UIViewController {
 
         sparklineView.showsVerticalGridlines = true
 
+        detailedStatsViewController.delegate = self
         wmf_add(childController: detailedStatsViewController, andConstrainToEdgesOfContainerView: detailedStatsContainerView)
     }
 
@@ -94,6 +95,19 @@ class PageHistoryStatsViewController: UIViewController {
         statsLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
 
         isFirstLayoutPass = false
+    }
+}
+
+extension PageHistoryStatsViewController: PageHistoryDetailedStatsViewControllerDelegate {
+    func pageHistoryDetailedStatsViewControllerDidDetermineIfStatsAreAvailable(areStatsAvailable: Bool) {
+        if !areStatsAvailable {
+            detailedStatsContainerView.isHidden = true
+            UIView.animate(withDuration: 0.4) {
+                self.detailedStatsViewController.willMove(toParent: nil)
+                self.detailedStatsViewController.view.removeFromSuperview()
+                self.detailedStatsViewController.removeFromParent()
+            }
+        }
     }
 }
 
