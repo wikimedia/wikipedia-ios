@@ -112,7 +112,6 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         }
     }
 
-    public final func fetchPageStats(_ pageTitle: String, pageURL: URL, completion: @escaping (Result<PageStats, RequestError>) -> Void) {
     // MARK: Edit counts
 
     public enum EditCountType: String {
@@ -163,14 +162,64 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 completion(.success(editCountsGroupedByType))
             }
         }
-        session.jsonDecodableTask(with: apiURL) { (pageStats: PageStats?, _, _) in
-            guard let pageStats = pageStats else {
-                completion(.failure(.unexpectedResponse))
-                return
+    }
+
+    // MARK: Edit metrics
+
+    private struct EditMetrics: Decodable {
+        let items: [Item]?
+
+        struct Item: Decodable {
+            let results: [Result]?
+
+            struct Result: Decodable {
+                let edits: Int?
             }
-            completion(.success(pageStats))
         }
     }
+
+    public func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], RequestError>) -> Void ) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard
+                let title = pageTitle.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+                let project = pageURL.wmf_site?.host,
+                let yearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date()),
+                let from = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: yearAgo),
+                let to = DateFormatter.wmf_englishUTCNonDelimitedYearMonthDay()?.string(from: Date())
+            else {
+                completion(.failure(.invalidParameters))
+                return
+            }
+//            let pathComponents = ["metrics", "edits", "per-page", project, title, "all-editor-types", "monthly", from, to]
+//            let components =  self.configuration.wikimediaMobileAppsServicesAPIURLComponents(appending: pathComponents)
+//            guard let url = components.url else {
+//                completion(.failure(.invalidParameters))
+//                return
+//            }
+            let url = URL(string: "https://wikimedia.org/api/rest_v1/metrics/edits/per-page/\(project)/\(title)/all-editor-types/monthly/\(from)/\(to)")!
+            self.session.jsonDecodableTask(with: url) { (editMetrics: EditMetrics?, response: URLResponse?, error: Error?) in
+                // TODO: Handle errors, page younger than 1
+                var allEdits = [NSNumber]()
+                defer {
+                    completion(.success(allEdits))
+                }
+                guard
+                    let items = editMetrics?.items,
+                    let firstItem = items.first,
+                    let results = firstItem.results
+                else {
+                    return
+                }
+                for case let result in results {
+                    guard let edits = result.edits else {
+                        continue
+                    }
+                    allEdits.append(NSNumber(value: edits))
+                }
+            }
+        }
+    }
+
 }
 
 private typealias RevisionsByDay = [Int: PageHistorySection]
