@@ -44,7 +44,12 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     var comment: String? {
         didSet {
-            commentLabel.text = comment
+            setNeedsLayout()
+        }
+    }
+
+    var isMinor: Bool = false {
+        didSet {
             setNeedsLayout()
         }
     }
