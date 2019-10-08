@@ -2,7 +2,7 @@ import Foundation
 import Mantle
 import WMF
 
-public typealias PageStats = PageHistoryFetcher.PageStats
+public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: Int?]
 
 public final class PageHistoryFetcher: WMFLegacyFetcher {
     @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
@@ -123,17 +123,45 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         case anonEdits = "anonedits"
         case userEdits
     }
+
+    private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL) -> URL? {
         guard let project = pageURL.wmf_site?.host else {
-            completion(.failure(.invalidParameters))
-            return
+            return nil
         }
-        var apiURLComponents = URLComponents()
-        apiURLComponents.scheme = "https"
-        apiURLComponents.host = "xtools.wmflabs.org"
-        apiURLComponents.path = "/api/page/articleinfo/\(project)/\(pageTitle)"
-        guard let apiURL = apiURLComponents.url else {
-            completion(.failure(.invalidParameters))
-            return
+        var pathComponents = ["core", "v0.1", "page"]
+        pathComponents.append(pageTitle)
+        pathComponents.append(contentsOf: ["history", "counts"])
+        pathComponents.append(editCountType.rawValue)
+        let components = configuration.mediaWikiRestAPIURForHost(project, appending: pathComponents)
+        return components.url
+    }
+
+    private struct EditCount: Decodable {
+        let count: Int?
+    }
+
+    public func fetchEditCounts(_ editCountTypes: EditCountType..., for pageTitle: String, pageURL: URL, completion: @escaping (Result<EditCountsGroupedByType, RequestError>) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let group = DispatchGroup()
+            var editCountsGroupedByType = EditCountsGroupedByType()
+            for editCountType in editCountTypes {
+                guard let url = self.editCountsURL(for: editCountType, pageTitle: "Dog", pageURL: pageURL) else {
+                    continue
+                }
+                group.enter()
+                self.session.jsonDecodableTask(with: url) { (editCount: EditCount?, _, _) in
+                    defer {
+                        group.leave()
+                    }
+                    editCountsGroupedByType[editCountType] = editCount?.count
+                }
+            }
+            group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                if let edits = editCountsGroupedByType[.edits], let editsCount = edits, let anonEdits = editCountsGroupedByType[.anonEdits], let anonEditsCount = anonEdits {
+                    editCountsGroupedByType[.userEdits] = editsCount - anonEditsCount
+                }
+                completion(.success(editCountsGroupedByType))
+            }
         }
         session.jsonDecodableTask(with: apiURL) { (pageStats: PageStats?, _, _) in
             guard let pageStats = pageStats else {
