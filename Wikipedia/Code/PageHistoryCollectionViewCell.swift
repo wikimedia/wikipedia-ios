@@ -123,7 +123,18 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             authorButton.isHidden = true
         }
 
-        if commentLabel.wmf_hasText {
+        if let comment = comment {
+            // TODO: Adjust icons for themes
+            if isMinor, let minorImage = UIImage(named: "minor-edit") {
+                let imageAttachment = NSTextAttachment()
+                imageAttachment.image = minorImage
+                let attributedText = NSMutableAttributedString(attachment: imageAttachment)
+                attributedText.append(NSAttributedString(string: " \(comment)"))
+                commentLabel.attributedText = attributedText
+            } else {
+                commentLabel.text = comment
+            }
+            // TODO: Make sure all icons have the same sizes
             let commentLabelFrame = commentLabel.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
             trailingPaneOrigin.y += commentLabelFrame.layoutHeight(with: spacing)
             commentLabel.isHidden = false
