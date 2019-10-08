@@ -1,9 +1,14 @@
 import UIKit
 
+protocol PageHistoryDetailedStatsViewControllerDelegate: AnyObject {
+    func pageHistoryDetailedStatsViewControllerDidDetermineIfStatsAreAvailable(areStatsAvailable: Bool)
+}
+
 class PageHistoryDetailedStatsViewController: UIViewController {
     private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
+    var delegate: PageHistoryDetailedStatsViewControllerDelegate?
     var theme = Theme.standard
 
     private var stats: [Stat] = []
@@ -22,6 +27,7 @@ class PageHistoryDetailedStatsViewController: UIViewController {
             ]
             collectionView.reloadData()
             activityIndicator.isHidden = true
+            delegate?.pageHistoryDetailedStatsViewControllerDidDetermineIfStatsAreAvailable(areStatsAvailable: !stats.isEmpty)
         }
     }
 
