@@ -286,10 +286,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleReferenceClickedScriptMessage:(NSDictionary *)messageDict {
     NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
     self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] wmf_map:^id(NSDictionary *referenceDict) {
-        CGFloat offset = self.webView.scrollView.contentInset.top;
-        if (@available(iOS 12.0, *)) {
-            offset += [self.webView iOS12yOffsetHack];
-        }
+        CGFloat offset = self.webView.scrollView.contentInset.top + [self.webView iOS12yOffsetHack];
         return [[WMFReference alloc] initWithScriptMessageDict:referenceDict yOffset:offset];
     }];
 
