@@ -23,16 +23,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gLo-tU-Lq8">
-                    <rect key="frame" x="15" y="14" width="384" height="102"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="134"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sta-K4-qZ1">
-                            <rect key="frame" x="0.0" y="0.0" width="384" height="67"/>
+                            <rect key="frame" x="15" y="62" width="384" height="23"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="QqA-KC-viX">
-                            <rect key="frame" x="0.0" y="77" width="384" height="25"/>
+                            <rect key="frame" x="15" y="95" width="384" height="25"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="E2K-FS-OPW">
                                     <rect key="frame" x="0.0" y="0.0" width="71" height="25"/>
@@ -57,14 +57,18 @@
                             </subviews>
                         </stackView>
                     </subviews>
+                    <directionalEdgeInsets key="directionalLayoutMargins" top="18" leading="15" bottom="14" trailing="15"/>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <directionalEdgeInsets key="directionalLayoutMargins" top="18" leading="50" bottom="14" trailing="50"/>
+                    </variation>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="gLo-tU-Lq8" secondAttribute="bottom" constant="18" id="B3D-gu-NM2"/>
-                <constraint firstItem="gLo-tU-Lq8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="TYc-Ck-mh2"/>
-                <constraint firstItem="gLo-tU-Lq8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="W6V-p2-ulx"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gLo-tU-Lq8" secondAttribute="trailing" constant="15" id="okS-NH-DpW"/>
+                <constraint firstAttribute="bottom" secondItem="gLo-tU-Lq8" secondAttribute="bottom" id="B3D-gu-NM2"/>
+                <constraint firstItem="gLo-tU-Lq8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="TYc-Ck-mh2"/>
+                <constraint firstItem="gLo-tU-Lq8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="W6V-p2-ulx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gLo-tU-Lq8" secondAttribute="trailing" id="okS-NH-DpW"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

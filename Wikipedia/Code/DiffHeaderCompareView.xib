@@ -27,20 +27,24 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="351" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="KF2-9l-hqU">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="395"/>
                             <subviews>
-                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ZYC-6N-TTD" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="206.5" height="351"/>
+                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZYC-6N-TTD" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="44" width="206.5" height="351"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
-                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="w9T-pW-Rt2" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="207.5" y="0.0" width="206.5" height="351"/>
+                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9T-pW-Rt2" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="207.5" y="44" width="206.5" height="351"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="w9T-pW-Rt2" firstAttribute="width" secondItem="ZYC-6N-TTD" secondAttribute="width" id="cj3-MC-Jwy"/>
                             </constraints>
+                            <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="25" bottom="0.0" trailing="25"/>
+                            </variation>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -61,10 +65,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Y7q-o7-dgo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="013-Rv-NJe"/>
+                <constraint firstItem="Y7q-o7-dgo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="013-Rv-NJe"/>
                 <constraint firstItem="Y7q-o7-dgo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EvD-cu-ygo"/>
                 <constraint firstItem="kNf-oz-9Gp" firstAttribute="bottom" secondItem="Y7q-o7-dgo" secondAttribute="bottom" id="FWk-jM-6gv"/>
-                <constraint firstAttribute="trailing" secondItem="Y7q-o7-dgo" secondAttribute="trailing" id="T6d-Cb-6kC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Y7q-o7-dgo" secondAttribute="trailing" id="T6d-Cb-6kC"/>
                 <constraint firstItem="kNf-oz-9Gp" firstAttribute="trailing" secondItem="ZYC-6N-TTD" secondAttribute="trailing" id="hcJ-1e-1iQ"/>
                 <constraint firstItem="kNf-oz-9Gp" firstAttribute="top" secondItem="Y7q-o7-dgo" secondAttribute="top" id="oWa-v5-DbS"/>
                 <constraint firstAttribute="bottom" secondItem="Y7q-o7-dgo" secondAttribute="bottom" id="vAf-uM-kYB"/>

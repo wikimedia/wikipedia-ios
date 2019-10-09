@@ -22,34 +22,38 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oys-rN-36t">
-                    <rect key="frame" x="15" y="9" width="384" height="237"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="271"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4A-Rp-76R">
-                            <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
+                            <rect key="frame" x="15" y="53" width="384" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iei-Gy-V5M">
-                            <rect key="frame" x="0.0" y="30.5" width="384" height="20.5"/>
+                            <rect key="frame" x="15" y="83.5" width="384" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLV-Zy-Vf1">
-                            <rect key="frame" x="0.0" y="61" width="384" height="176"/>
+                            <rect key="frame" x="15" y="114" width="384" height="132"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <directionalEdgeInsets key="directionalLayoutMargins" top="9" leading="15" bottom="25" trailing="15"/>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <directionalEdgeInsets key="directionalLayoutMargins" top="9" leading="50" bottom="25" trailing="50"/>
+                    </variation>
                 </stackView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="oys-rN-36t" secondAttribute="bottom" constant="25" id="3Sd-hd-ma8"/>
-                <constraint firstItem="oys-rN-36t" firstAttribute="top" secondItem="986-LW-TJg" secondAttribute="top" constant="9" id="BOy-lf-XgY"/>
-                <constraint firstItem="oys-rN-36t" firstAttribute="leading" secondItem="Ey6-xp-urG" secondAttribute="leading" constant="15" id="FaD-Ix-cj9"/>
-                <constraint firstItem="Ey6-xp-urG" firstAttribute="trailing" secondItem="oys-rN-36t" secondAttribute="trailing" constant="15" id="KxM-Lh-xk2"/>
+                <constraint firstAttribute="bottom" secondItem="oys-rN-36t" secondAttribute="bottom" id="3Sd-hd-ma8"/>
+                <constraint firstItem="Ey6-xp-urG" firstAttribute="trailing" secondItem="oys-rN-36t" secondAttribute="trailing" id="8DQ-aN-rAB"/>
+                <constraint firstItem="oys-rN-36t" firstAttribute="top" secondItem="986-LW-TJg" secondAttribute="top" id="BOy-lf-XgY"/>
+                <constraint firstItem="oys-rN-36t" firstAttribute="leading" secondItem="Ey6-xp-urG" secondAttribute="leading" id="vO3-EY-0BM"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
