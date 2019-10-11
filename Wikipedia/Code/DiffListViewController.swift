@@ -52,6 +52,7 @@ class DiffListViewController: ViewController {
         ])
         collectionView.register(DiffListChangeCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListChangeCell.reuseIdentifier)
         collectionView.register(DiffListContextCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListContextCell.reuseIdentifier)
+        collectionView.register(DiffListUneditedCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListUneditedCell.reuseIdentifier)
     }
     
     override func viewDidLayoutSubviews() {
@@ -60,11 +61,17 @@ class DiffListViewController: ViewController {
         delegate?.diffListUpdateWidth(newWidth: collectionView.frame.width)
     }
     
-    func update(_ viewModel: [DiffListGroupViewModel], needsOnlyLayoutUpdate: Bool = false) {
+    func update(_ viewModel: [DiffListGroupViewModel], needsOnlyLayoutUpdate: Bool = false, indexPath: IndexPath?) {
         self.dataSource = viewModel
         
         if (needsOnlyLayoutUpdate) {
             collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
+            if let indexPath = indexPath,
+                let contextViewModel = viewModel[safeIndex: indexPath.item] as? DiffListContextViewModel,
+                let cell = collectionView.cellForItem(at: indexPath) as? DiffListContextCell {
+                    cell.update(contextViewModel, indexPath: indexPath)
+            }
+            
         } else {
             collectionView.reloadData()
         }
@@ -108,6 +115,10 @@ extension DiffListViewController: UICollectionViewDataSource {
             cell.update(viewModel, indexPath: indexPath)
             cell.delegate = self
             return cell
+        } else if let viewModel = viewModel as? DiffListUneditedViewModel,
+                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListUneditedCell.reuseIdentifier, for: indexPath) as? DiffListUneditedCell {
+                   cell.update(viewModel)
+                   return cell
         }
         
         return UICollectionViewCell()

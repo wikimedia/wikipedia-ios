@@ -159,11 +159,14 @@
 "diff-compare-header-subtitle-num-users" = "Number of users text in subtitle label in header when comparing two revisions. $1 is replaced with the number of users that made intermediate revisions between revisions being compared.";
 "diff-compare-header-to-info-heading" = "Heading label in to revision info box when comparing two revisions.";
 "diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
+"diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.";
+"diff-context-lines-expanded-button-title" = "Expand button title in diff compare context section when section is in expanded state.";
 "diff-single-header-editor-number-edits-format" = "Label to show the number of total edits made by the editor when viewing a single revision. $1 is replaced with the editor's number of edits.";
 "diff-single-header-editor-title" = "Title label in header editor view when viewing a single revision.";
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";
 "diff-single-header-subtitle-bytes-removed" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were removed in this revision.";
 "diff-single-header-summary-heading" = "Heading label in header summary view when viewing a single revision.";
+"diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
 "edit-bold-remove-accessibility-label" = "Accessibility label for the button that removes bold formatting to the current selection";

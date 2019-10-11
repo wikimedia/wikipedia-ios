@@ -39,8 +39,11 @@ class DiffListContextCell: UICollectionViewCell {
         
         headingLabel.font = viewModel.headingFont
         headingLabel.text = viewModel.heading
+        expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+        expandButton.titleLabel?.font = viewModel.contextFont
         
         headingLabel.textColor = viewModel.theme.colors.secondaryText
+        expandButton.tintColor = viewModel.theme.colors.link
         
         if needsNewContextViews(newViewModel: viewModel) {
             removeContextViews(from: contextItemStackView)
@@ -95,7 +98,7 @@ private extension DiffListContextCell {
                 let view = UIView(frame: .zero)
                 
                 view.translatesAutoresizingMaskIntoConstraints = false
-                let heightConstraint = view.heightAnchor.constraint(equalToConstant: newViewModel.contextFont.pointSize)
+                let heightConstraint = view.heightAnchor.constraint(equalToConstant: newViewModel.emptyContextLineHeight)
                 view.addConstraint(heightConstraint)
                 
                 stackView.addArrangedSubview(view)
@@ -110,6 +113,7 @@ private extension DiffListContextCell {
             
             subview.backgroundColor = newViewModel.theme.colors.diffContextItemBackground
             subview.borderColor = newViewModel.theme.colors.diffContextItemBorder
+            subview.borderWidth = 1
             subview.layer.cornerRadius = 5
             
             if let item = newViewModel.items[safeIndex: index] as? String,

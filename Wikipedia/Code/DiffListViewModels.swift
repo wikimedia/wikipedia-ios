@@ -289,13 +289,16 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     var isExpanded: Bool
     let items: [String?]
     var theme: Theme
+    var expandButtonTitle: String {
+        return isExpanded ? WMFLocalizedString("diff-context-lines-expanded-button-title", value:"Hide", comment:"Expand button title in diff compare context section when section is in expanded state.") : WMFLocalizedString("diff-context-lines-collapsed-button-title", value:"Show", comment:"Expand button title in diff compare context section when section is in collapsed state.")
+    }
     
     private(set) var contextFont: UIFont
     private(set) var headingFont: UIFont
     
     var width: CGFloat {
         didSet {
-            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
+            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
             collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
         }
     }
@@ -303,7 +306,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         didSet {
             contextFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
             headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
+            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
             collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
         }
     }
@@ -319,11 +322,14 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     private var availableWidth: CGFloat {
         return width - innerPadding.leading - innerPadding.trailing - DiffListContextViewModel.contextItemTextPadding.leading - DiffListContextViewModel.contextItemTextPadding.trailing
     }
+    var emptyContextLineHeight: CGFloat {
+        return contextFont.pointSize * 1.8
+    }
     
     var sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass) {
         didSet {
             innerPadding = DiffListContextViewModel.calculateInnerPadding(sizeClass: sizeClass)
-            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
+            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
             collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
         }
     }
@@ -342,7 +348,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         
         innerPadding = DiffListContextViewModel.calculateInnerPadding(sizeClass: sizeClass)
         
-        height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
+        height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
         collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
     }
     
@@ -355,7 +361,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         }
     }
     
-    private static func calculateExpandedHeight(items: [String?], heading: String, availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, contextItemPadding: NSDirectionalEdgeInsets, contextFont: UIFont, headingFont: UIFont) -> CGFloat {
+    private static func calculateExpandedHeight(items: [String?], heading: String, availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, contextItemPadding: NSDirectionalEdgeInsets, contextFont: UIFont, headingFont: UIFont, emptyContextLineHeight: CGFloat) -> CGFloat {
 
         var height: CGFloat = 0
         
@@ -368,7 +374,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
                 let attributedString = NSAttributedString(string: item, attributes: [NSAttributedString.Key.font: contextFont])
                 itemTextHeight = ceil(attributedString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
             } else {
-                itemTextHeight = contextFont.pointSize //tonitodo: tweak to fit empty context line in mocks
+                itemTextHeight = emptyContextLineHeight
             }
             
             height += itemTextHeight
@@ -407,24 +413,73 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
 }
 
 final class DiffListUneditedViewModel: DiffListGroupViewModel {
-    var height: CGFloat
+    private(set) var height: CGFloat = 0
     
-    var sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass)
+    var sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass) {
+        didSet {
+            innerPadding = DiffListUneditedViewModel.calculateInnerPadding(sizeClass: sizeClass)
+            height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
+        }
+    }
     
-    var width: CGFloat
+    var width: CGFloat {
+        didSet {
+            height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
+        }
+    }
     
-    var traitCollection: UITraitCollection
+    var traitCollection: UITraitCollection {
+        didSet {
+            font = DiffListUneditedViewModel.calculateTextLabelFont(traitCollection: traitCollection)
+            height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
+        }
+    }
     
-    let numberOfUneditedLines: Int
+    let text: String
     var theme: Theme
+    private(set) var font: UIFont
+    private(set) var innerPadding: NSDirectionalEdgeInsets
+    
+    private var availableWidth: CGFloat {
+        return width - innerPadding.leading - innerPadding.trailing
+    }
     
     init(numberOfUneditedLines: Int, theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
-        self.numberOfUneditedLines = numberOfUneditedLines
         self.theme = theme
         self.width = width
         self.sizeClass = sizeClass
         self.traitCollection = traitCollection
+        self.theme = theme
+        self.innerPadding = DiffListUneditedViewModel.calculateInnerPadding(sizeClass: sizeClass)
+        self.font = DiffListUneditedViewModel.calculateTextLabelFont(traitCollection: traitCollection)
         
-        self.height = width
+        self.text = String.localizedStringWithFormat(WMFLocalizedString("diff-unedited-lines-format", value:"{{PLURAL:%1$d|%1$d line unedited|%1$d lines unedited}}", comment:"Label in diff to indicate how many lines are not displayed because they were not changed. %1$d is replaced by the number of unedited lines."), numberOfUneditedLines)
+        self.height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
+    }
+    
+    private static func calculateInnerPadding(sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass)) -> NSDirectionalEdgeInsets {
+        switch (sizeClass.horizontal, sizeClass.vertical) {
+        case (.regular, .regular):
+            return NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 0, trailing: 50)
+        default:
+            return NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15)
+        }
+    }
+    
+    private static func calculateTextLabelFont(traitCollection: UITraitCollection) -> UIFont {
+        return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    private static func calculateHeight(text: String, availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, font: UIFont) -> CGFloat {
+
+        var height: CGFloat = 0
+
+        height += innerPadding.top
+        let attributedString = NSAttributedString(string: text, attributes: [NSAttributedString.Key.font: font])
+        height += ceil(attributedString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        
+        height += innerPadding.bottom
+        
+        return height
     }
 }

@@ -97,7 +97,8 @@ class DiffContainerViewController: ViewController {
         //let changeSingleViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Pirates", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
         let contextViewModel = DiffListContextViewModel(heading: "Lines 150-151", isExpanded: false, items: [nil, "In 1999, a study of [[mitochondrial DNA]] indicated that the domestic dog may have originated from multiple grey [[wolf]] populations, with the [[dingo]] and [[New Guinea singing dog]] \"breeds\" having developed at a time when human populations were more isolated from each other.<ref name=wayne1999/> In the third edition of ''[[Mammal Species of the World]]'' published in 2005, the mammalogist [[:de:W. Christopher Wozencraft|W. Christopher Wozencraft]] listed under the wolf ''Canis lupus'' its wild subspecies, and proposed two additional subspecies: \"''familiaris'' Linneaus, 1758 [domestic dog]\" and \"''dingo'' Meyer, 1793 [domestic dog]\". Wozencraft included ''hallstromi'' - the New Guinea singing dog - as a [[taxonomic synonym]] for the dingo. Wozencraft referred to the mDNA study as one of the guides in forming his decision.<ref name=wozencraft2005/> The inclusion of ''familiaris'' under a \"domestic dog\" clade has been noted by other mammalogists.<ref name=jackson2017/> This classification by Wozencraft is debated among zoologists.<ref name=smithC1/>"], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
         
-        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: [contextViewModel, changeCompareViewModel])
+        let uneditedViewModel = DiffListUneditedViewModel(numberOfUneditedLines: 100, theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: [contextViewModel, uneditedViewModel, changeCompareViewModel])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,7 +187,7 @@ private extension DiffContainerViewController {
         }
         
         if needsUpdate || needsOnlyLayoutUpdate {
-            diffListViewController?.update(listViewModel, needsOnlyLayoutUpdate: needsOnlyLayoutUpdate)
+            diffListViewController?.update(listViewModel, needsOnlyLayoutUpdate: needsOnlyLayoutUpdate, indexPath: indexPathToToggleExpand)
         }
     }
     
@@ -195,7 +196,7 @@ private extension DiffContainerViewController {
         navigationBar.title = containerViewModel.navBarTitle
         if let listViewModel = containerViewModel.listViewModel {
             setupDiffListViewControllerIfNeeded()
-            diffListViewController?.update(listViewModel)
+            diffListViewController?.update(listViewModel, indexPath: nil)
         } else {
             //TONITODO: show loading state?
             //or container has an empty (no differences), error, and list state. list state has associated value of items, otherwise things change)
