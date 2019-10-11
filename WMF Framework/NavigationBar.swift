@@ -50,6 +50,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
     public var allowsUnderbarHitsFallThrough: Bool = false //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+    public var allowsExtendedHitsFallThrough: Bool = false //if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
     
@@ -610,6 +611,20 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             && !bar.frame.contains(point) {
             
             for subview in underBarView.subviews {
+                let convertedPoint = self.convert(point, to: subview)
+                if subview.point(inside: convertedPoint, with: event) {
+                    return true
+                }
+            }
+            
+            return false
+        }
+        
+        if allowsExtendedHitsFallThrough
+            && extendedView.frame.contains(point)
+            && !bar.frame.contains(point) {
+            
+            for subview in extendedView.subviews {
                 let convertedPoint = self.convert(point, to: subview)
                 if subview.point(inside: convertedPoint, with: event) {
                     return true

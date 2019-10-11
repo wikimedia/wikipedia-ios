@@ -38,6 +38,10 @@ class DiffHeaderSummaryView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts(with: traitCollection)
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return false
+    }
 
 }
 

@@ -56,4 +56,24 @@ class DiffHeaderExtendedView: UIView {
             view.backgroundColor = viewModel.theme.colors.chromeShadow
         }
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        let summaryConvertedPoint = self.convert(point, to: summaryView)
+        if summaryView.point(inside: summaryConvertedPoint, with: event) {
+            return true
+        }
+        
+        let editorConvertedPoint = self.convert(point, to: editorView)
+        if editorView.point(inside: editorConvertedPoint, with: event) {
+            return true
+        }
+        
+        let compareConvertedPoint = self.convert(point, to: compareView)
+        if compareView.point(inside: compareConvertedPoint, with: event) {
+            return true
+        }
+        
+        return false
+    }
 }

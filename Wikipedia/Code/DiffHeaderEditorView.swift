@@ -50,6 +50,10 @@ class DiffHeaderEditorView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts(with: traitCollection)
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return usernameLabel.point(inside: point, with: event)
+    }
 }
 
 private extension DiffHeaderEditorView {

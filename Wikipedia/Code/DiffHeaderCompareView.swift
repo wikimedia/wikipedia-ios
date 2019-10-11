@@ -58,4 +58,8 @@ class DiffHeaderCompareView: UIView {
         contentView.backgroundColor = viewModel.theme.colors.paperBackground
         divView.backgroundColor = viewModel.theme.colors.chromeShadow
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return false
+    }
 }

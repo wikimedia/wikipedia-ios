@@ -232,7 +232,8 @@ private extension DiffContainerViewController {
             let headerExtendedView = DiffHeaderExtendedView(frame: .zero)
             headerExtendedView.translatesAutoresizingMaskIntoConstraints = false
             
-            //navigationBar.allowsUnderbarHitsFallThrough = true //tonitodo: need this
+            navigationBar.allowsUnderbarHitsFallThrough = true
+            navigationBar.allowsExtendedHitsFallThrough = true
             navigationBar.addExtendedNavigationBarView(headerExtendedView)
             
             self.headerExtendedView = headerExtendedView
