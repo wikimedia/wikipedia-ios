@@ -29,6 +29,7 @@ import UIKit
 
     public static let callout = DynamicTextStyle(.system, .callout)
     public static let semiboldCallout = DynamicTextStyle(.system, .callout, .semibold)
+    public static let boldCallout = DynamicTextStyle(.system, .callout, .bold)
     public static let italicCallout = DynamicTextStyle(.system, .callout, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
     
     public static let title2 = DynamicTextStyle(.system, .title2)

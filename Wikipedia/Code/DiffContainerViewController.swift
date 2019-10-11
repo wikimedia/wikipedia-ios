@@ -90,14 +90,14 @@ class DiffContainerViewController: ViewController {
         navigationController?.isNavigationBarHidden = true
         let range1 = DiffListItemHighlightRange(start: 7, length: 5, type: .added)
         let range2 = DiffListItemHighlightRange(start: 12, length: 4, type: .deleted)
-        let item1 = DiffListChangeItemViewModel(text: "The fleet under her command established hegemony over many coastal villages, in some cases even imposing levies, and taxes on settlements. According to Robert Antony, In his authoritative text on female Pirates, Robert Antony states that Ching Shih ''\"robbed towns, markets, and villages, from Macau to Canton.\"''<ref>{{cite book |last=Antony |first=Robert |title=Like Froth Floating on the Sea: The world of pirates and seafarers in Late Imperial South China |location=Berkeley |publisher=University of California Press |year=2003 |isbn=978-1-55729-078-6}}</ref> In one coastal village, the Sanshan village, they beheaded 80 men and abducted their women and children and held them for ransom until they were sold in slavery.<ref name=\":0\">{{Cite web|url=http://www.cindyvallar.com/chengsao.html |title=Pirates & Privateers: The History of Maritime Piracy - Cheng I Sao |last=Vallar |first=Cindy| website= www.cindyvallar.com |access-date=2018-03-03}}</ref>", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme)
-        let item2 = DiffListChangeItemViewModel(text: "Here is another line of text to test multi-line changes.", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme)
+        let item1 = DiffListChangeItemViewModel(text: "The fleet under her command established hegemony over many coastal villages, in some cases even imposing levies, and taxes on settlements. According to Robert Antony, In his authoritative text on female Pirates, Robert Antony states that Ching Shih ''\"robbed towns, markets, and villages, from Macau to Canton.\"''<ref>{{cite book |last=Antony |first=Robert |title=Like Froth Floating on the Sea: The world of pirates and seafarers in Late Imperial South China |location=Berkeley |publisher=University of California Press |year=2003 |isbn=978-1-55729-078-6}}</ref> In one coastal village, the Sanshan village, they beheaded 80 men and abducted their women and children and held them for ransom until they were sold in slavery.<ref name=\":0\">{{Cite web|url=http://www.cindyvallar.com/chengsao.html |title=Pirates & Privateers: The History of Maritime Piracy - Cheng I Sao |last=Vallar |first=Cindy| website= www.cindyvallar.com |access-date=2018-03-03}}</ref>", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme, type: .compareRevision)
+        let item2 = DiffListChangeItemViewModel(text: "Here is another line of text to test multi-line changes.", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme, type: .compareRevision)
         
-        //let changeCompareViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Line 1", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
-        let changeSingleViewModel = DiffListChangeViewModel(type: .singleRevison, heading: "Pirates", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
-        //let contextViewModel = DiffListContextViewModel(lines: "Line 1-2", isExpanded: false, items: ["Testing here now", ""], theme: theme)
+        let changeCompareViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Line 1", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+        //let changeSingleViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Pirates", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+        let contextViewModel = DiffListContextViewModel(heading: "Lines 150-151", isExpanded: false, items: [nil, "In 1999, a study of [[mitochondrial DNA]] indicated that the domestic dog may have originated from multiple grey [[wolf]] populations, with the [[dingo]] and [[New Guinea singing dog]] \"breeds\" having developed at a time when human populations were more isolated from each other.<ref name=wayne1999/> In the third edition of ''[[Mammal Species of the World]]'' published in 2005, the mammalogist [[:de:W. Christopher Wozencraft|W. Christopher Wozencraft]] listed under the wolf ''Canis lupus'' its wild subspecies, and proposed two additional subspecies: \"''familiaris'' Linneaus, 1758 [domestic dog]\" and \"''dingo'' Meyer, 1793 [domestic dog]\". Wozencraft included ''hallstromi'' - the New Guinea singing dog - as a [[taxonomic synonym]] for the dingo. Wozencraft referred to the mDNA study as one of the guides in forming his decision.<ref name=wozencraft2005/> The inclusion of ''familiaris'' under a \"domestic dog\" clade has been noted by other mammalogists.<ref name=jackson2017/> This classification by Wozencraft is debated among zoologists.<ref name=smithC1/>"], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
         
-        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: [changeSingleViewModel, changeSingleViewModel, changeSingleViewModel, changeSingleViewModel, changeSingleViewModel, changeSingleViewModel, changeSingleViewModel])
+        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: [contextViewModel, changeCompareViewModel])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -124,24 +124,25 @@ class DiffContainerViewController: ViewController {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
 
-        updateListViewModels(newSizeClass: (newCollection.horizontalSizeClass, newCollection.verticalSizeClass), newWidth: nil, newTraitCollection: nil)
+        updateListViewModels(newSizeClass: (newCollection.horizontalSizeClass, newCollection.verticalSizeClass), newWidth: nil, newTraitCollection: nil,indexPathToToggleExpand: nil)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        updateListViewModels(newSizeClass: nil, newWidth: nil, newTraitCollection: traitCollection)
+        updateListViewModels(newSizeClass: nil, newWidth: nil, newTraitCollection: traitCollection, indexPathToToggleExpand: nil)
     }
     
 }
 
 private extension DiffContainerViewController {
     
-    func updateListViewModels(newSizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass)?, newWidth: CGFloat?, newTraitCollection: UITraitCollection?) {
+    func updateListViewModels(newSizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass)?, newWidth: CGFloat?, newTraitCollection: UITraitCollection?, indexPathToToggleExpand: IndexPath?) {
         
         guard newSizeClass != nil ||
             newWidth != nil ||
-            newTraitCollection != nil else {
+            newTraitCollection != nil ||
+            indexPathToToggleExpand != nil else {
                 return
         }
         
@@ -150,35 +151,42 @@ private extension DiffContainerViewController {
         }
         
         var needsUpdate = false
-        for item in listViewModel {
-            if let changeViewModel = item as? DiffListChangeViewModel {
-                
-                if let newSizeClass = newSizeClass {
-                    if changeViewModel.sizeClass != newSizeClass {
-                        changeViewModel.sizeClass = newSizeClass
-                        needsUpdate = true
-                    }
+        var needsOnlyLayoutUpdate = false
+        for var item in listViewModel {
+            if let newSizeClass = newSizeClass {
+                if item.sizeClass != newSizeClass {
+                    item.sizeClass = newSizeClass
+                    needsUpdate = true
                 }
-                
-                if let newWidth = newWidth {
-                    if changeViewModel.width != newWidth {
-                        changeViewModel.width = newWidth
-                        needsUpdate = true
-                    }
+            }
+            
+            if let newWidth = newWidth {
+                if item.width != newWidth {
+                    item.width = newWidth
+                    needsUpdate = true
                 }
+            }
+            
+            if let newTraitCollection = newTraitCollection {
                 
-                if let newTraitCollection = newTraitCollection {
-                    
-                    if changeViewModel.traitCollection != newTraitCollection {
-                        changeViewModel.traitCollection = newTraitCollection
-                        needsUpdate = true
-                    }
-                    
+                if item.traitCollection != newTraitCollection {
+                    item.traitCollection = newTraitCollection
+                    needsUpdate = true
                 }
             }
         }
-        if needsUpdate {
-            diffListViewController?.update(listViewModel)
+        
+        if let indexPathToToggleExpand = indexPathToToggleExpand,
+            let item = listViewModel[safeIndex: indexPathToToggleExpand.item] as? DiffListContextViewModel {
+            item.isExpanded.toggle()
+            
+            if !needsUpdate {
+                needsOnlyLayoutUpdate = true
+            }
+        }
+        
+        if needsUpdate || needsOnlyLayoutUpdate {
+            diffListViewController?.update(listViewModel, needsOnlyLayoutUpdate: needsOnlyLayoutUpdate)
         }
     }
     
@@ -258,18 +266,12 @@ extension DiffContainerViewController: DiffListDelegate {
         }
     }
     
-    func diffListDidTapIndexPath(_ indexPath: IndexPath) {
-        if let listViewModel = containerViewModel.listViewModel,
-        listViewModel.count > indexPath.item,
-        let contextViewModel = listViewModel[indexPath.item] as? DiffListContextViewModel {
-            
-            contextViewModel.isExpanded.toggle()
-            diffListViewController?.update(listViewModel)
-        }
-    }
-    
     func diffListUpdateWidth(newWidth: CGFloat) {
         
-        updateListViewModels(newSizeClass: nil, newWidth: newWidth, newTraitCollection: nil)
+        updateListViewModels(newSizeClass: nil, newWidth: newWidth, newTraitCollection: nil, indexPathToToggleExpand: nil)
+    }
+    
+    func diffListDidTapContextExpand(indexPath: IndexPath) {
+        updateListViewModels(newSizeClass: nil, newWidth: nil, newTraitCollection: nil, indexPathToToggleExpand: indexPath)
     }
 }

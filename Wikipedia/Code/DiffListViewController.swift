@@ -3,8 +3,8 @@ import UIKit
 
 protocol DiffListDelegate: class {
     func diffListScrollViewDidScroll(_ scrollView: UIScrollView)
-    func diffListDidTapIndexPath(_ indexPath: IndexPath)
     func diffListUpdateWidth(newWidth: CGFloat)
+    func diffListDidTapContextExpand(indexPath: IndexPath)
 }
 
 class DiffListViewController: ViewController {
@@ -51,6 +51,7 @@ class DiffListViewController: ViewController {
             view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         ])
         collectionView.register(DiffListChangeCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListChangeCell.reuseIdentifier)
+        collectionView.register(DiffListContextCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListContextCell.reuseIdentifier)
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,15 +60,14 @@ class DiffListViewController: ViewController {
         delegate?.diffListUpdateWidth(newWidth: collectionView.frame.width)
     }
     
-    func update(_ viewModel: [DiffListGroupViewModel]) {
+    func update(_ viewModel: [DiffListGroupViewModel], needsOnlyLayoutUpdate: Bool = false) {
         self.dataSource = viewModel
-        //if (DiffListViewController.counter > 1) {
-        //    collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
-        //} else {
-            collectionView.reloadData()
-        //}
         
-        //DiffListViewController.counter += 1
+        if (needsOnlyLayoutUpdate) {
+            collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
+        } else {
+            collectionView.reloadData()
+        }
     }
     
     override func apply(theme: Theme) {
@@ -93,42 +93,46 @@ extension DiffListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard dataSource.count > indexPath.item,
-            let viewModel = dataSource[indexPath.item] as? DiffListChangeViewModel else {
-                return UICollectionViewCell()
+        guard let viewModel = dataSource[safeIndex: indexPath.item] else {
+            return UICollectionViewCell()
         }
         
         //tonitodo: fix of course
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListChangeCell.reuseIdentifier, for: indexPath) as? DiffListChangeCell {
+        
+        if let viewModel = viewModel as? DiffListChangeViewModel,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListChangeCell.reuseIdentifier, for: indexPath) as? DiffListChangeCell {
             cell.update(viewModel)
+            return cell
+        } else if let viewModel = viewModel as? DiffListContextViewModel,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListContextCell.reuseIdentifier, for: indexPath) as? DiffListContextCell {
+            cell.update(viewModel, indexPath: indexPath)
+            cell.delegate = self
             return cell
         }
         
-        fatalError()
+        return UICollectionViewCell()
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.diffListDidTapIndexPath(indexPath)
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        delegate?.diffListDidTapIndexPath(indexPath)
+//    }
 }
 
 extension DiffListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        guard dataSource.count > indexPath.item else {
+        guard let viewModel = dataSource[safeIndex: indexPath.item] else {
             return .zero
         }
         
-        if let contextViewModel = dataSource[indexPath.item] as? DiffListContextViewModel {
-                let height = contextViewModel.isExpanded ? 400 : 200
-                return CGSize(width: 250, height: height)
-        } else if let changeViewModel = dataSource[indexPath.item] as? DiffListChangeViewModel {
-            return CGSize(width: changeViewModel.width, height: changeViewModel.height)
+        if let contextViewModel = viewModel as? DiffListContextViewModel {
+            let height = contextViewModel.isExpanded ? contextViewModel.height : contextViewModel.collapsedHeight
+            return CGSize(width: contextViewModel.width, height: height)
         }
         
-        
-        return CGSize(width: 250, height: 50)
+        return CGSize(width: viewModel.width, height: viewModel.height)
+
     }
     
 }
@@ -147,5 +151,11 @@ extension UIColor {
                        green: .random(),
                        blue:  .random(),
                        alpha: 1.0)
+    }
+}
+
+extension DiffListViewController: DiffListContextCellDelegate {
+    func didTapContextExpand(indexPath: IndexPath) {
+        delegate?.diffListDidTapContextExpand(indexPath: indexPath)
     }
 }

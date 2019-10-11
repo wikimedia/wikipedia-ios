@@ -78,6 +78,7 @@ private extension DiffListChangeCell {
         for _ in newViewModel.items {
             let label = UILabel()
             label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
             textStackView.addArrangedSubview(label)
         }
     }
