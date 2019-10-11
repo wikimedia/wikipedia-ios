@@ -104,7 +104,7 @@ extension DiffListViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        //tonitodo: fix of course
+        //tonitodo: clean up
         
         if let viewModel = viewModel as? DiffListChangeViewModel,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListChangeCell.reuseIdentifier, for: indexPath) as? DiffListChangeCell {
@@ -146,23 +146,6 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
 
     }
     
-}
-
-//TONITODO: DELETE THIS!!!
-
-extension CGFloat {
-    static func random() -> CGFloat {
-        return CGFloat(arc4random()) / CGFloat(UInt32.max)
-    }
-}
-
-extension UIColor {
-    static func random() -> UIColor {
-        return UIColor(red:   .random(),
-                       green: .random(),
-                       blue:  .random(),
-                       alpha: 1.0)
-    }
 }
 
 extension DiffListViewController: DiffListContextCellDelegate {

@@ -305,6 +305,21 @@
 		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CEF25F234FCA8100D5CA6C /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		67CEF2612350C29D00D5CA6C /* DiffListUneditedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */; };
+		67CEF263235110F700D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
+		67CEF2652351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
+		67CEF2662351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
+		67CEF2672351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
+		67CEF2682351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
+		67CEF2692351111B00D5CA6C /* ObamaTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF2642351111A00D5CA6C /* ObamaTest.json */; };
+		67CEF26A2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
+		67CEF26B2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
+		67CEF26C2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
+		67CEF26D2351111E00D5CA6C /* DiffNetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */; };
+		67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
+		67CEF2702351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
+		67CEF2712351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
+		67CEF2722351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
+		67CEF2732351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
 		67D3C453228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */; };
 		67D3C454228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */; };
 		67D3C455228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */; };
@@ -3889,6 +3904,9 @@
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
+		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
+		67CEF2642351111A00D5CA6C /* ObamaTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ObamaTest.json; sourceTree = "<group>"; };
+		67CEF26E2351113000D5CA6C /* DiffController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffController.swift; sourceTree = "<group>"; };
 		67D3C452228CB54E001D5741 /* TalkPageReplyComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeView.swift; sourceTree = "<group>"; };
 		67DB11012261213C00F789B0 /* WMFArticleJSONCompilationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleJSONCompilationHelper.h; sourceTree = "<group>"; };
 		67DB11022261213C00F789B0 /* WMFArticleJSONCompilationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFArticleJSONCompilationHelper.m; sourceTree = "<group>"; };
@@ -6517,11 +6535,14 @@
 		6782DB8F2343B691003FA21B /* Diff */ = {
 			isa = PBXGroup;
 			children = (
+				67CEF26E2351113000D5CA6C /* DiffController.swift */,
+				67CEF2642351111A00D5CA6C /* ObamaTest.json */,
 				6782DBDF2344F154003FA21B /* List */,
 				6782DBDE2344F147003FA21B /* Header */,
 				6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */,
 				6782DBB42343B83D003FA21B /* DiffToolbarView.swift */,
 				6782DC102346920B003FA21B /* DiffContainerViewModel.swift */,
+				67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */,
 			);
 			name = Diff;
 			sourceTree = "<group>";
@@ -9948,6 +9969,7 @@
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
+				67CEF2652351111B00D5CA6C /* ObamaTest.json in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				83E52BB91F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224C2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
@@ -10147,6 +10169,7 @@
 				D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */,
 				D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */,
 				B0524AFA2144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
+				67CEF2692351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D80ED4231EE57F4800CE8C50 /* ReadingThemesControlsViewController.xib in Resources */,
 				B0524B0721484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
 				D80ED4241EE57F4800CE8C50 /* NotificationButtonBackground@2x.png in Resources */,
@@ -10284,6 +10307,7 @@
 				7A6F560221AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5592051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
+				67CEF2682351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC1A2347EE5A003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
@@ -10402,6 +10426,7 @@
 				7A6F560021AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
+				67CEF2662351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC182347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
@@ -10520,6 +10545,7 @@
 				7A6F560121AF508B0076D184 /* TextFormatting.storyboard in Resources */,
 				7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
+				67CEF2672351111B00D5CA6C /* ObamaTest.json in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC192347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
@@ -11000,6 +11026,7 @@
 				67DB110C22613F4F00F789B0 /* SchemeHandler+BaseSubHandler.swift in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
+				67CEF263235110F700D5CA6C /* DiffNetworkModels.swift in Sources */,
 				7A23CECF211A24FC00441A79 /* FeedFunnel.swift in Sources */,
 				7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */,
@@ -11318,6 +11345,7 @@
 				6734115922735832005B31DA /* TalkPagesController.swift in Sources */,
 				7ABAD6BF20349B91006A364C /* Collection.swift in Sources */,
 				7A5A0543225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
+				67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */,
 				67D3C453228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
 				7A6F560521AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
@@ -11518,6 +11546,7 @@
 				D80ED2E61EE57F4800CE8C50 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				7A71565F226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D80ED2E81EE57F4800CE8C50 /* UIViewController+WMFArticlePresentation.m in Sources */,
+				67CEF2732351113000D5CA6C /* DiffController.swift in Sources */,
 				D80ED2E91EE57F4800CE8C50 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D80ED2EA1EE57F4800CE8C50 /* WMFArticleTextActivitySource.m in Sources */,
 				D80ED2EB1EE57F4800CE8C50 /* WMFAuthLinkLabel.swift in Sources */,
@@ -11539,6 +11568,7 @@
 				B0CD9DF61F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D80ED2FE1EE57F4800CE8C50 /* AboutViewController.m in Sources */,
 				D80ED3001EE57F4800CE8C50 /* NSObject+WMFExtras.m in Sources */,
+				67CEF26D2351111E00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				7AFA21BF20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				D80ED3011EE57F4800CE8C50 /* ArticleLocationCellUpdating.swift in Sources */,
 				D80ED3031EE57F4800CE8C50 /* WMFArticleLanguagesSectionFooter.m in Sources */,
@@ -12191,6 +12221,7 @@
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
 				7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				7A49A20421231510005C574C /* CollectionViewFooter.swift in Sources */,
+				67CEF26C2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				67D3C456228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
 				41CCB67721CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
@@ -12509,6 +12540,7 @@
 				D8A42B801E815A9C00D8E281 /* WMFReference.swift in Sources */,
 				D8A42B811E815A9C00D8E281 /* WMFWelcomePageViewController.swift in Sources */,
 				6734115C22735833005B31DA /* TalkPagesController.swift in Sources */,
+				67CEF2722351113000D5CA6C /* DiffController.swift in Sources */,
 				7A5A0546225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
 				83836ECF1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				7A6F560821AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
@@ -12717,6 +12749,7 @@
 				D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D8CE25501E698E2400DAE2E0 /* UIViewController+WMFArticlePresentation.m in Sources */,
+				67CEF2702351113000D5CA6C /* DiffController.swift in Sources */,
 				D8CE25511E698E2400DAE2E0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
 				D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */,
@@ -12738,6 +12771,7 @@
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D8CE25671E698E2400DAE2E0 /* NSObject+WMFExtras.m in Sources */,
 				7AFA21BC20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
+				67CEF26A2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				D8CE25691E698E2400DAE2E0 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8CE256A1E698E2400DAE2E0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				D8CE256B1E698E2400DAE2E0 /* WMFWelcomeContainerViewController.swift in Sources */,
@@ -13145,6 +13179,7 @@
 				D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */,
 				7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D818D3AD1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
+				67CEF2712351113000D5CA6C /* DiffController.swift in Sources */,
 				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8EC3E421E9BDA35006712EB /* WMFTableOfContentsViewController.swift in Sources */,
 				D8EC3E441E9BDA35006712EB /* ProtectedEditAttemptFunnel.m in Sources */,
@@ -13166,6 +13201,7 @@
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,
 				B07F823D203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
 				B0CD9DE81F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
+				67CEF26B2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				D88C701A1EE595E90022A26A /* MapView.swift in Sources */,
 				D8EC3E561E9BDA35006712EB /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,

@@ -161,6 +161,7 @@
 "diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
 "diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.";
 "diff-context-lines-expanded-button-title" = "Expand button title in diff compare context section when section is in expanded state.";
+"diff-context-lines-format" = "Label in diff to indicate how many lines a context section encompases. $1 is replaced by the starting line number and $2 is replaced by the ending line number";
 "diff-single-header-editor-number-edits-format" = "Label to show the number of total edits made by the editor when viewing a single revision. $1 is replaced with the editor's number of edits.";
 "diff-single-header-editor-title" = "Title label in header editor view when viewing a single revision.";
 "diff-single-header-subtitle-bytes-added" = "Subtitle label in header when viewing a revision. $1 is replaced by the number of bytes that were added in this revision.";

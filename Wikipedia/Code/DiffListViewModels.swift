@@ -47,12 +47,31 @@ final class DiffListChangeItemViewModel {
     
     private(set) var textAttributedString: NSAttributedString
     
-    init(text: String, highlightedRanges: [DiffListItemHighlightRange], traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType) {
-        self.text = text
-        self.highlightedRanges = highlightedRanges
+    init(item: DiffItem, traitCollection: UITraitCollection, theme: Theme, type: DiffListChangeType) {
+        self.text = item.text
         self.traitCollection = traitCollection
         self.theme = theme
         self.type = type
+        
+        //tonitodo: clean up
+        var highlightedRanges: [DiffListItemHighlightRange] = []
+        if let diffHighlightedRanges = item.highlightRanges {
+            for diffHighlightedRange in diffHighlightedRanges {
+                let start = diffHighlightedRange.start
+                let length = diffHighlightedRange.length
+                let type = diffHighlightedRange.type == .add ? DiffListItemHighlightRange.HighlightType.added : DiffListItemHighlightRange.HighlightType.deleted
+                
+                let fromIdx = text.utf8.index(text.utf8.startIndex, offsetBy: start)
+                let toIdx = text.utf8.index(fromIdx, offsetBy: length)
+                let nsRange = NSRange(fromIdx..<toIdx, in: text)
+                
+                let highlightedRange = DiffListItemHighlightRange(start: nsRange.location, length: nsRange.length, type: type)
+                highlightedRanges.append(highlightedRange)
+            }
+        }
+        
+        self.highlightedRanges = highlightedRanges
+        
         self.textAttributedString = DiffListChangeItemViewModel.calculateAttributedString(with: text, highlightedRanges: highlightedRanges, traitCollection: traitCollection, theme: theme, type: type)
     }
     
@@ -182,16 +201,30 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     private(set) var textPadding: NSDirectionalEdgeInsets
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, heading: String, items: [DiffListChangeItemViewModel], theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
+    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
         
         self.type = type
-        self.heading = heading
-        self.items = items
         self.theme = theme
         self.sizeClass = sizeClass
         self.width = width
         self.traitCollection = traitCollection
         self.innerViewClipsToBounds = type == .compareRevision
+        
+        if let firstItemLineNumber = diffItems.first?.lineNumber,
+            let lastItemLineNumber = diffItems.last?.lineNumber {
+            
+            self.heading = String.localizedStringWithFormat(WMFLocalizedString("diff-context-lines-format", value:"Lines %1$d - %2$d", comment:"Label in diff to indicate how many lines a context section encompases. %1$d is replaced by the starting line number and %2$d is replaced by the ending line number"), firstItemLineNumber, lastItemLineNumber)
+        } else {
+            self.heading = "" //tonitodo: optional would be better
+        }
+        
+        var itemViewModels: [DiffListChangeItemViewModel] = []
+        for diffItem in diffItems {
+            let changeItemViewModel = DiffListChangeItemViewModel(item: diffItem, traitCollection: traitCollection, theme: theme, type: type)
+            itemViewModels.append(changeItemViewModel)
+        }
+        
+        self.items = itemViewModels
         
         borderColor = DiffListChangeViewModel.calculateBorderColor(type: type, theme: theme)
         innerPadding = DiffListChangeViewModel.calculateInnerPadding(sizeClass: sizeClass)
@@ -334,14 +367,22 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         }
     }
     
-    init(heading: String, isExpanded: Bool, items: [String?], theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
-        self.heading = heading
+    init(diffItems: [DiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
         self.isExpanded = isExpanded
-        self.items = items
         self.theme = theme
         self.sizeClass = sizeClass
         self.width = width
         self.traitCollection = traitCollection
+        
+        self.items = diffItems.map{ $0.text.count == 0 ? nil : $0.text }
+        
+        if let firstItemLineNumber = diffItems.first?.lineNumber,
+            let lastItemLineNumber = diffItems.last?.lineNumber {
+            
+            self.heading = String.localizedStringWithFormat(WMFLocalizedString("diff-context-lines-format", value:"Lines %1$d - %2$d", comment:"Label in diff to indicate how many lines a context section encompases. %1$d is replaced by the starting line number and %2$d is replaced by the ending line number"), firstItemLineNumber, lastItemLineNumber)
+        } else {
+            self.heading = "" //tonitodo: optional would be better
+        }
         
         self.contextFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         self.headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)

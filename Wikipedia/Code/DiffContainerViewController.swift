@@ -18,6 +18,7 @@ class DiffContainerViewController: ViewController {
     private var headerExtendedView: DiffHeaderExtendedView?
     private var headerTitleView: DiffHeaderTitleView?
     private var diffListViewController: DiffListViewController?
+    private let diffController: DiffController
     
     //tonitodo: can I remove these?
     private let type: DiffContainerViewModel.DiffType
@@ -28,22 +29,23 @@ class DiffContainerViewController: ViewController {
     @objc static func stubCompareContainerViewController(theme: Theme) -> DiffContainerViewController {
         let revisionModel1 = StubRevisionModel(revisionId: 123, summary: "Summary 1", username: "fancypants", timestamp: Date(timeInterval: -(60*60*24*3), since: Date()))
         let revisionModel2 = StubRevisionModel(revisionId: 234, summary: "Summary 2", username: "funtimez2019", timestamp: Date(timeInterval: -(60*60*24*2), since: Date()))
-        let stubCompareVC = DiffContainerViewController(type: .compare(articleTitle: "Dog", numberOfIntermediateRevisions: 1, numberOfIntermediateUsers: 1), fromModel: revisionModel1, toModel: revisionModel2, theme: theme)
+        let stubCompareVC = DiffContainerViewController(type: .compare(articleTitle: "Dog", numberOfIntermediateRevisions: 1, numberOfIntermediateUsers: 1), fromModel: revisionModel1, toModel: revisionModel2, theme: theme, diffController: DiffController())
         return stubCompareVC
     }
     
     @objc static func stubSingleContainerViewController(theme: Theme) -> DiffContainerViewController {
         let revisionModel1 = StubRevisionModel(revisionId: 123, summary: "Summary 1", username: "fancypants", timestamp: Date(timeInterval: -(60*60*24*3), since: Date()))
         let revisionModel2 = StubRevisionModel(revisionId: 234, summary: "Summary 2", username: "funtimez2019", timestamp: Date(timeInterval: -(60*60*24*2), since: Date()))
-        let stubSingleVC = DiffContainerViewController(type: .single(byteDifference: -6), fromModel: revisionModel1, toModel: revisionModel2, theme: theme)
+        let stubSingleVC = DiffContainerViewController(type: .single(byteDifference: -6), fromModel: revisionModel1, toModel: revisionModel2, theme: theme, diffController: DiffController())
         return stubSingleVC
     }
     
-    init(type: DiffContainerViewModel.DiffType, fromModel: StubRevisionModel, toModel: StubRevisionModel, theme: Theme) {
+    init(type: DiffContainerViewModel.DiffType, fromModel: StubRevisionModel, toModel: StubRevisionModel, theme: Theme, diffController: DiffController) {
         
         self.type = type
         self.fromModel = fromModel
         self.toModel = toModel
+        self.diffController = diffController
         
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: nil)
         
@@ -60,6 +62,82 @@ class DiffContainerViewController: ViewController {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
+        
+        diffController.fetchDiff { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let diffResponse):
+                
+                let listViewModel = self.viewModels(from: diffResponse, type: self.type)
+ 
+                self.containerViewModel = DiffContainerViewModel(type: self.type, fromModel: self.fromModel, toModel: self.toModel, theme: self.theme, listViewModel: listViewModel)
+                
+            case .failure(let error):
+                print(error)
+                //tonitodo: error handling
+            }
+        }
+    }
+    
+    private func viewModels(from response: DiffResponse, type: DiffContainerViewModel.DiffType) -> [DiffListGroupViewModel] {
+        
+        var result: [DiffListGroupViewModel] = []
+        
+        var contextItems: [DiffItem] = []
+        var changeItems: [DiffItem] = []
+        var lastItem: DiffItem?
+        for item in response.diff {
+            
+            if let lastItemLineNumber = lastItem?.lineNumber,
+                let currentItemLineNumber = item.lineNumber {
+                let delta = currentItemLineNumber - lastItemLineNumber
+                if delta > 1 {
+                    //insert unedited lines view model
+                    let uneditedViewModel = DiffListUneditedViewModel(numberOfUneditedLines: delta, theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+                    result.append(uneditedViewModel)
+                }
+            }
+            
+            if item.type == .context {
+                contextItems.append(item)
+                
+                if changeItems.count > 0 {
+                    //package contexts up into context view model, append to result
+                    
+                    let changeType: DiffListChangeType
+                    switch type {
+                    case .compare:
+                        changeType = .compareRevision
+                    default:
+                        changeType = .singleRevison
+                    }
+                    
+                    let changeViewModel = DiffListChangeViewModel(type: changeType, diffItems: changeItems, theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+                    result.append(changeViewModel)
+                    changeItems.removeAll()
+                }
+            } else {
+                
+                if contextItems.count > 0 {
+                    //package contexts up into context view model, append to result
+                    let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+                    result.append(contextViewModel)
+                    contextItems.removeAll()
+                }
+                
+                changeItems.append(item)
+            }
+            
+            lastItem = item
+            
+            continue
+        }
+        
+        return result
     }
     
     override func viewDidLayoutSubviews() {
@@ -87,18 +165,18 @@ class DiffContainerViewController: ViewController {
         //TONITODO: fetch revision compare here.
         //once revision compare fetch finishes:
         //stub, //TONITODO delete
-        navigationController?.isNavigationBarHidden = true
-        let range1 = DiffListItemHighlightRange(start: 7, length: 5, type: .added)
-        let range2 = DiffListItemHighlightRange(start: 12, length: 4, type: .deleted)
-        let item1 = DiffListChangeItemViewModel(text: "The fleet under her command established hegemony over many coastal villages, in some cases even imposing levies, and taxes on settlements. According to Robert Antony, In his authoritative text on female Pirates, Robert Antony states that Ching Shih ''\"robbed towns, markets, and villages, from Macau to Canton.\"''<ref>{{cite book |last=Antony |first=Robert |title=Like Froth Floating on the Sea: The world of pirates and seafarers in Late Imperial South China |location=Berkeley |publisher=University of California Press |year=2003 |isbn=978-1-55729-078-6}}</ref> In one coastal village, the Sanshan village, they beheaded 80 men and abducted their women and children and held them for ransom until they were sold in slavery.<ref name=\":0\">{{Cite web|url=http://www.cindyvallar.com/chengsao.html |title=Pirates & Privateers: The History of Maritime Piracy - Cheng I Sao |last=Vallar |first=Cindy| website= www.cindyvallar.com |access-date=2018-03-03}}</ref>", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme, type: .compareRevision)
-        let item2 = DiffListChangeItemViewModel(text: "Here is another line of text to test multi-line changes.", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme, type: .compareRevision)
-        
-        let changeCompareViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Line 1", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
-        //let changeSingleViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Pirates", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
-        let contextViewModel = DiffListContextViewModel(heading: "Lines 150-151", isExpanded: false, items: [nil, "In 1999, a study of [[mitochondrial DNA]] indicated that the domestic dog may have originated from multiple grey [[wolf]] populations, with the [[dingo]] and [[New Guinea singing dog]] \"breeds\" having developed at a time when human populations were more isolated from each other.<ref name=wayne1999/> In the third edition of ''[[Mammal Species of the World]]'' published in 2005, the mammalogist [[:de:W. Christopher Wozencraft|W. Christopher Wozencraft]] listed under the wolf ''Canis lupus'' its wild subspecies, and proposed two additional subspecies: \"''familiaris'' Linneaus, 1758 [domestic dog]\" and \"''dingo'' Meyer, 1793 [domestic dog]\". Wozencraft included ''hallstromi'' - the New Guinea singing dog - as a [[taxonomic synonym]] for the dingo. Wozencraft referred to the mDNA study as one of the guides in forming his decision.<ref name=wozencraft2005/> The inclusion of ''familiaris'' under a \"domestic dog\" clade has been noted by other mammalogists.<ref name=jackson2017/> This classification by Wozencraft is debated among zoologists.<ref name=smithC1/>"], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
-        
-        let uneditedViewModel = DiffListUneditedViewModel(numberOfUneditedLines: 100, theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
-        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: [contextViewModel, uneditedViewModel, changeCompareViewModel])
+//        navigationController?.isNavigationBarHidden = true
+//        let range1 = DiffListItemHighlightRange(start: 7, length: 5, type: .added)
+//        let range2 = DiffListItemHighlightRange(start: 12, length: 4, type: .deleted)
+//        let item1 = DiffListChangeItemViewModel(text: "The fleet under her command established hegemony over many coastal villages, in some cases even imposing levies, and taxes on settlements. According to Robert Antony, In his authoritative text on female Pirates, Robert Antony states that Ching Shih ''\"robbed towns, markets, and villages, from Macau to Canton.\"''<ref>{{cite book |last=Antony |first=Robert |title=Like Froth Floating on the Sea: The world of pirates and seafarers in Late Imperial South China |location=Berkeley |publisher=University of California Press |year=2003 |isbn=978-1-55729-078-6}}</ref> In one coastal village, the Sanshan village, they beheaded 80 men and abducted their women and children and held them for ransom until they were sold in slavery.<ref name=\":0\">{{Cite web|url=http://www.cindyvallar.com/chengsao.html |title=Pirates & Privateers: The History of Maritime Piracy - Cheng I Sao |last=Vallar |first=Cindy| website= www.cindyvallar.com |access-date=2018-03-03}}</ref>", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme, type: .compareRevision)
+//        let item2 = DiffListChangeItemViewModel(text: "Here is another line of text to test multi-line changes.", highlightedRanges: [range1, range2], traitCollection: traitCollection, theme: theme, type: .compareRevision)
+//
+//        let changeCompareViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Line 1", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+//        //let changeSingleViewModel = DiffListChangeViewModel(type: .compareRevision, heading: "Pirates", items: [item1, item2], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+//        let contextViewModel = DiffListContextViewModel(heading: "Lines 150-151", isExpanded: false, items: [nil, "In 1999, a study of [[mitochondrial DNA]] indicated that the domestic dog may have originated from multiple grey [[wolf]] populations, with the [[dingo]] and [[New Guinea singing dog]] \"breeds\" having developed at a time when human populations were more isolated from each other.<ref name=wayne1999/> In the third edition of ''[[Mammal Species of the World]]'' published in 2005, the mammalogist [[:de:W. Christopher Wozencraft|W. Christopher Wozencraft]] listed under the wolf ''Canis lupus'' its wild subspecies, and proposed two additional subspecies: \"''familiaris'' Linneaus, 1758 [domestic dog]\" and \"''dingo'' Meyer, 1793 [domestic dog]\". Wozencraft included ''hallstromi'' - the New Guinea singing dog - as a [[taxonomic synonym]] for the dingo. Wozencraft referred to the mDNA study as one of the guides in forming his decision.<ref name=wozencraft2005/> The inclusion of ''familiaris'' under a \"domestic dog\" clade has been noted by other mammalogists.<ref name=jackson2017/> This classification by Wozencraft is debated among zoologists.<ref name=smithC1/>"], theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+//
+//        let uneditedViewModel = DiffListUneditedViewModel(numberOfUneditedLines: 100, theme: theme, width: 0, sizeClass: (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass), traitCollection: traitCollection)
+//        self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme, listViewModel: [contextViewModel, uneditedViewModel, changeCompareViewModel])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
