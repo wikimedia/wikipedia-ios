@@ -11,7 +11,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     private let selectView = BatchEditSelectView()
     private let spacing: CGFloat = 3
 
-    var time: String? {
+    var time: String?
+
+    var displayTime: String? {
         didSet {
             timeLabel.text = time
             setNeedsLayout()
