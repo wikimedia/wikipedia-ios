@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 @objc(WMFPageHistoryViewControllerDelegate)
 protocol PageHistoryViewControllerDelegate: AnyObject {
