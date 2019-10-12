@@ -200,6 +200,24 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private lazy var compareToolbarButton = UIBarButtonItem(title: "Compare", style: .plain, target: self, action: #selector(showDiff(_:)))
     private lazy var firstComparisonSelectionButton = makeComparisonSelectionButton()
     private lazy var secondComparisonSelectionButton = makeComparisonSelectionButton()
+
+    private func makeComparisonSelectionButton() -> AlignedImageButton {
+        let button = AlignedImageButton(frame: .zero)
+        button.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.cornerRadius = 8
+        button.clipsToBounds = true
+        button.backgroundColor = UIColor.white
+        button.imageView?.tintColor = theme.colors.link
+        button.setTitleColor(theme.colors.link, for: .normal)
+        button.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        button.horizontalSpacing = 10
+        button.contentHorizontalAlignment = .leading
+        button.leftPadding = 10
+        button.rightPadding = 10
+        return button
+    }
+
     @objc private func compare(_ sender: UIBarButtonItem) {
 
     }
