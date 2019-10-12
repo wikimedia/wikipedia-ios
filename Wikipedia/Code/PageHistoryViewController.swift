@@ -56,7 +56,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Article", style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items"), style: .plain, target: self, action: #selector(compare(_:)))
+        navigationItem.rightBarButtonItem = compareButton
         title = CommonStrings.historyTabTitle
 
         addChild(statsViewController)
