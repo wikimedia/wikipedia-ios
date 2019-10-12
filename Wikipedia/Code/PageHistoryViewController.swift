@@ -409,7 +409,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         if let estimate = cellLayoutEstimate {
             return estimate
         }
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 70)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 80)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier) as? PageHistoryCollectionViewCell else {
             return estimate
         }
