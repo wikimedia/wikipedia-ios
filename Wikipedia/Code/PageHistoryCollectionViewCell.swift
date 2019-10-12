@@ -76,6 +76,9 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             setNeedsLayout()
         }
     }
+
+    var selectionIndex: Int?
+    var selectionThemeModel: PageHistoryCollectionViewCellSelectionThemeModel?
     override func setup() {
         super.setup()
         roundedContent.layer.cornerRadius = 6
