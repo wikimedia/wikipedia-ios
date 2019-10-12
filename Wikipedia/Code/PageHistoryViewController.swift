@@ -431,6 +431,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
         return state == .editing && indexPathsForSelectedItems.count < 2
     }
+
+    var openSelectionIndex = 0
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         defer {
             compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
