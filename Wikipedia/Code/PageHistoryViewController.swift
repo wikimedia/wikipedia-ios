@@ -474,4 +474,30 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         openSelectionIndex += 1
     }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
+            openSelectionIndex = collectionView.indexPathsForSelectedItems?.count ?? 0 == 0 ? 0 : selectionIndex
+            forEachVisibleCell { (cell: PageHistoryCollectionViewCell?) in
+                cell?.selectionThemeModel = nil
+                cell?.enableEditing(true, animated: false)
+            }
+            let button: UIButton?
+            switch selectionIndex {
+            case 0:
+                button = firstComparisonSelectionButton
+            case 1:
+                button = secondComparisonSelectionButton
+            default:
+                button = nil
+            }
+            button?.backgroundColor = UIColor.white
+            button?.setImage(nil, for: .normal)
+            button?.setTitle(nil, for: .normal)
+            cell.selectionIndex = nil
+            cell.selectionThemeModel = nil
+            cell.apply(theme: theme)
+        }
+        compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
+    }
 }
