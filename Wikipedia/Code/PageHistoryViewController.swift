@@ -431,4 +431,47 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
         return state == .editing && indexPathsForSelectedItems.count < 2
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        defer {
+            compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
+        }
+
+        guard
+            let selectedCell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell
+        else {
+            return
+        }
+
+        let button: UIButton?
+        let themeModel: SelectionThemeModel?
+        if maxNumberOfRevisionsSelected {
+            forEachVisibleCell { (cell: PageHistoryCollectionViewCell?) in
+                cell?.selectionThemeModel = self.disabledSelectionThemeModel
+                cell?.enableEditing(false)
+            }
+        }
+        switch openSelectionIndex {
+        case 0:
+            button = firstComparisonSelectionButton
+            themeModel = firstSelectionThemeModel
+        case 1:
+            button = secondComparisonSelectionButton
+            themeModel = secondSelectionThemeModel
+        default:
+            button = nil
+            themeModel = nil
+        }
+        if let button = button, let themeModel = themeModel {
+            button.backgroundColor = themeModel.backgroundColor
+            button.setImage(selectedCell.authorImage, for: .normal)
+            button.setTitle(selectedCell.time, for: .normal)
+            button.setTitleColor(themeModel.authorColor, for: .normal)
+            button.tintColor = themeModel.authorColor
+        }
+        selectedCell.selectionIndex = openSelectionIndex
+        selectedCell.selectionThemeModel = themeModel
+        selectedCell.apply(theme: theme)
+
+        openSelectionIndex += 1
+    }
 }
