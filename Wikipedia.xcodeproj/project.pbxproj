@@ -885,6 +885,11 @@
 		7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF498621B45E42009EA338 /* TextFormattingGroupedToolbarView.xib */; };
 		7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF498621B45E42009EA338 /* TextFormattingGroupedToolbarView.xib */; };
 		7ADF499021B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF498621B45E42009EA338 /* TextFormattingGroupedToolbarView.xib */; };
+		7ADF853623516CF500500ADC /* PageHistoryHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF853523516CF500500ADC /* PageHistoryHintController.swift */; };
+		7ADF853723516CF500500ADC /* PageHistoryHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF853523516CF500500ADC /* PageHistoryHintController.swift */; };
+		7ADF853823516CF500500ADC /* PageHistoryHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF853523516CF500500ADC /* PageHistoryHintController.swift */; };
+		7ADF853923516CF500500ADC /* PageHistoryHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF853523516CF500500ADC /* PageHistoryHintController.swift */; };
+		7ADF853A23516CF500500ADC /* PageHistoryHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF853523516CF500500ADC /* PageHistoryHintController.swift */; };
 		7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
 		7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
 		7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
@@ -3969,6 +3974,7 @@
 		7ADF497A21B45CEE009EA338 /* TextFormattingPlainToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormattingPlainToolbarView.xib; sourceTree = "<group>"; };
 		7ADF498521B45E42009EA338 /* TextFormattingGroupedToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingGroupedToolbarView.swift; sourceTree = "<group>"; };
 		7ADF498621B45E42009EA338 /* TextFormattingGroupedToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormattingGroupedToolbarView.xib; sourceTree = "<group>"; };
+		7ADF853523516CF500500ADC /* PageHistoryHintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHistoryHintController.swift; sourceTree = "<group>"; };
 		7AE1D3321FCD057200393471 /* Saved.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Saved.storyboard; sourceTree = "<group>"; };
 		7AE1D3381FCD10B900393471 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		7AE1FE2F21B4A9790068BE9F /* TextFormattingButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingButtonView.swift; sourceTree = "<group>"; };
@@ -5692,6 +5698,7 @@
 				B0E806CD1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.h */,
 				B0E806CE1C0CEB6E0065EBC0 /* LegacyPageHistoryViewController.m */,
 				7AB209F822FC67B4006FECB4 /* PageHistoryViewController.swift */,
+				7ADF853523516CF500500ADC /* PageHistoryHintController.swift */,
 				7A0FF2CB230343BA00E755D4 /* PageHistoryCollectionViewCell.swift */,
 				7A0FF2D1230349AA00E755D4 /* Stats */,
 			);
@@ -11161,6 +11168,7 @@
 				0E4A34721CBBFCD400A400F6 /* WMFImageGalleryViewController.m in Sources */,
 				67DB111422613FD800F789B0 /* SchemeHandler+DefaultHandler.swift in Sources */,
 				7AF49F80204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
+				7ADF853623516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */,
 				7AB7DEC8227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
 				7A16C4E6212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
@@ -11293,6 +11301,7 @@
 				D80ED28D1EE57F4800CE8C50 /* NSDate+WMFPOTDTitle.m in Sources */,
 				D80ED28E1EE57F4800CE8C50 /* WMFTableHeaderFooterLabelView.m in Sources */,
 				D80ED28F1EE57F4800CE8C50 /* PreviewHtmlFetcher.m in Sources */,
+				7ADF853A23516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				7A741DCE207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				7A20AE0C2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A9524DB22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
@@ -12336,6 +12345,7 @@
 				D8A42B651E815A9C00D8E281 /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				D8A42B671E815A9C00D8E281 /* WMFForgotPasswordViewController.swift in Sources */,
 				D8A42B691E815A9C00D8E281 /* WMFImageGalleryViewController.m in Sources */,
+				7ADF853923516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				D80ED25F1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				D8A42B6D1E815A9C00D8E281 /* WMFAccountCreationViewController.swift in Sources */,
 				7AB7DECB227203A600DD61A2 /* InsertMediaViewController.swift in Sources */,
@@ -12476,6 +12486,7 @@
 				D8CE24FD1E698E2400DAE2E0 /* WebViewController+WMFReferencePopover.m in Sources */,
 				D8CE24FE1E698E2400DAE2E0 /* UIViewController+WMFAlerts.swift in Sources */,
 				7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
+				7ADF853723516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				D8CE24FF1E698E2400DAE2E0 /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8CE25001E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.m in Sources */,
 				7A9524D822669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
@@ -12896,6 +12907,7 @@
 				D8EC3DF21E9BDA35006712EB /* WMFWelcomePanelViewController.swift in Sources */,
 				D8533ED71ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				D8EC3DF41E9BDA35006712EB /* WebViewController+WMFReferencePopover.m in Sources */,
+				7ADF853823516CF500500ADC /* PageHistoryHintController.swift in Sources */,
 				7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
 				7A9524D922669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,

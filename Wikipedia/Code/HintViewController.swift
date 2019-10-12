@@ -20,6 +20,9 @@ class HintViewController: UIViewController {
 
     @IBOutlet var safeAreaBottomConstraint: NSLayoutConstraint!
     @IBOutlet var viewBottomConstraint: NSLayoutConstraint!
+
+    var backgroundColor: UIColor?
+    var primaryColor: UIColor?
     
     //if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
     //must also override extendsUnderSafeArea to true in HintController
@@ -114,9 +117,11 @@ extension HintViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.hintBackground
-        defaultLabel?.textColor = theme.colors.link
-        confirmationLabel?.textColor = theme.colors.link
-        confirmationAccessoryButton.tintColor = theme.colors.link
+
+        view.backgroundColor = backgroundColor ?? theme.colors.hintBackground
+        defaultLabel?.textColor = primaryColor ?? theme.colors.link
+        confirmationLabel?.textColor = primaryColor ?? theme.colors.link
+        confirmationAccessoryButton.tintColor = primaryColor ?? theme.colors.link
+        defaultImageView.tintColor = primaryColor ?? theme.colors.link
     }
 }
