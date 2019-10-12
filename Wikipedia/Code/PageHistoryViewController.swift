@@ -162,6 +162,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         getPageHistory()
     }
 
+    private enum State {
+        case idle
+        case editing
+    }
     @objc private func compare(_ sender: UIBarButtonItem) {
 
     }
