@@ -259,6 +259,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
         statsViewController.apply(theme: theme)
+        navigationController?.toolbar.isTranslucent = false
+        let toolbarTempColor = UIColor.wmf_lightestGray
+        navigationController?.toolbar.tintColor = toolbarTempColor
+        navigationController?.toolbar.barTintColor = toolbarTempColor
+        compareToolbarButton.tintColor = theme.colors.link
     }
 
     // MARK: UICollectionViewDataSource
