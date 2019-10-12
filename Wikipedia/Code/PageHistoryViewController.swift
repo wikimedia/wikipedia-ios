@@ -487,6 +487,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             button.backgroundColor = themeModel.backgroundColor
             button.setImage(cell.authorImage, for: .normal)
             button.setTitle(cell.time, for: .normal)
+            button.imageView?.tintColor = themeModel.authorColor
             button.setTitleColor(themeModel.authorColor, for: .normal)
             button.tintColor = themeModel.authorColor
         }
