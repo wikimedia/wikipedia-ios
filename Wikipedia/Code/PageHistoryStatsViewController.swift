@@ -9,7 +9,7 @@ class PageHistoryStatsViewController: UIViewController {
     @IBOutlet private weak var statsLabel: UILabel!
 
     @IBOutlet private weak var sparklineView: WMFSparklineView!
-    private lazy var visibleSparklineViewWidthConstraint = sparklineView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.4)
+    private lazy var visibleSparklineViewWidthConstraint = sparklineView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.35)
     private lazy var hiddenSparklineViewWidthConstraint = sparklineView.widthAnchor.constraint(equalToConstant: 0)
 
     @IBOutlet private weak var separator: UIView!
