@@ -255,18 +255,42 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
 extension PageHistoryCollectionViewCell: Themeable {
     func apply(theme: Theme) {
-        roundedContent.layer.borderColor = theme.colors.border.cgColor
-        roundedContent.backgroundColor = theme.colors.paperBackground
-        timeLabel.textColor = theme.colors.secondaryText
-        if let sizeDiff = sizeDiff {
-            if sizeDiff == 0 {
-                sizeDiffLabel.textColor = theme.colors.link
-            } else if sizeDiff > 0 {
-                sizeDiffLabel.textColor = theme.colors.accent
-            } else {
-                sizeDiffLabel.textColor = theme.colors.destructive
+        self.theme = theme
+
+        if let selectionThemeModel = selectionThemeModel {
+            selectView.selectedImage = selectionThemeModel.selectedImage
+            roundedContent.layer.borderColor = selectionThemeModel.borderColor.cgColor
+            roundedContent.backgroundColor = selectionThemeModel.backgroundColor
+            authorButton.setTitleColor(selectionThemeModel.authorColor, for: .normal)
+            authorButton.tintColor = selectionThemeModel.authorColor
+            commentLabel.textColor = selectionThemeModel.commentColor
+
+            if let sizeDiff = sizeDiff {
+                if sizeDiff == 0 {
+                    sizeDiffLabel.textColor = selectionThemeModel.sizeDiffNoDifferenceColor
+                } else if sizeDiff > 0 {
+                    sizeDiffLabel.textColor = selectionThemeModel.sizeDiffAdditionColor
+                } else {
+                    sizeDiffLabel.textColor = selectionThemeModel.sizeDiffSubtractionColor
+                }
+            }
+        } else {
+            roundedContent.layer.borderColor = theme.colors.border.cgColor
+            roundedContent.backgroundColor = theme.colors.paperBackground
+            authorButton.setTitleColor(theme.colors.link, for: .normal)
+            authorButton.tintColor = theme.colors.link
+            commentLabel.textColor = theme.colors.primaryText
+            timeLabel.textColor = theme.colors.secondaryText
+
+            if let sizeDiff = sizeDiff {
+                if sizeDiff == 0 {
+                    sizeDiffLabel.textColor = theme.colors.link
+                } else if sizeDiff > 0 {
+                    sizeDiffLabel.textColor = theme.colors.accent
+                } else {
+                    sizeDiffLabel.textColor = theme.colors.destructive
+                }
             }
         }
-        authorButton.setTitleColor(theme.colors.link, for: .normal)
     }
 }
