@@ -10,6 +10,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     private let authorButton = AlignedImageButton()
     private let selectView = BatchEditSelectView()
     private let spacing: CGFloat = 3
+    private var theme = Theme.standard
 
     var time: String?
 
