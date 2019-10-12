@@ -62,17 +62,17 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-5Q-AWf" userLabel="Sparkline View" customClass="WMFSparklineView" customModule="WMF">
-                            <rect key="frame" x="233" y="0.0" width="165" height="135"/>
+                            <rect key="frame" x="233" y="12" width="165" height="123"/>
                         </view>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Mdn-Xi-5HV" secondAttribute="bottom" constant="25" id="7hH-hJ-sgZ"/>
                         <constraint firstItem="Mdn-Xi-5HV" firstAttribute="leading" secondItem="zCN-kR-Ul8" secondAttribute="leading" constant="15" id="EtO-Li-JZN"/>
                         <constraint firstItem="Mdn-Xi-5HV" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" id="YiG-tC-CbG"/>
-                        <constraint firstItem="s5E-5Q-AWf" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" id="cow-fz-FdZ"/>
                         <constraint firstAttribute="trailing" secondItem="s5E-5Q-AWf" secondAttribute="trailing" constant="15" id="ez5-Ne-luZ"/>
                         <constraint firstItem="s5E-5Q-AWf" firstAttribute="leading" secondItem="Mdn-Xi-5HV" secondAttribute="trailing" constant="25" id="jTk-tD-o4g"/>
                         <constraint firstAttribute="bottom" secondItem="s5E-5Q-AWf" secondAttribute="bottom" constant="25" id="lUt-5C-zgs"/>
+                        <constraint firstItem="s5E-5Q-AWf" firstAttribute="top" secondItem="zCN-kR-Ul8" secondAttribute="top" constant="12" id="o5E-qP-kel"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REp-2g-3HJ" userLabel="Separator View">
