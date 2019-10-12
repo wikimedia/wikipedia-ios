@@ -5,6 +5,8 @@ protocol PageHistoryViewControllerDelegate: AnyObject {
     func pageHistoryViewControllerDidDisappear(_ pageHistoryViewController: PageHistoryViewController)
 }
 
+typealias PageHistoryCollectionViewCellSelectionThemeModel = PageHistoryViewController.SelectionThemeModel
+
 @objc(WMFPageHistoryViewController)
 class PageHistoryViewController: ColumnarCollectionViewController {
     private let pageTitle: String
