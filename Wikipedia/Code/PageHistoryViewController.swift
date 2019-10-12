@@ -234,6 +234,16 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     @objc private func cancelComparison(_ sender: UIBarButtonItem?) {
         state = .idle
     }
+
+    private func resetComparisonSelectionButtons() {
+        firstComparisonSelectionButton.setTitle(nil, for: .normal)
+        firstComparisonSelectionButton.setImage(nil, for: .normal)
+        secondComparisonSelectionButton.setTitle(nil, for: .normal)
+        secondComparisonSelectionButton.setImage(nil, for: .normal)
+        firstComparisonSelectionButton.backgroundColor = UIColor.white
+        secondComparisonSelectionButton.backgroundColor = UIColor.white
+    }
+
     }
 
     override func apply(theme: Theme) {
