@@ -166,6 +166,15 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         commentLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
+    override var isSelected: Bool {
+        didSet {
+            guard isEditing else {
+                return
+            }
+            selectView.isSelected = isSelected
+        }
+    }
+
     // TODO: Fix RTL
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
