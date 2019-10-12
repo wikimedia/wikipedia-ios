@@ -181,8 +181,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 openSelectionIndex = 0
                 navigationItem.rightBarButtonItem = compareButton
                 collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
-                forEachVisibleCell { (cell: PageHistoryCollectionViewCell) in
-                    cell.selectionThemeModel = nil
+                forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
+                    self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
                     cell.enableEditing(true) // confusing, have a reset method
                     cell.setEditing(false)
                 }
@@ -191,7 +191,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             case .editing:
                 navigationItem.rightBarButtonItem = cancelComparisonButton
                 collectionView.allowsMultipleSelection = true
-                forEachVisibleCell { $0.setEditing(true) }
+                forEachVisibleCell { $1.setEditing(true) }
                 compareToolbarButton.isEnabled = false
                 NSLayoutConstraint.activate([
                     firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90),
@@ -230,12 +230,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         state = .editing
     }
 
-    private func forEachVisibleCell(_ block: (PageHistoryCollectionViewCell) -> Void) {
-        for visibleCell in collectionView.visibleCells {
-            guard let pageHistoryCollectionViewCell = visibleCell as? PageHistoryCollectionViewCell else {
+    private func forEachVisibleCell(_ block: (IndexPath, PageHistoryCollectionViewCell) -> Void) {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let pageHistoryCollectionViewCell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell else {
                 continue
             }
-            block(pageHistoryCollectionViewCell)
+            block(indexPath, pageHistoryCollectionViewCell)
         }
     }
 
@@ -321,14 +321,16 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let authorImage: UIImage?
         let sizeDiff: Int?
         let comment: String?
+        var selectionThemeModel: SelectionThemeModel?
 
-        init(time: String?, displayTime: String?, author: String?, authorImage: UIImage?, sizeDiff: Int?, comment: String?) {
+        init(time: String?, displayTime: String?, author: String?, authorImage: UIImage?, sizeDiff: Int?, comment: String?, selectionThemeModel: SelectionThemeModel?) {
             self.time = time
             self.displayTime = displayTime
             self.author = author
             self.authorImage = authorImage
             self.sizeDiff = sizeDiff
             self.comment = comment
+            self.selectionThemeModel = selectionThemeModel
             super.init()
         }
     }
@@ -346,6 +348,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.author = cachedCellContent.author
             cell.sizeDiff = cachedCellContent.sizeDiff
             cell.comment = cachedCellContent.comment
+            cell.selectionThemeModel = cachedCellContent.selectionThemeModel
         } else {
             if let date = item.revisionDate {
                 if (date as NSDate).wmf_isTodayUTC() {
@@ -370,11 +373,19 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.author = item.user
             cell.sizeDiff = item.revisionSize
             cell.comment = item.parsedComment?.removingHTML
+            if !cell.isSelected {
+                cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
+            }
         }
 
-        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment), forKey: indexPath as NSIndexPath)
+        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel), forKey: indexPath as NSIndexPath)
 
         cell.apply(theme: theme)
+    }
+
+    private func updateSelectionThemeModel(_ selectionThemeModel: SelectionThemeModel?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
+        cell.selectionThemeModel = selectionThemeModel
+        cellContentCache.object(forKey: indexPath as NSIndexPath)?.selectionThemeModel = selectionThemeModel
     }
 
     public class SelectionThemeModel {
@@ -447,18 +458,18 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
         }
 
-        guard
-            let selectedCell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell
-        else {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell else {
             return
         }
 
         let button: UIButton?
         let themeModel: SelectionThemeModel?
         if maxNumberOfRevisionsSelected {
-            forEachVisibleCell { (cell: PageHistoryCollectionViewCell?) in
-                cell?.selectionThemeModel = self.disabledSelectionThemeModel
-                cell?.enableEditing(false)
+            forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
+                if !cell.isSelected {
+                    self.updateSelectionThemeModel(self.disabledSelectionThemeModel, for: cell, at: indexPath)
+                }
+                cell.enableEditing(false)
             }
         }
         switch openSelectionIndex {
@@ -474,14 +485,14 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
         if let button = button, let themeModel = themeModel {
             button.backgroundColor = themeModel.backgroundColor
-            button.setImage(selectedCell.authorImage, for: .normal)
-            button.setTitle(selectedCell.time, for: .normal)
+            button.setImage(cell.authorImage, for: .normal)
+            button.setTitle(cell.time, for: .normal)
             button.setTitleColor(themeModel.authorColor, for: .normal)
             button.tintColor = themeModel.authorColor
         }
-        selectedCell.selectionIndex = openSelectionIndex
-        selectedCell.selectionThemeModel = themeModel
-        selectedCell.apply(theme: theme)
+        cell.selectionIndex = openSelectionIndex
+        updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
+        cell.apply(theme: theme)
 
         openSelectionIndex += 1
     }
@@ -489,9 +500,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
             openSelectionIndex = collectionView.indexPathsForSelectedItems?.count ?? 0 == 0 ? 0 : selectionIndex
-            forEachVisibleCell { (cell: PageHistoryCollectionViewCell?) in
-                cell?.selectionThemeModel = nil
-                cell?.enableEditing(true, animated: false)
+            forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
+                self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
+                cell.enableEditing(true, animated: false)
             }
             let button: UIButton?
             switch selectionIndex {
@@ -506,7 +517,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             button?.setImage(nil, for: .normal)
             button?.setTitle(nil, for: .normal)
             cell.selectionIndex = nil
-            cell.selectionThemeModel = nil
+            updateSelectionThemeModel(nil, for: cell, at: indexPath)
             cell.apply(theme: theme)
         }
         compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
