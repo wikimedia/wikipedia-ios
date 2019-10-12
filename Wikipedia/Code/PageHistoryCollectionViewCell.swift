@@ -133,17 +133,20 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         roundedContent.layer.masksToBounds = true
         roundedContent.layer.borderWidth = 1
 
-        roundedContent.addSubview(timeLabel)
-        roundedContent.addSubview(sizeDiffLabel)
+        editableContent.addSubview(timeLabel)
+        editableContent.addSubview(sizeDiffLabel)
         authorButton.horizontalSpacing = 8
-        roundedContent.addSubview(authorButton)
+        authorButton.isUserInteractionEnabled = false
+        editableContent.addSubview(authorButton)
         minorImageView.contentMode = .scaleAspectFit
-        roundedContent.addSubview(minorImageView)
+        editableContent.addSubview(minorImageView)
         commentLabel.numberOfLines = 2
         commentLabel.lineBreakMode = .byTruncatingTail
-        roundedContent.addSubview(commentLabel)
+        editableContent.addSubview(commentLabel)
         selectView.alpha = 0
         selectView.clipsToBounds = true
+        roundedContent.addSubview(selectView)
+        roundedContent.addSubview(editableContent)
         contentView.addSubview(roundedContent)
     }
 
