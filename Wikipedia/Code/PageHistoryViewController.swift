@@ -369,6 +369,40 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         cell.apply(theme: theme)
     }
 
+    public class SelectionThemeModel {
+        let selectedImage: UIImage?
+        let borderColor: UIColor
+        let backgroundColor: UIColor
+        let authorColor: UIColor
+        let commentColor: UIColor
+        let sizeDiffAdditionColor: UIColor
+        let sizeDiffSubtractionColor: UIColor
+        let sizeDiffNoDifferenceColor: UIColor
+
+        init(selectedImage: UIImage?, borderColor: UIColor, backgroundColor: UIColor, authorColor: UIColor, commentColor: UIColor, sizeDiffAdditionColor: UIColor, sizeDiffSubtractionColor: UIColor, sizeDiffNoDifferenceColor: UIColor) {
+            self.selectedImage = selectedImage
+            self.borderColor = borderColor
+            self.backgroundColor = backgroundColor
+            self.authorColor = authorColor
+            self.commentColor = commentColor
+            self.sizeDiffAdditionColor = sizeDiffAdditionColor
+            self.sizeDiffSubtractionColor = sizeDiffSubtractionColor
+            self.sizeDiffNoDifferenceColor = sizeDiffNoDifferenceColor
+        }
+    }
+
+    private lazy var firstSelectionThemeModel: SelectionThemeModel = {
+        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.osage, backgroundColor: UIColor("FEF9E7"), authorColor: UIColor.osage, commentColor: theme.colors.primaryText, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+    }()
+
+    private lazy var secondSelectionThemeModel: SelectionThemeModel = {
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link.withAlphaComponent(0.3), backgroundColor: UIColor.lightBlue, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+    }()
+
+    private lazy var disabledSelectionThemeModel: SelectionThemeModel = {
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
+    }()
+
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
         // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
