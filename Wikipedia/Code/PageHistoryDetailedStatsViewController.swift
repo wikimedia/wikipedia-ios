@@ -119,8 +119,8 @@ extension PageHistoryDetailedStatsViewController: UICollectionViewDataSource {
 
 extension PageHistoryDetailedStatsViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
         view.backgroundColor = theme.colors.paperBackground
