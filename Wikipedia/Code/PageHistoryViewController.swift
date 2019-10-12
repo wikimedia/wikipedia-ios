@@ -222,6 +222,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         state = .editing
     }
 
+    private func forEachVisibleCell(_ block: (PageHistoryCollectionViewCell) -> Void) {
+        for visibleCell in collectionView.visibleCells {
+            guard let pageHistoryCollectionViewCell = visibleCell as? PageHistoryCollectionViewCell else {
+                continue
+            }
+            block(pageHistoryCollectionViewCell)
+        }
+    }
+
     @objc private func cancelComparison(_ sender: UIBarButtonItem?) {
         state = .idle
     }
