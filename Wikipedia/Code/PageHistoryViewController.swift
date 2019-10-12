@@ -303,27 +303,69 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     // MARK: Layout
 
-    private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision, at indexPath: IndexPath) {
-        if let date = item.revisionDate {
-            if (date as NSDate).wmf_isTodayUTC() {
-                let diff = Calendar.current.dateComponents([.second, .minute, .hour], from: date, to: Date())
-                if let hours = diff.hour {
-                    // TODO: Localize
-                    cell.time = "\(hours)h ago"
-                } else if let minutes = diff.minute {
-                    cell.time = "\(minutes)m ago"
-                } else if let seconds = diff.second {
-                    cell.time = "\(seconds)s ago"
-                }
-            } else if let dateString = DateFormatter.wmf_24hshortTime()?.string(from: date)  {
-                cell.time = "\(dateString) UTC"
-            }
+    // Reset on refresh
+    private var cellContentCache = NSCache<NSIndexPath, CellContent>()
+
+    private class CellContent: NSObject {
+        let time: String?
+        let displayTime: String?
+        let author: String?
+        let authorImage: UIImage?
+        let sizeDiff: Int?
+        let comment: String?
+
+        init(time: String?, displayTime: String?, author: String?, authorImage: UIImage?, sizeDiff: Int?, comment: String?) {
+            self.time = time
+            self.displayTime = displayTime
+            self.author = author
+            self.authorImage = authorImage
+            self.sizeDiff = sizeDiff
+            self.comment = comment
+            super.init()
         }
-        // TODO: Use logged-in icon when available
-        cell.authorImage = item.isAnon ? UIImage(named: "anon") : UIImage(named: "user-edit")
-        cell.author = item.user
-        cell.sizeDiff = item.revisionSize
-        cell.comment = item.parsedComment?.removingHTML
+    }
+
+    private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision, at indexPath: IndexPath) {
+        defer {
+            cell.setEditing(state == .editing)
+            cell.enableEditing(!maxNumberOfRevisionsSelected)
+            cell.apply(theme: theme)
+        }
+        if let cachedCellContent = cellContentCache.object(forKey: indexPath as NSIndexPath) {
+            cell.time = cachedCellContent.time
+            cell.displayTime = cachedCellContent.displayTime
+            cell.authorImage = cachedCellContent.authorImage
+            cell.author = cachedCellContent.author
+            cell.sizeDiff = cachedCellContent.sizeDiff
+            cell.comment = cachedCellContent.comment
+        } else {
+            if let date = item.revisionDate {
+                if (date as NSDate).wmf_isTodayUTC() {
+                    let diff = Calendar.current.dateComponents([.second, .minute, .hour], from: date, to: Date())
+                    if let hours = diff.hour {
+                        // TODO: Localize
+                        cell.time = "\(hours)h"
+                        cell.displayTime = "\(hours)h go"
+                    } else if let minutes = diff.minute {
+                        cell.time = "\(minutes)m"
+                        cell.displayTime = "\(minutes)m ago"
+                    } else if let seconds = diff.second {
+                        cell.time = "\(seconds)s"
+                        cell.displayTime = "\(seconds)s ago"
+                    }
+                } else if let dateString = DateFormatter.wmf_24hshortTime()?.string(from: date)  {
+                    cell.time = "\(dateString)"
+                    cell.displayTime = "\(dateString) UTC"
+                }
+            }
+            cell.authorImage = item.isAnon ? UIImage(named: "anon") : UIImage(named: "user-edit")
+            cell.author = item.user
+            cell.sizeDiff = item.revisionSize
+            cell.comment = item.parsedComment?.removingHTML
+        }
+
+        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment), forKey: indexPath as NSIndexPath)
+
         cell.apply(theme: theme)
     }
 
