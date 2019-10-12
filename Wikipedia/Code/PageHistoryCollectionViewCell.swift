@@ -150,6 +150,14 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         contentView.addSubview(roundedContent)
     }
 
+    override func reset() {
+        super.reset()
+        isEditing = false
+        willStartEditing = false
+        isEditingEnabled = true
+        selectView.isSelectionDisabled = false
+    }
+
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         timeLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
