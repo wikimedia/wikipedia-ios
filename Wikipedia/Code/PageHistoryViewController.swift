@@ -219,7 +219,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     @objc private func compare(_ sender: UIBarButtonItem) {
+        state = .editing
+    }
 
+    @objc private func cancelComparison(_ sender: UIBarButtonItem?) {
+        state = .idle
+    }
     }
 
     override func apply(theme: Theme) {
