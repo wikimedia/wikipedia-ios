@@ -166,6 +166,36 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         case idle
         case editing
     }
+    private var state: State = .idle {
+        didSet {
+            switch state {
+            case .idle:
+                openSelectionIndex = 0
+                navigationItem.rightBarButtonItem = compareButton
+                collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
+                forEachVisibleCell { (cell: PageHistoryCollectionViewCell) in
+                    cell.selectionThemeModel = nil
+                    cell.enableEditing(true) // confusing, have a reset method
+                    cell.setEditing(false)
+                }
+                resetComparisonSelectionButtons()
+                navigationController?.setToolbarHidden(true, animated: true)
+            case .editing:
+                navigationItem.rightBarButtonItem = cancelComparisonButton
+                collectionView.allowsMultipleSelection = true
+                forEachVisibleCell { $0.setEditing(true) }
+                compareToolbarButton.isEnabled = false
+                NSLayoutConstraint.activate([
+                    firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90),
+                    secondComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90)
+                ])
+                setToolbarItems([UIBarButtonItem(customView: firstComparisonSelectionButton), UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 10), UIBarButtonItem(customView: secondComparisonSelectionButton), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),  compareToolbarButton], animated: true)
+                navigationController?.setToolbarHidden(false, animated: true)
+            }
+            collectionView.collectionViewLayout.invalidateLayout()
+            navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        }
+    }
     @objc private func compare(_ sender: UIBarButtonItem) {
 
     }
