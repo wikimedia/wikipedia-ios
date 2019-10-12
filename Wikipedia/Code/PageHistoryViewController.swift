@@ -58,6 +58,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        hintController = PageHistoryHintController()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Article", style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItem = compareButton
         title = CommonStrings.historyTabTitle
@@ -215,7 +216,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.cornerRadius = 8
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.white
+        button.backgroundColor = theme.colors.paperBackground
         button.imageView?.tintColor = theme.colors.link
         button.setTitleColor(theme.colors.link, for: .normal)
         button.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
@@ -248,8 +249,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         firstComparisonSelectionButton.setImage(nil, for: .normal)
         secondComparisonSelectionButton.setTitle(nil, for: .normal)
         secondComparisonSelectionButton.setImage(nil, for: .normal)
-        firstComparisonSelectionButton.backgroundColor = UIColor.white
-        secondComparisonSelectionButton.backgroundColor = UIColor.white
+        firstComparisonSelectionButton.backgroundColor = theme.colors.paperBackground
+        secondComparisonSelectionButton.backgroundColor = theme.colors.paperBackground
     }
 
     @objc private func showDiff(_ sender: UIBarButtonItem) {
@@ -268,9 +269,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
         statsViewController.apply(theme: theme)
         navigationController?.toolbar.isTranslucent = false
-        let toolbarTempColor = UIColor.wmf_lightestGray
-        navigationController?.toolbar.tintColor = toolbarTempColor
-        navigationController?.toolbar.barTintColor = toolbarTempColor
+        navigationController?.toolbar.tintColor = theme.colors.midBackground
+        navigationController?.toolbar.barTintColor = theme.colors.midBackground
         compareToolbarButton.tintColor = theme.colors.link
     }
 
@@ -469,6 +469,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 if !cell.isSelected {
                     self.updateSelectionThemeModel(self.disabledSelectionThemeModel, for: cell, at: indexPath)
                 }
+                hintController?.toggle(presenter: self, context: nil, theme: theme)
                 cell.enableEditing(false)
             }
         }
@@ -514,7 +515,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             default:
                 button = nil
             }
-            button?.backgroundColor = UIColor.white
+            button?.backgroundColor = theme.colors.paperBackground
             button?.setImage(nil, for: .normal)
             button?.setTitle(nil, for: .normal)
             cell.selectionIndex = nil
