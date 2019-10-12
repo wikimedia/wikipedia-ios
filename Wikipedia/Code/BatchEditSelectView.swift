@@ -38,6 +38,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     fileprivate func updateMultiSelectIndicatorImage() {
         guard !isSelectionDisabled else {
             multiSelectIndicator?.image = UIImage(named: "selection-disabled", in: Bundle.main, compatibleWith: nil)
+            // TODO: Update tintColor
             return
         }
         multiSelectIndicator?.image = isSelected ? (selectedImage ?? theme.multiSelectIndicatorImage) : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
