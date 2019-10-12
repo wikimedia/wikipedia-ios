@@ -244,6 +244,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         secondComparisonSelectionButton.backgroundColor = UIColor.white
     }
 
+    @objc private func showDiff(_ sender: UIBarButtonItem) {
+
     }
 
     override func apply(theme: Theme) {
