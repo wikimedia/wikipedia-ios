@@ -196,6 +196,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         }
     }
+
+    private lazy var compareToolbarButton = UIBarButtonItem(title: "Compare", style: .plain, target: self, action: #selector(showDiff(_:)))
+    private lazy var firstComparisonSelectionButton = makeComparisonSelectionButton()
+    private lazy var secondComparisonSelectionButton = makeComparisonSelectionButton()
     @objc private func compare(_ sender: UIBarButtonItem) {
 
     }
