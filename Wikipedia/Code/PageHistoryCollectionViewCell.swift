@@ -57,6 +57,25 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
     }
 
+    private var isEditing = false {
+        didSet {
+            willStartEditing = false
+            setNeedsLayout()
+        }
+    }
+
+    private var isEditingEnabled = true {
+        didSet {
+            apply(theme: theme)
+            setNeedsLayout()
+        }
+    }
+
+    private var willStartEditing = false {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     override func setup() {
         super.setup()
         roundedContent.layer.cornerRadius = 6
