@@ -2,6 +2,7 @@ import UIKit
 
 class PageHistoryCollectionViewCell: CollectionViewCell {
     private let roundedContent = UIView()
+    private let editableContent = UIView()
     private let timeLabel = UILabel()
     private let sizeDiffLabel = UILabel()
     private let minorImageView = UIImageView()
@@ -88,8 +89,21 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         let widthMinusMargins = layoutWidth(for: size)
 
         roundedContent.frame = CGRect(x: layoutMargins.left, y: 0, width: widthMinusMargins, height: bounds.height)
+        editableContent.frame = CGRect(x: 0, y: 0, width: widthMinusMargins, height: bounds.height)
 
-        let availableWidth = widthMinusMargins - layoutMargins.left - layoutMargins.right
+        if willStartEditing {
+            selectView.frame = CGRect(x: 0, y: 0, width: 30, height: bounds.height)
+        } else if isEditing {
+            selectView.frame.origin = CGPoint(x: self.roundedContent.frame.origin.x, y: 0)
+            selectView.layoutIfNeeded()
+            let spaceOccupiedBySelectView = selectView.frame.width * 2
+            editableContent.frame = CGRect(x: editableContent.frame.origin.x + spaceOccupiedBySelectView, y: 0, width: widthMinusMargins - spaceOccupiedBySelectView, height: bounds.height)
+        } else {
+            selectView.frame.origin = CGPoint(x: 0, y: 0)
+            editableContent.frame = CGRect(x: 0, y: 0, width: widthMinusMargins, height: bounds.height)
+        }
+
+        let availableWidth = editableContent.frame.width - layoutMargins.right - layoutMargins.left
         let leadingPaneAvailableWidth = availableWidth / 3
         let trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth
 
