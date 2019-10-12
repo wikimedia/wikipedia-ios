@@ -424,4 +424,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func metrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: boundsSize, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 0, interItemSpacing: 20)
     }
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems else {
+            return state == .editing
+        }
+        return state == .editing && indexPathsForSelectedItems.count < 2
+    }
 }
