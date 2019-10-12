@@ -166,6 +166,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         case idle
         case editing
     }
+
+    private var maxNumberOfRevisionsSelected: Bool {
+        return collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
+    }
+
     private var state: State = .idle {
         didSet {
             switch state {
