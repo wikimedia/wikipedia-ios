@@ -8,7 +8,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     private let minorImageView = UIImageView()
     private let commentLabel = UILabel()
     private let authorButton = AlignedImageButton()
-
+    private let selectView = BatchEditSelectView()
     private let spacing: CGFloat = 3
 
     var time: String? {
@@ -70,6 +70,8 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         commentLabel.numberOfLines = 2
         commentLabel.lineBreakMode = .byTruncatingTail
         roundedContent.addSubview(commentLabel)
+        selectView.alpha = 0
+        selectView.clipsToBounds = true
         contentView.addSubview(roundedContent)
     }
 
