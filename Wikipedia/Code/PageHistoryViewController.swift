@@ -122,6 +122,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         getPageHistory()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cancelComparison(nil)
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         delegate?.pageHistoryViewControllerDidDisappear(self)
