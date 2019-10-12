@@ -79,6 +79,54 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     var selectionIndex: Int?
     var selectionThemeModel: PageHistoryCollectionViewCellSelectionThemeModel?
+
+    func setEditing(_ editing: Bool, animated: Bool = true) {
+        willStartEditing = editing
+        selectView.isSelected = isSelected
+        layoutIfNeeded()
+        if animated {
+            let animator = UIViewPropertyAnimator(duration: 0.3, curve: .linear) {
+                self.isEditing = editing
+                self.layoutIfNeeded()
+            }
+            let delayFactor: CGFloat = editing ? 0.05 : 0.25
+            animator.addAnimations({
+                self.selectView.setNeedsLayout()
+                self.selectView.alpha = editing ? 1 : 0
+            }, delayFactor: delayFactor)
+            animator.startAnimation()
+        } else {
+            isEditing = editing
+            selectView.setNeedsLayout()
+            layoutIfNeeded()
+            isSelected = false
+            selectView.alpha = editing ? 1 : 0
+        }
+    }
+
+    func enableEditing(_ enableEditing: Bool, animated: Bool = true) {
+        guard !isSelected else {
+            return
+        }
+        layoutIfNeeded()
+        if animated {
+            let animator = UIViewPropertyAnimator(duration: 0.3, curve: .linear) {
+                self.isEditingEnabled = enableEditing
+                self.selectView.isSelectionDisabled = !enableEditing
+                self.layoutIfNeeded()
+            }
+            animator.addAnimations({
+                self.selectView.setNeedsLayout()
+            }, delayFactor: 0.05)
+            animator.startAnimation()
+        } else {
+            isEditingEnabled = enableEditing
+            selectView.isSelectionDisabled = !enableEditing
+            selectView.setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
+
     override func setup() {
         super.setup()
         roundedContent.layer.cornerRadius = 6
