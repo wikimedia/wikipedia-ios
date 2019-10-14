@@ -17,7 +17,7 @@ class PageHistoryHintController: HintController {
         }, setBackgroundColor: { (backgroundColor: inout UIColor?) in
             backgroundColor = UIColor.wmf_lightRed
         })
-        setHintHidden(false)
+        setHintHidden(!isHintHidden)
     }
 }
 

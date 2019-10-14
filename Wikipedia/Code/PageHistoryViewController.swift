@@ -469,9 +469,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 if !cell.isSelected {
                     self.updateSelectionThemeModel(self.disabledSelectionThemeModel, for: cell, at: indexPath)
                 }
-                hintController?.toggle(presenter: self, context: nil, theme: theme)
                 cell.enableEditing(false)
             }
+            hintController?.toggle(presenter: self, context: nil, theme: theme)
         }
         switch openSelectionIndex {
         case 0:
@@ -500,6 +500,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        hintController?.toggle(presenter: self, context: nil, theme: theme)
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
             openSelectionIndex = collectionView.indexPathsForSelectedItems?.count ?? 0 == 0 ? 0 : selectionIndex
             forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
