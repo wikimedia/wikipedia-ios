@@ -360,6 +360,9 @@
 "in-the-news-title" = "در اخبار";
 "info-box-close-text" = "بستن";
 "info-box-title" = "اطلاعات اجمالی";
+"insert-action-title" = "افزودن";
+"insert-link-title" = "درج پیوند";
+"insert-media-alternative-text-title" = "متن جایگزین";
 "insert-media-caption-title" = "عنوان";
 "insert-media-image-position-setting-center" = "مرکز";
 "insert-media-image-position-setting-left" = "چپ";
@@ -625,7 +628,11 @@
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
 "table-title-other" = "اطلاعات بیشتر";
+"talk-page-add-discussion-accessibility-label" = "اضافه کردن بحث";
+"talk-page-discussion-read-accessibility-label" = "خواندن";
+"talk-page-link-user-action-sheet-title" = "صفحه‌های کاربری";
 "talk-page-new-subject-placeholder-text" = "موضوع";
+"talk-page-new-subject-textfield-accessibility-label" = "عنوان";
 "talk-page-new-topic-title" = "بحث تازه";
 "talk-page-reply-title" = "پاسخ دادن";
 "talk-page-title-article-talk" = "بحث مقاله";
@@ -635,6 +642,7 @@
 "theme-black-display-name" = "سیاه";
 "theme-dark-display-name" = "تیره";
 "theme-default-display-name" = "پیش‌فرض";
+"theme-light-display-name" = "نور";
 "theme-sepia-display-name" = "قهوه‌ای";
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";

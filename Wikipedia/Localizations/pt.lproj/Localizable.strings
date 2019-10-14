@@ -440,6 +440,7 @@
 "languages-wikipedia" = "Línguas da Wikipédia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação em contrário.";
+"link-loading-title" = "A carregar página...";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem iniciar sessão";
 "logged-out-log-back-in-button-title" = "Entrar novamente na sua conta";
 "logged-out-subtitle" = "Ocorreu um problema na autenticação da sua conta. Para sincronizar as suas listas de leitura e editar com o seu nome de utilizador, volte a iniciar uma sessão.";
