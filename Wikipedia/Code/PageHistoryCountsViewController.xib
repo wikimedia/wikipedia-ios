@@ -10,11 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageHistoryCountsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="detailedStatsContainerView" destination="R7q-YP-Iub" id="DlX-7q-MHj"/>
+                <outlet property="countsLabel" destination="5Gq-NM-ZzR" id="thS-ed-dZj"/>
+                <outlet property="filterCountsContainerView" destination="R7q-YP-Iub" id="JkQ-UK-EIu"/>
                 <outlet property="pageTitleLabel" destination="CmX-dP-uFU" id="637-6h-5qy"/>
                 <outlet property="separator" destination="REp-2g-3HJ" id="aFr-5z-9ao"/>
                 <outlet property="sparklineView" destination="s5E-5Q-AWf" id="pA8-NK-DWn"/>
-                <outlet property="statsLabel" destination="5Gq-NM-ZzR" id="WQT-A7-IWu"/>
                 <outlet property="titleLabel" destination="X37-tk-I1W" id="q6T-lN-FjM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -81,7 +81,7 @@
                         <constraint firstAttribute="height" constant="0.5" id="5kY-YE-izh"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7q-YP-Iub" userLabel="Detailed Stats Container View">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7q-YP-Iub" userLabel="Filter Counts Container View">
                     <rect key="frame" x="0.0" y="180.5" width="413" height="203.5"/>
                 </view>
             </subviews>
