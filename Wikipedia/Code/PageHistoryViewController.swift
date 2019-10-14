@@ -172,8 +172,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     private var maxNumberOfRevisionsSelected: Bool {
-        return collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
+        assert((0...2).contains(selectedCellsCount))
+        return selectedCellsCount == 2
     }
+    private var selectedCellsCount = 0
 
     private var state: State = .idle {
         didSet {
@@ -423,8 +425,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }()
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
         if let estimate = cellLayoutEstimate {
             return estimate
         }
@@ -454,6 +454,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     var openSelectionIndex = 0
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCellsCount += 1
         defer {
             compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
         }
@@ -500,6 +501,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        selectedCellsCount -= 1
+
         hintController?.toggle(presenter: self, context: nil, theme: theme)
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
             openSelectionIndex = collectionView.indexPathsForSelectedItems?.count ?? 0 == 0 ? 0 : selectionIndex
