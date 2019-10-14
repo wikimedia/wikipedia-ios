@@ -18,6 +18,22 @@
 			<string>Додати %1$d статей до читального списку</string>
 		</dict>
 	</dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Вилучено %1$d статтю</string>
+			<key>other</key>
+			<string>Вилучено %1$d статей</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -29,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Перенести  %1$d статтю до читального списку</string>
+			<string>Перенести %1$d статтю до читального списку</string>
 			<key>other</key>
-			<string>Перенести  %1$d статей до читального списку</string>
+			<string>Перенести %1$d статей до читального списку</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
