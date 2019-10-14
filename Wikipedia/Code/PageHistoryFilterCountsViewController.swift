@@ -1,21 +1,21 @@
 import UIKit
 
-protocol PageHistoryDetailedStatsViewControllerDelegate: AnyObject {
-    func pageHistoryDetailedStatsViewControllerDidDetermineIfStatsAreAvailable(areStatsAvailable: Bool)
+protocol PageHistoryFilterCountsViewControllerDelegate: AnyObject {
+    func pageHistoryFilterCountsViewControllerDidDetermineIfFilterCountsAreAvailable(areFilterCountsAvailable: Bool)
 }
 
-class PageHistoryDetailedStatsViewController: UIViewController {
+class PageHistoryFilterCountsViewController: UIViewController {
     private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    var delegate: PageHistoryDetailedStatsViewControllerDelegate?
+    var delegate: PageHistoryFilterCountsViewControllerDelegate?
     var theme = Theme.standard
 
-    private var stats: [Stat] = []
+    private var counts: [Count] = []
 
     var editCountsGroupedByType: EditCountsGroupedByType? {
         didSet {
-            stats = []
+            counts = []
             defer {
                 collectionView.reloadData()
                 activityIndicator.isHidden = true
@@ -24,22 +24,22 @@ class PageHistoryDetailedStatsViewController: UIViewController {
                 return
             }
             if case let userEdits?? = editCounts[.userEdits] {
-                stats.append(Stat(title: "user edits", image: UIImage(named: "user-edit")!, count: userEdits))
+                counts.append(Count(title: "user edits", image: UIImage(named: "user-edit")!, count: userEdits))
             }
             if case let anonEdits?? = editCounts[.anonEdits] {
-                stats.append(Stat(title: "IP edits", image: UIImage(named: "anon")!, count: anonEdits))
+                counts.append(Count(title: "IP edits", image: UIImage(named: "anon")!, count: anonEdits))
             }
             if case let botEdits?? = editCounts[.botEdits] {
-                stats.append(Stat(title: "bot edits", image: UIImage(named: "bot")!, count: botEdits))
+                counts.append(Count(title: "bot edits", image: UIImage(named: "bot")!, count: botEdits))
             }
             if case let revertedEdits?? = editCounts[.revertedEdits] {
-                stats.append(Stat(title: "reverted edits", image: UIImage(named: "reverted")!, count: revertedEdits))
+                counts.append(Count(title: "reverted edits", image: UIImage(named: "reverted")!, count: revertedEdits))
             }
-            delegate?.pageHistoryDetailedStatsViewControllerDidDetermineIfStatsAreAvailable(areStatsAvailable: !stats.isEmpty)
+            delegate?.pageHistoryFilterCountsViewControllerDidDetermineIfFilterCountsAreAvailable(areFilterCountsAvailable: !counts.isEmpty)
         }
     }
 
-    private struct Stat {
+    private struct Count {
         let title: String
         let image: UIImage
         let count: Int
@@ -54,7 +54,7 @@ class PageHistoryDetailedStatsViewController: UIViewController {
 
         // TODO: Move out into separate types
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "StatCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: StatCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: "PageHistoryFilterCountCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: PageHistoryFilterCountCollectionViewCell.identifier)
 
         // TODO: Adjust height for the highest cell
         let collectionViewHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 60)
@@ -101,23 +101,23 @@ class PageHistoryDetailedStatsViewController: UIViewController {
     }
 }
 
-extension PageHistoryDetailedStatsViewController: UICollectionViewDataSource {
+extension PageHistoryFilterCountsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return stats.count
+        return counts.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StatCollectionViewCell.identifier, for: indexPath) as? StatCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageHistoryFilterCountCollectionViewCell.identifier, for: indexPath) as? PageHistoryFilterCountCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let stat = stats[indexPath.item]
-        cell.configure(with: stat.title, image: stat.image, imageText: displayCount(stat.count), isRightSeparatorHidden: indexPath.item == stats.count - 1)
+        let Count = counts[indexPath.item]
+        cell.configure(with: Count.title, image: Count.image, imageText: displayCount(Count.count), isRightSeparatorHidden: indexPath.item == counts.count - 1)
         cell.apply(theme: theme)
         return cell
     }
 }
 
-extension PageHistoryDetailedStatsViewController: Themeable {
+extension PageHistoryFilterCountsViewController: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {

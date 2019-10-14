@@ -1,6 +1,6 @@
 import UIKit
 
-class StatCollectionViewCell: UICollectionViewCell {
+class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var imageLabel: UILabel!
@@ -30,7 +30,7 @@ class StatCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension StatCollectionViewCell: Themeable {
+extension PageHistoryFilterCountCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         rightSeparator.backgroundColor = theme.colors.border
         imageLabel.textColor = theme.colors.primaryText

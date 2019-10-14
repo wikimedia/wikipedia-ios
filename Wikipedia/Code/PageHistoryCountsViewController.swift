@@ -1,12 +1,12 @@
 import UIKit
 
-class PageHistoryStatsViewController: UIViewController {
+class PageHistoryCountsViewController: UIViewController {
     private let pageTitle: String
     private let locale: Locale
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var pageTitleLabel: UILabel!
-    @IBOutlet private weak var statsLabel: UILabel!
+    @IBOutlet private weak var countsLabel: UILabel!
 
     @IBOutlet private weak var sparklineView: WMFSparklineView!
     private lazy var visibleSparklineViewWidthConstraint = sparklineView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.35)
@@ -14,19 +14,19 @@ class PageHistoryStatsViewController: UIViewController {
 
     @IBOutlet private weak var separator: UIView!
 
-    @IBOutlet private weak var detailedStatsContainerView: UIView!
-    private lazy var detailedStatsViewController = PageHistoryDetailedStatsViewController()
+    @IBOutlet private weak var filterCountsContainerView: UIView!
+    private lazy var filterCountsViewController = PageHistoryFilterCountsViewController()
 
     var editCountsGroupedByType: EditCountsGroupedByType? {
         didSet {
-            detailedStatsViewController.editCountsGroupedByType = editCountsGroupedByType
+            filterCountsViewController.editCountsGroupedByType = editCountsGroupedByType
         }
     }
 
     func set(totalEditCount: Int, firstEditDate: Date) {
         let firstEditYear = String(Calendar.current.component(.year, from: firstEditDate))
-        statsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("page-history-stats-text", value: "%1$d edits since %2$@", comment: "Text for representing the number of edits that were made to an article and the number of editors who contributed to the creation of an article. %1$d is replaced with the number of edits, %2$d is replaced with the number of editors."), totalEditCount, firstEditYear)
-        setViewHidden(statsLabel, hidden: false)
+        countsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("page-history-stats-text", value: "%1$d edits since %2$@", comment: "Text for representing the number of edits that were made to an article and the number of editors who contributed to the creation of an article. %1$d is replaced with the number of edits, %2$d is replaced with the number of editors."), totalEditCount, firstEditYear)
+        setViewHidden(countsLabel, hidden: false)
     }
 
     var timeseriesOfEditsCounts: [NSNumber] = [] {
@@ -47,7 +47,7 @@ class PageHistoryStatsViewController: UIViewController {
     required init(pageTitle: String, locale: Locale = Locale.current) {
         self.pageTitle = pageTitle
         self.locale = locale
-        super.init(nibName: "PageHistoryStatsViewController", bundle: nil)
+        super.init(nibName: "PageHistoryCountsViewController", bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -74,15 +74,15 @@ class PageHistoryStatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setSparklineViewHidden(false)
-        setViewHidden(statsLabel, hidden: true)
+        setViewHidden(countsLabel, hidden: true)
 
         titleLabel.text = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view").uppercased(with: locale)
         pageTitleLabel.text = pageTitle
 
         sparklineView.showsVerticalGridlines = true
 
-        detailedStatsViewController.delegate = self
-        wmf_add(childController: detailedStatsViewController, andConstrainToEdgesOfContainerView: detailedStatsContainerView)
+        filterCountsViewController.delegate = self
+        wmf_add(childController: filterCountsViewController, andConstrainToEdgesOfContainerView: filterCountsContainerView)
     }
 
     override func viewDidLayoutSubviews() {
@@ -92,26 +92,26 @@ class PageHistoryStatsViewController: UIViewController {
         }
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         pageTitleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        statsLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        countsLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
 
         isFirstLayoutPass = false
     }
 }
 
-extension PageHistoryStatsViewController: PageHistoryDetailedStatsViewControllerDelegate {
-    func pageHistoryDetailedStatsViewControllerDidDetermineIfStatsAreAvailable(areStatsAvailable: Bool) {
-        if !areStatsAvailable {
-            detailedStatsContainerView.isHidden = true
+extension PageHistoryCountsViewController: PageHistoryFilterCountsViewControllerDelegate {
+    func pageHistoryFilterCountsViewControllerDidDetermineIfFilterCountsAreAvailable(areFilterCountsAvailable: Bool) {
+        if !areFilterCountsAvailable {
+            filterCountsContainerView.isHidden = true
             UIView.animate(withDuration: 0.4) {
-                self.detailedStatsViewController.willMove(toParent: nil)
-                self.detailedStatsViewController.view.removeFromSuperview()
-                self.detailedStatsViewController.removeFromParent()
+                self.filterCountsViewController.willMove(toParent: nil)
+                self.filterCountsViewController.view.removeFromSuperview()
+                self.filterCountsViewController.removeFromParent()
             }
         }
     }
 }
 
-extension PageHistoryStatsViewController: Themeable {
+extension PageHistoryCountsViewController: Themeable {
     func apply(theme: Theme) {
         guard viewIfLoaded != nil else {
             self.theme = theme
@@ -120,8 +120,8 @@ extension PageHistoryStatsViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         titleLabel.textColor = theme.colors.secondaryText
         pageTitleLabel.textColor = theme.colors.primaryText
-        statsLabel.textColor = theme.colors.accent
+        countsLabel.textColor = theme.colors.accent
         separator.backgroundColor = theme.colors.border
-        detailedStatsViewController.apply(theme: theme)
+        filterCountsViewController.apply(theme: theme)
     }
 }

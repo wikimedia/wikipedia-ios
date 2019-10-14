@@ -34,7 +34,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     @objc public weak var delegate: PageHistoryViewControllerDelegate?
 
-    private lazy var statsViewController = PageHistoryStatsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_language))
+    private lazy var countsViewController = PageHistoryCountsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_language))
 
     @objc init(pageTitle: String, pageURL: URL) {
         self.pageTitle = pageTitle
@@ -63,10 +63,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationItem.rightBarButtonItem = compareButton
         title = CommonStrings.historyTabTitle
 
-        addChild(statsViewController)
-        navigationBar.addUnderNavigationBarView(statsViewController.view)
+        addChild(countsViewController)
+        navigationBar.addUnderNavigationBarView(countsViewController.view)
         navigationBar.shadowColorKeyPath = \Theme.colors.border
-        statsViewController.didMove(toParent: self)
+        countsViewController.didMove(toParent: self)
 
         collectionView.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier)
         collectionView.dataSource = self
@@ -90,7 +90,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     case .success(let editCounts):
                         if case let totalEditCount?? = editCounts[.edits] {
                             DispatchQueue.main.async {
-                                self.statsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
+                                self.countsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
                             }
                         }
                     }
@@ -105,7 +105,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 print(error)
             case .success(let editCountsGroupedByType):
                 DispatchQueue.main.async {
-                    self.statsViewController.editCountsGroupedByType = editCountsGroupedByType
+                    self.countsViewController.editCountsGroupedByType = editCountsGroupedByType
                 }
             }
         }
@@ -115,10 +115,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             case .failure(let error):
                 // TODO: Handle error
                 print(error)
-                self.statsViewController.timeseriesOfEditsCounts = []
+                self.countsViewController.timeseriesOfEditsCounts = []
             case .success(let timeseriesOfEditCounts):
                 DispatchQueue.main.async {
-                    self.statsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
+                    self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
                 }
             }
         }
@@ -269,7 +269,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         collectionView.backgroundColor = view.backgroundColor
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.primaryText
-        statsViewController.apply(theme: theme)
+        countsViewController.apply(theme: theme)
         navigationController?.toolbar.isTranslucent = false
         navigationController?.toolbar.tintColor = theme.colors.midBackground
         navigationController?.toolbar.barTintColor = theme.colors.midBackground

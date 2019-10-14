@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageHistoryStatsViewController" customModule="Wikipedia" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PageHistoryCountsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="detailedStatsContainerView" destination="R7q-YP-Iub" id="DlX-7q-MHj"/>
                 <outlet property="pageTitleLabel" destination="CmX-dP-uFU" id="637-6h-5qy"/>
