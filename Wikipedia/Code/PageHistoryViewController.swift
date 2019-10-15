@@ -177,11 +177,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
     private var selectedCellsCount = 0
 
+    private var pageHistoryHintController: PageHistoryHintController? {
+        return hintController as? PageHistoryHintController
+    }
+
     private var state: State = .idle {
         didSet {
             switch state {
             case .idle:
-                (hintController as? PageHistoryHintController)?.hide(presenter: self, theme: theme)
+                pageHistoryHintController?.hide(true, presenter: self, theme: theme)
                 openSelectionIndex = 0
                 navigationItem.rightBarButtonItem = compareButton
                 collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
@@ -475,7 +479,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 }
                 cell.enableEditing(false)
             }
-            hintController?.toggle(presenter: self, context: nil, theme: theme)
+            pageHistoryHintController?.hide(false, presenter: self, theme: theme)
         }
         switch openSelectionIndex {
         case 0:
@@ -505,8 +509,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellsCount -= 1
-
-        hintController?.toggle(presenter: self, context: nil, theme: theme)
+        pageHistoryHintController?.hide(true, presenter: self, theme: theme)
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionIndex = cell.selectionIndex {
             openSelectionIndex = collectionView.indexPathsForSelectedItems?.count ?? 0 == 0 ? 0 : selectionIndex
             forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
