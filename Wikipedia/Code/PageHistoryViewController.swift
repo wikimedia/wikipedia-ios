@@ -185,12 +185,14 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         didSet {
             switch state {
             case .idle:
+                selectedCellsCount = 0
                 pageHistoryHintController?.hide(true, presenter: self, theme: theme)
                 openSelectionIndex = 0
                 navigationItem.rightBarButtonItem = compareButton
                 collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
                 forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
                     self.updateSelectionThemeModel(nil, for: cell, at: indexPath)
+                    self.collectionView.deselectItem(at: indexPath, animated: true)
                     cell.enableEditing(true) // confusing, have a reset method
                     cell.setEditing(false)
                 }
