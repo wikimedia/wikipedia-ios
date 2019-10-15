@@ -57,7 +57,7 @@ class HintController: NSObject {
         apply(theme: theme)
     }
 
-    func toggle(presenter: HintPresentingViewController, context: Context?, theme: Theme, setPrimaryColor: ((inout UIColor?) -> Void)?, setBackgroundColor: ((inout UIColor?) -> Void)?) {
+    func toggle(presenter: HintPresentingViewController, context: Context?, theme: Theme, setPrimaryColor: ((inout UIColor?) -> Void)? = nil, setBackgroundColor: ((inout UIColor?) -> Void)? = nil) {
         setPrimaryColor?(&hintViewController.primaryColor)
         setBackgroundColor?(&hintViewController.backgroundColor)
         self.presenter = presenter

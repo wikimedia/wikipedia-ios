@@ -181,6 +181,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         didSet {
             switch state {
             case .idle:
+                (hintController as? PageHistoryHintController)?.hide(presenter: self, theme: theme)
                 openSelectionIndex = 0
                 navigationItem.rightBarButtonItem = compareButton
                 collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }

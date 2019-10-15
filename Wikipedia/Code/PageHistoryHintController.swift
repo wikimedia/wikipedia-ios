@@ -11,6 +11,11 @@ class PageHistoryHintController: HintController {
         super.init(hintViewController: pageHistoryHintViewController)
     }
 
+    public func hide(presenter: HintPresentingViewController, theme: Theme) {
+        super.toggle(presenter: presenter, context: nil, theme: theme)
+        setHintHidden(true)
+    }
+
     override func toggle(presenter: HintPresentingViewController, context: HintController.Context?, theme: Theme) {
         super.toggle(presenter: presenter, context: context, theme: theme, setPrimaryColor: { (primaryColor: inout UIColor?) in
             primaryColor = UIColor.wmf_red
