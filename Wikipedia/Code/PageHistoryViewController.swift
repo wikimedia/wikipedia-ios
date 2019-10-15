@@ -329,8 +329,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let sizeDiff: Int?
         let comment: String?
         var selectionThemeModel: SelectionThemeModel?
+        var selectionIndex: Int?
 
-        init(time: String?, displayTime: String?, author: String?, authorImage: UIImage?, sizeDiff: Int?, comment: String?, selectionThemeModel: SelectionThemeModel?) {
+        init(time: String?, displayTime: String?, author: String?, authorImage: UIImage?, sizeDiff: Int?, comment: String?, selectionThemeModel: SelectionThemeModel?, selectionIndex: Int?) {
             self.time = time
             self.displayTime = displayTime
             self.author = author
@@ -338,6 +339,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             self.sizeDiff = sizeDiff
             self.comment = comment
             self.selectionThemeModel = selectionThemeModel
+            self.selectionIndex = selectionIndex
             super.init()
         }
     }
@@ -356,6 +358,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.sizeDiff = cachedCellContent.sizeDiff
             cell.comment = cachedCellContent.comment
             cell.selectionThemeModel = cachedCellContent.selectionThemeModel
+            cell.selectionIndex = cachedCellContent.selectionIndex
         } else {
             if let date = item.revisionDate {
                 if (date as NSDate).wmf_isTodayUTC() {
@@ -385,7 +388,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
         }
 
-        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel), forKey: indexPath as NSIndexPath)
+        cellContentCache.setObject(CellContent(time: cell.time, displayTime: cell.displayTime, author: cell.author, authorImage: cell.authorImage, sizeDiff: cell.sizeDiff, comment: cell.comment, selectionThemeModel: cell.selectionThemeModel, selectionIndex: cell.selectionIndex), forKey: indexPath as NSIndexPath)
 
         cell.apply(theme: theme)
     }
@@ -393,6 +396,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private func updateSelectionThemeModel(_ selectionThemeModel: SelectionThemeModel?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
         cell.selectionThemeModel = selectionThemeModel
         cellContentCache.object(forKey: indexPath as NSIndexPath)?.selectionThemeModel = selectionThemeModel
+    }
+
+    private func updateSelectionIndex(_ selectionIndex: Int?, for cell: PageHistoryCollectionViewCell, at indexPath: IndexPath) {
+        cell.selectionIndex = selectionIndex
+        cellContentCache.object(forKey: indexPath as NSIndexPath)?.selectionIndex = selectionIndex
     }
 
     public class SelectionThemeModel {
@@ -500,7 +508,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             button.setTitleColor(themeModel.authorColor, for: .normal)
             button.tintColor = themeModel.authorColor
         }
-        cell.selectionIndex = openSelectionIndex
+        updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
         updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
         cell.apply(theme: theme)
 
@@ -528,7 +536,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             button?.backgroundColor = theme.colors.paperBackground
             button?.setImage(nil, for: .normal)
             button?.setTitle(nil, for: .normal)
-            cell.selectionIndex = nil
+            updateSelectionIndex(nil, for: cell, at: indexPath)
             updateSelectionThemeModel(nil, for: cell, at: indexPath)
             cell.apply(theme: theme)
         }
