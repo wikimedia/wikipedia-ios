@@ -474,7 +474,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellsCount += 1
         defer {
-            compareToolbarButton.isEnabled = collectionView.indexPathsForSelectedItems?.count ?? 0 == 2
+            compareToolbarButton.isEnabled = maxNumberOfRevisionsSelected
         }
 
         guard let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell else {
