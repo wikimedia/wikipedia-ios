@@ -396,16 +396,18 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let backgroundColor: UIColor
         let authorColor: UIColor
         let commentColor: UIColor
+        let timeColor: UIColor
         let sizeDiffAdditionColor: UIColor
         let sizeDiffSubtractionColor: UIColor
         let sizeDiffNoDifferenceColor: UIColor
 
-        init(selectedImage: UIImage?, borderColor: UIColor, backgroundColor: UIColor, authorColor: UIColor, commentColor: UIColor, sizeDiffAdditionColor: UIColor, sizeDiffSubtractionColor: UIColor, sizeDiffNoDifferenceColor: UIColor) {
+        init(selectedImage: UIImage?, borderColor: UIColor, backgroundColor: UIColor, authorColor: UIColor, commentColor: UIColor, timeColor: UIColor, sizeDiffAdditionColor: UIColor, sizeDiffSubtractionColor: UIColor, sizeDiffNoDifferenceColor: UIColor) {
             self.selectedImage = selectedImage
             self.borderColor = borderColor
             self.backgroundColor = backgroundColor
             self.authorColor = authorColor
             self.commentColor = commentColor
+            self.timeColor = timeColor
             self.sizeDiffAdditionColor = sizeDiffAdditionColor
             self.sizeDiffSubtractionColor = sizeDiffSubtractionColor
             self.sizeDiffNoDifferenceColor = sizeDiffNoDifferenceColor
@@ -413,15 +415,15 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     private lazy var firstSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.osage, backgroundColor: UIColor("FEF9E7"), authorColor: UIColor.osage, commentColor: theme.colors.primaryText, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.osage, backgroundColor: UIColor("FEF9E7"), authorColor: UIColor.osage, commentColor: .abbey, timeColor: .battleshipGray, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var secondSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link.withAlphaComponent(0.3), backgroundColor: UIColor.lightBlue, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link.withAlphaComponent(0.3), backgroundColor: UIColor.lightBlue, authorColor: theme.colors.link, commentColor: .abbey, timeColor: .battleshipGray, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var disabledSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, timeColor: .battleshipGray, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
     }()
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {

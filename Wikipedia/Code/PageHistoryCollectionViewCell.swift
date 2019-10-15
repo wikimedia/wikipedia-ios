@@ -266,6 +266,7 @@ extension PageHistoryCollectionViewCell: Themeable {
             authorButton.setTitleColor(selectionThemeModel.authorColor, for: .normal)
             authorButton.tintColor = selectionThemeModel.authorColor
             commentLabel.textColor = selectionThemeModel.commentColor
+            timeLabel.textColor = selectionThemeModel.timeColor
 
             if let sizeDiff = sizeDiff {
                 if sizeDiff == 0 {
