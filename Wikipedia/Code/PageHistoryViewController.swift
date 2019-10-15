@@ -221,7 +221,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private func makeComparisonSelectionButton() -> AlignedImageButton {
         let button = AlignedImageButton(frame: .zero)
-        button.widthAnchor.constraint(equalToConstant: 90).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.cornerRadius = 8
         button.clipsToBounds = true
