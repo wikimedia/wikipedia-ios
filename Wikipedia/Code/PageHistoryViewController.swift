@@ -359,7 +359,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.author = cachedCellContent.author
             cell.sizeDiff = cachedCellContent.sizeDiff
             cell.comment = cachedCellContent.comment
-            cell.selectionThemeModel = cachedCellContent.selectionThemeModel
+            if cell.isSelected {
+                cell.selectionThemeModel = cachedCellContent.selectionThemeModel
+            } else {
+                cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
+            }
             cell.selectionIndex = cachedCellContent.selectionIndex
         } else {
             if let date = item.revisionDate {
