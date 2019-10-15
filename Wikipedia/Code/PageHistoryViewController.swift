@@ -466,10 +466,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems else {
-            return state == .editing
-        }
-        return state == .editing && indexPathsForSelectedItems.count < 2
+        return state == .editing && !maxNumberOfRevisionsSelected
     }
 
     var openSelectionIndex = 0
