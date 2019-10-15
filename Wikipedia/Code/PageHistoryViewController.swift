@@ -348,8 +348,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision, at indexPath: IndexPath) {
         defer {
-            cell.setEditing(state == .editing)
-            cell.enableEditing(!maxNumberOfRevisionsSelected)
+            cell.setEditing(state == .editing, animated: false)
+            cell.enableEditing(!maxNumberOfRevisionsSelected, animated: false)
             cell.apply(theme: theme)
         }
         if let cachedCellContent = cellContentCache.object(forKey: indexPath as NSIndexPath) {
