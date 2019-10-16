@@ -13,6 +13,8 @@ class DiffHeaderExtendedView: UIView {
     @IBOutlet var editorDivView: UIView!
     @IBOutlet var compareDivView: UIView!
     
+    private var viewModel: DiffHeaderViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -30,16 +32,31 @@ class DiffHeaderExtendedView: UIView {
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    func update(_ viewModel: DiffHeaderViewModel) {
-        switch viewModel.type {
-        case .compare(let compareViewModel):
+    func configureHeight(beginSquishYOffset: CGFloat, scrollYOffset: CGFloat) {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        switch viewModel.headerType {
+        case .compare:
+            compareView.configureHeight(beginSquishYOffset: beginSquishYOffset, scrollYOffset: scrollYOffset)
+        default: break
+        }
+    }
+    
+    func update(_ new: DiffHeaderViewModel) {
+        
+        self.viewModel = new
+        
+        switch new.headerType {
+        case .compare(let compareViewModel, _):
             summaryView.isHidden = true
             editorView.isHidden = true
             editorDivView.isHidden = true
             compareView.isHidden = false
             compareDivView.isHidden = false
             compareView.update(compareViewModel)
-        case .single(let editorViewModel, let summaryViewModel, _):
+        case .single(let editorViewModel, let summaryViewModel):
             summaryView.isHidden = false
             editorView.isHidden = false
             editorDivView.isHidden = false
@@ -47,13 +64,6 @@ class DiffHeaderExtendedView: UIView {
             compareDivView.isHidden = true
             summaryView.update(summaryViewModel)
             editorView.update(editorViewModel)
-        }
-        
-        //theming
-        backgroundColor = viewModel.theme.colors.paperBackground
-        
-        for view in divViews {
-            view.backgroundColor = viewModel.theme.colors.chromeShadow
         }
     }
     
@@ -75,5 +85,19 @@ class DiffHeaderExtendedView: UIView {
         }
         
         return false
+    }
+}
+
+extension DiffHeaderExtendedView: Themeable {
+
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        summaryView.apply(theme: theme)
+        editorView.apply(theme: theme)
+        compareView.apply(theme: theme)
+        
+        for view in divViews {
+            view.backgroundColor = theme.colors.chromeShadow
+        }
     }
 }

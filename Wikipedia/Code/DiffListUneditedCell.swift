@@ -21,10 +21,17 @@ class DiffListUneditedCell: UICollectionViewCell {
         
         textLabel.font = viewModel.font
         textLabel.text = viewModel.text
-        textLabel.textColor = viewModel.theme.colors.secondaryText
         
-        backgroundColor = viewModel.theme.colors.paperBackground
-        textBackgroundView.backgroundColor = viewModel.theme.colors.paperBackground
-        divView.backgroundColor = viewModel.theme.colors.border
+        apply(theme: viewModel.theme)
+    }
+}
+
+extension DiffListUneditedCell: Themeable {
+    func apply(theme: Theme) {
+        textLabel.textColor = theme.colors.secondaryText
+        
+        backgroundColor = theme.colors.paperBackground
+        textBackgroundView.backgroundColor = theme.colors.paperBackground
+        divView.backgroundColor = theme.colors.border
     }
 }

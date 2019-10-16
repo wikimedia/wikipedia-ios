@@ -9,31 +9,12 @@ final class DiffContainerViewModel {
     }
     
     let headerViewModel: DiffHeaderViewModel
-    let navBarTitle: String?
     let type: DiffType
-    let listViewModel: [DiffListGroupViewModel]?
-    var theme: Theme {
-        didSet {
-            if let listViewModel = listViewModel {
-                for var item in listViewModel {
-                    item.theme = theme
-                }
-            }
-            
-            headerViewModel.theme = theme
-        }
-    }
+    var listViewModel: [DiffListGroupViewModel]?
     
-    init(type: DiffType, fromModel: StubRevisionModel, toModel: StubRevisionModel, theme: Theme, listViewModel: [DiffListGroupViewModel]?) {
+    init(type: DiffType, fromModel: StubRevisionModel, toModel: StubRevisionModel, listViewModel: [DiffListGroupViewModel]?, theme: Theme) {
         self.type = type
-        self.headerViewModel = DiffHeaderViewModel(type: type, fromModel: fromModel, toModel: toModel, theme: theme)
-        switch type {
-        case .single(_):
-            navBarTitle = nil
-        case .compare(_):
-            navBarTitle = WMFLocalizedString("diff-compare-title", value: "Compare Revisions", comment: "Title label that shows in the navigation bar when scrolling and comparing revisions.")
-        }
+        self.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: fromModel, toModel: toModel, theme: theme)
         self.listViewModel = listViewModel
-        self.theme = theme
     }
 }

@@ -14,6 +14,7 @@ class DiffHeaderCompareItemView: UIView {
     var minHeight: CGFloat {
         return timestampLabel.frame.maxY + stackViewTopPadding.constant
     }
+    private var viewModel: DiffHeaderCompareItemViewModel?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,6 +31,7 @@ class DiffHeaderCompareItemView: UIView {
     }
     
     func update(_ viewModel: DiffHeaderCompareItemViewModel) {
+
         headingLabel.text = viewModel.heading
         timestampLabel.text = viewModel.timestampString
         if #available(iOS 13.0, *) {
@@ -41,15 +43,10 @@ class DiffHeaderCompareItemView: UIView {
         //tagsLabel.text = "m" //TONITODO: tags
         tagLabel.isHidden = true
         summaryLabel.text = viewModel.summary //TONITODO: italic for some of this
-        updateFonts(with: traitCollection)
         
-        //theming
-        backgroundColor = viewModel.theme.colors.paperBackground
-        contentView.backgroundColor = viewModel.theme.colors.paperBackground
-        headingLabel.textColor = viewModel.theme.colors.secondaryText
-        timestampLabel.textColor = viewModel.accentColor
-        usernameLabel.textColor = viewModel.accentColor
-        userIconImageView.tintColor = viewModel.accentColor
+        updateFonts(with: traitCollection)
+
+        self.viewModel = viewModel
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -73,5 +70,19 @@ private extension DiffHeaderCompareItemView {
         usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumCaption1, compatibleWithTraitCollection: traitCollection)
         tagLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
         summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.caption1, compatibleWithTraitCollection: traitCollection) //tonitodo: italic attributed string?
+    }
+}
+
+extension DiffHeaderCompareItemView: Themeable {
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
+        headingLabel.textColor = theme.colors.secondaryText
+        
+        if let viewModel = viewModel {
+            timestampLabel.textColor = viewModel.accentColor
+            usernameLabel.textColor = viewModel.accentColor
+            userIconImageView.tintColor = viewModel.accentColor
+        }
     }
 }

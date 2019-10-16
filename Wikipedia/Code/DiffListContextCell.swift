@@ -42,15 +42,14 @@ class DiffListContextCell: UICollectionViewCell {
         expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
         expandButton.titleLabel?.font = viewModel.contextFont
         
-        headingLabel.textColor = viewModel.theme.colors.secondaryText
-        expandButton.tintColor = viewModel.theme.colors.link
+        apply(theme: viewModel.theme)
         
         if needsNewContextViews(newViewModel: viewModel) {
             removeContextViews(from: contextItemStackView)
             addContextViews(to: contextItemStackView, newViewModel: viewModel)
         }
         
-        updateContextViews(in: contextItemStackView, newViewModel: viewModel)
+        updateContextViews(in: contextItemStackView, newViewModel: viewModel, theme: viewModel.theme)
         
         self.viewModel = viewModel
     }
@@ -108,11 +107,11 @@ private extension DiffListContextCell {
         }
     }
     
-    func updateContextViews(in stackView: UIStackView, newViewModel: DiffListContextViewModel) {
+    func updateContextViews(in stackView: UIStackView, newViewModel: DiffListContextViewModel, theme: Theme) {
         for (index, subview) in stackView.arrangedSubviews.enumerated() {
             
-            subview.backgroundColor = newViewModel.theme.colors.diffContextItemBackground
-            subview.borderColor = newViewModel.theme.colors.diffContextItemBorder
+            subview.backgroundColor = theme.colors.diffContextItemBackground
+            subview.borderColor = theme.colors.diffContextItemBorder
             subview.borderWidth = 1
             subview.layer.cornerRadius = 5
             
@@ -134,5 +133,18 @@ private extension DiffListContextCell {
         }
         
         return false
+    }
+}
+
+extension DiffListContextCell: Themeable {
+    func apply(theme: Theme) {
+        headingLabel.textColor = theme.colors.secondaryText
+        expandButton.tintColor = theme.colors.link
+        backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
+        
+        if let viewModel = viewModel {
+            updateContextViews(in: contextItemStackView, newViewModel: viewModel, theme: theme)
+        }
     }
 }

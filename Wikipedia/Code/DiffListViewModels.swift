@@ -4,10 +4,10 @@ import Foundation
 //tonitodo: rename since unedited lines isn't really a group
 protocol DiffListGroupViewModel {
     var theme: Theme { get set }
-    var sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass) { get set }
     var width: CGFloat { get set }
     var height: CGFloat { get }
     var traitCollection: UITraitCollection { get set }
+    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) //use this to bypass size calculations in width setter
 }
 
 final class DiffListItemHighlightRange {
@@ -166,18 +166,13 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             }
         }
     }
-    var sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass) {
-        didSet {
-            innerPadding = DiffListChangeViewModel.calculateInnerPadding(sizeClass: sizeClass)
-            height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, textPadding: textPadding)
-        }
-    }
     var traitCollection: UITraitCollection {
         didSet {
             for item in items {
                 item.traitCollection = traitCollection
             }
             
+            innerPadding = DiffListChangeViewModel.calculateInnerPadding(traitCollection: traitCollection)
             let headingColor = DiffListChangeViewModel.calculateHeadingColor(type: type, theme: theme)
             headingAttributedString = DiffListChangeViewModel.calculateHeadingAttributedString(headingColor: headingColor, text: heading, traitCollection: traitCollection)
             height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, textPadding: textPadding)
@@ -188,8 +183,13 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         return width - innerPadding.leading - innerPadding.trailing - textPadding.leading - textPadding.trailing
     }
     
+    private var _width: CGFloat
     var width: CGFloat {
-        didSet {
+        get {
+            return _width
+        }
+        set {
+            _width = newValue
             height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, textPadding: textPadding)
         }
     }
@@ -201,12 +201,11 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     private(set) var textPadding: NSDirectionalEdgeInsets
     let innerViewClipsToBounds: Bool
     
-    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
+    init(type: DiffListChangeType, diffItems: [DiffItem], theme: Theme, width: CGFloat, traitCollection: UITraitCollection) {
         
         self.type = type
         self.theme = theme
-        self.sizeClass = sizeClass
-        self.width = width
+        self._width = width
         self.traitCollection = traitCollection
         self.innerViewClipsToBounds = type == .compareRevision
         
@@ -227,7 +226,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         self.items = itemViewModels
         
         borderColor = DiffListChangeViewModel.calculateBorderColor(type: type, theme: theme)
-        innerPadding = DiffListChangeViewModel.calculateInnerPadding(sizeClass: sizeClass)
+        innerPadding = DiffListChangeViewModel.calculateInnerPadding(traitCollection: traitCollection)
         headingPadding = DiffListChangeViewModel.calculateHeadingPadding(type: type)
         textPadding = DiffListChangeViewModel.calculateTextPadding(type: type)
         
@@ -307,13 +306,18 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         return height
     }
     
-    private static func calculateInnerPadding(sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass)) -> NSDirectionalEdgeInsets {
-        switch (sizeClass.horizontal, sizeClass.vertical) {
+    private static func calculateInnerPadding(traitCollection: UITraitCollection) -> NSDirectionalEdgeInsets {
+        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
             return NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 10, trailing: 50)
         default:
             return NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)
         }
+    }
+    
+    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) {
+         _width = width
+        self.height = height.default
     }
 }
 
@@ -329,23 +333,29 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     private(set) var contextFont: UIFont
     private(set) var headingFont: UIFont
     
+    private var _width: CGFloat
     var width: CGFloat {
-        didSet {
-            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
-            collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
+        get {
+            return _width
+        }
+        set {
+            _width = newValue
+            expandedHeight = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
+            height = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
         }
     }
     var traitCollection: UITraitCollection {
         didSet {
+            innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
             contextFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
             headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
-            collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
+            expandedHeight = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
+            height = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
         }
     }
     
     private(set) var height: CGFloat = 0
-    private(set) var collapsedHeight: CGFloat = 0
+    private(set) var expandedHeight: CGFloat = 0
     private(set) var innerPadding: NSDirectionalEdgeInsets
     
     static let contextItemTextPadding = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
@@ -359,19 +369,10 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         return contextFont.pointSize * 1.8
     }
     
-    var sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass) {
-        didSet {
-            innerPadding = DiffListContextViewModel.calculateInnerPadding(sizeClass: sizeClass)
-            height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
-            collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
-        }
-    }
-    
-    init(diffItems: [DiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
+    init(diffItems: [DiffItem], isExpanded: Bool, theme: Theme, width: CGFloat, traitCollection: UITraitCollection) {
         self.isExpanded = isExpanded
         self.theme = theme
-        self.sizeClass = sizeClass
-        self.width = width
+        self._width = width
         self.traitCollection = traitCollection
         
         self.items = diffItems.map{ $0.text.count == 0 ? nil : $0.text }
@@ -387,14 +388,14 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         self.contextFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         self.headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         
-        innerPadding = DiffListContextViewModel.calculateInnerPadding(sizeClass: sizeClass)
+        innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
         
-        height = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
-        collapsedHeight = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
+        expandedHeight = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
+        height = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
     }
     
-    private static func calculateInnerPadding(sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass)) -> NSDirectionalEdgeInsets {
-        switch (sizeClass.horizontal, sizeClass.vertical) {
+    private static func calculateInnerPadding(traitCollection: UITraitCollection) -> NSDirectionalEdgeInsets {
+        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
             return NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 0, trailing: 50)
         default:
@@ -451,20 +452,30 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         
         return height
     }
+    
+    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) {
+         _width = width
+        self.height = height.default
+        
+        guard let expandedHeight = height.expanded else {
+            assertionFailure("Expecting expanded height here")
+            return
+        }
+        
+        self.expandedHeight = expandedHeight
+    }
 }
 
 final class DiffListUneditedViewModel: DiffListGroupViewModel {
     private(set) var height: CGFloat = 0
     
-    var sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass) {
-        didSet {
-            innerPadding = DiffListUneditedViewModel.calculateInnerPadding(sizeClass: sizeClass)
-            height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
-        }
-    }
-    
+    private var _width: CGFloat
     var width: CGFloat {
-        didSet {
+        get {
+            return _width
+        }
+        set {
+            _width = newValue
             height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
         }
     }
@@ -485,21 +496,20 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
         return width - innerPadding.leading - innerPadding.trailing
     }
     
-    init(numberOfUneditedLines: Int, theme: Theme, width: CGFloat, sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass), traitCollection: UITraitCollection) {
+    init(numberOfUneditedLines: Int, theme: Theme, width: CGFloat, traitCollection: UITraitCollection) {
         self.theme = theme
-        self.width = width
-        self.sizeClass = sizeClass
+        self._width = width
         self.traitCollection = traitCollection
         self.theme = theme
-        self.innerPadding = DiffListUneditedViewModel.calculateInnerPadding(sizeClass: sizeClass)
+        self.innerPadding = DiffListUneditedViewModel.calculateInnerPadding(traitCollection: traitCollection)
         self.font = DiffListUneditedViewModel.calculateTextLabelFont(traitCollection: traitCollection)
         
         self.text = String.localizedStringWithFormat(WMFLocalizedString("diff-unedited-lines-format", value:"{{PLURAL:%1$d|%1$d line unedited|%1$d lines unedited}}", comment:"Label in diff to indicate how many lines are not displayed because they were not changed. %1$d is replaced by the number of unedited lines."), numberOfUneditedLines)
         self.height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
     }
     
-    private static func calculateInnerPadding(sizeClass: (horizontal: UIUserInterfaceSizeClass, vertical: UIUserInterfaceSizeClass)) -> NSDirectionalEdgeInsets {
-        switch (sizeClass.horizontal, sizeClass.vertical) {
+    private static func calculateInnerPadding(traitCollection: UITraitCollection) -> NSDirectionalEdgeInsets {
+        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
             return NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 0, trailing: 50)
         default:
@@ -522,5 +532,10 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
         height += innerPadding.bottom
         
         return height
+    }
+    
+    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) {
+        _width = width
+        self.height = height.default
     }
 }

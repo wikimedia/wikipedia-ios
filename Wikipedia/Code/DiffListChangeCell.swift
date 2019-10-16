@@ -49,20 +49,12 @@ class DiffListChangeCell: UICollectionViewCell {
         }
         
         updateTextLabels(in: textStackView, newViewModel: viewModel)
-        
-        //theming
-        backgroundColor = viewModel.theme.colors.paperBackground
-        contentView.backgroundColor = viewModel.theme.colors.paperBackground
-        
-        innerView.borderWidth = 1
-        innerView.borderColor = viewModel.borderColor
-        innerView.layer.cornerRadius = viewModel.innerViewClipsToBounds ? 7 : 0
-        innerView.clipsToBounds = viewModel.innerViewClipsToBounds
-        
-        headingContainerView.backgroundColor = viewModel.borderColor
-        headingLabel.attributedText = viewModel.headingAttributedString
 
+        innerView.borderWidth = 1
+        
         self.viewModel = viewModel
+        
+        apply(theme: viewModel.theme)
     }
 }
 
@@ -102,5 +94,22 @@ private extension DiffListChangeCell {
         }
         
         return false
+    }
+}
+
+extension DiffListChangeCell: Themeable {
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
+        
+        if let viewModel = viewModel {
+            innerView.borderColor = viewModel.borderColor
+            innerView.layer.cornerRadius = viewModel.innerViewClipsToBounds ? 7 : 0
+            innerView.clipsToBounds = viewModel.innerViewClipsToBounds
+            
+            headingContainerView.backgroundColor = viewModel.borderColor
+            headingLabel.attributedText = viewModel.headingAttributedString
+        }
+        
     }
 }

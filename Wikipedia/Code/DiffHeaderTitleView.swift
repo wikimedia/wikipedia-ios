@@ -8,7 +8,7 @@ class DiffHeaderTitleView: UIView {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
     
-    private var viewModel: DiffHeaderTitleViewModel?
+    private(set) var viewModel: DiffHeaderTitleViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,23 +21,15 @@ class DiffHeaderTitleView: UIView {
     }
     
     func update(_ viewModel: DiffHeaderTitleViewModel) {
+        
         self.viewModel = viewModel
+        
         headingLabel.text = viewModel.heading
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
+        
         updateFonts(with: traitCollection)
-        
-        //theming
-        backgroundColor = viewModel.theme.colors.paperBackground
-        contentView.backgroundColor = viewModel.theme.colors.paperBackground
-        headingLabel.textColor = viewModel.theme.colors.secondaryText
-        titleLabel.textColor = viewModel.theme.colors.primaryText
-        if let subtitleColor = viewModel.subtitleColor {
-            subtitleLabel.textColor = subtitleColor
-        } else {
-            subtitleLabel.textColor = viewModel.theme.colors.secondaryText
-        }
-        
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -66,6 +58,22 @@ private extension DiffHeaderTitleView {
             subtitleLabel.font = UIFont.wmf_font(viewModel.subtitleTextStyle, compatibleWithTraitCollection: traitCollection)
         } else {
             subtitleLabel.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
+        }
+    }
+}
+
+extension DiffHeaderTitleView: Themeable {
+    func apply(theme: Theme) {
+        
+        backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
+        headingLabel.textColor = theme.colors.secondaryText
+        titleLabel.textColor = theme.colors.primaryText
+        
+        if let subtitleColor = viewModel?.subtitleColor {
+            subtitleLabel.textColor = subtitleColor
+        } else {
+            subtitleLabel.textColor = theme.colors.secondaryText
         }
     }
 }

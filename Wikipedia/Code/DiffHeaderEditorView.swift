@@ -20,6 +20,7 @@ class DiffHeaderEditorView: UIView {
     }
     
     func update(_ viewModel: DiffHeaderEditorViewModel) {
+        
         headingLabel.text = viewModel.heading
         usernameLabel.text = viewModel.username
         if #available(iOS 13.0, *) {
@@ -35,15 +36,8 @@ class DiffHeaderEditorView: UIView {
         default:
             numberOfEditsLabel.isHidden =  true
         } //TONITODO: activity indicator and stuff
-        updateFonts(with: traitCollection)
         
-        //theming
-        backgroundColor = viewModel.theme.colors.paperBackground
-        contentView.backgroundColor = viewModel.theme.colors.paperBackground
-        headingLabel.textColor = viewModel.theme.colors.secondaryText
-        usernameLabel.textColor = viewModel.theme.colors.link
-        userIconImageView.tintColor = viewModel.theme.colors.link
-        numberOfEditsLabel.textColor = viewModel.theme.colors.secondaryText
+        updateFonts(with: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -70,5 +64,16 @@ private extension DiffHeaderEditorView {
         headingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldCallout, compatibleWithTraitCollection: traitCollection)
         numberOfEditsLabel.font = UIFont.wmf_font(DynamicTextStyle.callout, compatibleWithTraitCollection: traitCollection)
+    }
+}
+
+extension DiffHeaderEditorView: Themeable {
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
+        headingLabel.textColor = theme.colors.secondaryText
+        usernameLabel.textColor = theme.colors.link
+        userIconImageView.tintColor = theme.colors.link
+        numberOfEditsLabel.textColor = theme.colors.secondaryText
     }
 }

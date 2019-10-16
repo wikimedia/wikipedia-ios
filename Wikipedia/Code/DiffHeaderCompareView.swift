@@ -11,7 +11,9 @@ class DiffHeaderCompareView: UIView {
     @IBOutlet var stackView: UIStackView!
     private var maxHeight: CGFloat = 0
     private var minHeight: CGFloat = 0
-    private var viewModel: DiffHeaderCompareViewModel?
+    
+    private var beginSquishYOffset: CGFloat = 0
+    private var scrollYOffset: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,9 +31,7 @@ class DiffHeaderCompareView: UIView {
         maxHeight = stackView.frame.height
         minHeight = max(fromItemView.minHeight, toItemView.minHeight)
 
-        if let viewModel = viewModel {
-            update(viewModel)
-        }
+        configureHeight(beginSquishYOffset: beginSquishYOffset, scrollYOffset: scrollYOffset)
     }
     
     private func commonInit() {
@@ -41,25 +41,36 @@ class DiffHeaderCompareView: UIView {
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    func update(_ viewModel: DiffHeaderCompareViewModel) {
-        self.viewModel = viewModel
-        fromItemView.update(viewModel.fromModel)
-        toItemView.update(viewModel.toModel)
-
-        let amountToSquish = viewModel.scrollYOffset - viewModel.beginSquishYOffset
+    func configureHeight(beginSquishYOffset: CGFloat, scrollYOffset: CGFloat) {
+        
+        self.beginSquishYOffset = beginSquishYOffset
+        self.scrollYOffset = scrollYOffset
+        
+        let amountToSquish = scrollYOffset - beginSquishYOffset
         if amountToSquish >= 0 {
             innerHeightConstraint.constant = max((maxHeight - amountToSquish), minHeight)
         } else {
             innerHeightConstraint.constant = maxHeight
         }
+    }
+    
+    func update(_ viewModel: DiffHeaderCompareViewModel) {
         
-        //theming
-        backgroundColor = viewModel.theme.colors.paperBackground
-        contentView.backgroundColor = viewModel.theme.colors.paperBackground
-        divView.backgroundColor = viewModel.theme.colors.chromeShadow
+        fromItemView.update(viewModel.fromModel)
+        toItemView.update(viewModel.toModel)
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
+    }
+}
+
+extension DiffHeaderCompareView: Themeable {
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
+        divView.backgroundColor = theme.colors.chromeShadow
+        fromItemView.apply(theme: theme)
+        toItemView.apply(theme: theme)
     }
 }

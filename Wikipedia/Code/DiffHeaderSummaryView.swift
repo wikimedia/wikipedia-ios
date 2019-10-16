@@ -1,7 +1,7 @@
 
 import UIKit
 
-class DiffHeaderSummaryView: UIView {
+class DiffHeaderSummaryView: UIView, Themeable {
     
     @IBOutlet var contentView: UIView!
     @IBOutlet var headingLabel: UILabel!
@@ -21,17 +21,13 @@ class DiffHeaderSummaryView: UIView {
     
 
     func update(_ viewModel: DiffHeaderEditSummaryViewModel) {
+
         headingLabel.text = viewModel.heading
         tagLabel.text = "m" //TONITODO: tags
         summaryLabel.text = viewModel.summary
-        updateFonts(with: traitCollection)
         
-        //theming
-        backgroundColor = viewModel.theme.colors.paperBackground
-        contentView.backgroundColor = viewModel.theme.colors.paperBackground
-        headingLabel.textColor = viewModel.theme.colors.secondaryText
-        tagLabel.textColor = viewModel.theme.colors.primaryText
-        summaryLabel.textColor = viewModel.theme.colors.primaryText
+        updateFonts(with: traitCollection)
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -43,6 +39,13 @@ class DiffHeaderSummaryView: UIView {
         return false
     }
 
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
+        headingLabel.textColor = theme.colors.secondaryText
+        tagLabel.textColor = theme.colors.primaryText
+        summaryLabel.textColor = theme.colors.primaryText
+    }
 }
 
 private extension DiffHeaderSummaryView {
