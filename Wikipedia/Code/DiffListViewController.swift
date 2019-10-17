@@ -27,6 +27,7 @@ class DiffListViewController: ViewController {
     private var dataSource: [DiffListGroupViewModel] = []
     private weak var delegate: DiffListDelegate?
     private var updateWidthsOnLayoutSubviews = false
+    private var cachedSizes: [CGFloat: (default: CGFloat, expanded: CGFloat?)] = [:]
     
     init(theme: Theme, delegate: DiffListDelegate?) {
         super.init(nibName: nil, bundle: nil)
@@ -57,35 +58,34 @@ class DiffListViewController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if updateWidthsOnLayoutSubviews {
-            backgroundUpdateListViewModels(listViewModel: dataSource, updateType: .widthChangedUpdate(width: collectionView.frame.width)) {
-                //self.collectionView.collectionViewLayout.invalidateLayout()
-                self.applyListViewModelChanges(updateType: .widthChangedUpdate(width: self.collectionView.frame.width))
-                self.updateWidthsOnLayoutSubviews = false
-            }
-        }
+//        if updateWidthsOnLayoutSubviews {
+//            backgroundUpdateListViewModels(listViewModel: dataSource, updateType: .widthChangedUpdate(width: collectionView.frame.width)) {
+//                self.applyListViewModelChanges(updateType: .widthChangedUpdate(width: self.collectionView.frame.width))
+//                self.updateWidthsOnLayoutSubviews = false
+//            }
+//        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+        cachedSizes.removeAll()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        updateWidthsOnLayoutSubviews = true
-        coordinator.animate(alongsideTransition: { (context) in
-            //nothing
-        }) { (context) in
-            self.updateWidthsOnLayoutSubviews = false
+        backgroundUpdateListViewModels(listViewModel: dataSource, updateType: .widthChangedUpdate(width: size.width)) {
+            self.applyListViewModelChanges(updateType: .widthChangedUpdate(width: size.width))
         }
         
-//        backgroundUpdateListViewModels(listViewModel: dataSource, updateType: .widthChangedUpdate(width: size.width)) {
-//            self.applyListViewModelChanges(updateType: .widthChangedUpdate(width: size.width))
+//        updateWidthsOnLayoutSubviews = true
+//        //updateListViewModels(listViewModel: dataSource, updateType: .widthChangedUpdate(width: size.width))
+//        coordinator.animate(alongsideTransition: { (context) in
+//            //self.applyListViewModelChanges(updateType: .widthChangedUpdate(width: size.width))
+//        }) { (context) in
+//            self.updateWidthsOnLayoutSubviews = false
 //        }
-    }
-    
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        
-        //updateListViewModels(listViewModel: dataSource, updateType: .fontOrMarginUpdate(traitCollection: traitCollection))
-        //applyListViewModelChanges(updateType: .fontOrMarginUpdate(traitCollection: traitCollection))
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -94,8 +94,6 @@ class DiffListViewController: ViewController {
     }
     
     func updateListViewModels(listViewModel: [DiffListGroupViewModel], updateType: DiffListViewController.ListUpdateType) {
-        
-        //todo: check cache here?
         
         switch updateType {
         case .itemExpandUpdate(let indexPath):
@@ -168,8 +166,12 @@ class DiffListViewController: ViewController {
         switch updateType {
         case .itemExpandUpdate:
             collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
-        case .fontOrMarginUpdate, .initialLoad, .widthChangedUpdate:
+        case .initialLoad, .fontOrMarginUpdate:
             collectionView.reloadData()
+        case .widthChangedUpdate:
+            //collectionView.reloadData()
+            //collectionView.collectionViewLayout.invalidateLayout()
+            collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
         default:
             break
         }
@@ -212,9 +214,9 @@ extension DiffListViewController: UICollectionViewDataSource {
             cell.delegate = self
             return cell
         } else if let viewModel = viewModel as? DiffListUneditedViewModel,
-                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListUneditedCell.reuseIdentifier, for: indexPath) as? DiffListUneditedCell {
-                   cell.update(viewModel)
-                   return cell
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListUneditedCell.reuseIdentifier, for: indexPath) as? DiffListUneditedCell {
+           cell.update(viewModel)
+           return cell
         }
         
         return UICollectionViewCell()
@@ -231,10 +233,10 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
         
         if let contextViewModel = viewModel as? DiffListContextViewModel {
             let height = contextViewModel.isExpanded ? contextViewModel.expandedHeight : contextViewModel.height
-            return CGSize(width: contextViewModel.width, height: height)
+            return CGSize(width: min(collectionView.frame.width, contextViewModel.width), height: height)
         }
         
-        return CGSize(width: viewModel.width, height: viewModel.height)
+        return CGSize(width: min(collectionView.frame.width, viewModel.width), height: viewModel.height)
 
     }
     
