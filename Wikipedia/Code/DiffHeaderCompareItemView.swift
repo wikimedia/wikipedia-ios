@@ -3,6 +3,7 @@ import UIKit
 
 class DiffHeaderCompareItemView: UIView {
 
+    @IBOutlet var containerStackView: UIStackView!
     @IBOutlet var contentView: UIView!
     @IBOutlet var headingLabel: UILabel!
     @IBOutlet var timestampLabel: UILabel!
@@ -10,9 +11,14 @@ class DiffHeaderCompareItemView: UIView {
     @IBOutlet var tagLabel: UILabel!
     @IBOutlet var summaryLabel: UILabel!
     @IBOutlet var userIconImageView: UIImageView!
-    @IBOutlet var stackViewTopPadding: NSLayoutConstraint!
+    @IBOutlet var stackViewTopPaddingConstraint: NSLayoutConstraint!
+    let squishedBottomPadding: CGFloat = 5.5
+    let maxStackViewTopPadding: CGFloat = 14
+    let minStackViewTopPadding: CGFloat = 6
+    let maxContainerStackViewSpacing: CGFloat = 10
+    let minContainerStackViewSpacing: CGFloat = 4
     var minHeight: CGFloat {
-        return timestampLabel.frame.maxY + stackViewTopPadding.constant
+        return timestampLabel.frame.maxY + stackViewTopPaddingConstraint.constant + squishedBottomPadding
     }
     private var viewModel: DiffHeaderCompareItemViewModel?
 
@@ -24,6 +30,8 @@ class DiffHeaderCompareItemView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
+        stackViewTopPaddingConstraint.constant = maxStackViewTopPadding
+        containerStackView.spacing = maxContainerStackViewSpacing
     }
     
     override func layoutSubviews() {
@@ -47,6 +55,16 @@ class DiffHeaderCompareItemView: UIView {
         updateFonts(with: traitCollection)
 
         self.viewModel = viewModel
+    }
+    
+    func squish(by percentage: CGFloat) {
+        let topPaddingDelta = maxStackViewTopPadding - minStackViewTopPadding
+        stackViewTopPaddingConstraint.constant = maxStackViewTopPadding - (topPaddingDelta * percentage)
+        
+        let spacingDelta = maxContainerStackViewSpacing - minContainerStackViewSpacing
+        containerStackView.spacing = maxContainerStackViewSpacing - (spacingDelta * percentage)
+
+        //tonitodo: shrink font size
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

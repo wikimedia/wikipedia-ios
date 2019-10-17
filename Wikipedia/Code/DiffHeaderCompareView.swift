@@ -47,11 +47,13 @@ class DiffHeaderCompareView: UIView {
         self.scrollYOffset = scrollYOffset
         
         let amountToSquish = scrollYOffset - beginSquishYOffset
-        if amountToSquish >= 0 {
-            innerHeightConstraint.constant = max((maxHeight - amountToSquish), minHeight)
-        } else {
-            innerHeightConstraint.constant = maxHeight
-        }
+        let heightDelta = maxHeight - minHeight
+        
+        let changePercentage = min(1, max(0,(amountToSquish / heightDelta)))
+        
+        innerHeightConstraint.constant = maxHeight - (heightDelta * changePercentage)
+        fromItemView.squish(by: changePercentage)
+        toItemView.squish(by: changePercentage)
     }
     
     func update(_ viewModel: DiffHeaderCompareViewModel) {

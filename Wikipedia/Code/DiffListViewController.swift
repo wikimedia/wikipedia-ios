@@ -210,11 +210,6 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        if indexPath.item == 0 {
-            print("🇲🇩\(collectionView.frame.width)")
-            print("😂\(viewModel.width)")
-        }
-        
         if let contextViewModel = viewModel as? DiffListContextViewModel {
             let height = contextViewModel.isExpanded ? contextViewModel.expandedHeight : contextViewModel.height
             return CGSize(width: min(collectionView.frame.width, contextViewModel.width), height: height)

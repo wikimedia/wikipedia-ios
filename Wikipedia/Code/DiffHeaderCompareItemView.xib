@@ -10,9 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="containerStackView" destination="8NE-pY-A7V" id="x6m-kt-OYy"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="RWR-eQ-oKM"/>
                 <outlet property="headingLabel" destination="k3C-1t-PsV" id="mwH-bI-ILX"/>
-                <outlet property="stackViewTopPadding" destination="SuQ-LJ-aNG" id="K24-FH-NtY"/>
+                <outlet property="stackViewTopPaddingConstraint" destination="SuQ-LJ-aNG" id="Iei-yf-CSI"/>
                 <outlet property="summaryLabel" destination="JqN-eA-lxJ" id="lMm-wE-gw6"/>
                 <outlet property="tagLabel" destination="F8k-gc-cRa" id="XnL-go-WNk"/>
                 <outlet property="timestampLabel" destination="tvs-c2-tvH" id="eFr-zS-6Ve"/>
@@ -28,13 +29,13 @@
                 <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8NE-pY-A7V">
                     <rect key="frame" x="15" y="14" width="384" height="107"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="999" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3C-1t-PsV">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="999" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3C-1t-PsV">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvs-c2-tvH">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvs-c2-tvH">
                             <rect key="frame" x="0.0" y="30.5" width="384" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
