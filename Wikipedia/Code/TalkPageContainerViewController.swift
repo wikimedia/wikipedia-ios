@@ -413,6 +413,13 @@ private extension TalkPageContainerViewController {
             self.headerView = headerView
             configure(header: headerView, introTopic: nil)
             headerView.delegate = self
+            navigationBar.isBarHidingEnabled = false
+            navigationBar.isUnderBarViewHidingEnabled = true
+            navigationBar.allowsUnderbarHitsFallThrough = true
+            useNavigationBarVisibleHeightForScrollViewInsets = true
+            navigationBar.addUnderNavigationBarView(headerView)
+            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+            navigationBar.title = controller.displayTitle
            
             updateScrollViewInsets()
         }
