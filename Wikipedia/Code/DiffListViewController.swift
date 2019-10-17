@@ -8,9 +8,8 @@ protocol DiffListDelegate: class {
 class DiffListViewController: ViewController {
     
     enum ListUpdateType {
-        case fontOrMarginUpdate(traitCollection: UITraitCollection) //i.e. willTransitionToTraitCollection - size class or preferred content size changed
         case itemExpandUpdate(indexPath: IndexPath) //tapped context cell to expand
-        case widthChangedUpdate(width: CGFloat) //willTransitionToSize - simple rotation that keeps size class
+        case layoutUpdate(collectionViewWidth: CGFloat, traitCollection: UITraitCollection) //willTransitionToSize - simple rotation that keeps size class
         case initialLoad(width: CGFloat)
         case theme(theme: Theme)
     }
@@ -59,9 +58,9 @@ class DiffListViewController: ViewController {
             super.viewDidLayoutSubviews()
             
             if updateWidthsOnLayoutSubviews {
-                backgroundUpdateListViewModels(listViewModel: dataSource, updateType: .widthChangedUpdate(width: collectionView.frame.width)) {
-                    self.applyListViewModelChanges(updateType: .widthChangedUpdate(width: self.collectionView.frame.width))
-                    self.updateWidthsOnLayoutSubviews = false
+                let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: collectionView.frame.width, traitCollection: traitCollection)
+                backgroundUpdateListViewModels(listViewModel: dataSource, updateType: updateType) {
+                    self.applyListViewModelChanges(updateType: updateType)
                 }
             }
         }
@@ -79,10 +78,10 @@ class DiffListViewController: ViewController {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         
-        if newCollection.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-            backgroundUpdateListViewModels(listViewModel: dataSource, updateType: .fontOrMarginUpdate(traitCollection: newCollection)) {
-                self.applyListViewModelChanges(updateType: .fontOrMarginUpdate(traitCollection: newCollection))
-            }
+        updateWidthsOnLayoutSubviews = true
+        coordinator.animate(alongsideTransition: { (context) in
+        }) { (context) in
+            self.updateWidthsOnLayoutSubviews = false
         }
         
     }
@@ -100,21 +99,19 @@ class DiffListViewController: ViewController {
             if let item = listViewModel[safeIndex: indexPath.item] as? DiffListContextViewModel {
                 item.isExpanded.toggle()
             }
-        case .fontOrMarginUpdate(let traitCollection):
-            for var item in listViewModel {
-                if item.traitCollection != traitCollection {
-                    item.traitCollection = traitCollection
+            
+        case .layoutUpdate(let width, let traitCollection):
+            for item in listViewModel {
+                if item.width != width || item.traitCollection != traitCollection {
+                    item.updateSize(width: width, traitCollection: traitCollection)
                 }
             }
-        case .widthChangedUpdate(let width):
+        
+        case .initialLoad(let width):
             for var item in listViewModel {
                 if item.width != width {
                     item.width = width
                 }
-            }
-        case .initialLoad(let width):
-            for var item in listViewModel {
-                item.width = width
             }
             self.dataSource = listViewModel
         case .theme(let theme):
@@ -151,13 +148,11 @@ class DiffListViewController: ViewController {
     func applyListViewModelChanges(updateType: DiffListViewController.ListUpdateType) {
         switch updateType {
         case .itemExpandUpdate:
+            
             collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
-        case .initialLoad, .fontOrMarginUpdate:
-            collectionView.reloadData()
-        case .widthChangedUpdate:
-            collectionView.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
+ 
         default:
-            break
+            collectionView.reloadData()
         }
     }
     

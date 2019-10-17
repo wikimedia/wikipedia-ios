@@ -6,8 +6,8 @@ protocol DiffListGroupViewModel {
     var theme: Theme { get set }
     var width: CGFloat { get set }
     var height: CGFloat { get }
-    var traitCollection: UITraitCollection { get set }
-    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) //use this to bypass size calculations in width setter
+    var traitCollection: UITraitCollection { get }
+    func updateSize(width: CGFloat, traitCollection: UITraitCollection)
 }
 
 final class DiffListItemHighlightRange {
@@ -175,7 +175,6 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             innerPadding = DiffListChangeViewModel.calculateInnerPadding(traitCollection: traitCollection)
             let headingColor = DiffListChangeViewModel.calculateHeadingColor(type: type, theme: theme)
             headingAttributedString = DiffListChangeViewModel.calculateHeadingAttributedString(headingColor: headingColor, text: heading, traitCollection: traitCollection)
-            height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, textPadding: textPadding)
         }
     }
     
@@ -315,9 +314,11 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         }
     }
     
-    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) {
-         _width = width
-        self.height = height.default
+    func updateSize(width: CGFloat, traitCollection: UITraitCollection) {
+        _width = width
+        self.traitCollection = traitCollection
+        
+        height = DiffListChangeViewModel.calculateHeight(items: items, availableWidth: availableWidth, innerPadding: innerPadding, headingAttributedString: headingAttributedString, headingPadding: headingPadding, textPadding: textPadding)
     }
 }
 
@@ -349,8 +350,6 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
             contextFont = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
             headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-            expandedHeight = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
-            height = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
         }
     }
     
@@ -406,6 +405,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     private static func calculateExpandedHeight(items: [String?], heading: String, availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, contextItemPadding: NSDirectionalEdgeInsets, contextFont: UIFont, headingFont: UIFont, emptyContextLineHeight: CGFloat) -> CGFloat {
 
         var height: CGFloat = 0
+        height = calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: contextItemPadding, contextFont: contextFont, headingFont: headingFont)
         
         for item in items {
             
@@ -424,15 +424,6 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             
             height += DiffListContextViewModel.contextItemStackSpacing
         }
-        
-        //add heading height
-
-        height += innerPadding.top
-        let attributedString = NSAttributedString(string: heading, attributes: [NSAttributedString.Key.font: headingFont])
-        height += ceil(attributedString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
-        
-        height += innerPadding.bottom
-        height += DiffListContextViewModel.containerStackSpacing
         
         return height
     }
@@ -453,16 +444,12 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         return height
     }
     
-    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) {
-         _width = width
-        self.height = height.default
+    func updateSize(width: CGFloat, traitCollection: UITraitCollection) {
+        _width = width
+        self.traitCollection = traitCollection
         
-        guard let expandedHeight = height.expanded else {
-            assertionFailure("Expecting expanded height here")
-            return
-        }
-        
-        self.expandedHeight = expandedHeight
+        expandedHeight = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight)
+        height = DiffListContextViewModel.calculateCollapsedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont)
     }
 }
 
@@ -483,7 +470,6 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
     var traitCollection: UITraitCollection {
         didSet {
             font = DiffListUneditedViewModel.calculateTextLabelFont(traitCollection: traitCollection)
-            height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
         }
     }
     
@@ -534,8 +520,10 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
         return height
     }
     
-    func setCachedSize(width: CGFloat, height: (default: CGFloat, expanded: CGFloat?)) {
+    func updateSize(width: CGFloat, traitCollection: UITraitCollection) {
         _width = width
-        self.height = height.default
+        self.traitCollection = traitCollection
+        
+        height = DiffListUneditedViewModel.calculateHeight(text: text, availableWidth: availableWidth, innerPadding: innerPadding, font: font)
     }
 }
