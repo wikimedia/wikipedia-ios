@@ -27,31 +27,31 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="351" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="KF2-9l-hqU">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="395"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="351"/>
                             <subviews>
                                 <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZYC-6N-TTD" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="44" width="206.5" height="351"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="206.5" height="351"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                                 <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9T-pW-Rt2" customClass="DiffHeaderCompareItemView" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="207.5" y="44" width="206.5" height="351"/>
+                                    <rect key="frame" x="207.5" y="0.0" width="206.5" height="351"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="w9T-pW-Rt2" firstAttribute="width" secondItem="ZYC-6N-TTD" secondAttribute="width" id="cj3-MC-Jwy"/>
                             </constraints>
-                            <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
-                            <variation key="heightClass=regular-widthClass=regular">
-                                <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="25" bottom="0.0" trailing="25"/>
-                            </variation>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstItem="KF2-9l-hqU" firstAttribute="top" secondItem="Y7q-o7-dgo" secondAttribute="top" id="Sto-FI-ZNA"/>
-                        <constraint firstAttribute="trailing" secondItem="KF2-9l-hqU" secondAttribute="trailing" id="Tgl-HL-MbW"/>
-                        <constraint firstItem="KF2-9l-hqU" firstAttribute="leading" secondItem="Y7q-o7-dgo" secondAttribute="leading" id="fDK-5t-keh"/>
+                        <constraint firstAttribute="trailing" secondItem="KF2-9l-hqU" secondAttribute="trailing" id="Tgl-HL-MbW">
+                            <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                        </constraint>
+                        <constraint firstItem="KF2-9l-hqU" firstAttribute="leading" secondItem="Y7q-o7-dgo" secondAttribute="leading" id="fDK-5t-keh">
+                            <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                        </constraint>
                         <constraint firstAttribute="height" constant="351" id="wfw-la-sAz"/>
                     </constraints>
                 </view>

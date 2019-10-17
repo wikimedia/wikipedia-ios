@@ -22,25 +22,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oBN-gh-m7u">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="224"/>
+                    <rect key="frame" x="15" y="14" width="384" height="196"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lV-2Z-gyi">
-                            <rect key="frame" x="15" y="58" width="384" height="20.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Xne-ha-tsW">
-                            <rect key="frame" x="15" y="88.5" width="384" height="121.5"/>
+                            <rect key="frame" x="0.0" y="30.5" width="384" height="165.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFL-zX-I7X">
-                                    <rect key="frame" x="0.0" y="0.0" width="42" height="121.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="42" height="165.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7k3-O5-jxw">
-                                    <rect key="frame" x="49" y="0.0" width="335" height="121.5"/>
+                                    <rect key="frame" x="49" y="0.0" width="335" height="165.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -48,18 +48,18 @@
                             </subviews>
                         </stackView>
                     </subviews>
-                    <directionalEdgeInsets key="directionalLayoutMargins" top="14" leading="15" bottom="14" trailing="15"/>
-                    <variation key="heightClass=regular-widthClass=regular">
-                        <directionalEdgeInsets key="directionalLayoutMargins" top="14" leading="50" bottom="14" trailing="50"/>
-                    </variation>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="oBN-gh-m7u" secondAttribute="bottom" id="GPG-0q-XCI"/>
-                <constraint firstItem="oBN-gh-m7u" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hoe-wl-9St"/>
-                <constraint firstItem="oBN-gh-m7u" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="sVm-cD-y9w"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oBN-gh-m7u" secondAttribute="trailing" id="xKM-Ng-Iib"/>
+                <constraint firstAttribute="bottom" secondItem="oBN-gh-m7u" secondAttribute="bottom" constant="14" id="GPG-0q-XCI"/>
+                <constraint firstItem="oBN-gh-m7u" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="hoe-wl-9St"/>
+                <constraint firstItem="oBN-gh-m7u" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="sVm-cD-y9w">
+                    <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                </constraint>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oBN-gh-m7u" secondAttribute="trailing" constant="15" id="xKM-Ng-Iib">
+                    <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                </constraint>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
