@@ -8,7 +8,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
     private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    var delegate: PageHistoryFilterCountsViewControllerDelegate?
+    weak var delegate: PageHistoryFilterCountsViewControllerDelegate?
     var theme = Theme.standard
 
     private var counts: [Count] = []
