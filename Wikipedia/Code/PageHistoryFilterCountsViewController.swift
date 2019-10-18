@@ -1,7 +1,7 @@
 import UIKit
 
 protocol PageHistoryFilterCountsViewControllerDelegate: AnyObject {
-    func pageHistoryFilterCountsViewControllerDidDetermineIfFilterCountsAreAvailable(areFilterCountsAvailable: Bool)
+    func didDetermineFilterCountsAvailability(_ available: Bool, viewController: PageHistoryFilterCountsViewController)
 }
 
 class PageHistoryFilterCountsViewController: UIViewController {
@@ -35,7 +35,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
             if case let revertedEdits?? = editCounts[.revertedEdits] {
                 counts.append(Count(title: "reverted edits", image: UIImage(named: "reverted")!, count: revertedEdits))
             }
-            delegate?.pageHistoryFilterCountsViewControllerDidDetermineIfFilterCountsAreAvailable(areFilterCountsAvailable: !counts.isEmpty)
+            delegate?.didDetermineFilterCountsAvailability(!counts.isEmpty, viewController: self)
         }
     }
 

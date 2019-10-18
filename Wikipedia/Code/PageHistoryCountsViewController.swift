@@ -99,8 +99,8 @@ class PageHistoryCountsViewController: UIViewController {
 }
 
 extension PageHistoryCountsViewController: PageHistoryFilterCountsViewControllerDelegate {
-    func pageHistoryFilterCountsViewControllerDidDetermineIfFilterCountsAreAvailable(areFilterCountsAvailable: Bool) {
-        if !areFilterCountsAvailable {
+    func didDetermineFilterCountsAvailability(_ available: Bool, viewController: PageHistoryFilterCountsViewController) {
+        if !available {
             filterCountsContainerView.isHidden = true
             UIView.animate(withDuration: 0.4) {
                 self.filterCountsViewController.willMove(toParent: nil)
