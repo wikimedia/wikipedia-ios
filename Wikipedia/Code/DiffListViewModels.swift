@@ -81,25 +81,34 @@ final class DiffListChangeItemViewModel {
         let boldFontStyle: DynamicTextStyle = type == .singleRevison ? .boldCallout : .boldFootnote
         
         let font = UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection)
+        
+        //todo: failed progress on adding line spacing
 //        let paragraphStyle = NSMutableParagraphStyle()
 //        let lineSpacing: CGFloat = 4
 //        paragraphStyle.lineSpacing = lineSpacing
 //        paragraphStyle.lineHeightMultiple = font.lineHeightMultipleToMatch(lineSpacing: lineSpacing)
+        
         let attributes = [NSAttributedString.Key.font: font]
                           //NSAttributedString.Key.paragraphStyle: paragraphStyle]
         let attributedString = NSAttributedString(string: text, attributes: attributes)
         
         let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
+  
+        //todo: for when we need to add move arrows
+//        let image1Attachment = NSTextAttachment()
+//        image1Attachment.image = UIImage(named: "moveArrowDown")
+//        let image1String = NSAttributedString(attachment: image1Attachment)
+//        mutableAttributedString.insert(image1String, at:0)
         
         for range in highlightedRanges {
-            
+
             let nsRange = NSRange(location: range.start, length: range.length)
             let highlightColor: UIColor
-            
+
             switch range.type {
             case .added:
                 highlightColor = theme.colors.diffHighlightAdd
-                
+
             case .deleted:
                 highlightColor = theme.colors.diffHighlightDelete
                 let deletedAttributes: [NSAttributedString.Key: Any]  = [
@@ -108,7 +117,7 @@ final class DiffListChangeItemViewModel {
                 ]
                 mutableAttributedString.addAttributes(deletedAttributes, range: nsRange)
             }
-            
+
             mutableAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: highlightColor, range: nsRange)
             mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection), range: nsRange)
         }
