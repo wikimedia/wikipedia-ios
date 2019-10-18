@@ -53,7 +53,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return .sections
     }
 
-    private lazy var compareButton = UIBarButtonItem(title: WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items"), style: .plain, target: self, action: #selector(compare(_:)))
+    private lazy var compareButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(compare(_:)))
     private lazy var cancelComparisonButton = UIBarButtonItem(title: CommonStrings.cancelActionTitle, style: .done, target: self, action: #selector(cancelComparison(_:)))
 
     override func viewDidLoad() {
@@ -215,7 +215,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
-    private lazy var compareToolbarButton = UIBarButtonItem(title: "Compare", style: .plain, target: self, action: #selector(showDiff(_:)))
+    private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(showDiff(_:)))
     private lazy var firstComparisonSelectionButton = makeComparisonSelectionButton()
     private lazy var secondComparisonSelectionButton = makeComparisonSelectionButton()
 
