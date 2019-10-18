@@ -367,18 +367,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         } else {
             if let date = item.revisionDate {
                 if (date as NSDate).wmf_isTodayUTC() {
-                    let diff = Calendar.current.dateComponents([.second, .minute, .hour], from: date, to: Date())
-                    if let hours = diff.hour {
-                        // TODO: Localize
-                        cell.time = "\(hours)h"
-                        cell.displayTime = "\(hours)h ago"
-                    } else if let minutes = diff.minute {
-                        cell.time = "\(minutes)m"
-                        cell.displayTime = "\(minutes)m ago"
-                    } else if let seconds = diff.second {
-                        cell.time = "\(seconds)s"
-                        cell.displayTime = "\(seconds)s ago"
-                    }
+                    let dateStrings = (date as NSDate).wmf_localizedRelativeDateStringFromLocalDateToNowAbbreviated()
+                    cell.time = dateStrings[WMFAbbreviatedRelativeDate]
+                    cell.displayTime = dateStrings[WMFAbbreviatedRelativeDateAgo]
                 } else if let dateString = DateFormatter.wmf_24hshortTime()?.string(from: date)  {
                     cell.time = "\(dateString)"
                     cell.displayTime = "\(dateString) UTC"

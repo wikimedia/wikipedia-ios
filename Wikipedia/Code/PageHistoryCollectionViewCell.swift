@@ -16,7 +16,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     var displayTime: String? {
         didSet {
-            timeLabel.text = time
+            timeLabel.text = displayTime
             setNeedsLayout()
         }
     }
