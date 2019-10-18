@@ -235,20 +235,6 @@ extension WMFAuthenticationManager {
         }
         attemptLogin(completion: completion)
     }
-    
-    @objc func loginWithSavedCredentials(success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
-        let completion: AuthenticationResultHandler = { loginResult in
-            switch loginResult {
-            case .success(let result):
-                success(result)
-            case .alreadyLoggedIn(let result):
-                userAlreadyLoggedInHandler(result)
-            case .failure(let error):
-                failure(error)
-            }
-        }
-        loginWithSavedCredentials(completion: completion)
-    }
 }
 
 // MARK: @objc logout
