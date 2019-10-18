@@ -3,6 +3,7 @@
 // Author: Hromoslav
 // Author: Kusavica
 // Author: Lexected
+// Author: Luky001
 // Author: Macofe
 // Author: Mhurd
 // Author: Mikulas1
@@ -152,6 +153,7 @@
 "description-help-tips-example-title-one" = "obraz od Leonarda Da Vinciho";
 "description-help-tips-example-title-two" = "najvyššia hora na Zemi";
 "description-help-tips-for-example" = "Napríklad:";
+"description-help-title" = "Nápoveda pre popisy článkov";
 "description-published-button-title" = "Hotovo";
 "description-published-title" = "Popis bol uverejnený!";
 "description-welcome-descriptions-title" = "Popis článku";
@@ -160,6 +162,14 @@
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
+"edit-text-size-table-view-title" = "Veľkosť textu";
+"edit-underline-accessibility-label" = "Pridať podčiarknutie";
+"edit-underline-remove-accessibility-label" = "Odstrániť podčiarknutie";
+"edit-watch-this-page-text" = "Sledovať túto stránku";
+"editing-welcome-be-bold-title" = "Váš hlas je dôležitý";
+"editing-welcome-citations-title" = "Citujte dôveryhodné zdroje";
+"editing-welcome-set-knowledge-free-title" = "Osloboďte vedomosti";
+"empty-insert-media-title" = "Vybrať súbor z Wikimedia Commons";
 "empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
@@ -174,6 +184,7 @@
 "explore-because-you-read" = "Pretože ste čítali";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
 "explore-detail-back-button-title" = "Späť do kanála Objaviť";
+"explore-enable-location-title" = "Objaviť články v blízkosti vašej aktuálnej polohy";
 "explore-featured-article-heading" = "Odporúčaný článok";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipédie";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipédie";
@@ -183,6 +194,7 @@
 "explore-feed-preferences-customize-explore-feed" = "Prispôsobenie kanála Objaviť";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Prispôsobenie kanála Objaviť";
 "explore-feed-preferences-explore-tab" = "Kanál Objaviť";
+"explore-feed-preferences-featured-article-description" = "Denný odporúčaný článok na Wikipédii";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Vypnúť";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnúť";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1";
@@ -194,6 +206,7 @@
 "explore-feed-preferences-potd-description" = "Denný obrázok z Commons";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Vypnúť kanál Objaviť";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Vypnúť kanál Objaviť";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Vypnúť kanál Objaviť?";
 "explore-hide-card-prompt" = "Skryť túto kartu";
 "explore-main-page-description" = "Hlavná stránka projektov Wikimedie";
 "explore-main-page-heading" = "Dnes na Wikipédii";
@@ -319,6 +332,7 @@
 "places-accessibility-show-as-list" = "Zobraziť ako zoznam";
 "places-accessibility-show-as-map" = "Zobraziť ako mapu";
 "places-accessibility-show-more" = "Zobraziť viac článkov";
+"places-empty-search-description" = "Objavte mestá, krajiny, kontinenty, prírodné pamiatky, historické udalosti, budovy a dalšie.";
 "places-enable-location-action-button-title" = "Povoliť polohu";
 "places-filter-no-saved-places" = "Nemáte žiadne uložené miesta";
 "places-filter-saved-articles" = "Uložené články";
