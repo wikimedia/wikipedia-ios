@@ -371,7 +371,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     if let hours = diff.hour {
                         // TODO: Localize
                         cell.time = "\(hours)h"
-                        cell.displayTime = "\(hours)h go"
+                        cell.displayTime = "\(hours)h ago"
                     } else if let minutes = diff.minute {
                         cell.time = "\(minutes)m"
                         cell.displayTime = "\(minutes)m ago"
