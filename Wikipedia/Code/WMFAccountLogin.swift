@@ -43,7 +43,7 @@ public class WMFAccountLoginResult: NSObject {
 }
 
 public class WMFAccountLogin: Fetcher {
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = true, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         
         var parameters = [
             "action": "clientlogin",
@@ -71,7 +71,7 @@ public class WMFAccountLogin: Fetcher {
             parameters["captchaWord"] = captchaWord
         }
 
-        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters) { (result, response, error) in
+        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response:  reattemptOn401Response) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return

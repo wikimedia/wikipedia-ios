@@ -68,8 +68,8 @@ public class WMFAuthenticationManager: Fetcher {
         return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
-    public func attemptLogin(completion: @escaping AuthenticationResultHandler) {
-        self.loginWithSavedCredentials { (loginResult) in
+    public func attemptLogin(reattemptOn401Response: Bool = true, completion: @escaping AuthenticationResultHandler) {
+        self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
             switch loginResult {
             case .success(let result):
                 DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(result.username).\n\n")
@@ -96,14 +96,14 @@ public class WMFAuthenticationManager: Fetcher {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, completion: @escaping AuthenticationResultHandler) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = true, completion: @escaping AuthenticationResultHandler) {
         guard let siteURL = loginSiteURL else {
             DispatchQueue.main.async {
                 completion(.failure(AuthenticationError.missingLoginURL))
             }
             return
         }
-        accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
+        accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {result in
             DispatchQueue.main.async {
                 let normalizedUserName = result.username
                 self.loggedInUsername = normalizedUserName
@@ -126,7 +126,7 @@ public class WMFAuthenticationManager: Fetcher {
      *  @param success  The handler for success - at this point the user is logged in
      *  @param completion
      */
-    public func loginWithSavedCredentials(completion: @escaping AuthenticationResultHandler) {
+    public func loginWithSavedCredentials(reattemptOn401Response: Bool = true, completion: @escaping AuthenticationResultHandler) {
         
         guard hasKeychainCredentials,
             let userName = KeychainCredentialsManager.shared.username,
@@ -155,7 +155,7 @@ public class WMFAuthenticationManager: Fetcher {
                     completion(.success(loginResult))
                     return
                 }
-                self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, completion: { (loginResult) in
+                self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
                     DispatchQueue.main.async {
                         switch loginResult {
                         case .success(let result):
