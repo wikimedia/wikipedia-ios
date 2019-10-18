@@ -96,6 +96,7 @@
 "article-read-more-title" = "Read more";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
+"article-title" = "Article";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "back-button-accessibility-label" = "Back";
@@ -471,10 +472,15 @@
 "on-this-day-title" = "On this day";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-edit-history" = "Full edit history";
+"page-history-bot-edits" = "bot edits";
 "page-history-compare-title" = "Compare";
+"page-history-ip-edits" = "IP edits";
+"page-history-reverted-edits" = "reverted edits";
 "page-history-revision-history-title" = "Revision history";
+"page-history-revisions-comparison-warning" = "Only two revisions can be selected";
 "page-history-stats-text" = "$1 edits since $2";
 "page-history-title" = "Article history";
+"page-history-user-edits" = "user edits";
 "page-issues" = "Page issues";
 "page-last-edited" = "{{PLURAL:$1|0=Edited today|1=Edited yesterday|Edited $1 days ago}}";
 "page-location" = "View on a map";
@@ -606,8 +612,14 @@
 "reading-themes-controls-syntax-highlighting" = "Syntax Highlighting";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|1=Yesterday|$1 days ago}}";
+"relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
+"relative-date-hours-ago-abbreviated" = "$1h ago";
+"relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
+"relative-date-minutes-ago-abbreviated" = "$1m ago";
+"relative-date-seconds-abbreviated" = "$1s";
+"relative-date-seconds-ago-abbreviated" = "$1s ago";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";
 "replace-button-accessibility" = "Perform $1.";
 "replace-buttons-replace-accessibility" = "Replace single instance";

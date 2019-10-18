@@ -24,16 +24,16 @@ class PageHistoryFilterCountsViewController: UIViewController {
                 return
             }
             if case let userEdits?? = editCounts[.userEdits] {
-                counts.append(Count(title: "user edits", image: UIImage(named: "user-edit")!, count: userEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-user-edits", value: "user edits", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit")!, count: userEdits))
             }
             if case let anonEdits?? = editCounts[.anonEdits] {
-                counts.append(Count(title: "IP edits", image: UIImage(named: "anon")!, count: anonEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-ip-edits", value: "IP edits", comment: "Text for view that shows many edits were made by anonymous users - IP refers to the 'IP address'"), image: UIImage(named: "anon")!, count: anonEdits))
             }
             if case let botEdits?? = editCounts[.botEdits] {
-                counts.append(Count(title: "bot edits", image: UIImage(named: "bot")!, count: botEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot")!, count: botEdits))
             }
             if case let revertedEdits?? = editCounts[.revertedEdits] {
-                counts.append(Count(title: "reverted edits", image: UIImage(named: "reverted")!, count: revertedEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-reverted-edits", value: "reverted edits", comment: "Text for view that shows many edits were reverted"), image: UIImage(named: "reverted")!, count: revertedEdits))
             }
             delegate?.didDetermineFilterCountsAvailability(!counts.isEmpty, viewController: self)
         }
