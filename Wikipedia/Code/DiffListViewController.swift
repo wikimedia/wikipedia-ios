@@ -34,6 +34,8 @@ class DiffListViewController: ViewController {
         return collectionView.indexPathForItem(at: center)
     }
     private var indexPathBeforeRotating: IndexPath?
+    private let chunkedHeightCalculationsConcurrentQueue = DispatchQueue(label: "com.wikipedia.diff.chunkedHeightCalculations", qos: .userInteractive, attributes: .concurrent)
+    private let layoutSubviewsHeightCalculationsSerialQueue = DispatchQueue(label: "com.wikipedia.diff.layoutHeightCalculations", qos: .userInteractive)
     
     init(theme: Theme, delegate: DiffListDelegate?) {
         super.init(nibName: nil, bundle: nil)
@@ -65,13 +67,25 @@ class DiffListViewController: ViewController {
             super.viewDidLayoutSubviews()
             
             if updateWidthsOnLayoutSubviews {
-                let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: collectionView.frame.width, traitCollection: traitCollection)
-                backgroundUpdateListViewModels(listViewModel: dataSource, updateType: updateType) {
-                    self.applyListViewModelChanges(updateType: updateType)
+                
+                //possibly overkill...simple main thread way to do this is updateListViewModels(listViewModel: self.dataSource, updateType: updateType) followed by the main thread lines 78-83. This does seem very slightly faster for rotation though, and could yield more gains as diffs get larger. More improvements could be size caching & putting layoutSubviewsHeightCalculationsSerialQueue instead into an NSOperation to be cancelled if another viewDidLayoutSubviews is called. No need to continue calculating sizes if collection view frame has changed again.
+                //todo: clean up - move this and updateListViewModel methods into separate class, DiffListSizeCalculator or something
+                let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: self.collectionView.frame.width, traitCollection: self.traitCollection)
+                
+                //actually not sure if this serial queue is needed or simply calling on the main thread (also serial) is the same. this also seems faster than without though.
+                layoutSubviewsHeightCalculationsSerialQueue.async {
                     
-                    if let indexPathBeforeRotating = self.indexPathBeforeRotating {
-                        self.collectionView.scrollToItem(at: indexPathBeforeRotating, at: .centeredVertically, animated: false)
-                        self.indexPathBeforeRotating = nil
+                    self.backgroundUpdateListViewModels(listViewModel: self.dataSource, updateType: updateType) {
+                        
+                        DispatchQueue.main.async {
+                            self.applyListViewModelChanges(updateType: updateType)
+                            
+                            if let indexPathBeforeRotating = self.indexPathBeforeRotating {
+                                self.collectionView.scrollToItem(at: indexPathBeforeRotating, at: .centeredVertically, animated: false)
+                                self.indexPathBeforeRotating = nil
+                            }
+                        }
+                        
                     }
                 }
             }
@@ -146,22 +160,18 @@ class DiffListViewController: ViewController {
         func backgroundUpdateListViewModels(listViewModel: [DiffListGroupViewModel], updateType: DiffListViewController.ListUpdateType, completion: @escaping () -> Void) {
     
             let group = DispatchGroup()
-            let queue = DispatchQueue(label: "com.wikipedia.diff.heightCalculations", qos: .userInteractive, attributes: .concurrent)
     
             let chunked = listViewModel.chunked(into: 10)
     
             for chunk in chunked {
-    
-                queue.async(group: group) {
-    
+                chunkedHeightCalculationsConcurrentQueue.async(group: group) {
+                    
                     self.updateListViewModels(listViewModel: chunk, updateType: updateType)
                 }
             }
     
-            group.notify(queue: DispatchQueue.main) {
-                DispatchQueue.main.async {
-                    completion()
-                }
+            group.notify(queue: layoutSubviewsHeightCalculationsSerialQueue) {
+                completion()
             }
         }
     
