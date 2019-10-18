@@ -27,6 +27,13 @@ class DiffListViewController: ViewController {
     private weak var delegate: DiffListDelegate?
 
     private var updateWidthsOnLayoutSubviews = false
+    private var isRotating = false
+    
+    private var centerIndexPath: IndexPath? {
+        let center = view.convert(collectionView.center, to: collectionView)
+        return collectionView.indexPathForItem(at: center)
+    }
+    private var indexPathBeforeRotating: IndexPath?
     
     init(theme: Theme, delegate: DiffListDelegate?) {
         super.init(nibName: nil, bundle: nil)
@@ -61,6 +68,11 @@ class DiffListViewController: ViewController {
                 let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: collectionView.frame.width, traitCollection: traitCollection)
                 backgroundUpdateListViewModels(listViewModel: dataSource, updateType: updateType) {
                     self.applyListViewModelChanges(updateType: updateType)
+                    
+                    if let indexPathBeforeRotating = self.indexPathBeforeRotating {
+                        self.collectionView.scrollToItem(at: indexPathBeforeRotating, at: .centeredVertically, animated: false)
+                        self.indexPathBeforeRotating = nil
+                    }
                 }
             }
         }
@@ -69,10 +81,18 @@ class DiffListViewController: ViewController {
         super.viewWillTransition(to: size, with: coordinator)
         
         updateWidthsOnLayoutSubviews = true
+        isRotating = true
+        
+        self.indexPathBeforeRotating = centerIndexPath
         coordinator.animate(alongsideTransition: { (context) in
+            
+            //nothing
+            
         }) { (context) in
             self.updateWidthsOnLayoutSubviews = false
+            self.isRotating = false
         }
+
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -217,6 +237,17 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: min(collectionView.frame.width, viewModel.width), height: viewModel.height)
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        
+        if !isRotating {
+            //prevents jumping when expanding/collapsing context cell
+            return collectionView.contentOffset
+        } else {
+            return proposedContentOffset
+        }
+        
     }
 }
 
