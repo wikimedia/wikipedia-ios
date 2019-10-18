@@ -96,7 +96,6 @@
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
-"article-title" = "Generic article title";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";

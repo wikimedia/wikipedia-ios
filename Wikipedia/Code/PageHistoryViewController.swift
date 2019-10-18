@@ -59,7 +59,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hintController = PageHistoryHintController()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Article", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("article-title", value: "Article", comment: "Generic article title"), style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItem = compareButton
         title = CommonStrings.historyTabTitle
 
