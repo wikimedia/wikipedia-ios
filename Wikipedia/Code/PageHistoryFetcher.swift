@@ -131,7 +131,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         pathComponents.append(pageTitle)
         pathComponents.append(contentsOf: ["history", "counts"])
         pathComponents.append(editCountType.rawValue)
-        let components = configuration.mediaWikiRestAPIURForHost(project, appending: pathComponents)
+        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents)
         return components.url
     }
 
