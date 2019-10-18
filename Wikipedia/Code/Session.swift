@@ -221,7 +221,8 @@ import Foundation
     }
     
     /**
-     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received.
+     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received
+     and an attempt to re-login with stored credentials fails.
     */
     private func handleResponse(_ response: URLResponse?) {
         guard let response = response, let httpResponse = response as? HTTPURLResponse else {
@@ -229,8 +230,15 @@ import Foundation
         }
         switch httpResponse.statusCode {
         case 401:
-            WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
-                self.removeAllCookies()
+            WMFAuthenticationManager.sharedInstance.attemptLogin { (loginResult) in
+                switch loginResult {
+                case .failure:
+                    WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
+                        self.removeAllCookies()
+                    }
+                default:
+                    break
+                }
             }
         default:
             break
