@@ -366,13 +366,13 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.selectionIndex = cachedCellContent.selectionIndex
         } else {
             if let date = item.revisionDate {
-                if (date as NSDate).wmf_isTodayUTC() {
+                if indexPath.section == 0, (date as NSDate).wmf_isTodayUTC() {
                     let dateStrings = (date as NSDate).wmf_localizedRelativeDateStringFromLocalDateToNowAbbreviated()
                     cell.time = dateStrings[WMFAbbreviatedRelativeDate]
                     cell.displayTime = dateStrings[WMFAbbreviatedRelativeDateAgo]
-                } else if let dateString = DateFormatter.wmf_24hshortTime()?.string(from: date)  {
-                    cell.time = "\(dateString)"
-                    cell.displayTime = "\(dateString) UTC"
+                } else {
+                    cell.time = DateFormatter.wmf_24hshortTime()?.string(from: date)
+                    cell.displayTime = DateFormatter.wmf_24hshortTimeWithUTCTimeZone()?.string(from: date)
                 }
             }
             cell.authorImage = item.isAnon ? UIImage(named: "anon") : UIImage(named: "user-edit")

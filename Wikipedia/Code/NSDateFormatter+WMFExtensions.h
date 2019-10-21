@@ -29,6 +29,8 @@
 
 + (NSDateFormatter *)wmf_24hshortTimeFormatter;
 
++ (NSDateFormatter *)wmf_24hshortTimeFormatterWithUTCTimeZone;
+
 /**
  * Create an short-style time formatter with the given locale.
  * @warning This method is exposed for testing only, use @c +wmf_shortTimeFormatter instead.
@@ -66,8 +68,8 @@
 
 + (instancetype)wmf_yearMonthDayZDateFormatter;
 
-+ (instancetype)wmf_yearFormatter; // 1905
++ (instancetype)wmf_yearFormatter;  // 1905
 + (instancetype)wmf_monthFormatter; // 05
-+ (instancetype)wmf_dayFormatter; // 09
++ (instancetype)wmf_dayFormatter;   // 09
 
 @end
