@@ -173,7 +173,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
     }
 
-    // TODO: Fix RTL
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let layoutMargins = calculatedLayoutMargins
@@ -183,15 +182,22 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         roundedContent.frame = CGRect(x: layoutMargins.left, y: 0, width: widthMinusMargins, height: bounds.height)
         editableContent.frame = CGRect(x: 0, y: 0, width: widthMinusMargins, height: bounds.height)
 
+        let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+        let semanticContentAttribute: UISemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
+
         if willStartEditing {
-            selectView.frame = CGRect(x: 0, y: 0, width: 30, height: bounds.height)
+            let x = isRTL ? roundedContent.frame.maxX : 0
+            selectView.frame = CGRect(x: x, y: 0, width: 30, height: bounds.height)
         } else if isEditing {
-            selectView.frame.origin = CGPoint(x: self.roundedContent.frame.origin.x, y: 0)
-            selectView.layoutIfNeeded()
             let spaceOccupiedBySelectView = selectView.frame.width * 2
-            editableContent.frame = CGRect(x: editableContent.frame.origin.x + spaceOccupiedBySelectView, y: 0, width: widthMinusMargins - spaceOccupiedBySelectView, height: bounds.height)
+            let x = isRTL ? widthMinusMargins - spaceOccupiedBySelectView : roundedContent.frame.origin.x
+            selectView.frame.origin = CGPoint(x: x, y: 0)
+            selectView.layoutIfNeeded()
+            let editableContentX = isRTL ? 0 : editableContent.frame.origin.x + spaceOccupiedBySelectView
+            editableContent.frame = CGRect(x: editableContentX, y: 0, width: widthMinusMargins - spaceOccupiedBySelectView, height: bounds.height)
         } else {
-            selectView.frame.origin = CGPoint(x: 0, y: 0)
+            let x = isRTL ? roundedContent.frame.maxX : 0
+            selectView.frame.origin = CGPoint(x: x, y: 0)
             editableContent.frame = CGRect(x: 0, y: 0, width: widthMinusMargins, height: bounds.height)
         }
 
@@ -199,11 +205,11 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         let leadingPaneAvailableWidth = availableWidth / 3
         let trailingPaneAvailableWidth = availableWidth - leadingPaneAvailableWidth
 
-        var leadingPaneOrigin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
-        var trailingPaneOrigin = CGPoint(x: layoutMargins.left + leadingPaneAvailableWidth, y: layoutMargins.top)
+        var leadingPaneOrigin = CGPoint(x: isRTL ? availableWidth - leadingPaneAvailableWidth : layoutMargins.left, y: layoutMargins.top)
+        var trailingPaneOrigin = CGPoint(x: isRTL ? layoutMargins.left : layoutMargins.left + leadingPaneAvailableWidth, y: layoutMargins.top)
 
         if timeLabel.wmf_hasText {
-            let timeLabelFrame = timeLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
+            let timeLabelFrame = timeLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: semanticContentAttribute, apply: apply)
             leadingPaneOrigin.y += timeLabelFrame.layoutHeight(with: spacing * 2)
             timeLabel.isHidden = false
         } else {
@@ -211,7 +217,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         }
 
         if sizeDiffLabel.wmf_hasText {
-            let sizeDiffLabelFrame = sizeDiffLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
+            let sizeDiffLabelFrame = sizeDiffLabel.wmf_preferredFrame(at: leadingPaneOrigin, maximumWidth: leadingPaneAvailableWidth, alignedBy: semanticContentAttribute, apply: apply)
             leadingPaneOrigin.y += sizeDiffLabelFrame.layoutHeight(with: spacing)
             sizeDiffLabel.isHidden = false
         } else {
@@ -222,7 +228,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             if apply {
                 authorButton.setImage(authorImage, for: .normal)
             }
-            let authorButtonFrame = authorButton.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
+            let authorButtonFrame = authorButton.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: semanticContentAttribute, apply: apply)
             trailingPaneOrigin.y += authorButtonFrame.layoutHeight(with: spacing * 3)
             authorButton.isHidden = false
         } else {
@@ -241,7 +247,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
                 commentLabel.text = comment
             }
             // TODO: Make sure all icons have the same sizes
-            let commentLabelFrame = commentLabel.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: .forceLeftToRight, apply: apply)
+            let commentLabelFrame = commentLabel.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: semanticContentAttribute, apply: apply)
             trailingPaneOrigin.y += commentLabelFrame.layoutHeight(with: spacing)
             commentLabel.isHidden = false
         } else {
