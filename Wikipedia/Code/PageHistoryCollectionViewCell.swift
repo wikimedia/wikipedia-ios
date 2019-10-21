@@ -5,7 +5,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     private let editableContent = UIView()
     private let timeLabel = UILabel()
     private let sizeDiffLabel = UILabel()
-    private let minorImageView = UIImageView()
     private let commentLabel = UILabel()
     private let authorButton = AlignedImageButton()
     private let selectView = BatchEditSelectView()
@@ -139,8 +138,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         authorButton.horizontalSpacing = 8
         authorButton.isUserInteractionEnabled = false
         editableContent.addSubview(authorButton)
-        minorImageView.contentMode = .scaleAspectFit
-        editableContent.addSubview(minorImageView)
         commentLabel.numberOfLines = 2
         commentLabel.lineBreakMode = .byTruncatingTail
         editableContent.addSubview(commentLabel)
