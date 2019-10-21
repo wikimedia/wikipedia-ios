@@ -188,6 +188,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 selectedCellsCount = 0
                 pageHistoryHintController?.hide(true, presenter: self, theme: theme)
                 openSelectionIndex = 0
+                NSLayoutConstraint.deactivate(comparisonSelectionButtonWidthConstraints)
                 navigationItem.rightBarButtonItem = compareButton
                 collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
                 forEachVisibleCell { (indexPath: IndexPath, cell: PageHistoryCollectionViewCell) in
@@ -203,10 +204,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 collectionView.allowsMultipleSelection = true
                 forEachVisibleCell { $1.setEditing(true) }
                 compareToolbarButton.isEnabled = false
-                NSLayoutConstraint.activate([
-                    firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90),
-                    secondComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90)
-                ])
+                comparisonSelectionButtonWidthConstraints = [firstComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90), secondComparisonSelectionButton.widthAnchor.constraint(equalToConstant: 90)]
+                NSLayoutConstraint.activate(comparisonSelectionButtonWidthConstraints)
                 setToolbarItems([UIBarButtonItem(customView: firstComparisonSelectionButton), UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 10), UIBarButtonItem(customView: secondComparisonSelectionButton), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),  compareToolbarButton], animated: true)
                 navigationController?.setToolbarHidden(false, animated: true)
             }
@@ -218,6 +217,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(showDiff(_:)))
     private lazy var firstComparisonSelectionButton = makeComparisonSelectionButton()
     private lazy var secondComparisonSelectionButton = makeComparisonSelectionButton()
+    private var comparisonSelectionButtonWidthConstraints = [NSLayoutConstraint]()
 
     private func makeComparisonSelectionButton() -> AlignedImageButton {
         let button = AlignedImageButton(frame: .zero)
