@@ -466,7 +466,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     var openSelectionIndex = 0
-
+    private var postedMaxRevisionsSelectedAccessibilityNotification = false
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellsCount += 1
         defer {
@@ -487,6 +488,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 cell.enableEditing(false)
             }
             pageHistoryHintController?.hide(false, presenter: self, theme: theme)
+            if !postedMaxRevisionsSelectedAccessibilityNotification {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.maxRevisionsSelectedWarningTitle)
+                postedMaxRevisionsSelectedAccessibilityNotification = true
+            }
         }
         switch openSelectionIndex {
         case 0:

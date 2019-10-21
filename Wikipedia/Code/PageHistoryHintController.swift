@@ -1,7 +1,7 @@
 class PageHistoryHintViewController: HintViewController {
     override func configureSubviews() {
         defaultImageView.image = UIImage(named: "exclamation-point")
-        defaultLabel.text = WMFLocalizedString("page-history-revisions-comparison-warning", value: "Only two revisions can be selected", comment: "Text telling the user how many revisions can be selected for comparison")
+        defaultLabel.text = CommonStrings.maxRevisionsSelectedWarningTitle
     }
 }
 
