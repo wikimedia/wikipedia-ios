@@ -27,7 +27,13 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
                 return
             }
             sizeDiffLabel.isHidden = false
-            sizeDiffLabel.text = sizeDiff > 0 ? "+\(sizeDiff)" : "\(sizeDiff)"
+            let added = sizeDiff > 0
+            sizeDiffLabel.text = added ? "+\(sizeDiff)" : "\(sizeDiff)"
+            if added || sizeDiff == 0 {
+                sizeDiffLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-size-diff-addition", value: "Added {{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Accessibility label text telling the user how many bytes were added in a revision"), sizeDiff)
+            } else {
+                sizeDiffLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-size-diff-subtraction", value: "Removed {{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Accessibility label text telling the user how many bytes were removed in a revision"), abs(sizeDiff))
+            }
             setNeedsLayout()
         }
     }
@@ -41,6 +47,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
     var author: String? {
         didSet {
             authorButton.setTitle(author, for: .normal)
+            authorButton.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("page-history-revision-author-accessibility-label", value: "Author: %@", comment: "Accessibility label text telling the user who authored a revision"), author ?? WMFLocalizedString("unknown-generic-text", value: "Unknown", comment: "Default text used in places where no contextual information is provided"))
             setNeedsLayout()
         }
     }
@@ -145,6 +152,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         roundedContent.addSubview(selectView)
         roundedContent.addSubview(editableContent)
         contentView.addSubview(roundedContent)
+        accessibilityElements = [timeLabel, sizeDiffLabel, authorButton, commentLabel]
     }
 
     override func reset() {

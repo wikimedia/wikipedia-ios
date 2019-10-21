@@ -53,7 +53,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return .sections
     }
 
-    private lazy var compareButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(compare(_:)))
+    private lazy var compareButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(compare(_:)))
+        button.accessibilityHint = WMFLocalizedString("page-history-compare-accessibility-hint", value: "Tap to select two revisions to compare", comment: "Accessibility hint describing the role of the Compare button")
+        return button
+    }()
+
     private lazy var cancelComparisonButton = UIBarButtonItem(title: CommonStrings.cancelActionTitle, style: .done, target: self, action: #selector(cancelComparison(_:)))
 
     override func viewDidLoad() {

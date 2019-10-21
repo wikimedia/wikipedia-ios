@@ -473,10 +473,14 @@
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
+"page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
 "page-history-ip-edits" = "Text for view that shows many edits were made by anonymous users - IP refers to the 'IP address'";
 "page-history-reverted-edits" = "Text for view that shows many edits were reverted";
+"page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision";
 "page-history-revision-history-title" = "Title for revision history view";
+"page-history-revision-size-diff-addition" = "Accessibility label text telling the user how many bytes were added in a revision";
+"page-history-revision-size-diff-subtraction" = "Accessibility label text telling the user how many bytes were removed in a revision";
 "page-history-revisions-comparison-warning" = "Text telling the user how many revisions can be selected for comparison";
 "page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with they year when the first edit was made.";
 "page-history-title" = "Header text for Page History interface. {{Identical|Article history}}";
@@ -766,6 +770,7 @@
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
 "unable-to-load-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
+"unknown-generic-text" = "Default text used in places where no contextual information is provided";
 "view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
 "welcome-exploration-explore-feed-title" = "Title for Explore feed";
