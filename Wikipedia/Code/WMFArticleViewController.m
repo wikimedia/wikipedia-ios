@@ -456,6 +456,11 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             break;
     }
 
+    CGFloat trailingSpace = 8;
+    if (@available(iOS 13.0, *)) {
+        trailingSpace = 20;
+    }
+
     NSArray *itemGroups = @[@[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
                               self.languagesToolbarItem,
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
@@ -475,7 +480,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
 
                               self.findInPageToolbarItem,
-                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]]];
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:trailingSpace]]];
 
     for (NSArray *itemGroup in itemGroups) {
         switch (self.tableOfContentsDisplayMode) {

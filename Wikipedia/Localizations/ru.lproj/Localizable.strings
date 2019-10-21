@@ -667,7 +667,7 @@
 "reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";
 "reverted-edit-notification-read-more-action-title" = "Подробнее";
 "reverted-edit-possible-reasons" = "- Ваш вклад не соответствует одному из руководств. $1 \n\n - Ваш вклад похож на вандальный";
-"reverted-edit-possible-reasons-subtitle" = "Мы знаем, что вы старались, но один из участников заметил что-то неправильное. \n\nВозможные причины, почему ваша правка была отменена:";
+"reverted-edit-possible-reasons-subtitle" = "Мы знаем, что вы старались, но один из участников заметил что-то некорректное. \n\nВозможные причины, почему ваша правка была отменена:";
 "reverted-edit-thanks-for-editing-title" = "Спасибо за редактирование Википедии!";
 "reverted-edit-title" = "Отменённая правка";
 "reverted-edit-view-guidelines-text" = "Просмотр руководств";
