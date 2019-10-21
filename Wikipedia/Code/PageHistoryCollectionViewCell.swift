@@ -154,6 +154,7 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
         isEditingEnabled = true
         selectView.isSelectionDisabled = false
         selectionThemeModel = nil
+        selectionIndex = nil
     }
 
     override func updateFonts(with traitCollection: UITraitCollection) {

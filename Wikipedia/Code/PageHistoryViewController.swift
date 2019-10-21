@@ -358,6 +358,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.author = cachedCellContent.author
             cell.sizeDiff = cachedCellContent.sizeDiff
             cell.comment = cachedCellContent.comment
+            cell.isSelected = cachedCellContent.selectionIndex != nil
             if cell.isSelected {
                 cell.selectionThemeModel = cachedCellContent.selectionThemeModel
             } else {
