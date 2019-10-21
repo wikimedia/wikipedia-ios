@@ -99,7 +99,6 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
             isEditing = editing
             selectView.setNeedsLayout()
             layoutIfNeeded()
-            isSelected = false
             selectView.alpha = editing ? 1 : 0
         }
     }
