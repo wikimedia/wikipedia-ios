@@ -9,7 +9,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import "LegacyPageHistoryViewController.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"

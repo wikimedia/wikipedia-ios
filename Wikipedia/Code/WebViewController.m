@@ -5,7 +5,6 @@
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "LegacyPageHistoryViewController.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
@@ -1072,11 +1071,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)shareSnippet:(NSString *)snippet {
     [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
-}
-
-- (void)editHistoryButtonPushed {
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:[LegacyPageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
-    [self presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)setFontSizeMultiplier:(NSNumber *)fontSize {
