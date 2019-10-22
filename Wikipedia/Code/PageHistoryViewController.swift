@@ -220,8 +220,16 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     private lazy var compareToolbarButton = UIBarButtonItem(title: CommonStrings.compareTitle, style: .plain, target: self, action: #selector(showDiff(_:)))
-    private lazy var firstComparisonSelectionButton = makeComparisonSelectionButton()
-    private lazy var secondComparisonSelectionButton = makeComparisonSelectionButton()
+    private lazy var firstComparisonSelectionButton: AlignedImageButton = {
+        let button = makeComparisonSelectionButton()
+        button.tag = 0
+        return button
+    }()
+    private lazy var secondComparisonSelectionButton: AlignedImageButton = {
+        let button = makeComparisonSelectionButton()
+        button.tag = 1
+        return button
+    }()
     private var comparisonSelectionButtonWidthConstraints = [NSLayoutConstraint]()
 
     private func makeComparisonSelectionButton() -> AlignedImageButton {
@@ -237,6 +245,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         button.contentHorizontalAlignment = .leading
         button.leftPadding = 10
         button.rightPadding = 10
+        button.addTarget(self, action: #selector(scrollToComparisonSelection(_:)), for: .touchUpInside)
         return button
     }
 
@@ -467,7 +476,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     var openSelectionIndex = 0
     private var postedMaxRevisionsSelectedAccessibilityNotification = false
-    
+    private var indexPathsSelectedForComparison = [Int: IndexPath]()
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellsCount += 1
         defer {
@@ -511,12 +521,20 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             button.imageView?.tintColor = themeModel.authorColor
             button.setTitleColor(themeModel.authorColor, for: .normal)
             button.tintColor = themeModel.authorColor
+            indexPathsSelectedForComparison[button.tag] = indexPath
         }
         updateSelectionIndex(openSelectionIndex, for: cell, at: indexPath)
         updateSelectionThemeModel(themeModel, for: cell, at: indexPath)
         cell.apply(theme: theme)
 
         openSelectionIndex += 1
+    }
+
+    @objc private func scrollToComparisonSelection(_ sender: UIButton) {
+        guard let indexPath = indexPathsSelectedForComparison[sender.tag] else {
+            return
+        }
+        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
